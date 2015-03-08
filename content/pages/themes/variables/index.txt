@@ -1,0 +1,58 @@
+Title: Variables for themes
+
+Content:
+
+## Object $Site
+The object $Site have all the information from the database /content/databases/site.php.
+
+Print the site title
+<pre><code data-language="php">echo $Site->title();</code></pre>
+
+Print the site slogan
+<pre><code data-language="php">echo $Site->slogan();</code></pre>
+
+## Object $Page
+
+Print the page title
+<pre><code data-language="php">echo $Page->title();</code></pre>
+
+Print the page content
+<pre><code data-language="php">echo $Page->content();</code></pre>
+
+Print the page username
+<pre><code data-language="php">echo $Page->username();</code></pre>
+
+Get the date in unix timestamp
+<pre><code data-language="php">$time = $Page->unixstamp();
+
+// Format time
+echo date('Y-m-d', $time);
+</code></pre>
+
+Print the page date, according to locale settings and format settings.
+<pre><code data-language="php">echo $Page->date();</code></pre>
+
+Print the page date with a different format.
+<pre><code data-language="php">$format = 'Y-m-d';
+
+echo $Page->date($format);
+</code></pre>
+
+Time ago
+<pre><code data-language="php">echo $Page->timeago();</code></pre>
+
+Get the slug url.
+<pre><code data-language="php">$slug = $Page->slug();</code></pre>
+
+Get the page permalink.
+<pre><code data-language="php">$permalink = $Page->permalink();</code></pre>
+
+Get the page status, this method returns TRUE if the page is published, FALSE otherwise.
+<pre><code data-language="php">if( $Page->published() )
+{
+	echo 'Page published';
+}
+else
+{
+	echo 'Page draft';
+}</code></pre>

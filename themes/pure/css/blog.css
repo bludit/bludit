@@ -1,0 +1,204 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(61, 146, 201);
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+a.ptitle {
+    color: #444;
+}
+
+p {
+    margin: 10px 0 0 0;
+}
+
+#layout {
+    padding: 0;
+}
+
+.sidebar {
+    background-color: #fff;
+}
+
+.sidebar ul {
+    display: block;
+    list-style-type: none;
+    margin: 5px 0 10px 0;
+}
+
+.sidebar .h1 {
+    font-weight: lighter;
+}
+
+.content {
+    padding: 2em 1em 0;
+}
+
+/* LAYOUT CSS */
+.pure-img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.header {
+    margin: 0 30px;
+    text-align: left;
+}
+
+.brand-title,
+.brand-tagline {
+    margin: 0;
+}
+.brand-title {
+    text-transform: uppercase;
+}
+.brand-tagline {
+    font-weight: 300;
+    color: #fff;
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-item {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+.nav-item a {
+    background: transparent;
+    border: 2px solid rgb(176, 202, 219);
+    color: #fff;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 85%;
+}
+.nav-item a:hover,
+.nav-item a:focus {
+    border: 2px solid rgb(61, 146, 201);
+    text-decoration: none;
+}
+
+.content-subhead {
+    text-transform: uppercase;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+    padding: 0.4em 0;
+    font-size: 80%;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.page,
+.post
+{
+    padding-bottom: 50px;
+}
+
+.page-title,
+.post-title
+{
+    font-size: 2.4em;
+    color: #555;
+    margin: 0;
+}
+
+.page-content,
+.post-content {
+    color: #444;
+    line-height: 1.7em;
+    margin-top: 22px;
+}
+
+.page-content hr,
+.post-content hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 30px 0;
+    padding: 0;
+}
+
+.page-content h2,
+.post-content h2
+{
+    color: #555;
+    margin: 30px 0 30px 0;
+    font-size: 2em;
+    font-weight: normal;
+}
+
+.page-content h3,
+.post-content h3
+{
+    color: #555;
+    margin: 35px 0 25px 0;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+.page-content h4,
+.post-content h4
+{
+    color: #555;
+    margin: 25px 0 15px 0;
+    font-size: 1.2em;
+    font-weight: lighter;
+}
+
+.post-meta {
+    color: #999;
+    font-size: 90%;
+    margin: 0;
+}
+
+.post-images {
+    margin: 1em 0;
+}
+.post-image-meta {
+    margin-top: -3.5em;
+    margin-left: 1em;
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+}
+
+.footer {
+    text-align: center;
+    padding: 1em 0;
+}
+.footer a {
+    color: #ccc;
+    font-size: 80%;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background: none;
+}
+
+@media (min-width: 48em) {
+    .content {
+        padding: 1em 3em 0;
+        margin-left: 25%;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow: scroll;
+    }
+}

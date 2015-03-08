@@ -1,0 +1,37 @@
+Diego Najar
+
+—————————
+
+Implementar
+- Links a Google+, Facebook y Twitter
+- Plugins
+- Comentarios
+- Notificaciones
+- Dashboard, parecido a Nibbleblog, me gusta.
+- iPhone app
+- Bludit
+- Case sensitive en la URL ?
+
+—————————
+
+Habilitar rewriterules en el server, httpd.conf
+
+<Directory /var/www/html>
+AllowOverride All
+
+————
+
+Objetos tipo estáticos, que empiecen con la letra h o la palabra helper.
+
+hText::
+hUrl::
+
+helperText::
+helperUrl::
+
+find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
+find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
+
+—————————
+Editando a mano
+Si editas el slug(directorio), luego de llamar a generator(), el post se pone en draft, toma la fecha actual y no vuelve a modificarse. Se puede forzar a publicado indicando el status: published

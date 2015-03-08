@@ -1,0 +1,16 @@
+Title: Troubleshooting
+Content:
+
+### Setup permissions
+Nibbleblog uses as database flat files, they are stored in the “content” directory which needs permissions to write by the webserver. Nibbleblog try to assign these permissions automatically, but if it fails in the process will alert the user to make the changes manually.
+
+#### Change permissions with Filezilla and FTP
+1. Connect to the server via ftp.
+2. Right click on content directory.
+3. Select file permissions.
+4. Set the number 755 if dosen't work try with the number 777.
+
+#### Change permissions from GNU/Linux terminal
+```
+$ chmod -R 777 content
+```
