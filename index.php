@@ -18,7 +18,7 @@ define('PATH_BOOT',					PATH_ROOT.'kernel/boot/');
 define('PATH_RULES',				PATH_ROOT.'kernel/boot/rules/');
 define('PATH_HELPERS',				PATH_ROOT.'kernel/helpers/');
 
-define('PATH_CONTENT',				PATH_ROOT.'gitcontent/en_EN/');
+define('PATH_CONTENT',				PATH_ROOT.'content/');
 define('PATH_POSTS',				PATH_CONTENT.'posts/');
 define('PATH_PAGES',				PATH_CONTENT.'pages/');
 define('PATH_DATABASES',			PATH_CONTENT.'databases/');
