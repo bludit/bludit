@@ -11,20 +11,24 @@ Admin area / GUI.
 
 ## Advanced mode
 You can make new post editing the filesystem.
-- Create a directory on /content/posts/
+- Create a directory on `/content/posts/`
 - The directory name is the uri for the new post
-- Create a new file called index.txt inside of the new directory
-- Edit the file index.txt
+- Create a new file called `index.txt` inside of the new directory
+- Edit the file `index.txt`
 - Add two variables, Tite: and Content:
 
 ### Example
-- Create the directory /content/posts/test
-- Create the file index.txt on /content/posts/test/index.txt
-- Edit the file index.txt
+- Create the directory `/content/posts/test`
+- Create the file `index.txt` on `/content/posts/test/index.txt`
+- Edit the file `index.txt`
 - Add the variables
 
 ```
 Title: New post test
+
 Content:
-This is an example of a new post, hello world!
+Hello Lorem
+It is a long establishedfact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+It is a long establishedfact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 ```

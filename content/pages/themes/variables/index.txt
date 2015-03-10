@@ -1,9 +1,20 @@
-Title: Variables for themes
+Title: Theme variables
 
 Content:
 
-## Object $Site
-The object $Site have all the information from the database /content/databases/site.php.
+## $pages arrays
+This array cotains all pages published. Each item from the array is a `Page Object`
+
+---
+
+## Array $posts
+
+---
+
+## Site object
+The object Site have all the information from the database /content/databases/site.php.
+
+By default there is an object $Site, whith the next methods.
 
 Print the site title
 <pre><code data-language="php">echo $Site->title();</code></pre>
@@ -11,7 +22,21 @@ Print the site title
 Print the site slogan
 <pre><code data-language="php">echo $Site->slogan();</code></pre>
 
-## Object $Page
+---
+
+## Page object
+
+By default if the user filter by a particular page there will be an object $Page. To check if the user is filtering by a page you can uses the object $Url and the method `whereAmI()`.
+<pre><code data-language="php">if( $Url->whereAmI()==='page' )
+{
+	echo 'The page filtered is '.$Page->title();
+}
+{
+	echo 'The user is not watching a particular page';
+}
+</code></pre>
+
+And here there are the methods for the object $Page.
 
 Print the page title
 <pre><code data-language="php">echo $Page->title();</code></pre>

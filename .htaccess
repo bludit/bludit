@@ -1,3 +1,5 @@
+AddDefaultCharset UTF-8
+
 RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f

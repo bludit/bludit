@@ -1,16 +1,16 @@
-title: Variables for post
+title: Variables for posts and pages
 content:
 
-There are many fields/variables to make a post. Each field ends on two dots(:).
+There are many fields/variables to make a post or a page. Each field ends on two dots(:).
 
 The last field needs to be Content:.
 
-- Title: the title for the post.
+- Title: the title for the post/page.
 - Status: with this field you can change bettewen published and draft.
-- Unixstamp: you can define the publish time/date in unix time stamp, this need to be in UTF-0.
+- Unixstamp: you can define the publish time/date in unix time stamp, this need to be in UTC-0/GMT.
 - Username: the owner username. Needs to be a valid username.
 - Author: the author's name.
-- Content: the content for the post, support HTML and Markdown code.
+- Content: the content for the post/page, support HTML and Markdown code.
 
 ### Post example
 ```
