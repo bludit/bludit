@@ -1,4 +1,4 @@
 Title: Error
 
-Content
+Content:
 The page has not been found.
