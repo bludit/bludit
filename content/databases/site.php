@@ -15,6 +15,6 @@
     "urlFilters": {
         "post": "\/post\/",
         "tag": "\/tag\/",
-        "page": "\/cms\/other\/"
+        "page": "\/"
     }
 }

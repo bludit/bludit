@@ -9,8 +9,7 @@ Implementar
 - Notificaciones
 - Dashboard, parecido a Nibbleblog, me gusta.
 - iPhone app
-- Bludit
-- Case sensitive en la URL ?
+- Cloud
 
 —————————
 
@@ -31,6 +30,10 @@ helperUrl::
 
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
+
+—————————
+
+- Las URL son Case sensitive.
 
 —————————
 Editando a mano

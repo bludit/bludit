@@ -1,0 +1,44 @@
+html {
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* ----------- FONTS AWESOME ----------- */
+.fa-right {
+    margin-right: 8px;
+}
+
+/* ----------- SIDEBAR ----------- */
+#sidebar {
+    overflow: auto;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    margin: 25px 0;
+}
+
+/* ----------- CONTENT ----------- */
+#content {
+    overflow: auto;
+}
+
+/* ------- CONTENT :: HEAD ------- */
+#head {
+    overflow: auto;
+}
+
+#head h1 {
+    font-weight: lighter;
+}

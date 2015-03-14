@@ -157,7 +157,7 @@ $data =  array(
 'urlFilters'=>array(
 	'post'=>'/post/',
 	'tag'=>'/tag/',
-	'page'=>HTML_PATH_ROOT
+	'page'=>'/'
 	)
 );
 

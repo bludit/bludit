@@ -1,0 +1,65 @@
+html {
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* ----------- FONTS AWESOME ----------- */
+.fa-right {
+    margin-right: 8px;
+}
+
+/* ----------- HEAD ----------- */
+#head {
+    overflow: auto;
+    border-top: 10px #f1f1f1 solid;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 10px 0;
+}
+
+#head h1 {
+    font-weight: normal;
+    float:left;
+    margin-left: 30px;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+}
+
+#head ul {
+  position: relative;
+  float: right;
+  margin: 0;
+  list-style: none;
+}
+
+#head .navbar {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------- SIDEBAR ----------- */
+#sidebar {
+    overflow: auto;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    margin: 25px 0;
+}
+
+/* ----------- CONTENT ----------- */
+#content {
+    overflow: auto;
+}
+

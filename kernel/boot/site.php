@@ -48,13 +48,7 @@ $Site = new Site();
 $Url = new Url();
 
 $Parsedown = new Parsedown();
-
 $Language = new Language( $Site->locale() );
-
-$Url->init( $Site->urlFilters() );
-
-// Objects shortcuts
-$L = $Language;
 
 // HTML PATHs
 $tmp = dirname(getenv('SCRIPT_NAME'));
@@ -65,6 +59,12 @@ else
 
 define('HTML_PATH_THEMES', HTML_PATH_ROOT.'themes/');
 define('HTML_PATH_THEME', HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
+
+// Check the URL/Uri. This method needs the constant HTML_PATH_ROOT.
+$Url->checkFilters( $Site->urlFilters() );
+
+// Objects shortcuts
+$L = $Language;
 
 // Boot rules
 include(PATH_RULES.'70.build_posts.php');

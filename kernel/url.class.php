@@ -9,10 +9,7 @@ class Url
 	private $filters; // Filters for the URI
 	private $notFound;
 
-	// Filters may be changed for different languages
-	// Ex (Spanish): Array('post'=>'/publicacion/', 'tag'=>'/etiqueta/', ....)
-	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
-	public function init($filters)
+	function __construct()
 	{
 		// Decodes any %## encoding in the given string. Plus symbols ('+') are decoded to a space character.
 		$this->uri = urldecode($_SERVER['REQUEST_URI']);
@@ -27,7 +24,13 @@ class Url
 		$this->notFound = false;
 
 		$this->slug = false;
+	}
 
+	// Filters may be changed for different languages
+	// Ex (Spanish): Array('post'=>'/publicacion/', 'tag'=>'/etiqueta/', ....)
+	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
+	public function checkFilters($filters)
+	{
 		$this->filters = $filters;
 
 		// Check if filtering by post
@@ -119,6 +122,9 @@ class Url
 	// ex: http://domain.com/cms/$filter/slug123 => slug123
 	private function filter_slug($filter)
 	{
+		if($filter=='/')
+			$filter = HTML_PATH_ROOT;
+
 		$position = helperText::strpos($this->uri, $filter);
 
 		if($position===false)
