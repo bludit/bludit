@@ -3,7 +3,7 @@
 class Url
 {
 	private $uri;
-	private $uri_strlen;
+	private $uriStrlen;
 	private $whereAmI;
 	private $slug;
 	private $filters; // Filters for the URI
@@ -17,13 +17,15 @@ class Url
 		// URI Lowercase
 		//$this->uri = helperText::lowercase($this->uri);
 
-		$this->uri_strlen = helperText::length($this->uri);
+		$this->uriStrlen = helperText::length($this->uri);
 
 		$this->whereAmI = 'home';
 
 		$this->notFound = false;
 
 		$this->slug = false;
+
+		$this->filters = array();
 	}
 
 	// Filters may be changed for different languages
@@ -31,22 +33,38 @@ class Url
 	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
 	public function checkFilters($filters)
 	{
+		// Get the admin filter
+		$adminFilter['admin'] = $filters['admin'];
+		unset($filters['admin']);
+		
+		// Sort by filter length
+		uasort($filters, array($this, 'sortByLength'));
+
+		// Push the admin filter first
+		$filters = $adminFilter + $filters;
+
 		$this->filters = $filters;
 
-		// Check if filtering by post
-		// Primero verifico que no haya ningun slug filtrado, asi no lo piso.
-		if($this->slug===false)
-			$this->is_post($filters['post']);
+		foreach($filters as $filterKey=>$filter)
+		{
+			$slug = $this->getSlugAfterFilter($filter);
+			if($slug!==false)
+			{
+				if(empty($slug))
+				{
+					if($filter==='/')
+					{
+						$this->whereAmI = 'home';
+						break;
+					}
 
-		// Check if filtering by tag
-		// Primero verifico que no haya ningun slug filtrado, asi no lo piso.
-		if($this->slug===false)
-			$this->is_tag($filters['tag']);
+					$this->setNotFound(true);
+				}
 
-		// Check if filtering by page
-		// Primero verifico que no haya ningun slug filtrado, asi no lo piso.
-		if($this->slug===false)
-			$this->is_page($filters['page']);
+				$this->whereAmI = $filterKey;
+				break;
+			}
+		}
 	}
 
 	public function slug()
@@ -76,7 +94,6 @@ class Url
 		$this->whereAmI = $where;
 	}
 
-
 	public function notFound()
 	{
 		return $this->notFound;
@@ -84,24 +101,36 @@ class Url
 
 	public function setNotFound($error = true)
 	{
-		$this->whereAmI = 'page';
 		$this->notFound = $error;
 	}
 
+/*
 	public function is_tag($filter)
 	{
-		if($this->filter_slug($filter)===false)
+		$slug = $this->getSlugAfterFilter($filter);
+
+		// Check if the filter doesn't match in the uri.
+		if($slug===false)
 			return false;
 
-		$this->whereAmI = 'tag';
+		// Check if the slug is empty.
+		if(empty($slug))
+			$this->setNotFound(true);
 
 		return true;
 	}
 
 	public function is_post($filter)
 	{
-		if($this->filter_slug($filter)===false)
+		$slug = $this->getSlugAfterFilter($filter);
+
+		// Check if the filter doesn't match in the uri.
+		if($slug===false)
 			return false;
+
+		// Check if the slug is empty.
+		if(empty($slug))
+			$this->setNotFound(true);
 
 		$this->whereAmI = 'post';
 
@@ -110,37 +139,65 @@ class Url
 
 	public function is_page($filter)
 	{
-		if($this->filter_slug($filter)===false)
+		$slug = $this->getSlugAfterFilter($filter);
+
+		// Check if the filter doesn't match in the uri.
+		if($slug===false)
 			return false;
+
+		// Check if the slug is empty.
+		if(empty($slug))
+			$this->setNotFound(true);
 
 		$this->whereAmI = 'page';
 
 		return true;
 	}
 
+	public function isAdmin($filter)
+	{
+		$slug = $this->getSlugAfterFilter($filter);
+
+		// Check if the filter doesn't match in the uri.
+		if($slug===false)
+			return false;
+
+		// Check if the slug is empty.
+		if(empty($slug))
+			$this->setNotFound(true);
+
+		$this->whereAmI = 'admin';
+
+		return true;
+	}
+*/
+
 	// Return the slug after the $filter
+	// If the filter is not contain in the uri, returns FALSE
+	// If the filter is contain in the uri and the slug is not empty, returns the slug
 	// ex: http://domain.com/cms/$filter/slug123 => slug123
-	private function filter_slug($filter)
+	private function getSlugAfterFilter($filter)
 	{
 		if($filter=='/')
 			$filter = HTML_PATH_ROOT;
 
+		// Check if the filter is in the uri.
 		$position = helperText::strpos($this->uri, $filter);
-
 		if($position===false)
 			return false;
 
 		$start = $position + helperText::length($filter);
-		$end = $this->uri_strlen;
+		$end = $this->uriStrlen;
 
-		$this->slug = helperText::cut($this->uri, $start, $end);
+		$slug = helperText::cut($this->uri, $start, $end);
+		$this->slug = trim($slug);
 
-		if(empty($this->slug))
-			return false;
+		return $slug;
+	}
 
-		return $this->slug;
+	private function sortByLength($a, $b)
+	{
+		return strlen($b)-strlen($a);
 	}
 
 }
-
-?>

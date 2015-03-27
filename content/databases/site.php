@@ -7,12 +7,14 @@
     "locale": "en_EN",
     "timezone": "America\/Argentina\/Buenos_Aires",
     "theme": "pure",
+    "adminTheme": "default",
     "homepage": "index",
     "metaTags": {
         "title": "",
         "description": ""
     },
     "urlFilters": {
+        "admin": "\/admin\/",
         "post": "\/post\/",
         "tag": "\/tag\/",
         "page": "\/"

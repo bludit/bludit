@@ -94,7 +94,3 @@ else
 {
 	build_posts_per_page();
 }
-
-
-
-?>

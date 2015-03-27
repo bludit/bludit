@@ -10,7 +10,11 @@ class dbUsers extends DB_SERIALIZE
 	// Return an array with the username databases
 	function get($username)
 	{
-		return $this->vars['users'][$username];
+		if($this->validUsername($username)) {
+			return $this->vars['users'][$username];
+		}
+
+		return false;
 	}
 
 	// Return TRUE if the post exists, FALSE otherwise.
@@ -20,5 +24,3 @@ class dbUsers extends DB_SERIALIZE
 	}
 
 }
-
-?>

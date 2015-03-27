@@ -30,6 +30,7 @@ include(PATH_KERNEL.'post.class.php');
 include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'site.class.php');
 include(PATH_KERNEL.'url.class.php');
+include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'language.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
 
@@ -38,17 +39,23 @@ include(PATH_HELPERS.'text.class.php');
 //include(PATH_HELPERS.'url.class.php');
 include(PATH_HELPERS.'date.class.php');
 include(PATH_HELPERS.'theme.class.php');
+include(PATH_HELPERS.'session.class.php');
+include(PATH_HELPERS.'redirect.class.php');
+include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 
-// Objects
-$dbPosts = new dbPosts();
-$dbPages = new dbPages();
-$dbUsers = new dbUsers();
-$Site = new Site();
-$Url = new Url();
+// Session
+Session::start();
+if(Session::started()===false)
+	exit('Bludit CMS. Failed to start session.');
 
-$Parsedown = new Parsedown();
-$Language = new Language( $Site->locale() );
+// Objects
+$dbPosts 	= new dbPosts();
+$dbPages 	= new dbPages();
+$dbUsers 	= new dbUsers();
+$Site 		= new Site();
+$Url 		= new Url();
+$Parsedown 	= new Parsedown();
 
 // HTML PATHs
 $tmp = dirname(getenv('SCRIPT_NAME'));
@@ -57,10 +64,15 @@ if($tmp!='/')
 else
 	define('HTML_PATH_ROOT', $tmp);
 
-define('HTML_PATH_THEMES', HTML_PATH_ROOT.'themes/');
-define('HTML_PATH_THEME', HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
+define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
+define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
+define('HTML_PATH_ADMIN_THEME',	HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
+define('HTML_PATH_ADMIN_ROOT',	HTML_PATH_ROOT.'admin/');
 
-// Check the URL/Uri. This method needs the constant HTML_PATH_ROOT.
+// Objects with dependency
+$Language 	= new Language( $Site->locale() );
+$Login 		= new Login( $dbUsers );
+
 $Url->checkFilters( $Site->urlFilters() );
 
 // Objects shortcuts
@@ -70,12 +82,4 @@ $L = $Language;
 include(PATH_RULES.'70.build_posts.php');
 include(PATH_RULES.'70.build_pages.php');
 include(PATH_RULES.'80.plugins.php');
-
-// Page not found 404
-if($Url->notFound())
-{
-	header('HTTP/1.0 404 Not Found');
-	$Page = new Page('error');
-}
-
-?>
+include(PATH_RULES.'99.header.php');

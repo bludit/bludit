@@ -149,12 +149,14 @@ $data =  array(
 'locale'=>'en_EN',
 'timezone'=>'America/Argentina/Buenos_Aires',
 'theme'=>'pure',
+'adminTheme'=>'default',
 'homepage'=>'about',
 'metaTags'=>array(
 	'title'=>'',
 	'description'=>''
 	),
 'urlFilters'=>array(
+	'admin'=>'/admin/',
 	'post'=>'/post/',
 	'tag'=>'/tag/',
 	'page'=>'/'

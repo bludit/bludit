@@ -103,5 +103,3 @@ if($Url->notFound()===false)
 
 // Build all pages
 build_all_pages();
-
-?>

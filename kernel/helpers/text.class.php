@@ -1,4 +1,4 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class helperText {
 
@@ -41,6 +41,16 @@ class helperText {
 			return mb_strlen($string, 'UTF-8');
 		return strlen($string);
 	}	
+
+	public static function isEmpty($string)
+	{
+		$string = trim($string);
+
+		if(empty($string))
+			return true;
+
+		return false;
+	}
 
 	// Old
 	public static function unserialize($string)

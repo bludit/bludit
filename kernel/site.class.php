@@ -43,6 +43,12 @@ class Site extends DB_SERIALIZE
 		return $this->vars['theme'];
 	}
 
+	// Returns the admin theme name.
+	public function adminTheme()
+	{
+		return $this->vars['adminTheme'];
+	}
+
 	// Returns the footer text.
 	public function footer()
 	{

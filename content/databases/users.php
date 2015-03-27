@@ -7,7 +7,7 @@
             "last_name": "User",
             "twitter": "",
             "role": "admin",
-            "password": "3r3fasfasf",
+            "password": "7607d34033344d9a4615a8795d865ec4a47851e7",
             "salt": "adr32t",
             "email": ""
         },
