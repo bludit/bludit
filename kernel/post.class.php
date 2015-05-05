@@ -1,6 +1,6 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Post extends Content
+class Post extends fileContent
 {
 	function __construct($slug)
 	{
@@ -9,64 +9,89 @@ class Post extends Content
 		parent::__construct($slug);
 	}
 
-	// Return the post title
-	function title()
+	// Returns the post title.
+	public function title()
 	{
-		return $this->get_field('title');
+		return $this->getField('title');
 	}
 
-	// Return the post content
-	function content()
+	// Returns the post content.
+	public function content()
 	{
-		return $this->get_field('content');
+		return $this->getField('content');
 	}
 
-	function username()
+	public function contentRaw()
 	{
-		return $this->get_field('username');
+		return $this->getField('contentRaw');
 	}
 
-	// Return TRUE if the post is published, FALSE otherwise.
-	function published()
+	public function key()
 	{
-		return ($this->get_field('status')==='published');
+		return $this->getField('key');
 	}
 
-	function author()
+	public function username()
 	{
-		return $this->get_field('author');
+		return $this->getField('username');
 	}
 
-	function unixstamp()
+	// Returns TRUE if the post is published, FALSE otherwise.
+	public function published()
 	{
-		return $this->get_field('unixstamp');
+		return ($this->getField('status')==='published');
 	}
 
-	function date($format = false)
+	public function author()
+	{
+		return $this->getField('author');
+	}
+
+	public function description()
+	{
+		return $this->getField('description');
+	}
+
+	public function unixTimeCreated()
+	{
+		return $this->getField('unixTimeCreated');
+	}
+
+	public function unixTimeModified()
+	{
+		return $this->getField('unixTimeModified');
+	}
+
+	public function date($format = false)
 	{
 		if($format!==false)
 		{
-			$unixstamp = $this->unixstamp();
-			return Date::format($unixstamp, $format);
+			$unixTimeCreated = $this->unixTimeCreated();
+			return Date::format($unixTimeCreated, $format);
 		}
 
-		return $this->get_field('date');
+		return $this->getField('date');
 	}
 
-	function timeago()
+	public function timeago()
 	{
-		return $this->get_field('timeago');
+		return $this->getField('timeago');
 	}
 
-	function slug()
+	public function tags()
 	{
-		return $this->get_field('slug');
+		return $this->getField('tags');
 	}
 
-	function permalink()
+	public function slug()
+	{
+		return $this->getField('key');
+	}
+
+	public function permalink()
 	{
 		global $Url;
-		
+
 		$filter = ltrim($Url->filters('post'), '/');
 
 		if($Url->filters('post')==HTML_PATH_ROOT)
@@ -76,5 +101,3 @@ class Post extends Content
 	}
 
 }
-
-?>

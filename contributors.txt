@@ -10,6 +10,12 @@ Implementar
 - Dashboard, parecido a Nibbleblog, me gusta.
 - iPhone app
 - Cloud
+- Usuarios de lectura ?, no vale la pena, y hay que hacer mas controles a nivel de administracion.
+- Implementar algun limpiador**
+
+—————————
+**LIMPIADOR
+- Recorrer directorios content/posts/, Si el post no tiene el archivo index.txt quiere decir que ese directorio no debe existir y debe ser eliminado
 
 —————————
 
@@ -31,9 +37,30 @@ helperUrl::
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
 
+————
+
+Editar una pagina
+1- Usuario logueado
+
+Si cambia el slug
+ verificar slug nuevo
+ mover el directorio
+
+Si cambia el parent
+ verificar parent
+ mover directorio adentro del parent
+
+
+
+Editar usuario
+1- Usuario logueado
+2- Ver si el usuario es administrador o si es el mismo usuario que se esta editando.
+
+
 —————————
 
-- Las URL son Case sensitive.
+
+- Las Friendly URL son Case sensitive.
 
 —————————
 Editando a mano

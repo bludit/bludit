@@ -1,93 +1,149 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Page extends Content
+class Page extends fileContent
 {
-	function __construct($slug)
+	function __construct($key)
 	{
 		$this->path = PATH_PAGES;
 
-		parent::__construct($slug);
+		parent::__construct($key);
 	}
 
 	// Returns the post title.
-	function title()
+	public function title()
 	{
-		return $this->get_field('title');
+		return $this->getField('title');
 	}
 
 	// Returns the post content.
-	function content()
+	public function content()
 	{
-		return $this->get_field('content');
+		return $this->getField('content');
+	}
+
+	public function contentRaw()
+	{
+		return $this->getField('contentRaw');
+	}
+
+	public function description()
+	{
+		return $this->getField('description');
+	}
+
+	public function tags()
+	{
+		return $this->getField('tags');
+	}
+
+	public function position()
+	{
+		return $this->getField('position');
 	}
 
 	// Returns the post date in unix timestamp format, UTC-0.
-	function unixstamp()
+	public function unixTimeCreated()
 	{
-		return $this->get_field('unixstamp');
+		return $this->getField('unixTimeCreated');
+	}
+
+	public function unixTimeModified()
+	{
+		return $this->getField('unixTimeModified');
 	}
 
 	// Returns the post date according to locale settings and format settings.
-	function date($format = false)
+	public function date($format = false)
 	{
 		if($format!==false)
 		{
-			$unixstamp = $this->unixstamp();
-			return Date::format($unixstamp, $format);
+			$unixTimeCreated = $this->unixTimeCreated();
+			return Date::format($unixTimeCreated, $format);
 		}
 
-		return $this->get_field('date');
+		return $this->getField('date');
 	}
 
 	// Returns the time ago
-	function timeago()
+	public function timeago()
 	{
-		return $this->get_field('timeago');
+		return $this->getField('timeago');
 	}
 
 	// Returns the page slug.
-	function slug()
+	public function slug()
 	{
-		return $this->get_field('slug');
+		$explode = explode('/', $this->getField('key'));
+		if(!empty($explode[1]))
+			return $explode[1];
+
+		return $explode[0];
+	}
+
+	public function key()
+	{
+		return $this->getField('key');
 	}
 
 	// Returns TRUE if the page is published, FALSE otherwise.
-	function published()
+	public function published()
 	{
-		return ($this->get_field('status')==='published');
+		return ($this->getField('status')==='published');
 	}
 
 	// Returns the page permalink.
-	function permalink()
+	public function permalink()
 	{
 		global $Url;
-		
+
+		$path = '';
+		$slug = $this->slug();
+		$parent = $this->parent();
 		$filter = ltrim($Url->filters('page'), '/');
 
-		if($Url->filters('page')==HTML_PATH_ROOT)
-			return HTML_PATH_ROOT.$this->slug();
+		if($Url->filters('page')==HTML_PATH_ROOT) {
+			$path = HTML_PATH_ROOT;
+		}
+		else {
+			$path = HTML_PATH_ROOT.$filter.'/';
+		}
 
-		return HTML_PATH_ROOT.$filter.$this->slug();
+		if($parent===false) {
+			return $path.$slug;
+		}
+
+		return $path.$parent.'/'.$slug;
 	}
 
-	function parent()
+	public function parentKey()
 	{
-		if(!empty($this->get_field('parent')))
-			return $this->get_field('parent');
+		$explode = explode('/', $this->getField('key'));
+		if(isset($explode[1])) {
+			return $explode[0];
+		}
 
 		return false;
 	}
 
-	function username()
+	public function children()
 	{
-		return $this->get_field('username');
+		$tmp = array();
+		$paths = glob(PATH_PAGES.$this->getField('key').'/*', GLOB_ONLYDIR);
+		foreach($paths as $path) {
+			array_push($tmp, basename($path));
+		}
+
+		return $tmp;
 	}
 
-	function author()
+	public function username()
 	{
-		return $this->get_field('author');
+		return $this->getField('username');
+	}
+
+	public function author()
+	{
+		return $this->getField('author');
 	}
 
 }
-
-?>

@@ -1,9 +1,9 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class Date {
 
 	// Return current Unix timestamp, GMT+0
-	public static function unixstamp()
+	public static function unixTime()
 	{
 		return time();
 	}
@@ -100,5 +100,3 @@ class Date {
 	}
 
 }
-
-?>

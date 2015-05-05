@@ -2,67 +2,71 @@
 
 $posts = array();
 
-function build_post($slug)
+function buildPost($key)
 {
 	global $dbPosts;
 	global $dbUsers;
 	global $Parsedown;
 
-	if( !$dbPosts->validPost($slug) )
+	// Post object.
+	$Post = new Post($key);
+	if( !$Post->isValid() ) {
 		return false;
+	}
 
-	$Post = new Post($slug);
-	if( !$Post->valid() )
+	// Page database.
+	$db = $dbPosts->getDb($key);
+	if( !$db ) {
 		return false;
+	}
 
-	// Get post's database
-	$db = $dbPosts->getDb($slug);
-
-	foreach($db as $key=>$value)
+	// Foreach field from database.
+	foreach($db as $field=>$value)
 	{
-		if($key=='unixstamp')
+		if($field=='unixTimeCreated')
 		{
-			// Not overwrite
-			$Post->setField('unixstamp', 	$value, false);
-			$Post->setField('date', 		Date::format($value, '%d %B'), false);
-			$Post->setField('timeago',		Date::timeago($value), false);
+			// Format dates, not overwrite from file fields.
+			$Post->setField('unixTimeCreated', 	$value, false);
+			$Post->setField('date', 			Date::format($value, '%d %B'), false);
+			$Post->setField('timeago',			Date::timeago($value), false);
 		}
 		else
 		{
-			// Not overwrite
-			$Post->setField($key, $value, false);
+			// Other fields, not overwrite from file fields.
+			$Post->setField($field, $value, false);
 		}
-
 	}
+
+	// Content in raw format
+	$Post->setField('contentRaw', $Post->content(), true);
 
 	// Parse the content
 	$content = $Parsedown->text( $Post->content() );
 	$Post->setField('content', $content, true);
 
 	// User / Author
-	if( $dbUsers->validUsername( $Post->username() ) )
+	if( $dbUsers->userExists( $Post->username() ) )
 	{
 		$user = $dbUsers->get( $Post->username() );
 
-		$Post->setField('author', $user['first_name'].', '.$user['last_name'], false);
+		$Post->setField('author', $user['firstName'].', '.$user['lastName'], false);
 	}
 
 	return $Post;
 }
 
-function build_posts_per_page()
+function build_posts_per_page($draftPosts=false)
 {
 	global $dbPosts;
 	global $posts;
 
-	$list = $dbPosts->getPage(0, 5);
+	$list = $dbPosts->getPage(0, 5, $draftPosts);
 
 	foreach($list as $slug=>$db)
 	{
-		$Post = build_post($slug);
+		$Post = buildPost($slug);
 
-		if($Post!==false)
-		{
+		if($Post!==false) {
 			array_push($posts, $Post);
 		}
 	}
@@ -71,7 +75,7 @@ function build_posts_per_page()
 // Filter by post, then build it
 if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 {
-	$Post = build_post( $Url->slug() );
+	$Post = buildPost( $Url->slug() );
 
 	if($Post===false)
 	{
@@ -92,5 +96,12 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 // Build post per page
 else
 {
-	build_posts_per_page();
+	if($Url->whereAmI()==='admin') {
+		// Build post for admin area with drafts
+		build_posts_per_page(true);
+	}
+	else
+	{
+		build_posts_per_page();
+	}
 }

@@ -1,169 +1,105 @@
 <?php
-
-// SECURITY CONSTANT
+// Security constant
 define('BLUDIT', true);
 
-// PHP PATHS
+// PATHs
 define('PATH_ROOT',					__DIR__.'/');
-define('PATH_KERNEL',				PATH_ROOT.'kernel/');
-define('PATH_LANGUAGES',			PATH_ROOT.'languages/');
-define('PATH_ABSTRACT',				PATH_ROOT.'kernel/abstract/');
-define('PATH_BOOT',					PATH_ROOT.'kernel/boot/');
-define('PATH_RULES',				PATH_ROOT.'kernel/boot/rules/');
 define('PATH_CONTENT',				PATH_ROOT.'content/');
-define('PATH_POSTS',				PATH_ROOT.'content/posts/');
-define('PATH_PAGES',				PATH_ROOT.'content/pages/');
-define('PATH_DATABASES',			PATH_ROOT.'content/databases/');
-define('PATH_PLUGINS_DATABASES',	PATH_ROOT.'content/databases/plugins/');
-define('PATH_HELPERS',				PATH_ROOT.'kernel/helpers/');
-define('PATH_THEMES',				PATH_ROOT.'themes/');
-define('PATH_PLUGINS',				PATH_ROOT.'plugins/');
-
-// BOOT
-require(PATH_BOOT.'site.php');
+define('PATH_POSTS',				PATH_CONTENT.'posts/');
+define('PATH_PAGES',				PATH_CONTENT.'pages/');
+define('PATH_DATABASES',			PATH_CONTENT.'databases/');
+define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases/plugins/');
 
 
-unset($db);
-$db = new DB_SERIALIZE(PATH_DATABASES.'posts.php');
+//
+// Create directories
+//
+
+// 7=read,write,execute | 5=read,execute
+$dirpermissions = 0755;
+
+if(mkdir(PATH_POSTS, $dirpermissions, true))
+{
+	$errorText = 'Error when trying to created the directory=>'.PATH_POSTS;
+	error_log($errorText, 0);
+}
+
+if(mkdir(PATH_PAGES.'error', $dirpermissions, true))
+{
+	$errorText = 'Error when trying to created the directory=>'.PATH_PAGES;
+	error_log($errorText, 0);
+}
+
+if(mkdir(PATH_PLUGINS_DATABASES, $dirpermissions, true))
+{
+	$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+	error_log($errorText, 0);
+}
+
+//
+// Create files
+//
+
+$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
+
+// File pages.php
+$data = array(
+	'error'=>array(
+		"description"=>"Error page",
+        "username"=>"admin",
+        "tags"=>"",
+        "status"=>"published",
+        "unixTimeCreated"=>1430686755,
+        "unixTimeModified"=>0,
+        "position"=>0
+        )
+);
+
+file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+// File posts.php
 $data = array();
-$data['lorem-text'] = 
-array(
-'allow_comments'=>true,
-'unixstamp'=>Date::unixstamp(),
-'description'=>'111111',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'related_post'=>array('loremTest'),
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'admin'
+file_put_contents(PATH_DATABASES.'posts.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+// File site.php
+$data = array(
+    "title"=>"Bludit CMS",
+    "description"=>"",
+    "footer"=>"Footer text - 2015",
+    "language"=>"english",
+    "locale"=>"en_EN",
+    "timezone"=>"America/Argentina/Buenos_Aires",
+    "theme"=>"pure",
+    "adminTheme"=>"default",
+    "homepage"=>"",
+    "postsperpage"=>"6",
+    "uriPost"=>"/post/",
+    "uriPage"=>"/",
+    "uriTag"=>"/tag/",
+    "advancedOptions"=>"false",
+    "url"=>"http:/localhost/cms/bludit-bitbucket/"
 );
 
-$data['lorem指出'] = 
-array(
-'allow_comments'=>true,
-'unixstamp'=>1422836401,
-'description'=>'2222222',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'related_post'=>array(),
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'diego'
+file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+// File users.php
+$data = array(
+	'admin'=>array(
+        "firstName"=>"",
+        "lastName"=>"",
+        "twitter"=>"",
+        "role"=>"admin",
+        "password"=>"7607d34033344d9a4615a8795d865ec4a47851e7",
+        "salt"=>"adr32t",
+        "email"=>"",
+        "registered"=>1430686755
+        )
 );
 
-$data['loremTest'] = 
-array(
-'allow_comments'=>true,
-'unixstamp'=>1422836401,
-'description'=>'2222222',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'related_post'=>array(),
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'diego'
-);
+file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-$db->setDb(array(
-	'autoincrement'=>1,
-	'posts'=>$data
-));
-
-
-unset($db);
-$db = new DB_SERIALIZE(PATH_DATABASES.'pages.php');
-$data = array();
-$data['error'] = 
-array(
-'unixstamp'=>Date::unixstamp(),
-'description'=>'Error page',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'diego'
-);
-
-$data['about'] = 
-array(
-'unixstamp'=>Date::unixstamp(),
-'description'=>'About page',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'diego'
-);
-
-$data['contact'] = 
-array(
-'unixstamp'=>Date::unixstamp(),
-'description'=>'Contact page',
-'hash'=>'asdasd23r32r23rqwda',
-'status'=>'published',
-'tags'=>array('lorem','impusm','lala'),
-'username'=>'diego'
-);
-
-$db->setDb(array(
-	'autoincrement'=>1,
-	'pages'=>$data
-));
-
-
-unset($db);
-$db = new DB_SERIALIZE(PATH_DATABASES.'users.php');
-$data = array();
-$data['admin'] = 
-array(
-'first_name'=>'Admin',
-'last_name'=>'User',
-'twitter'=>'',
-'role'=>'admin',
-'password'=>'3r3fasfasf',
-'salt'=>'adr32t',
-'email'=>''
-);
-
-$data['diego'] = 
-array(
-'first_name'=>'Diego',
-'last_name'=>'Najar',
-'twitter'=>'',
-'role'=>'editor',
-'password'=>'3r3fasfasf',
-'salt'=>'adr32t',
-'email'=>''
-); 
-
-$db->setDb(array(
-	'autoincrement'=>1,
-	'users'=>$data
-));
-
-
-unset($db);
-$db = new DB_SERIALIZE(PATH_DATABASES.'site.php');
-$data = array();
-$data =  array(
-'title'=>'Bludit CMS',
-'slogan'=>'Another content management system',
-'footer'=>'Copyright lala',
-'language'=>'en',
-'locale'=>'en_EN',
-'timezone'=>'America/Argentina/Buenos_Aires',
-'theme'=>'pure',
-'adminTheme'=>'default',
-'homepage'=>'about',
-'metaTags'=>array(
-	'title'=>'',
-	'description'=>''
-	),
-'urlFilters'=>array(
-	'admin'=>'/admin/',
-	'post'=>'/post/',
-	'tag'=>'/tag/',
-	'page'=>'/'
-	)
-);
-
-$db->setDb($data);
-
+// File index.txt for error page
+$data = "Title: Error".PHP_EOL."Content: The page has not been found.";
+file_put_contents(PATH_PAGES.'error/index.txt', $data, LOCK_EX);
 
 ?>

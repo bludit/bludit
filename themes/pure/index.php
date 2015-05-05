@@ -41,6 +41,9 @@
         <!-- Footer -->
         <div class="footer">
             <?php include('php/footer.php') ?>
+<?php
+echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
+?>
         </div>
 
     </div>

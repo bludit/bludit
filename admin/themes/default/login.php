@@ -44,6 +44,8 @@
 	</div>
 
 </div>
-
+<?php
+echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
+?>
 </body>
 </html>

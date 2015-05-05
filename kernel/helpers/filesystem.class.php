@@ -1,4 +1,4 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class helperFilesystem {
 
@@ -8,7 +8,28 @@ class helperFilesystem {
 		return glob($path.$regex, GLOB_ONLYDIR);
 	}
 
-	// OLD 
+	public static function mkdir($pathname, $recursive=false)
+	{
+		// DEBUG: Ver permisos si son correctos
+		return mkdir($pathname, 0755, $recursive);
+	}
+
+	public static function rmdir($pathname)
+	{
+		return rmdir($pathname);
+	}
+
+	public static function mv($oldname, $newname)
+	{
+		return rename($oldname, $newname);
+	}
+
+	public static function rmfile($filename)
+	{
+		return unlink($filename);
+	}
+
+	// OLD
 	public static function get_images($regex)
 	{
 		return self::ls(PATH_UPLOAD, $regex, '*', false, false, false);
@@ -55,5 +76,3 @@ class helperFilesystem {
 		return $files;
 	}
 }
-
-?>

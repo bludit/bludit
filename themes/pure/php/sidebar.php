@@ -1,36 +1,35 @@
 <div class="header">
-	
-<h1>Bludit cms</h1>
 
-<p>Getting started</p>
-<ul>
-<li><a href="../../getting-started/requirements">Requirements</a></li>
-<li><a href="../../getting-started/installation-guide">Installation guide</a></li>
-</ul>
-<p>Content</p>
-<ul>
-<li><a href="../../content/how-to-make-a-post">How to make a post</a></li>
-<li><a href="../../content/how-to-make-a-page">How to make a page</a></li>
-<li><a href="../../content/variables-for-posts-and-pages">Variables for posts and pages</a></li>
-</ul>
-<p>Themes</p>
-<ul>
-<li><a href="./content/how-to-make-a-post">Making a basic theme</a></li>
-<li><a href="../../themes/variables">Theme variables</a></li>
-</ul>
-<p>Plugins</p>
-<ul>
-<li><a href="./content/how-to-make-a-post">Making a basic theme</a></li>
-<li><a href="./content/how-to-make-a-post">Constants and Variables</a></li>
-<li><a href="./content/how-to-make-a-post">Objects for themes</a></li>
-</ul>
-<p>General</p>
-<ul>
-<li><a href="./content/how-to-make-a-post">Databases</a></li>
-<li><a href="./content/how-to-make-a-post">Filesystem and structure</a></li>
-<li><a href="../../troubleshooting">Troubleshooting</a></li>
-<li><a href="../../troubleshooting">Troubleshooting</a></li>
-<li><a href="../../troubleshooting">Troubleshooting</a></li>
-</ul>
+<h1>Bludit</h1>
+<h2>cms</h2>
+<p class="about">Simple and fast content management system, create a site in 1 minute. Created by Diego Najar @dignajar</p>
+
+<?php
+
+// POSTS
+echo '<div class="links">';
+echo '<a class="homelink" href="'.HTML_PATH_ROOT.'">Home</a>';
+echo '<span> | </span>';
+echo '<a class="homelink" href="'.HTML_PATH_ROOT.'">Twitter</a>';
+echo '</div>';
+
+// PAGES
+
+
+
+unset($pagesParents[NO_PARENT_CHAR]);
+foreach($pagesParents as $parentKey=>$pageList)
+{
+	echo '<a class="parent" href="'.HTML_PATH_ROOT.$parentKey.'">'.$pages[$parentKey]->title().'</a>';
+
+	echo '<ul>';
+	foreach($pageList as $tmpPage)
+	{
+		echo '<li><a class="children" href="'.HTML_PATH_ROOT.$tmpPage->key().'">'.$tmpPage->title().'</a></li>';
+	}
+	echo '</ul>';
+}
+
+?>
 
 </div>

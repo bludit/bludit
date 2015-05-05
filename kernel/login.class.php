@@ -9,9 +9,20 @@ class Login {
 		$this->dbUsers = $dbUsers;
 	}
 
-	public function setLogin($username)
+	public function username()
+	{
+		return Session::get('username');
+	}
+
+	public function role()
+	{
+		return Session::get('role');
+	}
+
+	public function setLogin($username, $role)
 	{
 		Session::set('username', $username);
+		Session::set('role', $role);
 		Session::set('fingerPrint', $this->fingerPrint());
 		Session::set('sessionTime', time());
 	}
@@ -20,7 +31,8 @@ class Login {
 	{
 		if(Session::get('fingerPrint')===$this->fingerPrint())
 		{
-			if(!empty(Session::get('username'))) {
+			$username = Session::get('username');
+			if(!empty($username)) {
 				return true;
 			}
 		}
@@ -30,7 +42,10 @@ class Login {
 
 	public function verifyUser($username, $password)
 	{
-		if(empty(trim($username)) || empty(trim($password)))
+		$username = trim($username);
+		$password = trim($password);
+
+		if(empty($username) || empty($password))
 			return false;
 
 		$user = $this->dbUsers->get($username);
@@ -38,9 +53,10 @@ class Login {
 			return false;
 
 		$passwordHash = sha1($password.$user['salt']);
+
 		if($passwordHash === $user['password'])
 		{
-			$this->setLogin($username);
+			$this->setLogin($username, $user['role']);
 
 			return true;
 		}
@@ -48,7 +64,7 @@ class Login {
 		return false;
 	}
 
-	private function fingerPrint($random=false)
+	public function fingerPrint($random=false)
 	{
 		// User agent
 		$agent = getenv('HTTP_USER_AGENT');
@@ -66,7 +82,8 @@ class Login {
 		if($random)
 			return sha1(mt_rand().$agent.$ip);
 
-		return sha1($agent.$ip);
+		// DEBUG: Ver CLIENT IP, hay veces que retorna la ip ::1 y otras 127.0.0.1
+		return sha1($agent);
 	}
 
 }

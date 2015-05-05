@@ -1,13 +1,13 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class Plugin {
 
 	// (string) Plugin's directory
 	public $directoryName;
-	
+
 	// (string) Database path and filename
 	public $fileDb;
-	
+
 	// (array) Database
 	public $db;
 
@@ -34,8 +34,8 @@ class Plugin {
 		// If the plugin installed then get the database.
 		if($this->installed())
 		{
-			$Tmp = new DB_SERIALIZE($this->fileDb);
-			$this->db = $Tmp->vars;
+			$Tmp = new dbJSON($this->fileDb);
+			$this->db = $Tmp->db;
 		}
 	}
 
@@ -51,7 +51,7 @@ class Plugin {
 
 		if( !empty($this->dbFields) )
 		{
-			$Tmp = new DB_SERIALIZE($this->fileDb);
+			$Tmp = new dbJSON($this->fileDb);
 			$Tmp->setDb($this->dbFields);
 		}
 
@@ -70,8 +70,8 @@ class Plugin {
 
 	public function init()
 	{
-		
-	}	
+
+	}
 
 	// DEBUG: Ver si se usa
 	public function showdb()
@@ -112,15 +112,12 @@ class Plugin {
 
 	public function onSiteBody()
 	{
-		return false;	
+		return false;
 	}
 
 	public function onSidebar()
 	{
-		return false;	
+		return false;
 	}
 
-
 }
-
-?>

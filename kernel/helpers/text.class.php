@@ -4,6 +4,51 @@ class helperText {
 
 	// New
 
+	public static function endsWith($string, $endsString)
+	{
+		$endsPosition = (-1)*self::length($endsString);
+
+		if(MB_STRING) {
+			return( mb_substr($string, $endsPosition)===$endsString );
+		}
+
+		return( substr($string, $endsPosition)===$endsString );
+	}
+
+
+	public static function endsWithNumeric($string)
+	{
+		$endsPosition = (-1)*self::length($string);
+
+		if(MB_STRING) {
+			return( is_numeric(mb_substr($string, -1, 1)) );
+		}
+
+		return( is_numeric(substr($string, -1, 1)) );
+	}
+
+	public static function randomText($length)
+	{
+		 $characteres = "1234567890abcdefghijklmnopqrstuvwxyz!@#%^&*";
+		 $text = '';
+		 for($i=0; $i<$length; $i++) {
+			$text .= $characteres{rand(0,41)};
+		 }
+		 return $text;
+	}
+
+	public static function cleanUrl($string, $separator = '-')
+	{
+	    $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
+	    $special_cases = array( '&' => 'and');
+	    $string = mb_strtolower( trim( $string ), 'UTF-8' );
+	    $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
+	    $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
+	    $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
+	    $string = preg_replace("/[$separator]+/u", "$separator", $string);
+	    return $string;
+	}
+
 	// Replace all occurrences of the search string with the replacement string.
 	public static function replace($search, $replace, $string)
 	{
@@ -18,20 +63,20 @@ class helperText {
 		return strtolower($string);
 	}
 
-	// Find position of first occurrence of substring in a string
+	// Find position of first occurrence of substring in a string.
 	public static function strpos($string, $substring)
 	{
 		if(MB_STRING)
 			return mb_strpos($string, $substring, 0, 'UTF-8');
 		return strpos($string, $substring);
-	}	
+	}
 
-	// Return part of string
-	public static function cut($string, $start, $end)
+	// Returns the portion of string specified by the start and length parameters.
+	public static function cut($string, $start, $length)
 	{
 		if(MB_STRING)
-			return mb_substr($string, $start, $end, 'UTF-8');
-		return substr($string, $start, $end);
+			return mb_substr($string, $start, $length, 'UTF-8');
+		return substr($string, $start, $length);
 	}
 
 	// Return string length
@@ -40,7 +85,7 @@ class helperText {
 		if(MB_STRING)
 			return mb_strlen($string, 'UTF-8');
 		return strlen($string);
-	}	
+	}
 
 	public static function isEmpty($string)
 	{
@@ -195,16 +240,7 @@ class helperText {
 
 
 
-	public static function random_text($length)
-	{
-		 $characteres = "1234567890abcdefghijklmnopqrstuvwxyz!@#%^&*";
-		 $text = '';
-		 for($i=0; $i<$length; $i++)
-		 {
-			$text .= $characteres{rand(0,41)};
-		 }
-		 return $text;
-	}
+
 
 	public static function replace_assoc(array $replace, $text)
 	{

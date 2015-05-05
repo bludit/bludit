@@ -6,7 +6,7 @@
 
 a {
     text-decoration: none;
-    color: rgb(61, 146, 201);
+    color: #2672ec;
 }
 
 a:hover,
@@ -26,6 +26,11 @@ p {
     padding: 0;
 }
 
+.header {
+    margin: 60px 30px;
+    text-align: left;
+}
+
 .sidebar {
     background-color: #fff;
 }
@@ -33,11 +38,47 @@ p {
 .sidebar ul {
     display: block;
     list-style-type: none;
-    margin: 5px 0 10px 0;
+    margin: 5px 0 30px;
+    padding: 0 0 0 10px;
 }
 
-.sidebar .h1 {
+.sidebar h1 {
     font-weight: lighter;
+    margin: 0;
+    padding: 0;
+    font-size: 3.2em;
+}
+
+.sidebar h2 {
+    font-weight: lighter;
+    margin: -15px 0 20px;
+    padding: 0;
+    font-size: 2.2em;
+}
+
+.sidebar div.links {
+    margin: 20px 0;
+}
+
+.sidebar p.about {
+    margin: 10px 0 40px 0;
+    color: #555;
+}
+
+.sidebar a.homelink {
+    margin: 15px 0;
+    display: block-inline;
+}
+
+.sidebar a.parent {
+    display: block;
+    color: #333;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sidebar a.children {
+    color: #888;
 }
 
 .content {
@@ -50,10 +91,7 @@ p {
     height: auto;
 }
 
-.header {
-    margin: 0 30px;
-    text-align: left;
-}
+
 
 .brand-title,
 .brand-tagline {

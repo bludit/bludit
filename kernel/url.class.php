@@ -36,7 +36,7 @@ class Url
 		// Get the admin filter
 		$adminFilter['admin'] = $filters['admin'];
 		unset($filters['admin']);
-		
+
 		// Sort by filter length
 		uasort($filters, array($this, 'sortByLength'));
 
@@ -72,6 +72,11 @@ class Url
 		return $this->slug;
 	}
 
+	public function explodeSlug($delimiter="/")
+	{
+		return explode($delimiter, $this->slug);
+	}
+
 	public function uri()
 	{
 		return $this->uri;
@@ -104,73 +109,19 @@ class Url
 		$this->notFound = $error;
 	}
 
-/*
-	public function is_tag($filter)
+	public function getDomain()
 	{
-		$slug = $this->getSlugAfterFilter($filter);
+		if(!empty($_SERVER['HTTPS'])) {
+			$protocol = 'https://';
+		}
+		else {
+			$protocol = 'http://';
+		}
 
-		// Check if the filter doesn't match in the uri.
-		if($slug===false)
-			return false;
+		$domain = $_SERVER['HTTP_HOST'];
 
-		// Check if the slug is empty.
-		if(empty($slug))
-			$this->setNotFound(true);
-
-		return true;
+		return $protocol.$domain.HTML_PATH_ROOT;
 	}
-
-	public function is_post($filter)
-	{
-		$slug = $this->getSlugAfterFilter($filter);
-
-		// Check if the filter doesn't match in the uri.
-		if($slug===false)
-			return false;
-
-		// Check if the slug is empty.
-		if(empty($slug))
-			$this->setNotFound(true);
-
-		$this->whereAmI = 'post';
-
-		return true;
-	}
-
-	public function is_page($filter)
-	{
-		$slug = $this->getSlugAfterFilter($filter);
-
-		// Check if the filter doesn't match in the uri.
-		if($slug===false)
-			return false;
-
-		// Check if the slug is empty.
-		if(empty($slug))
-			$this->setNotFound(true);
-
-		$this->whereAmI = 'page';
-
-		return true;
-	}
-
-	public function isAdmin($filter)
-	{
-		$slug = $this->getSlugAfterFilter($filter);
-
-		// Check if the filter doesn't match in the uri.
-		if($slug===false)
-			return false;
-
-		// Check if the slug is empty.
-		if(empty($slug))
-			$this->setNotFound(true);
-
-		$this->whereAmI = 'admin';
-
-		return true;
-	}
-*/
 
 	// Return the slug after the $filter
 	// If the filter is not contain in the uri, returns FALSE
@@ -178,19 +129,21 @@ class Url
 	// ex: http://domain.com/cms/$filter/slug123 => slug123
 	private function getSlugAfterFilter($filter)
 	{
-		if($filter=='/')
+		if($filter=='/') {
 			$filter = HTML_PATH_ROOT;
+		}
 
 		// Check if the filter is in the uri.
 		$position = helperText::strpos($this->uri, $filter);
-		if($position===false)
+		if($position===false) {
 			return false;
+		}
 
 		$start = $position + helperText::length($filter);
 		$end = $this->uriStrlen;
 
 		$slug = helperText::cut($this->uri, $start, $end);
-		$this->slug = trim($slug);
+		$this->slug = trim($slug, '/');
 
 		return $slug;
 	}
