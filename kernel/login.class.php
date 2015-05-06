@@ -32,7 +32,8 @@ class Login {
 		if(Session::get('fingerPrint')===$this->fingerPrint())
 		{
 			$username = Session::get('username');
-			if(!empty($username)) {
+
+			return (!empty($username)) {
 				return true;
 			}
 		}
@@ -45,12 +46,14 @@ class Login {
 		$username = trim($username);
 		$password = trim($password);
 
-		if(empty($username) || empty($password))
+		if(empty($username) || empty($password)) {
 			return false;
+		}
 
 		$user = $this->dbUsers->get($username);
-		if($user==false)
+		if($user==false) {
 			return false;
+		}
 
 		$passwordHash = sha1($password.$user['salt']);
 
@@ -68,8 +71,9 @@ class Login {
 	{
 		// User agent
 		$agent = getenv('HTTP_USER_AGENT');
-		if(empty($agent))
+		if(empty($agent)) {
 			$agent = 'Bludit/1.0 (Mr Nibbler Protocol)';
+		}
 
 		// User IP
 		if(getenv('HTTP_X_FORWARDED_FOR'))
@@ -79,8 +83,9 @@ class Login {
 		else
 			$ip = getenv('REMOTE_ADDR');
 
-		if($random)
+		if($random) {
 			return sha1(mt_rand().$agent.$ip);
+		}
 
 		// DEBUG: Ver CLIENT IP, hay veces que retorna la ip ::1 y otras 127.0.0.1
 		return sha1($agent);
