@@ -33,7 +33,7 @@ class Login {
 		{
 			$username = Session::get('username');
 
-			return (!empty($username)) {
+			if(!empty($username)) {
 				return true;
 			}
 		}

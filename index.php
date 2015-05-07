@@ -13,6 +13,8 @@ define('PATH_BOOT',	PATH_ROOT.'kernel/boot/');
 // Init
 require(PATH_BOOT.'init.php');
 
+
+
 // Admin area
 if($Url->whereAmI()==='admin')
 {

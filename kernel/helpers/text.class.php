@@ -41,7 +41,7 @@ class helperText {
 	{
 	    $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
 	    $special_cases = array( '&' => 'and');
-	    $string = mb_strtolower( trim( $string ), 'UTF-8' );
+	    $string = self::lowercase( trim( $string ), 'UTF-8' );
 	    $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
 	    $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
 	    $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
@@ -74,9 +74,18 @@ class helperText {
 	// Returns the portion of string specified by the start and length parameters.
 	public static function cut($string, $start, $length)
 	{
-		if(MB_STRING)
-			return mb_substr($string, $start, $length, 'UTF-8');
-		return substr($string, $start, $length);
+		if(MB_STRING) {
+			$cut = mb_substr($string, $start, $length, 'UTF-8');
+		}
+		else {
+			$cut = substr($string, $start, $length);
+		}
+
+		if(empty($cut)) {
+			return '';
+		}
+
+		return $cut;
 	}
 
 	// Return string length
