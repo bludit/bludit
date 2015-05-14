@@ -91,4 +91,9 @@ class Login {
 		return sha1($agent);
 	}
 
+	public function logout()
+	{
+		return Session::destroy();
+	}
+
 }

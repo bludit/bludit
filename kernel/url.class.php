@@ -8,14 +8,19 @@ class Url
 	private $slug;
 	private $filters; // Filters for the URI
 	private $notFound;
+	private $parameters;
 
 	function __construct()
 	{
 		// Decodes any %## encoding in the given string. Plus symbols ('+') are decoded to a space character.
-		$this->uri = urldecode($_SERVER['REQUEST_URI']);
+		$decode = urldecode($_SERVER['REQUEST_URI']);
 
-		// URI Lowercase
-		//$this->uri = helperText::lowercase($this->uri);
+		// Parse, http://php.net/parse_url
+		$parse = parse_url($decode);
+
+		$this->uri = $parse['path'];
+
+		$this->parameters = $_GET;
 
 		$this->uriStrlen = helperText::length($this->uri);
 
@@ -102,6 +107,14 @@ class Url
 	public function notFound()
 	{
 		return $this->notFound;
+	}
+
+	public function pageNumber()
+	{
+		if(isset($this->parameters['page'])) {
+			return $this->parameters['page'];
+		}
+		return 0;
 	}
 
 	public function setNotFound($error = true)

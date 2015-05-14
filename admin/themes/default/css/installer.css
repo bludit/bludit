@@ -1,0 +1,25 @@
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #2672ec !important;
+    text-decoration: none !important;
+}
+
+/* ----------- FONTS AWESOME ----------- */
+.fa-right {
+    margin-right: 5px;
+}
+
+/* -----------  ----------- */
+div.main {
+    text-align: center;
+    margin: 30px 0;
+}
+h1.title {
+    font-weight: lighter;
+    font-size: 4em;
+}
+

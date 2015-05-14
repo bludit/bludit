@@ -22,7 +22,7 @@
 <script>
 $(document).ready(function() {
 	<?php
-		if( !Alert::displayed() ) {
+		if( Alert::defined() ) {
 			echo '$("#alert").message();';
 		}
 	?>

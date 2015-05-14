@@ -18,16 +18,19 @@
     <label>
     Site title
     <input type="text" name="title" class="width-50" value="<?php echo $Site->title() ?>">
+    <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <label>
     Site description
     <input type="text" name="description" class="width-50" value="<?php echo $Site->description() ?>">
+    <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <label>
     Footer text
     <input type="text" name="footer" class="width-50" value="<?php echo $Site->footer() ?>">
+    <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <input type="submit" class="btn" value="Save" name="form-general">
@@ -56,6 +59,7 @@
     <label>
     Site URL
     <input type="text" name="url" class="width-50" value="<?php echo $Site->url() ?>">
+    <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <h4>Writting Settings</h4>
@@ -103,19 +107,24 @@
         Language
         <select name="language" class="width-50">
         <?php
-            $htmlOptions = array('English'=>'english', 'Español'=>'espanol');
+            $htmlOptions = array('English'=>'english');
             foreach($htmlOptions as $text=>$value) {
                 echo '<option value="'.$value.'"'.( ($Site->language()===$value)?' selected="selected"':'').'>'.$text.'</option>';
             }
         ?>
         </select>
-        <div class="forms-desc">Select a language for your site.</div>
+        <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <label for="timezone">
         Timezone
         <select name="timezone" class="width-50">
-        <option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos_Aires</option>
+        <?php
+            $htmlOptions = Date::timezoneList();
+            foreach($htmlOptions as $text=>$value) {
+                echo '<option value="'.$value.'"'.( ($Site->timezone()===$value)?' selected="selected"':'').'>'.$text.'</option>';
+            }
+        ?>
         </select>
         <div class="forms-desc">Select a timezone for a correct date/time display on your site.</div>
     </label>
@@ -123,6 +132,7 @@
     <label>
         Locale
         <input type="text" name="locale" class="width-50" value="<?php echo $Site->locale() ?>">
+        <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
 
     <input type="submit" class="btn" value="Save" name="form-regional">
@@ -135,5 +145,5 @@
 <!-- ===================================== -->
 
 <div id="about">
-    <p><i class="fa fa-pencil-square-o"></i> Bludit version 0.1</p>
+    <p><i class="fa fa-pencil-square-o"></i> Bludit version <?php echo BLUDIT_VERSION.' ('.BLUDIT_RELEASE_DATE.')' ?></p>
 </div>

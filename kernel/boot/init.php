@@ -26,6 +26,19 @@ define('PATH_ADMIN_VIEWS',			PATH_ROOT.'admin/views/');
 // Log separator
 define('LOG_SEP', ' | ');
 
+// JSON pretty print
+if(!defined('JSON_PRETTY_PRINT')) {
+	define('JSON_PRETTY_PRINT', 128);
+}
+
+// Salt length
+define('SALT_LENGTH', 8);
+
+// Bludit version
+define('BLUDIT_VERSION',		'0.1 beta1');
+define('BLUDIT_CODENAME',		'');
+define('BLUDIT_RELEASE_DATE',	'2015-05-13');
+
 //
 define('NO_PARENT_CHAR', '—');
 
@@ -102,6 +115,8 @@ else {
 
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
 define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
+define('HTML_PATH_THEME_CSS',	HTML_PATH_THEME.'css/');
+define('HTML_PATH_THEME_JS',	HTML_PATH_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME',	HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_ROOT',	HTML_PATH_ROOT.'admin/');
 

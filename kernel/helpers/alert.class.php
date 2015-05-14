@@ -5,21 +5,21 @@ class Alert {
 	// new
 	public static function set($value, $key='alert')
 	{
-		Session::set('displayed', false);
+		Session::set('defined', true);
 
 		Session::set($key, $value);
 	}
 
 	public static function get($key='alert')
 	{
-		Session::set('displayed', true);
+		Session::set('defined', false);
 
 		return Session::get($key);
 	}
 
-	public static function displayed()
+	public static function defined()
 	{
-		return Session::get('displayed');
+		return Session::get('defined');
 	}
 
 }

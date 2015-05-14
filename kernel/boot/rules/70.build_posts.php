@@ -55,12 +55,18 @@ function buildPost($key)
 	return $Post;
 }
 
-function build_posts_per_page($draftPosts=false)
+function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 {
 	global $dbPosts;
 	global $posts;
+	global $Url;
 
-	$list = $dbPosts->getPage(0, 5, $draftPosts);
+	$list = $dbPosts->getPage($pageNumber, $amount, $draftPosts);
+
+	// There are not post for the pageNumber then NotFound page
+	if(empty($list)) {
+		$Url->setNotFound(true);
+	}
 
 	foreach($list as $slug=>$db)
 	{
@@ -98,10 +104,10 @@ else
 {
 	if($Url->whereAmI()==='admin') {
 		// Build post for admin area with drafts
-		build_posts_per_page(true);
+		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), true);
 	}
 	else
 	{
-		build_posts_per_page();
+		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), false);
 	}
 }

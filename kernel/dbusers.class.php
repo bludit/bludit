@@ -6,9 +6,9 @@ class dbUsers extends dbJSON
 		'firstName'=>	array('inFile'=>false, 'value'=>''),
 		'lastName'=>	array('inFile'=>false, 'value'=>''),
 		'username'=>	array('inFile'=>false, 'value'=>''),
-		'role'=>		array('inFile'=>false, 'value'=>''),
+		'role'=>		array('inFile'=>false, 'value'=>'editor'),
 		'password'=>	array('inFile'=>false, 'value'=>''),
-		'salt'=>		array('inFile'=>false, 'value'=>''),
+		'salt'=>		array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
 		'email'=>		array('inFile'=>false, 'value'=>''),
 		'registered'=>	array('inFile'=>false, 'value'=>0)
 	);
@@ -24,7 +24,6 @@ class dbUsers extends dbJSON
 		if($this->userExists($username))
 		{
 			$user = $this->db[$username];
-			$user['username'] = $username;
 
 			return $user;
 		}
@@ -45,25 +44,37 @@ class dbUsers extends dbJSON
 
 	public function set($args)
 	{
-		$username = Sanitize::html($args['username']);
+		$dataForDb = array();
 
+		$user = $this->get($args['username']);
+
+		if($user===false)
+		{
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the username '.$args['username']);
+			return false;
+		}
+
+		// Verify arguments with the database fields.
 		foreach($args as $field=>$value)
 		{
 			if( isset($this->dbFields[$field]) )
 			{
-				// Sanitize or not.
-				if($this->dbFields[$field]['sanitize']=='html') {
-					$tmpValue = Sanitize::html($value);
-				}
-				else {
-					$tmpValue = $value;
-				}
+				// Sanitize if will be saved on database.
+				$tmpValue = Sanitize::html($value);
 
-				$this->db[$username][$field] = $tmpValue;
+				// Set type
+				settype($tmpValue, gettype($this->dbFields[$field]['value']));
+
+				$user[$field] = $tmpValue;
 			}
 		}
 
-		$this->save();
+		// Save the database
+		$this->db[$args['username']] = $user;
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
 
 		return true;
 	}
@@ -78,8 +89,8 @@ class dbUsers extends dbJSON
 			// If the user send the field.
 			if( isset($args[$field]) )
 			{
-				// Sanitize or not.
-				if($options['sanitize']=='html') {
+				// Sanitize if will be saved on database.
+				if( !$options['inFile'] ) {
 					$tmpValue = Sanitize::html($args[$field]);
 				}
 				else {
@@ -92,6 +103,10 @@ class dbUsers extends dbJSON
 				$tmpValue = $options['value'];
 			}
 
+			// Set type
+			settype($tmpValue, gettype($options['value']));
+
+			// Save on database
 			$dataForDb[$field] = $tmpValue;
 		}
 
@@ -104,12 +119,15 @@ class dbUsers extends dbJSON
 		$dataForDb['registered'] = Date::unixTime();
 
 		// Password
-		$dataForDb['salt'] = helperText::randomText(8);
+		$dataForDb['salt'] = helperText::randomText(SALT_LENGTH);
 		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
 
 		// Save the database
 		$this->db[$dataForDb['username']] = $dataForDb;
-		$this->save();
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
 
 		return true;
 	}

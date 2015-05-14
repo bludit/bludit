@@ -37,16 +37,25 @@ class helperText {
 		 return $text;
 	}
 
-	public static function cleanUrl($string, $separator = '-')
+	public static function cleanUrl($text, $separator='-')
 	{
-	    $accents_regex = '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i';
-	    $special_cases = array( '&' => 'and');
-	    $string = self::lowercase( trim( $string ), 'UTF-8' );
-	    $string = str_replace( array_keys($special_cases), array_values( $special_cases), $string );
-	    $string = preg_replace( $accents_regex, '$1', htmlentities( $string, ENT_QUOTES, 'UTF-8' ) );
-	    $string = preg_replace("/[^a-z0-9]/u", "$separator", $string);
-	    $string = preg_replace("/[$separator]+/u", "$separator", $string);
-	    return $string;
+		// Delete characters
+		$text = str_replace(array("“", "”", "!", "*", "&#039;", "&quot;", "(", ")", ";", ":", "@", "&amp", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", "|"),'',$text);
+		$text = preg_replace('![^\\pL\d]+!u', $separator, $text);
+
+		// Remove spaces
+		$text = str_replace(' ',$separator, $text);
+
+		//remove any additional characters that might appear after translit
+		//$text = preg_replace('![^-\w]+!', '', $text);
+
+		// Replace multiple dashes
+		$text = preg_replace('/-{2,}/', $separator, $text);
+
+		// Make a string lowercase
+		$text = self::lowercase($text);
+
+		return $text;
 	}
 
 	// Replace all occurrences of the search string with the replacement string.
@@ -211,45 +220,6 @@ class helperText {
 	{
 		return( strcmp($value1, $value2) == 0 );
 	}
-
-	// Clean text for URL
-	public static function clean_url($text, $spaces='-', $translit=false)
-	{
-		// Delete characters
-		$text = str_replace(array("“", "”", "!", "*", "&#039;", "&quot;", "(", ")", ";", ":", "@", "&amp", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", "|"),'',$text);
-		$text = preg_replace('![^\\pL\d]+!u', '-', $text);
-
-		// Translit
-		if($translit!=false)
-		{
-			$text = str_replace(array_keys($translit),array_values($translit),$text);
-		}
-    		if (function_exists('iconv'))
-		{
-			$ret = iconv('utf-8', 'us-ascii//TRANSLIT//IGNORE', $text);
-			if ($ret!==false){ //iconv might return false on error
-				$text = $ret;
-			}
-		}
-
-		// Replace spaces by $spaces
-		$text = str_replace(' ',$spaces,$text);
-
-		//remove any additional characters that might appear after translit
-		$text = preg_replace('![^-\w]+!', '', $text);
-
-		// Replace multiple dashes
-		$text = preg_replace('/-{2,}/', '-', $text);
-
-		// Make a string lowercase
-		$text = self::str2lower($text);
-
-		return $text;
-	}
-
-
-
-
 
 	public static function replace_assoc(array $replace, $text)
 	{

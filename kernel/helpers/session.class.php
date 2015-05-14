@@ -22,15 +22,15 @@ class Session {
 		$cookieParams = session_get_cookie_params();
 
     	session_set_cookie_params($cookieParams["lifetime"],
-        	$cookieParams["path"], 
-        	$cookieParams["domain"], 
+        	$cookieParams["path"],
+        	$cookieParams["domain"],
         	$secure,
         	$httponly
         );
 
 	    // Sets the session name to the one set above.
 	    session_name($session_name);
-    
+
     	// Start session.
     	self::$started = session_start();
 
@@ -48,14 +48,16 @@ class Session {
 		session_destroy();
 
 		unset($_SESSION);
-		
+
 		self::$started = false;
+
+		return !isset($_SESSION);
 	}
 
 	public static function set($key, $value)
 	{
 		$key = 's_'.$key;
-		
+
 		$_SESSION[$key] = $value;
 	}
 

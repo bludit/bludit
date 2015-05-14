@@ -26,7 +26,11 @@
         <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
     </label>
 
-    <label for="country">
+<?php
+    if($Login->username()==='admin')
+    {
+?>
+    <label for="role">
         Role
         <select name="role" class="width-50">
         <?php
@@ -36,8 +40,11 @@
             }
         ?>
         </select>
+        <div class="forms-desc">Small and concise description of the field ???</div>
     </label>
-
+<?php
+    }
+?>
     <input type="submit" class="btn btn-blue" value="Save" name="user-profile">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn">Cancel</a>
 </form>

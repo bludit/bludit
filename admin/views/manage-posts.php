@@ -16,7 +16,7 @@
 		foreach($posts as $Post)
 		{
 			echo '<tr>';
-			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.(empty($Post->published())?'[DRAFT] ':'').(empty($Post->title())?'[Empty title] ':$Post->title()).'</a></td>';
+			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->published()?'':'[DRAFT] ').($Post->title()?$Post->title():'[Empty title] ').'</a></td>';
 			echo '<td>'.$Post->date().'</td>';
 			echo '<td>'.$Post->timeago().'</td>';
 			echo '</tr>';

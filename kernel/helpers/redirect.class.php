@@ -17,4 +17,10 @@ class Redirect {
 	{
 		self::url(HTML_PATH_ROOT.$base.'/'.$page);
 	}
+
+	public static function home()
+	{
+		self::url(HTML_PATH_ROOT);
+	}
+
 }

@@ -1,5 +1,19 @@
 <?php
 
+/*
+ * Bludit
+ * http://www.bludit.com
+ * Author Diego Najar
+ * All Bludit code is released under the GNU General Public License.
+*/
+
+// Check installation
+if( !file_exists('content/databases/site.php') )
+{
+	header('Location:./install.php');
+	exit('<a href="./install.php">First, install Bludit</a>');
+}
+
 // DEBUG:
 $loadTime = microtime(true);
 

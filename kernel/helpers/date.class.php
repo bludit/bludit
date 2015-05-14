@@ -37,27 +37,10 @@ class Date {
 		}
 	}
 
-	// Old
-
-	public static function set_locale($string)
-	{
-		if(setlocale(LC_ALL,$string.'.UTF-8')!==false)
-			return true;
-
-		if(setlocale(LC_ALL,$string.'.UTF8')!==false)
-			return true;
-
-		return setlocale(LC_ALL,$string);
-	}
-
-	public static function set_timezone($string)
-	{
-		return(date_default_timezone_set($string));
-	}
-
+	// DEBUG: Check this function, need to be more fast
 	// Return array('Africa/Abidjan'=>'Africa/Abidjan (GMT+0)', ..., 'Pacific/Wallis'=>'Pacific/Wallis (GMT+12)');
 	// PHP supported list. http://php.net/manual/en/timezones.php
-	public static function get_timezones()
+	public static function timezoneList()
 	{
 		$tmp = array();
 
@@ -76,12 +59,29 @@ class Date {
 
 			$text = str_replace("_"," ",$timezone_identifier);
 
-			$tmp[$timezone_identifier]=$text.' ('.$hours.':'.$mins.')';
+			$tmp[$text.' ('.$hours.':'.$mins.')'] = $timezone_identifier;
 		}
 
-		return($tmp);
+		return $tmp;
 	}
 
+	// Old
+
+	public static function set_locale($string)
+	{
+		if(setlocale(LC_ALL,$string.'.UTF-8')!==false)
+			return true;
+
+		if(setlocale(LC_ALL,$string.'.UTF8')!==false)
+			return true;
+
+		return setlocale(LC_ALL,$string);
+	}
+
+	public static function set_timezone($string)
+	{
+		return(date_default_timezone_set($string));
+	}
 
 
 	// Format a GMT/UTC+0 date/time

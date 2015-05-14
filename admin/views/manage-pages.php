@@ -24,7 +24,7 @@
 				}
 
 				echo '<tr>';
-				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.(empty($Page->published())?'[DRAFT] ':'').$Page->title().'</a></td>';
+				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'[DRAFT] ').$Page->title().'</a></td>';
 				echo '<td>'.$parentTitle.'</td>';
 				echo '</tr>';
 			}

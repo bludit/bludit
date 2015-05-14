@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Your page title</title>
+    <title>Bludit Login</title>
 
     <link rel="stylesheet" href="./css/kube.min.css">
     <link rel="stylesheet" href="./css/default.css">
@@ -19,25 +19,27 @@
 	<nav class="navbar nav-fullwidth">
 		<h1>Bludit</h1>
 	    <ul>
-	    	<li><a href="#">Home</a></li>
+	    	<li><a href="<?php echo HTML_PATH_ROOT ?>">Home</a></li>
 	    </ul>
 	</nav>
 </div>
 
 <div class="units-row">
-	
+
 	<!-- CONTENT -->
-	<div class="unit-centered unit-40">
+	<div class="unit-centered unit-40" style="max-width: 500px">
 	<div id="content">
 
-<div class="tools-alert">
-	Bender! Ship! Stop bickering or I'm going to come back there and change your opinions manually! Take me to your leader!
-</div>
-
 	<?php
+
+		if(Alert::defined()) {
+			echo '<div class="tools-alert">'.Alert::get().'</div>';
+		}
+
 		// Load view
-		if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') )
+		if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 			include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+		}
 	?>
 
 	</div>

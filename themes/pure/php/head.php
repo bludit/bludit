@@ -1,19 +1,36 @@
-<base href="<?php echo HTML_PATH_THEME ?>">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A layout example that shows off a blog page with a list of posts.">
+<?php
+	Theme::charset('UTF-8');
 
-<title>Blog &ndash; Layout Examples &ndash; Pure</title>
+	Theme::viewport();
 
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext">
-<link href='http://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+	// <title>Site title</title>
+	Theme::title( $Site->title() );
 
-<link rel="stylesheet" href="css/pure-min.css">
-<link rel="stylesheet" href="css/grids-responsive-min.css">
-<link rel="stylesheet" href="css/blog.css">
-<link rel="stylesheet" href="css/rainbow.github.css">
+	// <meta name="description" content="Site description">
+	Theme::description( $Site->description() );
 
-<script src="js/rainbow.min.js"></script>
+	// <link rel="stylesheet" type="text/css" href="pure-min.css">
+	// <link rel="stylesheet" type="text/css" href="grids-responsive-min.css">
+	// <link rel="stylesheet" type="text/css" href="blog.css">
+	// <link rel="stylesheet" type="text/css" href="rainbow.github.css">
+	Theme::css(array(
+		'pure-min.css',
+		'grids-responsive-min.css',
+		'blog.css',
+		'rainbow.github.css'
+	));
+
+	Theme::css(array(
+		'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext',
+		'http://fonts.googleapis.com/css?family=Muli:400,300'
+	), '');
+
+	// <script src="rainbow.min.js"></script>
+	Theme::javascript(array(
+		'rainbow.min.js'
+	));
+
+?>
 
 <style>
 html, button, input, select, textarea,
