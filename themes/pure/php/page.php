@@ -1,7 +1,7 @@
 <section class="page">
     <header class="page-head">
         <h1 class="page-title">
-            <?php echo $Page->title() ?>
+            # <?php echo $Page->title() ?>
         </h1>
     </header>
 

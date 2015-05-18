@@ -53,7 +53,7 @@
     <label>
         Friendly url
         <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->url() ?><span id="parentExample"></span></span>
+            <span class="input-prepend"><?php echo $Site->url() ?><span id="parentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
             <input id="slug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
         </div>
         <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>

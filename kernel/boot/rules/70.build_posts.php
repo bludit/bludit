@@ -11,12 +11,14 @@ function buildPost($key)
 	// Post object.
 	$Post = new Post($key);
 	if( !$Post->isValid() ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from file with key'.$key);
 		return false;
 	}
 
 	// Page database.
 	$db = $dbPosts->getDb($key);
 	if( !$db ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key'.$key);
 		return false;
 	}
 
@@ -64,7 +66,7 @@ function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 	$list = $dbPosts->getPage($pageNumber, $amount, $draftPosts);
 
 	// There are not post for the pageNumber then NotFound page
-	if(empty($list)) {
+	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
 

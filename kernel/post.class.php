@@ -62,15 +62,26 @@ class Post extends fileContent
 		return $this->getField('unixTimeModified');
 	}
 
-	public function date($format = false)
+	public function dateCreated($format=false)
 	{
-		if($format!==false)
-		{
-			$unixTimeCreated = $this->unixTimeCreated();
-			return Date::format($unixTimeCreated, $format);
+		if($format===false) {
+			return $this->getField('date');
 		}
 
-		return $this->getField('date');
+		$unixTimeCreated = $this->unixTimeCreated();
+
+		return Date::format($unixTimeCreated, $format);
+	}
+
+	public function dateModified($format=false)
+	{
+		if($format===false) {
+			return $this->getField('date');
+		}
+
+		$unixTimeModified = $this->unixTimeModified();
+
+		return Date::format($unixTimeModified, $format);
 	}
 
 	public function timeago()

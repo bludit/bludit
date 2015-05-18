@@ -22,6 +22,33 @@ p {
     margin: 10px 0 0 0;
 }
 
+img {
+    display: block;
+    max-width: 100%;
+}
+
+table {
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+}
+
+thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+th, td {
+    padding: 0.5em 1em;
+}
+
 #layout {
     padding: 0;
 }

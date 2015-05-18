@@ -17,6 +17,7 @@ define('PATH_POSTS',				PATH_CONTENT.'posts/');
 define('PATH_PAGES',				PATH_CONTENT.'pages/');
 define('PATH_DATABASES',			PATH_CONTENT.'databases/');
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases/plugins/');
+define('PATH_UPLOADS',				PATH_CONTENT.'uploads/');
 
 define('PATH_ADMIN_THEMES',			PATH_ROOT.'admin/themes/');
 define('PATH_ADMIN_CONTROLLERS',	PATH_ROOT.'admin/controllers/');

@@ -22,6 +22,12 @@
     </label>
 
     <label>
+    Site slogan
+    <input type="text" name="slogan" class="width-50" value="<?php echo $Site->slogan() ?>">
+    <div class="forms-desc">Small and concise description of the field ???</div>
+    </label>
+
+    <label>
     Site description
     <input type="text" name="description" class="width-50" value="<?php echo $Site->description() ?>">
     <div class="forms-desc">Small and concise description of the field ???</div>

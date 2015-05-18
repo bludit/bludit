@@ -21,8 +21,7 @@
 	));
 
 	Theme::css(array(
-		'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext',
-		'http://fonts.googleapis.com/css?family=Muli:400,300'
+		'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext'
 	), '');
 
 	// <script src="rainbow.min.js"></script>
@@ -32,11 +31,11 @@
 
 ?>
 
+<!-- Pure and Google Fonts -->
 <style>
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
-    /* Set your content font stack here: */
-    font-family: 'Open Sans', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 </style>
 

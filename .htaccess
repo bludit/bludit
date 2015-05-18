@@ -1,10 +1,14 @@
 AddDefaultCharset UTF-8
 
-RewriteEngine on
-
+# Remove the trailing slash from URL
 DirectorySlash Off
 
-RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
+# Enable rewrite rules
+RewriteEngine on
 
+# Deny direct access to .txt files
+RewriteRule ^content/(.*)\.txt$ - [R=404,L]
+
+# All URL process by index.php
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*) index.php [L]

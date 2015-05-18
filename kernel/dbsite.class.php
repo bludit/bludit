@@ -4,6 +4,7 @@ class dbSite extends dbJSON
 {
 	private $dbFields = array(
 		'title'=>		array('inFile'=>false, 'value'=>''),
+		'slogan'=>		array('inFile'=>false, 'value'=>''),
 		'description'=>	array('inFile'=>false, 'value'=>''),
 		'footer'=>		array('inFile'=>false, 'value'=>''),
 		'postsperpage'=>array('inFile'=>false, 'value'=>''),
@@ -88,6 +89,12 @@ class dbSite extends dbJSON
 	public function title()
 	{
 		return $this->db['title'];
+	}
+
+	// Returns the site slogan.
+	public function slogan()
+	{
+		return $this->db['slogan'];
 	}
 
 	public function advancedOptions()

@@ -26,7 +26,7 @@ function editPage($args)
 		$dbPages->regenerate();
 
 		Alert::set('The page has been saved successfully');
-		Redirect::page('admin', 'manage-pages');
+		Redirect::page('admin', 'edit-page/'.$args['key']);
 	}
 	else
 	{

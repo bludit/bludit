@@ -248,19 +248,18 @@ class dbPages extends dbJSON
 			$newKey = helperText::cleanUrl($parent).'/'.helperText::cleanUrl($text);
 		}
 
-		if($newKey===$oldKey) {
-			return $newKey;
-		}
-
-		// Verify if the key is already been used.
-		if( isset($this->db[$newKey]) )
+		if($newKey!==$oldKey)
 		{
-			if( !helperText::endsWithNumeric($newKey) ) {
-				$newKey = $newKey.'-0';
-			}
+			// Verify if the key is already been used.
+			if( isset($this->db[$newKey]) )
+			{
+				if( !helperText::endsWithNumeric($newKey) ) {
+					$newKey = $newKey.'-0';
+				}
 
-			while( isset($this->db[$newKey]) ) {
-				$newKey++;
+				while( isset($this->db[$newKey]) ) {
+					$newKey++;
+				}
 			}
 		}
 

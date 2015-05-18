@@ -5,7 +5,8 @@ define('BLUDIT', true);
 // PATHs
 define('PATH_ROOT',					__DIR__.'/');
 define('PATH_CONTENT',				PATH_ROOT.'content/');
-define('PATH_POSTS',				PATH_CONTENT.'posts/');
+define('PATH_POSTS',                PATH_CONTENT.'posts/');
+define('PATH_UPLOADS',              PATH_CONTENT.'uploads/');
 define('PATH_PAGES',				PATH_CONTENT.'pages/');
 define('PATH_DATABASES',			PATH_CONTENT.'databases/');
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases/plugins/');
@@ -42,6 +43,13 @@ function checkSystem()
     if(function_exists('get_loaded_extensions'))
     {
         $phpModules = get_loaded_extensions();
+    }
+
+    if(!file_exists(PATH_ROOT.'.htaccess'))
+    {
+        $errorText = 'Missing file, upload the file .htaccess';
+        error_log($errorText, 0);
+        array_push($stdOut, $errorText);
     }
 
     if(!version_compare(phpversion(), '5.2', '>'))
@@ -103,8 +111,14 @@ function install($adminPassword, $email)
 
     if(!mkdir(PATH_PLUGINS_DATABASES, $dirpermissions, true))
     {
-    	$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
-    	error_log($errorText, 0);
+        $errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+        error_log($errorText, 0);
+    }
+
+    if(!mkdir(PATH_UPLOADS, $dirpermissions, true))
+    {
+        $errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS;
+        error_log($errorText, 0);
     }
 
     // ============================================================================
@@ -144,7 +158,8 @@ function install($adminPassword, $email)
 
     // File site.php
     $data = array(
-        'title'=>'Bludit CMS',
+        'title'=>'Bludit',
+        'slogan'=>'cms',
         'description'=>'',
         'footer'=>'Footer text - ©2015',
         'language'=>'english',
