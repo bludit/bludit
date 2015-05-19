@@ -73,14 +73,12 @@ function checkSystem()
         array_push($stdOut, $errorText);
     }
 
-    if(!@mkdir(PATH_POSTS, $dirpermissions, false))
+    if(!is_writable(PATH_CONTENT))
     {
         $errorText = 'Writing test on content directory failed';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
-
-    @rmdir(PATH_POSTS);
 
     return $stdOut;
 }

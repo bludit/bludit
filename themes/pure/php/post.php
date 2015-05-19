@@ -8,7 +8,7 @@
 
         <p class="post-meta">
             <span>Posted by <?php echo $Post->author() ?></span>
-            <span>Date: <?php echo $Post->date() ?></span>
+            <span>Date: <?php echo $Post->dateCreated() ?></span>
         </p>
     </header>
 

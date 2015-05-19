@@ -10,7 +10,7 @@
 
         <p class="post-meta">
             <span><?php echo $Language->get('Posted By').' '.$Post->author() ?></span>
-            <span>Date: <?php echo $Post->date() ?></span>
+            <span>Date: <?php echo $Post->dateCreated() ?></span>
         </p>
     </header>
 
