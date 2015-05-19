@@ -73,9 +73,9 @@ function checkSystem()
         array_push($stdOut, $errorText);
     }
 
-    if(!is_writable(PATH_CONTENT))
+    if(!@mkdir(PATH_CONTENT.'asd'))
     {
-        $errorText = 'Writing test on content directory failed';
+        $errorText = 'Writing test failure, check directory content permissions. (Error 2005)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
