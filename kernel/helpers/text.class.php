@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class helperText {
+class Text {
 
 	// New
 
@@ -65,11 +65,29 @@ class helperText {
 	}
 
 	// String to lowercase
-	public static function lowercase($string)
+	public static function lowercase($string, $encoding='UTF-8')
 	{
-		if(MB_STRING)
-			return mb_strtolower($string, 'UTF-8');
+		if(MB_STRING) {
+			return mb_strtolower($string, $encoding);
+		}
+
 		return strtolower($string);
+	}
+
+	// Make a string's first character uppercase
+	public static function firstCharUp($string, $encoding='UTF-8')
+	{
+		// Thanks http://stackoverflow.com/questions/2517947/ucfirst-function-for-multibyte-character-encodings
+		if(MB_STRING)
+		{
+		    $strlen 	= mb_strlen($string, $encoding);
+		    $firstChar 	= mb_substr($string, 0, 1, $encoding);
+		    $then 		= mb_substr($string, 1, $strlen - 1, $encoding);
+
+		    return mb_strtoupper($firstChar, $encoding).$then;
+		}
+
+		return ucfirst($string);
 	}
 
 	// Find position of first occurrence of substring in a string.

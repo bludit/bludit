@@ -23,3 +23,6 @@ h1.title {
     font-size: 4em;
 }
 
+td {
+	text-align: center;
+}

@@ -15,8 +15,8 @@ class dbLanguage extends dbJSON
 	// Return the translation, if the translation does'n exist then return the English translation.
 	public function get($text)
 	{
-		$key = helperText::lowercase($text);
-		$key = helperText::replace(' ', '-', $key);
+		$key = Text::lowercase($text);
+		$key = Text::replace(' ', '-', $key);
 
 		if(isset($this->db[$key]))
 			return $this->db[$key];

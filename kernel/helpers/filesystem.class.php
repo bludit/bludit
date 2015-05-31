@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class helperFilesystem {
+class Filesystem {
 
 	// NEW
 	public static function listDirectories($path, $regex='*')

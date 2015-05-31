@@ -5,6 +5,7 @@ Diego Najar
 Implementar
 - Links a Google+, Facebook y Twitter
 - Plugins
+- Plugins SEO, description, opengaph, etc..
 - Comentarios
 - Notificaciones
 - Dashboard, parecido a Nibbleblog, me gusta.
@@ -37,6 +38,7 @@ helperUrl::
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
 
+find . -type f -name '*.php' -exec sed -i '' s/helperText/Text/ {} +
 ————
 
 Editar una pagina

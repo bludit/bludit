@@ -2,14 +2,13 @@
 
 <h1><?php echo $Site->title() ?></h1>
 <h2><?php echo $Site->slogan() ?></h2>
-<p class="about"><?php echo $Site->description() ?></p>
 
 <?php
 
 // Links
 echo '<div class="links">';
 echo '<a class="homelink" href="'.HTML_PATH_ROOT.'">Home</a>';
-echo '<span> | </span>';
+echo '<span> - </span>';
 echo '<a class="homelink" href="'.HTML_PATH_ROOT.'">Twitter</a>';
 echo '</div>';
 
@@ -30,7 +29,7 @@ foreach($parents as $parent)
 		echo '<ul>';
 		foreach($children as $child)
 		{
-			echo '<li><a class="children" href="'.HTML_PATH_ROOT.$child->key().'">'.$child->title().'</a></li>';
+			echo '<li><a class="children" href="'.HTML_PATH_ROOT.$child->key().'">— '.$child->title().'</a></li>';
 		}
 		echo '</ul>';
 	}

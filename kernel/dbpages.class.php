@@ -33,7 +33,7 @@ class dbPages extends dbJSON
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
-		if( helperText::isEmpty($args['username']) ) {
+		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
@@ -61,7 +61,7 @@ class dbPages extends dbJSON
 
 			// Check where the field will be written, in file or database.
 			if($options['inFile']) {
-				$dataForFile[$field] = $field.':'.$tmpValue;
+				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
 			}
 			else
 			{
@@ -74,7 +74,7 @@ class dbPages extends dbJSON
 		}
 
 		// Make the directory. Recursive.
-		if( helperFilesystem::mkdir(PATH_PAGES.$key, true) === false ) {
+		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
 			return false;
 		}
@@ -105,7 +105,7 @@ class dbPages extends dbJSON
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
-		if( helperText::isEmpty($args['username']) ) {
+		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
@@ -134,7 +134,7 @@ class dbPages extends dbJSON
 
 			// Check where the field will be written, if in the file or in the database.
 			if($options['inFile']) {
-				$dataForFile[$field] = $field.':'.$tmpValue;
+				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
 			}
 			else
 			{
@@ -149,7 +149,7 @@ class dbPages extends dbJSON
 		// Make the directory. Recursive.
 		if($newKey!==$args['key'])
 		{
-			if( helperFilesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
+			if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
 			}
@@ -183,12 +183,12 @@ class dbPages extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( helperFilesystem::rmfile(PATH_PAGES.$key.'/index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_PAGES.$key.'/index.txt') === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
 		// Delete the directory.
-		if( helperFilesystem::rmdir(PATH_PAGES.$key) === false ) {
+		if( Filesystem::rmdir(PATH_PAGES.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
 		}
 
@@ -237,15 +237,15 @@ class dbPages extends dbJSON
 	// Generate a valid Key/Slug.
 	public function generateKey($text, $parent=NO_PARENT_CHAR, $returnSlug=false, $oldKey='')
 	{
-		if(helperText::isEmpty($text)) {
+		if(Text::isEmpty($text)) {
 			$text = 'empty';
 		}
 
-		if( helperText::isEmpty($parent) || ($parent==NO_PARENT_CHAR) ) {
-			$newKey = helperText::cleanUrl($text);
+		if( Text::isEmpty($parent) || ($parent==NO_PARENT_CHAR) ) {
+			$newKey = Text::cleanUrl($text);
 		}
 		else {
-			$newKey = helperText::cleanUrl($parent).'/'.helperText::cleanUrl($text);
+			$newKey = Text::cleanUrl($parent).'/'.Text::cleanUrl($text);
 		}
 
 		if($newKey!==$oldKey)
@@ -253,7 +253,7 @@ class dbPages extends dbJSON
 			// Verify if the key is already been used.
 			if( isset($this->db[$newKey]) )
 			{
-				if( !helperText::endsWithNumeric($newKey) ) {
+				if( !Text::endsWithNumeric($newKey) ) {
 					$newKey = $newKey.'-0';
 				}
 

@@ -10,7 +10,7 @@ function editUser($args)
 
 	if(isset($args['password']))
 	{
-		if( ($args['password']===$args['confirm-password']) && !helperText::isEmpty($args['password']) ) {
+		if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) ) {
 			return $dbUsers->set($args);
 		}
 		else {

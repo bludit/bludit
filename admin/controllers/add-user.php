@@ -18,14 +18,14 @@ function addUser($args)
 	global $dbUsers;
 
 	// Check if the username already exist in db.
-	if( $dbUsers->userExists($args['username']) || helperText::isEmpty($args['username']) )
+	if( $dbUsers->userExists($args['username']) || Text::isEmpty($args['username']) )
 	{
 		Alert::set('Username already exists or is empty');
 		return false;
 	}
 
 	// Validate password.
-	if( ($args['password'] != $args['confirm-password'] ) || helperText::isEmpty($args['password']) )
+	if( ($args['password'] != $args['confirm-password'] ) || Text::isEmpty($args['password']) )
 	{
 		Alert::set('The password and confirmation password do not match');
 		return false;

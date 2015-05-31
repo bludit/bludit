@@ -11,7 +11,7 @@ function build_plugins()
 	global $plugins;
 
 	// List plugins directories
-	$list = helperFilesystem::listDirectories(PATH_PLUGINS);
+	$list = Filesystem::listDirectories(PATH_PLUGINS);
 
 	// Get declared clasess before load plugins clasess
 	$currentDeclaredClasess = get_declared_classes();

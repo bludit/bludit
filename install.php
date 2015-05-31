@@ -47,35 +47,35 @@ function checkSystem()
 
     if(!file_exists(PATH_ROOT.'.htaccess'))
     {
-        $errorText = 'Missing file, upload the file .htaccess';
+        $errorText = 'Missing file, upload the file .htaccess (ERR_201)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
 
     if(!version_compare(phpversion(), '5.2', '>'))
     {
-        $errorText = 'Current PHP version '.phpversion().', but you need > 5.3';
+        $errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
 
     if(!in_array('dom', $phpModules))
     {
-        $errorText = 'PHP module DOM does not exist';
+        $errorText = 'PHP module DOM does not exist. (ERR_203)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
 
     if(!in_array('json', $phpModules))
     {
-        $errorText = 'PHP module JSON does not exist';
+        $errorText = 'PHP module JSON does not exist. (ERR_204)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
 
     if(!is_writable(PATH_CONTENT))
     {
-        $errorText = 'Writing test on content directory failed';
+        $errorText = 'Writing test failure, check directory content permissions. (ERR_205)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }

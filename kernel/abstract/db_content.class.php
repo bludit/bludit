@@ -76,7 +76,7 @@ class Content
 			$parts = array_map('trim', explode(':', $line, 2));
 
 			// Lowercase variable
-			$parts[0] = helperText::lowercase($parts[0]);
+			$parts[0] = Text::lowercase($parts[0]);
 
 			if($parts[0]==='content')
 			{

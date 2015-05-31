@@ -119,7 +119,7 @@ class dbUsers extends dbJSON
 		$dataForDb['registered'] = Date::unixTime();
 
 		// Password
-		$dataForDb['salt'] = helperText::randomText(SALT_LENGTH);
+		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);
 		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
 
 		// Save the database

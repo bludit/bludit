@@ -55,7 +55,7 @@ class fileContent
 			$parts = array_map('trim', explode(':', $line, 2));
 
 			// Lowercase variable
-			$parts[0] = helperText::lowercase($parts[0]);
+			$parts[0] = Text::lowercase($parts[0]);
 
 			// If variables is content then break the foreach and process the content after.
 			if($parts[0]==='content')

@@ -28,11 +28,11 @@ class dbPosts extends dbJSON
 	// Generate a valid Key/Slug.
 	public function generateKey($text, $oldKey='')
 	{
-		if(helperText::isEmpty($text)) {
+		if(Text::isEmpty($text)) {
 			$text = 'empty';
 		}
 
-		$newKey = helperText::cleanUrl($text);
+		$newKey = Text::cleanUrl($text);
 
 		if($newKey===$oldKey) {
 			return $newKey;
@@ -41,7 +41,7 @@ class dbPosts extends dbJSON
 		// Verify if the key is already been used.
 		if( isset($this->db[$newKey]) )
 		{
-			if( !helperText::endsWithNumeric($newKey) ) {
+			if( !Text::endsWithNumeric($newKey) ) {
 				$newKey = $newKey.'-0';
 			}
 
@@ -63,7 +63,7 @@ class dbPosts extends dbJSON
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
-		if( helperText::isEmpty($args['username']) ) {
+		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
@@ -93,7 +93,7 @@ class dbPosts extends dbJSON
 
 			// Check where the field will be written, if in the file or in the database.
 			if($options['inFile']) {
-				$dataForFile[$field] = $field.':'.$tmpValue;
+				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
 			}
 			else
 			{
@@ -106,7 +106,7 @@ class dbPosts extends dbJSON
 		}
 
 		// Make the directory.
-		if( helperFilesystem::mkdir(PATH_POSTS.$key) === false ) {
+		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_POSTS.$key);
 			return false;
 		}
@@ -150,12 +150,12 @@ class dbPosts extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( helperFilesystem::rmfile(PATH_POSTS.$key.'/index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_POSTS.$key.'/index.txt') === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
 		// Delete the directory.
-		if( helperFilesystem::rmdir(PATH_POSTS.$key) === false ) {
+		if( Filesystem::rmdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_POSTS.$key);
 		}
 

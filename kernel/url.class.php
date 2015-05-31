@@ -22,7 +22,7 @@ class Url
 
 		$this->parameters = $_GET;
 
-		$this->uriStrlen = helperText::length($this->uri);
+		$this->uriStrlen = Text::length($this->uri);
 
 		$this->whereAmI = 'home';
 
@@ -147,15 +147,15 @@ class Url
 		}
 
 		// Check if the filter is in the uri.
-		$position = helperText::strpos($this->uri, $filter);
+		$position = Text::strpos($this->uri, $filter);
 		if($position===false) {
 			return false;
 		}
 
-		$start = $position + helperText::length($filter);
+		$start = $position + Text::length($filter);
 		$end = $this->uriStrlen;
 
-		$slug = helperText::cut($this->uri, $start, $end);
+		$slug = Text::cut($this->uri, $start, $end);
 		$this->slug = trim($slug, '/');
 
 		return $slug;
