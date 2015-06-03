@@ -120,7 +120,7 @@ class Post extends fileContent
 			return $url.'/'.$tmp;
 		}
 
-		return $htmlPath.'/'.$tmp;
+		return '/'.$htmlPath.'/'.$tmp;
 	}
 
 }

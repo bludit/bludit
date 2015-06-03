@@ -18,7 +18,7 @@ $parents = $pagesParents[NO_PARENT_CHAR];
 foreach($parents as $parent)
 {
 	// Print the parent
-	echo '<a class="parent" href="'.HTML_PATH_ROOT.$parent->key().'">'.$parent->title().'</a>';
+	echo '<a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
 	// Check if the parent hash children
 	if(isset($pagesParents[$parent->key()]))
@@ -29,7 +29,7 @@ foreach($parents as $parent)
 		echo '<ul>';
 		foreach($children as $child)
 		{
-			echo '<li><a class="children" href="'.HTML_PATH_ROOT.$child->key().'">— '.$child->title().'</a></li>';
+			echo '<li><a class="children" href="'.$child->permalink().'">— '.$child->title().'</a></li>';
 		}
 		echo '</ul>';
 	}

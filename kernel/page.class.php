@@ -130,7 +130,7 @@ class Page extends fileContent
 			return $url.'/'.$tmp;
 		}
 
-		return $htmlPath.'/'.$tmp;
+		return '/'.$htmlPath.'/'.$tmp;
 	}
 
 	public function parentKey()
