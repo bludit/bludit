@@ -163,5 +163,11 @@ if($Url->notFound()===false)
 	}
 }
 
+if($Url->notFound())
+{
+	$Url->setWhereAmI('page');
+	$Page = new Page('error');
+}
+
 // Build all pages
 build_all_pages();

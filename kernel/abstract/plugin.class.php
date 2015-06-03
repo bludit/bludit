@@ -115,6 +115,16 @@ class Plugin {
 		return false;
 	}
 
+	public function onAdminHead()
+	{
+		return false;
+	}
+
+	public function onAdminBody()
+	{
+		return false;
+	}
+
 	public function onSidebar()
 	{
 		return false;

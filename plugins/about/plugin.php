@@ -8,12 +8,6 @@ class pluginAbout extends Plugin {
 			'title'=>'',
 			'description'=>''
 			);
-	}	
-
-	public function onSiteHead()
-	{
-		$html = '<title>Blog &ndash; Layout Examples &ndash; Pure</title>';
-		return $html;
 	}
 
 

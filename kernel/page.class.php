@@ -109,27 +109,28 @@ class Page extends fileContent
 	}
 
 	// Returns the page permalink.
-	public function permalink()
+	public function permalink($absolute=false)
 	{
 		global $Url;
+		global $Site;
 
-		$path = '';
-		$slug = $this->slug();
-		$parent = $this->parent();
-		$filter = ltrim($Url->filters('page'), '/');
+		$url = trim($Site->url(),'/');
+		$key = $this->key();
+		$filter = trim($Url->filters('page'), '/');
+		$htmlPath = trim(HTML_PATH_ROOT,'/');
 
-		if($Url->filters('page')==HTML_PATH_ROOT) {
-			$path = HTML_PATH_ROOT;
+		if(empty($filter)) {
+			$tmp = $key;
 		}
 		else {
-			$path = HTML_PATH_ROOT.$filter.'/';
+			$tmp = $filter.'/'.$key;
 		}
 
-		if($parent===false) {
-			return $path.$slug;
+		if($absolute) {
+			return $url.'/'.$tmp;
 		}
 
-		return $path.$parent.'/'.$slug;
+		return $htmlPath.'/'.$tmp;
 	}
 
 	public function parentKey()

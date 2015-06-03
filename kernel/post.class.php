@@ -99,16 +99,28 @@ class Post extends fileContent
 		return $this->getField('key');
 	}
 
-	public function permalink()
+	public function permalink($absolute=false)
 	{
 		global $Url;
+		global $Site;
 
-		$filter = ltrim($Url->filters('post'), '/');
+		$url = trim($Site->url(),'/');
+		$key = $this->key();
+		$filter = trim($Url->filters('post'), '/');
+		$htmlPath = trim(HTML_PATH_ROOT,'/');
 
-		if($Url->filters('post')==HTML_PATH_ROOT)
-			return HTML_PATH_ROOT.$this->slug();
+		if(empty($filter)) {
+			$tmp = $key;
+		}
+		else {
+			$tmp = $filter.'/'.$key;
+		}
 
-		return HTML_PATH_ROOT.$filter.$this->slug();
+		if($absolute) {
+			return $url.'/'.$tmp;
+		}
+
+		return $htmlPath.'/'.$tmp;
 	}
 
 }

@@ -3,7 +3,9 @@
 $plugins = array(
 	'onSiteHead'=>array(),
 	'onSiteBody'=>array(),
-	'onSidebar'=>array()
+	'onSidebar'=>array(),
+	'onAdminHead'=>array(),
+	'onAdminBody'=>array()
 );
 
 function build_plugins()
@@ -13,12 +15,13 @@ function build_plugins()
 	// List plugins directories
 	$list = Filesystem::listDirectories(PATH_PLUGINS);
 
-	// Get declared clasess before load plugins clasess
+	// Get declared clasess before load plugins clasess, this list doesn't have the plugins clasess.
 	$currentDeclaredClasess = get_declared_classes();
 
-	// Load each clasess
-	foreach($list as $pluginPath)
+	// Load each plugin clasess
+	foreach($list as $pluginPath) {
 		include($pluginPath.'/plugin.php');
+	}
 
 	// Get plugins clasess loaded
 	$pluginsDeclaredClasess = array_diff(get_declared_classes(), $currentDeclaredClasess);
@@ -35,9 +38,13 @@ function build_plugins()
 
 		if($Plugin->onSidebar()!==false)
 			array_push($plugins['onSidebar'], $Plugin);
+
+		if($Plugin->onAdminHead()!==false)
+			array_push($plugins['onAdminHead'], $Plugin);
+
+		if($Plugin->onAdminBody()!==false)
+			array_push($plugins['onAdminBody'], $Plugin);
 	}
 }
 
 build_plugins();
-
-?>

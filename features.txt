@@ -5,12 +5,13 @@ Diego Najar
 Implementar
 - Links a Google+, Facebook y Twitter
 - Plugins
-- Plugins SEO, description, opengaph, etc..
+- Plugins SEO, description, opengraph, etc..
 - Comentarios
 - Notificaciones
-- Dashboard, parecido a Nibbleblog, me gusta.
 - iPhone app
 - Cloud
+- ver casos de errores, filtros url iguales, con una /
+- No permitir en filtros url iguales, agregar / al comienzo y final
 - Usuarios de lectura ?, no vale la pena, y hay que hacer mas controles a nivel de administracion.
 - Implementar algun limpiador**
 
@@ -26,14 +27,6 @@ Habilitar rewriterules en el server, httpd.conf
 AllowOverride All
 
 ————
-
-Objetos tipo estáticos, que empiecen con la letra h o la palabra helper.
-
-hText::
-hUrl::
-
-helperText::
-helperUrl::
 
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
 find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
@@ -52,17 +45,13 @@ Si cambia el parent
  verificar parent
  mover directorio adentro del parent
 
-
-
 Editar usuario
 1- Usuario logueado
 2- Ver si el usuario es administrador o si es el mismo usuario que se esta editando.
 
-
 —————————
 
-
-- Las Friendly URL son Case sensitive.
+- Friendly URL son Case sensitive.
 
 —————————
 Editando a mano
