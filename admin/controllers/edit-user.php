@@ -11,7 +11,7 @@ function editUser($args)
 	if(isset($args['password']))
 	{
 		if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) ) {
-			return $dbUsers->set($args);
+			return $dbUsers->setPassword($args);
 		}
 		else {
 			Alert::set('Passwords are differents.');
