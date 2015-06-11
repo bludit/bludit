@@ -26,8 +26,11 @@ class Plugin {
 		// Class Name
 		$this->className = $reflector->getName();
 
+		// Initialize dbFields from the children.
+		$this->init();
+
 		// Init empty database
-		$this->db = array();
+		$this->db = $this->dbFields;
 
 		$this->fileDb = PATH_PLUGINS_DATABASES.$this->directoryName.'/db.php';
 
@@ -39,15 +42,21 @@ class Plugin {
 		}
 	}
 
+	public function title()
+	{
+		//var_dump($this->db);
+		return $this->db['title'];
+	}
+
 	// Return TRUE if the installation success, otherwise FALSE.
 	public function install()
 	{
-		if($this->installed())
+		if($this->installed()) {
 			return false;
+		}
 
 		// Create plugin directory for databases and others files.
-		if( !mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true) )
-			return false;
+		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
 		if( !empty($this->dbFields) )
 		{
@@ -60,7 +69,8 @@ class Plugin {
 
 	public function uninstall()
 	{
-
+		unlink($this->fileDb);
+		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
 	}
 
 	public function installed()
@@ -70,7 +80,8 @@ class Plugin {
 
 	public function init()
 	{
-
+		// This method is used on childre classes.
+		// The user can define your own dbFields.
 	}
 
 	// DEBUG: Ver si se usa

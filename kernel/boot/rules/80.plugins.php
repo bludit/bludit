@@ -5,7 +5,8 @@ $plugins = array(
 	'onSiteBody'=>array(),
 	'onSidebar'=>array(),
 	'onAdminHead'=>array(),
-	'onAdminBody'=>array()
+	'onAdminBody'=>array(),
+	'all'=>array()
 );
 
 function build_plugins()
@@ -30,20 +31,27 @@ function build_plugins()
 	{
 		$Plugin = new $pluginClass;
 
-		if($Plugin->onSiteHead()!==false)
-			array_push($plugins['onSiteHead'], $Plugin);
+		// All plugins installed and not installed.
+		array_push($plugins['all'], $Plugin);
 
-		if($Plugin->onSiteBody()!==false)
-			array_push($plugins['onSiteBody'], $Plugin);
+		// If the plugin installed, then add the plugin on the arrays.
+		if($Plugin->installed())
+		{
+			if($Plugin->onSiteHead()!==false)
+				array_push($plugins['onSiteHead'], $Plugin);
 
-		if($Plugin->onSidebar()!==false)
-			array_push($plugins['onSidebar'], $Plugin);
+			if($Plugin->onSiteBody()!==false)
+				array_push($plugins['onSiteBody'], $Plugin);
 
-		if($Plugin->onAdminHead()!==false)
-			array_push($plugins['onAdminHead'], $Plugin);
+			if($Plugin->onSidebar()!==false)
+				array_push($plugins['onSidebar'], $Plugin);
 
-		if($Plugin->onAdminBody()!==false)
-			array_push($plugins['onAdminBody'], $Plugin);
+			if($Plugin->onAdminHead()!==false)
+				array_push($plugins['onAdminHead'], $Plugin);
+
+			if($Plugin->onAdminBody()!==false)
+				array_push($plugins['onAdminBody'], $Plugin);
+		}
 	}
 }
 
