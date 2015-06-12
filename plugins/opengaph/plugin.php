@@ -6,7 +6,7 @@ class pluginOpenGraph extends Plugin {
 	{
 		$this->dbFields = array(
 			'title'=>'Open Graph',
-			'description'=>''
+			'description'=>'The Open Graph protocol enables any web page to become a rich object in a social graph.'
 			);
 	}
 

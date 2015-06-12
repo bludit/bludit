@@ -71,7 +71,6 @@ a:hover {
 
 /* ----------- CONTENT ----------- */
 #content {
-    overflow: auto;
     margin: 20px;
 }
 
@@ -96,6 +95,20 @@ form h4 {
 p.advOptions {
     color: #777;
     font-size: 0.8em;
+}
+
+/* ----------- PLUGINS ----------- */
+div.pluginBox {
+    background: rgba(234, 234, 234, 0.18) none repeat scroll 0 0;
+    border-radius: 2px;
+    padding: 10px;
+    width: 70%;
+    box-shadow: 0 2px 5px 0 rgba(183, 183, 183, 0.26);
+    margin-bottom: 20px;
+}
+
+div.pluginBox p {
+    margin-bottom: 10px;
 }
 
 /* ----------- SUB-NAVBAR ----------- */

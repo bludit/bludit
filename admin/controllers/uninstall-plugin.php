@@ -23,6 +23,6 @@ if($Login->role()!=='admin') {
 $pluginClassName = $layout['parameters'];
 
 $Plugin = new $pluginClassName;
-$Plugin->install();
+$Plugin->uninstall();
 
 Redirect::page('admin', 'plugins');

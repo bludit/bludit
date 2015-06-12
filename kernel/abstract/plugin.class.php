@@ -44,8 +44,25 @@ class Plugin {
 
 	public function title()
 	{
-		//var_dump($this->db);
-		return $this->db['title'];
+		if(isset($this->db['title'])) {
+			return $this->db['title'];
+		}
+
+		return '';
+	}
+
+	public function description()
+	{
+		if(isset($this->db['description'])) {
+			return $this->db['description'];
+		}
+
+		return '';
+	}
+
+	public function className()
+	{
+		return $this->className;
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.

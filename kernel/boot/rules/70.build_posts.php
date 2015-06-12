@@ -110,6 +110,7 @@ else
 	}
 	else
 	{
+		// Build post for the site, without the drafts posts
 		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), false);
 	}
 }
