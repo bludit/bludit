@@ -36,9 +36,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 define('SALT_LENGTH', 8);
 
 // Bludit version
-define('BLUDIT_VERSION',		'0.1 beta1');
+define('BLUDIT_VERSION',		'githubVersion');
 define('BLUDIT_CODENAME',		'');
-define('BLUDIT_RELEASE_DATE',	'2015-05-13');
+define('BLUDIT_RELEASE_DATE',	'');
 
 //
 define('NO_PARENT_CHAR', '—');
