@@ -38,7 +38,7 @@ class fileContent
 
 	private function build($pathSlug)
 	{
-		if( !Sanitize::pathFile($this->path.$pathSlug.'/', 'index.txt') ) {
+		if( !Sanitize::pathFile($this->path.$pathSlug.DS, 'index.txt') ) {
 			return false;
 		}
 
@@ -49,7 +49,7 @@ class fileContent
 		$this->setField('key', $pathSlug);
 
 		$tmp = 0;
-		$lines = file($this->path.$pathSlug.'/index.txt');
+		$lines = file($this->path.$pathSlug.DS.'index.txt');
 		foreach($lines as $lineNumber=>$line)
 		{
 			$parts = array_map('trim', explode(':', $line, 2));

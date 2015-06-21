@@ -2,17 +2,20 @@
 // Security constant
 define('BLUDIT', true);
 
+// Directory separator
+define('DS', DIRECTORY_SEPARATOR);
+
 // PATHs
-define('PATH_ROOT',					__DIR__.'/');
-define('PATH_CONTENT',				PATH_ROOT.'content/');
-define('PATH_POSTS',                PATH_CONTENT.'posts/');
-define('PATH_UPLOADS',              PATH_CONTENT.'uploads/');
-define('PATH_PAGES',				PATH_CONTENT.'pages/');
-define('PATH_DATABASES',			PATH_CONTENT.'databases/');
-define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases/plugins/');
+define('PATH_ROOT',					__DIR__.DS);
+define('PATH_CONTENT',				PATH_ROOT.'content'.DS);
+define('PATH_POSTS',                PATH_CONTENT.'posts'.DS);
+define('PATH_UPLOADS',              PATH_CONTENT.'uploads'.DS);
+define('PATH_PAGES',				PATH_CONTENT.'pages'.DS);
+define('PATH_DATABASES',			PATH_CONTENT.'databases'.DS);
+define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('DOMAIN',                    getenv('HTTP_HOST'));
 
-$base = (dirname(getenv('SCRIPT_NAME'))=='/')?'/':dirname(getenv('SCRIPT_NAME')).'/';
+$base = (dirname(getenv('SCRIPT_NAME'))==DS)?DS:dirname(getenv('SCRIPT_NAME')).DS;
 define('HTML_PATH_ROOT', $base);
 
 if(!defined('JSON_PRETTY_PRINT')) {
@@ -200,7 +203,7 @@ function install($adminPassword, $email)
     $data = 'Title: Error
     Content: The page has not been found.';
 
-    file_put_contents(PATH_PAGES.'error/index.txt', $data, LOCK_EX);
+    file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
 
 // File index.txt for welcome post
 $data = 'title: First post
@@ -217,7 +220,7 @@ What\'s next:
 - Read the documentation for more information
 - Share with your friend :D';
 
-    file_put_contents(PATH_POSTS.$firstPostSlug.'/index.txt', $data, LOCK_EX);
+    file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
 
     return true;
 }

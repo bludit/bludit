@@ -1,31 +1,33 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// PHP PATHS
-define('PATH_LANGUAGES',			PATH_ROOT.'languages/');
-define('PATH_THEMES',				PATH_ROOT.'themes/');
-define('PATH_PLUGINS',				PATH_ROOT.'plugins/');
-
-define('PATH_KERNEL',				PATH_ROOT.'kernel/');
-define('PATH_ABSTRACT',				PATH_ROOT.'kernel/abstract/');
-define('PATH_RULES',				PATH_ROOT.'kernel/boot/rules/');
-define('PATH_HELPERS',				PATH_ROOT.'kernel/helpers/');
-define('PATH_AJAX',					PATH_ROOT.'kernel/ajax/');
-define('PATH_JS',					PATH_ROOT.'kernel/js/');
-
-define('PATH_CONTENT',				PATH_ROOT.'content/');
-define('PATH_POSTS',				PATH_CONTENT.'posts/');
-define('PATH_PAGES',				PATH_CONTENT.'pages/');
-define('PATH_DATABASES',			PATH_CONTENT.'databases/');
-define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases/plugins/');
-define('PATH_UPLOADS',				PATH_CONTENT.'uploads/');
-
-define('PATH_ADMIN_THEMES',			PATH_ROOT.'admin/themes/');
-define('PATH_ADMIN_CONTROLLERS',	PATH_ROOT.'admin/controllers/');
-define('PATH_ADMIN_VIEWS',			PATH_ROOT.'admin/views/');
-
-// Log
 // Log separator
 define('LOG_SEP', ' | ');
+
+// PHP PATHS
+
+// PATH_ROOT and PATH_BOOT are defined in index.php
+define('PATH_LANGUAGES',			PATH_ROOT.'languages'.DS);
+define('PATH_THEMES',				PATH_ROOT.'themes'.DS);
+define('PATH_PLUGINS',				PATH_ROOT.'plugins'.DS);
+
+define('PATH_KERNEL',				PATH_ROOT.'kernel'.DS);
+define('PATH_ABSTRACT',				PATH_KERNEL.'abstract'.DS);
+define('PATH_RULES',				PATH_KERNEL.'boot'.DS.'rules'.DS);
+define('PATH_HELPERS',				PATH_KERNEL.'helpers'.DS);
+define('PATH_AJAX',					PATH_KERNEL.'ajax'.DS);
+define('PATH_JS',					PATH_KERNEL.'js'.DS);
+
+define('PATH_CONTENT',				PATH_ROOT.'content'.DS);
+define('PATH_POSTS',				PATH_CONTENT.'posts'.DS);
+define('PATH_PAGES',				PATH_CONTENT.'pages'.DS);
+define('PATH_DATABASES',			PATH_CONTENT.'databases'.DS);
+define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
+define('PATH_UPLOADS',				PATH_CONTENT.'uploads'.DS);
+
+define('PATH_ADMIN',				PATH_ROOT.'admin'.DS);
+define('PATH_ADMIN_THEMES',			PATH_ADMIN.'themes'.DS);
+define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
+define('PATH_ADMIN_VIEWS',			PATH_ADMIN.'views'.DS);
 
 // JSON pretty print
 if(!defined('JSON_PRETTY_PRINT')) {

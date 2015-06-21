@@ -20,14 +20,15 @@ $loadTime = microtime(true);
 // Security constant
 define('BLUDIT', true);
 
+// Directory separator
+define('DS', DIRECTORY_SEPARATOR);
+
 // PHP paths
-define('PATH_ROOT', __DIR__.'/');
-define('PATH_BOOT',	PATH_ROOT.'kernel/boot/');
+define('PATH_ROOT', __DIR__.DS);
+define('PATH_BOOT',	PATH_ROOT.'kernel'.DS.'boot'.DS);
 
 // Init
 require(PATH_BOOT.'init.php');
-
-
 
 // Admin area
 if($Url->whereAmI()==='admin')

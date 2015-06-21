@@ -50,14 +50,14 @@ else
 	}
 
 	// Admin theme init.php
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().'/init.php') )
-		include(PATH_ADMIN_THEMES.$Site->adminTheme().'/init.php');
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') )
+		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.'init.php');
 
 	// Load controller
 	if( Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php') )
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
 
 	// Load view and theme
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().'/'.$layout['template']) )
-		include(PATH_ADMIN_THEMES.$Site->adminTheme().'/'.$layout['template']);
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) )
+		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.$layout['template']);
 }

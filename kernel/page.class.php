@@ -146,7 +146,7 @@ class Page extends fileContent
 	public function children()
 	{
 		$tmp = array();
-		$paths = glob(PATH_PAGES.$this->getField('key').'/*', GLOB_ONLYDIR);
+		$paths = glob(PATH_PAGES.$this->getField('key').DS.'*', GLOB_ONLYDIR);
 		foreach($paths as $path) {
 			array_push($tmp, basename($path));
 		}

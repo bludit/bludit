@@ -7,9 +7,9 @@ include(PATH_RULES.'80.plugins.php');
 include(PATH_RULES.'99.header.php');
 
 // Theme init.php
-if( Sanitize::pathFile(PATH_THEMES, $Site->theme().'/init.php') )
-	include(PATH_THEMES.$Site->theme().'/init.php');
+if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'init.php') )
+	include(PATH_THEMES.$Site->theme().DS.'init.php');
 
 // Theme HTML
-if( Sanitize::pathFile(PATH_THEMES, $Site->theme().'/index.php') )
-	include(PATH_THEMES.$Site->theme().'/index.php');
+if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'index.php') )
+	include(PATH_THEMES.$Site->theme().DS.'index.php');
