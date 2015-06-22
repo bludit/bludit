@@ -165,7 +165,7 @@ function install($adminPassword, $email)
         'description'=>'',
         'footer'=>'Footer text - ©2015',
         'language'=>'english',
-        'locale'=>'en_EN',
+        'locale'=>'en_US',
         'timezone'=>'UTC',
         'theme'=>'pure',
         'adminTheme'=>'default',
