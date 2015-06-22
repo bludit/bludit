@@ -130,6 +130,10 @@ class Page extends fileContent
 			return $url.'/'.$tmp;
 		}
 
+		if(empty($htmlPath)) {
+			return '/'.$tmp;
+		}
+
 		return '/'.$htmlPath.'/'.$tmp;
 	}
 
