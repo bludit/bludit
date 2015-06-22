@@ -108,13 +108,8 @@ $Url 		= new Url();
 $Parsedown 	= new Parsedown();
 
 // HTML PATHs
-$tmp = dirname(getenv('SCRIPT_NAME'));
-if($tmp!='/') {
-	define('HTML_PATH_ROOT', $tmp.'/');
-}
-else {
-	define('HTML_PATH_ROOT', $tmp);
-}
+$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
+define('HTML_PATH_ROOT', $base);
 
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
 define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');

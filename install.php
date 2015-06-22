@@ -15,7 +15,8 @@ define('PATH_DATABASES',			PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('DOMAIN',                    getenv('HTTP_HOST'));
 
-$base = (dirname(getenv('SCRIPT_NAME'))==DS)?DS:dirname(getenv('SCRIPT_NAME')).DS;
+// HTML PATHs
+$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
 define('HTML_PATH_ROOT', $base);
 
 if(!defined('JSON_PRETTY_PRINT')) {
