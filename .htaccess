@@ -1,8 +1,5 @@
 AddDefaultCharset UTF-8
 
-# Remove the trailing slash from URL
-DirectorySlash Off
-
 # Enable rewrite rules
 RewriteEngine on
 

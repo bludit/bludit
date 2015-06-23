@@ -28,7 +28,7 @@ class Url
 
 		$this->notFound = false;
 
-		$this->slug = false;
+		$this->slug = '';
 
 		$this->filters = array();
 	}
@@ -52,9 +52,16 @@ class Url
 
 		foreach($filters as $filterKey=>$filter)
 		{
+			// getSlugAfterFilter() set the variable $this->slug
 			$slug = $this->getSlugAfterFilter($filter);
+
+			// If the filter is included in the URI.
 			if($slug!==false)
 			{
+				// Where Am I is the filter now, because is in the URI.
+				$this->whereAmI = $filterKey;
+
+				// If the slug empty
 				if(empty($slug))
 				{
 					if($filter==='/')
@@ -63,10 +70,15 @@ class Url
 						break;
 					}
 
+					if($filter===$adminFilter['admin'])
+					{
+						$this->whereAmI = 'admin';
+						break;
+					}
+
 					$this->setNotFound(true);
 				}
 
-				$this->whereAmI = $filterKey;
 				break;
 			}
 		}
@@ -137,8 +149,8 @@ class Url
 	}
 
 	// Return the slug after the $filter
-	// If the filter is not contain in the uri, returns FALSE
-	// If the filter is contain in the uri and the slug is not empty, returns the slug
+	// If the filter is not included in the uri, returns FALSE
+	// If the filter is included in the uri and the slug is not empty, returns the slug
 	// ex: http://domain.com/cms/$filter/slug123 => slug123
 	private function getSlugAfterFilter($filter)
 	{
