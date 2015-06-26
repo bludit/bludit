@@ -49,16 +49,18 @@ function checkSystem()
         $phpModules = get_loaded_extensions();
     }
 
-    if(!file_exists(PATH_ROOT.'.htaccess'))
-    {
-        $errorText = 'Missing file, upload the file .htaccess (ERR_201)';
-        error_log($errorText, 0);
-        array_push($stdOut, $errorText);
-    }
-
     if(!version_compare(phpversion(), '5.3', '>='))
     {
         $errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
+        error_log($errorText, 0);
+        array_push($stdOut, $errorText);
+
+        return $stdOut;
+    }
+
+    if(!file_exists(PATH_ROOT.'.htaccess'))
+    {
+        $errorText = 'Missing file, upload the file .htaccess (ERR_201)';
         error_log($errorText, 0);
         array_push($stdOut, $errorText);
     }
