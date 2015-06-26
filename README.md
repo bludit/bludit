@@ -1,9 +1,9 @@
-[Bludit](http://www.bludit.com/) — Fast, Simple, Extensible and Flat-file CMS.
-==============================================================================
+[Bludit](http://www.bludit.com/) — Flat-file CMS
+================================================
 
-[Documentation](http://docs.bludit.com/en/)
-[Help and Support](http://forum.bludit.com)
-[Follow Bludit on Twitter](https://twitter.com/bludit)
+- [Documentation](http://docs.bludit.com/en/)
+- [Help and Support](http://forum.bludit.com)
+- [Follow Bludit on Twitter](https://twitter.com/bludit)
 
 Requirements
 ------------
