@@ -16,8 +16,7 @@ class dbJSON
 		{
 			$lines = file($file);
 
-			if($firstLine)
-			{
+			if($firstLine) {
 				// Remove the first line.
 				unset($lines[0]);
 			}
@@ -30,6 +29,11 @@ class dbJSON
 		{
 			Log::set(__METHOD__.LOG_SEP.'File '.$file.' dosent exists');
 		}
+	}
+
+	public function count()
+	{
+		return count($this->db);
 	}
 
 	public function save()

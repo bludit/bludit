@@ -54,13 +54,15 @@ define('JSON', function_exists('json_encode'));
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('HANDMADE_PUBLISHED', true);
 
+define('CHARSET', 'UTF-8');
+
 if(MB_STRING)
 {
 	// Tell PHP that we're using UTF-8 strings until the end of the script.
-	mb_internal_encoding('UTF-8');
+	mb_internal_encoding(CHARSET);
 
 	// Tell PHP that we'll be outputting UTF-8 to the browser.
-	mb_http_output('UTF-8');
+	mb_http_output(CHARSET);
 }
 
 // Abstract Classes

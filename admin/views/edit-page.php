@@ -11,7 +11,7 @@
 
     <label>
         Content <span class="forms-desc">HTML and Markdown code supported.</span>
-        <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw() ?></textarea>
+        <textarea name="content" rows="10" class="width-70"><?php echo htmlspecialchars($_Page->contentRaw(), ENT_COMPAT|ENT_HTML5, CHARSET) ?></textarea>
     </label>
 
 <?php

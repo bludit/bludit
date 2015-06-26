@@ -9,7 +9,7 @@ class dbSite extends dbJSON
 		'footer'=>		array('inFile'=>false, 'value'=>''),
 		'postsperpage'=>array('inFile'=>false, 'value'=>''),
 		'language'=>	array('inFile'=>false, 'value'=>'en'),
-		'locale'=>		array('inFile'=>false, 'value'=>'en_EN'),
+		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
 		'timezone'=>	array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
 		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
 		'adminTheme'=>	array('inFile'=>false, 'value'=>'kure'),

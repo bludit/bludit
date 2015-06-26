@@ -5,7 +5,7 @@ class Sanitize {
 	// new
 	public static function html($text)
 	{
-		return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+		return htmlspecialchars($text, ENT_COMPAT|ENT_HTML5, CHARSET);
 	}
 
 	public static function pathFile($path, $file)

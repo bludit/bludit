@@ -2,12 +2,12 @@
 
 class dbLanguage extends dbJSON
 {
-	public $en_EN;
+	public $en_US;
 
 	function __construct($language)
 	{
-		parent::__construct(PATH_LANGUAGES.'en_EN.json', false);
-		$this->en_EN = $this->db;
+		parent::__construct(PATH_LANGUAGES.'en_US.json', false);
+		$this->en_US = $this->db;
 
 		parent::__construct(PATH_LANGUAGES.$language.'.json', false);
 	}
@@ -22,7 +22,7 @@ class dbLanguage extends dbJSON
 			return $this->db[$key];
 
 		// If the key is not translated then return the English translation.
-		return $this->en_EN[$key];
+		return $this->en_US[$key];
 	}
 
 	// Print the translation.

@@ -4,6 +4,23 @@ class Text {
 
 	// New
 
+	public static function addSlashes($text, $begin=true, $end=true)
+	{
+		if($begin) {
+			$text = '/' . ltrim($text, '/');
+		}
+
+		if($end) {
+			$text = rtrim($text, '/') . '/';
+		}
+
+		if($text=='//') {
+			return '/';
+		}
+
+		return $text;
+	}
+
 	public static function endsWith($string, $endsString)
 	{
 		$endsPosition = (-1)*self::length($endsString);

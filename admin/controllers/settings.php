@@ -21,6 +21,15 @@ function setSettings($args)
 		$args['advancedOptions'] = 'false';
 	}
 
+	// Add slash at the begin and end.
+	// This fields are in the settings->advanced mode
+	if(isset($args['advanced'])) {
+		$args['url'] 		= Text::addSlashes($args['url'],false,true);
+		$args['uriPost'] 	= Text::addSlashes($args['uriPost']);
+		$args['uriPage'] 	= Text::addSlashes($args['uriPage']);
+		$args['uriTag'] 	= Text::addSlashes($args['uriTag']);
+	}
+
 	if( $Site->set($args) ) {
 		Alert::set('Settings has been saved successfully');
 	}

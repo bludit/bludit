@@ -7,8 +7,9 @@ class fileContent
 
 	function __construct($pathSlug)
 	{
-		if($this->build($pathSlug)===false)
+		if($this->build($pathSlug)===false) {
 			$this->vars = false;
+		}
 	}
 
 	// Return true if valid
@@ -41,9 +42,6 @@ class fileContent
 		if( !Sanitize::pathFile($this->path.$pathSlug.DS, 'index.txt') ) {
 			return false;
 		}
-
-		// Path
-		//$this->setField('path', $this->path);
 
 		// Database Key
 		$this->setField('key', $pathSlug);
@@ -84,7 +82,10 @@ class fileContent
 				array_unshift($output, $parts[1]);
 			}
 
-			$this->vars['content'] = implode($output);
+			$implode = implode($output);
+
+			// Sanitize content.
+			$this->vars['content'] = Sanitize::html($implode);
 		}
 
 	}

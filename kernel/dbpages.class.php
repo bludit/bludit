@@ -146,7 +146,7 @@ class dbPages extends dbJSON
 			}
 		}
 
-		// Make the directory. Recursive.
+		// Move the directory from old key to new key.
 		if($newKey!==$args['key'])
 		{
 			if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
@@ -157,7 +157,7 @@ class dbPages extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$newKey.'/index.txt', $data) === false ) {
+		if( file_put_contents(PATH_PAGES.$newKey.DS.'index.txt', $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}
@@ -183,7 +183,7 @@ class dbPages extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( Filesystem::rmfile(PATH_PAGES.$key.'/index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_PAGES.$key.DS.'index.txt') === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
@@ -313,18 +313,18 @@ class dbPages extends dbJSON
 		{
 			$key = basename($directory);
 
-			if(file_exists($directory.'/index.txt')){
+			if(file_exists($directory.DS.'index.txt')){
 				// The key is the directory name
 				$paths[$key] = true;
 			}
 
 			// Recovery pages from subdirectories
-			$subPaths = glob($directory.'/*', GLOB_ONLYDIR);
+			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
 			foreach($subPaths as $subDirectory)
 			{
 				$subKey = basename($subDirectory);
 
-				if(file_exists($subDirectory.'/index.txt')) {
+				if(file_exists($subDirectory.DS.'index.txt')) {
 					// The key is composed by the directory/subdirectory
 					$paths[$key.'/'.$subKey] = true;
 				}
@@ -347,7 +347,7 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $this->db!=$db;
 	}
 
 }

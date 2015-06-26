@@ -3,7 +3,7 @@
 <form method="post" action="" class="forms">
 
     <input type="hidden" id="key" name="key" value="<?php echo $_Post->key() ?>">
-
+<?php var_dump($_Post->title()); ?>
     <label>
         Title
         <input id="title" name="title" type="text" class="width-70" value="<?php echo $_Post->title() ?>">

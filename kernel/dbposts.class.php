@@ -113,7 +113,7 @@ class dbPosts extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_POSTS.$key.'/index.txt', $data) === false ) {
+		if( file_put_contents(PATH_POSTS.$key.DS.'index.txt', $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}
@@ -150,7 +150,7 @@ class dbPosts extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( Filesystem::rmfile(PATH_POSTS.$key.'/index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_POSTS.$key.DS.'index.txt') === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
@@ -195,8 +195,9 @@ class dbPosts extends dbJSON
 		// Username
 		$fields['username'] = 'admin';
 
-		if(HANDMADE_PUBLISHED)
+		if(HANDMADE_PUBLISHED) {
 			$fields['status']='published';
+		}
 
 		// Recovery pages from the first level of directories
 		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
@@ -204,7 +205,7 @@ class dbPosts extends dbJSON
 		{
 			$key = basename($directory);
 
-			if(file_exists($directory.'/index.txt')) {
+			if(file_exists($directory.DS.'index.txt')) {
 				// The key is the directory name
 				$paths[$key] = true;
 			}
@@ -220,7 +221,13 @@ class dbPosts extends dbJSON
 			$this->db[$slug] = $fields;
 		}
 
-		$this->save();
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return $this->db!=$db;
 	}
 
 	public function getPage($pageNumber, $postPerPage, $draftPosts=false)
