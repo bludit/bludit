@@ -153,7 +153,12 @@ class Plugin {
 		return false;
 	}
 
-	public function onSidebar()
+	public function onSiteSidebar()
+	{
+		return false;
+	}
+
+	public function onAdminSidebar()
 	{
 		return false;
 	}

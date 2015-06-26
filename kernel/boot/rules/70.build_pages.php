@@ -1,7 +1,15 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// ============================================================================
+// Variables
+// ============================================================================
+
 $pages = array();
 $pagesParents = array(NO_PARENT_CHAR=>array());
+
+// ============================================================================
+// Functions
+// ============================================================================
 
 function orderChildren($a, $b)
 {
@@ -130,6 +138,13 @@ function build_all_pages()
 	$pagesParents = array(NO_PARENT_CHAR=>$tmpNoParents) + $tmp;
 }
 
+// ============================================================================
+// Main
+// ============================================================================
+
+// Plugins before load pages
+Theme::plugins('beforePagesLoad');
+
 // Filter by page, then build it
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
@@ -171,3 +186,6 @@ if($Url->notFound())
 
 // Build all pages
 build_all_pages();
+
+// Plugins after load pages
+Theme::plugins('afterPagesLoad');

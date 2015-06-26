@@ -84,7 +84,6 @@ class Theme {
 		return $tmp;
 	}
 
-	// OLD
 	public static function plugins($type)
 	{
 		global $plugins;
@@ -96,6 +95,7 @@ class Theme {
 	}
 
 
+	// OLD
 
 	public static function url($relative = true)
 	{
@@ -104,10 +104,6 @@ class Theme {
 		else
 			return BLOG_URL;
 	}
-
-
-
-
 
 	public static function jquery($path=JS_JQUERY)
 	{

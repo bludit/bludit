@@ -2,17 +2,22 @@
 <html>
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Your page title</title>
+	<title>Your page title</title>
 
-    <link rel="stylesheet" href="./css/kube.min.css">
-    <link rel="stylesheet" href="./css/default.css">
-    <link rel="stylesheet" href="./css/css/font-awesome.css">
+	<link rel="stylesheet" href="./css/kube.min.css">
+	<link rel="stylesheet" href="./css/default.css">
+	<link rel="stylesheet" href="./css/css/font-awesome.css">
 
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/kube.min.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/kube.min.js"></script>
+
+	<!-- Plugins -->
+	<?php
+		Theme::plugins('onAdminHead');
+	?>
 
 </head>
 
@@ -84,6 +89,11 @@ $(document).ready(function() {
 </div>
 <?php
 	include(PATH_JS.'functions.php');
+?>
+
+<!-- Plugins -->
+<?php
+	Theme::plugins('onAdminBody');
 ?>
 
 <?php
