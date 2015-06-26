@@ -56,7 +56,7 @@ function checkSystem()
         array_push($stdOut, $errorText);
     }
 
-    if(!version_compare(phpversion(), '5.2', '>'))
+    if(!version_compare(phpversion(), '5.3', '>='))
     {
         $errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
         error_log($errorText, 0);
