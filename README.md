@@ -1,4 +1,4 @@
-[Bludit](http://www.bludit.com/) — Flat-file CMS
+[Bludit](http://www.bludit.com/) — Flat file CMS
 ================================================
 
 Bludit is a fast, simple, extensible and Flat file CMS.
