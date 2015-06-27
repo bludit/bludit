@@ -14,7 +14,7 @@ function editUser($args)
 			return $dbUsers->setPassword($args);
 		}
 		else {
-			Alert::set('Passwords are differents.');
+			Alert::set('Passwords are differents');
 			return false;
 		}
 	}
@@ -39,7 +39,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 
 	if( editUser($_POST) ) {
-		Alert::set('User saved successfuly.');
+		Alert::set('User saved successfuly');
 	}
 
 }

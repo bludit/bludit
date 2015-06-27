@@ -15,12 +15,12 @@ function addPage($args)
 	// Add the page.
 	if( $dbPages->add($args) )
 	{
-		Alert::set('Page added successfuly.');
+		Alert::set('Page added successfuly');
 		Redirect::page('admin', 'manage-pages');
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to create the page.');
+		Alert::set('Error occurred when trying to create the page');
 	}
 }
 

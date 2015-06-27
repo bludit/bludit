@@ -15,12 +15,12 @@ function addPost($args)
 	// Add the page.
 	if( $dbPosts->add($args) )
 	{
-		Alert::set('Post added successfuly.');
+		Alert::set('Post added successfuly');
 		Redirect::page('admin', 'manage-posts');
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to create the post.');
+		Alert::set('Error occurred when trying to create the post');
 	}
 }
 
