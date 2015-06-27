@@ -5,7 +5,13 @@ class Sanitize {
 	// new
 	public static function html($text)
 	{
-		return htmlspecialchars($text, ENT_COMPAT|ENT_HTML5, CHARSET);
+		$flags = ENT_COMPAT;
+
+		if(defined('ENT_HTML5')) {
+			$flags = ENT_COMPAT|ENT_HTML5;
+		}
+
+		return htmlspecialchars($text, $flags, CHARSET);
 	}
 
 	public static function pathFile($path, $file)
