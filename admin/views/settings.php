@@ -18,25 +18,25 @@
     <label>
     Site title
     <input type="text" name="title" class="width-50" value="<?php echo $Site->title() ?>">
-    <div class="forms-desc">Small and concise description of the field ???</div>
+    <div class="forms-desc">Use this field to name your site, it will appear at the top of every page of your site.</div>
     </label>
 
     <label>
     Site slogan
     <input type="text" name="slogan" class="width-50" value="<?php echo $Site->slogan() ?>">
-    <div class="forms-desc">Small and concise description of the field ???</div>
+    <div class="forms-desc">Use this field to add a catchy prhase on your site.</div>
     </label>
 
     <label>
     Site description
     <input type="text" name="description" class="width-50" value="<?php echo $Site->description() ?>">
-    <div class="forms-desc">Small and concise description of the field ???</div>
+    <div class="forms-desc">You can add a site description to provide a short bio or description of your site.</div>
     </label>
 
     <label>
     Footer text
     <input type="text" name="footer" class="width-50" value="<?php echo $Site->footer() ?>">
-    <div class="forms-desc">Small and concise description of the field ???</div>
+    <div class="forms-desc">You can add a small text on the bottom of every page. eg: copyright, owner, dates, etc.</div>
     </label>
 
     <input type="submit" class="btn" value="Save" name="form-general">
@@ -59,13 +59,13 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Number of posts you want to show on the home page.</div>
+        <div class="forms-desc">Number of posts to show per page.</div>
     </label>
 
     <label>
     Site URL
     <input type="text" name="url" class="width-50" value="<?php echo $Site->url() ?>">
-    <div class="forms-desc">Small and concise description of the field ???</div>
+    <div class="forms-desc">The URL of your site.</div>
     </label>
 
     <h4>Writting Settings</h4>
@@ -73,8 +73,8 @@
     <ul class="forms-list">
         <li>
         <input type="checkbox" name="advancedOptions" id="advancedOptions" value="true" <?php echo $Site->advancedOptions()?'checked':'' ?>>
-        <label for="advancedOptions">Advanced options when writing.</label>
-        <div class="forms-desc">Add/edit friendly URL, description and tags.</div>
+        <label for="advancedOptions">Advanced options</label>
+        <div class="forms-desc">Add or edit description, tags or modify the friendly URL.</div>
         </li>
     </ul>
 
@@ -119,7 +119,7 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Small and concise description of the field ???</div>
+        <div class="forms-desc">Select your site's language.</div>
     </label>
 
     <label for="timezone">
@@ -138,7 +138,7 @@
     <label>
         Locale
         <input type="text" name="locale" class="width-50" value="<?php echo $Site->locale() ?>">
-        <div class="forms-desc">Small and concise description of the field ???</div>
+        <div class="forms-desc">You can use this field to define a set of parameters related to the languege, country and special preferences.</div>
     </label>
 
     <input type="submit" class="btn" value="Save" name="form-regional">

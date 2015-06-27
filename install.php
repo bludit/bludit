@@ -218,9 +218,9 @@ Congratulations, you have installed **Bludit** successfully!
 What\'s next:
 ---
 - Administrate your Bludit from the [Admin Area](./admin/)
-- Follow Bludit on [Twitter](https://twitter.com/bludit) / Facebook / Google+
-- Visit the forum for support
-- Read the documentation for more information
+- Follow Bludit on [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / Google+
+- Visit the [forum](http://forum.bludit.com) for support
+- Read the [documentation](http://docs.bludit.com) for more information
 - Share with your friend :D';
 
     file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);

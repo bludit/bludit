@@ -24,7 +24,7 @@
             <option value="editor">Editor</option>
             <option value="admin">Administrator</option>
         </select>
-        <div class="forms-desc">Small and concise description of the field ???</div>
+        <div class="forms-desc">You can choose the user's privilege. The editor role only can write pages and posts.</div>
     </label>
 
     <label>

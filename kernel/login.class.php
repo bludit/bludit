@@ -21,10 +21,12 @@ class Login {
 
 	public function setLogin($username, $role)
 	{
-		Session::set('username', $username);
-		Session::set('role', $role);
+		Session::set('username',	$username);
+		Session::set('role', 		$role);
 		Session::set('fingerPrint', $this->fingerPrint());
 		Session::set('sessionTime', time());
+
+		Log::set(__METHOD__.LOG_SEP.'Set fingerPrint: '.$this->fingerPrint());
 	}
 
 	public function isLogged()
@@ -36,6 +38,13 @@ class Login {
 			if(!empty($username)) {
 				return true;
 			}
+			else {
+				Log::set(__METHOD__.LOG_SEP.'Session username empty: '.$username);
+			}
+		}
+		else
+		{
+			Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. Session fingerPrint: '.Session::get('fingerPrint').' !== Current fingerPrint: '.$this->fingerPrint());
 		}
 
 		return false;
@@ -47,11 +56,13 @@ class Login {
 		$password = trim($password);
 
 		if(empty($username) || empty($password)) {
+			Log::set(__METHOD__.LOG_SEP.'Username or Password empty. Username: '.$username.' - Password: '.$password);
 			return false;
 		}
 
 		$user = $this->dbUsers->get($username);
 		if($user==false) {
+			Log::set(__METHOD__.LOG_SEP.'Username not exist: '.$username);
 			return false;
 		}
 
@@ -62,6 +73,9 @@ class Login {
 			$this->setLogin($username, $user['role']);
 
 			return true;
+		}
+		else {
+			Log::set(__METHOD__.LOG_SEP.'Password are differents.');
 		}
 
 		return false;

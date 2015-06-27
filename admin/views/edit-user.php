@@ -40,7 +40,7 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Small and concise description of the field ???</div>
+        <div class="forms-desc">You can choose the user's privilege. The editor role only can write pages and posts.</div>
     </label>
 <?php
     }
@@ -61,7 +61,7 @@
     <label>
         Email
         <input type="text" name="email" class="width-50" value="<?php echo $_user['email'] ?>">
-        <div class="forms-desc">Email will not be publicly displayed.</div>
+        <div class="forms-desc">Email will not be publicly displayed. Recommended for recovery password and notifications.</div>
     </label>
 
     <input type="submit" class="btn btn-blue" value="Save" name="user-email">

@@ -18,7 +18,7 @@
     }
     else
     {
-        echo '<p class="advOptions">You can enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
+        echo '<p class="advOptions">Enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
         echo '<div id="advancedOptions" style="display:none">';
     }
 ?>

@@ -98,5 +98,3 @@ class Site extends DB_SERIALIZE
 	}
 
 }
-
-?>

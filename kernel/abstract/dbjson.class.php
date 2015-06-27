@@ -27,7 +27,7 @@ class dbJSON
 		}
 		else
 		{
-			Log::set(__METHOD__.LOG_SEP.'File '.$file.' dosent exists');
+			Log::set(__METHOD__.LOG_SEP.'File '.$file.' does not exists');
 		}
 	}
 

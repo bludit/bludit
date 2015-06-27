@@ -6,8 +6,8 @@ class Session {
 
 	public static function start()
 	{
-		if(self::$started)
-			return true;
+		//if(self::$started)
+		//	return true;
 
 		// DEBUG: Ver un nombre con alguna llave random al momentode instalar.
     	$session_name = 'Bludit-KEY';
@@ -18,10 +18,14 @@ class Session {
     	// If set to TRUE then PHP will attempt to send the httponly flag when setting the session cookie.
     	$httponly = true;
 
+    	// This specifies the lifetime of the cookie in seconds which is sent to the browser.
+    	// The value 0 means until the browser is closed.
+    	$cookieLifetime = 0;
+
 		// Gets current cookies params.
 		$cookieParams = session_get_cookie_params();
 
-    	session_set_cookie_params($cookieParams["lifetime"],
+    	session_set_cookie_params($cookieLifetime,
         	$cookieParams["path"],
         	$cookieParams["domain"],
         	$secure,
@@ -36,6 +40,13 @@ class Session {
 
 		// Regenerated the session, delete the old one. There are problems with AJAX.
 		//session_regenerate_id(true);
+
+    	if(self::$started) {
+    		Log::set(__METHOD__.LOG_SEP.'Session started.');
+    	}
+    	else {
+    		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to start the session.');
+    	}
 	}
 
 	public static function started()
@@ -51,6 +62,8 @@ class Session {
 
 		self::$started = false;
 
+		Log::set(__METHOD__.LOG_SEP.'Session destroyed.');
+
 		return !isset($_SESSION);
 	}
 
@@ -65,8 +78,9 @@ class Session {
 	{
 		$key = 's_'.$key;
 
-		if( isset($_SESSION[$key]) )
+		if( isset($_SESSION[$key]) ) {
 			return $_SESSION[$key];
+		}
 
 		return false;
 	}
