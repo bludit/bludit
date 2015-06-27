@@ -4,30 +4,30 @@
 
     <label>
         Title
-        <input id="title" name="title" type="text" class="width-70">
+        <input id="jsTitle" name="title" type="text" class="width-70">
     </label>
 
     <label>
         Content <span class="forms-desc">HTML and Markdown code supported.</span>
-        <textarea name="content" rows="10" class="width-70"></textarea>
+        <textarea id="jsContent" name="content" rows="10" class="width-70"></textarea>
     </label>
 
 <?php
     if($Site->advancedOptions()) {
-        echo '<div id="advancedOptions">';
+        echo '<div id="jsAdvancedOptions">';
     }
     else
     {
         echo '<p class="advOptions">Enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
-        echo '<div id="advancedOptions" style="display:none">';
+        echo '<div id="jsAdvancedOptions" style="display:none">';
     }
 ?>
 
     <h4>Advanced options</h4>
 
-    <label for="parent">
+    <label for="jsParent">
         Page parent
-        <select id="parent" name="parent" class="width-50">
+        <select id="jsParent" name="parent" class="width-50">
         <?php
             $htmlOptions[NO_PARENT_CHAR] = '(No parent)';
             $htmlOptions += $dbPages->parentKeyList();
@@ -42,27 +42,27 @@
     <label>
         Friendly url
         <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->urlPage() ?><span id="parentExample"></span></span>
-            <input id="slug" name="slug" type="text">
+            <span class="input-prepend"><?php echo $Site->urlPage() ?><span id="jsParentExample"></span></span>
+            <input id="jsSlug" name="slug" type="text">
         </div>
         <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
     </label>
 
     <label>
         Description
-        <input id="description" name="description" type="text" class="width-50">
+        <input id="jsDescription" name="description" type="text" class="width-50">
         <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
     </label>
 
     <label>
         Tags
-        <input id="tags" name="tags" type="text" class="width-50">
+        <input id="jsTags" name="tags" type="text" class="width-50">
         <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
     </label>
 
     <label>
         Position
-        <input id="position" name="position" type="text" class="width-20" value="0">
+        <input id="jsPosition" name="position" type="text" class="width-20" value="0">
     </label>
 
     </div>
@@ -77,32 +77,32 @@
 $(document).ready(function()
 {
 
-    $("#slug").keyup(function() {
+    $("#jsSlug").keyup(function() {
         var text = $(this).val();
-        var parent = $("#parent").val();
+        var parent = $("#jsParent").val();
 
-        checkSlugPage(text, parent, "", $("#slug"));
+        checkSlugPage(text, parent, "", $("#jsSlug"));
     });
 
-    $("#title").keyup(function() {
+    $("#jsTitle").keyup(function() {
         var text = $(this).val();
-        var parent = $("#parent").val();
+        var parent = $("#jsParent").val();
 
-        checkSlugPage(text, parent, "", $("#slug"));
+        checkSlugPage(text, parent, "", $("#jsSlug"));
     });
 
-    $("#parent").change(function() {
+    $("#jsParent").change(function() {
         var parent = $(this).val();
-        var text = $("#slug").val();
+        var text = $("#jsSlug").val();
 
         if(parent==NO_PARENT_CHAR) {
-            $("#parentExample").text("");
+            $("#jsParentExample").text("");
         }
         else {
-            $("#parentExample").text(parent+"/");
+            $("#jsParentExample").text(parent+"/");
         }
 
-        checkSlugPage(text, parent, "", $("#slug"));
+        checkSlugPage(text, parent, "", $("#jsSlug"));
     });
 
 });

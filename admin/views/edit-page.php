@@ -2,26 +2,26 @@
 
 <form method="post" action="" class="forms">
 
-    <input type="hidden" id="key" name="key" value="<?php echo $_Page->key() ?>">
+    <input type="hidden" id="jsKey" name="key" value="<?php echo $_Page->key() ?>">
 
     <label>
         Title
-        <input id="title" name="title" type="text" class="width-70" value="<?php echo $_Page->title() ?>">
+        <input id="jsTitle" name="title" type="text" class="width-70" value="<?php echo $_Page->title() ?>">
     </label>
 
     <label>
         Content <span class="forms-desc">HTML and Markdown code supported.</span>
-        <textarea name="content" rows="10" class="width-70"><?php echo htmlspecialchars($_Page->contentRaw(), ENT_COMPAT|ENT_HTML5, CHARSET) ?></textarea>
+        <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw() ?></textarea>
     </label>
 
 <?php
     if($Site->advancedOptions()) {
-        echo '<div id="advancedOptions">';
+        echo '<div id="jsAdvancedOptions">';
     }
     else
     {
         echo '<p class="advOptions">Enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
-        echo '<div id="advancedOptions" style="display:none">';
+        echo '<div id="jsAdvancedOptions" style="display:none">';
     }
 ?>
 
@@ -33,9 +33,9 @@
         {
     ?>
 
-    <label for="parent">
+    <label for="jsParent">
         Page parent
-        <select id="parent" name="parent" class="width-50">
+        <select id="jsParent" name="parent" class="width-50">
         <?php
             $htmlOptions[NO_PARENT_CHAR] = '(No parent)';
             $htmlOptions += $dbPages->parentKeyList();
@@ -53,27 +53,27 @@
     <label>
         Friendly url
         <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->url() ?><span id="parentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
-            <input id="slug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
+            <span class="input-prepend"><?php echo $Site->url() ?><span id="jsParentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
+            <input id="jsSlug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
         </div>
         <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
     </label>
 
     <label>
         Description
-        <input id="description" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
+        <input id="jsDescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
         <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
     </label>
 
     <label>
         Tags
-        <input id="tags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
+        <input id="jsTags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
         <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
     </label>
 
     <label>
         Position
-        <input id="position" name="position" type="text" class="width-20" value="<?php echo $_Page->position() ?>">
+        <input id="jsPosition" name="position" type="text" class="width-20" value="<?php echo $_Page->position() ?>">
     </label>
 
     </div>
@@ -91,34 +91,34 @@
 
 $(document).ready(function()
 {
-    var key = $("#key").val();
+    var key = $("#jsKey").val();
 
-    $("#slug").keyup(function() {
+    $("#jsSlug").keyup(function() {
         var text = $(this).val();
-        var parent = $("#parent").val();
+        var parent = $("#jsParent").val();
 
-        checkSlugPage(text, parent, key, $("#slug"));
+        checkSlugPage(text, parent, key, $("#jsSlug"));
     });
 
-    $("#title").keyup(function() {
+    $("#jsTitle").keyup(function() {
         var text = $(this).val();
-        var parent = $("#parent").val();
+        var parent = $("#jsParent").val();
 
-        checkSlugPage(text, parent, key, $("#slug"));
+        checkSlugPage(text, parent, key, $("#jsSlug"));
     });
 
-    $("#parent").change(function() {
+    $("#jsParent").change(function() {
         var parent = $(this).val();
-        var text = $("#slug").val();
+        var text = $("#jsSlug").val();
 
         if(parent==NO_PARENT_CHAR) {
-            $("#parentExample").text("");
+            $("#jsParentExample").text("");
         }
         else {
-            $("#parentExample").text(parent+"/");
+            $("#jsParentExample").text(parent+"/");
         }
 
-        checkSlugPage(text, parent, key, $("#slug"));
+        checkSlugPage(text, parent, key, $("#jsSlug"));
     });
 
 });

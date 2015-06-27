@@ -73,6 +73,7 @@ class Url
 					if($filter===$adminFilter['admin'])
 					{
 						$this->whereAmI = 'admin';
+						$this->slug = 'dashboard';
 						break;
 					}
 
