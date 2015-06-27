@@ -3,6 +3,8 @@
 class Sanitize {
 
 	// new
+
+	// Convert special characters to HTML entities
 	public static function html($text)
 	{
 		$flags = ENT_COMPAT;
@@ -12,6 +14,18 @@ class Sanitize {
 		}
 
 		return htmlspecialchars($text, $flags, CHARSET);
+	}
+
+	// Convert special HTML entities back to characters
+	public static function htmlDecode($text)
+	{
+		$flags = ENT_COMPAT;
+
+		if(defined('ENT_HTML5')) {
+			$flags = ENT_COMPAT|ENT_HTML5;
+		}
+
+		return htmlspecialchars_decode($text, $flags);
 	}
 
 	public static function pathFile($path, $file)

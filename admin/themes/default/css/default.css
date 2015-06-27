@@ -169,6 +169,7 @@ div.pluginBox {
     box-sizing: border-box;
     padding: 20px;
     width: 70%;
+    margin-bottom: 20px;
 }
 
 div.pluginBox p {

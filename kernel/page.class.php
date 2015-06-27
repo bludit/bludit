@@ -16,14 +16,31 @@ class Page extends fileContent
 	}
 
 	// Returns the post content.
-	public function content()
+	// This content is markdown parser.
+	public function content($html=true)
 	{
-		return $this->getField('content');
+		// This content is not sanitized.
+		$content = $this->getField('content');
+
+		if($html) {
+			return $content;
+		}
+
+		return Sanitize::html($content);
 	}
 
-	public function contentRaw()
+	// Returns the post content.
+	// This content is not markdown parser.
+	public function contentRaw($html=true)
 	{
-		return $this->getField('contentRaw');
+		// This content is not sanitized.
+		$contentRaw = $this->getField('contentRaw');
+
+		if($html) {
+			return $contentRaw;
+		}
+
+		return Sanitize::html($contentRaw);
 	}
 
 	public function description()

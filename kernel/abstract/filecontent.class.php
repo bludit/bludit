@@ -83,9 +83,10 @@ class fileContent
 			}
 
 			$implode = implode($output);
+			$this->vars['content'] = $implode;
 
 			// Sanitize content.
-			$this->vars['content'] = Sanitize::html($implode);
+			//$this->vars['content'] = Sanitize::html($implode);
 		}
 
 	}
