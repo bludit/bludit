@@ -113,9 +113,9 @@
         Language
         <select name="language" class="width-50">
         <?php
-            $htmlOptions = array('English'=>'english');
-            foreach($htmlOptions as $text=>$value) {
-                echo '<option value="'.$value.'"'.( ($Site->language()===$value)?' selected="selected"':'').'>'.$text.'</option>';
+            $htmlOptions = $Language->getLanguageList();
+            foreach($htmlOptions as $locale=>$nativeName) {
+                echo '<option value="'.$locale.'"'.( ($Site->language()===$locale)?' selected="selected"':'').'>'.$nativeName.'</option>';
             }
         ?>
         </select>

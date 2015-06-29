@@ -17,7 +17,7 @@ class dbSite extends dbJSON
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		//'url'=>			array('inFile'=>false, 'value'=>''),
+		'url'=>			array('inFile'=>false, 'value'=>''),
 		'advancedOptions'=> array('inFile'=>false, 'value'=>'false')
 	);
 

@@ -2,23 +2,21 @@
 
 class Text {
 
-	// New
-
-	public static function addSlashes($text, $begin=true, $end=true)
+	public static function addSlashes($string, $begin=true, $end=true)
 	{
 		if($begin) {
-			$text = '/' . ltrim($text, '/');
+			$string = '/' . ltrim($string, '/');
 		}
 
 		if($end) {
-			$text = rtrim($text, '/') . '/';
+			$string = rtrim($string, '/') . '/';
 		}
 
-		if($text=='//') {
+		if($string=='//') {
 			return '/';
 		}
 
-		return $text;
+		return $string;
 	}
 
 	public static function endsWith($string, $endsString)
@@ -54,25 +52,25 @@ class Text {
 		 return $text;
 	}
 
-	public static function cleanUrl($text, $separator='-')
+	public static function cleanUrl($string, $separator='-')
 	{
 		// Delete characters
-		$text = str_replace(array("“", "”", "!", "*", "&#039;", "&quot;", "(", ")", ";", ":", "@", "&amp", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", "|"),'',$text);
-		$text = preg_replace('![^\\pL\d]+!u', $separator, $text);
+		$string = str_replace(array("“", "”", "!", "*", "&#039;", "&quot;", "(", ")", ";", ":", "@", "&amp", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", "|"),'',$string);
+		$string = preg_replace('![^\\pL\d]+!u', $separator, $string);
 
 		// Remove spaces
-		$text = str_replace(' ',$separator, $text);
+		$string = str_replace(' ',$separator, $string);
 
 		//remove any additional characters that might appear after translit
-		//$text = preg_replace('![^-\w]+!', '', $text);
+		//$string = preg_replace('![^-\w]+!', '', $string);
 
 		// Replace multiple dashes
-		$text = preg_replace('/-{2,}/', $separator, $text);
+		$string = preg_replace('/-{2,}/', $separator, $string);
 
 		// Make a string lowercase
-		$text = self::lowercase($text);
+		$string = self::lowercase($string);
 
-		return $text;
+		return $string;
 	}
 
 	// Replace all occurrences of the search string with the replacement string.
@@ -150,115 +148,9 @@ class Text {
 		return false;
 	}
 
-	// Old
-	public static function unserialize($string)
+	public static function isNotEmpty($string)
 	{
-		parse_str($string, $data);
-
-		// Clean magic quotes if this enabled
-		if(get_magic_quotes_gpc())
-		{
-			$data = self::clean_magic_quotes($data);
-		}
-
-		return($data);
-	}
-
-	public static function ajax_header($tmp)
-	{
-		$xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-		$xml .= '<ajax>';
-		$xml .= $tmp;
-		$xml .= '</ajax>';
-		return( $xml );
-	}
-
-	// Clean magic quotes
-	public static function clean_magic_quotes($args)
-	{
-		$tmp_array = array();
-		foreach($args as $key => $arg)
-		{
-			$tmp_array[$key] = stripslashes($arg);
-		}
-
-		return($tmp_array);
-	}
-
-	public static function cut_text($text, $maxlength)
-	{
-		return( substr($text,0,strrpos(substr($text,0,$maxlength)," ")) );
-	}
-
-	public static function cut_words($text, $count)
-	{
-		$explode = explode(" ", $text);
-
-		if(count($explode) > $count)
-		{
-			array_splice($explode, $count);
-			$text = implode(' ', $explode);
-		}
-
-		return($text);
-	}
-
-	// Strip spaces
-
-
-	// Strip spaces
-	public static function strip_spaces($string)
-	{
-		return( str_replace(' ','',$string) );
-	}
-
-	// Strip quotes ' and "
-	public static function strip_quotes($text)
-	{
-		$text = str_replace('\'', '', $text);
-		$text = str_replace('"', '', $text);
-		return( $text );
-	}
-
-	function clean_non_alphanumeric($string)
-	{
-		$string = preg_replace("/[^A-Za-z0-9 ]/", '', $string);
-
-		return $string;
-	}
-
-	// RETURN
-	// TRUE - si contiene el substring
-	// FALSE - caso contrario
-	public static function is_substring($string, $substring)
-	{
-		return( strpos($string, $substring) !== false );
-	}
-
-	// RETURN
-	// TRUE - is not empty
-	// FALSE - is empty
-	public static function not_empty($string)
-	{
-		return( !self::is_empty($string) );
-	}
-
-	public static function is_empty($string)
-	{
-		$string = self::strip_spaces($string);
-		return( empty($string) );
-	}
-
-	// Compara 2 cadenas
-	// Retorna TRUE si son iguales, FALSE caso contrario
-	public static function compare($value1, $value2)
-	{
-		return( strcmp($value1, $value2) == 0 );
-	}
-
-	public static function replace_assoc(array $replace, $text)
-	{
-		return str_replace(array_keys($replace), array_values($replace), $text);
+		return !self::isEmpty($string);
 	}
 
 }

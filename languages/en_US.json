@@ -1,4 +1,14 @@
 {
+	"language-data":
+	{
+		"native": "English (United State)",
+		"english-name": "English",
+		"last-update": "2015-06-28",
+		"author": "Diego",
+		"email": "",
+		"website": ""
+	},
+
     "name": "Name",
     "first-name": "First Name",
     "posted-by": "Posted by"

@@ -1,4 +1,15 @@
 {
-    "first-name": "Nombres",
-    "last-name": "Apellido"
+	"language-data":
+	{
+		"native": "Español (Argentina)",
+		"english-name": "Spanish",
+		"last-update": "2015-06-28",
+		"author": "Diego",
+		"email": "",
+		"website": ""
+	},
+
+    "name": "Name",
+    "first-name": "First Name",
+    "posted-by": "Posted by"
 }
