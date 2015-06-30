@@ -2,11 +2,12 @@
 
 class Post extends fileContent
 {
-	function __construct($slug)
+	function __construct($key)
 	{
-		$this->path = PATH_POSTS;
+		// Database Key
+		$this->setField('key', $key);
 
-		parent::__construct($slug);
+		parent::__construct(PATH_POSTS.$key.DS);
 	}
 
 	// Returns the post title.

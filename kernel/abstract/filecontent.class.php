@@ -3,11 +3,10 @@
 class fileContent
 {
 	public $vars;
-	public $path;
 
-	function __construct($pathSlug)
+	function __construct($path)
 	{
-		if($this->build($pathSlug)===false) {
+		if($this->build($path)===false) {
 			$this->vars = false;
 		}
 	}
@@ -37,17 +36,14 @@ class fileContent
 		return true;
 	}
 
-	private function build($pathSlug)
+	private function build($path)
 	{
-		if( !Sanitize::pathFile($this->path.$pathSlug.DS, 'index.txt') ) {
+		if( !Sanitize::pathFile($path, 'index.txt') ) {
 			return false;
 		}
 
-		// Database Key
-		$this->setField('key', $pathSlug);
-
 		$tmp = 0;
-		$lines = file($this->path.$pathSlug.DS.'index.txt');
+		$lines = file($path.'index.txt');
 		foreach($lines as $lineNumber=>$line)
 		{
 			$parts = array_map('trim', explode(':', $line, 2));

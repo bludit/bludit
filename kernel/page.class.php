@@ -3,10 +3,11 @@
 class Page extends fileContent
 {
 	function __construct($key)
-	{
-		$this->path = PATH_PAGES;
+	{	
+		// Database Key
+		$this->setField('key', $key);
 
-		parent::__construct($key);
+		parent::__construct(PATH_PAGES.$key.DS);
 	}
 
 	// Returns the post title.
