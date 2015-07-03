@@ -1,4 +1,4 @@
-<h2 class="title">Dashboard</h2>
+<h2 class="title"><?php $Language->p('Dashboard') ?> </h2>
 
 <div class="units-row">
 
@@ -7,7 +7,7 @@
 		<div class="dashboardBox">
 			<div class="content contentBlue">
 				<div class="bigContent"><?php echo $dbPosts->count() ?></div>
-				<div class="littleContent">posts</div>
+				<div class="littleContent"><?php $Language->p('Posts') ?></div>
 				<i class="iconContent fa fa-pie-chart"></i>
 			</div>
 		</div>
@@ -15,7 +15,7 @@
 		<div class="dashboardBox">
 			<div class="content contentGreen">
 				<div class="bigContent"><?php echo $dbUsers->count() ?></div>
-				<div class="littleContent">Users</div>
+				<div class="littleContent"><?php $Language->p('Users') ?></div>
 				<i class="iconContent fa fa-user"></i>
 			</div>
 		</div>

@@ -37,9 +37,9 @@ if( $Login->isLogged() && ($layout['slug']==='ajax') )
 else
 {
 	// Boot rules
-	include(PATH_RULES.'60.plugins.php');
 	include(PATH_RULES.'70.build_posts.php');
 	include(PATH_RULES.'70.build_pages.php');
+	include(PATH_RULES.'80.plugins.php');
 	include(PATH_RULES.'99.header.php');
 
 	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') )

@@ -29,6 +29,8 @@ function build_plugins()
 {
 	global $plugins;
 	global $pluginsEvents;
+	global $Language;
+	global $Site;
 
 	// List plugins directories
 	$list = Filesystem::listDirectories(PATH_PLUGINS);
@@ -38,7 +40,7 @@ function build_plugins()
 
 	// Load each plugin clasess
 	foreach($list as $pluginPath) {
-		include($pluginPath.'/plugin.php');
+		include($pluginPath.DS.'plugin.php');
 	}
 
 	// Get plugins clasess loaded
@@ -48,10 +50,28 @@ function build_plugins()
 	{
 		$Plugin = new $pluginClass;
 
-		// All plugins installed and not installed.
+		// Set Plugin data
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.$Site->locale().'.json';
+		if( Sanitize::pathFile($languageFilename) )
+		{
+			$data = new dbJSON($languageFilename, false);
+		}
+		else
+		{
+			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.'en_US.json';
+			$data = new dbJSON($languageFilename, false);
+		}
+		$data = $data->getDb();
+		$Plugin->setData( $data['plugin-data'] );
+
+		// Add words to language dictionary.
+		unset($data['plugin-data']);
+		$Language->add($data);
+
+		// Push Plugin to array all plugins installed and not installed.
 		array_push($plugins['all'], $Plugin);
 
-		// If the plugin installed, then add the plugin on the arrays.
+		// If the plugin installed
 		if($Plugin->installed())
 		{
 			foreach($pluginsEvents as $event=>$value)

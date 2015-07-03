@@ -24,6 +24,8 @@ class dbLanguage extends dbJSON
 			parent::__construct($filename, false);
 			$this->data = $this->db['language-data'];
 		}
+
+		unset($this->db['language-data']);
 	}
 
 	public function getLanguageList()
@@ -60,6 +62,11 @@ class dbLanguage extends dbJSON
 	public function p($text)
 	{
 		echo $this->get($text);
+	}
+
+	public function add($array)
+	{
+		$this->db[] = $array;
 	}
 
 }

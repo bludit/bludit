@@ -1,43 +1,43 @@
-<h2 class="title"><i class="fa fa-pencil"></i> Edit page</h2>
+<h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('Edit page') ?></h2>
 
 <form method="post" action="" class="forms">
 
-    <input type="hidden" id="jsKey" name="key" value="<?php echo $_Page->key() ?>">
+    <input type="hidden" id="jskey" name="key" value="<?php echo $_Page->key() ?>">
 
     <label>
-        Title
-        <input id="jsTitle" name="title" type="text" class="width-70" value="<?php echo $_Page->title() ?>">
+        <?php $Language->p('Title') ?>
+        <input id="jstitle" name="title" type="text" class="width-70" value="<?php echo $_Page->title() ?>">
     </label>
 
     <label>
-        Content <span class="forms-desc">HTML and Markdown code supported.</span>
+        <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
         <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw(false) ?></textarea>
     </label>
 
 <?php
     if($Site->advancedOptions()) {
-        echo '<div id="jsAdvancedOptions">';
+        echo '<div id="jsadvancedOptions">';
     }
     else
     {
-        echo '<p class="advOptions">Enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
-        echo '<div id="jsAdvancedOptions" style="display:none">';
+        echo '<p class="advOptions">'.$Language->p('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->p('settings-advanced-writting-settings').'</a></p>';
+        echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>
 
-    <h4>Advanced options</h4>
+    <h4><?php $Language->p('Advanced options') ?></h4>
 
-    <?php
-        // Remove pages parents if the page is a parent.
-        if(count($_Page->children())===0)
-        {
-    ?>
+<?php
+    // Remove setting pages parents if the page is a parent.
+    if(count($_Page->children())===0)
+    {
+?>
 
-    <label for="jsParent">
-        Page parent
-        <select id="jsParent" name="parent" class="width-50">
+    <label for="jsparent">
+        <?php $Language->p('Parent') ?>
+        <select id="jsparent" name="parent" class="width-50">
         <?php
-            $htmlOptions[NO_PARENT_CHAR] = '(No parent)';
+            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->p('No parent').')';
             $htmlOptions += $dbPages->parentKeyList();
             unset($htmlOptions[$_Page->key()]);
             foreach($htmlOptions as $value=>$text) {
@@ -48,41 +48,41 @@
         <div class="forms-desc">Tip/Help ???</div>
     </label>
 
-    <?php } ?>
+<?php } ?>
 
     <label>
-        Friendly url
+        <?php $Language->p('Friendly URL') ?>
         <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->url() ?><span id="jsParentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
-            <input id="jsSlug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
+            <span class="input-prepend"><?php echo $Site->url() ?><span id="jsparentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
+            <input id="jsslug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
         </div>
-        <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
+        <span class="forms-desc">You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.</span>
     </label>
 
     <label>
-        Description
-        <input id="jsDescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
-        <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
+        <?php $Language->p('Description') ?>
+        <input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
+        <span class="forms-desc">This field can help describe the content in a few words. No more than 150 characters.</span>
     </label>
 
     <label>
-        Tags
-        <input id="jsTags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
+        <?php $Language->p('Tags') ?>
+        <input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
         <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
     </label>
 
     <label>
-        Position
-        <input id="jsPosition" name="position" type="text" class="width-20" value="<?php echo $_Page->position() ?>">
+        <?php $Language->p('Position') ?>
+        <input id="jsposition" name="position" type="text" class="width-20" value="<?php echo $_Page->position() ?>">
     </label>
 
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i>Save</button>
+    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php $Language->p('Save') ?></button>
 
     <?php if(count($_Page->children())===0) { ?>
-    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i>Draft</button>
-    <button class="btn" name="delete"><i class="fa fa-remove fa-right"></i>Delete</button>
+    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
+    <button class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
     <?php } ?>
 
 </form>
@@ -91,34 +91,34 @@
 
 $(document).ready(function()
 {
-    var key = $("#jsKey").val();
+    var key = $("#jskey").val();
 
-    $("#jsSlug").keyup(function() {
+    $("#jsslug").keyup(function() {
         var text = $(this).val();
-        var parent = $("#jsParent").val();
+        var parent = $("#jsparent").val();
 
-        checkSlugPage(text, parent, key, $("#jsSlug"));
+        checkSlugPage(text, parent, key, $("#jsslug"));
     });
 
-    $("#jsTitle").keyup(function() {
+    $("#jstitle").keyup(function() {
         var text = $(this).val();
-        var parent = $("#jsParent").val();
+        var parent = $("#jsparent").val();
 
-        checkSlugPage(text, parent, key, $("#jsSlug"));
+        checkSlugPage(text, parent, key, $("#jsslug"));
     });
 
-    $("#jsParent").change(function() {
+    $("#jsparent").change(function() {
         var parent = $(this).val();
-        var text = $("#jsSlug").val();
+        var text = $("#jsslug").val();
 
         if(parent==NO_PARENT_CHAR) {
-            $("#jsParentExample").text("");
+            $("#jsparentExample").text("");
         }
         else {
-            $("#jsParentExample").text(parent+"/");
+            $("#jsparentExample").text(parent+"/");
         }
 
-        checkSlugPage(text, parent, key, $("#jsSlug"));
+        checkSlugPage(text, parent, key, $("#jsslug"));
     });
 
 });

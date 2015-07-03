@@ -109,9 +109,9 @@
 
 <div id="regional">
 <form method="post" action="" class="forms" name="form-regional">
-    <label for="language">
+    <label for="jslanguage">
         Language
-        <select name="language" class="width-50">
+        <select id="jslanguage" name="language" class="width-50">
         <?php
             $htmlOptions = $Language->getLanguageList();
             foreach($htmlOptions as $locale=>$nativeName) {
@@ -122,9 +122,9 @@
         <div class="forms-desc">Select your site's language.</div>
     </label>
 
-    <label for="timezone">
+    <label for="jstimezone">
         Timezone
-        <select name="timezone" class="width-50">
+        <select id="jstimezone" name="timezone" class="width-50">
         <?php
             $htmlOptions = Date::timezoneList();
             foreach($htmlOptions as $text=>$value) {
@@ -137,7 +137,7 @@
 
     <label>
         Locale
-        <input type="text" name="locale" class="width-50" value="<?php echo $Site->locale() ?>">
+        <input id="jslocale" type="text" name="locale" class="width-50" value="<?php echo $Site->locale() ?>">
         <div class="forms-desc">You can use this field to define a set of parameters related to the languege, country and special preferences.</div>
     </label>
 
@@ -145,6 +145,18 @@
 </form>
 </div>
 
+<script>
+
+$(document).ready(function() {
+
+	$("#jslanguage").change(function () {
+		var locale = $("#jslanguage option:selected").val();
+		$("#jslocale").attr("value",locale);
+	});
+
+});
+
+</script>
 
 <!-- ===================================== -->
 <!-- About -->

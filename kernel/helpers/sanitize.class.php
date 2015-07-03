@@ -28,12 +28,19 @@ class Sanitize {
 		return htmlspecialchars_decode($text, $flags);
 	}
 
-	public static function pathFile($path, $file)
+	public static function pathFile($path, $file=false)
 	{
-		// Fix for Windows on paths. eg: $path = c:\diego/page/subpage convert to c:\diego\page\subpages
-		$path = str_replace('/', DS, $path);
+		if($file!==false){
+			$fullPath = $path.$file;
+		}
+		else {
+			$fullPath = $path;
+		}
 
-		$real = realpath($path.$file);
+		// Fix for Windows on paths. eg: $path = c:\diego/page/subpage convert to c:\diego\page\subpages
+		$fullPath = str_replace('/', DS, $fullPath);
+
+		$real = realpath($fullPath);
 
 		// If $real is FALSE the file does not exist.
 		if($real===false) {
@@ -41,7 +48,7 @@ class Sanitize {
 		}
 
 		// If the $real path does not start with the systemPath then this is Path Traversal.
-		if(strpos($path.$file, $real)!==0) {
+		if(strpos($fullPath, $real)!==0) {
 			return false;
 		}
 

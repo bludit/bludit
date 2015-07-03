@@ -43,8 +43,8 @@ $(document).ready(function() {
 	<nav class="navbar nav-fullwidth">
 		<h1>Bludit</h1>
 	    <ul>
-	    	<li><a href="<?php echo HTML_PATH_ROOT ?>">Home</a></li>
-	        <li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard">Dashboard</a></li>
+	    	<li>Welcome back, <?php echo $Login->username() ?></li>
+	        <li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>">Website</a></li>
 	        <li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>logout">Logout</a></li>
 	    </ul>
 	</nav>
@@ -57,6 +57,7 @@ $(document).ready(function() {
 	<div id="sidebar" class="nav">
 
 		<ul>
+			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard"><i class="fa fa-sun-o"></i>Dashboard</a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><i class="fa fa-pencil-square-o"></i>New post</a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-page"><i class="fa fa-pencil"></i>New page</a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>manage-posts"><i class="fa fa-file-text-o"></i>Manage</a></li>

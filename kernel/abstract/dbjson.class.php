@@ -6,6 +6,7 @@ class dbJSON
 	public $file;
 	public $firstLine;
 
+	// $firstLine, TRUE if you want to remove the first line.
 	function __construct($file, $firstLine=true)
 	{
 		$this->file = $file;
@@ -73,6 +74,11 @@ class dbJSON
 		$this->db = $db;
 
 		return $this->save();
+	}
+
+	public function getDb()
+	{
+		return $this->db;
 	}
 
 	// DEBUG, se puede borrar

@@ -2,37 +2,30 @@ Diego Najar
 
 —————————
 
-Implementar
-- Links a Google+, Facebook y Twitter
-- Plugins
-- Plugins SEO, description, opengraph, etc..
-- Comentarios
-- Notificaciones
-- iPhone app
+ToDO
+- Social links: Google+, Facebook y Twitter
+- Plugins: Edit databases from Dashboard
+- Plugins: SEO, Tinymce,
+- Comments system
+- Notifications system
 - Cloud
+- Users: delete user
+- Implement User class
+- Themes
+- Plugins multilangueage
+
+Check:
 - ver casos de errores, filtros url iguales, con una /
-- No permitir en filtros url iguales, agregar / al comienzo y final
+- No permitir en filtros url iguales
 - Usuarios de lectura ?, no vale la pena, y hay que hacer mas controles a nivel de administracion.
 - Implementar algun limpiador**
 
 —————————
 **LIMPIADOR
 - Recorrer directorios content/posts/, Si el post no tiene el archivo index.txt quiere decir que ese directorio no debe existir y debe ser eliminado
-
 —————————
-
-Habilitar rewriterules en el server, httpd.conf
-
-<Directory /var/www/html>
-AllowOverride All
-
-————
-
-find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Text/helperText/g'
-find . -type f -name "*.php" -print0 | xargs -0 sed -i 's/Url/helperUrl/g'
-
 find . -type f -name '*.php' -exec sed -i '' s/helperText/Text/ {} +
-————
+—————————
 
 Editar una pagina
 1- Usuario logueado

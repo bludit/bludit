@@ -5,16 +5,15 @@ class pluginOpenGraph extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'title'=>'Open Graph',
-			'description'=>'The Open Graph protocol enables any web page to become a rich object in a social graph.'
-			);
+			'test'=>''
+		);
 	}
 
 	public function onSiteHead()
 	{
 		global $Url, $Site;
 		global $Post, $Page;
-
+ 
 		$og = array(
 			'locale'		=>$Site->locale(),
 			'type'			=>'website',
@@ -22,7 +21,7 @@ class pluginOpenGraph extends Plugin {
 			'description'	=>$Site->description(),
 			'url'			=>$Site->url(),
 			'image'			=>'',
-			'site_name'		=>$Site->title()
+			'siteName'		=>$Site->title()
 		);
 
 		switch($Url->whereAmI())
@@ -48,7 +47,7 @@ class pluginOpenGraph extends Plugin {
 		$html .= '<meta property="og:description" content="'.$og['description'].'">'.PHP_EOL;
 		$html .= '<meta property="og:image" content="'.$og['image'].'">'.PHP_EOL;
 		$html .= '<meta property="og:url" content="'.$og['url'].'">'.PHP_EOL;
-		$html .= '<meta property="og:site_name" content="'.$og['site_name'].'">'.PHP_EOL;
+		$html .= '<meta property="og:siteName" content="'.$og['siteName'].'">'.PHP_EOL;
 
 		return $html;
 	}

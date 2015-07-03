@@ -16,12 +16,22 @@ class Plugin {
 
 	public $className;
 
+	public $data;
+
 	function __construct()
 	{
 		$reflector = new ReflectionClass(get_class($this));
 
+		$this->data = array(
+			'name'=>'',
+			'description'=>'',
+			'author'=>'',
+			'email'=>'',
+			'website'=>''
+		);
+
 		// Directory name
-		$this->directoryName = basename(dirname($reflector->getFileName()));
+		$this->directoryName = basename(dirname($reflector->getFileName())).DS;
 
 		// Class Name
 		$this->className = $reflector->getName();
@@ -32,7 +42,7 @@ class Plugin {
 		// Init empty database
 		$this->db = $this->dbFields;
 
-		$this->fileDb = PATH_PLUGINS_DATABASES.$this->directoryName.'/db.php';
+		$this->fileDb = PATH_PLUGINS_DATABASES.$this->directoryName.'db.php';
 
 		// If the plugin installed then get the database.
 		if($this->installed())
@@ -42,27 +52,53 @@ class Plugin {
 		}
 	}
 
-	public function title()
+	public function getData($key)
 	{
-		if(isset($this->db['title'])) {
-			return $this->db['title'];
+		if(isset($this->data[$key])) {
+			return $this->data[$key];
 		}
 
-		return '';
+		return '';		
+	}
+
+	public function setData($array)
+	{
+		$this->data = $array;
+	}
+
+	public function name()
+	{
+		return $this->getData('name');
 	}
 
 	public function description()
 	{
-		if(isset($this->db['description'])) {
-			return $this->db['description'];
-		}
+		return $this->getData('description');
+	}
 
-		return '';
+	public function author()
+	{
+		return $this->getData('author');
+	}
+
+	public function email()
+	{
+		return $this->getData('email');
+	}
+
+	public function website()
+	{
+		return $this->getData('website');
 	}
 
 	public function className()
 	{
 		return $this->className;
+	}
+
+	public function directoryName()
+	{
+		return $this->directoryName;
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.

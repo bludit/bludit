@@ -142,9 +142,6 @@ function build_all_pages()
 // Main
 // ============================================================================
 
-// Plugins before load pages
-Theme::plugins('beforePagesLoad');
-
 // Filter by page, then build it
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
@@ -186,6 +183,3 @@ if($Url->notFound())
 
 // Build all pages
 build_all_pages();
-
-// Plugins after load pages
-Theme::plugins('afterPagesLoad');

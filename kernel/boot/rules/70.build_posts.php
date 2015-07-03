@@ -92,9 +92,6 @@ function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 // Main
 // ============================================================================
 
-// Plugins before load posts
-Theme::plugins('beforePostsLoad');
-
 // Filter by post, then build it
 if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 {
@@ -129,6 +126,3 @@ else
 		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), false);
 	}
 }
-
-// Plugins after load posts
-Theme::plugins('afterPostsLoad');

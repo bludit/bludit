@@ -5,7 +5,7 @@
 	{
 		echo '<div class="pluginBox">';
 
-		echo '<p>'.$Plugin->title().'</p>';
+		echo '<p>'.$Plugin->name().'</p>';
 		echo '<p>'.$Plugin->description().'</p>';
 
 		if($Plugin->installed()) {

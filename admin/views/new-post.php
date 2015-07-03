@@ -3,53 +3,53 @@
 <form method="post" action="" class="forms">
 
     <label>
-        Title
-        <input id="jsTitle" name="title" type="text" class="width-70">
+        <?php $Language->p('Title') ?>
+        <input id="jstitle" name="title" type="text" class="width-70">
     </label>
 
     <label>
-        Content <span class="forms-desc">HTML and Markdown code supported.</span>
-        <textarea id="jsContent" name="content" rows="10" class="width-70"></textarea>
+        <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
+        <textarea id="jscontent" name="content" rows="10" class="width-70"></textarea>
     </label>
 
 <?php
     if($Site->advancedOptions()) {
-        echo '<div id="jsAdvancedOptions">';
+        echo '<div id="jsadvancedOptions">';
     }
     else
     {
-        echo '<p class="advOptions">Enable more features at <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">Settings->Advanced->Writting Settings</a></p>';
-        echo '<div id="jsAdvancedOptions" style="display:none">';
+        echo '<p class="advOptions">'.$Language->p('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->p('settings-advanced-writting-settings').'</a></p>';
+        echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>
 
-    <h4>Advanced options</h4>
+    <h4><?php $Language->p('Advanced options') ?></h4>
 
     <label>
-        Friendly url
+        <?php $Language->p('Friendly Url') ?>
         <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->urlPost() ?><span id="jsParentExample"></span></span>
-            <input id="jsSlug" name="slug" type="text">
+            <span class="input-prepend"><?php echo $Site->urlPost() ?><span id="jsparentExample"></span></span>
+            <input id="jsslug" name="slug" type="text">
         </div>
         <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
     </label>
 
     <label>
-        Description
-        <input id="jsDescription" name="description" type="text" class="width-50">
+        <?php $Language->p('Description') ?>
+        <input id="jsdescription" name="description" type="text" class="width-50">
         <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
     </label>
 
     <label>
-        Tags
-        <input id="jsTags" name="tags" type="text" class="width-50">
+        <?php $Language->p('Tags') ?>
+        <input id="jstags" name="tags" type="text" class="width-50">
         <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
     </label>
 
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i>Publish now</button>
-    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i>Draft</button>
+    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php $Language->p('Publish now') ?></button>
+    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
 
 </form>
 
@@ -58,16 +58,16 @@
 $(document).ready(function()
 {
 
-    $("#jsTitle").keyup(function() {
+    $("#jstitle").keyup(function() {
         var slug = $(this).val();
 
-        checkSlugPost(slug, "", $("#jsSlug"));
+        checkSlugPost(slug, "", $("#jsslug"));
     });
 
-    $("#jsSlug").keyup(function() {
-        var slug = $("#jsSlug").val();
+    $("#jsslug").keyup(function() {
+        var slug = $("#jsslug").val();
 
-        checkSlugPost(slug, "", $("#jsSlug"));
+        checkSlugPost(slug, "", $("#jsslug"));
     });
 
 });
