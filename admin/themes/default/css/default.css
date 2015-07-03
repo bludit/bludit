@@ -3,7 +3,7 @@ a {
     color: #333;
 }
 
-a:hover {
+a:hover, a:focus {
     color: #2672ec !important;
     text-decoration: none !important;
 }
@@ -44,6 +44,10 @@ body {
     margin: 0;
     padding: 0 30px;
     font-size: 0.9em;
+}
+
+#head a {
+    display: inline-block;
 }
 
 /* ----------- SIDEBAR ----------- */

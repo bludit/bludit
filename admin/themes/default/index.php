@@ -43,7 +43,7 @@ $(document).ready(function() {
 	<nav class="navbar nav-fullwidth">
 		<h1>Bludit</h1>
 	    <ul>
-	    	<li><?php $Language->p('Welcome back') ?>, <?php echo $Login->username() ?></li>
+	    	<li><?php $Language->p('Welcome back') ?>, <?php echo '<a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username().'">'.$Login->username().'</a>' ?></li>
 	        <li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $Language->p('Website') ?></a></li>
 	        <li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>logout"><?php $Language->p('Logout') ?></a></li>
 	    </ul>
