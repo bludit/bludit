@@ -1,10 +1,10 @@
-<h2 class="title"><i class="fa fa-user"></i> Edit User</h2>
+<h2 class="title"><i class="fa fa-user"></i> <?php $Language->p('Edit user') ?></h2>
 
 <nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#profile">
     <ul>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#email">Email</a></li>
-        <li><a href="#password">Password</a></li>
+        <li><a href="#profile"><?php $Language->p('Profile') ?></a></li>
+        <li><a href="#email"><?php $Language->p('Email') ?></a></li>
+        <li><a href="#password"><?php $Language->p('Password') ?></a></li>
     </ul>
 </nav>
 
@@ -17,12 +17,12 @@
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
-        First name
+        <?php $Language->p('First name') ?>
         <input type="text" name="firstName" class="width-50" value="<?php echo $_user['firstName'] ?>">
     </label>
 
     <label>
-        Last name
+        <?php $Language->p('Last name') ?>
         <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
     </label>
 
@@ -31,22 +31,22 @@
     {
 ?>
     <label for="role">
-        Role
+        <?php $Language->p('Role') ?>
         <select name="role" class="width-50">
         <?php
-            $htmlOptions = array('admin'=>'Administrator', 'editor'=>'Editor');
+            $htmlOptions = array('admin'=>$Language->get('Administrator'), 'editor'=>$Language->get('Editor'));
             foreach($htmlOptions as $value=>$text) {
                 echo '<option value="'.$value.'"'.( ($_user['role']===$value)?' selected="selected"':'').'>'.$text.'</option>';
             }
         ?>
         </select>
-        <div class="forms-desc">You can choose the user's privilege. The editor role only can write pages and posts.</div>
+        <div class="forms-desc"><?php $Language->p('you-can-choose-the-users-privilege') ?></div>
     </label>
 <?php
     }
 ?>
     <input type="submit" class="btn btn-blue" value="Save" name="user-profile">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn">Cancel</a>
+    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
 
@@ -59,13 +59,13 @@
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
-        Email
+        <?php $Language->p('Email') ?>
         <input type="text" name="email" class="width-50" value="<?php echo $_user['email'] ?>">
-        <div class="forms-desc">Email will not be publicly displayed. Recommended for recovery password and notifications.</div>
+        <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
     </label>
 
     <input type="submit" class="btn btn-blue" value="Save" name="user-email">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn">Cancel</a>
+    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
 
@@ -78,16 +78,16 @@
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
-        New Password
+        <?php $Language->p('New password') ?>
         <input type="password" name="password" class="width-50">
     </label>
 
     <label>
-        Confirm the new Password
+        <?php $Language->p('Confirm password') ?>
         <input type="password" name="confirm-password" class="width-50">
     </label>
 
     <input type="submit" class="btn btn-blue" value="Save" name="user-password">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn">Cancel</a>
+    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>

@@ -26,14 +26,14 @@
 		<?php if($_newPosts || $_newPages) { ?>
 		<div class="dashboardBox">
 			<div class="content contentGreen">
-				<div class="bigContent">Database regenerated</div>
-				<div class="littleContent">New posts and pages synchronized.</div>
+				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
+				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
 				<i class="iconContent fa fa-pie-chart"></i>
 			</div>
 		</div>
 		<?php } ?>
 		<div class="dashboardBox">
-			<h2>Notifications</h2>
+			<h2><?php $Language->p('notifications') ?></h2>
 			<div class="content">
 				<nav class="nav">
 				<ul>

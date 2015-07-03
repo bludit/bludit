@@ -1,16 +1,16 @@
-<h2 class="title"><i class="fa fa-users"></i> Users</h2>
+<h2 class="title"><i class="fa fa-users"></i> <?php $Language->p('Users') ?></h2>
 
 <?php makeNavbar('users'); ?>
 
 <table class="table-bordered table-stripped">
 	<thead>
 		<tr>
-			<th>Username</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Role</th>
-			<th>Email</th>
-			<th>Registered</th>
+			<th><?php $Language->p('Username') ?></th>
+			<th><?php $Language->p('First name') ?></th>
+			<th><?php $Language->p('Last name') ?></th>
+			<th><?php $Language->p('Role') ?></th>
+			<th><?php $Language->p('Email') ?></th>
+			<th><?php $Language->p('Registered') ?></th>
 		</tr>
 	</thead>
 	<tbody>

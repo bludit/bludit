@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-pencil"></i> New page</h2>
+<h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('New page') ?></h2>
 
 <form method="post" action="" class="forms">
 
@@ -18,7 +18,7 @@
     }
     else
     {
-        echo '<p class="advOptions">'.$Language->p('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->p('settings-advanced-writting-settings').'</a></p>';
+        echo '<p class="advOptions">'.$Language->g('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
         echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>
@@ -29,7 +29,7 @@
         <?php $Language->p('Parent') ?>
         <select id="jsparent" name="parent" class="width-50">
         <?php
-            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->p('No parent').')';
+            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
             $htmlOptions += $dbPages->parentKeyList();
             foreach($htmlOptions as $value=>$text) {
                 echo '<option value="'.$value.'">'.$text.'</option>';

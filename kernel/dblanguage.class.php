@@ -46,9 +46,9 @@ class dbLanguage extends dbJSON
 	}
 
 	// Return the translation, if the translation does'n exist then return the English translation.
-	public function get($text)
+	public function get($string)
 	{
-		$key = Text::lowercase($text);
+		$key = Text::lowercase($string);
 		$key = Text::replace(' ', '-', $key);
 
 		if(isset($this->db[$key]))
@@ -58,10 +58,20 @@ class dbLanguage extends dbJSON
 		return $this->en_US[$key];
 	}
 
-	// Print the translation.
-	public function p($text)
+	public function g($string)
 	{
-		echo $this->get($text);
+		return $this->get($string);
+	}
+
+	public function print($string)
+	{
+		echo $this->get($string);
+	}
+
+	// Print the translation.
+	public function p($string)
+	{
+		$this->print($string);
 	}
 
 	public function add($array)
