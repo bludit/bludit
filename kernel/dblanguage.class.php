@@ -63,15 +63,10 @@ class dbLanguage extends dbJSON
 		return $this->get($string);
 	}
 
-	public function print($string)
-	{
-		echo $this->get($string);
-	}
-
 	// Print the translation.
 	public function p($string)
 	{
-		$this->print($string);
+		echo $this->get($string);
 	}
 
 	public function add($array)

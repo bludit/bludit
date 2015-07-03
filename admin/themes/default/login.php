@@ -19,7 +19,7 @@
 	<nav class="navbar nav-fullwidth">
 		<h1>Bludit</h1>
 	    <ul>
-	    	<li><a href="<?php echo HTML_PATH_ROOT ?>">Home</a></li>
+	    	<li><a href="<?php echo HTML_PATH_ROOT ?>"><?php $Language->p('Home') ?></a></li>
 	    </ul>
 	</nav>
 </div>
