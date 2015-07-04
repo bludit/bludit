@@ -18,7 +18,7 @@
     }
     else
     {
-        echo '<p class="advOptions">'.$Language->g('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
+        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
         echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>

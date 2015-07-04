@@ -1,6 +1,6 @@
 <h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('Edit page') ?></h2>
 
-<form method="post" action="" class="forms">
+<form id="jsform" method="post" action="" class="forms">
 
     <input type="hidden" id="jskey" name="key" value="<?php echo $_Page->key() ?>">
 
@@ -20,7 +20,7 @@
     }
     else
     {
-        echo '<p class="advOptions">'.$Language->p('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->p('settings-advanced-writting-settings').'</a></p>';
+        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
         echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>
@@ -78,12 +78,12 @@
 
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php $Language->p('Save') ?></button>
+    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php echo ($_Page->published()?$Language->p('Save'):$Language->p('Publish now')) ?></button>
 
-    <?php if(count($_Page->children())===0) { ?>
+<?php if(count($_Page->children())===0) { ?>
     <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
-    <button class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
-    <?php } ?>
+    <button id="jsdelete" class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
+<?php } ?>
 
 </form>
 
@@ -119,6 +119,12 @@ $(document).ready(function()
         }
 
         checkSlugPage(text, parent, key, $("#jsslug"));
+    });
+
+    $("#jsdelete").click(function() {
+        if(!confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")) {
+            event.preventDefault();
+        }
     });
 
 });

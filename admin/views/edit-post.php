@@ -20,7 +20,7 @@
     }
     else
     {
-        echo '<p class="advOptions">'.$Language->p('Enable more features at').'<a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->p('settings-advanced-writting-settings').'</a></p>';
+        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
         echo '<div id="jsadvancedOptions" style="display:none">';
     }
 ?>
@@ -49,9 +49,9 @@
     </label>
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php $Language->p('Save') ?></button>
+    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php echo ($_Post->published()?$Language->p('Save'):$Language->p('Publish now')) ?></button>
     <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
-    <button class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
+    <button id="jsdelete" class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
 
 </form>
 
@@ -71,6 +71,12 @@ $(document).ready(function()
         var slug = $("#jsslug").val();
 
         checkSlugPost(slug, key, $("#jsslug"));
+    });
+
+    $("#jsdelete").click(function() {
+        if(!confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")) {
+            event.preventDefault();
+        }
     });
 
 });

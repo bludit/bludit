@@ -20,7 +20,7 @@ function editPost($args)
 	if( $dbPosts->edit($args) )
 	{
 		Alert::set('The post has been saved successfull');
-		Redirect::page('admin', 'manage-posts');
+		Redirect::page('admin', 'edit-post/'.$args['key']);
 	}
 	else
 	{

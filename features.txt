@@ -43,6 +43,11 @@ Editar usuario
 2- Ver si el usuario es administrador o si es el mismo usuario que se esta editando.
 
 —————————
+New post->Publish->Manage posts
+New page->Publish->Manage pages
+Edit page->Save->Edit page
+Edit post->Save->Edit post
+—————————
 
 - Friendly URL son Case sensitive.
 
