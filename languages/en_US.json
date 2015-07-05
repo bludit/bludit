@@ -29,6 +29,7 @@
     "parent": "Parent",
     "friendly-url": "Friendly URL",
     "description": "Description",
+    "posted-by": "Posted by",
     "tags": "Tags",
     "position": "Position",
     "save": "Save",
