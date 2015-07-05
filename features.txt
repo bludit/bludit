@@ -1,8 +1,7 @@
 Diego Najar
-
 —————————
 
-ToDO
+ToDO list
 - Social links: Google+, Facebook y Twitter
 - Plugins: Edit databases from Dashboard
 - Plugins: SEO, Tinymce,
