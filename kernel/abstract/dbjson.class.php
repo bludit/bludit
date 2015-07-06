@@ -76,7 +76,7 @@ class dbJSON
 		return $this->save();
 	}
 
-	public function getDb()
+	public function get()
 	{
 		return $this->db;
 	}

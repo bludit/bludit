@@ -66,3 +66,5 @@ if(!$dbPosts->postExists($layout['parameters'])) {
 }
 
 $_Post = buildPost($layout['parameters']);
+
+$layout['title'] .= ' - '.$Language->g('Edit post').' - '.$_Post->title();

@@ -19,10 +19,20 @@ class dbPosts extends dbJSON
 		parent::__construct(PATH_DATABASES.'posts.php');
 	}
 
-	// Return an array with the database for a post.
-	public function getDb($slug)
+	// Return an array with the database for a page, FALSE otherwise.
+	public function getDb($key)
 	{
-		return $this->db[$slug];
+		if($this->postExists($key)) {
+			return $this->db[$key];
+		}
+
+		return false;
+	}
+
+	// Return TRUE if the post exists, FALSE otherwise.
+	public function postExists($key)
+	{
+		return isset($this->db[$key]);
 	}
 
 	// Generate a valid Key/Slug.
@@ -168,12 +178,6 @@ class dbPosts extends dbJSON
 		}
 
 		return true;
-	}
-
-	// Return TRUE if the post exists, FALSE otherwise.
-	public function postExists($key)
-	{
-		return isset($this->db[$key]);
 	}
 
 	public function regenerate()

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Bludit</title>
+	<title><?php echo $layout['title'] ?></title>
 
 	<link rel="stylesheet" href="./css/kube.min.css">
 	<link rel="stylesheet" href="./css/default.css">
@@ -18,9 +18,7 @@
 	<?php
 		Theme::plugins('onAdminHead');
 	?>
-
 </head>
-
 <body>
 
 <!-- ALERT -->

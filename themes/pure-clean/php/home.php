@@ -1,13 +1,15 @@
-<h1 class="content-subhead">Post</h1>
+<h1 class="subhead">Recent Posts</h1>
+
+<?php foreach ($posts as $Post): ?>
 
 <section class="post">
     <header class="post-header">
         <h2 class="post-title">
-            <?php echo $Post->title() ?>
+            <a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a>
         </h2>
 
         <p class="post-meta">
-            <span>Posted by <?php echo $Post->author() ?></span>
+            <span><?php echo $Language->get('Posted By').' '.$Post->author() ?></span>
             <span>Date: <?php echo $Post->dateCreated() ?></span>
         </p>
     </header>
@@ -16,3 +18,5 @@
         <?php echo $Post->content() ?>
     </div>
 </section>
+
+<?php endforeach; ?>

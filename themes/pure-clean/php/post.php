@@ -1,4 +1,4 @@
-<h1 class="content-subhead">Post</h1>
+<h1 class="subhead">Posts</h1>
 
 <section class="post">
     <header class="post-header">

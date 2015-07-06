@@ -5,7 +5,8 @@ $layout = array(
 	'view'=>null,
 	'template'=>'index.php',
 	'slug'=>null,
-	'parameters'=>null
+	'parameters'=>null,
+	'title'=>'Bludit'
 );
 
 // Get the view, controller, and the parameters from the URL.

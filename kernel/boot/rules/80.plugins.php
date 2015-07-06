@@ -54,19 +54,19 @@ function build_plugins()
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.$Site->locale().'.json';
 		if( Sanitize::pathFile($languageFilename) )
 		{
-			$data = new dbJSON($languageFilename, false);
+			$database = new dbJSON($languageFilename, false);
 		}
 		else
 		{
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.'en_US.json';
-			$data = new dbJSON($languageFilename, false);
+			$database = new dbJSON($languageFilename, false);
 		}
-		$data = $data->getDb();
+		$databaseArray = $database->get();
 		$Plugin->setData( $data['plugin-data'] );
 
 		// Add words to language dictionary.
-		unset($data['plugin-data']);
-		$Language->add($data);
+		unset($databaseArray['plugin-data']);
+		$Language->add($databaseArray);
 
 		// Push Plugin to array all plugins installed and not installed.
 		array_push($plugins['all'], $Plugin);

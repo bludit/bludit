@@ -62,6 +62,21 @@ class Theme {
 		return $tmp;
 	}
 
+	public static function keywords($keywords, $echo=true)
+	{
+		if(is_array($keywords)) {
+			$keywords = implode(',', $keywords);
+		}
+
+		$tmp = '<meta name="keywords" content="'.$keywords.'">'.PHP_EOL;
+
+		if($echo) {
+			echo $tmp;
+		}
+
+		return $tmp;
+	}
+
 	public static function viewport($content='width=device-width, initial-scale=1.0', $echo=true)
 	{
 		$tmp = '<meta name="viewport" content="'.$content.'">'.PHP_EOL;

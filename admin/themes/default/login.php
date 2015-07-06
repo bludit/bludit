@@ -33,7 +33,7 @@
 	<?php
 
 		if(Alert::defined()) {
-			echo '<div class="tools-alert">'.Alert::get().'</div>';
+			echo '<div class="tools-alert tools-alert-red">'.Alert::get().'</div>';
 		}
 
 		// Load view
