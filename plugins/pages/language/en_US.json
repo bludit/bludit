@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Page list",
+		"description": "List of pages",
+		"author": "Diego",
+		"email": "",
+		"website": ""
+	},
+
+    "pages": "Pages"
+}

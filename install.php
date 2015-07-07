@@ -217,8 +217,8 @@ Congratulations, you have installed **Bludit** successfully!
 
 What\'s next:
 ---
-- Administrate your Bludit from the [Admin Area](./admin/)
-- Follow Bludit on [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / Google+
+- Administrate your Bludit from the [admin area](./admin/)
+- Follow Bludit on [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
 - Visit the [forum](http://forum.bludit.com) for support
 - Read the [documentation](http://docs.bludit.com) for more information
 - Share with your friend :D';

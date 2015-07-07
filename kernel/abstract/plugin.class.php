@@ -115,7 +115,7 @@ class Plugin {
 		{
 			// DEBUG: NO ME GUSTA LLAMAR A UNA CLASE
 			$Tmp = new dbJSON($this->fileDb);
-			$Tmp->setDb($this->dbFields);
+			$Tmp->set($this->dbFields);
 		}
 
 		return true;

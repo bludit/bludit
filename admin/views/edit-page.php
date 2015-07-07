@@ -37,7 +37,7 @@
         <?php $Language->p('Parent') ?>
         <select id="jsparent" name="parent" class="width-50">
         <?php
-            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->p('No parent').')';
+            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
             $htmlOptions += $dbPages->parentKeyList();
             unset($htmlOptions[$_Page->key()]);
             foreach($htmlOptions as $value=>$text) {

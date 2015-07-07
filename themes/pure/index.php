@@ -20,7 +20,7 @@
     </div>
 
     <!-- Main -->
-    <div id="content" class="content pure-u-1 pure-u-md-3-4">
+    <div class="content pure-u-1 pure-u-md-3-4">
 
         <!-- Content -->
         <?php
@@ -40,7 +40,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p><?php echo $Site->footer(); ?></p>
+            <p><?php echo $Site->footer(); ?> | Powered by <a target="_blank" href="http://www.bludit.com">Bludit</a></p>
         </div>
 
     </div>
