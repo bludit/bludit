@@ -12,6 +12,7 @@ ToDO list
 - Implement User class
 - Themes
 - Plugins multilangueage
+- Format date, for post and pages
 
 Check:
 - ver casos de errores, filtros url iguales, con una /

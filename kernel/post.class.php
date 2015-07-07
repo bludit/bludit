@@ -49,20 +49,25 @@ class Post extends fileContent
 		return $this->getField('key');
 	}
 
-	public function username()
-	{
-		return $this->getField('username');
-	}
-
 	// Returns TRUE if the post is published, FALSE otherwise.
 	public function published()
 	{
 		return ($this->getField('status')==='published');
 	}
 
-	public function author()
+	public function username()
 	{
-		return $this->getField('author');
+		return $this->getField('username');
+	}
+
+	public function authorFirstName()
+	{
+		return $this->getField('authorFirstName');
+	}
+
+	public function authorLastName()
+	{
+		return $this->getField('authorLastName');
 	}
 
 	public function description()

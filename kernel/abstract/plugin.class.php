@@ -113,6 +113,7 @@ class Plugin {
 
 		if( !empty($this->dbFields) )
 		{
+			// DEBUG: NO ME GUSTA LLAMAR A UNA CLASE
 			$Tmp = new dbJSON($this->fileDb);
 			$Tmp->setDb($this->dbFields);
 		}

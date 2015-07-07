@@ -70,7 +70,10 @@ function build_page($key)
 	if( $dbUsers->userExists( $Page->username() ) )
 	{
 		$user = $dbUsers->get( $Page->username() );
-		$Page->setField('author',	$user['firstName'].', '.$user['lastName']);
+
+		$Page->setField('authorFirstName', $user['firstName'], false);
+		
+		$Page->setField('authorLastName', $user['lastName'], false);
 	}
 
 	return $Page;

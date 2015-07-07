@@ -69,7 +69,7 @@ class dbJSON
 	}
 
 	// DEBUG, ver si sirve para la instalacion, sino borrar
-	public function setDb($db)
+	public function set($db)
 	{
 		$this->db = $db;
 

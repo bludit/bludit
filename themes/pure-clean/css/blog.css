@@ -36,6 +36,8 @@
 .post-title a
 {
     color: #555;
+    border-bottom: 5px solid #ccc;
+    display: inline-block;
 }
 
 .page-content,
@@ -83,9 +85,17 @@
 }
 
 .post-meta {
-    color: #999;
     font-size: 90%;
     margin: 0;
+}
+
+.post-meta span.date {
+    color: #999;
+    margin-right: 10px;
+}
+
+.post-meta span.author {
+    color: #ccc;
 }
 
 .post-images {

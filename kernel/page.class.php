@@ -181,9 +181,14 @@ class Page extends fileContent
 		return $this->getField('username');
 	}
 
-	public function author()
+	public function authorFirstName()
 	{
-		return $this->getField('author');
+		return $this->getField('authorFirstName');
+	}
+
+	public function authorLastName()
+	{
+		return $this->getField('authorLastName');
 	}
 
 }

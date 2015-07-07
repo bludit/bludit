@@ -3,20 +3,39 @@
 <?php foreach ($posts as $Post): ?>
 
 <section class="post">
+
+    <!-- Post header -->
     <header class="post-header">
+
+        <!-- Post title -->
         <h2 class="post-title">
             <a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a>
         </h2>
 
-        <p class="post-meta">
-            <span><?php echo $Language->get('Posted By').' '.$Post->author() ?></span>
-            <span>Date: <?php echo $Post->dateCreated() ?></span>
-        </p>
+        <!-- Post date and author -->
+        <div class="post-meta">
+            <span class="date"><?php echo $Post->dateCreated() ?></span>
+            <span class="author">
+                <?php
+                    echo $Language->get('Posted By').' ';
+
+                    if( Text::isNotEmpty($Post->authorFirstName()) && Text::isNotEmpty($Post->authorLastName()) ) {
+                        echo $Post->authorFirstName().', '.$Post->authorLastName();
+                    }
+                    else {
+                        echo $Post->username();
+                    }
+                ?>
+            </span>
+        </div>
+
     </header>
 
-    <div class="post-description">
+    <!-- Post content -->
+    <div class="post-content">
         <?php echo $Post->content() ?>
     </div>
+
 </section>
 
 <?php endforeach; ?>

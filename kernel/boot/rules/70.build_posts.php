@@ -54,12 +54,14 @@ function buildPost($key)
 	$content = $Parsedown->text( $Post->content() );
 	$Post->setField('content', $content, true);
 
-	// User / Author
+	// Parse username for the post.
 	if( $dbUsers->userExists( $Post->username() ) )
 	{
 		$user = $dbUsers->get( $Post->username() );
 
-		$Post->setField('author', $user['firstName'].', '.$user['lastName'], false);
+		$Post->setField('authorFirstName', $user['firstName'], false);
+		
+		$Post->setField('authorLastName', $user['lastName'], false);
 	}
 
 	return $Post;
