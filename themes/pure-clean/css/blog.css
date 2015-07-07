@@ -84,28 +84,21 @@
     font-weight: lighter;
 }
 
-.post-meta {
+.post-meta,
+.page-meta {
     font-size: 90%;
     margin: 0;
 }
 
-.post-meta span.date {
+.post-meta span.date,
+.page-meta span.date {
     color: #999;
     margin-right: 10px;
 }
 
-.post-meta span.author {
+.post-meta span.author,
+.page-meta span.author {
     color: #ccc;
-}
-
-.post-images {
-    margin: 1em 0;
-}
-.post-image-meta {
-    margin-top: -3.5em;
-    margin-left: 1em;
-    color: #fff;
-    text-shadow: 0 1px 1px #333;
 }
 
 /* -------------------------------------------------------- OLD */
