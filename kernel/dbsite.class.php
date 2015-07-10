@@ -136,6 +136,12 @@ class dbSite extends dbJSON
 		return $this->db['url'];
 	}
 
+	// Returns the relative home link
+	public function homeLink()
+	{
+		return 	HTML_PATH_ROOT;
+	}
+
 	// Returns the timezone.
 	public function timezone()
 	{

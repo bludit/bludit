@@ -1,0 +1,54 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
+///
+/// Eventually by HTML5 UP
+/// html5up.net | @n33co
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Button */
+
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	button,
+	.button {
+		@include vendor('appearance', 'none');
+		@include vendor('transition', (
+			'background-color #{_duration(transition)} ease-in-out',
+			'color #{_duration(transition)} ease-in-out',
+			'opacity #{_duration(transition)} ease-in-out'
+		));
+		background-color: _palette(accent, bg);
+		border-radius: _size(border-radius);
+		border: 0;
+		color: _palette(accent, fg-bold) !important;
+		cursor: pointer;
+		display: inline-block;
+		font-weight: _font(weight-bold);
+		height: _size(element-height);
+		line-height: _size(element-height);
+		padding: 0 1.125em;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+
+		&:hover {
+			background-color: lighten(_palette(accent, bg), 5);
+		}
+
+		&:active {
+			background-color: darken(_palette(accent, bg), 5);
+		}
+
+		&.disabled,
+		&:disabled {
+			opacity: 0.5;
+		}
+
+		@include breakpoint(xsmall) {
+			padding: 0;
+		}
+	}

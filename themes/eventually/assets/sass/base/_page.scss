@@ -1,0 +1,71 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
+///
+/// Eventually by HTML5 UP
+/// html5up.net | @n33co
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Basic */
+
+	// MSIE: Required for IEMobile.
+		@-ms-viewport {
+			width: device-width;
+		}
+
+	// MSIE: Prevents scrollbar from overlapping content.
+		body {
+			-ms-overflow-style: scrollbar;
+		}
+
+	// Ensures page width is always >=320px.
+		@include breakpoint(xsmall) {
+			html, body {
+				min-width: 320px;
+			}
+		}
+
+	html, body {
+		height: 100%;
+		overflow-x: hidden;
+		width: 100%;
+
+		@include breakpoint(short) {
+			height: auto;
+			min-height: 100%;
+		}
+	}
+
+	body {
+		@include vendor('display', 'flex');
+		@include vendor('flex-direction', 'column');
+		@include vendor('justify-content', 'center');
+		background-color: _palette(bg);
+		padding: 6em 4em 4em 4em;
+
+		> * {
+			position: relative;
+			z-index: 2;
+		}
+
+		&.is-loading {
+			*, *:before, *:after {
+				@include vendor('animation', 'none !important');
+				@include vendor('transition', 'none !important');
+			}
+		}
+
+		@include breakpoint(xlarge) {
+			padding: 6em 3.5em 3.5em 3.5em;
+		}
+
+		@include breakpoint(small) {
+			padding: 5em 2em 2em 2em;
+		}
+
+		@include breakpoint(xxsmall) {
+			padding: 5em 1.25em 1.25em 1.25em;
+		}
+	}
