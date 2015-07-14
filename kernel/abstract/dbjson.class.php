@@ -36,20 +36,6 @@ class dbJSON
 		}
 	}
 
-	// Get database.
-	public function get()
-	{
-		return $this->db;
-	}
-
-	// Set and save database.
-	public function set($db)
-	{
-		$this->db = $db;
-
-		return $this->save();
-	}
-
 	// Returns the amount of database items.
 	public function count()
 	{

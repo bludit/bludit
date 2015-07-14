@@ -62,7 +62,7 @@ function build_plugins()
 			$database = new dbJSON($languageFilename, false);
 		}
 
-		$databaseArray = $database->get();
+		$databaseArray = $database->db;
 		$Plugin->setData( $databaseArray['plugin-data'] );
 
 		// Add words to language dictionary.

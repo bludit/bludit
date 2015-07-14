@@ -60,7 +60,7 @@ class Login {
 			return false;
 		}
 
-		$user = $this->dbUsers->get($username);
+		$user = $this->dbUsers->getDb($username);
 		if($user==false) {
 			Log::set(__METHOD__.LOG_SEP.'Username not exist: '.$username);
 			return false;
