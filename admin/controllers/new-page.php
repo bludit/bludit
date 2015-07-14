@@ -1,5 +1,9 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// ============================================================================
+// Functions
+// ============================================================================
+
 function addPage($args)
 {
 	global $dbPages;
@@ -23,6 +27,10 @@ function addPage($args)
 		Alert::set('Error occurred when trying to create the page');
 	}
 }
+
+// ============================================================================
+// POST Method
+// ============================================================================
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {

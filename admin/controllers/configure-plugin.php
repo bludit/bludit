@@ -1,6 +1,15 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
+// Check role
+// ============================================================================
+
+if($Login->role()!=='admin') {
+	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Redirect::page('admin', 'dashboard');
+}
+
+// ============================================================================
 // Functions
 // ============================================================================
 
@@ -21,14 +30,19 @@ if($_Plugin===false) {
 	Redirect::page('admin', 'plugins');
 }
 
+// Check if the plugin has the method form.
+if($_Plugin->form()===false) {
+	Redirect::page('admin', 'plugins');
+}
+
 // ============================================================================
 // POST Method
 // ============================================================================
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	Alert::set('Configuration saved successfuly');
 	$_Plugin->setDb($_POST);
+	Alert::set('Configuration has been saved successfully');
 }
 
 // ============================================================================

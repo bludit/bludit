@@ -11,6 +11,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 	else
 	{
-		Alert::set('Login failed');
+		Alert::set('Username or password incorrect');
 	}
 }

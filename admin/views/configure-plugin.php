@@ -9,7 +9,7 @@
     ?>
 
     <div>
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php echo $Language->p('Save') ?></button>
+    <button class="btn btn-blue" name="publish"><?php echo $Language->p('Save') ?></button>
     </div>
 
 </form>

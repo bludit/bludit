@@ -67,8 +67,8 @@
 
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php $Language->p('Publish now') ?></button>
-    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
+    <button class="btn btn-blue" name="publish"><?php $Language->p('Publish now') ?></button>
+    <button class="btn" name="draft"><?php $Language->p('Draft') ?></button>
 
 </form>
 

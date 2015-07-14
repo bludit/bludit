@@ -39,7 +39,7 @@
     <div class="forms-desc"><?php $Language->p('you-can-add-a-small-text-on-the-bottom') ?></div>
     </label>
 
-    <input type="submit" class="btn" value="<?php $Language->p('Save') ?>" name="form-general">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="form-general">
 </form>
 </div>
 
@@ -99,7 +99,7 @@
         </div>
     </label>
 
-    <input type="submit" class="btn" value="<?php $Language->p('Save') ?>" name="form-advanced">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="form-advanced">
 </form>
 </div>
 
@@ -142,7 +142,7 @@
         <div class="forms-desc"><?php $Language->p('you-can-use-this-field-to-define-a-set-of') ?></div>
     </label>
 
-    <input type="submit" class="btn" value="<?php $Language->p('Save') ?>" name="form-regional">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="form-regional">
 </form>
 </div>
 

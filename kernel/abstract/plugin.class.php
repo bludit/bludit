@@ -30,6 +30,8 @@ class Plugin {
 			'website'=>''
 		);
 		
+		$this->dbFields = array();
+
 		$reflector = new ReflectionClass(get_class($this));
 
 		// Directory name
@@ -140,12 +142,9 @@ class Plugin {
 		// Create plugin directory for databases and others files.
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
-		if( !empty($this->dbFields) )
-		{
-			// DEBUG: NO ME GUSTA LLAMAR A UNA CLASE
-			$Tmp = new dbJSON($this->filenameDb);
-			$Tmp->set($this->dbFields);
-		}
+		// Create database
+		$Tmp = new dbJSON($this->filenameDb);
+		$Tmp->set($this->dbFields);
 
 		return true;
 	}

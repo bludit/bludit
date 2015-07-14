@@ -2,13 +2,6 @@
 
 class pluginOpenGraph extends Plugin {
 
-	public function init()
-	{
-		$this->dbFields = array(
-			'test'=>''
-		);
-	}
-
 	public function onSiteHead()
 	{
 		global $Url, $Site;

@@ -78,11 +78,11 @@
 
     </div>
 
-    <button class="btn btn-blue" name="publish"><i class="fa fa-sun-o fa-right"></i><?php echo ($_Page->published()?$Language->p('Save'):$Language->p('Publish now')) ?></button>
+    <button class="btn btn-blue" name="publish"><?php echo ($_Page->published()?$Language->p('Save'):$Language->p('Publish now')) ?></button>
 
 <?php if(count($_Page->children())===0) { ?>
-    <button class="btn" name="draft"><i class="fa fa-circle-o fa-right"></i><?php $Language->p('Draft') ?></button>
-    <button id="jsdelete" class="btn" name="delete"><i class="fa fa-remove fa-right"></i><?php $Language->p('Delete') ?></button>
+    <button class="btn" name="draft"><?php $Language->p('Draft') ?></button>
+    <button id="jsdelete" class="btn" name="delete"><?php $Language->p('Delete') ?></button>
 <?php } ?>
 
 </form>
