@@ -5,14 +5,27 @@ class pluginPages extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'test'=>''
+			'homeLink'=>true
 		);
+	}
+
+	public function form()
+	{
+		global $Language;
+
+		$html  = '<div>';
+		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="true" '.($this->getDbField('homeLink')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	public function onSiteSidebar()
 	{
 		global $Language;
 		global $pagesParents;
+		global $Site;
 
 		$html  = '<div class="plugin plugin-pages">';
 		$html .= '<h2>'.$Language->get('Pages').'</h2>';
@@ -22,10 +35,12 @@ class pluginPages extends Plugin {
 
 		$html .= '<ul>';
 
+		if($this->getDbField('homeLink')) {
+			$html .= '<li><a class="parent" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a></li>';
+		}
+
 		foreach($parents as $parent)
 		{
-			
-
 			// Print the parent
 			$html .= '<li><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a></li>';
 

@@ -6,22 +6,22 @@ class Plugin {
 	public $directoryName;
 
 	// (string) Database path and filename
-	public $fileDb;
+	public $filenameDb;
 
-	// (array) Database
+	// (array) Database unserialized
 	public $db;
 
 	// (array) Database fields, only for initialize.
 	public $dbFields;
 
+	// (string) Plugin's class name.
 	public $className;
 
+	// (array) Plugin's information.
 	public $data;
 
 	function __construct()
 	{
-		$reflector = new ReflectionClass(get_class($this));
-
 		$this->data = array(
 			'name'=>'',
 			'description'=>'',
@@ -29,6 +29,8 @@ class Plugin {
 			'email'=>'',
 			'website'=>''
 		);
+		
+		$reflector = new ReflectionClass(get_class($this));
 
 		// Directory name
 		$this->directoryName = basename(dirname($reflector->getFileName())).DS;
@@ -42,16 +44,17 @@ class Plugin {
 		// Init empty database
 		$this->db = $this->dbFields;
 
-		$this->fileDb = PATH_PLUGINS_DATABASES.$this->directoryName.'db.php';
+		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.'db.php';
 
 		// If the plugin installed then get the database.
 		if($this->installed())
 		{
-			$Tmp = new dbJSON($this->fileDb);
+			$Tmp = new dbJSON($this->filenameDb);
 			$this->db = $Tmp->db;
 		}
 	}
 
+	// Returns the item from plugin-data.
 	public function getData($key)
 	{
 		if(isset($this->data[$key])) {
@@ -64,6 +67,32 @@ class Plugin {
 	public function setData($array)
 	{
 		$this->data = $array;
+	}
+
+	public function getDbField($key)
+	{
+		if(isset($this->db[$key])) {
+			return $this->db[$key];
+		}
+
+		return '';
+	}
+
+	public function setDb($array)
+	{
+		$tmp = array();
+
+		// All fields will be sanitize before save.
+		foreach($array as $key=>$value) {
+			$tmp[$key] = Sanitize::html($value);
+		}
+
+		$this->db = $tmp;
+
+		// Save db on file
+		$Tmp = new dbJSON($this->filenameDb);
+		$Tmp->db = $tmp;
+		$Tmp->save();
 	}
 
 	public function name()
@@ -114,7 +143,7 @@ class Plugin {
 		if( !empty($this->dbFields) )
 		{
 			// DEBUG: NO ME GUSTA LLAMAR A UNA CLASE
-			$Tmp = new dbJSON($this->fileDb);
+			$Tmp = new dbJSON($this->filenameDb);
 			$Tmp->set($this->dbFields);
 		}
 
@@ -123,13 +152,13 @@ class Plugin {
 
 	public function uninstall()
 	{
-		unlink($this->fileDb);
+		unlink($this->filenameDb);
 		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
 	}
 
 	public function installed()
 	{
-		return file_exists($this->fileDb);
+		return file_exists($this->filenameDb);
 	}
 
 	public function init()
@@ -138,13 +167,12 @@ class Plugin {
 		// The user can define your own dbFields.
 	}
 
-	// DEBUG: Ver si se usa
-	public function showdb()
-	{
-		print_r( $this->db );
-	}
-
 	// EVENTS
+
+	public function form()
+	{
+		return false;
+	}
 
 	// Before the posts load.
 	public function beforePostsLoad()

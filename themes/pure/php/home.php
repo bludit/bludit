@@ -33,7 +33,7 @@
 
     <!-- Post content -->
     <div class="post-content">
-        <?php echo $Post->content() ?>
+        <?php echo $Post->content(false) // FALSE to get the first part of the post ?>
     </div>
 
 </section>

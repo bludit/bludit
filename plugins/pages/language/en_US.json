@@ -8,5 +8,7 @@
 		"website": ""
 	},
 
-    "pages": "Pages"
+    "pages": "Pages",
+    "home": "Home",
+    "show-home-link": "Show home link"
 }

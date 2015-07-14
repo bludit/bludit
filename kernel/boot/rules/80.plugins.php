@@ -61,6 +61,7 @@ function build_plugins()
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.'en_US.json';
 			$database = new dbJSON($languageFilename, false);
 		}
+
 		$databaseArray = $database->get();
 		$Plugin->setData( $databaseArray['plugin-data'] );
 

@@ -165,8 +165,13 @@ p.advOptions {
     font-size: 0.8em;
 }
 
+a.btn:hover {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
 a.btn-red {
     color: rgba(255, 255, 255, 0.9) !important;
+    margin-right: 10px;
 }
 
 a.btn-red:hover {
@@ -187,6 +192,31 @@ div.pluginBox {
 
 div.pluginBox p {
     margin-bottom: 10px;
+}
+
+/* ----------- PLUGINS FORM ----------- */
+
+#jsformplugin div {
+    margin-bottom: 1.1em;
+}
+
+#jsformplugin label {
+    margin: 0 0 5px 0 !important;
+}
+
+#jsformplugin input[type=text] {
+    width: 70%;
+}
+
+#jsformplugin input[type="checkbox"] {
+    vertical-align: middle;
+    margin-left: 0px;
+}
+
+#jsformplugin label.forCheckbox {
+    margin-left: 3px;
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
 /* ----------- SUB-NAVBAR ----------- */

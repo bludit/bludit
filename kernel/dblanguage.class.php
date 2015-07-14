@@ -71,7 +71,7 @@ class dbLanguage extends dbJSON
 
 	public function add($array)
 	{
-		$this->db[] = $array;
+		$this->db += $array;
 	}
 
 }

@@ -207,11 +207,19 @@ div.plugin-content {
     padding: 0 10px;
 }
 
+div.plugin-content li {
+    margin-top: 5px;
+}
+
 div.plugin-content ul {
     display: block;
     list-style-type: none;
     margin: 5px 0;
     padding: 0;
+}
+
+div.plugin-content ul > li > ul > li {
+    margin: 0;
 }
 
 div.plugin-content ul > li > ul > li > a {

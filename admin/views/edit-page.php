@@ -11,7 +11,7 @@
 
     <label>
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw(false) ?></textarea>
+        <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw(true, false) ?></textarea>
     </label>
 
 <?php

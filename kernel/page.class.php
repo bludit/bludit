@@ -16,12 +16,20 @@ class Page extends fileContent
 		return $this->getField('title');
 	}
 
-	// Returns the post content.
+	// Returns the content.
 	// This content is markdown parser.
-	public function content($html=true)
+	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
+	// $html, TRUE returns the content without satinize, FALSE otherwise.
+	public function content($fullContent=true, $html=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('content');
+
+		if(!$fullContent)
+		{
+			$explode = explode(PAGE_BRAKE, $content);
+			$content = $explode[0];
+		}
 
 		if($html) {
 			return $content;
@@ -30,18 +38,26 @@ class Page extends fileContent
 		return Sanitize::html($content);
 	}
 
-	// Returns the post content.
+	// Returns the content.
 	// This content is not markdown parser.
-	public function contentRaw($html=true)
+	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
+	// $html, TRUE returns the content without satinize, FALSE otherwise.
+	public function contentRaw($fullContent=true, $html=true)
 	{
 		// This content is not sanitized.
-		$contentRaw = $this->getField('contentRaw');
+		$content = $this->getField('contentRaw');
 
-		if($html) {
-			return $contentRaw;
+		if(!$fullContent)
+		{
+			$explode = explode(PAGE_BRAKE, $content);
+			$content = $explode[0];
 		}
 
-		return Sanitize::html($contentRaw);
+		if($html) {
+			return $content;
+		}
+
+		return Sanitize::html($content);
 	}
 
 	public function description()

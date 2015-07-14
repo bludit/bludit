@@ -6,7 +6,8 @@ class dbJSON
 	public $file;
 	public $firstLine;
 
-	// $firstLine, TRUE if you want to remove the first line.
+	// $file, the JSON file.
+	// $firstLine, TRUE if you want to remove the first line, FALSE otherwise.
 	function __construct($file, $firstLine=true)
 	{
 		$this->file = $file;
@@ -15,15 +16,18 @@ class dbJSON
 
 		if(file_exists($file))
 		{
+			// Read JSON file.
 			$lines = file($file);
 
+			// Remove the first line, the first line is for security reasons.
 			if($firstLine) {
-				// Remove the first line.
 				unset($lines[0]);
 			}
 
+			// Regenerate the JSON file.
 			$implode = implode($lines);
 
+			// Unserialize, JSON to Array.
 			$this->db = $this->unserialize($implode);
 		}
 		else
@@ -32,17 +36,35 @@ class dbJSON
 		}
 	}
 
+	// Get database.
+	public function get()
+	{
+		return $this->db;
+	}
+
+	// Set and save database.
+	public function set($db)
+	{
+		$this->db = $db;
+
+		return $this->save();
+	}
+
+	// Returns the amount of database items.
 	public function count()
 	{
 		return count($this->db);
 	}
 
+	// Save the JSON file.
 	public function save()
 	{
-		if($this->firstLine)
+		if($this->firstLine) {
 			$data  = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
-		else
+		}
+		else {
 			$data = '';
+		}
 
 		$data .= $this->serialize($this->db);
 
@@ -53,8 +75,9 @@ class dbJSON
 	private function serialize($data)
 	{
 		// DEBUG: La idea es siempre serializar en json, habria que ver si siempre esta cargado json_enconde y decode
-		if(JSON)
+		if(JSON) {
 			return json_encode($data, JSON_PRETTY_PRINT);
+		}
 
 		return serialize($data);
 	}
@@ -62,29 +85,11 @@ class dbJSON
 	private function unserialize($data)
 	{
 		// DEBUG: La idea es siempre serializar en json, habria que ver si siempre esta cargado json_enconde y decode
-		if(JSON)
+		if(JSON) {
 			return json_decode($data, true);
+		}
 
 		return unserialize($data);
-	}
-
-	// DEBUG, ver si sirve para la instalacion, sino borrar
-	public function set($db)
-	{
-		$this->db = $db;
-
-		return $this->save();
-	}
-
-	public function get()
-	{
-		return $this->db;
-	}
-
-	// DEBUG, se puede borrar
-	public function show()
-	{
-		var_dump($this->db);
 	}
 
 }
