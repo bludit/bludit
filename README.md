@@ -26,3 +26,7 @@ Installation guide
 2. Extract the zip file into a directory like `bludit`.
 3. Upload the directory `bludit` on your hosting.
 4. Done!
+
+License
+-------
+Bludit is opensource software licensed under the [MIT license](https://tldrlegal.com/license/mit-license)

@@ -4,7 +4,7 @@
  * Bludit
  * http://www.bludit.com
  * Author Diego Najar
- * All Bludit code is released under the GNU General Public License.
+ * Bludit is opensource software licensed under the MIT license.
 */
 
 // Check installation
