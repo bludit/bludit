@@ -69,7 +69,7 @@ function build_page($key)
 	// Parse username for the page.
 	if( $dbUsers->userExists( $Page->username() ) )
 	{
-		$user = $dbUsers->get( $Page->username() );
+		$user = $dbUsers->getDb( $Page->username() );
 
 		$Page->setField('authorFirstName', $user['firstName'], false);
 		

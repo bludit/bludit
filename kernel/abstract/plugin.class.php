@@ -144,7 +144,8 @@ class Plugin {
 
 		// Create database
 		$Tmp = new dbJSON($this->filenameDb);
-		$Tmp->set($this->dbFields);
+		$Tmp->db = $this->dbFields;
+		$Tmp->save();
 
 		return true;
 	}

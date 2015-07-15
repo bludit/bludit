@@ -57,7 +57,7 @@ function buildPost($key)
 	// Parse username for the post.
 	if( $dbUsers->userExists( $Post->username() ) )
 	{
-		$user = $dbUsers->get( $Post->username() );
+		$user = $dbUsers->getDb( $Post->username() );
 
 		$Post->setField('authorFirstName', $user['firstName'], false);
 		

@@ -19,7 +19,7 @@ class dbUsers extends dbJSON
 	}
 
 	// Return an array with the username databases
-	public function get($username)
+	public function getDb($username)
 	{
 		if($this->userExists($username))
 		{
@@ -57,7 +57,7 @@ class dbUsers extends dbJSON
 	{
 		$dataForDb = array();
 
-		$user = $this->get($args['username']);
+		$user = $this->getDb($args['username']);
 
 		if($user===false)
 		{
@@ -70,10 +70,10 @@ class dbUsers extends dbJSON
 		{
 			if( isset($this->dbFields[$field]) )
 			{
-				// Sanitize if will be saved on database.
+				// Sanitize.
 				$tmpValue = Sanitize::html($value);
 
-				// Set type
+				// Set type.
 				settype($tmpValue, gettype($this->dbFields[$field]['value']));
 
 				$user[$field] = $tmpValue;

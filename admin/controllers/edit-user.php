@@ -51,7 +51,7 @@ if($Login->role()!=='admin') {
 	$layout['parameters'] = $Login->username();
 }
 
-$_user = $dbUsers->get($layout['parameters']);
+$_user = $dbUsers->getDb($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_user===false) {

@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * Bludit
+ * http://www.bludit.com
+ * Author Diego Najar
+ * Bludit is opensource software licensed under the MIT license.
+*/
+
 // Security constant
 define('BLUDIT', true);
 
