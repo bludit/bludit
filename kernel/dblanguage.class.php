@@ -20,7 +20,7 @@ class dbLanguage extends dbJSON
 
 		// User language
 		$filename = PATH_LANGUAGES.$language.'.json';
-		if(file_exists($filename))
+		if( file_exists($filename) && ($language!=="en_US") )
 		{
 			$Tmp = new dbJSON($filename, false);
 			$this->db = array_merge($this->db, $Tmp->db);
