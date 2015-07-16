@@ -121,7 +121,7 @@ function install($adminPassword, $email)
     	error_log($errorText, 0);
     }
 
-    if(!mkdir(PATH_PLUGINS_DATABASES, $dirpermissions, true))
+    if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true))
     {
         $errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
         error_log($errorText, 0);
@@ -209,6 +209,13 @@ function install($adminPassword, $email)
     );
 
     file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+    // File plugins/pages/db.php
+    $data = array(
+        'homeLink'=>true
+    );
+
+    file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
     // File index.txt for error page
     $data = 'Title: Error
