@@ -15,7 +15,7 @@ class dbLanguage extends dbJSON
 		if(file_exists($filename))
 		{
 			$Tmp = new dbJSON($filename, false);
-			$this->db += $Tmp->db;
+			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		// User language
@@ -23,7 +23,7 @@ class dbLanguage extends dbJSON
 		if(file_exists($filename))
 		{
 			$Tmp = new dbJSON($filename, false);
-			$this->db += $Tmp->db;
+			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		$this->data = $this->db['language-data'];
@@ -57,7 +57,7 @@ class dbLanguage extends dbJSON
 
 	public function add($array)
 	{
-		$this->db += $array;
+		$this->db = array_merge($this->db, $array);
 	}
 
 	// Returns the item from plugin-data.
