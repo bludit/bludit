@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-07-14",
+		"last-update": "2015-07-18",
 		"author": "Fred",
 		"email": "",
 		"website": ""
@@ -47,7 +47,7 @@
     "login": "S’identifier",
     "logout": "Se déconnecter",
     "dasbhoard": "Tab. de Bord",
-    "manage": "Gérer",
+    "manage": "Gestion du contenu",
     "themes": "Thèmes",
 	"configure-plugin": "Configurer le plugin",
     "confirm-delete-this-action-cannot-be-undone": "Confirmer la suppression, cette action n’est pas réversible.",
