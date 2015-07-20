@@ -36,7 +36,6 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Tip/Help ???</div>
     </label>
 
     <label>
@@ -45,19 +44,19 @@
             <span class="input-prepend"><?php echo $Site->urlPage() ?><span id="jsparentExample"></span></span>
             <input id="jsslug" name="slug" type="text">
         </div>
-        <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
+        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Description') ?>
         <input id="jsdescription" name="description" type="text" class="width-50">
-        <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Tags') ?>
         <input id="jstags" name="tags" type="text" class="width-50">
-        <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
+        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
     </label>
 
     <label>

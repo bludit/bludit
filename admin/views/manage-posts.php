@@ -25,3 +25,19 @@
 	?>
 	</tbody>
 </table>
+
+<div id="paginator">
+<ul>
+	<?php
+		if(Paginator::get('showNewer')) {
+			echo '<li class="left"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page='.Paginator::get('prevPage').'">« '.$Language->g('Prev page').'</a></li>';
+		}
+
+		echo '<li class="list">'.(Paginator::get('currentPage')+1).' / '.(Paginator::get('numberOfPages')+1).'</li>';
+
+		if(Paginator::get('showOlder')) {
+			echo '<li class="right"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page='.Paginator::get('nextPage').'">'.$Language->g('Next page').' »</a></li>';
+		}
+	?>
+</ul>
+</div>

@@ -7,7 +7,8 @@
 function editPost($args)
 {
 	global $dbPosts;
-
+	global $Language;
+	
 	// Post status, published or draft.
 	if( isset($args['publish']) ) {
 		$args['status'] = "published";
@@ -19,12 +20,12 @@ function editPost($args)
 	// Edit the post.
 	if( $dbPosts->edit($args) )
 	{
-		Alert::set('The post has been saved successfull');
+		Alert::set($Language->g('the-changes-have-been-saved'));
 		Redirect::page('admin', 'edit-post/'.$args['key']);
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to edit the post');
+		Alert::set($Language->g('an-error-occurred-while-trying-to-edit-the-post'));
 	}
 }
 
@@ -39,7 +40,7 @@ function deletePost($key)
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to delete the post');
+		Alert::set('an-error-occurred-while-trying-to-delete-the-post');
 	}
 }
 

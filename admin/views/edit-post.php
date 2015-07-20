@@ -33,19 +33,19 @@
             <span class="input-prepend"><?php echo $Site->urlPost() ?><span id="jsparentExample"></span></span>
             <input id="jsslug" type="text" name="slug" value="<?php echo $_Post->slug() ?>">
         </div>
-        <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
+        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Description') ?>
         <input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Post->description() ?>">
-        <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Tags') ?>
         <input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Post->tags() ?>">
-        <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
+        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
     </label>
     </div>
 

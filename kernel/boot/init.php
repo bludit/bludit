@@ -96,6 +96,7 @@ include(PATH_HELPERS.'redirect.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
+include(PATH_HELPERS.'paginator.class.php');
 
 // Session
 Session::start();

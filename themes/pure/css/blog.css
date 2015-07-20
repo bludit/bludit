@@ -76,10 +76,48 @@ div.footer {
 }
 
 /* ------------------------
+Paginator
+------------------------ */
+#paginator {
+    margin: 20px 0;
+}
+
+#paginator a {
+    color: #2672ec;
+}
+
+#paginator ul {
+    clear: both;
+    list-style-type: none;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+}
+
+#paginator li {
+    display: block;
+}
+
+#paginator li.left {
+    float: left !important;
+}
+
+#paginator li.list {
+    background: #e0e0e0;
+    color: #747474;
+    padding: 2px 11px;
+}
+
+#paginator li.right {
+   float: right !important;
+}
+
+/* ------------------------
 Pages and Posts
 ------------------------ */
 .page,
 .post {
+    margin: 20px 0;
 }
 
 .page-title,

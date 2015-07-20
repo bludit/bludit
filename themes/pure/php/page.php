@@ -1,4 +1,4 @@
-<h1 class="subhead">Page</h1>
+<h1 class="subhead"><?php echo $Language->get('Page') ?></h1>
 
 <section class="page">
 

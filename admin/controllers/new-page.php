@@ -7,7 +7,8 @@
 function addPage($args)
 {
 	global $dbPages;
-
+	global $Language;
+	
 	// Page status, published or draft.
 	if( isset($args['publish']) ) {
 		$args['status'] = "published";
@@ -24,7 +25,7 @@ function addPage($args)
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to create the page');
+		Alert::set($Language->g('an-error-occurred-while-trying-to-create-the-page'));
 	}
 }
 

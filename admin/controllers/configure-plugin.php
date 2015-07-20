@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -42,7 +42,7 @@ if($_Plugin->form()===false) {
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	$_Plugin->setDb($_POST);
-	Alert::set('Configuration has been saved successfully');
+	Alert::set($Language->g('the-changes-have-been-saved'));
 }
 
 // ============================================================================

@@ -1,4 +1,4 @@
-<h1 class="subhead">Post</h1>
+<h1 class="subhead"><?php echo $Language->get('Post') ?></h1>
 
 <section class="post">
 

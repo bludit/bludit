@@ -45,7 +45,7 @@
 <?php
     }
 ?>
-    <input type="submit" class="btn btn-blue" value="Save" name="user-profile">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-profile">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -64,7 +64,7 @@
         <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
     </label>
 
-    <input type="submit" class="btn btn-blue" value="Save" name="user-email">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-email">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -87,7 +87,7 @@
         <input type="password" name="confirm-password" class="width-50">
     </label>
 
-    <input type="submit" class="btn btn-blue" value="Save" name="user-password">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-password">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>

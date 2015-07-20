@@ -7,14 +7,15 @@
 function editUser($args)
 {
 	global $dbUsers;
-
+	global $Language;
+	
 	if(isset($args['password']))
 	{
 		if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) ) {
 			return $dbUsers->setPassword($args);
 		}
 		else {
-			Alert::set('Passwords are differents');
+			Alert::set($Language->g('password-does-not-match-the-confirm-password'));
 			return false;
 		}
 	}
@@ -38,7 +39,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 
 	if( editUser($_POST) ) {
-		Alert::set('User saved successfuly');
+		Alert::set($Language->g('the-changes-have-been-saved'));
 	}
 
 }

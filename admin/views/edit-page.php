@@ -45,7 +45,6 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Tip/Help ???</div>
     </label>
 
 <?php } ?>
@@ -56,19 +55,19 @@
             <span class="input-prepend"><?php echo $Site->url() ?><span id="jsparentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
             <input id="jsslug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
         </div>
-        <span class="forms-desc">You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Description') ?>
         <input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
-        <span class="forms-desc">This field can help describe the content in a few words. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Tags') ?>
         <input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
-        <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
+        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
     </label>
 
     <label>

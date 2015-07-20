@@ -1,4 +1,4 @@
-<h1 class="subhead">Recent Posts</h1>
+<h1 class="subhead"><?php echo $Language->get('Recent posts') ?></h1>
 
 <?php foreach ($posts as $Post): ?>
 
@@ -39,3 +39,7 @@
 </section>
 
 <?php endforeach; ?>
+
+<?php
+    echo Paginator::html();
+?>

@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -16,30 +16,31 @@ if($Login->role()!=='admin') {
 function addUser($args)
 {
 	global $dbUsers;
+	global $Language;
 
 	// Check if the username already exist in db.
 	if( $dbUsers->userExists($args['username']) || Text::isEmpty($args['username']) )
 	{
-		Alert::set('Username already exists or is empty');
+		Alert::set($Language->g('username-already-exists-or-is-empty'));
 		return false;
 	}
 
 	// Validate password.
 	if( ($args['password'] != $args['confirm-password'] ) || Text::isEmpty($args['password']) )
 	{
-		Alert::set('The password and confirmation password do not match');
+		Alert::set($Language->g('password-does-not-match-the-confirm-password'));
 		return false;
 	}
 
 	// Add the user.
 	if( $dbUsers->add($args) )
 	{
-		Alert::set('User has been added successfull');
+		Alert::set($Language->g('user-has-been-added-successfully'));
 		return true;
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to add a new user');
+		Alert::set($Language->g('an-error-occurred-while-trying-to-create-the-user-account'));
 		return false;
 	}
 }

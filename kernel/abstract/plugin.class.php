@@ -145,6 +145,7 @@ class Plugin {
 		// Create database
 		$Tmp = new dbJSON($this->filenameDb);
 		$Tmp->db = $this->dbFields;
+		$Tmp->db['position'] = 0;
 		$Tmp->save();
 
 		return true;
@@ -224,6 +225,16 @@ class Plugin {
 	}
 
 	public function onAdminSidebar()
+	{
+		return false;
+	}
+
+	public function beforeSiteLoad()
+	{
+		return false;
+	}
+
+	public function afterSiteLoad()
 	{
 		return false;
 	}

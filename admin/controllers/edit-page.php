@@ -7,6 +7,7 @@
 function editPage($args)
 {
 	global $dbPages;
+	global $Language;
 
 	// Page status, published or draft.
 	if( isset($args['publish']) ) {
@@ -25,19 +26,20 @@ function editPage($args)
 	{
 		$dbPages->regenerate();
 
-		Alert::set('The page has been saved successfully');
+		Alert::set($Language->g('the-changes-have-been-saved'));
 		Redirect::page('admin', 'edit-page/'.$args['key']);
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to edit the page');
+		Alert::set($Language->g('an-error-occurred-while-trying-to-edit-the-page'));
 	}
 }
 
 function deletePage($key)
 {
 	global $dbPages;
-
+	global $Language;
+	
 	if( $dbPages->delete($key) )
 	{
 		Alert::set('The page has been deleted successfully');
@@ -45,7 +47,7 @@ function deletePage($key)
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to delete the page');
+		Alert::set('an-error-occurred-while-trying-to-delete-the-page');
 	}
 }
 

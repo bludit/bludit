@@ -14,9 +14,25 @@ class dbPosts extends dbJSON
 		'unixTimeModified'=>array('inFile'=>false, 'value'=>0)
 	);
 
+	private $numberPosts = array(
+		'total'=>0,
+		'withoutDrafts'=>0
+	);
+
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
+
+		$this->numberPosts['total'] = count($this->db);
+	}
+
+	public function numberPost($total=false)
+	{
+		if($total) {
+			return $this->numberPosts['total'];
+		}
+
+		return $this->numberPosts['withoutDrafts'];
 	}
 
 	// Return an array with the database for a page, FALSE otherwise.
@@ -236,21 +252,22 @@ class dbPosts extends dbJSON
 
 	public function getPage($pageNumber, $postPerPage, $draftPosts=false)
 	{
-		$init = (int) $postPerPage * $pageNumber;
-		$end  = (int) min( ($init + $postPerPage - 1), count($this->db) - 1 );
-
-		$outrange = $init<0 ? true : $init > $end;
-
 		// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
 		// DEBUG: Se eliminan antes de ordenarlos porque sino los draft cuentan como publicados en el PostPerPage.
-		if(!$draftPosts){
+		if(!$draftPosts) {
 			$this->removeUnpublished();
+			$this->numberPosts['withoutDrafts'] = count($this->db);
 		}
 
+		$init = (int) $postPerPage * $pageNumber;
+		$end  = (int) min( ($init + $postPerPage - 1), count($this->db) - 1 );
+		$outrange = $init<0 ? true : $init > $end;
+
+		// Sort posts
 		$tmp = $this->sortByDate();
 
 		if(!$outrange) {
-			return array_slice($tmp, $init, $end+1, true);
+			return array_slice($tmp, $init, $postPerPage, true);
 		}
 
 		return array();

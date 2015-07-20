@@ -3,15 +3,16 @@
 function makeNavbar($type)
 {
 	global $layout;
+	global $Language;
 
 	$navbar['users'] = array(
-		'users'=>array('text'=>'Users'),
-		'add-user'=>array('text'=>'Add new user')
+		'users'=>array('text'=>$Language->g('Users')),
+		'add-user'=>array('text'=>$Language->g('Add a new user'))
 	);
 
 	$navbar['manage'] = array(
-		'manage-posts'=>array('text'=>'Manage posts'),
-		'manage-pages'=>array('text'=>'Manage pages')
+		'manage-posts'=>array('text'=>$Language->g('Manage posts')),
+		'manage-pages'=>array('text'=>$Language->g('Manage pages'))
 	);
 
 	echo '<nav class="navbar sublinks"><ul>';

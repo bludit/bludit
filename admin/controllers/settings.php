@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -16,7 +16,8 @@ if($Login->role()!=='admin') {
 function setSettings($args)
 {
 	global $Site;
-
+	global $Language;
+	
 	if(!isset($args['advancedOptions'])) {
 		$args['advancedOptions'] = 'false';
 	}
@@ -31,7 +32,7 @@ function setSettings($args)
 	}
 
 	if( $Site->set($args) ) {
-		Alert::set('Settings has been saved successfully');
+		Alert::set($Language->g('the-changes-have-been-saved'));
 	}
 	else {
 		Alert::set('Error occurred when trying to saved the settings');

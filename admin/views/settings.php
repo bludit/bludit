@@ -164,5 +164,5 @@ $(document).ready(function() {
 <!-- ===================================== -->
 
 <div id="about">
-    <p><i class="fa fa-pencil-square-o"></i> Bludit version <?php echo BLUDIT_VERSION.' ('.BLUDIT_RELEASE_DATE.')' ?></p>
+    <p><i class="fa fa-pencil-square-o"></i> <?php $Language->p('Bludit version') ?>: <?php echo BLUDIT_VERSION.' ('.BLUDIT_RELEASE_DATE.')' ?></p>
 </div>

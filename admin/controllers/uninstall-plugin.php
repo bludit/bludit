@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 

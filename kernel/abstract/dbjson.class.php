@@ -28,7 +28,14 @@ class dbJSON
 			$implode = implode($lines);
 
 			// Unserialize, JSON to Array.
-			$this->db = $this->unserialize($implode);
+			$array = $this->unserialize($implode);
+
+			if(empty($array)) {
+				Log::set(__METHOD__.LOG_SEP.'Invalid JSON file: '.$file.', cannot be decoded. Check the file content.');
+			}
+			else {
+				$this->db = $array;
+			}
 		}
 		else
 		{

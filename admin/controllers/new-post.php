@@ -7,7 +7,8 @@
 function addPost($args)
 {
 	global $dbPosts;
-
+	global $Language;
+	
 	// Page status, published or draft.
 	if( isset($args['publish']) ) {
 		$args['status'] = "published";
@@ -24,7 +25,7 @@ function addPost($args)
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to create the post');
+		Alert::set($Language->g('an-error-occurred-while-trying-to-create-the-post'));
 	}
 }
 
