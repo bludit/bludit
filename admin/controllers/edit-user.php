@@ -9,19 +9,52 @@ function editUser($args)
 	global $dbUsers;
 	global $Language;
 	
-	if(isset($args['password']))
+	if( $dbUsers->set($args) ) {
+		Alert::set($Language->g('The changes have been saved'));
+	}
+	else {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
+	}
+}
+
+function setPassword($args)
+{
+	global $dbUsers;
+	global $Language;
+
+	if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) )
 	{
-		if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) ) {
-			return $dbUsers->setPassword($args);
+		if( $dbUsers->setPassword($args) ) {
+			Alert::set($Language->g('The changes have been saved'));
 		}
 		else {
-			Alert::set($Language->g('password-does-not-match-the-confirm-password'));
-			return false;
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to change the user password.');
 		}
 	}
-	else
-	{
-		return $dbUsers->set($args);
+	else {
+		Alert::set($Language->g('The password and confirmation password do not match'));
+		return false;
+	}
+}
+
+function deleteUser($args, $deleteContent=false)
+{
+	global $dbUsers;
+	global $dbPosts;
+	global $Language;
+
+	if($deleteContent) {
+		$dbPosts->deletePostsByUser($args['username']);
+	}
+	else {
+		$dbPosts->linkPostsToUser($args['username'], 'admin');
+	}
+
+	if( $dbUsers->delete($args['username']) ) {
+		Alert::set($Language->g('User deleted'));
+	}
+	else {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the user.');
 	}
 }
 
@@ -31,17 +64,25 @@ function editUser($args)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-
+	// Prevent editors users to administrate other users.
 	if($Login->role()!=='admin')
 	{
 		$_POST['username'] = $Login->username();
 		unset($_POST['role']);
 	}
 
-	if( editUser($_POST) ) {
-		Alert::set($Language->g('the-changes-have-been-saved'));
+	if(isset($_POST['delete-user-all'])) {
+		deleteUser($_POST, true);
 	}
-
+	elseif(isset($_POST['delete-user-associate'])) {
+		deleteUser($_POST, false);
+	}
+	elseif(isset($_POST['change-password'])) {
+		setPassword($_POST);
+	}
+	elseif(isset($_POST['edit-user'])) {
+		editUser($_POST);
+	}
 }
 
 // ============================================================================

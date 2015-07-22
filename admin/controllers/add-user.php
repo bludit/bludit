@@ -19,16 +19,22 @@ function addUser($args)
 	global $Language;
 
 	// Check if the username already exist in db.
-	if( $dbUsers->userExists($args['username']) || Text::isEmpty($args['username']) )
+	if( Text::isEmpty($args['username']) )
 	{
-		Alert::set($Language->g('username-already-exists-or-is-empty'));
+		Alert::set($Language->g('username-field-is-empty'));
+		return false;		
+	}
+
+	if( $dbUsers->userExists($args['username']) )
+	{
+		Alert::set($Language->g('username-already-exists'));
 		return false;
 	}
 
 	// Validate password.
 	if( ($args['password'] != $args['confirm-password'] ) || Text::isEmpty($args['password']) )
 	{
-		Alert::set($Language->g('password-does-not-match-the-confirm-password'));
+		Alert::set($Language->g('The password and confirmation password do not match'));
 		return false;
 	}
 
@@ -40,7 +46,7 @@ function addUser($args)
 	}
 	else
 	{
-		Alert::set($Language->g('an-error-occurred-while-trying-to-create-the-user-account'));
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the account.');
 		return false;
 	}
 }

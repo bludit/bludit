@@ -35,7 +35,7 @@ function setSettings($args)
 		Alert::set($Language->g('the-changes-have-been-saved'));
 	}
 	else {
-		Alert::set('Error occurred when trying to saved the settings');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
 	}
 }
 

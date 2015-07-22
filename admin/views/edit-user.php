@@ -5,6 +5,7 @@
         <li><a href="#profile"><?php $Language->p('Profile') ?></a></li>
         <li><a href="#email"><?php $Language->p('Email') ?></a></li>
         <li><a href="#password"><?php $Language->p('Password') ?></a></li>
+        <li><a href="#delete"><?php $Language->p('Delete') ?></a></li>
     </ul>
 </nav>
 
@@ -14,6 +15,7 @@
 
 <div id="profile">
 <form method="post" action="" class="forms">
+    <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -56,6 +58,7 @@
 
 <div id="email">
 <form method="post" action="" class="forms">
+    <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -75,6 +78,7 @@
 
 <div id="password">
 <form method="post" action="" class="forms">
+    <input type="hidden" name="change-password" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -90,4 +94,26 @@
     <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-password">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
+</div>
+
+<!-- ===================================== -->
+<!-- Delete -->
+<!-- ===================================== -->
+
+<div id="delete">
+
+    <form method="post" action="" class="forms">
+        <input type="hidden" name="delete-user-all" value="true">
+        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+        <p><input type="submit" class="btn btn-blue" value="Delete the user and all your content"></p>
+    </form>
+
+    <form method="post" action="" class="forms">
+        <input type="hidden" name="delete-user-associate" value="true">
+        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+        <p><input type="submit" class="btn btn-blue" value="Delete the user and the content associate to admin user"></p>
+    </form>
+
+    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
+
 </div>

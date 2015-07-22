@@ -35,7 +35,7 @@ class dbPosts extends dbJSON
 		return $this->numberPosts['withoutDrafts'];
 	}
 
-	// Return an array with the database for a page, FALSE otherwise.
+	// Return an array with the post's database, FALSE otherwise.
 	public function getDb($key)
 	{
 		if($this->postExists($key)) {
@@ -271,6 +271,44 @@ class dbPosts extends dbJSON
 		}
 
 		return array();
+	}
+
+	// Delete all posts from an user.
+	public function deletePostsByUser($username)
+	{
+		foreach($this->db as $key=>$value)
+		{
+			if($value['username']==$username) {
+				unset($this->db[$key]);
+			}
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
+	// Link-up all posts from an user to another user.
+	public function linkPostsToUser($oldUsername, $newUsername)
+	{
+		foreach($this->db as $key=>$value)
+		{
+			if($value['username']==$oldUsername) {
+				$this->db[$key]['username'] = $newUsername;
+			}
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
 	}
 
 	// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos

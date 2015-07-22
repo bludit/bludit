@@ -26,12 +26,12 @@ function editPage($args)
 	{
 		$dbPages->regenerate();
 
-		Alert::set($Language->g('the-changes-have-been-saved'));
+		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-page/'.$args['key']);
 	}
 	else
 	{
-		Alert::set($Language->g('an-error-occurred-while-trying-to-edit-the-page'));
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the page.');
 	}
 }
 
@@ -42,12 +42,12 @@ function deletePage($key)
 	
 	if( $dbPages->delete($key) )
 	{
-		Alert::set('The page has been deleted successfully');
+		Alert::set($Language->g('The page has been deleted successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}
 	else
 	{
-		Alert::set('an-error-occurred-while-trying-to-delete-the-page');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the page.');
 	}
 }
 

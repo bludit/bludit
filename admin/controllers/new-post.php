@@ -20,12 +20,12 @@ function addPost($args)
 	// Add the page.
 	if( $dbPosts->add($args) )
 	{
-		Alert::set('Post added successfuly');
+		Alert::set($Language->g('Post added successfully'));
 		Redirect::page('admin', 'manage-posts');
 	}
 	else
 	{
-		Alert::set($Language->g('an-error-occurred-while-trying-to-create-the-post'));
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the post.');
 	}
 }
 

@@ -90,6 +90,18 @@ class dbUsers extends dbJSON
 		return true;
 	}
 
+	public function delete($username)
+	{
+		unset($this->db[$username]);
+		
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
 	public function add($args)
 	{
 		$dataForDb = array();

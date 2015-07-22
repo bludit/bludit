@@ -11,6 +11,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 	else
 	{
-		Alert::set('Username or password incorrect');
+		Alert::set($Language->g('Username or password incorrect'));
 	}
 }
