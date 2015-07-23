@@ -1,7 +1,9 @@
-<h1 class="subhead">Post</h1>
+<h1 class="subhead"><?php echo $Language->get('Post') ?></h1>
 
 <section class="post">
 
+	<?php Theme::plugins('beforePostsLoad'); // Plugin ?>
+	
     <!-- Post header -->
     <header class="post-header">
 
@@ -34,4 +36,6 @@
         <?php echo $Post->content() ?>
     </div>
 
+	<?php Theme::plugins('afterPostsLoad'); // Plugin ?>
+	
 </section>
