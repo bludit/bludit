@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-07-20",
+		"last-update": "2015-07-23",
 		"author": "Fred",
 		"email": "",
 		"website": ""
@@ -121,5 +121,7 @@
     "you-can-use-this-field-to-define-a-set-of": "Vous pouvez utiliser ce champ pour définir un ensemble de paramètres liés à la langue, le pays et les préférences particulières.",
     "you-can-modify-the-url-which-identifies":"Vous pouvez modifier l'URL qui identifie une page ou un article, en utilisant des mots-clés lisibles. Pas plus de 150 caractères.",
     "this-field-can-help-describe-the-content": "Ce champ peut aider à décrire le contenu en quelques mots. Pas plus de 150 caractères.",
-    "write-the-tags-separeted-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3"
+    "write-the-tags-separeted-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
+    "delete-the-user-and-all-its-posts":"Supprimer l’utilisateur et tous ses messages",
+    "delete-the-user-and-associate-its-posts-to-admin-user": "Supprimez l’utilisateur et associez ses messages à l’administrateur principal"
 }
