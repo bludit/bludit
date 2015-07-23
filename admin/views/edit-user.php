@@ -31,10 +31,8 @@
         <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
     </label>
 
-<?php
-    if($Login->username()==='admin')
-    {
-?>
+<?php if($Login->username()==='admin') { ?>
+
     <label for="role">
         <?php $Language->p('Role') ?>
         <select name="role" class="width-50">
@@ -47,9 +45,9 @@
         </select>
         <div class="forms-desc"><?php $Language->p('you-can-choose-the-users-privilege') ?></div>
     </label>
-<?php
-    }
-?>
+
+<?php } ?>
+
     <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-profile">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
@@ -109,13 +107,13 @@
     <form method="post" action="" class="forms">
         <input type="hidden" name="delete-user-all" value="true">
         <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="Delete the user and all your content"></p>
+        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and all its posts') ?>"></p>
     </form>
 
     <form method="post" action="" class="forms">
         <input type="hidden" name="delete-user-associate" value="true">
         <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="Delete the user and the content associate to admin user"></p>
+        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and associate its posts to admin user') ?>"></p>
     </form>
 
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
