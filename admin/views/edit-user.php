@@ -5,7 +5,10 @@
         <li><a href="#profile"><?php $Language->p('Profile') ?></a></li>
         <li><a href="#email"><?php $Language->p('Email') ?></a></li>
         <li><a href="#password"><?php $Language->p('Password') ?></a></li>
+
+        <?php if($_user['username']!=='admin') { ?>
         <li><a href="#delete"><?php $Language->p('Delete') ?></a></li>
+        <?php } ?>
     </ul>
 </nav>
 
@@ -99,6 +102,7 @@
 <!-- ===================================== -->
 <!-- Delete -->
 <!-- ===================================== -->
+<?php if($_user['username']!=='admin') { ?>
 
 <div id="delete">
 
@@ -117,3 +121,5 @@
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 
 </div>
+
+<?php } ?>

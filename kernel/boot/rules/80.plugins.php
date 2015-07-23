@@ -5,11 +5,13 @@
 // ============================================================================
 
 $plugins = array(
-	'onSiteHead'=>array(),
-	'onSiteBody'=>array(),
-	'onSiteSidebar'=>array(),
+	'onSiteHead'=>array(),		// <html><head>HERE</head><body>...</body></html>
+	'onSiteBodyBegin'=>array(), // <html><head>...</head><body>HERE...</body></html>
+	'onSiteBodyEnd'=>array(), 	// <html><head>...</head><body>...HERE</body></html>
+	'onSiteSidebar'=>array(),	// <html><head>...</head><body>...<sidebar>HERE</sidebar>...</body></html>
 	'onAdminHead'=>array(),
-	'onAdminBody'=>array(),
+	'onAdminBodyBegin'=>array(),
+	'onAdminBodyEnd'=>array(),
 	'onAdminSidebar'=>array(),
 	'beforeSiteLoad'=>array(),
 	'afterSiteLoad'=>array(),

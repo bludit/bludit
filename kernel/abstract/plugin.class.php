@@ -204,7 +204,12 @@ class Plugin {
 		return false;
 	}
 
-	public function onSiteBody()
+	public function onSiteBodyBegin()
+	{
+		return false;
+	}
+
+	public function onSiteBodyEnd()
 	{
 		return false;
 	}
@@ -214,7 +219,12 @@ class Plugin {
 		return false;
 	}
 
-	public function onAdminBody()
+	public function onAdminBodyBegin()
+	{
+		return false;
+	}
+
+	public function onAdminBodyEnd()
 	{
 		return false;
 	}

@@ -15,11 +15,13 @@
 	<script src="./js/kube.min.js"></script>
 
 	<!-- Plugins -->
-	<?php
-		Theme::plugins('onAdminHead');
-	?>
+	<?php Theme::plugins('onAdminHead') ?>
+
 </head>
 <body>
+
+<!-- Plugins -->
+<?php Theme::plugins('onAdminBodyBegin') ?>
 
 <!-- ALERT -->
 <script>
@@ -91,9 +93,7 @@ $(document).ready(function() {
 ?>
 
 <!-- Plugins -->
-<?php
-	Theme::plugins('onAdminBody');
-?>
+<?php Theme::plugins('onAdminBodyEnd') ?>
 
 <?php
 echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';

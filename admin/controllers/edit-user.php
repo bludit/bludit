@@ -43,6 +43,11 @@ function deleteUser($args, $deleteContent=false)
 	global $dbPosts;
 	global $Language;
 
+	// The user admin cannot be deleted.
+	if($args['username']=='admin') {
+		return false;
+	}
+
 	if($deleteContent) {
 		$dbPosts->deletePostsByUser($args['username']);
 	}

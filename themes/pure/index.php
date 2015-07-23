@@ -9,7 +9,7 @@
 <body>
 
 <!-- Plugins -->
-<?php Theme::plugins('onSiteBody') ?>
+<?php Theme::plugins('onSiteBodyBegin') ?>
 
 <!-- Layout -->
 <div id="layout" class="pure-g">
@@ -46,6 +46,9 @@
     </div>
 
 </div>
+
+<!-- Plugins -->
+<?php Theme::plugins('onSiteBodyEnd') ?>
 
 </body>
 </html>
