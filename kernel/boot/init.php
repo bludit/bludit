@@ -48,6 +48,9 @@ define('BLUDIT_RELEASE_DATE',	'');
 //
 define('NO_PARENT_CHAR', '—');
 
+// Post per page on Manage->Posts
+define('POSTS_PER_PAGE_ADMIN', 10);
+
 // Multibyte string / UTF-8
 define('MB_STRING', extension_loaded('mbstring'));
 
@@ -123,6 +126,7 @@ define('HTML_PATH_THEME_CSS',	HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',	HTML_PATH_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME',	HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_ROOT',	HTML_PATH_ROOT.'admin/');
+define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );

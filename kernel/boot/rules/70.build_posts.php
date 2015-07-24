@@ -15,6 +15,7 @@ function buildPost($key)
 	global $dbPosts;
 	global $dbUsers;
 	global $Parsedown;
+	global $Site;
 
 	// Post object.
 	$Post = new Post($key);
@@ -48,10 +49,12 @@ function buildPost($key)
 	}
 
 	// Content in raw format
-	$Post->setField('contentRaw', $Post->content(), true);
+	$contentRaw = $Post->content();
+	$Post->setField('contentRaw', $contentRaw, true);
 
 	// Parse the content
-	$content = $Parsedown->text( $Post->content() );
+	$content = Text::imgRel2Abs($contentRaw, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
+	$content = $Parsedown->text($content); // Parse Markdown.
 	$Post->setField('content', $content, true);
 
 	// Parse username for the post.
@@ -120,7 +123,7 @@ else
 {
 	if($Url->whereAmI()==='admin') {
 		// Build post for admin area with drafts
-		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), true);
+		build_posts_per_page($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, true);
 	}
 	else
 	{

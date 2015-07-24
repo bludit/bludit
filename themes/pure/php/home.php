@@ -36,6 +36,8 @@
         <?php echo $Post->content(false) // FALSE to get the first part of the post ?>
     </div>
 
+    <a class="read-more" href="<?php echo $Post->permalink() ?>"><?php $Language->printMe('Read more') ?></a>
+
 </section>
 
 <?php endforeach; ?>

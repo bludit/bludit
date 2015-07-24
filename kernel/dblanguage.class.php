@@ -50,6 +50,12 @@ class dbLanguage extends dbJSON
 	}
 
 	// Print translation.
+	public function printMe($string)
+	{
+		echo $this->get($string);
+	}
+
+	// Print translation.
 	public function p($string)
 	{
 		echo $this->get($string);

@@ -4,18 +4,20 @@
 $currentPage = $Url->pageNumber();
 Paginator::set('currentPage', $currentPage);
 
-// Post per page.
-$postPerPage = $Site->postsPerPage();
-Paginator::set('postPerPage', $postPerPage);
-
 // Number of pages.
-if($Url->whereAmI()=='admin') {	
+if($Url->whereAmI()=='admin') {
+	$postPerPage = POSTS_PER_PAGE_ADMIN;
 	$numberOfPosts = $dbPosts->numberPost(true); // published and drafts
 }
 else {
+	$postPerPage = $Site->postsPerPage();
 	$numberOfPosts = $dbPosts->numberPost(false); // published
 }
 
+// Post per page.
+Paginator::set('postPerPage', $postPerPage);
+
+// Number of posts
 Paginator::set('numberOfPosts', $numberOfPosts);
 
 $numberOfPages = (int) ceil($numberOfPosts / $postPerPage) -1;

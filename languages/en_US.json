@@ -125,5 +125,6 @@
     "write-the-tags-separeted-by-comma": "Write the tags separeted by comma. eg: tag1, tag2, tag3",
     "delete": "Delete",
     "delete-the-user-and-all-its-posts":"Delete the user and all its posts",
-    "delete-the-user-and-associate-its-posts-to-admin-user": "Delete the user and associate its posts to admin user"
+    "delete-the-user-and-associate-its-posts-to-admin-user": "Delete the user and associate its posts to admin user",
+    "read-more": "Read more"
 }

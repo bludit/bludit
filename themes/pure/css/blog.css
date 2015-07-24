@@ -117,7 +117,7 @@ Pages and Posts
 ------------------------ */
 .page,
 .post {
-    margin: 20px 0;
+    margin: 0 0 70px 0;
 }
 
 .page-title,
@@ -134,6 +134,14 @@ Pages and Posts
     border-bottom: 5px solid #ccc;
     display: inline-block;
 }
+
+.page a.read-more,
+.post a.read-more{
+    display: block;
+    text-align: center;
+    padding: 2px 5px;
+}
+
 
 .page-content,
 .post-content {

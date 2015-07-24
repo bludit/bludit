@@ -153,4 +153,9 @@ class Text {
 		return !self::isEmpty($string);
 	}
 
+	public static function imgRel2Abs($string, $base)
+	{
+		return preg_replace("/(src)\=\"([^(http)])(\/)?/", "$1=\"$base$2", $string);
+	}
+
 }
