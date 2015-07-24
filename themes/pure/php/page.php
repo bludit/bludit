@@ -12,9 +12,12 @@
 
     </header>
 
+	<?php Theme::plugins('beforePagesLoad'); // Plugin ?>
+	
     <!-- page content -->
     <div class="page-content">
         <?php echo $Page->content() ?>
     </div>
-
+    
+	<?php Theme::plugins('afterPagesLoad'); // Plugin ?>
 </section>
