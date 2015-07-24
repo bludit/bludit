@@ -10,6 +10,8 @@
             <a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a>
         </h2>
 
+		<?php Theme::plugins('beforePostsLoad'); // Plugin ?>
+		
         <!-- Post date and author -->
         <div class="post-meta">
             <span class="date"><?php echo $Post->dateCreated() ?></span>
@@ -34,4 +36,6 @@
         <?php echo $Post->content() ?>
     </div>
 
+	<?php Theme::plugins('afterPostsLoad'); // Plugin ?>
+		
 </section>

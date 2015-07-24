@@ -60,6 +60,9 @@ define('JSON', function_exists('json_encode'));
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('HANDMADE_PUBLISHED', true);
 
+// TRUE if Debug.
+define('DEBUG', false);
+
 define('CHARSET', 'UTF-8');
 
 if(MB_STRING)
