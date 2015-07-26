@@ -41,10 +41,7 @@ class Session {
 		// Regenerated the session, delete the old one. There are problems with AJAX.
 		//session_regenerate_id(true);
 
-    	if(self::$started) {
-    		Log::set(__METHOD__.LOG_SEP.'Session started.');
-    	}
-    	else {
+    	if(!self::$started) {
     		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to start the session.');
     	}
 	}
