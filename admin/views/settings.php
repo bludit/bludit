@@ -63,6 +63,18 @@
         <div class="forms-desc"><?php $Language->p('number-of-posts-to-show-per-page') ?></div>
     </label>
 
+    <label for="homepage">
+        <?php $Language->p('Default home page') ?>
+        <select name="homepage" class="width-50">
+        <?php
+            $htmlOptions = $_homePageList;
+            foreach($htmlOptions as $value=>$text) {
+                echo '<option value="'.$value.'"'.( ($Site->homepage()===$value)?' selected="selected"':'').'>'.$text.'</option>';
+            }
+        ?>
+        </select>
+    </label>
+
     <label>
     <?php $Language->p('Site URL') ?>
     <input type="text" name="url" class="width-50" value="<?php echo $Site->url() ?>">

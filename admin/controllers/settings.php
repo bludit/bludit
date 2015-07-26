@@ -51,3 +51,22 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main
 // ============================================================================
+
+// Default home page
+$_homePageList = array(''=>$Language->g('Show blog'));
+foreach($pagesParents as $parentKey=>$pageList)
+{
+	foreach($pageList as $Page)
+	{
+		if($parentKey!==NO_PARENT_CHAR) {
+			$parentTitle = $pages[$Page->parentKey()]->title().'->';
+		}
+		else {
+			$parentTitle = '';
+		}
+
+		if($Page->published()) {
+			$_homePageList[$Page->key()] = $Language->g('Page').': '.$parentTitle.$Page->title();
+		}
+	}
+}
