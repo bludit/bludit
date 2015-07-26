@@ -27,7 +27,9 @@ class Plugin {
 			'description'=>'',
 			'author'=>'',
 			'email'=>'',
-			'website'=>''
+			'website'=>'',
+			'version'=>'',
+			'releaseDate'=>
 		);
 		
 		$this->dbFields = array();

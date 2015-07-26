@@ -1,5 +1,17 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// DEBUG MODE
+define('DEBUG_MODE', TRUE);
+error_reporting(0);
+if(DEBUG_MODE)
+{
+	ini_set("display_errors", 1);
+	ini_set('display_startup_errors',1);
+	ini_set("track_errors", 1);
+	ini_set("html_errors", 1);
+	error_reporting(E_ALL | E_STRICT | E_NOTICE);
+}
+
 // Log separator
 define('LOG_SEP', ' | ');
 
