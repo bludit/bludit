@@ -29,7 +29,7 @@ class Plugin {
 			'email'=>'',
 			'website'=>'',
 			'version'=>'',
-			'releaseDate'=>
+			'releaseDate'=>''
 		);
 		
 		$this->dbFields = array();
