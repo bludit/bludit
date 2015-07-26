@@ -124,5 +124,7 @@
     "write-the-tags-separeted-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
     "delete-the-user-and-all-its-posts":"Supprimer l’utilisateur et tous ses messages associés.",
     "delete-the-user-and-associate-its-posts-to-admin-user": "Supprimez l’utilisateur et associez ses messages à l’administrateur principal.",
-    "read-more": "En lire plus..."
+    "read-more": "Lire la suite...",
+    "show-blog": "Afficher un lien vers le Blog",
+    "default-home-page": "Page d’accueil par défaut"
 }
