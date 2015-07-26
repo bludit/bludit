@@ -38,7 +38,7 @@ if(!defined('JSON_PRETTY_PRINT')) {
 define('SALT_LENGTH', 8);
 
 // Page brake string
-define('PAGE_BRAKE', '<!-- pagebreak -->');
+define('PAGE_BREAK', '<!-- pagebreak -->');
 
 // Bludit version
 define('BLUDIT_VERSION',		'githubVersion');

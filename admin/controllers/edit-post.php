@@ -63,7 +63,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // Main
 // ============================================================================
 
-if(!$dbPosts->postExists($layout['parameters'])) {
+if(!$dbPosts->postExists($layout['parameters']))
+{
+	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the post: '.$layout['parameters']);
 	Redirect::page('admin', 'manage-posts');
 }
 

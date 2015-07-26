@@ -53,9 +53,14 @@ function buildPost($key)
 	$Post->setField('contentRaw', $contentRaw, true);
 
 	// Parse the content
-	$content = Text::imgRel2Abs($contentRaw, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
-	$content = $Parsedown->text($content); // Parse Markdown.
+	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Post->setField('content', $content, true);
+
+	// Pagebrake
+	$explode = explode(PAGE_BREAK, $content);
+	$Post->setField('breakContent', $explode[0], true);
+	$Post->setField('readMore', !empty($explode[1]), true);
 
 	// Parse username for the post.
 	if( $dbUsers->userExists( $Post->username() ) )

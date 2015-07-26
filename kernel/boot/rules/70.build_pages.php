@@ -64,8 +64,8 @@ function build_page($key)
 	$Page->setField('contentRaw', $Page->content(), true);
 
 	// Parse markdown content.
-	$content = Text::imgRel2Abs($contentRaw, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
-	$content = $Parsedown->text($content); // Parse Markdown.
+	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Page->setField('content', $content, true);
 
 	// Parse username for the page.

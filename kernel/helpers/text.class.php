@@ -155,7 +155,7 @@ class Text {
 
 	public static function imgRel2Abs($string, $base)
 	{
-		return preg_replace("/(src)\=\"([^(http)])(\/)?/", "$1=\"$base$2", $string);
+		return preg_replace('/(src)="([^:"]*)(?:")/', "$1=\"$base$2\"", $string);
 	}
 
 }

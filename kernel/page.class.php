@@ -20,16 +20,10 @@ class Page extends fileContent
 	// This content is markdown parser.
 	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
 	// $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function content($fullContent=true, $html=true)
+	public function content($html=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('content');
-
-		if(!$fullContent)
-		{
-			$explode = explode(PAGE_BRAKE, $content);
-			$content = $explode[0];
-		}
 
 		if($html) {
 			return $content;
@@ -42,16 +36,10 @@ class Page extends fileContent
 	// This content is not markdown parser.
 	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
 	// $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function contentRaw($fullContent=true, $html=true)
+	public function contentRaw($html=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('contentRaw');
-
-		if(!$fullContent)
-		{
-			$explode = explode(PAGE_BRAKE, $content);
-			$content = $explode[0];
-		}
 
 		if($html) {
 			return $content;
