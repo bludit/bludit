@@ -124,6 +124,16 @@ class Plugin {
 		return $this->getData('website');
 	}
 
+	public function version()
+	{
+		return $this->getData('version');
+	}
+
+	public function releaseDate()
+	{
+		return $this->getData('releaseDate');
+	}
+
 	public function className()
 	{
 		return $this->className;

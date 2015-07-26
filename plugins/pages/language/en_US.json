@@ -5,7 +5,9 @@
 		"description": "List of pages",
 		"author": "Diego",
 		"email": "",
-		"website": ""
+		"website": "",
+		"version": "0.1",
+		"releaseDate": ""
 	},
 
     "pages": "Pages",

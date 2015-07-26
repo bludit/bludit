@@ -227,6 +227,11 @@ div.pluginBox p {
     margin-bottom: 10px;
 }
 
+div.pluginBox span.version {
+    color: #ccc;
+    margin-left: 10px;
+}
+
 /* ----------- PLUGINS FORM ----------- */
 
 #jsformplugin div {

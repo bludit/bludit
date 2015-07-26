@@ -128,5 +128,6 @@
     "delete-the-user-and-associate-its-posts-to-admin-user": "Delete the user and associate its posts to admin user",
     "read-more": "Read more",
     "show-blog": "Show blog",
-    "default-home-page": "Default home page"
+    "default-home-page": "Default home page",
+    "version": "Version"
 }
