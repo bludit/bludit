@@ -1,8 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// DEBUG MODE
+// Debug mode
 define('DEBUG_MODE', TRUE);
+
+// Turn off all error reporting
 error_reporting(0);
+
+// Turn on all error reporting
 if(DEBUG_MODE)
 {
 	ini_set("display_errors", 1);
