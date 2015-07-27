@@ -5,7 +5,7 @@
 	{
 		echo '<div class="pluginBox">';
 
-		echo '<p>'.$Plugin->name().'<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span></p>';
+		echo '<p>'.$Plugin->name().' <span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span></p>';
 		echo '<p>'.$Plugin->description().'</p>';
 
 		if($Plugin->installed()) {
