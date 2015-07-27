@@ -212,7 +212,8 @@ function install($adminPassword, $email)
 
     // File plugins/pages/db.php
     $data = array(
-        'homeLink'=>true
+        'homeLink'=>true,
+        'label'=>'Pages'
     );
 
     file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
