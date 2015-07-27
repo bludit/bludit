@@ -126,7 +126,10 @@ div.dashboardBox .nav {
     margin: 0 !important;
 }
 
-
+div.dashboardBox .nav a {
+    padding: 0 !important;
+    display: inline-block;
+}
 
 div.dashboardBox i.iconContent {
     bottom: -1rem;

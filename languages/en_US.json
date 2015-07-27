@@ -129,5 +129,6 @@
     "read-more": "Read more",
     "show-blog": "Show blog",
     "default-home-page": "Default home page",
-    "version": "Version"
+    "version": "Version",
+    "there-are-no-drafts": "There are no drafts."
 }

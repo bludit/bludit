@@ -33,17 +33,27 @@
 		</div>
 		<?php } ?>
 		<div class="dashboardBox">
-			<h2><?php $Language->p('notifications') ?></h2>
+			<h2>Drafts</h2>
 			<div class="content">
 				<nav class="nav">
 				<ul>
-				<li>New comment</li>
-				<li>Admin session started at 07:00pm</li>
-				<li>Failed login with username diego</li>
-				<li>Database regenerated</li>
-				<li>New session started at 01:00pm</li>
-				<li>New post added</li>
-				<li>New page added</li>
+				<?php
+					if( empty($_draftPosts) && empty($_draftPages) )
+					{
+						echo '<li>'.$Language->g('There are no drafts').'</li>';
+					}
+					else
+					{
+						foreach($_draftPosts as $Post)
+						{
+							echo '<li>('.$Language->g('Post').') <a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+						}
+						foreach($_draftPages as $Page)
+						{
+							echo '<li>('.$Language->g('Page').') <a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+						}
+					}
+				?>
 				</ul>
 				</nav>
 			</div>
