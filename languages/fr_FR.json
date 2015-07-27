@@ -35,7 +35,7 @@
     "position": "Position",
     "save": "Sauvegarder",
     "draft": "Brouillon",
-    "delete": "Supprimer",                       // First String delete
+    "delete": "Supprimer",                    
     "registered": "Inscrit",
     "Notifications": "Notifications",
     "profile": "Profil",
@@ -72,7 +72,7 @@
     "locale": "Localisation",
     "notifications": "Notifications",
     "new-post": "Nouvel article",
-    "html-and-markdown-code-supported": "Code HTML et Markdown pris en charge.",  // First Sring html-and-markdown.....
+    "html-and-markdown-code-supported": "Code HTML et Markdown pris en charge.",
     "new-page": "Nouvelle page",
     "manage-posts": "Gestion des articles",
     "published-date": "Date de publication",
@@ -99,7 +99,7 @@
     "username-or-password-incorrect": "Nom d’utilisateur ou mot de passe incorrect.",
     "database-regenerated": "Base de données régénérée.",
     "the-changes-have-been-saved": "Les modifications on était sauvegardées.",
-    "html-markdown-code-supported": "Code HTML et Markdown pris en charge.",  // Double Sring html-and-markdown.....
+    "html-markdown-code-supported": "Code HTML et Markdown pris en charge.",
     "enable-more-features-at": "Activer plus de fonctionnalités en vous rendant vers ",
     "username-already-exists-or-is-empty": "Le nom d’utilisateur existe déjà ou est inexistant.",
     "username-field-is-empty": "Le champ utilisateur est vide !",
@@ -123,7 +123,7 @@
     "you-can-modify-the-url-which-identifies":"Vous pouvez modifier l'URL qui identifie une page ou un article, en utilisant des mots-clés lisibles. Pas plus de 150 caractères.",
     "this-field-can-help-describe-the-content": "Ce champ peut aider à décrire le contenu en quelques mots. Pas plus de 150 caractères.",
     "write-the-tags-separeted-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
-    "delete": "Supprimer",                       // Double String delete
+    "delete": "Supprimer",
     "delete-the-user-and-all-its-posts":"Supprimer l’utilisateur et tous ses messages associés.",
     "delete-the-user-and-associate-its-posts-to-admin-user": "Supprimez l’utilisateur et associez ses messages à l’administrateur principal.",
     "read-more": "Lire la suite...",
