@@ -7,9 +7,9 @@
 
 	<title><?php echo $layout['title'] ?></title>
 
-	<link rel="stylesheet" href="./css/kube.min.css">
-	<link rel="stylesheet" href="./css/default.css">
-	<link rel="stylesheet" href="./css/css/font-awesome.css">
+	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
 
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/kube.min.js"></script>

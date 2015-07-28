@@ -145,7 +145,7 @@ class Plugin {
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.
-	public function install()
+	public function install($position=0)
 	{
 		if($this->installed()) {
 			return false;
@@ -157,7 +157,8 @@ class Plugin {
 		// Create database
 		$Tmp = new dbJSON($this->filenameDb);
 		$Tmp->db = $this->dbFields;
-		$Tmp->db['position'] = 0;
+		$Tmp->db['position'] = $position;
+		$Tmp->db['label'] = $this->name();
 		$Tmp->save();
 
 		return true;

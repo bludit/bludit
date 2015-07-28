@@ -130,5 +130,6 @@
     "show-blog": "Show blog",
     "default-home-page": "Default home page",
     "version": "Version",
-    "there-are-no-drafts": "There are no drafts."
+    "there-are-no-drafts": "There are no drafts.",
+    "plugin-label": "Plugin label"
 }
