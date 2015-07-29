@@ -4,12 +4,12 @@
 
     <label>
         <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-70">
+        <input id="jstitle" name="title" type="text" class="width-80">
     </label>
 
     <label>
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="10" class="width-70"></textarea>
+        <textarea id="jscontent" name="content" rows="15" class="width-80"></textarea>
     </label>
 
 <?php

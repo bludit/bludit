@@ -1,0 +1,19 @@
+# Others
+~$*
+/.sass-cache
+/uploaded-files
+/node_modules
+/bower_components
+/dist
+/src/ui/sass/_sprite*
+/plugins/**/ui/sass/_sprite*
+
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mac crap
+.DS_Store
