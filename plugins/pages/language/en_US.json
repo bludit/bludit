@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Page list",
-		"description": "List of pages",
+		"description": "Shows the list of pages in order.",
 		"author": "Diego",
 		"email": "",
 		"website": "",
@@ -10,7 +10,6 @@
 		"releaseDate": ""
 	},
 
-    "pages": "Pages",
     "home": "Home",
     "show-home-link": "Show home link"
 }
