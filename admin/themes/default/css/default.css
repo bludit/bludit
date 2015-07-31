@@ -151,6 +151,27 @@ div.dashboardBox h2 {
     padding: 10px 20px;
 }
 
+div.dashboardBox ul.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+div.dashboardBox ul.menu a {
+    color: #2672ec;
+}
+
+div.dashboardBox ul.menu li.title {
+    
+}
+
+div.dashboardBox ul.menu li.description {
+    border-bottom: 1px dashed #ddd;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    color: #555;
+}
 
 
 /* ----------- FORMS ----------- */

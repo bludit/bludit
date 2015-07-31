@@ -2,8 +2,37 @@
 
 <div class="units-row">
 
-	<div class="unit-40">
+	<div class="unit-50">
 
+		<div class="dashboardBox">
+			<h2>Start here!</h2>
+			<div class="content">
+				<ul class="menu">
+					<li class="title"><a href="">New post</a></li>
+					<li class="description">Create a new article for your blog</li>
+					<li class="title"><a href="">New page</a></li>
+					<li class="description">Create a new page for your site</li>
+					<li class="title"><a href="">Language and timezone</a></li>
+					<li class="description">Select your language and locale for a correct display of dates</li>
+				</ul>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="unit-50">
+		<?php if($_newPosts || $_newPages) { ?>
+		<div class="dashboardBox">
+			<div class="content contentGreen">
+				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
+				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
+				<i class="iconContent fa fa-pie-chart"></i>
+			</div>
+		</div>
+		<?php } ?>
+		
 		<div class="dashboardBox">
 			<div class="content contentBlue">
 				<div class="bigContent"><?php echo $dbPosts->count() ?></div>
@@ -20,18 +49,6 @@
 			</div>
 		</div>
 
-	</div>
-
-	<div class="unit-60">
-		<?php if($_newPosts || $_newPages) { ?>
-		<div class="dashboardBox">
-			<div class="content contentGreen">
-				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
-				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
-				<i class="iconContent fa fa-pie-chart"></i>
-			</div>
-		</div>
-		<?php } ?>
 		<div class="dashboardBox">
 			<h2>Drafts</h2>
 			<div class="content">
