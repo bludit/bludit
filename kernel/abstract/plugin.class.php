@@ -2,7 +2,7 @@
 
 class Plugin {
 
-	// (string) Plugin's directory
+	// (string) Plugin's directory name
 	public $directoryName;
 
 	// (string) Database path and filename
@@ -31,13 +31,13 @@ class Plugin {
 			'version'=>'',
 			'releaseDate'=>''
 		);
-		
+
 		$this->dbFields = array();
 
 		$reflector = new ReflectionClass(get_class($this));
 
 		// Directory name
-		$this->directoryName = basename(dirname($reflector->getFileName())).DS;
+		$this->directoryName = basename(dirname($reflector->getFileName()));
 
 		// Class Name
 		$this->className = $reflector->getName();
@@ -48,7 +48,7 @@ class Plugin {
 		// Init empty database
 		$this->db = $this->dbFields;
 
-		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.'db.php';
+		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
 
 		// If the plugin installed then get the database.
 		if($this->installed())
@@ -58,6 +58,11 @@ class Plugin {
 		}
 	}
 
+	public function htmlPath()
+	{
+		return HTML_PATH_PLUGINS.$this->directoryName.'/';
+	}
+
 	// Returns the item from plugin-data.
 	public function getData($key)
 	{
@@ -65,7 +70,7 @@ class Plugin {
 			return $this->data[$key];
 		}
 
-		return '';		
+		return '';
 	}
 
 	public function setData($array)
@@ -73,10 +78,18 @@ class Plugin {
 		$this->data = $array;
 	}
 
-	public function getDbField($key)
+	public function getDbField($key, $html=true)
 	{
 		if(isset($this->db[$key])) {
-			return $this->db[$key];
+
+			if($html) {
+				// All fields from DBField are sanitized.
+				return $this->db[$key];
+			}
+			else {
+				// Decode HTML tags, this action unsanitized the variable.
+				return Sanitize::htmlDecode($this->db[$key]);
+			}
 		}
 
 		return '';
@@ -155,11 +168,8 @@ class Plugin {
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
 		// Create database
-		$Tmp = new dbJSON($this->filenameDb);
-		$Tmp->db = $this->dbFields;
-		$Tmp->db['position'] = $position;
-		$Tmp->db['label'] = $this->name();
-		$Tmp->save();
+		$this->dbFields['position'] = $position;
+		$this->setDb($this->dbFields);
 
 		return true;
 	}

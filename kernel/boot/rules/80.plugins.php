@@ -55,14 +55,14 @@ function build_plugins()
 		$Plugin = new $pluginClass;
 
 		// Set Plugin data
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.$Site->locale().'.json';
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'language'.DS.$Site->locale().'.json';
 		if( Sanitize::pathFile($languageFilename) )
 		{
 			$database = new dbJSON($languageFilename, false);
 		}
 		else
 		{
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.'en_US.json';
+			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'language'.DS.'en_US.json';
 			$database = new dbJSON($languageFilename, false);
 		}
 

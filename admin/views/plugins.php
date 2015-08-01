@@ -10,7 +10,9 @@
 
 		if($Plugin->installed()) {
 			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'" class="btn btn-red btn-small">'.$Language->g('Uninstall plugin').'</a>';
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'" class="btn btn-small">'.$Language->g('Configure plugin').'</a>';
+			if($Plugin->form()) {
+				echo '<a href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'" class="btn btn-small">'.$Language->g('Configure plugin').'</a>';
+			}
 		}
 		else {
 			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'" class="btn btn-blue btn-small">'.$Language->g('Install plugin').'</a>';

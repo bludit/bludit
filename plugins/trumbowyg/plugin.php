@@ -17,6 +17,7 @@ class pluginTrumbowyg extends Plugin {
 
 		$html = '';
 
+		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
 			$language = $Site->shortLanguage();
@@ -26,7 +27,10 @@ class pluginTrumbowyg extends Plugin {
 			$html .= '<link rel="stylesheet" href="'.HTML_PATH_PLUGINS.'trumbowyg/trumbowyg/ui/trumbowyg.min.css">';
 
 			// CSS fix for Bludit
-			$html .= '<style>.trumbowyg-box {width: 80% !important; margin: 0 !important;}</style>';
+			$html .= '<style>';
+			$html .= '.trumbowyg-box {width: 80%; margin: 0;}';
+			$html .= '.trumbowyg-fullscreen {width: 100% !important;}';
+			$html .= '</style>';
 		}
 
 		return $html;
@@ -40,6 +44,7 @@ class pluginTrumbowyg extends Plugin {
 
 		$html = '';
 
+		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
 			$language = $Site->shortLanguage();

@@ -31,6 +31,11 @@ if($_Plugin===false) {
 	Redirect::page('admin', 'plugins');
 }
 
+// Check if the plugin has the method form()
+if($_Plugin->form()===false) {
+	Redirect::page('admin', 'plugins');
+}
+
 // ============================================================================
 // POST Method
 // ============================================================================
