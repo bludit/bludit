@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-07-24",
+		"last-update": "2015-08-02",
 		"author": "Fred",
 		"email": "",
 		"website": ""
@@ -129,5 +129,12 @@
     "show-blog": "Afficher le Blog",
     "default-home-page": "Page d’accueil par défaut",
     "version": "Version",
-    "there-are-no-drafts": "Aucun article en attente de publication"
+    "there-are-no-drafts": "Aucun article en attente de publication",
+    "create-a-new-article-for-your-blog":"Publiez un nouvel article pour votre blog.",
+    "create-a-new-page-for-your-website":"Créer une nouvelle page pour votre site.",
+    "invite-a-friend-to-collaborate-on-your-website":"Inviter un ami à collaborer sur votre site.",
+    "change-your-language-and-region-settings":"Modifiez vos paramètres linguistiques et régionaux.",
+    "language-and-timezone":"Langue et fuseau horaire",
+    "author": "Auteur",
+    "start-here": "Prise en main rapide"
 }
