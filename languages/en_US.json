@@ -130,5 +130,12 @@
     "show-blog": "Show blog",
     "default-home-page": "Default home page",
     "version": "Version",
-    "there-are-no-drafts": "There are no drafts."
+    "there-are-no-drafts": "There are no drafts.",
+    "create-a-new-article-for-your-blog":"Create a new article for your blog.",
+    "create-a-new-page-for-your-website":"Create a new page for your website.",
+    "invite-a-friend-to-collaborate-on-your-website":"Invite a friend to collaborate on your website.",
+    "change-your-language-and-region-settings":"Change your language and region settings.",
+    "language-and-timezone":"Language and timezone",
+    "author": "Author",
+    "start-here": "Start here"
 }

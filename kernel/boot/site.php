@@ -6,6 +6,7 @@ include(PATH_RULES.'70.build_pages.php');
 include(PATH_RULES.'80.plugins.php');
 include(PATH_RULES.'99.header.php');
 include(PATH_RULES.'99.paginator.php');
+include(PATH_RULES.'99.themes.php');
 
 // Plugins before site loaded
 Theme::plugins('beforeSiteLoad');

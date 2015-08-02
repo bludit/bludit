@@ -17,10 +17,11 @@ if($Login->role()!=='admin') {
 // Main before POST
 // ============================================================================
 $_Plugin = false;
+$pluginClassName = $layout['parameters'];
 
 foreach($plugins['all'] as $P)
 {
-	if($P->className()==$layout['parameters']) {
+	if($P->className()==$pluginClassName) {
 		$_Plugin = $P;
 	}
 }
@@ -30,7 +31,7 @@ if($_Plugin===false) {
 	Redirect::page('admin', 'plugins');
 }
 
-// Check if the plugin has the method form.
+// Check if the plugin has the method form()
 if($_Plugin->form()===false) {
 	Redirect::page('admin', 'plugins');
 }

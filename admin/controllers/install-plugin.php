@@ -22,7 +22,11 @@ if($Login->role()!=='admin') {
 // ============================================================================
 $pluginClassName = $layout['parameters'];
 
-$Plugin = new $pluginClassName;
-$Plugin->install();
+foreach($plugins['all'] as $P)
+{
+	if($P->className()==$pluginClassName) {
+		$P->install();
+	}
+}
 
 Redirect::page('admin', 'plugins');

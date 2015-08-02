@@ -166,6 +166,16 @@ class dbSite extends dbJSON
 		return $this->db['locale'];
 	}
 
+	// Returns the current language in short format.
+	public function shortLanguage()
+	{
+		$locale = $this->locale();
+		$explode = explode('_', $locale);
+		$short = array_shift($explode);
+
+		return $short;
+	}
+
 	// Returns the current homepage.
 	public function homepage()
 	{
