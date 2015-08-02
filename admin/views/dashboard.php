@@ -5,7 +5,7 @@
 	<div class="unit-50">
 
 		<div class="dashboardBox">
-			<h2>Start here!</h2>
+			<h2><?php $Language->p('Start here') ?></h2>
 			<div class="content">
 				<ul class="menu">
 					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><?php $Language->p('New post') ?></a></li>

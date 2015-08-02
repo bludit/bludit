@@ -2,11 +2,11 @@
 	"plugin-data":
 	{
 		"name": "Tinymce",
-		"description": "Trumbowyg is a very small jQuery plugin for creating a powerful WYSIWYG editor.",
-		"author": "Fred",
+		"description": "Tinymce is an easy HTML editor, with many plugins and very customizable.",
+		"author": "Bludit",
 		"email": "",
-		"website": "",
-		"version":"2.0.0-beta.6",
-		"releaseDate": "2015-07-27"
+		"website": "http://www.bludit.com",
+		"version": "0.1",
+		"releaseDate": "2015-08-02"
 	}
 }

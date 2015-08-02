@@ -21,3 +21,10 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main
 // ============================================================================
+
+$themes = Filesystem::listDirectories(PATH_THEMES);
+
+// Load each plugin clasess
+foreach($themes as $themePath) {
+//	include($themePath.DS.'plugin.php');
+}

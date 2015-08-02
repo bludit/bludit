@@ -12,6 +12,10 @@ body {
     background-color: #f9f9f9;
 }
 
+div.unit-80 {
+    margin-left: 1% !important;
+}
+
 /* ----------- FONTS AWESOME ----------- */
 .fa-right {
     margin-right: 5px;
@@ -241,30 +245,41 @@ a.btn-red:hover {
 
 /* ----------- THEMES ----------- */
 
-div.pluginBox {
+div.themeBox {
     box-shadow: 0 1px 2px rgba(0,0,0,.26);
     background-color: #fff;
     border-radius: 2px;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 15px 20px;
     width: 70%;
     margin-bottom: 20px;
 }
 
-div.pluginBox p {
-    margin-bottom: 10px;
+div.themeBox p {
+    margin-bottom: 6px;
 }
 
-div.pluginBox span.author {
-    color: #999;
-    margin-left: 10px;
-    float: right;
+div.themeBox p.name {
+    border-bottom: 1px dashed #ccc;
 }
 
-div.pluginBox span.version {
-    color: #999;
+div.themeBox a.btn-smaller {
+    padding: 4px 10px;
+    margin-right: 10px;
+}
+
+div.themeBox span.author {
+    color: #777;
     margin-left: 10px;
     float: right;
+    font-size: 0.9em;
+}
+
+div.themeBox span.version {
+    color: #777;
+    margin-left: 10px;
+    float: right;
+    font-size: 0.9em;
 }
 
 /* ----------- PLUGINS ----------- */

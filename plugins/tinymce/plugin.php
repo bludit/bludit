@@ -82,7 +82,8 @@ class pluginTinymce extends Plugin {
 				browser_spellcheck: true,
 				autoresize_bottom_margin: "50",
 				pagebreak_separator: "'.PAGE_BREAK.'",
-				paste_as_text: true
+				paste_as_text: true,
+    			document_base_url: "'.HTML_PATH_UPLOADS.'"
 			})';
 			$html .= '}); </script>';
 		}
