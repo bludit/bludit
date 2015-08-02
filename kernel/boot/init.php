@@ -145,6 +145,9 @@ define('HTML_PATH_ADMIN_ROOT',	HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
+// PHP PATHs with dependency
+define('PATH_THEME',				PATH_ROOT.'themes/'.$Site->theme().'/');
+
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );

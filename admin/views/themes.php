@@ -1,2 +1,2 @@
-<h2 class="title"><i class="fa fa-adjust"></i> Themes</h2>
-<p>Not implemented...</p>
+<h2 class="title"><i class="fa fa-adjust"></i> <?php $Language->p('Themes') ?></h2>
+

@@ -63,7 +63,7 @@ body {
 }
 
 #sidebar li {
-    
+
 }
 
 /* ----------- ALERT ----------- */
@@ -163,7 +163,7 @@ div.dashboardBox ul.menu a {
 }
 
 div.dashboardBox ul.menu li.title {
-    
+
 }
 
 div.dashboardBox ul.menu li.description {
@@ -173,6 +173,10 @@ div.dashboardBox ul.menu li.description {
     color: #555;
 }
 
+div.dashboardBox ul.menu li.description:last-child {
+    border-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
 
 /* ----------- FORMS ----------- */
 
@@ -235,8 +239,8 @@ a.btn-red:hover {
    margin-left: 10px;
 }
 
+/* ----------- THEMES ----------- */
 
-/* ----------- PLUGINS ----------- */
 div.pluginBox {
     box-shadow: 0 1px 2px rgba(0,0,0,.26);
     background-color: #fff;
@@ -251,9 +255,54 @@ div.pluginBox p {
     margin-bottom: 10px;
 }
 
-div.pluginBox span.version {
-    color: #ccc;
+div.pluginBox span.author {
+    color: #999;
     margin-left: 10px;
+    float: right;
+}
+
+div.pluginBox span.version {
+    color: #999;
+    margin-left: 10px;
+    float: right;
+}
+
+/* ----------- PLUGINS ----------- */
+div.pluginBox {
+    box-shadow: 0 1px 2px rgba(0,0,0,.26);
+    background-color: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+div.pluginBox p {
+    margin-bottom: 6px;
+}
+
+div.pluginBox p.name {
+    border-bottom: 1px dashed #ccc;
+}
+
+div.pluginBox a.btn-smaller {
+    padding: 4px 10px;
+    margin-right: 10px;
+}
+
+div.pluginBox span.author {
+    color: #777;
+    margin-left: 10px;
+    float: right;
+    font-size: 0.9em;
+}
+
+div.pluginBox span.version {
+    color: #777;
+    margin-left: 10px;
+    float: right;
+    font-size: 0.9em;
 }
 
 /* ----------- PLUGINS FORM ----------- */
