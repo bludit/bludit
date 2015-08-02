@@ -95,8 +95,7 @@ $(document).ready(function() {
 <!-- Plugins -->
 <?php Theme::plugins('onAdminBodyEnd') ?>
 
-<?php
-echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
-?>
+<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo (microtime(true) - $loadTime) ?></div>
+
 </body>
 </html>
