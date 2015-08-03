@@ -1,13 +1,4 @@
-<?php
-
-/*
- * Nibbleblog -
- * http://www.nibbleblog.com
- * Author Diego Najar
-
- * All Nibbleblog code is released under the GNU General Public License.
- * See COPYRIGHT.txt and LICENSE.txt.
-*/
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class Cookie {
 
@@ -26,11 +17,9 @@ class Cookie {
 		setcookie($name, $value, time() + ($expire * 60));
 	}
 
-	public static function is_set($name)
+	public static function isSet($name)
 	{
 		return(isset($_COOKIE[$name]));
 	}
 
 }
-
-?>
