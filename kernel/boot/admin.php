@@ -43,6 +43,7 @@ else
 	include(PATH_RULES.'80.plugins.php');
 	include(PATH_RULES.'99.header.php');
 	include(PATH_RULES.'99.paginator.php');
+	include(PATH_RULES.'99.themes.php');
 
 	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') )
 	{

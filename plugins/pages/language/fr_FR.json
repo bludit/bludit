@@ -3,14 +3,13 @@
 	{
 		"name": "Page navigation",
 		"description": "Constitue un menu avec les liens des pages dans la colonne du thème.",
-		"author": "Diego",
+		"author": "Bludit",
 		"email": "",
-		"website": "",
+		"website": "http://www.bludit.com",
 		"version": "0.1",
-		"releaseDate": ""
+		"releaseDate": "2015-08-02"
 	},
 
-    "pages": "Pages",
     "home": "Accueil",
     "show-home-link": "Afficher le lien de la page d’accueil"
 }

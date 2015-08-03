@@ -5,15 +5,18 @@
 	{
 		echo '<div class="pluginBox">';
 
-		echo '<p>'.$Plugin->name().'<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span></p>';
+		echo '<p class="name">'.$Plugin->name().'</p>';
 		echo '<p>'.$Plugin->description().'</p>';
+		echo '<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span><span class="author">'.$Language->g('author').': '.$Plugin->author().'</span>';
 
 		if($Plugin->installed()) {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'" class="btn btn-red btn-small">'.$Language->g('Uninstall plugin').'</a>';
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'" class="btn btn-small">'.$Language->g('Configure plugin').'</a>';
+			if($Plugin->form()) {
+				echo '<a href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'" class="btn btn-smaller">'.$Language->g('Configure plugin').'</a>';
+			}
+			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'" class="btn btn-red btn-smaller">'.$Language->g('Uninstall plugin').'</a>';
 		}
 		else {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'" class="btn btn-blue btn-small">'.$Language->g('Install plugin').'</a>';
+			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'" class="btn btn-blue btn-smaller">'.$Language->g('Install plugin').'</a>';
 		}
 
 		echo '</div>';

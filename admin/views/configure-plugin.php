@@ -4,11 +4,6 @@
 
     <input type="hidden" id="jskey" name="key" value="">
 
-    <div>
-    <label><?php $Language->p('Plugin label') ?></label>
-	<input name="label" type="text" value="<?php echo $_Plugin->getDbField('label') ?>">
-	</div>
-
     <?php
         echo $_Plugin->form();
     ?>

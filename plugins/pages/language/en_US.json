@@ -2,15 +2,14 @@
 	"plugin-data":
 	{
 		"name": "Page list",
-		"description": "List of pages",
-		"author": "Diego",
+		"description": "Shows the list of pages in order.",
+		"author": "Bludit",
 		"email": "",
-		"website": "",
+		"website": "http://www.bludit.com",
 		"version": "0.1",
-		"releaseDate": ""
+		"releaseDate": "2015-08-02"
 	},
 
-    "pages": "Pages",
     "home": "Home",
     "show-home-link": "Show home link"
 }

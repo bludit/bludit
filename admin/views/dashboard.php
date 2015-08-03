@@ -2,7 +2,36 @@
 
 <div class="units-row">
 
-	<div class="unit-40">
+	<div class="unit-50">
+
+		<div class="dashboardBox">
+			<h2><?php $Language->p('Start here') ?></h2>
+			<div class="content">
+				<ul class="menu">
+					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><?php $Language->p('New post') ?></a></li>
+					<li class="description"><?php $Language->p('Create a new article for your blog') ?></li>
+					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-page"><?php $Language->p('New page') ?></a></li>
+					<li class="description"><?php $Language->p('Create a new page for your website') ?></li>
+					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>add-user"><?php $Language->p('Add a new user') ?></a></li>
+					<li class="description"><?php $Language->p('Invite a friend to collaborate on your website') ?></li>
+					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>settings#regional"><?php $Language->p('Language and timezone') ?></a></li>
+					<li class="description"><?php $Language->p('Change your language and region settings') ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="unit-50">
+		<?php if($_newPosts || $_newPages) { ?>
+		<div class="dashboardBox">
+			<div class="content contentGreen">
+				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
+				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
+				<i class="iconContent fa fa-pie-chart"></i>
+			</div>
+		</div>
+		<?php } ?>
 
 		<div class="dashboardBox">
 			<div class="content contentBlue">
@@ -20,18 +49,6 @@
 			</div>
 		</div>
 
-	</div>
-
-	<div class="unit-60">
-		<?php if($_newPosts || $_newPages) { ?>
-		<div class="dashboardBox">
-			<div class="content contentGreen">
-				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
-				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
-				<i class="iconContent fa fa-pie-chart"></i>
-			</div>
-		</div>
-		<?php } ?>
 		<div class="dashboardBox">
 			<h2>Drafts</h2>
 			<div class="content">
