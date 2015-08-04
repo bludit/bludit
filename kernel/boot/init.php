@@ -113,6 +113,7 @@ include(PATH_HELPERS.'theme.class.php');
 include(PATH_HELPERS.'session.class.php');
 include(PATH_HELPERS.'redirect.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
+include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
