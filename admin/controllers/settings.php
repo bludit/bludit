@@ -37,6 +37,8 @@ function setSettings($args)
 	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
 	}
+
+	return true;
 }
 
 // ============================================================================
@@ -50,6 +52,7 @@ function setSettings($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	setSettings($_POST);
+	Redirect::page('admin', $layout['controller']);
 }
 
 // ============================================================================
