@@ -281,7 +281,7 @@ function checkPOST($_POST)
 	}
 
 	// Check invalid email
-	if(!Valid::email($_POST['email']))
+	if( !Valid::email($_POST['email']) && ($_POST['noCheckEmail']=='0') )
 	{
 		return '<div>Your email address is invalid.</div><div id="jscompleteEmail">Proceed anyway!</div>';
 	}
@@ -364,6 +364,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
 		<form id="jsformInstaller" method="post" action="" class="forms" autocomplete="off">
 
+		<input type="hidden" name="noCheckEmail" id="jsnoCheckEmail" value="0">
+
 		<label>
 		<input type="text" value="admin" disabled="disabled" class="width-100">
 		</label>
@@ -416,7 +418,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	$(document).ready(function()
 	{
 	    $("#jscompleteEmail").on("click", function() {
-	    	$("#jsemail").val('noreply@localhost.com');
+	    	$("#jsnoCheckEmail").val("1");
 	    	if(!$("jspassword").val()) {
 	    		$("#jsformInstaller").submit();
 	    	}
