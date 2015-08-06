@@ -64,39 +64,4 @@ class Date {
 
 		return $tmp;
 	}
-
-	// Old
-
-	public static function set_locale($string)
-	{
-		if(setlocale(LC_ALL,$string.'.UTF-8')!==false)
-			return true;
-
-		if(setlocale(LC_ALL,$string.'.UTF8')!==false)
-			return true;
-
-		return setlocale(LC_ALL,$string);
-	}
-
-	public static function set_timezone($string)
-	{
-		return(date_default_timezone_set($string));
-	}
-
-
-	// Format a GMT/UTC+0 date/time
-	public static function format_gmt($time, $format)
-	{
-		$date = gmdate($format, $time);
-
-		return( $date );
-	}
-
-	public static function atom($time)
-	{
-		$date = date(DATE_ATOM, $time);
-
-		return( $date );
-	}
-
 }

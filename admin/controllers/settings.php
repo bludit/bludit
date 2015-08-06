@@ -17,7 +17,7 @@ function setSettings($args)
 {
 	global $Site;
 	global $Language;
-	
+
 	if(!isset($args['advancedOptions'])) {
 		$args['advancedOptions'] = 'false';
 	}
@@ -37,7 +37,13 @@ function setSettings($args)
 	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
 	}
+
+	return true;
 }
+
+// ============================================================================
+// Main after POST
+// ============================================================================
 
 // ============================================================================
 // POST Method
@@ -46,10 +52,11 @@ function setSettings($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	setSettings($_POST);
+	Redirect::page('admin', $layout['controller']);
 }
 
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================
 
 // Default home page

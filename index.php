@@ -14,7 +14,7 @@ if( !file_exists('content/databases/site.php') )
 	exit('<a href="./install.php">First, install Bludit</a>');
 }
 
-// DEBUG:
+// Load time init
 $loadTime = microtime(true);
 
 // Security constant
@@ -24,7 +24,7 @@ define('BLUDIT', true);
 define('DS', DIRECTORY_SEPARATOR);
 
 // PHP paths
-define('PATH_ROOT', __DIR__.DS);
+define('PATH_ROOT',	__DIR__.DS);
 define('PATH_BOOT',	PATH_ROOT.'kernel'.DS.'boot'.DS);
 
 // Init
@@ -40,10 +40,3 @@ else
 {
 	require(PATH_BOOT.'site.php');
 }
-
-// DEBUG:
-// Print all variables/objects
-//print_r(get_defined_vars());
-
-//var_dump($_SESSION);
-//var_dump($Login->fingerPrint());

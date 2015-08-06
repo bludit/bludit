@@ -16,7 +16,6 @@
 
 	<!-- Plugins -->
 	<?php Theme::plugins('onAdminHead') ?>
-
 </head>
 <body>
 

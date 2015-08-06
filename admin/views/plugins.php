@@ -7,7 +7,7 @@
 
 		echo '<p class="name">'.$Plugin->name().'</p>';
 		echo '<p>'.$Plugin->description().'</p>';
-		echo '<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span><span class="author">'.$Language->g('author').': '.$Plugin->author().'</span>';
+		echo '<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span><span class="author">'.$Language->g('author').': <a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></span>';
 
 		if($Plugin->installed()) {
 			if($Plugin->form()) {

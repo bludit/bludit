@@ -1,13 +1,4 @@
-<?php
-
-/*
- * Nibbleblog -
- * http://www.nibbleblog.com
- * Author Diego Najar
-
- * All Nibbleblog code is released under the GNU General Public License.
- * See COPYRIGHT.txt and LICENSE.txt.
-*/
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 class Crypt {
 
@@ -41,12 +32,10 @@ class Crypt {
 		return('---');
 	}
 
-	public static function get_hash($string, $salt = '$#!')
+	public static function getHash($string, $salt = '$#!')
 	{
 		$sha1 = sha1($string.$salt);
 
 		return($sha1);
 	}
 }
-
-?>

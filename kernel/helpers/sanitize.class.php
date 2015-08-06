@@ -55,35 +55,17 @@ class Sanitize {
 		return true;
 	}
 
-	// old
-	public static function ip($ip)
+	public static function email($email)
 	{
-		return filter_var($ip, FILTER_VALIDATE_IP);
+		return( filter_var($email, FILTER_SANITIZE_EMAIL) );
 	}
 
-	public static function mail($mail)
+	public static function url($url)
 	{
-		return filter_var($mail, FILTER_VALIDATE_EMAIL);
+		return( filter_var($url, FILTER_SANITIZE_URL) );
 	}
 
-	public static function int($int)
-	{
-		if($int === 0)
-			return( true );
-		elseif (filter_var($int, FILTER_VALIDATE_INT) === false )
-			return( false );
-		else
-			return( true );
-	}
-
-	// Remove all characters except digits
-	public static function sanitize_float($value)
-	{
-		return( filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND) );
-	}
-
-	// Valid an integer positive
-	public static function sanitize_int($value)
+	public static function int($value)
 	{
 		$value = (int)$value;
 
@@ -92,18 +74,5 @@ class Sanitize {
 		else
 			return 0;
 	}
-
-	public static function sanitize_email($value)
-	{
-		return( filter_var($value, FILTER_SANITIZE_EMAIL) );
-	}
-
-	public static function sanitize_url($value)
-	{
-		return( filter_var($value, FILTER_SANITIZE_URL) );
-	}
-
-	// Convert all applicable characters to HTML entities incluye acentos
-
 
 }
