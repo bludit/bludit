@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- Plugins -->
+<!-- Plugins Site Body Begin -->
 <?php Theme::plugins('onSiteBodyBegin') ?>
 
 <!-- Layout -->
@@ -47,7 +47,7 @@
 
 </div>
 
-<!-- Plugins -->
+<!-- Plugins Site Body End -->
 <?php Theme::plugins('onSiteBodyEnd') ?>
 
 </body>

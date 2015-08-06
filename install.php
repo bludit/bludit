@@ -36,6 +36,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
+// Check if JSON encode and decode are enabled.
+define('JSON', function_exists('json_encode'));
+
 // Helpers class
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
@@ -272,25 +275,25 @@ What\'s next:
 	return true;
 }
 
-function checkPOST($_POST)
+function checkPOST($args)
 {
 	// Check empty password
-	if(empty($_POST['password']))
+	if(empty($args['password']))
 	{
 		return '<div>The password field is empty</div>';
 	}
 
 	// Check invalid email
-	if( !Valid::email($_POST['email']) && ($_POST['noCheckEmail']=='0') )
+	if( !Valid::email($args['email']) && ($args['noCheckEmail']=='0') )
 	{
 		return '<div>Your email address is invalid.</div><div id="jscompleteEmail">Proceed anyway!</div>';
 	}
 
 	// Sanitize email
-	$email = sanitize::email($_POST['email']);
+	$email = sanitize::email($args['email']);
 
 	// Install Bludit
-	install($_POST['password'], $email, $_POST['language']);
+	install($args['password'], $email, $args['language']);
 
 	return true;
 }

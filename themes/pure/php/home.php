@@ -34,7 +34,7 @@
     <!-- Post content -->
     <div class="post-content">
         <?php
-            // FALSE to get the first part of the post
+            // Call the method with FALSE to get the first part of the post
             echo $Post->content(false)
         ?>
     </div>
@@ -47,6 +47,7 @@
 
 <?php endforeach; ?>
 
+<!-- Paginator for posts -->
 <?php
     echo Paginator::html();
 ?>
