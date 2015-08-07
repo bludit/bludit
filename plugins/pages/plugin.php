@@ -47,21 +47,24 @@ class pluginPages extends Plugin {
 
 		foreach($parents as $parent)
 		{
-			// Print the parent
-			$html .= '<li><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a></li>';
-
-			// Check if the parent hash children
-			if(isset($pagesParents[$parent->key()]))
+			if($Site->homepage()!==$parent->key())
 			{
-				$children = $pagesParents[$parent->key()];
+				// Print the parent
+				$html .= '<li><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a></li>';
 
-				// Print the children
-				$html .= '<li><ul>';
-				foreach($children as $child)
+				// Check if the parent hash children
+				if(isset($pagesParents[$parent->key()]))
 				{
-					$html .= '<li><a class="children" href="'.$child->permalink().'">— '.$child->title().'</a></li>';
+					$children = $pagesParents[$parent->key()];
+
+					// Print the children
+					$html .= '<li><ul>';
+					foreach($children as $child)
+					{
+						$html .= '<li><a class="children" href="'.$child->permalink().'">— '.$child->title().'</a></li>';
+					}
+					$html .= '</ul></li>';
 				}
-				$html .= '</ul></li>';
 			}
 		}
 

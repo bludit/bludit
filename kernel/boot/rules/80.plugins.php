@@ -5,10 +5,12 @@
 // ============================================================================
 
 $plugins = array(
-	'siteHead'=>array(),		// <html><head>HERE</head><body>...</body></html>
-	'siteBodyBegin'=>array(),	// <html><head>...</head><body>HERE...</body></html>
-	'siteBodyEnd'=>array(),		// <html><head>...</head><body>...HERE</body></html>
-	'siteSidebar'=>array(),		// <html><head>...</head><body>...<sidebar>HERE</sidebar>...</body></html>
+	'siteHead'=>array(),
+	'siteBodyBegin'=>array(),
+	'siteBodyEnd'=>array(),
+	'siteSidebar'=>array(),
+	'beforeSiteLoad'=>array(),
+	'afterSiteLoad'=>array(),
 
 	'pageBegin'=>array(),
 	'pageEnd'=>array(),
@@ -24,12 +26,6 @@ $plugins = array(
 	'loginBodyBegin'=>array(),
 	'loginBodyEnd'=>array(),
 
-	'beforeSiteLoad'=>array(),
-	'afterSiteLoad'=>array(),
-	'beforePostsLoad'=>array(),
-	'afterPostsLoad'=>array(),
-	'beforePagesLoad'=>array(),
-	'afterPagesLoad'=>array(),
 	'all'=>array()
 );
 
