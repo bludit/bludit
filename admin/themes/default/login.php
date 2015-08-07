@@ -10,8 +10,14 @@
 	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
+
+	<!-- Plugins Login Head -->
+	<?php Theme::plugins('loginHead') ?>
 </head>
 <body>
+
+<!-- Plugins Login Body Begin -->
+<?php Theme::plugins('loginBodyBegin') ?>
 
 <div id="head">
 	<nav class="navbar nav-fullwidth">
@@ -45,7 +51,10 @@
 
 </div>
 
-<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo (microtime(true) - $loadTime) ?></div>
+<div id="footer">Bludit</div>
+
+<!-- Plugins Login Body Begin -->
+<?php Theme::plugins('loginBodyEnd') ?>
 
 </body>
 </html>

@@ -4,6 +4,9 @@
 
 <section class="post">
 
+    <!-- Plugins Post Begin -->
+    <?php Theme::plugins('postBegin') ?>
+
     <!-- Post header -->
     <header class="post-header">
 
@@ -42,6 +45,9 @@
     <?php if($Post->readMore()) { ?>
     <a class="read-more" href="<?php echo $Post->permalink() ?>"><?php $Language->printMe('Read more') ?></a>
     <?php } ?>
+
+    <!-- Plugins Post End -->
+    <?php Theme::plugins('postEnd') ?>
 
 </section>
 

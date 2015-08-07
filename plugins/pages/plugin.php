@@ -27,7 +27,7 @@ class pluginPages extends Plugin {
 		return $html;
 	}
 
-	public function onSiteSidebar()
+	public function siteSidebar()
 	{
 		global $Language;
 		global $pagesParents;

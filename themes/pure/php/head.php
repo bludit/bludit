@@ -48,4 +48,4 @@ html, button, input, select, textarea,
 </style>
 
 <!-- Plugins Site Head -->
-<?php Theme::plugins('onSiteHead') ?>
+<?php Theme::plugins('siteHead') ?>

@@ -191,12 +191,9 @@ class Plugin {
 		// The user can define your own dbFields.
 	}
 
-	// EVENTS
+	// HOOKS
 
-	public function form()
-	{
-		return false;
-	}
+
 
 	// Before the posts load.
 	public function beforePostsLoad()
@@ -222,53 +219,81 @@ class Plugin {
 		return false;
 	}
 
-	public function onSiteHead()
-	{
+	// SITE HOOKS
+
+	public function beforeSiteLoad() {
 		return false;
 	}
 
-	public function onSiteBodyBegin()
-	{
+	public function afterSiteLoad() {
 		return false;
 	}
 
-	public function onSiteBodyEnd()
-	{
+	public function siteHead() {
 		return false;
 	}
 
-	public function onAdminHead()
-	{
+	public function siteBodyBegin() {
 		return false;
 	}
 
-	public function onAdminBodyBegin()
-	{
+	public function siteBodyEnd() {
 		return false;
 	}
 
-	public function onAdminBodyEnd()
-	{
+	public function siteSidebar() {
 		return false;
 	}
 
-	public function onSiteSidebar()
-	{
+	public function postBegin() {
 		return false;
 	}
 
-	public function onAdminSidebar()
-	{
+	public function postEnd() {
 		return false;
 	}
 
-	public function beforeSiteLoad()
-	{
+	public function pageBegin() {
 		return false;
 	}
 
-	public function afterSiteLoad()
-	{
+	public function pageEnd() {
+		return false;
+	}
+
+	// LOGIN HOOKS
+
+	public function loginHead() {
+		return false;
+	}
+
+	public function loginBodyBegin() {
+		return false;
+	}
+
+	public function loginBodyEnd() {
+		return false;
+	}
+
+	// ADMIN HOOKS
+
+	public function adminHead() {
+		return false;
+	}
+
+	public function adminBodyBegin() {
+		return false;
+	}
+
+	public function adminBodyEnd() {
+		return false;
+	}
+
+	public function adminSidebar() {
+		return false;
+	}
+
+	public function form() {
 		return false;
 	}
 

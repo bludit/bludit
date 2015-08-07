@@ -2,6 +2,9 @@
 
 <section class="post">
 
+    <!-- Plugins Post Begin -->
+    <?php Theme::plugins('postBegin') ?>
+
     <!-- Post header -->
     <header class="post-header">
 
@@ -33,5 +36,8 @@
     <div class="post-content">
         <?php echo $Post->content() ?>
     </div>
+
+    <!-- Plugins Post End -->
+    <?php Theme::plugins('postEnd') ?>
 
 </section>

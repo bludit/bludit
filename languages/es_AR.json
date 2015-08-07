@@ -137,5 +137,15 @@
     "language-and-timezone":"Language and timezone",
     "author": "Author",
     "start-here": "Start here",
-    "install-theme": "Install theme"
+    "install-theme": "Install theme",
+    "first-post": "Primer post",
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "whats-next": "Que sigue",
+    "manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area](./admin/)",
+    "follow-bludit-on": "Siga Bludit en",
+    "visit-the-support-forum": "Visite el [foro](http://forum.bludit.com) para soporte",
+    "read-the-documentation-for-more-information": "Lea la [documentacion](http://docs.bludit.com) para mas informacion",
+    "share-with-your-friends-and-enjoy": "Share with your friends and enjoy",
+    "the-page-has-not-been-found": "The page has not been found.",
+    "error": "Error"
 }
