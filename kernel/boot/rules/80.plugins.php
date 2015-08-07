@@ -88,11 +88,7 @@ function build_plugins()
 		{
 			foreach($pluginsEvents as $event=>$value)
 			{
-				/*
-				if($Plugin->onSiteHead()!==false)
-					array_push($plugins['onSiteHead'], $Plugin);
-				*/
-				if($Plugin->{$event}()!==false) {
+				if(method_exists($Plugin, $event)) {
 					array_push($plugins[$event], $Plugin);
 				}
 			}

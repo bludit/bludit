@@ -120,7 +120,6 @@
 	"you-can-modify-the-url-which-identifies":"You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.",
 	"this-field-can-help-describe-the-content": "This field can help describe the content in a few words. No more than 150 characters.",
 	"write-the-tags-separeted-by-comma": "Write the tags separeted by comma. eg: tag1, tag2, tag3",
-	"delete": "Delete",
 	"delete-the-user-and-all-its-posts":"Delete the user and all its posts",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Delete the user and associate its posts to admin user",
 	"read-more": "Read more",

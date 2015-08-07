@@ -48,8 +48,8 @@ else
 	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') )
 	{
 		$layout['controller']	= 'login';
-		$layout['view']			= 'login';
-		$layout['template']		= 'login.php';
+		$layout['view']		= 'login';
+		$layout['template']	= 'login.php';
 	}
 
 	// Admin theme init.php
