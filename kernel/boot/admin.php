@@ -52,6 +52,9 @@ else
 		$layout['template']	= 'login.php';
 	}
 
+	// Plugins before admin area loaded
+	Theme::plugins('beforeAdminLoad');
+
 	// Admin theme init.php
 	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') )
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.'init.php');
@@ -63,4 +66,7 @@ else
 	// Load view and theme
 	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) )
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.$layout['template']);
+
+	// Plugins after admin area loaded
+	Theme::plugins('afterAdminLoad');
 }

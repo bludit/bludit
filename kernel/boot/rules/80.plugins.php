@@ -21,6 +21,8 @@ $plugins = array(
 	'adminBodyBegin'=>array(),
 	'adminBodyEnd'=>array(),
 	'adminSidebar'=>array(),
+	'beforeAdminLoad'=>array(),
+	'afterAdminLoad'=>array(),
 
 	'loginHead'=>array(),
 	'loginBodyBegin'=>array(),
