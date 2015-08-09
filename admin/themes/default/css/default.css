@@ -70,6 +70,13 @@ div.unit-80 {
 
 }
 
+/* ----------- FOOTER ----------- */
+#footer {
+    color: #777;
+    font-size: 0.9em;
+    text-align: center;
+}
+
 /* ----------- ALERT ----------- */
 #alert {
     top: 0 !important;
@@ -253,6 +260,11 @@ div.themeBox {
     padding: 15px 20px;
     width: 70%;
     margin-bottom: 20px;
+    overflow: auto;
+}
+
+div.themeBoxInstalled {
+    background-color: #f1f1f1;
 }
 
 div.themeBox p {
@@ -291,6 +303,7 @@ div.pluginBox {
     padding: 15px 20px;
     width: 70%;
     margin-bottom: 20px;
+    overflow: auto;
 }
 
 div.pluginBox p {

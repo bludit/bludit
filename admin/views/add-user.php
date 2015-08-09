@@ -5,7 +5,7 @@
 <form method="post" action="" class="forms">
     <label>
         <?php $Language->p('Username') ?>
-        <input type="text" name="username" class="width-50">
+        <input type="text" name="username" class="width-50" value="<?php echo (isset($_POST['username'])?$_POST['username']:'') ?>">
     </label>
 
     <label>
@@ -29,7 +29,7 @@
 
     <label>
         Email
-        <input type="text" name="email" class="width-50">
+        <input type="text" name="email" class="width-50" value="<?php echo (isset($_POST['email'])?$_POST['email']:'') ?>">
         <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
     </label>
 

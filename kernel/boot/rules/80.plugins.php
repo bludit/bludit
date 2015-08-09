@@ -5,20 +5,29 @@
 // ============================================================================
 
 $plugins = array(
-	'onSiteHead'=>array(),		// <html><head>HERE</head><body>...</body></html>
-	'onSiteBodyBegin'=>array(), // <html><head>...</head><body>HERE...</body></html>
-	'onSiteBodyEnd'=>array(), 	// <html><head>...</head><body>...HERE</body></html>
-	'onSiteSidebar'=>array(),	// <html><head>...</head><body>...<sidebar>HERE</sidebar>...</body></html>
-	'onAdminHead'=>array(),
-	'onAdminBodyBegin'=>array(),
-	'onAdminBodyEnd'=>array(),
-	'onAdminSidebar'=>array(),
+	'siteHead'=>array(),
+	'siteBodyBegin'=>array(),
+	'siteBodyEnd'=>array(),
+	'siteSidebar'=>array(),
 	'beforeSiteLoad'=>array(),
 	'afterSiteLoad'=>array(),
-	'beforePostsLoad'=>array(),
-	'afterPostsLoad'=>array(),
-	'beforePagesLoad'=>array(),
-	'afterPagesLoad'=>array(),
+
+	'pageBegin'=>array(),
+	'pageEnd'=>array(),
+	'postBegin'=>array(),
+	'postEnd'=>array(),
+
+	'adminHead'=>array(),
+	'adminBodyBegin'=>array(),
+	'adminBodyEnd'=>array(),
+	'adminSidebar'=>array(),
+	'beforeAdminLoad'=>array(),
+	'afterAdminLoad'=>array(),
+
+	'loginHead'=>array(),
+	'loginBodyBegin'=>array(),
+	'loginBodyEnd'=>array(),
+
 	'all'=>array()
 );
 
@@ -81,11 +90,7 @@ function build_plugins()
 		{
 			foreach($pluginsEvents as $event=>$value)
 			{
-				/*
-				if($Plugin->onSiteHead()!==false)
-					array_push($plugins['onSiteHead'], $Plugin);
-				*/
-				if($Plugin->{$event}()!==false) {
+				if(method_exists($Plugin, $event)) {
 					array_push($plugins[$event], $Plugin);
 				}
 			}

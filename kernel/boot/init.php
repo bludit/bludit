@@ -22,28 +22,28 @@ define('LOG_SEP', ' | ');
 // PHP PATHS
 
 // PATH_ROOT and PATH_BOOT are defined in index.php
-define('PATH_LANGUAGES',			PATH_ROOT.'languages'.DS);
-define('PATH_THEMES',				PATH_ROOT.'themes'.DS);
-define('PATH_PLUGINS',				PATH_ROOT.'plugins'.DS);
+define('PATH_LANGUAGES',		PATH_ROOT.'languages'.DS);
+define('PATH_THEMES',			PATH_ROOT.'themes'.DS);
+define('PATH_PLUGINS',			PATH_ROOT.'plugins'.DS);
 
-define('PATH_KERNEL',				PATH_ROOT.'kernel'.DS);
-define('PATH_ABSTRACT',				PATH_KERNEL.'abstract'.DS);
-define('PATH_RULES',				PATH_KERNEL.'boot'.DS.'rules'.DS);
-define('PATH_HELPERS',				PATH_KERNEL.'helpers'.DS);
-define('PATH_AJAX',					PATH_KERNEL.'ajax'.DS);
-define('PATH_JS',					PATH_KERNEL.'js'.DS);
+define('PATH_KERNEL',			PATH_ROOT.'kernel'.DS);
+define('PATH_ABSTRACT',			PATH_KERNEL.'abstract'.DS);
+define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
+define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
+define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
+define('PATH_JS',			PATH_KERNEL.'js'.DS);
 
-define('PATH_CONTENT',				PATH_ROOT.'content'.DS);
-define('PATH_POSTS',				PATH_CONTENT.'posts'.DS);
-define('PATH_PAGES',				PATH_CONTENT.'pages'.DS);
-define('PATH_DATABASES',			PATH_CONTENT.'databases'.DS);
+define('PATH_CONTENT',			PATH_ROOT.'content'.DS);
+define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
+define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
+define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
-define('PATH_UPLOADS',				PATH_CONTENT.'uploads'.DS);
+define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 
-define('PATH_ADMIN',				PATH_ROOT.'admin'.DS);
-define('PATH_ADMIN_THEMES',			PATH_ADMIN.'themes'.DS);
+define('PATH_ADMIN',			PATH_ROOT.'admin'.DS);
+define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
-define('PATH_ADMIN_VIEWS',			PATH_ADMIN.'views'.DS);
+define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
 
 // JSON pretty print
 if(!defined('JSON_PRETTY_PRINT')) {
@@ -57,8 +57,8 @@ define('SALT_LENGTH', 8);
 define('PAGE_BREAK', '<!-- pagebreak -->');
 
 // Bludit version
-define('BLUDIT_VERSION',		'githubVersion');
-define('BLUDIT_CODENAME',		'');
+define('BLUDIT_VERSION',	'githubVersion');
+define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
 
 //
@@ -113,6 +113,7 @@ include(PATH_HELPERS.'theme.class.php');
 include(PATH_HELPERS.'session.class.php');
 include(PATH_HELPERS.'redirect.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
+include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
@@ -138,15 +139,15 @@ define('HTML_PATH_ROOT', $base);
 
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
 define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
-define('HTML_PATH_THEME_CSS',	HTML_PATH_THEME.'css/');
-define('HTML_PATH_THEME_JS',	HTML_PATH_THEME.'js/');
-define('HTML_PATH_ADMIN_THEME',	HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
-define('HTML_PATH_ADMIN_ROOT',	HTML_PATH_ROOT.'admin/');
+define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
+define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
+define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
+define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 // PHP PATHs with dependency
-define('PATH_THEME',				PATH_ROOT.'themes/'.$Site->theme().'/');
+define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
 
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );

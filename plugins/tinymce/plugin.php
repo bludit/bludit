@@ -34,7 +34,7 @@ class pluginTinymce extends Plugin {
 		return $html;
 	}
 
-	public function onAdminHead()
+	public function adminHead()
 	{
 		global $Language;
 		global $Site;
@@ -55,7 +55,7 @@ class pluginTinymce extends Plugin {
 		return $html;
 	}
 
-	public function onAdminBodyEnd()
+	public function adminBodyEnd()
 	{
 		global $Language;
 		global $Site;

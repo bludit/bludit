@@ -39,7 +39,7 @@ function deletePage($key)
 {
 	global $dbPages;
 	global $Language;
-	
+
 	if( $dbPages->delete($key) )
 	{
 		Alert::set($Language->g('The page has been deleted successfully'));
@@ -50,6 +50,10 @@ function deletePage($key)
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the page.');
 	}
 }
+
+// ============================================================================
+// Main before POST
+// ============================================================================
 
 // ============================================================================
 // POST Method
@@ -66,7 +70,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 }
 
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================
 
 if(!$dbPages->pageExists($layout['parameters']))

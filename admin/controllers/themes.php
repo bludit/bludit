@@ -10,21 +10,42 @@ if($Login->role()!=='admin') {
 }
 
 // ============================================================================
+// Main after POST
+// ============================================================================
+
+// ============================================================================
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
-	$Site->set($_POST);
-}
-
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================
 
-$themes = Filesystem::listDirectories(PATH_THEMES);
+$themes = array();
+$themesPaths = Filesystem::listDirectories(PATH_THEMES);
 
 // Load each plugin clasess
-foreach($themes as $themePath) {
-//	include($themePath.DS.'plugin.php');
+foreach($themesPaths as $themePath)
+{
+	$langLocaleFile  = $themePath.DS.'language'.DS.$Site->locale().'.json';
+	$langDefaultFile = $themePath.DS.'language'.DS.'en_US.json';
+	$database = false;
+
+	// Check if exists locale language
+	if( Sanitize::pathFile($langLocaleFile) ) {
+		$database = new dbJSON($langLocaleFile, false);
+	}
+	// Check if exists default language
+	elseif( Sanitize::pathFile($langDefaultFile) ) {
+		$database = new dbJSON($langDefaultFile, false);
+	}
+
+	if($database!==false)
+	{
+		$databaseArray = $database->db;
+		$databaseArray['theme-data']['dirname'] = basename($themePath);
+
+		// Theme data
+		array_push($themes, $databaseArray['theme-data']);
+	}
 }

@@ -15,13 +15,12 @@
 	<script src="./js/kube.min.js"></script>
 
 	<!-- Plugins -->
-	<?php Theme::plugins('onAdminHead') ?>
-
+	<?php Theme::plugins('adminHead') ?>
 </head>
 <body>
 
 <!-- Plugins -->
-<?php Theme::plugins('onAdminBodyBegin') ?>
+<?php Theme::plugins('adminBodyBegin') ?>
 
 <!-- ALERT -->
 <script>
@@ -57,7 +56,7 @@ $(document).ready(function() {
 	<div id="sidebar" class="nav">
 
 		<ul>
-			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard"><i class="fa fa-sun-o"></i><?php $Language->p('Dasbhoard') ?></a></li>
+			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard"><i class="fa fa-sun-o"></i><?php $Language->p('Dashboard') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><i class="fa fa-pencil-square-o"></i><?php $Language->p('New post') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-page"><i class="fa fa-pencil"></i><?php $Language->p('New page') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>manage-posts"><i class="fa fa-file-text-o"></i><?php $Language->p('Manage') ?></a></li>
@@ -93,10 +92,9 @@ $(document).ready(function() {
 ?>
 
 <!-- Plugins -->
-<?php Theme::plugins('onAdminBodyEnd') ?>
+<?php Theme::plugins('adminBodyEnd') ?>
 
-<?php
-echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
-?>
+<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo (microtime(true) - $loadTime) ?></div>
+
 </body>
 </html>

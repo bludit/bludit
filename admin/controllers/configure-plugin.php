@@ -32,7 +32,7 @@ if($_Plugin===false) {
 }
 
 // Check if the plugin has the method form()
-if($_Plugin->form()===false) {
+if(!method_exists($_Plugin, 'form')) {
 	Redirect::page('admin', 'plugins');
 }
 

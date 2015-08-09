@@ -2,25 +2,29 @@
 <html>
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bludit Login</title>
+	<title>Bludit Log in</title>
 
-    <link rel="stylesheet" href="./css/kube.min.css">
-    <link rel="stylesheet" href="./css/default.css">
-    <link rel="stylesheet" href="./css/css/font-awesome.css">
+	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
 
+	<!-- Plugins Login Head -->
+	<?php Theme::plugins('loginHead') ?>
 </head>
-
 <body>
+
+<!-- Plugins Login Body Begin -->
+<?php Theme::plugins('loginBodyBegin') ?>
 
 <div id="head">
 	<nav class="navbar nav-fullwidth">
 		<h1>Bludit</h1>
-	    <ul>
-	    	<li><a href="<?php echo HTML_PATH_ROOT ?>"><?php $Language->p('Home') ?></a></li>
-	    </ul>
+		<ul>
+		<li><a href="<?php echo HTML_PATH_ROOT ?>"><?php $Language->p('Home') ?></a></li>
+		</ul>
 	</nav>
 </div>
 
@@ -46,8 +50,11 @@
 	</div>
 
 </div>
-<?php
-echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
-?>
+
+<div id="footer">Bludit</div>
+
+<!-- Plugins Login Body Begin -->
+<?php Theme::plugins('loginBodyEnd') ?>
+
 </body>
 </html>

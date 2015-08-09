@@ -47,7 +47,5 @@ html, button, input, select, textarea,
 }
 </style>
 
-<!-- Plugins -->
-<?php
-	Theme::plugins('onSiteHead');
-?>
+<!-- Plugins Site Head -->
+<?php Theme::plugins('siteHead') ?>
