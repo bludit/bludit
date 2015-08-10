@@ -2,6 +2,9 @@
 
 <section class="page">
 
+    <!-- Plugins Page Begin -->
+    <?php Theme::plugins('pageBegin') ?>
+
     <!-- page header -->
     <header class="page-header">
 
@@ -16,5 +19,8 @@
     <div class="page-content">
         <?php echo $Page->content() ?>
     </div>
+
+    <!-- Plugins Page Begin -->
+    <?php Theme::plugins('pageEnd') ?>
 
 </section>

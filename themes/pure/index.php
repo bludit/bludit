@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<!-- Plugins -->
-<?php Theme::plugins('onSiteBodyBegin') ?>
+<!-- Plugins Site Body Begin -->
+<?php Theme::plugins('siteBodyBegin') ?>
 
 <!-- Layout -->
 <div id="layout" class="pure-g">
@@ -47,8 +47,8 @@
 
 </div>
 
-<!-- Plugins -->
-<?php Theme::plugins('onSiteBodyEnd') ?>
+<!-- Plugins Site Body End -->
+<?php Theme::plugins('siteBodyEnd') ?>
 
 </body>
 </html>

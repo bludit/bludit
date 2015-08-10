@@ -18,10 +18,8 @@
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$username = Sanitize::html($_POST['username']);
-	$password = Sanitize::html($_POST['password']);
-
-	if( $Login->verifyUser($username, $password) )
+	// Verify User sanitize the input
+	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
 	{
 		Redirect::page('admin', 'dashboard');
 	}

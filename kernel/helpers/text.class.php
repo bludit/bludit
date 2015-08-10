@@ -52,6 +52,7 @@ class Text {
 		 return $text;
 	}
 
+/*
 	public static function cleanUrl($string, $separator='-')
 	{
 		// Delete characters
@@ -69,6 +70,21 @@ class Text {
 
 		// Make a string lowercase
 		$string = self::lowercase($string);
+
+		return $string;
+	}
+*/
+
+	public static function cleanUrl($string, $separator='-')
+	{
+		if(function_exists('iconv')) {
+			$string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+		}
+
+		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);
+		$string = trim($string, '-');
+		$string = self::lowercase($string);
+		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
 
 		return $string;
 	}

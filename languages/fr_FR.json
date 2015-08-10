@@ -69,7 +69,6 @@
     "website": "Site",
     "timezone": "Fuseau horaire",
     "locale": "Localisation",
-    "notifications": "Notifications",
     "new-post": "Nouvel article",
     "html-and-markdown-code-supported": "Code HTML et Markdown pris en charge.",
     "new-page": "Nouvelle page",
@@ -98,7 +97,6 @@
     "username-or-password-incorrect": "Nom d’utilisateur ou mot de passe incorrect.",
     "database-regenerated": "Base de données régénérée.",
     "the-changes-have-been-saved": "Les modifications on était sauvegardées.",
-    "html-markdown-code-supported": "Code HTML et Markdown pris en charge.",
     "enable-more-features-at": "Activer plus de fonctionnalités en vous rendant vers ",
     "username-already-exists-or-is-empty": "Le nom d’utilisateur existe déjà ou est inexistant.",
     "username-field-is-empty": "Le champ utilisateur est vide !",
@@ -122,7 +120,6 @@
     "you-can-modify-the-url-which-identifies":"Vous pouvez modifier l'URL qui identifie une page ou un article, en utilisant des mots-clés lisibles. Pas plus de 150 caractères.",
     "this-field-can-help-describe-the-content": "Ce champ peut aider à décrire le contenu en quelques mots. Pas plus de 150 caractères.",
     "write-the-tags-separeted-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
-    "delete": "Supprimer",
     "delete-the-user-and-all-its-posts":"Supprimer l’utilisateur et tous ses messages associés.",
     "delete-the-user-and-associate-its-posts-to-admin-user": "Supprimez l’utilisateur et associez ses messages à l’administrateur principal.",
     "read-more": "Lire la suite...",
@@ -136,5 +133,17 @@
     "change-your-language-and-region-settings":"Modifiez vos paramètres linguistiques et régionaux.",
     "language-and-timezone":"Langue et fuseau horaire",
     "author": "Auteur",
-    "start-here": "Prise en main rapide"
+    "start-here": "Prise en main rapide",
+	"install-theme": "Installer ce thème",
+	"first-post": "Premier article",
+	"congratulations-you-have-successfully-installed-your-bludit": "Félicitations, vous avez correctement installé **Bludit**",
+	"whats-next": "pour la prochaine étape",
+	"manage-your-bludit-from-the-admin-panel": "Gérez Bludit dans la [zone d’administration](./admin/)",
+	"follow-bludit-on": "Suivez Bludit sur",
+	"visit-the-support-forum": "Visitez le [forum](http://forum.bludit.com) de support",
+	"read-the-documentation-for-more-information": "Lisez la [documentation](http://docs.bludit.com) pour plus d’information",
+	"share-with-your-friends-and-enjoy": "Partagez avec vos amis et apprécier !",
+	"the-page-has-not-been-found": "La page n’a pas été trouvée.",
+	"error": "Erreur"
+
 }

@@ -36,10 +36,29 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
-// Helpers class
+// Check if JSON encode and decode are enabled.
+define('JSON', function_exists('json_encode'));
+
+// Multibyte string / UTF-8
+define('MB_STRING', extension_loaded('mbstring'));
+
+define('CHARSET', 'UTF-8');
+
+if(MB_STRING)
+{
+	// Tell PHP that we're using UTF-8 strings until the end of the script.
+	mb_internal_encoding(CHARSET);
+
+	// Tell PHP that we'll be outputting UTF-8 to the browser.
+	mb_http_output(CHARSET);
+}
+
+// PHP Classes
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
+include(PATH_HELPERS.'text.class.php');
 include(PATH_ABSTRACT.'dbjson.class.php');
+include(PATH_KERNEL.'dblanguage.class.php');
 
 // ============================================================================
 // FUNCTIONS
@@ -125,8 +144,10 @@ function checkSystem()
 	return $stdOut;
 }
 
-function install($adminPassword, $email, $language)
+function install($adminPassword, $email, $locale)
 {
+	$Language = new dbLanguage($locale);
+
 	$stdOut = array();
 
 	// ============================================================================
@@ -201,9 +222,9 @@ function install($adminPassword, $email, $language)
 		'title'=>'Bludit',
 		'slogan'=>'cms',
 		'description'=>'',
-		'footer'=>'Footer text - ©2015',
-		'language'=>$language,
-		'locale'=>$language,
+		'footer'=>'©2015',
+		'language'=>$locale,
+		'locale'=>$locale,
 		'timezone'=>'UTC',
 		'theme'=>'pure',
 		'adminTheme'=>'default',
@@ -241,56 +262,56 @@ function install($adminPassword, $email, $language)
 	// File plugins/pages/db.php
 	$data = array(
 		'homeLink'=>true,
-		'label'=>'Pages'
+		'label'=>$Language->get('Pages')
 	);
 
 	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File index.txt for error page
-	$data = 'Title: Error
-	Content: The page has not been found.';
+	$data = 'Title: '.$Language->get('Error').'
+	Content: '.$Language->get('The page has not been found');
 
 	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
 
 	// File index.txt for welcome post
-	$data = 'Title: First post
+	$data = 'Title: '.$Language->get('First post').'
 Content:
 
-Congratulations, you have installed **Bludit** successfully!
+'.$Language->get('Congratulations you have successfully installed your Bludit').'
 ---
 
-What\'s next:
+'.$Language->get('Whats next').'
 ---
-- Administrate your Bludit from the [admin area](./admin/)
-- Follow Bludit on [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
-- Visit the [forum](http://forum.bludit.com) for support
-- Read the [documentation](http://docs.bludit.com) for more information
-- Share with your friend :D';
+- '.$Language->get('Manage your Bludit from the admin panel').'
+- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
+- '.$Language->get('Visit the support forum').'
+- '.$Language->get('Read the documentation for more information').'
+- '.$Language->get('Share with your friends and enjoy');
 
 	file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
 
 	return true;
 }
 
-function checkPOST($_POST)
+function checkPOST($args)
 {
 	// Check empty password
-	if(empty($_POST['password']))
+	if(empty($args['password']))
 	{
 		return '<div>The password field is empty</div>';
 	}
 
 	// Check invalid email
-	if( !Valid::email($_POST['email']) && ($_POST['noCheckEmail']=='0') )
+	if( !Valid::email($args['email']) && ($args['noCheckEmail']=='0') )
 	{
 		return '<div>Your email address is invalid.</div><div id="jscompleteEmail">Proceed anyway!</div>';
 	}
 
 	// Sanitize email
-	$email = sanitize::email($_POST['email']);
+	$email = sanitize::email($args['email']);
 
 	// Install Bludit
-	install($_POST['password'], $email, $_POST['language']);
+	install($args['password'], $email, $args['language']);
 
 	return true;
 }

@@ -15,12 +15,12 @@
 	<script src="./js/kube.min.js"></script>
 
 	<!-- Plugins -->
-	<?php Theme::plugins('onAdminHead') ?>
+	<?php Theme::plugins('adminHead') ?>
 </head>
 <body>
 
 <!-- Plugins -->
-<?php Theme::plugins('onAdminBodyBegin') ?>
+<?php Theme::plugins('adminBodyBegin') ?>
 
 <!-- ALERT -->
 <script>
@@ -92,7 +92,7 @@ $(document).ready(function() {
 ?>
 
 <!-- Plugins -->
-<?php Theme::plugins('onAdminBodyEnd') ?>
+<?php Theme::plugins('adminBodyEnd') ?>
 
 <div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo (microtime(true) - $loadTime) ?></div>
 
