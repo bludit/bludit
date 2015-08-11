@@ -64,6 +64,12 @@ code {
   letter-spacing: 0.1em;
 }
 
+.content {
+    padding-top: 3em;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
 #layout {
     padding: 0;
 }
@@ -266,6 +272,12 @@ div.plugin-content ul {
 
 div.plugin-content ul > li > ul > li {
     margin: 0;
+}
+
+div.plugin-content ul > li > ul > li:before {
+  color: #777;
+  content: "—";
+  padding-right: 5px;
 }
 
 div.plugin-content ul > li > ul > li > a {
