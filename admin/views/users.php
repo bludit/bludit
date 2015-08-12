@@ -22,7 +22,7 @@
 			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
 			echo '<td>'.$field['firstName'].'</td>';
 			echo '<td>'.$field['lastName'].'</td>';
-			echo '<td>'.$field['role'].'</td>';
+			echo '<td>a'.$field['role'].'</td>';
 			echo '<td>'.$field['email'].'</td>';
 			echo '<td>'.Date::format($field['registered'], '%d %B').'</td>';
 			echo '</tr>';
