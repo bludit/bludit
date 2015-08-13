@@ -63,11 +63,11 @@
 					{
 						foreach($_draftPosts as $Post)
 						{
-							echo '<li>('.$Language->g('Post').') <a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+							echo '<li><span class="label label-outline label-blue smaller">'.$Language->g('Post').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 						}
 						foreach($_draftPages as $Page)
 						{
-							echo '<li>('.$Language->g('Page').') <a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+							echo '<li><span class="label label-outline label-green smaller">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 						}
 					}
 				?>
@@ -75,7 +75,5 @@
 				</nav>
 			</div>
 		</div>
-
 	</div>
-
 </div>
