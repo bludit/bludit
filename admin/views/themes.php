@@ -3,12 +3,12 @@
 <?php
 	foreach($themes as $theme)
 	{
-		$installed = '';
+		$installedCSS = '';
 		if($theme['dirname']==$Site->theme()) {
-			$installed = 'themeBoxInstalled';
+			$installedCSS = 'themeBoxInstalled';
 		}
 
-		echo '<div class="themeBox '.$installed.'">';
+		echo '<div class="themeBox '.$installedCSS.'">';
 
 		echo '<p class="name">'.$theme['name'].'</p>';
 		echo '<p>'.$theme['description'].'</p>';
