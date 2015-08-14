@@ -47,7 +47,7 @@ class pluginPages extends Plugin {
 
 		foreach($parents as $parent)
 		{
-			if($Site->homepage()!==$parent->key())
+			//if($Site->homepage()!==$parent->key())
 			{
 				// Print the parent
 				$html .= '<li><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a>';
