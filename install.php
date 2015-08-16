@@ -6,10 +6,9 @@
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
-
 // Security constant
 define('BLUDIT', true);
-
+		
 // Directory separator
 define('DS', DIRECTORY_SEPARATOR);
 
@@ -59,6 +58,15 @@ include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
+
+// Load language
+$HTTP_ACCEPT_LANGUAGE = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+if (file_exists(PATH_LANGUAGES.$HTTP_ACCEPT_LANGUAGE. '.json')) {
+	$locale = $HTTP_ACCEPT_LANGUAGE;
+} else {
+	$locale = 'en_US';
+}
+$Language = new dbLanguage($locale);
 
 // ============================================================================
 // FUNCTIONS
@@ -351,7 +359,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Bludit Installer</title>
+	<title><?php echo $Language->get('Bludit Installer') ?></title>
 
 	<link rel="stylesheet" href="./css/kube.min.css">
 	<link rel="stylesheet" href="./css/installer.css">
@@ -363,8 +371,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <div class="units-row">
 	<div class="unit-centered unit-60">
 	<div class="main">
-		<h1 class="title">Bludit Installer</h1>
-		<p>Welcome to the Bludit installer</p>
+		<h1 class="title"><?php echo $Language->get('Bludit Installer') ?></h1>
+		<p><?php echo $Language->get('Welcome to the Bludit installer') ?></p>
 
 		<?php
 		$system = checkSystem();
@@ -373,7 +381,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		{
 		?>
 
-		<p>Complete the form, choose a password for the username <strong>admin</strong></p>
+		<p><?php echo $Language->get('Complete the form, choose a password for the username « admin »') ?></p>
 
 		<div class="unit-centered unit-40">
 
@@ -392,15 +400,15 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		</label>
 
 		<label>
-		<input type="text" name="password" id="jspassword" placeholder="Password, visible field!" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
+		<input type="text" name="password" id="jspassword" placeholder="<?php echo $Language->get('Password, visible field!') ?>" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
 		</label>
 
 		<label>
-		<input type="text" name="email" id="jsemail" placeholder="Email" class="width-100" autocomplete="off" maxlength="100">
+		<input type="text" name="email" id="jsemail" placeholder="<?php echo $Language->get('Email') ?>" class="width-100" autocomplete="off" maxlength="100">
 		</label>
 
 		<label for="jslanguage">
-		<select id="jslanguage" name="language" class="width-100">
+		<select id="jslanguage" name="language" class="width-100" onchange="this.form.submit()">
 		<?php
 			$htmlOptions = getLanguageList();
 			foreach($htmlOptions as $locale=>$nativeName) {
@@ -411,7 +419,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		</label>
 
 		<p>
-		<button class="btn btn-blue width-100">Install</button>
+		<button class="btn btn-blue width-100"><?php echo $Language->get('Install') ?></button>
 		</p>
 		</form>
 		</div>

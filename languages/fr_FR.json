@@ -8,7 +8,12 @@
 		"email": "",
 		"website": ""
 	},
-
+	
+	"bludit-installer": "Installation de Bludit",
+	"welcome-to-the-bludit-installer": "Bienvenue dans l’assistant d’installation de Bludit",
+	"complete-the-form,-choose-a-password-for-the-username-«-admin-»": "Complétez le formulaire et choisissez un mot de passe pour l’utilisateur « admin »",
+	"password,-visible-field!": "Mot de passe, champ visible !",
+	"install": "Installer",
     "username": "Nom d’utilisateur",
     "password": "Mot de passe",
     "confirm-password": "Confirmation du mot de passe",
