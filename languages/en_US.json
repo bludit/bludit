@@ -8,7 +8,12 @@
 		"email": "",
 		"website": ""
 	},
-
+	
+	"bludit-installer": "Bludit Installer",
+	"welcome-to-the-bludit-installer": "Welcome to the Bludit installer",
+	"complete-the-form,-choose-a-password-for-the-username-«-admin-»": "Complete the form, choose a password for the username « admin »",
+	"password,-visible-field!": "Password, visible field!",
+	"install": "Install",
 	"username": "Username",
 	"password": "Password",
 	"confirm-password": "Confirm Password",
