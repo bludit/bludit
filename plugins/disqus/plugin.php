@@ -2,6 +2,8 @@
 
 class pluginDisqus extends Plugin {
 
+	private $disable;
+
 	public function init()
 	{
 		$this->dbFields = array(
@@ -10,6 +12,34 @@ class pluginDisqus extends Plugin {
 			'enablePosts'=>true,
 			'enableDefaultHomePage'=>false
 		);
+	}
+
+	function __construct()
+	{
+		parent::__construct();
+
+		// Disable the plugin IF ...
+		global $Url;
+
+		$this->disable = false;
+
+		if( (!$this->getDbField('enablePosts')) && ($Url->whereAmI()=='post') ) {
+			$this->disable = true;
+		}
+		elseif( (!$this->getDbField('enablePages')) && ($Url->whereAmI()=='page') ) {
+			$this->disable = true;
+		}
+		elseif( !$this->getDbField('enableDefaultHomePage') && ($Url->whereAmI()=='page') )
+		{
+			global $Page;
+			global $Site;
+			if( $Site->homePage()==$Page->key() ) {
+				$this->disable = true;
+			}
+		}
+		elseif( ($Url->whereAmI()!='post') && ($Url->whereAmI()!='page') ) {
+			$this->disable = true;
+		}
 	}
 
 	public function form()
@@ -41,34 +71,38 @@ class pluginDisqus extends Plugin {
 
 	public function postEnd()
 	{
-		$html = '';
-		if( $this->getDbField('enablePosts') ) {
-			$html  = '<div id="disqus_thread"></div>';
+		if( $this->disable ) {
+			return false;
 		}
+
+		$html  = '<div id="disqus_thread"></div>';
 		return $html;
 	}
 
 	public function pageEnd()
 	{
-		$html = '';
-		if( $this->getDbField('enablePages') ) {
-			$html  = '<div id="disqus_thread"></div>';
+		if( $this->disable ) {
+			return false;
 		}
+
+		$html  = '<div id="disqus_thread"></div>';
 		return $html;
 	}
 
 	public function siteHead()
 	{
+		if( $this->disable ) {
+			return false;
+		}
+
 		$html = '<style>#disqus_thread { margin: 20px 0 }</style>';
 		return $html;
 	}
 
 	public function siteBodyEnd()
 	{
-		global $Url;
-
-		if( ($Url->whereAmI()!='post') && ($Url->whereAmI()!='page') ) {
-			return '';
+		if( $this->disable ) {
+			return false;
 		}
 
 		$html = '
