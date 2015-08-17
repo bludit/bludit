@@ -154,5 +154,6 @@
 	"next": "Next",
 	"the-password-field-is-empty": "The password field is empty",
 	"your-email-address-is-invalid":"Your email address is invalid.",
-	"proceed-anyway": "Proceed anyway!"
+	"proceed-anyway": "Proceed anyway!",
+	"drafts":"Drafts"
 }
