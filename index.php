@@ -23,7 +23,7 @@ define('BLUDIT', true);
 // Directory separator
 define('DS', DIRECTORY_SEPARATOR);
 
-// PHP paths
+// PHP paths for init
 define('PATH_ROOT', __DIR__.DS);
 define('PATH_BOOT', PATH_ROOT.'kernel'.DS.'boot'.DS);
 

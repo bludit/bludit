@@ -8,12 +8,7 @@
 		"email": "",
 		"website": ""
 	},
-	
-	"bludit-installer": "Bludit Installer",
-	"welcome-to-the-bludit-installer": "Welcome to the Bludit installer",
-	"complete-the-form,-choose-a-password-for-the-username-«-admin-»": "Complete the form, choose a password for the username « admin »",
-	"password,-visible-field!": "Password, visible field!",
-	"install": "Install",
+
 	"username": "Username",
 	"password": "Password",
 	"confirm-password": "Confirm Password",
@@ -149,6 +144,13 @@
 	"read-the-documentation-for-more-information": "Read the [documentation](http://docs.bludit.com) for more information",
 	"share-with-your-friends-and-enjoy": "Share with your friends and enjoy",
 	"the-page-has-not-been-found": "The page has not been found.",
-	"error": "Error"
-
+	"error": "Error",
+	"bludit-installer": "Bludit Installer",
+	"welcome-to-the-bludit-installer": "Welcome to the Bludit installer",
+	"complete-the-form-choose-a-password-for-the-username-admin": "Complete the form, choose a password for the username « admin »",
+	"password-visible-field": "Password, visible field!",
+	"install": "Install",
+	"choose-your-language": "Choose your language",
+	"next": "Next",
+	"the-password-field-is-empty": "The password field is empty"
 }

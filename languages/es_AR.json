@@ -144,5 +144,11 @@
 	"read-the-documentation-for-more-information": "Lea la [documentacion](http://docs.bludit.com) para mas informacion",
 	"share-with-your-friends-and-enjoy": "Comparti con tus amigos y a disfrutar",
 	"the-page-has-not-been-found": "La pagina no fue encontrada.",
-	"error": "Error"
+	"error": "Error",
+	"bludit-installer": "Bludit Instalador",
+	"welcome-to-the-bludit-installer": "Bienvenido al asistente para la instalación de Bludit.",
+	"complete-the-form-choose-a-password-for-the-username-admin": "Complete el formulario y elija una contraseña para el usuario « admin »",
+	"password-visible-field": "Contraseña, este campo es visible!",
+	"install": "Instalar",
+	"the-password-field-is-empty": "Debe completar el campo contraseña"
 }

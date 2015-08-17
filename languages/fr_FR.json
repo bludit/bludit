@@ -8,12 +8,7 @@
 		"email": "",
 		"website": ""
 	},
-	
-	"bludit-installer": "Installation de Bludit",
-	"welcome-to-the-bludit-installer": "Bienvenue dans l’assistant d’installation de Bludit",
-	"complete-the-form,-choose-a-password-for-the-username-«-admin-»": "Complétez le formulaire et choisissez un mot de passe pour l’utilisateur « admin »",
-	"password,-visible-field!": "Mot de passe, champ visible !",
-	"install": "Installer",
+
     "username": "Nom d’utilisateur",
     "password": "Mot de passe",
     "confirm-password": "Confirmation du mot de passe",
@@ -40,7 +35,7 @@
     "position": "Position",
     "save": "Sauvegarder",
     "draft": "Brouillon",
-    "delete": "Supprimer",                    
+    "delete": "Supprimer",
     "registered": "Inscrit",
     "Notifications": "Notifications",
     "profile": "Profil",
@@ -149,6 +144,10 @@
 	"read-the-documentation-for-more-information": "Lisez la [documentation](http://docs.bludit.com) pour plus d’information",
 	"share-with-your-friends-and-enjoy": "Partagez avec vos amis et apprécier !",
 	"the-page-has-not-been-found": "La page n’a pas été trouvée.",
-	"error": "Erreur"
-
+	"error": "Erreur",
+    "bludit-installer": "Installation de Bludit",
+    "welcome-to-the-bludit-installer": "Bienvenue dans l’assistant d’installation de Bludit",
+    "complete-the-form-choose-a-password-for-the-username-admin": "Complétez le formulaire et choisissez un mot de passe pour l’utilisateur « admin »",
+    "password-visible-field": "Mot de passe, champ visible !",
+    "install": "Installer"
 }
