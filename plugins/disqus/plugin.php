@@ -5,7 +5,10 @@ class pluginDisqus extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'shortname'=>''
+			'shortname'=>'',
+			'enablePages'=>false,
+			'enablePosts'=>true,
+			'enableDefaultHomePage'=>false
 		);
 	}
 
@@ -14,8 +17,23 @@ class pluginDisqus extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>Disqus shortname</label>';
+		$html .= '<label>'.$Language->get('Disqus shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getDbField('shortname').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enablePages" id="jsenablePages" type="checkbox" value="true" '.($this->getDbField('enablePages')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenablePages">'.$Language->get('Enable Disqus on pages').'</label>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enablePosts" id="jsenablePosts" type="checkbox" value="true" '.($this->getDbField('enablePosts')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenablePosts">'.$Language->get('Enable Disqus on posts').'</label>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enableDefaultHomePage" id="jsenableDefaultHomePage" type="checkbox" value="true" '.($this->getDbField('enableDefaultHomePage')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenableDefaultHomePage">'.$Language->get('Enable Disqus on default home page').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -23,13 +41,20 @@ class pluginDisqus extends Plugin {
 
 	public function postEnd()
 	{
-		$html  = '<div id="disqus_thread"></div>';
+		$html = '';
+		if( $this->getDbField('enablePosts') ) {
+			$html  = '<div id="disqus_thread"></div>';
+		}
 		return $html;
 	}
 
 	public function pageEnd()
 	{
-		return $this->postEnd();
+		$html = '';
+		if( $this->getDbField('enablePages') ) {
+			$html  = '<div id="disqus_thread"></div>';
+		}
+		return $html;
 	}
 
 	public function siteHead()

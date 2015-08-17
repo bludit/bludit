@@ -320,7 +320,7 @@ function checkPOST($args)
 	// Check invalid email
 	if( !Valid::email($args['email']) && ($args['noCheckEmail']=='0') )
 	{
-		return '<div>Your email address is invalid.</div><div id="jscompleteEmail">Proceed anyway!</div>';
+		return '<div>'.$Language->g('Your email address is invalid').'</div><div id="jscompleteEmail">'.$Language->g('Proceed anyway').'</div>';
 	}
 
 	// Sanitize email

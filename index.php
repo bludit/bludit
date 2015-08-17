@@ -31,12 +31,10 @@ define('PATH_BOOT', PATH_ROOT.'kernel'.DS.'boot'.DS);
 require(PATH_BOOT.'init.php');
 
 // Admin area
-if($Url->whereAmI()==='admin')
-{
+if($Url->whereAmI()==='admin') {
 	require(PATH_BOOT.'admin.php');
 }
 // Site
-else
-{
+else {
 	require(PATH_BOOT.'site.php');
 }

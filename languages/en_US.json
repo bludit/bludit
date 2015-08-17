@@ -108,7 +108,7 @@
 	"you-can-choose-the-users-privilege": "You can choose the user's privilege. The editor role only can write pages and posts.",
 	"email-will-not-be-publicly-displayed": "Email will not be publicly displayed. Recommended for recovery password and notifications.",
 	"use-this-field-to-name-your-site": "Use this field to name your site, it will appear at the top of every page of your site.",
-	"use-this-field-to-add-a-catchy-prhase": "Use this field to add a catchy prhase on your site.",
+	"use-this-field-to-add-a-catchy-phrase": "Use this field to add a catchy phrase on your site.",
 	"you-can-add-a-site-description-to-provide": "You can add a site description to provide a short bio or description of your site.",
 	"you-can-add-a-small-text-on-the-bottom": "You can add a small text on the bottom of every page. eg: copyright, owner, dates, etc.",
 	"number-of-posts-to-show-per-page": "Number of posts to show per page.",
@@ -152,5 +152,7 @@
 	"install": "Install",
 	"choose-your-language": "Choose your language",
 	"next": "Next",
-	"the-password-field-is-empty": "The password field is empty"
+	"the-password-field-is-empty": "The password field is empty",
+	"your-email-address-is-invalid":"Your email address is invalid.",
+	"proceed-anyway": "Proceed anyway!"
 }
