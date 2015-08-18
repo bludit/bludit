@@ -73,6 +73,18 @@ class Security extends dbJSON
 		return true;
 	}
 
+	public function getNumberFailures($ip=null)
+	{
+		if(empty($ip)) {
+			$ip = $this->getUserIp();
+		}
+
+		if(isset($this->db['blackList'][$ip])) {
+			$userBlack = $this->db['blackList'][$ip];
+			return $userBlack['numberFailures'];
+		}
+	}
+
 	public function getUserIp()
 	{
 		// User IP
