@@ -74,7 +74,7 @@ function build_page($key)
 		$user = $dbUsers->getDb( $Page->username() );
 
 		$Page->setField('authorFirstName', $user['firstName'], false);
-		
+
 		$Page->setField('authorLastName', $user['lastName'], false);
 	}
 
@@ -167,14 +167,13 @@ if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 // Default homepage
 if($Url->notFound()===false)
 {
-	if( ($Site->homepage()!=='home') && ($Url->whereAmI()==='home') )
+	if( Text::isNotEmpty($Site->homepage()) && ($Url->whereAmI()==='home') )
 	{
 		$Url->setWhereAmI('page');
 
 		$Page = build_page( $Site->homepage() );
 
-		if($Page===false)
-		{
+		if($Page===false) {
 			$Url->setWhereAmI('home');
 		}
 	}

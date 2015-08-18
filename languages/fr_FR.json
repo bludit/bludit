@@ -35,7 +35,7 @@
     "position": "Position",
     "save": "Sauvegarder",
     "draft": "Brouillon",
-    "delete": "Supprimer",                    
+    "delete": "Supprimer",
     "registered": "Inscrit",
     "Notifications": "Notifications",
     "profile": "Profil",
@@ -108,7 +108,7 @@
     "you-can-choose-the-users-privilege": "Vous pouvez choisir les privilèges de l’utilisateur. Le rôle en tant que « Rédacteur » permet uniquement de publier des pages et des articles.",
     "email-will-not-be-publicly-displayed": "Votre e-mail ne sera pas publié publiquement. Il est nécessaire pour la récupération du mot de passe et recevoir les notifications.",
     "use-this-field-to-name-your-site": "Utilisez ce champ pour que le nom de votre site apparaisse en haut de chaque page.",
-    "use-this-field-to-add-a-catchy-prhase": "Utilisez ce champ pour ajouter une phrase accrocheuse sur votre site.",
+    "use-this-field-to-add-a-catchy-phrase": "Utilisez ce champ pour ajouter une phrase accrocheuse sur votre site.",
     "you-can-add-a-site-description-to-provide": "Vous pouvez ajouter une description du site pour fournir une courte biographie ou la description de votre site.",
     "you-can-add-a-small-text-on-the-bottom": "Vous pouvez ajouter un court texte sur le pied de chaque page. par exemple: les droits d'auteurs, propriétaire, dates, etc.",
     "number-of-posts-to-show-per-page": "Nombre d’articles à afficher par page.",
@@ -144,6 +144,10 @@
 	"read-the-documentation-for-more-information": "Lisez la [documentation](http://docs.bludit.com) pour plus d’information",
 	"share-with-your-friends-and-enjoy": "Partagez avec vos amis et apprécier !",
 	"the-page-has-not-been-found": "La page n’a pas été trouvée.",
-	"error": "Erreur"
-
+	"error": "Erreur",
+    "bludit-installer": "Installation de Bludit",
+    "welcome-to-the-bludit-installer": "Bienvenue dans l’assistant d’installation de Bludit",
+    "complete-the-form-choose-a-password-for-the-username-admin": "Complétez le formulaire et choisissez un mot de passe pour l’utilisateur « admin »",
+    "password-visible-field": "Mot de passe, champ visible !",
+    "install": "Installer"
 }

@@ -16,6 +16,10 @@ div.unit-80 {
     margin-left: 1% !important;
 }
 
+.tools-alert {
+    text-align: center;
+}
+
 /* ----------- FONTS AWESOME ----------- */
 .fa-right {
     margin-right: 5px;
@@ -140,6 +144,7 @@ div.dashboardBox .nav {
 div.dashboardBox .nav a {
     padding: 0 !important;
     display: inline-block;
+    margin-left: 8px;
 }
 
 div.dashboardBox i.iconContent {
@@ -152,6 +157,11 @@ div.dashboardBox i.iconContent {
 div.dashboardBox div.bigContent {
     font-size: 1.8em;
     font-weight: bold;
+}
+
+div.dashboardBox span {
+    display: inline-block !important;
+    padding: 3px 6px;
 }
 
 div.dashboardBox h2 {
@@ -188,6 +198,7 @@ div.dashboardBox ul.menu li.description:last-child {
     border-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
+
 
 /* ----------- FORMS ----------- */
 

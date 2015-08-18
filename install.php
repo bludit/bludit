@@ -13,7 +13,7 @@ define('BLUDIT', true);
 // Directory separator
 define('DS', DIRECTORY_SEPARATOR);
 
-// PATHs
+// PHP paths
 define('PATH_ROOT',		__DIR__.DS);
 define('PATH_CONTENT',		PATH_ROOT.'content'.DS);
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
@@ -31,6 +31,9 @@ define('DOMAIN',		getenv('HTTP_HOST'));
 $base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
 define('HTML_PATH_ROOT', $base);
 
+// Log separator
+define('LOG_SEP', ' | ');
+
 // JSON
 if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
@@ -39,17 +42,18 @@ if(!defined('JSON_PRETTY_PRINT')) {
 // Check if JSON encode and decode are enabled.
 define('JSON', function_exists('json_encode'));
 
-// Multibyte string / UTF-8
-define('MB_STRING', extension_loaded('mbstring'));
-
+// Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// Multibyte string extension loaded.
+define('MB_STRING', extension_loaded('mbstring'));
 
 if(MB_STRING)
 {
-	// Tell PHP that we're using UTF-8 strings until the end of the script.
+	// Set internal character encoding.
 	mb_internal_encoding(CHARSET);
 
-	// Tell PHP that we'll be outputting UTF-8 to the browser.
+	// Set HTTP output character encoding.
 	mb_http_output(CHARSET);
 }
 
@@ -59,6 +63,16 @@ include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
+include(PATH_HELPERS.'log.class.php');
+
+// Load language
+$localeFromHTTP = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+if(isset($_GET['language'])) {
+	$localeFromHTTP = Sanitize::html($_GET['language']);
+}
+
+$Language = new dbLanguage($localeFromHTTP);
 
 // ============================================================================
 // FUNCTIONS
@@ -144,9 +158,9 @@ function checkSystem()
 	return $stdOut;
 }
 
-function install($adminPassword, $email, $locale)
+function install($adminPassword, $email)
 {
-	$Language = new dbLanguage($locale);
+	global $Language;
 
 	$stdOut = array();
 
@@ -222,9 +236,9 @@ function install($adminPassword, $email, $locale)
 		'title'=>'Bludit',
 		'slogan'=>'cms',
 		'description'=>'',
-		'footer'=>'©2015',
-		'language'=>$locale,
-		'locale'=>$locale,
+		'footer'=>'',
+		'language'=>$Language->getCurrentLocale(),
+		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>'UTC',
 		'theme'=>'pure',
 		'adminTheme'=>'default',
@@ -258,6 +272,16 @@ function install($adminPassword, $email, $locale)
 	);
 
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+	// File security.php
+	$data = array(
+		'minutesBlocked'=>5,
+		'numberFailuresAllowed'=>10,
+		'blackList'=>array()
+	);
+
+	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
 
 	// File plugins/pages/db.php
 	$data = array(
@@ -295,16 +319,18 @@ Content:
 
 function checkPOST($args)
 {
+	global $Language;
+
 	// Check empty password
 	if(empty($args['password']))
 	{
-		return '<div>The password field is empty</div>';
+		return '<div>'.$Language->g('The password field is empty').'</div>';
 	}
 
 	// Check invalid email
 	if( !Valid::email($args['email']) && ($args['noCheckEmail']=='0') )
 	{
-		return '<div>Your email address is invalid.</div><div id="jscompleteEmail">Proceed anyway!</div>';
+		return '<div>'.$Language->g('Your email address is invalid').'</div><div id="jscompleteEmail">'.$Language->g('Proceed anyway').'</div>';
 	}
 
 	// Sanitize email
@@ -348,10 +374,10 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <html lang="en">
 <head>
 	<base href="admin/themes/default/">
-	<meta charset="utf-8">
+	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Bludit Installer</title>
+	<title><?php echo $Language->get('Bludit Installer') ?></title>
 
 	<link rel="stylesheet" href="./css/kube.min.css">
 	<link rel="stylesheet" href="./css/installer.css">
@@ -361,21 +387,37 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 </head>
 <body>
 <div class="units-row">
-	<div class="unit-centered unit-60">
-	<div class="main">
-		<h1 class="title">Bludit Installer</h1>
-		<p>Welcome to the Bludit installer</p>
+<div class="unit-centered unit-60">
+<div class="main">
 
-		<?php
-		$system = checkSystem();
+	<h1 class="title"><?php echo $Language->get('Bludit Installer') ?></h1>
+	<p><?php echo $Language->get('Welcome to the Bludit installer') ?></p>
 
-		if(empty($system))
-		{
-		?>
+	<?php
 
-		<p>Complete the form, choose a password for the username <strong>admin</strong></p>
+	$system = checkSystem();
 
-		<div class="unit-centered unit-40">
+	// Missing requirements
+	if(!empty($system))
+	{
+		echo '<div class="boxInstallerForm unit-centered unit-50">';
+		echo '<table class="table-stripped">';
+
+		foreach($system as $value) {
+			echo '<tr><td>'.$value.'</td></tr>';
+		}
+
+		echo '</table>';
+		echo '</div>';
+	}
+	// Second step
+	elseif(isset($_GET['language']))
+	{
+
+	?>
+		<p><?php echo $Language->get('Complete the form choose a password for the username admin') ?></p>
+
+		<div class="boxInstallerForm unit-centered unit-40">
 
 		<?php
 			if(!empty($error)) {
@@ -386,66 +428,68 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		<form id="jsformInstaller" method="post" action="" class="forms" autocomplete="off">
 
 		<input type="hidden" name="noCheckEmail" id="jsnoCheckEmail" value="0">
+		<input type="hidden" name="language" id="jslanguage" value="<?php echo $localeFromHTTP ?>">
 
 		<label>
 		<input type="text" value="admin" disabled="disabled" class="width-100">
 		</label>
 
 		<label>
-		<input type="text" name="password" id="jspassword" placeholder="Password, visible field!" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
+		<input type="text" name="password" id="jspassword" placeholder="<?php echo $Language->get('Password visible field') ?>" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
 		</label>
 
 		<label>
-		<input type="text" name="email" id="jsemail" placeholder="Email" class="width-100" autocomplete="off" maxlength="100">
+		<input type="text" name="email" id="jsemail" placeholder="<?php echo $Language->get('Email') ?>" class="width-100" autocomplete="off" maxlength="100">
 		</label>
+
+		<p><button class="btn btn-blue width-100"><?php echo $Language->get('Install') ?></button>
+		</p>
+		</form>
+		</div>
+	<?php
+	} // END elseif(isset($_GET['language']))
+	else
+	{
+	?>
+		<p><?php echo $Language->get('Choose your language') ?></p>
+
+		<div class="boxInstallerForm unit-centered unit-40">
+
+		<form id="jsformLanguage" method="get" action="" class="forms" autocomplete="off">
 
 		<label for="jslanguage">
 		<select id="jslanguage" name="language" class="width-100">
 		<?php
 			$htmlOptions = getLanguageList();
 			foreach($htmlOptions as $locale=>$nativeName) {
-			echo '<option value="'.$locale.'">'.$nativeName.'</option>';
+				echo '<option value="'.$locale.'"'.( ($localeFromHTTP===$locale)?' selected="selected"':'').'>'.$nativeName.'</option>';
 			}
 		?>
 		</select>
 		</label>
 
-		<p>
-		<button class="btn btn-blue width-100">Install</button>
+		<p><button class="btn btn-blue width-100"><?php echo $Language->get('Next') ?></button>
 		</p>
 		</form>
 		</div>
+	<?php
+	} // END else
+	?>
 
-		<?php
-		}
-		else
-		{
-		echo '<div class="unit-centered unit-50">';
-		echo '<table class="table-stripped">';
+</div>
+</div>
 
-		foreach ($system as $value)
-		{
-		echo '<tr><td>'.$value.'</td></tr>';
-		}
-
-		echo '</table>';
-		echo '</div';
-		}
-		?>
-	</div>
-	</div>
-
-	<script>
-	$(document).ready(function()
-	{
-	    $("#jscompleteEmail").on("click", function() {
-	    	$("#jsnoCheckEmail").val("1");
-	    	if(!$("jspassword").val()) {
-	    		$("#jsformInstaller").submit();
-	    	}
-	    });
-	});
-	</script>
+<script>
+$(document).ready(function()
+{
+    $("#jscompleteEmail").on("click", function() {
+    	$("#jsnoCheckEmail").val("1");
+    	if(!$("jspassword").val()) {
+    		$("#jsformInstaller").submit();
+    	}
+    });
+});
+</script>
 
 </div>
 </body>

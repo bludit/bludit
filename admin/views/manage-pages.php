@@ -24,7 +24,7 @@
 				}
 
 				echo '<tr>';
-				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'['.$Language->g('Draft').'] ').($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></td>';
+				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label label-outline label-red smaller">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label label-outline label-blue smaller">'.$Language->g('Empty title').'</span> ').'</a></td>';
 				echo '<td>'.$parentTitle.'</td>';
 				echo '</tr>';
 			}

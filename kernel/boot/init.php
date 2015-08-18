@@ -1,14 +1,16 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// Bludit version
+define('BLUDIT_VERSION',	'githubVersion');
+define('BLUDIT_CODENAME',	'');
+define('BLUDIT_RELEASE_DATE',	'');
+
 // Debug mode
 define('DEBUG_MODE', TRUE);
-
-// Turn off all error reporting
-error_reporting(0);
-
-// Turn on all error reporting
+error_reporting(0); // Turn off all error reporting
 if(DEBUG_MODE)
 {
+	// Turn on all error reporting
 	ini_set("display_errors", 1);
 	ini_set('display_startup_errors',1);
 	ini_set("track_errors", 1);
@@ -16,34 +18,30 @@ if(DEBUG_MODE)
 	error_reporting(E_ALL | E_STRICT | E_NOTICE);
 }
 
-// Log separator
-define('LOG_SEP', ' | ');
-
-// PHP PATHS
-
+// PHP paths
 // PATH_ROOT and PATH_BOOT are defined in index.php
 define('PATH_LANGUAGES',		PATH_ROOT.'languages'.DS);
 define('PATH_THEMES',			PATH_ROOT.'themes'.DS);
 define('PATH_PLUGINS',			PATH_ROOT.'plugins'.DS);
-
 define('PATH_KERNEL',			PATH_ROOT.'kernel'.DS);
 define('PATH_ABSTRACT',			PATH_KERNEL.'abstract'.DS);
 define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
 define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
 define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
 define('PATH_JS',			PATH_KERNEL.'js'.DS);
-
 define('PATH_CONTENT',			PATH_ROOT.'content'.DS);
 define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
-
 define('PATH_ADMIN',			PATH_ROOT.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
+
+// Log separator
+define('LOG_SEP', ' | ');
 
 // JSON pretty print
 if(!defined('JSON_PRETTY_PRINT')) {
@@ -56,19 +54,11 @@ define('SALT_LENGTH', 8);
 // Page brake string
 define('PAGE_BREAK', '<!-- pagebreak -->');
 
-// Bludit version
-define('BLUDIT_VERSION',	'githubVersion');
-define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'');
-
-//
+// No parent character
 define('NO_PARENT_CHAR', '—');
 
 // Post per page on Manage->Posts
 define('POSTS_PER_PAGE_ADMIN', 10);
-
-// Multibyte string / UTF-8
-define('MB_STRING', extension_loaded('mbstring'));
 
 // Check if JSON encode and decode are enabled.
 define('JSON', function_exists('json_encode'));
@@ -76,36 +66,40 @@ define('JSON', function_exists('json_encode'));
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('HANDMADE_PUBLISHED', true);
 
+// Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// Multibyte string extension loaded.
+define('MB_STRING', extension_loaded('mbstring'));
 
 if(MB_STRING)
 {
-	// Tell PHP that we're using UTF-8 strings until the end of the script.
+	// Set internal character encoding.
 	mb_internal_encoding(CHARSET);
 
-	// Tell PHP that we'll be outputting UTF-8 to the browser.
+	// Set HTTP output character encoding.
 	mb_http_output(CHARSET);
 }
 
-// Abstract Classes
+// Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_ABSTRACT.'filecontent.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
+// Inclde Classes
 include(PATH_KERNEL.'dbposts.class.php');
 include(PATH_KERNEL.'dbpages.class.php');
 include(PATH_KERNEL.'dbusers.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
-
 include(PATH_KERNEL.'post.class.php');
 include(PATH_KERNEL.'page.class.php');
-
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
+include(PATH_KERNEL.'security.class.php');
 
-// Helpers Classes
+// Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
@@ -132,6 +126,7 @@ $dbUsers 	= new dbUsers();
 $Site 		= new dbSite();
 $Url 		= new Url();
 $Parsedown 	= new Parsedown();
+$Security	= new Security();
 
 // HTML PATHs
 $base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
@@ -146,7 +141,7 @@ define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
-// PHP PATHs with dependency
+// PHP paths with dependency
 define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
 
 // Objects with dependency

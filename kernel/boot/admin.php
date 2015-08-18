@@ -19,20 +19,21 @@ $layout['parameters'] = implode('/', $explodeSlug);
 // Thanks, http://stackoverflow.com/questions/517008/how-to-turn-off-magic-quotes-on-shared-hosting
 if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
 {
-    $_POST		= array_map('stripslashes', $_POST);
-    $_GET		= array_map('stripslashes', $_GET);
+    $_POST	= array_map('stripslashes', $_POST);
+    $_GET	= array_map('stripslashes', $_GET);
     $_COOKIE	= array_map('stripslashes', $_COOKIE);
 }
 
 // AJAX
-if( $Login->isLogged() && ($layout['slug']==='ajax') )
+if( $layout['slug']==='ajax' )
 {
-	// Boot rules
-	// Ajax doesn't needs load rules
-
-	// Load AJAX file
-	if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') )
-		include(PATH_AJAX.$layout['parameters'].'.php');
+	if($Login->isLogged())
+	{
+		// Load AJAX file
+		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
+			include(PATH_AJAX.$layout['parameters'].'.php');
+		}
+	}
 }
 // ADMIN AREA
 else
@@ -56,16 +57,19 @@ else
 	Theme::plugins('beforeAdminLoad');
 
 	// Admin theme init.php
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') )
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') ) {
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.'init.php');
+	}
 
 	// Load controller
-	if( Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php') )
+	if( Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php') ) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
+	}
 
 	// Load view and theme
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) )
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) ) {
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.$layout['template']);
+	}
 
 	// Plugins after admin area loaded
 	Theme::plugins('afterAdminLoad');

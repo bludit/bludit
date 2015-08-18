@@ -4,30 +4,38 @@ class dbLanguage extends dbJSON
 {
 	public $data;
 	public $db;
+	public $currentLocale;
 
-	function __construct($language)
+	function __construct($locale)
 	{
 		$this->data = array();
 		$this->db = array();
+		$this->currentLocale = 'en_US';
 
 		// Default language en_US
 		$filename = PATH_LANGUAGES.'en_US.json';
-		if(file_exists($filename))
+		if( Sanitize::pathFile($filename) )
 		{
 			$Tmp = new dbJSON($filename, false);
 			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		// User language
-		$filename = PATH_LANGUAGES.$language.'.json';
-		if( file_exists($filename) && ($language!=="en_US") )
+		$filename = PATH_LANGUAGES.$locale.'.json';
+		if( Sanitize::pathFile($filename) && ($locale!=="en_US") )
 		{
+			$this->currentLocale = $locale;
 			$Tmp = new dbJSON($filename, false);
 			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		$this->data = $this->db['language-data'];
 		unset($this->db['language-data']);
+	}
+
+	public function getCurrentLocale()
+	{
+		return $this->currentLocale;
 	}
 
 	// Return the translation, if the translation does'n exist then return the English translation.
@@ -73,7 +81,7 @@ class dbLanguage extends dbJSON
 			return $this->data[$key];
 		}
 
-		return '';		
+		return '';
 	}
 
 	// Returns an array with all dictionaries.

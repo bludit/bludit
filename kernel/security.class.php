@@ -4,7 +4,8 @@ class Security extends dbJSON
 {
 	private $dbFields = array(
 		'minutesBlocked'=>5,
-		'numberFailures'=>10
+		'numberFailuresAllowed'=>10,
+		'blackList'=>array()
 	);
 
 	function __construct()
@@ -12,20 +13,76 @@ class Security extends dbJSON
 		parent::__construct(PATH_DATABASES.'security.php');
 	}
 
+	public function isBlocked()
+	{
+		$ip = $this->getUserIp();
 
+		if(!isset($this->db['blackList'][$ip])) {
+			return false;
+		}
+
+		$currentTime = time();
+		$userBlack = $this->db['blackList'][$ip];
+		$numberFailures = $userBlack['numberFailures'];
+		$lastFailure = $userBlack['lastFailure'];
+
+		// Check if the IP is expired, then is not blocked.
+		if($currentTime > $lastFailure + ($this->db['minutesBlocked']*60)) {
+			return false;
+		}
+
+		// The IP has more failures than number of failures, then the IP is blocked.
+		if($numberFailures >= $this->db['numberFailuresAllowed']) {
+			Log::set(__METHOD__.LOG_SEP.'IP Blocked:'.$ip);
+			return true;
+		}
+
+		// Otherwise the IP is not blocked.
+		return false;
+	}
 
 	public function addLoginFail()
 	{
 		$ip = $this->getUserIp();
+		$currentTime = time();
+		$numberFailures = 1;
+
+		if(isset($this->db['blackList'][$ip]))
+		{
+			$userBlack = $this->db['blackList'][$ip];
+			$lastFailure = $userBlack['lastFailure'];
+
+			// Check if the IP is expired, then renew the number of failures.
+			if($currentTime <= $lastFailure + ($this->db['minutesBlocked']*60))
+			{
+				$numberFailures = $userBlack['numberFailures'];
+				$numberFailures = $numberFailures + 1;
+			}
+		}
+
+		$this->db['blackList'][$ip] = array('lastFailure'=>$currentTime, 'numberFailures'=>$numberFailures);
+
+		Log::set(__METHOD__.LOG_SEP.'Blacklist, IP:'.$ip.', Number of failures:'.$numberFailures);
 
 		// Save the database
-		$this->db[$ip] = (int)$this->db[$ip] + 1;
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
 
 		return true;
+	}
+
+	public function getNumberFailures($ip=null)
+	{
+		if(empty($ip)) {
+			$ip = $this->getUserIp();
+		}
+
+		if(isset($this->db['blackList'][$ip])) {
+			$userBlack = $this->db['blackList'][$ip];
+			return $userBlack['numberFailures'];
+		}
 	}
 
 	public function getUserIp()

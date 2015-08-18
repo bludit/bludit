@@ -24,7 +24,7 @@
     <label>
     <?php $Language->p('Site slogan') ?>
     <input type="text" name="slogan" class="width-50" value="<?php echo $Site->slogan() ?>">
-    <div class="forms-desc"><?php $Language->p('use-this-field-to-add-a-catchy-prhase') ?></div>
+    <div class="forms-desc"><?php $Language->p('use-this-field-to-add-a-catchy-phrase') ?></div>
     </label>
 
     <label>
