@@ -155,5 +155,7 @@
 	"the-password-field-is-empty": "The password field is empty",
 	"your-email-address-is-invalid":"Your email address is invalid.",
 	"proceed-anyway": "Proceed anyway!",
-	"drafts":"Drafts"
+	"drafts":"Drafts",
+	"ip-address-has-been-blocked": "IP address has been blocked.",
+	"try-again-in-a-few-minutes": "Try again in a few minutes."
 }

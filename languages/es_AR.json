@@ -153,5 +153,7 @@
 	"the-password-field-is-empty": "Debe completar el campo contraseña",
 	"your-email-address-is-invalid":"Su dirección de correo es invalida.",
 	"proceed-anyway": "Continuar de todas formas!",
-	"drafts":"Borradores"
+	"drafts":"Borradores",
+	"ip-address-has-been-blocked":"La direccion IP fue bloqueada.",
+	"try-again-in-a-few-minutes": "Vuelva a intentar en unos minutos."
 }

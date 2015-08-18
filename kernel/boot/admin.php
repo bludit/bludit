@@ -25,14 +25,14 @@ if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) )
 }
 
 // AJAX
-if( $Login->isLogged() && ($layout['slug']==='ajax') )
+if( $layout['slug']==='ajax' )
 {
-	// Boot rules
-	// Ajax doesn't load rules
-
-	// Load AJAX file
-	if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
-		include(PATH_AJAX.$layout['parameters'].'.php');
+	if($Login->isLogged())
+	{
+		// Load AJAX file
+		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
+			include(PATH_AJAX.$layout['parameters'].'.php');
+		}
 	}
 }
 // ADMIN AREA

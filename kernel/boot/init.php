@@ -97,6 +97,7 @@ include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
+include(PATH_KERNEL.'security.class.php');
 
 // Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');
@@ -125,6 +126,7 @@ $dbUsers 	= new dbUsers();
 $Site 		= new dbSite();
 $Url 		= new Url();
 $Parsedown 	= new Parsedown();
+$Security	= new Security();
 
 // HTML PATHs
 $base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';

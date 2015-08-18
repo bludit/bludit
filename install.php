@@ -273,6 +273,16 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File security.php
+	$data = array(
+		'minutesBlocked'=>5,
+		'numberFailuresAllowed'=>10,
+		'blackList'=>array()
+	);
+
+	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+
 	// File plugins/pages/db.php
 	$data = array(
 		'homeLink'=>true,
@@ -364,7 +374,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <html lang="en">
 <head>
 	<base href="admin/themes/default/">
-	<meta charset="utf-8">
+	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title><?php echo $Language->get('Bludit Installer') ?></title>
@@ -390,7 +400,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	// Missing requirements
 	if(!empty($system))
 	{
-		echo '<div class="unit-centered unit-50">';
+		echo '<div class="boxInstallerForm unit-centered unit-50">';
 		echo '<table class="table-stripped">';
 
 		foreach($system as $value) {

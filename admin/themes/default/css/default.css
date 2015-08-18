@@ -16,6 +16,10 @@ div.unit-80 {
     margin-left: 1% !important;
 }
 
+.tools-alert {
+    text-align: center;
+}
+
 /* ----------- FONTS AWESOME ----------- */
 .fa-right {
     margin-right: 5px;
