@@ -8,6 +8,31 @@
 // Functions
 // ============================================================================
 
+function checkPost($args)
+{
+	global $Security;
+	global $Login;
+	global $Language;
+
+	if($Security->isBlocked()) {
+		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
+		return false;
+	}
+
+	// Verify User sanitize the input
+	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
+	{
+		Redirect::page('admin', 'dashboard');
+		return true;
+	}
+
+	// Bruteforce protection, add IP to blacklist.
+	$Security->addLoginFail();
+	Alert::set($Language->g('Username or password incorrect'));
+
+	return false;
+}
+
 // ============================================================================
 // Main before POST
 // ============================================================================
@@ -18,15 +43,7 @@
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	// Verify User sanitize the input
-	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
-	{
-		Redirect::page('admin', 'dashboard');
-	}
-	else
-	{
-		Alert::set($Language->g('Username or password incorrect'));
-	}
+	checkPost($_POST);
 }
 
 // ============================================================================

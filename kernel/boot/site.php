@@ -12,12 +12,14 @@ include(PATH_RULES.'99.themes.php');
 Theme::plugins('beforeSiteLoad');
 
 // Theme init.php
-if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'init.php') )
+if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'init.php') ) {
 	include(PATH_THEMES.$Site->theme().DS.'init.php');
+}
 
 // Theme HTML
-if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'index.php') )
+if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'index.php') ) {
 	include(PATH_THEMES.$Site->theme().DS.'index.php');
+}
 
 // Plugins after site loaded
 Theme::plugins('afterSiteLoad');

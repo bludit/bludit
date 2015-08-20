@@ -2,11 +2,44 @@
 
 class pluginDisqus extends Plugin {
 
+	private $disable;
+
 	public function init()
 	{
 		$this->dbFields = array(
-			'shortname'=>''
+			'shortname'=>'',
+			'enablePages'=>false,
+			'enablePosts'=>true,
+			'enableDefaultHomePage'=>false
 		);
+	}
+
+	function __construct()
+	{
+		parent::__construct();
+
+		// Disable the plugin IF ...
+		global $Url;
+
+		$this->disable = false;
+
+		if( (!$this->getDbField('enablePosts')) && ($Url->whereAmI()=='post') ) {
+			$this->disable = true;
+		}
+		elseif( (!$this->getDbField('enablePages')) && ($Url->whereAmI()=='page') ) {
+			$this->disable = true;
+		}
+		elseif( !$this->getDbField('enableDefaultHomePage') && ($Url->whereAmI()=='page') )
+		{
+			global $Page;
+			global $Site;
+			if( $Site->homePage()==$Page->key() ) {
+				$this->disable = true;
+			}
+		}
+		elseif( ($Url->whereAmI()!='post') && ($Url->whereAmI()!='page') ) {
+			$this->disable = true;
+		}
 	}
 
 	public function form()
@@ -14,8 +47,23 @@ class pluginDisqus extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>Disqus shortname</label>';
+		$html .= '<label>'.$Language->get('Disqus shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getDbField('shortname').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enablePages" id="jsenablePages" type="checkbox" value="true" '.($this->getDbField('enablePages')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenablePages">'.$Language->get('Enable Disqus on pages').'</label>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enablePosts" id="jsenablePosts" type="checkbox" value="true" '.($this->getDbField('enablePosts')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenablePosts">'.$Language->get('Enable Disqus on posts').'</label>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="enableDefaultHomePage" id="jsenableDefaultHomePage" type="checkbox" value="true" '.($this->getDbField('enableDefaultHomePage')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsenableDefaultHomePage">'.$Language->get('Enable Disqus on default home page').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -23,27 +71,38 @@ class pluginDisqus extends Plugin {
 
 	public function postEnd()
 	{
+		if( $this->disable ) {
+			return false;
+		}
+
 		$html  = '<div id="disqus_thread"></div>';
 		return $html;
 	}
 
 	public function pageEnd()
 	{
-		return $this->postEnd();
+		if( $this->disable ) {
+			return false;
+		}
+
+		$html  = '<div id="disqus_thread"></div>';
+		return $html;
 	}
 
 	public function siteHead()
 	{
+		if( $this->disable ) {
+			return false;
+		}
+
 		$html = '<style>#disqus_thread { margin: 20px 0 }</style>';
 		return $html;
 	}
 
 	public function siteBodyEnd()
 	{
-		global $Url;
-
-		if( ($Url->whereAmI()!='post') && ($Url->whereAmI()!='page') ) {
-			return '';
+		if( $this->disable ) {
+			return false;
 		}
 
 		$html = '

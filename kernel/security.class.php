@@ -5,7 +5,7 @@ class Security extends dbJSON
 	private $dbFields = array(
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
-		'blackList'=>array('numberFailures', 'lastFailure')
+		'blackList'=>array()
 	);
 
 	function __construct()
@@ -27,12 +27,13 @@ class Security extends dbJSON
 		$lastFailure = $userBlack['lastFailure'];
 
 		// Check if the IP is expired, then is not blocked.
-		if($currentTime > $lastFailure + $this->db['minutesBlocked']) {
+		if($currentTime > $lastFailure + ($this->db['minutesBlocked']*60)) {
 			return false;
 		}
 
 		// The IP has more failures than number of failures, then the IP is blocked.
 		if($numberFailures >= $this->db['numberFailuresAllowed']) {
+			Log::set(__METHOD__.LOG_SEP.'IP Blocked:'.$ip);
 			return true;
 		}
 
@@ -46,12 +47,22 @@ class Security extends dbJSON
 		$currentTime = time();
 		$numberFailures = 1;
 
-		if(isset($this->db['blackList'][$ip])) {
-			$numberFailures = $userBlack['numberFailures'];
-			$numberFailures = $numberFailures + 1;
+		if(isset($this->db['blackList'][$ip]))
+		{
+			$userBlack = $this->db['blackList'][$ip];
+			$lastFailure = $userBlack['lastFailure'];
+
+			// Check if the IP is expired, then renew the number of failures.
+			if($currentTime <= $lastFailure + ($this->db['minutesBlocked']*60))
+			{
+				$numberFailures = $userBlack['numberFailures'];
+				$numberFailures = $numberFailures + 1;
+			}
 		}
 
 		$this->db['blackList'][$ip] = array('lastFailure'=>$currentTime, 'numberFailures'=>$numberFailures);
+
+		Log::set(__METHOD__.LOG_SEP.'Blacklist, IP:'.$ip.', Number of failures:'.$numberFailures);
 
 		// Save the database
 		if( $this->save() === false ) {
@@ -60,6 +71,18 @@ class Security extends dbJSON
 		}
 
 		return true;
+	}
+
+	public function getNumberFailures($ip=null)
+	{
+		if(empty($ip)) {
+			$ip = $this->getUserIp();
+		}
+
+		if(isset($this->db['blackList'][$ip])) {
+			$userBlack = $this->db['blackList'][$ip];
+			return $userBlack['numberFailures'];
+		}
 	}
 
 	public function getUserIp()

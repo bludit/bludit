@@ -50,7 +50,7 @@
 		</div>
 
 		<div class="dashboardBox">
-			<h2>Drafts</h2>
+			<h2><?php $Language->p('Drafts') ?></h2>
 			<div class="content">
 				<nav class="nav">
 				<ul>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
-	<meta charset="utf-8">
+	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title><?php echo $layout['title'] ?></title>

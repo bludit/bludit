@@ -5,14 +5,14 @@ class dbPages extends dbJSON
 	private $parentKeyList = array();
 
 	private $dbFields = array(
-		'title'=>			array('inFile'=>true,	'value'=>''),
-		'content'=>			array('inFile'=>true,	'value'=>''),
+		'title'=>		array('inFile'=>true,	'value'=>''),
+		'content'=>		array('inFile'=>true,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
-		'tags'=>			array('inFile'=>false,	'value'=>''),
-		'status'=>			array('inFile'=>false,	'value'=>'draft'),
+		'tags'=>		array('inFile'=>false,	'value'=>''),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'),
 		'unixTimeCreated'=>	array('inFile'=>false,	'value'=>0),
-		'unixTimeModified'=>array('inFile'=>false,	'value'=>0),
+		'unixTimeModified'=>	array('inFile'=>false,	'value'=>0),
 		'position'=>		array('inFile'=>false,	'value'=>0)
 	);
 

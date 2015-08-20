@@ -8,12 +8,7 @@
 		"email": "",
 		"website": ""
 	},
-	
-	"bludit-installer": "Bludit Installer",
-	"welcome-to-the-bludit-installer": "Welcome to the Bludit installer",
-	"complete-the-form,-choose-a-password-for-the-username-«-admin-»": "Complete the form, choose a password for the username « admin »",
-	"password,-visible-field!": "Password, visible field!",
-	"install": "Install",
+
 	"username": "Username",
 	"password": "Password",
 	"confirm-password": "Confirm Password",
@@ -113,7 +108,7 @@
 	"you-can-choose-the-users-privilege": "You can choose the user's privilege. The editor role only can write pages and posts.",
 	"email-will-not-be-publicly-displayed": "Email will not be publicly displayed. Recommended for recovery password and notifications.",
 	"use-this-field-to-name-your-site": "Use this field to name your site, it will appear at the top of every page of your site.",
-	"use-this-field-to-add-a-catchy-prhase": "Use this field to add a catchy prhase on your site.",
+	"use-this-field-to-add-a-catchy-phrase": "Use this field to add a catchy phrase on your site.",
 	"you-can-add-a-site-description-to-provide": "You can add a site description to provide a short bio or description of your site.",
 	"you-can-add-a-small-text-on-the-bottom": "You can add a small text on the bottom of every page. eg: copyright, owner, dates, etc.",
 	"number-of-posts-to-show-per-page": "Number of posts to show per page.",
@@ -149,6 +144,18 @@
 	"read-the-documentation-for-more-information": "Read the [documentation](http://docs.bludit.com) for more information",
 	"share-with-your-friends-and-enjoy": "Share with your friends and enjoy",
 	"the-page-has-not-been-found": "The page has not been found.",
-	"error": "Error"
-
+	"error": "Error",
+	"bludit-installer": "Bludit Installer",
+	"welcome-to-the-bludit-installer": "Welcome to the Bludit installer",
+	"complete-the-form-choose-a-password-for-the-username-admin": "Complete the form, choose a password for the username « admin »",
+	"password-visible-field": "Password, visible field!",
+	"install": "Install",
+	"choose-your-language": "Choose your language",
+	"next": "Next",
+	"the-password-field-is-empty": "The password field is empty",
+	"your-email-address-is-invalid":"Your email address is invalid.",
+	"proceed-anyway": "Proceed anyway!",
+	"drafts":"Drafts",
+	"ip-address-has-been-blocked": "IP address has been blocked.",
+	"try-again-in-a-few-minutes": "Try again in a few minutes."
 }

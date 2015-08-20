@@ -65,7 +65,7 @@ class Login {
 
 		$user = $this->dbUsers->getDb($username);
 		if($user==false) {
-			Log::set(__METHOD__.LOG_SEP.'Username not exist: '.$username);
+			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
 			return false;
 		}
 
@@ -78,7 +78,7 @@ class Login {
 			return true;
 		}
 		else {
-			Log::set(__METHOD__.LOG_SEP.'Password are differents.');
+			Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
 		}
 
 		return false;
