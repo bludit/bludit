@@ -3,7 +3,7 @@
 	{
 		"native": "Traditional Chinese (Taiwan)",
 		"english-name": "Traditional Chinese",
-		"last-update": "2015-08-09",
+		"last-update": "2015-08-18",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
 		"website": "http://single4.ml"
@@ -144,6 +144,20 @@
 	"read-the-documentation-for-more-information": "閱讀[documentation](http://docs.bludit.com)來獲得更多資訊",
 	"share-with-your-friends-and-enjoy": "分享給您的朋友們",
 	"the-page-has-not-been-found": "此頁面不存在",
-	"error": "錯誤"
+	"error": "錯誤",
+	"bludit-installer": "Bludit 安裝程式",
+	"welcome-to-the-bludit-installer": "歡迎使用Bludit安裝程式",
+	"complete-the-form-choose-a-password-for-the-username-admin": "請完成表單，為此使用者名稱 « admin » 設定一下密碼吧",
+	"password-visible-field": "注意! 密碼是直接顯示",
+	"install": "安裝",
+	"choose-your-language": "選擇您所使用的語言",
+	"next": "下一步",
+	"the-password-field-is-empty": "密碼欄位是空白的",
+	"your-email-address-is-invalid":"您所輸入的email是無效的",
+	"proceed-anyway": "仍然繼續!",
+	"drafts":"草稿",
+	"ip-address-has-been-blocked": "IP 位址已被封鎖",
+	"try-again-in-a-few-minutes": "請過幾分鐘後再試"
+
 
 }
