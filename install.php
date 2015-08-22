@@ -190,6 +190,12 @@ function install($adminPassword, $email)
 		error_log($errorText, 0);
 	}
 
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tinymce', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+		error_log($errorText, 0);
+	}
+
 	if(!mkdir(PATH_UPLOADS, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS;
@@ -282,14 +288,23 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-
 	// File plugins/pages/db.php
 	$data = array(
 		'homeLink'=>true,
-		'label'=>$Language->get('Pages')
+		'label'=>$Language->get('Pages'),
+		'position'=>'0'
 	);
 
 	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+	// File plugins/tinymce/db.php
+	$data = array(
+		'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
+		'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen',
+		'position'=>'0'
+	);
+
+	file_put_contents(PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'

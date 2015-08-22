@@ -53,7 +53,8 @@ function buildPost($key)
 	$Post->setField('contentRaw', $contentRaw, true);
 
 	// Parse the content
-	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
+	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Post->setField('content', $content, true);
 
@@ -68,7 +69,7 @@ function buildPost($key)
 		$user = $dbUsers->getDb( $Post->username() );
 
 		$Post->setField('authorFirstName', $user['firstName'], false);
-		
+
 		$Post->setField('authorLastName', $user['lastName'], false);
 	}
 

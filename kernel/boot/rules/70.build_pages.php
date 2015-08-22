@@ -64,8 +64,10 @@ function build_page($key)
 	$Page->setField('contentRaw', $Page->content(), true);
 
 	// Parse markdown content.
-	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
+	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
+	$content = Text::pre2htmlentities($content); // Parse pre code with htmlentities
 	$Page->setField('content', $content, true);
 
 	// Parse username for the page.

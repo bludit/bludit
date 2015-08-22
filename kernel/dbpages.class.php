@@ -110,8 +110,14 @@ class dbPages extends dbJSON
 		}
 
 		// Unix time created and modified.
-		$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-		$args['unixTimeModified'] = Date::unixTime();
+		// If the page is a draft then the time created is now.
+		if( $this->db[$args['key']]['status']=='draft' ) {
+			$args['unixTimeCreated'] = Date::unixTime();
+		}
+		else {
+			$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
+			$args['unixTimeModified'] = Date::unixTime();
+		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)

@@ -171,7 +171,15 @@ class Text {
 
 	public static function imgRel2Abs($string, $base)
 	{
-		return preg_replace('/(src)="([^:"]*)(?:")/', "$1=\"$base$2\"", $string);
+		return preg_replace('/(?!code).(src)="([^:"]*)(?:")/', "$1=\"$base$2\"", $string);
+	}
+
+	public static function pre2htmlentities($string)
+	{
+		return preg_replace_callback('/<pre.*?><code(.*?)>(.*?)<\/code><\/pre>/imsu',
+			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
+			$string);
+
 	}
 
 }

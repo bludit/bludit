@@ -3,15 +3,15 @@
 class dbPosts extends dbJSON
 {
 	private $dbFields = array(
-		'title'=>			array('inFile'=>true, 'value'=>''),
-		'content'=>			array('inFile'=>true, 'value'=>''),
-		'description'=>		array('inFile'=>false, 'value'=>''),
-		'username'=>		array('inFile'=>false, 'value'=>''),
-		'status'=>			array('inFile'=>false, 'value'=>'draft'),
-		'tags'=>			array('inFile'=>false, 'value'=>''),
-		'allowComments'=>	array('inFile'=>false, 'value'=>false),
-		'unixTimeCreated'=>	array('inFile'=>false, 'value'=>0),
-		'unixTimeModified'=>array('inFile'=>false, 'value'=>0)
+		'title'=>		array('inFile'=>true,	'value'=>''),
+		'content'=>		array('inFile'=>true,	'value'=>''),
+		'description'=>		array('inFile'=>false,	'value'=>''),
+		'username'=>		array('inFile'=>false,	'value'=>''),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'),
+		'tags'=>		array('inFile'=>false,	'value'=>''),
+		'allowComments'=>	array('inFile'=>false,	'value'=>false),
+		'unixTimeCreated'=>	array('inFile'=>false,	'value'=>0),
+		'unixTimeModified'=>	array('inFile'=>false,	'value'=>0)
 	);
 
 	private $numberPosts = array(
@@ -157,8 +157,14 @@ class dbPosts extends dbJSON
 	public function edit($args)
 	{
 		// Unix time created and modified.
-		$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-		$args['unixTimeModified'] = Date::unixTime();
+		// If the page is a draft then the time created is now.
+		if( $this->db[$args['key']]['status']=='draft' ) {
+			$args['unixTimeCreated'] = Date::unixTime();
+		}
+		else {
+			$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
+			$args['unixTimeModified'] = Date::unixTime();
+		}
 
 		if( $this->delete($args['key']) ) {
 			return $this->add($args);
