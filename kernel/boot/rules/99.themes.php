@@ -22,8 +22,8 @@ $theme = array(
 // Main
 // ============================================================================
 
-$langLocaleFile  = PATH_THEME.'language'.DS.$Site->locale().'.json';
-$langDefaultFile = PATH_THEME.'language'.DS.'en_US.json';
+$langLocaleFile  = PATH_THEME.'languages'.DS.$Site->locale().'.json';
+$langDefaultFile = PATH_THEME.'languages'.DS.'en_US.json';
 $database = false;
 
 // Check if exists locale language

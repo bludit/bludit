@@ -3,7 +3,7 @@
 class Page extends fileContent
 {
 	function __construct($key)
-	{	
+	{
 		// Database Key
 		$this->setField('key', $key);
 
@@ -16,10 +16,8 @@ class Page extends fileContent
 		return $this->getField('title');
 	}
 
-	// Returns the content.
-	// This content is markdown parser.
-	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
-	// $html, TRUE returns the content without satinize, FALSE otherwise.
+	// Returns the content. This content is markdown parser.
+	// (boolean) $html, TRUE returns the content without satinize, FALSE otherwise.
 	public function content($html=true)
 	{
 		// This content is not sanitized.
@@ -32,16 +30,14 @@ class Page extends fileContent
 		return Sanitize::html($content);
 	}
 
-	// Returns the content.
-	// This content is not markdown parser.
-	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
-	// $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function contentRaw($html=true)
+	// Returns the content. This content is not markdown parser.
+	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
+	public function contentRaw($raw=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('contentRaw');
 
-		if($html) {
+		if($raw) {
 			return $content;
 		}
 
