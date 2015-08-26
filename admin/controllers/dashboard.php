@@ -22,7 +22,7 @@ $_newPages = $dbPages->regenerate();
 $_draftPosts = array();
 foreach($posts as $Post)
 {
-	if(!$Post->published()) {
+	if($Post->draft()) {
 		array_push($_draftPosts, $Post);
 	}
 }
@@ -34,4 +34,3 @@ foreach($pages as $Page)
 		array_push($_draftPages, $Page);
 	}
 }
-

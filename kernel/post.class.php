@@ -74,6 +74,12 @@ class Post extends fileContent
 		return ( ($this->getField('status')==='published') && ($this->getField('date')>$currentDate) );
 	}
 
+	// Returns TRUE if the post is draft, FALSE otherwise.
+	public function draft()
+	{
+		return ($this->getField('status')=='draft');
+	}
+
 	public function username()
 	{
 		return $this->getField('username');
