@@ -18,10 +18,6 @@ function setSettings($args)
 	global $Site;
 	global $Language;
 
-	if(!isset($args['advancedOptions'])) {
-		$args['advancedOptions'] = 'false';
-	}
-
 	// Add slash at the begin and end.
 	// This fields are in the settings->advanced mode
 	if(isset($args['advanced'])) {

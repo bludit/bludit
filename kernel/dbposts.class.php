@@ -10,8 +10,7 @@ class dbPosts extends dbJSON
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
 		'tags'=>		array('inFile'=>false,	'value'=>''),
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
-		'unixTimeCreated'=>	array('inFile'=>false,	'value'=>0),
-		'unixTimeModified'=>	array('inFile'=>false,	'value'=>0)
+		'date'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	private $numberPosts = array(
@@ -40,6 +39,15 @@ class dbPosts extends dbJSON
 	{
 		if($this->postExists($key)) {
 			return $this->db[$key];
+		}
+
+		return false;
+	}
+
+	public function setDb($key, $field, $value)
+	{
+		if($this->postExists($key)) {
+			$this->db[$key][$field] = $value;
 		}
 
 		return false;
@@ -87,15 +95,14 @@ class dbPosts extends dbJSON
 		// Generate the database key.
 		$key = $this->generateKey($args['slug']);
 
-		// The user is always the one loggued.
+		// The user is always the who is loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
-		// The current unix time stamp.
-		if(empty($args['unixTimeCreated'])) {
-			$args['unixTimeCreated'] = Date::unixTime();
+		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		// Verify arguments with the database fields.
@@ -156,14 +163,8 @@ class dbPosts extends dbJSON
 
 	public function edit($args)
 	{
-		// Unix time created and modified.
-		// If the page is a draft then the time created is now.
-		if( $this->db[$args['key']]['status']=='draft' ) {
-			$args['unixTimeCreated'] = Date::unixTime();
-		}
-		else {
-			$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-			$args['unixTimeModified'] = Date::unixTime();
+		if( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		if( $this->delete($args['key']) ) {
@@ -205,6 +206,69 @@ class dbPosts extends dbJSON
 	public function regenerate()
 	{
 		$db = $this->db;
+		$newPaths = array();
+		$fields = array();
+
+		// Default fields and value
+		foreach($this->dbFields as $field=>$options) {
+			if(!$options['inFile']) {
+				$fields[$field] = $options['value'];
+			}
+		}
+
+		$fields['status'] = CLI_STATUS;
+		$fields['date'] = Date::current(DB_DATE_FORMAT);
+
+		// Recovery pages from the first level of directories
+		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
+		foreach($tmpPaths as $directory)
+		{
+			$key = basename($directory);
+
+			if(file_exists($directory.DS.'index.txt')) {
+				// The key is the directory name
+				$newPaths[$key] = true;
+			}
+		}
+
+		foreach($newPaths as $key=>$value)
+		{
+			if(!isset($this->db[$key])) {
+				$this->db[$key] = $fields;
+			}
+
+			$Post = new Post($key);
+
+			// Update all fields from FILE to DATABASE.
+			foreach($fields as $f=>$v)
+			{
+				if($Post->getField($f)) {
+					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
+					$this->db[$key][$f] = $Post->getField($f);
+				}
+			}
+
+			// DEBUG: Update tags
+		}
+
+		// Remove old posts from db
+		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
+			unset($this->db[$key]);
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return $this->db!=$db;
+	}
+
+/*
+	public function regenerate()
+	{
+		$db = $this->db;
 		$paths = array();
 		$fields = array();
 
@@ -216,7 +280,7 @@ class dbPosts extends dbJSON
 		}
 
 		// Unix time stamp
-		$fields['unixTimeCreated'] = Date::unixTime();
+		$fields['date'] = Date::current(DB_DATE_FORMAT);
 
 		// Username
 		$fields['username'] = 'admin';
@@ -255,7 +319,7 @@ class dbPosts extends dbJSON
 
 		return $this->db!=$db;
 	}
-
+*/
 	public function getPage($pageNumber, $postPerPage, $draftPosts=false)
 	{
 		// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
@@ -317,15 +381,17 @@ class dbPosts extends dbJSON
 		return true;
 	}
 
+	// Remove the posts not published, status != published and date grater than current date.
 	// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
 	private function removeUnpublished()
 	{
 		$tmp = array();
+		$currentDate = Date::current(DB_DATE_FORMAT);
 
-		foreach($this->db as $key=>$value)
+		foreach($this->db as $key=>$values)
 		{
-			if($value['status']==='published') {
-				$tmp[$key]=$value;
+			if( ($values['status']==='published') && ($values['date']<=$currentDate) ) {
+				$tmp[$key]=$values;
 			}
 		}
 
@@ -336,12 +402,12 @@ class dbPosts extends dbJSON
 	{
 		// high to low
 		function high_to_low($a, $b) {
-			return $a['unixTimeCreated']<$b['unixTimeCreated'];
+			return $a['date']<$b['date'];
 		}
 
 		// low to high
 		function low_to_high($a, $b) {
-			return $a['unixTimeCreated']>$b['unixTimeCreated'];
+			return $a['date']>$b['date'];
 		}
 
 		$tmp = $this->db;

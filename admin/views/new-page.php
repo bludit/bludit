@@ -12,18 +12,9 @@
         <textarea id="jscontent" name="content" rows="15" class="width-80"></textarea>
     </label>
 
-<?php
-    if($Site->advancedOptions()) {
-        echo '<div id="jsadvancedOptions">';
-    }
-    else
-    {
-        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
-        echo '<div id="jsadvancedOptions" style="display:none">';
-    }
-?>
+    <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
 
-    <h4><?php $Language->p('Advanced options') ?></h4>
+    <div id="jsadvancedOptions">
 
     <label for="jsparent">
         <?php $Language->p('Parent') ?>
@@ -102,6 +93,11 @@ $(document).ready(function()
         }
 
         checkSlugPage(text, parent, "", $("#jsslug"));
+    });
+
+    $("#jsadvancedButton").click(function() {
+        $("#jsadvancedOptions").slideToggle();
+        return false;
     });
 
 });

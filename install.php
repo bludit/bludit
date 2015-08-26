@@ -42,6 +42,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 // Check if JSON encode and decode are enabled.
 define('JSON', function_exists('json_encode'));
 
+// Database format date
+define('DB_DATE_FORMAT', 'Y-m-d H:i');
+
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
@@ -64,6 +67,7 @@ include(PATH_HELPERS.'text.class.php');
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
+include(PATH_HELPERS.'date.class.php');
 
 // Load language
 $localeFromHTTP = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -164,6 +168,8 @@ function install($adminPassword, $email)
 
 	$stdOut = array();
 
+	$currentDate = Date::current(DB_DATE_FORMAT);
+
 	// ============================================================================
 	// Create directories
 	// ============================================================================
@@ -190,12 +196,6 @@ function install($adminPassword, $email)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'tinymce', $dirpermissions, true))
-	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
-		error_log($errorText, 0);
-	}
-
 	if(!mkdir(PATH_UPLOADS, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS;
@@ -215,8 +215,7 @@ function install($adminPassword, $email)
 		'username'=>'admin',
 		'tags'=>'',
 		'status'=>'published',
-		'unixTimeCreated'=>1430686755,
-		'unixTimeModified'=>0,
+		'date'=>$currentDate,
 		'position'=>0
 	    	)
 	);
@@ -229,10 +228,9 @@ function install($adminPassword, $email)
 		'description'=>'Welcome to Bludit',
 		'username'=>'admin',
 		'status'=>'published',
-		'tags'=>'welcome, bludit, cms',
+		'tags'=>'bludit, cms, flat-file',
 		'allowComments'=>false,
-		'unixTimeCreated'=>1430875199,
-		'unixTimeModified'=>0
+		'date'=>$currentDate
 		)
 	);
 	file_put_contents(PATH_DATABASES.'posts.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -253,7 +251,6 @@ function install($adminPassword, $email)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'advancedOptions'=>'false',
 		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT
 	);
 
@@ -261,7 +258,6 @@ function install($adminPassword, $email)
 
 	$salt = getRandomString();
 	$passwordHash = sha1($adminPassword.$salt);
-	$registered = time();
 
 	// File users.php
 	$data = array(
@@ -273,7 +269,7 @@ function install($adminPassword, $email)
 		'password'=>$passwordHash,
 		'salt'=>$salt,
 		'email'=>$email,
-		'registered'=>$registered
+		'registered'=>$currentDate
 		)
 	);
 
@@ -297,14 +293,6 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-	// File plugins/tinymce/db.php
-	$data = array(
-		'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
-		'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen',
-		'position'=>'0'
-	);
-
-	file_put_contents(PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'

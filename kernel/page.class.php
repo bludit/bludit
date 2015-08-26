@@ -65,44 +65,17 @@ class Page extends fileContent
 		return $this->getField('position');
 	}
 
-	// Returns the post date in unix timestamp format, UTC-0.
-	public function unixTimeCreated()
-	{
-		return $this->getField('unixTimeCreated');
-	}
-
-	public function unixTimeModified()
-	{
-		return $this->getField('unixTimeModified');
-	}
-
 	// Returns the post date according to locale settings and format settings.
-	public function dateCreated($format=false)
+	public function date($format=false)
 	{
-		if($format===false) {
-			return $this->getField('date');
+		$date = $this->getField('date');
+
+		if($format) {
+			// En %d %b deberia ir el formato definido por el usuario
+			return Date::format($date, DB_DATE_FORMAT, '%d %B');
 		}
 
-		$unixTimeCreated = $this->unixTimeCreated();
-
-		return Date::format($unixTimeCreated, $format);
-	}
-
-	public function dateModified($format=false)
-	{
-		if($format===false) {
-			return $this->getField('date');
-		}
-
-		$unixTimeModified = $this->unixTimeModified();
-
-		return Date::format($unixTimeModified, $format);
-	}
-
-	// Returns the time ago
-	public function timeago()
-	{
-		return $this->getField('timeago');
+		return $date;
 	}
 
 	// Returns the page slug.

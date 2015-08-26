@@ -64,7 +64,10 @@ define('POSTS_PER_PAGE_ADMIN', 10);
 define('JSON', function_exists('json_encode'));
 
 // TRUE if new posts hand-made set published, or FALSE for draft.
-define('HANDMADE_PUBLISHED', true);
+define('CLI_STATUS', 'published');
+
+// Database format date
+define('DB_DATE_FORMAT', 'Y-m-d H:i');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
