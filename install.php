@@ -69,8 +69,9 @@ include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
 
-// Load language
-$localeFromHTTP = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+// Try detect locale/language from HTTP
+$explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+$localeFromHTTP = empty($explode[0])?'en_US':str_replace('-', '_', $explode[0]);
 
 if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
@@ -240,7 +241,7 @@ function install($adminPassword, $email)
 		'title'=>'Bludit',
 		'slogan'=>'cms',
 		'description'=>'',
-		'footer'=>'',
+		'footer'=>Date::current('Y'),
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>'UTC',
