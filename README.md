@@ -14,6 +14,7 @@ You only need a Webserver with PHP support.
 
 - PHP 5.3 or higher.
 - PHP module [mbstring](http://php.net/manual/en/book.mbstring.php) for full UTF-8 support.
+- PHP module [intl](http://php.net/manual/en/book.intl.php).
 - Webserver:
   * Apache with module [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
   * Ngnix with module [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)
