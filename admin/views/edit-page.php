@@ -9,9 +9,9 @@
         <input id="jstitle" name="title" type="text" class="width-80" value="<?php echo $_Page->title() ?>">
     </label>
 
-    <label>
+    <label class="width-80">
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="15" class="width-80"><?php echo $_Page->contentRaw(false) ?></textarea>
+        <textarea id="jscontent" name="content" rows="15"><?php echo $_Page->contentRaw(false) ?></textarea>
     </label>
 
     <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>

@@ -7,9 +7,9 @@
         <input id="jstitle" name="title" type="text" class="width-80">
     </label>
 
-    <label>
+    <label class="width-80">
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="15" class="width-80"></textarea>
+        <textarea id="jscontent" name="content" rows="15"></textarea>
     </label>
 
     <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
