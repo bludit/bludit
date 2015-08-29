@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-08-20",
+		"last-update": "2015-08-29",
 		"author": "Fred",
 		"email": "",
 		"website": ""
@@ -157,5 +157,9 @@
 	"proceed-anyway": "Continuer malgré tout !",
     "drafts": "En attente de publication",
 	"ip-address-has-been-blocked": "Votre adresse IP a été bloquée.",
-	"try-again-in-a-few-minutes": "Essayez de nouveau dans quelques minutes."	
+	"try-again-in-a-few-minutes": "Essayez de nouveau dans quelques minutes.",
+	"date": "Date",
+	"you-can-schedule-the-post-just-select-the-date-and-time": "Vous pouvez planifier une date de publication de vos articles, il suffit de sélectionner la date et l’heure dans le calendrier qui s’ouvre en pop-up.",
+	"scheduled": "Planification",
+	"publish": "Publier"	
 }
