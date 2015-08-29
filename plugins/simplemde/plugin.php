@@ -23,9 +23,13 @@ class pluginsimpleMDE extends Plugin {
 			$language = $Site->shortLanguage();
 			$pluginPath = $this->htmlPath();
 
-			$html  = '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">';
-			$html .= '<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">';
-			$html .= '<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>';
+			$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/simplemde.min.css">';
+			$html .= '<script src="'.$pluginPath.'js/simplemde.min.js"></script>';
+
+			//$html  = '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">';
+			//$html .= '<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">';
+			//$html .= '<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>';
+
 
 		}
 
@@ -50,14 +54,14 @@ class pluginsimpleMDE extends Plugin {
 			$html .=
 				'var simplemde = new SimpleMDE({
 					element: document.getElementById("jscontent"),
-					status: true,
+					status: false,
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: true,
 					lineWrapping: false,
 					indentWithTabs: true,
 					tabSize: 4,
-					spellChecker: true
+					spellChecker: false
 				});';
 			$html .= '}); </script>';
 		}

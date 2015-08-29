@@ -26,6 +26,8 @@ function editPage($args)
 	{
 		$dbPages->regenerate();
 
+		//$dbTags->reindexPages( $dbPages->db );
+
 		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-page/'.$args['key']);
 	}

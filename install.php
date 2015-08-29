@@ -197,6 +197,12 @@ function install($adminPassword, $email)
 		error_log($errorText, 0);
 	}
 
+	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+		error_log($errorText, 0);
+	}
+
 	if(!mkdir(PATH_UPLOADS, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS;
@@ -294,6 +300,24 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File plugins/simplemde/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File tags.php
+	$data = array(
+		'postsIndex'=>array(),
+		'pagesIndex'=>array()
+	);
+
+	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'
@@ -305,11 +329,9 @@ function install($adminPassword, $email)
 	$data = 'Title: '.$Language->get('First post').'
 Content:
 
-'.$Language->get('Congratulations you have successfully installed your Bludit').'
----
+## '.$Language->get('Congratulations you have successfully installed your Bludit').'
 
-'.$Language->get('Whats next').'
----
+### '.$Language->get('Whats next').'
 - '.$Language->get('Manage your Bludit from the admin panel').'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Visit the support forum').'

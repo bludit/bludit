@@ -93,6 +93,7 @@ include(PATH_ABSTRACT.'plugin.class.php');
 include(PATH_KERNEL.'dbposts.class.php');
 include(PATH_KERNEL.'dbpages.class.php');
 include(PATH_KERNEL.'dbusers.class.php');
+include(PATH_KERNEL.'dbtags.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
 include(PATH_KERNEL.'post.class.php');
@@ -126,6 +127,7 @@ if(Session::started()===false) {
 $dbPosts 	= new dbPosts();
 $dbPages 	= new dbPages();
 $dbUsers 	= new dbUsers();
+$dbTags 	= new dbTags();
 $Site 		= new dbSite();
 $Url 		= new Url();
 $Parsedown 	= new Parsedown();

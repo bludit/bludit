@@ -6,10 +6,10 @@
 
 	<label>
 		<?php $Language->p('Title') ?>
-		<input id="jstitle" name="title" type="text" class="width-80" value="<?php echo $_Post->title() ?>">
+		<input id="jstitle" name="title" type="text" class="width-90" value="<?php echo $_Post->title() ?>">
 	</label>
 
-	<label class="width-80">
+	<label class="width-90">
 		<?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
 		<textarea id="jscontent" name="content" rows="15"><?php echo $_Post->contentRaw(false) ?></textarea>
 	</label>

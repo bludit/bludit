@@ -11,6 +11,7 @@
 function addPost($args)
 {
 	global $dbPosts;
+	global $dbTags;
 	global $Language;
 
 	// Page status, published or draft.
@@ -24,6 +25,9 @@ function addPost($args)
 	// Add the page.
 	if( $dbPosts->add($args) )
 	{
+		// Regenerate the database tags
+		$dbTags->reindexPosts( $dbPosts->db );
+
 		Alert::set($Language->g('Post added successfully'));
 		Redirect::page('admin', 'manage-posts');
 	}

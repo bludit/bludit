@@ -24,6 +24,8 @@ function addPage($args)
 	// Add the page.
 	if( $dbPages->add($args) )
 	{
+		//$dbTags->reindexPages( $dbPages->db );
+
 		Alert::set($Language->g('Page added successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}
