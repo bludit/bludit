@@ -24,4 +24,11 @@ class Valid {
 		return true;
 	}
 
+	// Thanks, http://php.net/manual/en/function.checkdate.php#113205
+	public static function date($date, $format='Y-m-d H:i:s')
+	{
+		$tmp = DateTime::createFromFormat($format, $date);
+		return $tmp && $tmp->format($format) == $date;
+	}
+
 }

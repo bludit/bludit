@@ -27,8 +27,8 @@ $themesPaths = Filesystem::listDirectories(PATH_THEMES);
 // Load each plugin clasess
 foreach($themesPaths as $themePath)
 {
-	$langLocaleFile  = $themePath.DS.'language'.DS.$Site->locale().'.json';
-	$langDefaultFile = $themePath.DS.'language'.DS.'en_US.json';
+	$langLocaleFile  = $themePath.DS.'languages'.DS.$Site->locale().'.json';
+	$langDefaultFile = $themePath.DS.'languages'.DS.'en_US.json';
 	$database = false;
 
 	// Check if exists locale language

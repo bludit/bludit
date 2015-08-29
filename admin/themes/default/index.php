@@ -9,10 +9,12 @@
 
 	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
 
-	<script src="./js/jquery.min.js"></script>
-	<script src="./js/kube.min.js"></script>
+	<script src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script src="./js/kube.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>

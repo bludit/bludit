@@ -45,18 +45,11 @@ function build_page($key)
 	// Foreach field from database.
 	foreach($db as $field=>$value)
 	{
-		if($field=='unixTimeCreated')
-		{
-			// Format dates, not overwrite from file fields.
-			$Page->setField('unixTimeCreated', 	$value, false);
-			$Page->setField('date', 			Date::format($value, '%d %B'), false);
-			$Page->setField('timeago',			Date::timeago($value), false);
-		}
-		else
-		{
-			// Other fields, not overwrite from file fields.
-			$Page->setField($field, $value, false);
-		}
+		// Not overwrite the value from file.
+		$Page->setField($field, $value, false);
+
+		// Overwrite the value on the db.
+		//$dbPages->setDb($key, $field, $value);
 	}
 
 	// Content in raw format
@@ -64,7 +57,8 @@ function build_page($key)
 	$Page->setField('contentRaw', $Page->content(), true);
 
 	// Parse markdown content.
-	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
+	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Page->setField('content', $content, true);
 

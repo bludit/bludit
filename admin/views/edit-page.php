@@ -6,26 +6,17 @@
 
     <label>
         <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-80" value="<?php echo $_Page->title() ?>">
+        <input id="jstitle" name="title" type="text" class="width-90" value="<?php echo $_Page->title() ?>">
     </label>
 
-    <label>
+    <label class="width-90">
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="15" class="width-80"><?php echo $_Page->contentRaw(true, false) ?></textarea>
+        <textarea id="jscontent" name="content" rows="15"><?php echo $_Page->contentRaw(false) ?></textarea>
     </label>
 
-<?php
-    if($Site->advancedOptions()) {
-        echo '<div id="jsadvancedOptions">';
-    }
-    else
-    {
-        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
-        echo '<div id="jsadvancedOptions" style="display:none">';
-    }
-?>
+    <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
 
-    <h4><?php $Language->p('Advanced options') ?></h4>
+    <div id="jsadvancedOptions">
 
 <?php
     // Remove setting pages parents if the page is a parent.
@@ -121,9 +112,14 @@ $(document).ready(function()
     });
 
     $("#jsdelete").click(function() {
-        if(!confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")) {
-            event.preventDefault();
+        if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+            return false;
         }
+    });
+
+    $("#jsadvancedButton").click(function() {
+        $("#jsadvancedOptions").slideToggle();
+        return false;
     });
 
 });

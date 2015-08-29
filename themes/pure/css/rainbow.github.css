@@ -5,7 +5,7 @@
  * @version 1.0.4
  */
 pre {
-    border: 1px solid #ccc;
+    border: 1px solid #E7E9EE;
     word-wrap: break-word;
     padding: 6px 10px;
     line-height: 19px;
@@ -13,10 +13,9 @@ pre {
 }
 
 code {
-    border: 1px solid #eaeaea;
+    border: 1px solid #E7E9EE;
     margin: 0px 2px;
     padding: 0px 5px;
-    font-size: 12px;
 }
 
 pre code {
@@ -30,8 +29,8 @@ pre code {
 
 pre, code {
     font-family: Consolas, 'Liberation Mono', Courier, monospace;
-    color: #333;
-    background: #f8f8f8;
+    background: #f8faff none repeat scroll 0 0;
+    color: #211fab;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;

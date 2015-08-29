@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "A simple, beautiful, and embeddable JavaScript markdown editor.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
+		"version": "0.1",
+		"releaseDate": "2015-08-27"
+	}
+}

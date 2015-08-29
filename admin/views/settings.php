@@ -81,16 +81,6 @@
     <div class="forms-desc"><?php $Language->p('the-url-of-your-site') ?></div>
     </label>
 
-    <h4><?php $Language->p('Writting settings') ?></h4>
-
-    <ul class="forms-list">
-        <li>
-        <input type="checkbox" name="advancedOptions" id="advancedOptions" value="true" <?php echo $Site->advancedOptions()?'checked':'' ?>>
-        <label for="advancedOptions"><?php $Language->p('Advanced options') ?></label>
-        <div class="forms-desc"><?php $Language->p('add-or-edit-description-tags-or') ?></div>
-        </li>
-    </ul>
-
     <h4><?php $Language->p('URL Filters') ?></h4>
 
     <label>

@@ -17,14 +17,14 @@ function buildPost($key)
 	global $Parsedown;
 	global $Site;
 
-	// Post object.
+	// Post object, this get the content from the file.
 	$Post = new Post($key);
 	if( !$Post->isValid() ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from file with key: '.$key);
 		return false;
 	}
 
-	// Page database.
+	// Page database, this get the contente from the database json.
 	$db = $dbPosts->getDb($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
@@ -34,18 +34,8 @@ function buildPost($key)
 	// Foreach field from database.
 	foreach($db as $field=>$value)
 	{
-		if($field=='unixTimeCreated')
-		{
-			// Format dates, not overwrite from file fields.
-			$Post->setField('unixTimeCreated', 	$value, false);
-			$Post->setField('date', 			Date::format($value, '%d %B'), false);
-			$Post->setField('timeago',			Date::timeago($value), false);
-		}
-		else
-		{
-			// Other fields, not overwrite from file fields.
-			$Post->setField($field, $value, false);
-		}
+		// Not overwrite the value from file.
+		$Post->setField($field, $value, false);
 	}
 
 	// Content in raw format
@@ -53,7 +43,8 @@ function buildPost($key)
 	$Post->setField('contentRaw', $contentRaw, true);
 
 	// Parse the content
-	$content = $Parsedown->text($contentRaw); // Parse Markdown.
+	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
+	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Post->setField('content', $content, true);
 
@@ -68,7 +59,7 @@ function buildPost($key)
 		$user = $dbUsers->getDb( $Post->username() );
 
 		$Post->setField('authorFirstName', $user['firstName'], false);
-		
+
 		$Post->setField('authorLastName', $user['lastName'], false);
 	}
 
@@ -83,7 +74,7 @@ function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 
 	$list = $dbPosts->getPage($pageNumber, $amount, $draftPosts);
 
-	// There are not post for the pageNumber then NotFound page
+	// There are not post for the pageNumber then true Not found page
 	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
@@ -97,6 +88,8 @@ function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 		}
 	}
 }
+
+
 
 // ============================================================================
 // Main
@@ -121,6 +114,10 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 	{
 		$posts[0] = $Post;
 	}
+
+}
+elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
+{
 
 }
 // Build post per page

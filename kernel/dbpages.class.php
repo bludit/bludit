@@ -11,8 +11,7 @@ class dbPages extends dbJSON
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>''),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
-		'unixTimeCreated'=>	array('inFile'=>false,	'value'=>0),
-		'unixTimeModified'=>	array('inFile'=>false,	'value'=>0),
+		'date'=>		array('inFile'=>false,	'value'=>0),
 		'position'=>		array('inFile'=>false,	'value'=>0)
 	);
 
@@ -27,18 +26,21 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
+		/*
 		if($key===false) {
 			return false;
 		}
-
+		*/
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
-		// The current unix time stamp.
-		$args['unixTimeCreated'] = Date::unixTime();
+		// Current date.
+		if(empty($args['date'])) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
+		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
@@ -109,9 +111,13 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		// Unix time created and modified.
-		$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-		$args['unixTimeModified'] = Date::unixTime();
+		// If the page is draft then the time created is now.
+		if( $this->db[$args['key']]['status']=='draft' ) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
+		}
+		else {
+			$args['date'] = $this->db[$args['key']]['date'];
+		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
@@ -286,6 +292,80 @@ class dbPages extends dbJSON
 	public function regenerate()
 	{
 		$db = $this->db;
+		$newPaths = array();
+		$fields = array();
+
+		// Default fields and value
+		foreach($this->dbFields as $field=>$options) {
+			if(!$options['inFile']) {
+				$fields[$field] = $options['value'];
+			}
+		}
+
+		$fields['status'] = CLI_STATUS;
+		$fields['date'] = Date::current(DB_DATE_FORMAT);
+
+		$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		foreach($tmpPaths as $directory)
+		{
+			$key = basename($directory);
+
+			if(file_exists($directory.DS.'index.txt')) {
+				// The key is the directory name
+				$newPaths[$key] = true;
+			}
+
+			// Recovery pages from subdirectories
+			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			foreach($subPaths as $subDirectory)
+			{
+				$subKey = basename($subDirectory);
+
+				if(file_exists($subDirectory.DS.'index.txt')) {
+					// The key is composed by the directory/subdirectory
+					$newPaths[$key.'/'.$subKey] = true;
+				}
+			}
+		}
+
+		foreach($newPaths as $key=>$value)
+		{
+			if(!isset($this->db[$key])) {
+				$this->db[$key] = $fields;
+			}
+
+			$Page = new Page($key);
+
+			// Update all fields from FILE to DATABASE.
+			foreach($fields as $f=>$v)
+			{
+				if($Page->getField($f)) {
+					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
+					$this->db[$key][$f] = $Page->getField($f);
+				}
+			}
+
+			// DEBUG: Update tags
+		}
+
+		// Remove old pages from db
+		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
+			unset($this->db[$key]);
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return $this->db!=$db;
+	}
+
+/*
+	public function regenerate()
+	{
+		$db = $this->db;
 		$paths = array();
 		$fields = array();
 
@@ -349,5 +429,5 @@ class dbPages extends dbJSON
 
 		return $this->db!=$db;
 	}
-
+	*/
 }
