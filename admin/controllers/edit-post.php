@@ -22,6 +22,8 @@ function editPost($args)
 	if( $dbPosts->edit($args) )
 	{
 		// Regenerate the database tags
+		$dbPosts->removeUnpublished();
+		$dbPosts->sortByDate();
 		$dbTags->reindexPosts( $dbPosts->db );
 
 		Alert::set($Language->g('The changes have been saved'));

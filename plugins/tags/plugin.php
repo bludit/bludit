@@ -27,12 +27,12 @@ class pluginTags extends Plugin {
 		global $dbTags;
 		global $Url;
 
+		$db = $dbTags->db['postsIndex'];
+		$filter = trim($Url->filters('tag'), '/');
+
 		$html  = '<div class="plugin plugin-tags">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-
-		$db = $dbTags->db['postsIndex'];
-
 		$html .= '<ul>';
 
 		foreach($db as $tagKey=>$fields)
@@ -40,7 +40,7 @@ class pluginTags extends Plugin {
 			$count = $dbTags->countPostsByTag($tagKey);
 
 			// Print the parent
-			$html .= '<li><a href="'.HTML_PATH_ROOT.$Url->filters('tag').$tagKey.'">'.$fields['name'].' ('.$count.')</a></li>';
+			$html .= '<li><a href="'.HTML_PATH_ROOT.$filter.'/'.$tagKey.'">'.$fields['name'].' ('.$count.')</a></li>';
 		}
 
 		$html .= '</ul>';

@@ -26,6 +26,8 @@ function addPost($args)
 	if( $dbPosts->add($args) )
 	{
 		// Regenerate the database tags
+		$dbPosts->removeUnpublished();
+		$dbPosts->sortByDate();
 		$dbTags->reindexPosts( $dbPosts->db );
 
 		Alert::set($Language->g('Post added successfully'));

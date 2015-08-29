@@ -24,7 +24,7 @@
 
         <!-- Content -->
         <?php
-            if($Url->whereAmI()=='home')
+            if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') )
             {
                 include('php/home.php');
             }

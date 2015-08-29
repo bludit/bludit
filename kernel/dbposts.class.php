@@ -320,7 +320,7 @@ class dbPosts extends dbJSON
 		return $this->db!=$db;
 	}
 */
-	public function getPage($pageNumber, $postPerPage, $draftPosts=false)
+	public function getList($pageNumber, $postPerPage, $draftPosts=false)
 	{
 		// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
 		// DEBUG: Se eliminan antes de ordenarlos porque sino los draft cuentan como publicados en el PostPerPage.
@@ -331,12 +331,13 @@ class dbPosts extends dbJSON
 
 		$init = (int) $postPerPage * $pageNumber;
 		$end  = (int) min( ($init + $postPerPage - 1), count($this->db) - 1 );
-		$outrange = $init<0 ? true : $init > $end;
+		$outrange = $init<0 ? true : $init>$end;
 
 		// Sort posts
-		$tmp = $this->sortByDate();
+		$this->sortByDate();
 
 		if(!$outrange) {
+			$tmp = $this->db;
 			return array_slice($tmp, $init, $postPerPage, true);
 		}
 
@@ -417,7 +418,7 @@ class dbPosts extends dbJSON
 		else
 			uasort($tmp, 'high_to_low');
 
-		return $tmp;
+		return true;
 	}
 
 }

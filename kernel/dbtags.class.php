@@ -18,13 +18,28 @@ class dbTags extends dbJSON
 		parent::__construct(PATH_DATABASES.'tags.php');
 	}
 
+	public function getList($pageNumber, $postPerPage, $tagKey)
+	{
+		$init = (int) $postPerPage * $pageNumber;
+		$end  = (int) min( ($init + $postPerPage - 1), $this->countPostsByTag($tagKey) - 1 );
+		$outrange = $init<0 ? true : $init > $end;
+
+		if(!$outrange) {
+			$list = $this->db['postsIndex'][$tagKey]['posts'];
+			$tmp = array_flip($list);
+			return array_slice($tmp, $init, $postPerPage, true);
+		}
+
+		return array();
+	}
+
 	public function countPostsByTag($tagKey)
 	{
 		if( isset($this->db['postsIndex'][$tagKey]) ) {
 			return count($this->db['postsIndex'][$tagKey]['posts']);
 		}
 		else {
-			return false;
+			return 0;
 		}
 	}
 
@@ -36,23 +51,20 @@ class dbTags extends dbJSON
 		// Foreach post
 		foreach($db as $postKey=>$values)
 		{
-			if( ($values['status']==='published') && ($values['date']<=$currentDate) )
+			$explode = explode(',', $values['tags']);
+
+			// Foreach tag from post
+			foreach($explode as $tagName)
 			{
-				$explode = explode(',', $values['tags']);
+				$tagName = trim($tagName);
+				$tagKey = Text::cleanUrl($tagName);
 
-				// Foreach tag from post
-				foreach($explode as $tagName)
-				{
-					$tagName = trim($tagName);
-					$tagKey = Text::cleanUrl($tagName);
-
-					if( isset($tagsIndex[$tagKey]) ) {
-						array_push($tagsIndex[$tagKey]['posts'], $postKey);
-					}
-					else {
-						$tagsIndex[$tagKey]['name'] = $tagName;
-						$tagsIndex[$tagKey]['posts'] = array($postKey);
-					}
+				if( isset($tagsIndex[$tagKey]) ) {
+					array_push($tagsIndex[$tagKey]['posts'], $postKey);
+				}
+				else {
+					$tagsIndex[$tagKey]['name'] = $tagName;
+					$tagsIndex[$tagKey]['posts'] = array($postKey);
 				}
 			}
 		}

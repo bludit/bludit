@@ -66,22 +66,28 @@ function buildPost($key)
 	return $Post;
 }
 
-function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
+function buildPostForPage($pageNumber=0, $amount=5, $removeUnpublished=false, $tagKey=false)
 {
 	global $dbPosts;
+	global $dbTags;
 	global $posts;
 	global $Url;
 
-	$list = $dbPosts->getPage($pageNumber, $amount, $draftPosts);
+	if($tagKey) {
+		$list = $dbTags->getList($pageNumber, $amount, $tagKey);
+	}
+	else {
+		$list = $dbPosts->getList($pageNumber, $amount, $removeUnpublished);
+	}
 
-	// There are not post for the pageNumber then true Not found page
+	// There are not post for the pageNumber then set the page notfound
 	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
 
-	foreach($list as $slug=>$db)
+	foreach($list as $postKey=>$values)
 	{
-		$Post = buildPost($slug);
+		$Post = buildPost($postKey);
 
 		if($Post!==false) {
 			array_push($posts, $Post);
@@ -118,18 +124,18 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 }
 elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
 {
-
+	buildPostForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
 }
 // Build post per page
 else
 {
 	if($Url->whereAmI()==='admin') {
-		// Build post for admin area with drafts
-		build_posts_per_page($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, true);
+		// Build post for admin area with drafts+schedulers
+		buildPostForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, true);
 	}
 	else
 	{
-		// Build post for the site, without the drafts posts
-		build_posts_per_page($Url->pageNumber(), $Site->postsPerPage(), false);
+		// Build post for the site, without the drafts and scheduleres posts
+		buildPostForPage($Url->pageNumber(), $Site->postsPerPage(), false);
 	}
 }
