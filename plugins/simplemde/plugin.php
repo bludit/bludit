@@ -57,7 +57,7 @@ class pluginsimpleMDE extends Plugin {
 					status: false,
 					toolbarTips: true,
 					toolbarGuideIcon: true,
-					autofocus: true,
+					autofocus: false,
 					lineWrapping: false,
 					indentWithTabs: true,
 					tabSize: 4,

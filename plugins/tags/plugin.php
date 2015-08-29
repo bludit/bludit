@@ -25,6 +25,7 @@ class pluginTags extends Plugin {
 	{
 		global $Language;
 		global $dbTags;
+		global $Url;
 
 		$html  = '<div class="plugin plugin-tags">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';
@@ -39,7 +40,7 @@ class pluginTags extends Plugin {
 			$count = $dbTags->countPostsByTag($tagKey);
 
 			// Print the parent
-			$html .= '<li><a href="tag/'.$tagKey.'">'.$fields['name'].' ('.$count.')</a></li>';
+			$html .= '<li><a href="'.HTML_PATH_ROOT.$Url->filters('tag').$tagKey.'">'.$fields['name'].' ('.$count.')</a></li>';
 		}
 
 		$html .= '</ul>';

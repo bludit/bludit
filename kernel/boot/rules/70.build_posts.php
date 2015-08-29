@@ -74,7 +74,7 @@ function build_posts_per_page($pageNumber=0, $amount=5, $draftPosts=false)
 
 	$list = $dbPosts->getPage($pageNumber, $amount, $draftPosts);
 
-	// There are not post for the pageNumber then NotFound page
+	// There are not post for the pageNumber then true Not found page
 	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
@@ -114,6 +114,10 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 	{
 		$posts[0] = $Post;
 	}
+
+}
+elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
+{
 
 }
 // Build post per page
