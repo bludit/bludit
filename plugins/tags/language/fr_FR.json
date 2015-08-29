@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Liste de mots clés",
+		"description": "Affiche la lise de tous les mots clés.",
+		"author": "Bludit",
+		"email": "",
+		"website": "http://www.bludit.com",
+		"version": "0.1",
+		"releaseDate": "2015-08-02"
+	}
+}
