@@ -179,7 +179,6 @@ class Text {
 		return preg_replace_callback('/<pre.*?><code(.*?)>(.*?)<\/code><\/pre>/imsu',
 			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
 			$string);
-
 	}
 
 }

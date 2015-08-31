@@ -26,11 +26,7 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
-		/*
-		if($key===false) {
-			return false;
-		}
-		*/
+
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
@@ -289,7 +285,7 @@ class dbPages extends dbJSON
 		return $this->db;
 	}
 
-	public function regenerate()
+	public function regenerateCli()
 	{
 		$db = $this->db;
 		$newPaths = array();
@@ -361,73 +357,4 @@ class dbPages extends dbJSON
 
 		return $this->db!=$db;
 	}
-
-/*
-	public function regenerate()
-	{
-		$db = $this->db;
-		$paths = array();
-		$fields = array();
-
-		// Complete $fields with the default values.
-		foreach($this->dbFields as $field=>$options) {
-			if(!$options['inFile']) {
-				$fields[$field] = $options['value'];
-			}
-		}
-
-		// Foreach new page set the unix time stamp.
-		$fields['unixTimeCreated'] = Date::unixTime();
-
-		// Foreach new page set the owner admin.
-		$fields['username'] = 'admin';
-
-		// Foreach new page set the status.
-		if(HANDMADE_PUBLISHED) {
-			$fields['status']='published';
-		}
-
-		// Get the pages from the first level of directories
-		$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
-		foreach($tmpPaths as $directory)
-		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.'index.txt')){
-				// The key is the directory name
-				$paths[$key] = true;
-			}
-
-			// Recovery pages from subdirectories
-			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
-			foreach($subPaths as $subDirectory)
-			{
-				$subKey = basename($subDirectory);
-
-				if(file_exists($subDirectory.DS.'index.txt')) {
-					// The key is composed by the directory/subdirectory
-					$paths[$key.'/'.$subKey] = true;
-				}
-			}
-		}
-
-		// Remove old posts from db
-		foreach( array_diff_key($db, $paths) as $slug=>$data ) {
-			unset($this->db[$slug]);
-		}
-
-		// Insert new posts to db
-		foreach( array_diff_key($paths, $db) as $slug=>$data ) {
-			$this->db[$slug] = $fields;
-		}
-
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return $this->db!=$db;
-	}
-	*/
 }

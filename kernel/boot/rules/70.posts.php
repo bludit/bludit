@@ -10,6 +10,26 @@ $posts = array();
 // Functions
 // ============================================================================
 
+function reIndexTagsPosts()
+{
+	global $dbPosts;
+	global $dbTags;
+
+	// Remove unpublished, only drafts.
+	$dbPosts->removeUnpublished(false);
+
+	// Sort posts
+	$dbPosts->sortByDate();
+
+	// Regenerate the tags index for posts
+	$dbTags->reindexPosts( $dbPosts->db );
+
+	// Restore de db on dbPost
+	$dbPosts->restoreDb();
+
+	return true;
+}
+
 function buildPost($key)
 {
 	global $dbPosts;
@@ -59,14 +79,13 @@ function buildPost($key)
 		$user = $dbUsers->getDb( $Post->username() );
 
 		$Post->setField('authorFirstName', $user['firstName'], false);
-
 		$Post->setField('authorLastName', $user['lastName'], false);
 	}
 
 	return $Post;
 }
 
-function buildPostForPage($pageNumber=0, $amount=5, $removeUnpublished=false, $tagKey=false)
+function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $tagKey=false)
 {
 	global $dbPosts;
 	global $dbTags;
@@ -74,34 +93,34 @@ function buildPostForPage($pageNumber=0, $amount=5, $removeUnpublished=false, $t
 	global $Url;
 
 	if($tagKey) {
+		// Get the keys list from tags database, this database is optimized for this case.
 		$list = $dbTags->getList($pageNumber, $amount, $tagKey);
 	}
 	else {
+		// Get the keys list from posts database.
 		$list = $dbPosts->getList($pageNumber, $amount, $removeUnpublished);
 	}
 
-	// There are not post for the pageNumber then set the page notfound
+	// There are not posts for the page number then set the page notfound
 	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
 
+	// Foreach post key, build the post.
 	foreach($list as $postKey=>$values)
 	{
 		$Post = buildPost($postKey);
-
 		if($Post!==false) {
 			array_push($posts, $Post);
 		}
 	}
 }
 
-
-
 // ============================================================================
 // Main
 // ============================================================================
 
-// Filter by post, then build it
+// Build specific post.
 if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 {
 	$Post = buildPost( $Url->slug() );
@@ -122,20 +141,20 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 	}
 
 }
+// Build posts by specific tag.
 elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
 {
-	buildPostForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
+	buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
 }
-// Build post per page
+// Build posts for homepage or admin area.
 else
 {
+	// Posts for admin area.
 	if($Url->whereAmI()==='admin') {
-		// Build post for admin area with drafts+schedulers
-		buildPostForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, true);
+		buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
 	}
-	else
-	{
-		// Build post for the site, without the drafts and scheduleres posts
-		buildPostForPage($Url->pageNumber(), $Site->postsPerPage(), false);
+	// Posts for homepage
+	else {
+		buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
 	}
 }

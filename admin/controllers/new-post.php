@@ -11,7 +11,6 @@
 function addPost($args)
 {
 	global $dbPosts;
-	global $dbTags;
 	global $Language;
 
 	// Page status, published or draft.
@@ -25,10 +24,8 @@ function addPost($args)
 	// Add the page.
 	if( $dbPosts->add($args) )
 	{
-		// Regenerate the database tags
-		$dbPosts->removeUnpublished();
-		$dbPosts->sortByDate();
-		$dbTags->reindexPosts( $dbPosts->db );
+		// Reindex tags, this function is in 70.posts.php
+		reIndexTagsPosts();
 
 		Alert::set($Language->g('Post added successfully'));
 		Redirect::page('admin', 'manage-posts');
@@ -37,6 +34,8 @@ function addPost($args)
 	{
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the post.');
 	}
+
+	return false;
 }
 
 // ============================================================================

@@ -18,18 +18,25 @@ class dbTags extends dbJSON
 		parent::__construct(PATH_DATABASES.'tags.php');
 	}
 
+	// Returns an array with a list of posts keys, filtered by a page number and a tag key.
 	public function getList($pageNumber, $postPerPage, $tagKey)
 	{
+		if( !isset($this->db['postsIndex'][$tagKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the posts list by the tag key: '.$tagKey);
+			return array();
+		}
+
 		$init = (int) $postPerPage * $pageNumber;
 		$end  = (int) min( ($init + $postPerPage - 1), $this->countPostsByTag($tagKey) - 1 );
 		$outrange = $init<0 ? true : $init > $end;
 
 		if(!$outrange) {
 			$list = $this->db['postsIndex'][$tagKey]['posts'];
-			$tmp = array_flip($list);
+			$tmp = array_flip($list); // Change the posts keys list in the array key.
 			return array_slice($tmp, $init, $postPerPage, true);
 		}
 
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the list of posts, out of range?. Pagenumber: '.$pageNumber);
 		return array();
 	}
 
@@ -38,11 +45,12 @@ class dbTags extends dbJSON
 		if( isset($this->db['postsIndex'][$tagKey]) ) {
 			return count($this->db['postsIndex'][$tagKey]['posts']);
 		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
+	// Regenerate the posts index for each tag.
+	// (array) $db, the $db must be sorted by date and the posts published only.
 	public function reindexPosts($db)
 	{
 		$tagsIndex = array();
@@ -74,6 +82,8 @@ class dbTags extends dbJSON
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
+
+		return true;
 	}
 
 }

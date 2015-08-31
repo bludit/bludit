@@ -69,7 +69,7 @@ include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
 
-// Try detect locale/language from HTTP
+// Try to detect language from HTTP
 $explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 $localeFromHTTP = empty($explode[0])?'en_US':str_replace('-', '_', $explode[0]);
 
@@ -193,13 +193,19 @@ function install($adminPassword, $email)
 
 	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
 		error_log($errorText, 0);
 	}
 
 	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tags';
 		error_log($errorText, 0);
 	}
 
@@ -291,14 +297,36 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-	// File plugins/pages/db.php
-	$data = array(
-		'homeLink'=>true,
-		'label'=>$Language->get('Pages'),
-		'position'=>'0'
+	// File tags.php
+	file_put_contents(
+		PATH_DATABASES.'tags.php',
+		$dataHead.json_encode(
+			array(
+				'postsIndex'=>array(
+					'bludit'=>array('name'=>'Bludit', 'posts'=>array('first-post')),
+					'cms'=>array('name'=>'cms', 'posts'=>array('first-post'))
+				),
+				'pagesIndex'=>array()
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
 	);
 
-	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+	// PLUGINS
+
+	// File plugins/pages/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'pages'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'homeLink'=>true,
+				'label'=>$Language->get('Pages')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
 
 	// File plugins/simplemde/db.php
 	file_put_contents(
@@ -311,13 +339,17 @@ function install($adminPassword, $email)
 		LOCK_EX
 	);
 
-	// File tags.php
-	$data = array(
-		'postsIndex'=>array(),
-		'pagesIndex'=>array()
+	// File plugins/tags/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'tags'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'label'=>$Language->get('Tags')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
 	);
-
-	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'

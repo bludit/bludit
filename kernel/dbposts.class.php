@@ -15,7 +15,7 @@ class dbPosts extends dbJSON
 
 	private $numberPosts = array(
 		'total'=>0,
-		'withoutDrafts'=>0
+		'published'=>0
 	);
 
 	function __construct()
@@ -31,7 +31,7 @@ class dbPosts extends dbJSON
 			return $this->numberPosts['total'];
 		}
 
-		return $this->numberPosts['withoutDrafts'];
+		return $this->numberPosts['published'];
 	}
 
 	// Return an array with the post's database, FALSE otherwise.
@@ -163,10 +163,6 @@ class dbPosts extends dbJSON
 
 	public function edit($args)
 	{
-		if( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
-			$args['date'] = Date::current(DB_DATE_FORMAT);
-		}
-
 		if( $this->delete($args['key']) ) {
 			return $this->add($args);
 		}
@@ -203,7 +199,109 @@ class dbPosts extends dbJSON
 		return true;
 	}
 
-	public function regenerate()
+	// Returns an array with a list of posts keys, filtered by a page number.
+	public function getList($pageNumber, $postPerPage, $removeUnpublished=true)
+	{
+		$totalPosts = $this->numberPosts['total'];
+
+		// Remove the unpublished posts.
+		if($removeUnpublished) {
+			$this->removeUnpublished();
+			$totalPosts = $this->numberPosts['published'];
+		}
+
+		$init = (int) $postPerPage * $pageNumber;
+		$end  = (int) min( ($init + $postPerPage - 1), $totalPosts - 1 );
+		$outrange = $init<0 ? true : $init>$end;
+
+		if(!$outrange)
+		{
+			// Sort posts
+			$this->sortByDate();
+
+			return array_slice($this->db, $init, $postPerPage, true);
+		}
+
+		return array();
+	}
+
+	// Delete all posts from an user.
+	public function deletePostsByUser($username)
+	{
+		foreach($this->db as $key=>$value)
+		{
+			if($value['username']==$username) {
+				unset($this->db[$key]);
+			}
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
+	// Link-up all posts from an user to another user.
+	public function linkPostsToUser($oldUsername, $newUsername)
+	{
+		foreach($this->db as $key=>$value)
+		{
+			if($value['username']==$oldUsername) {
+				$this->db[$key]['username'] = $newUsername;
+			}
+		}
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
+	// Remove the posts not published, status != published or date grater than current date.
+	public function removeUnpublished($scheduled=true)
+	{
+		$currentDate = Date::current(DB_DATE_FORMAT);
+
+		foreach($this->db as $key=>$values)
+		{
+			if( ($values['status']!='published') || ( ($values['date']>$currentDate) && $scheduled ) ) {
+				unset($this->db[$key]);
+			}
+		}
+
+		$this->numberPosts['published'] = count($this->db);
+
+		return true;
+	}
+
+	// Sort posts by date.
+	public function sortByDate($HighToLow=true)
+	{
+		if($HighToLow) {
+			uasort($this->db, array($this, 'sortHighToLow'));
+		}
+		else {
+			uasort($this->db, array($this, 'sortLowToHigh'));
+		}
+
+		return true;
+	}
+
+	private function sortLowToHigh($a, $b) {
+		return $a['date']>$b['date'];
+	}
+
+	private function sortHighToLow($a, $b) {
+		return $a['date']<$b['date'];
+	}
+
+	public function regenerateCli()
 	{
 		$db = $this->db;
 		$newPaths = array();
@@ -263,162 +361,6 @@ class dbPosts extends dbJSON
 		}
 
 		return $this->db!=$db;
-	}
-
-/*
-	public function regenerate()
-	{
-		$db = $this->db;
-		$paths = array();
-		$fields = array();
-
-		// Default fields and value
-		foreach($this->dbFields as $field=>$options) {
-			if(!$options['inFile']) {
-				$fields[$field] = $options['value'];
-			}
-		}
-
-		// Unix time stamp
-		$fields['date'] = Date::current(DB_DATE_FORMAT);
-
-		// Username
-		$fields['username'] = 'admin';
-
-		if(HANDMADE_PUBLISHED) {
-			$fields['status']='published';
-		}
-
-		// Recovery pages from the first level of directories
-		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
-		foreach($tmpPaths as $directory)
-		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.'index.txt')) {
-				// The key is the directory name
-				$paths[$key] = true;
-			}
-		}
-
-		// Remove old posts from db
-		foreach( array_diff_key($db, $paths) as $slug=>$data ) {
-			unset($this->db[$slug]);
-		}
-
-		// Insert new posts to db
-		foreach( array_diff_key($paths, $db) as $slug=>$data ) {
-			$this->db[$slug] = $fields;
-		}
-
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return $this->db!=$db;
-	}
-*/
-	public function getList($pageNumber, $postPerPage, $draftPosts=false)
-	{
-		// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
-		// DEBUG: Se eliminan antes de ordenarlos porque sino los draft cuentan como publicados en el PostPerPage.
-		if(!$draftPosts) {
-			$this->removeUnpublished();
-			$this->numberPosts['withoutDrafts'] = count($this->db);
-		}
-
-		$init = (int) $postPerPage * $pageNumber;
-		$end  = (int) min( ($init + $postPerPage - 1), count($this->db) - 1 );
-		$outrange = $init<0 ? true : $init>$end;
-
-		// Sort posts
-		$this->sortByDate();
-
-		if(!$outrange) {
-			$tmp = $this->db;
-			return array_slice($tmp, $init, $postPerPage, true);
-		}
-
-		return array();
-	}
-
-	// Delete all posts from an user.
-	public function deletePostsByUser($username)
-	{
-		foreach($this->db as $key=>$value)
-		{
-			if($value['username']==$username) {
-				unset($this->db[$key]);
-			}
-		}
-
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
-	}
-
-	// Link-up all posts from an user to another user.
-	public function linkPostsToUser($oldUsername, $newUsername)
-	{
-		foreach($this->db as $key=>$value)
-		{
-			if($value['username']==$oldUsername) {
-				$this->db[$key]['username'] = $newUsername;
-			}
-		}
-
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
-	}
-
-	// Remove the posts not published, status != published and date grater than current date.
-	// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
-	private function removeUnpublished()
-	{
-		$tmp = array();
-		$currentDate = Date::current(DB_DATE_FORMAT);
-
-		foreach($this->db as $key=>$values)
-		{
-			if( ($values['status']==='published') && ($values['date']<=$currentDate) ) {
-				$tmp[$key]=$values;
-			}
-		}
-
-		$this->db = $tmp;
-	}
-
-	private function sortByDate($low_to_high=false)
-	{
-		// high to low
-		function high_to_low($a, $b) {
-			return $a['date']<$b['date'];
-		}
-
-		// low to high
-		function low_to_high($a, $b) {
-			return $a['date']>$b['date'];
-		}
-
-		$tmp = $this->db;
-
-		if($low_to_high)
-			uasort($tmp, 'low_to_high');
-		else
-			uasort($tmp, 'high_to_low');
-
-		return true;
 	}
 
 }

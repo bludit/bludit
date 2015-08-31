@@ -3,6 +3,7 @@
 class dbJSON
 {
 	public $db;
+	public $dbBackup;
 	public $file;
 	public $firstLine;
 
@@ -12,6 +13,7 @@ class dbJSON
 	{
 		$this->file = $file;
 		$this->db = array();
+		$this->dbBackup = array();
 		$this->firstLine = $firstLine;
 
 		if(file_exists($file))
@@ -35,12 +37,19 @@ class dbJSON
 			}
 			else {
 				$this->db = $array;
+				$this->dbBackup = $array;
 			}
 		}
 		else
 		{
 			Log::set(__METHOD__.LOG_SEP.'File '.$file.' does not exists');
 		}
+	}
+
+	public function restoreDb()
+	{
+		$this->db = $this->dbBackup;
+		return true;
 	}
 
 	// Returns the amount of database items.
