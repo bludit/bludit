@@ -15,11 +15,8 @@ function reIndexTagsPosts()
 	global $dbPosts;
 	global $dbTags;
 
-	// Remove unpublished, only drafts.
-	$dbPosts->removeUnpublished(false);
-
-	// Sort posts
-	$dbPosts->sortByDate();
+	// Remove unpublished.
+	$dbPosts->removeUnpublished();
 
 	// Regenerate the tags index for posts
 	$dbTags->reindexPosts( $dbPosts->db );
@@ -102,7 +99,8 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 	}
 
 	// There are not posts for the page number then set the page notfound
-	if(empty($list) && $pageNumber>0) {
+	//if(empty($list) && $pageNumber>0) {
+	if(empty($list)) {
 		$Url->setNotFound(true);
 	}
 
@@ -119,6 +117,12 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 // ============================================================================
 // Main
 // ============================================================================
+
+// Execute the scheduler.
+if( $dbPosts->scheduler() ) {
+	// Reindex dbTags.
+	reIndexTagsPosts();
+}
 
 // Build specific post.
 if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )

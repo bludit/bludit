@@ -7,7 +7,7 @@ class dbPosts extends dbJSON
 		'content'=>		array('inFile'=>true,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
-		'status'=>		array('inFile'=>false,	'value'=>'draft'),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
 		'tags'=>		array('inFile'=>false,	'value'=>''),
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
 		'date'=>		array('inFile'=>false,	'value'=>'')
@@ -91,6 +91,7 @@ class dbPosts extends dbJSON
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
+		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		// Generate the database key.
 		$key = $this->generateKey($args['slug']);
@@ -101,8 +102,14 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
+		// Date
 		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
-			$args['date'] = Date::current(DB_DATE_FORMAT);
+			$args['date'] = $currentDate;
+		}
+
+		// Schedule post?
+		if( ($args['date']>$currentDate) && ($args['status']=='published') ) {
+			$args['status'] = 'scheduled';
 		}
 
 		// Verify arguments with the database fields.
@@ -153,6 +160,10 @@ class dbPosts extends dbJSON
 
 		// Save the database
 		$this->db[$key] = $dataForDb;
+
+		// Sort posts before save.
+		$this->sortByDate();
+
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
@@ -214,11 +225,7 @@ class dbPosts extends dbJSON
 		$end  = (int) min( ($init + $postPerPage - 1), $totalPosts - 1 );
 		$outrange = $init<0 ? true : $init>$end;
 
-		if(!$outrange)
-		{
-			// Sort posts
-			$this->sortByDate();
-
+		if(!$outrange) {
 			return array_slice($this->db, $init, $postPerPage, true);
 		}
 
@@ -254,6 +261,9 @@ class dbPosts extends dbJSON
 			}
 		}
 
+		// Sort posts before save.
+		$this->sortByDate();
+
 		// Save the database.
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
@@ -263,14 +273,12 @@ class dbPosts extends dbJSON
 		return true;
 	}
 
-	// Remove the posts not published, status != published or date grater than current date.
-	public function removeUnpublished($scheduled=true)
+	// Remove unpublished posts, status != published.
+	public function removeUnpublished()
 	{
-		$currentDate = Date::current(DB_DATE_FORMAT);
-
 		foreach($this->db as $key=>$values)
 		{
-			if( ($values['status']!='published') || ( ($values['date']>$currentDate) && $scheduled ) ) {
+			if($values['status']!='published') {
 				unset($this->db[$key]);
 			}
 		}
@@ -278,6 +286,44 @@ class dbPosts extends dbJSON
 		$this->numberPosts['published'] = count($this->db);
 
 		return true;
+	}
+
+	// Return TRUE if there are new posts published, FALSE otherwise.
+	public function scheduler()
+	{
+		// Get current date.
+		$currentDate = Date::current(DB_DATE_FORMAT);
+
+		$saveDatabase = false;
+
+		// Check scheduled posts and publish.
+		foreach($this->db as $postKey=>$values)
+		{
+			if($values['status']=='scheduled')
+			{
+				// Publish post.
+				if($values['date']<=$currentDate) {
+					$this->db[$postKey]['status'] = 'published';
+					$saveDatabase = true;
+				}
+			}
+			elseif($values['status']=='published') {
+				break;
+			}
+		}
+
+		// Save the database.
+		if($saveDatabase)
+		{
+			if( $this->save() === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+				return false;
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	// Sort posts by date.
@@ -289,6 +335,9 @@ class dbPosts extends dbJSON
 		else {
 			uasort($this->db, array($this, 'sortLowToHigh'));
 		}
+
+
+		Log::set(__METHOD__.LOG_SEP.'Sorted.'.$HighToLow);
 
 		return true;
 	}

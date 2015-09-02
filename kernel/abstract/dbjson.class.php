@@ -61,17 +61,20 @@ class dbJSON
 	// Save the JSON file.
 	public function save()
 	{
+		$data = '';
+
 		if($this->firstLine) {
 			$data  = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
 		}
-		else {
-			$data = '';
-		}
 
+		// Serialize database
 		$data .= $this->serialize($this->db);
 
+		// Backup the new database.
+		$this->dbBackup = $this->db;
+
 		// LOCK_EX flag to prevent anyone else writing to the file at the same time.
-		file_put_contents($this->file, $data, LOCK_EX);
+		return file_put_contents($this->file, $data, LOCK_EX);
 	}
 
 	private function serialize($data)

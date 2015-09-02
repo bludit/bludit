@@ -78,6 +78,7 @@ class dbTags extends dbJSON
 		}
 
 		$this->db['postsIndex'] = $tagsIndex;
+
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
