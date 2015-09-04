@@ -67,12 +67,16 @@ class dbTags extends dbJSON
 				$tagName = trim($tagName);
 				$tagKey = Text::cleanUrl($tagName);
 
-				if( isset($tagsIndex[$tagKey]) ) {
-					array_push($tagsIndex[$tagKey]['posts'], $postKey);
-				}
-				else {
-					$tagsIndex[$tagKey]['name'] = $tagName;
-					$tagsIndex[$tagKey]['posts'] = array($postKey);
+				// If the tag is not empty.
+				if(Text::isNotEmpty($tagName))
+				{
+					if( isset($tagsIndex[$tagKey]) ) {
+						array_push($tagsIndex[$tagKey]['posts'], $postKey);
+					}
+					else {
+						$tagsIndex[$tagKey]['name'] = $tagName;
+						$tagsIndex[$tagKey]['posts'] = array($postKey);
+					}
 				}
 			}
 		}

@@ -2,7 +2,7 @@
 
 <?php makeNavbar('users'); ?>
 
-<form method="post" action="" class="forms">
+<form method="post" action="" class="forms" autocomplete="off">
     <label>
         <?php $Language->p('Username') ?>
         <input type="text" name="username" class="width-50" value="<?php echo (isset($_POST['username'])?$_POST['username']:'') ?>">
