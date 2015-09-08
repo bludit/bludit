@@ -5,7 +5,16 @@ Bludit is a fast, simple, extensible and Flat file CMS.
 
 - [Documentation](http://docs.bludit.com/en/)
 - [Help and Support](http://forum.bludit.com)
-- Follow Bludit on [Twitter](https://twitter.com/bludit) and [Facebook](https://www.facebook.com/pages/Bludit/239255789455913)
+- [Plugins](https://github.com/dignajar/bludit-plugins)
+- [Themes](https://github.com/dignajar/bludit-themes)
+- [More plugins and themes](http://forum.bludit.com/viewforum.php?f=14)
+
+Social
+------
+
+- [Twitter](https://twitter.com/bludit)
+- [Facebook](https://www.facebook.com/pages/Bludit/239255789455913)
+- [Google+](https://plus.google.com/+Bluditcms)
 
 Requirements
 ------------
@@ -17,7 +26,6 @@ You only need a Webserver with PHP support.
 - Webserver:
   * Apache with module [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
   * Ngnix with module [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)
-
 
 Installation guide
 ------------------
