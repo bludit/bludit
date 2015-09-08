@@ -39,18 +39,22 @@ if( $layout['slug']==='ajax' )
 else
 {
 	// Boot rules
-	include(PATH_RULES.'70.build_posts.php');
-	include(PATH_RULES.'70.build_pages.php');
+	include(PATH_RULES.'70.posts.php');
+	include(PATH_RULES.'70.pages.php');
 	include(PATH_RULES.'80.plugins.php');
 	include(PATH_RULES.'99.header.php');
 	include(PATH_RULES.'99.paginator.php');
 	include(PATH_RULES.'99.themes.php');
+	include(PATH_RULES.'99.security.php');
 
 	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') )
 	{
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';
+
+		// Generate the token for the user not logged, when the user is loggued the token will be change.
+		$Security->generateToken();
 	}
 
 	// Plugins before admin area loaded

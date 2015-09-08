@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-file-text-o"></i> <?php $Language->p('Manage posts') ?></h2>
+<h2 class="title"><i class="fa fa-file-text-o"></i><?php $Language->p('Manage posts') ?></h2>
 
 <?php makeNavbar('manage'); ?>
 

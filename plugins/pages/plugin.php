@@ -34,7 +34,13 @@ class pluginPages extends Plugin {
 		global $Site;
 
 		$html  = '<div class="plugin plugin-pages">';
-		$html .= '<h2>'.$this->getDbField('label').'</h2>';
+
+		// If the label is not empty, print it.
+		$label = $this->getDbField('label');
+		if( !empty($label) ) {
+			$html .= '<h2>'.$label.'</h2>';
+		}
+
 		$html .= '<div class="plugin-content">';
 
 		$parents = $pagesParents[NO_PARENT_CHAR];

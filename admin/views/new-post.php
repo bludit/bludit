@@ -1,6 +1,8 @@
-<h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('New post') ?></h2>
+<h2 class="title"><i class="fa fa-pencil"></i><?php $Language->p('New post') ?></h2>
 
 <form method="post" action="" class="forms">
+
+	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
 
 	<label>
 		<?php $Language->p('Title') ?>

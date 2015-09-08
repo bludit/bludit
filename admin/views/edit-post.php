@@ -1,7 +1,8 @@
-<h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('Edit post') ?></h2>
+<h2 class="title"><i class="fa fa-pencil"></i><?php $Language->p('Edit post') ?></h2>
 
 <form method="post" action="" class="forms">
 
+	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
 	<input type="hidden" id="jskey" name="key" value="<?php echo $_Post->key() ?>">
 
 	<label>

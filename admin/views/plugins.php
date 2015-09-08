@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-rocket"></i> <?php $Language->p('Plugins') ?></h2>
+<h2 class="title"><i class="fa fa-rocket"></i><?php $Language->p('Plugins') ?></h2>
 
 <?php
 	foreach($plugins['all'] as $Plugin)

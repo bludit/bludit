@@ -63,15 +63,13 @@ class Post extends fileContent
 	// Returns TRUE if the post is published, FALSE otherwise.
 	public function published()
 	{
-		$currentDate = Date::current(DB_DATE_FORMAT);
-		return ( ($this->getField('status')==='published') && ($this->getField('date')<=$currentDate) );
+		return ($this->getField('status')==='published');
 	}
 
 	// Returns TRUE if the post is scheduled, FALSE otherwise.
 	public function scheduled()
 	{
-		$currentDate = Date::current(DB_DATE_FORMAT);
-		return ( ($this->getField('status')==='published') && ($this->getField('date')>$currentDate) );
+		return ($this->getField('status')==='scheduled');
 	}
 
 	// Returns TRUE if the post is draft, FALSE otherwise.
@@ -113,9 +111,18 @@ class Post extends fileContent
 		return $date;
 	}
 
-	public function tags()
+	public function tags($returnsArray=false)
 	{
-		return $this->getField('tags');
+		global $Url;
+
+		$tags = $this->getField('tags');
+
+		if($returnsArray) {
+			return explode(',', $tags);
+		}
+		else {
+			return $tags;
+		}
 	}
 
 	public function slug()

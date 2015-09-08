@@ -1,13 +1,16 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
+// Check role
+// ============================================================================
+
+// ============================================================================
 // Functions
 // ============================================================================
 
 function editPost($args)
 {
 	global $dbPosts;
-	global $dbTags;
 	global $Language;
 
 	// Post status, published or draft.
@@ -21,8 +24,8 @@ function editPost($args)
 	// Edit the post.
 	if( $dbPosts->edit($args) )
 	{
-		// Regenerate the database tags
-		$dbTags->reindexPosts( $dbPosts->db );
+		// Reindex tags, this function is in 70.posts.php
+		reIndexTagsPosts();
 
 		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-post/'.$args['key']);
@@ -31,18 +34,19 @@ function editPost($args)
 	{
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the post.');
 	}
+
+	return false;
 }
 
 function deletePost($key)
 {
 	global $dbPosts;
-	global $dbTags;
 	global $Language;
 
 	if( $dbPosts->delete($key) )
 	{
-		// Regenerate the database tags
-		$dbTags->reindexPosts( $dbPosts->db );
+		// Reindex tags, this function is in 70.posts.php
+		reIndexTagsPosts();
 
 		Alert::set($Language->g('The post has been deleted successfully'));
 		Redirect::page('admin', 'manage-posts');

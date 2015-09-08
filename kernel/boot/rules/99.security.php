@@ -1,42 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
-// Check role
+// Variables
 // ============================================================================
 
 // ============================================================================
 // Functions
 // ============================================================================
-
-function addPost($args)
-{
-	global $dbPosts;
-	global $Language;
-
-	// Page status, published or draft.
-	if( isset($args['publish']) ) {
-		$args['status'] = "published";
-	}
-	else {
-		$args['status'] = "draft";
-	}
-
-	// Add the page.
-	if( $dbPosts->add($args) )
-	{
-		// Reindex tags, this function is in 70.posts.php
-		reIndexTagsPosts();
-
-		Alert::set($Language->g('Post added successfully'));
-		Redirect::page('admin', 'manage-posts');
-	}
-	else
-	{
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the post.');
-	}
-
-	return false;
-}
 
 // ============================================================================
 // Main before POST
@@ -48,7 +18,22 @@ function addPost($args)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	addPost($_POST);
+	$token = isset($_POST['token']) ? Sanitize::html($_POST['token']) : false;
+
+	if( !$Security->validateToken($token) )
+	{
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying validate the token. Token ID: '.$token);
+
+		// Destroy the session.
+		Session::destroy();
+
+		// Redirect to login panel.
+		Redirect::page('admin', 'login');
+	}
+	else
+	{
+		unset($_POST['token']);
+	}
 }
 
 // ============================================================================

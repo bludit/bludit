@@ -2,14 +2,15 @@
 
 <form id="jsformplugin" method="post" action="" class="forms">
 
-    <input type="hidden" id="jskey" name="key" value="">
+	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+	<input type="hidden" id="jskey" name="key" value="">
 
-    <?php
-        echo $_Plugin->form();
-    ?>
+	<?php
+		echo $_Plugin->form();
+	?>
 
-    <div>
-    <button class="btn btn-blue" name="publish"><?php echo $Language->p('Save') ?></button>
-    </div>
+	<div>
+	<button class="btn btn-blue" name="publish"><?php echo $Language->p('Save') ?></button>
+	</div>
 
 </form>

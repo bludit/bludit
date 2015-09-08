@@ -9,10 +9,33 @@ class pluginsimpleMDE extends Plugin {
 		'edit-page'
 	);
 
-	public function adminHead()
+	public function init()
+	{
+		$this->dbFields = array(
+			'tabSize'=>'2',
+			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"'
+		);
+	}
+
+	public function form()
 	{
 		global $Language;
-		global $Site;
+
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Toolbar').'</label>';
+		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getDbField('toolbar').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Tab size').'</label>';
+		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public function adminHead()
+	{
 		global $layout;
 
 		$html = '';
@@ -20,16 +43,20 @@ class pluginsimpleMDE extends Plugin {
 		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
-			$language = $Site->shortLanguage();
+			// Path plugin.
 			$pluginPath = $this->htmlPath();
 
+			// Load CSS
 			$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/simplemde.min.css">';
+
+			// Load Javascript
 			$html .= '<script src="'.$pluginPath.'js/simplemde.min.js"></script>';
 
-			//$html  = '<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">';
-			//$html .= '<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">';
-			//$html .= '<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>';
-
+			// Hack for Bludit
+			$html .= '<style>
+					.editor-toolbar::before { margin-bottom: 2px !important }
+					.editor-toolbar::after { margin-top: 2px !important }
+				</style>';
 
 		}
 
@@ -38,8 +65,6 @@ class pluginsimpleMDE extends Plugin {
 
 	public function adminBodyEnd()
 	{
-		global $Language;
-		global $Site;
 		global $layout;
 
 		$html = '';
@@ -47,7 +72,6 @@ class pluginsimpleMDE extends Plugin {
 		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
-			$language = $Site->shortLanguage();
 			$pluginPath = $this->htmlPath();
 
 			$html  = '<script>$(document).ready(function() { ';
@@ -58,10 +82,11 @@ class pluginsimpleMDE extends Plugin {
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: false,
-					lineWrapping: false,
+					lineWrapping: true,
 					indentWithTabs: true,
-					tabSize: 4,
-					spellChecker: false
+					tabSize: '.$this->getDbField('tabSize').',
+					spellChecker: false,
+					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
 				});';
 			$html .= '}); </script>';
 		}

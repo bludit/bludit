@@ -100,9 +100,15 @@ class Url
 	}
 
 	// Return the filter used
-	public function filters($type)
+	public function filters($type, $trim=true)
 	{
-		return $this->filters[$type];
+		$filter = $this->filters[$type];
+
+		if($trim) {
+			$filter = trim($filter, '/');
+		}
+
+		return $filter;
 	}
 
 	// Return: home, tag, post

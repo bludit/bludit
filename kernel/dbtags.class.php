@@ -18,16 +18,39 @@ class dbTags extends dbJSON
 		parent::__construct(PATH_DATABASES.'tags.php');
 	}
 
+	// Returns an array with a list of posts keys, filtered by a page number and a tag key.
+	public function getList($pageNumber, $postPerPage, $tagKey)
+	{
+		if( !isset($this->db['postsIndex'][$tagKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the posts list by the tag key: '.$tagKey);
+			return array();
+		}
+
+		$init = (int) $postPerPage * $pageNumber;
+		$end  = (int) min( ($init + $postPerPage - 1), $this->countPostsByTag($tagKey) - 1 );
+		$outrange = $init<0 ? true : $init > $end;
+
+		if(!$outrange) {
+			$list = $this->db['postsIndex'][$tagKey]['posts'];
+			$tmp = array_flip($list); // Change the posts keys list in the array key.
+			return array_slice($tmp, $init, $postPerPage, true);
+		}
+
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the list of posts, out of range?. Pagenumber: '.$pageNumber);
+		return array();
+	}
+
 	public function countPostsByTag($tagKey)
 	{
 		if( isset($this->db['postsIndex'][$tagKey]) ) {
 			return count($this->db['postsIndex'][$tagKey]['posts']);
 		}
-		else {
-			return false;
-		}
+
+		return 0;
 	}
 
+	// Regenerate the posts index for each tag.
+	// (array) $db, the $db must be sorted by date and the posts published only.
 	public function reindexPosts($db)
 	{
 		$tagsIndex = array();
@@ -36,16 +59,18 @@ class dbTags extends dbJSON
 		// Foreach post
 		foreach($db as $postKey=>$values)
 		{
-			if( ($values['status']==='published') && ($values['date']<=$currentDate) )
+			$explode = explode(',', $values['tags']);
+
+			// Foreach tag from post
+			foreach($explode as $tagName)
 			{
-				$explode = explode(',', $values['tags']);
+				$tagName = trim($tagName);
+				$tagKey = $tagName;
+				//$tagKey = Text::cleanUrl($tagName);
 
-				// Foreach tag from post
-				foreach($explode as $tagName)
+				// If the tag is not empty.
+				if(Text::isNotEmpty($tagName))
 				{
-					$tagName = trim($tagName);
-					$tagKey = Text::cleanUrl($tagName);
-
 					if( isset($tagsIndex[$tagKey]) ) {
 						array_push($tagsIndex[$tagKey]['posts'], $postKey);
 					}
@@ -58,10 +83,13 @@ class dbTags extends dbJSON
 		}
 
 		$this->db['postsIndex'] = $tagsIndex;
+
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
+
+		return true;
 	}
 
 }

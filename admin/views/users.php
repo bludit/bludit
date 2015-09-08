@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-users"></i> <?php $Language->p('Users') ?></h2>
+<h2 class="title"><i class="fa fa-users"></i><?php $Language->p('Users') ?></h2>
 
 <?php makeNavbar('users'); ?>
 

@@ -64,14 +64,14 @@ function build_plugins()
 		$Plugin = new $pluginClass;
 
 		// Set Plugin data
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'language'.DS.$Site->locale().'.json';
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
 		if( Sanitize::pathFile($languageFilename) )
 		{
 			$database = new dbJSON($languageFilename, false);
 		}
 		else
 		{
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'language'.DS.'en_US.json';
+			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
 			$database = new dbJSON($languageFilename, false);
 		}
 
@@ -83,7 +83,7 @@ function build_plugins()
 		$Language->add($databaseArray);
 
 		// Push Plugin to array all plugins installed and not installed.
-		array_push($plugins['all'], $Plugin);
+		$plugins['all'][$pluginClass] = $Plugin;
 
 		// If the plugin installed
 		if($Plugin->installed())
