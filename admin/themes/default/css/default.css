@@ -32,7 +32,7 @@ span.label {
 /* ----------- HEAD ----------- */
 #head {
     overflow: auto;
-    border-top: 10px #f1f1f1 solid;
+    border-top: 10px #eee solid;
     border-bottom: 1px solid #f1f1f1;
     padding: 10px 0;
 }
@@ -103,6 +103,10 @@ span.label {
 
 h2.title {
     font-weight: normal;
+}
+
+h2.title i.fa {
+    margin-right: 8px;
 }
 
 /* ----------- TABLE ----------- */

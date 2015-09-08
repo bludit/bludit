@@ -111,9 +111,18 @@ class Post extends fileContent
 		return $date;
 	}
 
-	public function tags()
+	public function tags($returnsArray=false)
 	{
-		return $this->getField('tags');
+		global $Url;
+
+		$tags = $this->getField('tags');
+
+		if($returnsArray) {
+			return explode(',', $tags);
+		}
+		else {
+			return $tags;
+		}
 	}
 
 	public function slug()

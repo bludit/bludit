@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-adjust"></i> <?php $Language->p('Themes') ?></h2>
+<h2 class="title"><i class="fa fa-adjust"></i><?php $Language->p('Themes') ?></h2>
 
 <?php
 	foreach($themes as $theme)

@@ -65,7 +65,8 @@ class dbTags extends dbJSON
 			foreach($explode as $tagName)
 			{
 				$tagName = trim($tagName);
-				$tagKey = Text::cleanUrl($tagName);
+				$tagKey = $tagName;
+				//$tagKey = Text::cleanUrl($tagName);
 
 				// If the tag is not empty.
 				if(Text::isNotEmpty($tagName))

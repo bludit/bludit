@@ -2,9 +2,11 @@
 
 <form method="post" action="" class="forms">
 
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label>
-        <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-90">
+    <?php $Language->p('Title') ?>
+    <input id="jstitle" name="title" type="text" class="width-90">
     </label>
 
     <label class="width-90">

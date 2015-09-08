@@ -112,6 +112,12 @@ class dbPosts extends dbJSON
 			$args['status'] = 'scheduled';
 		}
 
+		// Tags
+		if(Text::isNotEmpty($args['tags'])) {
+			$cleanTags = array_map('trim', explode(',', $args['tags']));
+			$args['tags'] = implode(',', $cleanTags);
+		}
+
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
@@ -335,9 +341,6 @@ class dbPosts extends dbJSON
 		else {
 			uasort($this->db, array($this, 'sortLowToHigh'));
 		}
-
-
-		Log::set(__METHOD__.LOG_SEP.'Sorted.'.$HighToLow);
 
 		return true;
 	}

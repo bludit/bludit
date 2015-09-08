@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-cogs"></i> <?php $Language->p('Settings') ?></h2>
+<h2 class="title"><i class="fa fa-cogs"></i><?php $Language->p('Settings') ?></h2>
 
 <nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#general">
     <ul>
@@ -15,6 +15,9 @@
 
 <div id="general">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label>
     <?php $Language->p('Site title') ?>
     <input type="text" name="title" class="width-50" value="<?php echo $Site->title() ?>">
@@ -50,6 +53,9 @@
 
 <div id="advanced">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label for="postsperpage">
         <?php $Language->p('Posts per page') ?>
         <select name="postsperpage" class="width-50">
@@ -112,6 +118,9 @@
 
 <div id="regional">
 <form method="post" action="" class="forms" name="form-regional">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label for="jslanguage">
         <?php $Language->p('Language') ?>
         <select id="jslanguage" name="language" class="width-50">

@@ -28,7 +28,7 @@ class pluginTags extends Plugin {
 		global $Url;
 
 		$db = $dbTags->db['postsIndex'];
-		$filter = trim($Url->filters('tag'), '/');
+		$filter = $Url->filters('tag');
 
 		$html  = '<div class="plugin plugin-tags">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';

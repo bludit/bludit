@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-user"></i> <?php $Language->p('Edit user') ?></h2>
+<h2 class="title"><i class="fa fa-user"></i><?php $Language->p('Edit user') ?></h2>
 
 <nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#profile">
     <ul>
@@ -18,6 +18,8 @@
 
 <div id="profile">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
     <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 

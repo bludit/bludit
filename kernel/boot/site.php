@@ -20,6 +20,9 @@ if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'init.php') ) {
 if( Sanitize::pathFile(PATH_THEMES, $Site->theme().DS.'index.php') ) {
 	include(PATH_THEMES.$Site->theme().DS.'index.php');
 }
+else {
+	$Language->p('Please check your theme configuration');
+}
 
 // Plugins after site loaded
 Theme::plugins('afterSiteLoad');

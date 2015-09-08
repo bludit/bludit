@@ -138,7 +138,7 @@ class dbSite extends dbJSON
 	// Returns the relative home link
 	public function homeLink()
 	{
-		return 	HTML_PATH_ROOT;
+		return HTML_PATH_ROOT;
 	}
 
 	// Returns the timezone.

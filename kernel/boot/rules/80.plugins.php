@@ -83,7 +83,7 @@ function build_plugins()
 		$Language->add($databaseArray);
 
 		// Push Plugin to array all plugins installed and not installed.
-		array_push($plugins['all'], $Plugin);
+		$plugins['all'][$pluginClass] = $Plugin;
 
 		// If the plugin installed
 		if($Plugin->installed())

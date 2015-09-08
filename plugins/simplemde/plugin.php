@@ -82,7 +82,7 @@ class pluginsimpleMDE extends Plugin {
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: false,
-					lineWrapping: false,
+					lineWrapping: true,
 					indentWithTabs: true,
 					tabSize: '.$this->getDbField('tabSize').',
 					spellChecker: false,

@@ -99,8 +99,7 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 	}
 
 	// There are not posts for the page number then set the page notfound
-	//if(empty($list) && $pageNumber>0) {
-	if(empty($list)) {
+	if(empty($list) && $pageNumber>0) {
 		$Url->setNotFound(true);
 	}
 
