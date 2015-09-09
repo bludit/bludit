@@ -31,8 +31,9 @@ class pluginPages extends Plugin {
 	{
 		global $Language;
 		global $pagesParents;
-		global $Site;
-
+		global $Site, $Url;
+		$home = $Url->whereAmI()==='home';
+		
 		$html  = '<div class="plugin plugin-pages">';
 
 		// If the label is not empty, print it.
@@ -48,15 +49,17 @@ class pluginPages extends Plugin {
 		$html .= '<ul>';
 
 		if($this->getDbField('homeLink')) {
-			$html .= '<li><a class="parent" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a></li>';
+			$current = ($Site->homeLink()==$home) ? ' class="active"' : '';
+			$html .= '<li' .$current. '><a class="parent" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a></li>';
 		}
 
 		foreach($parents as $parent)
 		{
 			//if($Site->homepage()!==$parent->key())
 			{
+				$current_parent = ($parent->slug()==$Url->slug()) ? ' class="active"' : '';
 				// Print the parent
-				$html .= '<li><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a>';
+				$html .= '<li' .$current_parent. '><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
 				// Check if the parent has children
 				if(isset($pagesParents[$parent->key()]))
@@ -67,7 +70,8 @@ class pluginPages extends Plugin {
 					$html .= '<ul>';
 					foreach($children as $child)
 					{
-						$html .= '<li><a class="children" href="'.$child->permalink().'">'.$child->title().'</a></li>';
+						$current_child = ($child->slug()==$Url->slug()) ? ' class="active"' : '';
+						$html .= '<li' .$current_child. '><a class="children" href="'.$child->permalink().'">'.$child->title().'</a></li>';
 					}
 					$html .= '</ul>';
 				}
