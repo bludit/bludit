@@ -17,7 +17,7 @@
 
         <!-- Post date and author -->
         <div class="post-meta">
-            <span class="date"><?php echo $Post->dateCreated() ?></span>
+            <span class="date"><?php echo $Post->date() ?></span>
             <span class="author">
                 <?php
                     echo $Language->get('Posted By').' ';

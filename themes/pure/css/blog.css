@@ -1,121 +1,123 @@
+
+/* ------------------------
+Default tags
+------------------------ */
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color: #2672ec;
+	text-decoration: none;
+	color: #2672ec;
 }
 
 a:hover,
 a:focus
 {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 p {
-    margin: 10px 0 0 0;
+	margin: 10px 0 0 0;
 }
 
 img {
-    display: block;
-    max-width: 100%;
+	display: block;
+	max-width: 100%;
 }
 
 table {
-    empty-cells: show;
-    border: 1px solid #cbcbcb;
+	empty-cells: show;
+	border: 1px solid #cbcbcb;
 }
 
 thead {
-    background-color: #e0e0e0;
-    color: #000;
-    text-align: left;
-    vertical-align: bottom;
+	background-color: #e0e0e0;
+	color: #000;
+	text-align: left;
+	vertical-align: bottom;
 }
 
 tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
 }
 
 th, td {
-    padding: 0.5em 1em;
+	padding: 0.5em 1em;
 }
 
 pre, code {
-    white-space: pre-wrap !important;
+	white-space: pre-wrap !important;
 }
 
-code {
-    font-size: 13px !important;
-}
 
-.subhead {
-  text-transform: uppercase;
-  color: #aaa;
-  border-bottom: 1px solid #eee;
-  padding: 0.4em 0;
-  font-size: 80%;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+/* ------------------------
+Content / Main
+------------------------ */
+#layout {
+	padding: 0;
 }
 
 .content {
-    padding-top: 3em;
-    margin-right: 30px;
-    margin-left: 30px;
+	padding: 2em 1em 0;
 }
 
-#layout {
-    padding: 0;
+.subhead {
+	text-transform: uppercase;
+	color: #aaa;
+	border-bottom: 1px solid #eee;
+	padding: 0.4em 0;
+	font-size: 80%;
+	font-weight: 500;
+	letter-spacing: 0.1em;
 }
 
-div.footer {
-    font-size: 0.9em;
-    color: #999;
-    text-align: center;
-    margin: 30px 0;
+.footer {
+	font-size: 0.9em;
+	color: #999;
+	text-align: center;
+	margin: 30px 0;
 }
 
 /* ------------------------
 Paginator
 ------------------------ */
 #paginator {
-    margin: 20px 0;
+margin: 20px 0;
 }
 
 #paginator a {
-    color: #2672ec;
+color: #2672ec;
 }
 
 #paginator ul {
-    clear: both;
-    list-style-type: none;
-    margin: 0;
-    overflow: auto;
-    padding: 0;
+clear: both;
+list-style-type: none;
+margin: 0;
+overflow: auto;
+padding: 0;
 }
 
 #paginator li {
-    display: block;
+display: block;
 }
 
 #paginator li.left {
-    float: left !important;
+float: left !important;
 }
 
 #paginator li.list {
-    background: #e0e0e0;
-    color: #747474;
-    padding: 2px 11px;
+background: #e0e0e0;
+color: #747474;
+padding: 2px 11px;
 }
 
 #paginator li.right {
-   float: right !important;
+float: right !important;
 }
 
 /* ------------------------
@@ -123,165 +125,171 @@ Pages and Posts
 ------------------------ */
 .page,
 .post {
-    margin: 0 0 70px 0;
+margin: 0 0 70px 0;
 }
 
 .page-title,
 .post-title
 {
-    font-size: 2.4em;
-    margin: 0;
+font-size: 2.4em;
+margin: 0;
 }
 
 .page-title a,
 .post-title a
 {
-    color: #555;
-    border-bottom: 5px solid #ccc;
-    display: inline-block;
+color: #555;
+border-bottom: 5px solid #ccc;
+display: inline-block;
 }
 
 .page a.read-more,
 .post a.read-more{
-    display: block;
-    text-align: center;
-    padding: 2px 5px;
+display: block;
+text-align: center;
+padding: 2px 5px;
 }
 
 
 .page-content,
 .post-content {
-    color: #444;
-    line-height: 1.7em;
-    margin-top: 22px;
+color: #444;
+line-height: 1.7em;
+margin-top: 22px;
 }
 
 .page-content hr,
 .post-content hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 30px 0;
-    padding: 0;
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #ccc;
+margin: 30px 0;
+padding: 0;
 }
 
 .page-content h2,
 .post-content h2
 {
-    color: #555;
-    margin: 30px 0 30px 0;
-    font-size: 2em;
-    font-weight: normal;
+color: #555;
+margin: 30px 0 30px 0;
+font-size: 2em;
+font-weight: normal;
 }
 
 .page-content h3,
 .post-content h3
 {
-    color: #555;
-    margin: 35px 0 25px 0;
-    font-size: 1.5em;
-    font-weight: normal;
+color: #555;
+margin: 35px 0 25px 0;
+font-size: 1.5em;
+font-weight: normal;
 }
 
 .page-content h4,
 .post-content h4
 {
-    color: #555;
-    margin: 25px 0 15px 0;
-    font-size: 1.2em;
-    font-weight: lighter;
+color: #555;
+margin: 25px 0 15px 0;
+font-size: 1.2em;
+font-weight: lighter;
 }
 
 .post-meta,
 .page-meta {
-    font-size: 90%;
-    margin: 0;
+font-size: 90%;
+margin: 0;
 }
 
 .post-meta span.date,
 .page-meta span.date {
-    color: #999;
-    margin-right: 10px;
+color: #999;
+margin-right: 10px;
 }
 
 .post-meta span.author,
 .page-meta span.author {
-    color: #ccc;
+color: #ccc;
 }
 
 /* ------------------------
 Sidebar
 ------------------------ */
-
 .sidebar {
-    margin: 60px 30px 0;
+	background: #f1f1f1;
+}
+
+.sidebar-content {
+	padding: 30px 10px 0 30px;
 }
 
 .sidebar a {
-    color: #555;
+	color: #555;
 }
 
 .sidebar a:hover {
-    color: #000;
+	color: #000;
 }
 
 .sidebar h1.title {
-    font-size: 3.2em;
-    font-weight: lighter;
-    margin: 0;
-    padding: 0;
+	font-size: 3.2em;
+	font-weight: lighter;
+	margin: 0;
+	padding: 0;
 }
 
 .sidebar h2.slogan {
-    font-size: 2.2em;
-    font-weight: lighter;
-    margin: -10px 0 0 0;
-    padding: 0;
+	font-size: 2.2em;
+	font-weight: lighter;
+	margin: -10px 0 0 0;
+	padding: 0;
 }
 
 /* ------------------------
 Plugins
 ------------------------ */
 div.plugin {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 
 div.plugin  h2 {
-    border-bottom: 1px solid #ccc;
-    color: #ccc;
-    display: inline-block;
-    font-size: 1em;
-    margin-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+	color: #ccc;
+	display: inline-block;
+	font-size: 1em;
+	margin-bottom: 5px;
 }
 
 div.plugin-content {
-    padding: 0 10px;
+	padding: 0 10px;
 }
 
 div.plugin-content li {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
+div.plugin-content ul li.active a {
+	color: #2672ec;
+}
 div.plugin-content ul {
-    display: block;
-    list-style-type: none;
-    margin: 5px 0;
-    padding: 0;
+	display: block;
+	list-style-type: none;
+	margin: 5px 0;
+	padding: 0;
 }
 
 div.plugin-content ul > li > ul > li {
-    margin: 0;
+	margin: 0;
 }
 
 div.plugin-content ul > li > ul > li:before {
-  color: #777;
-  content: "—";
-  padding-right: 5px;
+	color: #777;
+	content: "—";
+	padding-right: 5px;
 }
 
 div.plugin-content ul > li > ul > li > a {
-    color: #777;
+	color: #777;
 }
 
 /* ------------------------
@@ -289,15 +297,15 @@ Responsive
 ------------------------ */
 
 @media (min-width: 48em) {
-    .content {
-        padding: 1em 3em 0;
-        margin-left: 25%;
-    }
+	.content {
+		padding: 1em 3em 0;
+		margin-left: 25%;
+	}
 
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        overflow: auto;
-    }
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		overflow: auto;
+	}
 }

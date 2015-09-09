@@ -52,29 +52,6 @@ class Text {
 		 return $text;
 	}
 
-/*
-	public static function cleanUrl($string, $separator='-')
-	{
-		// Delete characters
-		$string = str_replace(array("“", "”", "!", "*", "&#039;", "&quot;", "(", ")", ";", ":", "@", "&amp", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", "|"),'',$string);
-		$string = preg_replace('![^\\pL\d]+!u', $separator, $string);
-
-		// Remove spaces
-		$string = str_replace(' ',$separator, $string);
-
-		//remove any additional characters that might appear after translit
-		//$string = preg_replace('![^-\w]+!', '', $string);
-
-		// Replace multiple dashes
-		$string = preg_replace('/-{2,}/', $separator, $string);
-
-		// Make a string lowercase
-		$string = self::lowercase($string);
-
-		return $string;
-	}
-*/
-
 	public static function cleanUrl($string, $separator='-')
 	{
 		if(function_exists('iconv')) {
@@ -172,6 +149,13 @@ class Text {
 	public static function imgRel2Abs($string, $base)
 	{
 		return preg_replace('/(src)="([^:"]*)(?:")/', "$1=\"$base$2\"", $string);
+	}
+
+	public static function pre2htmlentities($string)
+	{
+		return preg_replace_callback('/<pre.*?><code(.*?)>(.*?)<\/code><\/pre>/imsu',
+			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
+			$string);
 	}
 
 }

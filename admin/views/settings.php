@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-cogs"></i> <?php $Language->p('Settings') ?></h2>
+<h2 class="title"><i class="fa fa-cogs"></i><?php $Language->p('Settings') ?></h2>
 
 <nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#general">
     <ul>
@@ -15,6 +15,9 @@
 
 <div id="general">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label>
     <?php $Language->p('Site title') ?>
     <input type="text" name="title" class="width-50" value="<?php echo $Site->title() ?>">
@@ -50,6 +53,9 @@
 
 <div id="advanced">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label for="postsperpage">
         <?php $Language->p('Posts per page') ?>
         <select name="postsperpage" class="width-50">
@@ -80,16 +86,6 @@
     <input type="text" name="url" class="width-50" value="<?php echo $Site->url() ?>">
     <div class="forms-desc"><?php $Language->p('the-url-of-your-site') ?></div>
     </label>
-
-    <h4><?php $Language->p('Writting settings') ?></h4>
-
-    <ul class="forms-list">
-        <li>
-        <input type="checkbox" name="advancedOptions" id="advancedOptions" value="true" <?php echo $Site->advancedOptions()?'checked':'' ?>>
-        <label for="advancedOptions"><?php $Language->p('Advanced options') ?></label>
-        <div class="forms-desc"><?php $Language->p('add-or-edit-description-tags-or') ?></div>
-        </li>
-    </ul>
 
     <h4><?php $Language->p('URL Filters') ?></h4>
 
@@ -122,6 +118,9 @@
 
 <div id="regional">
 <form method="post" action="" class="forms" name="form-regional">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+
     <label for="jslanguage">
         <?php $Language->p('Language') ?>
         <select id="jslanguage" name="language" class="width-50">

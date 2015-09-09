@@ -3,22 +3,21 @@
 class dbSite extends dbJSON
 {
 	private $dbFields = array(
-		'title'=>		array('inFile'=>false, 'value'=>''),
+		'title'=>		array('inFile'=>false, 'value'=>'I am Guybrush Threepwood, mighty developer'),
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
-		'description'=>	array('inFile'=>false, 'value'=>''),
-		'footer'=>		array('inFile'=>false, 'value'=>''),
-		'postsperpage'=>array('inFile'=>false, 'value'=>''),
-		'language'=>	array('inFile'=>false, 'value'=>'en'),
+		'description'=>		array('inFile'=>false, 'value'=>''),
+		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
+		'postsperpage'=>	array('inFile'=>false, 'value'=>''),
+		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
-		'timezone'=>	array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
+		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
 		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
-		'adminTheme'=>	array('inFile'=>false, 'value'=>'kure'),
-		'homepage'=>	array('inFile'=>false, 'value'=>''),
+		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
+		'homepage'=>		array('inFile'=>false, 'value'=>''),
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		'url'=>			array('inFile'=>false, 'value'=>''),
-		'advancedOptions'=> array('inFile'=>false, 'value'=>'false')
+		'url'=>			array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()
@@ -139,7 +138,7 @@ class dbSite extends dbJSON
 	// Returns the relative home link
 	public function homeLink()
 	{
-		return 	HTML_PATH_ROOT;
+		return HTML_PATH_ROOT;
 	}
 
 	// Returns the timezone.

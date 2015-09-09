@@ -18,19 +18,18 @@ class Post extends fileContent
 
 	// Returns the content.
 	// This content is markdown parser.
-	// $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
-	// $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function content($fullContent=true, $html=true)
+	// (boolean) $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
+	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
+	public function content($fullContent=true, $raw=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('content');
 
-		if(!$fullContent)
-		{
+		if(!$fullContent) {
 			$content = $this->getField('breakContent');
 		}
 
-		if($html) {
+		if($raw) {
 			return $content;
 		}
 
@@ -42,15 +41,14 @@ class Post extends fileContent
 		return $this->getField('readMore');
 	}
 
-	// Returns the content.
-	// This content is not markdown parser.
-	// $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function contentRaw($html=true)
+	// Returns the content. This content is not markdown parser.
+	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
+	public function contentRaw($raw=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('contentRaw');
 
-		if($html) {
+		if($raw) {
 			return $content;
 		}
 
@@ -66,6 +64,18 @@ class Post extends fileContent
 	public function published()
 	{
 		return ($this->getField('status')==='published');
+	}
+
+	// Returns TRUE if the post is scheduled, FALSE otherwise.
+	public function scheduled()
+	{
+		return ($this->getField('status')==='scheduled');
+	}
+
+	// Returns TRUE if the post is draft, FALSE otherwise.
+	public function draft()
+	{
+		return ($this->getField('status')=='draft');
 	}
 
 	public function username()
@@ -88,46 +98,31 @@ class Post extends fileContent
 		return $this->getField('description');
 	}
 
-	public function unixTimeCreated()
+	// Returns the post date according to locale settings and format settings.
+	public function date($format=false)
 	{
-		return $this->getField('unixTimeCreated');
-	}
+		$date = $this->getField('date');
 
-	public function unixTimeModified()
-	{
-		return $this->getField('unixTimeModified');
-	}
-
-	public function dateCreated($format=false)
-	{
-		if($format===false) {
-			return $this->getField('date');
+		if($format) {
+			// En %d %b deberia ir el formato definido por el usuario
+			return Date::format($date, DB_DATE_FORMAT, '%d %B');
 		}
 
-		$unixTimeCreated = $this->unixTimeCreated();
-
-		return Date::format($unixTimeCreated, $format);
+		return $date;
 	}
 
-	public function dateModified($format=false)
+	public function tags($returnsArray=false)
 	{
-		if($format===false) {
-			return $this->getField('date');
+		global $Url;
+
+		$tags = $this->getField('tags');
+
+		if($returnsArray) {
+			return explode(',', $tags);
 		}
-
-		$unixTimeModified = $this->unixTimeModified();
-
-		return Date::format($unixTimeModified, $format);
-	}
-
-	public function timeago()
-	{
-		return $this->getField('timeago');
-	}
-
-	public function tags()
-	{
-		return $this->getField('tags');
+		else {
+			return $tags;
+		}
 	}
 
 	public function slug()

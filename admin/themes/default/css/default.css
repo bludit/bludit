@@ -20,6 +20,10 @@ div.unit-80 {
     text-align: center;
 }
 
+span.label {
+    margin-right: 8px;
+}
+
 /* ----------- FONTS AWESOME ----------- */
 .fa-right {
     margin-right: 5px;
@@ -28,7 +32,7 @@ div.unit-80 {
 /* ----------- HEAD ----------- */
 #head {
     overflow: auto;
-    border-top: 10px #f1f1f1 solid;
+    border-top: 10px #eee solid;
     border-bottom: 1px solid #f1f1f1;
     padding: 10px 0;
 }
@@ -99,6 +103,10 @@ div.unit-80 {
 
 h2.title {
     font-weight: normal;
+}
+
+h2.title i.fa {
+    margin-right: 8px;
 }
 
 /* ----------- TABLE ----------- */
@@ -201,7 +209,6 @@ div.dashboardBox ul.menu li.description:last-child {
 
 
 /* ----------- FORMS ----------- */
-
 form h4 {
     border-bottom: 1px solid #e2e2e2;
     font-weight: 300;
@@ -210,9 +217,27 @@ form h4 {
     width: 60%;
 }
 
-p.advOptions {
-    color: #777;
-    font-size: 0.8em;
+#jsadvancedButton {
+    display: block;
+    margin-bottom: 1.1em;
+}
+
+#jsadvancedOptions {
+    display: none;
+}
+
+.btn {
+    color: #fff;
+    background: #999999;
+    padding: 0.3em 1.3em !important;
+}
+
+.btn-blue {
+    background: #2672ec;
+}
+
+.btn-red {
+    background: #EC2626;
 }
 
 a.btn:hover {

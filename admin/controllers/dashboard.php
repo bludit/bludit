@@ -16,13 +16,15 @@
 // Main after POST
 // ============================================================================
 
-$_newPosts = $dbPosts->regenerate();
-$_newPages = $dbPages->regenerate();
+//$_newPosts = $dbPosts->regenerateCli();
+$_newPages = $dbPages->regenerateCli();
+
+$_newPages = $_newPosts = array();
 
 $_draftPosts = array();
 foreach($posts as $Post)
 {
-	if(!$Post->published()) {
+	if($Post->draft()) {
 		array_push($_draftPosts, $Post);
 	}
 }
@@ -34,4 +36,3 @@ foreach($pages as $Page)
 		array_push($_draftPages, $Page);
 	}
 }
-

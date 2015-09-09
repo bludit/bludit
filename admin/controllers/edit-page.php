@@ -24,7 +24,7 @@ function editPage($args)
 	// Edit the page.
 	if( $dbPages->edit($args) )
 	{
-		$dbPages->regenerate();
+		$dbPages->regenerateCli();
 
 		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-page/'.$args['key']);

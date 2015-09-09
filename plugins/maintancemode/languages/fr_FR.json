@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Mode de Maintenance",
+		"description": "Configurer votre site sur le mode de maintenance, vous pouvez accéder à la zone d'administration.",
+		"author": "Bludit",
+		"email": "",
+		"website": "http://www.bludit.com",
+		"version": "0.1",
+		"releaseDate": "2015-08-02"
+	},
+
+	"enable-maintence-mode": "Activer le mode de maintence",
+	"message": "Message"
+}

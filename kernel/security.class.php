@@ -13,6 +13,42 @@ class Security extends dbJSON
 		parent::__construct(PATH_DATABASES.'security.php');
 	}
 
+	// ====================================================
+	// TOKEN FOR CSRF
+	// ====================================================
+
+	// Generate and save the token in Session.
+	public function generateToken()
+	{
+		$token = Text::randomText(8);
+		$token = sha1($token);
+
+		Session::set('token', $token);
+	}
+
+	// Validate the token.
+	public function validateToken($token)
+	{
+		$sessionToken = Session::get('token');
+
+		return ( !empty($sessionToken) && ($sessionToken===$token) );
+	}
+
+	// Returns the token.
+	public function getToken()
+	{
+		return Session::get('token');
+	}
+
+	public function printToken()
+	{
+		echo Session::get('token');
+	}
+
+	// ====================================================
+	// BRUTE FORCE PROTECTION
+	// ====================================================
+
 	public function isBlocked()
 	{
 		$ip = $this->getUserIp();

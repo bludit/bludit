@@ -38,9 +38,22 @@ Si cambia el parent
  verificar parent
  mover directorio adentro del parent
 
+—————————
+Nuevo post
+- Reindex dbtags
+
+—————————
+
 Editar usuario
 1- Usuario logueado
 2- Ver si el usuario es administrador o si es el mismo usuario que se esta editando.
+
+—————————
+dbTags
+Regenerate posts list
+- Al momento de regenerarla deberia enviarle la lista de post ordenada por fecha.
+- De esta forma la estructura esta ordenada para mostrarla.
+- El que hace el trabajo es el administrador
 
 —————————
 New post->Publish->Manage posts

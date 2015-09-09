@@ -42,6 +42,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 // Check if JSON encode and decode are enabled.
 define('JSON', function_exists('json_encode'));
 
+// Database format date
+define('DB_DATE_FORMAT', 'Y-m-d H:i');
+
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
@@ -64,9 +67,11 @@ include(PATH_HELPERS.'text.class.php');
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
+include(PATH_HELPERS.'date.class.php');
 
-// Load language
-$localeFromHTTP = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+// Try to detect language from HTTP
+$explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+$localeFromHTTP = empty($explode[0])?'en_US':str_replace('-', '_', $explode[0]);
 
 if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
@@ -164,6 +169,8 @@ function install($adminPassword, $email)
 
 	$stdOut = array();
 
+	$currentDate = Date::current(DB_DATE_FORMAT);
+
 	// ============================================================================
 	// Create directories
 	// ============================================================================
@@ -186,7 +193,19 @@ function install($adminPassword, $email)
 
 	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES;
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tags';
 		error_log($errorText, 0);
 	}
 
@@ -209,8 +228,7 @@ function install($adminPassword, $email)
 		'username'=>'admin',
 		'tags'=>'',
 		'status'=>'published',
-		'unixTimeCreated'=>1430686755,
-		'unixTimeModified'=>0,
+		'date'=>$currentDate,
 		'position'=>0
 	    	)
 	);
@@ -223,10 +241,9 @@ function install($adminPassword, $email)
 		'description'=>'Welcome to Bludit',
 		'username'=>'admin',
 		'status'=>'published',
-		'tags'=>'welcome, bludit, cms',
+		'tags'=>'bludit, cms, flat-file',
 		'allowComments'=>false,
-		'unixTimeCreated'=>1430875199,
-		'unixTimeModified'=>0
+		'date'=>$currentDate
 		)
 	);
 	file_put_contents(PATH_DATABASES.'posts.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -236,7 +253,7 @@ function install($adminPassword, $email)
 		'title'=>'Bludit',
 		'slogan'=>'cms',
 		'description'=>'',
-		'footer'=>'',
+		'footer'=>Date::current('Y'),
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>'UTC',
@@ -247,7 +264,6 @@ function install($adminPassword, $email)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'advancedOptions'=>'false',
 		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT
 	);
 
@@ -255,7 +271,6 @@ function install($adminPassword, $email)
 
 	$salt = getRandomString();
 	$passwordHash = sha1($adminPassword.$salt);
-	$registered = time();
 
 	// File users.php
 	$data = array(
@@ -267,7 +282,7 @@ function install($adminPassword, $email)
 		'password'=>$passwordHash,
 		'salt'=>$salt,
 		'email'=>$email,
-		'registered'=>$registered
+		'registered'=>$currentDate
 		)
 	);
 
@@ -282,14 +297,61 @@ function install($adminPassword, $email)
 
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-
-	// File plugins/pages/db.php
-	$data = array(
-		'homeLink'=>true,
-		'label'=>$Language->get('Pages')
+	// File tags.php
+	file_put_contents(
+		PATH_DATABASES.'tags.php',
+		$dataHead.json_encode(
+			array(
+				'postsIndex'=>array(
+					'bludit'=>array('name'=>'Bludit', 'posts'=>array('first-post')),
+					'cms'=>array('name'=>'cms', 'posts'=>array('first-post'))
+				),
+				'pagesIndex'=>array()
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
 	);
 
-	file_put_contents(PATH_PLUGINS_DATABASES.'pages'.DS.'db.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+	// PLUGINS
+
+	// File plugins/pages/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'pages'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'homeLink'=>true,
+				'label'=>$Language->get('Pages')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/simplemde/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'tabSize'=>4,
+				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;, &quot;guide&quot;'
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/tags/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'tags'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'label'=>$Language->get('Tags')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'
@@ -301,11 +363,9 @@ function install($adminPassword, $email)
 	$data = 'Title: '.$Language->get('First post').'
 Content:
 
-'.$Language->get('Congratulations you have successfully installed your Bludit').'
----
+## '.$Language->get('Congratulations you have successfully installed your Bludit').'
 
-'.$Language->get('Whats next').'
----
+### '.$Language->get('Whats next').'
 - '.$Language->get('Manage your Bludit from the admin panel').'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Visit the support forum').'

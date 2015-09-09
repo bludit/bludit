@@ -1,7 +1,7 @@
 {
 	"language-data":
 	{
-		"native": "English (United State)",
+		"native": "English (United States)",
 		"english-name": "English",
 		"last-update": "2015-06-28",
 		"author": "Diego",
@@ -157,5 +157,10 @@
 	"proceed-anyway": "Proceed anyway!",
 	"drafts":"Drafts",
 	"ip-address-has-been-blocked": "IP address has been blocked.",
-	"try-again-in-a-few-minutes": "Try again in a few minutes."
+	"try-again-in-a-few-minutes": "Try again in a few minutes.",
+	"date": "Date",
+	"you-can-schedule-the-post-just-select-the-date-and-time": "You can schedule the post, just select the date and time.",
+	"scheduled": "Scheduled",
+	"publish": "Publish",
+	"please-check-your-theme-configuration": "Please check your theme configuration."
 }

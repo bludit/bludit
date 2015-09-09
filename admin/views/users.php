@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-users"></i> <?php $Language->p('Users') ?></h2>
+<h2 class="title"><i class="fa fa-users"></i><?php $Language->p('Users') ?></h2>
 
 <?php makeNavbar('users'); ?>
 
@@ -24,7 +24,7 @@
 			echo '<td>'.$field['lastName'].'</td>';
 			echo '<td>'.$field['role'].'</td>';
 			echo '<td>'.$field['email'].'</td>';
-			echo '<td>'.Date::format($field['registered'], '%d %B').'</td>';
+			echo '<td>'.Date::format($field['registered'], DB_DATE_FORMAT, DB_DATE_FORMAT).'</td>';
 			echo '</tr>';
 		}
 	?>

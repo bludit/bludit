@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-file-text-o"></i> <?php $Language->p('Manage posts') ?></h2>
+<h2 class="title"><i class="fa fa-file-text-o"></i><?php $Language->p('Manage posts') ?></h2>
 
 <?php makeNavbar('manage'); ?>
 
@@ -7,7 +7,6 @@
 		<tr>
 			<th><?php $Language->p('Title') ?></th>
 			<th><?php $Language->p('Published date') ?></th>
-			<th><?php $Language->p('Modified date') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,10 +14,17 @@
 
 		foreach($posts as $Post)
 		{
+			$status = false;
+			if($Post->scheduled()) {
+				$status = $Language->g('Scheduled');
+			}
+			elseif(!$Post->published()) {
+				$status = $Language->g('Draft');
+			}
+
 			echo '<tr>';
-			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->published()?'':'<span class="label label-outline label-red smaller">'.$Language->g('Draft').'</span> ').($Post->title()?$Post->title():'<span class="label label-outline label-blue smaller">'.$Language->g('Empty title').'</span> ').'</a></td>';
-			echo '<td>'.$Post->dateCreated().'</td>';
-			echo '<td>'.$Post->timeago().'</td>';
+			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($status?'<span class="label label-outline label-red smaller">'.$status.'</span>':'').($Post->title()?$Post->title():'<span class="label label-outline label-blue smaller">'.$Language->g('Empty title').'</span> ').'</a></td>';
+			echo '<td>'.$Post->date().'</td>';
 			echo '</tr>';
 		}
 

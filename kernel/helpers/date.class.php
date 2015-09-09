@@ -8,12 +8,19 @@ class Date {
 		return time();
 	}
 
-	// Format a local time/date according to locale settings
-	public static function format($time, $format)
+	// Return the local time/date according to locale settings.
+	public static function current($format)
 	{
-		$date = strftime($format, $time);
+		$Date = new DateTime();
+		return $Date->format($format);
+	}
 
-		return $date;
+	// Format a local time/date according to locale settings.
+	public static function format($date, $currentFormat, $outputFormat)
+	{
+		$Date = DateTime::createFromFormat($currentFormat, $date);
+
+		return $Date->format($outputFormat);
 	}
 
 	public static function timeago($time)
