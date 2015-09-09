@@ -17,7 +17,7 @@
 // ============================================================================
 
 //$_newPosts = $dbPosts->regenerateCli();
-//$_newPages = $dbPages->regenerateCli();
+$_newPages = $dbPages->regenerateCli();
 
 $_newPages = $_newPosts = array();
 
