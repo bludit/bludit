@@ -28,7 +28,8 @@ class Valid {
 	public static function date($date, $format='Y-m-d H:i:s')
 	{
 		$tmp = DateTime::createFromFormat($format, $date);
-		return $tmp && $tmp->format($format) == $date;
+
+		return $tmp && $tmp->format($format)==$date;
 	}
 
 }

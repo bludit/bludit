@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Simple, facil y hermoso editor Markdown.",
+		"description": "Simple, facil y hermoso editor Markdown desarrollado por @WesCossick.",
 		"author": "Bludit",
 		"email": "",
 		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
@@ -11,5 +11,4 @@
 	},
 	"toolbar": "Barra de herramientas",
 	"tab-size": "Tamaño de la tabulación"
-
 }

@@ -33,10 +33,10 @@ class pluginPages extends Plugin {
 		global $pagesParents;
 		global $Site, $Url;
 		$home = $Url->whereAmI()==='home';
-		
+
 		$html  = '<div class="plugin plugin-pages">';
 
-		// If the label is not empty, print it.
+		// Print the label if it not empty.
 		$label = $this->getDbField('label');
 		if( !empty($label) ) {
 			$html .= '<h2>'.$label.'</h2>';

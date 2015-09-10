@@ -393,18 +393,33 @@ class dbPosts extends dbJSON
 			foreach($fields as $f=>$v)
 			{
 				if($Post->getField($f)) {
-					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
-					$this->db[$key][$f] = $Post->getField($f);
+
+					$valueFromFile = $Post->getField($f);
+
+					// Validate values from file.
+					if($f=='tags') {
+						$valueFromFile = array_map('trim', explode(',', $valueFromFile));
+						$valueFromFile = implode(',', $valueFromFile);
+					}
+					elseif($f=='date') {
+						if(!Valid::date($valueFromFile,DB_DATE_FORMAT)) {
+							$valueFromFile = Date::current(DB_DATE_FORMAT);
+						}
+					}
+
+					// Sanitize the values from file.
+					$this->db[$key][$f] = Sanitize::html($valueFromFile);
 				}
 			}
-
-			// DEBUG: Update tags
 		}
 
 		// Remove old posts from db
 		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
 			unset($this->db[$key]);
 		}
+
+		// Sort posts before save.
+		$this->sortByDate();
 
 		// Save the database.
 		if( $this->save() === false ) {

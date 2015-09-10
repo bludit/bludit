@@ -264,7 +264,8 @@ function install($adminPassword, $email)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT
+		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT,
+		'cliMode'=>true
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);

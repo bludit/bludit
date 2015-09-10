@@ -117,6 +117,11 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 // Main
 // ============================================================================
 
+// Search for changes on posts by the user.
+if( $Site->cliMode() ) {
+	$dbPosts->regenerateCli();
+}
+
 // Execute the scheduler.
 if( $dbPosts->scheduler() ) {
 	// Reindex dbTags.

@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "A simple, beautiful, and embeddable JavaScript markdown editor.",
+		"description": "A simple, beautiful, and embeddable JavaScript markdown editor by @WesCossick.",
 		"author": "Bludit",
 		"email": "",
 		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
@@ -11,5 +11,4 @@
 	},
 	"toolbar": "Toolbar",
 	"tab-size": "Tab size"
-
 }

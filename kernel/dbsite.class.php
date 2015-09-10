@@ -17,7 +17,8 @@ class dbSite extends dbJSON
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		'url'=>			array('inFile'=>false, 'value'=>'')
+		'url'=>			array('inFile'=>false, 'value'=>''),
+		'cliMode'=>		array('inFile'=>false, 'value'=>true)
 	);
 
 	function __construct()
@@ -133,6 +134,12 @@ class dbSite extends dbJSON
 	public function url()
 	{
 		return $this->db['url'];
+	}
+
+	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
+	public function cliMode()
+	{
+		return $this->db['cliMode'];
 	}
 
 	// Returns the relative home link

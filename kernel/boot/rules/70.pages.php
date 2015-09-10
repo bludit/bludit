@@ -141,6 +141,11 @@ function build_all_pages()
 // Main
 // ============================================================================
 
+// Search for changes on pages by the user.
+if( $Site->cliMode() ) {
+	$dbPages->regenerateCli();
+}
+
 // Filter by page, then build it
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
