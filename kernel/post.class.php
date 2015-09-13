@@ -118,6 +118,11 @@ class Post extends fileContent
 		$tags = $this->getField('tags');
 
 		if($returnsArray) {
+
+			if($tags==false) {
+				return array();
+			}
+
 			return explode(',', $tags);
 		}
 		else {
