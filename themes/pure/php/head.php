@@ -36,7 +36,6 @@
 	Theme::javascript(array(
 		'rainbow.min.js'
 	));
-
 ?>
 
 <!-- Pure and Google Fonts -->

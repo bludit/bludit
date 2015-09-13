@@ -1,20 +1,21 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex,nofollow">
 
 	<title><?php echo $layout['title'] ?></title>
 
-	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
 
-	<script src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script src="./js/kube.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/kube.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>
@@ -96,7 +97,7 @@ $(document).ready(function() {
 <!-- Plugins -->
 <?php Theme::plugins('adminBodyEnd') ?>
 
-<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo (microtime(true) - $loadTime) ?></div>
+<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo round((microtime(true) - $loadTime), 5) ?></div>
 
 </body>
 </html>

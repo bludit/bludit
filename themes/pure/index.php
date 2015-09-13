@@ -40,7 +40,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p><?php echo $Site->footer(); ?> | <?php echo $Language->get('Powered by') ?> <a target="_blank" href="http://www.bludit.com">Bludit</a></p>
+            <p><?php echo $Site->footer() ?> | <?php echo $Language->get('Powered by') ?> <a target="_blank" href="http://www.bludit.com">Bludit</a></p>
         </div>
 
     </div>

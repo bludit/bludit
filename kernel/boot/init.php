@@ -137,10 +137,13 @@ $Security	= new Security();
 $base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
 define('HTML_PATH_ROOT', $base);
 
+// Paths for themes
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
 define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
 define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
+define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
+
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
