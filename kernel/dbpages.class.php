@@ -313,7 +313,7 @@ class dbPages extends dbJSON
 
 			// Recovery pages from subdirectories
 			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
-			foreach($subPaths as $subDirectory)
+			foreach((array) $subPaths as $subDirectory)
 			{
 				$subKey = basename($subDirectory);
 
