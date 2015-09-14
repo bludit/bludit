@@ -142,7 +142,7 @@ class Page extends fileContent
 	{
 		$tmp = array();
 		$paths = glob(PATH_PAGES.$this->getField('key').DS.'*', GLOB_ONLYDIR);
-		foreach($paths as $path) {
+		foreach((array) $paths as $path) {
 			array_push($tmp, basename($path));
 		}
 
