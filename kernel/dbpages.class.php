@@ -301,7 +301,8 @@ class dbPages extends dbJSON
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = Date::current(DB_DATE_FORMAT);
 
-		$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
 		foreach($tmpPaths as $directory)
 		{
 			$key = basename($directory);
@@ -312,7 +313,8 @@ class dbPages extends dbJSON
 			}
 
 			// Recovery pages from subdirectories
-			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			//$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			$subPaths = Filesystem::listDirectories($directory.DS);
 			foreach($subPaths as $subDirectory)
 			{
 				$subKey = basename($subDirectory);

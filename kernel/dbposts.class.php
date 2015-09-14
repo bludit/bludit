@@ -370,7 +370,8 @@ class dbPosts extends dbJSON
 		$fields['date'] = Date::current(DB_DATE_FORMAT);
 
 		// Recovery pages from the first level of directories
-		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
+		//$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
+		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
 		foreach($tmpPaths as $directory)
 		{
 			$key = basename($directory);

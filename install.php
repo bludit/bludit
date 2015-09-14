@@ -241,7 +241,7 @@ function install($adminPassword, $email)
 		'description'=>'Welcome to Bludit',
 		'username'=>'admin',
 		'status'=>'published',
-		'tags'=>'bludit, cms, flat-file',
+		'tags'=>'bludit,cms,flat-file',
 		'allowComments'=>false,
 		'date'=>$currentDate
 		)

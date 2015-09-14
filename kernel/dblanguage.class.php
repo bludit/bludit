@@ -87,7 +87,7 @@ class dbLanguage extends dbJSON
 	// Returns an array with all dictionaries.
 	public function getLanguageList()
 	{
-		$files = glob(PATH_LANGUAGES.'*.json');
+		$files = Filesystem::listFiles(PATH_LANGUAGES, '*', 'json');
 
 		$tmp = array();
 
