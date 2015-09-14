@@ -495,8 +495,11 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		<input type="text" value="admin" disabled="disabled" class="width-100">
 		</label>
 
-		<label>
-		<input type="text" name="password" id="jspassword" placeholder="<?php echo $Language->get('Password visible field') ?>" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
+		<label class="input-groups">
+		<input type="password" name="password" id="jspassword" placeholder="<?php echo $Language->get('Password visible field') ?>" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
+		<span class="btn-append">
+            <button class="btn" title="Mask/Unmask password to check content">Show</button>
+        </span>		
 		</label>
 
 		<label>
@@ -550,6 +553,48 @@ $(document).ready(function()
     	}
     });
 });
+$('.btn-append').on('click', function () {
+    if ($(this).prev('input').attr('type') == 'password')
+        changeType($(this).prev('input'), 'text');
+    else
+        changeType($(this).prev('input'), 'password');
+    return false;
+});
+function changeType(x, type) {
+    if (x.prop('type') == type)
+        return x;
+    try {
+        return x.prop('type', type);
+    } catch (e) {
+        var html = $('<div>').append(x.clone()).html();
+        var regex = /type=(\")?([^\"\s]+)(\")?/;
+        var tmp = $(html.match(regex) == null ? html.replace('>', ' type="' + type + '">') : html.replace(regex, 'type="' + type + '"'));
+        tmp.data('type', x.data('type'));
+        var events = x.data('events');
+        var cb = function (events) {
+            return function () {
+                for (i in events) {
+                    if (window.CP.shouldStopExecution(2)) {
+                        break;
+                    }
+                    var y = events[i];
+                    for (j in y) {
+                        if (window.CP.shouldStopExecution(1)) {
+                            break;
+                        }
+                        tmp.bind(i, y[j].handler);
+                    }
+                    window.CP.exitedLoop(1);
+                }
+                window.CP.exitedLoop(2);
+            };
+        }(events);
+        x.replaceWith(tmp);
+        setTimeout(cb, 10);
+        return tmp;
+    }
+}
+//@ sourceURL= http://codepen.io/CreativeJuiz/pen/cvyEi
 </script>
 
 </div>
