@@ -3,7 +3,7 @@
 <head>
 
 <!-- Meta tags -->
-<?php include('php/head.php') ?>
+<?php include(dirname(__FILE__).'/php/head.php') ?>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar pure-u-1 pure-u-md-1-4">
-        <?php include('php/sidebar.php') ?>
+        <?php include(dirname(__FILE__).'/php/sidebar.php') ?>
     </div>
 
     <!-- Main -->
@@ -26,15 +26,15 @@
         <?php
             if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') )
             {
-                include('php/home.php');
+                include(dirname(__FILE__).'/php/home.php');
             }
             elseif($Url->whereAmI()=='post')
             {
-                include('php/post.php');
+                include(dirname(__FILE__).'/php/post.php');
             }
             elseif($Url->whereAmI()=='page')
             {
-                include('php/page.php');
+                include(dirname(__FILE__).'/php/page.php');
             }
         ?>
 
