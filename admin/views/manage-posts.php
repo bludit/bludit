@@ -6,7 +6,8 @@
 	<thead>
 		<tr>
 			<th><?php $Language->p('Title') ?></th>
-			<th><?php $Language->p('Published date') ?></th>
+			<th class="text-centered"><?php $Language->p('Published date') ?></th>
+			<th><?php $Language->p('Friendly URL') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,7 +25,8 @@
 
 			echo '<tr>';
 			echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($status?'<span class="label label-outline label-red smaller">'.$status.'</span>':'').($Post->title()?$Post->title():'<span class="label label-outline label-blue smaller">'.$Language->g('Empty title').'</span> ').'</a></td>';
-			echo '<td>'.$Post->date().'</td>';
+			echo '<td class="text-centered">'.$Post->date().'</td>';
+			echo '<td><a target="_blank" href="'.$Post->permalink().'">'.$Url->filters('post').'/'.$Post->key().'</a></td>';
 			echo '</tr>';
 		}
 
