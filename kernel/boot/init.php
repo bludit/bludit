@@ -151,6 +151,7 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 // PHP paths with dependency
 define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
+define('PATH_THEME_PHP',		PATH_THEME.'php'.DS)
 
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );
