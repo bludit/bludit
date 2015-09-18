@@ -8,7 +8,7 @@ class dbPosts extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
-		'tags'=>		array('inFile'=>false,	'value'=>''),
+		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
 		'date'=>		array('inFile'=>false,	'value'=>'')
 	);
@@ -112,26 +112,26 @@ class dbPosts extends dbJSON
 			$args['status'] = 'scheduled';
 		}
 
-		// Tags
-		if(Text::isNotEmpty($args['tags'])) {
-			$cleanTags = array_map('trim', explode(',', $args['tags']));
-			$args['tags'] = implode(',', $cleanTags);
-		}
-
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
+			// If the field is in the arguments.
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
-			// Default value for the field.
+			// Default value if not in the arguments.
 			else
 			{
 				$tmpValue = $options['value'];
@@ -330,6 +330,31 @@ class dbPosts extends dbJSON
 		}
 
 		return false;
+	}
+
+	// Returns an Array, array('tagSlug'=>'tagName')
+	// (string) $tags, tag list separeted by comma.
+	public function generateTags($tags)
+	{
+		$tmp = array();
+
+		$tags = trim($tags);
+
+		if(empty($tags)) {
+			return $tmp;
+		}
+
+		// Make array
+		$tags = explode(',', $tags);
+
+		foreach($tags as $tag)
+		{
+			$tag = trim($tag);
+			$tagKey = Text::cleanUrl($tag);
+			$tmp[$tagKey] = $tag;
+		}
+
+		return $tmp;
 	}
 
 	// Sort posts by date.

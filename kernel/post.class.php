@@ -123,10 +123,11 @@ class Post extends fileContent
 				return array();
 			}
 
-			return explode(',', $tags);
+			return $tags;
 		}
 		else {
-			return $tags;
+			// Return string with tags separeted by comma.
+			return implode(', ', $tags);
 		}
 	}
 
