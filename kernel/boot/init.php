@@ -134,7 +134,14 @@ $Parsedown 	= new Parsedown();
 $Security	= new Security();
 
 // HTML PATHs
-$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
+//$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
+$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+$base = dirname($base);
+
+if($base!=DS) {
+	$base = $base.'/';
+}
+
 define('HTML_PATH_ROOT', $base);
 
 // Paths for themes
@@ -151,7 +158,7 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 // PHP paths with dependency
 define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
-define('PATH_THEME_PHP',		PATH_THEME.'php'.DS)
+define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );

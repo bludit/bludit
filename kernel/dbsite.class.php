@@ -64,8 +64,9 @@ class dbSite extends dbJSON
 		$filters['page'] = $this->db['uriPage'];
 		$filters['tag'] = $this->db['uriTag'];
 
-		if(empty($filter))
+		if(empty($filter)) {
 			return $filters;
+		}
 
 		return $filters[$filter];
 	}
@@ -95,15 +96,6 @@ class dbSite extends dbJSON
 	public function slogan()
 	{
 		return $this->db['slogan'];
-	}
-
-	public function advancedOptions()
-	{
-		if($this->db['advancedOptions']==='true') {
-			return true;
-		}
-
-		return false;
 	}
 
 	// Returns the site description.
