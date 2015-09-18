@@ -49,15 +49,24 @@ class Page extends fileContent
 		return $this->getField('description');
 	}
 
-	public function tags()
+	public function tags($returnsArray=false)
 	{
-		return $this->getField('tags');
-	}
+		global $Url;
 
-	public function tagsArray()
-	{
 		$tags = $this->getField('tags');
-		return explode(',', $tags);
+
+		if($returnsArray) {
+
+			if($tags==false) {
+				return array();
+			}
+
+			return $tags;
+		}
+		else {
+			// Return string with tags separeted by comma.
+			return implode(', ', $tags);
+		}
 	}
 
 	public function position()
