@@ -13,7 +13,7 @@ Social
 ------
 
 - [Twitter](https://twitter.com/bludit)
-- [Facebook](https://www.facebook.com/pages/Bludit/239255789455913)
+- [Facebook](https://www.facebook.com/bluditcms)
 - [Google+](https://plus.google.com/+Bluditcms)
 
 Requirements
