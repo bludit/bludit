@@ -3,6 +3,8 @@
 class Filesystem {
 
 	// NEW
+
+	// Returns an array with the absolutes directories.
 	public static function listDirectories($path, $regex='*')
 	{
 		$directories = glob($path.$regex, GLOB_ONLYDIR);

@@ -30,26 +30,21 @@ function build_page($key)
 	global $dbUsers;
 	global $Parsedown;
 
-	// Page object.
+	// Page object, content from FILE.
 	$Page = new Page($key);
 	if( !$Page->isValid() ) {
 		return false;
 	}
 
-	// Page database.
+	// Page database, content from DATABASE JSON.
 	$db = $dbPages->getDb($key);
 	if( !$db ) {
 		return false;
 	}
 
-	// Foreach field from database.
-	foreach($db as $field=>$value)
-	{
-		// Not overwrite the value from file.
-		$Page->setField($field, $value, false);
-
-		// Overwrite the value on the db.
-		//$dbPages->setDb($key, $field, $value);
+	// Foreach field from DATABASE.
+	foreach($db as $field=>$value) {
+		$Page->setField($field, $value);
 	}
 
 	// Content in raw format

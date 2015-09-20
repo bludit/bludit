@@ -8,6 +8,8 @@
 
 	<title><?php echo $layout['title'] ?></title>
 
+	<link rel="shortcut icon" type="image/x-icon" href="./css/favicon.png">
+
 	<link rel="stylesheet" type="text/css" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">

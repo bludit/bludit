@@ -34,25 +34,23 @@ function buildPost($key)
 	global $Parsedown;
 	global $Site;
 
-	// Post object, this get the content from the file.
+	// Post object, content from FILE.
 	$Post = new Post($key);
 	if( !$Post->isValid() ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from file with key: '.$key);
 		return false;
 	}
 
-	// Page database, this get the contente from the database json.
+	// Post database, content from DATABASE JSON.
 	$db = $dbPosts->getDb($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
 		return false;
 	}
 
-	// Foreach field from database.
-	foreach($db as $field=>$value)
-	{
-		// Not overwrite the value from file.
-		$Post->setField($field, $value, false);
+	// Foreach field from DATABASE.
+	foreach($db as $field=>$value) {
+		$Post->setField($field, $value);
 	}
 
 	// Content in raw format
@@ -119,7 +117,9 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 
 // Search for changes on posts by the user.
 if( $Site->cliMode() ) {
-	$dbPosts->regenerateCli();
+	if($dbPosts->regenerateCli()) {
+		reIndexTagsPosts();
+	}
 }
 
 // Execute the scheduler.

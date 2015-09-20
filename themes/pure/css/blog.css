@@ -268,9 +268,6 @@ div.plugin-content li {
 	margin-top: 5px;
 }
 
-div.plugin-content ul li.active a {
-	color: #2672ec;
-}
 div.plugin-content ul {
 	display: block;
 	list-style-type: none;
@@ -291,6 +288,11 @@ div.plugin-content ul > li > ul > li:before {
 div.plugin-content ul > li > ul > li > a {
 	color: #777;
 }
+
+div.plugin-content a.active {
+	color: #2672ec !important;
+}
+
 
 /* ------------------------
 Responsive
