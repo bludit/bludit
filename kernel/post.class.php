@@ -126,6 +126,10 @@ class Post extends fileContent
 			return $tags;
 		}
 		else {
+			if($tags==false) {
+				return false;
+			}
+
 			// Return string with tags separeted by comma.
 			return implode(', ', $tags);
 		}

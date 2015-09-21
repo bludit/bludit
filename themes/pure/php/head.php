@@ -1,13 +1,23 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="<?php echo $Site->description() ?>">
+
+<title><?php echo $Site->title() ?></title>
+
 <?php
-	Theme::charset('UTF-8');
+	// CSS from theme/css/
+	Theme::css(array(
+		'pure-min.css',
+		'grids-responsive-min.css',
+		'blog.css',
+		'rainbow.github.css'
+	));
 
-	Theme::viewport();
+	// Javascript from theme/js/
+	Theme::javascript('rainbow.min.js');
 
-	// <title>Site title</title>
-	Theme::title( $Site->title() );
-
-	// <meta name="description" content="Site description">
-	Theme::description( $Site->description() );
+	// Favicon from theme/img/
+	Theme::favicon('favicon.png');
 
 	// <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 	if( $Url->whereAmI()=='post' ) {
@@ -16,34 +26,17 @@
 	elseif( $Url->whereAmI()=='page' ) {
 		Theme::keywords( $Page->tags() );
 	}
-
-	// <link rel="stylesheet" type="text/css" href="pure-min.css">
-	// <link rel="stylesheet" type="text/css" href="grids-responsive-min.css">
-	// <link rel="stylesheet" type="text/css" href="blog.css">
-	// <link rel="stylesheet" type="text/css" href="rainbow.github.css">
-	Theme::css(array(
-		'pure-min.css',
-		'grids-responsive-min.css',
-		'blog.css',
-		'rainbow.github.css'
-	));
-
-	Theme::css(array(
-		'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext'
-	), '');
-
-	// <script src="rainbow.min.js"></script>
-	Theme::javascript(array(
-		'rainbow.min.js'
-	));
 ?>
+
+<!-- Custom Fonts -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,cyrillic,latin-ext" rel="stylesheet" type="text/css">
 
 <!-- Pure and Google Fonts -->
 <style>
-html, button, input, select, textarea,
-.pure-g [class *= "pure-u"] {
-	font-family: 'Open Sans', sans-serif;
-}
+	html, button, input, select, textarea,
+	.pure-g [class *= "pure-u"] {
+		font-family: 'Open Sans', sans-serif;
+	}
 </style>
 
 <!-- Plugins Site Head -->

@@ -54,6 +54,10 @@ pre, code {
 	white-space: pre-wrap !important;
 }
 
+blockquote {
+	border-left: 10px solid #f0f2f4;
+	padding-left: 10px;
+}
 
 /* ------------------------
 Content / Main
@@ -139,15 +143,20 @@ margin: 0;
 .post-title a
 {
 color: #555;
-border-bottom: 5px solid #ccc;
 display: inline-block;
 }
 
 .page a.read-more,
 .post a.read-more{
-display: block;
-text-align: center;
-padding: 2px 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 2px 20px;
+}
+
+.page a.read-more:hover,
+.post a.read-more:hover{
+	background: #f1f1f1;
 }
 
 

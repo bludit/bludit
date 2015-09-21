@@ -152,9 +152,12 @@ define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
 
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
+define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
+
+define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // PHP paths with dependency
 define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
