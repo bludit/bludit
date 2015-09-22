@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2015-09-15",
+		"last-update": "2015-09-22",
 		"author": "Edi",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
@@ -142,7 +142,7 @@
 	"follow-bludit-on": "Folge Bludit bei",
 	"visit-the-support-forum": "Besuche das [Forum](http://forum.bludit.com), um Hilfe zu erhalten.",
 	"read-the-documentation-for-more-information": "Lies die [Dokumentation](http://docs.bludit.com) für weitere Informationen.",
-	"share-with-your-friends-and-enjoy": "Erzähle Bludit Deinen Freunden und habe Deinen Spass daran.",
+        "share-with-your-friends-and-enjoy": "Erzähle Deinen Freunden Bludit und habe Spass daran.",
 	"the-page-has-not-been-found": "Die Seite wurde nicht gefunden.",
 	"error": "Fehler",
 	"bludit-installer": "Bludit-Installer",
@@ -162,5 +162,5 @@
 	"you-can-schedule-the-post-just-select-the-date-and-time": "Um den Beitrag zu einem bestimmten Zeitpunkt zu veröffentlichen, Datum und Zeit wählen.",
 	"scheduled": "Zeitpunkt bestimmt.",
 	"publish": "Veröffentlichen",
-	"please-check-your-theme-configuration": "Bitte prüfe die Einstellungen des Themes."
+	"please-check-your-theme-configuration": "Bitte die Einstellungen des Themes prüfen."
 }
