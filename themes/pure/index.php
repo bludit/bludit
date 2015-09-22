@@ -3,7 +3,7 @@
 <head>
 
 <!-- Meta tags -->
-<?php include('php/head.php') ?>
+<?php include(PATH_THEME_PHP.'head.php') ?>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar pure-u-1 pure-u-md-1-4">
-        <?php include('php/sidebar.php') ?>
+        <?php include(PATH_THEME_PHP.'sidebar.php') ?>
     </div>
 
     <!-- Main -->
@@ -26,15 +26,15 @@
         <?php
             if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') )
             {
-                include('php/home.php');
+                include(PATH_THEME_PHP.'home.php');
             }
             elseif($Url->whereAmI()=='post')
             {
-                include('php/post.php');
+                include(PATH_THEME_PHP.'post.php');
             }
             elseif($Url->whereAmI()=='page')
             {
-                include('php/page.php');
+                include(PATH_THEME_PHP.'page.php');
             }
         ?>
 

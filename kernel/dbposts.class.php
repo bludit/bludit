@@ -378,13 +378,15 @@ class dbPosts extends dbJSON
 		return $a['date']<$b['date'];
 	}
 
+	// Return TRUE if there are new posts, FALSE otherwise.
 	public function regenerateCli()
 	{
 		$db = $this->db;
-		$newPaths = array();
+		$allPosts = array();
 		$fields = array();
+		$currentDate = Date::current(DB_DATE_FORMAT);
 
-		// Default fields and value
+		// Generate default fields and values.
 		foreach($this->dbFields as $field=>$options) {
 			if(!$options['inFile']) {
 				$fields[$field] = $options['value'];
@@ -392,55 +394,63 @@ class dbPosts extends dbJSON
 		}
 
 		$fields['status'] = CLI_STATUS;
-		$fields['date'] = Date::current(DB_DATE_FORMAT);
+		$fields['date'] = $currentDate;
+		$fields['username'] = 'admin';
 
-		// Recovery pages from the first level of directories
-		//$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
+		// Recovery posts from the first level of directories
 		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
 		foreach($tmpPaths as $directory)
 		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.'index.txt')) {
-				// The key is the directory name
-				$newPaths[$key] = true;
-			}
-		}
-
-		foreach($newPaths as $key=>$value)
-		{
-			if(!isset($this->db[$key])) {
-				$this->db[$key] = $fields;
-			}
-
-			$Post = new Post($key);
-
-			// Update all fields from FILE to DATABASE.
-			foreach($fields as $f=>$v)
+			if(file_exists($directory.DS.'index.txt'))
 			{
-				if($Post->getField($f)) {
+				// The key is the directory name.
+				$key = basename($directory);
 
-					$valueFromFile = $Post->getField($f);
+				// All keys posts
+				$allPosts[$key] = true;
 
-					// Validate values from file.
-					if($f=='tags') {
-						$valueFromFile = array_map('trim', explode(',', $valueFromFile));
-						$valueFromFile = implode(',', $valueFromFile);
-					}
-					elseif($f=='date') {
-						if(!Valid::date($valueFromFile,DB_DATE_FORMAT)) {
-							$valueFromFile = Date::current(DB_DATE_FORMAT);
+				// Create the new entry if not exists on DATABASE.
+				if(!isset($this->db[$key])) {
+					// New entry on database
+					$this->db[$key] = $fields;
+				}
+
+				// Create the post from FILE.
+				$Post = new Post($key);
+
+				// Update all fields from FILE to DATABASE.
+				foreach($fields as $f=>$v)
+				{
+					// If the field exists on the FILE, update it.
+					if($Post->getField($f))
+					{
+						$valueFromFile = $Post->getField($f);
+
+						if($f=='tags') {
+							// Generate tags array.
+							$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+						}
+						elseif($f=='date') {
+							// Validate Date from file
+							if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+								$this->db[$key]['date'] = $valueFromFile;
+
+								if( $valueFromFile>$currentDate ) {
+									$this->db[$key]['status'] = 'scheduled';
+								}
+							}
+						}
+						else {
+							// Sanitize the values from file.
+							$this->db[$key][$f] = Sanitize::html($valueFromFile);
 						}
 					}
-
-					// Sanitize the values from file.
-					$this->db[$key][$f] = Sanitize::html($valueFromFile);
 				}
 			}
 		}
 
-		// Remove old posts from db
-		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
+		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
+		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
 			unset($this->db[$key]);
 		}
 

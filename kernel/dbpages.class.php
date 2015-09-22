@@ -335,6 +335,7 @@ class dbPages extends dbJSON
 
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = Date::current(DB_DATE_FORMAT);
+		$fields['username'] = 'admin';
 
 		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
 		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
@@ -372,13 +373,27 @@ class dbPages extends dbJSON
 			// Update all fields from FILE to DATABASE.
 			foreach($fields as $f=>$v)
 			{
-				if($Page->getField($f)) {
-					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
-					$this->db[$key][$f] = $Page->getField($f);
+				// If the field exists on the FILE, update it.
+				if($Page->getField($f))
+				{
+					$valueFromFile = $Page->getField($f);
+
+					if($f=='tags') {
+						// Generate tags array.
+						$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+					}
+					elseif($f=='date') {
+						// Validate Date from file
+						if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+							$this->db[$key]['date'] = $valueFromFile;
+						}
+					}
+					else {
+						// Sanitize the values from file.
+						$this->db[$key][$f] = Sanitize::html($valueFromFile);
+					}
 				}
 			}
-
-			// DEBUG: Update tags
 		}
 
 		// Remove old pages from db

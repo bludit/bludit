@@ -15,7 +15,7 @@ class pluginPages extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>Plugin label</label>';
+		$html .= '<label>'.$Language->get('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
@@ -32,49 +32,46 @@ class pluginPages extends Plugin {
 		global $Language;
 		global $pagesParents;
 		global $Site, $Url;
-		$home = $Url->whereAmI()==='home';
 
 		$html  = '<div class="plugin plugin-pages">';
 
-		// Print the label if it not empty.
+		// Print the label if not empty.
 		$label = $this->getDbField('label');
 		if( !empty($label) ) {
 			$html .= '<h2>'.$label.'</h2>';
 		}
 
 		$html .= '<div class="plugin-content">';
-
-		$parents = $pagesParents[NO_PARENT_CHAR];
-
 		$html .= '<ul>';
 
+		// Show home link ?
 		if($this->getDbField('homeLink')) {
-			$current = ($Site->homeLink()==$home) ? ' class="active"' : '';
-			$html .= '<li' .$current. '><a class="parent" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a></li>';
+			$html .= '<li>';
+			$html .= '<a class="parent'.( ($Url->whereAmI()=='home')?' active':'').'" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a>';
+			$html .= '</li>';
 		}
 
+		$parents = $pagesParents[NO_PARENT_CHAR];
 		foreach($parents as $parent)
 		{
-			//if($Site->homepage()!==$parent->key())
+			// Print the parent
+			$html .= '<li>';
+			$html .= '<a class="parent '.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
+
+			// Check if the parent has children
+			if(isset($pagesParents[$parent->key()]))
 			{
-				$current_parent = ($parent->slug()==$Url->slug()) ? ' class="active"' : '';
-				// Print the parent
-				$html .= '<li' .$current_parent. '><a class="parent" href="'.$parent->permalink().'">'.$parent->title().'</a>';
+				$children = $pagesParents[$parent->key()];
 
-				// Check if the parent has children
-				if(isset($pagesParents[$parent->key()]))
+				// Print children
+				$html .= '<ul>';
+				foreach($children as $child)
 				{
-					$children = $pagesParents[$parent->key()];
-
-					// Print the children
-					$html .= '<ul>';
-					foreach($children as $child)
-					{
-						$current_child = ($child->slug()==$Url->slug()) ? ' class="active"' : '';
-						$html .= '<li' .$current_child. '><a class="children" href="'.$child->permalink().'">'.$child->title().'</a></li>';
-					}
-					$html .= '</ul>';
+					$html .= '<li>';
+					$html .= '<a class="children '.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
+					$html .= '</li>';
 				}
+				$html .= '</ul>';
 			}
 		}
 
