@@ -162,5 +162,6 @@
 	"you-can-schedule-the-post-just-select-the-date-and-time": "You can schedule the post, just select the date and time.",
 	"scheduled": "Scheduled",
 	"publish": "Publish",
-	"please-check-your-theme-configuration": "Please check your theme configuration."
+	"please-check-your-theme-configuration": "Please check your theme configuration.",
+	"plugin-label": "Plugin label"
 }
