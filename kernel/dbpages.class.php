@@ -335,6 +335,7 @@ class dbPages extends dbJSON
 
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = Date::current(DB_DATE_FORMAT);
+		$fields['username'] = 'admin';
 
 		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
 		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);

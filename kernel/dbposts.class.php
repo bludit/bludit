@@ -395,6 +395,7 @@ class dbPosts extends dbJSON
 
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = $currentDate;
+		$fields['username'] = 'admin';
 
 		// Recovery posts from the first level of directories
 		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
