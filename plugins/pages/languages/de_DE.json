@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Liste aller Seiten",
+		"description": "Auflistung aller Seiten.",
+		"author": "Bludit",
+		"email": "",
+		"website": "http://www.bludit.com",
+		"version": "0.1",
+		"releaseDate": "2015-09-22"
+	},
+
+    "home": "Hauptseite",
+    "show-home-link": "Hauptseite zeigen"
+}
