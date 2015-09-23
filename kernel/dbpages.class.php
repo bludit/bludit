@@ -9,7 +9,7 @@ class dbPages extends dbJSON
 		'content'=>		array('inFile'=>true,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
-		'tags'=>		array('inFile'=>false,	'value'=>''),
+		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
 		'date'=>		array('inFile'=>false,	'value'=>0),
 		'position'=>		array('inFile'=>false,	'value'=>0)
@@ -43,12 +43,17 @@ class dbPages extends dbJSON
 		{
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
 			// Default value for the field.
@@ -120,12 +125,17 @@ class dbPages extends dbJSON
 		{
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
 			// Default value for the field.
@@ -285,6 +295,31 @@ class dbPages extends dbJSON
 		return $this->db;
 	}
 
+	// Returns an Array, array('tagSlug'=>'tagName')
+	// (string) $tags, tag list separeted by comma.
+	public function generateTags($tags)
+	{
+		$tmp = array();
+
+		$tags = trim($tags);
+
+		if(empty($tags)) {
+			return $tmp;
+		}
+
+		// Make array
+		$tags = explode(',', $tags);
+
+		foreach($tags as $tag)
+		{
+			$tag = trim($tag);
+			$tagKey = Text::cleanUrl($tag);
+			$tmp[$tagKey] = $tag;
+		}
+
+		return $tmp;
+	}
+
 	public function regenerateCli()
 	{
 		$db = $this->db;
@@ -300,8 +335,10 @@ class dbPages extends dbJSON
 
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = Date::current(DB_DATE_FORMAT);
+		$fields['username'] = 'admin';
 
-		$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
 		foreach($tmpPaths as $directory)
 		{
 			$key = basename($directory);
@@ -312,7 +349,8 @@ class dbPages extends dbJSON
 			}
 
 			// Recovery pages from subdirectories
-			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			//$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			$subPaths = Filesystem::listDirectories($directory.DS);
 			foreach($subPaths as $subDirectory)
 			{
 				$subKey = basename($subDirectory);
@@ -335,13 +373,27 @@ class dbPages extends dbJSON
 			// Update all fields from FILE to DATABASE.
 			foreach($fields as $f=>$v)
 			{
-				if($Page->getField($f)) {
-					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
-					$this->db[$key][$f] = $Page->getField($f);
+				// If the field exists on the FILE, update it.
+				if($Page->getField($f))
+				{
+					$valueFromFile = $Page->getField($f);
+
+					if($f=='tags') {
+						// Generate tags array.
+						$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+					}
+					elseif($f=='date') {
+						// Validate Date from file
+						if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+							$this->db[$key]['date'] = $valueFromFile;
+						}
+					}
+					else {
+						// Sanitize the values from file.
+						$this->db[$key][$f] = Sanitize::html($valueFromFile);
+					}
 				}
 			}
-
-			// DEBUG: Update tags
 		}
 
 		// Remove old pages from db

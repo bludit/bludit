@@ -118,10 +118,20 @@ class Post extends fileContent
 		$tags = $this->getField('tags');
 
 		if($returnsArray) {
-			return explode(',', $tags);
+
+			if($tags==false) {
+				return array();
+			}
+
+			return $tags;
 		}
 		else {
-			return $tags;
+			if($tags==false) {
+				return false;
+			}
+
+			// Return string with tags separeted by comma.
+			return implode(', ', $tags);
 		}
 	}
 

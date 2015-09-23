@@ -226,7 +226,7 @@ function install($adminPassword, $email)
 		'error'=>array(
 		'description'=>'Error page',
 		'username'=>'admin',
-		'tags'=>'',
+		'tags'=>array(),
 		'status'=>'published',
 		'date'=>$currentDate,
 		'position'=>0
@@ -241,7 +241,7 @@ function install($adminPassword, $email)
 		'description'=>'Welcome to Bludit',
 		'username'=>'admin',
 		'status'=>'published',
-		'tags'=>'bludit, cms, flat-file',
+		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
 		'allowComments'=>false,
 		'date'=>$currentDate
 		)
@@ -264,7 +264,8 @@ function install($adminPassword, $email)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT
+		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT,
+		'cliMode'=>true
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -304,7 +305,8 @@ function install($adminPassword, $email)
 			array(
 				'postsIndex'=>array(
 					'bludit'=>array('name'=>'Bludit', 'posts'=>array('first-post')),
-					'cms'=>array('name'=>'cms', 'posts'=>array('first-post'))
+					'cms'=>array('name'=>'CMS', 'posts'=>array('first-post')),
+					'flat-files'=>array('name'=>'Flat files', 'posts'=>array('first-post'))
 				),
 				'pagesIndex'=>array()
 			),

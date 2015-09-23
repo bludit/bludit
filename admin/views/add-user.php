@@ -31,7 +31,7 @@
 	</label>
 
 	<label>
-	Email
+	<?php $Language->p('Email') ?>
 	<input type="text" name="email" class="width-50" value="<?php echo (isset($_POST['email'])?$_POST['email']:'') ?>">
 	<div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
 	</label>

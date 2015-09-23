@@ -8,7 +8,7 @@ class dbPosts extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
-		'tags'=>		array('inFile'=>false,	'value'=>''),
+		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
 		'date'=>		array('inFile'=>false,	'value'=>'')
 	);
@@ -112,26 +112,26 @@ class dbPosts extends dbJSON
 			$args['status'] = 'scheduled';
 		}
 
-		// Tags
-		if(Text::isNotEmpty($args['tags'])) {
-			$cleanTags = array_map('trim', explode(',', $args['tags']));
-			$args['tags'] = implode(',', $cleanTags);
-		}
-
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
+			// If the field is in the arguments.
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
-			// Default value for the field.
+			// Default value if not in the arguments.
 			else
 			{
 				$tmpValue = $options['value'];
@@ -332,6 +332,31 @@ class dbPosts extends dbJSON
 		return false;
 	}
 
+	// Returns an Array, array('tagSlug'=>'tagName')
+	// (string) $tags, tag list separeted by comma.
+	public function generateTags($tags)
+	{
+		$tmp = array();
+
+		$tags = trim($tags);
+
+		if(empty($tags)) {
+			return $tmp;
+		}
+
+		// Make array
+		$tags = explode(',', $tags);
+
+		foreach($tags as $tag)
+		{
+			$tag = trim($tag);
+			$tagKey = Text::cleanUrl($tag);
+			$tmp[$tagKey] = $tag;
+		}
+
+		return $tmp;
+	}
+
 	// Sort posts by date.
 	public function sortByDate($HighToLow=true)
 	{
@@ -353,13 +378,15 @@ class dbPosts extends dbJSON
 		return $a['date']<$b['date'];
 	}
 
+	// Return TRUE if there are new posts, FALSE otherwise.
 	public function regenerateCli()
 	{
 		$db = $this->db;
-		$newPaths = array();
+		$allPosts = array();
 		$fields = array();
+		$currentDate = Date::current(DB_DATE_FORMAT);
 
-		// Default fields and value
+		// Generate default fields and values.
 		foreach($this->dbFields as $field=>$options) {
 			if(!$options['inFile']) {
 				$fields[$field] = $options['value'];
@@ -367,44 +394,68 @@ class dbPosts extends dbJSON
 		}
 
 		$fields['status'] = CLI_STATUS;
-		$fields['date'] = Date::current(DB_DATE_FORMAT);
+		$fields['date'] = $currentDate;
+		$fields['username'] = 'admin';
 
-		// Recovery pages from the first level of directories
-		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
+		// Recovery posts from the first level of directories
+		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
 		foreach($tmpPaths as $directory)
 		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.'index.txt')) {
-				// The key is the directory name
-				$newPaths[$key] = true;
-			}
-		}
-
-		foreach($newPaths as $key=>$value)
-		{
-			if(!isset($this->db[$key])) {
-				$this->db[$key] = $fields;
-			}
-
-			$Post = new Post($key);
-
-			// Update all fields from FILE to DATABASE.
-			foreach($fields as $f=>$v)
+			if(file_exists($directory.DS.'index.txt'))
 			{
-				if($Post->getField($f)) {
-					// DEBUG: Validar/Sanitizar valores, ej: validar formato fecha
-					$this->db[$key][$f] = $Post->getField($f);
+				// The key is the directory name.
+				$key = basename($directory);
+
+				// All keys posts
+				$allPosts[$key] = true;
+
+				// Create the new entry if not exists on DATABASE.
+				if(!isset($this->db[$key])) {
+					// New entry on database
+					$this->db[$key] = $fields;
+				}
+
+				// Create the post from FILE.
+				$Post = new Post($key);
+
+				// Update all fields from FILE to DATABASE.
+				foreach($fields as $f=>$v)
+				{
+					// If the field exists on the FILE, update it.
+					if($Post->getField($f))
+					{
+						$valueFromFile = $Post->getField($f);
+
+						if($f=='tags') {
+							// Generate tags array.
+							$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+						}
+						elseif($f=='date') {
+							// Validate Date from file
+							if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+								$this->db[$key]['date'] = $valueFromFile;
+
+								if( $valueFromFile>$currentDate ) {
+									$this->db[$key]['status'] = 'scheduled';
+								}
+							}
+						}
+						else {
+							// Sanitize the values from file.
+							$this->db[$key][$f] = Sanitize::html($valueFromFile);
+						}
+					}
 				}
 			}
-
-			// DEBUG: Update tags
 		}
 
-		// Remove old posts from db
-		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
+		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
+		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
 			unset($this->db[$key]);
 		}
+
+		// Sort posts before save.
+		$this->sortByDate();
 
 		// Save the database.
 		if( $this->save() === false ) {

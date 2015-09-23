@@ -59,25 +59,17 @@ class dbTags extends dbJSON
 		// Foreach post
 		foreach($db as $postKey=>$values)
 		{
-			$explode = explode(',', $values['tags']);
+			$tags = $values['tags'];
 
 			// Foreach tag from post
-			foreach($explode as $tagName)
+			foreach($tags as $tagKey=>$tagName)
 			{
-				$tagName = trim($tagName);
-				$tagKey = $tagName;
-				//$tagKey = Text::cleanUrl($tagName);
-
-				// If the tag is not empty.
-				if(Text::isNotEmpty($tagName))
-				{
-					if( isset($tagsIndex[$tagKey]) ) {
-						array_push($tagsIndex[$tagKey]['posts'], $postKey);
-					}
-					else {
-						$tagsIndex[$tagKey]['name'] = $tagName;
-						$tagsIndex[$tagKey]['posts'] = array($postKey);
-					}
+				if( isset($tagsIndex[$tagKey]) ) {
+					array_push($tagsIndex[$tagKey]['posts'], $postKey);
+				}
+				else {
+					$tagsIndex[$tagKey]['name'] = $tagName;
+					$tagsIndex[$tagKey]['posts'] = array($postKey);
 				}
 			}
 		}

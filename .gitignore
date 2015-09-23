@@ -1,4 +1,6 @@
 .DS_Store
+!themes/pure
+themes/*
 content/databases
 content/pages
 content/posts

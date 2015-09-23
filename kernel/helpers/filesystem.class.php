@@ -3,9 +3,28 @@
 class Filesystem {
 
 	// NEW
+
+	// Returns an array with the absolutes directories.
 	public static function listDirectories($path, $regex='*')
 	{
-		return glob($path.$regex, GLOB_ONLYDIR);
+		$directories = glob($path.$regex, GLOB_ONLYDIR);
+
+		if(empty($directories)) {
+			return array();
+		}
+
+		return $directories;
+	}
+
+	public static function listFiles($path, $regex='*', $extension)
+	{
+		$files = glob($path.$regex.'.'.$extension);
+
+		if(empty($files)) {
+			return array();
+		}
+
+		return $files;
 	}
 
 	public static function mkdir($pathname, $recursive=false)

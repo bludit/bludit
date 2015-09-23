@@ -17,7 +17,8 @@ class dbSite extends dbJSON
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		'url'=>			array('inFile'=>false, 'value'=>'')
+		'url'=>			array('inFile'=>false, 'value'=>''),
+		'cliMode'=>		array('inFile'=>false, 'value'=>true)
 	);
 
 	function __construct()
@@ -63,8 +64,9 @@ class dbSite extends dbJSON
 		$filters['page'] = $this->db['uriPage'];
 		$filters['tag'] = $this->db['uriTag'];
 
-		if(empty($filter))
+		if(empty($filter)) {
 			return $filters;
+		}
 
 		return $filters[$filter];
 	}
@@ -96,15 +98,6 @@ class dbSite extends dbJSON
 		return $this->db['slogan'];
 	}
 
-	public function advancedOptions()
-	{
-		if($this->db['advancedOptions']==='true') {
-			return true;
-		}
-
-		return false;
-	}
-
 	// Returns the site description.
 	public function description()
 	{
@@ -133,6 +126,12 @@ class dbSite extends dbJSON
 	public function url()
 	{
 		return $this->db['url'];
+	}
+
+	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
+	public function cliMode()
+	{
+		return $this->db['cliMode'];
 	}
 
 	// Returns the relative home link
