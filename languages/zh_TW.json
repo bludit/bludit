@@ -3,7 +3,7 @@
 	{
 		"native": "Traditional Chinese (Taiwan)",
 		"english-name": "Traditional Chinese",
-		"last-update": "2015-09-09",
+		"last-update": "2015-09-23",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
 		"website": "http://single4.ml"
@@ -162,6 +162,7 @@
 	"you-can-schedule-the-post-just-select-the-date-and-time": "您只需要選擇一個日期與時間就可以安排什麼時候再發表此文章",
 	"scheduled": "已安排",
 	"publish": "發表",
-	"please-check-your-theme-configuration": "請檢查您的佈景主題設定"
+	"please-check-your-theme-configuration": "請檢查您的佈景主題設定",
+	"plugin-label": "延伸模組標籤"
 
 }
