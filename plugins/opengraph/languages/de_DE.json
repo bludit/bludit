@@ -1,8 +1,8 @@
 {
 	"plugin-data":
 	{
-		"name": "Liste aller Schlagwörter",
-		"description": "Anzeige aller Schlagwörter.",
+		"name": "Open Graph",
+		"description": "Plugin zur Verwendung des Open Graph Protocols.",
 		"author": "Bludit",
 		"email": "",
 		"website": "http://www.bludit.com",
