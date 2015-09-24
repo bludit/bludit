@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Ein einfacher und sch&ouml;ner JavaScript-Editor f&uuml; Markdown von @WesCossick. Angepasst f&uuml;r Bludit von Diego Najar.",
+		"description": "Ein einfacher und schöner JavaScript-Editor für; Markdown von @WesCossick. Angepasst für Bludit von Diego Najar.",
 		"author": "NextStepWebs",
 		"email": "",
 		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
@@ -10,5 +10,5 @@
 		"releaseDate": "2015-09-22"
 	},
 	"toolbar": "Werkzeugleiste",
-	"tab-size": "Abst&auml;nde der Tabstopps"
+	"tab-size": "Abstände der Tabstopps"
 }
