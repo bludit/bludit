@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Modo mantenimiento",
-		"description": "Configurar el sitio en modo mantenimiento, se puede acceder al panel de administración mientras tanto.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "Configurar el sitio en modo mantenimiento, se puede acceder al panel de administración mientras tanto."
 	},
 
 	"enable-maintence-mode": "Habilitar modo mantenimiento",

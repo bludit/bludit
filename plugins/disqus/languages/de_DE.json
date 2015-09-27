@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Disqus",
-		"description": "Disqus ist eine Kommentar-Plattform für Websites. Um das Plugin verwenden zu können, muss ein Konto bei Disqus.com eingerichtet werden.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-09-25"
+		"description": "Disqus ist eine Kommentar-Plattform für Websites. Um das Plugin verwenden zu können, muss ein Konto bei Disqus.com eingerichtet werden."
 	},
 	"disqus-shortname": "Disqus shortname",
 	"enable-disqus-on-pages": "Disqus auf Seiten verwenden",

@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Disqus système de commentaire",
-		"description": "Disqus est un service Web de discussion et de commentaires d'articles centralisé avec authentification unique. Il est nécessaire de s’inscrire sur Disqus.com avant d’utiliser ce plugin.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "Disqus est un service Web de discussion et de commentaires d'articles centralisé avec authentification unique. Il est nécessaire de s’inscrire sur Disqus.com avant d’utiliser ce plugin."
 	},
 	"disqus-shortname": "Votre ID Disqus",
 	"enable-disqus-on-pages": "Activer Disqus sur les pages",

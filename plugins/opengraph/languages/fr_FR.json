@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Open Graph",
-		"description": "Permets à n’importe quelle page web de devenir l’objet enrichi d’un graphe social. Par exemple, il est utilisé sur Facebook pour permettre à une page web de bénéficier des mêmes fonctionnalités que n’importe quel autre objet sur Facebook.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "Permets à n’importe quelle page web de devenir l’objet enrichi d’un graphe social. Par exemple, il est utilisé sur Facebook pour permettre à une page web de bénéficier des mêmes fonctionnalités que n’importe quel autre objet sur Facebook."
 	}
 }
