@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -14,15 +14,23 @@ if($Login->role()!=='admin') {
 // ============================================================================
 
 // ============================================================================
+// Main before POST
+// ============================================================================
+
+// ============================================================================
 // POST Method
 // ============================================================================
 
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================
 $pluginClassName = $layout['parameters'];
 
-$Plugin = new $pluginClassName;
-$Plugin->install();
+foreach($plugins['all'] as $P)
+{
+	if($P->className()==$pluginClassName) {
+		$P->install();
+	}
+}
 
 Redirect::page('admin', 'plugins');

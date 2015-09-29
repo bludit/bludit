@@ -4,30 +4,38 @@ class dbLanguage extends dbJSON
 {
 	public $data;
 	public $db;
+	public $currentLocale;
 
-	function __construct($language)
+	function __construct($locale)
 	{
 		$this->data = array();
 		$this->db = array();
+		$this->currentLocale = 'en_US';
 
 		// Default language en_US
 		$filename = PATH_LANGUAGES.'en_US.json';
-		if(file_exists($filename))
+		if( Sanitize::pathFile($filename) )
 		{
 			$Tmp = new dbJSON($filename, false);
-			$this->db += $Tmp->db;
+			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		// User language
-		$filename = PATH_LANGUAGES.$language.'.json';
-		if(file_exists($filename))
+		$filename = PATH_LANGUAGES.$locale.'.json';
+		if( Sanitize::pathFile($filename) && ($locale!=="en_US") )
 		{
+			$this->currentLocale = $locale;
 			$Tmp = new dbJSON($filename, false);
-			$this->db += $Tmp->db;
+			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
 		$this->data = $this->db['language-data'];
 		unset($this->db['language-data']);
+	}
+
+	public function getCurrentLocale()
+	{
+		return $this->currentLocale;
 	}
 
 	// Return the translation, if the translation does'n exist then return the English translation.
@@ -50,6 +58,12 @@ class dbLanguage extends dbJSON
 	}
 
 	// Print translation.
+	public function printMe($string)
+	{
+		echo $this->get($string);
+	}
+
+	// Print translation.
 	public function p($string)
 	{
 		echo $this->get($string);
@@ -57,7 +71,7 @@ class dbLanguage extends dbJSON
 
 	public function add($array)
 	{
-		$this->db += $array;
+		$this->db = array_merge($this->db, $array);
 	}
 
 	// Returns the item from plugin-data.
@@ -67,13 +81,13 @@ class dbLanguage extends dbJSON
 			return $this->data[$key];
 		}
 
-		return '';		
+		return '';
 	}
 
 	// Returns an array with all dictionaries.
 	public function getLanguageList()
 	{
-		$files = glob(PATH_LANGUAGES.'*.json');
+		$files = Filesystem::listFiles(PATH_LANGUAGES, '*', 'json');
 
 		$tmp = array();
 

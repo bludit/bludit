@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -16,33 +16,44 @@ if($Login->role()!=='admin') {
 function addUser($args)
 {
 	global $dbUsers;
+	global $Language;
 
 	// Check if the username already exist in db.
-	if( $dbUsers->userExists($args['username']) || Text::isEmpty($args['username']) )
+	if( Text::isEmpty($args['username']) )
 	{
-		Alert::set('Username already exists or is empty');
+		Alert::set($Language->g('username-field-is-empty'));
+		return false;
+	}
+
+	if( $dbUsers->userExists($args['username']) )
+	{
+		Alert::set($Language->g('username-already-exists'));
 		return false;
 	}
 
 	// Validate password.
 	if( ($args['password'] != $args['confirm-password'] ) || Text::isEmpty($args['password']) )
 	{
-		Alert::set('The password and confirmation password do not match');
+		Alert::set($Language->g('The password and confirmation password do not match'));
 		return false;
 	}
 
 	// Add the user.
 	if( $dbUsers->add($args) )
 	{
-		Alert::set('User has been added successfull');
+		Alert::set($Language->g('user-has-been-added-successfully'));
 		return true;
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to add a new user');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the account.');
 		return false;
 	}
 }
+
+// ============================================================================
+// Main before POST
+// ============================================================================
 
 // ============================================================================
 // POST Method
@@ -56,5 +67,5 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 }
 
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================

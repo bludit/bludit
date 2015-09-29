@@ -15,10 +15,9 @@ class Url
 		// Decodes any %## encoding in the given string. Plus symbols ('+') are decoded to a space character.
 		$decode = urldecode($_SERVER['REQUEST_URI']);
 
-		// Parse, http://php.net/parse_url
-		$parse = parse_url($decode);
-
-		$this->uri = $parse['path'];
+		// remove parameters GET, do not use parse_url because has problem with utf-8.
+		$explode = explode('?', $decode);
+		$this->uri = $explode[0];
 
 		$this->parameters = $_GET;
 
@@ -101,9 +100,15 @@ class Url
 	}
 
 	// Return the filter used
-	public function filters($type)
+	public function filters($type, $trim=true)
 	{
-		return $this->filters[$type];
+		$filter = $this->filters[$type];
+
+		if($trim) {
+			$filter = trim($filter, '/');
+		}
+
+		return $filter;
 	}
 
 	// Return: home, tag, post

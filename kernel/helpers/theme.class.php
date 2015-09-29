@@ -4,6 +4,17 @@ class Theme {
 
 	// NEW
 
+	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $echo=true)
+	{
+		$tmp = '<link rel="shortcut icon" href="'.$path.$file.'" type="image/x-icon">'.PHP_EOL;
+
+		if($echo) {
+			echo $tmp;
+		}
+
+		return $tmp;
+	}
+
 	public static function css($files, $path=HTML_PATH_THEME_CSS, $echo=true)
 	{
 		if(!is_array($files)) {
@@ -109,6 +120,16 @@ class Theme {
 		}
 	}
 
+	public static function jquery($echo=true)
+	{
+		$tmp = '<script src="'.JQUERY.'"></script>'.PHP_EOL;
+
+		if($echo) {
+			echo $tmp;
+		}
+
+		return $tmp;
+	}
 
 	// OLD
 
@@ -120,17 +141,8 @@ class Theme {
 			return BLOG_URL;
 	}
 
-	public static function jquery($path=JS_JQUERY)
-	{
-		$tmp = '<script src="'.$path.'"></script>'.PHP_EOL;
 
-		return $tmp;
-	}
 
-	public static function favicon()
-	{
-		return '<link rel="shortcut icon" href="'.HTML_THEME_CSS.'img/favicon.ico" type="image/x-icon">'.PHP_EOL;
-	}
 
 	public static function name()
 	{

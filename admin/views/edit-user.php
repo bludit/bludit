@@ -1,10 +1,14 @@
-<h2 class="title"><i class="fa fa-user"></i> <?php $Language->p('Edit user') ?></h2>
+<h2 class="title"><i class="fa fa-user"></i><?php $Language->p('Edit user') ?></h2>
 
 <nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#profile">
     <ul>
         <li><a href="#profile"><?php $Language->p('Profile') ?></a></li>
         <li><a href="#email"><?php $Language->p('Email') ?></a></li>
         <li><a href="#password"><?php $Language->p('Password') ?></a></li>
+
+        <?php if($_user['username']!=='admin') { ?>
+        <li><a href="#delete"><?php $Language->p('Delete') ?></a></li>
+        <?php } ?>
     </ul>
 </nav>
 
@@ -14,6 +18,9 @@
 
 <div id="profile">
 <form method="post" action="" class="forms">
+
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+    <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -26,10 +33,8 @@
         <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
     </label>
 
-<?php
-    if($Login->username()==='admin')
-    {
-?>
+<?php if($Login->username()==='admin') { ?>
+
     <label for="role">
         <?php $Language->p('Role') ?>
         <select name="role" class="width-50">
@@ -42,10 +47,10 @@
         </select>
         <div class="forms-desc"><?php $Language->p('you-can-choose-the-users-privilege') ?></div>
     </label>
-<?php
-    }
-?>
-    <input type="submit" class="btn btn-blue" value="Save" name="user-profile">
+
+<?php } ?>
+
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-profile">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -56,6 +61,7 @@
 
 <div id="email">
 <form method="post" action="" class="forms">
+    <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -64,7 +70,7 @@
         <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
     </label>
 
-    <input type="submit" class="btn btn-blue" value="Save" name="user-email">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-email">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -75,6 +81,7 @@
 
 <div id="password">
 <form method="post" action="" class="forms">
+    <input type="hidden" name="change-password" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -87,7 +94,32 @@
         <input type="password" name="confirm-password" class="width-50">
     </label>
 
-    <input type="submit" class="btn btn-blue" value="Save" name="user-password">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-password">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
+
+<!-- ===================================== -->
+<!-- Delete -->
+<!-- ===================================== -->
+<?php if($_user['username']!=='admin') { ?>
+
+<div id="delete">
+
+    <form method="post" action="" class="forms">
+        <input type="hidden" name="delete-user-all" value="true">
+        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and all its posts') ?>"></p>
+    </form>
+
+    <form method="post" action="" class="forms">
+        <input type="hidden" name="delete-user-associate" value="true">
+        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and associate its posts to admin user') ?>"></p>
+    </form>
+
+    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
+
+</div>
+
+<?php } ?>

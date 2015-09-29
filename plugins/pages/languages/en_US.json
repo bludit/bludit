@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Page list",
+		"description": "Shows the list of pages in order.",
+		"author": "Bludit",
+		"email": "",
+		"website": "http://www.bludit.com",
+		"version": "0.1",
+		"releaseDate": "2015-08-02"
+	},
+
+    "home": "Home",
+    "show-home-link": "Show home link"
+}

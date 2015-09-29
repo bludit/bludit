@@ -1,12 +1,17 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
+// Check role
+// ============================================================================
+
+// ============================================================================
 // Functions
 // ============================================================================
 
 function addPage($args)
 {
 	global $dbPages;
+	global $Language;
 
 	// Page status, published or draft.
 	if( isset($args['publish']) ) {
@@ -19,14 +24,18 @@ function addPage($args)
 	// Add the page.
 	if( $dbPages->add($args) )
 	{
-		Alert::set('Page added successfuly');
+		Alert::set($Language->g('Page added successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to create the page');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the page.');
 	}
 }
+
+// ============================================================================
+// Main before POST
+// ============================================================================
 
 // ============================================================================
 // POST Method
@@ -36,3 +45,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	addPage($_POST);
 }
+
+// ============================================================================
+// Main after POST
+// ============================================================================

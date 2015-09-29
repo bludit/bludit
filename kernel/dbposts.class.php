@@ -3,27 +3,51 @@
 class dbPosts extends dbJSON
 {
 	private $dbFields = array(
-		'title'=>			array('inFile'=>true, 'value'=>''),
-		'content'=>			array('inFile'=>true, 'value'=>''),
-		'description'=>		array('inFile'=>false, 'value'=>''),
-		'username'=>		array('inFile'=>false, 'value'=>''),
-		'status'=>			array('inFile'=>false, 'value'=>'draft'),
-		'tags'=>			array('inFile'=>false, 'value'=>''),
-		'allowComments'=>	array('inFile'=>false, 'value'=>false),
-		'unixTimeCreated'=>	array('inFile'=>false, 'value'=>0),
-		'unixTimeModified'=>array('inFile'=>false, 'value'=>0)
+		'title'=>		array('inFile'=>true,	'value'=>''),
+		'content'=>		array('inFile'=>true,	'value'=>''),
+		'description'=>		array('inFile'=>false,	'value'=>''),
+		'username'=>		array('inFile'=>false,	'value'=>''),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
+		'tags'=>		array('inFile'=>false,	'value'=>array()),
+		'allowComments'=>	array('inFile'=>false,	'value'=>false),
+		'date'=>		array('inFile'=>false,	'value'=>'')
+	);
+
+	private $numberPosts = array(
+		'total'=>0,
+		'published'=>0
 	);
 
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
+
+		$this->numberPosts['total'] = count($this->db);
 	}
 
-	// Return an array with the database for a page, FALSE otherwise.
+	public function numberPost($total=false)
+	{
+		if($total) {
+			return $this->numberPosts['total'];
+		}
+
+		return $this->numberPosts['published'];
+	}
+
+	// Return an array with the post's database, FALSE otherwise.
 	public function getDb($key)
 	{
 		if($this->postExists($key)) {
 			return $this->db[$key];
+		}
+
+		return false;
+	}
+
+	public function setDb($key, $field, $value)
+	{
+		if($this->postExists($key)) {
+			$this->db[$key][$field] = $value;
 		}
 
 		return false;
@@ -67,35 +91,47 @@ class dbPosts extends dbJSON
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
+		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		// Generate the database key.
 		$key = $this->generateKey($args['slug']);
 
-		// The user is always the one loggued.
+		// The user is always the who is loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
-		// The current unix time stamp.
-		if(empty($args['unixTimeCreated'])) {
-			$args['unixTimeCreated'] = Date::unixTime();
+		// Date
+		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
+			$args['date'] = $currentDate;
+		}
+
+		// Schedule post?
+		if( ($args['date']>$currentDate) && ($args['status']=='published') ) {
+			$args['status'] = 'scheduled';
 		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
+			// If the field is in the arguments.
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
-			// Default value for the field.
+			// Default value if not in the arguments.
 			else
 			{
 				$tmpValue = $options['value'];
@@ -130,6 +166,10 @@ class dbPosts extends dbJSON
 
 		// Save the database
 		$this->db[$key] = $dataForDb;
+
+		// Sort posts before save.
+		$this->sortByDate();
+
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
@@ -140,10 +180,6 @@ class dbPosts extends dbJSON
 
 	public function edit($args)
 	{
-		// Unix time created and modified.
-		$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-		$args['unixTimeModified'] = Date::unixTime();
-
 		if( $this->delete($args['key']) ) {
 			return $this->add($args);
 		}
@@ -180,49 +216,36 @@ class dbPosts extends dbJSON
 		return true;
 	}
 
-	public function regenerate()
+	// Returns an array with a list of posts keys, filtered by a page number.
+	public function getList($pageNumber, $postPerPage, $removeUnpublished=true)
 	{
-		$db = $this->db;
-		$paths = array();
-		$fields = array();
+		$totalPosts = $this->numberPosts['total'];
 
-		// Default fields and value
-		foreach($this->dbFields as $field=>$options) {
-			if(!$options['inFile']) {
-				$fields[$field] = $options['value'];
-			}
+		// Remove the unpublished posts.
+		if($removeUnpublished) {
+			$this->removeUnpublished();
+			$totalPosts = $this->numberPosts['published'];
 		}
 
-		// Unix time stamp
-		$fields['unixTimeCreated'] = Date::unixTime();
+		$init = (int) $postPerPage * $pageNumber;
+		$end  = (int) min( ($init + $postPerPage - 1), $totalPosts - 1 );
+		$outrange = $init<0 ? true : $init>$end;
 
-		// Username
-		$fields['username'] = 'admin';
-
-		if(HANDMADE_PUBLISHED) {
-			$fields['status']='published';
+		if(!$outrange) {
+			return array_slice($this->db, $init, $postPerPage, true);
 		}
 
-		// Recovery pages from the first level of directories
-		$tmpPaths = glob(PATH_POSTS.'*', GLOB_ONLYDIR);
-		foreach($tmpPaths as $directory)
+		return array();
+	}
+
+	// Delete all posts from an user.
+	public function deletePostsByUser($username)
+	{
+		foreach($this->db as $key=>$value)
 		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.'index.txt')) {
-				// The key is the directory name
-				$paths[$key] = true;
+			if($value['username']==$username) {
+				unset($this->db[$key]);
 			}
-		}
-
-		// Remove old posts from db
-		foreach( array_diff_key($db, $paths) as $slug=>$data ) {
-			unset($this->db[$slug]);
-		}
-
-		// Insert new posts to db
-		foreach( array_diff_key($paths, $db) as $slug=>$data ) {
-			$this->db[$slug] = $fields;
 		}
 
 		// Save the database.
@@ -231,66 +254,216 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
-		return $this->db!=$db;
+		return true;
 	}
 
-	public function getPage($pageNumber, $postPerPage, $draftPosts=false)
+	// Link-up all posts from an user to another user.
+	public function linkPostsToUser($oldUsername, $newUsername)
 	{
-		$init = (int) $postPerPage * $pageNumber;
-		$end  = (int) min( ($init + $postPerPage - 1), count($this->db) - 1 );
-
-		$outrange = $init<0 ? true : $init > $end;
-
-		// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
-		// DEBUG: Se eliminan antes de ordenarlos porque sino los draft cuentan como publicados en el PostPerPage.
-		if(!$draftPosts){
-			$this->removeUnpublished();
-		}
-
-		$tmp = $this->sortByDate();
-
-		if(!$outrange) {
-			return array_slice($tmp, $init, $end+1, true);
-		}
-
-		return array();
-	}
-
-	// DEBUG: Ver una mejor manera de eliminar draft post antes de ordenarlos
-	private function removeUnpublished()
-	{
-		$tmp = array();
-
 		foreach($this->db as $key=>$value)
 		{
-			if($value['status']==='published') {
-				$tmp[$key]=$value;
+			if($value['username']==$oldUsername) {
+				$this->db[$key]['username'] = $newUsername;
 			}
 		}
 
-		$this->db = $tmp;
+		// Sort posts before save.
+		$this->sortByDate();
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
 	}
 
-	private function sortByDate($low_to_high=false)
+	// Remove unpublished posts, status != published.
+	public function removeUnpublished()
 	{
-		// high to low
-		function high_to_low($a, $b) {
-			return $a['unixTimeCreated']<$b['unixTimeCreated'];
+		foreach($this->db as $key=>$values)
+		{
+			if($values['status']!='published') {
+				unset($this->db[$key]);
+			}
 		}
 
-		// low to high
-		function low_to_high($a, $b) {
-			return $a['unixTimeCreated']>$b['unixTimeCreated'];
+		$this->numberPosts['published'] = count($this->db);
+
+		return true;
+	}
+
+	// Return TRUE if there are new posts published, FALSE otherwise.
+	public function scheduler()
+	{
+		// Get current date.
+		$currentDate = Date::current(DB_DATE_FORMAT);
+
+		$saveDatabase = false;
+
+		// Check scheduled posts and publish.
+		foreach($this->db as $postKey=>$values)
+		{
+			if($values['status']=='scheduled')
+			{
+				// Publish post.
+				if($values['date']<=$currentDate) {
+					$this->db[$postKey]['status'] = 'published';
+					$saveDatabase = true;
+				}
+			}
+			elseif($values['status']=='published') {
+				break;
+			}
 		}
 
-		$tmp = $this->db;
+		// Save the database.
+		if($saveDatabase)
+		{
+			if( $this->save() === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+				return false;
+			}
 
-		if($low_to_high)
-			uasort($tmp, 'low_to_high');
-		else
-			uasort($tmp, 'high_to_low');
+			return true;
+		}
+
+		return false;
+	}
+
+	// Returns an Array, array('tagSlug'=>'tagName')
+	// (string) $tags, tag list separeted by comma.
+	public function generateTags($tags)
+	{
+		$tmp = array();
+
+		$tags = trim($tags);
+
+		if(empty($tags)) {
+			return $tmp;
+		}
+
+		// Make array
+		$tags = explode(',', $tags);
+
+		foreach($tags as $tag)
+		{
+			$tag = trim($tag);
+			$tagKey = Text::cleanUrl($tag);
+			$tmp[$tagKey] = $tag;
+		}
 
 		return $tmp;
+	}
+
+	// Sort posts by date.
+	public function sortByDate($HighToLow=true)
+	{
+		if($HighToLow) {
+			uasort($this->db, array($this, 'sortHighToLow'));
+		}
+		else {
+			uasort($this->db, array($this, 'sortLowToHigh'));
+		}
+
+		return true;
+	}
+
+	private function sortLowToHigh($a, $b) {
+		return $a['date']>$b['date'];
+	}
+
+	private function sortHighToLow($a, $b) {
+		return $a['date']<$b['date'];
+	}
+
+	// Return TRUE if there are new posts, FALSE otherwise.
+	public function regenerateCli()
+	{
+		$db = $this->db;
+		$allPosts = array();
+		$fields = array();
+		$currentDate = Date::current(DB_DATE_FORMAT);
+
+		// Generate default fields and values.
+		foreach($this->dbFields as $field=>$options) {
+			if(!$options['inFile']) {
+				$fields[$field] = $options['value'];
+			}
+		}
+
+		$fields['status'] = CLI_STATUS;
+		$fields['date'] = $currentDate;
+		$fields['username'] = 'admin';
+
+		// Recovery posts from the first level of directories
+		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
+		foreach($tmpPaths as $directory)
+		{
+			if(file_exists($directory.DS.'index.txt'))
+			{
+				// The key is the directory name.
+				$key = basename($directory);
+
+				// All keys posts
+				$allPosts[$key] = true;
+
+				// Create the new entry if not exists on DATABASE.
+				if(!isset($this->db[$key])) {
+					// New entry on database
+					$this->db[$key] = $fields;
+				}
+
+				// Create the post from FILE.
+				$Post = new Post($key);
+
+				// Update all fields from FILE to DATABASE.
+				foreach($fields as $f=>$v)
+				{
+					// If the field exists on the FILE, update it.
+					if($Post->getField($f))
+					{
+						$valueFromFile = $Post->getField($f);
+
+						if($f=='tags') {
+							// Generate tags array.
+							$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+						}
+						elseif($f=='date') {
+							// Validate Date from file
+							if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+								$this->db[$key]['date'] = $valueFromFile;
+
+								if( $valueFromFile>$currentDate ) {
+									$this->db[$key]['status'] = 'scheduled';
+								}
+							}
+						}
+						else {
+							// Sanitize the values from file.
+							$this->db[$key][$f] = Sanitize::html($valueFromFile);
+						}
+					}
+				}
+			}
+		}
+
+		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
+		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
+			unset($this->db[$key]);
+		}
+
+		// Sort posts before save.
+		$this->sortByDate();
+
+		// Save the database.
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return $this->db!=$db;
 	}
 
 }

@@ -2,11 +2,11 @@
 
 class pluginOpenGraph extends Plugin {
 
-	public function onSiteHead()
+	public function siteHead()
 	{
 		global $Url, $Site;
 		global $Post, $Page;
- 
+
 		$og = array(
 			'locale'		=>$Site->locale(),
 			'type'			=>'website',

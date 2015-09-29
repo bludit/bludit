@@ -23,8 +23,8 @@ class Login {
 	{
 		Session::set('username',	$username);
 		Session::set('role', 		$role);
-		Session::set('fingerPrint', $this->fingerPrint());
-		Session::set('sessionTime', time());
+		Session::set('fingerPrint',	$this->fingerPrint());
+		Session::set('sessionTime',	time());
 
 		Log::set(__METHOD__.LOG_SEP.'Set fingerPrint: '.$this->fingerPrint());
 	}
@@ -52,6 +52,9 @@ class Login {
 
 	public function verifyUser($username, $password)
 	{
+		$username = Sanitize::html($username);
+		$password = Sanitize::html($password);
+
 		$username = trim($username);
 		$password = trim($password);
 
@@ -60,9 +63,9 @@ class Login {
 			return false;
 		}
 
-		$user = $this->dbUsers->get($username);
+		$user = $this->dbUsers->getDb($username);
 		if($user==false) {
-			Log::set(__METHOD__.LOG_SEP.'Username not exist: '.$username);
+			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
 			return false;
 		}
 
@@ -75,7 +78,7 @@ class Login {
 			return true;
 		}
 		else {
-			Log::set(__METHOD__.LOG_SEP.'Password are differents.');
+			Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
 		}
 
 		return false;

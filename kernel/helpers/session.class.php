@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Session {
+	class Session {
 
 	private static $started = false;
 
@@ -10,43 +10,41 @@ class Session {
 		//	return true;
 
 		// DEBUG: Ver un nombre con alguna llave random al momentode instalar.
-    	$session_name = 'Bludit-KEY';
+		$session_name = 'Bludit-KEY';
 
-    	// If TRUE cookie will only be sent over secure connections.
-    	$secure = false;
+		// If TRUE cookie will only be sent over secure connections.
+		$secure = false;
 
-    	// If set to TRUE then PHP will attempt to send the httponly flag when setting the session cookie.
-    	$httponly = true;
+		// If set to TRUE then PHP will attempt to send the httponly flag when setting the session cookie.
+		$httponly = true;
 
-    	// This specifies the lifetime of the cookie in seconds which is sent to the browser.
-    	// The value 0 means until the browser is closed.
-    	$cookieLifetime = 0;
+		// This specifies the lifetime of the cookie in seconds which is sent to the browser.
+		// The value 0 means until the browser is closed.
+		$cookieLifetime = 0;
 
 		// Gets current cookies params.
 		$cookieParams = session_get_cookie_params();
 
-    	session_set_cookie_params($cookieLifetime,
-        	$cookieParams["path"],
-        	$cookieParams["domain"],
-        	$secure,
-        	$httponly
-        );
+		session_set_cookie_params(
+			$cookieLifetime,
+			$cookieParams["path"],
+			$cookieParams["domain"],
+			$secure,
+			$httponly
+		);
 
-	    // Sets the session name to the one set above.
-	    session_name($session_name);
+		// Sets the session name to the one set above.
+		session_name($session_name);
 
-    	// Start session.
-    	self::$started = session_start();
+		// Start session.
+		self::$started = session_start();
 
 		// Regenerated the session, delete the old one. There are problems with AJAX.
 		//session_regenerate_id(true);
 
-    	if(self::$started) {
-    		Log::set(__METHOD__.LOG_SEP.'Session started.');
-    	}
-    	else {
-    		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to start the session.');
-    	}
+		if(!self::$started) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to start the session.');
+		}
 	}
 
 	public static function started()

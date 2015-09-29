@@ -5,16 +5,29 @@
 // ============================================================================
 
 $plugins = array(
-	'onSiteHead'=>array(),
-	'onSiteBody'=>array(),
-	'onSiteSidebar'=>array(),
-	'onAdminHead'=>array(),
-	'onAdminBody'=>array(),
-	'onAdminSidebar'=>array(),
-	'beforePostsLoad'=>array(),
-	'afterPostsLoad'=>array(),
-	'beforePagesLoad'=>array(),
-	'afterPagesLoad'=>array(),
+	'siteHead'=>array(),
+	'siteBodyBegin'=>array(),
+	'siteBodyEnd'=>array(),
+	'siteSidebar'=>array(),
+	'beforeSiteLoad'=>array(),
+	'afterSiteLoad'=>array(),
+
+	'pageBegin'=>array(),
+	'pageEnd'=>array(),
+	'postBegin'=>array(),
+	'postEnd'=>array(),
+
+	'adminHead'=>array(),
+	'adminBodyBegin'=>array(),
+	'adminBodyEnd'=>array(),
+	'adminSidebar'=>array(),
+	'beforeAdminLoad'=>array(),
+	'afterAdminLoad'=>array(),
+
+	'loginHead'=>array(),
+	'loginBodyBegin'=>array(),
+	'loginBodyEnd'=>array(),
+
 	'all'=>array()
 );
 
@@ -51,18 +64,18 @@ function build_plugins()
 		$Plugin = new $pluginClass;
 
 		// Set Plugin data
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.$Site->locale().'.json';
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
 		if( Sanitize::pathFile($languageFilename) )
 		{
 			$database = new dbJSON($languageFilename, false);
 		}
 		else
 		{
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().'language'.DS.'en_US.json';
+			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
 			$database = new dbJSON($languageFilename, false);
 		}
 
-		$databaseArray = $database->get();
+		$databaseArray = $database->db;
 		$Plugin->setData( $databaseArray['plugin-data'] );
 
 		// Add words to language dictionary.
@@ -70,18 +83,14 @@ function build_plugins()
 		$Language->add($databaseArray);
 
 		// Push Plugin to array all plugins installed and not installed.
-		array_push($plugins['all'], $Plugin);
+		$plugins['all'][$pluginClass] = $Plugin;
 
 		// If the plugin installed
 		if($Plugin->installed())
 		{
 			foreach($pluginsEvents as $event=>$value)
 			{
-				/*
-				if($Plugin->onSiteHead()!==false)
-					array_push($plugins['onSiteHead'], $Plugin);
-				*/
-				if($Plugin->{$event}()!==false) {
+				if(method_exists($Plugin, $event)) {
 					array_push($plugins[$event], $Plugin);
 				}
 			}

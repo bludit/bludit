@@ -5,14 +5,13 @@ class dbPages extends dbJSON
 	private $parentKeyList = array();
 
 	private $dbFields = array(
-		'title'=>			array('inFile'=>true,	'value'=>''),
-		'content'=>			array('inFile'=>true,	'value'=>''),
+		'title'=>		array('inFile'=>true,	'value'=>''),
+		'content'=>		array('inFile'=>true,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
-		'tags'=>			array('inFile'=>false,	'value'=>''),
-		'status'=>			array('inFile'=>false,	'value'=>'draft'),
-		'unixTimeCreated'=>	array('inFile'=>false,	'value'=>0),
-		'unixTimeModified'=>array('inFile'=>false,	'value'=>0),
+		'tags'=>		array('inFile'=>false,	'value'=>array()),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'),
+		'date'=>		array('inFile'=>false,	'value'=>0),
 		'position'=>		array('inFile'=>false,	'value'=>0)
 	);
 
@@ -27,9 +26,6 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
-		if($key===false) {
-			return false;
-		}
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
@@ -37,20 +33,27 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		// The current unix time stamp.
-		$args['unixTimeCreated'] = Date::unixTime();
+		// Current date.
+		if(empty($args['date'])) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
+		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
 			// Default value for the field.
@@ -109,21 +112,30 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		// Unix time created and modified.
-		$args['unixTimeCreated'] = $this->db[$args['key']]['unixTimeCreated'];
-		$args['unixTimeModified'] = Date::unixTime();
+		// If the page is draft then the time created is now.
+		if( $this->db[$args['key']]['status']=='draft' ) {
+			$args['date'] = Date::current(DB_DATE_FORMAT);
+		}
+		else {
+			$args['date'] = $this->db[$args['key']]['date'];
+		}
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
 			if( isset($args[$field]) )
 			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
+				if($field=='tags') {
+					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					$tmpValue = $args[$field];
+					// Sanitize if will be saved on database.
+					if( !$options['inFile'] ) {
+						$tmpValue = Sanitize::html($args[$field]);
+					}
+					else {
+						$tmpValue = $args[$field];
+					}
 				}
 			}
 			// Default value for the field.
@@ -283,62 +295,113 @@ class dbPages extends dbJSON
 		return $this->db;
 	}
 
-	public function regenerate()
+	// Returns an Array, array('tagSlug'=>'tagName')
+	// (string) $tags, tag list separeted by comma.
+	public function generateTags($tags)
+	{
+		$tmp = array();
+
+		$tags = trim($tags);
+
+		if(empty($tags)) {
+			return $tmp;
+		}
+
+		// Make array
+		$tags = explode(',', $tags);
+
+		foreach($tags as $tag)
+		{
+			$tag = trim($tag);
+			$tagKey = Text::cleanUrl($tag);
+			$tmp[$tagKey] = $tag;
+		}
+
+		return $tmp;
+	}
+
+	public function regenerateCli()
 	{
 		$db = $this->db;
-		$paths = array();
+		$newPaths = array();
 		$fields = array();
 
-		// Complete $fields with the default values.
+		// Default fields and value
 		foreach($this->dbFields as $field=>$options) {
 			if(!$options['inFile']) {
 				$fields[$field] = $options['value'];
 			}
 		}
 
-		// Foreach new page set the unix time stamp.
-		$fields['unixTimeCreated'] = Date::unixTime();
-
-		// Foreach new page set the owner admin.
-		$fields['username'] = 'admin';
-
-		// Foreach new page set the status.
-		if(HANDMADE_PUBLISHED) {
-			$fields['status']='published';
-		}
-
-		// Get the pages from the first level of directories
-		$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
+		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
 		foreach($tmpPaths as $directory)
 		{
 			$key = basename($directory);
 
-			if(file_exists($directory.DS.'index.txt')){
+			if(file_exists($directory.DS.'index.txt')) {
 				// The key is the directory name
-				$paths[$key] = true;
+				$newPaths[$key] = true;
 			}
 
 			// Recovery pages from subdirectories
-			$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			//$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
+			$subPaths = Filesystem::listDirectories($directory.DS);
 			foreach($subPaths as $subDirectory)
 			{
 				$subKey = basename($subDirectory);
 
 				if(file_exists($subDirectory.DS.'index.txt')) {
 					// The key is composed by the directory/subdirectory
-					$paths[$key.'/'.$subKey] = true;
+					$newPaths[$key.'/'.$subKey] = true;
 				}
 			}
 		}
 
-		// Remove old posts from db
-		foreach( array_diff_key($db, $paths) as $slug=>$data ) {
-			unset($this->db[$slug]);
+		foreach($newPaths as $key=>$value)
+		{
+			if(!isset($this->db[$key]))
+			{
+				// Default values for the new pages.
+				$fields['status'] = CLI_STATUS;
+				$fields['date'] = Date::current(DB_DATE_FORMAT);
+				$fields['username'] = 'admin';
+
+				// Create the entry for the new page.
+				$this->db[$key] = $fields;
+			}
+
+			$Page = new Page($key);
+
+			// Update all fields from FILE to DATABASE.
+			foreach($fields as $f=>$v)
+			{
+				// If the field exists on the FILE, update it.
+				if($Page->getField($f))
+				{
+					$valueFromFile = $Page->getField($f);
+
+					if($f=='tags') {
+						// Generate tags array.
+						$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
+					}
+					elseif($f=='date') {
+						// Validate Date from file
+						if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
+							$this->db[$key]['date'] = $valueFromFile;
+						}
+					}
+					else {
+						// Sanitize the values from file.
+						$this->db[$key][$f] = Sanitize::html($valueFromFile);
+					}
+				}
+			}
 		}
 
-		// Insert new posts to db
-		foreach( array_diff_key($paths, $db) as $slug=>$data ) {
-			$this->db[$slug] = $fields;
+		// Remove old pages from db
+		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
+			unset($this->db[$key]);
 		}
 
 		// Save the database.
@@ -349,5 +412,4 @@ class dbPages extends dbJSON
 
 		return $this->db!=$db;
 	}
-
 }

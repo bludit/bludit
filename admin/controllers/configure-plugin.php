@@ -5,7 +5,7 @@
 // ============================================================================
 
 if($Login->role()!=='admin') {
-	Alert::set('You do not have sufficient permissions to access this page, contact the administrator.');
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
 	Redirect::page('admin', 'dashboard');
 }
 
@@ -17,10 +17,11 @@ if($Login->role()!=='admin') {
 // Main before POST
 // ============================================================================
 $_Plugin = false;
+$pluginClassName = $layout['parameters'];
 
 foreach($plugins['all'] as $P)
 {
-	if($P->className()==$layout['parameters']) {
+	if($P->className()==$pluginClassName) {
 		$_Plugin = $P;
 	}
 }
@@ -30,8 +31,8 @@ if($_Plugin===false) {
 	Redirect::page('admin', 'plugins');
 }
 
-// Check if the plugin has the method form.
-if($_Plugin->form()===false) {
+// Check if the plugin has the method form()
+if(!method_exists($_Plugin, 'form')) {
 	Redirect::page('admin', 'plugins');
 }
 
@@ -42,7 +43,7 @@ if($_Plugin->form()===false) {
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	$_Plugin->setDb($_POST);
-	Alert::set('Configuration has been saved successfully');
+	Alert::set($Language->g('the-changes-have-been-saved'));
 }
 
 // ============================================================================

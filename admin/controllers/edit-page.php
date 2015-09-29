@@ -7,6 +7,7 @@
 function editPage($args)
 {
 	global $dbPages;
+	global $Language;
 
 	// Page status, published or draft.
 	if( isset($args['publish']) ) {
@@ -23,31 +24,36 @@ function editPage($args)
 	// Edit the page.
 	if( $dbPages->edit($args) )
 	{
-		$dbPages->regenerate();
+		$dbPages->regenerateCli();
 
-		Alert::set('The page has been saved successfully');
+		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-page/'.$args['key']);
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to edit the page');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the page.');
 	}
 }
 
 function deletePage($key)
 {
 	global $dbPages;
+	global $Language;
 
 	if( $dbPages->delete($key) )
 	{
-		Alert::set('The page has been deleted successfully');
+		Alert::set($Language->g('The page has been deleted successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}
 	else
 	{
-		Alert::set('Error occurred when trying to delete the page');
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the page.');
 	}
 }
+
+// ============================================================================
+// Main before POST
+// ============================================================================
 
 // ============================================================================
 // POST Method
@@ -64,10 +70,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 }
 
 // ============================================================================
-// Main
+// Main after POST
 // ============================================================================
 
-if(!$dbPages->pageExists($layout['parameters'])) {
+if(!$dbPages->pageExists($layout['parameters']))
+{
+	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$layout['parameters']);
 	Redirect::page('admin', 'manage-pages');
 }
 

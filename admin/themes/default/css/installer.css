@@ -8,6 +8,10 @@ a:hover {
     text-decoration: none !important;
 }
 
+p {
+    margin-bottom: 0;
+}
+
 /* ----------- FONTS AWESOME ----------- */
 .fa-right {
     margin-right: 5px;
@@ -16,7 +20,7 @@ a:hover {
 /* -----------  ----------- */
 div.main {
     text-align: center;
-    margin: 30px 0;
+    margin: 50px 0 0 0;
 }
 h1.title {
     font-weight: lighter;
@@ -25,4 +29,25 @@ h1.title {
 
 td {
 	text-align: center;
+}
+
+.boxInstallerForm {
+    margin-top: 30px !important;
+}
+
+.tools-message {
+    display: block;
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    max-width: none;
+    margin-bottom: 30px;
+}
+
+#jscompleteEmail {
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    cursor: pointer;
 }

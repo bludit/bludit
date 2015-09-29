@@ -2,28 +2,21 @@
 
 <form method="post" action="" class="forms">
 
-    <label>
-        <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-70">
-    </label>
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
 
     <label>
+    <?php $Language->p('Title') ?>
+    <input id="jstitle" name="title" type="text" class="width-90">
+    </label>
+
+    <label class="width-90">
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="10" class="width-70"></textarea>
+        <textarea id="jscontent" name="content" rows="15"></textarea>
     </label>
 
-<?php
-    if($Site->advancedOptions()) {
-        echo '<div id="jsadvancedOptions">';
-    }
-    else
-    {
-        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
-        echo '<div id="jsadvancedOptions" style="display:none">';
-    }
-?>
+    <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
 
-    <h4><?php $Language->p('Advanced options') ?></h4>
+    <div id="jsadvancedOptions">
 
     <label for="jsparent">
         <?php $Language->p('Parent') ?>
@@ -36,7 +29,6 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Tip/Help ???</div>
     </label>
 
     <label>
@@ -45,19 +37,19 @@
             <span class="input-prepend"><?php echo $Site->urlPage() ?><span id="jsparentExample"></span></span>
             <input id="jsslug" name="slug" type="text">
         </div>
-        <span class="forms-desc">Short text no more than 150 characters. Special characters not allowed.</span>
+        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Description') ?>
         <input id="jsdescription" name="description" type="text" class="width-50">
-        <span class="forms-desc">This field is for Twitter/Facebook/Google+ descriptions. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Tags') ?>
         <input id="jstags" name="tags" type="text" class="width-50">
-        <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
+        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
     </label>
 
     <label>
@@ -103,6 +95,11 @@ $(document).ready(function()
         }
 
         checkSlugPage(text, parent, "", $("#jsslug"));
+    });
+
+    $("#jsadvancedButton").click(function() {
+        $("#jsadvancedOptions").slideToggle();
+        return false;
     });
 
 });

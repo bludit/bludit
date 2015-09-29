@@ -8,12 +8,19 @@ class Date {
 		return time();
 	}
 
-	// Format a local time/date according to locale settings
-	public static function format($time, $format)
+	// Return the local time/date according to locale settings.
+	public static function current($format)
 	{
-		$date = strftime($format, $time);
+		$Date = new DateTime();
+		return $Date->format($format);
+	}
 
-		return $date;
+	// Format a local time/date according to locale settings.
+	public static function format($date, $currentFormat, $outputFormat)
+	{
+		$Date = DateTime::createFromFormat($currentFormat, $date);
+
+		return $Date->format($outputFormat);
 	}
 
 	public static function timeago($time)
@@ -64,39 +71,4 @@ class Date {
 
 		return $tmp;
 	}
-
-	// Old
-
-	public static function set_locale($string)
-	{
-		if(setlocale(LC_ALL,$string.'.UTF-8')!==false)
-			return true;
-
-		if(setlocale(LC_ALL,$string.'.UTF8')!==false)
-			return true;
-
-		return setlocale(LC_ALL,$string);
-	}
-
-	public static function set_timezone($string)
-	{
-		return(date_default_timezone_set($string));
-	}
-
-
-	// Format a GMT/UTC+0 date/time
-	public static function format_gmt($time, $format)
-	{
-		$date = gmdate($format, $time);
-
-		return( $date );
-	}
-
-	public static function atom($time)
-	{
-		$date = date(DATE_ATOM, $time);
-
-		return( $date );
-	}
-
 }

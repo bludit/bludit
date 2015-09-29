@@ -3,22 +3,22 @@
 class dbSite extends dbJSON
 {
 	private $dbFields = array(
-		'title'=>		array('inFile'=>false, 'value'=>''),
+		'title'=>		array('inFile'=>false, 'value'=>'I am Guybrush Threepwood, mighty developer'),
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
-		'description'=>	array('inFile'=>false, 'value'=>''),
-		'footer'=>		array('inFile'=>false, 'value'=>''),
-		'postsperpage'=>array('inFile'=>false, 'value'=>''),
-		'language'=>	array('inFile'=>false, 'value'=>'en'),
+		'description'=>		array('inFile'=>false, 'value'=>''),
+		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
+		'postsperpage'=>	array('inFile'=>false, 'value'=>''),
+		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
-		'timezone'=>	array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
+		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
 		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
-		'adminTheme'=>	array('inFile'=>false, 'value'=>'kure'),
-		'homepage'=>	array('inFile'=>false, 'value'=>''),
+		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
+		'homepage'=>		array('inFile'=>false, 'value'=>''),
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
-		'advancedOptions'=> array('inFile'=>false, 'value'=>'false')
+		'cliMode'=>		array('inFile'=>false, 'value'=>true)
 	);
 
 	function __construct()
@@ -64,8 +64,9 @@ class dbSite extends dbJSON
 		$filters['page'] = $this->db['uriPage'];
 		$filters['tag'] = $this->db['uriTag'];
 
-		if(empty($filter))
+		if(empty($filter)) {
 			return $filters;
+		}
 
 		return $filters[$filter];
 	}
@@ -95,15 +96,6 @@ class dbSite extends dbJSON
 	public function slogan()
 	{
 		return $this->db['slogan'];
-	}
-
-	public function advancedOptions()
-	{
-		if($this->db['advancedOptions']==='true') {
-			return true;
-		}
-
-		return false;
 	}
 
 	// Returns the site description.
@@ -136,10 +128,16 @@ class dbSite extends dbJSON
 		return $this->db['url'];
 	}
 
+	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
+	public function cliMode()
+	{
+		return $this->db['cliMode'];
+	}
+
 	// Returns the relative home link
 	public function homeLink()
 	{
-		return 	HTML_PATH_ROOT;
+		return HTML_PATH_ROOT;
 	}
 
 	// Returns the timezone.
@@ -164,6 +162,16 @@ class dbSite extends dbJSON
 	public function locale()
 	{
 		return $this->db['locale'];
+	}
+
+	// Returns the current language in short format.
+	public function shortLanguage()
+	{
+		$locale = $this->locale();
+		$explode = explode('_', $locale);
+		$short = array_shift($explode);
+
+		return $short;
 	}
 
 	// Returns the current homepage.

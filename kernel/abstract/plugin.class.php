@@ -2,7 +2,7 @@
 
 class Plugin {
 
-	// (string) Plugin's directory
+	// (string) Plugin's directory name
 	public $directoryName;
 
 	// (string) Database path and filename
@@ -27,15 +27,17 @@ class Plugin {
 			'description'=>'',
 			'author'=>'',
 			'email'=>'',
-			'website'=>''
+			'website'=>'',
+			'version'=>'',
+			'releaseDate'=>''
 		);
-		
+
 		$this->dbFields = array();
 
 		$reflector = new ReflectionClass(get_class($this));
 
 		// Directory name
-		$this->directoryName = basename(dirname($reflector->getFileName())).DS;
+		$this->directoryName = basename(dirname($reflector->getFileName()));
 
 		// Class Name
 		$this->className = $reflector->getName();
@@ -46,7 +48,7 @@ class Plugin {
 		// Init empty database
 		$this->db = $this->dbFields;
 
-		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.'db.php';
+		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
 
 		// If the plugin installed then get the database.
 		if($this->installed())
@@ -56,6 +58,11 @@ class Plugin {
 		}
 	}
 
+	public function htmlPath()
+	{
+		return HTML_PATH_PLUGINS.$this->directoryName.'/';
+	}
+
 	// Returns the item from plugin-data.
 	public function getData($key)
 	{
@@ -63,7 +70,7 @@ class Plugin {
 			return $this->data[$key];
 		}
 
-		return '';		
+		return '';
 	}
 
 	public function setData($array)
@@ -71,10 +78,18 @@ class Plugin {
 		$this->data = $array;
 	}
 
-	public function getDbField($key)
+	public function getDbField($key, $html=true)
 	{
 		if(isset($this->db[$key])) {
-			return $this->db[$key];
+
+			if($html) {
+				// All fields from DBField are sanitized.
+				return $this->db[$key];
+			}
+			else {
+				// Decode HTML tags, this action unsanitized the variable.
+				return Sanitize::htmlDecode($this->db[$key]);
+			}
 		}
 
 		return '';
@@ -122,6 +137,16 @@ class Plugin {
 		return $this->getData('website');
 	}
 
+	public function version()
+	{
+		return $this->getData('version');
+	}
+
+	public function releaseDate()
+	{
+		return $this->getData('releaseDate');
+	}
+
 	public function className()
 	{
 		return $this->className;
@@ -133,7 +158,7 @@ class Plugin {
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.
-	public function install()
+	public function install($position=0)
 	{
 		if($this->installed()) {
 			return false;
@@ -143,8 +168,8 @@ class Plugin {
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
 		// Create database
-		$Tmp = new dbJSON($this->filenameDb);
-		$Tmp->set($this->dbFields);
+		$this->dbFields['position'] = $position;
+		$this->setDb($this->dbFields);
 
 		return true;
 	}
@@ -164,67 +189,6 @@ class Plugin {
 	{
 		// This method is used on childre classes.
 		// The user can define your own dbFields.
-	}
-
-	// EVENTS
-
-	public function form()
-	{
-		return false;
-	}
-
-	// Before the posts load.
-	public function beforePostsLoad()
-	{
-		return false;
-	}
-
-	// After the posts load.
-	public function afterPostsLoad()
-	{
-		return false;
-	}
-
-	// Before the pages load.
-	public function beforePagesLoad()
-	{
-		return false;
-	}
-
-	// After the pages load.
-	public function afterPagesLoad()
-	{
-		return false;
-	}
-
-	public function onSiteHead()
-	{
-		return false;
-	}
-
-	public function onSiteBody()
-	{
-		return false;
-	}
-
-	public function onAdminHead()
-	{
-		return false;
-	}
-
-	public function onAdminBody()
-	{
-		return false;
-	}
-
-	public function onSiteSidebar()
-	{
-		return false;
-	}
-
-	public function onAdminSidebar()
-	{
-		return false;
 	}
 
 }

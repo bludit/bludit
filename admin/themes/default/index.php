@@ -1,25 +1,31 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
-	<meta charset="utf-8">
+	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex,nofollow">
 
 	<title><?php echo $layout['title'] ?></title>
 
-	<link rel="stylesheet" href="./css/kube.min.css">
-	<link rel="stylesheet" href="./css/default.css">
-	<link rel="stylesheet" href="./css/css/font-awesome.css">
+	<link rel="shortcut icon" type="image/x-icon" href="./css/favicon.png">
 
-	<script src="./js/jquery.min.js"></script>
-	<script src="./js/kube.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
+
+	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/kube.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
-	<?php
-		Theme::plugins('onAdminHead');
-	?>
+	<?php Theme::plugins('adminHead') ?>
 </head>
 <body>
+
+<!-- Plugins -->
+<?php Theme::plugins('adminBodyBegin') ?>
 
 <!-- ALERT -->
 <script>
@@ -55,7 +61,7 @@ $(document).ready(function() {
 	<div id="sidebar" class="nav">
 
 		<ul>
-			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard"><i class="fa fa-sun-o"></i><?php $Language->p('Dasbhoard') ?></a></li>
+			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard"><i class="fa fa-sun-o"></i><?php $Language->p('Dashboard') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><i class="fa fa-pencil-square-o"></i><?php $Language->p('New post') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-page"><i class="fa fa-pencil"></i><?php $Language->p('New page') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>manage-posts"><i class="fa fa-file-text-o"></i><?php $Language->p('Manage') ?></a></li>
@@ -91,12 +97,9 @@ $(document).ready(function() {
 ?>
 
 <!-- Plugins -->
-<?php
-	Theme::plugins('onAdminBody');
-?>
+<?php Theme::plugins('adminBodyEnd') ?>
 
-<?php
-echo "DEBUG: Load time: ".(microtime(true) - $loadTime).'<br>';
-?>
+<div id="footer">Bludit <?php echo BLUDIT_VERSION ?> | Load time <?php echo round((microtime(true) - $loadTime), 5) ?></div>
+
 </body>
 </html>

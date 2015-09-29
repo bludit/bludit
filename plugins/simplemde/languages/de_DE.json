@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Ein einfacher und schöner JavaScript-Editor für; Markdown von @WesCossick. Angepasst für Bludit von Diego Najar."
+	},
+	"toolbar": "Werkzeugleiste",
+	"tab-size": "Abstände der Tabstopps"
+}

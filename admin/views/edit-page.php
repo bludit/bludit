@@ -1,31 +1,23 @@
-<h2 class="title"><i class="fa fa-pencil"></i> <?php $Language->p('Edit page') ?></h2>
+<h2 class="title"><i class="fa fa-pencil"></i><?php $Language->p('Edit page') ?></h2>
 
 <form id="jsform" method="post" action="" class="forms">
 
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
     <input type="hidden" id="jskey" name="key" value="<?php echo $_Page->key() ?>">
 
     <label>
         <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-70" value="<?php echo $_Page->title() ?>">
+        <input id="jstitle" name="title" type="text" class="width-90" value="<?php echo $_Page->title() ?>">
     </label>
 
-    <label>
+    <label class="width-90">
         <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea name="content" rows="10" class="width-70"><?php echo $_Page->contentRaw(true, false) ?></textarea>
+        <textarea id="jscontent" name="content" rows="15"><?php echo $_Page->contentRaw(false) ?></textarea>
     </label>
 
-<?php
-    if($Site->advancedOptions()) {
-        echo '<div id="jsadvancedOptions">';
-    }
-    else
-    {
-        echo '<p class="advOptions">'.$Language->g('Enable more features at').' <a href="'.HTML_PATH_ADMIN_ROOT.'settings#advanced">'.$Language->g('settings-advanced-writting-settings').'</a></p>';
-        echo '<div id="jsadvancedOptions" style="display:none">';
-    }
-?>
+    <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
 
-    <h4><?php $Language->p('Advanced options') ?></h4>
+    <div id="jsadvancedOptions">
 
 <?php
     // Remove setting pages parents if the page is a parent.
@@ -45,7 +37,6 @@
             }
         ?>
         </select>
-        <div class="forms-desc">Tip/Help ???</div>
     </label>
 
 <?php } ?>
@@ -56,19 +47,19 @@
             <span class="input-prepend"><?php echo $Site->url() ?><span id="jsparentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
             <input id="jsslug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
         </div>
-        <span class="forms-desc">You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Description') ?>
         <input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
-        <span class="forms-desc">This field can help describe the content in a few words. No more than 150 characters.</span>
+        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
     </label>
 
     <label>
         <?php $Language->p('Tags') ?>
         <input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
-        <span class="forms-desc">Write the tags separeted by comma. eg: tag1, tag2, tag3</span>
+        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
     </label>
 
     <label>
@@ -122,9 +113,14 @@ $(document).ready(function()
     });
 
     $("#jsdelete").click(function() {
-        if(!confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")) {
-            event.preventDefault();
+        if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+            return false;
         }
+    });
+
+    $("#jsadvancedButton").click(function() {
+        $("#jsadvancedOptions").slideToggle();
+        return false;
     });
 
 });

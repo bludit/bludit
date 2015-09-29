@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Listado de páginas",
+		"description": "Muestra las paginas en orden según la posición."
+	},
+
+	"home": "Página de inicio",
+	"show-home-link": "Mostrar página de inicio"
+}

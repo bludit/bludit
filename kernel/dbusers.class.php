@@ -6,11 +6,11 @@ class dbUsers extends dbJSON
 		'firstName'=>	array('inFile'=>false, 'value'=>''),
 		'lastName'=>	array('inFile'=>false, 'value'=>''),
 		'username'=>	array('inFile'=>false, 'value'=>''),
-		'role'=>		array('inFile'=>false, 'value'=>'editor'),
+		'role'=>	array('inFile'=>false, 'value'=>'editor'),
 		'password'=>	array('inFile'=>false, 'value'=>''),
-		'salt'=>		array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
-		'email'=>		array('inFile'=>false, 'value'=>''),
-		'registered'=>	array('inFile'=>false, 'value'=>0)
+		'salt'=>	array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
+		'email'=>	array('inFile'=>false, 'value'=>''),
+		'registered'=>	array('inFile'=>false, 'value'=>'1985-03-15 10:00')
 	);
 
 	function __construct()
@@ -19,7 +19,7 @@ class dbUsers extends dbJSON
 	}
 
 	// Return an array with the username databases
-	public function get($username)
+	public function getDb($username)
 	{
 		if($this->userExists($username))
 		{
@@ -57,7 +57,7 @@ class dbUsers extends dbJSON
 	{
 		$dataForDb = array();
 
-		$user = $this->get($args['username']);
+		$user = $this->getDb($args['username']);
 
 		if($user===false)
 		{
@@ -70,10 +70,10 @@ class dbUsers extends dbJSON
 		{
 			if( isset($this->dbFields[$field]) )
 			{
-				// Sanitize if will be saved on database.
+				// Sanitize.
 				$tmpValue = Sanitize::html($value);
 
-				// Set type
+				// Set type.
 				settype($tmpValue, gettype($this->dbFields[$field]['value']));
 
 				$user[$field] = $tmpValue;
@@ -82,6 +82,18 @@ class dbUsers extends dbJSON
 
 		// Save the database
 		$this->db[$args['username']] = $user;
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
+	public function delete($username)
+	{
+		unset($this->db[$username]);
+
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
@@ -126,8 +138,8 @@ class dbUsers extends dbJSON
 			return false;
 		}
 
-		// The current unix time stamp.
-		$dataForDb['registered'] = Date::unixTime();
+		// Current date.
+		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
 
 		// Password
 		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);

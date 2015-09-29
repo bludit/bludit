@@ -3,6 +3,7 @@
 class dbJSON
 {
 	public $db;
+	public $dbBackup;
 	public $file;
 	public $firstLine;
 
@@ -12,6 +13,7 @@ class dbJSON
 	{
 		$this->file = $file;
 		$this->db = array();
+		$this->dbBackup = array();
 		$this->firstLine = $firstLine;
 
 		if(file_exists($file))
@@ -28,7 +30,15 @@ class dbJSON
 			$implode = implode($lines);
 
 			// Unserialize, JSON to Array.
-			$this->db = $this->unserialize($implode);
+			$array = $this->unserialize($implode);
+
+			if(empty($array)) {
+				Log::set(__METHOD__.LOG_SEP.'Invalid JSON file: '.$file.', cannot be decoded. Check the file content.');
+			}
+			else {
+				$this->db = $array;
+				$this->dbBackup = $array;
+			}
 		}
 		else
 		{
@@ -36,18 +46,10 @@ class dbJSON
 		}
 	}
 
-	// Get database.
-	public function get()
+	public function restoreDb()
 	{
-		return $this->db;
-	}
-
-	// Set and save database.
-	public function set($db)
-	{
-		$this->db = $db;
-
-		return $this->save();
+		$this->db = $this->dbBackup;
+		return true;
 	}
 
 	// Returns the amount of database items.
@@ -59,17 +61,20 @@ class dbJSON
 	// Save the JSON file.
 	public function save()
 	{
+		$data = '';
+
 		if($this->firstLine) {
 			$data  = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
 		}
-		else {
-			$data = '';
-		}
 
+		// Serialize database
 		$data .= $this->serialize($this->db);
 
+		// Backup the new database.
+		$this->dbBackup = $this->db;
+
 		// LOCK_EX flag to prevent anyone else writing to the file at the same time.
-		file_put_contents($this->file, $data, LOCK_EX);
+		return file_put_contents($this->file, $data, LOCK_EX);
 	}
 
 	private function serialize($data)

@@ -1,4 +1,4 @@
-<h2 class="title"><i class="fa fa-file-text-o"></i> <?php $Language->p('Manage pages') ?></h2>
+<h2 class="title"><i class="fa fa-file-text-o"></i><?php $Language->p('Manage pages') ?></h2>
 
 <?php makeNavbar('manage'); ?>
 
@@ -7,6 +7,8 @@
 		<tr>
 			<th><?php $Language->p('Title') ?></th>
 			<th><?php $Language->p('Parent') ?></th>
+			<th><?php $Language->p('Friendly URL') ?></th>
+			<th class="text-centered"><?php $Language->p('Position') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,8 +26,10 @@
 				}
 
 				echo '<tr>';
-				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'['.$Language->g('Draft').'] ').($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></td>';
+				echo '<td>'.($Page->parentKey()?NO_PARENT_CHAR:'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label label-outline label-red smaller">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label label-outline label-blue smaller">'.$Language->g('Empty title').'</span> ').'</a></td>';
 				echo '<td>'.$parentTitle.'</td>';
+				echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$Url->filters('page').'/'.$Page->key().'</a></td>';
+				echo '<td class="text-centered">'.$Page->position().'</td>';
 				echo '</tr>';
 			}
 		}
