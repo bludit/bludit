@@ -48,6 +48,11 @@ function deleteUser($args, $deleteContent=false)
 		return false;
 	}
 
+	// The editors cannot delete users.
+	if($Login->role()!=='admin') {
+		return false;
+	}
+
 	if($deleteContent) {
 		$dbPosts->deletePostsByUser($args['username']);
 	}
