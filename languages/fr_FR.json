@@ -3,8 +3,8 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-08-29",
-		"author": "Fred",
+		"last-update": "2015-10-03",
+		"author": "Frédéric K.",
 		"email": "",
 		"website": ""
 	},
@@ -162,5 +162,11 @@
 	"you-can-schedule-the-post-just-select-the-date-and-time": "Vous pouvez planifier une date de publication de vos articles, il suffit de sélectionner la date et l’heure dans le calendrier qui s’ouvre en pop-up.",
 	"scheduled": "Planification",
 	"publish": "Publier",
-	"please-check-your-theme-configuration": "Veuillez vérifier la configuration de votre thème."
+	"please-check-your-theme-configuration": "Veuillez vérifier la configuration de votre thème.",
+	"plugin-label": "Libellé du plugin",
+	"enabled": "Activé",
+	"disabled": "Désactivé",
+	"cli-mode": "Mode Cli",
+	"command-line-mode": "Mode ligne de commande",
+	"enable-the-command-line-mode-if-you-add-edit": "Activer le mode ligne de commande si vous créez, modifiez ou supprimez des articles ou des pages du système de fichiers."
 }
