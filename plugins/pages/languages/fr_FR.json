@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Page navigation",
-		"description": "Constitue un menu avec les liens des pages dans la colonne du thème.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "Constitue un menu avec les liens des pages dans la colonne du thème."
 	},
 
     "home": "Accueil",

@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "開放社交關係圖",
-		"description": "開放社交關係圖協定可以讓任何網頁變成豐富的物件",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "開放社交關係圖協定可以讓任何網頁變成豐富的物件"
 	}
 }

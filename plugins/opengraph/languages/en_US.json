@@ -5,8 +5,8 @@
 		"description": "The Open Graph protocol enables any web page to become a rich object in a social graph.",
 		"author": "Bludit",
 		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.3",
+		"releaseDate": "2015-10-02"
 	}
 }

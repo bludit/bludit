@@ -3,7 +3,7 @@
 	{
 		"native": "English (United States)",
 		"english-name": "English",
-		"last-update": "2015-06-28",
+		"last-update": "2015-10-02",
 		"author": "Diego",
 		"email": "",
 		"website": ""
@@ -163,5 +163,10 @@
 	"scheduled": "Scheduled",
 	"publish": "Publish",
 	"please-check-your-theme-configuration": "Please check your theme configuration.",
-	"plugin-label": "Plugin label"
+	"plugin-label": "Plugin label",
+	"enabled": "Enabled",
+	"disabled": "Disabled",
+	"cli-mode": "Cli mode",
+	"command-line-mode": "Command line mode",
+	"enable-the-command-line-mode-if-you-add-edit": "Enable the command line mode if you add, edit or remove posts and pages from the filesystem"
 }

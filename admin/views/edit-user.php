@@ -6,7 +6,7 @@
         <li><a href="#email"><?php $Language->p('Email') ?></a></li>
         <li><a href="#password"><?php $Language->p('Password') ?></a></li>
 
-        <?php if($_user['username']!=='admin') { ?>
+        <?php if($_user['username']=='admin') { ?>
         <li><a href="#delete"><?php $Language->p('Delete') ?></a></li>
         <?php } ?>
     </ul>
@@ -18,9 +18,7 @@
 
 <div id="profile">
 <form method="post" action="" class="forms">
-
     <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
-    <input type="hidden" name="edit-user" value="true">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -50,7 +48,7 @@
 
 <?php } ?>
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-profile">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="edit-user">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -61,7 +59,7 @@
 
 <div id="email">
 <form method="post" action="" class="forms">
-    <input type="hidden" name="edit-user" value="true">
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -70,7 +68,7 @@
         <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
     </label>
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-email">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="edit-user">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -81,7 +79,7 @@
 
 <div id="password">
 <form method="post" action="" class="forms">
-    <input type="hidden" name="change-password" value="true">
+    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
     <label>
@@ -94,7 +92,7 @@
         <input type="password" name="confirm-password" class="width-50">
     </label>
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-password">
+    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="change-password">
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
 </form>
 </div>
@@ -102,20 +100,20 @@
 <!-- ===================================== -->
 <!-- Delete -->
 <!-- ===================================== -->
-<?php if($_user['username']!=='admin') { ?>
+<?php if($_user['username']=='admin') { ?>
 
 <div id="delete">
 
     <form method="post" action="" class="forms">
-        <input type="hidden" name="delete-user-all" value="true">
+        <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
         <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and all its posts') ?>"></p>
+        <p><input type="submit" name="delete-user-all" class="btn btn-blue" value="<?php $Language->p('Delete the user and all its posts') ?>"></p>
     </form>
 
     <form method="post" action="" class="forms">
-        <input type="hidden" name="delete-user-associate" value="true">
+        <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
         <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and associate its posts to admin user') ?>"></p>
+        <p><input type="submit" name="delete-user-associate" class="btn btn-blue" value="<?php $Language->p('Delete the user and associate its posts to admin user') ?>"></p>
     </form>
 
     <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>

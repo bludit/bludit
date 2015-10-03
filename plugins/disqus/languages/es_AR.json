@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Disqus sistema de comentarios",
-		"description": "Disqus es un servicio de comentarios online. Es necesario registrarse en Disqus.com antes de utilizar este plugin.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-17"
+		"description": "Disqus es un servicio de comentarios online. Es necesario registrarse en Disqus.com antes de utilizar este plugin."
 	},
 	"disqus-shortname": "Disqus shortname",
 	"enable-disqus-on-pages": "Habilitar Disqus en las páginas",
