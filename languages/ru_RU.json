@@ -163,5 +163,10 @@
 	"scheduled": "Запланировано",
 	"publish": "Опубликовать",
 	"please-check-your-theme-configuration": "Пожалуйста, проверьте конфигурацию вашей темы.",
-	"plugin-label": "Метка плагина"
+	"plugin-label": "Метка плагина",
+	"enabled": "Включен",
+	"disabled": "Отключен",
+	"cli-mode": "Режим CLI",
+	"command-line-mode": "Режим командной строки",
+	"enable-the-command-line-mode-if-you-add-edit": "Включите режим командной строки, если вы добавляете, изменяете или удаляете записи и страницы из файловой системы"
 }
