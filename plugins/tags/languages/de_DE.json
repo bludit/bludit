@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Liste aller Schlagwörter",
-		"description": "Anzeige aller Schlagwörter.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-09-25"
+		"description": "Anzeige aller Schlagwörter."
 	}
 }

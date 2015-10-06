@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Listado de páginas",
-		"description": "Muestra las paginas en orden según la posición.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "Muestra las paginas en orden según la posición."
 	},
 
 	"home": "Página de inicio",

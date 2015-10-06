@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Wartungsmodus",
-		"description": "Wartungsmodus für die Website mit Zugang zum Admin-Bereich.",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2016-09-25"
+		"description": "Wartungsmodus für die Website mit Zugang zum Admin-Bereich."
 	},
 
 	"enable-maintence-mode": "Aktivierung des Wartungsmodus",

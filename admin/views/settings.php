@@ -87,6 +87,21 @@
     <div class="forms-desc"><?php $Language->p('the-url-of-your-site') ?></div>
     </label>
 
+    <h4><?php $Language->p('Command Line Mode') ?></h4>
+
+    <label for="cliMode">
+        <?php $Language->p('Cli Mode') ?>
+        <select name="cliMode" class="width-50">
+        <?php
+            $htmlOptions = array('true'=>'Enabled', 'false'=>'Disabled');
+            foreach($htmlOptions as $value=>$text) {
+                echo '<option value="'.$value.'"'.( ($Site->cliMode()===$value)?' selected="selected"':'').'>'.$text.'</option>';
+            }
+        ?>
+        </select>
+        <div class="forms-desc"><?php $Language->p('enable-the-command-line-mode-if-you-add-edit') ?></div>
+    </label>
+
     <h4><?php $Language->p('URL Filters') ?></h4>
 
     <label>
