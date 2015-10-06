@@ -7,6 +7,7 @@ class dbUsers extends dbJSON
 		'lastName'=>	array('inFile'=>false, 'value'=>''),
 		'username'=>	array('inFile'=>false, 'value'=>''),
 		'role'=>	array('inFile'=>false, 'value'=>'editor'),
+		'picture'=>		array('inFile'=>false, 'value'=>''),
 		'password'=>	array('inFile'=>false, 'value'=>''),
 		'salt'=>	array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
 		'email'=>	array('inFile'=>false, 'value'=>''),
@@ -79,6 +80,19 @@ class dbUsers extends dbJSON
 				$user[$field] = $tmpValue;
 			}
 		}
+
+		//Profile picture upload
+		$imageFormat = pathinfo($_FILES['profilePicture']['name'],PATHINFO_EXTENSION);
+		$target_file = 'content/pictures/'.$args['username'].'.'.$imageFormat;
+		if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $target_file)) {
+			$user['picture'] =  $imageFormat;
+		} else {
+			'Error occured when trying to upload your file.';
+		}
+		// Saving modification time
+		$user['updated'] = Date::unixTime();
+
+
 
 		// Save the database
 		$this->db[$args['username']] = $user;
