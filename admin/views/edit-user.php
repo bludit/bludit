@@ -17,7 +17,7 @@
 <!-- ===================================== -->
 
 <div id="profile">
-<form method="post" action="" class="forms">
+<form method="post" action="" class="forms" enctype="multipart/form-data">
     <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
     <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
 
@@ -30,6 +30,15 @@
         <?php $Language->p('Last name') ?>
         <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
     </label>
+    <!-- Picture -->
+    <label>
+        <?php $Language->p('Profile picture') ?><br/>
+        <?php if($_user['picture']) { ?>
+          <img id="profilePicture" src="<?php echo HTML_PATH_PICTURES.trim($_user['username']).'.'.$_user['picture'].'?'.$_user['updated'] ?>">
+        <?php } ?>
+        <input type="file" name="profilePicture" id="fileToUpload">
+    </label><br/>
+
 
 <?php if($Login->username()==='admin') { ?>
 
