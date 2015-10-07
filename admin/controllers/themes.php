@@ -24,25 +24,23 @@ if($Login->role()!=='admin') {
 $themes = array();
 $themesPaths = Filesystem::listDirectories(PATH_THEMES);
 
-// Load each plugin clasess
 foreach($themesPaths as $themePath)
 {
 	$langLocaleFile  = $themePath.DS.'languages'.DS.$Site->locale().'.json';
 	$langDefaultFile = $themePath.DS.'languages'.DS.'en_US.json';
-	$database = false;
 
-	// Check if exists locale language
-	if( Sanitize::pathFile($langLocaleFile) ) {
-		$database = new dbJSON($langLocaleFile, false);
-	}
 	// Check if exists default language
-	elseif( Sanitize::pathFile($langDefaultFile) ) {
-		$database = new dbJSON($langDefaultFile, false);
-	}
-
-	if($database!==false)
+	if( Sanitize::pathFile($langDefaultFile) )
 	{
+		$database = new dbJSON($langDefaultFile, false);
 		$databaseArray = $database->db;
+
+		// Check if exists locale language
+		if( Sanitize::pathFile($langLocaleFile) ) {
+			$database = new dbJSON($langLocaleFile, false);
+			$databaseArray['theme-data'] = array_merge($databaseArray['theme-data'], $database->db['theme-data']);
+		}
+
 		$databaseArray['theme-data']['dirname'] = basename($themePath);
 
 		// Theme data
