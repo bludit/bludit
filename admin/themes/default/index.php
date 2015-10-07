@@ -54,7 +54,7 @@ $(document).ready(function() {
 	</nav>
 </div>
 
-<div class="units-row">
+<div class="units-row units-split">
 
 	<!-- SIDEBAR -->
 	<div class="unit-20">
