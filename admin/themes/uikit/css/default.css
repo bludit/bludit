@@ -1,12 +1,53 @@
+/* uikit hack for Bludit */
+.uk-navbar {
+	background: #f5f5f5;
+	border: none !important;
+}
+
+.uk-button {
+	color: #ffffff;
+	padding: 1px 18px;
+	text-shadow: none;
+}
+
+.uk-button:hover,
+.uk-button:focus {
+	background-color: #777777;
+	color: #ffffff;
+}
+
+.uk-navbar-nav > li > a {
+	border: none;
+}
+
+.uk-form-label {
+    color: #666666;
+    font-weight: normal !important;
+}
+
+.uk-form-help-block {
+	color: #AAAAAA;
+	font-size: 0.9em;
+}
+
+.uk-table th,
+.uk-table td {
+    padding: 15px 10px;
+}
+
+/* Bludit */
+
 #logo {
 	background: #f4f4f4;
 	height: 60px;
 }
 
-#navbar {
-	border-top: none;
-}
-
 h2.subtitle {
 	margin: 20px 0;
+}
+
+div.plugin-link a {
+	display: inline-block;
+	margin-right: 10px;
+	margin-top: 5px;
 }
