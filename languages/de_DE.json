@@ -157,16 +157,16 @@
 	"proceed-anyway": "Trotzdem fortfahren...",
 	"drafts": "Entwürfe",
 	"ip-address-has-been-blocked": "Die IP-Adresse wurde blockiert.",
-	"try-again-in-a-few-minutes": "Bitte es nach einigen Minuten noch einmal versuchen.",
+	"try-again-in-a-few-minutes": "Bitte versuche es in einigen Minuten noch einmal.",
 	"date": "Datum und Zeit",
-	"you-can-schedule-the-post-just-select-the-date-and-time": "Um den Beitrag zu einem späteren Zeitpunkt zu veröffentlichen, Datum und Zeit wählen.",
-	"scheduled": "Veröffentlichung festgelegt.",
+	"you-can-schedule-the-post-just-select-the-date-and-time": "Um den Beitrag zu einem späteren Zeitpunkt zu veröffentlichen, wähle ein Datum und die Zeit aus.",
+	"scheduled": "Veröffentlichung geplant.",
 	"publish": "Veröffentlichen",
 	"please-check-your-theme-configuration": "Bitte die Einstellungen des Themes prüfen.",
 	"plugin-label": "Plugin-Bezeichnung",
 	"enabled": "Eingeschaltet",
 	"disabled": "Ausgeschaltet",
-	"cli-mode": "Cli-Modus",
+	"cli-mode": "CLI-Modus",
 	"command-line-mode": "Kommandozeilen-Modus",
-	"enable-the-command-line-mode-if-you-add-edit": "Verwende den Kommandozeilen-Modus, wenn Du Beiträge und Seiten im Dateisystem hinzufügenm ändern oder löschen willst."
+	"enable-the-command-line-mode-if-you-add-edit": "Verwende den Kommandozeilen-Modus, wenn Du Beiträge und Seiten im Dateisystem hinzufügen, ändern oder löschen möchtest."
 }
