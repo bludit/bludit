@@ -162,6 +162,10 @@ define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 // PHP paths with dependency
 define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
+define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
+define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
+define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
+define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
 // Objects with dependency
 $Language 	= new dbLanguage( $Site->locale() );

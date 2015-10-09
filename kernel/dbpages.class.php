@@ -333,10 +333,6 @@ class dbPages extends dbJSON
 			}
 		}
 
-		$fields['status'] = CLI_STATUS;
-		$fields['date'] = Date::current(DB_DATE_FORMAT);
-		$fields['username'] = 'admin';
-
 		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
 		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
 		foreach($tmpPaths as $directory)
@@ -364,7 +360,14 @@ class dbPages extends dbJSON
 
 		foreach($newPaths as $key=>$value)
 		{
-			if(!isset($this->db[$key])) {
+			if(!isset($this->db[$key]))
+			{
+				// Default values for the new pages.
+				$fields['status'] = CLI_STATUS;
+				$fields['date'] = Date::current(DB_DATE_FORMAT);
+				$fields['username'] = 'admin';
+
+				// Create the entry for the new page.
 				$this->db[$key] = $fields;
 			}
 

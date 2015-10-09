@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "維護模式",
-		"description": "設定您的網站為維護模式，但是您依然可以登入到管理介面",
-		"author": "Bludit",
-		"email": "",
-		"website": "http://www.bludit.com",
-		"version": "0.1",
-		"releaseDate": "2015-08-02"
+		"description": "設定您的網站為維護模式，但是您依然可以登入到管理介面"
 	},
 
 	"enable-maintence-mode": "啟用維護模式",
