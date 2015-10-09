@@ -164,4 +164,9 @@
 	"publish": "發表",
 	"please-check-your-theme-configuration": "請檢查您的佈景主題設定",
 	"plugin-label": "延伸模組標籤"
+	"enabled": "啟用",
+	"disabled": "關閉",
+	"cli-mode": "Cli模式",
+	"command-line-mode": "指令列模式",
+	"enable-the-command-line-mode-if-you-add-edit": "啟用指令列模式，如果您從檔案系統中新增、編輯或是移除文章和頁面。"
 }
