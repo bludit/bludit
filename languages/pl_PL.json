@@ -3,7 +3,7 @@
 	{
 		"native": "Polish - Polski",
 		"english-name": "Polish",
-		"last-update": "2015-09-04",
+		"last-update": "2015-10-08",
 		"author": "tom-asz",
 		"email": "",
 		"website": "tomektutoria.eu"
@@ -162,5 +162,11 @@
 	"you-can-schedule-the-post-just-select-the-date-and-time": "Możesz zaplanować post, po prostu wybierz datę i czas.",
 	"scheduled": "Zaplanowane",
 	"publish": "Opublikuj",
-	"please-check-your-theme-configuration": "Proszę sprawdzić konfigurację szablonu"
+	"please-check-your-theme-configuration": "Proszę sprawdzić konfigurację szablonu.",
+	"plugin-label": "Etykieta pluginu",
+	"enabled": "Włączony",
+	"disabled": "Wyłączony",
+	"cli-mode": "Tryb Cli",
+	"command-line-mode": "Tryb wiersza poleceń",
+	"enable-the-command-line-mode-if-you-add-edit": "Włącz tryb linii poleceń, jeśli dodajesz, edytujesz lub usuwasz posty i strony z systemu plików"
 }
