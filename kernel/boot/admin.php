@@ -47,11 +47,17 @@ else
 	include(PATH_RULES.'99.themes.php');
 	include(PATH_RULES.'99.security.php');
 
-	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') )
+	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') )
 	{
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';
+
+		if($Url->slug()==='login-email')
+		{
+			$layout['controller']	= 'login-email';
+			$layout['view']		= 'login-email';
+		}
 
 		// Generate the token for the user not logged, when the user is loggued the token will be change.
 		$Security->generateToken();

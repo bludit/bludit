@@ -8,21 +8,32 @@
 // Functions
 // ============================================================================
 
-function addPage($args)
+function checkPost($args)
 {
-	global $dbPages;
+	global $Security;
+	global $Login;
 	global $Language;
 
-	// Add the page.
-	if( $dbPages->add($args) )
-	{
-		Alert::set($Language->g('Page added successfully'));
-		Redirect::page('admin', 'manage-pages');
+	if($Security->isBlocked()) {
+		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
+		return false;
 	}
-	else
+
+	// Verify User sanitize the input
+	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
 	{
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the page.');
+		// Renew the token. This token will be the same inside the session for multiple forms.
+		$Security->generateToken();
+
+		Redirect::page('admin', 'dashboard');
+		return true;
 	}
+
+	// Bruteforce protection, add IP to blacklist.
+	$Security->addLoginFail();
+	Alert::set($Language->g('Username or password incorrect'));
+
+	return false;
 }
 
 // ============================================================================
@@ -35,7 +46,7 @@ function addPage($args)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	addPage($_POST);
+	checkPost($_POST);
 }
 
 // ============================================================================

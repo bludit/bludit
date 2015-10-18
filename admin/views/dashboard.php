@@ -1,79 +1,112 @@
-<h2 class="title"><?php $Language->p('Dashboard') ?> </h2>
+<div class="uk-block uk-block-muted dashboard-links">
+<div class="uk-container">
+<div class="uk-grid uk-grid-match" data-uk-grid-margin="{target:'.uk-panel'}">
 
-<div class="units-row">
+	<div class="uk-width-medium-1-3">
 
-	<div class="unit-50">
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></h4>
+		<p><?php $L->p('Create a new article for your blog') ?></p>
+		</div>
 
-		<div class="dashboardBox">
-			<h2><?php $Language->p('Start here') ?></h2>
-			<div class="content">
-				<ul class="menu">
-					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-post"><?php $Language->p('New post') ?></a></li>
-					<li class="description"><?php $Language->p('Create a new article for your blog') ?></li>
-					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>new-page"><?php $Language->p('New page') ?></a></li>
-					<li class="description"><?php $Language->p('Create a new page for your website') ?></li>
-					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>add-user"><?php $Language->p('Add a new user') ?></a></li>
-					<li class="description"><?php $Language->p('Invite a friend to collaborate on your website') ?></li>
-					<li class="title"><a href="<?php echo HTML_PATH_ADMIN_ROOT ?>settings#regional"><?php $Language->p('Language and timezone') ?></a></li>
-					<li class="description"><?php $Language->p('Change your language and region settings') ?></li>
-				</ul>
-			</div>
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-folder-o"></i> <?php $L->p('Manage posts') ?></a></h4>
+		<p><?php $L->p('') ?></p>
 		</div>
 
 	</div>
 
-	<div class="unit-50">
-		<?php if($_newPosts || $_newPages) { ?>
-		<div class="dashboardBox">
-			<div class="content contentGreen">
-				<div class="bigContent"><?php $Language->p('database-regenerated') ?></div>
-				<div class="littleContent"><?php $Language->p('new-posts-and-pages-synchronized') ?></div>
-				<i class="iconContent fa fa-pie-chart"></i>
-			</div>
-		</div>
-		<?php } ?>
+	<div class="uk-width-medium-1-3">
 
-		<div class="dashboardBox">
-			<div class="content contentBlue">
-				<div class="bigContent"><?php echo $dbPosts->count() ?></div>
-				<div class="littleContent"><?php $Language->p('Posts') ?></div>
-				<i class="iconContent fa fa-pie-chart"></i>
-			</div>
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></h4>
+		<p><?php $L->p('Create a new page for your website') ?></p>
 		</div>
 
-		<div class="dashboardBox">
-			<div class="content contentGreen">
-				<div class="bigContent"><?php echo $dbUsers->count() ?></div>
-				<div class="littleContent"><?php $Language->p('Users') ?></div>
-				<i class="iconContent fa fa-user"></i>
-			</div>
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
+		<p><?php $L->p('') ?></p>
 		</div>
 
-		<div class="dashboardBox">
-			<h2><?php $Language->p('Drafts') ?></h2>
-			<div class="content">
-				<nav class="nav">
-				<ul>
-				<?php
-					if( empty($_draftPosts) && empty($_draftPages) )
-					{
-						echo '<li>'.$Language->g('There are no drafts').'</li>';
-					}
-					else
-					{
-						foreach($_draftPosts as $Post)
-						{
-							echo '<li><span class="label label-outline label-blue smaller">'.$Language->g('Post').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
-						}
-						foreach($_draftPages as $Page)
-						{
-							echo '<li><span class="label label-outline label-green smaller">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
-						}
-					}
-				?>
-				</ul>
-				</nav>
-			</div>
-		</div>
 	</div>
+
+	<div class="uk-width-medium-1-3">
+
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-user-plus"></i> <?php $L->p('Add a new user') ?></a></h4>
+		<p><?php $L->p('Invite a friend to collaborate on your website') ?></p>
+		</div>
+
+		<div class="uk-panel">
+		<h4><a href=""><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></h4>
+		<p><?php $L->p('Change your language and region settings') ?></p>
+		</div>
+
+	</div>
+
+</div>
+</div>
+</div>
+
+<div class="uk-grid" data-uk-grid-margin>
+
+	<div class="uk-width-medium-1-3">
+
+		<div class="uk-panel uk-panel-box">
+		<h4><?php $L->p('Statics') ?></h4>
+		<table class="uk-table">
+			<tbody>
+			<tr>
+			<td><?php $Language->p('Posts') ?></td>
+			<td><?php echo $dbPosts->count() ?></td>
+			</tr>
+			<tr>
+			<td><?php $Language->p('Pages') ?></td>
+			<td><?php echo $dbPages->count() ?></td>
+			</tr>
+			<tr>
+			<td><?php $Language->p('Users') ?></td>
+			<td><?php echo $dbUsers->count() ?></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+
+	</div>
+
+	<div class="uk-width-medium-1-3">
+
+		<div class="uk-panel uk-panel-box">
+		<h4><?php $L->p('Drafts') ?></h4>
+		<ul class="uk-list">
+		<?php
+			if( empty($_draftPosts) && empty($_draftPages) ) {
+				echo '<li>'.$Language->g('There are no drafts').'</li>';
+			}
+			else {
+				foreach($_draftPosts as $Post) {
+					echo '<li><span class="label-draft">'.$Language->g('Post').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				}
+				foreach($_draftPages as $Page) {
+					echo '<li><span class="label-draft">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				}
+			}
+		?>
+		</ul>
+		</div>
+
+	</div>
+
+	<div class="uk-width-medium-1-3">
+
+		<div class="uk-panel uk-panel-box">
+		<h4><?php $L->p('Scheduled posts') ?></h4>
+		<ul class="uk-list">
+		<li>Test xx IL porto <span><i class="uk-icon-clock-o"></i>18 october - 22:35hs</span></li>
+		<li>Loremp ipsum scheduled <span><i class="uk-icon-clock-o"></i>18 october - 22:35hs</span></li>
+		</ul>
+		</div>
+
+	</div>
+
 </div>

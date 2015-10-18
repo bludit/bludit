@@ -70,8 +70,8 @@
 	"timezone": "Timezone",
 	"locale": "Locale",
 	"new-post": "New post",
-	"html-and-markdown-code-supported": "HTML and Markdown code supported",
 	"new-page": "New page",
+	"html-and-markdown-code-supported": "HTML and Markdown code supported",
 	"manage-posts": "Manage posts",
 	"published-date": "Published date",
 	"modified-date": "Modified date",
@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "You can use this field to define a set of parameters related to the language, country and special preferences.",
 	"you-can-modify-the-url-which-identifies":"You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.",
 	"this-field-can-help-describe-the-content": "This field can help describe the content in a few words. No more than 150 characters.",
-	"write-the-tags-separeted-by-comma": "Write the tags separated by comma. eg: tag1, tag2, tag3",
+
 	"delete-the-user-and-all-its-posts":"Delete the user and all its posts",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Delete the user and associate its posts to admin user",
 	"read-more": "Read more",
@@ -159,7 +159,7 @@
 	"ip-address-has-been-blocked": "IP address has been blocked.",
 	"try-again-in-a-few-minutes": "Try again in a few minutes.",
 	"date": "Date",
-	"you-can-schedule-the-post-just-select-the-date-and-time": "You can schedule the post, just select the date and time.",
+
 	"scheduled": "Scheduled",
 	"publish": "Publish",
 	"please-check-your-theme-configuration": "Please check your theme configuration.",
@@ -168,5 +168,16 @@
 	"disabled": "Disabled",
 	"cli-mode": "Cli mode",
 	"command-line-mode": "Command line mode",
-	"enable-the-command-line-mode-if-you-add-edit": "Enable the command line mode if you add, edit or remove posts and pages from the filesystem"
+	"enable-the-command-line-mode-if-you-add-edit": "Enable the command line mode if you add, edit or remove posts and pages from the filesystem",
+
+	"configure": "Configure",
+	"uninstall": "Uninstall",
+	"change-password": "Change password",
+	"to-schedule-the-post-just-select-the-date-and-time": "To schedule the post, just select the date and time.",
+	"write-the-tags-separated-by-commas": "Write the tags separated by commas.",
+	"status": "Status",
+	"published": "Published",
+	"scheduled-posts": "Scheduled posts",
+	"statics": "Statics",
+	"name": "Name"
 }

@@ -1,16 +1,22 @@
-<h2 class="title"><i class="fa fa-rocket"></i> <?php echo $_Plugin->name() ?></h2>
+<?php
 
-<form id="jsformplugin" method="post" action="" class="forms">
+HTML::title(array('title'=>$_Plugin->name(), 'icon'=>'puzzle-piece'));
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
-	<input type="hidden" id="jskey" name="key" value="">
+HTML::formOpen(array('id'=>'jsformplugin'));
 
-	<?php
-		echo $_Plugin->form();
-	?>
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'token',
+		'value'=>$Security->getToken()
+	));
 
-	<div>
-	<button class="btn btn-blue" name="publish"><?php echo $Language->p('Save') ?></button>
-	</div>
+	// Print the plugin form
+	echo $_Plugin->form();
 
-</form>
+	// Form buttons
+	echo '<div class="uk-form-row uk-margin-bottom">
+		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'plugins">'.$L->g('Cancel').'</a>
+	</div>';
+
+HTML::formClose();

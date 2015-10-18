@@ -1,41 +1,60 @@
-<h2 class="title"><i class="fa fa-user-plus"></i><?php $Language->p('Add a new user') ?></h2>
+<?php
 
-<?php makeNavbar('users'); ?>
+HTML::title(array('title'=>$L->g('Add a new user'), 'icon'=>'user-plus'));
 
-<form method="post" action="" class="forms" autocomplete="off">
+HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'token',
+		'value'=>$Security->getToken()
+	));
 
-	<label>
-	<?php $Language->p('Username') ?>
-	<input type="text" name="username" class="width-50" value="<?php echo (isset($_POST['username'])?$_POST['username']:'') ?>">
-	</label>
+	HTML::formInputText(array(
+		'name'=>'username',
+		'label'=>$L->g('Username'),
+		'value'=>(isset($_POST['username'])?$_POST['username']:''),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-	<label>
-	<?php $Language->p('Password') ?>
-	<input type="password" name="password" class="width-50">
-	</label>
+	HTML::formInputPassword(array(
+		'name'=>'password',
+		'label'=>$L->g('Password'),
+		'value'=>'',
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-	<label>
-	<?php $Language->p('Confirm Password') ?>
-	<input type="password" name="confirm-password" class="width-50">
-	</label>
+	HTML::formInputPassword(array(
+		'name'=>'confirm-password',
+		'label'=>$L->g('Confirm Password'),
+		'value'=>'',
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-	<label for="country">
-	<?php $Language->p('Role') ?>
-	<select name="role" class="width-50">
-	<option value="editor"><?php $Language->p('Editor') ?></option>
-	<option value="admin"><?php $Language->p('Administrator') ?></option>
-	</select>
-	<div class="forms-desc"><?php $Language->p('you-can-choose-the-users-privilege') ?></div>
-	</label>
+	HTML::formSelect(array(
+		'name'=>'role',
+		'label'=>$L->g('Role'),
+		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+		'selected'=>'editor',
+		'tip'=>''
+	));
 
-	<label>
-	<?php $Language->p('Email') ?>
-	<input type="text" name="email" class="width-50" value="<?php echo (isset($_POST['email'])?$_POST['email']:'') ?>">
-	<div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
-	</label>
+	HTML::formInputText(array(
+		'name'=>'email',
+		'label'=>$L->g('Email'),
+		'value'=>(isset($_POST['email'])?$_POST['email']:''),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-	<input type="submit" class="btn btn-blue" value="<?php $Language->p('Add') ?>" name="add-user">
-	<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
-</form>
+	echo '<div class="uk-form-row">
+		<div class="uk-form-controls">
+		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'users" class="uk-button">'.$L->g('Cancel').'</a>
+		</div>
+	</div>';
+
+HTML::formClose();

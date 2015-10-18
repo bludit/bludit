@@ -42,10 +42,10 @@ class dbUsers extends dbJSON
 		return $this->db;
 	}
 
-	public function setPassword($args)
+	public function setPassword($password)
 	{
 		$salt = Text::randomText(SALT_LENGTH);
-		$hash = sha1($args['password'].$salt);
+		$hash = sha1($password.$salt);
 
 		$args['salt'] = $salt;
 		$args['password'] = $hash;

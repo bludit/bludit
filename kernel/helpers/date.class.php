@@ -66,7 +66,7 @@ class Date {
 
 			$text = str_replace("_"," ",$timezone_identifier);
 
-			$tmp[$text.' ('.$hours.':'.$mins.')'] = $timezone_identifier;
+			$tmp[$timezone_identifier] = $text.' ('.$hours.':'.$mins.')';
 		}
 
 		return $tmp;

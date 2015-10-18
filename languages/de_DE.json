@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Parameter mit Bezug auf die verwendete Sprache und das Land. Beispielsweise: de_DE, de_CH usw.",
 	"you-can-modify-the-url-which-identifies":"Der URL kann selbst angepasst werden. Möglich sind höchstens 150 Zeichen.",
 	"this-field-can-help-describe-the-content": "Kurze Inhaltsbeschreibung. Möglich sind höchstens 150 Zeichen.",
-	"write-the-tags-separeted-by-comma": "Schlagwörter getrennt durch Kommas. Beispielsweise: Schlagwort1, Schlagwort2, Schlagwort3",
+	"write-the-tags-separated-by-comma": "Schlagwörter getrennt durch Kommas. Beispielsweise: Schlagwort1, Schlagwort2, Schlagwort3",
 	"delete-the-user-and-all-its-posts":"Benutzer und alle seine Beiträge löschen",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Benutzer löschen und seine Beiträge dem Administrator zuordnen",
 	"read-more": "Weiterlesen",

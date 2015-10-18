@@ -54,8 +54,10 @@ class pluginsimpleMDE extends Plugin {
 
 			// Hack for Bludit
 			$html .= '<style>
+					.editor-toolbar { background: #f1f1f1; }
 					.editor-toolbar::before { margin-bottom: 2px !important }
 					.editor-toolbar::after { margin-top: 2px !important }
+					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; }
 				</style>';
 
 		}
@@ -74,9 +76,9 @@ class pluginsimpleMDE extends Plugin {
 		{
 			$pluginPath = $this->htmlPath();
 
-			$html  = '<script>$(document).ready(function() { ';
-			$html .=
-				'var simplemde = new SimpleMDE({
+			$html  = '<script>'.PHP_EOL;
+			$html .= '$(document).ready(function() { '.PHP_EOL;
+			$html .= 'var simplemde = new SimpleMDE({
 					element: document.getElementById("jscontent"),
 					status: false,
 					toolbarTips: true,
