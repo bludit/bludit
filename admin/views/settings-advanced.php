@@ -5,7 +5,7 @@ HTML::title(array('title'=>$L->g('Settings'), 'icon'=>'cogs'));
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
     HTML::formInputHidden(array(
-        'name'=>'token',
+        'name'=>'tokenCSRF',
         'value'=>$Security->getToken()
     ));
 
@@ -46,11 +46,21 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'tip'=>$L->g('enable-the-command-line-mode-if-you-add-edit')
     ));
 
+    HTML::legend(array('value'=>$L->g('Email account settings')));
+
+    HTML::formInputText(array(
+        'name'=>'emailFrom',
+        'label'=>$L->g('Sender email'),
+        'value'=>$Site->emailFrom(),
+        'class'=>'uk-width-1-2 uk-form-medium',
+        'tip'=>$L->g('Emails will be sent from this address')
+    ));
+
     HTML::legend(array('value'=>$L->g('URL Filters')));
 
     HTML::formInputText(array(
         'name'=>'uriPost',
-        'label'=>$L->g('Posts'),
+        'label'=>$L->g('Email'),
         'value'=>$Site->uriFilters('post'),
         'class'=>'uk-width-1-2 uk-form-medium',
         'tip'=>''

@@ -18,7 +18,8 @@ class dbSite extends dbJSON
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
-		'cliMode'=>		array('inFile'=>false, 'value'=>true)
+		'cliMode'=>		array('inFile'=>false, 'value'=>true),
+		'emailFrom'=>		array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()
@@ -90,6 +91,11 @@ class dbSite extends dbJSON
 	public function title()
 	{
 		return $this->db['title'];
+	}
+
+	public function emailFrom()
+	{
+		return $this->db['emailFrom'];
 	}
 
 	// Returns the site slogan.

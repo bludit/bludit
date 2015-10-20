@@ -1,19 +1,19 @@
 <div class="login-form">
 
-<form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>" class="uk-form" autocomplete="off">
+<form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>" class="uk-form" autocomplete="off">
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php $Security->printToken() ?>">
 
 	<div class="uk-form-row">
 	<input name="email" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Email') ?>" type="text">
 	</div>
 
 	<div class="uk-form-row">
-	<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large">Send me the email</button>
+	<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $L->p('Get login access code') ?></button>
 	</div>
 
 </form>
 
 </div>
 
-<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>"> Back to login form</a>
+<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>"><i class="uk-icon-chevron-left"></i> <?php $L->p('Back to login form') ?></a>

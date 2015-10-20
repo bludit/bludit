@@ -69,6 +69,9 @@ define('CLI_STATUS', 'published');
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i');
 
+// Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
+define('TOKEN_TTL', '+1 day');
+
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
@@ -112,6 +115,7 @@ include(PATH_HELPERS.'session.class.php');
 include(PATH_HELPERS.'redirect.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
+include(PATH_HELPERS.'email.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');

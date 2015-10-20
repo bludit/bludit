@@ -17,14 +17,14 @@ function editUser($args)
 	}
 }
 
-function setPassword($new, $confirm)
+function setPassword($username, $new_password, $confirm_password)
 {
 	global $dbUsers;
 	global $Language;
 
-	if( ($new===$confirm) && !Text::isEmpty($new) )
+	if( ($new_password===$confirm_password) && !Text::isEmpty($new_password) )
 	{
-		if( $dbUsers->setPassword($new) ) {
+		if( $dbUsers->setPassword($username, $new_password) ) {
 			Alert::set($Language->g('The changes have been saved'));
 		}
 		else {
@@ -93,7 +93,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		deleteUser($_POST, false);
 	}
 	elseif( !empty($_POST['new-password']) && !empty($_POST['confirm-password']) ) {
-		setPassword($_POST['new-password'], $_POST['confirm-password']);
+		setPassword($_POST['username'], $_POST['new-password'], $_POST['confirm-password']);
 	}
 	else {
 		editUser($_POST);

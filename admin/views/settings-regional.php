@@ -5,7 +5,7 @@ HTML::title(array('title'=>$L->g('Settings'), 'icon'=>'cogs'));
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
 	HTML::formInputHidden(array(
-		'name'=>'token',
+		'name'=>'tokenCSRF',
 		'value'=>$Security->getToken()
 	));
 

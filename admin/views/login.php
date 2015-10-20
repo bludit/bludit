@@ -2,14 +2,14 @@
 
 <form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>" class="uk-form" autocomplete="off">
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php $Security->printToken() ?>">
 
 	<div class="uk-form-row">
 	<input name="username" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Username') ?>" type="text">
 	</div>
 
 	<div class="uk-form-row">
-	<input name="password" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Password') ?>" type="text">
+	<input name="password" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Password') ?>" type="password">
 	</div>
 
 	<div class="uk-form-row">
@@ -20,4 +20,4 @@
 
 </div>
 
-<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> Log in with email</a>
+<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> <?php $L->p('Send me a login access code') ?></a>
