@@ -12,7 +12,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
 
@@ -29,6 +29,24 @@
 
 <!-- Plugins -->
 <?php Theme::plugins('adminBodyBegin') ?>
+
+<!-- Alert -->
+<script>
+$(document).ready(function() {
+<?php
+	if( Alert::defined() ) {
+		echo '$("#alert").slideDown().delay(3500).slideUp();';
+	}
+?>
+	$("#alert").click(function() {
+		$(this).hide();
+	});
+});
+</script>
+
+<div id="alert">
+<?php Alert::p() ?>
+</div>
 
 <!-- Navbar -->
 <nav class="uk-navbar">

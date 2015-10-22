@@ -104,8 +104,7 @@ class Post extends fileContent
 		$date = $this->getField('date');
 
 		if($format) {
-			// En %d %b deberia ir el formato definido por el usuario
-			return Date::format($date, DB_DATE_FORMAT, '%d %B');
+			return Date::format($date, DB_DATE_FORMAT, $format);
 		}
 
 		return $date;

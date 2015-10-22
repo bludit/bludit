@@ -16,7 +16,7 @@
 
 	</div>
 
-	<div class="uk-width-medium-1-3">
+	<div class="uk-width-medium-1-3" style="border-right: 1px solid #E6E6E6; border-left: 1px solid #E6E6E6">
 
 		<div class="uk-panel">
 		<h4><a href=""><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></h4>
@@ -102,8 +102,16 @@
 		<div class="uk-panel uk-panel-box">
 		<h4><?php $L->p('Scheduled posts') ?></h4>
 		<ul class="uk-list">
-		<li>Test xx IL porto <span><i class="uk-icon-clock-o"></i>18 october - 22:35hs</span></li>
-		<li>Loremp ipsum scheduled <span><i class="uk-icon-clock-o"></i>18 october - 22:35hs</span></li>
+		<?php
+			if( empty($_scheduledPosts) ) {
+				echo '<li>'.$Language->g('There are no scheduled posts').'</li>';
+			}
+			else {
+				foreach($_scheduledPosts as $Post) {
+					echo '<li><span class="label-time">'.$Post->date(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				}
+			}
+		?>
 		</ul>
 		</div>
 

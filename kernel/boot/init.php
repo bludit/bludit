@@ -69,6 +69,9 @@ define('CLI_STATUS', 'published');
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i');
 
+// Database format date
+define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
+
 // Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
 define('TOKEN_TTL', '+1 day');
 

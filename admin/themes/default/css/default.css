@@ -1,13 +1,15 @@
 /* ----------- UIKIT HACKs FOR BLUDIT ----------- */
 .uk-navbar {
-	background: #f5f5f5;
+	background: #EEEEEE !important;
 	border: none !important;
 }
 
 .uk-button {
 	color: #ffffff;
-	padding: 1px 18px;
+	padding: 2px 22px;
 	text-shadow: none;
+	background: #888888;
+	border-radius: 3px;
 }
 
 .uk-button:hover,
@@ -16,10 +18,22 @@
 	color: #ffffff;
 }
 
+.uk-button-primary {
+	background: #2672ec;
+}
+
+.uk-button-primary:hover {
+	background: #1F5FC4;
+}
+
 .uk-navbar-nav > li > a {
 	border: none;
 	height: 70px;
 	padding: 15px;
+}
+
+.uk-nav-navbar > li > a:hover {
+	background: #2672ec;
 }
 
 .uk-form-label {
@@ -44,12 +58,20 @@
 	font-weight: normal;
 }
 
+a {
+	color: #2672ec;
+}
+
 a.bludit-logo {
 	color: #848484 !important;
 }
 
 a.bludit-logo:hover {
 	background: none !important;
+}
+
+.uk-panel-box {
+	background: #F9F9F9 !important;
 }
 
 /* ----------- BLUDIT ----------- */
@@ -75,6 +97,17 @@ button.delete-button {
 
 button.delete-button:hover {
 	text-decoration: underline;
+}
+
+#alert {
+	display: none;
+	background: rgba(48, 102, 187, 0.91);
+	color: #ffffff;
+	padding: 24px;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	z-index: 100;
 }
 
 /* ----------- LOGIN FORM ----------- */
@@ -117,7 +150,8 @@ div.plugin-links > span.separator {
 }
 
 .label-draft,
-.label-empty-title {
+.label-empty-title,
+.label-time {
 	background: #2672ec none repeat scroll 0 0;
 	border-radius: 2px;
 	color: #ffffff;
@@ -131,6 +165,11 @@ div.plugin-links > span.separator {
 
 .label-empty-title {
 	background: #ED8F26;
+}
+
+.label-time {
+	font-style: italic;
+	background: #ED3A26;
 }
 
 /* ----------- PAGINATOR ----------- */
