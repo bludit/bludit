@@ -25,14 +25,15 @@ function checkPost($args)
 
 	if(Valid::email($email))
 	{
-		$user = $dbUsers->getByEmail($email);
-		if($user!=false)
+		// Get username associated to an email.
+		$username = $dbUsers->getByEmail($email);
+		if($username!=false)
 		{
 			// Generate the token and the token expiration date.
-			$token = $dbUsers->generateTokenEmail($user['username']);
+			$token = $dbUsers->generateTokenEmail($username);
 
 			// ---- EMAIL ----
-			$link = $Site->url().'admin/login-email?tokenEmail='.$token.'&username='.$user['username'];
+			$link = $Site->url().'admin/login-email?tokenEmail='.$token.'&username='.$username;
 			$subject = $Language->g('BLUDIT Login access code');
 			$message = Text::replaceAssoc(
 					array(

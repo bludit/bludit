@@ -33,12 +33,12 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
-	// Return an array with the username databases, filtered by email address.
+	// Return the username associated to an email, if the email does not exists return FALSE.
 	public function getByEmail($email)
 	{
-		foreach($this->db as $user) {
-			if($user['email']==$email) {
-				return $user;
+		foreach($this->db as $username=>$values) {
+			if($values['email']==$email) {
+				return $username;
 			}
 		}
 
@@ -62,8 +62,8 @@ class dbUsers extends dbJSON
 		$token = sha1(Text::randomText(SALT_LENGTH).time());
 		$this->db[$username]['tokenEmail'] = $token;
 
-		// Token time to live, defined by TOKEN_TTL
-		$this->db[$username]['tokenEmailTTL'] = Date::currentOffset(DB_DATE_FORMAT, TOKEN_TTL);
+		// Token time to live, defined by TOKEN_EMAIL_TTL
+		$this->db[$username]['tokenEmailTTL'] = Date::currentOffset(DB_DATE_FORMAT, TOKEN_EMAIL_TTL);
 
 		// Save the database
 		if( $this->save() === false ) {

@@ -1,0 +1,57 @@
+/* ----------- UIKIT HACKs FOR BLUDIT ----------- */
+html {
+	background: #f1f1f1;
+}
+
+.uk-button-primary {
+	background: #444;
+}
+
+.uk-button-primary:hover {
+	background: #333;
+}
+
+input[type="text"],
+input[type="password"] {
+	border-color: #FFF !important;
+	background: #FFF;
+}
+
+input:disabled {
+	background: #ccc;
+}
+
+.uk-vertical-align-middle {
+	margin-top: -100px;
+}
+
+.uk-panel {
+	background: #ffffff;
+	display: block;
+	margin: 20px 0;
+	padding: 20px;
+	position: relative;
+	text-align: left;
+}
+
+/* ----------- BLUDIT ----------- */
+
+h1.title {
+	font-weight: lighter;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+}
+
+h3 {
+	margin-top: 0px !important;
+}
+
+.content {
+	text-align: left;
+}
+
+#jsshowPassword {
+	color: #999;
+	cursor: pointer;
+	font-size: 1.3em;
+}

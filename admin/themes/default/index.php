@@ -19,7 +19,6 @@
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/form-password.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->

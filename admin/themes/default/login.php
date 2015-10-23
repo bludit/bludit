@@ -12,7 +12,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/login.css?version=<?php echo BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->

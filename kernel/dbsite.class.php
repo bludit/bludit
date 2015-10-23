@@ -189,11 +189,13 @@ class dbSite extends dbJSON
 	// Set the locale.
 	public function setLocale($locale)
 	{
-		if(setlocale(LC_ALL, $locale.'.UTF-8')!==false)
+		if(setlocale(LC_ALL, $locale.'.UTF-8')!==false) {
 			return true;
+		}
 
-		if(setlocale(LC_ALL, $locale.'.UTF8')!==false)
+		if(setlocale(LC_ALL, $locale.'.UTF8')!==false) {
 			return true;
+		}
 
 		return setlocale(LC_ALL, $locale);
 	}
