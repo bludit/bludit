@@ -7,6 +7,7 @@ class Valid {
 		return filter_var($ip, FILTER_VALIDATE_IP);
 	}
 
+	// Returns the email filtered or FALSE if the filter fails.
 	public static function email($email)
 	{
 		return filter_var($email, FILTER_VALIDATE_EMAIL);

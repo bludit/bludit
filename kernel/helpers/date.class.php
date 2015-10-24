@@ -15,6 +15,13 @@ class Date {
 		return $Date->format($format);
 	}
 
+	public static function currentOffset($format, $offset)
+	{
+		$Date = new DateTime();
+		$Date->modify($offset);
+		return $Date->format($format);
+	}
+
 	// Format a local time/date according to locale settings.
 	public static function format($date, $currentFormat, $outputFormat)
 	{
@@ -66,7 +73,7 @@ class Date {
 
 			$text = str_replace("_"," ",$timezone_identifier);
 
-			$tmp[$text.' ('.$hours.':'.$mins.')'] = $timezone_identifier;
+			$tmp[$timezone_identifier] = $text.' ('.$hours.':'.$mins.')';
 		}
 
 		return $tmp;

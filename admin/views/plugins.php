@@ -1,24 +1,52 @@
-<h2 class="title"><i class="fa fa-rocket"></i><?php $Language->p('Plugins') ?></h2>
-
 <?php
+
+HTML::title(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
+
+echo '
+<table class="uk-table uk-table-striped">
+<thead>
+	<tr>
+	<th class="uk-width-1-5">'.$L->g('Name').'</th>
+	<th class="uk-width-3-5">'.$L->g('Description').'</th>
+	<th class="uk-text-center">'.$L->g('Version').'</th>
+	<th class="uk-text-center">'.$L->g('Author').'</th>
+	</tr>
+</thead>
+<tbody>
+';
+
 	foreach($plugins['all'] as $Plugin)
 	{
-		echo '<div class="pluginBox">';
-
-		echo '<p class="name">'.$Plugin->name().'</p>';
-		echo '<p>'.$Plugin->description().'</p>';
-		echo '<span class="version">'.$Language->g('Version').': '.$Plugin->version().'</span><span class="author">'.$Language->g('author').': <a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></span>';
+		echo '
+		<tr>
+		<td>
+		<div class="plugin-name">'.$Plugin->name().'</div>
+		<div class="plugin-links">
+		';
 
 		if($Plugin->installed()) {
 			if(method_exists($Plugin, 'form')) {
-				echo '<a href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'" class="btn btn-smaller">'.$Language->g('Configure plugin').'</a>';
+				echo '<a class="configure" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'">'.$L->g('Configure').'</a>';
+				echo '<span class="separator"> | </span>';
 			}
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'" class="btn btn-red btn-smaller">'.$Language->g('Uninstall plugin').'</a>';
+			echo '<a class="uninstall" href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'">'.$L->g('Uninstall').'</a>';
 		}
 		else {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'" class="btn btn-blue btn-smaller">'.$Language->g('Install plugin').'</a>';
+			echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Install').'</a>';
 		}
 
-		echo '</div>';
+		echo '
+		</div>
+		</td>
+		<td>'.$Plugin->description().'</td>
+		<td class="uk-text-center">'.$Plugin->version().'</td>
+		<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
+		';
+
+		echo '</tr>';
 	}
-?>
+
+echo '
+</tbody>
+</table>
+';

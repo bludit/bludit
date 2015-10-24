@@ -17,13 +17,13 @@ class pluginGoogleTools extends Plugin {
 		$html  = '<div>';
 		$html .= '<label for="jsgoogle-site-verification">'.$Language->get('Google Webmasters tools').'</label>';
 		$html .= '<input id="jsgoogle-site-verification" type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
-		$html .= '<div class="forms-desc">'.$Language->get('complete-this-field-with-the-google-site-verification').'</div>';
+		$html .= '<div class="tip">'.$Language->get('complete-this-field-with-the-google-site-verification').'</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label for="jstracking-id">'.$Language->get('Google Analytics Tracking ID').'</label>';
 		$html .= '<input id="jstracking-id" type="text" name="tracking-id" value="'.$this->getDbField('tracking-id').'">';
-		$html .= '<div class="forms-desc">'.$Language->get('complete-this-field-with-the-tracking-id').'</div>';
+		$html .= '<div class="tip">'.$Language->get('complete-this-field-with-the-tracking-id').'</div>';
 		$html .= '</div>';
 
 		return $html;

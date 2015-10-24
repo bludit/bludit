@@ -18,7 +18,8 @@ class dbSite extends dbJSON
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
-		'cliMode'=>		array('inFile'=>false, 'value'=>true)
+		'cliMode'=>		array('inFile'=>false, 'value'=>true),
+		'emailFrom'=>		array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()
@@ -90,6 +91,11 @@ class dbSite extends dbJSON
 	public function title()
 	{
 		return $this->db['title'];
+	}
+
+	public function emailFrom()
+	{
+		return $this->db['emailFrom'];
 	}
 
 	// Returns the site slogan.
@@ -183,11 +189,13 @@ class dbSite extends dbJSON
 	// Set the locale.
 	public function setLocale($locale)
 	{
-		if(setlocale(LC_ALL, $locale.'.UTF-8')!==false)
+		if(setlocale(LC_ALL, $locale.'.UTF-8')!==false) {
 			return true;
+		}
 
-		if(setlocale(LC_ALL, $locale.'.UTF8')!==false)
+		if(setlocale(LC_ALL, $locale.'.UTF8')!==false) {
 			return true;
+		}
 
 		return setlocale(LC_ALL, $locale);
 	}

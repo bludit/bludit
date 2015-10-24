@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Anda dapat menggunakan bidang ini untuk mendefinisikan satu set parameter yang terkait dengan bahasa, negara dan preferensi khusus.",
 	"you-can-modify-the-url-which-identifies":"Anda dapat memodifikasi URL yang mengidentifikasi halaman atau posting menggunakan kata kunci yang mudah dipahami manusia. Tidak lebih dari 150 karakter.",
 	"this-field-can-help-describe-the-content": "Bidang ini untuk membantu menjelaskan isi dalam beberapa kata. Tidak lebih dari 150 karakter.",
-	"write-the-tags-separeted-by-comma": "Tulis label yang dipisahkan oleh tanda koma. Contohnya: label1, label2, label3",
+	"write-the-tags-separated-by-comma": "Tulis label yang dipisahkan oleh tanda koma. Contohnya: label1, label2, label3",
 	"delete-the-user-and-all-its-posts":"Hapus pengguna dan semua postingnya",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Hapus pengguna dan hibahkan postingnya kepada pengguna dengan tingkatan admin",
 	"read-more": "Baca seterusnya",
