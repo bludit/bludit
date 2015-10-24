@@ -1,24 +1,45 @@
-<h2 class="title"><i class="fa fa-adjust"></i><?php $Language->p('Themes') ?></h2>
-
 <?php
+
+HTML::title(array('title'=>$L->g('Themes'), 'icon'=>'paint-brush'));
+
+echo '
+<table class="uk-table uk-table-striped">
+<thead>
+<tr>
+	<th class="uk-width-1-5">'.$L->g('Name').'</th>
+	<th class="uk-width-3-5">'.$L->g('Description').'</th>
+	<th class="uk-text-center">'.$L->g('Version').'</th>
+	<th class="uk-text-center">'.$L->g('Author').'</th>
+	</tr>
+</thead>
+<tbody>
+';
+
 	foreach($themes as $theme)
 	{
-		$installedCSS = '';
-		if($theme['dirname']==$Site->theme()) {
-			$installedCSS = 'themeBoxInstalled';
-		}
-
-		echo '<div class="themeBox '.$installedCSS.'">';
-
-		echo '<p class="name">'.$theme['name'].'</p>';
-		echo '<p>'.$theme['description'].'</p>';
-		echo '<span class="version">'.$Language->g('Version').': '.$theme['version'].'</span><span class="author">'.$Language->g('author').': <a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></span>';
+		echo '
+		<tr>
+		<td>
+		<div class="plugin-name">'.$theme['name'].'</div>
+		<div class="plugin-links">
+		';
 
 		if($theme['dirname']!=$Site->theme()) {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'" class="btn btn-red btn-smaller">'.$Language->g('Install theme').'</a>';
+			echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Install').'</a>';
 		}
 
-		echo '</div>';
+		echo '
+		</div>
+		</td>
+		<td>'.$theme['description'].'</td>
+		<td class="uk-text-center">'.$theme['version'].'</td>
+		<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
+		';
+
+		echo '</tr>';
 	}
 
-?>
+echo '
+</tbody>
+</table>
+';

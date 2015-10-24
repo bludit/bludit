@@ -16,16 +16,15 @@
 // Main after POST
 // ============================================================================
 
-//$_newPosts = $dbPosts->regenerateCli();
-$_newPages = $dbPages->regenerateCli();
-
-$_newPages = $_newPosts = array();
-
 $_draftPosts = array();
+$_scheduledPosts = array();
 foreach($posts as $Post)
 {
 	if($Post->draft()) {
 		array_push($_draftPosts, $Post);
+	}
+	elseif($Post->scheduled()) {
+		array_push($_scheduledPosts, $Post);
 	}
 }
 

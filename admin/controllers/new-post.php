@@ -13,14 +13,6 @@ function addPost($args)
 	global $dbPosts;
 	global $Language;
 
-	// Page status, published or draft.
-	if( isset($args['publish']) ) {
-		$args['status'] = "published";
-	}
-	else {
-		$args['status'] = "draft";
-	}
-
 	// Add the page.
 	if( $dbPosts->add($args) )
 	{

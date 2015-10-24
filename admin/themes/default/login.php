@@ -1,57 +1,48 @@
-<!doctype html>
-<html>
+<!DOCTYPE HTML>
+<html class="uk-height-1-1 uk-notouch">
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex,nofollow">
 
 	<title>Bludit</title>
 
-	<link rel="stylesheet" href="./css/kube.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" href="./css/css/font-awesome.css?version=<?php echo BLUDIT_VERSION ?>">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
-	<!-- Plugins Login Head -->
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/login.css?version=<?php echo BLUDIT_VERSION ?>">
+
+	<!-- Javascript -->
+	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+
+	<!-- Plugins -->
 	<?php Theme::plugins('loginHead') ?>
 </head>
-<body>
+<body class="uk-height-1-1">
 
-<!-- Plugins Login Body Begin -->
+<!-- Plugins -->
 <?php Theme::plugins('loginBodyBegin') ?>
 
-<div id="head">
-	<nav class="navbar nav-fullwidth">
-		<h1>Bludit</h1>
-		<ul>
-		<li><a href="<?php echo HTML_PATH_ROOT ?>"><?php $Language->p('Website') ?></a></li>
-		</ul>
-	</nav>
+<div class="uk-vertical-align uk-text-center uk-height-1-1">
+<div class="uk-vertical-align-middle login-box">
+<h1>BLUDIT</h1>
+<?php
+	if(Alert::defined()) {
+		echo '<div class="uk-alert uk-alert-danger">'.Alert::get().'</div>';
+	}
+
+	if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
+		include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+	}
+?>
+</div>
 </div>
 
-<div class="units-row">
-
-	<!-- CONTENT -->
-	<div class="unit-centered unit-40" style="max-width: 400px">
-	<div id="content">
-
-	<?php
-
-		if(Alert::defined()) {
-			echo '<div class="tools-alert tools-alert-green">'.Alert::get().'</div>';
-		}
-
-		// Load view
-		if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
-			include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
-		}
-	?>
-
-	</div>
-	</div>
-
-</div>
-
-<!-- Plugins Login Body Begin -->
+<!-- Plugins -->
 <?php Theme::plugins('loginBodyEnd') ?>
 
 </body>

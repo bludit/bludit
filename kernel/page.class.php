@@ -112,6 +112,12 @@ class Page extends fileContent
 		return ($this->getField('status')==='published');
 	}
 
+	// Returns TRUE if the post is draft, FALSE otherwise.
+	public function draft()
+	{
+		return ($this->getField('status')=='draft');
+	}
+
 	// Returns the page permalink.
 	public function permalink($absolute=false)
 	{

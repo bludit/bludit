@@ -1,63 +1,130 @@
-<h2 class="title"><i class="fa fa-pencil"></i><?php $Language->p('Edit post') ?></h2>
+<?php
 
-<form method="post" action="" class="forms">
+HTML::title(array('title'=>$L->g('Edit post'), 'icon'=>'pencil'));
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
-	<input type="hidden" id="jskey" name="key" value="<?php echo $_Post->key() ?>">
+HTML::formOpen(array('class'=>'uk-form-stacked'));
 
-	<label>
-		<?php $Language->p('Title') ?>
-		<input id="jstitle" name="title" type="text" class="width-90" value="<?php echo $_Post->title() ?>">
-	</label>
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$Security->getToken()
+	));
 
-	<label class="width-90">
-		<?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-		<textarea id="jscontent" name="content" rows="15"><?php echo $_Post->contentRaw(false) ?></textarea>
-	</label>
+	// Key input
+	HTML::formInputHidden(array(
+		'name'=>'key',
+		'value'=>$_Post->key()
+	));
 
-	<button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
+// ---- LEFT SIDE ----
+echo '<div class="uk-grid">';
+echo '<div class="uk-width-large-7-10">';
 
-	<div id="jsadvancedOptions">
+	// Title input
+	HTML::formInputText(array(
+		'name'=>'title',
+		'value'=>$_Post->title(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'placeholder'=>$L->g('Title')
+	));
 
-    	<label>
-	    	<?php $Language->p('Date') ?>
-		<input name="date" id="jsdate" type="text" value="<?php echo $_Post->date() ?>">
-		<span class="forms-desc"><?php $Language->p('You can schedule the post just select the date and time') ?></span>
-	</label>
+	// Content input
+	HTML::formTextarea(array(
+		'name'=>'content',
+		'value'=>$_Post->contentRaw(false),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'placeholder'=>$L->g('Content')
+	));
 
-	<label>
-		<?php $Language->p('Friendly Url') ?>
-		<div class="input-groups width-50">
-		<span class="input-prepend"><?php echo $Site->urlPost() ?><span id="jsparentExample"></span></span>
-		<input id="jsslug" type="text" name="slug" value="<?php echo $_Post->slug() ?>">
-		</div>
-		<span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
-	</label>
+	// Form buttons
+	echo '<div class="uk-form-row uk-margin-bottom">
+		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
+		<button id="jsdelete-post" name="delete-post" class="uk-button" type="submit">'.$L->g('Delete').'</button>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>
+	</div>';
 
-	<label>
-		<?php $Language->p('Description') ?>
-		<input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Post->description() ?>">
-		<span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
-	</label>
+echo '</div>';
 
-	<label>
-		<?php $Language->p('Tags') ?>
-		<input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Post->tags() ?>">
-		<span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
-	</label>
+// ---- RIGHT SIDE ----
+echo '<div class="uk-width-large-3-10">';
 
-	</div>
+	// Tabs, general and advanced mode
+	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';
+	echo '<li><a href="">'.$L->g('General').'</a></li>';
+	echo '<li><a href="">'.$L->g('Advanced').'</a></li>';
+	echo '</ul>';
 
-	<button class="btn btn-blue" name="publish"><?php echo ($_Post->published()?$Language->p('Save'):$Language->p('Publish')) ?></button>
-	<button class="btn" name="draft"><?php $Language->p('Draft') ?></button>
-	<button id="jsdelete" class="btn" name="delete"><?php $Language->p('Delete') ?></button>
+	echo '<ul id="tab-options" class="uk-switcher uk-margin">';
 
-</form>
+	// ---- GENERAL TAB ----
+	echo '<li>';
+
+	// Description input
+	HTML::formTextarea(array(
+		'name'=>'description',
+		'label'=>$L->g('description'),
+		'value'=>$_Post->description(),
+		'rows'=>'7',
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'tip'=>$L->g('this-field-can-help-describe-the-content')
+	));
+
+	// Tags input
+	HTML::formInputText(array(
+		'name'=>'tags',
+		'value'=>$_Post->tags(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('Write the tags separated by commas'),
+		'label'=>$L->g('Tags')
+	));
+
+	echo '</li>';
+
+	// ---- ADVANCED TAB ----
+	echo '<li>';
+
+	// Date input
+	HTML::formInputText(array(
+		'name'=>'date',
+		'value'=>$_Post->date(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'label'=>$L->g('Date')
+	));
+
+	// Status input
+	HTML::formSelect(array(
+		'name'=>'status',
+		'label'=>$L->g('Status'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
+		'selected'=>($_Post->draft()?'draft':'published'),
+		'tip'=>''
+	));
+
+	// Slug input
+	HTML::formInputText(array(
+		'name'=>'slug',
+		'value'=>$_Post->slug(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('you-can-modify-the-url-which-identifies'),
+		'label'=>$L->g('Friendly URL')
+	));
+
+	echo '</li>';
+	echo '</ul>';
+
+echo '</div>';
+echo '</div>';
+
+HTML::formClose();
+
+?>
 
 <script>
 
-$(document).ready(function()
-{
+$(document).ready(function() {
+
 	var key = $("#jskey").val();
 
 	$("#jsdate").datetimepicker({format:"<?php echo DB_DATE_FORMAT ?>"});
@@ -72,15 +139,10 @@ $(document).ready(function()
 		checkSlugPost(slug, key, $("#jsslug"));
 	});
 
-	$("#jsdelete").click(function() {
+	$("#jsdelete-post").click(function() {
 		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
 			return false;
 		}
-	});
-
-	$("#jsadvancedButton").click(function() {
-		$("#jsadvancedOptions").slideToggle();
-		return false;
 	});
 
 });

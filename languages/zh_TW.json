@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "您可以使用此欄位來定義相關的語言、國家與特別的參數",
 	"you-can-modify-the-url-which-identifies":"您可以修改網址來讓文章或頁面的網址可以更接近人類所了解的字詞，不能超過150個字",
 	"this-field-can-help-describe-the-content": "這個欄位可以幫助快速理解內容，不能超過150個字",
-	"write-the-tags-separeted-by-comma": "撰寫使用逗號分隔的標籤，例如: 標籤1, 標籤2, 標籤3",
+	"write-the-tags-separated-by-comma": "撰寫使用逗號分隔的標籤，例如: 標籤1, 標籤2, 標籤3",
 	"delete-the-user-and-all-its-posts":"刪除使用者與他所發表的文章",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "刪除使用者，並將他所發表的文章關連至管理員權限的使用者",
 	"read-more": "繼續越讀",
@@ -163,5 +163,10 @@
 	"scheduled": "已安排",
 	"publish": "發表",
 	"please-check-your-theme-configuration": "請檢查您的佈景主題設定",
-	"plugin-label": "延伸模組標籤"
+	"plugin-label": "延伸模組標籤",
+	"enabled": "啟用",
+	"disabled": "關閉",
+	"cli-mode": "Cli模式",
+	"command-line-mode": "指令列模式",
+	"enable-the-command-line-mode-if-you-add-edit": "啟用指令列模式，如果您從檔案系統中新增、編輯或是移除文章和頁面。"
 }

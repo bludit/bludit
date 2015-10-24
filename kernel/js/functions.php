@@ -1,12 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo '<script>'."\n";
+echo '<script>'.PHP_EOL;
 
-echo 'var HTML_PATH_ROOT = "'.HTML_PATH_ROOT.'";'."\n";
-echo 'var HTML_PATH_ADMIN_ROOT = "'.HTML_PATH_ADMIN_ROOT.'";'."\n";
-echo 'var HTML_PATH_ADMIN_THEME = "'.HTML_PATH_ADMIN_THEME.'";'."\n";
+echo 'var HTML_PATH_ROOT = "'.HTML_PATH_ROOT.'";'.PHP_EOL;
+echo 'var HTML_PATH_ADMIN_ROOT = "'.HTML_PATH_ADMIN_ROOT.'";'.PHP_EOL;
+echo 'var HTML_PATH_ADMIN_THEME = "'.HTML_PATH_ADMIN_THEME.'";'.PHP_EOL;
 
-echo 'var NO_PARENT_CHAR = "'.NO_PARENT_CHAR.'";'."\n";
+echo 'var NO_PARENT_CHAR = "'.NO_PARENT_CHAR.'";'.PHP_EOL;
 
 echo '</script>';
 
@@ -69,6 +69,5 @@ function checkSlug(type, text, parentPage, key, writeResponse)
         console.log("DEBUG: AJAX always function");
     });
 }
-
 
 </script>

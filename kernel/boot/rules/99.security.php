@@ -18,11 +18,11 @@
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$token = isset($_POST['token']) ? Sanitize::html($_POST['token']) : false;
+	$token = isset($_POST['tokenCSRF']) ? Sanitize::html($_POST['tokenCSRF']) : false;
 
 	if( !$Security->validateToken($token) )
 	{
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying validate the token. Token ID: '.$token);
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying validate the tokenCSRF. Token CSRF ID: '.$token);
 
 		// Destroy the session.
 		Session::destroy();
@@ -32,7 +32,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 	else
 	{
-		unset($_POST['token']);
+		unset($_POST['tokenCSRF']);
 	}
 }
 
