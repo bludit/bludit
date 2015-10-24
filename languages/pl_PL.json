@@ -189,5 +189,12 @@
 	"back-to-login-form": "Powrót do formularza logowania",
 	"send-me-a-login-access-code": "Wyślij mi kod dostępu do logowania",
 	"get-login-access-code": "Pobierz kod dostępu do logowania",
-	"email-notification-login-access-code": "<p>To jest powiadomienie z twojej strony {{WEBSITE_NAME}}</p><p>Poprosiłeś o kod dostępu do logowania, należy do kliknąć w link:</p><p>{{LINK}}</p>"
+	"email-notification-login-access-code": "<p>To jest powiadomienie z twojej strony {{WEBSITE_NAME}}</p><p>Poprosiłeś o kod dostępu do logowania, należy do kliknąć w link:</p><p>{{LINK}}</p>",
+	"there-are-no-scheduled-posts": "Nie ma zaplanowanych postów.",
+	"show-password": "Pokaż Hasło",
+	"edit-or-remove-your=pages": "Edytuj lub usuń swoje strony.",
+	"edit-or-remove-your-blogs-posts": "Edytuj lub usuń posty bloga.",
+	"general-settings": "Ustawienia ogólne",
+	"advanced-settings": "Ustawienia zaawansowane",
+	"manage-users": "Zarządzaj użytkownikami"
 }
