@@ -47,11 +47,17 @@ h3 {
 }
 
 .content {
-	text-align: left;
+
 }
 
 #jsshowPassword {
 	color: #999;
 	cursor: pointer;
-	font-size: 1.3em;
+	font-size: 1em;
+	margin-top: 10px;
+}
+
+#jscompleteEmail {
+	cursor: pointer;
+	text-decoration: underline;
 }

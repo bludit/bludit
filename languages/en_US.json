@@ -190,5 +190,11 @@
 	"send-me-a-login-access-code": "Send me a login access code",
 	"get-login-access-code": "Get login access code",
 	"email-notification-login-access-code": "<p>This is a notification from your website {{WEBSITE_NAME}}</p><p>You request a login access code, follow the next link:</p><p>{{LINK}}</p>",
-	"there-are-no-scheduled-posts": "There are no scheduled posts."
+	"there-are-no-scheduled-posts": "There are no scheduled posts.",
+	"show-password": "Show password",
+	"edit-or-remove-your=pages": "Edit or remove your pages.",
+	"edit-or-remove-your-blogs-posts": "Edit or remove your blog's posts.",
+	"general-settings": "General settings",
+	"advanced-settings": "Advanced settings",
+	"manage-users": "Manage users"
 }

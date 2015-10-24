@@ -45,7 +45,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<a href="#" class="uk-button">'.$L->g('Cancel').'</a>
 		</div>
 	</div>';
 

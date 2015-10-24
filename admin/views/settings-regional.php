@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Settings'), 'icon'=>'cogs'));
+HTML::title(array('title'=>$L->g('Language and timezone'), 'icon'=>'cogs'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
@@ -38,7 +38,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<a href="#" class="uk-button">'.$L->g('Cancel').'</a>
 		</div>
 	</div>';
 

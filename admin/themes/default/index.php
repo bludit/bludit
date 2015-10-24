@@ -108,28 +108,22 @@ $(document).ready(function() {
 
 <!-- Offcanvas -->
 <div id="offcanvas" class="uk-offcanvas">
-    <div class="uk-offcanvas-bar">
-        <ul class="uk-nav uk-nav-offcanvas">
-            <li class="uk-active">
-                <a href="layouts_frontpage.html">Frontpage</a>
-            </li>
-            <li>
-                <a href="layouts_portfolio.html">Portfolio</a>
-            </li>
-            <li>
-                <a href="layouts_blog.html">Blog</a>
-            </li>
-            <li>
-                <a href="layouts_documentation.html">Documentation</a>
-            </li>
-            <li>
-                <a href="layouts_contact.html">Contact</a>
-            </li>
-            <li>
-                <a href="layouts_login.html">Login</a>
-            </li>
-        </ul>
-    </div>
+<div class="uk-offcanvas-bar">
+	<ul class="uk-nav uk-nav-offcanvas">
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage posts') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage pages') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Manage users') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General settings') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced settings') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
+	</ul>
+</div>
 </div>
 
 <!-- View -->

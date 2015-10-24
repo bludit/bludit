@@ -5,13 +5,13 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></h4>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></h4>
 		<p><?php $L->p('Create a new article for your blog') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-folder-o"></i> <?php $L->p('Manage posts') ?></a></h4>
-		<p><?php $L->p('') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage posts') ?></a></h4>
+		<p><?php $L->p('edit-or-remove-your-blogs-posts') ?></p>
 		</div>
 
 	</div>
@@ -19,13 +19,13 @@
 	<div class="uk-width-medium-1-3" style="border-right: 1px solid #E6E6E6; border-left: 1px solid #E6E6E6">
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></h4>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></h4>
 		<p><?php $L->p('Create a new page for your website') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
-		<p><?php $L->p('') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
+		<p><?php $L->p('edit-or-remove-your=pages') ?></p>
 		</div>
 
 	</div>
@@ -33,12 +33,12 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-user-plus"></i> <?php $L->p('Add a new user') ?></a></h4>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'add-user' ?>"><i class="uk-icon-user-plus"></i> <?php $L->p('Add a new user') ?></a></h4>
 		<p><?php $L->p('Invite a friend to collaborate on your website') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href=""><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></h4>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></h4>
 		<p><?php $L->p('Change your language and region settings') ?></p>
 		</div>
 

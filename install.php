@@ -519,17 +519,15 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		<input type="hidden" name="timezone" id="jstimezone" value="0">
 
 		<div class="uk-form-row">
-		<input type="text" value="admin" class="uk-width-9-10 uk-form-large" disabled>
+		<input type="text" value="admin" class="uk-width-1-1 uk-form-large" disabled>
 		</div>
 
 		<div class="uk-form-row">
-
-		<input name="password" id="jspassword" type="password" class="uk-width-9-10 uk-form-large" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>" placeholder="<?php echo $Language->get('Password') ?>">
-		<i id="jsshowPassword" class="uk-icon-eye"></i>
+		<input name="password" id="jspassword" type="password" class="uk-width-1-1 uk-form-large" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>" placeholder="<?php echo $Language->get('Password') ?>">
 		</div>
 
 		<div class="uk-form-row">
-		<input name="email" id="jsemail" type="text" class="uk-width-9-10 uk-form-large" placeholder="<?php echo $Language->get('Email') ?>" autocomplete="off" maxlength="100">
+		<input name="email" id="jsemail" type="text" class="uk-width-1-1 uk-form-large" placeholder="<?php echo $Language->get('Email') ?>" autocomplete="off" maxlength="100">
 		</div>
 
 		<div class="uk-form-row">
@@ -537,6 +535,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		</div>
 
 		</form>
+
+		<div id="jsshowPassword"><i class="uk-icon-eye"></i> <?php $Language->p('Show password') ?></div>
 	<?php
 		}
 		else
@@ -579,11 +579,11 @@ $(document).ready(function()
 	// Proceed without email field.
 	$("#jscompleteEmail").on("click", function() {
 
+		console.log("Click proceed anyway");
+
 		$("#jsnoCheckEmail").val("1");
 
-		if(!$("#jspassword").val()) {
-			$("#jsformInstaller").submit();
-		}
+		$("#jsformInstaller").submit();
 	});
 
 	// Show password
