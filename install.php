@@ -193,9 +193,11 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	$stdOut = array();
 
-	$currentDate = Date::current(DB_DATE_FORMAT);
-
 	$timezone = timezone_name_from_abbr("", $timezoneOffset, 0);
+
+	date_default_timezone_set($timezone);
+
+	$currentDate = Date::current(DB_DATE_FORMAT);
 
 	// ============================================================================
 	// Create directories
