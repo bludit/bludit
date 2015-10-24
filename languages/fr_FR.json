@@ -119,7 +119,7 @@
     "you-can-use-this-field-to-define-a-set-of": "Vous pouvez utiliser ce champ pour définir un ensemble de paramètres liés à la langue, le pays et les préférences particulières.",
     "you-can-modify-the-url-which-identifies":"Vous pouvez modifier l'URL qui identifie une page ou un article, en utilisant des mots-clés lisibles. Pas plus de 150 caractères.",
     "this-field-can-help-describe-the-content": "Ce champ peut aider à décrire le contenu en quelques mots. Pas plus de 150 caractères.",
-    "write-the-tags-separated-by-comma": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
+    
     "delete-the-user-and-all-its-posts":"Supprimer l’utilisateur et tous ses messages associés.",
     "delete-the-user-and-associate-its-posts-to-admin-user": "Supprimez l’utilisateur et associez ses messages à l’administrateur principal.",
     "read-more": "Lire la suite...",
@@ -159,7 +159,7 @@
 	"ip-address-has-been-blocked": "Votre adresse IP a été bloquée.",
 	"try-again-in-a-few-minutes": "Essayez de nouveau dans quelques minutes.",
 	"date": "Date",
-	"you-can-schedule-the-post-just-select-the-date-and-time": "Vous pouvez planifier une date de publication de vos articles, il suffit de sélectionner la date et l’heure dans le calendrier qui s’ouvre en pop-up.",
+	
 	"scheduled": "Planification",
 	"publish": "Publier",
 	"please-check-your-theme-configuration": "Veuillez vérifier la configuration de votre thème.",
@@ -168,5 +168,27 @@
 	"disabled": "Désactivé",
 	"cli-mode": "Mode Cli",
 	"command-line-mode": "Mode ligne de commande",
-	"enable-the-command-line-mode-if-you-add-edit": "Activer le mode ligne de commande si vous créez, modifiez ou supprimez des articles ou des pages du système de fichiers."
+	"enable-the-command-line-mode-if-you-add-edit": "Activer le mode ligne de commande si vous créez, modifiez ou supprimez des articles ou des pages du système de fichiers.",
+
+	"configure": "Configuration",
+	"uninstall": "Désinstaller",
+	"change-password": "Modifier le mot de passe",
+	"to-schedule-the-post-just-select-the-date-and-time": "Vous pouvez planifier une date de publication de vos articles, il suffit de sélectionner la date et l’heure dans le calendrier qui s’ouvre en pop-up.",
+	"write-the-tags-separated-by-commas": "Écrivez les tags en les séparant par une virgule. par exemple : tag1, tag2, tag3",
+	"status": "Statut",
+	"published": "Publié",
+	"scheduled-posts": "Articles planifiés",
+	"statics": "Statiques",
+	"name": "Nom",
+	"email-account-settings":"Paramètres de compte de messagerie",
+	"sender-email": "Email de l’expéditeur",
+	"emails-will-be-sent-from-this-address":"Les e-mails seront envoyés à cette adresse.",
+	"bludit-login-access-code": "BLUDIT - Code d'accès de connexion",
+	"check-your-inbox-for-your-login-access-code":"Vérifiez votre boîte de réception, il contient votre code d’accès de connexion.",
+	"there-was-a-problem-sending-the-email":"Une erreur est survenue, lors de l’envoi de l’e-mail.",
+	"back-to-login-form": "Retour à la page de connexion",
+	"send-me-a-login-access-code": "Envoyez-moi un code d’accès de connexion",
+	"get-login-access-code": "Obtenir le code d’accès de connexion",
+	"email-notification-login-access-code": "<p>Ceci est une notification à partir de votre site {{WEBSITE_NAME}}</p><p>Vous avez demandé un code d’accès de connexion, merci de suivre lien suivant :</p><p>{{LINK}}</p>",
+	"there-are-no-scheduled-posts": "Il n’y a aucun article planifié."
 }
