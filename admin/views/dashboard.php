@@ -53,7 +53,7 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel uk-panel-box">
-		<h4><?php $L->p('Statics') ?></h4>
+		<h4><?php $L->p('Statistics') ?></h4>
 		<table class="uk-table">
 			<tbody>
 			<tr>
