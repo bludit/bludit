@@ -94,6 +94,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 	elseif( !empty($_POST['new-password']) && !empty($_POST['confirm-password']) ) {
 		setPassword($_POST['username'], $_POST['new-password'], $_POST['confirm-password']);
+		editUser($_POST);
 	}
 	else {
 		editUser($_POST);

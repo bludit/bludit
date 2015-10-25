@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Edit user'), 'icon'=>'user'));
+HTML::title(array('title'=>$L->g('Edit user').' :: '.$_user['username'], 'icon'=>'user'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
@@ -34,7 +34,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>''
 	));
 
-if($Login->username()==='admin') {
+if($Login->role()==='admin') {
 
 	HTML::formSelect(array(
 		'name'=>'role',
@@ -79,14 +79,14 @@ if($Login->username()==='admin') {
 		</div>
 	</div>';
 
-if($Login->username()!=='admin') {
+if( ($Login->role()==='admin') && ($_user['username']!='admin') ) {
 
 	HTML::legend(array('value'=>$L->g('Delete')));
 
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
-		<button type="submit" id="jsdelete-user-associate" class="delete-button" name="delete-user-associate">'.$L->g('Delete the user and associate its posts to admin user').'</button>
-		<button type="submit" id="jsdelete-user-all" class="delete-button" name="delete-user-all">'.$L->g('Delete the user and all its posts').'</button>
+		<button type="submit" id="jsdelete-user-associate" class="delete-button" name="delete-user-associate"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and associate its posts to admin user').'</button>
+		<button type="submit" id="jsdelete-user-all" class="delete-button" name="delete-user-all"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and all its posts').'</button>
 		</div>
 	</div>';
 
