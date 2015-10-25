@@ -169,7 +169,6 @@
 	"cli-mode": "Cli mode",
 	"command-line-mode": "Command line mode",
 	"enable-the-command-line-mode-if-you-add-edit": "Enable the command line mode if you add, edit or remove posts and pages from the filesystem",
-
 	"configure": "Configure",
 	"uninstall": "Uninstall",
 	"change-password": "Change password",
@@ -178,7 +177,7 @@
 	"status": "Status",
 	"published": "Published",
 	"scheduled-posts": "Scheduled posts",
-	"statics": "Statics",
+	"statics": "Statistics",
 	"name": "Name",
 	"email-account-settings":"Email account settings",
 	"sender-email": "Sender email",

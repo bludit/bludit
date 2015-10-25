@@ -40,7 +40,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
     HTML::formSelect(array(
         'name'=>'cliMode',
         'label'=>$L->g('Cli Mode'),
-        'options'=>array('true'=>'Enabled', 'false'=>'Disabled'),
+        'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
         'selected'=>$Site->cliMode(),
         'class'=>'uk-width-1-3 uk-form-medium',
         'tip'=>$L->g('enable-the-command-line-mode-if-you-add-edit')
@@ -60,7 +60,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
     HTML::formInputText(array(
         'name'=>'uriPost',
-        'label'=>$L->g('Email'),
+        'label'=>$L->g('Posts'),
         'value'=>$Site->uriFilters('post'),
         'class'=>'uk-width-1-2 uk-form-medium',
         'tip'=>''
