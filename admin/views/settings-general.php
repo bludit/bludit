@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Settings'), 'icon'=>'cogs'));
+HTML::title(array('title'=>$L->g('General settings'), 'icon'=>'cogs'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 

@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Settings'), 'icon'=>'cogs'));
+HTML::title(array('title'=>$L->g('Advanced settings'), 'icon'=>'cogs'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
@@ -24,7 +24,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'options'=>$_homePageList,
         'selected'=>$Site->homepage(),
         'class'=>'uk-width-1-3 uk-form-medium',
-        'tip'=>$L->g('number-of-posts-to-show-per-page')
+        'tip'=>''
     ));
 
     HTML::formInputText(array(
