@@ -60,7 +60,7 @@ if(MB_STRING)
 	mb_http_output(CHARSET);
 }
 
-// PHP Classes
+// --- PHP Classes ---
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
@@ -68,6 +68,8 @@ include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
+
+// --- LANGUAGE ---
 
 // Try to detect language from HTTP
 $explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -79,19 +81,24 @@ if(isset($_GET['language'])) {
 
 $Language = new dbLanguage($localeFromHTTP);
 
-// Timezone
+// --- LOCALE ---
+
+setlocale(LC_ALL, $localeFromHTTP);
+
+// --- TIMEZONE ---
+
+// Check if timezone is defined in php.ini
 $iniDate = ini_get('date.timezone');
 if(empty($iniDate)) {
+	// Timezone not defined in php.ini, then UTC as default.
 	date_default_timezone_set('UTC');
 }
-
-// Locales
-setlocale(LC_ALL, $localeFromHTTP);
 
 // ============================================================================
 // FUNCTIONS
 // ============================================================================
 
+// Returns an array with all languages
 function getLanguageList()
 {
 	$files = glob(PATH_LANGUAGES.'*.json');
@@ -132,6 +139,7 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
+	// If the php version is less than 5.3, then don't check others requirements.
 	if(!version_compare(phpversion(), '5.3', '>='))
 	{
 		$errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
@@ -187,13 +195,15 @@ function checkSystem()
 	return $stdOut;
 }
 
+// Finish with the installation.
 function install($adminPassword, $email, $timezoneOffset)
 {
 	global $Language;
 
 	$stdOut = array();
 
-	$timezone = timezone_name_from_abbr("", $timezoneOffset, 0);
+	$timezone = timezone_name_from_abbr('', $timezoneOffset, 1);
+	if($timezone === false) { $timezone = timezone_name_from_abbr('', $timezoneOffset, 0); } // Workaround bug #44780
 
 	date_default_timezone_set($timezone);
 
@@ -408,6 +418,7 @@ Content:
 	return true;
 }
 
+// Check form's parameters and finish Bludit installation.
 function checkPOST($args)
 {
 	global $Language;

@@ -32,6 +32,8 @@
 
 	<div class="uk-width-medium-1-3">
 
+		<?php if($Login->role() == 'admin') { ?>
+
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'add-user' ?>"><i class="uk-icon-user-plus"></i> <?php $L->p('Add a new user') ?></a></h4>
 		<p><?php $L->p('Invite a friend to collaborate on your website') ?></p>
@@ -41,6 +43,15 @@
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></h4>
 		<p><?php $L->p('Change your language and region settings') ?></p>
 		</div>
+
+		<?php } else { ?>
+
+		<div class="uk-panel">
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><i class="uk-icon-user"></i> <?php $L->p('Profile') ?></a></h4>
+		<p><?php $L->p('View and edit your profile') ?></p>
+		</div>
+
+		<?php } ?>
 
 	</div>
 

@@ -63,11 +63,14 @@ $(document).ready(function() {
 			<ul class="uk-nav uk-nav-navbar">
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Posts') ?></a></li>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Pages') ?></a></li>
+			<?php if($Login->role() == 'admin') { ?>
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><i class="uk-icon-users"></i> <?php $L->p('Users') ?></a></li>
+			<?php } ?>
 			</ul>
 		</div>
 	</li>
 
+	<?php if($Login->role() == 'admin') { ?>
 	<li class="uk-parent" data-uk-dropdown>
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('Settings') ?> ▾</a>
 		<div class="uk-dropdown uk-dropdown-navbar">
@@ -83,12 +86,14 @@ $(document).ready(function() {
 			</ul>
 		</div>
 	</li>
+	<?php } ?>
+
 	</ul>
 
 	<div class="uk-navbar-flip uk-hidden-small">
 	<ul class="uk-navbar-nav">
 	<li class="uk-parent" data-uk-dropdown>
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><i class="uk-icon-user"></i> Admin ▾</a>
+		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><i class="uk-icon-user"></i> <?php echo $Login->username() ?> ▾</a>
 		<div class="uk-dropdown uk-dropdown-navbar">
 			<ul class="uk-nav uk-nav-navbar">
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><?php $L->p('Profile') ?></a></li>
@@ -115,6 +120,7 @@ $(document).ready(function() {
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage posts') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage pages') ?></a></li>
+	<?php if($Login->role() == 'admin') { ?>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Manage users') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General settings') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced settings') ?></a></li>
@@ -122,6 +128,7 @@ $(document).ready(function() {
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
+	<?php } ?>
 	</ul>
 </div>
 </div>
