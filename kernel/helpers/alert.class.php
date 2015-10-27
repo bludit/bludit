@@ -17,6 +17,11 @@ class Alert {
 		return Session::get($key);
 	}
 
+	public static function p($key='alert')
+	{
+		echo self::get($key);
+	}
+
 	public static function defined()
 	{
 		return Session::get('defined');

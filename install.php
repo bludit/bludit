@@ -60,7 +60,7 @@ if(MB_STRING)
 	mb_http_output(CHARSET);
 }
 
-// PHP Classes
+// --- PHP Classes ---
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
@@ -68,6 +68,8 @@ include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
+
+// --- LANGUAGE ---
 
 // Try to detect language from HTTP
 $explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -79,10 +81,24 @@ if(isset($_GET['language'])) {
 
 $Language = new dbLanguage($localeFromHTTP);
 
+// --- LOCALE ---
+
+setlocale(LC_ALL, $localeFromHTTP);
+
+// --- TIMEZONE ---
+
+// Check if timezone is defined in php.ini
+$iniDate = ini_get('date.timezone');
+if(empty($iniDate)) {
+	// Timezone not defined in php.ini, then UTC as default.
+	date_default_timezone_set('UTC');
+}
+
 // ============================================================================
 // FUNCTIONS
 // ============================================================================
 
+// Returns an array with all languages
 function getLanguageList()
 {
 	$files = glob(PATH_LANGUAGES.'*.json');
@@ -123,11 +139,15 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
+	// If the php version is less than 5.3, then don't check others requirements.
 	if(!version_compare(phpversion(), '5.3', '>='))
 	{
 		$errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
 		error_log($errorText, 0);
-		array_push($stdOut, $errorText);
+
+		$tmp['title'] = 'PHP version';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
 
 		return $stdOut;
 	}
@@ -136,38 +156,56 @@ function checkSystem()
 	{
 		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
 		error_log($errorText, 0);
-		array_push($stdOut, $errorText);
+
+		$tmp['title'] = 'File .htaccess';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
 	}
 
 	if(!in_array('dom', $phpModules))
 	{
 		$errorText = 'PHP module DOM is not installed. (ERR_203)';
 		error_log($errorText, 0);
-		array_push($stdOut, $errorText);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
 	}
 
 	if(!in_array('json', $phpModules))
 	{
 		$errorText = 'PHP module JSON is not installed. (ERR_204)';
 		error_log($errorText, 0);
-		array_push($stdOut, $errorText);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
 	}
 
 	if(!is_writable(PATH_CONTENT))
 	{
 		$errorText = 'Writing test failure, check directory content permissions. (ERR_205)';
 		error_log($errorText, 0);
-		array_push($stdOut, $errorText);
+
+		$tmp['title'] = 'PHP permissions';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
 	}
 
 	return $stdOut;
 }
 
-function install($adminPassword, $email)
+// Finish with the installation.
+function install($adminPassword, $email, $timezoneOffset)
 {
 	global $Language;
 
 	$stdOut = array();
+
+	$timezone = timezone_name_from_abbr('', $timezoneOffset, 1);
+	if($timezone === false) { $timezone = timezone_name_from_abbr('', $timezoneOffset, 0); } // Workaround bug #44780
+
+	date_default_timezone_set($timezone);
 
 	$currentDate = Date::current(DB_DATE_FORMAT);
 
@@ -242,7 +280,7 @@ function install($adminPassword, $email)
 		'username'=>'admin',
 		'status'=>'published',
 		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
-		'allowComments'=>false,
+		'allowComments'=>'false',
 		'date'=>$currentDate
 		)
 	);
@@ -256,7 +294,7 @@ function install($adminPassword, $email)
 		'footer'=>Date::current('Y'),
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
-		'timezone'=>'UTC',
+		'timezone'=>$timezone,
 		'theme'=>'pure',
 		'adminTheme'=>'default',
 		'homepage'=>'',
@@ -265,7 +303,8 @@ function install($adminPassword, $email)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT,
-		'cliMode'=>true
+		'cliMode'=>'true',
+		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -379,6 +418,7 @@ Content:
 	return true;
 }
 
+// Check form's parameters and finish Bludit installation.
 function checkPOST($args)
 {
 	global $Language;
@@ -399,7 +439,7 @@ function checkPOST($args)
 	$email = sanitize::email($args['email']);
 
 	// Install Bludit
-	install($args['password'], $email, $args['language']);
+	install($args['password'], $email, $args['timezone']);
 
 	return true;
 }
@@ -431,9 +471,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 }
 
 ?>
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html class="uk-height-1-1 uk-notouch">
 <head>
 	<base href="admin/themes/default/">
 	<meta charset="<?php echo CHARSET ?>">
@@ -441,86 +480,87 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
 	<title><?php echo $Language->get('Bludit Installer') ?></title>
 
-	<link rel="stylesheet" href="./css/kube.min.css">
-	<link rel="stylesheet" href="./css/installer.css">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
-	<script src="./js/jquery.min.js"></script>
-	<script src="./js/kube.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/installer.css">
+	<link rel="stylesheet" type="text/css" href="./css/form-password.almost-flat.min.css">
+
+	<!-- Javascript -->
+	<script charset="utf-8" src="./js/jquery.min.js"></script>
+	<script charset="utf-8" src="./js/uikit.min.js"></script>
+	<script charset="utf-8" src="./js/form-password.min.js"></script>
+
 </head>
-<body>
-<div class="units-row">
-<div class="unit-centered unit-60">
-<div class="main">
-
+<body class="uk-height-1-1">
+<div class="uk-vertical-align uk-text-center uk-height-1-1">
+<div class="uk-vertical-align-middle">
 	<h1 class="title"><?php echo $Language->get('Bludit Installer') ?></h1>
-	<p><?php echo $Language->get('Welcome to the Bludit installer') ?></p>
+	<div class="content">
 
 	<?php
+		$system = checkSystem();
 
-	$system = checkSystem();
-
-	// Missing requirements
-	if(!empty($system))
-	{
-		echo '<div class="boxInstallerForm unit-centered unit-50">';
-		echo '<table class="table-stripped">';
-
-		foreach($system as $value) {
-			echo '<tr><td>'.$value.'</td></tr>';
+		// Missing requirements
+		if(!empty($system))
+		{
+			foreach($system as $values)
+			{
+				echo '<div class="uk-panel">';
+				echo '<div class="uk-panel-badge uk-badge uk-badge-danger">FAIL</div>';
+				echo '<h3 class="uk-panel-title">'.$values['title'].'</h3>';
+				echo $values['errorText'];
+				echo '</div>';
+			}
 		}
-
-		echo '</table>';
-		echo '</div>';
-	}
-	// Second step
-	elseif(isset($_GET['language']))
-	{
-
+		// Second step
+		elseif(isset($_GET['language']))
+		{
 	?>
 		<p><?php echo $Language->get('Complete the form choose a password for the username admin') ?></p>
 
-		<div class="boxInstallerForm unit-centered unit-40">
-
 		<?php
 			if(!empty($error)) {
-				echo '<div class="tools-message tools-message-red">'.$error.'</div>';
+				echo '<div class="uk-alert uk-alert-danger">'.$error.'</div>';
 			}
 		?>
 
-		<form id="jsformInstaller" method="post" action="" class="forms" autocomplete="off">
-
+		<form id="jsformInstaller" class="uk-form uk-form-stacked" method="post" action="" autocomplete="off">
 		<input type="hidden" name="noCheckEmail" id="jsnoCheckEmail" value="0">
-		<input type="hidden" name="language" id="jslanguage" value="<?php echo $localeFromHTTP ?>">
+		<input type="hidden" name="timezone" id="jstimezone" value="0">
 
-		<label>
-		<input type="text" value="admin" disabled="disabled" class="width-100">
-		</label>
-
-		<label>
-		<input type="text" name="password" id="jspassword" placeholder="<?php echo $Language->get('Password visible field') ?>" class="width-100" autocomplete="off" maxlength="100" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>">
-		</label>
-
-		<label>
-		<input type="text" name="email" id="jsemail" placeholder="<?php echo $Language->get('Email') ?>" class="width-100" autocomplete="off" maxlength="100">
-		</label>
-
-		<p><button class="btn btn-blue width-100"><?php echo $Language->get('Install') ?></button>
-		</p>
-		</form>
+		<div class="uk-form-row">
+		<input type="text" value="admin" class="uk-width-1-1 uk-form-large" disabled>
 		</div>
+
+		<div class="uk-form-row">
+		<input name="password" id="jspassword" type="password" class="uk-width-1-1 uk-form-large" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>" placeholder="<?php echo $Language->get('Password') ?>">
+		</div>
+
+		<div class="uk-form-row">
+		<input name="email" id="jsemail" type="text" class="uk-width-1-1 uk-form-large" placeholder="<?php echo $Language->get('Email') ?>" autocomplete="off" maxlength="100">
+		</div>
+
+		<div class="uk-form-row">
+		<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Install') ?></button>
+		</div>
+
+		</form>
+
+		<div id="jsshowPassword"><i class="uk-icon-eye"></i> <?php $Language->p('Show password') ?></div>
 	<?php
-	} // END elseif(isset($_GET['language']))
-	else
-	{
+		}
+		else
+		{
 	?>
 		<p><?php echo $Language->get('Choose your language') ?></p>
 
-		<div class="boxInstallerForm unit-centered unit-40">
+		<form class="uk-form" method="get" action="" autocomplete="off">
 
-		<form id="jsformLanguage" method="get" action="" class="forms" autocomplete="off">
-
-		<label for="jslanguage">
-		<select id="jslanguage" name="language" class="width-100">
+		<div class="uk-form-row">
+		<select id="jslanguage" name="language" class="uk-width-1-1">
 		<?php
 			$htmlOptions = getLanguageList();
 			foreach($htmlOptions as $locale=>$nativeName) {
@@ -528,31 +568,51 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 			}
 		?>
 		</select>
-		</label>
-
-		<p><button class="btn btn-blue width-100"><?php echo $Language->get('Next') ?></button>
-		</p>
-		</form>
 		</div>
-	<?php
-	} // END else
-	?>
 
+		<div class="uk-form-row">
+		<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Next') ?></button>
+		</div>
+
+		</form>
+	<?php
+		}
+	?>
+	</div>
 </div>
 </div>
 
 <script>
 $(document).ready(function()
 {
-    $("#jscompleteEmail").on("click", function() {
-    	$("#jsnoCheckEmail").val("1");
-    	if(!$("jspassword").val()) {
-    		$("#jsformInstaller").submit();
-    	}
-    });
+	// Set timezone
+	var timezoneOffset = -(new Date().getTimezoneOffset() * 60);
+	$("#jstimezone").val(timezoneOffset);
+
+	// Proceed without email field.
+	$("#jscompleteEmail").on("click", function() {
+
+		console.log("Click proceed anyway");
+
+		$("#jsnoCheckEmail").val("1");
+
+		$("#jsformInstaller").submit();
+	});
+
+	// Show password
+	$("#jsshowPassword").on("click", function() {
+		var input = document.getElementById("jspassword");
+
+		if(input.getAttribute("type")=="text") {
+			input.setAttribute("type", "password");
+		}
+		else {
+			input.setAttribute("type", "text");
+		}
+	});
+
 });
 </script>
 
-</div>
 </body>
 </html>

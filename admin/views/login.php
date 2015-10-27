@@ -1,18 +1,23 @@
-<h2 class="title"><?php $Language->p('Login') ?></h2>
+<div class="login-form">
 
-<form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>" class="forms" autocomplete="off">
+<form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>" class="uk-form" autocomplete="off">
 
-	<input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
+	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php $Security->printToken() ?>">
 
-	<label>
-		<input type="text" name="username" placeholder="<?php $Language->p('Username') ?>" class="width-100" autocomplete="off">
-	</label>
+	<div class="uk-form-row">
+	<input name="username" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Username') ?>" type="text">
+	</div>
 
-	<label>
-		<input type="password" name="password" placeholder="<?php $Language->p('Password') ?>" class="width-100" autocomplete="off">
-	</label>
+	<div class="uk-form-row">
+	<input name="password" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Password') ?>" type="password">
+	</div>
 
-	<p>
-		<button class="btn btn-blue width-100"><?php $Language->p('Login') ?></button>
-	</p>
+	<div class="uk-form-row">
+	<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Login') ?></button>
+	</div>
+
 </form>
+
+</div>
+
+<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> <?php $L->p('Send me a login access code') ?></a>

@@ -10,7 +10,9 @@ class dbUsers extends dbJSON
 		'password'=>	array('inFile'=>false, 'value'=>''),
 		'salt'=>	array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
 		'email'=>	array('inFile'=>false, 'value'=>''),
-		'registered'=>	array('inFile'=>false, 'value'=>'1985-03-15 10:00')
+		'registered'=>	array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
+		'tokenEmail'=>	array('inFile'=>false, 'value'=>''),
+		'tokenEmailTTL'=>array('inFile'=>false, 'value'=>'2009-03-15 14:00')
 	);
 
 	function __construct()
@@ -18,7 +20,7 @@ class dbUsers extends dbJSON
 		parent::__construct(PATH_DATABASES.'users.php');
 	}
 
-	// Return an array with the username databases
+	// Return an array with the username databases, filtered by username.
 	public function getDb($username)
 	{
 		if($this->userExists($username))
@@ -26,6 +28,18 @@ class dbUsers extends dbJSON
 			$user = $this->db[$username];
 
 			return $user;
+		}
+
+		return false;
+	}
+
+	// Return the username associated to an email, if the email does not exists return FALSE.
+	public function getByEmail($email)
+	{
+		foreach($this->db as $username=>$values) {
+			if($values['email']==$email) {
+				return $username;
+			}
 		}
 
 		return false;
@@ -42,13 +56,32 @@ class dbUsers extends dbJSON
 		return $this->db;
 	}
 
-	public function setPassword($args)
+	public function generateTokenEmail($username)
+	{
+		// Random hash
+		$token = sha1(Text::randomText(SALT_LENGTH).time());
+		$this->db[$username]['tokenEmail'] = $token;
+
+		// Token time to live, defined by TOKEN_EMAIL_TTL
+		$this->db[$username]['tokenEmailTTL'] = Date::currentOffset(DB_DATE_FORMAT, TOKEN_EMAIL_TTL);
+
+		// Save the database
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return $token;
+	}
+
+	public function setPassword($username, $password)
 	{
 		$salt = Text::randomText(SALT_LENGTH);
-		$hash = sha1($args['password'].$salt);
+		$hash = sha1($password.$salt);
 
-		$args['salt'] = $salt;
-		$args['password'] = $hash;
+		$args['username']	= $username;
+		$args['salt']		= $salt;
+		$args['password']	= $hash;
 
 		return $this->set($args);
 	}

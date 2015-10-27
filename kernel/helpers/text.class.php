@@ -111,6 +111,11 @@ class Text {
 		 return $text;
 	}
 
+	public static function replaceAssoc(array $replace, $text)
+	{
+		return str_replace(array_keys($replace), array_values($replace), $text);
+	}
+
 	public static function cleanUrl($string, $separator='-')
 	{
 		// Transliterate characters to ASCII

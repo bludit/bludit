@@ -121,7 +121,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Puede usar este campo para definir un conjunto de parámetros relacionados con la languege, el país y preferencias especiales.",
 	"you-can-modify-the-url-which-identifies":"You can modify the URL which identifies a page or post using human-readable keywords. No more than 150 characters.",
 	"this-field-can-help-describe-the-content": "Este campo puede ayudar a describir el contenido en pocas palabras. No más de 150 caracteres.",
-	"write-the-tags-separeted-by-comma": "Escribir las etiquetas separadas por comas. por ejemplo: etiqueta1, etiqueta2, etiqueta3",
+	"write-the-tags-separated-by-comma": "Escribir las etiquetas separadas por comas. por ejemplo: etiqueta1, etiqueta2, etiqueta3",
 	"delete": "Delete",
 	"delete-the-user-and-all-its-posts":"Eliminar el usuario y todos sus mensajes",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Eliminar el usuario y asociar sus mensajes al usuario administrador",

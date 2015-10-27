@@ -1,264 +1,182 @@
+/* ----------- UIKIT HACKs FOR BLUDIT ----------- */
+.uk-navbar {
+	background: #EEEEEE !important;
+	border: none !important;
+}
+
+.uk-button {
+	color: #ffffff;
+	padding: 2px 22px;
+	text-shadow: none;
+	background: #888888;
+	border-radius: 3px;
+}
+
+.uk-button:hover,
+.uk-button:focus {
+	background-color: #777777;
+	color: #ffffff;
+}
+
+.uk-button-primary {
+	background: #2672ec;
+}
+
+.uk-button-primary:hover {
+	background: #1F5FC4;
+}
+
+.uk-navbar-nav > li > a {
+	border: none;
+	height: 70px;
+	padding: 15px;
+}
+
+.uk-nav-navbar > li > a:hover {
+	background: #2672ec;
+}
+
+.uk-form-label {
+	color: #666666;
+	font-weight: normal !important;
+}
+
+.uk-form-help-block {
+	color: #AAAAAA;
+	font-size: 0.9em;
+}
+
+.uk-table th,
+.uk-table td {
+	padding: 15px 10px;
+}
+
+.uk-badge {
+	margin-right: 5px !important;
+	font-size: 0.9em;
+	padding: 2px 7px;
+	font-weight: normal;
+}
+
 a {
-    text-decoration: none;
-    color: #333;
+	color: #2672ec;
 }
 
-a:hover, a:focus {
-    color: #2672ec !important;
-    text-decoration: none !important;
+a.bludit-logo {
+	color: #848484 !important;
 }
 
-body {
-    background-color: #f9f9f9;
+a.bludit-logo:hover {
+	background: none !important;
 }
 
-/*div.unit-80 {
-    margin-left: 1% !important;
-}
-*/
-
-.tools-alert {
-    text-align: center;
+.uk-panel-box {
+	background: #F9F9F9 !important;
 }
 
-span.label {
-    margin-right: 8px;
-}
+/* ----------- BLUDIT ----------- */
 
-/* ----------- FONTS AWESOME ----------- */
-.fa-right {
-    margin-right: 5px;
-}
-
-/* ----------- HEAD ----------- */
-#head {
-    overflow: auto;
-    border-top: 10px #eee solid;
-    border-bottom: 1px solid #f1f1f1;
-    padding: 10px 0;
-}
-
-#head h1 {
-    font-weight: normal;
-    float:left;
-    margin-left: 30px;
-    margin: 0;
-    padding: 0;
-    font-size: 1.3em;
-}
-
-#head ul {
-  float: right;
-  margin: 0;
-  list-style: none;
-}
-
-#head .navbar {
-    margin: 0;
-    padding: 0 30px;
-    font-size: 0.9em;
-}
-
-#head a {
-    display: inline-block;
-}
-
-/* ----------- SIDEBAR ----------- */
-#sidebar {
-    overflow: auto;
-    margin: 20px;
-}
-
-#sidebar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-#sidebar li {
-
-}
-
-/* ----------- FOOTER ----------- */
-#footer {
-    color: #777;
-    font-size: 0.9em;
-    text-align: center;
-}
-
-/* ----------- ALERT ----------- */
-#alert {
-    top: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    padding: 20px 0px !important;
-    max-width: 100% !important;
-    text-align: center;
-}
-
-/* ----------- CONTENT ----------- */
-#content {
-    margin: 20px;
+#logo {
+	background: #f4f4f4;
+	padding:20px 0;
 }
 
 h2.title {
-    font-weight: normal;
+	margin: 20px 0;
 }
 
-h2.title i.fa {
-    margin-right: 8px;
+button.delete-button {
+    background: none;
+    border: 0 none;
+    color: #da2727;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 10px;
 }
 
-/* ----------- TABLE ----------- */
-table {
-    background-color: #fff;
+button.delete-button:hover {
+	text-decoration: underline;
 }
-table thead {
-    border-bottom: 2px solid #ccc;
+
+#alert {
+	display: none;
+	background: rgba(48, 102, 187, 0.91);
+	color: #ffffff;
+	padding: 24px;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	z-index: 100;
+}
+
+/* ----------- LOGIN FORM ----------- */
+
+div.login-box > h1 {
+	font-weight: lighter;
+	letter-spacing: 4px;
+	margin-bottom: 50px;
+}
+
+div.login-form {
+	background: #f1f1f1 none repeat scroll 0 0;
+	padding: 20px;
+	width: 400px;
 }
 
 /* ----------- DASHBOARD ----------- */
-div.dashboardBox {
-    box-shadow: 0 1px 2px rgba(0,0,0,.26);
-    background-color: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
+
+div.dashboard-links {
+	margin: 20px 0;
 }
 
-div.dashboardBox div.content {
-    border-top: 1px solid #ddd;
-    padding: 10px 20px;
+div.dashboard-links h4 {
+	margin-bottom: -8px !important;
 }
 
-div.dashboardBox div.contentBlue {
-    background-color: #64b5f6 !important;
-    color: #e3f2fd !important;
-    position: relative;
-    overflow: hidden;
+div.dashboard-links a {
+	color: #555;
 }
 
-div.dashboardBox div.contentGreen {
-    background-color: #81c784 !important;
-    color: #e8f5e9 !important;
-    position: relative;
-    overflow: hidden;
+/* ----------- PLUGIN LIST / THEME LIST ----------- */
+
+div.plugin-links > a {
+	display: inline-block;
+	margin-top: 5px;
 }
 
-div.dashboardBox .nav {
-    margin: 0 !important;
+div.plugin-links > span.separator {
+	color: #ccc;
 }
 
-div.dashboardBox .nav a {
-    padding: 0 !important;
-    display: inline-block;
-    margin-left: 8px;
+.label-draft,
+.label-empty-title,
+.label-time {
+	background: #2672ec none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5px;
+	font-size: 0.9em;
 }
 
-div.dashboardBox i.iconContent {
-    bottom: -1rem;
-    position: absolute;
-    right: 0;
-    font-size: 4em;
+.label-empty-title {
+	background: #ED8F26;
 }
 
-div.dashboardBox div.bigContent {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-
-div.dashboardBox span {
-    display: inline-block !important;
-    padding: 3px 6px;
-}
-
-div.dashboardBox h2 {
-    color: #666;
-    font-size: 1.1em;
-    font-weight: normal;
-    margin: 0;
-    padding: 10px 20px;
-}
-
-div.dashboardBox ul.menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-div.dashboardBox ul.menu a {
-    color: #2672ec;
-}
-
-div.dashboardBox ul.menu li.title {
-
-}
-
-div.dashboardBox ul.menu li.description {
-    border-bottom: 1px dashed #ddd;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    color: #555;
-}
-
-div.dashboardBox ul.menu li.description:last-child {
-    border-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-
-/* ----------- FORMS ----------- */
-form h4 {
-    border-bottom: 1px solid #e2e2e2;
-    font-weight: 300;
-    margin: 33px 0 20px;
-    padding-bottom: 10px;
-    width: 60%;
-}
-
-#jsadvancedButton {
-    display: block;
-    margin-bottom: 1.1em;
-}
-
-#jsadvancedOptions {
-    display: none;
-}
-
-.btn {
-    color: #fff;
-    background: #999999;
-    padding: 0.3em 1.3em !important;
-}
-
-.btn-blue {
-    background: #2672ec;
-}
-
-.btn-red {
-    background: #EC2626;
-}
-
-a.btn:hover {
-    color: rgba(255, 255, 255, 0.5) !important;
-}
-
-a.btn-red {
-    color: rgba(255, 255, 255, 0.9) !important;
-    margin-right: 10px;
-}
-
-a.btn-red:hover {
-    color: rgba(255, 255, 255, 0.6) !important;
+.label-time {
+	font-style: italic;
+	background: #ED3A26;
 }
 
 /* ----------- PAGINATOR ----------- */
 
 #paginator ul {
     list-style-type: none;
-    margin: 0;
+    margin: 15px 0;
     padding: 0;
     font-size: 0.9em;
     text-align: center;
@@ -281,129 +199,42 @@ a.btn-red:hover {
     background: #e0e0e0;
     color: #747474;
     padding: 2px 11px;
+    margin: 0px 15px;
 }
 
 #paginator li.right {
    margin-left: 10px;
 }
 
-/* ----------- THEMES ----------- */
-
-div.themeBox {
-    box-shadow: 0 1px 2px rgba(0,0,0,.26);
-    background-color: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    padding: 15px 20px;
-    width: 70%;
-    margin-bottom: 20px;
-    overflow: auto;
-}
-
-div.themeBoxInstalled {
-    background-color: #f1f1f1;
-}
-
-div.themeBox p {
-    margin-bottom: 6px;
-}
-
-div.themeBox p.name {
-    border-bottom: 1px dashed #ccc;
-}
-
-div.themeBox a.btn-smaller {
-    padding: 4px 10px;
-    margin-right: 10px;
-}
-
-div.themeBox span.author {
-    color: #777;
-    margin-left: 10px;
-    float: right;
-    font-size: 0.9em;
-}
-
-div.themeBox span.version {
-    color: #777;
-    margin-left: 10px;
-    float: right;
-    font-size: 0.9em;
-}
-
-/* ----------- PLUGINS ----------- */
-div.pluginBox {
-    box-shadow: 0 1px 2px rgba(0,0,0,.26);
-    background-color: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    padding: 15px 20px;
-    width: 70%;
-    margin-bottom: 20px;
-    overflow: auto;
-}
-
-div.pluginBox p {
-    margin-bottom: 6px;
-}
-
-div.pluginBox p.name {
-    border-bottom: 1px dashed #ccc;
-}
-
-div.pluginBox a.btn-smaller {
-    padding: 4px 10px;
-    margin-right: 10px;
-}
-
-div.pluginBox span.author {
-    color: #777;
-    margin-left: 10px;
-    float: right;
-    font-size: 0.9em;
-}
-
-div.pluginBox span.version {
-    color: #777;
-    margin-left: 10px;
-    float: right;
-    font-size: 0.9em;
-}
-
 /* ----------- PLUGINS FORM ----------- */
 
 #jsformplugin div {
-    margin-bottom: 1.1em;
+	margin-bottom: 1.1em;
 }
 
 #jsformplugin label {
-    margin: 0 0 5px 0 !important;
+	margin: 0 0 5px 0 !important;
+	display: block;
+}
+
+#jsformplugin div.tip {
+	font-size: 0.9em;
+	color: #AAAAAA;
 }
 
 #jsformplugin input[type=text] {
-    width: 70%;
+	min-width: 400px;
+	width: 60%;
 }
 
 #jsformplugin input[type="checkbox"] {
-    vertical-align: middle;
-    margin-left: 0px;
+	vertical-align: middle;
+	margin-left: 0px;
+	margin-right: 10px;
 }
 
 #jsformplugin label.forCheckbox {
-    margin-left: 3px;
-    margin-bottom: 10px;
-    display: inline-block;
-}
-
-/* ----------- SUB-NAVBAR ----------- */
-.sublinks a {
-    color: #2672ec;
-}
-
-.sublinks a:hover {
-    color: #333 !important;
-}
-
-li.active {
-    border-bottom: 2px solid #ccc;
+	margin-left: 3px;
+	margin-bottom: 10px;
+	display: inline-block;
 }

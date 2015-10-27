@@ -55,6 +55,7 @@ class Sanitize {
 		return true;
 	}
 
+	// Returns the email without illegal characters.
 	public static function email($email)
 	{
 		return( filter_var($email, FILTER_SANITIZE_EMAIL) );
