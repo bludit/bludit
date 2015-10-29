@@ -126,7 +126,11 @@ function build_all_pages()
 	// Order parents.
 	foreach($pagesParents as $parentKey=>$childrenPages)
 	{
-		$tmp = orderParent($tmp, array($parentKey=>$childrenPages), $pages[$parentKey]->position());
+		// DEBUG: Workaround, Esto es un bug, cuando se usa el Cli mode
+		// DEBUG: Se genera un padre sin index.txt y adentro hay un hijo
+		if(isset($pages[$parentKey])) {
+			$tmp = orderParent($tmp, array($parentKey=>$childrenPages), $pages[$parentKey]->position());
+		}
 	}
 
 	$pagesParents = array(NO_PARENT_CHAR=>$tmpNoParents) + $tmp;
