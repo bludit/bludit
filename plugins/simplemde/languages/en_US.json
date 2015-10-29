@@ -6,8 +6,8 @@
 		"author": "NextStepWebs",
 		"email": "",
 		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
-		"version": "1.7.4",
-		"releaseDate": "2015-10-02"
+		"version": "1.8.0",
+		"releaseDate": "2015-10-29"
 	},
 	"toolbar": "Toolbar",
 	"tab-size": "Tab size"
