@@ -2,7 +2,7 @@
 
 HTML::title(array('title'=>$L->g('Users'), 'icon'=>'users'));
 
-echo '<a href="'.HTML_PATH_ADMIN_ROOT.'add-user"><i class="uk-icon-plus"></i> Add new user</a>';
+echo '<a href="'.HTML_PATH_ADMIN_ROOT.'add-user"><i class="uk-icon-plus"></i> '.$L->g('add-a-new-user').'</a>';
 
 echo '
 <table class="uk-table uk-table-striped">
