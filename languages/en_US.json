@@ -196,5 +196,7 @@
 	"general-settings": "General settings",
 	"advanced-settings": "Advanced settings",
 	"manage-users": "Manage users",
-	"view-and-edit-your-profile": "View and edit your profile."
+	"view-and-edit-your-profile": "View and edit your profile.",
+
+	"password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long"
 }

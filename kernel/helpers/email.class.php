@@ -15,9 +15,9 @@ class Email {
 		<head>
 			<title>BLUDIT</title>
 		</head>
-		<body>
-		<div style="margin: 0px auto; border: 1px solid #2672ec; padding: 10px; font-size: 14px;">
-			<div style="font-size: 26px; padding: 10px; background-color: #2672ec; color: #FFFFFF;">BLUDIT</div>
+		<body style="background-color: #f1f1f1;">
+		<div style="margin: 0px auto; padding: 10px; font-size: 14px; width: 70%; max-width: 600px;">
+			<div style="font-size: 26px;">BLUDIT</div>
 			'.$args['message'].'
 		</div>
 		</body>
