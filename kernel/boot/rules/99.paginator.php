@@ -20,7 +20,7 @@ Paginator::set('postPerPage', $postPerPage);
 // Number of posts
 Paginator::set('numberOfPosts', $numberOfPosts);
 
-$numberOfPages = (int) ceil($numberOfPosts / $postPerPage) -1;
+$numberOfPages = (int) max(ceil($numberOfPosts / $postPerPage) -1, 0);
 Paginator::set('numberOfPages', $numberOfPages);
 
 $showOlder = $numberOfPages > $currentPage;

@@ -289,7 +289,7 @@ class dbPages extends dbJSON
 		return $newKey;
 	}
 
-	// Return an array with all page's databases.
+	// Return an array with all databases.
 	public function getAll()
 	{
 		return $this->db;
