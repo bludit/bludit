@@ -309,10 +309,10 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File users.php
 	$salt = getRandomString();
 	$passwordHash = sha1($adminPassword.$salt);
 
-	// File users.php
 	$data = array(
 		'admin'=>array(
 		'firstName'=>'',
@@ -329,7 +329,11 @@ function install($adminPassword, $email, $timezoneOffset)
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
+	$randomKey = getRandomString();
+	$randomKey = sha1($randomKey);
+
 	$data = array(
+		'key1'=>$randomKey,
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()
@@ -424,9 +428,9 @@ function checkPOST($args)
 	global $Language;
 
 	// Check empty password
-	if(empty($args['password']))
+	if( strlen($args['password']) < 6 )
 	{
-		return '<div>'.$Language->g('The password field is empty').'</div>';
+		return '<div>'.$Language->g('Password must be at least 6 characters long').'</div>';
 	}
 
 	// Check invalid email
