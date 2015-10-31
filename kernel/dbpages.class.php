@@ -320,6 +320,14 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
+	public function count()
+	{
+		$count = parent::count();
+
+		// DEBUG: Less than - 1 because the error page.
+		return $count - 1;
+	}
+
 	public function regenerateCli()
 	{
 		$db = $this->db;

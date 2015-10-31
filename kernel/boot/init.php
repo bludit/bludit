@@ -55,7 +55,7 @@ define('SALT_LENGTH', 8);
 define('PAGE_BREAK', '<!-- pagebreak -->');
 
 // No parent character
-define('NO_PARENT_CHAR', '—');
+define('NO_PARENT_CHAR', '—-');
 
 // Post per page on Manage->Posts
 define('POSTS_PER_PAGE_ADMIN', 10);
