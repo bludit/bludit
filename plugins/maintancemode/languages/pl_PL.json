@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Tryb konserwacji",
+		"description": "Przełącz stronę w tryb konwersacji (wówczas działać będzie tylko kokpit).",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.3",
+		"releaseDate": "2015-10-02"
+	},
+
+	"enable-maintence-mode": "Włącz tryb konwersacji",
+	"message": "Wiadomość"
+}
