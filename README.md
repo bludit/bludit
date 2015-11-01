@@ -1,5 +1,7 @@
 [Bludit](http://www.bludit.com/) — Flat file CMS
 ================================================
+
+[![Join the chat at https://gitter.im/dignajar/bludit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dignajar/bludit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Create your own Blog in seconds.
 
 Fast, simple, extensible and Flat file CMS.
