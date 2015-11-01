@@ -412,7 +412,7 @@ Content:
 
 ### '.$Language->get('Whats next').'
 - '.$Language->get('Manage your Bludit from the admin panel').'
-- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
+- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Visit the support forum').'
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
@@ -488,14 +488,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/installer.css">
-	<link rel="stylesheet" type="text/css" href="./css/form-password.almost-flat.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="./css/installer.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="./js/jquery.min.js"></script>
-	<script charset="utf-8" src="./js/uikit.min.js"></script>
-	<script charset="utf-8" src="./js/form-password.min.js"></script>
+	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo time() ?>"></script>
 
 </head>
 <body class="uk-height-1-1">

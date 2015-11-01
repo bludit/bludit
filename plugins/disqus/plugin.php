@@ -18,9 +18,9 @@ class pluginDisqus extends Plugin {
 	{
 		parent::__construct();
 
-		// Disable the plugin IF ...
 		global $Url;
 
+		// Disable the plugin IF ...
 		$this->disable = false;
 
 		if( (!$this->getDbField('enablePosts')) && ($Url->whereAmI()=='post') ) {
