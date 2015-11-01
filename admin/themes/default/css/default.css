@@ -110,6 +110,10 @@ button.delete-button:hover {
 	z-index: 100;
 }
 
+#jscontent {
+	height: 400px;
+}
+
 /* ----------- LOGIN FORM ----------- */
 
 div.login-box > h1 {
