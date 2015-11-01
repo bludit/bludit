@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Edytor SimpleMDE",
+		"description": "Prosty, piękny i osadzony w JavaScript edytor markdown stworzony przez @WesCossick. Na potrzeby Bludit dostosowany przez Diego Najara.",
+		"author": "NextStepWebs",
+		"email": "",
+		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
+		"version": "1.7.4",
+		"releaseDate": "2015-10-02"
+	},
+	"toolbar": "Pasek narzędzi",
+	"tab-size": "Rozmiar wcięcia"
+}
