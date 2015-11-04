@@ -16,12 +16,16 @@ class Filesystem {
 		return $directories;
 	}
 
-	public static function listFiles($path, $regex='*', $extension)
+	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false)
 	{
 		$files = glob($path.$regex.'.'.$extension);
 
 		if(empty($files)) {
 			return array();
+		}
+
+		if($sortByDate) {
+			usort($files, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
 		}
 
 		return $files;

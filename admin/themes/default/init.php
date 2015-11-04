@@ -125,4 +125,78 @@ class HTML {
 		$html = '';
 	}
 
+	public static function uploader()
+	{
+		global $L;
+
+		$html = '
+		<div id="upload-drop" class="uk-placeholder uk-text-center">
+		<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>'.$L->g('Upload Image').'<br><a class="uk-form-file">'.$L->g('Drag and drop or click here').'<input id="upload-select" type="file"></a>
+		</div>
+
+		<div id="progressbar" class="uk-progress uk-hidden">
+		<div class="uk-progress-bar" style="width: 0%;">0%</div>
+		</div>
+		';
+
+		$html .= '<select id="jsimageList" class="uk-width-1-1" size="10">';
+		$imagesList = Filesystem::listFiles(PATH_UPLOADS,'*','*',true);
+		foreach($imagesList as $file) {
+			$html .= '<option value="">'.basename($file).'</option>';
+		}
+		$html .= '</select>';
+
+		$html .= '
+		<div class="uk-form-row uk-margin-top">
+		<button id="jsaddImage" class="uk-button uk-button-primary" type="button"><i class="uk-icon-angle-double-left"></i> '.$L->g('Insert Image').'</button>
+		</div>
+		';
+
+		$html .= '
+		<script>
+		$(document).ready(function() {
+
+			$("#jsaddImage").on("click", function() {
+				var filename = $("#jsimageList option:selected").text();
+				var textareaValue = $("#jscontent").val();
+				$("#jscontent").val(textareaValue + filename + "\n");
+			});
+
+			$(function()
+			{
+				var progressbar = $("#progressbar");
+				var bar = progressbar.find(".uk-progress-bar");
+				var settings =
+				{
+					type: "json",
+					action: "'.HTML_PATH_ADMIN_ROOT.'ajax/uploader",
+					allow : "*.(jpg|jpeg|gif|png)",
+
+					loadstart: function() {
+						bar.css("width", "0%").text("0%");
+						progressbar.removeClass("uk-hidden");
+					},
+
+					progress: function(percent) {
+						percent = Math.ceil(percent);
+						bar.css("width", percent+"%").text(percent+"%");
+					},
+
+					allcomplete: function(response) {
+						bar.css("width", "100%").text("100%");
+						setTimeout(function() { progressbar.addClass("uk-hidden"); }, 250);
+						$("#jsimageList").prepend("<option value=\'"+response.filename+"\' selected=\'selected\'>"+response.filename+"</option>");
+					}
+				};
+
+				var select = UIkit.uploadSelect($("#upload-select"), settings);
+				var drop = UIkit.uploadDrop($("#upload-drop"), settings);
+			});
+
+		});
+		</script>';
+
+		echo $html;
+	}
+
 }

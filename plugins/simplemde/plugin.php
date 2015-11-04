@@ -46,10 +46,13 @@ class pluginsimpleMDE extends Plugin {
 			// Path plugin.
 			$pluginPath = $this->htmlPath();
 
-			// Load CSS
+			// SimpleMDE css
 			$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/simplemde.min.css">';
 
-			// Load Javascript
+			// Font-awesome is a dependency of SimpleMDE
+			$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/font-awesome.min.css">';
+
+			// SimpleMDE js
 			$html .= '<script src="'.$pluginPath.'js/simplemde.min.js"></script>';
 
 			// Hack for Bludit
@@ -85,11 +88,19 @@ class pluginsimpleMDE extends Plugin {
 					toolbarGuideIcon: true,
 					autofocus: false,
 					lineWrapping: true,
+					autoDownloadFontAwesome: false,
 					indentWithTabs: true,
 					tabSize: '.$this->getDbField('tabSize').',
 					spellChecker: false,
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
 				});';
+
+			$html .= '$("#jsaddImage").on("click", function() {
+					var filename = $("#jsimageList option:selected" ).text();
+					var text = simplemde.value();
+					simplemde.value(text + "![alt text]("+filename+")" + "\n");
+				});';
+
 			$html .= '}); </script>';
 		}
 
