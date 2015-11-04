@@ -73,7 +73,7 @@
 			</tr>
 			<tr>
 			<td><?php $Language->p('Pages') ?></td>
-			<td><?php echo $dbPages->count() ?></td>
+			<td><?php echo $dbPages->count()-1 ?></td>
 			</tr>
 			<tr>
 			<td><?php $Language->p('Users') ?></td>
