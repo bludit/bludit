@@ -3,8 +3,8 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2015-10-25",
-		"author": "Edi",
+		"last-update": "2015-10-30",
+		"author": "Edi Goetschel",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
 	},
@@ -117,7 +117,7 @@
 	"select-your-sites-language": "Sprache der Website.",
 	"select-a-timezone-for-a-correct": "Zeitzone für die richtige Anzeige des Datums und der Zeit auf der Website.",
 	"you-can-use-this-field-to-define-a-set-of": "Parameter mit Bezug auf die verwendete Sprache und das Land. Beispielsweise: de_DE, de_CH usw.",
-	"you-can-modify-the-url-which-identifies":"Der URL kann selbst angepasst werden. Möglich sind höchstens 150 Zeichen.",
+	"you-can-modify-the-url-which-identifies":"Der URL kann selbst angepasst werden. Möglich sind bis zu 150 Zeichen.",
 	"this-field-can-help-describe-the-content": "Kurze Inhaltsbeschreibung. Möglich sind bis zu 150 Zeichen.",
 	"write-the-tags-separated-by-comma": "Schlagwörter getrennt durch Kommas. Beispielsweise: Schlagwort1, Schlagwort2, Schlagwort3",
 	"delete-the-user-and-all-its-posts":"Benutzer und alle seine Beiträge löschen",
@@ -182,7 +182,7 @@
 	"email-account-settings":"E-Mail-Adresse",
 	"sender-email": "Absender",
 	"emails-will-be-sent-from-this-address":"E-Mails werden mit dieser E-Mail-Adresse als Absender verschickt.",
-	"bludit-login-access-code": "BLUDIT - Login access code",
+	"bludit-login-access-code": "BLUDIT - Zugangscode",
 	"check-your-inbox-for-your-login-access-code":"Der Zugangscoe wurde Dir geschickt.",
 	"there-was-a-problem-sending-the-email":"There was a problem sending the email",
 	"back-to-login-form": "Zurück zum Login",
@@ -193,7 +193,7 @@
 	"show-password": "Passwort zeigen",
 	"edit-or-remove-your=pages": "Seiten bearbeiten oder löschen.",
 	"edit-or-remove-your-blogs-posts": "Beiträge bearbeiten oder löschen.",
-	"general-settings": "General settings",
-	"advanced-settings": "Advanced settings",
-	"manage-users": "Manage users"
+	"general-settings": "Allgemeine Einnstellungen",
+	"advanced-settings": "Erweiterte Einnstellungen",
+	"manage-users": "Benutzerverwaltung"
 }

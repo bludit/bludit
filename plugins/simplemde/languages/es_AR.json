@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Simple, facil y hermoso editor Markdown desarrollado por @WesCossick. Adaptado por Diego Najar para Bludit."
+		"description": "Simple y facil editor Markdown desarrollado por @WesCossick. Adaptado por Diego Najar para Bludit."
 	},
 	"toolbar": "Barra de herramientas",
 	"tab-size": "Tamaño de la tabulación"

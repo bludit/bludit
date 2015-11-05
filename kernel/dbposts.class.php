@@ -96,7 +96,7 @@ class dbPosts extends dbJSON
 		// Generate the database key.
 		$key = $this->generateKey($args['slug']);
 
-		// The user is always the who is loggued.
+		// The user is always who is loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
