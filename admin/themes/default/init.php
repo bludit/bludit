@@ -159,7 +159,7 @@ class HTML {
 			$("#jsaddImage").on("click", function() {
 				var filename = $("#jsimageList option:selected").text();
 				var textareaValue = $("#jscontent").val();
-				$("#jscontent").val(textareaValue + filename + "\n");
+				$("#jscontent").val(textareaValue + "<img src=\""+filename+"\" alt=\"\">" + "\n");
 			});
 
 			$(function()

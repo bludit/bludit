@@ -93,13 +93,13 @@ class pluginsimpleMDE extends Plugin {
 					tabSize: '.$this->getDbField('tabSize').',
 					spellChecker: false,
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
-				});';
+			});';
 
 			$html .= '$("#jsaddImage").on("click", function() {
 					var filename = $("#jsimageList option:selected" ).text();
 					var text = simplemde.value();
 					simplemde.value(text + "![alt text]("+filename+")" + "\n");
-				});';
+			});';
 
 			$html .= '}); </script>';
 		}
