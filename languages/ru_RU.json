@@ -187,7 +187,7 @@
 	"check-your-inbox-for-your-login-access-code":"Проверьте ваш почтовый ящик на наличие кода доступа для входа",
 	"there-was-a-problem-sending-the-email":"Возникла проблема с отправкой электронной почты",
 	"back-to-login-form": "Назад к форме входа",
-	"send-me-a-login-access-code": "Пришлите мне код доступа для входа",
+	"send-me-a-login-access-code": "Отправить мне код доступа для входа",
 	"get-login-access-code": "Получить код доступа для входа",
 	"email-notification-login-access-code": "<p>Это уведомление с вашего сайта {{WEBSITE_NAME}}</p><p>Вы запросили код доступа для входа, перейдите по следующей ссылке:</p><p>{{LINK}}</p>",
 	"there-are-no-scheduled-posts": "Нет запланированных записей.",
