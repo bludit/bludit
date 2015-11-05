@@ -1,125 +1,117 @@
-<h2 class="title"><i class="fa fa-user"></i><?php $Language->p('Edit user') ?></h2>
+<?php
 
-<nav class="navbar nav-pills sublinks" data-tools="tabs" data-active="#profile">
-    <ul>
-        <li><a href="#profile"><?php $Language->p('Profile') ?></a></li>
-        <li><a href="#email"><?php $Language->p('Email') ?></a></li>
-        <li><a href="#password"><?php $Language->p('Password') ?></a></li>
+HTML::title(array('title'=>$L->g('Edit user').' :: '.$_user['username'], 'icon'=>'user'));
 
-        <?php if($_user['username']!=='admin') { ?>
-        <li><a href="#delete"><?php $Language->p('Delete') ?></a></li>
-        <?php } ?>
-    </ul>
-</nav>
+HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
-<!-- ===================================== -->
-<!-- Profile -->
-<!-- ===================================== -->
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$Security->getToken()
+	));
 
-<div id="profile">
-<form method="post" action="" class="forms">
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'username',
+		'value'=>$_user['username']
+	));
 
-    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
-    <input type="hidden" name="edit-user" value="true">
-    <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+	HTML::legend(array('value'=>$L->g('Profile')));
 
-    <label>
-        <?php $Language->p('First name') ?>
-        <input type="text" name="firstName" class="width-50" value="<?php echo $_user['firstName'] ?>">
-    </label>
+	HTML::formInputText(array(
+		'name'=>'firstName',
+		'label'=>$L->g('First name'),
+		'value'=>$_user['firstName'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-    <label>
-        <?php $Language->p('Last name') ?>
-        <input type="text" name="lastName" class="width-50" value="<?php echo $_user['lastName'] ?>">
-    </label>
+	HTML::formInputText(array(
+		'name'=>'lastName',
+		'label'=>$L->g('Last name'),
+		'value'=>$_user['lastName'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-<?php if($Login->username()==='admin') { ?>
+if($Login->role()==='admin') {
 
-    <label for="role">
-        <?php $Language->p('Role') ?>
-        <select name="role" class="width-50">
-        <?php
-            $htmlOptions = array('admin'=>$Language->get('Administrator'), 'editor'=>$Language->get('Editor'));
-            foreach($htmlOptions as $value=>$text) {
-                echo '<option value="'.$value.'"'.( ($_user['role']===$value)?' selected="selected"':'').'>'.$text.'</option>';
-            }
-        ?>
-        </select>
-        <div class="forms-desc"><?php $Language->p('you-can-choose-the-users-privilege') ?></div>
-    </label>
+	HTML::formSelect(array(
+		'name'=>'role',
+		'label'=>$L->g('Role'),
+		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+		'selected'=>$_user['role'],
+		'tip'=>''
+	));
 
-<?php } ?>
+}
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-profile">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
-</form>
-</div>
+	HTML::formInputText(array(
+		'name'=>'email',
+		'label'=>$L->g('Email'),
+		'value'=>$_user['email'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>$L->g('email-will-not-be-publicly-displayed')
+	));
 
-<!-- ===================================== -->
-<!-- E-mail -->
-<!-- ===================================== -->
+	HTML::legend(array('value'=>$L->g('Change password')));
 
-<div id="email">
-<form method="post" action="" class="forms">
-    <input type="hidden" name="edit-user" value="true">
-    <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+	HTML::formInputPassword(array(
+		'name'=>'new-password',
+		'label'=>$L->g('New password'),
+		'value'=>'',
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-    <label>
-        <?php $Language->p('Email') ?>
-        <input type="text" name="email" class="width-50" value="<?php echo $_user['email'] ?>">
-        <div class="forms-desc"><?php $Language->p('email-will-not-be-publicly-displayed') ?></div>
-    </label>
+	HTML::formInputPassword(array(
+		'name'=>'confirm-password',
+		'label'=>$L->g('Confirm Password'),
+		'value'=>'',
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-email">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
-</form>
-</div>
+	echo '<div class="uk-form-row">
+		<div class="uk-form-controls">
+		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'users" class="uk-button">'.$L->g('Cancel').'</a>
+		</div>
+	</div>';
 
-<!-- ===================================== -->
-<!-- Password -->
-<!-- ===================================== -->
+if( ($Login->role()==='admin') && ($_user['username']!='admin') ) {
 
-<div id="password">
-<form method="post" action="" class="forms">
-    <input type="hidden" name="change-password" value="true">
-    <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
+	HTML::legend(array('value'=>$L->g('Delete')));
 
-    <label>
-        <?php $Language->p('New password') ?>
-        <input type="password" name="password" class="width-50">
-    </label>
+	echo '<div class="uk-form-row">
+		<div class="uk-form-controls">
+		<button type="submit" id="jsdelete-user-associate" class="delete-button" name="delete-user-associate"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and associate its posts to admin user').'</button>
+		<button type="submit" id="jsdelete-user-all" class="delete-button" name="delete-user-all"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and all its posts').'</button>
+		</div>
+	</div>';
 
-    <label>
-        <?php $Language->p('Confirm password') ?>
-        <input type="password" name="confirm-password" class="width-50">
-    </label>
+}
 
-    <input type="submit" class="btn btn-blue" value="<?php $Language->p('Save') ?>" name="user-password">
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
-</form>
-</div>
+HTML::formClose();
 
-<!-- ===================================== -->
-<!-- Delete -->
-<!-- ===================================== -->
-<?php if($_user['username']!=='admin') { ?>
+?>
 
-<div id="delete">
+<script>
 
-    <form method="post" action="" class="forms">
-        <input type="hidden" name="delete-user-all" value="true">
-        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and all its posts') ?>"></p>
-    </form>
+$(document).ready(function() {
 
-    <form method="post" action="" class="forms">
-        <input type="hidden" name="delete-user-associate" value="true">
-        <input type="hidden" name="username" value="<?php echo $_user['username'] ?>">
-        <p><input type="submit" class="btn btn-blue" value="<?php $Language->p('Delete the user and associate its posts to admin user') ?>"></p>
-    </form>
+	$("#jsdelete-user-associate").click(function() {
+		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+			return false;
+		}
+	});
 
-    <a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" class="btn"><?php $Language->p('Cancel') ?></a>
+	$("#jsdelete-user-all").click(function() {
+		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+			return false;
+		}
+	});
 
-</div>
+});
 
-<?php } ?>
+</script>

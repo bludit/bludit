@@ -5,9 +5,9 @@
 		"description": "This plugin generate the meta tag to validate your site with Google Webmasters Tools and the JavaScript code to track your site with Google Analytics.",
 		"author": "Bludit",
 		"email": "",
-		"website": "",
-		"version": "1.0",
-		"releaseDate": "2015-09-28"
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.3",
+		"releaseDate": "2015-10-02"
 	},
 	"google-webmasters-tools": "Google Webmasters tools",
 	"google-analytics-tracking-id": "Google Analytics Tracking ID",

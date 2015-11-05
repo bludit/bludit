@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Můžete použít toto pole pro definování parametrů souvisejících s jazykem a zemí.",
 	"you-can-modify-the-url-which-identifies":"Můžete upravit adresu URL, která identifikuje stránku. Ne víc než 150 znaků.",
 	"this-field-can-help-describe-the-content": "Zde můžete napsat obsah několika slovy. Ne víc než 150 znaků.",
-	"write-the-tags-separeted-by-comma": "Napište štítky oddělené čárkou. např: štítek1, štítek2, štítek3",
+	"write-the-tags-separated-by-comma": "Napište štítky oddělené čárkou. např: štítek1, štítek2, štítek3",
 	"delete-the-user-and-all-its-posts":"Odstranit uživatele a všechny jeho příspěvky",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Odstranit uživatele a spojit své příspěvky na uživatele admin",
 	"read-more": "Čtěte více",

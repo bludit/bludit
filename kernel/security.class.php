@@ -3,6 +3,7 @@
 class Security extends dbJSON
 {
 	private $dbFields = array(
+		'key1'=>'Where we go we dont need roads',
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()
@@ -23,13 +24,13 @@ class Security extends dbJSON
 		$token = Text::randomText(8);
 		$token = sha1($token);
 
-		Session::set('token', $token);
+		Session::set('tokenCSRF', $token);
 	}
 
 	// Validate the token.
 	public function validateToken($token)
 	{
-		$sessionToken = Session::get('token');
+		$sessionToken = Session::get('tokenCSRF');
 
 		return ( !empty($sessionToken) && ($sessionToken===$token) );
 	}
@@ -37,12 +38,12 @@ class Security extends dbJSON
 	// Returns the token.
 	public function getToken()
 	{
-		return Session::get('token');
+		return Session::get('tokenCSRF');
 	}
 
 	public function printToken()
 	{
-		echo Session::get('token');
+		echo Session::get('tokenCSRF');
 	}
 
 	// ====================================================

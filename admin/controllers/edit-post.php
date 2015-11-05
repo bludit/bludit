@@ -13,14 +13,6 @@ function editPost($args)
 	global $dbPosts;
 	global $Language;
 
-	// Post status, published or draft.
-	if( isset($args['publish']) ) {
-		$args['status'] = "published";
-	}
-	else {
-		$args['status'] = "draft";
-	}
-
 	// Edit the post.
 	if( $dbPosts->edit($args) )
 	{
@@ -28,7 +20,7 @@ function editPost($args)
 		reIndexTagsPosts();
 
 		Alert::set($Language->g('The changes have been saved'));
-		Redirect::page('admin', 'edit-post/'.$args['key']);
+		Redirect::page('admin', 'edit-post/'.$args['slug']);
 	}
 	else
 	{
@@ -67,7 +59,7 @@ function deletePost($key)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	if( isset($_POST['delete']) ) {
+	if( isset($_POST['delete-post']) ) {
 		deletePost($_POST['key']);
 	}
 	else {

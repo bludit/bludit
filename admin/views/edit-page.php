@@ -1,82 +1,157 @@
-<h2 class="title"><i class="fa fa-pencil"></i><?php $Language->p('Edit page') ?></h2>
-
-<form id="jsform" method="post" action="" class="forms">
-
-    <input type="hidden" id="jstoken" name="token" value="<?php $Security->printToken() ?>">
-    <input type="hidden" id="jskey" name="key" value="<?php echo $_Page->key() ?>">
-
-    <label>
-        <?php $Language->p('Title') ?>
-        <input id="jstitle" name="title" type="text" class="width-90" value="<?php echo $_Page->title() ?>">
-    </label>
-
-    <label class="width-90">
-        <?php $Language->p('Content') ?> <span class="forms-desc"><?php $Language->p('HTML and Markdown code supported') ?></span>
-        <textarea id="jscontent" name="content" rows="15"><?php echo $_Page->contentRaw(false) ?></textarea>
-    </label>
-
-    <button id="jsadvancedButton" class="btn btn-smaller"><?php $Language->p('Advanced options') ?></button>
-
-    <div id="jsadvancedOptions">
-
 <?php
-    // Remove setting pages parents if the page is a parent.
-    if(count($_Page->children())===0)
-    {
+
+HTML::title(array('title'=>$L->g('Edit page'), 'icon'=>'file-text-o'));
+
+HTML::formOpen(array('class'=>'uk-form-stacked'));
+
+	// Security token
+	HTML::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$Security->getToken()
+	));
+
+	// Key input
+	HTML::formInputHidden(array(
+		'name'=>'key',
+		'value'=>$_Page->key()
+	));
+
+// ---- LEFT SIDE ----
+echo '<div class="uk-grid">';
+echo '<div class="uk-width-large-7-10">';
+
+	// Title input
+	HTML::formInputText(array(
+		'name'=>'title',
+		'value'=>$_Page->title(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'placeholder'=>$L->g('Title')
+	));
+
+	// Content input
+	HTML::formTextarea(array(
+		'name'=>'content',
+		'value'=>$_Page->contentRaw(false),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'placeholder'=>$L->g('Content')
+	));
+
+
+	// Form buttons
+	echo '<div class="uk-form-row uk-margin-bottom">';
+	echo '	<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>';
+
+if(count($_Page->children())===0)
+{
+	echo '	<button id="jsdelete" name="delete-page" class="uk-button" type="submit">'.$L->g('Delete').'</button>';
+	echo '	<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>';
+}
+
+	echo '</div>';
+
+echo '</div>';
+
+// ---- RIGHT SIDE ----
+echo '<div class="uk-width-large-3-10">';
+
+	// Tabs, general and advanced mode
+	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';
+	echo '<li><a href="">'.$L->g('General').'</a></li>';
+	echo '<li><a href="">'.$L->g('Images').'</a></li>';
+	echo '<li><a href="">'.$L->g('Advanced').'</a></li>';
+	echo '</ul>';
+
+	echo '<ul id="tab-options" class="uk-switcher uk-margin">';
+
+	// ---- GENERAL TAB ----
+	echo '<li>';
+
+	// Description input
+	HTML::formTextarea(array(
+		'name'=>'description',
+		'label'=>$L->g('description'),
+		'value'=>$_Page->description(),
+		'rows'=>'7',
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'tip'=>$L->g('this-field-can-help-describe-the-content')
+	));
+
+	// Tags input
+	HTML::formInputText(array(
+		'name'=>'tags',
+		'value'=>$_Page->tags(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('Write the tags separated by commas'),
+		'label'=>$L->g('Tags')
+	));
+
+	echo '</li>';
+
+	// ---- IMAGES TAB ----
+	echo '<li>';
+
+	HTML::uploader();
+
+	echo '</li>';
+
+	// ---- ADVANCED TAB ----
+	echo '<li>';
+
+// If the page is parent then doesn't can have a parent.
+if(count($_Page->children())===0)
+{
+	// Parent input
+	$options = array();
+	$options[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
+	$options += $dbPages->parentKeyList();
+	unset($options[$_Page->key()]);
+
+	HTML::formSelect(array(
+		'name'=>'parent',
+		'label'=>$L->g('Parent'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>$options,
+		'selected'=>$_Page->parentKey(),
+		'tip'=>''
+	));
+}
+
+	// Status input
+	HTML::formSelect(array(
+		'name'=>'status',
+		'label'=>$L->g('Status'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
+		'selected'=>($_Page->draft()?'draft':'published'),
+		'tip'=>''
+	));
+
+	// Position input
+	HTML::formInputText(array(
+		'name'=>'position',
+		'value'=>$_Page->position(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'label'=>$L->g('Position')
+	));
+
+	// Slug input
+	HTML::formInputText(array(
+		'name'=>'slug',
+		'value'=>$_Page->slug(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('you-can-modify-the-url-which-identifies'),
+		'label'=>$L->g('Friendly URL')
+	));
+
+	echo '</li>';
+	echo '</ul>';
+
+echo '</div>';
+echo '</div>';
+
+HTML::formClose();
+
 ?>
-
-    <label for="jsparent">
-        <?php $Language->p('Parent') ?>
-        <select id="jsparent" name="parent" class="width-50">
-        <?php
-            $htmlOptions[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
-            $htmlOptions += $dbPages->parentKeyList();
-            unset($htmlOptions[$_Page->key()]);
-            foreach($htmlOptions as $value=>$text) {
-                echo '<option value="'.$value.'"'.( ($_Page->parentKey()===$value)?' selected="selected"':'').'>'.$text.'</option>';
-            }
-        ?>
-        </select>
-    </label>
-
-<?php } ?>
-
-    <label>
-        <?php $Language->p('Friendly URL') ?>
-        <div class="input-groups width-50">
-            <span class="input-prepend"><?php echo $Site->url() ?><span id="jsparentExample"><?php echo $_Page->parentKey()?$_Page->parentKey().'/':''; ?></span></span>
-            <input id="jsslug" type="text" name="slug" value="<?php echo $_Page->slug() ?>">
-        </div>
-        <span class="forms-desc"><?php $Language->p('you-can-modify-the-url-which-identifies') ?></span>
-    </label>
-
-    <label>
-        <?php $Language->p('Description') ?>
-        <input id="jsdescription" type="text" name="description" class="width-50" value="<?php echo $_Page->description() ?>">
-        <span class="forms-desc"><?php $Language->p('this-field-can-help-describe-the-content') ?></span>
-    </label>
-
-    <label>
-        <?php $Language->p('Tags') ?>
-        <input id="jstags" name="tags" type="text" class="width-50" value="<?php echo $_Page->tags() ?>">
-        <span class="forms-desc"><?php $Language->p('write-the-tags-separeted-by-comma') ?></span>
-    </label>
-
-    <label>
-        <?php $Language->p('Position') ?>
-        <input id="jsposition" name="position" type="text" class="width-20" value="<?php echo $_Page->position() ?>">
-    </label>
-
-    </div>
-
-    <button class="btn btn-blue" name="publish"><?php echo ($_Page->published()?$Language->p('Save'):$Language->p('Publish now')) ?></button>
-
-<?php if(count($_Page->children())===0) { ?>
-    <button class="btn" name="draft"><?php $Language->p('Draft') ?></button>
-    <button id="jsdelete" class="btn" name="delete"><?php $Language->p('Delete') ?></button>
-<?php } ?>
-
-</form>
 
 <script>
 
@@ -116,11 +191,6 @@ $(document).ready(function()
         if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
             return false;
         }
-    });
-
-    $("#jsadvancedButton").click(function() {
-        $("#jsadvancedOptions").slideToggle();
-        return false;
     });
 
 });

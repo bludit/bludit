@@ -289,7 +289,7 @@ class dbPages extends dbJSON
 		return $newKey;
 	}
 
-	// Return an array with all page's databases.
+	// Return an array with all databases.
 	public function getAll()
 	{
 		return $this->db;
@@ -318,6 +318,14 @@ class dbPages extends dbJSON
 		}
 
 		return $tmp;
+	}
+
+	public function count()
+	{
+		$count = parent::count();
+
+		// DEBUG: Less than - 1 because the error page.
+		return $count - 1;
 	}
 
 	public function regenerateCli()

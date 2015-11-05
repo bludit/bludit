@@ -9,14 +9,6 @@ function editPage($args)
 	global $dbPages;
 	global $Language;
 
-	// Page status, published or draft.
-	if( isset($args['publish']) ) {
-		$args['status'] = "published";
-	}
-	else {
-		$args['status'] = "draft";
-	}
-
 	if(!isset($args['parent'])) {
 		$args['parent'] = NO_PARENT_CHAR;
 	}
@@ -27,7 +19,7 @@ function editPage($args)
 		$dbPages->regenerateCli();
 
 		Alert::set($Language->g('The changes have been saved'));
-		Redirect::page('admin', 'edit-page/'.$args['key']);
+		Redirect::page('admin', 'edit-page/'.$args['slug']);
 	}
 	else
 	{
@@ -61,7 +53,7 @@ function deletePage($key)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	if( isset($_POST['delete']) ) {
+	if( isset($_POST['delete-page']) ) {
 		deletePage($_POST['key']);
 	}
 	else {

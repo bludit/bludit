@@ -17,14 +17,14 @@ function editUser($args)
 	}
 }
 
-function setPassword($args)
+function setPassword($username, $new_password, $confirm_password)
 {
 	global $dbUsers;
 	global $Language;
 
-	if( ($args['password']===$args['confirm-password']) && !Text::isEmpty($args['password']) )
+	if( ($new_password===$confirm_password) && !Text::isEmpty($new_password) )
 	{
-		if( $dbUsers->setPassword($args) ) {
+		if( $dbUsers->setPassword($username, $new_password) ) {
 			Alert::set($Language->g('The changes have been saved'));
 		}
 		else {
@@ -42,9 +42,15 @@ function deleteUser($args, $deleteContent=false)
 	global $dbUsers;
 	global $dbPosts;
 	global $Language;
+	global $Login;
 
 	// The user admin cannot be deleted.
 	if($args['username']=='admin') {
+		return false;
+	}
+
+	// The editors cannot delete users.
+	if($Login->role()!=='admin') {
 		return false;
 	}
 
@@ -73,7 +79,7 @@ function deleteUser($args, $deleteContent=false)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	// Prevent editors users to administrate other users.
+	// Prevent editors to administrate other users.
 	if($Login->role()!=='admin')
 	{
 		$_POST['username'] = $Login->username();
@@ -86,10 +92,11 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	elseif(isset($_POST['delete-user-associate'])) {
 		deleteUser($_POST, false);
 	}
-	elseif(isset($_POST['change-password'])) {
-		setPassword($_POST);
+	elseif( !empty($_POST['new-password']) && !empty($_POST['confirm-password']) ) {
+		setPassword($_POST['username'], $_POST['new-password'], $_POST['confirm-password']);
+		editUser($_POST);
 	}
-	elseif(isset($_POST['edit-user'])) {
+	else {
 		editUser($_POST);
 	}
 }
