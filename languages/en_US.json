@@ -199,5 +199,9 @@
 	"manage-users": "Manage users",
 	"view-and-edit-your-profile": "View and edit your profile.",
 
-	"password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long"
+	"password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long",
+	"images": "Images",
+	"upload-image": "Upload image",
+	"drag-and-drop-or-click-here": "Drag and drop or click here",
+	"insert-image": "Insert image"
 }
