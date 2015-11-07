@@ -99,9 +99,14 @@ button.delete-button:hover {
 	text-decoration: underline;
 }
 
+#jscontent {
+	height: 400px;
+}
+
+/* ----------- ALERT ----------- */
+
 #alert {
 	display: none;
-	background: rgba(48, 102, 187, 0.91);
 	color: #ffffff;
 	padding: 24px;
 	position: fixed;
@@ -110,8 +115,12 @@ button.delete-button:hover {
 	z-index: 100;
 }
 
-#jscontent {
-	height: 400px;
+.alert-ok {
+	background: rgba(48, 102, 187, 0.91);
+}
+
+.alert-fail {
+	background: rgba(187, 48, 48, 0.91);
 }
 
 /* ----------- LOGIN FORM ----------- */

@@ -44,7 +44,7 @@ echo '<div class="uk-width-large-3-10">';
 	// Tabs, general and advanced mode
 	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';
 	echo '<li><a href="">'.$L->g('General').'</a></li>';
-	echo '<li><a href="">Images</a></li>';
+	echo '<li><a href="">'.$L->g('Images').'</a></li>';
 	echo '<li><a href="">'.$L->g('Advanced').'</a></li>';
 	echo '</ul>';
 

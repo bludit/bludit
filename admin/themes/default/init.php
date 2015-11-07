@@ -30,6 +30,7 @@ class HTML {
 		$type = isset($args['type']) ? $args['type'] : 'text';
 		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
 		$placeholder = empty($args['placeholder']) ? '' : 'placeholder="'.$args['placeholder'].'"';
+		$disabled = empty($args['disabled']) ? '' : 'disabled';
 
 		$html  = '<div class="uk-form-row">';
 
@@ -39,7 +40,7 @@ class HTML {
 
 		$html .= '<div class="uk-form-controls">';
 
-		$html .= '<input id="'.$id.'" name="'.$args['name'].'" type="'.$type.'" '.$class.' '.$placeholder.' value="'.$args['value'].'">';
+		$html .= '<input id="'.$id.'" name="'.$args['name'].'" type="'.$type.'" '.$class.' '.$placeholder.' autocomplete="off" '.$disabled.' value="'.$args['value'].'">';
 
 		if(!empty($args['tip'])) {
 			$html .= '<p class="uk-form-help-block">'.$args['tip'].'</p>';
