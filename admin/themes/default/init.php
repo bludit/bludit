@@ -159,6 +159,9 @@ class HTML {
 
 			$("#jsaddImage").on("click", function() {
 				var filename = $("#jsimageList option:selected").text();
+				if(!filename.trim()) {
+					return false;
+				}
 				var textareaValue = $("#jscontent").val();
 				$("#jscontent").val(textareaValue + "<img src=\""+filename+"\" alt=\"\">" + "\n");
 			});
@@ -187,6 +190,10 @@ class HTML {
 						bar.css("width", "100%").text("100%");
 						setTimeout(function() { progressbar.addClass("uk-hidden"); }, 250);
 						$("#jsimageList").prepend("<option value=\'"+response.filename+"\' selected=\'selected\'>"+response.filename+"</option>");
+					},
+
+					notallowed: function(file, settings) {
+						alert("'.$L->g('Supported image file types').' "+settings.allow);
 					}
 				};
 
