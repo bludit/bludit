@@ -2,7 +2,7 @@
 
 HTML::title(array('title'=>$L->g('Add a new user'), 'icon'=>'user-plus'));
 
-HTML::formOpen(array('class'=>'uk-form-horizontal'));
+HTML::formOpen(array('id'=>'add-user-form', 'class'=>'uk-form-horizontal'));
 
 	// Security token
 	HTML::formInputHidden(array(
@@ -11,15 +11,15 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	));
 
 	HTML::formInputText(array(
-		'name'=>'username',
+		'name'=>'new_username',
 		'label'=>$L->g('Username'),
-		'value'=>(isset($_POST['username'])?$_POST['username']:''),
+		'value'=>(isset($_POST['new_username'])?$_POST['new_username']:''),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputPassword(array(
-		'name'=>'password',
+		'name'=>'new_password',
 		'label'=>$L->g('Password'),
 		'value'=>'',
 		'class'=>'uk-width-1-2 uk-form-medium',
@@ -27,7 +27,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	));
 
 	HTML::formInputPassword(array(
-		'name'=>'confirm-password',
+		'name'=>'confirm_password',
 		'label'=>$L->g('Confirm Password'),
 		'value'=>'',
 		'class'=>'uk-width-1-2 uk-form-medium',

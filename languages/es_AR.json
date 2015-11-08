@@ -85,7 +85,7 @@
 	"first-name": "Nombre",
 	"last-name": "Apellido",
 	"bludit-version": "Bludit versión",
-	"powered-by": "Corriendo con",
+	"powered-by": "Generado por",
 	"recent-posts": "Entradas recientes",
 	"manage-pages": "Administrar páginas",
 	"advanced-options": "Opciones avanzadas",
@@ -129,14 +129,14 @@
 	"there-are-no-drafts": "No hay borradores.",
 	"create-a-new-article-for-your-blog":"Crear un nuevo articulo para su blog.",
 	"create-a-new-page-for-your-website":"Crear una nueva página para su sitio web.",
-	"invite-a-friend-to-collaborate-on-your-website":"Invite a un amigo para colaborar en el sitio web.",
+	"invite-a-friend-to-collaborate-on-your-website":"Invite un amigo para colaborar en el sitio web.",
 	"change-your-language-and-region-settings":"Cambiar la configuración de idioma y región.",
 	"language-and-timezone":"Idioma y zona horaria",
 	"author": "Autor",
 	"start-here": "Comience aquí",
 	"install-theme": "Instalar tema",
 	"first-post": "Primer entrada",
-	"congratulations-you-have-successfully-installed-your-bludit": "Felicitación, usted ha instalado **Bludit** exitosamente",
+	"congratulations-you-have-successfully-installed-your-bludit": "Felicitación, se ha instalado **Bludit** exitosamente",
 	"whats-next": "Siguientes pasos",
 	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración](./admin/)",
 	"follow-bludit-on": "Siga Bludit en",
@@ -196,5 +196,8 @@
 	"edit-or-remove-your-blogs-posts": "Edite o elimine entradas de su blog.",
 	"general-settings": "Ajustes generales",
 	"advanced-settings": "Ajustes avanzados",
-	"manage-users": "Administrar usuarios"
+	"manage-users": "Administrar usuarios",
+	"view-and-edit-your-profile": "Modifique su perfil.",
+
+	"password-must-be-at-least-6-characters-long": "La contraseña debe tener al menos 6 carácteres."
 }

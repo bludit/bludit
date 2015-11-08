@@ -3,7 +3,7 @@
 	{
 		"native": "Traditional Chinese (Taiwan)",
 		"english-name": "Traditional Chinese",
-		"last-update": "2015-10-27",
+		"last-update": "2015-11-05",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
 		"website": "http://single4.ml"
@@ -196,5 +196,11 @@
 	"general-settings": "一般設定",
 	"advanced-settings": "進階設定",
 	"manage-users": "管理使用者",
-	"view-and-edit-your-profile": "查看與編輯您的個人資料。"
+	"view-and-edit-your-profile": "查看與編輯您的個人資料。",
+	
+	"password-must-be-at-least-6-characters-long": "密碼長度必須在6字元以上",
+	"images": "圖片",
+	"upload-image": "上傳圖片",
+	"drag-and-drop-or-click-here": "拖曳您的圖片到這裡或是點選這裡選擇圖片",
+	"insert-image": "插入圖片"
 }

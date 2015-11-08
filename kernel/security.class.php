@@ -3,6 +3,7 @@
 class Security extends dbJSON
 {
 	private $dbFields = array(
+		'key1'=>'Where we go we dont need roads',
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()

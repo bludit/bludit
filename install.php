@@ -309,10 +309,10 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File users.php
 	$salt = getRandomString();
 	$passwordHash = sha1($adminPassword.$salt);
 
-	// File users.php
 	$data = array(
 		'admin'=>array(
 		'firstName'=>'',
@@ -329,7 +329,11 @@ function install($adminPassword, $email, $timezoneOffset)
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
+	$randomKey = getRandomString();
+	$randomKey = sha1($randomKey);
+
 	$data = array(
+		'key1'=>$randomKey,
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()
@@ -408,7 +412,7 @@ Content:
 
 ### '.$Language->get('Whats next').'
 - '.$Language->get('Manage your Bludit from the admin panel').'
-- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/pages/Bludit/239255789455913) / [Google+](https://plus.google.com/+Bluditcms)
+- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Visit the support forum').'
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
@@ -424,9 +428,9 @@ function checkPOST($args)
 	global $Language;
 
 	// Check empty password
-	if(empty($args['password']))
+	if( strlen($args['password']) < 6 )
 	{
-		return '<div>'.$Language->g('The password field is empty').'</div>';
+		return '<div>'.$Language->g('Password must be at least 6 characters long').'</div>';
 	}
 
 	// Check invalid email
@@ -484,14 +488,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/installer.css">
-	<link rel="stylesheet" type="text/css" href="./css/form-password.almost-flat.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="./css/installer.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="./js/jquery.min.js"></script>
-	<script charset="utf-8" src="./js/uikit.min.js"></script>
-	<script charset="utf-8" src="./js/form-password.min.js"></script>
+	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo time() ?>"></script>
 
 </head>
 <body class="uk-height-1-1">

@@ -4,7 +4,10 @@
 // Variables
 // ============================================================================
 
+// Array with all pages.
 $pages = array();
+
+// Array with all pages, order by parent.
 $pagesParents = array(NO_PARENT_CHAR=>array());
 
 // ============================================================================
@@ -33,12 +36,14 @@ function build_page($key)
 	// Page object, content from FILE.
 	$Page = new Page($key);
 	if( !$Page->isValid() ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
 		return false;
 	}
 
 	// Page database, content from DATABASE JSON.
 	$db = $dbPages->getDb($key);
 	if( !$db ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
 		return false;
 	}
 
@@ -63,7 +68,6 @@ function build_page($key)
 		$user = $dbUsers->getDb( $Page->username() );
 
 		$Page->setField('authorFirstName', $user['firstName'], false);
-
 		$Page->setField('authorLastName', $user['lastName'], false);
 	}
 
@@ -86,9 +90,12 @@ function build_all_pages()
 
 		if($Page!==false)
 		{
+			// --- Order pages by parents ---
+
 			// Generate all posible parents.
 			if( $Page->parentKey()===false )
 			{
+				// Add the parent key in the dbPages
 				$dbPages->addParentKey($Page->key());
 
 				$pagesParents[NO_PARENT_CHAR][$Page->key()] = $Page;
@@ -98,33 +105,27 @@ function build_all_pages()
 				$pagesParents[$Page->parentKey()][$Page->key()] = $Page;
 			}
 
-			// $pages array
+			// --- All pages in 1 array ---
 			$pages[$Page->key()] = $Page;
 		}
 	}
 
-	// ======== Order pages ========
+	// ======== Sort pages ========
 
-	// DEBUG: No me gusta esta forma de ordenar
+	$tmpNoParents = $pagesParents[NO_PARENT_CHAR];
+	unset($pagesParents[NO_PARENT_CHAR]);
 
-	// Order children
+	// Sort children
+	$tmpPageWithParent = array();
+	foreach($pagesParents as $parentKey=>$childrenPages)
+	{
+		$tmpPageWithParent[$parentKey] = $childrenPages;
+		uasort($tmpPageWithParent[$parentKey], 'orderChildren');
+	}
+
+	// Sort parents
 	$tmp = array();
-	foreach($pagesParents as $parentKey=>$childrenPages)
-	{
-		$tmp[$parentKey] = $childrenPages;
-		uasort($tmp[$parentKey], 'orderChildren');
-	}
-
-	if(isset($tmp[NO_PARENT_CHAR]))
-	{
-		$tmpNoParents = $tmp[NO_PARENT_CHAR];
-		unset($tmp[NO_PARENT_CHAR]);
-	}
-
-	$pagesParents = $tmp;
-
-	// Order parents.
-	foreach($pagesParents as $parentKey=>$childrenPages)
+	foreach($tmpNoParents as $parentKey=>$childrenPages)
 	{
 		// DEBUG: Workaround, Esto es un bug, cuando se usa el Cli mode
 		// DEBUG: Se genera un padre sin index.txt y adentro hay un hijo
@@ -133,7 +134,7 @@ function build_all_pages()
 		}
 	}
 
-	$pagesParents = array(NO_PARENT_CHAR=>$tmpNoParents) + $tmp;
+	$pagesParents = array(NO_PARENT_CHAR=>$tmp) + $tmpPageWithParent;
 }
 
 // ============================================================================
