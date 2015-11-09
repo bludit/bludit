@@ -97,6 +97,9 @@ class pluginsimpleMDE extends Plugin {
 
 			$html .= '$("#jsaddImage").on("click", function() {
 					var filename = $("#jsimageList option:selected" ).text();
+					if(!filename.trim()) {
+						return false;
+					}
 					var text = simplemde.value();
 					simplemde.value(text + "![alt text]("+filename+")" + "\n");
 			});';

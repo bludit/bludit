@@ -7,6 +7,11 @@
  * Bludit is opensource software licensed under the MIT license.
 */
 
+// Check PHP version
+if(version_compare(phpversion(), '5.3', '<')) {
+	exit('Current PHP version '.phpversion().', you need > 5.3. (ERR_202)');
+}
+
 // Security constant
 define('BLUDIT', true);
 
@@ -139,19 +144,6 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
-	// If the php version is less than 5.3, then don't check others requirements.
-	if(!version_compare(phpversion(), '5.3', '>='))
-	{
-		$errorText = 'Current PHP version '.phpversion().', you need > 5.3. (ERR_202)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP version';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-
-		return $stdOut;
-	}
-
 	if(!file_exists(PATH_ROOT.'.htaccess'))
 	{
 		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
@@ -202,9 +194,8 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	$stdOut = array();
 
-	$timezone = timezone_name_from_abbr('', $timezoneOffset, 1);
+	$timezone = timezone_name_from_abbr('', $timezoneOffset, 0);
 	if($timezone === false) { $timezone = timezone_name_from_abbr('', $timezoneOffset, 0); } // Workaround bug #44780
-
 	date_default_timezone_set($timezone);
 
 	$currentDate = Date::current(DB_DATE_FORMAT);

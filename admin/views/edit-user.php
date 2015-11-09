@@ -1,8 +1,8 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Edit user').' :: '.$_user['username'], 'icon'=>'user'));
+HTML::title(array('title'=>$L->g('Edit user'), 'icon'=>'user'));
 
-HTML::formOpen(array('class'=>'uk-form-horizontal'));
+HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal'));
 
 	// Security token
 	HTML::formInputHidden(array(
@@ -19,6 +19,15 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	HTML::legend(array('value'=>$L->g('Profile')));
 
 	HTML::formInputText(array(
+		'name'=>'usernameDisable',
+		'label'=>$L->g('Username'),
+		'value'=>$_user['username'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'disabled'=>true,
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
 		'name'=>'firstName',
 		'label'=>$L->g('First name'),
 		'value'=>$_user['firstName'],
@@ -33,6 +42,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
+
+	echo '<div class="uk-form-row">
+		<label class="uk-form-label">Password</label>
+		<div class="uk-form-controls">
+		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$_user['username'].'">'.$L->g('Change password').'</a>
+		</div>
+	</div>';
 
 if($Login->role()==='admin') {
 
@@ -52,24 +68,6 @@ if($Login->role()==='admin') {
 		'value'=>$_user['email'],
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
-	));
-
-	HTML::legend(array('value'=>$L->g('Change password')));
-
-	HTML::formInputPassword(array(
-		'name'=>'new-password',
-		'label'=>$L->g('New password'),
-		'value'=>'',
-		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>''
-	));
-
-	HTML::formInputPassword(array(
-		'name'=>'confirm-password',
-		'label'=>$L->g('Confirm Password'),
-		'value'=>'',
-		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>''
 	));
 
 	echo '<div class="uk-form-row">

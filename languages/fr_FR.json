@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-10-29",
+		"last-update": "2015-11-08",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
 		"website": ""
@@ -196,5 +196,12 @@
 	"general-settings": "Paramètres généraux",
 	"advanced-settings": "Paramètres avancés",
 	"manage-users": "Gestion des utilisateurs",
-	"view-and-edit-your-profile": "Modifier votre profil"
+	"view-and-edit-your-profile": "Modifier votre profil",
+
+	"password-must-be-at-least-6-characters-long": "Le mot de passe doit contenir au moins 6 caractères",
+	"images": "Images",
+	"upload-image": "Envoyer une image",
+	"drag-and-drop-or-click-here": "Glissez et déposez ou cliquez ici",
+	"insert-image": "Insérer l’image sélectionnée"
+
 }

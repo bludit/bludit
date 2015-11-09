@@ -93,6 +93,7 @@ class dbLanguage extends dbJSON
 
 		foreach($files as $file)
 		{
+
 			$t = new dbJSON($file, false);
 			$native = $t->db['language-data']['native'];
 			$locale = basename($file, '.json');
