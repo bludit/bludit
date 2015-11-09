@@ -146,16 +146,8 @@ $Url 		= new Url();
 $Parsedown 	= new Parsedown();
 $Security	= new Security();
 
-// HTML PATHs
-//$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
-
-if($base!=DS) {
-	$base = $base.'/';
-}
-
-define('HTML_PATH_ROOT', $base);
+// Relative path logic
+define('HTML_PATH_ROOT', '/');
 
 // Paths for themes
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
@@ -173,7 +165,7 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // PHP paths with dependency
-define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
+define('PATH_THEME',			PATH_ROOT.'themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
