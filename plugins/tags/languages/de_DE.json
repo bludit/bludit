@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Liste aller Schlagwörter",
-		"description": "Anzeige aller Schlagwörter."
+		"name": "Anzeige aller Schlagwörter",
+		"description": "Anzeige aller Schlagwörter in der Seitenleiste (bei Themes mit Seitenleiste)."
 	}
 }
