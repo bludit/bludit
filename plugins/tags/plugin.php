@@ -14,7 +14,7 @@ class pluginTags extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>Plugin label</label>';
+		$html .= '<label>'.$Language->get('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
