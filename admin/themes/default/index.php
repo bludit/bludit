@@ -48,7 +48,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div id="alert">
+<div id="alert" class="<?php echo (Alert::status()==ALERT_STATUS_OK)?'alert-ok':'alert-fail'; ?>">
 <?php Alert::p() ?>
 </div>
 

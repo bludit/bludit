@@ -18,30 +18,44 @@ function addUser($args)
 	global $dbUsers;
 	global $Language;
 
-	// Check if the username already exist in db.
-	if( Text::isEmpty($args['username']) )
+	// Check empty username
+	if( Text::isEmpty($args['new_username']) )
 	{
-		Alert::set($Language->g('username-field-is-empty'));
+		Alert::set($Language->g('username-field-is-empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	if( $dbUsers->userExists($args['username']) )
+	// Check already exist username
+	if( $dbUsers->userExists($args['new_username']) )
 	{
-		Alert::set($Language->g('username-already-exists'));
+		Alert::set($Language->g('username-already-exists'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	// Validate password.
-	if( ($args['password'] != $args['confirm-password'] ) || Text::isEmpty($args['password']) )
+	// Password length
+	if( strlen($args['new_password']) < 6 )
 	{
-		Alert::set($Language->g('The password and confirmation password do not match'));
+		Alert::set($Language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	// Add the user.
-	if( $dbUsers->add($args) )
+	// Check new password and confirm password are equal
+	if( $args['new_password'] != $args['confirm_password'] )
 	{
-		Alert::set($Language->g('user-has-been-added-successfully'));
+		Alert::set($Language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
+		return false;
+	}
+
+	// Filter form fields
+	$tmp = array();
+	$tmp['username'] = $args['new_username'];
+	$tmp['password'] = $args['new_password'];
+	$tmp['role']	 = $args['role'];
+
+	// Add the user to the database
+	if( $dbUsers->add($tmp) )
+	{
+		Alert::set($Language->g('user-has-been-added-successfully'), ALERT_STATUS_OK);
 		return true;
 	}
 	else

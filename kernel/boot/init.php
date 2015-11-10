@@ -48,6 +48,12 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
+// Alert status ok
+define('ALERT_STATUS_OK', 0);
+
+// Alert status fail
+define('ALERT_STATUS_FAIL', 1);
+
 // Salt length
 define('SALT_LENGTH', 8);
 
