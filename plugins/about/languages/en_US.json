@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "About",
+		"description": "Little description about your site or your self.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.6",
+		"releaseDate": "2015-11-10"
+	}
+}
