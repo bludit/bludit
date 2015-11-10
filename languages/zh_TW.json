@@ -202,5 +202,6 @@
 	"images": "圖片",
 	"upload-image": "上傳圖片",
 	"drag-and-drop-or-click-here": "拖曳您的圖片到這裡或是點選這裡選擇圖片",
-	"insert-image": "插入圖片"
+	"insert-image": "插入圖片",
+	"supported-image-file-types": "可以上傳的檔案格式"
 }
