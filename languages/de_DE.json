@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2015-11-05",
+		"last-update": "2015-11-10",
 		"author": "Edi Goetschel",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
@@ -41,8 +41,8 @@
 	"profile": "Profil",
 	"email": "E-Mail",
 	"settings": "Einstellungen",
-	"general": "Allgemeine Einstellungen",
-	"advanced": "Erweiterte Einstellungen",
+	"general": "Allgemein",
+	"advanced": "Erweitert",
 	"regional": "Lokalisierung",
 	"about": "Systeminformation",
 	"login": "Anmelden",
@@ -163,7 +163,7 @@
 	"scheduled": "Veröffentlichung geplant.",
 	"publish": "Veröffentlichen",
 	"please-check-your-theme-configuration": "Bitte die Einstellungen des Themes prüfen.",
-	"plugin-label": "Plugin-Bezeichnung",
+	"plugin-label": "Titel auf der Website",
 	"enabled": "Aktiviert",
 	"disabled": "Deaktiviert",
 	"cli-mode": "CLI-Modus",

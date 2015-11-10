@@ -1,8 +1,8 @@
 {
 	"plugin-data":
 	{
-		"name": "Liste aller Seiten",
-		"description": "Auflistung aller Seiten."
+		"name": "Anzeige aller Seiten",
+		"description": "Anzeige aller Seiten in der Seitenleiste (bei Themes mit Seitenleiste)."
 	},
 
     "home": "Hauptseite",
