@@ -1,7 +1,5 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="<?php echo $Site->description() ?>">
-
 <title><?php echo $Site->title() ?></title>
 
 <?php
@@ -22,9 +20,14 @@
 	// <meta name="keywords" content="HTML,CSS,XML,JavaScript">
 	if( $Url->whereAmI()=='post' ) {
 		Theme::keywords( $Post->tags() );
+		Theme::description( $Post->description() );
 	}
 	elseif( $Url->whereAmI()=='page' ) {
 		Theme::keywords( $Page->tags() );
+		Theme::description( $Page->description() );
+	}
+	else {
+		Theme::description( $Site->description() );
 	}
 ?>
 
