@@ -152,11 +152,9 @@ $base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRI
 $base = dirname($base);
 
 if($base!=DS) {
-	$base = $base.'/';
-}
-
-if (dirname($_SERVER['SCRIPT_NAME']) == '\\') {
-	$base = '/';
+    $base = $base.'/';
+}else{ // work in subdomain
+    $base = '/';
 }
 
 define('HTML_PATH_ROOT', $base);
