@@ -159,7 +159,7 @@ if (dirname($_SERVER['SCRIPT_NAME']) == '\\') {
 	$base = '/';
 }
 
-define('HTML_PATH_ROOT', '/');
+define('HTML_PATH_ROOT', $base);
 
 // Paths for themes
 define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
