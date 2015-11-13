@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "System komentarzy - Disqus",
-		"description": "System komentarzy Disqus przechowuje komentarze dla serwisów internetowych. Korzystanie z tej wtyczki wymaga rejestracji w serwisie disqus.com.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.3",
-		"releaseDate": "2015-10-02"
+		"description": "System komentarzy Disqus przechowuje komentarze dla serwisów internetowych. Korzystanie z tej wtyczki wymaga rejestracji w serwisie disqus.com."
 	},
 	"disqus-shortname": "Nazwa użytkownika Disqus",
 	"enable-disqus-on-pages": "Włącz Disqus na wszystkich stronach",
