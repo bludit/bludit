@@ -4,48 +4,32 @@
 // Functions
 // ============================================================================
 
-function editUser($args)
+function setPassword($username, $new_password, $confirm_password)
 {
 	global $dbUsers;
 	global $Language;
 
-	if( $dbUsers->set($args) ) {
-		Alert::set($Language->g('The changes have been saved'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
-	}
-}
-
-function deleteUser($args, $deleteContent=false)
-{
-	global $dbUsers;
-	global $dbPosts;
-	global $Language;
-	global $Login;
-
-	// The user admin cannot be deleted.
-	if($args['username']=='admin') {
+	// Password length
+	if( strlen($new_password) < 6 )
+	{
+		Alert::set($Language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	// The editors cannot delete users.
-	if($Login->role()!=='admin') {
+	if($new_password===$confirm_password)
+	{
+		if( $dbUsers->setPassword($username, $new_password) ) {
+			Alert::set($Language->g('The changes have been saved'), ALERT_STATUS_OK);
+			return true;
+		}
+		else {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to change the user password.');
+			return false;
+		}
+	}
+	else {
+		Alert::set($Language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
 		return false;
-	}
-
-	if($deleteContent) {
-		$dbPosts->deletePostsByUser($args['username']);
-	}
-	else {
-		$dbPosts->linkPostsToUser($args['username'], 'admin');
-	}
-
-	if( $dbUsers->delete($args['username']) ) {
-		Alert::set($Language->g('User deleted'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the user.');
 	}
 }
 
@@ -66,14 +50,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		unset($_POST['role']);
 	}
 
-	if(isset($_POST['delete-user-all'])) {
-		deleteUser($_POST, true);
-	}
-	elseif(isset($_POST['delete-user-associate'])) {
-		deleteUser($_POST, false);
-	}
-	else {
-		editUser($_POST);
+	if( setPassword($_POST['username'], $_POST['new_password'], $_POST['confirm_password']) ) {
+		Redirect::page('admin', 'users');
 	}
 }
 

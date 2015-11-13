@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Google-Tools",
-		"description": "Dieses Plugin erzeugt den Meta-Tag, um deine Website mit den Google Webmasters Tools zu verbinden, und den Code für das JavaScript, der benötigt wird, um Google Analytics verwenden zu können.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.3",
-		"releaseDate": "2015-10-02"
+		"description": "Dieses Plugin erzeugt den Meta-Tag, um deine Website mit den Google Webmasters Tools zu verbinden, und den Code für das JavaScript, der benötigt wird, um Google Analytics verwenden zu können."
 	},
 	"google-webmasters-tools": "Google Webmasters Tools",
 	"google-analytics-tracking-id": "Google Analytics ID",

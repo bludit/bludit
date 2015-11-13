@@ -30,6 +30,7 @@ class HTML {
 		$type = isset($args['type']) ? $args['type'] : 'text';
 		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
 		$placeholder = empty($args['placeholder']) ? '' : 'placeholder="'.$args['placeholder'].'"';
+		$disabled = empty($args['disabled']) ? '' : 'disabled';
 
 		$html  = '<div class="uk-form-row">';
 
@@ -39,7 +40,7 @@ class HTML {
 
 		$html .= '<div class="uk-form-controls">';
 
-		$html .= '<input id="'.$id.'" name="'.$args['name'].'" type="'.$type.'" '.$class.' '.$placeholder.' value="'.$args['value'].'">';
+		$html .= '<input id="'.$id.'" name="'.$args['name'].'" type="'.$type.'" '.$class.' '.$placeholder.' autocomplete="off" '.$disabled.' value="'.$args['value'].'">';
 
 		if(!empty($args['tip'])) {
 			$html .= '<p class="uk-form-help-block">'.$args['tip'].'</p>';
@@ -158,6 +159,9 @@ class HTML {
 
 			$("#jsaddImage").on("click", function() {
 				var filename = $("#jsimageList option:selected").text();
+				if(!filename.trim()) {
+					return false;
+				}
 				var textareaValue = $("#jscontent").val();
 				$("#jscontent").val(textareaValue + "<img src=\""+filename+"\" alt=\"\">" + "\n");
 			});
@@ -186,6 +190,10 @@ class HTML {
 						bar.css("width", "100%").text("100%");
 						setTimeout(function() { progressbar.addClass("uk-hidden"); }, 250);
 						$("#jsimageList").prepend("<option value=\'"+response.filename+"\' selected=\'selected\'>"+response.filename+"</option>");
+					},
+
+					notallowed: function(file, settings) {
+						alert("'.$L->g('Supported image file types').' "+settings.allow);
 					}
 				};
 

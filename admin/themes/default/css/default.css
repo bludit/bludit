@@ -99,9 +99,15 @@ button.delete-button:hover {
 	text-decoration: underline;
 }
 
+#jscontent {
+	height: 400px;
+}
+
+
+/* ----------- ALERT ----------- */
+
 #alert {
 	display: none;
-	background: rgba(48, 102, 187, 0.91);
 	color: #ffffff;
 	padding: 24px;
 	position: fixed;
@@ -110,8 +116,12 @@ button.delete-button:hover {
 	z-index: 100;
 }
 
-#jscontent {
-	height: 400px;
+.alert-ok {
+	background: rgba(48, 102, 187, 0.91);
+}
+
+.alert-fail {
+	background: rgba(187, 48, 48, 0.91);
 }
 
 /* ----------- LOGIN FORM ----------- */
@@ -226,9 +236,16 @@ div.plugin-links > span.separator {
 	color: #AAAAAA;
 }
 
+#jsformplugin textarea {
+	min-width: 400px;
+	width: 60%;
+	min-height: 100px;
+}
+
 #jsformplugin input[type=text] {
 	min-width: 400px;
 	width: 60%;
+	height: 37px;
 }
 
 #jsformplugin input[type="checkbox"] {
@@ -239,6 +256,6 @@ div.plugin-links > span.separator {
 
 #jsformplugin label.forCheckbox {
 	margin-left: 3px;
-	margin-bottom: 10px;
+	margin-bottom: 0px !important;
 	display: inline-block;
 }

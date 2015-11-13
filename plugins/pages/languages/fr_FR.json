@@ -5,6 +5,6 @@
 		"description": "Constitue un menu avec les liens des pages dans la colonne du thème."
 	},
 
-    "home": "Accueil",
-    "show-home-link": "Afficher le lien de la page d’accueil"
+	"home": "Accueil",
+	"show-home-link": "Afficher le lien de la page d’accueil"
 }
