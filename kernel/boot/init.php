@@ -146,7 +146,19 @@ $Url 		= new Url();
 $Parsedown 	= new Parsedown();
 $Security	= new Security();
 
-// Relative path logic
+// HTML PATHs
+//$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
+$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+$base = dirname($base);
+
+if($base!=DS) {
+	$base = $base.'/';
+}
+
+if (dirname($_SERVER['SCRIPT_NAME']) == '\\') {
+	$base = '/';
+}
+
 define('HTML_PATH_ROOT', '/');
 
 // Paths for themes
