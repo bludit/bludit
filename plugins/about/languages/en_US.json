@@ -1,8 +1,8 @@
 {
 	"plugin-data":
 	{
-		"name": "Tags list",
-		"description": "Shows all tags.",
+		"name": "About",
+		"description": "Little description about your site or yourself.",
 		"author": "Bludit",
 		"email": "",
 		"website": "https://github.com/dignajar/bludit-plugins",

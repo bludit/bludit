@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Lista tagów",
-		"description": "Wyświetla wszystkie tagi w postaci listy.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.3",
-		"releaseDate": "2015-10-02"
+		"description": "Wyświetla wszystkie tagi w postaci listy."
 	}
 }
