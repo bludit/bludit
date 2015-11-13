@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2015-11-10",
+		"last-update": "2015-11-13",
 		"author": "Edi Goetschel",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
@@ -193,8 +193,8 @@
 	"show-password": "Passwort zeigen",
 	"edit-or-remove-your=pages": "Seiten bearbeiten oder löschen.",
 	"edit-or-remove-your-blogs-posts": "Beiträge bearbeiten oder löschen.",
-	"general-settings": "Allgemeine Einnstellungen",
-	"advanced-settings": "Erweiterte Einnstellungen",
+	"general-settings": "Allgemein",
+	"advanced-settings": "Erweitert",
 	"manage-users": "Benutzerverwaltung",
 	"view-and-edit-your-profile": "Profil anschauen und bearbeiten.",
 	"password-must-be-at-least-6-characters-long": "Das Passwort muss mindestens 6 Zeichen lang sein",
