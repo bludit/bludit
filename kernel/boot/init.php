@@ -147,12 +147,15 @@ $Parsedown 	= new Parsedown();
 $Security	= new Security();
 
 // HTML PATHs
-//$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
 $base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 $base = dirname($base);
 
 if($base!=DS) {
 	$base = $base.'/';
+}
+else {
+	// Workaround for Windows Web Servers
+	$base = '/';
 }
 
 define('HTML_PATH_ROOT', $base);
