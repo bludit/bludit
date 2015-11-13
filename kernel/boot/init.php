@@ -173,7 +173,7 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // PHP paths with dependency
-define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
+define('PATH_THEME',			PATH_ROOT.'themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
