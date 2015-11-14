@@ -204,5 +204,7 @@
 	"upload-image": "Upload image",
 	"drag-and-drop-or-click-here": "Drag and drop or click here",
 	"insert-image": "Insert image",
-	"supported-image-file-types": "Supported image file types"
+	"supported-image-file-types": "Supported image file types",
+	"date-format": "Date format",
+	"time-format": "Time format"
 }

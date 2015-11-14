@@ -75,7 +75,7 @@ define('CLI_STATUS', 'published');
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i');
 
-// Database format date
+// Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
 
 // Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
@@ -128,6 +128,7 @@ include(PATH_HELPERS.'email.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
+include(PATH_HELPERS.'image.class.php');
 
 // Session
 Session::start();
