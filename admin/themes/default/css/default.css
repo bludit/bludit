@@ -103,6 +103,7 @@ button.delete-button:hover {
 	height: 400px;
 }
 
+
 /* ----------- ALERT ----------- */
 
 #alert {
@@ -235,9 +236,16 @@ div.plugin-links > span.separator {
 	color: #AAAAAA;
 }
 
+#jsformplugin textarea {
+	min-width: 400px;
+	width: 60%;
+	min-height: 100px;
+}
+
 #jsformplugin input[type=text] {
 	min-width: 400px;
 	width: 60%;
+	height: 37px;
 }
 
 #jsformplugin input[type="checkbox"] {
@@ -248,6 +256,6 @@ div.plugin-links > span.separator {
 
 #jsformplugin label.forCheckbox {
 	margin-left: 3px;
-	margin-bottom: 10px;
+	margin-bottom: 0px !important;
 	display: inline-block;
 }

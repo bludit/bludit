@@ -1,11 +1,12 @@
 <?php
 
-class pluginTags extends Plugin {
+class pluginAbout extends Plugin {
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'label'=>'Tags'
+			'label'=>'About',
+			'text'=>''
 		);
 	}
 
@@ -18,6 +19,11 @@ class pluginTags extends Plugin {
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('About').'</label>';
+		$html .= '<textarea name="text" id="jstext">'.$this->getDbField('text').'</textarea>';
+		$html .= '</div>';
+
 		return $html;
 	}
 
@@ -27,23 +33,12 @@ class pluginTags extends Plugin {
 		global $dbTags;
 		global $Url;
 
-		$db = $dbTags->db['postsIndex'];
 		$filter = $Url->filters('tag');
 
-		$html  = '<div class="plugin plugin-tags">';
+		$html  = '<div class="plugin plugin-about">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<ul>';
-
-		foreach($db as $tagKey=>$fields)
-		{
-			$count = $dbTags->countPostsByTag($tagKey);
-
-			// Print the parent
-			$html .= '<li><a href="'.HTML_PATH_ROOT.$filter.'/'.$tagKey.'">'.$fields['name'].' ('.$count.')</a></li>';
-		}
-
-		$html .= '</ul>';
+		$html .= $this->getDbField('text');
  		$html .= '</div>';
  		$html .= '</div>';
 

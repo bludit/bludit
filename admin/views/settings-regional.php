@@ -35,6 +35,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>$L->g('you-can-use-this-field-to-define-a-set-off')
 	));
 
+	HTML::formInputText(array(
+		'name'=>'dateFormat',
+		'label'=>$L->g('Date format'),
+		'value'=>$Site->dateFormat(),
+		'class'=>'uk-width-1-2 uk-form-medium'
+	));
+
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>

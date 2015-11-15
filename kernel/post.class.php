@@ -101,7 +101,13 @@ class Post extends fileContent
 	// Returns the post date according to locale settings and format settings.
 	public function date($format=false)
 	{
-		$date = $this->getField('date');
+		return $this->getField('date');
+	}
+
+	// Returns the post date according to locale settings and format as database stored.
+	public function dateRaw($format=false)
+	{
+		$date = $this->getField('dateRaw');
 
 		if($format) {
 			return Date::format($date, DB_DATE_FORMAT, $format);
