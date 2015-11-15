@@ -1,4 +1,9 @@
-<?php header('Content-Type: application/json');
+<?php defined('BLUDIT') or die('Bludit CMS.');
+
+header('Content-Type: application/json');
+
+// Type
+$type = Sanitize::html($_POST['type']);
 
 // Source
 $source = $_FILES['files']['tmp_name'][0];
@@ -24,12 +29,19 @@ if(empty($tmpName)) {
 	$tmpName = $filename.'.'.$fileExtension;
 }
 
-move_uploaded_file($source, PATH_UPLOADS.$tmpName);
+if($type=='profilePicture') {
+	$username = Sanitize::html($_POST['username']);
+	$tmpName = $username.'.jpg';
+
+	move_uploaded_file($source, PATH_UPLOADS_PROFILES.$tmpName);
+}
+else {
+	move_uploaded_file($source, PATH_UPLOADS.$tmpName);
+}
 
 exit(json_encode(array(
 	'status'=>0,
-	'filename'=>$tmpName,
-	'date'=>date("F d Y H:i:s.", filemtime(PATH_UPLOADS.$tmpName))
+	'filename'=>$tmpName
 )));
 
 ?>

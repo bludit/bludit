@@ -1,6 +1,6 @@
 <div class="login-form">
 
-<form method="post" action="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>" class="uk-form" autocomplete="off">
+<form method="post" action="" class="uk-form" autocomplete="off">
 
 	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php $Security->printToken() ?>">
 

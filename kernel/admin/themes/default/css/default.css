@@ -26,6 +26,10 @@
 	background: #1F5FC4;
 }
 
+.uk-form legend {
+	width: 70% !important;
+}
+
 .uk-navbar-nav > li > a {
 	border: none;
 	height: 70px;
