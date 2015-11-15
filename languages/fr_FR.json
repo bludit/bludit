@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2015-11-08",
+		"last-update": "2015-11-15",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
 		"website": ""
@@ -169,6 +169,7 @@
 	"cli-mode": "Mode Cli",
 	"command-line-mode": "Mode ligne de commande",
 	"enable-the-command-line-mode-if-you-add-edit": "Activer le mode ligne de commande si vous créez, modifiez ou supprimez des articles ou des pages du système de fichiers.",
+	
 	"configure": "Configuration",
 	"uninstall": "Désinstaller",
 	"change-password": "Modifier le mot de passe",
@@ -202,6 +203,8 @@
 	"images": "Images",
 	"upload-image": "Envoyer une image",
 	"drag-and-drop-or-click-here": "Glissez et déposez ou cliquez ici",
-	"insert-image": "Insérer l’image sélectionnée"
-
+	"insert-image": "Insérer l’image sélectionnée",
+	"supported-image-file-types": "Extensions des images prises en charge",
+	"date-format": "Format de la Date",
+	"time-format": "Format de l’heure"
 }
