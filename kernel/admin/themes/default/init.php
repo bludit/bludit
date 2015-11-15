@@ -248,8 +248,8 @@ class HTML {
 
 					allcomplete: function(response) {
 						bar.css("width", "100%").text("100%");
-						setTimeout(function() { progressbar.addClass("uk-hidden"); }, 250);
-						$("#jsimageList").prepend("<option value=\'"+response.filename+"\' selected=\'selected\'>"+response.filename+"</option>");
+						progressbar.addClass("uk-hidden");
+						$("#jsprofilePicture").attr("src", "'.HTML_PATH_UPLOADS_PROFILES.$username.'.jpg?"+new Date().getTime());
 					},
 
 					notallowed: function(file, settings) {

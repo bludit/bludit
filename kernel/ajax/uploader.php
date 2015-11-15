@@ -29,12 +29,19 @@ if(empty($tmpName)) {
 	$tmpName = $filename.'.'.$fileExtension;
 }
 
+// --- PROFILE PICTURE ---
 if($type=='profilePicture') {
 	$username = Sanitize::html($_POST['username']);
 	$tmpName = $username.'.jpg';
 
 	move_uploaded_file($source, PATH_UPLOADS_PROFILES.$tmpName);
+
+	// Resize and crop profile image.
+	$Image = new Image();
+	$Image->setImage(PATH_UPLOADS_PROFILES.$tmpName, '200', '200', 'crop');
+	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, true);
 }
+// --- OTHERS ---
 else {
 	move_uploaded_file($source, PATH_UPLOADS.$tmpName);
 }
