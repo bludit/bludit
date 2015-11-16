@@ -217,7 +217,7 @@ class HTML {
 		</div>
 
 		<div id="upload-drop" class="uk-placeholder uk-text-center">
-		<a class="uk-form-file"><i class="uk-icon-cloud-upload uk-margin-small-right"></i>'.$L->g('Upload Image').'<input id="upload-select" type="file"></a>
+		<i class="uk-icon-cloud-upload uk-margin-small-right"></i>'.$L->g('Upload Image').'<br><a class="uk-form-file">'.$L->g('Drag and drop or click here').'<input id="upload-select" type="file"></a>
 		</div>
 		';
 
