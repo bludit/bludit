@@ -114,6 +114,7 @@ include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
+include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
 
 // Include Helpers Classes
@@ -145,7 +146,7 @@ $dbUsers 	= new dbUsers();
 $dbTags 	= new dbTags();
 $Site 		= new dbSite();
 $Url 		= new Url();
-$Parsedown 	= new Parsedown();
+$Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
 
 // HTML PATHs
