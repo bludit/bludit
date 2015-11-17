@@ -153,7 +153,9 @@ $base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRI
 $base = dirname($base);
 
 if($base!=DS) {
-	$base = $base.'/';
+    $base = $base.'/';
+}else{ // work in subdomain
+    $base = '/';
 }
 else {
 	// Workaround for Windows Web Servers
