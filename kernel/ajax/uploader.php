@@ -3,7 +3,10 @@
 header('Content-Type: application/json');
 
 // Type
-$type = Sanitize::html($_POST['type']);
+$type = 'other';
+if(!empty($_POST['type'])) {
+	$type = Sanitize::html($_POST['type']);
+}
 
 // Source
 $source = $_FILES['files']['tmp_name'][0];

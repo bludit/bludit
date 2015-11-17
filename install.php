@@ -282,6 +282,14 @@ function install($adminPassword, $email, $timezoneOffset)
 		'status'=>'published',
 		'date'=>$currentDate,
 		'position'=>0
+	    	),
+		'about'=>array(
+		'description'=>$Language->get('About your site or yourself'),
+		'username'=>'admin',
+		'tags'=>array(),
+		'status'=>'published',
+		'date'=>$currentDate,
+		'position'=>1
 	    	)
 	);
 
@@ -290,7 +298,7 @@ function install($adminPassword, $email, $timezoneOffset)
 	// File posts.php
 	$data = array(
 	$firstPostSlug=>array(
-		'description'=>'Welcome to Bludit',
+		'description'=>$Language->get('Welcome to Bludit'),
 		'username'=>'admin',
 		'status'=>'published',
 		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
@@ -394,7 +402,7 @@ function install($adminPassword, $email, $timezoneOffset)
 			array(
 				'position'=>0,
 				'label'=>$Language->get('About'),
-				'text'=>$Language->get('this-is-a-brief-description-of-yourself-our-your-blog')
+				'text'=>$Language->get('this-is-a-brief-description-of-yourself-our-your-site')
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -427,13 +435,16 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'
-	Content: '.$Language->get('The page has not been found');
+Content: '.$Language->get('The page has not been found');
 
 	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
 
 	// File index.txt for about page
 	$data = 'Title: '.$Language->get('About').'
-	Content: ';
+Content:
+'.$Language->get('the-about-page-is-very-important').'
+
+'.$Language->get('change-this-pages-content-on-the-admin-panel');
 
 	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
 
