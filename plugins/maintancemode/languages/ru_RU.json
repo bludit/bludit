@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Режим обслуживания",
+		"description": "Установите ваш сайт в режим обслуживания, вы можете получить доступ к панели управления.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.6",
+		"releaseDate": "2015-11-13"
+	},
+
+	"enable-maintence-mode": "Включить режим обслуживания",
+	"message": "Сообщение"
+}
