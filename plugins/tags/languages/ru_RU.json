@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Список тегов",
+		"description": "Показывает все теги.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.6",
+		"releaseDate": "2015-11-13"
+	}
+}
