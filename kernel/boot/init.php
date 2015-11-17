@@ -174,6 +174,7 @@ define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'kernel/admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
+define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
