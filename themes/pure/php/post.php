@@ -20,7 +20,7 @@
                 <?php
                     echo $Language->get('Posted By').' ';
 
-                    if( Text::isNotEmpty($Post->authorFirstName()) && Text::isNotEmpty($Post->authorLastName()) ) {
+                    if( Text::isNotEmpty($Post->authorFirstName()) || Text::isNotEmpty($Post->authorLastName()) ) {
                         echo $Post->authorFirstName().' '.$Post->authorLastName();
                     }
                     else {

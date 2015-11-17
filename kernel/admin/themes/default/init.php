@@ -207,4 +207,64 @@ class HTML {
 		echo $html;
 	}
 
+	public static function profileUploader($username)
+	{
+		global $L;
+
+		$html = '
+		<div id="jsprogressBar" class="uk-progress uk-hidden">
+		<div class="uk-progress-bar" style="width: 0%;">0%</div>
+		</div>
+
+		<div id="upload-drop" class="uk-placeholder uk-text-center">
+		<i class="uk-icon-cloud-upload uk-margin-small-right"></i>'.$L->g('Upload Image').'<br><a class="uk-form-file">'.$L->g('Drag and drop or click here').'<input id="upload-select" type="file"></a>
+		</div>
+		';
+
+		$html .= '
+		<script>
+		$(document).ready(function() {
+
+			$(function()
+			{
+				var progressbar = $("#jsprogressBar");
+				var bar = progressbar.find(".uk-progress-bar");
+				var settings =
+				{
+					type: "json",
+					action: "'.HTML_PATH_ADMIN_ROOT.'ajax/uploader",
+					allow : "*.(jpg|jpeg|gif|png)",
+					params: {"type":"profilePicture", "username":"'.$username.'"},
+
+					loadstart: function() {
+						bar.css("width", "0%").text("0%");
+						progressbar.removeClass("uk-hidden");
+					},
+
+					progress: function(percent) {
+						percent = Math.ceil(percent);
+						bar.css("width", percent+"%").text(percent+"%");
+					},
+
+					allcomplete: function(response) {
+						bar.css("width", "100%").text("100%");
+						progressbar.addClass("uk-hidden");
+						$("#jsprofilePicture").attr("src", "'.HTML_PATH_UPLOADS_PROFILES.$username.'.jpg?"+new Date().getTime());
+					},
+
+					notallowed: function(file, settings) {
+						alert("'.$L->g('Supported image file types').' "+settings.allow);
+					}
+				};
+
+				var select = UIkit.uploadSelect($("#upload-select"), settings);
+				var drop = UIkit.uploadDrop($("#upload-drop"), settings);
+			});
+
+		});
+		</script>';
+
+		echo $html;
+	}
+
 }

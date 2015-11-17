@@ -68,6 +68,13 @@ function buildPost($key)
 	$Post->setField('breakContent', $explode[0], true);
 	$Post->setField('readMore', !empty($explode[1]), true);
 
+	// Date format
+	$postDate = $Post->date();
+	$Post->setField('dateRaw', $postDate, true);
+
+	$postDateFormated = $Post->dateRaw( $Site->dateFormat() );
+	$Post->setField('date', $postDateFormated, true);
+
 	// Parse username for the post.
 	if( $dbUsers->userExists( $Post->username() ) )
 	{

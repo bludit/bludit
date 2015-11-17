@@ -35,7 +35,8 @@ define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
-define('PATH_ADMIN',			PATH_ROOT.'admin'.DS);
+define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
+define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
@@ -75,7 +76,7 @@ define('CLI_STATUS', 'published');
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i');
 
-// Database format date
+// Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
 
 // Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
@@ -113,6 +114,7 @@ include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
+include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
 
 // Include Helpers Classes
@@ -128,6 +130,7 @@ include(PATH_HELPERS.'email.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
+include(PATH_HELPERS.'image.class.php');
 
 // Session
 Session::start();
@@ -143,16 +146,19 @@ $dbUsers 	= new dbUsers();
 $dbTags 	= new dbTags();
 $Site 		= new dbSite();
 $Url 		= new Url();
-$Parsedown 	= new Parsedown();
+$Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
 
 // HTML PATHs
-//$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
 $base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 $base = dirname($base);
 
 if($base!=DS) {
 	$base = $base.'/';
+}
+else {
+	// Workaround for Windows Web Servers
+	$base = '/';
 }
 
 define('HTML_PATH_ROOT', $base);
@@ -164,16 +170,20 @@ define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
 
-define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'admin/themes/'.$Site->adminTheme().'/');
-define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
+define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'kernel/admin/themes/'.$Site->adminTheme().'/');
+define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
+define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
+define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
+
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
+define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // PHP paths with dependency
-define('PATH_THEME',			PATH_ROOT.'themes/'.$Site->theme().'/');
+define('PATH_THEME',			PATH_ROOT.'themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);

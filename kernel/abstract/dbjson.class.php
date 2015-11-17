@@ -58,6 +58,15 @@ class dbJSON
 		return count($this->db);
 	}
 
+	public function getField($field)
+	{
+		if(isset($this->db[$field])) {
+			return $this->db[$field];
+		}
+
+		return $this->dbFields[$field]['value'];
+	}
+
 	// Save the JSON file.
 	public function save()
 	{

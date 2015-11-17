@@ -2,7 +2,7 @@
 
 class dbSite extends dbJSON
 {
-	private $dbFields = array(
+	public $dbFields = array(
 		'title'=>		array('inFile'=>false, 'value'=>'I am Guybrush Threepwood, mighty developer'),
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
 		'description'=>		array('inFile'=>false, 'value'=>''),
@@ -19,7 +19,9 @@ class dbSite extends dbJSON
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
 		'cliMode'=>		array('inFile'=>false, 'value'=>true),
-		'emailFrom'=>		array('inFile'=>false, 'value'=>'')
+		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
+		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
+		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a')
 	);
 
 	function __construct()
@@ -61,9 +63,9 @@ class dbSite extends dbJSON
 	public function uriFilters($filter='')
 	{
 		$filters['admin'] = '/admin/';
-		$filters['post'] = $this->db['uriPost'];
-		$filters['page'] = $this->db['uriPage'];
-		$filters['tag'] = $this->db['uriTag'];
+		$filters['post'] = $this->getField('uriPost');
+		$filters['page'] = $this->getField('uriPage');
+		$filters['tag'] = $this->getField('uriTag');
 
 		if(empty($filter)) {
 			return $filters;
@@ -74,70 +76,83 @@ class dbSite extends dbJSON
 
 	public function urlPost()
 	{
-		return $this->url().ltrim($this->db['uriPost'], '/');
+		$filter = $this->getField('uriPost');
+		return $this->url().ltrim($filter, '/');
 	}
 
 	public function urlPage()
 	{
-		return $this->url().ltrim($this->db['uriPage'], '/');
+		$filter = $this->getField('uriPage');
+		return $this->url().ltrim($filter, '/');
 	}
 
 	public function urlTag()
 	{
-		return $this->url().ltrim($this->db['uriTag'], '/');
+		$filter = $this->getField('uriTag');
+		return $this->url().ltrim($filter, '/');
 	}
 
 	// Returns the site title.
 	public function title()
 	{
-		return $this->db['title'];
+		return $this->getField('title');
 	}
 
 	public function emailFrom()
 	{
-		return $this->db['emailFrom'];
+		return $this->getField('emailFrom');
+	}
+
+	public function dateFormat()
+	{
+		return $this->getField('dateFormat');
+	}
+
+	public function timeFormat()
+	{
+		return $this->getField('timeFormat');
 	}
 
 	// Returns the site slogan.
 	public function slogan()
 	{
-		return $this->db['slogan'];
+		return $this->getField('slogan');
 	}
 
 	// Returns the site description.
 	public function description()
 	{
-		return $this->db['description'];
+		return $this->getField('description');
 	}
 
 	// Returns the site theme name.
 	public function theme()
 	{
-		return $this->db['theme'];
+		return $this->getField('theme');
 	}
 
 	// Returns the admin theme name.
 	public function adminTheme()
 	{
-		return $this->db['adminTheme'];
+		return $this->getField('adminTheme');
 	}
 
 	// Returns the footer text.
 	public function footer()
 	{
-		return $this->db['footer'];
+		return $this->getField('footer');
 	}
 
 	// Returns the url site.
 	public function url()
 	{
-		return $this->db['url'];
+		return $this->getField('url');
 	}
 
 	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
 	public function cliMode()
 	{
-		return $this->db['cliMode'];
+		return $this->getField('cliMode');
 	}
 
 	// Returns the relative home link
@@ -149,25 +164,25 @@ class dbSite extends dbJSON
 	// Returns the timezone.
 	public function timezone()
 	{
-		return $this->db['timezone'];
+		return $this->getField('timezone');
 	}
 
 	// Returns posts per page.
 	public function postsPerPage()
 	{
-		return $this->db['postsperpage'];
+		return $this->getField('postsperpage');
 	}
 
 	// Returns the current language.
 	public function language()
 	{
-		return $this->db['language'];
+		return $this->getField('language');
 	}
 
 	// Returns the current locale.
 	public function locale()
 	{
-		return $this->db['locale'];
+		return $this->getField('locale');
 	}
 
 	// Returns the current language in short format.
@@ -183,7 +198,7 @@ class dbSite extends dbJSON
 	// Returns the current homepage.
 	public function homepage()
 	{
-		return $this->db['homepage'];
+		return $this->getField('homepage');
 	}
 
 	// Set the locale.
