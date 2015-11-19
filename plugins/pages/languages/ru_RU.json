@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Список страниц",
-		"description": "Показывает упорядоченый список страниц.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
+		"description": "Показывает упорядоченый список страниц."
 	},
 
 	"home": "Главная",
