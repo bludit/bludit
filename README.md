@@ -16,6 +16,7 @@ Social
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
 - [Google+](https://plus.google.com/+Bluditcms)
+- [Freenode IRC](https://webchat.freenode.net) channel #bludit
 
 [![Join the chat at https://gitter.im/dignajar/bludit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dignajar/bludit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -30,6 +31,7 @@ You only need a web server with PHP support.
   * Apache with [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) module.
   * Lighttpd with [mod_rewrite](http://redmine.lighttpd.net/projects/1/wiki/docs_modrewrite) module.
   * Nginx with [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) module.
+  * PHP Built-in web server
 
 Installation guide
 ------------------
