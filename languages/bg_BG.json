@@ -1,9 +1,10 @@
+
 {
 	"language-data":
 	{
 		"native": "Български (България)",
 		"english-name": "Bulgarian",
-		"last-update": "2015-11-09",
+		"last-update": "2015-11-18",
 		"author": "Христо Дипчиков",
 		"email": "",
 		"website": "www.hristodipchikov.tk"
@@ -36,7 +37,7 @@
 	"save": "Запази",
 	"draft": "Чернова",
 	"delete": "Изтриване",
-	"registered": "Препоръчано",
+	"registered": "Добавен",
 	"Notifications": "Известия",
 	"profile": "Профил",
 	"email": "Имейл адрес",
@@ -202,5 +203,16 @@
 	"images": "Снимки",
 	"upload-image": "Прикачи снимка",
 	"drag-and-drop-or-click-here": "Влачите и пускате или натиснете тук",
-	"insert-image": "Вмъкни снимка"
+	"insert-image": "Вмъкни снимка",
+		"supported-image-file-types": "Поддържани файлови формати за снимки",
+	"date-format": "Формат за дата",
+	"time-format": "Формат за време",
+	"chat-with-developers-and-users-on-gitter":"Чат с разработчици и потребители на [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"Това е кратко описание на вашия сайт, за да се промени този текст отидете в админ панела, настройки плъгини, конфигуриране на плъгин About.",
+	"profile-picture": "Снимка на профила",
+	"the-about-page-is-very-important": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
+	"change-this-pages-content-on-the-admin-panel": "Промяна на съдържанието на страницата се извършва от админ панела, управление, страници и кликнете върху страницата.",
+	"about-your-site-or-yourself": "За твоя сайт или за теб",
+	"welcome-to-bludit": "Добре дошли в Bludit"
 }
+

@@ -206,5 +206,12 @@
 	"insert-image": "Insert image",
 	"supported-image-file-types": "Supported image file types",
 	"date-format": "Date format",
-	"time-format": "Time format"
+	"time-format": "Time format",
+	"chat-with-developers-and-users-on-gitter":"Chat with developers and users on [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"This is a brief description of yourself or your site, to change this text go to the admin panel, settings, plugins, and configure the plugin about.",
+	"profile-picture": "Profile picture",
+	"the-about-page-is-very-important": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
+	"change-this-pages-content-on-the-admin-panel": "Change this page's content on the admin panel, manage, pages and click on the about page.",
+	"about-your-site-or-yourself": "About your site or yourself",
+	"welcome-to-bludit": "Welcome to Bludit"
 }

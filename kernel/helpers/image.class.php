@@ -19,7 +19,7 @@ class Image {
 		$this->resizeImage($newWidth, $newHeight, $option);
 	}
 
-	public function saveImage($savePath, $imageQuality="100", $force_jpg=false)
+	public function saveImage($savePath, $imageQuality="100", $forceJPG=false)
 	{
 		$extension = strtolower(pathinfo($savePath, PATHINFO_EXTENSION));
 
@@ -28,8 +28,7 @@ class Image {
 
 		$path_complete = $filename.'.'.$extension;
 
-		if($force_jpg)
-		{
+		if($forceJPG) {
 			imagejpeg($this->imageResized, $filename.'.jpg', $imageQuality);
 		}
 		else
