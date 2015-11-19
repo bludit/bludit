@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Обо мне",
-		"description": "Небольшое описание о вашем сайте или о себя.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
+		"description": "Небольшое описание о вашем сайте или о себя."
 	}
 }
