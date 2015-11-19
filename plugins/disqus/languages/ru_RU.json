@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Комментарии Disqus",
-		"description": "Disqus это сервис комментариев для сайтов и блогов. Необходимо быть зарегистрированным на Disqus.com перед использованием плагина.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
+		"description": "Disqus это сервис комментариев для сайтов и блогов. Необходимо быть зарегистрированным на Disqus.com перед использованием плагина."
 	},
 	"disqus-shortname": "Disqus shortname",
 	"enable-disqus-on-pages": "Включить Disqus на страницах",
