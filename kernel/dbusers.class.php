@@ -2,22 +2,27 @@
 
 class dbUsers extends dbJSON
 {
-	private $dbFields = array(
-		'firstName'=>	array('inFile'=>false, 'value'=>''),
-		'lastName'=>	array('inFile'=>false, 'value'=>''),
-		'username'=>	array('inFile'=>false, 'value'=>''),
-		'role'=>	array('inFile'=>false, 'value'=>'editor'),
-		'password'=>	array('inFile'=>false, 'value'=>''),
-		'salt'=>	array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
-		'email'=>	array('inFile'=>false, 'value'=>''),
-		'registered'=>	array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
-		'tokenEmail'=>	array('inFile'=>false, 'value'=>''),
-		'tokenEmailTTL'=>array('inFile'=>false, 'value'=>'2009-03-15 14:00')
+	public $dbFields = array(
+		'firstName'=>		array('inFile'=>false, 'value'=>''),
+		'lastName'=>		array('inFile'=>false, 'value'=>''),
+		'username'=>		array('inFile'=>false, 'value'=>''),
+		'role'=>		array('inFile'=>false, 'value'=>'editor'),
+		'password'=>		array('inFile'=>false, 'value'=>''),
+		'salt'=>		array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
+		'email'=>		array('inFile'=>false, 'value'=>''),
+		'registered'=>		array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
+		'tokenEmail'=>		array('inFile'=>false, 'value'=>''),
+		'tokenEmailTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00')
 	);
 
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'users.php');
+	}
+
+	public function getAll()
+	{
+		return $this->db;
 	}
 
 	// Return an array with the username databases, filtered by username.
@@ -49,11 +54,6 @@ class dbUsers extends dbJSON
 	public function userExists($username)
 	{
 		return isset($this->db[$username]);
-	}
-
-	public function getAll()
-	{
-		return $this->db;
 	}
 
 	public function generateTokenEmail($username)

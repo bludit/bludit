@@ -22,7 +22,7 @@ function reIndexTagsPosts()
 	$dbTags->reindexPosts( $dbPosts->db );
 
 	// Restore de db on dbPost
-	$dbPosts->restoreDb();
+	$dbPosts->restoreDB();
 
 	return true;
 }
