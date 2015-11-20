@@ -206,5 +206,12 @@
 	"insert-image": "Insérer l’image sélectionnée",
 	"supported-image-file-types": "Extensions des images prises en charge",
 	"date-format": "Format de la Date",
-	"time-format": "Format de l’heure"
+	"time-format": "Format de l’heure",
+	"chat-with-developers-and-users-on-gitter":"Chattez avec les développeurs et les utilisateurs sur [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"Ceci est une brève description de vous-même ou de votre site, pour modifier ce texte aller dans le panneau d’administration, paramètres -> plugins et configurer le plugin « à propos ».",
+	"profile-picture": "Image de profil",
+	"the-about-page-is-very-important": "Votre page **à propos** est très utile. Elle fournit à vos visiteurs des informations importantes sur vous, elle crée un rapport de confiance entre vous et votre visiteur, elle présente votre société et votre site et elle vous différencie de tous les autres sites de votre niche.",
+	"change-this-pages-content-on-the-admin-panel": "Changer le contenu de cette page à partir du panneau d’administration, Gestion de contenu -> Pages et cliquez sur la page « à propos » pour l’éditer.",
+	"about-your-site-or-yourself": "À propos de vous",
+	"welcome-to-bludit": "Bienvenue sur Bludit"
 }
