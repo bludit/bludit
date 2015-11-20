@@ -33,16 +33,20 @@ if(empty($tmpName)) {
 }
 
 // --- PROFILE PICTURE ---
-if($type=='profilePicture') {
-	$username = Sanitize::html($_POST['username']);
-	$tmpName = $username.'.jpg';
-
-	move_uploaded_file($source, PATH_UPLOADS_PROFILES.$tmpName);
+if($type=='profilePicture')
+{
+	// Move to tmp file
+	move_uploaded_file($source, PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension);
 
 	// Resize and crop profile image.
+	$username = Sanitize::html($_POST['username']);
+	$tmpName = $username.'.jpg';
 	$Image = new Image();
-	$Image->setImage(PATH_UPLOADS_PROFILES.$tmpName, '200', '200', 'crop');
+	$Image->setImage(PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension, '200', '200', 'crop');
 	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, true);
+
+	// Remove tmp file
+	unlink(PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension);
 }
 // --- OTHERS ---
 else {

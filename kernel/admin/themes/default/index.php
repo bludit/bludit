@@ -99,9 +99,9 @@ $(document).ready(function() {
 	<ul class="uk-navbar-nav">
 	<li class="uk-parent" data-uk-dropdown>
 		<?php
-			$profilePictureSrc = HTML_PATH_UPLOADS_PROFILES.$Login->username().'.jpg';
-			if(!file_exists($profilePictureSrc)) {
-				$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.jpg';
+			$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.jpg';
+			if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.jpg')) {
+				$profilePictureSrc = HTML_PATH_UPLOADS_PROFILES.$Login->username().'.jpg';
 			}
 		?>
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
