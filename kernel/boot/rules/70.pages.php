@@ -14,17 +14,13 @@ $pagesParents = array(NO_PARENT_CHAR=>array());
 // Functions
 // ============================================================================
 
-function orderChildren($a, $b)
+function sortPages($a, $b)
 {
 	if ($a->position() == $b->position()) {
 	    return 0;
 	}
 
 	return ($a->position() < $b->position()) ? -1 : 1;
-}
-
-function orderParent($array, $values, $offset) {
-    return ( array_slice($array, 0, $offset, true) + $values + array_slice($array, $offset, NULL, true) );
 }
 
 function build_page($key)
@@ -110,31 +106,27 @@ function build_all_pages()
 		}
 	}
 
-	// ======== Sort pages ========
+	// --- SORT PAGES ---
 
-	$tmpNoParents = $pagesParents[NO_PARENT_CHAR];
+	// Sort parents.
+	$parents = $pagesParents[NO_PARENT_CHAR];
+	uasort($parents, 'sortPages');
+
+	// Sort children.
 	unset($pagesParents[NO_PARENT_CHAR]);
-
-	// Sort children
+	$children = $pagesParents;
 	$tmpPageWithParent = array();
-	foreach($pagesParents as $parentKey=>$childrenPages)
+	foreach($children as $parentKey=>$childrenPages)
 	{
-		$tmpPageWithParent[$parentKey] = $childrenPages;
-		uasort($tmpPageWithParent[$parentKey], 'orderChildren');
-	}
-
-	// Sort parents
-	$tmp = array();
-	foreach($tmpNoParents as $parentKey=>$childrenPages)
-	{
-		// DEBUG: Workaround, Esto es un bug, cuando se usa el Cli mode
-		// DEBUG: Se genera un padre sin index.txt y adentro hay un hijo
-		if(isset($pages[$parentKey])) {
-			$tmp = orderParent($tmp, array($parentKey=>$childrenPages), $pages[$parentKey]->position());
+		// If the child doesn't have a valid parent, then doesn't included them.
+		if(isset($pages[$parentKey]))
+		{
+			$tmpPageWithParent[$parentKey] = $childrenPages;
+			uasort($tmpPageWithParent[$parentKey], 'sortPages');
 		}
 	}
 
-	$pagesParents = array(NO_PARENT_CHAR=>$tmp) + $tmpPageWithParent;
+	$pagesParents = array(NO_PARENT_CHAR=>$parents) + $tmpPageWithParent;
 }
 
 // ============================================================================
