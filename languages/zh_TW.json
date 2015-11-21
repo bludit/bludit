@@ -3,7 +3,7 @@
 	{
 		"native": "Traditional Chinese (Taiwan)",
 		"english-name": "Traditional Chinese",
-		"last-update": "2015-11-10",
+		"last-update": "2015-11-21",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
 		"website": "http://single4.ml"
@@ -203,5 +203,14 @@
 	"upload-image": "上傳圖片",
 	"drag-and-drop-or-click-here": "拖曳您的圖片到這裡或是點選這裡選擇圖片",
 	"insert-image": "插入圖片",
-	"supported-image-file-types": "可以上傳的檔案格式"
+	"supported-image-file-types": "可以上傳的檔案格式",
+	"date-format": "日期格式",
+	"time-format": "時間格式",
+	"chat-with-developers-and-users-on-gitter":"與開發者或使用者聊聊天吧~ [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"這是關於您的自己或是網站的簡短介紹，如果想要修改介紹，請至管理介面/設定/延伸模組，設定"關於"這個延伸模組。",
+	"profile-picture": "大頭貼",
+	"the-about-page-is-very-important": "這個關於頁面是對於使用者與合作夥伴非常重要、非常有用的工具。對於那些不了解您網站內容的人，您的關於頁面將會是他們第一個閱讀的頁面。",
+	"change-this-pages-content-on-the-admin-panel": "在管理介面中更改此頁面的內容，管理/頁面，接著點選關於頁面。",
+	"about-your-site-or-yourself": "關於您的網站或是您自己",
+	"welcome-to-bludit": "歡迎使用Bludit"
 }
