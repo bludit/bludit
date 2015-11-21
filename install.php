@@ -23,6 +23,7 @@ define('PATH_ROOT',		__DIR__.DS);
 define('PATH_CONTENT',		PATH_ROOT.'content'.DS);
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
+define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
@@ -30,10 +31,20 @@ define('PATH_KERNEL',		PATH_ROOT.'kernel'.DS);
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_LANGUAGES',	PATH_ROOT.'languages'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
-define('DOMAIN',		getenv('HTTP_HOST'));
+define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
 // HTML PATHs
-$base = (dirname(getenv('SCRIPT_NAME'))==DS)?'/':dirname(getenv('SCRIPT_NAME')).'/';
+$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+$base = dirname($base);
+
+if($base!=DS) {
+	$base = $base.'/';
+}
+else {
+	// Workaround for Windows Web Servers
+	$base = '/';
+}
+
 define('HTML_PATH_ROOT', $base);
 
 // Log separator
@@ -220,6 +231,12 @@ function install($adminPassword, $email, $timezoneOffset)
 		error_log($errorText, 0);
 	}
 
+	if(!mkdir(PATH_PAGES.'about', $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'about';
+		error_log($errorText, 0);
+	}
+
 	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
@@ -238,9 +255,15 @@ function install($adminPassword, $email, $timezoneOffset)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_UPLOADS, $dirpermissions, true))
+	if(!mkdir(PATH_PLUGINS_DATABASES.'about', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS;
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'about';
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
 		error_log($errorText, 0);
 	}
 
@@ -259,6 +282,14 @@ function install($adminPassword, $email, $timezoneOffset)
 		'status'=>'published',
 		'date'=>$currentDate,
 		'position'=>0
+	    	),
+		'about'=>array(
+		'description'=>$Language->get('About your site or yourself'),
+		'username'=>'admin',
+		'tags'=>array(),
+		'status'=>'published',
+		'date'=>$currentDate,
+		'position'=>1
 	    	)
 	);
 
@@ -267,7 +298,7 @@ function install($adminPassword, $email, $timezoneOffset)
 	// File posts.php
 	$data = array(
 	$firstPostSlug=>array(
-		'description'=>'Welcome to Bludit',
+		'description'=>$Language->get('Welcome to Bludit'),
 		'username'=>'admin',
 		'status'=>'published',
 		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
@@ -279,10 +310,10 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	// File site.php
 	$data = array(
-		'title'=>'Bludit',
-		'slogan'=>'cms',
+		'title'=>'BLUDIT',
+		'slogan'=>'CMS',
 		'description'=>'',
-		'footer'=>Date::current('Y'),
+		'footer'=>'Copyright © '.Date::current('Y'),
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>$timezone,
@@ -306,7 +337,7 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	$data = array(
 		'admin'=>array(
-		'firstName'=>'',
+		'firstName'=>$Language->get('Administrator'),
 		'lastName'=>'',
 		'twitter'=>'',
 		'role'=>'admin',
@@ -364,6 +395,19 @@ function install($adminPassword, $email, $timezoneOffset)
 		LOCK_EX
 	);
 
+	// File plugins/about/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'about'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>0,
+				'label'=>$Language->get('About'),
+				'text'=>$Language->get('this-is-a-brief-description-of-yourself-our-your-site')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
 	// File plugins/simplemde/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
@@ -391,19 +435,27 @@ function install($adminPassword, $email, $timezoneOffset)
 
 	// File index.txt for error page
 	$data = 'Title: '.$Language->get('Error').'
-	Content: '.$Language->get('The page has not been found');
+Content: '.$Language->get('The page has not been found');
 
 	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
+
+	// File index.txt for about page
+	$data = 'Title: '.$Language->get('About').'
+Content:
+'.$Language->get('the-about-page-is-very-important').'
+
+'.$Language->get('change-this-pages-content-on-the-admin-panel');
+
+	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
 
 	// File index.txt for welcome post
 	$data = 'Title: '.$Language->get('First post').'
 Content:
 
-## '.$Language->get('Congratulations you have successfully installed your Bludit').'
-
-### '.$Language->get('Whats next').'
+## '.$Language->get('Whats next').'
 - '.$Language->get('Manage your Bludit from the admin panel').'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
+- '.$Language->get('Chat with developers and users on Gitter').'
 - '.$Language->get('Visit the support forum').'
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
@@ -469,7 +521,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <!DOCTYPE HTML>
 <html class="uk-height-1-1 uk-notouch">
 <head>
-	<base href="admin/themes/default/">
+	<base href="kernel/admin/themes/default/">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

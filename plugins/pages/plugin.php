@@ -54,24 +54,32 @@ class pluginPages extends Plugin {
 		$parents = $pagesParents[NO_PARENT_CHAR];
 		foreach($parents as $parent)
 		{
-			// Print the parent
-			$html .= '<li>';
-			$html .= '<a class="parent '.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
-
-			// Check if the parent has children
-			if(isset($pagesParents[$parent->key()]))
+			// Check if the parent is published
+			if( $parent->published() )
 			{
-				$children = $pagesParents[$parent->key()];
+				// Print the parent
+				$html .= '<li>';
+				$html .= '<a class="parent '.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
-				// Print children
-				$html .= '<ul>';
-				foreach($children as $child)
+				// Check if the parent has children
+				if(isset($pagesParents[$parent->key()]))
 				{
-					$html .= '<li>';
-					$html .= '<a class="children '.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
-					$html .= '</li>';
+					$children = $pagesParents[$parent->key()];
+
+					// Print children
+					$html .= '<ul class="children">';
+					foreach($children as $child)
+					{
+						// Check if the child is published
+						if( $child->published() )
+						{
+							$html .= '<li class="child">';
+							$html .= '<a class="'.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
+							$html .= '</li>';
+						}
+					}
+					$html .= '</ul>';
 				}
-				$html .= '</ul>';
 			}
 		}
 

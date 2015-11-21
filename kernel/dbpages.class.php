@@ -11,7 +11,7 @@ class dbPages extends dbJSON
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
-		'date'=>		array('inFile'=>false,	'value'=>0),
+		'date'=>		array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0)
 	);
 
@@ -34,9 +34,7 @@ class dbPages extends dbJSON
 		}
 
 		// Current date.
-		if(empty($args['date'])) {
-			$args['date'] = Date::current(DB_DATE_FORMAT);
-		}
+		$args['date'] = Date::current(DB_DATE_FORMAT);
 
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)

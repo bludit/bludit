@@ -8,7 +8,7 @@ class dbTags extends dbJSON
 		$postsIndex['tag2']['name'] = 'Tag 2';
 		$postsIndex['tag2']['posts'] = array('post1','post5');
 	*/
-	private $dbFields = array(
+	public $dbFields = array(
 		'postsIndex'=>array('inFile'=>false, 'value'=>array()),
 		'pagesIndex'=>array('inFile'=>false, 'value'=>array())
 	);

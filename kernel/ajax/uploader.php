@@ -1,4 +1,12 @@
-<?php header('Content-Type: application/json');
+<?php defined('BLUDIT') or die('Bludit CMS.');
+
+header('Content-Type: application/json');
+
+// Type
+$type = 'other';
+if(!empty($_POST['type'])) {
+	$type = Sanitize::html($_POST['type']);
+}
 
 // Source
 $source = $_FILES['files']['tmp_name'][0];
@@ -24,12 +32,30 @@ if(empty($tmpName)) {
 	$tmpName = $filename.'.'.$fileExtension;
 }
 
-move_uploaded_file($source, PATH_UPLOADS.$tmpName);
+// --- PROFILE PICTURE ---
+if($type=='profilePicture')
+{
+	// Move to tmp file
+	move_uploaded_file($source, PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension);
+
+	// Resize and crop profile image.
+	$username = Sanitize::html($_POST['username']);
+	$tmpName = $username.'.jpg';
+	$Image = new Image();
+	$Image->setImage(PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension, '200', '200', 'crop');
+	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, true);
+
+	// Remove tmp file
+	unlink(PATH_UPLOADS_PROFILES.'tmp'.'.'.$fileExtension);
+}
+// --- OTHERS ---
+else {
+	move_uploaded_file($source, PATH_UPLOADS.$tmpName);
+}
 
 exit(json_encode(array(
 	'status'=>0,
-	'filename'=>$tmpName,
-	'date'=>date("F d Y H:i:s.", filemtime(PATH_UPLOADS.$tmpName))
+	'filename'=>$tmpName
 )));
 
 ?>

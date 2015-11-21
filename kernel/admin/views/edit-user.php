@@ -2,6 +2,9 @@
 
 HTML::title(array('title'=>$L->g('Edit user'), 'icon'=>'user'));
 
+echo '<div class="uk-grid">';
+echo '<div class="uk-width-7-10">';
+
 HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal'));
 
 	// Security token
@@ -91,6 +94,13 @@ if( ($Login->role()==='admin') && ($_user['username']!='admin') ) {
 }
 
 HTML::formClose();
+
+echo '</div>';
+echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
+echo '<img id="jsprofilePicture" class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_user['username'].'.jpg" alt="'.$L->g('Profile picture').'">';
+HTML::profileUploader($_user['username']);
+echo '</div>';
+echo '</div>';
 
 ?>
 
