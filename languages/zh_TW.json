@@ -207,7 +207,7 @@
 	"date-format": "日期格式",
 	"time-format": "時間格式",
 	"chat-with-developers-and-users-on-gitter":"與開發者或使用者聊聊天吧~ [Gitter](https://gitter.im/dignajar/bludit)",
-	"this-is-a-brief-description-of-yourself-our-your-site":"這是關於您的自己或是網站的簡短介紹，如果想要修改介紹，請至管理介面/設定/延伸模組，設定"關於"這個延伸模組。",
+	"this-is-a-brief-description-of-yourself-our-your-site":"這是關於您的自己或是網站的簡短介紹，如果想要修改介紹，請至管理介面/設定/延伸模組，設定一個名為關於的延伸模組。",
 	"profile-picture": "大頭貼",
 	"the-about-page-is-very-important": "這個關於頁面是對於使用者與合作夥伴非常重要、非常有用的工具。對於那些不了解您網站內容的人，您的關於頁面將會是他們第一個閱讀的頁面。",
 	"change-this-pages-content-on-the-admin-panel": "在管理介面中更改此頁面的內容，管理/頁面，接著點選關於頁面。",
