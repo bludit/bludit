@@ -206,7 +206,7 @@
 	"date-format": "Datumsformat",
 	"time-format": "Zeitformat",
 	"chat-with-developers-and-users-on-gitter":"Chatte mit Entwicklern und Benutzern bei [Gitter](https://gitter.im/dignajar/bludit)",
-	"this-is-a-brief-description-of-yourself-our-your-site":"Dies ist eine kurze Beschreibung, wer du bist, oder deiner Website. Um diesen Text zu ändern, gehe im Admin-Panel zu den Einstellunge und konfiguriere unter \"Plugins\" das Plugin \"Über\".",
+	"this-is-a-brief-description-of-yourself-our-your-site":"Dies ist eine kurze Beschreibung, wer du bist, oder deiner Website. Um diesen Text zu ändern, gehe im Admin-Panel zu den Einstellungen und konfiguriere unter \"Plugins\" das Plugin \"Über\".",
 	"profile-picture": "Profil-Bild",
 	"the-about-page-is-very-important": "Die Seite \"Über\" ist wichtig und wirkungsvoll beispielsweise für zukünfige Kunden und Partner. Für alle, die wissen möchten, wer hinter der Website steht, ist die \"Über\"-Seite die erste Informationsquelle.",
 	"change-this-pages-content-on-the-admin-panel": "Der Inhalt dieser Seite kann im Admin-Panel unter \"Verwaltung\" > \"Seiten\" geändert werden.",
