@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2015-11-20",
+		"last-update": "2015-11-22",
 		"author": "Edi Goetschel",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
@@ -209,7 +209,7 @@
 	"this-is-a-brief-description-of-yourself-our-your-site":"Dies ist eine kurze Beschreibung, wer du bist, oder deiner Website. Um diesen Text zu ändern, gehe im Admin-Panel zu den Einstellunge und konfiguriere unter \"Plugins\" das Plugin \"Über\".",
 	"profile-picture": "Profil-Bild",
 	"the-about-page-is-very-important": "Die Seite \"Über\" ist wichtig und wirkungsvoll beispielsweise für zukünfige Kunden und Partner. Für alle, die wissen möchten, wer hinter der Website steht, ist die \"Über\"-Seite die erste Informationsquelle.",
-	"change-this-pages-content-on-the-admin-panel": "Den Inhalt dieser Seite kann im Admin-Panel unter \"Verwaltung\" > \"Seiten\" geändert werden.",
+	"change-this-pages-content-on-the-admin-panel": "Der Inhalt dieser Seite kann im Admin-Panel unter \"Verwaltung\" > \"Seiten\" geändert werden.",
 	"about-your-site-or-yourself": "Über dich oder deine Website",
 	"welcome-to-bludit": "Willkommen bei Bludit"
 }
