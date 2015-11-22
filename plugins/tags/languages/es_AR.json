@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Listado de tags",
+		"description": "Muestra los tags de forma ordenada y muestra la cantidad de posts asociados a un tag."
+	}
+}
