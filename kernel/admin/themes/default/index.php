@@ -57,7 +57,7 @@ $(document).ready(function() {
 <div class="uk-container uk-container-center">
 
 	<ul class="uk-navbar-nav uk-hidden-small">
-	<li><a target="_blank" class="bludit-logo" href="http://www.bludit.com">BLUDIT</a></li>
+	<li class="bludit-logo">BLUDIT</li>
 	<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><i class="uk-icon-object-ungroup"></i> <?php $L->p('Dashboard') ?></a></li>
 	<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></li>
 	<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></li>
