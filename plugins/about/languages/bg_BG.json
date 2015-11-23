@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "За мен",
+		"description": "Кратко описание за вашия сайт или себе си.",
+		"author": "Hristo Dipchikov",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.1",
+		"releaseDate": "2015-11-29"
+	}
+}

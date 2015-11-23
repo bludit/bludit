@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Режим на поддръжка",
+		"description": "Поставете вашия сайт на режим на поддръжка, можете да получите достъп до контролния панел.",
+		"author": "Hristo Dipchikov",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.1",
+		"releaseDate": "2015-11-13"
+	},
+
+	"enable-maintence-mode": "Активиране режим на поддръжка ",
+	"message": "Съобщение"
+}

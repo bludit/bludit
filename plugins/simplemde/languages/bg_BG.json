@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Един прост, красив, с враден JavaScript  редактор  markdown от WesCossick. Адаптиран от Diego Najar за Bludit. "",
+	},
+	"toolbar": "Панел с инструменти",
+	"tab-size": "Размер на панела"
+}

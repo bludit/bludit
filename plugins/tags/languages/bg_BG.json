@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Етикети",
+		"description": "Покажи всички етикети.",
+		"author": "Hristo Dipchikov",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.1",
+		"releaseDate": "2015-11-29"
+	}
+}

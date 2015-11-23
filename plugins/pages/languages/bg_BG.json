@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Страници списък",
+		"description": "Показва списък на страниците.",
+		"author": "Hristo Dipchikov",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.1",
+		"releaseDate": "2015-11-23"
+	},
+
+	"home": "Начало",
+	"show-home-link": "Покажи връзката към начало"
+}
