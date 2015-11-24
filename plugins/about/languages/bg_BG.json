@@ -3,10 +3,10 @@
 	{
 		"name": "За мен",
 		"description": "Кратко описание за вашия сайт или за себе си.",
-		"author": "",
+		"author": "Bludit",
 		"email": "",
 		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.1",
-		"releaseDate": "2015-11-29"
+		"version": "0.6",
+		"releaseDate": "2015-11-13"
 	}
 }
