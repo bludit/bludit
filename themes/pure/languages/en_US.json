@@ -2,11 +2,11 @@
 	"theme-data":
 	{
 		"name": "Pure",
-		"description": "Simple and clean theme, based on the framework Pure.css. Website: http://purecss.io",
+		"description": "Simple and clean theme, based on the framework Pure.css.",
 		"author": "Bludit",
 		"email": "",
 		"website": "https://github.com/dignajar/bludit-themes",
-		"version": "0.3",
-		"releaseDate": "2015-10-02"
+		"version": "0.6",
+		"releaseDate": "2015-11-13"
 	}
 }

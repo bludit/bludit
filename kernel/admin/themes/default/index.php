@@ -57,7 +57,7 @@ $(document).ready(function() {
 <div class="uk-container uk-container-center">
 
 	<ul class="uk-navbar-nav uk-hidden-small">
-	<li><a target="_blank" class="bludit-logo" href="http://www.bludit.com">BLUDIT</a></li>
+	<li class="bludit-logo">BLUDIT</li>
 	<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><i class="uk-icon-object-ungroup"></i> <?php $L->p('Dashboard') ?></a></li>
 	<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></li>
 	<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></li>
@@ -98,7 +98,15 @@ $(document).ready(function() {
 	<div class="uk-navbar-flip uk-hidden-small">
 	<ul class="uk-navbar-nav">
 	<li class="uk-parent" data-uk-dropdown>
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><i class="uk-icon-user"></i> <?php echo $Login->username() ?> ▾</a>
+		<?php
+			$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.jpg';
+			if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.jpg')) {
+				$profilePictureSrc = HTML_PATH_UPLOADS_PROFILES.$Login->username().'.jpg';
+			}
+		?>
+		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
+			<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php echo $Login->username() ?> ▾
+		</a>
 		<div class="uk-dropdown uk-dropdown-navbar">
 			<ul class="uk-nav uk-nav-navbar">
 			<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><?php $L->p('Profile') ?></a></li>

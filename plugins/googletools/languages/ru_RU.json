@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Google Tools",
+		"description": "Этот плагин генерирует мета теги для проверки вашего сайта в Google Webmasters Tools и код JavaScript для отслеживания вашего сайта в Google Analytics."
+	},
+	"google-webmasters-tools": "Google Webmasters tools",
+	"google-analytics-tracking-id": "Google Analytics Tracking ID",
+	"complete-this-field-with-the-google-site-verification": "Заполните это поле для проверки владельца сайта.",
+	"complete-this-field-with-the-tracking-id": "Заполните это поле с Tracking ID чтобы сгенерировать код Javascript для отслеживания в Google Analytics."
+}

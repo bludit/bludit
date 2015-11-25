@@ -3,7 +3,7 @@
 	{
 		"native": "Українська (Україна)",
 		"english-name": "Ukrainian",
-		"last-update": "2015-10-30",
+		"last-update": "2015-11-19",
 		"author": "Allec Bernz",
 		"email": "admin@allec.info",
 		"website": "allec.info"
@@ -86,7 +86,7 @@
 	"last-name": "Прізвище",
 	"bludit-version": "Версія Bludit",
 	"powered-by": "Працює на",
-	"recent-posts": "Останні повідомлення",
+	"recent-posts": "Останні публікації",
 	"manage-pages": "Керування сторінками",
 	"advanced-options": "Додаткові параметри",
 	"user-deleted": "Користувач видалений",
@@ -119,14 +119,15 @@
 	"you-can-use-this-field-to-define-a-set-of": "Ви можете використовувати це поле для визначення набору параметрів, що відносяться до мови, країни та особливих переваг.",
 	"you-can-modify-the-url-which-identifies":"Ви можете змінити URL, який ідентифікує сторінку чи публікацію за допомогою легких для розуміння ключових слів. Не більше 150 символів.",
 	"this-field-can-help-describe-the-content": "Це поле може допомогти описати зміст у декількох словах. Не більше 150 символів.",
+
 	"delete-the-user-and-all-its-posts":"Видалити користувача та всі його публікації",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Видалити користувача та зв'язати його публікації з користувачем admin",
 	"read-more": "Читати далі",
 	"show-blog": "Показати блог",
-	"default-home-page": "Домашня сторінка за промовчанням",
+	"default-home-page": "Домашня сторінка за замовчуванням",
 	"version": "Версія",
 	"there-are-no-drafts": "Немає чернеток.",
-	"create-a-new-article-for-your-blog":"Створити нову статтю для свого блогу.",
+	"create-a-new-article-for-your-blog":"Створити нову публікацію для вашого блогу.",
 	"create-a-new-page-for-your-website":"Створити нову сторінку для вашого сайту.",
 	"invite-a-friend-to-collaborate-on-your-website":"Запросити друга співпрацювати на вашому сайті.",
 	"change-your-language-and-region-settings":"Змінити Вашу мову та регіональні налаштування.",
@@ -134,7 +135,7 @@
 	"author": "Автор",
 	"start-here": "Почніть тут",
 	"install-theme": "Встановити тему",
-	"first-post": "Перша стаття",
+	"first-post": "Перша публікація",
 	"congratulations-you-have-successfully-installed-your-bludit": "Вітаємо, Ви успішно встановили ваш **Bludit**",
 	"whats-next": "Що далі",
 	"manage-your-bludit-from-the-admin-panel": "Керуйте вашим Bludit через [панель управління](./admin/)",
@@ -158,6 +159,7 @@
 	"ip-address-has-been-blocked": "IP-адресу заблоковано.",
 	"try-again-in-a-few-minutes": "Повторіть спробу через декілька хвилин.",
 	"date": "Дата",
+
 	"scheduled": "Заплановано",
 	"publish": "Опублікувати",
 	"please-check-your-theme-configuration": "Будь ласка, перевірте конфігурацію вашої теми.",
@@ -167,6 +169,7 @@
 	"cli-mode": "Режим CLI",
 	"command-line-mode": "Режим командного рядка",
 	"enable-the-command-line-mode-if-you-add-edit": "Увімкніть режим командного рядка, якщо ви додаєте, редагуєте або видаляєте публікації та сторінки з файлової системи",
+
 	"configure": "Налаштування",
 	"uninstall": "Видалити",
 	"change-password": "Зміна пароля",
@@ -194,5 +197,21 @@
 	"general-settings": "Загальні налаштування",
 	"advanced-settings": "Додаткові налаштування",
 	"manage-users": "Управління користувачами",
-	"view-and-edit-your-profile": "Перегляд і редагування свого профілю."
+	"view-and-edit-your-profile": "Перегляд і редагування свого профілю.",
+
+	"password-must-be-at-least-6-characters-long": "Пароль повинен містити не менше 6 символів",
+	"images": "Зображення",
+	"upload-image": "Завантажити зображення",
+	"drag-and-drop-or-click-here": "Перетягніть або натисніть тут",
+	"insert-image": "Вставити зображення",
+	"supported-image-file-types": "Підтримувані типи файлів зображень",
+	"date-format": "Формат дати",
+	"time-format": "Формат часу",
+	"chat-with-developers-and-users-on-gitter":"Чат з розробниками і користувачами [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"Це короткий опис про себе або про сайт, щоб змінити цей текст зайдіть в панель адміністратора, налаштування, плагіни, і налаштуйте плагін про сайт.",
+	"profile-picture": "Зображення профілю",
+	"the-about-page-is-very-important": "Сторінка про сайт є важливим і потужним інструментом для потенційних клієнтів і партнерів. Для тих, кому цікаво, хто стоїть за сайтом, ваша сторінка про сайт є першим джерелом інформації.",
+	"change-this-pages-content-on-the-admin-panel": "Щоб змінити зміст цієї сторінки зайдіть в панель адміністратора, керування, сторінки та натисніть кнопку Про сайт.",
+	"about-your-site-or-yourself": "Про Ваш сайт або про Вас",
+	"welcome-to-bludit": "Ласкаво просимо до Bludit"
 }

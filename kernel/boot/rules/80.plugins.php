@@ -63,29 +63,31 @@ function build_plugins()
 	{
 		$Plugin = new $pluginClass;
 
-		// Set Plugin data
+		// Default language and meta data for the plugin
+		$tmpMetaData = array();
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
+		$database = new dbJSON($languageFilename, false);
+		$tmpMetaData = $database->db['plugin-data'];
+
+		// Check if the plugin is translated.
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
 		if( Sanitize::pathFile($languageFilename) )
 		{
 			$database = new dbJSON($languageFilename, false);
-		}
-		else
-		{
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
-			$database = new dbJSON($languageFilename, false);
+			$tmpMetaData = array_merge($tmpMetaData, $database->db['plugin-data']);
 		}
 
-		$databaseArray = $database->db;
-		$Plugin->setData( $databaseArray['plugin-data'] );
+		// Set plugin meta data
+		$Plugin->setData($tmpMetaData);
 
 		// Add words to language dictionary.
-		unset($databaseArray['plugin-data']);
-		$Language->add($databaseArray);
+		unset($database->db['plugin-data']);
+		$Language->add($database->db);
 
 		// Push Plugin to array all plugins installed and not installed.
 		$plugins['all'][$pluginClass] = $Plugin;
 
-		// If the plugin installed
+		// If the plugin is installed, order by hooks.
 		if($Plugin->installed())
 		{
 			foreach($pluginsEvents as $event=>$value)

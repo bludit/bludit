@@ -26,6 +26,10 @@
 	background: #1F5FC4;
 }
 
+.uk-form legend {
+	width: 70% !important;
+}
+
 .uk-navbar-nav > li > a {
 	border: none;
 	height: 70px;
@@ -62,12 +66,16 @@ a {
 	color: #2672ec;
 }
 
-a.bludit-logo {
+li.bludit-logo {
 	color: #848484 !important;
-}
-
-a.bludit-logo:hover {
-	background: none !important;
+	height: 70px;
+	padding: 15px;
+	display: block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 35px;
+	line-height: 40px;
+	text-shadow: 0 1px 0 #fff;
 }
 
 .uk-panel-box {

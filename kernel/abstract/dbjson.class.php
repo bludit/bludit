@@ -46,7 +46,7 @@ class dbJSON
 		}
 	}
 
-	public function restoreDb()
+	public function restoreDB()
 	{
 		$this->db = $this->dbBackup;
 		return true;
@@ -56,6 +56,15 @@ class dbJSON
 	public function count()
 	{
 		return count($this->db);
+	}
+
+	public function getField($field)
+	{
+		if(isset($this->db[$field])) {
+			return $this->db[$field];
+		}
+
+		return $this->dbFields[$field]['value'];
 	}
 
 	// Save the JSON file.

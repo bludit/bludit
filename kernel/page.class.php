@@ -147,11 +147,24 @@ class Page extends fileContent
 		return '/'.$htmlPath.'/'.$tmp;
 	}
 
+	// Returns the parent key, if the page doesn't have a parent returns FALSE.
 	public function parentKey()
 	{
 		$explode = explode('/', $this->getField('key'));
 		if(isset($explode[1])) {
 			return $explode[0];
+		}
+
+		return false;
+	}
+
+	// Returns the parent method output, if the page doesn't have a parent returns FALSE.
+	public function parentMethod($method)
+	{
+		global $pages;
+
+		if( isset($pages[$this->parentKey()]) ) {
+			return $pages[$this->parentKey()]->{$method}();
 		}
 
 		return false;
