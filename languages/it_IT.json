@@ -210,8 +210,8 @@
 	"chat-with-developers-and-users-on-gitter":"Chatta con gli sviluppatori e gli utenti su [Gitter](https://gitter.im/dignajar/bludit)",
 	"this-is-a-brief-description-of-yourself-our-your-site":"Questa è una breve descrizione tua o del tuo sito, Per cambiare il testo vai nel pannello di amministrazione, impostazioni, plugins, e configura il plugin about.",
 	"profile-picture": "Foto del profilo",
-	"the-about-page-is-very-important": "a pagina << about >> è molto utile. Fornisce ai vostri visitatori importanti informazioni sul vostro sito. Uno strumento efficace per potenziali clienti e partners.",
-	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione, Gestione del contenuto -> Pagina e Clicca sulla pagina << about >> per modificare.",
+	"the-about-page-is-very-important": "La pagina << about >> è molto utile. Fornisce ai tuoi visitatori importanti informazioni sul sito. Uno strumento efficace per potenziali clienti e partners.",
+	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione, Amministra -> Pagine e Clicca sulla pagina << about >> per modificare.",
 	"about-your-site-or-yourself": "A proposito del tuo sito o di te stesso",
 	"welcome-to-bludit": "Benvenuti a Bludit"
 }
