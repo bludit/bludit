@@ -123,7 +123,7 @@
 	"delete-the-user-and-all-its-posts":"Elimina l'utente e tutti i suoi articoli",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Elimina l'utente e assegna i suoi articoli all'utente admin",
 	"read-more": "Leggi tutto",
-	"show-blog": "Visulaizza blog",
+	"show-blog": "Visualizza blog",
 	"default-home-page": "Home page predefinita",
 	"version": "Versione",
 	"there-are-no-drafts": "Non ci sono bozze.",
@@ -207,11 +207,11 @@
 	"supported-image-file-types": "Formati file immagine supportati",
 	"date-format": "Formato data",
 	"time-format": "Formato ora",
-	"chat-with-developers-and-users-on-gitter":"Chat with sviluppatori e utenti su [Gitter](https://gitter.im/dignajar/bludit)",
+	"chat-with-developers-and-users-on-gitter":"Chatta con gli sviluppatori e gli utenti su [Gitter](https://gitter.im/dignajar/bludit)",
 	"this-is-a-brief-description-of-yourself-our-your-site":"Questa è una breve descrizione tua o del tuo sito, Per cambiare il testo vai nel pannello di amministrazione, impostazioni, plugins, e configura il plugin about.",
 	"profile-picture": "Foto del profilo",
-	"the-about-page-is-very-important": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
-	"change-this-pages-content-on-the-admin-panel": "Change this page's content on the admin panel, manage, pages and click on the about page.",
+	"the-about-page-is-very-important": "La pagina << about >> è molto important. Fornisce ai vostri visitatori informazioni importanti su di voi e sul vostro sito creando un rapporto di fiducia con i visitatori.",
+	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione, Gestione del contenuto -> Pagina e Clicca sulla pagina << about >> per modificare.",
 	"about-your-site-or-yourself": "A proposito del tuo sito o di te stesso",
 	"welcome-to-bludit": "Benvenuti a Bludit"
 }
