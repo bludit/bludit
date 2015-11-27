@@ -94,7 +94,7 @@ echo '<div class="uk-width-large-3-10">';
 	// Date input
 	HTML::formInputText(array(
 		'name'=>'date',
-		'value'=>$_Post->date(),
+		'value'=>$_Post->dateRaw(),
 		'class'=>'uk-width-1-1 uk-form-large',
 		'tip'=>$L->g('To schedule the post just select the date and time'),
 		'label'=>$L->g('Date')

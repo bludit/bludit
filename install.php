@@ -531,12 +531,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
 	<link rel="stylesheet" type="text/css" href="./css/installer.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
 
 </head>
 <body class="uk-height-1-1">

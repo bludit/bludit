@@ -12,19 +12,20 @@
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/upload.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/form-file.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/placeholder.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/progress.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+
 	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/upload.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/form-file.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/placeholder.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/progress.min.css?version=<?php echo BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/uikit/upload.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/upload.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>

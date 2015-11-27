@@ -12,12 +12,12 @@
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/login.css?version=<?php echo BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('loginHead') ?>
