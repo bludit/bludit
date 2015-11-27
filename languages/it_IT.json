@@ -6,7 +6,7 @@
 		"last-update": "2015-11-26",
 		"author": "Daniele La Pira",
 		"email": "daniele.lapira@gmail.com",
-		"website": ""
+		"website": "https://github.com/danielelapira"
 	},
 
 	"username": "Nome Utente",
@@ -23,11 +23,11 @@
 	"cancel": "Annulla",
 	"content": "Contenuto",
 	"title": "Titolo",
-	"no-parent": "Nessuna pagina padre",
+	"no-parent": "Nessuna pagina genitore",
 	"edit-page": "Modifica Pagina",
 	"edit-post": "Modifica Articolo",
 	"add-a-new-user": "Aggiungi un nuovo utente",
-	"parent": "Padre",
+	"parent": "Genitore",
 	"friendly-url": "URL amichevole",
 	"description": "Descrizione",
 	"posted-by": "Pubblicato da",
@@ -52,7 +52,7 @@
 	"prev-page": "Pagina precedente",
 	"next-page": "Pagina seguente",
 	"configure-plugin": "Configura plugin",
-	"confirm-delete-this-action-cannot-be-undone": "Conferma l'eliminazione, questa azione non può essere annullata.",
+	"confirm-delete-this-action-cannot-be-undone": "Conferma l'eliminazione. Questa azione non può essere annullata.",
 	"site-title": "Titolo del sito",
 	"site-slogan": "Slogan del sito",
 	"site-description": "Descrizione del sito",
