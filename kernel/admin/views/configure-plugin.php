@@ -7,7 +7,7 @@ HTML::formOpen(array('id'=>'jsformplugin'));
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	// Print the plugin form

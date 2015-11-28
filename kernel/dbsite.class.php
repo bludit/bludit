@@ -150,6 +150,14 @@ class dbSite extends dbJSON
 		return $this->getField('url');
 	}
 
+	public function domain()
+	{
+		$parse = parse_url($this->url());
+		$domain = $parse['scheme']."://".$parse['host'];
+
+		return $domain;
+	}
+
 	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
 	public function cliMode()
 	{

@@ -28,6 +28,7 @@
 
 .uk-form legend {
 	width: 70% !important;
+	margin-top: 40px;
 }
 
 .uk-navbar-nav > li > a {
@@ -90,7 +91,7 @@ li.bludit-logo {
 }
 
 h2.title {
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 button.delete-button {
@@ -111,6 +112,10 @@ button.delete-button:hover {
 	height: 400px;
 }
 
+.bl-view {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
 
 /* ----------- ALERT ----------- */
 
@@ -149,7 +154,7 @@ div.login-form {
 /* ----------- DASHBOARD ----------- */
 
 div.dashboard-links {
-	margin: 20px 0;
+	margin: 0 0 25px 0;
 }
 
 div.dashboard-links h4 {

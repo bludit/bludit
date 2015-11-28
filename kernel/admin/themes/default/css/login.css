@@ -18,6 +18,11 @@ input[type="password"] {
 
 /* ----------- BLUDIT ----------- */
 
+div.login-box {
+	width: 400px;
+	max-width: calc(100% - 40px);
+}
+
 div.login-box > h1 {
 	font-weight: lighter;
 	letter-spacing: 4px;
@@ -26,7 +31,6 @@ div.login-box > h1 {
 }
 
 div.login-form {
-	width: 400px;
 	text-align: left;
 }
 

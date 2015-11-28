@@ -7,7 +7,7 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	// Key input

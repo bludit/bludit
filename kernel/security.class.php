@@ -19,16 +19,18 @@ class Security extends dbJSON
 	// ====================================================
 
 	// Generate and save the token in Session.
-	public function generateToken()
+	public function generateTokenCSRF()
 	{
 		$token = Text::randomText(8);
 		$token = sha1($token);
+
+		Log::set(__METHOD__.LOG_SEP.'New tokenCSRF was generated '.$token);
 
 		Session::set('tokenCSRF', $token);
 	}
 
 	// Validate the token.
-	public function validateToken($token)
+	public function validateTokenCSRF($token)
 	{
 		$sessionToken = Session::get('tokenCSRF');
 
@@ -36,12 +38,12 @@ class Security extends dbJSON
 	}
 
 	// Returns the token.
-	public function getToken()
+	public function getTokenCSRF()
 	{
 		return Session::get('tokenCSRF');
 	}
 
-	public function printToken()
+	public function printTokenCSRF()
 	{
 		echo Session::get('tokenCSRF');
 	}

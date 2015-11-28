@@ -6,7 +6,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	HTML::formSelect(array(

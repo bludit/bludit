@@ -7,8 +7,10 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
+
+	HTML::legend(array('value'=>$L->g('Site')));
 
 	HTML::formInputText(array(
 		'name'=>'title',
