@@ -34,16 +34,17 @@ foreach($themesPaths as $themePath)
 	{
 		$database = new dbJSON($langDefaultFile, false);
 		$databaseArray = $database->db;
+		$themeMetaData = $database->db['theme-data'];
 
 		// Check if exists locale language
 		if( Sanitize::pathFile($langLocaleFile) ) {
 			$database = new dbJSON($langLocaleFile, false);
-			$databaseArray['theme-data'] = array_merge($databaseArray['theme-data'], $database->db['theme-data']);
+			$themeMetaData = array_merge($themeMetaData, $database->db['theme-data']);
 		}
 
-		$databaseArray['theme-data']['dirname'] = basename($themePath);
+		$themeMetaData['dirname'] = basename($themePath);
 
 		// Theme data
-		array_push($themes, $databaseArray['theme-data']);
+		array_push($themes, $themeMetaData);
 	}
 }
