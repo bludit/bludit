@@ -124,12 +124,14 @@ button.delete-button:hover {
 /* ----------- ALERT ----------- */
 
 #alert {
-	display: none;
+	bottom: 20px;
 	color: #ffffff;
+	display: none;
 	padding: 24px;
 	position: fixed;
+	right: 20px;
 	text-align: center;
-	width: 100%;
+	width: 350px;
 	z-index: 100;
 }
 

@@ -243,9 +243,9 @@ function install($adminPassword, $email, $timezoneOffset)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tinymce', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tinymce';
 		error_log($errorText, 0);
 	}
 
@@ -408,14 +408,14 @@ function install($adminPassword, $email, $timezoneOffset)
 		LOCK_EX
 	);
 
-	// File plugins/simplemde/db.php
+	// File plugins/tinymce/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
+		PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
 				'position'=>0,
-				'tabSize'=>4,
-				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;, &quot;guide&quot;'
+				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code, image',
+				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
