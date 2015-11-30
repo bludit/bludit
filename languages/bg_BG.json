@@ -205,7 +205,7 @@
 	"drag-and-drop-or-click-here": "Влачите и пускате или натиснете тук",
 	"insert-image": "Вмъкни снимка",
 		"supported-image-file-types": "Поддържани файлови формати за снимки",
-	"date-format": "Дата формат",
+	"date-format": "Формат дата ",
 	"time-format": "Формат за време",
 	"chat-with-developers-and-users-on-gitter":"Чат с разработчици и потребители на [Gitter](https://gitter.im/dignajar/bludit)",
 	"this-is-a-brief-description-of-yourself-our-your-site":"Това е кратко описание на вашия сайт, за да се промени този текст отидете в админ панела, настройки плъгини, конфигуриране на плъгин About.",
@@ -213,6 +213,11 @@
 	"the-about-page-is-very-important": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
 	"change-this-pages-content-on-the-admin-panel": "Промяна на съдържанието на страницата се извършва от админ панела, управление, страници и кликнете върху страницата.",
 	"about-your-site-or-yourself": "За твоя сайт или за теб",
-	"welcome-to-bludit": "Добре дошли в Bludit"
+	"welcome-to-bludit": "Добре дошли в Bludit",
+
+	"site-information": "Информация за сайта",
+	"date-and-time-formats": "Формат дата и час",
+	"activate": "Активиране",
+	"deactivate": "Деактивиране"
 }
 
