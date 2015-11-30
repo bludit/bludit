@@ -19,7 +19,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 		'value'=>$_user['username']
 	));
 
-	HTML::legend(array('value'=>$L->g('Profile')));
+	HTML::legend(array('value'=>$L->g('Profile'), 'class'=>'first-child'));
 
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',

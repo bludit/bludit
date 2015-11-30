@@ -9,7 +9,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'value'=>$Security->getTokenCSRF()
     ));
 
-    HTML::legend(array('value'=>$L->g('General')));
+    HTML::legend(array('value'=>$L->g('General'), 'class'=>'first-child'));
 
     HTML::formSelect(array(
         'name'=>'postsperpage',

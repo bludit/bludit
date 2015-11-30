@@ -10,7 +10,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'value'=>$Security->getTokenCSRF()
 	));
 
-	HTML::legend(array('value'=>$L->g('Site')));
+	HTML::legend(array('value'=>$L->g('Site information'), 'class'=>'first-child'));
 
 	HTML::formInputText(array(
 		'name'=>'title',

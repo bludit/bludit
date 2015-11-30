@@ -152,6 +152,22 @@ class dbSite extends dbJSON
 
 	public function domain()
 	{
+		// If the URL field is not set, try detect the domain.
+		if(Text::isEmpty( $this->url() ))
+		{
+			if(!empty($_SERVER['HTTPS'])) {
+				$protocol = 'https://';
+			}
+			else {
+				$protocol = 'http://';
+			}
+
+			$domain = $_SERVER['HTTP_HOST'];
+
+			return $protocol.$domain.HTML_PATH_ROOT;
+		}
+
+		// Parse the domain from the field URL.
 		$parse = parse_url($this->url());
 		$domain = $parse['scheme']."://".$parse['host'];
 

@@ -26,9 +26,13 @@
 	background: #1F5FC4;
 }
 
-.uk-form legend {
+legend {
 	width: 70% !important;
-	margin-top: 40px;
+	margin-top: 40px !important;
+}
+
+legend.first-child {
+	margin-top: 0px !important;
 }
 
 .uk-navbar-nav > li > a {
