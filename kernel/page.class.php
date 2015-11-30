@@ -79,7 +79,7 @@ class Page extends fileContent
 	}
 
 	// Returns the post date according to locale settings and format settings.
-	public function date($format=false)
+	public function date()
 	{
 		return $this->getField('date');
 	}
