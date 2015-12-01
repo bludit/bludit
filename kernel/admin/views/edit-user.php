@@ -10,7 +10,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	// Security token
@@ -19,7 +19,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 		'value'=>$_user['username']
 	));
 
-	HTML::legend(array('value'=>$L->g('Profile')));
+	HTML::legend(array('value'=>$L->g('Profile'), 'class'=>'first-child'));
 
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',

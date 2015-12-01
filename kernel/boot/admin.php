@@ -15,7 +15,7 @@ $layout['controller'] = $layout['view'] = $layout['slug'] = $explodeSlug[0];
 unset($explodeSlug[0]);
 $layout['parameters'] = implode('/', $explodeSlug);
 
-// Disable Magic Quotes
+// Disable Magic Quotes.
 // Thanks, http://stackoverflow.com/questions/517008/how-to-turn-off-magic-quotes-on-shared-hosting
 if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
 {
@@ -24,18 +24,19 @@ if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) )
     $_COOKIE	= array_map('stripslashes', $_COOKIE);
 }
 
-// AJAX
+// --- AJAX ---
 if( $layout['slug']==='ajax' )
 {
+	// Check if the user is loggued.
 	if($Login->isLogged())
 	{
-		// Load AJAX file
+		// Load the ajax file.
 		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
 			include(PATH_AJAX.$layout['parameters'].'.php');
 		}
 	}
 }
-// ADMIN AREA
+// --- ADMIN AREA ---
 else
 {
 	// Boot rules
@@ -47,6 +48,10 @@ else
 	include(PATH_RULES.'99.themes.php');
 	include(PATH_RULES.'99.security.php');
 
+	// Page not found.
+	// User not logged.
+	// Slug is login.
+	// Slug is login-email.
 	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') )
 	{
 		$layout['controller']	= 'login';
@@ -59,28 +64,29 @@ else
 			$layout['view']		= 'login-email';
 		}
 
-		// Generate the token for the user not logged, when the user is loggued the token will be change.
-		$Security->generateToken();
+		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
+		$Security->generateTokenCSRF();
 	}
 
-	// Plugins before admin area loaded
+	// Load plugins before the admin area will be load.
 	Theme::plugins('beforeAdminLoad');
 
-	// Admin theme init.php
+	// Load init.php if the theme has one.
 	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') ) {
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.'init.php');
 	}
 
-	// Load controller
+	// Load controller.
 	if( Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php') ) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
 	}
 
-	// Load view and theme
+	// Load view and theme.
 	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) ) {
 		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.$layout['template']);
 	}
 
-	// Plugins after admin area loaded
+	// Load plugins after the admin area is loaded.
 	Theme::plugins('afterAdminLoad');
+
 }

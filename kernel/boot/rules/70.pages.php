@@ -28,6 +28,7 @@ function build_page($key)
 	global $dbPages;
 	global $dbUsers;
 	global $Parsedown;
+	global $Site;
 
 	// Page object, content from FILE.
 	$Page = new Page($key);
@@ -57,6 +58,13 @@ function build_page($key)
 	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Page->setField('content', $content, true);
+
+	// Date format
+	$pageDate = $Page->date();
+	$Page->setField('dateRaw', $pageDate, true);
+
+	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
+	$Page->setField('date', $pageDateFormated, true);
 
 	// Parse username for the page.
 	if( $dbUsers->userExists( $Page->username() ) )

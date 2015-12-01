@@ -194,11 +194,10 @@ define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
-// Objects with dependency
+// --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );
-
 $Url->checkFilters( $Site->uriFilters() );
 
-// Objects shortcuts
+// --- Objects shortcuts ---
 $L = $Language;

@@ -165,11 +165,13 @@ class Text {
 		return ucfirst($string);
 	}
 
-	// Find position of first occurrence of substring in a string.
-	public static function strpos($string, $substring)
+	// Find position of first occurrence of substring in a string otherwise returns FALSE.
+	public static function stringPosition($string, $substring)
 	{
-		if(MB_STRING)
+		if(MB_STRING) {
 			return mb_strpos($string, $substring, 0, 'UTF-8');
+		}
+
 		return strpos($string, $substring);
 	}
 

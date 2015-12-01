@@ -117,7 +117,9 @@ class HTML {
 
 	public static function legend($args)
 	{
-		$html = '<legend>'.$args['value'].'</legend>';
+		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
+
+		$html = '<legend '.$class.'>'.$args['value'].'</legend>';
 		echo $html;
 	}
 

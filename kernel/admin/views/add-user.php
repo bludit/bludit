@@ -7,7 +7,7 @@ HTML::formOpen(array('id'=>'add-user-form', 'class'=>'uk-form-horizontal'));
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	HTML::formInputText(array(

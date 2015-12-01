@@ -23,7 +23,7 @@ function checkPost($args)
 	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
 	{
 		// Renew the token. This token will be the same inside the session for multiple forms.
-		$Security->generateToken();
+		$Security->generateTokenCSRF();
 
 		Redirect::page('admin', 'dashboard');
 		return true;

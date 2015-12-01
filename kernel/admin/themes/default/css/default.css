@@ -26,8 +26,13 @@
 	background: #1F5FC4;
 }
 
-.uk-form legend {
+legend {
 	width: 70% !important;
+	margin-top: 40px !important;
+}
+
+legend.first-child {
+	margin-top: 0px !important;
 }
 
 .uk-navbar-nav > li > a {
@@ -90,7 +95,7 @@ li.bludit-logo {
 }
 
 h2.title {
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 button.delete-button {
@@ -111,16 +116,22 @@ button.delete-button:hover {
 	height: 400px;
 }
 
+.bl-view {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
 
 /* ----------- ALERT ----------- */
 
 #alert {
-	display: none;
+	bottom: 20px;
 	color: #ffffff;
+	display: none;
 	padding: 24px;
 	position: fixed;
+	right: 20px;
 	text-align: center;
-	width: 100%;
+	width: 350px;
 	z-index: 100;
 }
 
@@ -149,7 +160,7 @@ div.login-form {
 /* ----------- DASHBOARD ----------- */
 
 div.dashboard-links {
-	margin: 20px 0;
+	margin: 0 0 25px 0;
 }
 
 div.dashboard-links h4 {
