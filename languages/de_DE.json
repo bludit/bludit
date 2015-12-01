@@ -183,12 +183,12 @@
 	"sender-email": "Absender",
 	"emails-will-be-sent-from-this-address":"E-Mails werden mit dieser E-Mail-Adresse als Absender verschickt.",
 	"bludit-login-access-code": "BLUDIT - Zugangscode",
-	"check-your-inbox-for-your-login-access-code":"Der Zugangscoe wurde Dir geschickt.",
+	"check-your-inbox-for-your-login-access-code":"Der Zugangscode wurde dir geschickt.",
 	"there-was-a-problem-sending-the-email":"Es besteht ein Pronlem mit dem Verschicken dieser E-Mail.",
 	"back-to-login-form": "Zurück zum Login",
 	"send-me-a-login-access-code": "Zugangscode zuschicken",
 	"get-login-access-code": "Zugangscode schicken",
-	"email-notification-login-access-code": "<p>This is a notification from your website {{WEBSITE_NAME}}</p><p>You request a login access code, follow the next link:</p><p>{{LINK}}</p>",
+	"email-notification-login-access-code": "<p>Du hast einen Zugangscode für die Website {{WEBSITE_NAME}} angefordert.</p><p>Bitte klicke folgenden Link an oder kopiere ihn, um ihn in der Adresszeile des Browsers einzugeben:</p><p>{{LINK}}</p>",
 	"there-are-no-scheduled-posts": "Es sind keine geplanten Beiträge vorhanden.",
 	"show-password": "Passwort zeigen",
 	"edit-or-remove-your=pages": "Seiten bearbeiten oder löschen.",
@@ -211,5 +211,9 @@
 	"the-about-page-is-very-important": "Die Seite \"Über\" ist wichtig und wirkungsvoll beispielsweise für zukünfige Kunden und Partner. Für alle, die wissen möchten, wer hinter der Website steht, ist die \"Über\"-Seite die erste Informationsquelle.",
 	"change-this-pages-content-on-the-admin-panel": "Der Inhalt dieser Seite kann im Admin-Panel unter \"Verwaltung\" > \"Seiten\" geändert werden.",
 	"about-your-site-or-yourself": "Über dich oder deine Website",
-	"welcome-to-bludit": "Willkommen bei Bludit"
+	"welcome-to-bludit": "Willkommen bei Bludit",
+	"site-information": "Angaben zur Website",
+	"date-and-time-formats": "Datum und Zeit",
+	"activate": "Aktivieren",
+	"deactivate": "Deaktivieren"
 }
