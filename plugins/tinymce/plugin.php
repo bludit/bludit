@@ -79,6 +79,7 @@ class pluginTinymce extends Plugin {
 				width:"100%",
 				statusbar: false,
 				menubar:false,
+				language_url:"'.$pluginPath.'tinymce/langs/'.$language.'.js",
 				browser_spellcheck: true,
 				autoresize_bottom_margin: "50",
 				pagebreak_separator: "'.PAGE_BREAK.'",
