@@ -65,8 +65,12 @@ class pluginTinymce extends Plugin {
 		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
-			$language = $Site->shortLanguage();
 			$pluginPath = $this->htmlPath();
+
+			$language = '';
+			if($Site->shortLanguage()!=='en') {
+				$language = 'language_url:"'.$pluginPath.'tinymce/langs/'.$Site->shortLanguage().'.js",';
+			}
 
 			$html  = '<script>$(document).ready(function() { ';
 			$html .= 'tinymce.init({
@@ -79,7 +83,7 @@ class pluginTinymce extends Plugin {
 				width:"100%",
 				statusbar: false,
 				menubar:false,
-				language_url:"'.$pluginPath.'tinymce/langs/'.$language.'.js",
+				'.$language.'
 				browser_spellcheck: true,
 				autoresize_bottom_margin: "50",
 				pagebreak_separator: "'.PAGE_BREAK.'",
