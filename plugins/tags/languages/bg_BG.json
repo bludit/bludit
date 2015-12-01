@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Етикети",
-		"description": "Покажи всички етикети.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
+		"description": "Покажи всички етикети."
 	}
 }

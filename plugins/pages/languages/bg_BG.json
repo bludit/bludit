@@ -2,12 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Страници списък",
-		"description": "Показва списък на страниците.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
+		"description": "Показва списък на страниците."
 	},
 
 	"home": "Начало",
