@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Bakım Modu",
+		"description": "Sitenizi bakım moduna alın, admin paneline erişmeye devam edebilirsiniz.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.7",
+		"releaseDate": "2015-12-01"
+	},
+
+	"enable-maintence-mode": "Bakım modunu etkinleştir.",
+	"message": "Mesaj"
+}
