@@ -414,8 +414,8 @@ function install($adminPassword, $email, $timezoneOffset)
 		$dataHead.json_encode(
 			array(
 				'position'=>0,
-				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code, image',
-				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen'
+				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
+				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
