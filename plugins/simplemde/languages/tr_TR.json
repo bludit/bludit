@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Basit, güzel ve gömülü bir Javascript editörü ,@WesCossick tarafından yapılmıştır. Bludit için uyarlayan Diego Najar.",
+		"author": "NextStepWebs",
+		"email": "",
+		"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
+		"version": "1.8.1",
+		"releaseDate": "2015-11-13"
+	},
+	"toolbar": "Araçlar",
+	"tab-size": "Boşluk boyutu"
+}
