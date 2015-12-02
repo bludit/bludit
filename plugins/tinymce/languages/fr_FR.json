@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "TinyMCE est un éditeur HTML très simple, avec de nombreux plugins et très personnalisable.",
+		"author": "TinyMCE",
+		"email": "",
+		"website": "http://www.tinymce.com",
+		"version": "4.3",
+		"releaseDate": "2015-11-29"
+	}
+}
