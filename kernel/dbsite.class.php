@@ -21,7 +21,8 @@ class dbSite extends dbJSON
 		'cliMode'=>		array('inFile'=>false, 'value'=>true),
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
-		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a')
+		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a'),
+		'currentBuild'=>	array('inFile'=>false, 'value'=>0)
 	);
 
 	function __construct()
@@ -149,6 +150,30 @@ class dbSite extends dbJSON
 		return $this->getField('url');
 	}
 
+	public function domain()
+	{
+		// If the URL field is not set, try detect the domain.
+		if(Text::isEmpty( $this->url() ))
+		{
+			if(!empty($_SERVER['HTTPS'])) {
+				$protocol = 'https://';
+			}
+			else {
+				$protocol = 'http://';
+			}
+
+			$domain = $_SERVER['HTTP_HOST'];
+
+			return $protocol.$domain.HTML_PATH_ROOT;
+		}
+
+		// Parse the domain from the field URL.
+		$parse = parse_url($this->url());
+		$domain = $parse['scheme']."://".$parse['host'];
+
+		return $domain;
+	}
+
 	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
 	public function cliMode()
 	{
@@ -165,6 +190,12 @@ class dbSite extends dbJSON
 	public function timezone()
 	{
 		return $this->getField('timezone');
+	}
+
+	// Returns the current build / version of Bludit.
+	public function currentBuild()
+	{
+		return $this->getField('currentBuild');
 	}
 
 	// Returns posts per page.

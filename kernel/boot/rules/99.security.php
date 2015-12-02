@@ -20,9 +20,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	$token = isset($_POST['tokenCSRF']) ? Sanitize::html($_POST['tokenCSRF']) : false;
 
-	if( !$Security->validateToken($token) )
+	if( !$Security->validateTokenCSRF($token) )
 	{
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying validate the tokenCSRF. Token CSRF ID: '.$token);
+		Log::set(__FILE__.LOG_SEP.'Error occurred when trying to validate the tokenCSRF. Token CSRF ID: '.$token);
 
 		// Destroy the session.
 		Session::destroy();

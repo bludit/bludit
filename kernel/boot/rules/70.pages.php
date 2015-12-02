@@ -14,7 +14,7 @@ $pagesParents = array(NO_PARENT_CHAR=>array());
 // Functions
 // ============================================================================
 
-function orderChildren($a, $b)
+function sortPages($a, $b)
 {
 	if ($a->position() == $b->position()) {
 	    return 0;
@@ -23,15 +23,12 @@ function orderChildren($a, $b)
 	return ($a->position() < $b->position()) ? -1 : 1;
 }
 
-function orderParent($array, $values, $offset) {
-    return ( array_slice($array, 0, $offset, true) + $values + array_slice($array, $offset, NULL, true) );
-}
-
 function build_page($key)
 {
 	global $dbPages;
 	global $dbUsers;
 	global $Parsedown;
+	global $Site;
 
 	// Page object, content from FILE.
 	$Page = new Page($key);
@@ -61,6 +58,13 @@ function build_page($key)
 	$content = $Parsedown->text($content); // Parse Markdown.
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Page->setField('content', $content, true);
+
+	// Date format
+	$pageDate = $Page->date();
+	$Page->setField('dateRaw', $pageDate, true);
+
+	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
+	$Page->setField('date', $pageDateFormated, true);
 
 	// Parse username for the page.
 	if( $dbUsers->userExists( $Page->username() ) )
@@ -110,31 +114,27 @@ function build_all_pages()
 		}
 	}
 
-	// ======== Sort pages ========
+	// --- SORT PAGES ---
 
-	$tmpNoParents = $pagesParents[NO_PARENT_CHAR];
+	// Sort parents.
+	$parents = $pagesParents[NO_PARENT_CHAR];
+	uasort($parents, 'sortPages');
+
+	// Sort children.
 	unset($pagesParents[NO_PARENT_CHAR]);
-
-	// Sort children
+	$children = $pagesParents;
 	$tmpPageWithParent = array();
-	foreach($pagesParents as $parentKey=>$childrenPages)
+	foreach($children as $parentKey=>$childrenPages)
 	{
-		$tmpPageWithParent[$parentKey] = $childrenPages;
-		uasort($tmpPageWithParent[$parentKey], 'orderChildren');
-	}
-
-	// Sort parents
-	$tmp = array();
-	foreach($tmpNoParents as $parentKey=>$childrenPages)
-	{
-		// DEBUG: Workaround, Esto es un bug, cuando se usa el Cli mode
-		// DEBUG: Se genera un padre sin index.txt y adentro hay un hijo
-		if(isset($pages[$parentKey])) {
-			$tmp = orderParent($tmp, array($parentKey=>$childrenPages), $pages[$parentKey]->position());
+		// If the child doesn't have a valid parent, then doesn't included them.
+		if(isset($pages[$parentKey]))
+		{
+			$tmpPageWithParent[$parentKey] = $childrenPages;
+			uasort($tmpPageWithParent[$parentKey], 'sortPages');
 		}
 	}
 
-	$pagesParents = array(NO_PARENT_CHAR=>$tmp) + $tmpPageWithParent;
+	$pagesParents = array(NO_PARENT_CHAR=>$parents) + $tmpPageWithParent;
 }
 
 // ============================================================================

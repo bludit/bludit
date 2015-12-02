@@ -6,8 +6,10 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
     HTML::formInputHidden(array(
         'name'=>'tokenCSRF',
-        'value'=>$Security->getToken()
+        'value'=>$Security->getTokenCSRF()
     ));
+
+    HTML::legend(array('value'=>$L->g('General'), 'class'=>'first-child'));
 
     HTML::formSelect(array(
         'name'=>'postsperpage',

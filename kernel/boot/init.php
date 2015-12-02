@@ -4,6 +4,7 @@
 define('BLUDIT_VERSION',	'githubVersion');
 define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
+define('BLUDIT_BUILD',		'20151119');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -84,6 +85,9 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// Directory permissions
+define('DIR_PERMISSIONS', '0755');
 
 // Multibyte string extension loaded.
 define('MB_STRING', extension_loaded('mbstring'));
@@ -190,11 +194,10 @@ define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
-// Objects with dependency
+// --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );
-
 $Url->checkFilters( $Site->uriFilters() );
 
-// Objects shortcuts
+// --- Objects shortcuts ---
 $L = $Language;

@@ -83,7 +83,7 @@ function checkGet($args)
 	if( $Login->verifyUserByToken($args['username'], $args['tokenEmail']) )
 	{
 		// Renew the tokenCRFS. This token will be the same inside the session for multiple forms.
-		$Security->generateToken();
+		$Security->generateTokenCSRF();
 
 		Redirect::page('admin', 'dashboard');
 		return true;

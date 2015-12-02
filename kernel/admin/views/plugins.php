@@ -15,36 +15,36 @@ echo '
 <tbody>
 ';
 
-	foreach($plugins['all'] as $Plugin)
-	{
-		echo '
-		<tr>
-		<td>
-		<div class="plugin-name">'.$Plugin->name().'</div>
-		<div class="plugin-links">
-		';
+foreach($plugins['all'] as $Plugin)
+{
+	echo '
+	<tr>
+	<td>
+	<div class="plugin-name">'.$Plugin->name().'</div>
+	<div class="plugin-links">
+	';
 
-		if($Plugin->installed()) {
-			if(method_exists($Plugin, 'form')) {
-				echo '<a class="configure" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'">'.$L->g('Configure').'</a>';
-				echo '<span class="separator"> | </span>';
-			}
-			echo '<a class="uninstall" href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'">'.$L->g('Uninstall').'</a>';
+	if($Plugin->installed()) {
+		if(method_exists($Plugin, 'form')) {
+			echo '<a class="configure" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'">'.$L->g('Configure').'</a>';
+			echo '<span class="separator"> | </span>';
 		}
-		else {
-			echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Install').'</a>';
-		}
-
-		echo '
-		</div>
-		</td>
-		<td>'.$Plugin->description().'</td>
-		<td class="uk-text-center">'.$Plugin->version().'</td>
-		<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
-		';
-
-		echo '</tr>';
+		echo '<a class="uninstall" href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'">'.$L->g('Deactivate').'</a>';
 	}
+	else {
+		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Activate').'</a>';
+	}
+
+	echo '
+	</div>
+	</td>
+	<td>'.$Plugin->description().'</td>
+	<td class="uk-text-center">'.$Plugin->version().'</td>
+	<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
+	';
+
+	echo '</tr>';
+}
 
 echo '
 </tbody>

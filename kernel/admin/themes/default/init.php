@@ -117,7 +117,9 @@ class HTML {
 
 	public static function legend($args)
 	{
-		$html = '<legend>'.$args['value'].'</legend>';
+		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
+
+		$html = '<legend '.$class.'>'.$args['value'].'</legend>';
 		echo $html;
 	}
 
@@ -249,7 +251,7 @@ class HTML {
 					allcomplete: function(response) {
 						bar.css("width", "100%").text("100%");
 						progressbar.addClass("uk-hidden");
-						$("#jsprofilePicture").attr("src", "'.HTML_PATH_UPLOADS_PROFILES.$username.'.jpg?"+new Date().getTime());
+						$("#jsprofilePicture").html("<img class=\"uk-border-rounded\" src=\"'.HTML_PATH_UPLOADS_PROFILES.$username.'.jpg\">");
 					},
 
 					notallowed: function(file, settings) {
