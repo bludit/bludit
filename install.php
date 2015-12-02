@@ -131,6 +131,79 @@ function getLanguageList()
 
 	return $tmp;
 }
+// Server detection
+function checkServer($serveur)
+{
+	$server = '';
+	/**
+	 * Whether the server software is Apache or something else
+	 */	 
+	if( strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false || strpos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false )
+	  $server =  '# secure htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+
+# Enable rewrite rules
+RewriteEngine on
+
+# Deny direct access to .txt files
+RewriteRule ^content/(.*)\.txt$ - [R=404,L]
+
+# All URL process by index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*) index.php [PT,L]
+
+</IfModule>';
+	/**
+	 * Whether the server software is Nginx or something else
+	 */
+	if( strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false )
+	  $server =  '# nginx configuration charset utf-8; location / { if (!-e $request_filename){ rewrite ^/(.*) /index.php break; } } location /.htaccess { deny all; }';	
+
+	/**
+	 * Whether the server software is Hiawatha or something else http://forum.bludit.com/viewtopic.php?f=6&t=138
+	 */
+	if( strpos($_SERVER['SERVER_SOFTWARE'], 'hiawatha') !== false )
+	  $server =  'UrlToolkit {
+        ToolkitID = bludit
+        RequestURI exists Return
+        Match (.*)\?(.*) Rewrite $1&$2 Continue
+        Match ^/(.*) Rewrite /index.php?url=$1
+}';	
+
+	/**
+	 * Whether the server software is Cherokee/Lighttpd or something else http://forum.bludit.com/viewtopic.php?f=6&t=121#p670)
+	 */
+	if( strpos($_SERVER['SERVER_SOFTWARE'], 'cherokee') !== false || strpos($_SERVER['SERVER_SOFTWARE'], 'Lighttpd') !== false )
+	  $server =  'url.rewrite-once = (
+        ".*\.(txt)$" => "/",
+)
+
+url.rewrite-if-not-file  = (
+        ".*\?(.*)" => "index.php?$1",
+        "." => "index.php"
+)';
+	  	
+    return $server;
+    
+}
+// Write .htaccess
+function writeht($serveur)
+{
+	$ht = checkServer($serveur);
+    $fp = fopen('.htaccess','a+');
+    if($fp)
+    {
+        fwrite($fp, $ht);
+        fclose($fp);
+    }
+}
 
 // Generate a random string.
 // Thanks, http://stackoverflow.com/questions/4356289/php-random-string-generator
@@ -155,6 +228,7 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
+/*
 	if(!file_exists(PATH_ROOT.'.htaccess'))
 	{
 		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
@@ -164,6 +238,7 @@ function checkSystem()
 		$tmp['errorText'] = $errorText;
 		array_push($stdOut, $tmp);
 	}
+*/
 
 	if(!in_array('dom', $phpModules))
 	{
@@ -462,6 +537,7 @@ Content:
 
 	file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
 
+	writeht();
 	return true;
 }
 
