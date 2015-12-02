@@ -3,11 +3,6 @@
 	{
 		"name": "Outils Google",
 		"description": "Ce plugin génère la balise meta pour valider votre site avec Google Webmasters Tools et le code JavaScript pour le suivi de votre site avec Google Analytics.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
 	},
 	"google-webmasters-tools": "Google Webmasters tools",
 	"google-analytics-tracking-id": "Votre ID de suivi Google Analytics",

@@ -3,10 +3,5 @@
 	{
 		"name": "À propos",
 		"description": "Courte description de votre site ou de vous-même.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "0.6",
-		"releaseDate": "2015-11-13"
 	}
 }
