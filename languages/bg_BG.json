@@ -188,7 +188,7 @@
 	"there-was-a-problem-sending-the-email":"Възникна проблем при изпращането на имейла",
 	"back-to-login-form": "Връщане към входяща форма",
 	"send-me-a-login-access-code": "Изпрати код за достъп",
-	"get-login-access-code": "Вземете код за достъп",
+	"get-login-access-code": "Изпрати код за достъп",
 	"email-notification-login-access-code": "<p>Това е уведомление от вашия сайт {{WEBSITE_NAME}}</p><p>Вашият код за достъп , последвайте следващата връзката:</p><p>{{LINK}}</p>",
 	"there-are-no-scheduled-posts": "Не са открити планирани публикации.",
 	"show-password": "Покажи паролата",
