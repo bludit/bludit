@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "Tinymce birden çok eklentisi ve kişiselleştirilmesiyle oldukça basit bir HTML editörüdür.",
+		"author": "TinyMCE",
+		"email": "",
+		"website": "http://www.tinymce.com",
+		"version": "4.3",
+		"releaseDate": "2015-11-29"
+	}
+}
