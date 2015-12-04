@@ -116,7 +116,7 @@
 	"add-or-edit-description-tags-or": "Aggiungi o modifica descrizione, tags oppure modifica l'URL amichevole.",
 	"select-your-sites-language": "Seleziona la lingua del tuo sito.",
 	"select-a-timezone-for-a-correct": "Seleziona un fuso orario per la corretta visualizzazione di data e ora sul sito.",
-	"you-can-use-this-field-to-define-a-set-of": "Puoi utilizzare questo campo per definire set di parametri riferiti alla lingua, alla nazione e preferenze speciali.",
+	"you-can-use-this-field-to-define-a-set-of": "Puoi utilizzare questo campo per definire un set di parametri riferiti a lingua, nazione e preferenze speciali.",
 	"you-can-modify-the-url-which-identifies":"Puoi modificare l'indirizzo URL che identifica una pagina o un articolo utilizzando delle parole chiavi leggibili. Non più di 150 caratteri.",
 	"this-field-can-help-describe-the-content": "Quì puoi descrivere il contenuto in poche parole. Non più di 150 caratteri.",
 
@@ -167,13 +167,13 @@
 	"enabled": "Abilitato",
 	"disabled": "Disabilitato",
 	"cli-mode": "Modo Cli",
-	"command-line-mode": "Modo linia di comando",
+	"command-line-mode": "Modo linea di comando",
 	"enable-the-command-line-mode-if-you-add-edit": "Abilita il modo della linea di comando se vuoi aggiungere, modificare o eliminare articoli e pagine dal filesystem",
 
 	"configure": "Configura",
 	"uninstall": "Disinstalla",
 	"change-password": "Cambia password",
-	"to-schedule-the-post-just-select-the-date-and-time": "Per programmare l'articolo, seleziona data e ora.",
+	"to-schedule-the-post-just-select-the-date-and-time": "Per programmare l'articolo seleziona data e ora.",
 	"write-the-tags-separated-by-commas": "Scrivi i tags separati da virgole.",
 	"status": "Status",
 	"published": "Pubblicato",
@@ -210,8 +210,8 @@
 	"chat-with-developers-and-users-on-gitter":"Chatta con gli sviluppatori e gli utenti su [Gitter](https://gitter.im/dignajar/bludit)",
 	"this-is-a-brief-description-of-yourself-our-your-site":"Questa è una breve descrizione tua o del tuo sito, Per cambiare il testo vai nel pannello di amministrazione, impostazioni, plugins, e configura il plugin about.",
 	"profile-picture": "Foto del profilo",
-	"the-about-page-is-very-important": "La pagina << about >> è molto utile. Fornisce ai tuoi visitatori importanti informazioni sul sito. Uno strumento efficace per potenziali clienti e partners.",
+	"the-about-page-is-very-important": "La pagina << about >> è molto utile. Fornisce ai tuoi visitatori importanti informazioni sul tuo sito. Uno strumento efficace per acquisire potenziali clienti e partners.",
 	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione. Amministra -> Pagine e Clicca sulla pagina << about >> per modificare.",
 	"about-your-site-or-yourself": "A proposito del tuo sito",
-	"welcome-to-bludit": "Benvenuti a Bludit"
+	"welcome-to-bludit": "Benvenuti su Bludit"
 }
