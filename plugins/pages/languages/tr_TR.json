@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Sayfa listesi",
+		"description": "Sayfaları listeler.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "0.7",
+		"releaseDate": "2015-12-01"
+	},
+
+	"home": "Anasayfa",
+	"show-home-link": "Anasayfa linkini göster"
+}
