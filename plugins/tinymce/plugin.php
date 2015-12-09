@@ -69,7 +69,9 @@ class pluginTinymce extends Plugin {
 
 			$language = '';
 			if($Site->shortLanguage()!=='en') {
-				$language = 'language_url:"'.$pluginPath.'tinymce/langs/'.$Site->shortLanguage().'.js",';
+				if(file_exists($this->phpPath().'tinymce/langs/'.$Site->shortLanguage().'.js')) {
+					$language = 'language_url:"'.$pluginPath.'tinymce/langs/'.$Site->shortLanguage().'.js",';
+				}
 			}
 
 			$html  = '<script>$(document).ready(function() { ';
