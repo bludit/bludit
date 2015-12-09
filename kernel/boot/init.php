@@ -153,12 +153,23 @@ $Url 		= new Url();
 $Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
 
-// HTML PATHs
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
+// HTML PATHS
+// The user can define the base URL.
+// Left empty if you want to Bludit try to detect the base URL.
+$base = '';
+
+if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
+	$base = dirname($base);
+}
+elseif( empty($base) ) {
+	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+	$base = dirname($base);
+}
 
 if($base!=DS) {
-	$base = $base.'/';
+	$base = trim($base, '/');
+	$base = '/'.$base.'/';
 }
 else {
 	// Workaround for Windows Web Servers
