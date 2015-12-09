@@ -34,8 +34,9 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
 // HTML PATHs
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
+//$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+//$base = dirname($base);
+$base = empty($_SERVER['REQUEST_URI']) ? dirname($_SERVER['SCRIPT_NAME']) : dirname($_SERVER['REQUEST_URI']);
 
 if($base!=DS) {
 	$base = $base.'/';
