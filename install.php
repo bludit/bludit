@@ -34,8 +34,9 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
 // HTML PATHs
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
+//$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+//$base = dirname($base);
+$base = empty($_SERVER['REQUEST_URI']) ? dirname($_SERVER['SCRIPT_NAME']) : dirname($_SERVER['REQUEST_URI']);
 
 if($base!=DS) {
 	$base = $base.'/';
@@ -243,9 +244,9 @@ function install($adminPassword, $email, $timezoneOffset)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tinymce', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tinymce';
 		error_log($errorText, 0);
 	}
 
@@ -408,14 +409,14 @@ function install($adminPassword, $email, $timezoneOffset)
 		LOCK_EX
 	);
 
-	// File plugins/simplemde/db.php
+	// File plugins/tinymce/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
+		PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
 				'position'=>0,
-				'tabSize'=>4,
-				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;, &quot;guide&quot;'
+				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
+				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -531,12 +532,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit.almost-flat.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
 	<link rel="stylesheet" type="text/css" href="./css/installer.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="./js/uikit.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
 
 </head>
 <body class="uk-height-1-1">

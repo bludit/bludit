@@ -6,8 +6,10 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
+
+	HTML::legend(array('value'=>$L->g('General'), 'class'=>'first-child'));
 
 	HTML::formSelect(array(
 		'name'=>'language',
@@ -34,6 +36,8 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('you-can-use-this-field-to-define-a-set-off')
 	));
+
+	HTML::legend(array('value'=>$L->g('Date and time formats')));
 
 	HTML::formInputText(array(
 		'name'=>'dateFormat',

@@ -29,8 +29,6 @@ class pluginAbout extends Plugin {
 
 	public function siteSidebar()
 	{
-		global $Language;
-		global $dbTags;
 		global $Url;
 
 		$filter = $Url->filters('tag');

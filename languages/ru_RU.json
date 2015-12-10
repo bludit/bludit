@@ -3,7 +3,7 @@
 	{
 		"native": "Русский (Россия)",
 		"english-name": "Russian",
-		"last-update": "2015-11-05",
+		"last-update": "2015-11-17",
 		"author": "Сергей Ворон",
 		"email": "sergey@voron.pw",
 		"website": "voron.pw"
@@ -203,5 +203,20 @@
 	"images": "Изображения",
 	"upload-image": "Загрузить изображение",
 	"drag-and-drop-or-click-here": "Перетащите или нажмите здесь",
-	"insert-image": "Вставить изображение"
+	"insert-image": "Вставить изображение",
+	"supported-image-file-types": "Поддерживаемые типы файлов изображений",
+	"date-format": "Формат даты",
+	"time-format": "Формат времени",
+	"chat-with-developers-and-users-on-gitter":"Чат с разработчиками и пользователями в [Gitter](https://gitter.im/dignajar/bludit)",
+	"this-is-a-brief-description-of-yourself-our-your-site":"Это краткое описание о вас или о сайте, чтобы изменить этот текст перейдите в панель управления, настройки, плагины и настройте плагин about.",
+	"profile-picture": "Изображение профиля",
+	"the-about-page-is-very-important": "Страница о нас является важным и мощным инструментом для потенциальных клиентов и партнеров. Для тех, кто пришел, кому интересен ваш сайт, страница О нас является первым источником информации.",
+	"change-this-pages-content-on-the-admin-panel": "Измените содержимое этой страницы в панели управления, Управление, Страницы и нажмите на страницу about.",
+	"about-your-site-or-yourself": "О Вашем сайте или о вас",
+	"welcome-to-bludit": "Добро пожаловать в Bludit",
+	
+	"site-information": "Информация о сайте",
+	"date-and-time-formats": "Форматы даты и времени",
+	"activate": "Активировать",
+	"deactivate": "Деактивировать"
 }

@@ -1,0 +1,12 @@
+body {
+	font-size: 0.9em;
+}
+
+*:first-child {
+    margin-top: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
