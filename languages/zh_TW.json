@@ -3,7 +3,7 @@
 	{
 		"native": "Traditional Chinese (Taiwan)",
 		"english-name": "Traditional Chinese",
-		"last-update": "2015-11-21",
+		"last-update": "2015-12-10",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
 		"website": "http://single4.ml"
@@ -212,5 +212,10 @@
 	"the-about-page-is-very-important": "這個關於頁面是對於使用者與合作夥伴非常重要、非常有用的工具。對於那些不了解您網站內容的人，您的關於頁面將會是他們第一個閱讀的頁面。",
 	"change-this-pages-content-on-the-admin-panel": "在管理介面中更改此頁面的內容，管理/頁面，接著點選關於頁面。",
 	"about-your-site-or-yourself": "關於您的網站或是您自己",
-	"welcome-to-bludit": "歡迎使用Bludit"
+	"welcome-to-bludit": "歡迎使用Bludit",
+	
+	"site-information": "網站資訊",
+	"date-and-time-formats": "日期與時間格式",
+	"activate": "啟用",
+	"deactivate": "關閉"
 }
