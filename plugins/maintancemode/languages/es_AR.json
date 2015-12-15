@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Modo mantenimiento",
-		"description": "Configurar el sitio en modo mantenimiento, se puede acceder al panel de administración mientras tanto."
+		"description": "Configura el sitio en modo mantenimiento, se puede acceder al panel de administración mientras tanto."
 	},
 
 	"enable-maintence-mode": "Habilitar modo mantenimiento",

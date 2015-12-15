@@ -3,7 +3,7 @@
 	{
 		"native": "Українська (Україна)",
 		"english-name": "Ukrainian",
-		"last-update": "2015-11-19",
+		"last-update": "2015-12-02",
 		"author": "Allec Bernz",
 		"email": "admin@allec.info",
 		"website": "allec.info"
@@ -213,5 +213,10 @@
 	"the-about-page-is-very-important": "Сторінка про сайт є важливим і потужним інструментом для потенційних клієнтів і партнерів. Для тих, кому цікаво, хто стоїть за сайтом, ваша сторінка про сайт є першим джерелом інформації.",
 	"change-this-pages-content-on-the-admin-panel": "Щоб змінити зміст цієї сторінки зайдіть в панель адміністратора, керування, сторінки та натисніть кнопку Про сайт.",
 	"about-your-site-or-yourself": "Про Ваш сайт або про Вас",
-	"welcome-to-bludit": "Ласкаво просимо до Bludit"
+	"welcome-to-bludit": "Ласкаво просимо до Bludit",
+
+	"site-information": "Інформація про сайт",
+	"date-and-time-formats": "Формати дати й часу",
+	"activate": "Активувати",
+	"deactivate": "Деактивувати"
 }

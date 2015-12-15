@@ -34,8 +34,9 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
 // HTML PATHs
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
+//$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+//$base = dirname($base);
+$base = empty($_SERVER['REQUEST_URI']) ? dirname($_SERVER['SCRIPT_NAME']) : dirname($_SERVER['REQUEST_URI']);
 
 if($base!=DS) {
 	$base = $base.'/';
@@ -414,8 +415,8 @@ function install($adminPassword, $email, $timezoneOffset)
 		$dataHead.json_encode(
 			array(
 				'position'=>0,
-				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code, image',
-				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen'
+				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
+				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

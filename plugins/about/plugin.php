@@ -29,8 +29,6 @@ class pluginAbout extends Plugin {
 
 	public function siteSidebar()
 	{
-		global $Language;
-		global $dbTags;
 		global $Url;
 
 		$filter = $Url->filters('tag');
@@ -38,7 +36,7 @@ class pluginAbout extends Plugin {
 		$html  = '<div class="plugin plugin-about">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= $this->getDbField('text');
+		$html .= nl2br($this->getDbField('text'));
  		$html .= '</div>';
  		$html .= '</div>';
 

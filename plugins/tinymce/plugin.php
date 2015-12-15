@@ -12,7 +12,7 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code, image',
+			'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code, image, paste',
 			'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen'
 		);
 	}
@@ -65,20 +65,32 @@ class pluginTinymce extends Plugin {
 		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
-			$language = $Site->shortLanguage();
 			$pluginPath = $this->htmlPath();
+
+			$language = '';
+			if($Site->shortLanguage()!=='en') {
+				if(file_exists($this->phpPath().'tinymce/langs/'.$Site->shortLanguage().'.js')) {
+					$language = 'language_url:"'.$pluginPath.'tinymce/langs/'.$Site->shortLanguage().'.js",';
+				}
+			}
 
 			$html  = '<script>$(document).ready(function() { ';
 			$html .= 'tinymce.init({
 				selector: "#jscontent",
+				cache_suffix: "?v='.$this->version().'",
+				element_format : "html",
+				entity_encoding : "raw",
+				schema: "html5",
+				extended_valid_elements : "a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
 				plugins: "'.$this->getDbField('plugins').'",
 				toolbar: "'.$this->getDbField('toolbar').'",
-				content_css: "'.$pluginPath.'css/editor.css?version='.$this->version().'",
+				content_css: "'.$pluginPath.'css/editor.css",
 				theme: "modern",
 				height:"400px",
 				width:"100%",
 				statusbar: false,
 				menubar:false,
+				'.$language.'
 				browser_spellcheck: true,
 				autoresize_bottom_margin: "50",
 				pagebreak_separator: "'.PAGE_BREAK.'",
