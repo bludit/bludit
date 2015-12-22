@@ -1,9 +1,9 @@
 {
 	"language-data":
 	{
-		"native": "Italiano (Italy)",
+		"native": "Italiano (Italia)",
 		"english-name": "Italian",
-		"last-update": "2015-11-27",
+		"last-update": "2015-12-22",
 		"author": "Daniele La Pira",
 		"email": "daniele.lapira@gmail.com",
 		"website": "https://github.com/danielelapira"
@@ -205,7 +205,7 @@
 	"drag-and-drop-or-click-here": "Trascina e rilascia oppure clicca quì",
 	"insert-image": "Inserisci immagine",
 	"supported-image-file-types": "Formati file immagine supportati",
-	"date-format": "Formato data",
+	"date-format": "Formato data",
 	"time-format": "Formato ora",
 	"chat-with-developers-and-users-on-gitter":"Chatta con gli sviluppatori e gli utenti su [Gitter](https://gitter.im/dignajar/bludit)",
 	"this-is-a-brief-description-of-yourself-our-your-site":"Questa è una breve descrizione del tuo sito. Per cambiare il testo vai nel pannello di amministrazione, impostazioni, plugins e configura il plugin about.",
@@ -214,4 +214,9 @@
 	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione, Amministra -> Pagine e Clicca sulla pagina << about >> per modificare.",
 	"about-your-site-or-yourself": "A proposito di te e del tuo sito.",
 	"welcome-to-bludit": "Benvenuti su Bludit"
+	
+	"site-information": "Informazioni sul sito",
+	"date-and-time-formats": "Formati data e ora",
+	"activate": "Attiva",
+	"deactivate": "Disattiva"
 }
