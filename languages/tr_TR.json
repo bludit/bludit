@@ -214,4 +214,9 @@
 	"change-this-pages-content-on-the-admin-panel": "Bu sayfanın içeriğini düzenlemek için admin paneli -> yönet -> sayfalar -> hakkında sayfası .",
 	"about-your-site-or-yourself": "Site veya senin hakkında",
 	"welcome-to-bludit": "Bludit'e Hoşgeldiniz"
+
+	"site-information": "Site bilgisi",
+	"date-and-time-formats": "Tarih ve saat formatları",
+	"activate": "Aktifleştir",
+	"deactivate": "Deaktive et"
 }
