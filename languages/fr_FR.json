@@ -213,5 +213,10 @@
 	"the-about-page-is-very-important": "Votre page **à propos** est très utile. Elle fournit à vos visiteurs des informations importantes sur vous, elle crée un rapport de confiance entre vous et votre visiteur, elle présente votre société et votre site et elle vous différencie de tous les autres sites de votre niche.",
 	"change-this-pages-content-on-the-admin-panel": "Changer le contenu de cette page à partir du panneau d’administration, Gestion de contenu -> Pages et cliquez sur la page « à propos » pour l’éditer.",
 	"about-your-site-or-yourself": "À propos de vous",
-	"welcome-to-bludit": "Bienvenue sur Bludit"
+	"welcome-to-bludit": "Bienvenue sur Bludit",
+
+	"site-information": "Informations sur le site",
+	"date-and-time-formats": "Format de la date et de l’heure",
+	"activate": "Activer",
+	"deactivate": "Désactiver"
 }
