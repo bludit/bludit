@@ -35,8 +35,10 @@ define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
+define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
 define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
@@ -55,6 +57,12 @@ define('ALERT_STATUS_OK', 0);
 
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
+
+// Salt length
+define('THUMBNAILS_WIDTH', 400);
+define('THUMBNAILS_HEIGHT', 400);
+
+define('THUMBNAILS_AMOUNT', 6);
 
 // Salt length
 define('SALT_LENGTH', 8);
@@ -87,7 +95,7 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 define('CHARSET', 'UTF-8');
 
 // Directory permissions
-define('DIR_PERMISSIONS', '0755');
+define('DIR_PERMISSIONS', 0755);
 
 // Multibyte string extension loaded.
 define('MB_STRING', extension_loaded('mbstring'));
@@ -193,6 +201,7 @@ define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
+define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');

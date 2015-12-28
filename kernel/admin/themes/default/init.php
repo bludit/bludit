@@ -128,6 +128,221 @@ class HTML {
 		$html = '';
 	}
 
+	public static function bluditQuickImages()
+	{
+
+$html = '<!-- BLUDIT QUICK IMAGES -->';
+$html .= '
+<div id="bludit-quick-images">
+<h4 class="label">Images</h4>
+
+<div id="bludit-quick-images-thumbnails">
+';
+
+$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+array_splice($thumbnailList, THUMBNAILS_AMOUNT);
+foreach($thumbnailList as $file) {
+	$filename = basename($file);
+	$html .= '<img class="bludit-thumbnail uk-thumbnail" data-filename="'.$filename.'" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" alt="Thumbnail">';
+}
+
+$html .= '
+</div>
+
+<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">More images</a>
+
+</div>
+';
+
+		echo $html;
+	}
+
+	public static function bluditCoverImage()
+	{
+		global $L;
+
+$html = '<!-- BLUDIT COVER IMAGE -->';
+$html .= '
+<div id="bludit-cover-image">
+<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center">
+
+	<div id="cover-image-upload">
+		<div><i class="uk-icon-picture-o"></i> '.$L->g('Cover image').'</div>
+		<div>'.$L->g('Drag and drop or click here').'<input id="cover-image-file-select" type="file"></div>
+	</div>
+
+	<div id="cover-image-delete">
+		<div><i class="uk-icon-trash-o"></i></div>
+	</div>
+
+	<div id="cover-image-progressbar" class="uk-progress">
+		<div class="uk-progress-bar" style="width: 0%;">0%</div>
+	</div>
+
+</div>
+</div>
+';
+
+$script = '
+<script>
+$(document).ready(function() {
+
+	$("#cover-image-delete").on("click", function() {
+		$("#cover-image-thumbnail").attr("style","");
+		$("#cover-image-delete").hide();
+		$("#cover-image-upload").show();
+	});
+
+	var settings =
+	{
+		type: "json",
+		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
+		allow : "*.(jpg|jpeg|gif|png)",
+		params: {"type":"cover-image"},
+
+		loadstart: function() {
+			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
+			$("#cover-image-progressbar").hide();
+			$("#cover-image-delete").hide();
+			$("#cover-image-upload").hide();
+		},
+
+		progress: function(percent) {
+			percent = Math.ceil(percent);
+			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", percent+"%").text(percent+"%");
+		},
+
+		allcomplete: function(response) {
+			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
+			$("#cover-image-progressbar").hide();
+
+			var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS+response.filename;
+			$("#cover-image-thumbnail").attr("style","background-image: url("+imageSrc+")");
+			$("#cover-image-delete").show();
+
+			$("img:last-child", "#bludit-quick-images-thumbnails").remove();
+			$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+		},
+
+		notallowed: function(file, settings) {
+			alert("'.$L->g('Supported image file types').' "+settings.allow);
+		}
+	};
+
+	UIkit.uploadSelect($("#cover-image-file-select"), settings);
+	UIkit.uploadDrop($("#cover-image-thumbnail"), settings);
+
+});
+</script>
+';
+		echo $html.$script;
+	}
+
+	public static function bluditImagesV8()
+	{
+		global $L;
+
+$html = '<!-- BLUDIT IMAGES V8 -->';
+$html .= '
+<div id="bludit-images-v8" class="uk-modal">
+<div class="uk-modal-dialog">
+
+	<div id="bludit-images-v8-upload" class="uk-form-file uk-placeholder uk-text-center">
+
+		<div id="bludit-images-v8-drag-drop">
+			<div><i class="uk-icon-picture-o"></i> '.$L->g('Upload image').'</div>
+			<div>'.$L->g('Drag and drop or click here').'<input id="bludit-images-v8-file-select" type="file"></div>
+		</div>
+
+		<div id="bludit-images-v8-progressbar" class="uk-progress">
+			<div class="uk-progress-bar" style="width: 0%;">0%</div>
+		</div>
+
+	</div>
+
+	<div id="bludit-images-v8-thumbnails">
+';
+
+	$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+	foreach($thumbnailList as $file) {
+		$filename = basename($file);
+		$html .= '<img class="bludit-thumbnail uk-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
+	}
+
+$html .= '
+	</div>
+
+	<div class="uk-modal-footer">
+		Double click on the image to add it or <a href="" class="uk-modal-close">click here to cancel</a>
+	</div>
+
+</div>
+</div>
+';
+
+$script = '
+<script>
+$(document).ready(function() {
+
+	// Add border when select an thumbnail
+	$("body").on("click", "img.bludit-thumbnail", function() {
+		$(".bludit-thumbnail").css("border", "1px solid #ddd");
+		$(this).css("border", "solid 3px orange");
+	});
+
+	// Hide the modal when double click on thumbnail.
+	$("body").on("dblclick", "img.bludit-thumbnail", function() {
+		var modal = UIkit.modal("#bludit-images-v8");
+		if ( modal.isActive() ) {
+			modal.hide();
+		}
+	});
+
+	// Event for double click for insert the image is in each editor plugin
+	// ..
+
+	var settings =
+	{
+		type: "json",
+		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
+		allow : "*.(jpg|jpeg|gif|png)",
+		params: {"type":"bludit-images-v8"},
+
+		loadstart: function() {
+			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
+		},
+
+		progress: function(percent) {
+			percent = Math.ceil(percent);
+			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", percent+"%").text(percent+"%");
+		},
+
+		allcomplete: function(response) {
+			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
+			$("#bludit-images-v8-progressbar").hide();
+
+			// Images V8 Thumbnails
+			var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS+response.filename;
+			$("#bludit-images-v8-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+
+			// Quick images Thumbnails
+			$("img:last-child", "#bludit-quick-images-thumbnails").remove();
+			$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+		},
+
+		notallowed: function(file, settings) {
+			alert("'.$L->g('Supported image file types').' "+settings.allow);
+		}
+	};
+
+	UIkit.uploadSelect($("#bludit-images-v8-file-select"), settings);
+	UIkit.uploadDrop($("#bludit-images-v8-upload"), settings);
+});
+</script>
+';
+		echo $html.$script;
+	}
+
 	public static function uploader()
 	{
 		global $L;

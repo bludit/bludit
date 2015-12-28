@@ -64,13 +64,22 @@ if($Login->role()==='admin') {
 	));
 
 }
-
 	HTML::formInputText(array(
 		'name'=>'email',
 		'label'=>$L->g('Email'),
 		'value'=>$_user['email'],
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
+	));
+
+	HTML::legend(array('value'=>$L->g('Social network')));
+
+	HTML::formInputText(array(
+		'name'=>'twitterUsername',
+		'label'=>$L->g('Twitter username'),
+		'value'=>$_user['twitterUsername'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
 	));
 
 	echo '<div class="uk-form-row">

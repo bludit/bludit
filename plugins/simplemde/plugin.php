@@ -80,8 +80,16 @@ class pluginsimpleMDE extends Plugin {
 			$pluginPath = $this->htmlPath();
 
 			$html  = '<script>'.PHP_EOL;
+
+			$html .= 'var simplemde = null;'.PHP_EOL;
+
+			$html .= 'function addContentSimpleMDE(content) {
+					var text = simplemde.value();
+					simplemde.value(text + content + "\n");
+				}'.PHP_EOL;
+
 			$html .= '$(document).ready(function() { '.PHP_EOL;
-			$html .= 'var simplemde = new SimpleMDE({
+			$html .= 'simplemde = new SimpleMDE({
 					element: document.getElementById("jscontent"),
 					status: false,
 					toolbarTips: true,
@@ -95,13 +103,21 @@ class pluginsimpleMDE extends Plugin {
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
 			});';
 
+			/*
 			$html .= '$("#jsaddImage").on("click", function() {
-					var filename = $("#jsimageList option:selected" ).text();
-					if(!filename.trim()) {
+
+					if(!imageFilename.trim()) {
 						return false;
 					}
 					var text = simplemde.value();
-					simplemde.value(text + "![alt text]("+filename+")" + "\n");
+					simplemde.value(text + "![alt text]("+imageFilename+")" + "\n");
+			});';
+			*/
+
+			// This is the event for Bludit images
+			$html .= '$("body").on("dblclick", "img.bludit-thumbnail", function() {
+					var filename = $(this).data("filename");
+					addContentSimpleMDE("![alt text]("+filename+")");
 			});';
 
 			$html .= '}); </script>';
