@@ -75,7 +75,7 @@ define('JSON', function_exists('json_encode'));
 define('CLI_STATUS', 'published');
 
 // Database format date
-define('DB_DATE_FORMAT', 'Y-m-d H:i');
+define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
