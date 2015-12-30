@@ -119,7 +119,7 @@
 			}
 			else {
 				foreach($_scheduledPosts as $Post) {
-					echo '<li><span class="label-time">'.$Post->date(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+					echo '<li><span class="label-time">'.$Post->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>

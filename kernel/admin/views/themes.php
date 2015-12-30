@@ -15,29 +15,29 @@ echo '
 <tbody>
 ';
 
-	foreach($themes as $theme)
-	{
-		echo '
-		<tr>
-		<td>
-		<div class="plugin-name">'.$theme['name'].'</div>
-		<div class="plugin-links">
-		';
+foreach($themes as $theme)
+{
+	echo '
+	<tr>
+	<td>
+	<div class="plugin-name">'.$theme['name'].'</div>
+	<div class="plugin-links">
+	';
 
-		if($theme['dirname']!=$Site->theme()) {
-			echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Install').'</a>';
-		}
-
-		echo '
-		</div>
-		</td>
-		<td>'.$theme['description'].'</td>
-		<td class="uk-text-center">'.$theme['version'].'</td>
-		<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
-		';
-
-		echo '</tr>';
+	if($theme['dirname']!=$Site->theme()) {
+		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
 	}
+
+	echo '
+	</div>
+	</td>
+	<td>'.$theme['description'].'</td>
+	<td class="uk-text-center">'.$theme['version'].'</td>
+	<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
+	';
+
+	echo '</tr>';
+}
 
 echo '
 </tbody>

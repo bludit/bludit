@@ -25,9 +25,14 @@ class Date {
 	// Format a local time/date according to locale settings.
 	public static function format($date, $currentFormat, $outputFormat)
 	{
+		// Returns a new DateTime instance or FALSE on failure.
 		$Date = DateTime::createFromFormat($currentFormat, $date);
 
-		return $Date->format($outputFormat);
+		if($Date!==false) {
+			return $Date->format($outputFormat);
+		}
+
+		return false;
 	}
 
 	public static function timeago($time)

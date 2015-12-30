@@ -7,7 +7,7 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	// Key input
@@ -18,7 +18,7 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 
 // ---- LEFT SIDE ----
 echo '<div class="uk-grid">';
-echo '<div class="uk-width-large-7-10">';
+echo '<div class="uk-width-large-8-10">';
 
 	// Title input
 	HTML::formInputText(array(
@@ -52,7 +52,7 @@ if(count($_Page->children())===0)
 echo '</div>';
 
 // ---- RIGHT SIDE ----
-echo '<div class="uk-width-large-3-10">';
+echo '<div class="sidebar uk-width-large-2-10">';
 
 	// Tabs, general and advanced mode
 	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';
@@ -71,7 +71,7 @@ echo '<div class="uk-width-large-3-10">';
 		'name'=>'description',
 		'label'=>$L->g('description'),
 		'value'=>$_Page->description(),
-		'rows'=>'7',
+		'rows'=>'4',
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'tip'=>$L->g('this-field-can-help-describe-the-content')
 	));
@@ -90,7 +90,14 @@ echo '<div class="uk-width-large-3-10">';
 	// ---- IMAGES TAB ----
 	echo '<li>';
 
-	HTML::uploader();
+	// --- BLUDIT COVER IMAGE ---
+	HTML::bluditCoverImage();
+
+	// --- BLUDIT QUICK IMAGES ---
+	HTML::bluditQuickImages();
+
+	// --- BLUDIT IMAGES V8 ---
+	HTML::bluditImagesV8();
 
 	echo '</li>';
 

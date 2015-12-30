@@ -26,8 +26,13 @@
 	background: #1F5FC4;
 }
 
-.uk-form legend {
+legend {
 	width: 70% !important;
+	margin-top: 40px !important;
+}
+
+legend.first-child {
+	margin-top: 0px !important;
 }
 
 .uk-navbar-nav > li > a {
@@ -82,6 +87,26 @@ li.bludit-logo {
 	background: #F9F9F9 !important;
 }
 
+.uk-container {
+	max-width: 1280px !important;
+}
+
+.uk-width-large-4-5,
+.uk-width-large-8-10 {
+	width: 75% !important;
+}
+
+.uk-width-large-1-5,
+.uk-width-large-2-10 {
+	width: 25% !important;
+}
+
+.uk-thumbnail {
+	margin: 2px 4px !important;
+	max-width: 30% !important;
+	padding: 0 !important;
+}
+
 /* ----------- BLUDIT ----------- */
 
 #logo {
@@ -90,7 +115,7 @@ li.bludit-logo {
 }
 
 h2.title {
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 button.delete-button {
@@ -111,16 +136,22 @@ button.delete-button:hover {
 	height: 400px;
 }
 
+.bl-view {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
 
 /* ----------- ALERT ----------- */
 
 #alert {
-	display: none;
+	bottom: 20px;
 	color: #ffffff;
+	display: none;
 	padding: 24px;
 	position: fixed;
+	right: 20px;
 	text-align: center;
-	width: 100%;
+	width: 350px;
 	z-index: 100;
 }
 
@@ -130,6 +161,91 @@ button.delete-button:hover {
 
 .alert-fail {
 	background: rgba(187, 48, 48, 0.91);
+}
+
+
+
+/* ----------- BLUDIT IMAGES V8 ----------- */
+#bludit-images-v8 {
+
+}
+
+#bludit-images-v8 img.uk-thumbnail {
+	width: 15% !important;
+}
+
+#bludit-images-v8-upload {
+	width: 100%;
+	padding: 0;
+}
+
+#bludit-images-v8-drag-drop {
+	padding: 20px;
+}
+
+#bludit-images-v8-progressbar {
+	display: none;
+}
+
+#bludit-images-v8-thumbnails {
+	height: 350px;
+	overflow: auto;
+}
+
+/* ----------- BLUDIT QUICK IMAGES ----------- */
+#bludit-quick-images {
+
+}
+
+#bludit-quick-images a.moreImages {
+	margin: 15px 0 0;
+	width: 100%;
+	background: #F5F5F5 !important;
+	color: #555;
+}
+
+#bludit-quick-images h4.label {
+	background: #f8f8f8;
+	color: #aaa;
+	padding: 2px 5px;
+	font-size: 0.9em;
+}
+
+/* ----------- BLUDIT COVER IMAGE ----------- */
+#bludit-cover-image {
+
+}
+
+#cover-image-thumbnail {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #666;
+	height: 130px;
+	padding: 0;
+	width: 100%;
+}
+
+#cover-image-upload {
+	color: #999;
+	position: relative;
+	top: 35%;
+}
+
+#cover-image-delete {
+	background: rgba(255, 255, 255, 0.7);
+	bottom: 0;
+	color: #000;
+	display: none;
+	font-size: 2.2em;
+	padding: 4px 10px;
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+}
+
+#cover-image-progressbar {
+	display: none;
 }
 
 /* ----------- LOGIN FORM ----------- */
@@ -149,7 +265,7 @@ div.login-form {
 /* ----------- DASHBOARD ----------- */
 
 div.dashboard-links {
-	margin: 20px 0;
+	margin: 0 0 25px 0;
 }
 
 div.dashboard-links h4 {
@@ -158,6 +274,11 @@ div.dashboard-links h4 {
 
 div.dashboard-links a {
 	color: #555;
+}
+
+/* NEW POST */
+h3.titleOptions {
+	font-size: 1em;
 }
 
 /* ----------- PLUGIN LIST / THEME LIST ----------- */

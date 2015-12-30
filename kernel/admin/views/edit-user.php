@@ -10,7 +10,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getToken()
+		'value'=>$Security->getTokenCSRF()
 	));
 
 	// Security token
@@ -19,7 +19,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 		'value'=>$_user['username']
 	));
 
-	HTML::legend(array('value'=>$L->g('Profile')));
+	HTML::legend(array('value'=>$L->g('Profile'), 'class'=>'first-child'));
 
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',
@@ -64,13 +64,22 @@ if($Login->role()==='admin') {
 	));
 
 }
-
 	HTML::formInputText(array(
 		'name'=>'email',
 		'label'=>$L->g('Email'),
 		'value'=>$_user['email'],
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
+	));
+
+	HTML::legend(array('value'=>$L->g('Social network')));
+
+	HTML::formInputText(array(
+		'name'=>'twitterUsername',
+		'label'=>$L->g('Twitter username'),
+		'value'=>$_user['twitterUsername'],
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
 	));
 
 	echo '<div class="uk-form-row">
@@ -97,8 +106,18 @@ HTML::formClose();
 
 echo '</div>';
 echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
-echo '<img id="jsprofilePicture" class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_user['username'].'.jpg" alt="'.$L->g('Profile picture').'">';
+
+echo '<div id="jsprofilePicture">';
+if(file_exists(PATH_UPLOADS_PROFILES.$_user['username'].'.jpg')) {
+	echo '<img class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_user['username'].'.jpg" alt="">';
+}
+else {
+	echo '<div class="uk-block uk-border-rounded uk-block-muted uk-block-large">'.$L->g('Profile picture').'</div>';
+}
+echo '</div>';
+
 HTML::profileUploader($_user['username']);
+
 echo '</div>';
 echo '</div>';
 

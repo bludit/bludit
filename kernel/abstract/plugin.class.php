@@ -63,6 +63,11 @@ class Plugin {
 		return HTML_PATH_PLUGINS.$this->directoryName.'/';
 	}
 
+	public function phpPath()
+	{
+		return PATH_PLUGINS.$this->directoryName.DS;
+	}
+
 	// Returns the item from plugin-data.
 	public function getData($key)
 	{

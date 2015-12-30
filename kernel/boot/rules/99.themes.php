@@ -26,13 +26,15 @@ $langLocaleFile  = PATH_THEME.'languages'.DS.$Site->locale().'.json';
 $langDefaultFile = PATH_THEME.'languages'.DS.'en_US.json';
 $database = false;
 
+// Theme meta data from English
+if( Sanitize::pathFile($langDefaultFile) ) {
+	$database = new dbJSON($langDefaultFile, false);
+	$themeMetaData = $database->db['theme-data'];
+}
+
 // Check if exists locale language
 if( Sanitize::pathFile($langLocaleFile) ) {
 	$database = new dbJSON($langLocaleFile, false);
-}
-// Check if exists default language
-elseif( Sanitize::pathFile($langDefaultFile) ) {
-	$database = new dbJSON($langDefaultFile, false);
 }
 
 if($database!==false)
@@ -40,11 +42,11 @@ if($database!==false)
 	$databaseArray = $database->db;
 
 	// Theme data
-	$theme = $databaseArray['theme-data'];
+	$theme = $themeMetaData;
 
-	// Remove theme data
+	// Remove theme meta data
 	unset($databaseArray['theme-data']);
 
-	// Add new words from language theme
+	// Add new words/phrase from language theme
 	$Language->add($databaseArray);
 }

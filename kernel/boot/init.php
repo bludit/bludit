@@ -35,8 +35,10 @@ define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
+define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
 define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
@@ -57,6 +59,12 @@ define('ALERT_STATUS_OK', 0);
 define('ALERT_STATUS_FAIL', 1);
 
 // Salt length
+define('THUMBNAILS_WIDTH', 400);
+define('THUMBNAILS_HEIGHT', 400);
+
+define('THUMBNAILS_AMOUNT', 6);
+
+// Salt length
 define('SALT_LENGTH', 8);
 
 // Page brake string
@@ -75,7 +83,7 @@ define('JSON', function_exists('json_encode'));
 define('CLI_STATUS', 'published');
 
 // Database format date
-define('DB_DATE_FORMAT', 'Y-m-d H:i');
+define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
@@ -87,7 +95,7 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 define('CHARSET', 'UTF-8');
 
 // Directory permissions
-define('DIR_PERMISSIONS', '0755');
+define('DIR_PERMISSIONS', 0755);
 
 // Multibyte string extension loaded.
 define('MB_STRING', extension_loaded('mbstring'));
@@ -153,12 +161,23 @@ $Url 		= new Url();
 $Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
 
-// HTML PATHs
-$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-$base = dirname($base);
+// HTML PATHS
+// The user can define the base URL.
+// Left empty if you want to Bludit try to detect the base URL.
+$base = '';
+
+if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
+	$base = dirname($base);
+}
+elseif( empty($base) ) {
+	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+	$base = dirname($base);
+}
 
 if($base!=DS) {
-	$base = $base.'/';
+	$base = trim($base, '/');
+	$base = '/'.$base.'/';
 }
 else {
 	// Workaround for Windows Web Servers
@@ -182,6 +201,7 @@ define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
+define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
 
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
@@ -194,11 +214,10 @@ define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
-// Objects with dependency
+// --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );
-
 $Url->checkFilters( $Site->uriFilters() );
 
-// Objects shortcuts
+// --- Objects shortcuts ---
 $L = $Language;
