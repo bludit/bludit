@@ -75,13 +75,18 @@ function buildPost($key)
 	$postDateFormated = $Post->dateRaw( $Site->dateFormat() );
 	$Post->setField('date', $postDateFormated, true);
 
-	// Parse username for the post.
+	// Parse username for the page.
 	if( $dbUsers->userExists( $Post->username() ) )
 	{
-		$user = $dbUsers->getDb( $Post->username() );
+		$User = new User();
+		$userDatabase = $dbUsers->getDb( $Post->username() );
 
-		$Post->setField('authorFirstName', $user['firstName'], false);
-		$Post->setField('authorLastName', $user['lastName'], false);
+		foreach($userDatabase as $key=>$value) {
+			$User->setField($key, $value);
+		}
+
+		// Save the User object inside the Page object
+		$Post->setField('user', $User);
 	}
 
 	return $Post;
