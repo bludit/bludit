@@ -41,7 +41,8 @@ legend.first-child {
 	padding: 15px;
 }
 
-.uk-nav-navbar > li > a:hover {
+.uk-nav-navbar > li > a:hover,
+.uk-nav-navbar > li > a:focus {
 	background: #2672ec;
 }
 
@@ -111,6 +112,10 @@ li.bludit-logo {
 	background: #2672ec !important;
 }
 
+.uk-placeholder {
+	margin-bottom: 0 !important;
+}
+
 /* ----------- BLUDIT ----------- */
 
 #logo {
@@ -167,7 +172,12 @@ button.delete-button:hover {
 	background: rgba(187, 48, 48, 0.91);
 }
 
+/* ----------- FORM ----------- */
 
+.sidebar .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
 
 /* ----------- BLUDIT IMAGES V8 ----------- */
 #bludit-images-v8 {

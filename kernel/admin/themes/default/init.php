@@ -134,8 +134,6 @@ class HTML {
 $html = '<!-- BLUDIT QUICK IMAGES -->';
 $html .= '
 <div id="bludit-quick-images">
-<h4 class="label">Images</h4>
-
 <div id="bludit-quick-images-thumbnails">
 ';
 

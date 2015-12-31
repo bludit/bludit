@@ -91,7 +91,9 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	echo '<li>';
 
 	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage($_Page->coverImage());
+	echo '<hr>';
+	HTML::bluditCoverImage($_Page->coverImage(false));
+	echo '<hr>';
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -103,6 +105,16 @@ echo '<div class="sidebar uk-width-large-2-10">';
 
 	// ---- ADVANCED TAB ----
 	echo '<li>';
+
+	// Status input
+	HTML::formSelect(array(
+		'name'=>'status',
+		'label'=>$L->g('Status'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
+		'selected'=>($_Page->draft()?'draft':'published'),
+		'tip'=>''
+	));
 
 // If the page is parent then doesn't can have a parent.
 if(count($_Page->children())===0)
@@ -122,16 +134,6 @@ if(count($_Page->children())===0)
 		'tip'=>''
 	));
 }
-
-	// Status input
-	HTML::formSelect(array(
-		'name'=>'status',
-		'label'=>$L->g('Status'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
-		'selected'=>($_Page->draft()?'draft':'published'),
-		'tip'=>''
-	));
 
 	// Position input
 	HTML::formInputText(array(

@@ -111,9 +111,15 @@ class Page extends fileContent
 		return $this->getField('key');
 	}
 
-	public function coverImage()
+	public function coverImage($absolute=true)
 	{
-		return $this->getField('coverImage');
+		$fileName = $this->getField('coverImage');
+
+		if($absolute) {
+			return HTML_PATH_UPLOADS.$fileName;
+		}
+
+		return $fileName;
 	}
 
 	// Returns TRUE if the page is published, FALSE otherwise.

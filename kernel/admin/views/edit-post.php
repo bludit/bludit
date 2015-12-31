@@ -85,7 +85,9 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	echo '<li>';
 
 	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage($_Post->coverImage());
+	echo '<hr>';
+	HTML::bluditCoverImage($_Post->coverImage(false));
+	echo '<hr>';
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -98,15 +100,6 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	// ---- ADVANCED TAB ----
 	echo '<li>';
 
-	// Date input
-	HTML::formInputText(array(
-		'name'=>'date',
-		'value'=>$_Post->dateRaw(),
-		'class'=>'uk-width-1-1 uk-form-large',
-		'tip'=>$L->g('To schedule the post just select the date and time'),
-		'label'=>$L->g('Date')
-	));
-
 	// Status input
 	HTML::formSelect(array(
 		'name'=>'status',
@@ -115,6 +108,15 @@ echo '<div class="sidebar uk-width-large-2-10">';
 		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
 		'selected'=>($_Post->draft()?'draft':'published'),
 		'tip'=>''
+	));
+
+	// Date input
+	HTML::formInputText(array(
+		'name'=>'date',
+		'value'=>$_Post->dateRaw(),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'label'=>$L->g('Date')
 	));
 
 	// Slug input
