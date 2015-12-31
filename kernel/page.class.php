@@ -111,6 +111,11 @@ class Page extends fileContent
 		return $this->getField('key');
 	}
 
+	public function coverImage()
+	{
+		return $this->getField('coverImage');
+	}
+
 	// Returns TRUE if the page is published, FALSE otherwise.
 	public function published()
 	{

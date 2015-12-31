@@ -91,7 +91,7 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	echo '<li>';
 
 	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage();
+	HTML::bluditCoverImage($_Page->coverImage());
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();

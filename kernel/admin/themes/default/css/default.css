@@ -102,9 +102,13 @@ li.bludit-logo {
 }
 
 .uk-thumbnail {
-	margin: 2px 4px !important;
+	margin: 2px 3px !important;
 	max-width: 30% !important;
 	padding: 0 !important;
+}
+
+.uk-progress-bar {
+	background: #2672ec !important;
 }
 
 /* ----------- BLUDIT ----------- */
@@ -185,6 +189,7 @@ button.delete-button:hover {
 
 #bludit-images-v8-progressbar {
 	display: none;
+	margin: 20px;
 }
 
 #bludit-images-v8-thumbnails {
@@ -209,6 +214,10 @@ button.delete-button:hover {
 	color: #aaa;
 	padding: 2px 5px;
 	font-size: 0.9em;
+}
+
+#bludit-quick-images-thumbnails {
+	text-align: center;
 }
 
 /* ----------- BLUDIT COVER IMAGE ----------- */
@@ -246,6 +255,11 @@ button.delete-button:hover {
 
 #cover-image-progressbar {
 	display: none;
+	left: 5%;
+	position: relative;
+	top: 33%;
+	width: 90%;
+
 }
 
 /* ----------- LOGIN FORM ----------- */

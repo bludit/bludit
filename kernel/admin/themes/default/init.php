@@ -157,21 +157,28 @@ $html .= '
 		echo $html;
 	}
 
-	public static function bluditCoverImage()
+	public static function bluditCoverImage($coverImage="")
 	{
 		global $L;
+
+		$style = '';
+		if(!empty($coverImage)) {
+			$style = 'background-image: url('.HTML_PATH_UPLOADS_THUMBNAILS.$coverImage.')';
+		}
 
 $html = '<!-- BLUDIT COVER IMAGE -->';
 $html .= '
 <div id="bludit-cover-image">
-<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center">
+<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center" style="'.$style.'">
 
-	<div id="cover-image-upload">
+	<input type="hidden" name="coverImage" id="cover-image-upload-filename" value="'.$coverImage.'">
+
+	<div id="cover-image-upload" '.( empty($coverImage)?'':'style="display: none;"' ).'>
 		<div><i class="uk-icon-picture-o"></i> '.$L->g('Cover image').'</div>
-		<div>'.$L->g('Drag and drop or click here').'<input id="cover-image-file-select" type="file"></div>
+		<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="cover-image-file-select" type="file"></div>
 	</div>
 
-	<div id="cover-image-delete">
+	<div id="cover-image-delete" '.( empty($coverImage)?'':'style="display: block;"' ).'>
 		<div><i class="uk-icon-trash-o"></i></div>
 	</div>
 
@@ -189,6 +196,7 @@ $(document).ready(function() {
 
 	$("#cover-image-delete").on("click", function() {
 		$("#cover-image-thumbnail").attr("style","");
+		$("#cover-image-upload-filename").attr("value","");
 		$("#cover-image-delete").hide();
 		$("#cover-image-upload").show();
 	});
@@ -202,7 +210,7 @@ $(document).ready(function() {
 
 		loadstart: function() {
 			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
-			$("#cover-image-progressbar").hide();
+			$("#cover-image-progressbar").show();
 			$("#cover-image-delete").hide();
 			$("#cover-image-upload").hide();
 		},
@@ -222,6 +230,8 @@ $(document).ready(function() {
 
 			$("img:last-child", "#bludit-quick-images-thumbnails").remove();
 			$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+
+			$("#cover-image-upload-filename").attr("value",response.filename);
 		},
 
 		notallowed: function(file, settings) {
@@ -251,7 +261,7 @@ $html .= '
 
 		<div id="bludit-images-v8-drag-drop">
 			<div><i class="uk-icon-picture-o"></i> '.$L->g('Upload image').'</div>
-			<div>'.$L->g('Drag and drop or click here').'<input id="bludit-images-v8-file-select" type="file"></div>
+			<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="bludit-images-v8-file-select" type="file"></div>
 		</div>
 
 		<div id="bludit-images-v8-progressbar" class="uk-progress">
@@ -310,6 +320,8 @@ $(document).ready(function() {
 
 		loadstart: function() {
 			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
+			$("#bludit-images-v8-drag-drop").hide();
+			$("#bludit-images-v8-progressbar").show();
 		},
 
 		progress: function(percent) {
@@ -320,6 +332,7 @@ $(document).ready(function() {
 		allcomplete: function(response) {
 			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
 			$("#bludit-images-v8-progressbar").hide();
+			$("#bludit-images-v8-drag-drop").show();
 
 			// Images V8 Thumbnails
 			var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS+response.filename;

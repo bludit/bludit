@@ -83,6 +83,11 @@ class Post extends fileContent
 		return $this->getField('username');
 	}
 
+	public function coverImage()
+	{
+		return $this->getField('coverImage');
+	}
+
 	public function profilePicture()
 	{
 		return HTML_PATH_UPLOADS_PROFILES.$this->username().'.jpg';
