@@ -16,7 +16,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'username',
-		'value'=>$_user['username']
+		'value'=>$_User->username()
 	));
 
 	HTML::legend(array('value'=>$L->g('Profile'), 'class'=>'first-child'));
@@ -24,7 +24,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',
 		'label'=>$L->g('Username'),
-		'value'=>$_user['username'],
+		'value'=>$_User->username(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
 		'tip'=>''
@@ -33,7 +33,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'firstName',
 		'label'=>$L->g('First name'),
-		'value'=>$_user['firstName'],
+		'value'=>$_User->firstName(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -41,7 +41,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'lastName',
 		'label'=>$L->g('Last name'),
-		'value'=>$_user['lastName'],
+		'value'=>$_User->lastName(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -49,7 +49,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	echo '<div class="uk-form-row">
 		<label class="uk-form-label">Password</label>
 		<div class="uk-form-controls">
-		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$_user['username'].'">'.$L->g('Change password').'</a>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$_User->username().'">'.$L->g('Change password').'</a>
 		</div>
 	</div>';
 
@@ -59,7 +59,7 @@ if($Login->role()==='admin') {
 		'name'=>'role',
 		'label'=>$L->g('Role'),
 		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
-		'selected'=>$_user['role'],
+		'selected'=>$_User->role(),
 		'tip'=>''
 	));
 
@@ -67,17 +67,41 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'email',
 		'label'=>$L->g('Email'),
-		'value'=>$_user['email'],
+		'value'=>$_User->email(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
 	));
 
-	HTML::legend(array('value'=>$L->g('Social network')));
+	HTML::legend(array('value'=>'Social networks'));
 
 	HTML::formInputText(array(
 		'name'=>'twitterUsername',
-		'label'=>$L->g('Twitter username'),
-		'value'=>$_user['twitterUsername'],
+		'label'=>'Twitter username',
+		'value'=>$_User->twitterUsername(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'facebookUsername',
+		'label'=>'Facebook username',
+		'value'=>$_User->facebookUsername(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'googleUsername',
+		'label'=>'Google username',
+		'value'=>$_User->googleUsername(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'instagramUsername',
+		'label'=>'Instagram username',
+		'value'=>$_User->instagramUsername(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -89,7 +113,7 @@ if($Login->role()==='admin') {
 		</div>
 	</div>';
 
-if( ($Login->role()==='admin') && ($_user['username']!='admin') ) {
+if( ($Login->role()==='admin') && ($_User->username()!='admin') ) {
 
 	HTML::legend(array('value'=>$L->g('Delete')));
 
@@ -108,15 +132,15 @@ echo '</div>';
 echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
 
 echo '<div id="jsprofilePicture">';
-if(file_exists(PATH_UPLOADS_PROFILES.$_user['username'].'.jpg')) {
-	echo '<img class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_user['username'].'.jpg" alt="">';
+if(file_exists(PATH_UPLOADS_PROFILES.$_User->username().'.jpg')) {
+	echo '<img class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_User->username().'.jpg" alt="">';
 }
 else {
 	echo '<div class="uk-block uk-border-rounded uk-block-muted uk-block-large">'.$L->g('Profile picture').'</div>';
 }
 echo '</div>';
 
-HTML::profileUploader($_user['username']);
+HTML::profileUploader($_User->username());
 
 echo '</div>';
 echo '</div>';
