@@ -129,16 +129,8 @@ if( ($Login->role()==='admin') && ($_User->username()!='admin') ) {
 HTML::formClose();
 
 echo '</div>';
-echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
 
-echo '<div id="jsprofilePicture">';
-if(file_exists(PATH_UPLOADS_PROFILES.$_User->username().'.jpg')) {
-	echo '<img class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$_User->username().'.jpg" alt="">';
-}
-else {
-	echo '<div class="uk-block uk-border-rounded uk-block-muted uk-block-large">'.$L->g('Profile picture').'</div>';
-}
-echo '</div>';
+echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
 
 HTML::profileUploader($_User->username());
 

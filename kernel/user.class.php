@@ -81,4 +81,15 @@ class User
 		return $this->getField('instagramUsername');
 	}
 
+	public function profilePicture($absolute=true)
+	{
+		$filename = $this->getField('username').'.png';
+
+		if($absolute) {
+			return HTML_PATH_UPLOADS_PROFILES.$filename;
+		}
+
+		return $filename;
+	}
+
 }

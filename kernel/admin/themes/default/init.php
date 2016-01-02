@@ -354,145 +354,80 @@ $(document).ready(function() {
 		echo $html.$script;
 	}
 
-	public static function uploader()
-	{
-		global $L;
-
-		$html = '
-		<div id="upload-drop" class="uk-placeholder uk-text-center">
-		<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>'.$L->g('Upload Image').'<br><a class="uk-form-file">'.$L->g('Drag and drop or click here').'<input id="upload-select" type="file"></a>
-		</div>
-
-		<div id="progressbar" class="uk-progress uk-hidden">
-		<div class="uk-progress-bar" style="width: 0%;">0%</div>
-		</div>
-		';
-
-		$html .= '<select id="jsimageList" class="uk-width-1-1" size="10">';
-		$imagesList = Filesystem::listFiles(PATH_UPLOADS,'*','*',true);
-		foreach($imagesList as $file) {
-			$html .= '<option value="">'.basename($file).'</option>';
-		}
-		$html .= '</select>';
-
-		$html .= '
-		<div class="uk-form-row uk-margin-top">
-		<button id="jsaddImage" class="uk-button uk-button-primary" type="button"><i class="uk-icon-angle-double-left"></i> '.$L->g('Insert Image').'</button>
-		</div>
-		';
-
-		$html .= '
-		<script>
-		$(document).ready(function() {
-
-			$("#jsaddImage").on("click", function() {
-				var filename = $("#jsimageList option:selected").text();
-				if(!filename.trim()) {
-					return false;
-				}
-				var textareaValue = $("#jscontent").val();
-				$("#jscontent").val(textareaValue + "<img src=\""+filename+"\" alt=\"\">" + "\n");
-			});
-
-			$(function()
-			{
-				var progressbar = $("#progressbar");
-				var bar = progressbar.find(".uk-progress-bar");
-				var settings =
-				{
-					type: "json",
-					action: "'.HTML_PATH_ADMIN_ROOT.'ajax/uploader",
-					allow : "*.(jpg|jpeg|gif|png)",
-
-					loadstart: function() {
-						bar.css("width", "0%").text("0%");
-						progressbar.removeClass("uk-hidden");
-					},
-
-					progress: function(percent) {
-						percent = Math.ceil(percent);
-						bar.css("width", percent+"%").text(percent+"%");
-					},
-
-					allcomplete: function(response) {
-						bar.css("width", "100%").text("100%");
-						setTimeout(function() { progressbar.addClass("uk-hidden"); }, 250);
-						$("#jsimageList").prepend("<option value=\'"+response.filename+"\' selected=\'selected\'>"+response.filename+"</option>");
-					},
-
-					notallowed: function(file, settings) {
-						alert("'.$L->g('Supported image file types').' "+settings.allow);
-					}
-				};
-
-				var select = UIkit.uploadSelect($("#upload-select"), settings);
-				var drop = UIkit.uploadDrop($("#upload-drop"), settings);
-			});
-
-		});
-		</script>';
-
-		echo $html;
-	}
-
 	public static function profileUploader($username)
 	{
 		global $L;
 
-		$html = '
-		<div id="jsprogressBar" class="uk-progress uk-hidden">
+$html = '<!-- BLUDIT PROFILE UPLOADER -->';
+
+$html .= '
+<div id="bludit-profile-picture">
+
+	<div id="bludit-profile-picture-image">';
+
+	if(file_exists(PATH_UPLOADS_PROFILES.$username.'.png')) {
+		$html .= '<img class="uk-border-rounded" src="'.HTML_PATH_UPLOADS_PROFILES.$username.'.png" alt="Profile picture">';
+	}
+	else {
+		$html .= '<div class="uk-block uk-border-rounded uk-block-muted uk-block-large">'.$L->g('Profile picture').'</div>';
+	}
+
+$html .= '
+	</div>
+
+	<div id="bludit-profile-picture-progressbar" class="uk-progress">
 		<div class="uk-progress-bar" style="width: 0%;">0%</div>
-		</div>
+	</div>
 
-		<div id="upload-drop" class="uk-placeholder uk-text-center">
-		<i class="uk-icon-cloud-upload uk-margin-small-right"></i>'.$L->g('Upload Image').'<br><a class="uk-form-file">'.$L->g('Drag and drop or click here').'<input id="upload-select" type="file"></a>
-		</div>
-		';
+	<div id="bludit-profile-picture-drag-drop" class="uk-form-file uk-placeholder uk-text-center">
+		<div>'.$L->g('Upload image').'</div>
+		<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="bludit-profile-picture-file-select" type="file"></div>
+	</div>
 
-		$html .= '
-		<script>
-		$(document).ready(function() {
+</div>
+';
 
-			$(function()
-			{
-				var progressbar = $("#jsprogressBar");
-				var bar = progressbar.find(".uk-progress-bar");
-				var settings =
-				{
-					type: "json",
-					action: "'.HTML_PATH_ADMIN_ROOT.'ajax/uploader",
-					allow : "*.(jpg|jpeg|gif|png)",
-					params: {"type":"profilePicture", "username":"'.$username.'"},
+$script = '
+<script>
+$(document).ready(function() {
 
-					loadstart: function() {
-						bar.css("width", "0%").text("0%");
-						progressbar.removeClass("uk-hidden");
-					},
+	var settings =
+	{
+		type: "json",
+		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
+		allow : "*.(jpg|jpeg|gif|png)",
+		params: {"type":"profilePicture", "username":"'.$username.'"},
 
-					progress: function(percent) {
-						percent = Math.ceil(percent);
-						bar.css("width", percent+"%").text(percent+"%");
-					},
+		loadstart: function() {
+			$("#bludit-profile-picture-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
+			$("#bludit-profile-picture-progressbar").show();
+		},
 
-					allcomplete: function(response) {
-						bar.css("width", "100%").text("100%");
-						progressbar.addClass("uk-hidden");
-						$("#jsprofilePicture").html("<img class=\"uk-border-rounded\" src=\"'.HTML_PATH_UPLOADS_PROFILES.$username.'.jpg\">");
-					},
+		progress: function(percent) {
+			percent = Math.ceil(percent);
+			$("#bludit-profile-picture-progressbar").find(".uk-progress-bar").css("width", percent+"%").text(percent+"%");
+		},
 
-					notallowed: function(file, settings) {
-						alert("'.$L->g('Supported image file types').' "+settings.allow);
-					}
-				};
+		allcomplete: function(response) {
+			$("#bludit-profile-picture-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
+			$("#bludit-profile-picture-progressbar").hide();
 
-				var select = UIkit.uploadSelect($("#upload-select"), settings);
-				var drop = UIkit.uploadDrop($("#upload-drop"), settings);
-			});
+			$("#bludit-profile-picture-image").html("<img class=\"uk-border-rounded\" src=\"'.HTML_PATH_UPLOADS_PROFILES.$username.'.png?time='.time().'\">");
+		},
 
-		});
-		</script>';
+		notallowed: function(file, settings) {
+			alert("'.$L->g('Supported image file types').' "+settings.allow);
+		}
+	};
 
-		echo $html;
+	UIkit.uploadSelect($("#bludit-profile-picture-file-select"), settings);
+	UIkit.uploadDrop($("#bludit-profile-picture-drag-drop"), settings);
+
+});
+</script>
+';
+
+		echo $html.$script;
 	}
 
 }

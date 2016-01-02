@@ -274,6 +274,17 @@ button.delete-button:hover {
 
 /* ----------- BLUDIT PROFILE PICTURE ----------- */
 
+#bludit-profile-picture-drag-drop {
+	width: 100%;
+	padding: 15px 0;
+}
+
+#bludit-profile-picture-progressbar {
+	display: none;
+	margin: 15px 0 0;
+	width: 100%;
+}
+
 /* ----------- LOGIN FORM ----------- */
 
 div.login-box > h1 {
