@@ -10,7 +10,8 @@ class dbPosts extends dbJSON
 		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
-		'date'=>		array('inFile'=>false,	'value'=>'')
+		'date'=>		array('inFile'=>false,	'value'=>''),
+		'coverImage'=>		array('inFile'=>false,	'value'=>''),
 	);
 
 	private $numberPosts = array(

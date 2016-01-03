@@ -218,5 +218,7 @@
 	"site-information": "Site information",
 	"date-and-time-formats": "Date and time formats",
 	"activate": "Activate",
-	"deactivate": "Deactivate"
+	"deactivate": "Deactivate",
+
+	"cover-image": "Cover image"
 }

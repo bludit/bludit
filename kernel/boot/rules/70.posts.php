@@ -75,14 +75,9 @@ function buildPost($key)
 	$postDateFormated = $Post->dateRaw( $Site->dateFormat() );
 	$Post->setField('date', $postDateFormated, true);
 
-	// Parse username for the post.
-	if( $dbUsers->userExists( $Post->username() ) )
-	{
-		$user = $dbUsers->getDb( $Post->username() );
-
-		$Post->setField('authorFirstName', $user['firstName'], false);
-		$Post->setField('authorLastName', $user['lastName'], false);
-	}
+	// User object
+	$username = $Post->username();
+	$Post->setField('user', $dbUsers->getUser($username));
 
 	return $Post;
 }

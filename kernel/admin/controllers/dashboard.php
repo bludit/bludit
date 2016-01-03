@@ -8,9 +8,16 @@ function updateBludit()
 	global $Site;
 
 	// Check if Bludit need to be update.
-	if($Site->currentBuild() < BLUDIT_BUILD)
+	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) )
 	{
-		$directories = array(PATH_POSTS, PATH_PAGES, PATH_PLUGINS_DATABASES, PATH_UPLOADS_PROFILES);
+		$directories = array(
+				PATH_POSTS,
+				PATH_PAGES,
+				PATH_PLUGINS_DATABASES,
+				PATH_UPLOADS_PROFILES,
+				PATH_UPLOADS_THUMBNAILS,
+				PATH_TMP
+		);
 
 		foreach($directories as $dir)
 		{
@@ -23,6 +30,8 @@ function updateBludit()
 
 		// Set and save the database.
 		$Site->set(array('currentBuild'=>BLUDIT_BUILD));
+
+		Log::set('updateBludit'.LOG_SEP.'System updated');
 	}
 }
 

@@ -66,14 +66,9 @@ function build_page($key)
 	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
 	$Page->setField('date', $pageDateFormated, true);
 
-	// Parse username for the page.
-	if( $dbUsers->userExists( $Page->username() ) )
-	{
-		$user = $dbUsers->getDb( $Page->username() );
-
-		$Page->setField('authorFirstName', $user['firstName'], false);
-		$Page->setField('authorLastName', $user['lastName'], false);
-	}
+	// User object
+	$username = $Page->username();
+	$Page->setField('user', $dbUsers->getUser($username));
 
 	return $Page;
 }
