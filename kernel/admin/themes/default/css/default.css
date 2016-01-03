@@ -184,13 +184,21 @@ button.delete-button:hover {
 
 }
 
-#bludit-images-v8 img.uk-thumbnail {
+#bludit-images-v8 .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
 	width: 15% !important;
 }
 
 #bludit-images-v8-upload {
 	width: 100%;
 	padding: 0;
+	margin-bottom: 15px !important;
 }
 
 #bludit-images-v8-drag-drop {
@@ -203,8 +211,9 @@ button.delete-button:hover {
 }
 
 #bludit-images-v8-thumbnails {
-	height: 350px;
+	max-height: 350px;
 	overflow: auto;
+	font-size: 0;
 }
 
 /* ----------- BLUDIT QUICK IMAGES ----------- */
@@ -227,7 +236,18 @@ button.delete-button:hover {
 }
 
 #bludit-quick-images-thumbnails {
-	text-align: center;
+	font-size: 0;
+}
+
+#bludit-quick-images .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 31% !important;
 }
 
 /* ----------- BLUDIT COVER IMAGE ----------- */
