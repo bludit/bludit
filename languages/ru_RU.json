@@ -218,5 +218,7 @@
 	"site-information": "Информация о сайте",
 	"date-and-time-formats": "Форматы даты и времени",
 	"activate": "Активировать",
-	"deactivate": "Деактивировать"
+	"deactivate": "Деактивировать",
+	
+	"cover-image": "Обложка"
 }
