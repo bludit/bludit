@@ -24,6 +24,7 @@ define('PATH_CONTENT',		PATH_ROOT.'content'.DS);
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
@@ -319,9 +320,9 @@ function install($adminPassword, $email, $timezoneOffset)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'tinymce', $dirpermissions, true))
+	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
 	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tinymce';
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
 		error_log($errorText, 0);
 	}
 
@@ -340,6 +341,12 @@ function install($adminPassword, $email, $timezoneOffset)
 	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
 		error_log($errorText, 0);
 	}
 
@@ -484,14 +491,14 @@ function install($adminPassword, $email, $timezoneOffset)
 		LOCK_EX
 	);
 
-	// File plugins/tinymce/db.php
+	// File plugins/simplemde/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php',
+		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
 				'position'=>0,
-				'plugins'=>'autoresize, fullscreen, pagebreak, link, textcolor, code',
-				'toolbar'=>'bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat | pagebreak code fullscreen'
+				'tabSize'=>4,
+				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;, &quot;guide&quot;'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

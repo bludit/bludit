@@ -1,7 +1,7 @@
 {
 	"language-data":
 	{
-		"native": "Deutsch (Deutschland)",
+		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
 		"last-update": "2015-12-15",
 		"author": "Clickwork",
@@ -142,7 +142,7 @@
 	"follow-bludit-on": "Folge Bludit bei",
 	"visit-the-support-forum": "Besuche das [Forum](http://forum.bludit.com), um Hilfe zu erhalten.",
 	"read-the-documentation-for-more-information": "Lies die [Dokumentation](http://docs.bludit.com) und das [Bludit-Tutorial](https://bludit-tutorial.ch) für weitere Informationen.",
-        "share-with-your-friends-and-enjoy": "Erzähle deinen Freunden von Bludit und habe Spaß daran.",
+        "share-with-your-friends-and-enjoy": "Erzähle deinen Freunden von Bludit und habe Spass daran.",
 	"the-page-has-not-been-found": "Die Seite wurde nicht gefunden.",
 	"error": "Fehler",
 	"bludit-installer": "Bludit-Installer",
@@ -184,7 +184,7 @@
 	"emails-will-be-sent-from-this-address":"E-Mails werden mit dieser E-Mail-Adresse als Absender verschickt.",
 	"bludit-login-access-code": "BLUDIT - Zugangscode",
 	"check-your-inbox-for-your-login-access-code":"Der Zugangscode wurde dir geschickt.",
-	"there-was-a-problem-sending-the-email":"Es besteht ein Problem mit dem Verschicken dieser E-Mail.",
+	"there-was-a-problem-sending-the-email":"Es besteht ein Pronlem mit dem Verschicken dieser E-Mail.",
 	"back-to-login-form": "Zurück zum Login",
 	"send-me-a-login-access-code": "Zugangscode zuschicken",
 	"get-login-access-code": "Zugangscode schicken",

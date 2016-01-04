@@ -12,7 +12,8 @@ class dbPages extends dbJSON
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
 		'date'=>		array('inFile'=>false,	'value'=>''),
-		'position'=>		array('inFile'=>false,	'value'=>0)
+		'position'=>		array('inFile'=>false,	'value'=>0),
+		'coverImage'=>		array('inFile'=>false,	'value'=>''),
 	);
 
 	function __construct()
