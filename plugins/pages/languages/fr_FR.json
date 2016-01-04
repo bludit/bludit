@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Page navigation",
-		"description": "Constitue un menu avec les liens des pages dans la colonne du thème."
+		"description": "Constitue un menu ordonné, avec les liens des pages dans votre thème."
 	},
 
 	"home": "Accueil",
