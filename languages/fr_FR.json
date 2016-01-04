@@ -218,5 +218,7 @@
 	"site-information": "Informations sur le site",
 	"date-and-time-formats": "Format de la date et de l’heure",
 	"activate": "Activer",
-	"deactivate": "Désactiver"
+	"deactivate": "Désactiver",
+
+	"cover-image": "Image de couverture"
 }
