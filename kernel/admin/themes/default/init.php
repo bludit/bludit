@@ -141,18 +141,44 @@ $thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
 array_splice($thumbnailList, THUMBNAILS_AMOUNT);
 foreach($thumbnailList as $file) {
 	$filename = basename($file);
-	$html .= '<img class="bludit-thumbnail uk-thumbnail" data-filename="'.$filename.'" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" alt="Thumbnail">';
+	$html .= '<img class="bludit-thumbnail" data-filename="'.$filename.'" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" alt="Thumbnail">';
 }
 
 $html .= '
 </div>
+';
 
+if(empty($thumbnailList)) {
+	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">There are no images, upload someone to make your site more cheerful.</div>';
+}
+
+$html .= '
 <a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">More images</a>
 
 </div>
 ';
 
-		echo $html;
+$script = '
+<script>
+
+// Add thumbnail to Quick Images
+function addQuickImages(filename)
+{
+	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
+
+	// Remove element if there are more than 6 thumbnails
+	if ($("#bludit-quick-images-thumbnails > img").length > 5) {
+		$("img:last-child", "#bludit-quick-images-thumbnails").remove();
+	}
+
+	// Add the new thumbnail to Quick images
+	$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail\" data-filename=\""+filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+}
+
+</script>
+';
+
+		echo $html.$script;
 	}
 
 	public static function bluditCoverImage($coverImage="")
@@ -190,6 +216,18 @@ $html .= '
 
 $script = '
 <script>
+
+function addCoverImage(filename)
+{
+	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
+
+	// Cover image background
+	$("#cover-image-thumbnail").attr("style","background-image: url("+imageSrc+")");
+
+	// Form attribute
+	$("#cover-image-upload-filename").attr("value", filename);
+}
+
 $(document).ready(function() {
 
 	$("#cover-image-delete").on("click", function() {
@@ -221,15 +259,17 @@ $(document).ready(function() {
 		allcomplete: function(response) {
 			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
 			$("#cover-image-progressbar").hide();
-
-			var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS+response.filename;
-			$("#cover-image-thumbnail").attr("style","background-image: url("+imageSrc+")");
 			$("#cover-image-delete").show();
+			$(".empty-images").hide();
 
-			$("img:last-child", "#bludit-quick-images-thumbnails").remove();
-			$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+			// Add Cover Image
+			addCoverImage(response.filename);
 
-			$("#cover-image-upload-filename").attr("value",response.filename);
+			// Add thumbnail to Quick Images
+			addQuickImages(response.filename);
+
+			// Add thumbnail to Bludit Images V8
+			addBluditImagev8(response.filename);
 		},
 
 		notallowed: function(file, settings) {
@@ -271,15 +311,21 @@ $html .= '
 	<div id="bludit-images-v8-thumbnails">
 ';
 
-	$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
-	foreach($thumbnailList as $file) {
-		$filename = basename($file);
-		$html .= '<img class="bludit-thumbnail uk-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
-	}
+$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+foreach($thumbnailList as $file) {
+	$filename = basename($file);
+	$html .= '<img class="bludit-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
+}
 
 $html .= '
 	</div>
+';
 
+if(empty($thumbnailList)) {
+	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">There are no images, upload someone to make your site more cheerful.</div>';
+}
+
+$html .= '
 	<div class="uk-modal-footer">
 		Double click on the image to add it or <a href="" class="uk-modal-close">click here to cancel</a>
 	</div>
@@ -290,6 +336,16 @@ $html .= '
 
 $script = '
 <script>
+
+// Add thumbnail to Bludit Images v8
+function addBluditImagev8(filename)
+{
+	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
+
+	// Add the new thumbnail to Bludit Images v8
+	$("#bludit-images-v8-thumbnails").prepend("<img class=\"bludit-thumbnail\" data-filename=\""+filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+}
+
 $(document).ready(function() {
 
 	// Add border when select an thumbnail
@@ -331,14 +387,13 @@ $(document).ready(function() {
 			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
 			$("#bludit-images-v8-progressbar").hide();
 			$("#bludit-images-v8-drag-drop").show();
+			$(".empty-images").hide();
 
-			// Images V8 Thumbnails
-			var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS+response.filename;
-			$("#bludit-images-v8-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+			// Add thumbnail to Bludit Images V8
+			addBluditImagev8(response.filename);
 
-			// Quick images Thumbnails
-			$("img:last-child", "#bludit-quick-images-thumbnails").remove();
-			$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail uk-thumbnail\" data-filename=\""+response.filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
+			// Add thumbnail to Quick Images
+			addQuickImages(response.filename);
 		},
 
 		notallowed: function(file, settings) {
