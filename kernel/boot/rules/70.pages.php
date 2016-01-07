@@ -23,7 +23,7 @@ function sortPages($a, $b)
 	return ($a->position() < $b->position()) ? -1 : 1;
 }
 
-function build_page($key)
+function buildPage($key)
 {
 	global $dbPages;
 	global $dbUsers;
@@ -38,7 +38,7 @@ function build_page($key)
 	}
 
 	// Page database, content from DATABASE JSON.
-	$db = $dbPages->getDb($key);
+	$db = $dbPages->getPageDB($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
 		return false;
@@ -73,19 +73,22 @@ function build_page($key)
 	return $Page;
 }
 
-function build_all_pages()
+function buildAllPages()
 {
 	global $pages;
 	global $pagesParents;
 	global $dbPages;
 
-	$list = $dbPages->getAll();
+	$list = $dbPages->getDB();
+
+	// Clean pages array.
+	$pages = array();
 
 	unset($list['error']);
 
 	foreach($list as $key=>$db)
 	{
-		$Page = build_page($key);
+		$Page = buildPage($key);
 
 		if($Page!==false)
 		{
@@ -144,7 +147,7 @@ if( $Site->cliMode() ) {
 // Filter by page, then build it
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
-	$Page = build_page( $Url->slug() );
+	$Page = buildPage( $Url->slug() );
 
 	if($Page===false)
 	{
@@ -165,7 +168,7 @@ if($Url->notFound()===false)
 	{
 		$Url->setWhereAmI('page');
 
-		$Page = build_page( $Site->homepage() );
+		$Page = buildPage( $Site->homepage() );
 
 		if($Page===false) {
 			$Url->setWhereAmI('home');
@@ -180,4 +183,4 @@ if($Url->notFound())
 }
 
 // Build all pages
-build_all_pages();
+buildAllPages();

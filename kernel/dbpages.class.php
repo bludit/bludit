@@ -95,7 +95,7 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $key;
 	}
 
 	public function edit($args)
@@ -183,7 +183,7 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $newKey;
 	}
 
 	public function delete($key)
@@ -215,7 +215,7 @@ class dbPages extends dbJSON
 	}
 
 	// Return an array with the database for a page, FALSE otherwise.
-	public function getDb($key)
+	public function getPageDB($key)
 	{
 		if($this->pageExists($key)) {
 			return $this->db[$key];
@@ -288,8 +288,8 @@ class dbPages extends dbJSON
 		return $newKey;
 	}
 
-	// Return an array with all databases.
-	public function getAll()
+	// Returns the database
+	public function getDB()
 	{
 		return $this->db;
 	}

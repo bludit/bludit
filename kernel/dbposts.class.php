@@ -35,8 +35,14 @@ class dbPosts extends dbJSON
 		return $this->numberPosts['published'];
 	}
 
+	// Returns the database
+	public function getDB()
+	{
+		return $this->db;
+	}
+
 	// Return an array with the post's database, FALSE otherwise.
-	public function getDb($key)
+	public function getPostDB($key)
 	{
 		if($this->postExists($key)) {
 			return $this->db[$key];
@@ -45,7 +51,7 @@ class dbPosts extends dbJSON
 		return false;
 	}
 
-	public function setDb($key, $field, $value)
+	public function setPostDb($key, $field, $value)
 	{
 		if($this->postExists($key)) {
 			$this->db[$key][$field] = $value;
@@ -176,7 +182,7 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $key;
 	}
 
 	public function edit($args)

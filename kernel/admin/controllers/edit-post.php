@@ -13,12 +13,18 @@ function editPost($args)
 	global $dbPosts;
 	global $Language;
 
-	// Edit the post.
-	if( $dbPosts->edit($args) )
+	// Add the page, if the $key is FALSE the creation of the post failure.
+	$key = $dbPosts->edit($args);
+
+	if($key)
 	{
 		// Reindex tags, this function is in 70.posts.php
 		reIndexTagsPosts();
 
+		// Call the plugins after post created.
+		Theme::plugins('afterPostModify');
+
+		// Alert the user
 		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-post/'.$args['slug']);
 	}
@@ -39,6 +45,9 @@ function deletePost($key)
 	{
 		// Reindex tags, this function is in 70.posts.php
 		reIndexTagsPosts();
+
+		// Call the plugins after post created.
+		Theme::plugins('afterPostDelete');
 
 		Alert::set($Language->g('The post has been deleted successfully'));
 		Redirect::page('admin', 'manage-posts');

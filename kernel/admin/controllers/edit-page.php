@@ -1,6 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
+// Check role
+// ============================================================================
+
+// ============================================================================
 // Functions
 // ============================================================================
 
@@ -13,11 +17,17 @@ function editPage($args)
 		$args['parent'] = NO_PARENT_CHAR;
 	}
 
-	// Edit the page.
-	if( $dbPages->edit($args) )
+	// Add the page, if the $key is FALSE the creation of the post failure.
+	$key = $dbPages->edit($args);
+
+	if($key)
 	{
 		$dbPages->regenerateCli();
 
+		// Call the plugins after page created.
+		Theme::plugins('afterPageModify');
+
+		// Alert the user
 		Alert::set($Language->g('The changes have been saved'));
 		Redirect::page('admin', 'edit-page/'.$args['slug']);
 	}
@@ -34,6 +44,9 @@ function deletePage($key)
 
 	if( $dbPages->delete($key) )
 	{
+		// Call the plugins after post created.
+		Theme::plugins('afterPageDelete');
+
 		Alert::set($Language->g('The page has been deleted successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}

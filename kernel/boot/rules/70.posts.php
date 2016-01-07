@@ -42,7 +42,7 @@ function buildPost($key)
 	}
 
 	// Post database, content from DATABASE JSON.
-	$db = $dbPosts->getDb($key);
+	$db = $dbPosts->getPostDB($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
 		return false;
