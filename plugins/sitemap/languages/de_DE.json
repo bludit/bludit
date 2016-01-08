@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Dieses Plugin generiert die Datei sitemap.xml. Sie dient dazu, Suchmaschinen über die Struktur und die Seiteninhalte deiner Website zu informieren.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "1.0",
+		"releaseDate": "2016-01-07"
+	}
+}
