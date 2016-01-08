@@ -145,16 +145,18 @@ if( $Site->cliMode() ) {
 	$dbPages->regenerateCli();
 }
 
-// Filter by page, then build it
+// Build specific page.
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
 	$Page = buildPage( $Url->slug() );
 
+	// The page doesn't exist.
 	if($Page===false)
 	{
 		$Url->setNotFound(true);
 		unset($Page);
 	}
+	// The page is not published yet.
 	elseif( !$Page->published() )
 	{
 		$Url->setNotFound(true);
@@ -162,10 +164,11 @@ if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 	}
 }
 
-// Default homepage
-if($Url->notFound()===false)
+// Homepage
+if( ($Url->whereAmI()==='home') && ($Url->notFound()===false) )
 {
-	if( Text::isNotEmpty($Site->homepage()) && ($Url->whereAmI()==='home') )
+	// The user defined as homepage a particular page.
+	if( Text::isNotEmpty( $Site->homepage() ) )
 	{
 		$Url->setWhereAmI('page');
 

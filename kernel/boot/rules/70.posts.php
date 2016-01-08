@@ -4,6 +4,8 @@
 // Variables
 // ============================================================================
 
+// Array with all posts specified by a filter.
+// Filter by page number, by tag, etc.
 $posts = array();
 
 // ============================================================================
@@ -138,11 +140,13 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 {
 	$Post = buildPost( $Url->slug() );
 
+	// The post doesn't exist.
 	if($Post===false)
 	{
 		$Url->setNotFound(true);
 		unset($Post);
 	}
+	// The post is not published yet.
 	elseif( !$Post->published() )
 	{
 		$Url->setNotFound(true);
@@ -166,8 +170,8 @@ else
 	if($Url->whereAmI()==='admin') {
 		$posts = buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
 	}
-	// Posts for homepage
-	else {
+	// Posts for home and blog filter.
+	elseif( ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) && ($Url->notFound()===false) ) {
 		$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
 	}
 }

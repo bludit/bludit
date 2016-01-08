@@ -67,6 +67,12 @@ class Url
 						break;
 					}
 
+					if($filterURI===$filters['blog'])
+					{
+						$this->whereAmI = 'blog';
+						break;
+					}
+
 					if($filterURI===$adminFilter['admin'])
 					{
 						$this->whereAmI = 'admin';
