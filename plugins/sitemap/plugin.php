@@ -48,6 +48,7 @@ class pluginSitemap extends Plugin {
 		// --- Pages ---
 		$filter = trim($Url->filters('page'),'/');
 		$pages = $dbPages->getDB();
+		unset($pages['error']);
 		foreach($pages as $key=>$db)
 		{
 			$permalink = empty($filter) ? $url.'/'.$key : $url.'/'.$filter.'/'.$key;
