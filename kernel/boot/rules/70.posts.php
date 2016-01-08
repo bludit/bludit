@@ -86,8 +86,9 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 {
 	global $dbPosts;
 	global $dbTags;
-	global $posts;
 	global $Url;
+
+	$posts = array();
 
 	if($tagKey) {
 		// Get the keys list from tags database, this database is optimized for this case.
@@ -111,6 +112,8 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 			array_push($posts, $Post);
 		}
 	}
+
+	return $posts;
 }
 
 // ============================================================================
@@ -154,17 +157,17 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 // Build posts by specific tag.
 elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
 {
-	buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
+	$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
 }
 // Build posts for homepage or admin area.
 else
 {
 	// Posts for admin area.
 	if($Url->whereAmI()==='admin') {
-		buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
+		$posts = buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
 	}
 	// Posts for homepage
 	else {
-		buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
+		$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
 	}
 }

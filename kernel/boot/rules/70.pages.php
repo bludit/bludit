@@ -75,7 +75,6 @@ function buildPage($key)
 
 function buildAllPages()
 {
-	global $pages;
 	global $pagesParents;
 	global $dbPages;
 
@@ -133,6 +132,8 @@ function buildAllPages()
 	}
 
 	$pagesParents = array(NO_PARENT_CHAR=>$parents) + $tmpPageWithParent;
+
+	return $pages;
 }
 
 // ============================================================================
@@ -183,4 +184,4 @@ if($Url->notFound())
 }
 
 // Build all pages
-buildAllPages();
+$pages = buildAllPages();
