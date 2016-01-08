@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
-		"last-update": "2015-12-15",
+		"last-update": "2016-01-05",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://www.clickwork.ch"
@@ -215,5 +215,6 @@
 	"site-information": "Angaben zur Website",
 	"date-and-time-formats": "Datum und Zeit",
 	"activate": "Aktivieren",
-	"deactivate": "Deaktivieren"
+	"deactivate": "Deaktivieren",
+	"cover-image": "Hauptbild"
 }
