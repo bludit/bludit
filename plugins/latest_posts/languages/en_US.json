@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Latest posts",
+		"description": "Shows the latest posts published.",
+		"author": "Bludit",
+		"email": "",
+		"website": "https://github.com/dignajar/bludit-plugins",
+		"version": "1.0",
+		"releaseDate": "2016-01-08"
+	},
+
+	"home": "Home",
+	"show-home-link": "Show home link"
+}
