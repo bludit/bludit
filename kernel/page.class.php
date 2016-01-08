@@ -115,6 +115,10 @@ class Page extends fileContent
 	{
 		$fileName = $this->getField('coverImage');
 
+		if(empty($fileName)) {
+			return false;
+		}
+
 		if($absolute) {
 			return HTML_PATH_UPLOADS.$fileName;
 		}
