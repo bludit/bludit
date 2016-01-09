@@ -2,17 +2,22 @@
 
 class pluginOpenGraph extends Plugin {
 
+	// Returns the first image that is in the content
 	private function getImage($content)
 	{
 		$dom = new DOMDocument();
 		$dom->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8">'.$content);
 		$finder = new DomXPath($dom);
 
+		/* DEPRECATED
 		$images = $finder->query("//img[contains(@class, 'bludit-img-opengraph')]");
 
 		if($images->length==0) {
 			$images = $finder->query("//img");
 		}
+		*/
+
+		$images = $finder->query("//img");
 
 		if($images->length>0)
 		{
@@ -49,6 +54,7 @@ class pluginOpenGraph extends Plugin {
 				$og['title']		= $Post->title().' | '.$og['title'];
 				$og['description']	= $Post->description();
 				$og['url']		= $Post->permalink(true);
+				$og['image'] 		= $Post->coverImage(false);
 
 				$content = $Post->content();
 				break;
@@ -58,12 +64,16 @@ class pluginOpenGraph extends Plugin {
 				$og['title']		= $Page->title().' | '.$og['title'];
 				$og['description']	= $Page->description();
 				$og['url']		= $Page->permalink(true);
+				$og['image'] 		= $Page->coverImage(false);
 
 				$content = $Page->content();
 				break;
 
 			default:
-				$content = isset($posts[0])?$posts[0]->content():'';
+				if(isset($posts[0])) {
+					$og['image'] = $posts[0]->coverImage(false);
+					$content = $posts[0]->content();
+				}
 				break;
 		}
 
@@ -75,11 +85,21 @@ class pluginOpenGraph extends Plugin {
 		$html .= '<meta property="og:url" content="'.$og['url'].'">'.PHP_EOL;
 		$html .= '<meta property="og:siteName" content="'.$og['siteName'].'">'.PHP_EOL;
 
-		// Get the image from the content
-		$src = $this->getImage( $content );
-		if($src!==false) {
-			$og['image'] = $Site->domain().$src;
-			$html .= '<meta property="og:image" content="'.$og['image'].'">'.PHP_EOL;
+		$domain = trim($Site->domain(),'/');
+		$urlImage = $domain.HTML_PATH_UPLOADS;
+
+		// If the post o page doesn't have a coverImage try to get it from the content
+		if($og['image']===false)
+		{
+			// Get the image from the content
+			$src = $this->getImage( $content );
+			if($src!==false) {
+				$html .= '<meta property="og:image" content="'.$urlImage.$og['image'].'">'.PHP_EOL;
+			}
+		}
+		else
+		{
+			$html .= '<meta property="og:image" content="'.$urlImage.$og['image'].'">'.PHP_EOL;
 		}
 
 		return $html;

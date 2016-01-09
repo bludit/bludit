@@ -18,6 +18,16 @@ class dbTags extends dbJSON
 		parent::__construct(PATH_DATABASES.'tags.php');
 	}
 
+	// Returns an array with all tags names
+	public function getAll()
+	{
+		$tmp = array();
+		foreach($this->db['postsIndex'] as $tagSlug=>$tagInfo) {
+			$tmp[$tagSlug] = $tagInfo['name'];
+		}
+		return $tmp;
+	}
+
 	// Returns an array with a list of posts keys, filtered by a page number and a tag key.
 	public function getList($pageNumber, $postPerPage, $tagKey)
 	{

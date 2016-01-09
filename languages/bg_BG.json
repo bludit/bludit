@@ -77,7 +77,7 @@
 	"published-date": "Дата на побликуване",
 	"modified-date": "Промяна на дата",
 	"empty-title": "Без заглавие",
-	"plugins": "Плъгини",
+	"plugins": "Компоненти",
 	"install-plugin": "Добави",
 	"uninstall-plugin": "Премахни",
 	"new-password": "Нова парола",
@@ -164,7 +164,7 @@
 	"scheduled": "Планирано",
 	"publish": "Публикувай",
 	"please-check-your-theme-configuration": "Моля, проверете конфигурацията на вашата тема.",
-	"plugin-label": "Заглавие плъгин",
+	"plugin-label": "Заглавие на компонент",
 	"enabled": "Разреши",
 	"disabled": "Забрани",
 	"cli-mode": "Режим CLI",
@@ -218,6 +218,8 @@
 	"site-information": "Информация за сайта",
 	"date-and-time-formats": "Формат дата и час",
 	"activate": "Активиране",
-	"deactivate": "Деактивиране"
+	"deactivate": "Деактивиране",
+	
+	"cover-image": "Обложка"
 }
 

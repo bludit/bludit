@@ -23,7 +23,7 @@ function sortPages($a, $b)
 	return ($a->position() < $b->position()) ? -1 : 1;
 }
 
-function build_page($key)
+function buildPage($key)
 {
 	global $dbPages;
 	global $dbUsers;
@@ -38,7 +38,7 @@ function build_page($key)
 	}
 
 	// Page database, content from DATABASE JSON.
-	$db = $dbPages->getDb($key);
+	$db = $dbPages->getPageDB($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
 		return false;
@@ -66,31 +66,28 @@ function build_page($key)
 	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
 	$Page->setField('date', $pageDateFormated, true);
 
-	// Parse username for the page.
-	if( $dbUsers->userExists( $Page->username() ) )
-	{
-		$user = $dbUsers->getDb( $Page->username() );
-
-		$Page->setField('authorFirstName', $user['firstName'], false);
-		$Page->setField('authorLastName', $user['lastName'], false);
-	}
+	// User object
+	$username = $Page->username();
+	$Page->setField('user', $dbUsers->getUser($username));
 
 	return $Page;
 }
 
-function build_all_pages()
+function buildAllPages()
 {
-	global $pages;
 	global $pagesParents;
 	global $dbPages;
 
-	$list = $dbPages->getAll();
+	$list = $dbPages->getDB();
+
+	// Clean pages array.
+	$pages = array();
 
 	unset($list['error']);
 
 	foreach($list as $key=>$db)
 	{
-		$Page = build_page($key);
+		$Page = buildPage($key);
 
 		if($Page!==false)
 		{
@@ -135,6 +132,8 @@ function build_all_pages()
 	}
 
 	$pagesParents = array(NO_PARENT_CHAR=>$parents) + $tmpPageWithParent;
+
+	return $pages;
 }
 
 // ============================================================================
@@ -146,16 +145,18 @@ if( $Site->cliMode() ) {
 	$dbPages->regenerateCli();
 }
 
-// Filter by page, then build it
+// Build specific page.
 if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 {
-	$Page = build_page( $Url->slug() );
+	$Page = buildPage( $Url->slug() );
 
+	// The page doesn't exist.
 	if($Page===false)
 	{
 		$Url->setNotFound(true);
 		unset($Page);
 	}
+	// The page is not published yet.
 	elseif( !$Page->published() )
 	{
 		$Url->setNotFound(true);
@@ -163,14 +164,15 @@ if( ($Url->whereAmI()==='page') && ($Url->notFound()===false) )
 	}
 }
 
-// Default homepage
-if($Url->notFound()===false)
+// Homepage
+if( ($Url->whereAmI()==='home') && ($Url->notFound()===false) )
 {
-	if( Text::isNotEmpty($Site->homepage()) && ($Url->whereAmI()==='home') )
+	// The user defined as homepage a particular page.
+	if( Text::isNotEmpty( $Site->homepage() ) )
 	{
 		$Url->setWhereAmI('page');
 
-		$Page = build_page( $Site->homepage() );
+		$Page = buildPage( $Site->homepage() );
 
 		if($Page===false) {
 			$Url->setWhereAmI('home');
@@ -185,4 +187,4 @@ if($Url->notFound())
 }
 
 // Build all pages
-build_all_pages();
+$pages = buildAllPages();

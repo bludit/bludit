@@ -61,7 +61,6 @@ define('ALERT_STATUS_FAIL', 1);
 // Salt length
 define('THUMBNAILS_WIDTH', 400);
 define('THUMBNAILS_HEIGHT', 400);
-
 define('THUMBNAILS_AMOUNT', 6);
 
 // Salt length
@@ -82,8 +81,11 @@ define('JSON', function_exists('json_encode'));
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('CLI_STATUS', 'published');
 
-// Database format date
+// Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
+
+// Sitemap date format
+define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
@@ -123,11 +125,13 @@ include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
 include(PATH_KERNEL.'post.class.php');
 include(PATH_KERNEL.'page.class.php');
+include(PATH_KERNEL.'user.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
 include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
+
 
 // Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');

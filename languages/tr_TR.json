@@ -218,5 +218,7 @@
 	"site-information": "Site bilgisi",
 	"date-and-time-formats": "Tarih ve saat formatları",
 	"activate": "Aktifleştir",
-	"deactivate": "Deaktive et"
+	"deactivate": "Deaktive et",
+	
+	"cover-image": "Kapak resmi"
 }

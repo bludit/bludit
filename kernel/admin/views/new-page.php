@@ -78,7 +78,9 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	echo '<li>';
 
 	// --- BLUDIT COVER IMAGE ---
+	echo '<hr>';
 	HTML::bluditCoverImage();
+	echo '<hr>';
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -91,6 +93,16 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	// ---- ADVANCED TAB ----
 	echo '<li>';
 
+	// Status input
+	HTML::formSelect(array(
+		'name'=>'status',
+		'label'=>$L->g('Status'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
+		'selected'=>'published',
+		'tip'=>''
+	));
+
 	// Parent input
 	$options = array();
 	$options[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
@@ -102,16 +114,6 @@ echo '<div class="sidebar uk-width-large-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>$options,
 		'selected'=>NO_PARENT_CHAR,
-		'tip'=>''
-	));
-
-	// Status input
-	HTML::formSelect(array(
-		'name'=>'status',
-		'label'=>$L->g('Status'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
-		'selected'=>'published',
 		'tip'=>''
 	));
 

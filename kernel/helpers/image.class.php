@@ -19,7 +19,7 @@ class Image {
 		$this->resizeImage($newWidth, $newHeight, $option);
 	}
 
-	public function saveImage($savePath, $imageQuality="100", $forceJPG=false)
+	public function saveImage($savePath, $imageQuality="100", $forceJPG=false, $forcePNG=false)
 	{
 		$extension = strtolower(pathinfo($savePath, PATHINFO_EXTENSION));
 
@@ -28,42 +28,46 @@ class Image {
 
 		$path_complete = $filename.'.'.$extension;
 
-		if($forceJPG) {
-			imagejpeg($this->imageResized, $filename.'.jpg', $imageQuality);
+		if($forcePNG) {
+			$extension = 'png';
 		}
-		else
+		elseif($forceJPG) {
+			$extension = 'jpg';
+		}
+
+		switch($extension)
 		{
-			switch($extension)
-			{
-				case 'jpg':
-				case 'jpeg':
-					if (imagetypes() & IMG_JPG) {
-						imagejpeg($this->imageResized, $path_complete, $imageQuality);
-					}
-					break;
+			case 'jpg':
+			case 'jpeg':
+				// Checking for JPG support
+				if (imagetypes() & IMG_JPG) {
+					imagejpeg($this->imageResized, $path_complete, $imageQuality);
+				}
+				break;
 
-				case 'gif':
-					if (imagetypes() & IMG_GIF) {
-						imagegif($this->imageResized, $path_complete);
-					}
-					break;
+			case 'gif':
+				// Checking for GIF support
+				if (imagetypes() & IMG_GIF) {
+					imagegif($this->imageResized, $path_complete);
+				}
+				break;
 
-				case 'png':
-					// *** Scale quality from 0-100 to 0-9
-					$scaleQuality = round(($imageQuality/100) * 9);
+			case 'png':
+				// *** Scale quality from 0-100 to 0-9
+				$scaleQuality = round(($imageQuality/100) * 9);
 
-					// *** Invert quality setting as 0 is best, not 9
-					$invertScaleQuality = 9 - $scaleQuality;
+				// *** Invert quality setting as 0 is best, not 9
+				$invertScaleQuality = 9 - $scaleQuality;
 
-					if (imagetypes() & IMG_PNG) {
-						 imagepng($this->imageResized, $path_complete, $invertScaleQuality);
-					}
-					break;
+				// Checking for PNG support
+				if (imagetypes() & IMG_PNG) {
+					 imagepng($this->imageResized, $path_complete, $invertScaleQuality);
+				}
+				break;
 
-				default:
-					// *** No extension - No save.
-					break;
-			}
+			default:
+				// Fail extension detection
+				break;
 		}
 
 		imagedestroy($this->imageResized);

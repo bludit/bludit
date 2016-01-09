@@ -24,6 +24,24 @@ class dbUsers extends dbJSON
 		parent::__construct(PATH_DATABASES.'users.php');
 	}
 
+	public function getUser($username)
+	{
+		$User = new User();
+
+		if($this->userExists($username))
+		{
+			$User->setField('username', $username);
+
+			foreach($this->db[$username] as $key=>$value) {
+				$User->setField($key, $value);
+			}
+
+			return $User;
+		}
+
+		return false;
+	}
+
 	public function getAll()
 	{
 		return $this->db;

@@ -4,6 +4,8 @@
 // Variables
 // ============================================================================
 
+// Array with all posts specified by a filter.
+// Filter by page number, by tag, etc.
 $posts = array();
 
 // ============================================================================
@@ -42,7 +44,7 @@ function buildPost($key)
 	}
 
 	// Post database, content from DATABASE JSON.
-	$db = $dbPosts->getDb($key);
+	$db = $dbPosts->getPostDB($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
 		return false;
@@ -75,14 +77,9 @@ function buildPost($key)
 	$postDateFormated = $Post->dateRaw( $Site->dateFormat() );
 	$Post->setField('date', $postDateFormated, true);
 
-	// Parse username for the post.
-	if( $dbUsers->userExists( $Post->username() ) )
-	{
-		$user = $dbUsers->getDb( $Post->username() );
-
-		$Post->setField('authorFirstName', $user['firstName'], false);
-		$Post->setField('authorLastName', $user['lastName'], false);
-	}
+	// User object
+	$username = $Post->username();
+	$Post->setField('user', $dbUsers->getUser($username));
 
 	return $Post;
 }
@@ -91,8 +88,9 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 {
 	global $dbPosts;
 	global $dbTags;
-	global $posts;
 	global $Url;
+
+	$posts = array();
 
 	if($tagKey) {
 		// Get the keys list from tags database, this database is optimized for this case.
@@ -116,6 +114,8 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 			array_push($posts, $Post);
 		}
 	}
+
+	return $posts;
 }
 
 // ============================================================================
@@ -140,11 +140,13 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 {
 	$Post = buildPost( $Url->slug() );
 
+	// The post doesn't exist.
 	if($Post===false)
 	{
 		$Url->setNotFound(true);
 		unset($Post);
 	}
+	// The post is not published yet.
 	elseif( !$Post->published() )
 	{
 		$Url->setNotFound(true);
@@ -159,17 +161,17 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 // Build posts by specific tag.
 elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
 {
-	buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
+	$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
 }
 // Build posts for homepage or admin area.
 else
 {
 	// Posts for admin area.
 	if($Url->whereAmI()==='admin') {
-		buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
+		$posts = buildPostsForPage($Url->pageNumber(), POSTS_PER_PAGE_ADMIN, false);
 	}
-	// Posts for homepage
-	else {
-		buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
+	// Posts for home and blog filter.
+	elseif( ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) && ($Url->notFound()===false) ) {
+		$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true);
 	}
 }

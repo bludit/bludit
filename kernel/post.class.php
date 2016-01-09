@@ -78,9 +78,19 @@ class Post extends fileContent
 		return ($this->getField('status')=='draft');
 	}
 
-	public function username()
+	public function coverImage($absolute=true)
 	{
-		return $this->getField('username');
+		$fileName = $this->getField('coverImage');
+
+		if(empty($fileName)) {
+			return false;
+		}
+
+		if($absolute) {
+			return HTML_PATH_UPLOADS.$fileName;
+		}
+
+		return $fileName;
 	}
 
 	public function profilePicture()
@@ -88,11 +98,32 @@ class Post extends fileContent
 		return HTML_PATH_UPLOADS_PROFILES.$this->username().'.jpg';
 	}
 
+	// Returns the user object if $field is false, otherwise returns the field's value.
+	public function user($field=false)
+	{
+		// Get the user object.
+		$User = $this->getField('user');
+
+		if($field) {
+			return $User->getField($field);
+		}
+
+		return $User;
+	}
+
+	// DEPRECATED
+	public function username()
+	{
+		return $this->getField('username');
+	}
+
+	// DEPRECATED
 	public function authorFirstName()
 	{
 		return $this->getField('authorFirstName');
 	}
 
+	// DEPRECATED
 	public function authorLastName()
 	{
 		return $this->getField('authorLastName');
@@ -104,7 +135,7 @@ class Post extends fileContent
 	}
 
 	// Returns the post date according to locale settings and format settings.
-	public function date($format=false)
+	public function date()
 	{
 		return $this->getField('date');
 	}

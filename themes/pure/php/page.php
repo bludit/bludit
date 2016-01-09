@@ -1,4 +1,4 @@
-<h1 class="subhead"><?php echo $Language->get('Page') ?></h1>
+<div class="subhead"><?php echo $Language->get('Page') ?></div>
 
 <section class="page">
 
@@ -9,9 +9,9 @@
     <header class="page-header">
 
         <!-- page title -->
-        <h2 class="page-title">
+        <h1 class="page-title">
             <a href="<?php echo $Page->permalink() ?>"><?php echo $Page->title() ?></a>
-        </h2>
+        </h1>
 
     </header>
 

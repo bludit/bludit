@@ -13,9 +13,15 @@ function addPage($args)
 	global $dbPages;
 	global $Language;
 
-	// Add the page.
-	if( $dbPages->add($args) )
+	// Add the page, if the $key is FALSE the creation of the post failure.
+	$key = $dbPages->add($args);
+
+	if($key)
 	{
+		// Call the plugins after page created.
+		Theme::plugins('afterPageCreate');
+
+		// Alert the user
 		Alert::set($Language->g('Page added successfully'));
 		Redirect::page('admin', 'manage-pages');
 	}

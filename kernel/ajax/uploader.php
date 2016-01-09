@@ -38,10 +38,10 @@ if($type=='profilePicture')
 {
 	// Resize and crop profile image.
 	$username = Sanitize::html($_POST['username']);
-	$tmpName = $username.'.jpg';
+	$tmpName = $username.'.png';
 	$Image = new Image();
-	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, '200', '200', 'crop');
-	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, true);
+	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, '400', '400', 'crop');
+	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, false, true);
 }
 // --- OTHERS ---
 else {

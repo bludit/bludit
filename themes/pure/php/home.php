@@ -1,4 +1,4 @@
-<h1 class="subhead"><?php echo $Language->get('Recent posts') ?></h1>
+<div class="subhead"><?php echo $Language->get('Recent posts') ?></div>
 
 <?php foreach ($posts as $Post): ?>
 
@@ -11,9 +11,9 @@
     <header class="post-header">
 
         <!-- Post title -->
-        <h2 class="post-title">
+        <h1 class="post-title">
             <a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a>
-        </h2>
+        </h1>
 
         <!-- Post date and author -->
         <div class="post-meta">
@@ -22,11 +22,11 @@
                 <?php
                     echo $Language->get('Posted By').' ';
 
-                    if( Text::isNotEmpty($Post->authorFirstName()) || Text::isNotEmpty($Post->authorLastName()) ) {
-                        echo $Post->authorFirstName().' '.$Post->authorLastName();
+                    if( Text::isNotEmpty($Post->user('firstName')) || Text::isNotEmpty($Post->user('lastName')) ) {
+                        echo $Post->user('firstName').' '.$Post->user('lastName');
                     }
                     else {
-                        echo $Post->username();
+                        echo $Post->user('username');
                     }
                 ?>
             </span>

@@ -41,7 +41,8 @@ legend.first-child {
 	padding: 15px;
 }
 
-.uk-nav-navbar > li > a:hover {
+.uk-nav-navbar > li > a:hover,
+.uk-nav-navbar > li > a:focus {
 	background: #2672ec;
 }
 
@@ -102,9 +103,17 @@ li.bludit-logo {
 }
 
 .uk-thumbnail {
-	margin: 2px 4px !important;
+	margin: 2px 3px !important;
 	max-width: 30% !important;
 	padding: 0 !important;
+}
+
+.uk-progress-bar {
+	background: #2672ec !important;
+}
+
+.uk-placeholder {
+	margin-bottom: 0 !important;
 }
 
 /* ----------- BLUDIT ----------- */
@@ -163,20 +172,33 @@ button.delete-button:hover {
 	background: rgba(187, 48, 48, 0.91);
 }
 
+/* ----------- FORM ----------- */
 
+.sidebar .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
 
 /* ----------- BLUDIT IMAGES V8 ----------- */
 #bludit-images-v8 {
 
 }
 
-#bludit-images-v8 img.uk-thumbnail {
+#bludit-images-v8 .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
 	width: 15% !important;
 }
 
 #bludit-images-v8-upload {
 	width: 100%;
 	padding: 0;
+	margin-bottom: 15px !important;
 }
 
 #bludit-images-v8-drag-drop {
@@ -185,11 +207,13 @@ button.delete-button:hover {
 
 #bludit-images-v8-progressbar {
 	display: none;
+	margin: 20px;
 }
 
 #bludit-images-v8-thumbnails {
-	height: 350px;
+	max-height: 350px;
 	overflow: auto;
+	font-size: 0;
 }
 
 /* ----------- BLUDIT QUICK IMAGES ----------- */
@@ -209,6 +233,21 @@ button.delete-button:hover {
 	color: #aaa;
 	padding: 2px 5px;
 	font-size: 0.9em;
+}
+
+#bludit-quick-images-thumbnails {
+	font-size: 0;
+}
+
+#bludit-quick-images .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 31% !important;
 }
 
 /* ----------- BLUDIT COVER IMAGE ----------- */
@@ -246,6 +285,24 @@ button.delete-button:hover {
 
 #cover-image-progressbar {
 	display: none;
+	left: 5%;
+	position: relative;
+	top: 33%;
+	width: 90%;
+
+}
+
+/* ----------- BLUDIT PROFILE PICTURE ----------- */
+
+#bludit-profile-picture-drag-drop {
+	width: 100%;
+	padding: 15px 0;
+}
+
+#bludit-profile-picture-progressbar {
+	display: none;
+	margin: 15px 0 0;
+	width: 100%;
 }
 
 /* ----------- LOGIN FORM ----------- */
