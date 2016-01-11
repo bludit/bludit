@@ -15,19 +15,29 @@ class Page extends fileContent
 	{
 		return $this->getField('title');
 	}
-
-	// Returns the content. This content is markdown parser.
-	// (boolean) $html, TRUE returns the content without satinize, FALSE otherwise.
-	public function content($html=true)
+	// Returns the content.
+	// This content is markdown parser.
+	// (boolean) $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
+	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
+	public function content($fullContent=true, $raw=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('content');
 
-		if($html) {
+		if(!$fullContent) {
+			$content = $this->getField('breakContent');
+		}
+
+		if($raw) {
 			return $content;
 		}
 
 		return Sanitize::html($content);
+	}
+
+	public function readMore()
+	{
+		return $this->getField('readMore');
 	}
 
 	// Returns the content. This content is not markdown parser.

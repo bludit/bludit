@@ -186,7 +186,7 @@ class Post extends fileContent
 		global $Url;
 		global $Site;
 
-		$url = trim($Site->url(),'/');
+		$url = trim(DOMAIN_BASE,'/');
 		$key = $this->key();
 		$filter = trim($Url->filters('post'), '/');
 		$htmlPath = trim(HTML_PATH_ROOT,'/');

@@ -2,13 +2,6 @@
 
 class pluginSitemap extends Plugin {
 
-	public function init()
-	{
-		$this->dbFields = array(
-			'label'=>'Tags'
-		);
-	}
-
 	private function createXML()
 	{
 		global $Site;

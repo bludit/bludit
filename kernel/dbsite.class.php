@@ -170,16 +170,17 @@ class dbSite extends dbJSON
 				$protocol = 'http://';
 			}
 
-			$domain = $_SERVER['HTTP_HOST'];
+			$domain = trim($_SERVER['HTTP_HOST'], '/');
 
-			return $protocol.$domain.HTML_PATH_ROOT;
+			return $protocol.$domain;
 		}
 
 		// Parse the domain from the field URL.
 		$parse = parse_url($this->url());
-		$domain = $parse['scheme']."://".$parse['host'];
 
-		return $domain;
+		$domain = trim($parse['host'], '/');
+
+		return $parse['scheme'].'://'.$domain;
 	}
 
 	// Returns TRUE if the cli mode is enabled, otherwise FALSE.

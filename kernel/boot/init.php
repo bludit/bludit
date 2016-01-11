@@ -218,6 +218,16 @@ define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
+// --- Absolute paths with domain ---
+define('DOMAIN',			$Site->domain());
+define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
+define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
+define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
+define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
+define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
+define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
+
 // --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );

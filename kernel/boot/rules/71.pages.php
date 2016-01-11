@@ -59,6 +59,11 @@ function buildPage($key)
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
 	$Page->setField('content', $content, true);
 
+	// Pagebrake
+	$explode = explode(PAGE_BREAK, $content);
+	$Page->setField('breakContent', $explode[0], true);
+	$Page->setField('readMore', !empty($explode[1]), true);
+
 	// Date format
 	$pageDate = $Page->date();
 	$Page->setField('dateRaw', $pageDate, true);
