@@ -113,7 +113,7 @@ if(MB_STRING)
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_ABSTRACT.'filecontent.class.php');
+include(PATH_ABSTRACT.'content.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
