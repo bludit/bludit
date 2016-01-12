@@ -52,6 +52,28 @@ class HTML {
 		echo $html;
 	}
 
+	public static function formInputAutocomplete($args)
+	{
+		self::formInputText($args);
+
+$script = '<script>
+$("input[name=\"'.$args['name'].'\"]").autoComplete({
+    minChars: 1,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = ['.$args['words'].'];
+        var matches = [];
+        for (i=0; i<choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});
+</script>';
+
+		echo $script;
+
+	}
+
 	public static function formInputPassword($args)
 	{
 		$args['type'] = 'password';

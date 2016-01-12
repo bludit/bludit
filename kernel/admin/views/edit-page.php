@@ -77,12 +77,13 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	));
 
 	// Tags input
-	HTML::formInputText(array(
+	HTML::formInputAutocomplete(array(
 		'name'=>'tags',
 		'value'=>$_Page->tags(),
 		'class'=>'uk-width-1-1 uk-form-large',
 		'tip'=>$L->g('Write the tags separated by commas'),
-		'label'=>$L->g('Tags')
+		'label'=>$L->g('Tags'),
+		'words'=>'"'.implode('", "', $dbTags->getAll()).'"'
 	));
 
 	echo '</li>';

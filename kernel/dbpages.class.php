@@ -14,6 +14,7 @@ class dbPages extends dbJSON
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'hash'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -74,6 +75,10 @@ class dbPages extends dbJSON
 				$dataForDb[$field] = $tmpValue;
 			}
 		}
+
+		// Create Hash
+		$serialize = serialize($dataForDb+$dataForFile);
+		$dataForDb['hash'] = sha1($serialize);
 
 		// Make the directory. Recursive.
 		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
@@ -156,6 +161,10 @@ class dbPages extends dbJSON
 				$dataForDb[$field] = $tmpValue;
 			}
 		}
+
+		// Create Hash
+		$serialize = serialize($dataForDb+$dataForFile);
+		$dataForDb['hash'] = sha1($serialize);
 
 		// Move the directory from old key to new key.
 		if($newKey!==$args['key'])
