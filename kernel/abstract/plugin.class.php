@@ -8,6 +8,8 @@ class Plugin {
 	// (string) Database path and filename
 	public $filenameDb;
 
+	public $filenameMetadata;
+
 	// (array) Database unserialized
 	public $db;
 
@@ -18,20 +20,10 @@ class Plugin {
 	public $className;
 
 	// (array) Plugin's information.
-	public $data;
+	public $metadata;
 
 	function __construct()
 	{
-		$this->data = array(
-			'name'=>'',
-			'description'=>'',
-			'author'=>'',
-			'email'=>'',
-			'website'=>'',
-			'version'=>'',
-			'releaseDate'=>''
-		);
-
 		$this->dbFields = array();
 
 		$reflector = new ReflectionClass(get_class($this));
@@ -50,7 +42,12 @@ class Plugin {
 
 		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
 
-		// If the plugin installed then get the database.
+		// --- Metadata ---
+		$this->filenameMetadata = PATH_PLUGINS.$this->directoryName().DS.'metadata.json';
+		$metadataString = file_get_contents($this->filenameMetadata);
+		$this->metadata = json_decode($metadataString, true);
+
+		// If the plugin is installed then get the database.
 		if($this->installed())
 		{
 			$Tmp = new dbJSON($this->filenameDb);
@@ -74,18 +71,19 @@ class Plugin {
 	}
 
 	// Returns the item from plugin-data.
-	public function getData($key)
+	public function getMetadata($key)
 	{
-		if(isset($this->data[$key])) {
-			return $this->data[$key];
+		if(isset($this->metadata[$key])) {
+			return $this->metadata[$key];
 		}
 
 		return '';
 	}
 
-	public function setData($array)
+	public function setMetadata($key, $value)
 	{
-		$this->data = $array;
+		$this->metadata[$key] = $value;
+		return true;
 	}
 
 	public function getDbField($key, $html=true)
@@ -124,37 +122,37 @@ class Plugin {
 
 	public function name()
 	{
-		return $this->getData('name');
+		return $this->getMetadata('name');
 	}
 
 	public function description()
 	{
-		return $this->getData('description');
+		return $this->getMetadata('description');
 	}
 
 	public function author()
 	{
-		return $this->getData('author');
+		return $this->getMetadata('author');
 	}
 
 	public function email()
 	{
-		return $this->getData('email');
+		return $this->getMetadata('email');
 	}
 
 	public function website()
 	{
-		return $this->getData('website');
+		return $this->getMetadata('website');
 	}
 
 	public function version()
 	{
-		return $this->getData('version');
+		return $this->getMetadata('version');
 	}
 
 	public function releaseDate()
 	{
-		return $this->getData('releaseDate');
+		return $this->getMetadata('releaseDate');
 	}
 
 	public function className()

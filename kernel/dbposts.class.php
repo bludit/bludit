@@ -110,12 +110,12 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
-		// Date
+		// If the date not valid, then set the current date.
 		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
 			$args['date'] = $currentDate;
 		}
 
-		// Schedule post?
+		// Schedule post ?
 		if( ($args['date']>$currentDate) && ($args['status']=='published') ) {
 			$args['status'] = 'scheduled';
 		}
@@ -314,7 +314,7 @@ class dbPosts extends dbJSON
 
 		$saveDatabase = false;
 
-		// Check scheduled posts and publish.
+		// Check scheduled posts
 		foreach($this->db as $postKey=>$values)
 		{
 			if($values['status']=='scheduled')
@@ -330,7 +330,7 @@ class dbPosts extends dbJSON
 			}
 		}
 
-		// Save the database.
+		// Save the database ?
 		if($saveDatabase)
 		{
 			if( $this->save() === false ) {
@@ -421,7 +421,7 @@ class dbPosts extends dbJSON
 				// All keys posts
 				$allPosts[$key] = true;
 
-				// Create the new entry if not exists on DATABASE.
+				// Create the new entry if not exist on DATABASE.
 				if(!isset($this->db[$key])) {
 					// New entry on database
 					$this->db[$key] = $fields;
@@ -447,7 +447,7 @@ class dbPosts extends dbJSON
 							if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
 								$this->db[$key]['date'] = $valueFromFile;
 
-								if( $valueFromFile>$currentDate ) {
+								if( $valueFromFile > $currentDate ) {
 									$this->db[$key]['status'] = 'scheduled';
 								}
 							}

@@ -2,11 +2,6 @@
 	"plugin-data":
 	{
 		"name": "TinyMCE",
-		"description": "Tinymce is an easy HTML editor, with many plugins and very customizable.",
-		"author": "TinyMCE",
-		"email": "",
-		"website": "http://www.tinymce.com",
-		"version": "4.3.1",
-		"releaseDate": "2015-12-08"
+		"description": "Tinymce is an easy HTML editor, with many plugins and very customizable."
 	}
 }

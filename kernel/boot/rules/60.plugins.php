@@ -47,7 +47,7 @@ unset($pluginsEvents['all']);
 // Functions
 // ============================================================================
 
-function build_plugins()
+function buildPlugins()
 {
 	global $plugins;
 	global $pluginsEvents;
@@ -72,26 +72,24 @@ function build_plugins()
 	{
 		$Plugin = new $pluginClass;
 
-		// Default language and meta data for the plugin
-		$tmpMetaData = array();
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
-		$database = new dbJSON($languageFilename, false);
-		$tmpMetaData = $database->db['plugin-data'];
-
 		// Check if the plugin is translated.
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
-		if( Sanitize::pathFile($languageFilename) )
-		{
-			$database = new dbJSON($languageFilename, false);
-			$tmpMetaData = array_merge($tmpMetaData, $database->db['plugin-data']);
+		if( !Sanitize::pathFile($languageFilename) ) {
+			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
 		}
 
-		// Set plugin meta data
-		$Plugin->setData($tmpMetaData);
+		$database = file_get_contents($languageFilename);
+		$database = json_decode($database, true);
 
-		// Add words to language dictionary.
-		unset($database->db['plugin-data']);
-		$Language->add($database->db);
+		// Set name and description from the language file.
+		$Plugin->setMetadata('name',$database['plugin-data']['name']);
+		$Plugin->setMetadata('description',$database['plugin-data']['description']);
+
+		// Remove name and description, and add new words if there are.
+		unset($database['plugin-data']);
+		if(!empty($database)) {
+			$Language->add($database);
+		}
 
 		// Push Plugin to array all plugins installed and not installed.
 		$plugins['all'][$pluginClass] = $Plugin;
@@ -113,4 +111,4 @@ function build_plugins()
 // Main
 // ============================================================================
 
-build_plugins();
+buildPlugins();

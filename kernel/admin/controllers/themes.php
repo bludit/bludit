@@ -26,25 +26,32 @@ $themesPaths = Filesystem::listDirectories(PATH_THEMES);
 
 foreach($themesPaths as $themePath)
 {
-	$langLocaleFile  = $themePath.DS.'languages'.DS.$Site->locale().'.json';
-	$langDefaultFile = $themePath.DS.'languages'.DS.'en_US.json';
+	// Check if the theme is translated.
+	$languageFilename = $themePath.DS.'languages'.DS.$Site->locale().'.json';
+	if( !Sanitize::pathFile($languageFilename) ) {
+		$languageFilename = $themePath.DS.'languages'.DS.'en_US.json';
+	}
 
-	// Check if exists default language
-	if( Sanitize::pathFile($langDefaultFile) )
+	if( Sanitize::pathFile($languageFilename) )
 	{
-		$database = new dbJSON($langDefaultFile, false);
-		$databaseArray = $database->db;
-		$themeMetaData = $database->db['theme-data'];
+		$database = file_get_contents($languageFilename);
+		$database = json_decode($database, true);
+		$database = $database['theme-data'];
 
-		// Check if exists locale language
-		if( Sanitize::pathFile($langLocaleFile) ) {
-			$database = new dbJSON($langLocaleFile, false);
-			$themeMetaData = array_merge($themeMetaData, $database->db['theme-data']);
+		$database['dirname'] = basename($themePath);
+
+		// --- Metadata ---
+		$filenameMetadata = $themePath.DS.'metadata.json';
+
+		if( Sanitize::pathFile($filenameMetadata) )
+		{
+			$metadataString = file_get_contents($filenameMetadata);
+			$metadata = json_decode($metadataString, true);
+
+			$database = $database + $metadata;
+
+			// Theme data
+			array_push($themes, $database);
 		}
-
-		$themeMetaData['dirname'] = basename($themePath);
-
-		// Theme data
-		array_push($themes, $themeMetaData);
 	}
 }
