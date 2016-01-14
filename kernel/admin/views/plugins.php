@@ -3,7 +3,20 @@
 HTML::title(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
 
 echo '
-<table class="uk-table uk-table-striped">
+<style>
+.list tr{ width: 100%; border-bottom: 1px dotted #CCC; margin-bottom: 10px; padding-bottom: 10px; }
+.grid tr{ float: left; width: 20%; height: 100px; border-right: 1px dotted #CCC; border-bottom: 1px dotted #CCC; padding: 10px; }
+.grid .desc, .grid thead { display:none }
+.grid .plugin-name{ text-transform: uppercase; font-size: 12px }
+.grid td{ border:none }
+.grid div.plugin-links { display:block }
+</style>
+    <div class="uk-button-group">
+        <button class="uk-button grid"><i class="uk-icon-th-large"></i></button>
+        <button class="uk-button list"><i class="uk-icon-list"></i></button>
+    </div>
+    
+<table class="uk-table uk-table-striped grid">
 <thead>
 	<tr>
 	<th class="uk-width-1-5">'.$L->g('Name').'</th>
@@ -38,7 +51,7 @@ foreach($plugins['all'] as $Plugin)
 	echo '
 	</div>
 	</td>
-	<td>'.$Plugin->description().'</td>
+	<td class="desc">'.$Plugin->description().'</td>
 	<td class="uk-text-center">'.$Plugin->version().'</td>
 	<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
 	';
@@ -49,4 +62,13 @@ foreach($plugins['all'] as $Plugin)
 echo '
 </tbody>
 </table>
-';
+<script>
+$("button").on("click",function(e) {
+    if ($(this).hasClass("grid")) {
+        $(".uk-table").removeClass("list").addClass("grid");
+    }
+    else if($(this).hasClass("list")) {
+        $(".uk-table").removeClass("grid").addClass("list");
+    }
+});
+</script>';
