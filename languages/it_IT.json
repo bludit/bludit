@@ -3,7 +3,7 @@
 	{
 		"native": "Italiano (Italia)",
 		"english-name": "Italian",
-		"last-update": "2015-12-30",
+		"last-update": "2016-01-14",
 		"author": "Daniele La Pira",
 		"email": "daniele.lapira@gmail.com",
 		"website": "https://github.com/danielelapira"
@@ -201,7 +201,7 @@
 
 	"password-must-be-at-least-6-characters-long": "La Password deve contenere almeno 6 caratteri",
 	"images": "Immagini",
-	"upload-image": "Invia un'immagine",
+	"upload-image": "Inserisci un'immagine",
 	"drag-and-drop-or-click-here": "Trascina e rilascia oppure clicca quì",
 	"insert-image": "Inserisci immagine",
 	"supported-image-file-types": "Formati file immagine supportati",
@@ -220,5 +220,9 @@
 	"activate": "Attiva",
 	"deactivate": "Disattiva",
 	
-	"cover-image": "Immagine di copertina"
+	"cover-image": "Immagine di copertina",
+	"blog": "Blog",
+	"more-images": "Più immagini",
+	"double-click-on-the-image-to-add-it": "Clicca due volte sull'immagine da inserire.",
+	"click-here-to-cancel": "Clicca quì per annullare."
 }
