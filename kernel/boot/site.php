@@ -1,9 +1,14 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Boot rules
+// Load plugins rules
+include(PATH_RULES.'60.plugins.php');
+
+// Plugins before rules loaded, except plugins rules
+Theme::plugins('beforeRulesLoad');
+
+// Load rules
 include(PATH_RULES.'70.posts.php');
-include(PATH_RULES.'70.pages.php');
-include(PATH_RULES.'80.plugins.php');
+include(PATH_RULES.'71.pages.php');
 include(PATH_RULES.'99.header.php');
 include(PATH_RULES.'99.paginator.php');
 include(PATH_RULES.'99.themes.php');

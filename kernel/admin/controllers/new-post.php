@@ -13,12 +13,18 @@ function addPost($args)
 	global $dbPosts;
 	global $Language;
 
-	// Add the page.
-	if( $dbPosts->add($args) )
+	// Add the page, if the $key is FALSE the creation of the post failure.
+	$key = $dbPosts->add($args);
+
+	if($key)
 	{
 		// Reindex tags, this function is in 70.posts.php
 		reIndexTagsPosts();
 
+		// Call the plugins after post created.
+		Theme::plugins('afterPostCreate');
+
+		// Alert for the user
 		Alert::set($Language->g('Post added successfully'));
 		Redirect::page('admin', 'manage-posts');
 	}

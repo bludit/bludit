@@ -68,6 +68,11 @@ class Plugin {
 		return PATH_PLUGINS.$this->directoryName.DS;
 	}
 
+	public function phpPathDB()
+	{
+		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
+	}
+
 	// Returns the item from plugin-data.
 	public function getData($key)
 	{
@@ -181,7 +186,13 @@ class Plugin {
 
 	public function uninstall()
 	{
-		unlink($this->filenameDb);
+		// Delete all files.
+		$files = Filesystem::listFiles( $this->phpPathDB() );
+		foreach($files as $file) {
+			unlink($file);
+		}
+
+		// Delete the directory.
 		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
 	}
 

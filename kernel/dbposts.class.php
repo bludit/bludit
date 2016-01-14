@@ -12,6 +12,7 @@ class dbPosts extends dbJSON
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'hash'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	private $numberPosts = array(
@@ -35,8 +36,14 @@ class dbPosts extends dbJSON
 		return $this->numberPosts['published'];
 	}
 
+	// Returns the database
+	public function getDB()
+	{
+		return $this->db;
+	}
+
 	// Return an array with the post's database, FALSE otherwise.
-	public function getDb($key)
+	public function getPostDB($key)
 	{
 		if($this->postExists($key)) {
 			return $this->db[$key];
@@ -45,7 +52,7 @@ class dbPosts extends dbJSON
 		return false;
 	}
 
-	public function setDb($key, $field, $value)
+	public function setPostDb($key, $field, $value)
 	{
 		if($this->postExists($key)) {
 			$this->db[$key][$field] = $value;
@@ -152,6 +159,10 @@ class dbPosts extends dbJSON
 			}
 		}
 
+		// Create Hash
+		$serialize = serialize($dataForDb+$dataForFile);
+		$dataForDb['hash'] = sha1($serialize);
+
 		// Make the directory.
 		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_POSTS.$key);
@@ -176,7 +187,7 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $key;
 	}
 
 	public function edit($args)

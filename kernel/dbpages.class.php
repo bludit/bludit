@@ -14,6 +14,7 @@ class dbPages extends dbJSON
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'hash'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -75,6 +76,10 @@ class dbPages extends dbJSON
 			}
 		}
 
+		// Create Hash
+		$serialize = serialize($dataForDb+$dataForFile);
+		$dataForDb['hash'] = sha1($serialize);
+
 		// Make the directory. Recursive.
 		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
@@ -95,7 +100,7 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $key;
 	}
 
 	public function edit($args)
@@ -157,6 +162,10 @@ class dbPages extends dbJSON
 			}
 		}
 
+		// Create Hash
+		$serialize = serialize($dataForDb+$dataForFile);
+		$dataForDb['hash'] = sha1($serialize);
+
 		// Move the directory from old key to new key.
 		if($newKey!==$args['key'])
 		{
@@ -183,7 +192,7 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		return true;
+		return $newKey;
 	}
 
 	public function delete($key)
@@ -215,7 +224,7 @@ class dbPages extends dbJSON
 	}
 
 	// Return an array with the database for a page, FALSE otherwise.
-	public function getDb($key)
+	public function getPageDB($key)
 	{
 		if($this->pageExists($key)) {
 			return $this->db[$key];
@@ -288,8 +297,8 @@ class dbPages extends dbJSON
 		return $newKey;
 	}
 
-	// Return an array with all databases.
-	public function getAll()
+	// Returns the database
+	public function getDB()
 	{
 		return $this->db;
 	}

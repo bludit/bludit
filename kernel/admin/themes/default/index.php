@@ -20,12 +20,14 @@
 
 	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="./css/jquery.auto-complete.css?version=<?php echo BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/uikit/upload.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="./js/jquery.auto-complete.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>

@@ -38,3 +38,4 @@ if($Url->whereAmI()==='admin') {
 else {
 	require(PATH_BOOT.'site.php');
 }
+

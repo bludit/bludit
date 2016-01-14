@@ -1,4 +1,4 @@
-<h1 class="subhead"><?php echo $Language->get('Recent posts') ?></h1>
+<div class="subhead"><?php echo $Language->get('Recent posts') ?></div>
 
 <?php foreach ($posts as $Post): ?>
 
@@ -11,9 +11,9 @@
     <header class="post-header">
 
         <!-- Post title -->
-        <h2 class="post-title">
+        <h1 class="post-title">
             <a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a>
-        </h2>
+        </h1>
 
         <!-- Post date and author -->
         <div class="post-meta">

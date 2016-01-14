@@ -61,7 +61,7 @@ if(!defined('JSON_PRETTY_PRINT')) {
 define('JSON', function_exists('json_encode'));
 
 // Database format date
-define('DB_DATE_FORMAT', 'Y-m-d H:i');
+define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');

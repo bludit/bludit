@@ -52,6 +52,28 @@ class HTML {
 		echo $html;
 	}
 
+	public static function formInputAutocomplete($args)
+	{
+		self::formInputText($args);
+
+$script = '<script>
+$("input[name=\"'.$args['name'].'\"]").autoComplete({
+    minChars: 1,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = ['.$args['words'].'];
+        var matches = [];
+        for (i=0; i<choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});
+</script>';
+
+		echo $script;
+
+	}
+
 	public static function formInputPassword($args)
 	{
 		$args['type'] = 'password';
@@ -130,6 +152,7 @@ class HTML {
 
 	public static function bluditQuickImages()
 	{
+		global $L;
 
 $html = '<!-- BLUDIT QUICK IMAGES -->';
 $html .= '
@@ -153,7 +176,7 @@ if(empty($thumbnailList)) {
 }
 
 $html .= '
-<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">More images</a>
+<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">'.$L->g('More images').'</a>
 
 </div>
 ';
@@ -327,7 +350,7 @@ if(empty($thumbnailList)) {
 
 $html .= '
 	<div class="uk-modal-footer">
-		Double click on the image to add it or <a href="" class="uk-modal-close">click here to cancel</a>
+		'.$L->g('Double click on the image to add it').' <a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
 	</div>
 
 </div>

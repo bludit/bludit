@@ -24,6 +24,15 @@ $plugins = array(
 	'beforeAdminLoad'=>array(),
 	'afterAdminLoad'=>array(),
 
+	'beforeRulesLoad'=>array(),
+
+	'afterPostCreate'=>array(),
+	'afterPostModify'=>array(),
+	'afterPostDelete'=>array(),
+	'afterPageCreate'=>array(),
+	'afterPageModify'=>array(),
+	'afterPageDelete'=>array(),
+
 	'loginHead'=>array(),
 	'loginBodyBegin'=>array(),
 	'loginBodyEnd'=>array(),

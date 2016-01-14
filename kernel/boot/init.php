@@ -61,7 +61,6 @@ define('ALERT_STATUS_FAIL', 1);
 // Salt length
 define('THUMBNAILS_WIDTH', 400);
 define('THUMBNAILS_HEIGHT', 400);
-
 define('THUMBNAILS_AMOUNT', 6);
 
 // Salt length
@@ -82,8 +81,11 @@ define('JSON', function_exists('json_encode'));
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('CLI_STATUS', 'published');
 
-// Database format date
+// Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
+
+// Sitemap date format
+define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
@@ -111,7 +113,7 @@ if(MB_STRING)
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_ABSTRACT.'filecontent.class.php');
+include(PATH_ABSTRACT.'content.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
@@ -215,6 +217,16 @@ define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
+
+// --- Absolute paths with domain ---
+define('DOMAIN',			$Site->domain());
+define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
+define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
+define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
+define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
+define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
+define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 
 // --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->locale() );
