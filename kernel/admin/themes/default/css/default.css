@@ -179,6 +179,19 @@ button.delete-button:hover {
 	text-transform: uppercase;
 }
 
+#jstagList {
+	margin-top: 5px;
+}
+
+#jstagList span {
+	background: #f1f1f1;
+	border-radius: 3px;
+	color: #2672ec;
+	margin-right: 5px;
+	padding: 3px 10px;
+	cursor: pointer;
+}
+
 /* ----------- BLUDIT IMAGES V8 ----------- */
 #bludit-images-v8 {
 

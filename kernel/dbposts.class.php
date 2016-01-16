@@ -12,7 +12,7 @@ class dbPosts extends dbJSON
 		'allowComments'=>	array('inFile'=>false,	'value'=>false),
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'hash'=>		array('inFile'=>false,	'value'=>'')
+		'checksum'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	private $numberPosts = array(
@@ -161,7 +161,7 @@ class dbPosts extends dbJSON
 
 		// Create Hash
 		$serialize = serialize($dataForDb+$dataForFile);
-		$dataForDb['hash'] = sha1($serialize);
+		$dataForDb['checksum'] = sha1($serialize);
 
 		// Make the directory.
 		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {

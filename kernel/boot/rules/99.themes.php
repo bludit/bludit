@@ -4,49 +4,72 @@
 // Variables
 // ============================================================================
 
-$theme = array(
-	'name'=>'',
-	'description'=>'',
-	'author'=>'',
-	'email'=>'',
-	'website'=>'',
-	'version'=>'',
-	'releaseDate'=>''
-);
-
 // ============================================================================
 // Functions
 // ============================================================================
+
+function buildThemes()
+{
+	global $Site;
+
+	$themes = array();
+	$themesPaths = Filesystem::listDirectories(PATH_THEMES);
+
+	foreach($themesPaths as $themePath)
+	{
+		// Check if the theme is translated.
+		$languageFilename = $themePath.DS.'languages'.DS.$Site->locale().'.json';
+		if( !Sanitize::pathFile($languageFilename) ) {
+			$languageFilename = $themePath.DS.'languages'.DS.'en_US.json';
+		}
+
+		if( Sanitize::pathFile($languageFilename) )
+		{
+			$database = file_get_contents($languageFilename);
+			$database = json_decode($database, true);
+			$database = $database['theme-data'];
+
+			$database['dirname'] = basename($themePath);
+
+			// --- Metadata ---
+			$filenameMetadata = $themePath.DS.'metadata.json';
+
+			if( Sanitize::pathFile($filenameMetadata) )
+			{
+				$metadataString = file_get_contents($filenameMetadata);
+				$metadata = json_decode($metadataString, true);
+
+				$database = $database + $metadata;
+
+				// Theme data
+				array_push($themes, $database);
+			}
+		}
+	}
+
+	return $themes;
+}
 
 // ============================================================================
 // Main
 // ============================================================================
 
-$langLocaleFile  = PATH_THEME.'languages'.DS.$Site->locale().'.json';
-$langDefaultFile = PATH_THEME.'languages'.DS.'en_US.json';
-$database = false;
-
-// Theme meta data from English
-if( Sanitize::pathFile($langDefaultFile) ) {
-	$database = new dbJSON($langDefaultFile, false);
-	$themeMetaData = $database->db['theme-data'];
+// Load the language file
+$languageFilename = PATH_THEME.DS.'languages'.DS.$Site->locale().'.json';
+if( !Sanitize::pathFile($languageFilename) ) {
+	$languageFilename = PATH_THEME.DS.'languages'.DS.'en_US.json';
 }
 
-// Check if exists locale language
-if( Sanitize::pathFile($langLocaleFile) ) {
-	$database = new dbJSON($langLocaleFile, false);
-}
-
-if($database!==false)
+if( Sanitize::pathFile($languageFilename) )
 {
-	$databaseArray = $database->db;
+	$database = file_get_contents($languageFilename);
+	$database = json_decode($database, true);
 
-	// Theme data
-	$theme = $themeMetaData;
+	// Remote the name and description.
+	unset($database['theme-data']);
 
-	// Remove theme meta data
-	unset($databaseArray['theme-data']);
-
-	// Add new words/phrase from language theme
-	$Language->add($databaseArray);
+	// Load words from the theme language
+	if(!empty($database)) {
+		$Language->add($database);
+	}
 }

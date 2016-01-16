@@ -20,7 +20,22 @@ class HTML {
 	public static function formClose()
 	{
 		$html = '</form>';
-		echo $html;
+
+$script = '<script>
+
+$(document).ready(function() {
+
+	// Prevent the form submit when press enter key.
+	$("form").keypress(function(e) {
+		if (e.which == 13) {
+			return false;
+		}
+	});
+
+});
+
+</script>';
+		echo $html.$script;
 	}
 
 	// label, name, value, tip
@@ -52,22 +67,104 @@ class HTML {
 		echo $html;
 	}
 
-	public static function formInputAutocomplete($args)
+	public static function tagsAutocomplete($args)
 	{
+		// Tag array for Javascript
+		$tagArray = 'var tagArray = [];';
+		if(!empty($args['value'])) {
+			$tagArray = 'var tagArray = ["'.implode('","', $args['value']).'"]';
+		}
+		$args['value'] = '';
+
+		// Text input
 		self::formInputText($args);
 
+		echo '<div id="jstagList"></div>';
+
 $script = '<script>
-$("input[name=\"'.$args['name'].'\"]").autoComplete({
-    minChars: 1,
-    source: function(term, suggest){
-        term = term.toLowerCase();
-        var choices = ['.$args['words'].'];
-        var matches = [];
-        for (i=0; i<choices.length; i++)
-            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-        suggest(matches);
-    }
+
+'.$tagArray.'
+
+function insertTag(tag)
+{
+	// Clean the input text
+	$("#jstags").val("");
+
+	if(tag.trim()=="") {
+		return true;
+	}
+
+	// Check if the tag is already inserted.
+	var found = $.inArray(tag, tagArray);
+	if(found == -1) {
+		tagArray.push(tag);
+		renderTagList();
+	}
+}
+
+function removeTag(tag)
+{
+	var found = $.inArray(tag, tagArray);
+
+	if(found => 0) {
+		tagArray.splice(found, 1);
+		renderTagList();
+	}
+}
+
+function renderTagList()
+{
+	if(tagArray.length == 0) {
+		$("#jstagList").html("");
+	}
+	else {
+		$("#jstagList").html("<span>"+tagArray.join("</span><span>")+"</span>");
+	}
+}
+
+$("#jstags").autoComplete({
+	minChars: 1,
+	source: function(term, suggest){
+	term = term.toLowerCase();
+	var choices = ['.$args['words'].'];
+	var matches = [];
+	for (i=0; i<choices.length; i++)
+	    if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+	suggest(matches);
+	},
+	onSelect: function(e, value, item) {
+		// Insert the tag when select whit the mouse click.
+		insertTag(value);
+	}
 });
+
+$(document).ready(function() {
+
+	// When the page is loaded render the tags
+	renderTagList();
+
+	// Remove the tag when click on it.
+	$("body").on("click", "#jstagList > span", function() {
+		value = $(this).html();
+		removeTag(value);
+	});
+
+	// Insert tag when press enter key.
+	$("#jstags").keypress(function(e) {
+		if (e.which == 13) {
+			var value = $(this).val();
+			insertTag(value);
+		}
+	});
+
+	// When form submit.
+	$("form").submit(function(e) {
+		var list = tagArray.join(",");
+		$("#jstags").val(list);
+	});
+
+});
+
 </script>';
 
 		echo $script;
@@ -157,7 +254,7 @@ $("input[name=\"'.$args['name'].'\"]").autoComplete({
 $html = '<!-- BLUDIT QUICK IMAGES -->';
 $html .= '
 <div id="bludit-quick-images">
-<div id="bludit-quick-images-thumbnails">
+<div id="bludit-quick-images-thumbnails" onmousedown="return false">
 ';
 
 $thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
