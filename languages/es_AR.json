@@ -138,7 +138,7 @@
 	"first-post": "Primer entrada",
 	"congratulations-you-have-successfully-installed-your-bludit": "Felicitación, se ha instalado **Bludit** exitosamente",
 	"whats-next": "Siguientes pasos",
-	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración](./admin/)",
+
 	"follow-bludit-on": "Siga Bludit en",
 	"visit-the-support-forum": "Visite el [foro](http://forum.bludit.com) para soporte",
 	"read-the-documentation-for-more-information": "Lea la [documentación](http://docs.bludit.com) para mas información",
@@ -213,5 +213,19 @@
 	"the-about-page-is-very-important": "La página acerca es una herramienta importante y de gran alcance para los clientes y socios potenciales. Para aquellos que quieren saber quien esta detras de este sitio, su pagina Acerca de es la primera fuente de información.",
 	"change-this-pages-content-on-the-admin-panel": "Modifique el contenido de esta pagina en el panel de administración, administrar, paginas, y luego clic en la pagina Acerca de.",
 	"about-your-site-or-yourself": "Acerca de ti o de tu sitio",
-	"welcome-to-bludit": "Bienvenido a Bludit"
+	"welcome-to-bludit": "Bienvenido a Bludit",
+
+	"site-information": "información del sitio",
+	"date-and-time-formats": "Formato de la fecha y hora",
+	"activate": "Activar",
+	"deactivate": "Desactivar",
+
+	"cover-image": "Imagen de portada",
+	"blog": "Blog",
+	"more-images": "Mas imagenes",
+	"double-click-on-the-image-to-add-it": "Doble clic en la imagen para insertarla.",
+	"click-here-to-cancel": "Clic aquí para cancelar.",
+	"type-the-tag-and-press-enter": "Escriba la etiqueta y presione enter.",
+	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"No hay imagenes"
 }

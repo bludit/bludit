@@ -76,6 +76,12 @@ class pluginRSS extends Plugin {
 		$this->createXML();
 	}
 
+	public function siteHead()
+	{
+		$html = '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
+		return $html;
+	}
+
 	public function beforeRulesLoad()
 	{
 		global $Url;
