@@ -20,11 +20,11 @@
                 <?php
                     echo $Language->get('Posted By').' ';
 
-                    if( Text::isNotEmpty($Post->authorFirstName()) || Text::isNotEmpty($Post->authorLastName()) ) {
-                        echo $Post->authorFirstName().' '.$Post->authorLastName();
+                    if( Text::isNotEmpty($Post->user('firstName')) || Text::isNotEmpty($Post->user('lastName')) ) {
+                        echo $Post->user('firstName').' '.$Post->user('lastName');
                     }
                     else {
-                        echo $Post->username();
+                        echo $Post->user('username');
                     }
                 ?>
             </span>

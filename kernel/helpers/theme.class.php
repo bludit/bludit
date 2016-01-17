@@ -122,7 +122,18 @@ class Theme {
 
 	public static function jquery($echo=true)
 	{
-		$tmp = '<script src="'.JQUERY.'"></script>'.PHP_EOL;
+		$tmp = '<script src="'.HTML_PATH_ADMIN_THEME_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
+
+		if($echo) {
+			echo $tmp;
+		}
+
+		return $tmp;
+	}
+
+	public static function fontAwesome($echo=true, $online=false)
+	{
+		$tmp = '<link rel="stylesheet" href="'.HTML_PATH_ADMIN_THEME_CSS.'font-awesome.min.css'.'">'.PHP_EOL;
 
 		if($echo) {
 			echo $tmp;
