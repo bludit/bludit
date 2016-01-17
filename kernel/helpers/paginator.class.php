@@ -27,6 +27,18 @@ class Paginator {
 	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)
 	{
 		global $Language;
+		global $Url;
+
+		$url = trim(DOMAIN_BASE,'/');
+
+		$filter = '';
+		if($Url->whereAmI()=='tag') {
+			$filter = trim($Url->filters('tag'), '/');
+			$url = $url.'/'.$filter.'/'.$Url->slug();
+		}
+		else {
+			$url = $url.'/';
+		}
 
 		$html  = '<div id="paginator">';
 		$html .= '<ul>';
@@ -38,7 +50,7 @@ class Paginator {
 			}
 
 			$html .= '<li class="left">';
-			$html .= '<a href="'.HTML_PATH_ROOT.'?page='.self::get('prevPage').'">'.$textPrevPage.'</a>';
+			$html .= '<a href="'.$url.'?page='.self::get('prevPage').'">'.$textPrevPage.'</a>';
 			$html .= '</li>';
 		}
 
@@ -53,7 +65,7 @@ class Paginator {
 			}
 
 			$html .= '<li class="right">';
-			$html .= '<a href="'.HTML_PATH_ROOT.'?page='.self::get('nextPage').'">'.$textNextPage.'</a>';
+			$html .= '<a href="'.$url.'?page='.self::get('nextPage').'">'.$textNextPage.'</a>';
 			$html .= '</li>';
 		}
 

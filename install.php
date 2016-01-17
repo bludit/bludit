@@ -97,6 +97,10 @@ if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
 }
 
+if( !Sanitize::pathFile(PATH_LANGUAGES.$localeFromHTTP) ) {
+	$localeFromHTTP = 'en_US';
+}
+
 $Language = new dbLanguage($localeFromHTTP);
 
 // --- LOCALE ---
@@ -187,6 +191,10 @@ function checkSystem()
 		array_push($stdOut, $tmp);
 	}
 
+	// Try to create the directory content
+	@mkdir(PATH_CONTENT, $dirpermissions, true);
+
+	// Check if the directory content is writeable.
 	if(!is_writable(PATH_CONTENT))
 	{
 		$errorText = 'Writing test failure, check directory content permissions. (ERR_205)';

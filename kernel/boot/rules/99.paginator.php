@@ -9,6 +9,11 @@ if($Url->whereAmI()=='admin') {
 	$postPerPage = POSTS_PER_PAGE_ADMIN;
 	$numberOfPosts = $dbPosts->numberPost(true); // published and drafts
 }
+elseif($Url->whereAmI()=='tag') {
+	$postPerPage = $Site->postsPerPage();
+	$tagKey = $Url->slug();
+	$numberOfPosts = $dbTags->countPostsByTag($tagKey);
+}
 else {
 	$postPerPage = $Site->postsPerPage();
 	$numberOfPosts = $dbPosts->numberPost(false); // published
