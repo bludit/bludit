@@ -269,7 +269,7 @@ $html .= '
 ';
 
 if(empty($thumbnailList)) {
-	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">There are no images, upload someone to make your site more cheerful.</div>';
+	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">'.$L->g('There are no images').'</div>';
 }
 
 $html .= '
@@ -442,7 +442,7 @@ $html .= '
 ';
 
 if(empty($thumbnailList)) {
-	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">There are no images, upload someone to make your site more cheerful.</div>';
+	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">'.$L->g('There are no images').'</div>';
 }
 
 $html .= '

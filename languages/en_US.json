@@ -138,7 +138,7 @@
 	"first-post": "First post",
 	"congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
 	"whats-next": "What's Next",
-	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area](./admin/)",
+
 	"follow-bludit-on": "Follow Bludit on",
 	"visit-the-support-forum": "Visit the [forum](http://forum.bludit.com) for support",
 	"read-the-documentation-for-more-information": "Read the [documentation](http://docs.bludit.com) for more information",
@@ -225,5 +225,7 @@
 	"more-images": "More images",
 	"double-click-on-the-image-to-add-it": "Double click on the image to add it.",
 	"click-here-to-cancel": "Click here to cancel.",
-	"type-the-tag-and-press-enter": "Type the tag and press enter."
+	"type-the-tag-and-press-enter": "Type the tag and press enter.",
+	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"There are no images"
 }

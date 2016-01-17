@@ -3,7 +3,7 @@
 HTML::title(array('title'=>$L->g('Themes'), 'icon'=>'paint-brush'));
 
 echo '
-<table class="uk-table uk-table-striped">
+<table class="uk-table">
 <thead>
 <tr>
 	<th class="uk-width-1-5">'.$L->g('Name').'</th>
@@ -18,7 +18,7 @@ echo '
 foreach($themes as $theme)
 {
 	echo '
-	<tr>
+	<tr '.($theme['dirname']==$Site->theme()?'class="theme-installed"':'class="theme-notInstalled"').'>
 	<td>
 	<div class="plugin-name">'.$theme['name'].'</div>
 	<div class="plugin-links">

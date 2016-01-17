@@ -32,15 +32,34 @@ define('PATH_KERNEL',		PATH_ROOT.'kernel'.DS);
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_LANGUAGES',	PATH_ROOT.'languages'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
-define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
-// HTML PATHs
-//$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-//$base = dirname($base);
-$base = empty($_SERVER['REQUEST_URI']) ? dirname($_SERVER['SCRIPT_NAME']) : dirname($_SERVER['REQUEST_URI']);
+// Domain and protocol
+define('DOMAIN', $_SERVER['HTTP_HOST']);
+
+if(!empty($_SERVER['HTTPS'])) {
+	define('PROTOCOL', 'https://');
+}
+else {
+	define('PROTOCOL', 'http://');
+}
+
+// BASE URL
+// The user can define the base URL.
+// Left empty if you want to Bludit try to detect the base URL.
+$base = '';
+
+if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
+	$base = dirname($base);
+}
+elseif( empty($base) ) {
+	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+	$base = dirname($base);
+}
 
 if($base!=DS) {
-	$base = $base.'/';
+	$base = trim($base, '/');
+	$base = '/'.$base.'/';
 }
 else {
 	// Workaround for Windows Web Servers
@@ -340,7 +359,7 @@ function install($adminPassword, $email, $timezoneOffset)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT,
+		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
 		'cliMode'=>'true',
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
@@ -465,11 +484,18 @@ Content:
 	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
 
 	// File index.txt for welcome post
+	$text1 = Text::replaceAssoc(
+			array(
+				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
+			),
+			$Language->get('Manage your Bludit from the admin panel')
+	);
+
 	$data = 'Title: '.$Language->get('First post').'
 Content:
 
 ## '.$Language->get('Whats next').'
-- '.$Language->get('Manage your Bludit from the admin panel').'
+- '.$text1.'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Chat with developers and users on Gitter').'
 - '.$Language->get('Visit the support forum').'

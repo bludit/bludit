@@ -353,6 +353,11 @@ h3.titleOptions {
 
 /* ----------- PLUGIN LIST / THEME LIST ----------- */
 
+tr.plugin-installed,
+tr.theme-installed {
+	background: #F2F7FF !important;
+}
+
 div.plugin-links > a {
 	display: inline-block;
 	margin-top: 5px;
