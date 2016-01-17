@@ -1,8 +1,8 @@
 [Bludit](http://www.bludit.com/)
 ================================
-Fast, simple, extensible and flat file CMS.
+**Fast**, **simple**, **extensible** and **flat file** CMS.
 
-Bludit is a simple web application to make your own blog or site in seconds, it's completly free and open source. Bludit uses flat-files (text files in JSON format) to store the posts and pages, you don't need to install or configure a database.
+Bludit is a simple web application to make your own **blog** or **site** in seconds, it's completly **free and open source**. Bludit uses flat-files (text files in JSON format) to store the posts and pages, you don't need to install or configure a database.
 
 - [Documentation](http://docs.bludit.com)
 - [Help and Support](http://forum.bludit.com)
