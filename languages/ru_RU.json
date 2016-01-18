@@ -224,5 +224,8 @@
 	"blog": "Блог",
 	"more-images": "Еще изображения",
 	"double-click-on-the-image-to-add-it": "Дважды щелкните по изображению, чтобы добавить его.",
-	"click-here-to-cancel": "Нажмите здесь, чтобы отменить."
+	"click-here-to-cancel": "Нажмите здесь, чтобы отменить.",
+	"type-the-tag-and-press-enter": "Введите тег и нажмите клавишу Enter.",
+	"manage-your-bludit-from-the-admin-panel": "Управляйте Bludit из [панели управления]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"Изображений нет"
 }
