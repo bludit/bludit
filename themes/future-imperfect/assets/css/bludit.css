@@ -1,0 +1,21 @@
+.plugin ul {
+	list-style: none !important;
+	padding: 0 !important;
+}
+
+.plugin li {
+	padding: 0 !important;
+}
+
+.plugin-pages ul.children {
+	margin-left: 10px;
+}
+
+/* Just for Plugin tags */
+.plugin-tags li {
+	text-transform: capitalize;
+}
+
+img {
+	width: 100%;
+}
