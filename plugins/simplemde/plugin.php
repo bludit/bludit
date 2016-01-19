@@ -103,17 +103,6 @@ class pluginsimpleMDE extends Plugin {
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
 			});';
 
-			/*
-			$html .= '$("#jsaddImage").on("click", function() {
-
-					if(!imageFilename.trim()) {
-						return false;
-					}
-					var text = simplemde.value();
-					simplemde.value(text + "![alt text]("+imageFilename+")" + "\n");
-			});';
-			*/
-
 			// This is the event for Bludit images
 			$html .= '$("body").on("dblclick", "img.bludit-thumbnail", function() {
 					var filename = $(this).data("filename");

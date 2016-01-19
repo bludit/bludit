@@ -116,7 +116,7 @@ if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
 }
 
-if( !Sanitize::pathFile(PATH_LANGUAGES.$localeFromHTTP) ) {
+if( !Sanitize::pathFile(PATH_LANGUAGES.$localeFromHTTP.'.json') ) {
 	$localeFromHTTP = 'en_US';
 }
 

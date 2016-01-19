@@ -27,6 +27,11 @@ function buildThemes()
 		{
 			$database = file_get_contents($languageFilename);
 			$database = json_decode($database, true);
+			if(empty($database)) {
+				Log::set('99.themes.php'.LOG_SEP.'JSON Error on theme '.$themePath);
+				break;
+			}
+
 			$database = $database['theme-data'];
 
 			$database['dirname'] = basename($themePath);
@@ -38,6 +43,10 @@ function buildThemes()
 			{
 				$metadataString = file_get_contents($filenameMetadata);
 				$metadata = json_decode($metadataString, true);
+				if(empty($metadata)) {
+					Log::set('99.themes.php'.LOG_SEP.'JSON Error on theme '.$themePath);
+					break;
+				}
 
 				$database = $database + $metadata;
 
