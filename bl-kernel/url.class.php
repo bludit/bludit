@@ -9,6 +9,7 @@ class Url
 	private $filters; // Filters for the URI
 	private $notFound;
 	private $parameters;
+	private $activeFilter;
 
 	function __construct()
 	{
@@ -30,6 +31,8 @@ class Url
 		$this->slug = '';
 
 		$this->filters = array();
+
+		$this->activeFilter = '';
 	}
 
 	// Filters change for different languages
@@ -57,6 +60,7 @@ class Url
 			{
 				$this->slug 	= $slug;
 				$this->whereAmI = $filterName;
+				$this->activeFilter = $filterURI;
 
 				// If the slug is empty
 				if(Text::isEmpty($slug))
@@ -91,6 +95,11 @@ class Url
 	public function slug()
 	{
 		return $this->slug;
+	}
+
+	public function activeFilter()
+	{
+		return $this->activeFilter;
 	}
 
 	public function explodeSlug($delimiter="/")

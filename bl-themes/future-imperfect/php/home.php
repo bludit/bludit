@@ -65,11 +65,11 @@
 <ul class="actions pagination">
 <?php
 	if( Paginator::get('showNewer') ) {
-		echo '<li><a href="'.HTML_PATH_ROOT.'?page='.Paginator::get('prevPage').'" class="button big previous">Previous Page</a></li>';
+		echo '<li><a href="'.Paginator::urlPrevPage().'" class="button big previous">Previous Page</a></li>';
 	}
 
 	if( Paginator::get('showOlder') ) {
-		echo '<li><a href="'.HTML_PATH_ROOT.'?page='.Paginator::get('nextPage').'" class="button big next">Next Page</a></li>';
+		echo '<li><a href="'.Paginator::urlNextPage().'" class="button big next">Next Page</a></li>';
 	}
 ?>
 </ul>
