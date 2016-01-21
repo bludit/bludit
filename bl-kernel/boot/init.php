@@ -4,7 +4,7 @@
 define('BLUDIT_VERSION',	'githubVersion');
 define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'20151119');
+define('BLUDIT_BUILD',		'20160120');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -80,7 +80,7 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 define('POSTS_PER_PAGE_ADMIN', 10);
 
 // Check if JSON encode and decode are enabled.
-define('JSON', function_exists('json_encode'));
+// define('JSON', function_exists('json_encode'));
 
 // TRUE if new posts hand-made set published, or FALSE for draft.
 define('CLI_STATUS', 'published');

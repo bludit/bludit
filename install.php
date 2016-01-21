@@ -1,7 +1,7 @@
 <?php
 
 /*
- * BLUDIT
+ * Bludit
  * http://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
@@ -78,9 +78,6 @@ define('LOG_SEP', ' | ');
 if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
-
-// Check if JSON encode and decode are enabled.
-define('JSON', function_exists('json_encode'));
 
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');

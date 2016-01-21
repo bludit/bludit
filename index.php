@@ -11,7 +11,7 @@
 if( !file_exists('bl-content/databases/site.php') )
 {
 	header('Location:./install.php');
-	exit('<a href="./install.php">First, install Bludit</a>');
+	exit('<a href="./install.php">Install Bludit first.</a>');
 }
 
 // Load time init
@@ -38,4 +38,3 @@ if($Url->whereAmI()==='admin') {
 else {
 	require(PATH_BOOT.'site.php');
 }
-

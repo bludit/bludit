@@ -40,10 +40,6 @@ class dbJSON
 				$this->dbBackup = $array;
 			}
 		}
-		else
-		{
-			Log::set(__METHOD__.LOG_SEP.'File '.$file.' does not exists');
-		}
 	}
 
 	public function restoreDB()
@@ -58,6 +54,7 @@ class dbJSON
 		return count($this->db);
 	}
 
+	// Returns the value from the field.
 	public function getField($field)
 	{
 		if(isset($this->db[$field])) {
@@ -86,24 +83,24 @@ class dbJSON
 		return file_put_contents($this->file, $data, LOCK_EX);
 	}
 
+	// Returns a JSON encoded string on success or FALSE on failure.
 	private function serialize($data)
 	{
-		// DEBUG: La idea es siempre serializar en json, habria que ver si siempre esta cargado json_enconde y decode
-		if(JSON) {
-			return json_encode($data, JSON_PRETTY_PRINT);
-		}
-
-		return serialize($data);
+		return json_encode($data, JSON_PRETTY_PRINT);
 	}
 
+	// Returns the value encoded in json in appropriate PHP type.
 	private function unserialize($data)
 	{
-		// DEBUG: La idea es siempre serializar en json, habria que ver si siempre esta cargado json_enconde y decode
-		if(JSON) {
-			return json_decode($data, true);
+		// NULL is returned if the json cannot be decoded.
+		$decode = json_decode($data, true);
+
+		// If NULL returns false.
+		if(empty($decode)) {
+			return false;
 		}
 
-		return unserialize($data);
+		return $decode;
 	}
 
 }

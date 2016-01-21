@@ -29,10 +29,6 @@ class pluginAbout extends Plugin {
 
 	public function siteSidebar()
 	{
-		global $Url;
-
-		$filter = $Url->filters('tag');
-
 		$html  = '<div class="plugin plugin-about">';
 		$html .= '<h2>'.$this->getDbField('label').'</h2>';
 		$html .= '<div class="plugin-content">';
