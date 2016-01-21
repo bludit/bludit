@@ -224,5 +224,8 @@
 	"blog": "Blog",
 	"more-images": "Daha çok resim",
 	"double-click-on-the-image-to-add-it": "Eklemek istediğiniz resime çift tıklayın.",
-	"click-here-to-cancel": "İptal etmek için tıklayın."
+	"click-here-to-cancel": "İptal etmek için tıklayın.",
+	"type-the-tag-and-press-enter": "Etiketi girin ve enter tuşuna basın.",
+	"manage-your-bludit-from-the-admin-panel": "Bludit'i [yönetici panelinden]({{ADMIN_AREA_LINK}}) yönetin.",
+	"there-are-no-images":"Hiç resim yok."
 }
