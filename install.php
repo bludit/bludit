@@ -564,7 +564,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <!DOCTYPE HTML>
 <html class="uk-height-1-1 uk-notouch">
 <head>
-	<base href="kernel/admin/themes/default/">
+	<base href="bl-kernel/admin/themes/default/">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
