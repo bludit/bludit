@@ -17,7 +17,15 @@
 
     <!-- page content -->
     <div class="page-content">
-        <?php echo $Page->content() ?>
+        <?php
+            // Cover Image
+            if($Page->coverImage()) {
+                echo '<img class="cover-image" src="'.$Page->coverImage().'" alt="Cover Image">';
+            }
+
+            // Page content
+            echo $Page->content()
+        ?>
     </div>
 
     <!-- Plugins Page Begin -->

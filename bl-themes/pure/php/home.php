@@ -37,6 +37,11 @@
     <!-- Post content -->
     <div class="post-content">
         <?php
+            // Cover Image
+            if($Post->coverImage()) {
+                echo '<img class="cover-image" src="'.$Post->coverImage().'" alt="Cover Image">';
+            }
+
             // Call the method with FALSE to get the first part of the post
             echo $Post->content(false)
         ?>
