@@ -21,24 +21,28 @@ if(DEBUG_MODE)
 
 // PHP paths
 // PATH_ROOT and PATH_BOOT are defined in index.php
-define('PATH_LANGUAGES',		PATH_ROOT.'languages'.DS);
-define('PATH_THEMES',			PATH_ROOT.'themes'.DS);
-define('PATH_PLUGINS',			PATH_ROOT.'plugins'.DS);
-define('PATH_KERNEL',			PATH_ROOT.'kernel'.DS);
+define('PATH_LANGUAGES',		PATH_ROOT.'bl-languages'.DS);
+define('PATH_THEMES',			PATH_ROOT.'bl-themes'.DS);
+define('PATH_PLUGINS',			PATH_ROOT.'bl-plugins'.DS);
+define('PATH_KERNEL',			PATH_ROOT.'bl-kernel'.DS);
+define('PATH_CONTENT',			PATH_ROOT.'bl-content'.DS);
+
 define('PATH_ABSTRACT',			PATH_KERNEL.'abstract'.DS);
 define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
 define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
 define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
 define('PATH_JS',			PATH_KERNEL.'js'.DS);
-define('PATH_CONTENT',			PATH_ROOT.'content'.DS);
+
 define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
+
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
+
 define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
@@ -132,7 +136,6 @@ include(PATH_KERNEL.'parsedown.class.php');
 include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
 
-
 // Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');
 include(PATH_HELPERS.'log.class.php');
@@ -152,7 +155,7 @@ include(PATH_HELPERS.'image.class.php');
 Session::start();
 if(Session::started()===false) {
 	Log::set('init.php'.LOG_SEP.'Error occurred when trying to start the session.');
-	exit('Bludit CMS. Failed to start session.');
+	exit('Bludit. Failed to start session.');
 }
 
 // Objects
@@ -165,7 +168,10 @@ $Url 		= new Url();
 $Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
 
-// HTML PATHS
+// --- Relative paths ---
+// This paths are relative for the user / web browsing.
+
+// Base URL
 // The user can define the base URL.
 // Left empty if you want to Bludit try to detect the base URL.
 $base = '';
@@ -188,30 +194,29 @@ else {
 	$base = '/';
 }
 
-define('HTML_PATH_ROOT', $base);
-
-// Paths for themes
-define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'themes/');
-define('HTML_PATH_THEME',		HTML_PATH_ROOT.'themes/'.$Site->theme().'/');
+define('HTML_PATH_ROOT', 		$base);
+define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'bl-themes/');
+define('HTML_PATH_THEME',		HTML_PATH_THEMES.$Site->theme().'/');
 define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
 
 define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
-define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'kernel/admin/themes/'.$Site->adminTheme().'/');
+define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
 define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 
-define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'content/uploads/');
+define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
-define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'plugins/');
+define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
-// PHP paths with dependency
-define('PATH_THEME',			PATH_ROOT.'themes'.DS.$Site->theme().DS);
+// --- PHP paths with dependency ---
+// This paths are absolutes for the OS.
+define('PATH_THEME',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
@@ -219,6 +224,7 @@ define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
 
 // --- Absolute paths with domain ---
+// This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
 define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);

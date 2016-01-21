@@ -8,7 +8,7 @@
 */
 
 // Check installation
-if( !file_exists('content/databases/site.php') )
+if( !file_exists('bl-content/databases/site.php') )
 {
 	header('Location:./install.php');
 	exit('<a href="./install.php">First, install Bludit</a>');
@@ -25,7 +25,7 @@ define('DS', DIRECTORY_SEPARATOR);
 
 // PHP paths for init
 define('PATH_ROOT', __DIR__.DS);
-define('PATH_BOOT', PATH_ROOT.'kernel'.DS.'boot'.DS);
+define('PATH_BOOT', PATH_ROOT.'bl-kernel'.DS.'boot'.DS);
 
 // Init
 require(PATH_BOOT.'init.php');

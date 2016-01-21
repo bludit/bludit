@@ -152,12 +152,15 @@ class dbSite extends dbJSON
 		return $this->getField('footer');
 	}
 
-	// Returns the url site.
+	// Returns the full domain and base url.
+	// For example, http://www.domain.com/bludit/
 	public function url()
 	{
 		return $this->getField('url');
 	}
 
+	// Returns the protocol and the domain, without the base url.
+	// For example, http://www.domain.com
 	public function domain()
 	{
 		// If the URL field is not set, try detect the domain.

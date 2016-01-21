@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Bludit
+ * BLUDIT
  * http://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
@@ -20,17 +20,20 @@ define('DS', DIRECTORY_SEPARATOR);
 
 // PHP paths
 define('PATH_ROOT',		__DIR__.DS);
-define('PATH_CONTENT',		PATH_ROOT.'content'.DS);
+define('PATH_CONTENT',		PATH_ROOT.'bl-content'.DS);
+define('PATH_KERNEL',		PATH_ROOT.'bl-kernel'.DS);
+define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
+
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
-define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
-define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
-define('PATH_KERNEL',		PATH_ROOT.'kernel'.DS);
+
+define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
+
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
-define('PATH_LANGUAGES',	PATH_ROOT.'languages'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 
 // Domain and protocol
@@ -43,7 +46,7 @@ else {
 	define('PROTOCOL', 'http://');
 }
 
-// BASE URL
+// Base URL
 // The user can define the base URL.
 // Left empty if you want to Bludit try to detect the base URL.
 $base = '';
@@ -98,13 +101,14 @@ if(MB_STRING)
 }
 
 // --- PHP Classes ---
+
+include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
-include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
+include(PATH_KERNEL.'dblanguage.class.php');
 
 // --- LANGUAGE ---
 
