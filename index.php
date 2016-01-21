@@ -38,5 +38,3 @@ if($Url->whereAmI()==='admin') {
 else {
 	require(PATH_BOOT.'site.php');
 }
-
-var_dump($Url);exit;

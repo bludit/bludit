@@ -72,7 +72,7 @@ class Paginator {
 			}
 
 			$html .= '<li class="left">';
-			$html .= '<a href="'.self::urlPrevPage().'?page='.self::get('prevPage').'">'.$textPrevPage.'</a>';
+			$html .= '<a href="'.self::urlPrevPage().'">'.$textPrevPage.'</a>';
 			$html .= '</li>';
 		}
 
@@ -87,7 +87,7 @@ class Paginator {
 			}
 
 			$html .= '<li class="right">';
-			$html .= '<a href="'.self::urlNextPage().'?page='.self::get('nextPage').'">'.$textNextPage.'</a>';
+			$html .= '<a href="'.self::urlNextPage().'">'.$textNextPage.'</a>';
 			$html .= '</li>';
 		}
 
