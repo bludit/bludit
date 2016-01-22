@@ -49,6 +49,8 @@ class pluginTags extends Plugin {
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
+		$tagArray = array();
+
 		foreach($db as $tagKey=>$fields)
 		{
 			$tagArray[] = array('tagKey'=>$tagKey, 'count'=>$dbTags->countPostsByTag($tagKey), 'name'=>$fields['name']);
