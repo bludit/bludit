@@ -31,10 +31,9 @@ class pluginDisqus extends Plugin {
 		}
 		elseif( !$this->getDbField('enableDefaultHomePage') && ($Url->whereAmI()=='page') )
 		{
-			global $Page;
 			global $Site;
-			var_dump($Page);
-			if( $Site->homePage()==$Page->key() ) {
+
+			if( !empty($Site->homePage()) ) {
 				$this->disable = true;
 			}
 		}
