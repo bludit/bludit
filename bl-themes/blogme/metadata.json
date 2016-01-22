@@ -1,0 +1,10 @@
+{
+	"author": "n33co & diego",
+	"email": "",
+	"website": "https://github.com/dignajar/bludit-themes",
+	"version": "1.0",
+	"releaseDate": "2016-01-21",
+	"license": "CCA 3.0",
+	"requires": "Bludit v1.0",
+	"notes": "This theme is based on Future Imperfect, all credits to the author n33co."
+}

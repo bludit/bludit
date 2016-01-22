@@ -6,10 +6,23 @@
 function updateBludit()
 {
 	global $Site;
+	global $dbPosts;
 
 	// Check if Bludit need to be update.
 	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) )
 	{
+		// --- Update dates ---
+		foreach($dbPosts->db as $key=>$post)
+		{
+			$date = Date::format($post['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
+			if($date !== false) {
+				$dbPosts->setPostDb($key,'date',$date);
+			}
+		}
+
+		$dbPosts->save();
+
+		// --- Update directories ---
 		$directories = array(
 				PATH_POSTS,
 				PATH_PAGES,
