@@ -1,0 +1,465 @@
+/* ----------- UIKIT HACKs FOR BLUDIT ----------- */
+.uk-navbar {
+	background: #EEEEEE !important;
+	border: none !important;
+}
+
+.uk-button {
+	color: #ffffff;
+	padding: 2px 22px;
+	text-shadow: none;
+	background: #888888;
+	border-radius: 3px;
+}
+
+.uk-button:hover,
+.uk-button:focus {
+	background-color: #777777;
+	color: #ffffff;
+}
+
+.uk-button-primary {
+	background: #2672ec;
+}
+
+.uk-button-primary:hover {
+	background: #1F5FC4;
+}
+
+legend {
+	width: 70% !important;
+	margin-top: 40px !important;
+}
+
+legend.first-child {
+	margin-top: 0px !important;
+}
+
+.uk-navbar-nav > li > a {
+	border: none;
+	height: 70px;
+	padding: 15px;
+}
+
+.uk-nav-navbar > li > a:hover,
+.uk-nav-navbar > li > a:focus {
+	background: #2672ec;
+}
+
+.uk-form-label {
+	color: #666666;
+	font-weight: normal !important;
+}
+
+.uk-form-help-block {
+	color: #AAAAAA;
+	font-size: 0.9em;
+}
+
+.uk-table th,
+.uk-table td {
+	padding: 15px 10px;
+}
+
+.uk-badge {
+	margin-right: 5px !important;
+	font-size: 0.9em;
+	padding: 2px 7px;
+	font-weight: normal;
+}
+
+a {
+	color: #2672ec;
+}
+
+li.bludit-logo {
+	color: #848484 !important;
+	height: 70px;
+	padding: 15px;
+	display: block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 35px;
+	line-height: 40px;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.uk-panel-box {
+	background: #F9F9F9 !important;
+}
+
+.uk-container {
+	max-width: 1280px !important;
+}
+
+.uk-width-large-4-5,
+.uk-width-large-8-10 {
+	width: 75% !important;
+}
+
+.uk-width-large-1-5,
+.uk-width-large-2-10 {
+	width: 25% !important;
+}
+
+.uk-thumbnail {
+	margin: 2px 3px !important;
+	max-width: 30% !important;
+	padding: 0 !important;
+}
+
+.uk-progress-bar {
+	background: #2672ec !important;
+}
+
+.uk-placeholder {
+	margin-bottom: 0 !important;
+}
+
+/* ----------- BLUDIT ----------- */
+
+#logo {
+	background: #f4f4f4;
+	padding:20px 0;
+}
+
+h2.title {
+	margin: 0 0 20px 0;
+}
+
+button.delete-button {
+    background: none;
+    border: 0 none;
+    color: #da2727;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+button.delete-button:hover {
+	text-decoration: underline;
+}
+
+#jscontent {
+	height: 400px;
+}
+
+.bl-view {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+/* ----------- ALERT ----------- */
+
+#alert {
+	bottom: 20px;
+	color: #ffffff;
+	display: none;
+	padding: 24px;
+	position: fixed;
+	right: 20px;
+	text-align: center;
+	width: 350px;
+	z-index: 100;
+}
+
+.alert-ok {
+	background: rgba(48, 102, 187, 0.91);
+}
+
+.alert-fail {
+	background: rgba(187, 48, 48, 0.91);
+}
+
+/* ----------- FORM ----------- */
+
+.sidebar .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
+
+#jstagList {
+	margin-top: 5px;
+}
+
+#jstagList span {
+	background: #f1f1f1;
+	border-radius: 3px;
+	color: #2672ec;
+	margin-right: 5px;
+	padding: 3px 10px;
+	cursor: pointer;
+}
+
+/* ----------- BLUDIT IMAGES V8 ----------- */
+#bludit-images-v8 {
+
+}
+
+#bludit-images-v8 .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 15% !important;
+}
+
+#bludit-images-v8-upload {
+	width: 100%;
+	padding: 0;
+	margin-bottom: 15px !important;
+}
+
+#bludit-images-v8-drag-drop {
+	padding: 20px;
+}
+
+#bludit-images-v8-progressbar {
+	display: none;
+	margin: 20px;
+}
+
+#bludit-images-v8-thumbnails {
+	max-height: 350px;
+	overflow: auto;
+	font-size: 0;
+}
+
+/* ----------- BLUDIT QUICK IMAGES ----------- */
+#bludit-quick-images {
+
+}
+
+#bludit-quick-images a.moreImages {
+	margin: 15px 0 0;
+	width: 100%;
+	background: #F5F5F5 !important;
+	color: #555;
+}
+
+#bludit-quick-images h4.label {
+	background: #f8f8f8;
+	color: #aaa;
+	padding: 2px 5px;
+	font-size: 0.9em;
+}
+
+#bludit-quick-images-thumbnails {
+	font-size: 0;
+}
+
+#bludit-quick-images .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 31% !important;
+}
+
+/* ----------- BLUDIT COVER IMAGE ----------- */
+#bludit-cover-image {
+
+}
+
+#cover-image-thumbnail {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #666;
+	height: 130px;
+	padding: 0;
+	width: 100%;
+}
+
+#cover-image-upload {
+	color: #999;
+	position: relative;
+	top: 35%;
+}
+
+#cover-image-delete {
+	background: rgba(255, 255, 255, 0.7);
+	bottom: 0;
+	color: #000;
+	display: none;
+	font-size: 2.2em;
+	padding: 4px 10px;
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+}
+
+#cover-image-progressbar {
+	display: none;
+	left: 5%;
+	position: relative;
+	top: 33%;
+	width: 90%;
+
+}
+
+/* ----------- BLUDIT PROFILE PICTURE ----------- */
+
+#bludit-profile-picture-drag-drop {
+	width: 100%;
+	padding: 15px 0;
+}
+
+#bludit-profile-picture-progressbar {
+	display: none;
+	margin: 15px 0 0;
+	width: 100%;
+}
+
+/* ----------- LOGIN FORM ----------- */
+
+div.login-box > h1 {
+	font-weight: lighter;
+	letter-spacing: 4px;
+	margin-bottom: 50px;
+}
+
+div.login-form {
+	background: #f1f1f1 none repeat scroll 0 0;
+	padding: 20px;
+	width: 400px;
+}
+
+/* ----------- DASHBOARD ----------- */
+
+div.dashboard-links {
+	margin: 0 0 25px 0;
+}
+
+div.dashboard-links h4 {
+	margin-bottom: -8px !important;
+}
+
+div.dashboard-links a {
+	color: #555;
+}
+
+/* NEW POST */
+h3.titleOptions {
+	font-size: 1em;
+}
+
+/* ----------- PLUGIN LIST / THEME LIST ----------- */
+
+tr.plugin-installed,
+tr.theme-installed {
+	background: #F2F7FF !important;
+}
+
+div.plugin-links > a {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+div.plugin-links > span.separator {
+	color: #ccc;
+}
+
+.label-draft,
+.label-empty-title,
+.label-time {
+	background: #2672ec none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5px;
+	font-size: 0.9em;
+}
+
+.label-empty-title {
+	background: #ED8F26;
+}
+
+.label-time {
+	font-style: italic;
+	background: #ED3A26;
+}
+
+/* ----------- PAGINATOR ----------- */
+
+#paginator ul {
+    list-style-type: none;
+    margin: 15px 0;
+    padding: 0;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#paginator a {
+    color: #2672ec;
+}
+
+#paginator li {
+    display: inline;
+    float: none !important;
+}
+
+#paginator li.left {
+    margin-right: 10px;
+}
+
+#paginator li.list {
+    background: #e0e0e0;
+    color: #747474;
+    padding: 2px 11px;
+    margin: 0px 15px;
+}
+
+#paginator li.right {
+   margin-left: 10px;
+}
+
+/* ----------- PLUGINS FORM ----------- */
+
+#jsformplugin div {
+	margin-bottom: 1.1em;
+}
+
+#jsformplugin label {
+	margin: 0 0 5px 0 !important;
+	display: block;
+}
+
+#jsformplugin div.tip {
+	font-size: 0.9em;
+	color: #AAAAAA;
+}
+
+#jsformplugin textarea {
+	min-width: 400px;
+	width: 60%;
+	min-height: 100px;
+}
+
+#jsformplugin input[type=text] {
+	min-width: 400px;
+	width: 60%;
+	height: 37px;
+}
+
+#jsformplugin input[type="checkbox"] {
+	vertical-align: middle;
+	margin-left: 0px;
+	margin-right: 10px;
+}
+
+#jsformplugin label.forCheckbox {
+	margin-left: 3px;
+	margin-bottom: 0px !important;
+	display: inline-block;
+}

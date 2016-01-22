@@ -1,7 +1,5 @@
 .DS_Store
-!themes/pure
-themes/*
-content/databases
-content/pages
-content/posts
-content/uploads
+bl-content/databases
+bl-content/pages
+bl-content/posts
+bl-content/uploads

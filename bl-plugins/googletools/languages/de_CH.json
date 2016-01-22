@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Google-Tools",
+		"description": "Dieses Plugin erzeugt den Meta-Tag, um deine Website mit den Google Webmasters Tools zu verbinden, und den Code für das JavaScript, der benötigt wird, um Google Analytics verwenden zu können."
+	},
+	"google-webmasters-tools": "Google Webmasters Tools",
+	"google-analytics-tracking-id": "Google Analytics ID",
+	"complete-this-field-with-the-google-site-verification": "Gib hier den Google Analytics-Tracking-Code ein, um zu bestätigen, dass die Website Dir gehört.",
+	"complete-this-field-with-the-tracking-id": "Gib hier die Tracking ID ein."
+}
