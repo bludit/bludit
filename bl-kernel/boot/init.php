@@ -4,7 +4,7 @@
 define('BLUDIT_VERSION',	'githubVersion');
 define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'20160120');
+define('BLUDIT_BUILD',		'20160121');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
