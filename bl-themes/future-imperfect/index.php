@@ -101,5 +101,8 @@ MIT license
 	<!--[if lte IE 8]><script src="<?php echo HTML_PATH_THEME ?>assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="<?php echo HTML_PATH_THEME ?>assets/js/main.js"></script>
 
+	<!-- Plugins Site Body End -->
+	<?php Theme::plugins('siteBodyEnd') ?>
+
 </body>
 </html>

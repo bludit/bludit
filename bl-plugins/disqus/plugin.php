@@ -33,6 +33,7 @@ class pluginDisqus extends Plugin {
 		{
 			global $Page;
 			global $Site;
+			var_dump($Page);
 			if( $Site->homePage()==$Page->key() ) {
 				$this->disable = true;
 			}

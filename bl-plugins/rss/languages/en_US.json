@@ -1,12 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "RSS",
-		"description": "This plugin generate a file rss.xml.",
-		"author": "Bludit",
-		"email": "",
-		"website": "https://github.com/dignajar/bludit-plugins",
-		"version": "1.0",
-		"releaseDate": "2016-01-07"
+		"name": "RSS Feed",
+		"description": "This plugin generate a RSS Feed for your site."
 	}
 }

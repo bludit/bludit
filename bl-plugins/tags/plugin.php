@@ -51,7 +51,7 @@ class pluginTags extends Plugin {
 
 		foreach($db as $tagKey=>$fields)
 		{
-			$tagArray[] = array('tagKey'=>$tagKey, 'count'=>$dbTags->countPostsByTag($tagKey), 'name'=>ucfirst($fields['name']));
+			$tagArray[] = array('tagKey'=>$tagKey, 'count'=>$dbTags->countPostsByTag($tagKey), 'name'=>$fields['name']);
 		}
 
 		// Sort the array based on options
