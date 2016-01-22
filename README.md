@@ -1,8 +1,8 @@
-[Bludit](http://www.bludit.com/) — Flat file CMS
-================================================
-Create your own Blog in seconds.
+[Bludit](http://www.bludit.com/)
+================================
+**Fast**, **simple**, **extensible** and **flat file** CMS.
 
-Fast, simple, extensible and Flat file CMS.
+Bludit is a simple web application to make your own **blog** or **site** in seconds, it's completly **free and open source**. Bludit uses flat-files (text files in JSON format) to store the posts and pages, you don't need to install or configure a database.
 
 - [Documentation](http://docs.bludit.com)
 - [Help and Support](http://forum.bludit.com)
@@ -10,13 +10,13 @@ Fast, simple, extensible and Flat file CMS.
 - [Themes](https://github.com/dignajar/bludit-themes)
 - [More plugins and themes](http://forum.bludit.com/viewforum.php?f=14)
 
-Social
-------
+Social networks
+---------------
 
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
 - [Google+](https://plus.google.com/+Bluditcms)
-- [Freenode IRC](https://webchat.freenode.net) channel #bludit
+- [Freenode IRC](https://webchat.freenode.net) channel **#bludit**
 
 [![Join the chat at https://gitter.im/dignajar/bludit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dignajar/bludit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 

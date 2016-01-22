@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Google Tools",
+		"description": "This plugin generate the meta tag to validate your site with Google Webmasters Tools and the JavaScript code to track your site with Google Analytics."
+	},
+
+	"google-webmasters-tools": "Google Webmasters tools",
+	"google-analytics-tracking-id": "Google Analytics Tracking ID",
+	"complete-this-field-with-the-google-site-verification": "Complete this field with the Google Site verification to verify the site owner.",
+	"complete-this-field-with-the-tracking-id": "Complete this field with the Tracking ID to generate the Javascript tracking code for Google Analytics."
+}

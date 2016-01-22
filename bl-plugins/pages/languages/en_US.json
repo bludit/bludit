@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Page list",
+		"description": "Shows the list of pages in order."
+	},
+
+	"home": "Home",
+	"show-home-link": "Show home link"
+}
