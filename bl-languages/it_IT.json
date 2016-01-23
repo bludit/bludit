@@ -119,7 +119,6 @@
 	"you-can-use-this-field-to-define-a-set-of": "Puoi utilizzare questo campo per definire un set di parametri riferiti alla lingua, alla nazione e preferenze speciali.",
 	"you-can-modify-the-url-which-identifies":"Puoi modificare l'indirizzo URL che identifica una pagina o un articolo utilizzando delle parole chiavi leggibili. Non più di 150 caratteri.",
 	"this-field-can-help-describe-the-content": "Quì puoi descrivere il contenuto in poche parole. Non più di 150 caratteri.",
-
 	"delete-the-user-and-all-its-posts":"Elimina l'utente e tutti i suoi articoli",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Elimina l'utente e assegna i suoi articoli all'utente admin",
 	"read-more": "Leggi tutto",
