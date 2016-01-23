@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2016-01-05",
+		"last-update": "2016-01-23",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://www.clickwork.ch"
@@ -220,5 +220,8 @@
 	"blog": "Blog",
 	"more-images": "Weitere Bilder",
 	"double-click-on-the-image-to-add-it": "Einfügen durch Doppelklick auf das Bild.",
-	"click-here-to-cancel": "Abbrechen"
+	"click-here-to-cancel": "Abbrechen",
+	"type-the-tag-and-press-enter": "Schlagwort eingeben und mit \"Enter\" hinzufügen.",
+	"manage-your-bludit-from-the-admin-panel": "Verwalte Bludit im [Administrationsbereich](./admin/).",
+	"there-are-no-images":"Keine Bilder vorhanden"
 }
