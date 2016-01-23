@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
-		"last-update": "2016-01-05",
+		"last-update": "2016-01-23",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://www.clickwork.ch"
@@ -138,7 +138,6 @@
 	"first-post": "Erster Beitrag",
 	"congratulations-you-have-successfully-installed-your-bludit": "Gratulation, du hast **Bludit** erfolgreich installiert!",
 	"whats-next": "Und so geht es weiter:",
-	"manage-your-bludit-from-the-admin-panel": "Verwalte Bludit im [Administrationsbereich](./admin/).",
 	"follow-bludit-on": "Folge Bludit bei",
 	"visit-the-support-forum": "Besuche das [Forum](http://forum.bludit.com), um Hilfe zu erhalten.",
 	"read-the-documentation-for-more-information": "Lies die [Dokumentation](http://docs.bludit.com) und das [Bludit-Tutorial](https://bludit-tutorial.ch) für weitere Informationen.",
@@ -220,5 +219,8 @@
 	"blog": "Blog",
 	"more-images": "Weitere Bilder",
 	"double-click-on-the-image-to-add-it": "Einfügen durch Doppelklick auf das Bild.",
-	"click-here-to-cancel": "Abbrechen"
+	"click-here-to-cancel": "Abbrechen",
+	"type-the-tag-and-press-enter": "Schlagwort eingeben und mit \"Enter\" hinzufügen.",
+	"manage-your-bludit-from-the-admin-panel": "Verwalte Bludit im [Administrationsbereich](./admin/).",
+	"there-are-no-images":"Keine Bilder vorhanden"
 }
