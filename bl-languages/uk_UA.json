@@ -3,7 +3,7 @@
 	{
 		"native": "Українська (Україна)",
 		"english-name": "Ukrainian",
-		"last-update": "2015-12-02",
+		"last-update": "2016-01-23",
 		"author": "Allec Bernz",
 		"email": "admin@allec.info",
 		"website": "allec.info"
@@ -138,7 +138,7 @@
 	"first-post": "Перша публікація",
 	"congratulations-you-have-successfully-installed-your-bludit": "Вітаємо, Ви успішно встановили ваш **Bludit**",
 	"whats-next": "Що далі",
-	"manage-your-bludit-from-the-admin-panel": "Керуйте вашим Bludit через [панель управління](./admin/)",
+
 	"follow-bludit-on": "Слідуйте за Bludit на",
 	"visit-the-support-forum": "Відвідайте [форум](http://forum.bludit.com) для підтримки",
 	"read-the-documentation-for-more-information": "Читайте [документацію](http://docs.bludit.com) для отримання додаткової інформації",
@@ -218,5 +218,14 @@
 	"site-information": "Інформація про сайт",
 	"date-and-time-formats": "Формати дати й часу",
 	"activate": "Активувати",
-	"deactivate": "Деактивувати"
+	"deactivate": "Деактивувати",
+
+	"cover-image": "Зображення обкладинки",
+	"blog": "Блог",
+	"more-images": "Більше зображень",
+	"double-click-on-the-image-to-add-it": "Двічі клацніть на зображення, щоб додати його.",
+	"click-here-to-cancel": "Натисніть тут, щоб скасувати.",
+	"type-the-tag-and-press-enter": "Введіть тег і натисніть Enter.",
+	"manage-your-bludit-from-the-admin-panel": "Керуйте вашим Bludit через [панель управління]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"Немає зображень"
 }

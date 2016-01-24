@@ -9,7 +9,7 @@
 	<header>
 		<div class="title">
 			<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
-			<div class="info"><span><i class="fa fa-clock-o"></i> <?php echo $Post->date() ?></span><span><i class="fa fa-user"></i> <?php echo Text::isNotEmpty($Post->user('firstName'))?$Post->user('username'):$Post->user('firstName') ?></span></div>
+			<div class="info"><span><i class="fa fa-clock-o"></i> <?php echo $Post->date() ?></span><span><i class="fa fa-user"></i> <?php echo Text::isNotEmpty($Post->user('firstName'))?$Post->user('firstName'):$Post->user('username') ?></span></div>
 		</div>
 	</header>
 

@@ -7,8 +7,8 @@
 (function($) {
 
 	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
+		xlarge:	'(max-width: 1100px)',
+		large:	'(max-width: 1000px)',
 		medium:	'(max-width: 980px)',
 		small:	'(max-width: 736px)',
 		xsmall:	'(max-width: 480px)'

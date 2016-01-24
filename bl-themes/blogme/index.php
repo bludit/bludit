@@ -51,5 +51,12 @@
 	<!-- Plugins Site Body End -->
 	<?php Theme::plugins('siteBodyEnd') ?>
 
+	<div id="menu-bottom">
+	<?php
+		//echo '<a href="'.HTML_PATH_THEME.'">'.$L->g('Home').'</a>';
+		echo '<a href="#">'.$L->g('Top').'</a>';
+	?>
+	</div>
+
 </body>
 </html>
