@@ -33,7 +33,7 @@ class pluginDisqus extends Plugin {
 		{
 			global $Site;
 
-			if( Text::notEmpty($Site->homePage()) ) {
+			if( Text::isNotEmpty($Site->homePage()) ) {
 				$this->disable = true;
 			}
 		}
