@@ -1,7 +1,5 @@
 AddDefaultCharset UTF-8
 
-DirectorySlash Off
-
 <IfModule mod_rewrite.c>
 
 # Enable rewrite rules
