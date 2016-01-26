@@ -6,7 +6,7 @@ AddDefaultCharset UTF-8
 RewriteEngine on
 
 # Deny direct access to .txt files
-RewriteRule ^content/(.*)\.txt$ - [R=404,L]
+RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]
 
 # All URL process by index.php
 RewriteCond %{REQUEST_FILENAME} !-f
