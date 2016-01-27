@@ -224,9 +224,9 @@
 	"blog": "Блог",
 	"more-images": "Още снимки",
 	"double-click-on-the-image-to-add-it": "Кликнете два пъти върху изображението, за да го добавите.",
-	"click-here-to-cancel": "Кликнете тук, за да го отмените.",
-	"type-the-tag-and-press-enter": "Напишете етикет и натиснете въведи.",
+	"click-here-to-cancel": "Кликнете тук, за да отмените.",
+	"type-the-tag-and-press-enter": "Напишете етикет и натиснете клавиша Enter.",
 	"manage-your-bludit-from-the-admin-panel": "Управлявайте вашият Bludit от [admin area]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Още няма изображения"
+	"there-are-no-images":"Няма изображения"
 }
 
