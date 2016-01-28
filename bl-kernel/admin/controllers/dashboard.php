@@ -7,6 +7,7 @@ function updateBludit()
 {
 	global $Site;
 	global $dbPosts;
+	global $dbPages;
 
 	// Check if Bludit need to be update.
 	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) )
