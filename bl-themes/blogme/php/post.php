@@ -1,4 +1,4 @@
-<a href="<?php echo $Site->url() ?>"><h1 class="blog-title"><?php echo $Site->title() ?></h1></a>
+<a href="<?php echo $Site->url() ?>"><h2 class="blog-title"><?php echo $Site->title() ?></h2></a>
 
 <article class="post">
 

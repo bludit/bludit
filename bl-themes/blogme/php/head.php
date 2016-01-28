@@ -10,7 +10,7 @@
 <!--[if lte IE 8]><link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/ie8.css" /><![endif]-->
 <link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/bludit.css">
 
-<link rel="shortcut icon" href="<?php echo HTML_PATH_THEME ?>img/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="<?php echo HTML_PATH_THEME ?>img/favicon.png" type="image/png">
 
 <?php
 
