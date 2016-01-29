@@ -28,7 +28,7 @@ function updateBludit()
 		{
 			$date = Date::format($page['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
 			if($date !== false) {
-				$dbPages->setPostDb($key,'date',$date);
+				$dbPages->setPageDb($key,'date',$date);
 			}
 		}
 
