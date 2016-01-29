@@ -62,7 +62,7 @@ class dbSite extends dbJSON
 	}
 
 	// Returns an array with the filters for the url.
-	public function uriFilters($filter)
+	public function uriFilters($filter='')
 	{
 		$filters['admin'] = '/admin/';
 		$filters['post'] = $this->getField('uriPost');
