@@ -2,7 +2,7 @@
 <section id="intro">
 	<header>
 		<h2><?php echo $Site->title() ?></h2>
-		<p><?php echo $Site->description() ?></p>
+		<p><?php echo $Site->slogan() ?></p>
 	</header>
 </section>
 

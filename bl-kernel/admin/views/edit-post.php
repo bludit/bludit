@@ -33,7 +33,7 @@ echo '<div class="uk-width-large-8-10">';
 		'name'=>'content',
 		'value'=>$_Post->contentRaw(false),
 		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>$L->g('Content')
+		'placeholder'=>''
 	));
 
 	// Form buttons

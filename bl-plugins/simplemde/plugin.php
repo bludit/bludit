@@ -13,7 +13,8 @@ class pluginsimpleMDE extends Plugin {
 	{
 		$this->dbFields = array(
 			'tabSize'=>'2',
-			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"'
+			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
+			'autosave'=>false
 		);
 	}
 
@@ -29,6 +30,11 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Tab size').'</label>';
 		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="true" '.($this->getDbField('autosave')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -77,6 +83,17 @@ class pluginsimpleMDE extends Plugin {
 		// Load CSS and JS only on Controllers in array.
 		if(in_array($layout['controller'], $this->loadWhenController))
 		{
+			// Autosave
+			global $_Page, $_Post;
+			$autosaveID = $layout['controller'];
+			$autosaveEnable = $this->getDbField('autosave')?'true':'false';
+			if(isset($_Page)) {
+				$autosaveID = $_Page->key();
+			}
+			if(isset($_Post)) {
+				$autosaveID = $_Post->key();
+			}
+
 			$pluginPath = $this->htmlPath();
 
 			$html  = '<script>'.PHP_EOL;
@@ -100,6 +117,11 @@ class pluginsimpleMDE extends Plugin {
 					indentWithTabs: true,
 					tabSize: '.$this->getDbField('tabSize').',
 					spellChecker: false,
+					autosave: {
+						enabled: '.$autosaveEnable.',
+						uniqueId: "'.$autosaveID.'",
+						delay: 1000,
+					},
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
 			});';
 
