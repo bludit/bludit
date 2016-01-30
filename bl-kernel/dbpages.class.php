@@ -233,6 +233,15 @@ class dbPages extends dbJSON
 		return false;
 	}
 
+	public function setPageDb($key, $field, $value)
+	{
+		if($this->pageExists($key)) {
+			$this->db[$key][$field] = $value;
+		}
+
+		return false;
+	}
+
 	// Return TRUE if the page exists, FALSE otherwise.
 	public function pageExists($key)
 	{

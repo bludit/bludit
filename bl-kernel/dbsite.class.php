@@ -107,6 +107,18 @@ class dbSite extends dbJSON
 		return $this->getField('title');
 	}
 
+	// Returns the site slogan.
+	public function slogan()
+	{
+		return $this->getField('slogan');
+	}
+
+	// Returns the site description.
+	public function description()
+	{
+		return $this->getField('description');
+	}
+
 	public function emailFrom()
 	{
 		return $this->getField('emailFrom');
@@ -120,18 +132,6 @@ class dbSite extends dbJSON
 	public function timeFormat()
 	{
 		return $this->getField('timeFormat');
-	}
-
-	// Returns the site slogan.
-	public function slogan()
-	{
-		return $this->getField('slogan');
-	}
-
-	// Returns the site description.
-	public function description()
-	{
-		return $this->getField('description');
 	}
 
 	// Returns the site theme name.
