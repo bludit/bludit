@@ -5,5 +5,6 @@
 		"description": "Prosty, piękny i osadzony w JavaScript edytor markdown stworzony przez @WesCossick. Na potrzeby Bludit dostosowany przez Diego Najar."
 	},
 	"toolbar": "Pasek narzędzi",
-	"tab-size": "Rozmiar wcięcia"
+	"tab-size": "Rozmiar wcięcia",
+	"autosave": "Autosave"
 }
