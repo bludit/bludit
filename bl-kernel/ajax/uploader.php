@@ -57,7 +57,7 @@ else {
 	
 	//If it is a svg file, just save a copy in thumbnail-folder
 	if (strcasecmp($fileExtension, 'svg') == 0) {
-		copy(PATH_UPLOADS.$tmpName, PATH_UPLOADS_THUMBNAILS.$tmpName);
+		symlink(PATH_UPLOADS.$tmpName, PATH_UPLOADS_THUMBNAILS.$tmpName);
 	}
 }
 
