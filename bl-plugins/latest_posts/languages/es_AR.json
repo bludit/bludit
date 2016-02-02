@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Últimas entradas",
+		"description": "Muestra las últimas entradas publicadas."
+	},
+
+	"amount-of-posts": "Cantidad de entradas",
+	"show-home-link": "Mostrar vínculo a inicio"
+}
