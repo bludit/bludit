@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Plugin, um eine Datei sitemap.xml mit einer Übersicht aller Beiträge und Seiten zu erstellen. Diese hilft Suchmaschinen dabei, die Organisation und den Inhalt der Website zu erfassen."
+	}
+}

@@ -20,27 +20,49 @@ define('DS', DIRECTORY_SEPARATOR);
 
 // PHP paths
 define('PATH_ROOT',		__DIR__.DS);
-define('PATH_CONTENT',		PATH_ROOT.'content'.DS);
+define('PATH_CONTENT',		PATH_ROOT.'bl-content'.DS);
+define('PATH_KERNEL',		PATH_ROOT.'bl-kernel'.DS);
+define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
+
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
-define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
-define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
-define('PATH_KERNEL',		PATH_ROOT.'kernel'.DS);
-define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
-define('PATH_LANGUAGES',	PATH_ROOT.'languages'.DS);
-define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
-define('DOMAIN',		$_SERVER['HTTP_HOST']);
 
-// HTML PATHs
-//$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-//$base = dirname($base);
-$base = empty($_SERVER['REQUEST_URI']) ? dirname($_SERVER['SCRIPT_NAME']) : dirname($_SERVER['REQUEST_URI']);
+define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
+
+define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
+define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
+
+// Domain and protocol
+define('DOMAIN', $_SERVER['HTTP_HOST']);
+
+if(!empty($_SERVER['HTTPS'])) {
+	define('PROTOCOL', 'https://');
+}
+else {
+	define('PROTOCOL', 'http://');
+}
+
+// Base URL
+// The user can define the base URL.
+// Left empty if you want to Bludit try to detect the base URL.
+$base = '';
+
+if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
+	$base = dirname($base);
+}
+elseif( empty($base) ) {
+	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+	$base = dirname($base);
+}
 
 if($base!=DS) {
-	$base = $base.'/';
+	$base = trim($base, '/');
+	$base = '/'.$base.'/';
 }
 else {
 	// Workaround for Windows Web Servers
@@ -56,9 +78,6 @@ define('LOG_SEP', ' | ');
 if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
-
-// Check if JSON encode and decode are enabled.
-define('JSON', function_exists('json_encode'));
 
 // Database format date
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -79,13 +98,14 @@ if(MB_STRING)
 }
 
 // --- PHP Classes ---
+
+include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
 include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
-include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
+include(PATH_KERNEL.'dblanguage.class.php');
 
 // --- LANGUAGE ---
 
@@ -95,6 +115,10 @@ $localeFromHTTP = empty($explode[0])?'en_US':str_replace('-', '_', $explode[0]);
 
 if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
+}
+
+if( !Sanitize::pathFile(PATH_LANGUAGES.$localeFromHTTP.'.json') ) {
+	$localeFromHTTP = 'en_US';
 }
 
 $Language = new dbLanguage($localeFromHTTP);
@@ -187,6 +211,10 @@ function checkSystem()
 		array_push($stdOut, $tmp);
 	}
 
+	// Try to create the directory content
+	@mkdir(PATH_CONTENT, $dirpermissions, true);
+
+	// Check if the directory content is writeable.
 	if(!is_writable(PATH_CONTENT))
 	{
 		$errorText = 'Writing test failure, check directory content permissions. (ERR_205)';
@@ -332,7 +360,7 @@ function install($adminPassword, $email, $timezoneOffset)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'url'=>'http://'.DOMAIN.HTML_PATH_ROOT,
+		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
 		'cliMode'=>'true',
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
@@ -457,11 +485,18 @@ Content:
 	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
 
 	// File index.txt for welcome post
+	$text1 = Text::replaceAssoc(
+			array(
+				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
+			),
+			$Language->get('Manage your Bludit from the admin panel')
+	);
+
 	$data = 'Title: '.$Language->get('First post').'
 Content:
 
 ## '.$Language->get('Whats next').'
-- '.$Language->get('Manage your Bludit from the admin panel').'
+- '.$text1.'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Chat with developers and users on Gitter').'
 - '.$Language->get('Visit the support forum').'
@@ -529,7 +564,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <!DOCTYPE HTML>
 <html class="uk-height-1-1 uk-notouch">
 <head>
-	<base href="kernel/admin/themes/default/">
+	<base href="bl-kernel/admin/themes/default/">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

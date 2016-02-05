@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Простий, красивий, і вбудовуваний JavaScript markdown редактор від @WesCossick. Адаптований Diego Najar для Bludit."
+	},
+	"toolbar": "Панель інструментів",
+	"tab-size": "Розмір відступу",
+	"autosave": "Autosave"
+}

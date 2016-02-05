@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Maintenance mode",
+		"description": "Set your site on maintenance mode, you can access to admin area."
+	},
+
+	"enable-maintence-mode": "Enable maintence mode",
+	"message": "Message"
+}

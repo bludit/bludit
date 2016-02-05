@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Un éditeur Markdown en JavaScript simple, beau, et intégrable."
+	},
+	"toolbar": "Toolbar",
+	"tab-size": "Tab size",
+	"autosave": "Autosave"
+}
