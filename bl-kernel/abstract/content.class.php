@@ -17,6 +17,7 @@ class Content {
 		return($this->vars!==false);
 	}
 
+	// Returns the value from the $field, FALSE if the field doesn't exist.
 	public function getField($field)
 	{
 		if(isset($this->vars[$field])) {
@@ -38,7 +39,7 @@ class Content {
 
 	private function build($path)
 	{
-		if( !Sanitize::pathFile($path, 'index.txt') ) {
+		if( !Sanitize::pathFile($path.'index.txt') ) {
 			return false;
 		}
 
