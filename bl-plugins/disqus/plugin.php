@@ -32,6 +32,10 @@ class pluginDisqus extends Plugin {
 		{
 			$this->enable = true;
 		}
+
+		if(!$Url->notFound()) {
+			$this->enable = false;
+		}
 	}
 
 	public function form()
