@@ -2,14 +2,14 @@
 
 class pluginDisqus extends Plugin {
 
-	private $disable;
+	private $enable;
 
 	public function init()
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
 			'enablePages'=>false,
-			'enablePosts'=>true,
+			'enablePosts'=>false,
 			'enableDefaultHomePage'=>false
 		);
 	}
@@ -20,25 +20,17 @@ class pluginDisqus extends Plugin {
 
 		global $Url;
 
-		// Disable the plugin IF ...
-		$this->disable = false;
+		$this->enable = false;
 
-		if( (!$this->getDbField('enablePosts')) && ($Url->whereAmI()=='post') ) {
-			$this->disable = true;
+		if( $this->getDbField('enablePosts') && ($Url->whereAmI()=='post') ) {
+			$this->enable = true;
 		}
-		elseif( (!$this->getDbField('enablePages')) && ($Url->whereAmI()=='page') ) {
-			$this->disable = true;
+		elseif( $this->getDbField('enablePages') && ($Url->whereAmI()=='page') ) {
+			$this->enable = true;
 		}
-		elseif( !$this->getDbField('enableDefaultHomePage') && ($Url->whereAmI()=='page') )
+		elseif( $this->getDbField('enableDefaultHomePage') && ($Url->whereAmI()=='home') )
 		{
-			global $Site;
-
-			if( Text::isNotEmpty($Site->homePage()) ) {
-				$this->disable = true;
-			}
-		}
-		elseif( ($Url->whereAmI()!='post') && ($Url->whereAmI()!='page') ) {
-			$this->disable = true;
+			$this->enable = true;
 		}
 	}
 
@@ -71,41 +63,36 @@ class pluginDisqus extends Plugin {
 
 	public function postEnd()
 	{
-		if( $this->disable ) {
-			return false;
+		if( $this->enable ) {
+			return '<div id="disqus_thread"></div>';
 		}
 
-		$html  = '<div id="disqus_thread"></div>';
-		return $html;
+		return false;
 	}
 
 	public function pageEnd()
 	{
-		if( $this->disable ) {
-			return false;
+		if( $this->enable ) {
+			return '<div id="disqus_thread"></div>';
 		}
 
-		$html  = '<div id="disqus_thread"></div>';
-		return $html;
+		return false;
 	}
 
 	public function siteHead()
 	{
-		if( $this->disable ) {
-			return false;
+		if( $this->enable ) {
+			return '<style>#disqus_thread { margin: 20px 0 }</style>';
 		}
 
-		$html = '<style>#disqus_thread { margin: 20px 0 }</style>';
-		return $html;
+		return false;
 	}
 
 	public function siteBodyEnd()
 	{
-		if( $this->disable ) {
-			return false;
-		}
+		if( $this->enable ) {
 
-		$html = '
+			$html = '
 <script type="text/javascript">
 
 	var disqus_shortname = "'.$this->getDbField('shortname').'";
@@ -119,6 +106,9 @@ class pluginDisqus extends Plugin {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>';
 
-		return $html;
+			return $html;
+		}
+
+		return false;
 	}
 }

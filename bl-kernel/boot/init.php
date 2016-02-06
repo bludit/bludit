@@ -57,6 +57,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 }
 
 // Alert status ok
+define('CHECK_SYMBOLIC_LINKS', FALSE);
+
+// Alert status ok
 define('ALERT_STATUS_OK', 0);
 
 // Alert status fail
