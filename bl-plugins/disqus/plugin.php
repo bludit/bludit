@@ -32,10 +32,6 @@ class pluginDisqus extends Plugin {
 		{
 			$this->enable = true;
 		}
-
-		if(!$Url->notFound()) {
-			$this->enable = false;
-		}
 	}
 
 	public function form()
@@ -76,7 +72,12 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
-		if( $this->enable ) {
+		global $Url;
+
+		// Bludit check not-found page after the plugin method construct.
+		// It's necesary check here the page not-found.
+
+		if( $this->enable && !$Url->notFound()) {
 			return '<div id="disqus_thread"></div>';
 		}
 
