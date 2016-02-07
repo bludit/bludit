@@ -47,11 +47,18 @@ if($type=='profilePicture')
 else {
 	// Generate the thumbnail
 	$Image = new Image();
-	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, THUMBNAILS_WIDTH, THUMBNAILS_HEIGHT, 'crop');
-	$Image->saveImage(PATH_UPLOADS_THUMBNAILS.$tmpName, 100, true);
-
+	//Handling all other formats than svg
+	if (strcasecmp($fileExtension, 'svg') != 0) {
+		$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, THUMBNAILS_WIDTH, THUMBNAILS_HEIGHT, 'crop');
+		$Image->saveImage(PATH_UPLOADS_THUMBNAILS.$tmpName, 100, true);
+	}
 	// Move the original to the upload folder.
 	rename(PATH_TMP.'original'.'.'.$fileExtension, PATH_UPLOADS.$tmpName);
+	
+	//If it is a svg file, just save a copy in thumbnail-folder
+	if (strcasecmp($fileExtension, 'svg') == 0) {
+		symlink(PATH_UPLOADS.$tmpName, PATH_UPLOADS_THUMBNAILS.$tmpName);
+	}
 }
 
 // Remove the Bludit temporary file.
