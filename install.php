@@ -361,7 +361,7 @@ function install($adminPassword, $email, $timezoneOffset)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
-		'cliMode'=>'true',
+		'cliMode'=>false,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 

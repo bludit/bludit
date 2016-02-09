@@ -223,9 +223,13 @@
 	"cover-image": "Cover image",
 	"blog": "Blog",
 	"more-images": "More images",
-	"double-click-on-the-image-to-add-it": "Double click on the image to add it.",
+
 	"click-here-to-cancel": "Click here to cancel.",
 	"type-the-tag-and-press-enter": "Type the tag and press enter.",
 	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"There are no images"
+	"there-are-no-images":"There are no images",
+
+	"click-on-the-image-for-options": "Click on the image for options.",
+	"set-as-cover-image": "Set as cover image",
+	"delete-image": "Delete image"
 }

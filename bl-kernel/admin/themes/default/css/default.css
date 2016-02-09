@@ -229,6 +229,36 @@ button.delete-button:hover {
 	font-size: 0;
 }
 
+/* Bludit Menu v8 */
+
+#bludit-menuV8 {
+	display: none;
+	z-index: 1020;
+	position: absolute;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	background: #FFF;
+	color: #333;
+	border-radius: 2px;
+	list-style-type: none;
+	padding: 5px;
+	margin: 0;
+}
+
+#bludit-menuV8 li {
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+#bludit-menuV8 li:hover {
+	background-color: #2672ec;
+	color: #fff;
+}
+
+#bludit-menuV8 li i {
+	margin-right: 10px;
+}
+
 /* ----------- BLUDIT QUICK IMAGES ----------- */
 #bludit-quick-images {
 

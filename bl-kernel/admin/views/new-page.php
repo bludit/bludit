@@ -89,6 +89,9 @@ echo '<div class="sidebar uk-width-large-2-10">';
 	// --- BLUDIT IMAGES V8 ---
 	HTML::bluditImagesV8();
 
+	// --- BLUDIT MENU V8 ---
+	HTML::bluditMenuV8();
+
 	echo '</li>';
 
 	// ---- ADVANCED TAB ----
