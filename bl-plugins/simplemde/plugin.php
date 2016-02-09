@@ -77,6 +77,7 @@ class pluginsimpleMDE extends Plugin {
 	public function adminBodyEnd()
 	{
 		global $layout;
+		global $Language;
 
 		$html = '';
 
@@ -105,8 +106,9 @@ class pluginsimpleMDE extends Plugin {
 					simplemde.value(text + content + "\n");
 				}'.PHP_EOL;
 
+			// This function is necesary on each Editor, it is used by Bludit Images v8.
 			$html .= 'function editorAddImage(filename) {
-					addContentSimpleMDE("![alt text]("+filename+")");
+					addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
 				}'.PHP_EOL;
 
 			$html .= '$(document).ready(function() { '.PHP_EOL;

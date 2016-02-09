@@ -231,5 +231,6 @@
 
 	"click-on-the-image-for-options": "Click on the image for options.",
 	"set-as-cover-image": "Set as cover image",
-	"delete-image": "Delete image"
+	"delete-image": "Delete image",
+	"image-description": "Image description"
 }

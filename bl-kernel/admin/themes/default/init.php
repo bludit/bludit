@@ -242,11 +242,6 @@ $(document).ready(function() {
 		echo $html;
 	}
 
-	public static function formButtonSubmit($args)
-	{
-		$html = '';
-	}
-
 	public static function bluditQuickImages()
 	{
 		// Javascript code
