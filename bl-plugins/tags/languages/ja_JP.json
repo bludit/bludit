@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Tags list",
+		"description": "すべてのタグを表示します。"
+	},
+	"tag-sort-order": "タグ・リストの順番",
+	"tag-sort-alphabetical": "アルファベット順",
+	"tag-sort-count": "タグの利用回数順",
+	"tag-sort-date": "最初に利用されたタグ順"
+}

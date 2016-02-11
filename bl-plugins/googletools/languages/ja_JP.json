@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Google Tools",
+		"description": "Google Search Consoleでサイトを検証するためのメタタグとGoogle AnalyticsでトラッキングするためのJavaScriptコードを生成します。"
+	},
+
+	"google-webmasters-tools": "Google Search Console",
+	"google-analytics-tracking-id": "Google Analytics トラッキングID",
+	"complete-this-field-with-the-google-site-verification": "Google Seach Consoleがサイト所有権を確認するためのメタタグを入力します。",
+	"complete-this-field-with-the-tracking-id": "Google Analyticsがトラッキングをするために生成したトラッキングIDを入力します。"
+}

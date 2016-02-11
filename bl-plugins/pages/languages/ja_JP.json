@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Page list",
+		"description": "ページをリストにして表示します。"
+	},
+
+	"home": "ホーム",
+	"show-home-link": "ホーム・リンクを表示"
+}

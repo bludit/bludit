@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus comment system",
+		"description": "Disqusはブログにコメント機能を提供するWebサイトです。プラグインを使用するにはDisqus.comに登録する必要があります。"
+	},
+
+	"disqus-shortname": "Disqusサイト名(ショートネーム)",
+	"enable-disqus-on-pages": "ページのDisqusを有効",
+	"enable-disqus-on-posts": "記事ページのDisqusを有効",
+	"enable-disqus-on-default-home-page": "規定のホームページのDisqusを有効"
+}
