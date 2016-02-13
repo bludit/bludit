@@ -37,7 +37,7 @@
 	"draft": "Draft",
 	"delete": "Delete",
 	"registered": "Registered",
-	"Notifications": "Notifications",
+	"notifications": "Notifications",
 	"profile": "Profile",
 	"email": "Email",
 	"settings": "Settings",
@@ -232,5 +232,11 @@
 	"click-on-the-image-for-options": "Click on the image for options.",
 	"set-as-cover-image": "Set as cover image",
 	"delete-image": "Delete image",
-	"image-description": "Image description"
+	"image-description": "Image description",
+	
+	"social-networks": "Social networks",
+	"twitter-username": "Twitter username",
+	"facebook-username": "Facebook username",
+	"google-username": "Google username",
+	"instagram-username": "Instagram username"
 }
