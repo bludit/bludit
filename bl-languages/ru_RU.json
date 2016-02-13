@@ -223,9 +223,21 @@
 	"cover-image": "Обложка",
 	"blog": "Блог",
 	"more-images": "Еще изображения",
-	"double-click-on-the-image-to-add-it": "Дважды щелкните по изображению, чтобы добавить его.",
+	
 	"click-here-to-cancel": "Нажмите здесь, чтобы отменить.",
 	"type-the-tag-and-press-enter": "Введите тег и нажмите клавишу Enter.",
+	"add": "Добавить",
 	"manage-your-bludit-from-the-admin-panel": "Управляйте Bludit из [панели управления]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Изображений нет"
+	"there-are-no-images":"Изображений нет",
+	
+	"click-on-the-image-for-options": "Нажмите на изображение для выбора опций.",
+	"set-as-cover-image": "Установить как обложку",
+	"delete-image": "Удалить изображение",
+	"image-description": "Описание изображения",
+	
+	"social-networks": "Социальные сети",
+	"twitter-username": "Имя пользователя в Twitter",
+	"facebook-username": "Имя пользователя в Facebook",
+	"google-username": "Имя пользователя в Google",
+	"instagram-username": "Имя пользователя в Instagram"
 }
