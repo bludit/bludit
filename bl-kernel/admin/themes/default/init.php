@@ -70,6 +70,7 @@ class HTML {
 
 	public static function tags($args)
 	{
+		global $L;
 		// Javascript code
 		include(PATH_JS.'bludit-tags.js');
 
@@ -81,7 +82,7 @@ class HTML {
 
 		$html .= '<div class="uk-form-controls">';
 		$html .= '<input id="jstagInput" type="text" class="uk-width-1-2" autocomplete="off">';
-		$html .= '<button id="jstagAdd" class="uk-button">Add</button>';
+		$html .= '<button id="jstagAdd" class="uk-button">'.$L->g('Add').'</button>';
 
 		$html .= '<div id="jstagList">';
 
