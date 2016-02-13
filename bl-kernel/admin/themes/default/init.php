@@ -21,20 +21,21 @@ class HTML {
 	{
 		$html = '</form>';
 
-$script = '<script>
+		$script = '<script>
 
-$(document).ready(function() {
+		$(document).ready(function() {
 
-	// Prevent the form submit when press enter key.
-	$("form").keypress(function(e) {
-		if (e.which == 13) {
-			return false;
-		}
-	});
+			// Prevent the form submit when press enter key.
+			$("form").keypress(function(e) {
+				if (e.which == 13) {
+					return false;
+				}
+			});
 
-});
+		});
 
-</script>';
+		</script>';
+
 		echo $html.$script;
 	}
 
@@ -67,108 +68,32 @@ $(document).ready(function() {
 		echo $html;
 	}
 
-	public static function tagsAutocomplete($args)
+	public static function tags($args)
 	{
-		// Tag array for Javascript
-		$tagArray = 'var tagArray = [];';
-		if(!empty($args['value'])) {
-			$tagArray = 'var tagArray = ["'.implode('","', $args['value']).'"]';
+		// Javascript code
+		include(PATH_JS.'bludit-tags.js');
+
+		$html  = '<div id="bludit-tags" class="uk-form-row">';
+
+		$html .= '<input type="hidden" id="jstags" name="tags" value="">';
+
+		$html .= '<label for="jstagInput" class="uk-form-label">'.$args['label'].'</label>';
+
+		$html .= '<div class="uk-form-controls">';
+		$html .= '<input id="jstagInput" type="text" class="uk-width-1-2" autocomplete="off">';
+		$html .= '<button id="jstagAdd" class="uk-button">Add</button>';
+
+		$html .= '<div id="jstagList">';
+
+		foreach($args['allTags'] as $tag) {
+			$html .= '<span class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
 		}
-		$args['value'] = '';
 
-		// Text input
-		self::formInputText($args);
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
 
-		echo '<div id="jstagList"></div>';
-
-$script = '<script>
-
-'.$tagArray.'
-
-function insertTag(tag)
-{
-	// Clean the input text
-	$("#jstags").val("");
-
-	if(tag.trim()=="") {
-		return true;
-	}
-
-	// Check if the tag is already inserted.
-	var found = $.inArray(tag, tagArray);
-	if(found == -1) {
-		tagArray.push(tag);
-		renderTagList();
-	}
-}
-
-function removeTag(tag)
-{
-	var found = $.inArray(tag, tagArray);
-
-	if(found => 0) {
-		tagArray.splice(found, 1);
-		renderTagList();
-	}
-}
-
-function renderTagList()
-{
-	if(tagArray.length == 0) {
-		$("#jstagList").html("");
-	}
-	else {
-		$("#jstagList").html("<span>"+tagArray.join("</span><span>")+"</span>");
-	}
-}
-
-$("#jstags").autoComplete({
-	minChars: 1,
-	source: function(term, suggest){
-	term = term.toLowerCase();
-	var choices = ['.$args['words'].'];
-	var matches = [];
-	for (i=0; i<choices.length; i++)
-	    if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-	suggest(matches);
-	},
-	onSelect: function(e, value, item) {
-		// Insert the tag when select whit the mouse click.
-		insertTag(value);
-	}
-});
-
-$(document).ready(function() {
-
-	// When the page is loaded render the tags
-	renderTagList();
-
-	// Remove the tag when click on it.
-	$("body").on("click", "#jstagList > span", function() {
-		value = $(this).html();
-		removeTag(value);
-	});
-
-	// Insert tag when press enter key.
-	$("#jstags").keypress(function(e) {
-		if (e.which == 13) {
-			var value = $(this).val();
-			insertTag(value);
-		}
-	});
-
-	// When form submit.
-	$("form").submit(function(e) {
-		var list = tagArray.join(",");
-		$("#jstags").val(list);
-	});
-
-});
-
-</script>';
-
-		echo $script;
-
+		echo $html;
 	}
 
 	public static function formInputPassword($args)

@@ -179,17 +179,53 @@ button.delete-button:hover {
 	text-transform: uppercase;
 }
 
-#jstagList {
-	margin-top: 5px;
+#bludit-tags {
+	margin-top: 15px;
 }
 
-#jstagList span {
-	background: #f1f1f1;
-	border-radius: 3px;
-	color: #2672ec;
+#bludit-tags .uk-button {
+	padding: 0 12px !important;
+	margin-left: 10px;
+}
+
+#jstagList {
+	margin-top: 15px;
+}
+
+#jstagList span.unselect,
+#jstagList span.select {
+	margin-top: 5px;
 	margin-right: 5px;
-	padding: 3px 10px;
+	padding: 1px 15px;
 	cursor: pointer;
+	display: inline-block;
+	border-radius: 3px;
+	background: #f1f1f1;
+	vertical-align: middle;
+}
+
+#jstagList span.unselect:before {
+	font-family: FontAwesome;
+	content: "\f067";
+	padding-right: 5px;
+}
+
+#jstagList span.unselect {
+	color: #AAA;
+}
+
+#jstagList span.unselect:hover {
+	color: #888;
+}
+
+#jstagList span.select:before {
+	font-family: FontAwesome;
+	content: "\f00c";
+	padding-right: 5px;
+}
+
+#jstagList span.select {
+	color: #2672ec;
 }
 
 /* ----------- BLUDIT IMAGES V8 ----------- */
