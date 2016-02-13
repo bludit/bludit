@@ -57,6 +57,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 }
 
 // Alert status ok
+define('CHECK_SYMBOLIC_LINKS', FALSE);
+
+// Alert status ok
 define('ALERT_STATUS_OK', 0);
 
 // Alert status fail
@@ -82,8 +85,11 @@ define('POSTS_PER_PAGE_ADMIN', 10);
 // Check if JSON encode and decode are enabled.
 // define('JSON', function_exists('json_encode'));
 
-// TRUE if new posts hand-made set published, or FALSE for draft.
+// Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
+
+// Cli mode username for new posts/pages
+define('CLI_USERNAME', 'admin');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');

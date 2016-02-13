@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "サイトのRSSフィードを生成します。"
+	}
+}

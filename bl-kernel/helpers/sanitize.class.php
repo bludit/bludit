@@ -40,7 +40,12 @@ class Sanitize {
 		// Fix for Windows on paths. eg: $path = c:\diego/page/subpage convert to c:\diego\page\subpages
 		$fullPath = str_replace('/', DS, $fullPath);
 
-		$real = realpath($fullPath);
+		if(CHECK_SYMBOLIC_LINKS) {
+			$real = realpath($fullPath);
+		}
+		else {
+			$real = file_exists($fullPath)?$fullPath:false;
+		}
 
 		// If $real is FALSE the file does not exist.
 		if($real===false) {

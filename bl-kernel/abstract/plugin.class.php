@@ -103,13 +103,27 @@ class Plugin {
 		return '';
 	}
 
-	public function setDb($array)
+	public function setDb($args)
 	{
 		$tmp = array();
 
-		// All fields will be sanitize before save.
-		foreach($array as $key=>$value) {
-			$tmp[$key] = Sanitize::html($value);
+		foreach($this->dbFields as $key=>$value)
+		{
+			if(isset($args[$key]))
+			{
+				// Sanitize value
+				$tmpValue = Sanitize::html( $args[$key] );
+
+				// Set type
+				settype($tmpValue, gettype($value));
+
+				// Set value
+				$tmp[$key] = $tmpValue;
+			}
+			else
+			{
+				$tmp[$key] = false;
+			}
 		}
 
 		$this->db = $tmp;

@@ -20,10 +20,10 @@ function reIndexTagsPosts()
 	// Remove unpublished.
 	$dbPosts->removeUnpublished();
 
-	// Regenerate the tags index for posts
+	// Regenerate the tags index for posts.
 	$dbTags->reindexPosts( $dbPosts->db );
 
-	// Restore de db on dbPost
+	// Restore the database, before remove the unpublished.
 	$dbPosts->restoreDB();
 
 	return true;

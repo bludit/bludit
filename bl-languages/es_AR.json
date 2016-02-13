@@ -3,7 +3,7 @@
 	{
 		"native": "Español (Argentina)",
 		"english-name": "Spanish",
-		"last-update": "2016-01-22",
+		"last-update": "2016-02-13",
 		"author": "Diego",
 		"email": "",
 		"website": ""
@@ -223,9 +223,14 @@
 	"cover-image": "Imagen de portada",
 	"blog": "Blog",
 	"more-images": "Mas imagenes",
-	"double-click-on-the-image-to-add-it": "Doble clic en la imagen para insertarla.",
+
 	"click-here-to-cancel": "Clic aquí para cancelar.",
 	"type-the-tag-and-press-enter": "Escriba la etiqueta y presione enter.",
 	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"No hay imagenes"
+	"there-are-no-images":"No hay imagenes",
+
+	"click-on-the-image-for-options": "Clic en la imagen para las opciones.",
+	"set-as-cover-image": "Establecer como portada",
+	"delete-image": "Eliminar imagen",
+	"image-description": "Descripción de la imagen"
 }

@@ -21,20 +21,21 @@ class HTML {
 	{
 		$html = '</form>';
 
-$script = '<script>
+		$script = '<script>
 
-$(document).ready(function() {
+		$(document).ready(function() {
 
-	// Prevent the form submit when press enter key.
-	$("form").keypress(function(e) {
-		if (e.which == 13) {
-			return false;
-		}
-	});
+			// Prevent the form submit when press enter key.
+			$("form").keypress(function(e) {
+				if (e.which == 13) {
+					return false;
+				}
+			});
 
-});
+		});
 
-</script>';
+		</script>';
+
 		echo $html.$script;
 	}
 
@@ -67,108 +68,32 @@ $(document).ready(function() {
 		echo $html;
 	}
 
-	public static function tagsAutocomplete($args)
+	public static function tags($args)
 	{
-		// Tag array for Javascript
-		$tagArray = 'var tagArray = [];';
-		if(!empty($args['value'])) {
-			$tagArray = 'var tagArray = ["'.implode('","', $args['value']).'"]';
+		// Javascript code
+		include(PATH_JS.'bludit-tags.js');
+
+		$html  = '<div id="bludit-tags" class="uk-form-row">';
+
+		$html .= '<input type="hidden" id="jstags" name="tags" value="">';
+
+		$html .= '<label for="jstagInput" class="uk-form-label">'.$args['label'].'</label>';
+
+		$html .= '<div class="uk-form-controls">';
+		$html .= '<input id="jstagInput" type="text" class="uk-width-1-2" autocomplete="off">';
+		$html .= '<button id="jstagAdd" class="uk-button">Add</button>';
+
+		$html .= '<div id="jstagList">';
+
+		foreach($args['allTags'] as $tag) {
+			$html .= '<span class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
 		}
-		$args['value'] = '';
 
-		// Text input
-		self::formInputText($args);
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
 
-		echo '<div id="jstagList"></div>';
-
-$script = '<script>
-
-'.$tagArray.'
-
-function insertTag(tag)
-{
-	// Clean the input text
-	$("#jstags").val("");
-
-	if(tag.trim()=="") {
-		return true;
-	}
-
-	// Check if the tag is already inserted.
-	var found = $.inArray(tag, tagArray);
-	if(found == -1) {
-		tagArray.push(tag);
-		renderTagList();
-	}
-}
-
-function removeTag(tag)
-{
-	var found = $.inArray(tag, tagArray);
-
-	if(found => 0) {
-		tagArray.splice(found, 1);
-		renderTagList();
-	}
-}
-
-function renderTagList()
-{
-	if(tagArray.length == 0) {
-		$("#jstagList").html("");
-	}
-	else {
-		$("#jstagList").html("<span>"+tagArray.join("</span><span>")+"</span>");
-	}
-}
-
-$("#jstags").autoComplete({
-	minChars: 1,
-	source: function(term, suggest){
-	term = term.toLowerCase();
-	var choices = ['.$args['words'].'];
-	var matches = [];
-	for (i=0; i<choices.length; i++)
-	    if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-	suggest(matches);
-	},
-	onSelect: function(e, value, item) {
-		// Insert the tag when select whit the mouse click.
-		insertTag(value);
-	}
-});
-
-$(document).ready(function() {
-
-	// When the page is loaded render the tags
-	renderTagList();
-
-	// Remove the tag when click on it.
-	$("body").on("click", "#jstagList > span", function() {
-		value = $(this).html();
-		removeTag(value);
-	});
-
-	// Insert tag when press enter key.
-	$("#jstags").keypress(function(e) {
-		if (e.which == 13) {
-			var value = $(this).val();
-			insertTag(value);
-		}
-	});
-
-	// When form submit.
-	$("form").submit(function(e) {
-		var list = tagArray.join(",");
-		$("#jstags").val(list);
-	});
-
-});
-
-</script>';
-
-		echo $script;
-
+		echo $html;
 	}
 
 	public static function formInputPassword($args)
@@ -242,67 +167,46 @@ $(document).ready(function() {
 		echo $html;
 	}
 
-	public static function formButtonSubmit($args)
-	{
-		$html = '';
-	}
-
 	public static function bluditQuickImages()
 	{
+		// Javascript code
+		include(PATH_JS.'bludit-quick-images.js');
+
 		global $L;
 
-$html = '<!-- BLUDIT QUICK IMAGES -->';
-$html .= '
-<div id="bludit-quick-images">
-<div id="bludit-quick-images-thumbnails" onmousedown="return false">
-';
+		$html = '<!-- BLUDIT QUICK IMAGES -->';
+		$html .= '
+		<div id="bludit-quick-images">
+		<div id="bludit-quick-images-thumbnails" onmousedown="return false">
+		';
 
-$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
-array_splice($thumbnailList, THUMBNAILS_AMOUNT);
-foreach($thumbnailList as $file) {
-	$filename = basename($file);
-	$html .= '<img class="bludit-thumbnail" data-filename="'.$filename.'" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" alt="Thumbnail">';
-}
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+		array_splice($thumbnailList, THUMBNAILS_AMOUNT);
+		foreach($thumbnailList as $file) {
+			$filename = basename($file);
+			$html .= '<img class="bludit-thumbnail" data-filename="'.$filename.'" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" alt="Thumbnail">';
+		}
 
-$html .= '
-</div>
-';
+		$html .= '
+		</div>
+		';
 
-if(empty($thumbnailList)) {
-	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">'.$L->g('There are no images').'</div>';
-}
+		$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no images').'</div>';
 
-$html .= '
-<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">'.$L->g('More images').'</a>
+		$html .= '
+		<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">'.$L->g('More images').'</a>
 
-</div>
-';
+		</div>
+		';
 
-$script = '
-<script>
-
-// Add thumbnail to Quick Images
-function addQuickImages(filename)
-{
-	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
-
-	// Remove element if there are more than 6 thumbnails
-	if ($("#bludit-quick-images-thumbnails > img").length > 5) {
-		$("img:last-child", "#bludit-quick-images-thumbnails").remove();
-	}
-
-	// Add the new thumbnail to Quick images
-	$("#bludit-quick-images-thumbnails").prepend("<img class=\"bludit-thumbnail\" data-filename=\""+filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
-}
-
-</script>
-';
-
-		echo $html.$script;
+		echo $html;
 	}
 
 	public static function bluditCoverImage($coverImage="")
 	{
+		// Javascript code
+		include(PATH_JS.'bludit-cover-image.js');
+
 		global $L;
 
 		$style = '';
@@ -310,224 +214,105 @@ function addQuickImages(filename)
 			$style = 'background-image: url('.HTML_PATH_UPLOADS_THUMBNAILS.$coverImage.')';
 		}
 
-$html = '<!-- BLUDIT COVER IMAGE -->';
-$html .= '
-<div id="bludit-cover-image">
-<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center" style="'.$style.'">
+		$html = '<!-- BLUDIT COVER IMAGE -->';
+		$html .= '
+		<div id="bludit-cover-image">
+		<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center" style="'.$style.'">
 
-	<input type="hidden" name="coverImage" id="cover-image-upload-filename" value="'.$coverImage.'">
+			<input type="hidden" name="coverImage" id="cover-image-upload-filename" value="'.$coverImage.'">
 
-	<div id="cover-image-upload" '.( empty($coverImage)?'':'style="display: none;"' ).'>
-		<div><i class="uk-icon-picture-o"></i> '.$L->g('Cover image').'</div>
-		<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="cover-image-file-select" type="file"></div>
-	</div>
+			<div id="cover-image-upload" '.( empty($coverImage)?'':'style="display: none;"' ).'>
+				<div><i class="uk-icon-picture-o"></i> '.$L->g('Cover image').'</div>
+				<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="cover-image-file-select" type="file"></div>
+			</div>
 
-	<div id="cover-image-delete" '.( empty($coverImage)?'':'style="display: block;"' ).'>
-		<div><i class="uk-icon-trash-o"></i></div>
-	</div>
+			<div id="cover-image-delete" '.( empty($coverImage)?'':'style="display: block;"' ).'>
+				<div><i class="uk-icon-trash-o"></i></div>
+			</div>
 
-	<div id="cover-image-progressbar" class="uk-progress">
-		<div class="uk-progress-bar" style="width: 0%;">0%</div>
-	</div>
+			<div id="cover-image-progressbar" class="uk-progress">
+				<div class="uk-progress-bar" style="width: 0%;">0%</div>
+			</div>
 
-</div>
-</div>
-';
+		</div>
+		</div>
+		';
 
-$script = '
-<script>
+		echo $html;
+	}
 
-function addCoverImage(filename)
-{
-	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
-
-	// Cover image background
-	$("#cover-image-thumbnail").attr("style","background-image: url("+imageSrc+")");
-
-	// Form attribute
-	$("#cover-image-upload-filename").attr("value", filename);
-}
-
-$(document).ready(function() {
-
-	$("#cover-image-delete").on("click", function() {
-		$("#cover-image-thumbnail").attr("style","");
-		$("#cover-image-upload-filename").attr("value","");
-		$("#cover-image-delete").hide();
-		$("#cover-image-upload").show();
-	});
-
-	var settings =
+	public static function bluditMenuV8()
 	{
-		type: "json",
-		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
-		allow : "*.(jpg|jpeg|gif|png)",
-		params: {"type":"cover-image"},
+		// Javascript code
+		include(PATH_JS.'bludit-menu-v8.js');
 
-		loadstart: function() {
-			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
-			$("#cover-image-progressbar").show();
-			$("#cover-image-delete").hide();
-			$("#cover-image-upload").hide();
-		},
+		global $L;
 
-		progress: function(percent) {
-			percent = Math.ceil(percent);
-			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", percent+"%").text(percent+"%");
-		},
+		$html  = '<!-- BLUDIT MENU V8 -->';
+		$html .= '
+		<ul id="bludit-menuV8">
+			<li id="bludit-menuV8-insert"><i class="uk-icon-plus"></i>'.$L->g('Insert image').'</li>
+			<li id="bludit-menuV8-cover"><i class="uk-icon-picture-o"></i>'.$L->g('Set as cover image').'</li>
+			<li id="bludit-menuV8-delete"><i class="uk-icon-trash"></i>'.$L->g('Delete image').'</li>
+		</ul>
+		';
 
-		allcomplete: function(response) {
-			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
-			$("#cover-image-progressbar").hide();
-			$("#cover-image-delete").show();
-			$(".empty-images").hide();
-
-			// Add Cover Image
-			addCoverImage(response.filename);
-
-			// Add thumbnail to Quick Images
-			addQuickImages(response.filename);
-
-			// Add thumbnail to Bludit Images V8
-			addBluditImagev8(response.filename);
-		},
-
-		notallowed: function(file, settings) {
-			alert("'.$L->g('Supported image file types').' "+settings.allow);
-		}
-	};
-
-	UIkit.uploadSelect($("#cover-image-file-select"), settings);
-	UIkit.uploadDrop($("#cover-image-thumbnail"), settings);
-
-});
-</script>
-';
-		echo $html.$script;
+		echo $html;
 	}
 
 	public static function bluditImagesV8()
 	{
+		// Javascript code
+		include(PATH_JS.'bludit-images-v8.js');
+
 		global $L;
 
-$html = '<!-- BLUDIT IMAGES V8 -->';
-$html .= '
-<div id="bludit-images-v8" class="uk-modal">
-<div class="uk-modal-dialog">
+		$html = '<!-- BLUDIT IMAGES V8 -->';
+		$html .= '
+		<div id="bludit-images-v8" class="uk-modal">
+		<div class="uk-modal-dialog">
 
-	<div id="bludit-images-v8-upload" class="uk-form-file uk-placeholder uk-text-center">
+			<div id="bludit-images-v8-upload" class="uk-form-file uk-placeholder uk-text-center">
 
-		<div id="bludit-images-v8-drag-drop">
-			<div><i class="uk-icon-picture-o"></i> '.$L->g('Upload image').'</div>
-			<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="bludit-images-v8-file-select" type="file"></div>
-		</div>
+				<div id="bludit-images-v8-drag-drop">
+					<div><i class="uk-icon-picture-o"></i> '.$L->g('Upload image').'</div>
+					<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="bludit-images-v8-file-select" type="file"></div>
+				</div>
 
-		<div id="bludit-images-v8-progressbar" class="uk-progress">
-			<div class="uk-progress-bar" style="width: 0%;">0%</div>
-		</div>
+				<div id="bludit-images-v8-progressbar" class="uk-progress">
+					<div class="uk-progress-bar" style="width: 0%;">0%</div>
+				</div>
 
-	</div>
+			</div>
 
-	<div id="bludit-images-v8-thumbnails">
-';
+			<div id="bludit-images-v8-thumbnails">
+		';
 
-$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
-foreach($thumbnailList as $file) {
-	$filename = basename($file);
-	$html .= '<img class="bludit-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
-}
-
-$html .= '
-	</div>
-';
-
-if(empty($thumbnailList)) {
-	$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted">'.$L->g('There are no images').'</div>';
-}
-
-$html .= '
-	<div class="uk-modal-footer">
-		'.$L->g('Double click on the image to add it').' <a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
-	</div>
-
-</div>
-</div>
-';
-
-$script = '
-<script>
-
-// Add thumbnail to Bludit Images v8
-function addBluditImagev8(filename)
-{
-	var imageSrc = HTML_PATH_UPLOADS_THUMBNAILS + filename;
-
-	// Add the new thumbnail to Bludit Images v8
-	$("#bludit-images-v8-thumbnails").prepend("<img class=\"bludit-thumbnail\" data-filename=\""+filename+"\" src=\""+imageSrc+"\" alt=\"Thumbnail\">");
-}
-
-$(document).ready(function() {
-
-	// Add border when select an thumbnail
-	$("body").on("click", "img.bludit-thumbnail", function() {
-		$(".bludit-thumbnail").css("border", "1px solid #ddd");
-		$(this).css("border", "solid 3px orange");
-	});
-
-	// Hide the modal when double click on thumbnail.
-	$("body").on("dblclick", "img.bludit-thumbnail", function() {
-		var modal = UIkit.modal("#bludit-images-v8");
-		if ( modal.isActive() ) {
-			modal.hide();
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+		foreach($thumbnailList as $file) {
+			$filename = basename($file);
+			$html .= '<img class="bludit-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
 		}
-	});
 
-	// Event for double click for insert the image is in each editor plugin
-	// ..
+		$html .= '
+			</div>
+		';
 
-	var settings =
-	{
-		type: "json",
-		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
-		allow : "*.(jpg|jpeg|gif|png)",
-		params: {"type":"bludit-images-v8"},
+		$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no images').'</div>';
 
-		loadstart: function() {
-			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
-			$("#bludit-images-v8-drag-drop").hide();
-			$("#bludit-images-v8-progressbar").show();
-		},
+		$html .= '
+			<div class="uk-modal-footer">
+				'.$L->g('Click on the image for options').' <a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
+			</div>
 
-		progress: function(percent) {
-			percent = Math.ceil(percent);
-			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", percent+"%").text(percent+"%");
-		},
+		</div>
+		</div>
+		';
 
-		allcomplete: function(response) {
-			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "100%").text("100%");
-			$("#bludit-images-v8-progressbar").hide();
-			$("#bludit-images-v8-drag-drop").show();
-			$(".empty-images").hide();
-
-			// Add thumbnail to Bludit Images V8
-			addBluditImagev8(response.filename);
-
-			// Add thumbnail to Quick Images
-			addQuickImages(response.filename);
-		},
-
-		notallowed: function(file, settings) {
-			alert("'.$L->g('Supported image file types').' "+settings.allow);
-		}
-	};
-
-	UIkit.uploadSelect($("#bludit-images-v8-file-select"), settings);
-	UIkit.uploadDrop($("#bludit-images-v8-upload"), settings);
-});
-</script>
-';
-		echo $html.$script;
+		echo $html;
 	}
+
+
 
 	public static function profileUploader($username)
 	{

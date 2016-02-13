@@ -77,6 +77,7 @@ class pluginsimpleMDE extends Plugin {
 	public function adminBodyEnd()
 	{
 		global $layout;
+		global $Language;
 
 		$html = '';
 
@@ -105,6 +106,11 @@ class pluginsimpleMDE extends Plugin {
 					simplemde.value(text + content + "\n");
 				}'.PHP_EOL;
 
+			// This function is necesary on each Editor, it is used by Bludit Images v8.
+			$html .= 'function editorAddImage(filename) {
+					addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
+				}'.PHP_EOL;
+
 			$html .= '$(document).ready(function() { '.PHP_EOL;
 			$html .= 'simplemde = new SimpleMDE({
 					element: document.getElementById("jscontent"),
@@ -123,12 +129,6 @@ class pluginsimpleMDE extends Plugin {
 						delay: 1000,
 					},
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
-			});';
-
-			// This is the event for Bludit images
-			$html .= '$("body").on("dblclick", "img.bludit-thumbnail", function() {
-					var filename = $(this).data("filename");
-					addContentSimpleMDE("![alt text]("+filename+")");
 			});';
 
 			$html .= '}); </script>';
