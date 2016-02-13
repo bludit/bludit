@@ -45,6 +45,7 @@ class dbJSON
 	public function restoreDB()
 	{
 		$this->db = $this->dbBackup;
+
 		return true;
 	}
 

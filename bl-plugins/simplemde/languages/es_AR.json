@@ -5,5 +5,6 @@
 		"description": "Simple y sensillo editor Markdown desarrollado por @WesCossick. Adaptado por Diego Najar para Bludit."
 	},
 	"toolbar": "Barra de herramientas",
-	"tab-size": "Tamaño de la tabulación"
+	"tab-size": "Tamaño de la tabulación",
+	"autosave": "Autoguardado"
 }

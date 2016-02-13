@@ -244,7 +244,12 @@ class dbPosts extends dbJSON
 		$outrange = $init<0 ? true : $init>$end;
 
 		if(!$outrange) {
-			return array_slice($this->db, $init, $postPerPage, true);
+			$tmp = array_slice($this->db, $init, $postPerPage, true);
+
+			// Restore the database because we delete the unpublished posts.
+			$this->restoreDB();
+
+			return $tmp;
 		}
 
 		return array();
@@ -390,7 +395,7 @@ class dbPosts extends dbJSON
 		return $a['date']<$b['date'];
 	}
 
-	// Return TRUE if there are new posts, FALSE otherwise.
+	// Return TRUE if there are new posts or orphan post deleted, FALSE otherwise.
 	public function regenerateCli()
 	{
 		$db = $this->db;
@@ -407,23 +412,23 @@ class dbPosts extends dbJSON
 
 		$fields['status'] = CLI_STATUS;
 		$fields['date'] = $currentDate;
-		$fields['username'] = 'admin';
+		$fields['username'] = CLI_USERNAME;
 
-		// Recovery posts from the first level of directories
+		// Get all posts from the first level of directories.
 		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
 		foreach($tmpPaths as $directory)
 		{
-			if(file_exists($directory.DS.'index.txt'))
+			// Check if the post have the index.txt file.
+			if(Sanitize::pathFile($directory.DS.'index.txt'))
 			{
 				// The key is the directory name.
 				$key = basename($directory);
 
-				// All keys posts
 				$allPosts[$key] = true;
 
-				// Create the new entry if not exist on DATABASE.
+				// Create the new entry if not exist inside the DATABASE.
 				if(!isset($this->db[$key])) {
-					// New entry on database
+					// New entry on database with the default fields and values.
 					$this->db[$key] = $fields;
 				}
 

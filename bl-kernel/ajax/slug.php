@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 //		parent: Page parent, if you are checking a slug for a page.
 
 // Response JSON
-//		text: valid slug text
+//		slug: valid slug text
 
 $text 	= isset($_POST['text']) ? $_POST['text'] : '';
 $parent = isset($_POST['parent']) ? $_POST['parent'] : NO_PARENT_CHAR;
@@ -21,6 +21,6 @@ elseif( $_POST['type']==='post' ) {
 	$slug = $dbPosts->generateKey($text, $key);
 }
 
-echo json_encode( array('slug'=>$slug) );
+echo json_encode( array('status'=>1, 'slug'=>$slug) );
 
 ?>

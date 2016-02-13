@@ -5,5 +5,6 @@
 		"description": "Ein einfacher und schöner JavaScript-Editor für die Verwendung von Markdown von @WesCossick. Von Diego Najar für Bludit angpasst."
 	},
 	"toolbar": "Werkzeugleiste",
-	"tab-size": "Abstände der Tabstopps"
+	"tab-size": "Abstände der Tabstopps",
+	"autosave": "Autosave"
 }
