@@ -37,7 +37,7 @@
 	"draft": "Brouillon",
 	"delete": "Supprimer",
 	"registered": "Inscrit",
-	"Notifications": "Notifications",
+	"notifications": "Notifications",
 	"profile": "Profil",
 	"email": "E-mail",
 	"settings": "Paramètres",
@@ -232,5 +232,11 @@
 	"click-on-the-image-for-options": "Cliquez sur l’image pour plus d’options.",
 	"set-as-cover-image": "Définir comme image de couverture",
 	"delete-image": "Supprimer l’image",
-	"image-description": "Description de l’image"
+	"image-description": "Description de l’image",
+	
+	"social-networks": "Réseaux sociaux",
+	"twitter-username": "Compte utilisateur Twitter",
+	"facebook-username": "Compte utilisateur Facebook",
+	"google-username": "Compte utilisateur Google",
+	"instagram-username": "Compte utilisateur Instagram"
 }
