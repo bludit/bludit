@@ -6,7 +6,7 @@
 		"last-update": "2016-02-13",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
-		"website": "https://flatboard.co.nf"
+		"website": "http://flatboard.co.nf"
 	},
 
 	"username": "Nom d’utilisateur",
@@ -234,7 +234,7 @@
 	"set-as-cover-image": "Définir comme image de couverture",
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
-	
+
 	"social-networks": "Réseaux sociaux",
 	"twitter-username": "Compte utilisateur Twitter",
 	"facebook-username": "Compte utilisateur Facebook",

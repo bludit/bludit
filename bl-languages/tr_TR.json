@@ -6,7 +6,7 @@
 		"last-update": "2015-12-02",
 		"author": "ffahri",
 		"email": "",
-		"website": "github.com/ffahri"
+		"website": "https://github.com/ffahri"
 	},
 
 	"username": "Kullanıcı Adı",
@@ -219,7 +219,7 @@
 	"date-and-time-formats": "Tarih ve saat formatları",
 	"activate": "Aktifleştir",
 	"deactivate": "Deaktive et",
-	
+
 	"cover-image": "Kapak resmi",
 	"blog": "Blog",
 	"more-images": "Daha çok resim",

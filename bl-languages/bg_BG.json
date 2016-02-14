@@ -7,7 +7,7 @@
 		"last-update": "2015-11-18",
 		"author": "Христо Дипчиков",
 		"email": "",
-		"website": "www.hristodipchikov.tk"
+		"website": "http://www.hristodipchikov.tk"
 	},
 
 	"username": "Потребителско име",
@@ -198,7 +198,7 @@
 	"advanced-settings": "Разширени настройки",
 	"manage-users": "Управление на потребители",
 	"view-and-edit-your-profile": "Преглед и редактиране на профила ви.",
-	
+
 	"password-must-be-at-least-6-characters-long": "Паролата трябва да е с дължина най-малко 6 символа",
 	"images": "Изображения",
 	"upload-image": "Прикачи изображение",
@@ -219,16 +219,16 @@
 	"date-and-time-formats": "Формат дата и час",
 	"activate": "Активиране",
 	"deactivate": "Деактивиране",
-	
+
 	"cover-image": "Обложка",
 	"blog": "Блог",
 	"more-images": "Още изображения",
-	
+
 	"click-here-to-cancel": "Кликнете тук, за да отмените.",
 	"type-the-tag-and-press-enter": "Напишете етикет и натиснете клавиша Enter.",
 	"manage-your-bludit-from-the-admin-panel": "Управлявайте вашият Bludit от [admin area]({{ADMIN_AREA_LINK}})",
 	"there-are-no-images":"Няма изображения",
-	
+
 	"click-on-the-image-for-options": "Кликнете върху изображението за опции.",
 	"set-as-cover-image": "Задай като обложка ",
 	"delete-image": "Изтрий на изображенито",

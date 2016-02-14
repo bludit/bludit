@@ -6,7 +6,7 @@
 		"last-update": "2015-12-03",
 		"author": "tom-asz",
 		"email": "",
-		"website": "tomektutoria.eu"
+		"website": "http://tomektutoria.eu"
 	},
 
 	"username": "Użytkownik",
@@ -119,7 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Możesz użyć tego pola, aby zdefiniować zestaw parametrów związanych z językiem, kraju i szczególnych preferencji.",
 	"you-can-modify-the-url-which-identifies":"Możesz zmienić adres URL, który identyfikuje stronę lub pisać przy użyciu słów kluczowych w postaci czytelnej dla człowieka. Nie więcej niż 150 znaków.",
 	"this-field-can-help-describe-the-content": "To pole może pomóc opisać zawartość w kilku słowach. Nie więcej niż 150 znaków.",
-	
+
 	"delete-the-user-and-all-its-posts":"Usuń użytkownika i wszystkich jego posty",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Usuń użytkownika i powiązać jego posty do użytkownika administratora",
 	"read-more": "Więcej",
@@ -159,7 +159,7 @@
 	"ip-address-has-been-blocked": "Adres IP został zablokowany.",
 	"try-again-in-a-few-minutes": "Spróbuj ponownie za kilka minut.",
 	"date": "Data",
-	
+
 	"scheduled": "Zaplanowane",
 	"publish": "Opublikuj",
 	"please-check-your-theme-configuration": "Proszę sprawdzić konfigurację szablonu.",
