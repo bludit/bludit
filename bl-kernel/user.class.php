@@ -61,24 +61,24 @@ class User
 		return $this->getField('registered');
 	}
 
-	public function twitterUsername()
+	public function twitter()
 	{
-		return $this->getField('twitterUsername');
+		return $this->getField('twitter');
 	}
 
-	public function facebookUsername()
+	public function facebook()
 	{
-		return $this->getField('facebookUsername');
+		return $this->getField('facebook');
 	}
 
-	public function googleUsername()
+	public function googlePlus()
 	{
-		return $this->getField('googleUsername');
+		return $this->getField('googlePlus');
 	}
 
-	public function instagramUsername()
+	public function instagram()
 	{
-		return $this->getField('instagramUsername');
+		return $this->getField('instagram');
 	}
 
 	public function profilePicture($absolute=true)

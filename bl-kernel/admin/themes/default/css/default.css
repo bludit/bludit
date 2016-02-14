@@ -118,6 +118,15 @@ li.bludit-logo {
 
 /* ----------- BLUDIT ----------- */
 
+body {
+	overflow-y: scroll;
+}
+
+.bludit-navbar {
+	border-radius: 0 !important;
+	box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.37);
+}
+
 #logo {
 	background: #f4f4f4;
 	padding:20px 0;

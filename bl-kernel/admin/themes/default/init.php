@@ -87,7 +87,7 @@ class HTML {
 		$html .= '<div id="jstagList">';
 
 		foreach($args['allTags'] as $tag) {
-			$html .= '<span class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
+			$html .= '<span data-tag="'.$tag.'" class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
 		}
 
 		$html .= '</div>';

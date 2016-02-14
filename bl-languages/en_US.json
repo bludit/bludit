@@ -234,10 +234,6 @@
 	"set-as-cover-image": "Set as cover image",
 	"delete-image": "Delete image",
 	"image-description": "Image description",
-	
-	"social-networks": "Social networks",
-	"twitter-username": "Twitter username",
-	"facebook-username": "Facebook username",
-	"google-username": "Google username",
-	"instagram-username": "Instagram username"
+
+	"social-networks-links": "Social networks links"
 }

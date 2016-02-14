@@ -8,7 +8,16 @@ function insertTag() {
 		return true;
 	}
 
-	$("#jstagList").append("<span class=\"select\">"+newTag+"</span>");
+	var findTag = $("span[data-tag]").filter(function() {
+		return $(this).attr('data-tag').toLowerCase() == newTag;
+	});
+
+	if( findTag.length > 0 ) {
+		findTag.removeClass("unselect").addClass("select");
+	}
+	else {
+		$("#jstagList").append("<span data-tag=\""+newTag+"\" class=\"select\">"+newTag+"</span>");
+	}
 
 	// Clean the input.
 	$("#jstagInput").val("");

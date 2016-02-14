@@ -23,7 +23,11 @@ class dbSite extends dbJSON
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
 		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a'),
-		'currentBuild'=>	array('inFile'=>false, 'value'=>0)
+		'currentBuild'=>	array('inFile'=>false, 'value'=>0),
+		'twitter'=>		array('inFile'=>false, 'value'=>''),
+		'facebook'=>		array('inFile'=>false, 'value'=>''),
+		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
+		'github'=>		array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()
@@ -99,6 +103,26 @@ class dbSite extends dbJSON
 	{
 		$filter = $this->getField('uriBlog');
 		return $this->url().ltrim($filter, '/');
+	}
+
+	public function twitter()
+	{
+		return $this->getField('twitter');
+	}
+
+	public function facebook()
+	{
+		return $this->getField('facebook');
+	}
+
+	public function github()
+	{
+		return $this->getField('github');
+	}
+
+	public function googlePlus()
+	{
+		return $this->getField('googlePlus');
 	}
 
 	// Returns the site title.
