@@ -6,7 +6,7 @@
 		"last-update": "2015-12-10",
 		"author": "Ethan Chen",
 		"email": "ethan42411@gmail.com",
-		"website": "http://single4.ml"
+		"website": "https://single4.ml"
 	},
 
 	"username": "使用者名稱",
@@ -140,8 +140,8 @@
 	"whats-next": "接下來",
 	"manage-your-bludit-from-the-admin-panel": "透過[admin area](./admin/)管理您的Bludit",
 	"follow-bludit-on": "Follow Bludit on",
-	"visit-the-support-forum": "拜訪[forum](http://forum.bludit.com)來取得支援",
-	"read-the-documentation-for-more-information": "閱讀[documentation](http://docs.bludit.com)來獲得更多資訊",
+	"visit-the-support-forum": "拜訪[forum](https://forum.bludit.com)來取得支援",
+	"read-the-documentation-for-more-information": "閱讀[documentation](https://docs.bludit.com)來獲得更多資訊",
 	"share-with-your-friends-and-enjoy": "分享給您的朋友們",
 	"the-page-has-not-been-found": "此頁面不存在",
 	"error": "錯誤",

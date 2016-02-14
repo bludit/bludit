@@ -6,7 +6,7 @@
 		"last-update": "2016-02-13",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
-		"website": "http://flatboard.co.nf"
+		"website": "https://flatboard.co.nf"
 	},
 
 	"username": "Nom d’utilisateur",
@@ -140,8 +140,8 @@
 	"whats-next": "pour la prochaine étape",
 	"manage-your-bludit-from-the-admin-panel": "Gérez Bludit dans la [zone d’administration](./admin/)",
 	"follow-bludit-on": "Suivez Bludit sur",
-	"visit-the-support-forum": "Visitez le [forum](http://forum.bludit.com) de support",
-	"read-the-documentation-for-more-information": "Lisez la [documentation](http://docs.bludit.com) pour plus d’information",
+	"visit-the-support-forum": "Visitez le [forum](https://forum.bludit.com) de support",
+	"read-the-documentation-for-more-information": "Lisez la [documentation](https://docs.bludit.com) pour plus d’information",
 	"share-with-your-friends-and-enjoy": "Partagez avec vos amis et apprécier !",
 	"the-page-has-not-been-found": "La page n’a pas été trouvée.",
 	"error": "Erreur",
