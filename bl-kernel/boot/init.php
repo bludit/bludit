@@ -56,8 +56,8 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
-// Alert status ok
-define('CHECK_SYMBOLIC_LINKS', FALSE);
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Alert status ok
 define('ALERT_STATUS_OK', 0);

@@ -27,6 +27,7 @@ class dbSite extends dbJSON
 		'twitter'=>		array('inFile'=>false, 'value'=>''),
 		'facebook'=>		array('inFile'=>false, 'value'=>''),
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
+		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>'')
 	);
 
@@ -113,6 +114,11 @@ class dbSite extends dbJSON
 	public function facebook()
 	{
 		return $this->getField('facebook');
+	}
+
+	public function instagram()
+	{
+		return $this->getField('instagram');
 	}
 
 	public function github()
