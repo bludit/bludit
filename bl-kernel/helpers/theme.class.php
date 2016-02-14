@@ -2,11 +2,14 @@
 
 class Theme {
 
-	// NEW
-
-	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $echo=true)
+	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $typeIcon=true, $echo=true)
 	{
-		$tmp = '<link rel="shortcut icon" href="'.$path.$file.'" type="image/x-icon">'.PHP_EOL;
+		$type = 'image/png';
+		if($typeIcon) {
+			$type = 'image/x-icon';
+		}
+
+		$tmp = '<link rel="shortcut icon" href="'.$path.$file.'" type="'.$type.'">'.PHP_EOL;
 
 		if($echo) {
 			echo $tmp;
@@ -51,9 +54,28 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function title($title, $echo=true)
+	public static function title($title=false, $echo=true)
 	{
-		$tmp = '<title>'.$title.'</title>'.PHP_EOL;
+		global $Url;
+		global $Post, $Page;
+		global $Site;
+
+		$tmp = $title;
+
+		if(empty($title))
+		{
+			if( $Url->whereAmI()=='post' ) {
+				$tmp = $Post->title().' - '.$Site->title();
+			}
+			elseif( $Url->whereAmI()=='page' ) {
+				$tmp = $Page->title().' - '.$Site->title();
+			}
+			else {
+				$tmp = $Site->title();
+			}
+		}
+
+		$tmp = '<title>'.$tmp.'</title>'.PHP_EOL;
 
 		if($echo) {
 			echo $tmp;
@@ -62,9 +84,28 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function description($description, $echo=true)
+	public static function description($description=false, $echo=true)
 	{
-		$tmp = '<meta name="description" content="'.$description.'">'.PHP_EOL;
+		global $Url;
+		global $Post, $Page;
+		global $Site;
+
+		$tmp = $description;
+
+		if(empty($description))
+		{
+			if( $Url->whereAmI()=='post' ) {
+				$tmp = $Post->description();
+			}
+			elseif( $Url->whereAmI()=='page' ) {
+				$tmp = $Page->description();
+			}
+			else {
+				$tmp = $Site->description();
+			}
+		}
+
+		$tmp = '<meta name="description" content="'.$tmp.'">'.PHP_EOL;
 
 		if($echo) {
 			echo $tmp;
