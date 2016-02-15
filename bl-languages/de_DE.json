@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Deutschland)",
 		"english-name": "German",
-		"last-update": "2016-01-23",
+		"last-update": "2016-02-15",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "http://www.clickwork.ch"
@@ -165,7 +165,7 @@
 	"plugin-label": "Titel auf der Website",
 	"enabled": "Aktiviert",
 	"disabled": "Deaktiviert",
-	"cli-mode": "CLI-Modus",
+	"cli-mode": "Kommandozeilen-Modus",
 	"command-line-mode": "Kommandozeilen-Modus",
 	"enable-the-command-line-mode-if-you-add-edit": "Verwende den Kommandozeilen-Modus, wenn du Beiträge und Seiten im Dateisystem hinzufügen, ändern oder löschen möchtest.",
         "configure": "Konfiguration",
