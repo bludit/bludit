@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Google Araçları",
-		"description": "Bu eklenti Google Webmaster Araçlarını kullanabilmeniz ve sitenizin Google Analytics tarafından incelenebilmesi için geçerli bir meta tag ve Javascript kodu oluşturur.",
+		"description": "Bu eklenti Google Webmaster Araçlarını kullanabilmeniz ve sitenizin Google Analytics tarafından incelenebilmesi için geçerli bir meta tag ve Javascript kodu oluşturur."
 	},
 	"google-webmasters-tools": "Google Webmaster Araçları",
 	"google-analytics-tracking-id": "Google Analytics İzleme No",
