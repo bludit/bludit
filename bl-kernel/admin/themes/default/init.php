@@ -195,7 +195,7 @@ class HTML {
 		$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no images').'</div>';
 
 		$html .= '
-		<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">'.$L->g('More images').'</a>
+		<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button"><i class="uk-icon-folder-o"></i> '.$L->g('More images').'</a>
 
 		</div>
 		';
