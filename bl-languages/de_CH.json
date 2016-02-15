@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
-		"last-update": "2016-01-23",
+		"last-update": "2016-02-15",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://www.clickwork.ch"
@@ -139,8 +139,8 @@
 	"congratulations-you-have-successfully-installed-your-bludit": "Gratulation, du hast **Bludit** erfolgreich installiert!",
 	"whats-next": "Und so geht es weiter:",
 	"follow-bludit-on": "Folge Bludit bei",
-	"visit-the-support-forum": "Besuche das [Forum](http://forum.bludit.com), um Hilfe zu erhalten.",
-	"read-the-documentation-for-more-information": "Lies die [Dokumentation](http://docs.bludit.com) und das [Bludit-Tutorial](https://bludit-tutorial.ch) für weitere Informationen.",
+	"visit-the-support-forum": "Besuche das [Forum](https://forum.bludit.com), um Hilfe zu erhalten.",
+	"read-the-documentation-for-more-information": "Lies die [Dokumentation](https://docs.bludit.com) und das [Bludit-Tutorial](https://bludit-tutorial.ch) für weitere Informationen.",
         "share-with-your-friends-and-enjoy": "Erzähle deinen Freunden von Bludit und habe Spass daran.",
 	"the-page-has-not-been-found": "Die Seite wurde nicht gefunden.",
 	"error": "Fehler",
