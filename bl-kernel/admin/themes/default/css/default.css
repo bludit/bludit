@@ -158,6 +158,10 @@ button.delete-button:hover {
 	margin-bottom: 25px;
 }
 
+table.statistics tr:last-child td {
+	border-bottom: none !important;
+}
+
 /* ----------- ALERT ----------- */
 
 #alert {
@@ -204,7 +208,7 @@ button.delete-button:hover {
 #jstagList span.select {
 	margin-top: 5px;
 	margin-right: 5px;
-	padding: 1px 15px;
+	padding: 2px 15px;
 	cursor: pointer;
 	display: inline-block;
 	border-radius: 3px;
