@@ -1,6 +1,6 @@
 <?php
 
-class pluginMaintanceMode extends Plugin {
+class pluginMaintenanceMode extends Plugin {
 
 	public function init()
 	{
@@ -16,7 +16,7 @@ class pluginMaintanceMode extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<input name="enable" id="jsenable" type="checkbox" value="true" '.($this->getDbField('enable')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsenable">'.$Language->get('Enable maintence mode').'</label>';
+		$html .= '<label class="forCheckbox" for="jsenable">'.$Language->get('Enable maintenance mode').'</label>';
 		$html .= '</div>';
 
 		$html .= '<div>';
