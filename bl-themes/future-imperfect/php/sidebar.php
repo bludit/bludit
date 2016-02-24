@@ -1,6 +1,6 @@
 <!-- Intro -->
 <section id="intro">
-	<a href="<?php echo $Site->url() ?>" class="logo"><img src="<?php echo HTML_PATH_THEME ?>images/logo.jpg" alt=""></a>
+	<a href="<?php echo $Site->url() ?>" class="logo"><img src="<?php echo HTML_PATH_THEME ?>img/logo.jpg" alt=""></a>
 	<header>
 		<h2><?php echo $Site->title() ?></h2>
 		<p><?php echo $Site->description() ?></p>
