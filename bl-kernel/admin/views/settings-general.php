@@ -44,6 +44,53 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>$L->g('you-can-add-a-small-text-on-the-bottom')
 	));
 
+	HTML::legend(array('value'=>$L->g('Social networks links')));
+
+	HTML::formInputText(array(
+		'name'=>'twitter',
+		'label'=>'Twitter',
+		'value'=>$Site->twitter(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'placeholder'=>'https://twitter.com/USERNAME',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'facebook',
+		'label'=>'Facebook',
+		'value'=>$Site->facebook(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'placeholder'=>'https://www.facebook.com/USERNAME',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'googlePlus',
+		'label'=>'Google+',
+		'value'=>$Site->googlePlus(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'placeholder'=>'https://plus.google.com/+USERNAME',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'instagram',
+		'label'=>'Instagram',
+		'value'=>$Site->googlePlus(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'placeholder'=>'https://www.instagram.com/USERNAME',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
+		'name'=>'github',
+		'label'=>'Github',
+		'value'=>$Site->github(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'placeholder'=>'https://github.com/USERNAME',
+		'tip'=>''
+	));
+
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>

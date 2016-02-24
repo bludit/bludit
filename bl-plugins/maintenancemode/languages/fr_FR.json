@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Mode de Maintenance",
+		"description": "Configurer votre site sur le mode de maintenance, vous pouvez accéder à la zone d'administration."
+	},
+
+	"enable-maintenance-mode": "Activer le mode de maintenance",
+	"message": "Message"
+}

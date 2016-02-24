@@ -140,8 +140,8 @@
 	"whats-next": "接下來",
 	"manage-your-bludit-from-the-admin-panel": "透過[admin area](./admin/)管理您的Bludit",
 	"follow-bludit-on": "Follow Bludit on",
-	"visit-the-support-forum": "拜訪[forum](http://forum.bludit.com)來取得支援",
-	"read-the-documentation-for-more-information": "閱讀[documentation](http://docs.bludit.com)來獲得更多資訊",
+	"visit-the-support-forum": "拜訪[forum](https://forum.bludit.com)來取得支援",
+	"read-the-documentation-for-more-information": "閱讀[documentation](https://docs.bludit.com)來獲得更多資訊",
 	"share-with-your-friends-and-enjoy": "分享給您的朋友們",
 	"the-page-has-not-been-found": "此頁面不存在",
 	"error": "錯誤",
@@ -197,7 +197,7 @@
 	"advanced-settings": "進階設定",
 	"manage-users": "管理使用者",
 	"view-and-edit-your-profile": "查看與編輯您的個人資料。",
-	
+
 	"password-must-be-at-least-6-characters-long": "密碼長度必須在6字元以上",
 	"images": "圖片",
 	"upload-image": "上傳圖片",
@@ -213,7 +213,7 @@
 	"change-this-pages-content-on-the-admin-panel": "在管理介面中更改此頁面的內容，管理/頁面，接著點選關於頁面。",
 	"about-your-site-or-yourself": "關於您的網站或是您自己",
 	"welcome-to-bludit": "歡迎使用Bludit",
-	
+
 	"site-information": "網站資訊",
 	"date-and-time-formats": "日期與時間格式",
 	"activate": "啟用",

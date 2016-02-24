@@ -64,7 +64,6 @@ class dbTags extends dbJSON
 	public function reindexPosts($db)
 	{
 		$tagsIndex = array();
-		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		// Foreach post
 		foreach($db as $postKey=>$values)

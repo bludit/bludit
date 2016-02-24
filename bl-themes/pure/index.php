@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="<?php echo $Site->language() ?>">
 <head>
 

@@ -3,7 +3,7 @@
 	{
 		"native": "English (United States)",
 		"english-name": "English",
-		"last-update": "2015-12-01",
+		"last-update": "2016-02-13",
 		"author": "Diego",
 		"email": "",
 		"website": ""
@@ -37,7 +37,7 @@
 	"draft": "Draft",
 	"delete": "Delete",
 	"registered": "Registered",
-	"Notifications": "Notifications",
+	"notifications": "Notifications",
 	"profile": "Profile",
 	"email": "Email",
 	"settings": "Settings",
@@ -140,8 +140,8 @@
 	"whats-next": "What's Next",
 
 	"follow-bludit-on": "Follow Bludit on",
-	"visit-the-support-forum": "Visit the [forum](http://forum.bludit.com) for support",
-	"read-the-documentation-for-more-information": "Read the [documentation](http://docs.bludit.com) for more information",
+	"visit-the-support-forum": "Visit the [forum](https://forum.bludit.com) for support",
+	"read-the-documentation-for-more-information": "Read the [documentation](https://docs.bludit.com) for more information",
 	"share-with-your-friends-and-enjoy": "Share with your friends and enjoy",
 	"the-page-has-not-been-found": "The page has not been found.",
 	"error": "Error",
@@ -223,9 +223,17 @@
 	"cover-image": "Cover image",
 	"blog": "Blog",
 	"more-images": "More images",
-	"double-click-on-the-image-to-add-it": "Double click on the image to add it.",
+
 	"click-here-to-cancel": "Click here to cancel.",
 	"type-the-tag-and-press-enter": "Type the tag and press enter.",
+	"add": "Add",
 	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"There are no images"
+	"there-are-no-images":"There are no images",
+
+	"click-on-the-image-for-options": "Click on the image for options.",
+	"set-as-cover-image": "Set as cover image",
+	"delete-image": "Delete image",
+	"image-description": "Image description",
+
+	"social-networks-links": "Social networks links"
 }

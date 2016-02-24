@@ -23,7 +23,12 @@ class dbSite extends dbJSON
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
 		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a'),
-		'currentBuild'=>	array('inFile'=>false, 'value'=>0)
+		'currentBuild'=>	array('inFile'=>false, 'value'=>0),
+		'twitter'=>		array('inFile'=>false, 'value'=>''),
+		'facebook'=>		array('inFile'=>false, 'value'=>''),
+		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
+		'instagram'=>		array('inFile'=>false, 'value'=>''),
+		'github'=>		array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()
@@ -101,10 +106,47 @@ class dbSite extends dbJSON
 		return $this->url().ltrim($filter, '/');
 	}
 
+	public function twitter()
+	{
+		return $this->getField('twitter');
+	}
+
+	public function facebook()
+	{
+		return $this->getField('facebook');
+	}
+
+	public function instagram()
+	{
+		return $this->getField('instagram');
+	}
+
+	public function github()
+	{
+		return $this->getField('github');
+	}
+
+	public function googlePlus()
+	{
+		return $this->getField('googlePlus');
+	}
+
 	// Returns the site title.
 	public function title()
 	{
 		return $this->getField('title');
+	}
+
+	// Returns the site slogan.
+	public function slogan()
+	{
+		return $this->getField('slogan');
+	}
+
+	// Returns the site description.
+	public function description()
+	{
+		return $this->getField('description');
 	}
 
 	public function emailFrom()
@@ -120,18 +162,6 @@ class dbSite extends dbJSON
 	public function timeFormat()
 	{
 		return $this->getField('timeFormat');
-	}
-
-	// Returns the site slogan.
-	public function slogan()
-	{
-		return $this->getField('slogan');
-	}
-
-	// Returns the site description.
-	public function description()
-	{
-		return $this->getField('description');
 	}
 
 	// Returns the site theme name.

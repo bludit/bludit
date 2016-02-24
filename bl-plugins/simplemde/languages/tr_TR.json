@@ -2,8 +2,9 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Basit, güzel ve gömülü bir Javascript editörü ,@WesCossick tarafından yapılmıştır. Bludit için uyarlayan Diego Najar.",
+		"description": "Basit, güzel ve gömülü bir Javascript editörü ,@WesCossick tarafından yapılmıştır. Bludit için uyarlayan Diego Najar."
 	},
 	"toolbar": "Araçlar",
-	"tab-size": "Boşluk boyutu"
+	"tab-size": "Boşluk boyutu",
+	"autosave": "Autosave"
 }

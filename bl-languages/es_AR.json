@@ -3,7 +3,7 @@
 	{
 		"native": "Español (Argentina)",
 		"english-name": "Spanish",
-		"last-update": "2016-01-22",
+		"last-update": "2016-02-13",
 		"author": "Diego",
 		"email": "",
 		"website": ""
@@ -140,8 +140,8 @@
 	"whats-next": "Siguientes pasos",
 
 	"follow-bludit-on": "Siga Bludit en",
-	"visit-the-support-forum": "Visite el [foro](http://forum.bludit.com) para soporte",
-	"read-the-documentation-for-more-information": "Lea la [documentación](http://docs.bludit.com) para mas información",
+	"visit-the-support-forum": "Visite el [foro](https://forum.bludit.com) para soporte",
+	"read-the-documentation-for-more-information": "Lea la [documentación](https://docs.bludit.com) para mas información",
 	"share-with-your-friends-and-enjoy": "Compartí con tus amigos y a disfrutar",
 	"the-page-has-not-been-found": "La página no fue encontrada.",
 	"error": "Error",
@@ -223,9 +223,16 @@
 	"cover-image": "Imagen de portada",
 	"blog": "Blog",
 	"more-images": "Mas imagenes",
-	"double-click-on-the-image-to-add-it": "Doble clic en la imagen para insertarla.",
+
 	"click-here-to-cancel": "Clic aquí para cancelar.",
 	"type-the-tag-and-press-enter": "Escriba la etiqueta y presione enter.",
 	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"No hay imagenes"
+	"there-are-no-images":"No hay imagenes",
+
+	"click-on-the-image-for-options": "Clic en la imagen para las opciones.",
+	"set-as-cover-image": "Establecer como portada",
+	"delete-image": "Eliminar imagen",
+	"image-description": "Descripción de la imagen",
+
+	"social-networks-links": "Redes sociales enlaces"
 }

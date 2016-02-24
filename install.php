@@ -2,7 +2,7 @@
 
 /*
  * Bludit
- * http://www.bludit.com
+ * https://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
@@ -35,6 +35,9 @@ define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
+
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -107,24 +110,32 @@ include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 
-// --- LANGUAGE ---
+// --- LANGUAGE and LOCALE ---
 
-// Try to detect language from HTTP
-$explode = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-$localeFromHTTP = empty($explode[0])?'en_US':str_replace('-', '_', $explode[0]);
-
+// Language from the URI
 if(isset($_GET['language'])) {
 	$localeFromHTTP = Sanitize::html($_GET['language']);
 }
+else {
+	// Try to detect the locale
+	if( function_exists('locale_accept_from_http') ) {
+		$localeFromHTTP = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	}
+	else {
+		$explodeLocale = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		$localeFromHTTP = empty($explodeLocale[0])?'en_US':str_replace('-', '_', $explodeLocale[0]);
+	}
+}
 
-if( !Sanitize::pathFile(PATH_LANGUAGES.$localeFromHTTP.'.json') ) {
+// Check if the dictionary exists, otherwise the default language is English.
+if( !file_exists(PATH_LANGUAGES.$localeFromHTTP.'.json') ) {
 	$localeFromHTTP = 'en_US';
 }
 
+// Get language file
 $Language = new dbLanguage($localeFromHTTP);
 
-// --- LOCALE ---
-
+// Set locale
 setlocale(LC_ALL, $localeFromHTTP);
 
 // --- TIMEZONE ---
@@ -132,7 +143,7 @@ setlocale(LC_ALL, $localeFromHTTP);
 // Check if timezone is defined in php.ini
 $iniDate = ini_get('date.timezone');
 if(empty($iniDate)) {
-	// Timezone not defined in php.ini, then UTC as default.
+	// Timezone not defined in php.ini, then set UTC as default.
 	date_default_timezone_set('UTC');
 }
 
@@ -229,15 +240,15 @@ function checkSystem()
 }
 
 // Finish with the installation.
-function install($adminPassword, $email, $timezoneOffset)
+function install($adminPassword, $email, $timezone)
 {
 	global $Language;
 
 	$stdOut = array();
 
-	$timezone = timezone_name_from_abbr('', $timezoneOffset, 0);
-	if($timezone === false) { $timezone = timezone_name_from_abbr('', $timezoneOffset, 0); } // Workaround bug #44780
-	date_default_timezone_set($timezone);
+	if( date_default_timezone_set($timezone) ) {
+		date_default_timezone_set('UTC');
+	}
 
 	$currentDate = Date::current(DB_DATE_FORMAT);
 
@@ -361,7 +372,7 @@ function install($adminPassword, $email, $timezoneOffset)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
-		'cliMode'=>'true',
+		'cliMode'=>false,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 
@@ -580,6 +591,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	<!-- Javascript -->
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="./js/jstz.min.js?version=<?php echo time() ?>"></script>
 
 </head>
 <body class="uk-height-1-1">
@@ -673,14 +685,13 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 <script>
 $(document).ready(function()
 {
-	// Set timezone
-	var timezoneOffset = -(new Date().getTimezoneOffset() * 60);
-	$("#jstimezone").val(timezoneOffset);
+
+	// Timezone
+	var timezone = jstz.determine();
+	$("#jstimezone").val( timezone.name() );
 
 	// Proceed without email field.
 	$("#jscompleteEmail").on("click", function() {
-
-		console.log("Click proceed anyway");
 
 		$("#jsnoCheckEmail").val("1");
 

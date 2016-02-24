@@ -47,7 +47,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	));
 
 	echo '<div class="uk-form-row">
-		<label class="uk-form-label">Password</label>
+		<label class="uk-form-label">'.$L->g('password').'</label>
 		<div class="uk-form-controls">
 		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$_User->username().'">'.$L->g('Change password').'</a>
 		</div>
@@ -72,36 +72,36 @@ if($Login->role()==='admin') {
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
 	));
 
-	HTML::legend(array('value'=>'Social networks'));
+	HTML::legend(array('value'=>$L->g('Social networks links')));
 
 	HTML::formInputText(array(
-		'name'=>'twitterUsername',
-		'label'=>'Twitter username',
-		'value'=>$_User->twitterUsername(),
+		'name'=>'twitter',
+		'label'=>'Twitter',
+		'value'=>$_User->twitter(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'facebookUsername',
-		'label'=>'Facebook username',
-		'value'=>$_User->facebookUsername(),
+		'name'=>'facebook',
+		'label'=>'Facebook',
+		'value'=>$_User->facebook(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'googleUsername',
-		'label'=>'Google username',
-		'value'=>$_User->googleUsername(),
+		'name'=>'googlePlus',
+		'label'=>'Google+',
+		'value'=>$_User->googlePlus(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'instagramUsername',
-		'label'=>'Instagram username',
-		'value'=>$_User->instagramUsername(),
+		'name'=>'instagram',
+		'label'=>'Instagram',
+		'value'=>$_User->instagram(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));

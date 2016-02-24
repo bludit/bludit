@@ -44,9 +44,12 @@ class pluginSitemap extends Plugin {
 		unset($pages['error']);
 		foreach($pages as $key=>$db)
 		{
-			$permalink = empty($filter) ? $url.'/'.$key : $url.'/'.$filter.'/'.$key;
-			$date = Date::format($db['date'], DB_DATE_FORMAT, SITEMAP_DATE_FORMAT);
-			array_push($all, array('permalink'=>$permalink, 'date'=>$date));
+			if($db['status']=='published')
+			{
+				$permalink = empty($filter) ? $url.'/'.$key : $url.'/'.$filter.'/'.$key;
+				$date = Date::format($db['date'], DB_DATE_FORMAT, SITEMAP_DATE_FORMAT);
+				array_push($all, array('permalink'=>$permalink, 'date'=>$date));
+			}
 		}
 
 		// --- Posts ---
@@ -54,9 +57,12 @@ class pluginSitemap extends Plugin {
 		$posts = $dbPosts->getDB();
 		foreach($posts as $key=>$db)
 		{
-			$permalink = empty($filter) ? $url.'/'.$key : $url.'/'.$filter.'/'.$key;
-			$date = Date::format($db['date'], DB_DATE_FORMAT, SITEMAP_DATE_FORMAT);
-			array_push($all, array('permalink'=>$permalink, 'date'=>$date));
+			if($db['status']=='published')
+			{
+				$permalink = empty($filter) ? $url.'/'.$key : $url.'/'.$filter.'/'.$key;
+				$date = Date::format($db['date'], DB_DATE_FORMAT, SITEMAP_DATE_FORMAT);
+				array_push($all, array('permalink'=>$permalink, 'date'=>$date));
+			}
 		}
 
 		// Generate the XML for posts and pages

@@ -1,0 +1,10 @@
+{
+	"author": "Bludit",
+	"email": "",
+	"website": "https://plugins.bludit.com",
+	"version": "1.1",
+	"releaseDate": "2016-02-20",
+	"license": "MIT",
+	"requires": "Bludit v1.1",
+	"notes": ""
+}

@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Webページをリスト化し、検索エンジンにサイトコンテンツの構造を伝えるためのsitemap.xmlファイルを生成します。"
+	}
+}

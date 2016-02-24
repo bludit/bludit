@@ -118,6 +118,14 @@ li.bludit-logo {
 
 /* ----------- BLUDIT ----------- */
 
+body {
+	overflow-y: scroll;
+}
+
+.bludit-navbar {
+
+}
+
 #logo {
 	background: #f4f4f4;
 	padding:20px 0;
@@ -150,6 +158,10 @@ button.delete-button:hover {
 	margin-bottom: 25px;
 }
 
+table.statistics tr:last-child td {
+	border-bottom: none !important;
+}
+
 /* ----------- ALERT ----------- */
 
 #alert {
@@ -179,17 +191,53 @@ button.delete-button:hover {
 	text-transform: uppercase;
 }
 
-#jstagList {
-	margin-top: 5px;
+#bludit-tags {
+	margin-top: 15px;
 }
 
-#jstagList span {
-	background: #f1f1f1;
-	border-radius: 3px;
-	color: #2672ec;
+#bludit-tags .uk-button {
+	padding: 0 12px !important;
+	margin-left: 10px;
+}
+
+#jstagList {
+	margin-top: 15px;
+}
+
+#jstagList span.unselect,
+#jstagList span.select {
+	margin-top: 5px;
 	margin-right: 5px;
-	padding: 3px 10px;
+	padding: 2px 15px;
 	cursor: pointer;
+	display: inline-block;
+	border-radius: 3px;
+	background: #f1f1f1;
+	vertical-align: middle;
+}
+
+#jstagList span.unselect:before {
+	font-family: FontAwesome;
+	content: "\f067";
+	padding-right: 5px;
+}
+
+#jstagList span.unselect {
+	color: #AAA;
+}
+
+#jstagList span.unselect:hover {
+	color: #888;
+}
+
+#jstagList span.select:before {
+	font-family: FontAwesome;
+	content: "\f00c";
+	padding-right: 5px;
+}
+
+#jstagList span.select {
+	color: #2672ec;
 }
 
 /* ----------- BLUDIT IMAGES V8 ----------- */
@@ -227,6 +275,36 @@ button.delete-button:hover {
 	max-height: 350px;
 	overflow: auto;
 	font-size: 0;
+}
+
+/* Bludit Menu v8 */
+
+#bludit-menuV8 {
+	display: none;
+	z-index: 1020;
+	position: absolute;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	background: #FFF;
+	color: #333;
+	border-radius: 2px;
+	list-style-type: none;
+	padding: 5px;
+	margin: 0;
+}
+
+#bludit-menuV8 li {
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+#bludit-menuV8 li:hover {
+	background-color: #2672ec;
+	color: #fff;
+}
+
+#bludit-menuV8 li i {
+	margin-right: 10px;
 }
 
 /* ----------- BLUDIT QUICK IMAGES ----------- */

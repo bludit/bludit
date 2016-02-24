@@ -7,11 +7,12 @@ function updateBludit()
 {
 	global $Site;
 	global $dbPosts;
+	global $dbPages;
 
 	// Check if Bludit need to be update.
 	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) )
 	{
-		// --- Update dates ---
+		// --- Update dates on posts ---
 		foreach($dbPosts->db as $key=>$post)
 		{
 			$date = Date::format($post['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
@@ -21,6 +22,17 @@ function updateBludit()
 		}
 
 		$dbPosts->save();
+
+		// --- Update dates on pages ---
+		foreach($dbPages->db as $key=>$page)
+		{
+			$date = Date::format($page['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
+			if($date !== false) {
+				$dbPages->setPageDb($key,'date',$date);
+			}
+		}
+
+		$dbPages->save();
 
 		// --- Update directories ---
 		$directories = array(

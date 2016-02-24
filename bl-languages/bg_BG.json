@@ -7,7 +7,7 @@
 		"last-update": "2015-11-18",
 		"author": "Христо Дипчиков",
 		"email": "",
-		"website": "www.hristodipchikov.tk"
+		"website": "http://www.hristodipchikov.tk"
 	},
 
 	"username": "Потребителско име",
@@ -113,7 +113,7 @@
 	"you-can-add-a-site-description-to-provide": "Можете да добавите кратко описание или биография на сайта.",
 	"you-can-add-a-small-text-on-the-bottom": "Можете да добавите кратък текст в долната част на всяка страница. Например: авторско право, собственик, дати и т.н..",
 	"number-of-posts-to-show-per-page": "Изберете желаният брой публикации на страница.",
-	"the-url-of-your-site": "Абсолютен адрес на вашия блог. Пример http://www.domain.com/directory/.",
+	"the-url-of-your-site": "Абсолютен адрес на вашия блог. Пример https://www.domain.com/directory/.",
 	"add-or-edit-description-tags-or": "Добавяне или редактиране на описание, eтикети или модифициране URL.",
 	"select-your-sites-language": "Изберете системен език.",
 	"select-a-timezone-for-a-correct": "Изберете часова зона за правилтото показване на дата / час.",
@@ -141,8 +141,8 @@
 	"whats-next": "Какво следва?",
 	"manage-your-bludit-from-the-admin-panel": "Управлявайте вашият Bludit от [Администраторският панел](./admin/)",
 	"follow-bludit-on": "Последвайте Bludit в",
-	"visit-the-support-forum": "Посети [форум](http://forum.bludit.com) за подръжка",
-	"read-the-documentation-for-more-information": "Прочети  [документацията](http://docs.bludit.com) за повече информация",
+	"visit-the-support-forum": "Посети [форум](https://forum.bludit.com) за подръжка",
+	"read-the-documentation-for-more-information": "Прочети  [документацията](https://docs.bludit.com) за повече информация",
 	"share-with-your-friends-and-enjoy": "Споделете с приятелите си",
 	"the-page-has-not-been-found": "Страницата не е намерена.",
 	"error": "Грешна",
@@ -198,12 +198,12 @@
 	"advanced-settings": "Разширени настройки",
 	"manage-users": "Управление на потребители",
 	"view-and-edit-your-profile": "Преглед и редактиране на профила ви.",
-	
+
 	"password-must-be-at-least-6-characters-long": "Паролата трябва да е с дължина най-малко 6 символа",
-	"images": "Снимки",
-	"upload-image": "Прикачи снимка",
+	"images": "Изображения",
+	"upload-image": "Прикачи изображение",
 	"drag-and-drop-or-click-here": "Влачите и пускате или натиснете тук",
-	"insert-image": "Вмъкни снимка",
+	"insert-image": "Вмъкни изображение",
 	"supported-image-file-types": "Поддържани файлови формати за снимки",
 	"date-format": "Формат дата ",
 	"time-format": "Формат за време",
@@ -219,14 +219,19 @@
 	"date-and-time-formats": "Формат дата и час",
 	"activate": "Активиране",
 	"deactivate": "Деактивиране",
-	
+
 	"cover-image": "Обложка",
 	"blog": "Блог",
-	"more-images": "Още снимки",
-	"double-click-on-the-image-to-add-it": "Кликнете два пъти върху изображението, за да го добавите.",
+	"more-images": "Още изображения",
+
 	"click-here-to-cancel": "Кликнете тук, за да отмените.",
 	"type-the-tag-and-press-enter": "Напишете етикет и натиснете клавиша Enter.",
 	"manage-your-bludit-from-the-admin-panel": "Управлявайте вашият Bludit от [admin area]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Няма изображения"
+	"there-are-no-images":"Няма изображения",
+
+	"click-on-the-image-for-options": "Кликнете върху изображението за опции.",
+	"set-as-cover-image": "Задай като обложка ",
+	"delete-image": "Изтрий изображенито",
+	"image-description": "Описание на изображението "
 }
 

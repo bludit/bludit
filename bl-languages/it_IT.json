@@ -3,7 +3,7 @@
 	{
 		"native": "Italiano (Italia)",
 		"english-name": "Italian",
-		"last-update": "2016-01-22",
+		"last-update": "2016-02-20",
 		"author": "Daniele La Pira",
 		"email": "daniele.lapira@gmail.com",
 		"website": "https://github.com/danielelapira"
@@ -119,6 +119,7 @@
 	"you-can-use-this-field-to-define-a-set-of": "Puoi utilizzare questo campo per definire un set di parametri riferiti alla lingua, alla nazione e preferenze speciali.",
 	"you-can-modify-the-url-which-identifies":"Puoi modificare l'indirizzo URL che identifica una pagina o un articolo utilizzando delle parole chiavi leggibili. Non più di 150 caratteri.",
 	"this-field-can-help-describe-the-content": "Quì puoi descrivere il contenuto in poche parole. Non più di 150 caratteri.",
+	
 	"delete-the-user-and-all-its-posts":"Elimina l'utente e tutti i suoi articoli",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Elimina l'utente e assegna i suoi articoli all'utente admin",
 	"read-more": "Leggi tutto",
@@ -137,10 +138,10 @@
 	"first-post": "Primo articolo",
 	"congratulations-you-have-successfully-installed-your-bludit": "Congratulazioni, hai installato con successo **Bludit**",
 	"whats-next": "Passi successivi",
-	
+
 	"follow-bludit-on": "Segui Bludit su",
-	"visit-the-support-forum": "Visita il [forum](http://forum.bludit.com) per supporto",
-	"read-the-documentation-for-more-information": "Leggi la [documentazione](http://docs.bludit.com) per ulteriori informazioni",
+	"visit-the-support-forum": "Visita il [forum](https://forum.bludit.com) per supporto",
+	"read-the-documentation-for-more-information": "Leggi la [documentazione](https://docs.bludit.com) per ulteriori informazioni",
 	"share-with-your-friends-and-enjoy": "Condividi con i tuoi amici",
 	"the-page-has-not-been-found": "La pagina non è stata trovata.",
 	"error": "Errore",
@@ -195,7 +196,7 @@
 	"edit-or-remove-your-blogs-posts": "Modifica o elimina articoli del blog.",
 	"general-settings": "Impostazioni generali",
 	"advanced-settings": "Impostazioni avanzate",
-	"manage-users": "Gestisci utenti",
+	"manage-users": "Amministra utenti",
 	"view-and-edit-your-profile": "Visualizza e modifica il tuo profilo.",
 
 	"password-must-be-at-least-6-characters-long": "La Password deve contenere almeno 6 caratteri",
@@ -213,18 +214,26 @@
 	"change-this-pages-content-on-the-admin-panel": "Cambia il contenuto di questa pagina sul pannello di amministrazione, Amministra -> Pagine e Clicca sulla pagina << about >> per modificare.",
 	"about-your-site-or-yourself": "A proposito di te e del tuo sito.",
 	"welcome-to-bludit": "Benvenuti su Bludit",
-	
+
 	"site-information": "Informazioni sul sito",
 	"date-and-time-formats": "Formati data e ora",
 	"activate": "Attiva",
 	"deactivate": "Disattiva",
-	
+
 	"cover-image": "Immagine di copertina",
 	"blog": "Blog",
 	"more-images": "Più immagini",
-	"double-click-on-the-image-to-add-it": "Clicca due volte sull'immagine da inserire.",
+
 	"click-here-to-cancel": "Clicca quì per annullare.",
 	"type-the-tag-and-press-enter": "Scrivi il tag e premi invio.",
-	"manage-your-bludit-from-the-admin-panel": "Gestisci Bludit dal [pannello di amministrazione]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Non ci sono immagini"
+	"add": "Aggiungi",
+	"manage-your-bludit-from-the-admin-panel": "Amministra Bludit dal [pannello di amministrazione]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"Non ci sono immagini",
+
+	"click-on-the-image-for-options": "Clicca sull'immagine per le opzioni.",
+	"set-as-cover-image": "Set as cover image",
+	"delete-image": "Elimima immagine",
+	"image-description": "Descrizione dell'immagine",
+
+	"social-networks-links": "Social Networks"
 }

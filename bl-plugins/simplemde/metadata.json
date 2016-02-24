@@ -2,9 +2,9 @@
 	"author": "NextStepWebs",
 	"email": "",
 	"website": "https://github.com/NextStepWebs/simplemde-markdown-editor",
-	"version": "1.9.0",
-	"releaseDate": "2015-12-05",
+	"version": "1.10.0",
+	"releaseDate": "2015-01-22",
 	"license": "MIT",
-	"requires": "Bludit v1.0",
+	"requires": "Bludit v1.1",
 	"notes": ""
 }

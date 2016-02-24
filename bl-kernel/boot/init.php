@@ -4,7 +4,7 @@
 define('BLUDIT_VERSION',	'githubVersion');
 define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'20160122');
+define('BLUDIT_BUILD',		'20160201');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -56,6 +56,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
+
 // Alert status ok
 define('ALERT_STATUS_OK', 0);
 
@@ -82,8 +85,11 @@ define('POSTS_PER_PAGE_ADMIN', 10);
 // Check if JSON encode and decode are enabled.
 // define('JSON', function_exists('json_encode'));
 
-// TRUE if new posts hand-made set published, or FALSE for draft.
+// Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
+
+// Cli mode username for new posts/pages
+define('CLI_USERNAME', 'admin');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');

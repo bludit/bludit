@@ -8,6 +8,10 @@
 	min-width: 12em !important;
 }
 
+article.post {
+	overflow: hidden;
+}
+
 article.post div.title h1 {
 	font-weight: normal;
 	margin: 0 !important;
@@ -32,8 +36,8 @@ div.cover-image {
 	width: calc(100% + 6em);
 }
 
-h1.blog-title {
-	font-size: 2.4em;
+h2.blog-title {
+	font-size: 2em;
 	font-weight: normal;
 	text-align: center;
 }
