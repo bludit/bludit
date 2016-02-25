@@ -25,6 +25,10 @@ class dbTags extends dbJSON
 		foreach($this->db['postsIndex'] as $tagSlug=>$tagInfo) {
 			$tmp[$tagSlug] = $tagInfo['name'];
 		}
+
+		// Sort low to high, by value.
+		natcasesort($tmp);
+
 		return $tmp;
 	}
 

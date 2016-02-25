@@ -4,7 +4,7 @@ class Log {
 
 	public static function set($text, $type=0)
 	{
-		error_log($text, $type);
+		error_log('('.BLUDIT_VERSION.')'.$text, $type);
 	}
 
 }
