@@ -246,7 +246,7 @@ function install($adminPassword, $email, $timezone)
 
 	$stdOut = array();
 
-	if( date_default_timezone_set($timezone) ) {
+	if( !date_default_timezone_set($timezone) ) {
 		date_default_timezone_set('UTC');
 	}
 

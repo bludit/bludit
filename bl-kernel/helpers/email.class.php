@@ -5,10 +5,16 @@ class Email {
 	// Returns TRUE if the mail was successfully accepted for delivery, FALSE otherwise.
 	public static function send($args)
 	{
+		$now = time();
+
 		$headers   = array();
 		$headers[] = 'MIME-Version: 1.0';
 		$headers[] = 'Content-type: text/html; charset=utf-8';
+
 		$headers[] = 'From: '.$args['from'];
+		$headers[] = 'Reply-To: '.$args['from'];
+		$headers[] = 'Return-Path: '.$args['from'];
+		$headers[] = 'message-id: <'.$now.'webmaster@'.DOMAIN.'>';
 		$headers[] = 'X-Mailer: PHP/'.phpversion();
 
 		$message = '<html>

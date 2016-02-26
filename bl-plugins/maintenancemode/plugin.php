@@ -5,7 +5,7 @@ class pluginMaintenanceMode extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'enable'=>true,
+			'enable'=>false,
 			'message'=>'Temporarily down for maintenance.'
 		);
 	}
