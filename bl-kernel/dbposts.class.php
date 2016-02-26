@@ -107,6 +107,7 @@ class dbPosts extends dbJSON
 		// The user is always who is loggued.
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
+			Log::set(__METHOD__.LOG_SEP.'The session does not have the username.');
 			return false;
 		}
 
@@ -271,6 +272,7 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
+		Log::set(__METHOD__.LOG_SEP.'Posts from the user '.$username.' were delete.');
 		return true;
 	}
 
@@ -293,6 +295,7 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
+		Log::set(__METHOD__.LOG_SEP.'Posts linked to another user.');
 		return true;
 	}
 
@@ -343,6 +346,7 @@ class dbPosts extends dbJSON
 				return false;
 			}
 
+			Log::set(__METHOD__.LOG_SEP.'New post published from scheduler.');
 			return true;
 		}
 
@@ -443,6 +447,8 @@ class dbPosts extends dbJSON
 					{
 						$valueFromFile = $Post->getField($f);
 
+						Log::set(__METHOD__.LOG_SEP.'Field from file: '.$f);
+
 						if($f=='tags') {
 							// Generate tags array.
 							$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
@@ -478,6 +484,10 @@ class dbPosts extends dbJSON
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
+		}
+
+		if($this->db!=$db) {
+			Log::set(__METHOD__.LOG_SEP.'New posts added from Cli Mode');
 		}
 
 		return $this->db!=$db;
