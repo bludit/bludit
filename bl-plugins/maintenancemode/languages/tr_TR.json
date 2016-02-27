@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Bakım Modu",
+		"description": "Sitenizi bakım moduna alın, admin paneline erişmeye devam edebilirsiniz."
+	},
+
+	"enable-maintenance-mode": "Bakım modunu etkinleştir.",
+	"message": "Mesaj"
+}

@@ -118,6 +118,14 @@ li.bludit-logo {
 
 /* ----------- BLUDIT ----------- */
 
+body {
+	overflow-y: scroll;
+}
+
+.bludit-navbar {
+
+}
+
 #logo {
 	background: #f4f4f4;
 	padding:20px 0;
@@ -148,6 +156,10 @@ button.delete-button:hover {
 .bl-view {
 	margin-top: 25px;
 	margin-bottom: 25px;
+}
+
+table.statistics tr:last-child td {
+	border-bottom: none !important;
 }
 
 /* ----------- ALERT ----------- */
@@ -196,7 +208,7 @@ button.delete-button:hover {
 #jstagList span.select {
 	margin-top: 5px;
 	margin-right: 5px;
-	padding: 1px 15px;
+	padding: 2px 15px;
 	cursor: pointer;
 	display: inline-block;
 	border-radius: 3px;

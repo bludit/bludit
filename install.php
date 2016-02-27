@@ -2,7 +2,7 @@
 
 /*
  * Bludit
- * http://www.bludit.com
+ * https://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
@@ -35,6 +35,9 @@ define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
+
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -243,7 +246,7 @@ function install($adminPassword, $email, $timezone)
 
 	$stdOut = array();
 
-	if( date_default_timezone_set($timezone) ) {
+	if( !date_default_timezone_set($timezone) ) {
 		date_default_timezone_set('UTC');
 	}
 

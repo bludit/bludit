@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'githubVersion');
-define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'20160201');
+define('BLUDIT_VERSION',	'1.1.2');
+define('BLUDIT_CODENAME',	'The Dig');
+define('BLUDIT_RELEASE_DATE',	'2016-02-26');
+define('BLUDIT_BUILD',		'20160226');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -56,8 +56,8 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
-// Alert status ok
-define('CHECK_SYMBOLIC_LINKS', FALSE);
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Alert status ok
 define('ALERT_STATUS_OK', 0);

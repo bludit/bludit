@@ -140,8 +140,8 @@
 	"whats-next": "Siguientes pasos",
 
 	"follow-bludit-on": "Siga Bludit en",
-	"visit-the-support-forum": "Visite el [foro](http://forum.bludit.com) para soporte",
-	"read-the-documentation-for-more-information": "Lea la [documentación](http://docs.bludit.com) para mas información",
+	"visit-the-support-forum": "Visite el [foro](https://forum.bludit.com) para soporte",
+	"read-the-documentation-for-more-information": "Lea la [documentación](https://docs.bludit.com) para mas información",
 	"share-with-your-friends-and-enjoy": "Compartí con tus amigos y a disfrutar",
 	"the-page-has-not-been-found": "La página no fue encontrada.",
 	"error": "Error",
@@ -232,5 +232,7 @@
 	"click-on-the-image-for-options": "Clic en la imagen para las opciones.",
 	"set-as-cover-image": "Establecer como portada",
 	"delete-image": "Eliminar imagen",
-	"image-description": "Descripción de la imagen"
+	"image-description": "Descripción de la imagen",
+
+	"social-networks-links": "Redes sociales enlaces"
 }

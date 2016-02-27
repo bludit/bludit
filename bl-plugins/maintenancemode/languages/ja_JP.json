@@ -5,6 +5,6 @@
 		"description": "メンテンナンス・モードに設定します。管理エリアにはアクセスできます。"
 	},
 
-	"enable-maintence-mode": "メンテンナンス・モードを有効にする",
+	"enable-maintenance-mode": "メンテンナンス・モードを有効にする",
 	"message": "メッセージ"
 }

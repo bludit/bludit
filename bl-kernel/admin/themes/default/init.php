@@ -27,7 +27,7 @@ class HTML {
 
 			// Prevent the form submit when press enter key.
 			$("form").keypress(function(e) {
-				if (e.which == 13) {
+				if( (e.which == 13) && (e.target.type !== "textarea") )  {
 					return false;
 				}
 			});
@@ -87,7 +87,7 @@ class HTML {
 		$html .= '<div id="jstagList">';
 
 		foreach($args['allTags'] as $tag) {
-			$html .= '<span class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
+			$html .= '<span data-tag="'.$tag.'" class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
 		}
 
 		$html .= '</div>';
@@ -195,7 +195,7 @@ class HTML {
 		$html .= '<div class="empty-images uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no images').'</div>';
 
 		$html .= '
-		<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button">'.$L->g('More images').'</a>
+		<a data-uk-modal href="#bludit-images-v8" class="moreImages uk-button"><i class="uk-icon-folder-o"></i> '.$L->g('More images').'</a>
 
 		</div>
 		';

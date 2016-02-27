@@ -13,10 +13,10 @@ class dbUsers extends dbJSON
 		'registered'=>		array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
 		'tokenEmail'=>		array('inFile'=>false, 'value'=>''),
 		'tokenEmailTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
-		'twitterUsername'=>	array('inFile'=>false, 'value'=>''),
-		'facebookUsername'=>	array('inFile'=>false, 'value'=>''),
-		'googleUsername'=>	array('inFile'=>false, 'value'=>''),
-		'instagramUsername'=>	array('inFile'=>false, 'value'=>'')
+		'twitter'=>		array('inFile'=>false, 'value'=>''),
+		'facebook'=>		array('inFile'=>false, 'value'=>''),
+		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
+		'instagram'=>		array('inFile'=>false, 'value'=>'')
 	);
 
 	function __construct()

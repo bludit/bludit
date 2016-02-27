@@ -6,7 +6,7 @@
 		"last-update": "2015-11-17",
 		"author": "Сергей Ворон",
 		"email": "sergey@voron.pw",
-		"website": "voron.pw"
+		"website": "http://voron.pw"
 	},
 
 	"username": "Логин",
@@ -118,7 +118,7 @@
 	"select-a-timezone-for-a-correct": "Выберите часовой пояс для корректного отображения даты и времени на сайте.",
 	"you-can-use-this-field-to-define-a-set-of": "Вы можете использовать это поле, чтобы определить набор параметров, связанных с языком, страной и особых предпочтений.",
 	"you-can-modify-the-url-which-identifies":"Вы можете изменить URL, который идентифицирует страницу или запись с помощью удобочитаемых ключевых слов. Не более 150 символов.",
-	
+
 	"this-field-can-help-describe-the-content": "Это поле может помочь описать содержимое в нескольких словах. Не более 150 символов.",
 	"delete-the-user-and-all-its-posts":"Удалить пользователя и все его записи",
 	"delete-the-user-and-associate-its-posts-to-admin-user": "Удалить пользователя и связать его записи с администратором",
@@ -140,8 +140,8 @@
 	"whats-next": "Что дальше",
 	"manage-your-bludit-from-the-admin-panel": "Управляйте Bludit из [панели управления](./admin/)",
 	"follow-bludit-on": "Следуйте за Bludit в",
-	"visit-the-support-forum": "Посетите [форум](http://forum.bludit.com) для получения поддержки",
-	"read-the-documentation-for-more-information": "Прочтите [документацию](http://docs.bludit.com) для получения большей информации",
+	"visit-the-support-forum": "Посетите [форум](https://forum.bludit.com) для получения поддержки",
+	"read-the-documentation-for-more-information": "Прочтите [документацию](https://docs.bludit.com) для получения большей информации",
 	"share-with-your-friends-and-enjoy": "Делитесь с друзьями и наслаждайтесь",
 	"the-page-has-not-been-found": "Страница не найдена.",
 	"error": "Ошибка",
@@ -159,7 +159,7 @@
 	"ip-address-has-been-blocked": "IP адрес заблокирован.",
 	"try-again-in-a-few-minutes": "Попробуйте еще раз через несколько минут.",
 	"date": "Дата",
-	
+
 	"scheduled": "Запланировано",
 	"publish": "Опубликовать",
 	"please-check-your-theme-configuration": "Пожалуйста, проверьте конфигурацию вашей темы.",
@@ -169,7 +169,7 @@
 	"cli-mode": "Режим CLI",
 	"command-line-mode": "Режим командной строки",
 	"enable-the-command-line-mode-if-you-add-edit": "Включите режим командной строки, если вы добавляете, изменяете или удаляете записи и страницы из файловой системы",
-	
+
 	"configure": "Настроить",
 	"uninstall": "Удалить",
 	"change-password": "Изменить пароль",
@@ -214,18 +214,30 @@
 	"change-this-pages-content-on-the-admin-panel": "Измените содержимое этой страницы в панели управления, Управление, Страницы и нажмите на страницу about.",
 	"about-your-site-or-yourself": "О Вашем сайте или о вас",
 	"welcome-to-bludit": "Добро пожаловать в Bludit",
-	
+
 	"site-information": "Информация о сайте",
 	"date-and-time-formats": "Форматы даты и времени",
 	"activate": "Активировать",
 	"deactivate": "Деактивировать",
-	
+
 	"cover-image": "Обложка",
 	"blog": "Блог",
 	"more-images": "Еще изображения",
-	"double-click-on-the-image-to-add-it": "Дважды щелкните по изображению, чтобы добавить его.",
+
 	"click-here-to-cancel": "Нажмите здесь, чтобы отменить.",
 	"type-the-tag-and-press-enter": "Введите тег и нажмите клавишу Enter.",
+	"add": "Добавить",
 	"manage-your-bludit-from-the-admin-panel": "Управляйте Bludit из [панели управления]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Изображений нет"
+	"there-are-no-images":"Изображений нет",
+
+	"click-on-the-image-for-options": "Нажмите на изображение для выбора опций.",
+	"set-as-cover-image": "Установить как обложку",
+	"delete-image": "Удалить изображение",
+	"image-description": "Описание изображения",
+
+	"social-networks": "Социальные сети",
+	"twitter-username": "Имя пользователя в Twitter",
+	"facebook-username": "Имя пользователя в Facebook",
+	"google-username": "Имя пользователя в Google",
+	"instagram-username": "Имя пользователя в Instagram"
 }

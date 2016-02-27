@@ -72,36 +72,36 @@ if($Login->role()==='admin') {
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
 	));
 
-	HTML::legend(array('value'=>$L->g('Social networks')));
+	HTML::legend(array('value'=>$L->g('Social networks links')));
 
 	HTML::formInputText(array(
-		'name'=>'twitterUsername',
-		'label'=>$L->g('Twitter username'),
-		'value'=>$_User->twitterUsername(),
+		'name'=>'twitter',
+		'label'=>'Twitter',
+		'value'=>$_User->twitter(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'facebookUsername',
-		'label'=>$L->g('Facebook username'),
-		'value'=>$_User->facebookUsername(),
+		'name'=>'facebook',
+		'label'=>'Facebook',
+		'value'=>$_User->facebook(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'googleUsername',
-		'label'=>$L->g('Google username'),
-		'value'=>$_User->googleUsername(),
+		'name'=>'googlePlus',
+		'label'=>'Google+',
+		'value'=>$_User->googlePlus(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
-		'name'=>'instagramUsername',
-		'label'=>$L->g('Instagram username'),
-		'value'=>$_User->instagramUsername(),
+		'name'=>'instagram',
+		'label'=>'Instagram',
+		'value'=>$_User->instagram(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));

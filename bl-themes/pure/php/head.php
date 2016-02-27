@@ -1,9 +1,11 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?php echo $Site->title() ?></title>
-
 <?php
-	// CSS from theme/css/
+	Theme::charset('UTF-8');
+	Theme::viewport('width=device-width, initial-scale=1');
+
+	Theme::title();
+	Theme::description();
+
+	// CSS files
 	Theme::css(array(
 		'pure-min.css',
 		'grids-responsive-min.css',
@@ -11,24 +13,11 @@
 		'rainbow.github.css'
 	));
 
-	// Javascript from theme/js/
+	// Javascript files
 	Theme::javascript('rainbow.min.js');
 
-	// Favicon from theme/img/
+	// Favicon
 	Theme::favicon('favicon.png');
-
-	// <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-	if( $Url->whereAmI()=='post' ) {
-		Theme::keywords( $Post->tags() );
-		Theme::description( $Post->description() );
-	}
-	elseif( $Url->whereAmI()=='page' ) {
-		Theme::keywords( $Page->tags() );
-		Theme::description( $Page->description() );
-	}
-	else {
-		Theme::description( $Site->description() );
-	}
 ?>
 
 <!-- Custom Fonts -->
