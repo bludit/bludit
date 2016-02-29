@@ -3,7 +3,7 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2016-02-13",
+		"last-update": "2016-02-29",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
 		"website": "http://flatboard.co.nf"
@@ -223,7 +223,7 @@
 	"cover-image": "Image de couverture",
 	"blog": "Blog",
 	"more-images": "Plus d’images",
-	"double-click-on-the-image-to-add-it": "Double-cliquez sur l’image pour l’ajouter.",
+
 	"click-here-to-cancel": "Cliquez ici pour annuler.",
 	"type-the-tag-and-press-enter": "Saisissez le tag et appuyez sur Entrée.",
 	"add": "Ajouter",
@@ -235,9 +235,5 @@
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
 
-	"social-networks": "Réseaux sociaux",
-	"twitter-username": "Compte utilisateur Twitter",
-	"facebook-username": "Compte utilisateur Facebook",
-	"google-username": "Compte utilisateur Google",
-	"instagram-username": "Compte utilisateur Instagram"
+	"social-networks-links": "Liens vers les réseaux sociaux"
 }
