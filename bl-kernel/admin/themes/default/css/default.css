@@ -123,8 +123,7 @@ body {
 }
 
 .bludit-navbar {
-	border-radius: 0 !important;
-	box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.37);
+
 }
 
 #logo {
@@ -157,6 +156,10 @@ button.delete-button:hover {
 .bl-view {
 	margin-top: 25px;
 	margin-bottom: 25px;
+}
+
+table.statistics tr:last-child td {
+	border-bottom: none !important;
 }
 
 /* ----------- ALERT ----------- */
@@ -205,7 +208,7 @@ button.delete-button:hover {
 #jstagList span.select {
 	margin-top: 5px;
 	margin-right: 5px;
-	padding: 1px 15px;
+	padding: 2px 15px;
 	cursor: pointer;
 	display: inline-block;
 	border-radius: 3px;

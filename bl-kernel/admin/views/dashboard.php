@@ -65,7 +65,7 @@
 
 		<div class="uk-panel uk-panel-box">
 		<h4><?php $L->p('Statistics') ?></h4>
-		<table class="uk-table">
+		<table class="uk-table statistics">
 			<tbody>
 			<tr>
 			<td><?php $Language->p('Posts') ?></td>

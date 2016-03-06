@@ -5,6 +5,6 @@
 		"description": "設定您的網站為維護模式，但是您依然可以登入到管理介面"
 	},
 
-	"enable-maintence-mode": "啟用維護模式",
+	"enable-maintenance-mode": "啟用維護模式",
 	"message": "訊息"
 }

@@ -3,7 +3,7 @@
 	{
 		"native": "Українська (Україна)",
 		"english-name": "Ukrainian",
-		"last-update": "2016-01-23",
+		"last-update": "2016-02-20",
 		"author": "Allec Bernz",
 		"email": "admin@allec.info",
 		"website": "http://allec.info"
@@ -37,7 +37,7 @@
 	"draft": "Чернетка",
 	"delete": "Видалити",
 	"registered": "Зареєстрований",
-	"Notifications": "Сповіщення",
+	"notifications": "Повідомлення",
 	"profile": "Профіль",
 	"email": "Email",
 	"settings": "Параметри",
@@ -223,9 +223,17 @@
 	"cover-image": "Зображення обкладинки",
 	"blog": "Блог",
 	"more-images": "Більше зображень",
-	"double-click-on-the-image-to-add-it": "Двічі клацніть на зображення, щоб додати його.",
+
 	"click-here-to-cancel": "Натисніть тут, щоб скасувати.",
 	"type-the-tag-and-press-enter": "Введіть тег і натисніть Enter.",
+	"add": "Додати",
 	"manage-your-bludit-from-the-admin-panel": "Керуйте вашим Bludit через [панель управління]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"Немає зображень"
+	"there-are-no-images":"Немає зображень",
+
+	"click-on-the-image-for-options": "Натисніть на зображення, щоб переглянути параметри.",
+	"set-as-cover-image": "Встановити в якості обкладинки",
+	"delete-image": "Видалити зображення",
+	"image-description": "Опис зображення",
+
+	"social-networks-links": "Лінки на соціальні мережі"
 }

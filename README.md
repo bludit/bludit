@@ -1,14 +1,14 @@
-[Bludit](http://www.bludit.com/)
+[Bludit](https://www.bludit.com/)
 ================================
 **Fast**, **simple**, **extensible** and **flat file** CMS.
 
 Bludit is a simple web application to make your own **blog** or **site** in seconds, it's completly **free and open source**. Bludit uses flat-files (text files in JSON format) to store the posts and pages, you don't need to install or configure a database.
 
-- [Documentation](http://docs.bludit.com)
-- [Help and Support](http://forum.bludit.com)
-- [Plugins](https://github.com/dignajar/bludit-plugins)
+- [Documentation](https://docs.bludit.com)
+- [Help and Support](https://forum.bludit.com)
+- [Plugins](https://plugins.bludit.com)
 - [Themes](https://github.com/dignajar/bludit-themes)
-- [More plugins and themes](http://forum.bludit.com/viewforum.php?f=14)
+- [More plugins and themes](https://forum.bludit.com/viewforum.php?f=14)
 
 Social networks
 ---------------
@@ -36,7 +36,7 @@ You only need a web server with PHP support.
 Installation guide
 ------------------
 
-1. Download the latest version from http://www.bludit.com/bludit_latest.zip
+1. Download the latest version from https://s3.amazonaws.com/bludit-s3/bludit-builds/bludit_latest.zip
 2. Extract the zip file into a directory like `bludit`.
 3. Upload the directory `bludit` to your hosting server.
 4. Done!

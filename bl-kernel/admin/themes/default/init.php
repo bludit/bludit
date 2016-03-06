@@ -27,7 +27,7 @@ class HTML {
 
 			// Prevent the form submit when press enter key.
 			$("form").keypress(function(e) {
-				if (e.which == 13) {
+				if( (e.which == 13) && (e.target.type !== "textarea") )  {
 					return false;
 				}
 			});

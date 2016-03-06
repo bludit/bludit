@@ -5,6 +5,6 @@
 		"description": "Przełącz stronę w tryb konwersacji (wówczas działać będzie tylko kokpit)."
 	},
 
-	"enable-maintence-mode": "Włącz tryb konwersacji",
+	"enable-maintenance-mode": "Włącz tryb konwersacji",
 	"message": "Wiadomość"
 }

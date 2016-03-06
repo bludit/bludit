@@ -9,7 +9,7 @@ function insertTag() {
 	}
 
 	var findTag = $("span[data-tag]").filter(function() {
-		return $(this).attr('data-tag').toLowerCase() == newTag;
+		return $(this).attr('data-tag').toLowerCase() == newTag.toLowerCase();
 	});
 
 	if( findTag.length > 0 ) {
