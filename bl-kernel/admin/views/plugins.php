@@ -3,6 +3,12 @@
 HTML::title(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
 
 echo '
+<div class="uk-button-group">
+	<a class="uk-button" href="#all">ALL</a>
+	<a class="uk-button" href="#plugin-installed">'.$L->g('Activate').'</a>
+	<a class="uk-button" href="#plugin-notInstalled">'.$L->g('Deactivate').'</a>
+</div>
+
 <table class="uk-table">
 <thead>
 	<tr>
@@ -48,5 +54,18 @@ foreach($plugins['all'] as $Plugin)
 
 echo '
 </tbody>
-</table>
-';
+</table> 
+
+<script>
+$(".uk-button-group a").click(function (e) {
+    e.preventDefault();
+    var a = $(this).attr("href");
+    a = a.substr(1);
+    $("tbody tr").each(function () {
+        if (!$(this).hasClass(a) && a != "all")
+            $(this).addClass("hide");
+        else
+            $(this).removeClass("hide");
+    });
+});
+</script>';

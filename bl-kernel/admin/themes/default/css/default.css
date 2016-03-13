@@ -541,3 +541,12 @@ div.plugin-links > span.separator {
 	margin-bottom: 0px !important;
 	display: inline-block;
 }
+
+/* ----------- PLUGINS FILTER ----------- */
+
+tr.plugin-installed.hide, tr.plugin-notInstalled.hide{
+  width:0%;
+  opacity:0;
+  display:none;
+  transition:all 0.1s;
+}
