@@ -3,5 +3,9 @@
 	{
 		"name": "Anzeige aller Schlagwörter",
 		"description": "Anzeige aller Schlagwörter in der Seitenleiste (bei Themes mit Seitenleiste)."
-	}
+	},
+    "sort-the-tag-list-by": "Sortierung der Schlagwörter nach",
+	"alphabetical-order": "Alphabetische Reihenfolge",
+	"number-of-times-each-tag-has-been-used": "Anzahl der Verwendung",
+	"date-each-tag-was-first-used": "Datum der ersten Verwendung"
 }
