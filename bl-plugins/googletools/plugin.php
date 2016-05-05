@@ -31,7 +31,7 @@ class pluginGoogleTools extends Plugin {
 
 	public function siteHead()
 	{
-		global $Url
+		global $Url;
 
 		if(Text::isEmpty($this->getDbField('google-site-verification')) || !($Url->whereAmI()=='home')) {
 			return false;
