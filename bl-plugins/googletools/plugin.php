@@ -31,13 +31,15 @@ class pluginGoogleTools extends Plugin {
 
 	public function siteHead()
 	{
-		$html  = PHP_EOL.'<!-- Google Webmasters Tools -->'.PHP_EOL;
-		$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'">'.PHP_EOL;
+		global $Url
 
-		if(Text::isEmpty($this->getDbField('google-site-verification'))) {
+		if(Text::isEmpty($this->getDbField('google-site-verification')) || !($Url->whereAmI()=='home')) {
 			return false;
 		}
 
+		$html  = PHP_EOL.'<!-- Google Webmasters Tools -->'.PHP_EOL;
+		$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'">'.PHP_EOL;
+		
 		return $html;
 	}
 
