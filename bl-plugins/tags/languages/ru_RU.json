@@ -3,5 +3,9 @@
 	{
 		"name": "Список тегов",
 		"description": "Показывает все теги."
-	}
+	},
+	"tag-sort-order": "Сортировать по",
+	"tag-sort-alphabetical": "алфавиту",
+	"tag-sort-count": "количеству",
+	"tag-sort-date": "дате"
 }
