@@ -62,7 +62,11 @@ function buildPlugins()
 
 	// Load each plugin clasess
 	foreach($list as $pluginPath) {
-		include($pluginPath.DS.'plugin.php');
+
+		// Check if the directory has the plugin.php
+		if(file_exists($pluginPath.DS.'plugin.php')) {
+			include($pluginPath.DS.'plugin.php');
+		}
 	}
 
 	// Get plugins clasess loaded

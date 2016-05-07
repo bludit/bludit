@@ -86,6 +86,9 @@ define('POSTS_PER_PAGE_ADMIN', 10);
 // define('JSON', function_exists('json_encode'));
 
 // Cli mode status for new posts/pages
+define('CLI_MODE', true);
+
+// Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
 
 // Cli mode username for new posts/pages
