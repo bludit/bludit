@@ -485,7 +485,7 @@ class dbPosts extends dbJSON
 		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
 		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
 			unset($this->db[$key]);
-			Log::set('CliMode - Delete post: '.$key);
+			Log::set('CliMode - Deleted post: '.$key);
 		}
 
 		// Sort posts before save.

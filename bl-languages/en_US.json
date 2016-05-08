@@ -235,5 +235,7 @@
 	"delete-image": "Delete image",
 	"image-description": "Image description",
 
-	"social-networks-links": "Social networks links"
+	"social-networks-links": "Social networks links",
+
+	"email-access-code": "Email access code"
 }
