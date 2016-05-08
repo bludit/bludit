@@ -146,7 +146,7 @@ function buildAllPages()
 // ============================================================================
 
 // Search for changes on pages by the user.
-if( $Site->cliMode() ) {
+if( CLI_MODE ) {
 	$dbPages->regenerateCli();
 }
 

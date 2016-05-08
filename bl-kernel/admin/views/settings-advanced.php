@@ -37,17 +37,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'tip'=>$L->g('the-url-of-your-site')
     ));
 
-    HTML::legend(array('value'=>$L->g('Command Line Mode')));
-
-    HTML::formSelect(array(
-        'name'=>'cliMode',
-        'label'=>$L->g('Cli Mode'),
-        'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
-        'selected'=>$Site->cliMode(),
-        'class'=>'uk-width-1-3 uk-form-medium',
-        'tip'=>$L->g('enable-the-command-line-mode-if-you-add-edit')
-    ));
-
     HTML::legend(array('value'=>$L->g('Email account settings')));
 
     HTML::formInputText(array(

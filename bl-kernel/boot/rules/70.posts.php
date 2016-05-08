@@ -123,7 +123,7 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 // ============================================================================
 
 // Search for changes on posts by the user.
-if( $Site->cliMode() ) {
+if( CLI_MODE ) {
 	if($dbPosts->regenerateCli()) {
 		reIndexTagsPosts();
 	}

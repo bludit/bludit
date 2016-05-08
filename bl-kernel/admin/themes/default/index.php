@@ -61,12 +61,12 @@ $(document).ready(function() {
 
 		<ul class="uk-navbar-nav">
 		<li class="bludit-logo">BLUDIT</li>
-		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><i class="uk-icon-object-ungroup"></i> <?php $L->p('Dashboard') ?></a></li>
-		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></li>
+		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
+		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a></li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
 
 		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-clone"></i> <?php $L->p('Manage') ?> ▾</a>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage') ?> ▾</a>
 			<div class="uk-dropdown uk-dropdown-navbar">
 				<ul class="uk-nav uk-nav-navbar">
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Posts') ?></a></li>
@@ -80,27 +80,29 @@ $(document).ready(function() {
 
 		<?php if($Login->role() == 'admin') { ?>
 		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('Settings') ?> ▾</a>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('Settings') ?> ▾</a>
 			<div class="uk-dropdown uk-dropdown-navbar">
 				<ul class="uk-nav uk-nav-navbar">
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-th-large"></i> <?php $L->p('General') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-th"></i> <?php $L->p('Advanced') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></li>
-				<li class="uk-nav-divider"></li>
+
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><i class="uk-icon-puzzle-piece"></i> <?php $L->p('Plugins') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><i class="uk-icon-paint-brush"></i> <?php $L->p('Themes') ?></a></li>
-				<li class="uk-nav-divider"></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
+
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><i class="uk-icon-info"></i> <?php $L->p('About') ?></a></li>
 				</ul>
 			</div>
 		</li>
 		<?php } ?>
 
+		<li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a></li>
+
 		</ul>
 
 		<div class="uk-navbar-flip">
 		<ul class="uk-navbar-nav">
-		<li class="uk-parent" data-uk-dropdown>
+		<li>
 			<?php
 				$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.png';
 				if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.png')) {
@@ -108,16 +110,8 @@ $(document).ready(function() {
 				}
 			?>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
-				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php echo $Login->username() ?> ▾
+				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> Welcome <?php echo $Login->username() ?>
 			</a>
-			<div class="uk-dropdown uk-dropdown-navbar">
-				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><?php $L->p('Profile') ?></a></li>
-				<li class="uk-nav-divider"></li>
-				<li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a></li>
-				</ul>
-			</div>
 		</li>
 		</ul>
 		</div>

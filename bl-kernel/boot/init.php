@@ -82,8 +82,8 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 // Post per page on Manage->Posts
 define('POSTS_PER_PAGE_ADMIN', 10);
 
-// Check if JSON encode and decode are enabled.
-// define('JSON', function_exists('json_encode'));
+// Cli mode status for new posts/pages
+define('CLI_MODE', true);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');

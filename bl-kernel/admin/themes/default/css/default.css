@@ -1,7 +1,88 @@
 /* ----------- UIKIT HACKs FOR BLUDIT ----------- */
+* {
+	border-radius: 2px !important;
+}
+
 .uk-navbar {
-	background: #EEEEEE !important;
+	background: #323232 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+}
+
+.uk-navbar-nav a {
 	border: none !important;
+	border-radius: none !important;
+	text-shadow: none !important;
+	color: #fff !important;
+	font-weight: 300 !important;
+	padding: 0 25px !important;
+}
+
+.uk-navbar-nav > li.uk-open > a,
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li:focus > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #BBBBBB !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-nav-navbar > li > a:focus,
+.uk-nav-navbar > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #888 !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-navbar-nav > li.uk-active > a {
+	background: none !important;
+	color: #BBBBBB !important;
+}
+
+.uk-navbar-nav .uk-border-circle {
+	border-radius: 20px !important;
+}
+
+.uk-dropdown-navbar {
+	margin: 0 !important;
+	padding: 10px 0 !important;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	border-radius: 0 !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-top: 0 !important;
+}
+
+.uk-dropdown-navbar li {
+	display: inline-block !important;
+}
+
+.uk-dropdown-navbar a {
+	color: #323232 !important;
+}
+
+li.bludit-logo {
+	color: #fff !important;
+	display: block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 41px;
+	line-height: 40px;
+	margin-left: -1px;
+	margin-top: -1px;
+	margin-right: 12px;
+}
+
+.bludit-user-navbar {
+	text-align: right !important;
+	padding-right: 60px !important;
 }
 
 .uk-button {
@@ -35,16 +116,7 @@ legend.first-child {
 	margin-top: 0px !important;
 }
 
-.uk-navbar-nav > li > a {
-	border: none;
-	height: 70px;
-	padding: 15px;
-}
 
-.uk-nav-navbar > li > a:hover,
-.uk-nav-navbar > li > a:focus {
-	background: #2672ec;
-}
 
 .uk-form-label {
 	color: #666666;
@@ -70,18 +142,6 @@ legend.first-child {
 
 a {
 	color: #2672ec;
-}
-
-li.bludit-logo {
-	color: #848484 !important;
-	height: 70px;
-	padding: 15px;
-	display: block;
-	font-size: 14px;
-	font-weight: 400;
-	height: 35px;
-	line-height: 40px;
-	text-shadow: 0 1px 0 #fff;
 }
 
 .uk-panel-box {
@@ -115,6 +175,7 @@ li.bludit-logo {
 .uk-placeholder {
 	margin-bottom: 0 !important;
 }
+
 
 /* ----------- BLUDIT ----------- */
 
