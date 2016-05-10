@@ -1,8 +1,17 @@
-/* ----------- UIKIT HACKs FOR BLUDIT ----------- */
-* {
+.uk-form * {
 	border-radius: 2px !important;
 }
 
+.uk-tab a {
+	color: #2196f3 !important;
+}
+
+a {
+	color: #2196f3 !important;
+}
+
+/* UIKIT HACKs navbar
+---------------------------------------------------------------- */
 .uk-navbar {
 	background: #323232 !important;
 	border: 0 !important;
@@ -85,28 +94,26 @@ li.bludit-logo {
 	padding-right: 60px !important;
 }
 
+/* UIKIT HACKs buttons
+---------------------------------------------------------------- */
 .uk-button {
-	color: #ffffff;
-	padding: 2px 22px;
+	padding: 2px 26px;
 	text-shadow: none;
-	background: #888888;
-	border-radius: 3px;
-}
-
-.uk-button:hover,
-.uk-button:focus {
-	background-color: #777777;
-	color: #ffffff;
+	color: #333 !important;
 }
 
 .uk-button-primary {
-	background: #2672ec;
+	background: #2196f3 !important;
+	color: #fff !important;
 }
 
 .uk-button-primary:hover {
-	background: #1F5FC4;
+	background: #2EA3FF;
+	color: #fafafa !important;
 }
 
+/* UIKIT HACKs forms
+---------------------------------------------------------------- */
 legend {
 	width: 70% !important;
 	margin-top: 40px !important;
@@ -226,23 +233,22 @@ table.statistics tr:last-child td {
 /* ----------- ALERT ----------- */
 
 #alert {
-	bottom: 20px;
 	color: #ffffff;
 	display: none;
-	padding: 24px;
+	padding: 10px;
 	position: fixed;
-	right: 20px;
 	text-align: center;
-	width: 350px;
+	top: 0;
+	width: 100%;
 	z-index: 100;
 }
 
 .alert-ok {
-	background: rgba(48, 102, 187, 0.91);
+	background: #4374C1;
 }
 
 .alert-fail {
-	background: rgba(187, 48, 48, 0.91);
+	background: #c14343;
 }
 
 /* ----------- FORM ----------- */
@@ -298,7 +304,8 @@ table.statistics tr:last-child td {
 }
 
 #jstagList span.select {
-	color: #2672ec;
+	color: #2196f3;
+	padding: 2px 13px;
 }
 
 /* ----------- BLUDIT IMAGES V8 ----------- */

@@ -27,7 +27,10 @@ echo '
 		echo '<tr>';
 		echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($status?'<span class="label-draft">'.$status.'</span>':'').($Post->title()?$Post->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
 		echo '<td class="uk-text-center">'.$Post->dateRaw().'</td>';
-		echo '<td><a target="_blank" href="'.$Post->permalink().'">'.$Url->filters('post').'/'.$Post->key().'</a></td>';
+
+		$friendlyURL = Text::isEmpty($Url->filters('post')) ? '/'.$Post->key() : '/'.$Url->filters('post').'/'.$Post->key();
+
+		echo '<td><a target="_blank" href="'.$Post->permalink().'">'.$friendlyURL.'</a></td>';
 		echo '</tr>';
 	}
 

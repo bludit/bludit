@@ -83,8 +83,8 @@ $(document).ready(function() {
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('Settings') ?> ▾</a>
 			<div class="uk-dropdown uk-dropdown-navbar">
 				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-th-large"></i> <?php $L->p('General') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-th"></i> <?php $L->p('Advanced') ?></a></li>
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('General') ?></a></li>
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-cogs"></i> <?php $L->p('Advanced') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></li>
 
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><i class="uk-icon-puzzle-piece"></i> <?php $L->p('Plugins') ?></a></li>
