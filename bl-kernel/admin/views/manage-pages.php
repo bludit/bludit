@@ -26,11 +26,16 @@ echo '
 				$parentTitle = '';
 			}
 
+
+
 			echo '<tr>';
 			echo '<td>'.($Page->parentKey()?'- ':'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label-draft">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
 			echo '<td>'.$parentTitle.'</td>';
 			echo '<td class="uk-text-center">'.$Page->position().'</td>';
-			echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$Url->filters('page').'/'.$Page->key().'</a></td>';
+
+			$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$Page->key() : '/'.$Url->filters('page').'/'.$Page->key();
+
+			echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$friendlyURL.'</a></td>';
 			echo '</tr>';
 		}
 	}
