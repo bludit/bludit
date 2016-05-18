@@ -1,0 +1,83 @@
+body {
+	padding-top: 0;
+	background: #F7F7F7;
+}
+
+a {
+	border: none;
+}
+
+a:hover {
+	border-bottom: 1px dotted rgba(160, 160, 160, 0.65)
+}
+
+#header h1 {
+	font-size: 1.4em;
+	font-weight: lighter;
+}
+
+header p {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 0.9em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+#intro header h2 {
+	font-weight: lighter;
+	margin-bottom: 0;
+}
+
+#intro header p {
+	font-size: 1em;
+}
+
+.post {
+	border: 0;
+}
+
+.post > header {
+	border-bottom-color: #F7F7F7;
+	margin-bottom: 1.3em;
+}
+
+.post > header .title {
+	padding: 1.75em 3em 1.3em;
+}
+
+.post > header .title h1 {
+	font-size: 2em;
+	font-weight: normal;
+	margin-bottom: 5px;
+}
+
+#sidebar {
+	margin-top: 2.2em;
+	min-width: 0;
+}
+
+.plugin ul {
+	list-style: none !important;
+	padding: 0 !important;
+}
+
+.plugin li {
+	padding: 0 !important;
+}
+
+.plugin-pages ul.children {
+	margin-left: 10px;
+}
+
+/* Just for Plugin tags */
+.plugin-tags li {
+	text-transform: capitalize;
+}
+
+img {
+	width: 100%;
+}

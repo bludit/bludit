@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="<?php echo $Site->language() ?>">
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
 	<meta charset="<?php echo CHARSET ?>">
@@ -43,8 +43,8 @@ $(document).ready(function() {
 		echo '$("#alert").slideDown().delay(3500).slideUp();';
 	}
 ?>
-	$("#alert").click(function() {
-		$(this).hide();
+	$(window).click(function() {
+		$("#alert").hide();
 	});
 });
 </script>
