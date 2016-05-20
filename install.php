@@ -364,7 +364,7 @@ function install($adminPassword, $email, $timezone)
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>$timezone,
-		'theme'=>'pure',
+		'theme'=>'log',
 		'adminTheme'=>'default',
 		'homepage'=>'',
 		'postsperpage'=>'6',

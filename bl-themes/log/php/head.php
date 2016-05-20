@@ -19,7 +19,7 @@
 // Add local Fonts Awesome
 Theme::fontAwesome();
 
-// Plugins for head
+// Load plugins, hook: Site head
 Theme::plugins('siteHead');
 
 ?>

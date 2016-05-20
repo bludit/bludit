@@ -11,20 +11,37 @@ a:hover {
 	border-bottom: 1px dotted rgba(160, 160, 160, 0.65)
 }
 
+h1, h2, h3, h4, h5, h6 {
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+#header {
+	background-color: #f7f7f7;
+	border-bottom: 0;
+}
+
 #header h1 {
 	font-size: 1.4em;
 	font-weight: lighter;
+}
+
+#header .links {
+	border-left: 0;
+}
+
+#header .main ul li {
+	border-left: 0;
+}
+
+#header .main ul li > a {
+	color: #2672ec;
 }
 
 header p {
 	text-transform: none;
 	letter-spacing: 0;
 	font-size: 0.9em;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	text-transform: none;
-	letter-spacing: 0;
 }
 
 #intro header h2 {
@@ -45,8 +62,13 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 1.3em;
 }
 
+.post > header .meta {
+	padding: 0.5em 3em 0.3em;
+	border-left: 0;
+}
+
 .post > header .title {
-	padding: 1.75em 3em 1.3em;
+	padding: 0.5em 3em 0.3em;
 }
 
 .post > header .title h1 {
@@ -55,9 +77,30 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 5px;
 }
 
+.post > footer .stats {
+	margin: 0;
+}
+
+.post > footer .actions {
+	margin: 0;
+}
+
+.author .name {
+	letter-spacing: 0.05em;
+}
+
 #sidebar {
 	margin-top: 2.2em;
 	min-width: 0;
+}
+
+.plugin {
+	font-size: 0.9em !important;
+}
+
+.plugin > h2 {
+	font-weight: normal !important;
+	text-transform: uppercase;
 }
 
 .plugin ul {
@@ -73,11 +116,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-left: 10px;
 }
 
-/* Just for Plugin tags */
+/* Only for Plugin tags */
 .plugin-tags li {
 	text-transform: capitalize;
-}
-
-img {
-	width: 100%;
 }
