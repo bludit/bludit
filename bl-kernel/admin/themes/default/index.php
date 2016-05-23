@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="<?php echo $Site->language() ?>">
 <head>
 	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
 	<meta charset="<?php echo CHARSET ?>">
@@ -43,8 +43,8 @@ $(document).ready(function() {
 		echo '$("#alert").slideDown().delay(3500).slideUp();';
 	}
 ?>
-	$("#alert").click(function() {
-		$(this).hide();
+	$(window).click(function() {
+		$("#alert").hide();
 	});
 });
 </script>
@@ -90,7 +90,7 @@ $(document).ready(function() {
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><i class="uk-icon-puzzle-piece"></i> <?php $L->p('Plugins') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><i class="uk-icon-paint-brush"></i> <?php $L->p('Themes') ?></a></li>
 
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><i class="uk-icon-info"></i> <?php $L->p('About') ?></a></li>
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><i class="uk-icon-support"></i> <?php $L->p('About') ?></a></li>
 				</ul>
 			</div>
 		</li>

@@ -222,12 +222,22 @@ define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS.
+
+// Depreacted, use THEME_DIR and THEME_DIR_XXX
 define('PATH_THEME',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
+
+define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
+define('THEME_DIR_PHP',			PATH_THEME.'php'.DS);
+define('THEME_DIR_CSS',			PATH_THEME.'css'.DS);
+define('THEME_DIR_JS',			PATH_THEME.'js'.DS);
+define('THEME_DIR_IMG',			PATH_THEME.'img'.DS);
+define('THEME_DIR_LANG',		PATH_THEME.'languages'.DS);
+
 
 // --- Absolute paths with domain ---
 // This paths are absolutes for the user / web browsing.

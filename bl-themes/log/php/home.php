@@ -1,4 +1,4 @@
-<!-- For each post on this page -->
+<!-- Show each post on this page -->
 <?php foreach ($posts as $Post): ?>
 
 <article class="post">
@@ -8,25 +8,21 @@
 
 	<!-- Post's header -->
 	<header>
-		<!-- Post's title and description -->
 		<div class="title">
-			<h2><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h2>
+			<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
 			<p><?php echo $Post->description() ?></p>
 		</div>
-
-		<!-- Post's date, author name and author avatar -->
 		<div class="meta">
-			<?php
-				// Post's username
-				$User = $Post->user();
+	                <?php
+	                	// Get the user who created the post.
+	                	$User = $Post->user();
 
+	                	// Default author is the username.
+	                	$author = $User->username();
+
+	                	// If the user complete the first name or last name this will be the author.
 				if( Text::isNotEmpty($User->firstName()) || Text::isNotEmpty($User->lastName()) ) {
-					// Author = First name and Last name
 					$author = $User->firstName().' '.$User->lastName();
-				}
-				else {
-					// Author = username
-					$author = $User->username();
 				}
 			?>
 			<time class="published" datetime="2015-11-01"><?php echo $Post->date() ?></time>
@@ -50,7 +46,7 @@
 		<!-- Read more button -->
 	        <?php if($Post->readMore()) { ?>
 		<ul class="actions">
-			<li><a href="<?php echo $Post->permalink() ?>" class="button big"><?php $Language->p('Read more') ?></a></li>
+			<li><a href="<?php echo $Post->permalink() ?>" class="button"><?php $Language->p('Read more') ?></a></li>
 		</ul>
 		<?php } ?>
 
@@ -66,7 +62,7 @@
 		</ul>
 	</footer>
 
-	<!-- Show plugins, Hook: Post End -->
+	<!-- Plugins Post End -->
 	<?php Theme::plugins('postEnd') ?>
 
 </article>

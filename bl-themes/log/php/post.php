@@ -1,6 +1,3 @@
-<!-- For each post on this page -->
-<?php foreach ($posts as $Post): ?>
-
 <article class="post">
 
 	<!-- Show plugins, Hook: Post Begin -->
@@ -8,25 +5,21 @@
 
 	<!-- Post's header -->
 	<header>
-		<!-- Post's title and description -->
 		<div class="title">
-			<h2><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h2>
+			<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
 			<p><?php echo $Post->description() ?></p>
 		</div>
-
-		<!-- Post's date, author name and author avatar -->
 		<div class="meta">
-			<?php
-				// Post's username
-				$User = $Post->user();
+	                <?php
+	                	// Get the user who created the post.
+	                	$User = $Post->user();
 
+	                	// Default author is the username.
+	                	$author = $User->username();
+
+	                	// If the user complete the first name or last name this will be the author.
 				if( Text::isNotEmpty($User->firstName()) || Text::isNotEmpty($User->lastName()) ) {
-					// Author = First name and Last name
 					$author = $User->firstName().' '.$User->lastName();
-				}
-				else {
-					// Author = username
-					$author = $User->username();
 				}
 			?>
 			<time class="published" datetime="2015-11-01"><?php echo $Post->date() ?></time>
@@ -42,17 +35,10 @@
 	?>
 
 	<!-- Post's content, the first part if has pagebrake -->
-	<?php echo $Post->content(false) ?>
+	<?php echo $Post->content() ?>
 
 	<!-- Post's footer -->
 	<footer>
-
-		<!-- Read more button -->
-	        <?php if($Post->readMore()) { ?>
-		<ul class="actions">
-			<li><a href="<?php echo $Post->permalink() ?>" class="button big"><?php $Language->p('Read more') ?></a></li>
-		</ul>
-		<?php } ?>
 
 		<!-- Post's tags -->
 		<ul class="stats">
@@ -70,18 +56,3 @@
 	<?php Theme::plugins('postEnd') ?>
 
 </article>
-
-<?php endforeach; ?>
-
-<!-- Pagination -->
-<ul class="actions pagination">
-<?php
-	if( Paginator::get('showNewer') ) {
-		echo '<li><a href="'.Paginator::urlPrevPage().'" class="button big previous">Previous Page</a></li>';
-	}
-
-	if( Paginator::get('showOlder') ) {
-		echo '<li><a href="'.Paginator::urlNextPage().'" class="button big next">Next Page</a></li>';
-	}
-?>
-</ul>
