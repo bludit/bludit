@@ -57,6 +57,10 @@ header p {
 	border: 0;
 }
 
+.post a {
+	color: #2672ec;
+}
+
 .post > header {
 	border-bottom-color: #F7F7F7;
 	margin-bottom: 1.3em;
@@ -75,6 +79,10 @@ header p {
 	font-size: 2em;
 	font-weight: normal;
 	margin-bottom: 5px;
+}
+
+.post > header .title h1 a {
+	color: #3c3b3b;
 }
 
 .post > footer .stats {
