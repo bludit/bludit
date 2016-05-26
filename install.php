@@ -26,6 +26,7 @@ define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
 
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
+define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
@@ -305,6 +306,12 @@ function install($adminPassword, $email, $timezone)
 	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_TMP, $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
 		error_log($errorText, 0);
 	}
 
