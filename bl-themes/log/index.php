@@ -33,17 +33,20 @@
 			<!-- Links -->
 			<section>
 				<ul class="links">
-				<?php
-					$parents = $pagesParents[NO_PARENT_CHAR];
-					foreach($parents as $Parent) {
-						echo '<li>';
-						echo '<a href="'.$Parent->permalink().'">
-							<h3>'.$Parent->title().'</h3>
-							<p>'.$Parent->description().'</p>
-						</a>';
-						echo '</li>';
-					}
-				?>
+					<?php
+								$parents = $pagesParents[NO_PARENT_CHAR];
+								foreach($parents as $Parent) {
+								// Check if the parent is published
+								if( $Parent->published() )
+								{
+								echo '<li>';
+								echo '<a href="'.$Parent->permalink().'">
+								<h3>'.$Parent->title().'</h3>
+								<p>'.$Parent->description().'</p>
+								</a>';
+								echo '</li>';
+								}}
+						?>
 				</ul>
 			</section>
 
