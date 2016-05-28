@@ -68,6 +68,11 @@ header p {
 	font-size: 0.9em;
 }
 
+#menu .links > li a h3 {
+	font-size: 1em;
+	margin-bottom: 0;
+}
+
 #intro header h2 {
 	font-weight: lighter;
 	margin-bottom: 0;
@@ -115,6 +120,10 @@ header p {
 
 .post > footer .actions {
 	margin: 0;
+}
+
+blockquote p {
+	margin: 10px;
 }
 
 .author .name {

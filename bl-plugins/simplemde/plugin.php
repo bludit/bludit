@@ -63,10 +63,10 @@ class pluginsimpleMDE extends Plugin {
 
 			// Hack for Bludit
 			$html .= '<style>
-					.editor-toolbar { background: #f1f1f1; }
+					.editor-toolbar { background: #f1f1f1; border-radius: 0 !important; }
 					.editor-toolbar::before { margin-bottom: 2px !important }
 					.editor-toolbar::after { margin-top: 2px !important }
-					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; }
+					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; border-radius: 0 !important; }
 				</style>';
 
 		}

@@ -94,6 +94,52 @@ li.bludit-logo {
 	padding-right: 60px !important;
 }
 
+@media (min-width: 333px) and (max-width: 959px) {
+	/* Hidden the Welcome USERNAME */
+	.uk-navbar-flip {
+		display: none !important;
+	}
+
+	/* Expand and hidden the sidebar */
+	.uk-width-large-8-10 {
+		width: 100% !important;
+	}
+	/* Hidden the sidebar */
+	.uk-width-large-2-10 {
+		width: 0% !important;
+		display: none !important;
+	}
+}
+
+@media (min-width: 960px) {
+	.uk-width-large-4-5,
+	.uk-width-large-8-10 {
+		width: 75% !important;
+	}
+
+	.uk-width-large-1-5,
+	.uk-width-large-2-10 {
+		width: 25% !important;
+	}
+}
+
+/* UIKIT HACKs hidden navbar
+---------------------------------------------------------------- */
+
+.uk-navbar-brand {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-navbar-toggle {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-nav-offcanvas > li > a {
+	color: #fff !important;
+}
+
 /* UIKIT HACKs buttons
 ---------------------------------------------------------------- */
 .uk-button {
@@ -163,16 +209,6 @@ a {
 
 .uk-container {
 	max-width: 1280px !important;
-}
-
-.uk-width-large-4-5,
-.uk-width-large-8-10 {
-	width: 75% !important;
-}
-
-.uk-width-large-1-5,
-.uk-width-large-2-10 {
-	width: 25% !important;
 }
 
 .uk-thumbnail {
