@@ -1,6 +1,10 @@
 /* ----------- UIKIT HACKs FOR BLUDIT ----------- */
 html {
-	background: #f1f1f1;
+	background: #F7F7F7;
+}
+
+.uk-form * {
+	border-radius: 2px !important;
 }
 
 .uk-button-primary {
@@ -13,8 +17,9 @@ html {
 
 input[type="text"],
 input[type="password"] {
-	border-color: #FFF !important;
-	background: #FFF;
+	border-color: #EBEBEB !important;
+	border-radius: 2px !important;
+	color: #333;
 }
 
 input:disabled {
@@ -22,7 +27,7 @@ input:disabled {
 }
 
 .uk-vertical-align-middle {
-	margin-top: -100px;
+	margin-top: -150px;
 }
 
 .uk-panel {

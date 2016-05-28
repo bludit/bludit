@@ -140,6 +140,11 @@ legend.first-child {
 	padding: 15px 10px;
 }
 
+.uk-table td.children {
+	padding: 15px 10px 15px 25px;
+}
+
+
 .uk-badge {
 	margin-right: 5px !important;
 	font-size: 0.9em;
@@ -153,6 +158,7 @@ a {
 
 .uk-panel-box {
 	background: #F9F9F9 !important;
+	border: 0;
 }
 
 .uk-container {

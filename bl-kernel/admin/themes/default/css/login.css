@@ -1,6 +1,6 @@
 /* ----------- UIKIT HACKs FOR BLUDIT ----------- */
 html {
-	background: #f3f3f3;
+	background: #F7F7F7;
 }
 
 * {
@@ -17,8 +17,9 @@ html {
 
 input[type="text"],
 input[type="password"] {
-	border-color: #FFF !important;
+	border-color: #EBEBEB !important;
 	border-radius: 2px !important;
+	color: #333;
 }
 
 .uk-alert {
@@ -49,7 +50,7 @@ div.login-form > h2 {
 }
 
 a.login-email {
-	border: 1px solid #eeeeee;
+	border: 0;
 	color: #777;
 	display: block;
 	margin: 20px 0;

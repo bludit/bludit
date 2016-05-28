@@ -16,6 +16,30 @@ h1, h2, h3, h4, h5, h6 {
 	letter-spacing: 0;
 }
 
+h1 {
+	font-size: 1.5em;
+}
+
+h2 {
+	font-size: 1.4em;
+}
+
+h3 {
+	font-size: 1.3em;
+}
+
+h4 {
+	font-size: 1.2em;
+}
+
+h5 {
+	font-size: 1.1em;
+}
+
+h6 {
+	font-size: 1em;
+}
+
 #header {
 	background-color: #f7f7f7;
 	border-bottom: 0;
@@ -57,6 +81,10 @@ header p {
 	border: 0;
 }
 
+.post a {
+	color: #2672ec;
+}
+
 .post > header {
 	border-bottom-color: #F7F7F7;
 	margin-bottom: 1.3em;
@@ -75,6 +103,10 @@ header p {
 	font-size: 2em;
 	font-weight: normal;
 	margin-bottom: 5px;
+}
+
+.post > header .title h1 a {
+	color: #3c3b3b;
 }
 
 .post > footer .stats {
