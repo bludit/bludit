@@ -7,20 +7,33 @@
 // Array with all pages.
 $pages = array();
 
+$pagesPublished = array();
+
 // Array with all pages, order by parent.
 $pagesParents = array(NO_PARENT_CHAR=>array());
+
+$pagesParentsPublished = array();
 
 // ============================================================================
 // Functions
 // ============================================================================
 
-function sortPages($a, $b)
+function sortPages2($a, $b)
 {
 	if ($a->position() == $b->position()) {
 	    return 0;
 	}
 
 	return ($a->position() < $b->position()) ? -1 : 1;
+}
+
+function sortPages($a, $b)
+{
+	if ($a['position'] == $b['position']) {
+	    return 0;
+	}
+
+	return ($a['position'] < $b['position']) ? -1 : 1;
 }
 
 function buildPage($key)
@@ -81,14 +94,21 @@ function buildPage($key)
 function buildAllPages()
 {
 	global $pagesParents;
+	global $pagesParentsPublished;
+	global $pagesPublished;
 	global $dbPages;
 
+	// Get the page list
 	$list = $dbPages->getDB();
 
 	// Clean pages array.
 	$pages = array();
 
+	// Remove the error page
 	unset($list['error']);
+
+	// Sorte pages
+	uasort($list, 'sortPages');
 
 	foreach($list as $key=>$db)
 	{
@@ -96,47 +116,39 @@ function buildAllPages()
 
 		if($Page!==false)
 		{
-			// --- Order pages by parents ---
+			// Filter pages, with and without parent
 
-			// Generate all posible parents.
-			if( $Page->parentKey()===false )
-			{
+			// If the page doesn't have a father, it's a parent page :P
+			if( $Page->parentKey()===false ) {
 				// Add the parent key in the dbPages
 				$dbPages->addParentKey($Page->key());
 
+				// Add the page as a parent page in the array
 				$pagesParents[NO_PARENT_CHAR][$Page->key()] = $Page;
+
+				// If the page is published
+				if($Page->published()) {
+					$pagesParentsPublished[NO_PARENT_CHAR][$Page->key()] = $Page;
+				}
 			}
-			else
-			{
+			else {
 				$pagesParents[$Page->parentKey()][$Page->key()] = $Page;
+
+				// If the page is published
+				if($Page->published()) {
+					$pagesParentsPublished[$Page->parentKey()][$Page->key()] = $Page;
+				}
 			}
 
-			// --- All pages in 1 array ---
+			// All pages in one array
 			$pages[$Page->key()] = $Page;
+
+			// If the page is published
+			if($Page->published()) {
+				$pagesPublished[$Page->parentKey()][$Page->key()] = $Page;
+			}
 		}
 	}
-
-	// --- SORT PAGES ---
-
-	// Sort parents.
-	$parents = $pagesParents[NO_PARENT_CHAR];
-	uasort($parents, 'sortPages');
-
-	// Sort children.
-	unset($pagesParents[NO_PARENT_CHAR]);
-	$children = $pagesParents;
-	$tmpPageWithParent = array();
-	foreach($children as $parentKey=>$childrenPages)
-	{
-		// If the child doesn't have a valid parent, then doesn't included them.
-		if(isset($pages[$parentKey]))
-		{
-			$tmpPageWithParent[$parentKey] = $childrenPages;
-			uasort($tmpPageWithParent[$parentKey], 'sortPages');
-		}
-	}
-
-	$pagesParents = array(NO_PARENT_CHAR=>$parents) + $tmpPageWithParent;
 
 	return $pages;
 }
@@ -193,3 +205,4 @@ if($Url->notFound())
 
 // Build all pages
 $pages = buildAllPages();
+

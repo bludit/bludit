@@ -13,7 +13,7 @@
 			<nav class="links">
 				<ul>
 				<?php
-					$parents = $pagesParents[NO_PARENT_CHAR];
+					$parents = $pagesParentsPublished[NO_PARENT_CHAR];
 					foreach($parents as $Parent) {
 						echo '<li><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li>';
 					}

@@ -7,7 +7,6 @@
 	<header>
 		<div class="title">
 			<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
-			<p><?php echo $Post->description() ?></p>
 		</div>
 		<div class="meta">
 	                <?php
