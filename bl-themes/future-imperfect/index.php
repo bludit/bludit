@@ -26,6 +26,9 @@ MIT license
 				<?php
 					$parents = $pagesParents[NO_PARENT_CHAR];
 					foreach($parents as $Parent) {
+					// Check if the parent is published
+                                		if( $Parent->published() )
+                            			{  
 						echo '<li><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li>';
 					}
 				?>
