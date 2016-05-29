@@ -28,4 +28,15 @@ class Post extends Content {
 	{
 		return ($this->getField('status')==='scheduled');
 	}
+
+	public function json()
+	{
+		$tmp['key'] 		= $this->key();
+		$tmp['title'] 		= $this->title();
+		$tmp['content'] 	= $this->content(); // Markdown parsed
+		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed
+		$tmp['description'] 	= $this->description();
+
+		return json_encode($tmp);
+	}
 }

@@ -142,6 +142,9 @@ include(PATH_KERNEL.'parsedown.class.php');
 include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
 
+// Include functions
+include(PATH_KERNEL.'functions.php');
+
 // Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');
 include(PATH_HELPERS.'log.class.php');
