@@ -154,7 +154,7 @@ blockquote p {
 }
 
 .plugin-pages ul.children {
-	margin-left: 10px;
+	margin: 0 0 0 10px;
 }
 
 /* Only for Plugin tags */

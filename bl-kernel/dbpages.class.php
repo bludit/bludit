@@ -12,9 +12,9 @@ class dbPages extends dbJSON
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'),
 		'date'=>		array('inFile'=>false,	'value'=>''),
+		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
-		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'checksum'=>		array('inFile'=>false,	'value'=>'')
+		'coverImage'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -76,10 +76,6 @@ class dbPages extends dbJSON
 			}
 		}
 
-		// Create Hash
-		$serialize = serialize($dataForDb+$dataForFile);
-		$dataForDb['checksum'] = sha1($serialize);
-
 		// Make the directory. Recursive.
 		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
@@ -124,6 +120,9 @@ class dbPages extends dbJSON
 			$args['date'] = $this->db[$args['key']]['date'];
 		}
 
+		// Modified date
+		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
@@ -161,10 +160,6 @@ class dbPages extends dbJSON
 				$dataForDb[$field] = $tmpValue;
 			}
 		}
-
-		// Create Hash
-		$serialize = serialize($dataForDb+$dataForFile);
-		$dataForDb['checksum'] = sha1($serialize);
 
 		// Move the directory from old key to new key.
 		if($newKey!==$args['key'])

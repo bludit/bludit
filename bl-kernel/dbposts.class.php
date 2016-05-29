@@ -11,8 +11,8 @@ class dbPosts extends dbJSON
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'allowComments'=>	array('inFile'=>false,	'value'=>0),
 		'date'=>		array('inFile'=>false,	'value'=>''),
-		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'checksum'=>		array('inFile'=>false,	'value'=>'')
+		'dateModified'=>	array('inFile'=>false,	'value'=>''),
+		'coverImage'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	private $numberPosts = array(
@@ -160,10 +160,6 @@ class dbPosts extends dbJSON
 			}
 		}
 
-		// Create Hash
-		$serialize = serialize($dataForDb+$dataForFile);
-		$dataForDb['checksum'] = sha1($serialize);
-
 		// Make the directory.
 		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_POSTS.$key);
@@ -194,6 +190,10 @@ class dbPosts extends dbJSON
 	public function edit($args)
 	{
 		if( $this->delete($args['key']) ) {
+
+			// Modified date
+			$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+
 			return $this->add($args);
 		}
 
