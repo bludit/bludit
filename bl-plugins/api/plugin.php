@@ -2,7 +2,37 @@
 
 class pluginAPI extends Plugin {
 
-	public function getPost($key)
+	public function init()
+	{
+		$this->dbFields = array(
+			'ping'=>false
+		);
+	}
+
+	public function form()
+	{
+		$html  = '<div>';
+		$html .= '<input name="ping" id="jsping" type="checkbox" value="true" '.($this->getDbField('ping')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsping">Ping Bludit.com</label>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public function afterFormSave()
+	{
+		$this->ping();
+	}
+
+	private function ping()
+	{
+		if($this->getDbField('ping')) {
+			// Just a request HTTP with the website URL
+			Log::set( file_get_contents('https://www.bludit.com/api.php') );
+		}
+	}
+
+	private function getPost($key)
 	{
 		// Generate the object Post
 		$Post = buildPost($key);
@@ -18,7 +48,7 @@ class pluginAPI extends Plugin {
 		return $Post->json();
 	}
 
-	public function getPage($key)
+	private function getPage($key)
 	{
 		// Generate the object Page
 		$Page = buildPage($key);
@@ -53,6 +83,8 @@ class pluginAPI extends Plugin {
 		// ------------------------------------------------------------
 		// show post {post slug}
 		// show page {page slug}
+		// show all posts
+		// show all pages
 
 		// Get parameters
 		$parameters = explode('/', $URI);

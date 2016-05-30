@@ -55,6 +55,7 @@ class Page extends Content {
 		return false;
 	}
 
+	// Returns an array with all children's key
 	public function children()
 	{
 		$tmp = array();

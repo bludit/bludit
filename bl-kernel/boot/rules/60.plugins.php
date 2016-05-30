@@ -25,6 +25,7 @@ $plugins = array(
 	'afterAdminLoad'=>array(),
 
 	'beforeRulesLoad'=>array(),
+	'afterFormSave'=>array(),
 
 	'afterPostCreate'=>array(),
 	'afterPostModify'=>array(),
