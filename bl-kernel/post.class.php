@@ -13,11 +13,7 @@ class Post extends Content {
 		parent::__construct(PATH_POSTS.$key.DS);
 	}
 
-	public function key()
-	{
-		return $this->getField('key');
-	}
-
+	// Returns the post slug
 	public function slug()
 	{
 		return $this->getField('key');
@@ -29,14 +25,4 @@ class Post extends Content {
 		return ($this->getField('status')==='scheduled');
 	}
 
-	public function json()
-	{
-		$tmp['key'] 		= $this->key();
-		$tmp['title'] 		= $this->title();
-		$tmp['content'] 	= $this->content(); // Markdown parsed
-		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed
-		$tmp['description'] 	= $this->description();
-
-		return json_encode($tmp);
-	}
 }

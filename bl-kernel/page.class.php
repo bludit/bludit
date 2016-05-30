@@ -13,13 +13,13 @@ class Page extends Content {
 		parent::__construct(PATH_PAGES.$key.DS);
 	}
 
-	// Returns the page position.
+	// Returns the page position
 	public function position()
 	{
 		return $this->getField('position');
 	}
 
-	// Returns the page slug.
+	// Returns the page slug
 	public function slug()
 	{
 		$explode = explode('/', $this->getField('key'));
@@ -32,7 +32,7 @@ class Page extends Content {
 		return $explode[0];
 	}
 
-	// Returns the parent key, if the page doesn't have a parent returns FALSE.
+	// Returns the parent key, if the page doesn't have a parent returns FALSE
 	public function parentKey()
 	{
 		$explode = explode('/', $this->getField('key'));
@@ -43,7 +43,7 @@ class Page extends Content {
 		return false;
 	}
 
-	// Returns the parent method output, if the page doesn't have a parent returns FALSE.
+	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
 		global $pages;
@@ -67,14 +67,4 @@ class Page extends Content {
 		return $tmp;
 	}
 
-	public function json()
-	{
-		$tmp['key'] 		= $this->key();
-		$tmp['title'] 		= $this->title();
-		$tmp['content'] 	= $this->content(); // Markdown parsed
-		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed
-		$tmp['description'] 	= $this->description();
-
-		return json_encode($tmp);
-	}
 }

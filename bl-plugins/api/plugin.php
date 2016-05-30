@@ -27,7 +27,7 @@ class pluginAPI extends Plugin {
 			return json_encode(array(
 				'status'=>'0',
 				'bludit'=>'Bludit API plugin',
-				'message'=>'The post doesn\'t exist'
+				'message'=>'The page doesn\'t exist'
 			));
 		}
 
@@ -57,7 +57,7 @@ class pluginAPI extends Plugin {
 		// Get parameters
 		$parameters = explode('/', $URI);
 
-		// Check parameters
+		// Check parameters are sended
 		for($i=0; $i<3; $i++) {
 			if(empty($parameters[$i])) {
 				return false;
