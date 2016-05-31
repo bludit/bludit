@@ -200,7 +200,7 @@
 	"view-and-edit-your-profile": "Преглед и редактиране на профила ви.",
 
 	"password-must-be-at-least-6-characters-long": "Паролата трябва да е с дължина най-малко 6 символа",
-	"images": "Изображения",
+	"images":"Изображения",
 	"upload-image": "Прикачи изображение",
 	"drag-and-drop-or-click-here": "Влачите и пускате или натиснете тук",
 	"insert-image": "Вмъкни изображение",
@@ -232,6 +232,10 @@
 	"click-on-the-image-for-options": "Кликнете върху изображението за опции.",
 	"set-as-cover-image": "Задай като обложка ",
 	"delete-image": "Изтрий изображенито",
-	"image-description": "Описание на изображението "
+	"image-description": "Описание на изображението ",
+	"social-networks-links": "Социалните мрежи",
+
+	"email-access-code": "Имейл код за достъп",
+	"current-format": "Текущ формат"
 }
 
