@@ -8,6 +8,7 @@
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://clickwork.ch"
 	},
+	
 	"username": "Benutzername",
 	"password": "Passwort",
 	"confirm-password": "Passwort wiederholen",
