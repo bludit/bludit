@@ -90,8 +90,15 @@ li.bludit-logo {
 }
 
 .bludit-user-navbar {
-	text-align: right !important;
-	padding-right: 60px !important;
+    background: #333 none repeat scroll 0 0;
+    border-color: #ccc;
+    border-radius: 0 0 5px 5px !important;
+    color: #fff;
+    position: absolute;
+}
+
+.bludit-user-navbar a {
+	color: #fff !important;
 }
 
 @media (min-width: 333px) and (max-width: 959px) {
