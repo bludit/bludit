@@ -5,16 +5,24 @@ class pluginAPI extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'ping'=>false
+			'ping'=>false,
+			'authKey'=>''
 		);
 	}
 
 	public function form()
 	{
-		$html  = '<div>';
+		$html = '';
+
+		$html .= '<div>';
+		$html .= '<p>Authorization Key: '.$this->getDbField('authKey').'</p>';
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<input name="ping" id="jsping" type="checkbox" value="true" '.($this->getDbField('ping')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsping">Ping Bludit.com</label>';
 		$html .= '</div>';
+
 
 		return $html;
 	}
