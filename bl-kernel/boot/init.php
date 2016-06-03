@@ -115,7 +115,7 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 define('CHARSET', 'UTF-8');
 
 // EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
-define('EXTREME_FRIENDLY_URL', true);
+define('EXTREME_FRIENDLY_URL', false);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
