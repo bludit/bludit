@@ -158,10 +158,6 @@ blockquote p {
 	min-width: 0;
 }
 
-.plugin {
-	font-size: 0.9em !important;
-}
-
 .plugin > h2 {
 	font-weight: normal !important;
 	text-transform: uppercase;

@@ -40,15 +40,15 @@ if($type=='profilePicture')
 	$username = Sanitize::html($_POST['username']);
 	$tmpName = $username.'.png';
 	$Image = new Image();
-	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, '400', '400', 'crop');
-	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, 100, false, true);
+	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, PROFILE_WIDTH, PROFILE_HEIGHT, 'crop');
+	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, PROFILE_IMG_QUALITY, false, true);
 }
 // --- OTHERS ---
 else {
 	// Generate the thumbnail
 	$Image = new Image();
 	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, THUMBNAILS_WIDTH, THUMBNAILS_HEIGHT, 'crop');
-	$Image->saveImage(PATH_UPLOADS_THUMBNAILS.$tmpName, 100, true);
+	$Image->saveImage(PATH_UPLOADS_THUMBNAILS.$tmpName, THUMBNAILS_QUALITY, true);
 
 	// Move the original to the upload folder.
 	rename(PATH_TMP.'original'.'.'.$fileExtension, PATH_UPLOADS.$tmpName);

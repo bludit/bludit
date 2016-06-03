@@ -65,12 +65,20 @@ define('ALERT_STATUS_OK', 0);
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
 
-// Salt length
-define('THUMBNAILS_WIDTH', 400);
-define('THUMBNAILS_HEIGHT', 400);
+// Amount of thumbnails shown on Bludit Quick images
 define('THUMBNAILS_AMOUNT', 6);
 
-// Salt length
+// Thubmnails size
+define('THUMBNAILS_WIDTH', 400);
+define('THUMBNAILS_HEIGHT', 400);
+define('THUMBNAILS_QUALITY', 100); // 100%
+
+// Profile image size
+define('PROFILE_IMG_WIDTH', 400);
+define('PROFILE_IMG_HEIGHT', 400);
+define('PROFILE_IMG_QUALITY', 100); // 100%
+
+// Password salt length
 define('SALT_LENGTH', 8);
 
 // Page brake string
@@ -105,6 +113,9 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
+define('EXTREME_FRIENDLY_URL', true);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
