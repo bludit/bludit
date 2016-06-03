@@ -73,11 +73,11 @@
 <ul class="actions pagination">
 <?php
 	if( Paginator::get('showNewer') ) {
-		echo '<li><a href="'.Paginator::urlPrevPage().'" class="button big previous">Previous Page</a></li>';
+		echo '<li><a href="'.Paginator::urlPrevPage().'" class="button big previous">'.$Language->get('Prev page').'</a></li>';
 	}
 
 	if( Paginator::get('showOlder') ) {
-		echo '<li><a href="'.Paginator::urlNextPage().'" class="button big next">Next Page</a></li>';
+		echo '<li><a href="'.Paginator::urlNextPage().'" class="button big next">'.$Language->get('Next page').'</a></li>';
 	}
 ?>
 </ul>
