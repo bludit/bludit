@@ -7,7 +7,7 @@ Bludit is a simple web application to make your own **blog** or **site** in seco
 - [Documentation](https://docs.bludit.com)
 - [Help and Support](https://forum.bludit.com)
 - [Plugins](https://plugins.bludit.com)
-- [Themes](https://github.com/dignajar/bludit-themes)
+- [Themes](https://themes.bludit.com)
 - [More plugins and themes](https://forum.bludit.com/viewforum.php?f=14)
 
 Social networks

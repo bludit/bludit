@@ -5,7 +5,7 @@ class pluginPages extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'homeLink'=>true,
+			'homeLink'=>1,
 			'label'=>'Pages'
 		);
 	}
@@ -20,7 +20,8 @@ class pluginPages extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="true" '.($this->getDbField('homeLink')?'checked':'').'>';
+		$html .= '<input type="hidden" name="homeLink" value="0">';
+		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="1" '.($this->getDbField('homeLink')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
 		$html .= '</div>';
 

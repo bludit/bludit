@@ -288,7 +288,7 @@ class Content {
 		return '/'.$htmlPath.'/'.$tmp;
 	}
 
-	public function json()
+	public function json($returnsArray=false)
 	{
 		$tmp['key'] 		= $this->key();
 		$tmp['title'] 		= $this->title();
@@ -297,6 +297,10 @@ class Content {
 		$tmp['description'] 	= $this->description();
 		$tmp['date'] 		= $this->dateRaw();
 		$tmp['permalink'] 	= $this->permalink(true);
+
+		if($returnsArray) {
+			return $tmp;
+		}
 
 		return json_encode($tmp);
 	}

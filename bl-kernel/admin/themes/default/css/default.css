@@ -658,3 +658,7 @@ div.plugin-links > span.separator {
 	margin-bottom: 0px !important;
 	display: inline-block;
 }
+
+#jsformplugin p {
+	margin-bottom: 0;
+}

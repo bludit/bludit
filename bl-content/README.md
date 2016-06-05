@@ -1,3 +1,0 @@
-# varlogdiego
-
-tes

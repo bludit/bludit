@@ -14,6 +14,14 @@ class Security extends dbJSON
 		parent::__construct(PATH_DATABASES.'security.php');
 	}
 
+	// Authentication key
+	// --------------------------------------------------------------------
+	public function key1()
+	{
+		return $this->db['key1'];
+	}
+
+
 	// ====================================================
 	// TOKEN FOR CSRF
 	// ====================================================

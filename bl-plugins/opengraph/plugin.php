@@ -9,14 +9,6 @@ class pluginOpenGraph extends Plugin {
 		$dom->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8">'.$content);
 		$finder = new DomXPath($dom);
 
-		/* DEPRECATED
-		$images = $finder->query("//img[contains(@class, 'bludit-img-opengraph')]");
-
-		if($images->length==0) {
-			$images = $finder->query("//img");
-		}
-		*/
-
 		$images = $finder->query("//img");
 
 		if($images->length>0)
