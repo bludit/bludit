@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
-Future Imperfect by HTML5 UP
-html5up.net | @n33co
+Imperfect by KreativMind
+kreativmind.co | KreativMind
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 
 Bludit CMS
@@ -10,6 +10,24 @@ MIT license
 -->
 <html>
 <head>
+<!-- Include favicon files here -->
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 <!-- Include HTML meta tags -->
 <?php include(PATH_THEME_PHP.'head.php') ?>
 </head>
@@ -23,12 +41,20 @@ MIT license
 			<h1><a href="<?php echo $Site->url() ?>"><?php echo $Site->title() ?></a></h1>
 			<nav class="links">
 				<ul>
-				<?php
-					$parents = $pagesParents[NO_PARENT_CHAR];
-					foreach($parents as $Parent) {
-						echo '<li><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li>';
+				<?php $parents = $pagesParents[NO_PARENT_CHAR];
+				foreach($parents as $Parent)
+				{
+					// Check if the parent is published
+					if( $Parent->published() )
+					{
+						echo '<li>';
+						echo '<a href="'.$Parent->permalink().'">
+                            				<h3>'.$Parent->title().'</h3>
+                           				 <p>'.$Parent->description().'</p>
+                        			</a>';
+						echo '</li>';
 					}
-				?>
+				} ?>
 				</ul>
 			</nav>
 			<nav class="main">

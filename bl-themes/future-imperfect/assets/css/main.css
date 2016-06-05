@@ -1407,7 +1407,7 @@
 	}
 
 	body {
-		background: #f4f4f4;
+		background: #ffffff;
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -3249,7 +3249,7 @@
 	}
 
 		#intro .logo:before {
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100px' height='100px' viewBox='0 0 100 100' preserveAspectRatio='none' zoomAndPan='disable'%3E%3Cpolygon points='0,0 100,0 100,25 50,0 0,25' style='fill:%23f4f4f4' /%3E%3Cpolygon points='0,100 100,100 100,75 50,100 0,75' style='fill:%23f4f4f4' /%3E%3C/svg%3E");
+			background-image: src("/bl-themes/future-imperfect/img/logo.png");
 			background-position: top left;
 			background-repeat: no-repeat;
 			background-size: 100% 100%;
@@ -3264,8 +3264,8 @@
 
 		#intro .logo img {
 			display: block;
-			margin-left: -0.25em;
-			width: 4.5em;
+			margin-left: 0em;
+			width: 4.0em;
 		}
 
 	#intro header h2 {
