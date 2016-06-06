@@ -91,7 +91,7 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 define('POSTS_PER_PAGE_ADMIN', 10);
 
 // Cli mode status for new posts/pages
-define('CLI_MODE', true);
+define('CLI_MODE', false);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
@@ -115,7 +115,7 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 define('CHARSET', 'UTF-8');
 
 // EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
-define('EXTREME_FRIENDLY_URL', false);
+define('EXTREME_FRIENDLY_URL', true);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
