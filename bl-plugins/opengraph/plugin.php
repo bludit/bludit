@@ -86,7 +86,7 @@ class pluginOpenGraph extends Plugin {
 			// Get the image from the content
 			$src = $this->getImage( $content );
 			if($src!==false) {
-				$html .= '<meta property="og:image" content="'.$urlImage.$og['image'].'">'.PHP_EOL;
+				$html .= '<meta property="og:image" content="'.$urlImage.str_replace(HTML_PATH_UPLOADS,'',$src).'">'.PHP_EOL;
 			}
 		}
 		else
