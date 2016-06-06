@@ -117,6 +117,21 @@ class pluginAPI extends Plugin {
 		return $Page->json();
 	}
 
+	private function getAllPages()
+	{
+		$pages = buildAllPages();
+
+		$tmp = array();
+
+		foreach($pages as $Page) {
+			if($Page->published()) {
+				array_push($tmp, $Page->json( $returnsArray=true ));
+			}
+		}
+
+		return json_encode($tmp);
+	}
+
 	public function beforeRulesLoad()
 	{
 		global $Url;
@@ -171,8 +186,8 @@ class pluginAPI extends Plugin {
 					if($parameters[2] === 'posts') {
 						$json = $this->getAllPosts();
 					}
-					elseif($parameters[1] === 'pages') {
-						$json = $this->getAllPosts();
+					elseif($parameters[2] === 'pages') {
+						$json = $this->getAllPages();
 					}
 				}
 			}
