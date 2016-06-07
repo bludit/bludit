@@ -2,7 +2,7 @@
 
 class pluginOpenGraph extends Plugin {
 
-	// Returns the first image that is in the content
+	// Returns the first image from the HTML content
 	private function getImage($content)
 	{
 		$dom = new DOMDocument();
@@ -41,6 +41,7 @@ class pluginOpenGraph extends Plugin {
 
 		switch($Url->whereAmI())
 		{
+			// The user filter by post
 			case 'post':
 				$og['type']		= 'article';
 				$og['title']		= $Post->title().' | '.$og['title'];
@@ -51,6 +52,7 @@ class pluginOpenGraph extends Plugin {
 				$content = $Post->content();
 				break;
 
+			// The user filter by page
 			case 'page':
 				$og['type']		= 'article';
 				$og['title']		= $Page->title().' | '.$og['title'];
@@ -61,7 +63,9 @@ class pluginOpenGraph extends Plugin {
 				$content = $Page->content();
 				break;
 
+			// The user is in the homepage
 			default:
+				// The image it's from the first post
 				if(isset($posts[0])) {
 					$og['image'] = $posts[0]->coverImage(false);
 					$content = $posts[0]->content();
@@ -77,21 +81,18 @@ class pluginOpenGraph extends Plugin {
 		$html .= '<meta property="og:url" content="'.$og['url'].'">'.PHP_EOL;
 		$html .= '<meta property="og:siteName" content="'.$og['siteName'].'">'.PHP_EOL;
 
-		$domain = trim($Site->domain(),'/');
-		$urlImage = $domain.HTML_PATH_UPLOADS;
+		// If the post o page doesn't have a coverImage try to get an image from the HTML content
+		if($og['image']===false) {
 
-		// If the post o page doesn't have a coverImage try to get it from the content
-		if($og['image']===false)
-		{
 			// Get the image from the content
 			$src = $this->getImage( $content );
+
 			if($src!==false) {
-				$html .= '<meta property="og:image" content="'.$urlImage.str_replace(HTML_PATH_UPLOADS,'',$src).'">'.PHP_EOL;
+				$html .= '<meta property="og:image" content="'.DOMAIN.$src.'">'.PHP_EOL;
 			}
 		}
-		else
-		{
-			$html .= '<meta property="og:image" content="'.$urlImage.$og['image'].'">'.PHP_EOL;
+		else {
+			$html .= '<meta property="og:image" content="'.DOMAIN_UPLOADS.$og['image'].'">'.PHP_EOL;
 		}
 
 		return $html;
