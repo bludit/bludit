@@ -48,7 +48,7 @@ class dbLanguage extends dbJSON
 			return $this->db[$key];
 		}
 
-		return '';
+		return $string;
 	}
 
 	// Returns translation.
