@@ -23,17 +23,27 @@ class dbPosts extends dbJSON
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
-
-		$this->numberPosts['total'] = count($this->db);
 	}
 
+	// Return the amount of posts
+	// $total = TRUE, returns the total of posts
+	// $total = FALSE, return the amount of published posts
 	public function numberPost($total=false)
 	{
+		// Amount of posts, published, scheduled and draft
 		if($total) {
-			return $this->numberPosts['total'];
+			return count($this->db);
 		}
 
-		return $this->numberPosts['published'];
+		// Amount of published posts
+		$i = 0;
+		foreach($this->db as $values) {
+			if($values['status']=='published') {
+				$i++;
+			}
+		}
+
+		return $i;
 	}
 
 	// Returns the database
@@ -232,12 +242,12 @@ class dbPosts extends dbJSON
 	// Returns an array with a list of posts keys, filtered by a page number.
 	public function getList($pageNumber, $postPerPage, $removeUnpublished=true)
 	{
-		$totalPosts = $this->numberPosts['total'];
+		$totalPosts = $this->numberPost(true);
 
 		// Remove the unpublished posts.
 		if($removeUnpublished) {
 			$this->removeUnpublished();
-			$totalPosts = $this->numberPosts['published'];
+			$totalPosts = $this->numberPost(true);
 		}
 
 		$init = (int) $postPerPage * $pageNumber;
@@ -247,7 +257,7 @@ class dbPosts extends dbJSON
 		if(!$outrange) {
 			$tmp = array_slice($this->db, $init, $postPerPage, true);
 
-			// Restore the database because we delete the unpublished posts.
+			// Restore the database because we deleted the unpublished posts.
 			$this->restoreDB();
 
 			return $tmp;
@@ -302,14 +312,11 @@ class dbPosts extends dbJSON
 	// Remove unpublished posts, status != published.
 	public function removeUnpublished()
 	{
-		foreach($this->db as $key=>$values)
-		{
+		foreach($this->db as $key=>$values) {
 			if($values['status']!='published') {
 				unset($this->db[$key]);
 			}
 		}
-
-		$this->numberPosts['published'] = count($this->db);
 
 		return true;
 	}
