@@ -40,7 +40,7 @@ if($type=='profilePicture')
 	$username = Sanitize::html($_POST['username']);
 	$tmpName = $username.'.png';
 	$Image = new Image();
-	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, PROFILE_WIDTH, PROFILE_HEIGHT, 'crop');
+	$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'crop');
 	$Image->saveImage(PATH_UPLOADS_PROFILES.$tmpName, PROFILE_IMG_QUALITY, false, true);
 }
 // --- OTHERS ---
