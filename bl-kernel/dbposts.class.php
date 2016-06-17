@@ -15,11 +15,6 @@ class dbPosts extends dbJSON
 		'coverImage'=>		array('inFile'=>false,	'value'=>'')
 	);
 
-	private $numberPosts = array(
-		'total'=>0,
-		'published'=>0
-	);
-
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
