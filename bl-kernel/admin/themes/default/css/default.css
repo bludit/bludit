@@ -282,14 +282,14 @@ table.statistics tr:last-child td {
 /* ----------- ALERT ----------- */
 
 #alert {
+	bottom: 0;
 	color: #ffffff;
-	display: none;
 	padding: 10px;
+	display: none;
 	position: fixed;
 	text-align: center;
-	top: 0;
-	width: 100%;
 	z-index: 100;
+	right: 0;
 }
 
 .alert-ok {

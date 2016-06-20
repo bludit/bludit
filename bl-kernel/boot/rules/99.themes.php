@@ -48,9 +48,20 @@ function buildThemes()
 					break;
 				}
 
-				$database = $database + $metadata;
+				// Check if the theme is compatible
+				if(empty($metadata['compatible'])) {
+					Log::set('99.themes.php'.LOG_SEP.'Metadata error, field compatible invalid '.$themePath);
+					break;
+				}
+
+				$explode = explode(',', $metadata['compatible']);
+				if(!in_array(BLUDIT_VERSION, $explode)) {
+					Log::set('99.themes.php'.LOG_SEP.'Theme incompatible '.$themePath);
+					break;
+				}
 
 				// Theme data
+				$database = $database + $metadata;
 				array_push($themes, $database);
 			}
 		}

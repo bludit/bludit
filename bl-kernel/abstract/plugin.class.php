@@ -170,6 +170,13 @@ class Plugin {
 		return $this->className;
 	}
 
+	public function isCompatible()
+	{
+		$explode = explode(',', $this->getMetadata('compatible'));
+
+		return in_array(BLUDIT_VERSION, $explode);
+	}
+
 	public function directoryName()
 	{
 		return $this->directoryName;

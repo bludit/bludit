@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'Github-Version');
+define('BLUDIT_VERSION',	'1.3');
 define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'');
 define('BLUDIT_BUILD',		'');
@@ -115,7 +115,7 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 define('CHARSET', 'UTF-8');
 
 // EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
-define('EXTREME_FRIENDLY_URL', true);
+define('EXTREME_FRIENDLY_URL', false);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
