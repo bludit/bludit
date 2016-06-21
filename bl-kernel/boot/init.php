@@ -3,8 +3,8 @@
 // Bludit version
 define('BLUDIT_VERSION',	'1.4');
 define('BLUDIT_CODENAME',	'Spot');
-define('BLUDIT_RELEASE_DATE',	'2016-06-19');
-define('BLUDIT_BUILD',		'20160619');
+define('BLUDIT_RELEASE_DATE',	'2016-06-20');
+define('BLUDIT_BUILD',		'20160620');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
