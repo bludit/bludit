@@ -105,7 +105,7 @@ class Plugin {
 
 	public function setDb($args)
 	{
-		$tmp = array();
+		$tmp = $this->db;
 
 		foreach($this->dbFields as $key=>$value)
 		{
@@ -119,10 +119,6 @@ class Plugin {
 
 				// Set value
 				$tmp[$key] = $tmpValue;
-			}
-			else
-			{
-				$tmp[$key] = false;
 			}
 		}
 
@@ -174,6 +170,13 @@ class Plugin {
 		return $this->className;
 	}
 
+	public function isCompatible()
+	{
+		$explode = explode(',', $this->getMetadata('compatible'));
+
+		return in_array(BLUDIT_VERSION, $explode);
+	}
+
 	public function directoryName()
 	{
 		return $this->directoryName;
@@ -186,7 +189,7 @@ class Plugin {
 			return false;
 		}
 
-		// Create plugin directory for databases and others files.
+		// Create plugin directory for databases and other files
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
 		// Create database

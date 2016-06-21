@@ -14,7 +14,7 @@ class pluginsimpleMDE extends Plugin {
 		$this->dbFields = array(
 			'tabSize'=>'2',
 			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
-			'autosave'=>false
+			'autosave'=>0
 		);
 	}
 
@@ -33,7 +33,8 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="true" '.($this->getDbField('autosave')?'checked':'').'>';
+		$html .= '<input type="hidden" name="autosave" value="0">';
+		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
 		$html .= '</div>';
 
@@ -63,10 +64,10 @@ class pluginsimpleMDE extends Plugin {
 
 			// Hack for Bludit
 			$html .= '<style>
-					.editor-toolbar { background: #f1f1f1; }
+					.editor-toolbar { background: #f1f1f1; border-radius: 0 !important; }
 					.editor-toolbar::before { margin-bottom: 2px !important }
 					.editor-toolbar::after { margin-top: 2px !important }
-					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; }
+					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; border-radius: 0 !important; }
 				</style>';
 
 		}

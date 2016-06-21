@@ -5,6 +5,5 @@
 		"description": "公開された最近の投稿を表示します。"
 	},
 
-	"amount-of-posts": "投稿表示数",
-	"show-home-link": "ホーム・リンクを表示"
+	"amount-of-posts": "投稿表示数"
 }

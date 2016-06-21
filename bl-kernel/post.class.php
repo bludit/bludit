@@ -13,11 +13,7 @@ class Post extends Content {
 		parent::__construct(PATH_POSTS.$key.DS);
 	}
 
-	public function key()
-	{
-		return $this->getField('key');
-	}
-
+	// Returns the post slug
 	public function slug()
 	{
 		return $this->getField('key');
@@ -28,4 +24,5 @@ class Post extends Content {
 	{
 		return ($this->getField('status')==='scheduled');
 	}
+
 }

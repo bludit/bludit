@@ -25,6 +25,7 @@ $plugins = array(
 	'afterAdminLoad'=>array(),
 
 	'beforeRulesLoad'=>array(),
+	'afterFormSave'=>array(),
 
 	'afterPostCreate'=>array(),
 	'afterPostModify'=>array(),
@@ -62,7 +63,11 @@ function buildPlugins()
 
 	// Load each plugin clasess
 	foreach($list as $pluginPath) {
-		include($pluginPath.DS.'plugin.php');
+
+		// Check if the directory has the plugin.php
+		if(file_exists($pluginPath.DS.'plugin.php')) {
+			include($pluginPath.DS.'plugin.php');
+		}
 	}
 
 	// Get plugins clasess loaded
@@ -91,16 +96,20 @@ function buildPlugins()
 			$Language->add($database);
 		}
 
-		// Push Plugin to array all plugins installed and not installed.
-		$plugins['all'][$pluginClass] = $Plugin;
+		// If the plugin is compatible with the Bludit version, add to arrays
+		if($Plugin->isCompatible()) {
 
-		// If the plugin is installed, order by hooks.
-		if($Plugin->installed())
-		{
-			foreach($pluginsEvents as $event=>$value)
-			{
-				if(method_exists($Plugin, $event)) {
-					array_push($plugins[$event], $Plugin);
+			// Push Plugin to array all plugins installed and not installed.
+			$plugins['all'][$pluginClass] = $Plugin;
+
+			// If the plugin is installed, order by hooks.
+			if($Plugin->installed()) {
+
+				foreach($pluginsEvents as $event=>$value) {
+
+					if(method_exists($Plugin, $event)) {
+						array_push($plugins[$event], $Plugin);
+					}
 				}
 			}
 		}

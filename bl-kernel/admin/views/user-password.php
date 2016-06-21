@@ -16,7 +16,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 		'value'=>$_user['username']
 	));
 
-	HTML::legend(array('value'=>$L->g('New password')));
+	HTML::legend(array('value'=>$L->g('New password'), 'class'=>'first-child'));
 
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',

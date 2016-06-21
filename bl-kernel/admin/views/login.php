@@ -20,4 +20,4 @@
 
 </div>
 
-<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> <?php $L->p('Send me a login access code') ?></a>
+<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> <?php $L->p('Email access code') ?></a>

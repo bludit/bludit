@@ -43,6 +43,9 @@ if(!method_exists($_Plugin, 'form')) {
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	$_Plugin->setDb($_POST);
+
+	Theme::plugins('afterFormSave');
+
 	Alert::set($Language->g('the-changes-have-been-saved'));
 }
 

@@ -5,7 +5,7 @@ class pluginMaintenanceMode extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'enable'=>false,
+			'enable'=>0,
 			'message'=>'Temporarily down for maintenance.'
 		);
 	}
@@ -15,7 +15,8 @@ class pluginMaintenanceMode extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<input name="enable" id="jsenable" type="checkbox" value="true" '.($this->getDbField('enable')?'checked':'').'>';
+		$html .= '<input type="hidden" name="enable" value="0">';
+		$html .= '<input name="enable" id="jsenable" type="checkbox" value="1" '.($this->getDbField('enable')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsenable">'.$Language->get('Enable maintenance mode').'</label>';
 		$html .= '</div>';
 

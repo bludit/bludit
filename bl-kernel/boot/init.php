@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'1.1.2');
-define('BLUDIT_CODENAME',	'The Dig');
-define('BLUDIT_RELEASE_DATE',	'2016-02-26');
-define('BLUDIT_BUILD',		'20160226');
+define('BLUDIT_VERSION',	'1.4');
+define('BLUDIT_CODENAME',	'Spot');
+define('BLUDIT_RELEASE_DATE',	'2016-06-20');
+define('BLUDIT_BUILD',		'20160620');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -65,12 +65,20 @@ define('ALERT_STATUS_OK', 0);
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
 
-// Salt length
-define('THUMBNAILS_WIDTH', 400);
-define('THUMBNAILS_HEIGHT', 400);
+// Amount of thumbnails shown on Bludit Quick images
 define('THUMBNAILS_AMOUNT', 6);
 
-// Salt length
+// Thubmnails size
+define('THUMBNAILS_WIDTH', 400);
+define('THUMBNAILS_HEIGHT', 400);
+define('THUMBNAILS_QUALITY', 100); // 100%
+
+// Profile image size
+define('PROFILE_IMG_WIDTH', 400);
+define('PROFILE_IMG_HEIGHT', 400);
+define('PROFILE_IMG_QUALITY', 100); // 100%
+
+// Password salt length
 define('SALT_LENGTH', 8);
 
 // Page brake string
@@ -82,8 +90,8 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 // Post per page on Manage->Posts
 define('POSTS_PER_PAGE_ADMIN', 10);
 
-// Check if JSON encode and decode are enabled.
-// define('JSON', function_exists('json_encode'));
+// Cli mode status for new posts/pages
+define('CLI_MODE', false);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
@@ -105,6 +113,9 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
+define('EXTREME_FRIENDLY_URL', false);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
@@ -141,6 +152,9 @@ include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
 include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
+
+// Include functions
+include(PATH_KERNEL.'functions.php');
 
 // Include Helpers Classes
 include(PATH_HELPERS.'text.class.php');
@@ -222,12 +236,22 @@ define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS.
+
+// Depreacted, use THEME_DIR and THEME_DIR_XXX
 define('PATH_THEME',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
 define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
 define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
 define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
 define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
 define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
+
+define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
+define('THEME_DIR_PHP',			PATH_THEME.'php'.DS);
+define('THEME_DIR_CSS',			PATH_THEME.'css'.DS);
+define('THEME_DIR_JS',			PATH_THEME.'js'.DS);
+define('THEME_DIR_IMG',			PATH_THEME.'img'.DS);
+define('THEME_DIR_LANG',		PATH_THEME.'languages'.DS);
+
 
 // --- Absolute paths with domain ---
 // This paths are absolutes for the user / web browsing.

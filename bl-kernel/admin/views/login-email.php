@@ -1,3 +1,5 @@
+<?php if(empty($_POST)) { ?>
+
 <div class="login-form">
 
 <form method="post" action="" class="uk-form" autocomplete="off">
@@ -15,5 +17,7 @@
 </form>
 
 </div>
+
+<?php } ?>
 
 <a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login' ?>"><i class="uk-icon-chevron-left"></i> <?php $L->p('Back to login form') ?></a>

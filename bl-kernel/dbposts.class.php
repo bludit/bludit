@@ -9,31 +9,36 @@ class dbPosts extends dbJSON
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'allowComments'=>	array('inFile'=>false,	'value'=>false),
+		'allowComments'=>	array('inFile'=>false,	'value'=>0),
 		'date'=>		array('inFile'=>false,	'value'=>''),
-		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'checksum'=>		array('inFile'=>false,	'value'=>'')
-	);
-
-	private $numberPosts = array(
-		'total'=>0,
-		'published'=>0
+		'dateModified'=>	array('inFile'=>false,	'value'=>''),
+		'coverImage'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
-
-		$this->numberPosts['total'] = count($this->db);
 	}
 
+	// Return the amount of posts
+	// $total = TRUE, returns the total of posts
+	// $total = FALSE, return the amount of published posts
 	public function numberPost($total=false)
 	{
+		// Amount of posts, published, scheduled and draft
 		if($total) {
-			return $this->numberPosts['total'];
+			return count($this->db);
 		}
 
-		return $this->numberPosts['published'];
+		// Amount of published posts
+		$i = 0;
+		foreach($this->db as $values) {
+			if($values['status']=='published') {
+				$i++;
+			}
+		}
+
+		return $i;
 	}
 
 	// Returns the database
@@ -111,7 +116,7 @@ class dbPosts extends dbJSON
 			return false;
 		}
 
-		// If the date not valid, then set the current date.
+		// If the date is not valid, then set the current date.
 		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
 			$args['date'] = $currentDate;
 		}
@@ -160,10 +165,6 @@ class dbPosts extends dbJSON
 			}
 		}
 
-		// Create Hash
-		$serialize = serialize($dataForDb+$dataForFile);
-		$dataForDb['checksum'] = sha1($serialize);
-
 		// Make the directory.
 		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_POSTS.$key);
@@ -194,6 +195,10 @@ class dbPosts extends dbJSON
 	public function edit($args)
 	{
 		if( $this->delete($args['key']) ) {
+
+			// Modified date
+			$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+
 			return $this->add($args);
 		}
 
@@ -232,12 +237,12 @@ class dbPosts extends dbJSON
 	// Returns an array with a list of posts keys, filtered by a page number.
 	public function getList($pageNumber, $postPerPage, $removeUnpublished=true)
 	{
-		$totalPosts = $this->numberPosts['total'];
+		$totalPosts = $this->numberPost(true);
 
 		// Remove the unpublished posts.
 		if($removeUnpublished) {
 			$this->removeUnpublished();
-			$totalPosts = $this->numberPosts['published'];
+			$totalPosts = $this->numberPost(true);
 		}
 
 		$init = (int) $postPerPage * $pageNumber;
@@ -247,7 +252,7 @@ class dbPosts extends dbJSON
 		if(!$outrange) {
 			$tmp = array_slice($this->db, $init, $postPerPage, true);
 
-			// Restore the database because we delete the unpublished posts.
+			// Restore the database because we deleted the unpublished posts.
 			$this->restoreDB();
 
 			return $tmp;
@@ -302,14 +307,11 @@ class dbPosts extends dbJSON
 	// Remove unpublished posts, status != published.
 	public function removeUnpublished()
 	{
-		foreach($this->db as $key=>$values)
-		{
+		foreach($this->db as $key=>$values) {
 			if($values['status']!='published') {
 				unset($this->db[$key]);
 			}
 		}
-
-		$this->numberPosts['published'] = count($this->db);
 
 		return true;
 	}
@@ -408,32 +410,40 @@ class dbPosts extends dbJSON
 		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		// Generate default fields and values.
+		// --------------------------------------------------------------------------
 		foreach($this->dbFields as $field=>$options) {
 			if(!$options['inFile']) {
 				$fields[$field] = $options['value'];
 			}
 		}
 
-		$fields['status'] = CLI_STATUS;
-		$fields['date'] = $currentDate;
-		$fields['username'] = CLI_USERNAME;
+		$fields['status'] 	= CLI_STATUS;
+		$fields['username'] 	= CLI_USERNAME;
+		$fields['date'] 	= $currentDate;
 
 		// Get all posts from the first level of directories.
-		$tmpPaths = Filesystem::listDirectories(PATH_POSTS);
-		foreach($tmpPaths as $directory)
+		$postsDirectories = Filesystem::listDirectories(PATH_POSTS);
+		foreach($postsDirectories as $directory)
 		{
-			// Check if the post have the index.txt file.
+
+			// Check if the post has the index.txt file.
 			if(Sanitize::pathFile($directory.DS.'index.txt'))
 			{
 				// The key is the directory name.
 				$key = basename($directory);
 
+				Log::set('----------------');
+				Log::set('CliMode - Post KEY: '.$key);
+
+				// This post exists
 				$allPosts[$key] = true;
 
 				// Create the new entry if not exist inside the DATABASE.
-				if(!isset($this->db[$key])) {
+				if( !isset($this->db[$key]) ) {
 					// New entry on database with the default fields and values.
 					$this->db[$key] = $fields;
+
+					Log::set('CliMode - New post: '.$key);
 				}
 
 				// Create the post from FILE.
@@ -442,12 +452,14 @@ class dbPosts extends dbJSON
 				// Update all fields from FILE to DATABASE.
 				foreach($fields as $f=>$v)
 				{
-					// If the field exists on the FILE, update it.
-					if($Post->getField($f))
-					{
-						$valueFromFile = $Post->getField($f);
+					// Get the value from FILE.
+					$valueFromFile = $Post->getField($f);
 
-						Log::set(__METHOD__.LOG_SEP.'Field from file: '.$f);
+					// If the field exists on the FILE, update it.
+					if( !empty($valueFromFile) )
+					{
+						Log::set('CliMode - Field to replace: '.$f);
+						Log::set('CliMode - value from file: '.$valueFromFile);
 
 						if($f=='tags') {
 							// Generate tags array.
@@ -475,6 +487,7 @@ class dbPosts extends dbJSON
 		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
 		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
 			unset($this->db[$key]);
+			Log::set('CliMode - Deleted post: '.$key);
 		}
 
 		// Sort posts before save.
@@ -487,10 +500,11 @@ class dbPosts extends dbJSON
 		}
 
 		if($this->db!=$db) {
-			Log::set(__METHOD__.LOG_SEP.'New posts added from Cli Mode');
+			Log::set(__METHOD__.LOG_SEP.'There are new or deleted posts.');
+			return true;
 		}
 
-		return $this->db!=$db;
+		return false;
 	}
 
 }

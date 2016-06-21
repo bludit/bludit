@@ -226,6 +226,7 @@
 
 	"click-here-to-cancel": "Clic aquí para cancelar.",
 	"type-the-tag-and-press-enter": "Escriba la etiqueta y presione enter.",
+	"add": "Agregar",
 	"manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración]({{ADMIN_AREA_LINK}})",
 	"there-are-no-images":"No hay imagenes",
 
@@ -234,5 +235,10 @@
 	"delete-image": "Eliminar imagen",
 	"image-description": "Descripción de la imagen",
 
-	"social-networks-links": "Redes sociales enlaces"
+	"social-networks-links": "Redes sociales enlaces",
+
+	"email-access-code": "Código de acceso via email",
+	"current-format": "Formato actual",
+
+	"welcome": "Bienvenido"
 }

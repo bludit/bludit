@@ -78,27 +78,24 @@ class Text {
 		return $string;
 	}
 
+	public static function startsWith($string, $startString)
+	{
+		$length = self::length($startString);
+
+		return( mb_substr($string, 0, $length)===$startString );
+	}
+
 	public static function endsWith($string, $endsString)
 	{
-		$endsPosition = (-1)*self::length($endsString);
+		$length = (-1)*self::length($endsString);
 
-		if(MB_STRING) {
-			return( mb_substr($string, $endsPosition)===$endsString );
-		}
-
-		return( substr($string, $endsPosition)===$endsString );
+		return( mb_substr($string, $length)===$endsString );
 	}
 
 
 	public static function endsWithNumeric($string)
 	{
-		$endsPosition = (-1)*self::length($string);
-
-		if(MB_STRING) {
-			return( is_numeric(mb_substr($string, -1, 1)) );
-		}
-
-		return( is_numeric(substr($string, -1, 1)) );
+		return( is_numeric(mb_substr($string, -1, 1)) );
 	}
 
 	public static function randomText($length)
@@ -118,6 +115,11 @@ class Text {
 
 	public static function cleanUrl($string, $separator='-')
 	{
+		if(EXTREME_FRIENDLY_URL) {
+			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
+			return $string;
+		}
+
 		// Transliterate characters to ASCII
 		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
 
@@ -142,48 +144,30 @@ class Text {
 	// String to lowercase
 	public static function lowercase($string, $encoding='UTF-8')
 	{
-		if(MB_STRING) {
-			return mb_strtolower($string, $encoding);
-		}
-
-		return strtolower($string);
+		return mb_strtolower($string, $encoding);
 	}
 
 	// Make a string's first character uppercase
 	public static function firstCharUp($string, $encoding='UTF-8')
 	{
 		// Thanks http://stackoverflow.com/questions/2517947/ucfirst-function-for-multibyte-character-encodings
-		if(MB_STRING)
-		{
-		    $strlen 	= mb_strlen($string, $encoding);
-		    $firstChar 	= mb_substr($string, 0, 1, $encoding);
-		    $then 	= mb_substr($string, 1, $strlen - 1, $encoding);
+		$strlen 	= mb_strlen($string, $encoding);
+		$firstChar 	= mb_substr($string, 0, 1, $encoding);
+		$then 		= mb_substr($string, 1, $strlen - 1, $encoding);
 
-		    return mb_strtoupper($firstChar, $encoding).$then;
-		}
-
-		return ucfirst($string);
+		return mb_strtoupper($firstChar, $encoding).$then;
 	}
 
 	// Find position of first occurrence of substring in a string otherwise returns FALSE.
 	public static function stringPosition($string, $substring)
 	{
-		if(MB_STRING) {
-			return mb_strpos($string, $substring, 0, 'UTF-8');
-		}
-
-		return strpos($string, $substring);
+		return mb_strpos($string, $substring, 0, 'UTF-8');
 	}
 
 	// Returns the portion of string specified by the start and length parameters.
 	public static function cut($string, $start, $length)
 	{
-		if(MB_STRING) {
-			$cut = mb_substr($string, $start, $length, 'UTF-8');
-		}
-		else {
-			$cut = substr($string, $start, $length);
-		}
+		$cut = mb_substr($string, $start, $length, 'UTF-8');
 
 		if(empty($cut)) {
 			return '';
@@ -195,17 +179,16 @@ class Text {
 	// Return string length
 	public static function length($string)
 	{
-		if(MB_STRING)
-			return mb_strlen($string, 'UTF-8');
-		return strlen($string);
+		return mb_strlen($string, 'UTF-8');
 	}
 
 	public static function isEmpty($string)
 	{
 		$string = trim($string);
 
-		if(empty($string))
+		if(empty($string)) {
 			return true;
+		}
 
 		return false;
 	}

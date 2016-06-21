@@ -19,7 +19,6 @@ class dbSite extends dbJSON
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'uriBlog'=>		array('inFile'=>false, 'value'=>'/blog/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
-		'cliMode'=>		array('inFile'=>false, 'value'=>true),
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
 		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a'),
@@ -214,12 +213,6 @@ class dbSite extends dbJSON
 		$domain = trim($parse['host'], '/');
 
 		return $parse['scheme'].'://'.$domain;
-	}
-
-	// Returns TRUE if the cli mode is enabled, otherwise FALSE.
-	public function cliMode()
-	{
-		return $this->getField('cliMode');
 	}
 
 	// Returns the relative home link

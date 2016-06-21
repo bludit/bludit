@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Neueste Beiträge",
+		"description": "Anzeige der neuesten Beiträge."
+	},
+
+	"amount-of-posts": "Anzahl der Beiträge"
+}

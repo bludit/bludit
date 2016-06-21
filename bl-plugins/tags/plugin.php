@@ -20,9 +20,11 @@ class pluginTags extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= $Language->get('tag-sort-order').': <select name="sort">';
+		$html .= $Language->get('Sort the tag list by').': <select name="sort">';
 
-		foreach(array('alpha'=>'tag-sort-alphabetical', 'count'=>'tag-sort-count', 'date'=>'tag-sort-date') as $key=>$value) {
+		foreach(array('alpha' => 'Alphabetical order',
+		              'count' => 'Number of times each tag has been used',
+		              'date'  => 'Date each tag was first used') as $key=>$value) {
 			if ($key == $this->getDbField('sort')) {
 				$html .= '<option value="'.$key.'" selected>'.$Language->get($value).'</option>';
 			} else {

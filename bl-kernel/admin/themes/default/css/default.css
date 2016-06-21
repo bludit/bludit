@@ -1,31 +1,172 @@
-/* ----------- UIKIT HACKs FOR BLUDIT ----------- */
+.uk-form * {
+	border-radius: 2px !important;
+}
+
+.uk-tab a {
+	color: #2196f3 !important;
+}
+
+a {
+	color: #2196f3 !important;
+}
+
+/* UIKIT HACKs navbar
+---------------------------------------------------------------- */
 .uk-navbar {
-	background: #EEEEEE !important;
+	background: #323232 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+}
+
+.uk-navbar-nav a {
 	border: none !important;
+	border-radius: none !important;
+	text-shadow: none !important;
+	color: #fff !important;
+	font-weight: 300 !important;
+	padding: 0 25px !important;
 }
 
+.uk-navbar-nav > li.uk-open > a,
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li:focus > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #BBBBBB !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-nav-navbar > li > a:focus,
+.uk-nav-navbar > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #888 !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-navbar-nav > li.uk-active > a {
+	background: none !important;
+	color: #BBBBBB !important;
+}
+
+.uk-navbar-nav .uk-border-circle {
+	border-radius: 20px !important;
+}
+
+.uk-dropdown-navbar {
+	margin: 0 !important;
+	padding: 10px 0 !important;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	border-radius: 0 !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-top: 0 !important;
+}
+
+.uk-dropdown-navbar li {
+	display: inline-block !important;
+}
+
+.uk-dropdown-navbar a {
+	color: #323232 !important;
+}
+
+li.bludit-logo {
+	color: #fff !important;
+	display: block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 41px;
+	line-height: 40px;
+	margin-left: -1px;
+	margin-top: -1px;
+	margin-right: 12px;
+}
+
+.bludit-user-navbar {
+    background: #333 none repeat scroll 0 0;
+    border-color: #ccc;
+    border-radius: 0 0 5px 5px !important;
+    color: #fff;
+    position: absolute;
+}
+
+.bludit-user-navbar a {
+	color: #fff !important;
+}
+
+@media (min-width: 333px) and (max-width: 959px) {
+	/* Hidden the Welcome USERNAME */
+	.uk-navbar-flip {
+		display: none !important;
+	}
+
+	/* Expand and hidden the sidebar */
+	.uk-width-large-8-10 {
+		width: 100% !important;
+	}
+	/* Hidden the sidebar */
+	.uk-width-large-2-10 {
+		width: 0% !important;
+		display: none !important;
+	}
+}
+
+@media (min-width: 960px) {
+	.uk-width-large-4-5,
+	.uk-width-large-8-10 {
+		width: 75% !important;
+	}
+
+	.uk-width-large-1-5,
+	.uk-width-large-2-10 {
+		width: 25% !important;
+	}
+}
+
+/* UIKIT HACKs hidden navbar
+---------------------------------------------------------------- */
+
+.uk-navbar-brand {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-navbar-toggle {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-nav-offcanvas > li > a {
+	color: #fff !important;
+}
+
+/* UIKIT HACKs buttons
+---------------------------------------------------------------- */
 .uk-button {
-	color: #ffffff;
-	padding: 2px 22px;
+	padding: 2px 26px;
 	text-shadow: none;
-	background: #888888;
-	border-radius: 3px;
-}
-
-.uk-button:hover,
-.uk-button:focus {
-	background-color: #777777;
-	color: #ffffff;
+	color: #333 !important;
 }
 
 .uk-button-primary {
-	background: #2672ec;
+	background: #2196f3 !important;
+	color: #fff !important;
 }
 
 .uk-button-primary:hover {
-	background: #1F5FC4;
+	background: #2EA3FF;
+	color: #fafafa !important;
 }
 
+/* UIKIT HACKs forms
+---------------------------------------------------------------- */
 legend {
 	width: 70% !important;
 	margin-top: 40px !important;
@@ -35,16 +176,7 @@ legend.first-child {
 	margin-top: 0px !important;
 }
 
-.uk-navbar-nav > li > a {
-	border: none;
-	height: 70px;
-	padding: 15px;
-}
 
-.uk-nav-navbar > li > a:hover,
-.uk-nav-navbar > li > a:focus {
-	background: #2672ec;
-}
 
 .uk-form-label {
 	color: #666666;
@@ -61,6 +193,11 @@ legend.first-child {
 	padding: 15px 10px;
 }
 
+.uk-table td.children {
+	padding: 15px 10px 15px 25px;
+}
+
+
 .uk-badge {
 	margin-right: 5px !important;
 	font-size: 0.9em;
@@ -72,34 +209,13 @@ a {
 	color: #2672ec;
 }
 
-li.bludit-logo {
-	color: #848484 !important;
-	height: 70px;
-	padding: 15px;
-	display: block;
-	font-size: 14px;
-	font-weight: 400;
-	height: 35px;
-	line-height: 40px;
-	text-shadow: 0 1px 0 #fff;
-}
-
 .uk-panel-box {
 	background: #F9F9F9 !important;
+	border: 0;
 }
 
 .uk-container {
 	max-width: 1280px !important;
-}
-
-.uk-width-large-4-5,
-.uk-width-large-8-10 {
-	width: 75% !important;
-}
-
-.uk-width-large-1-5,
-.uk-width-large-2-10 {
-	width: 25% !important;
 }
 
 .uk-thumbnail {
@@ -115,6 +231,7 @@ li.bludit-logo {
 .uk-placeholder {
 	margin-bottom: 0 !important;
 }
+
 
 /* ----------- BLUDIT ----------- */
 
@@ -165,23 +282,22 @@ table.statistics tr:last-child td {
 /* ----------- ALERT ----------- */
 
 #alert {
-	bottom: 20px;
+	bottom: 0;
 	color: #ffffff;
+	padding: 10px;
 	display: none;
-	padding: 24px;
 	position: fixed;
-	right: 20px;
 	text-align: center;
-	width: 350px;
 	z-index: 100;
+	right: 0;
 }
 
 .alert-ok {
-	background: rgba(48, 102, 187, 0.91);
+	background: #4374C1;
 }
 
 .alert-fail {
-	background: rgba(187, 48, 48, 0.91);
+	background: #c14343;
 }
 
 /* ----------- FORM ----------- */
@@ -237,7 +353,8 @@ table.statistics tr:last-child td {
 }
 
 #jstagList span.select {
-	color: #2672ec;
+	color: #2196f3;
+	padding: 2px 13px;
 }
 
 /* ----------- BLUDIT IMAGES V8 ----------- */
@@ -542,6 +659,7 @@ div.plugin-links > span.separator {
 	display: inline-block;
 }
 
+<<<<<<< HEAD
 /* ----------- PLUGINS FILTER ----------- */
 
 tr.plugin-installed.hide, tr.plugin-notInstalled.hide{
@@ -549,4 +667,8 @@ tr.plugin-installed.hide, tr.plugin-notInstalled.hide{
   opacity:0;
   display:none;
   transition:all 0.1s;
+=======
+#jsformplugin p {
+	margin-bottom: 0;
+>>>>>>> dignajar/master
 }
