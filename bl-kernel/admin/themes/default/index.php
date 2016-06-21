@@ -109,7 +109,7 @@ $(document).ready(function() {
 				}
 			?>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
-				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> Welcome <?php echo $Login->username() ?>
+				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php $L->p('Welcome') ?> <?php echo $Login->username() ?>
 			</a>
 
 			<div class="uk-dropdown uk-dropdown-navbar bludit-user-navbar">
