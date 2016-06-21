@@ -14,7 +14,7 @@ class pluginsimpleMDE extends Plugin {
 		$this->dbFields = array(
 			'tabSize'=>'2',
 			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
-			'autosave'=>false
+			'autosave'=>0
 		);
 	}
 
@@ -33,7 +33,8 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="true" '.($this->getDbField('autosave')?'checked':'').'>';
+		$html .= '<input type="hidden" name="autosave" value="0">';
+		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
 		$html .= '</div>';
 

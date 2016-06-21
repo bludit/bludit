@@ -115,6 +115,11 @@ class Text {
 
 	public static function cleanUrl($string, $separator='-')
 	{
+		if(EXTREME_FRIENDLY_URL) {
+			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
+			return $string;
+		}
+
 		// Transliterate characters to ASCII
 		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
 

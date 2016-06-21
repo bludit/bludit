@@ -90,8 +90,15 @@ li.bludit-logo {
 }
 
 .bludit-user-navbar {
-	text-align: right !important;
-	padding-right: 60px !important;
+    background: #333 none repeat scroll 0 0;
+    border-color: #ccc;
+    border-radius: 0 0 5px 5px !important;
+    color: #fff;
+    position: absolute;
+}
+
+.bludit-user-navbar a {
+	color: #fff !important;
 }
 
 @media (min-width: 333px) and (max-width: 959px) {
@@ -275,14 +282,14 @@ table.statistics tr:last-child td {
 /* ----------- ALERT ----------- */
 
 #alert {
+	bottom: 0;
 	color: #ffffff;
-	display: none;
 	padding: 10px;
+	display: none;
 	position: fixed;
 	text-align: center;
-	top: 0;
-	width: 100%;
 	z-index: 100;
+	right: 0;
 }
 
 .alert-ok {
@@ -650,4 +657,8 @@ div.plugin-links > span.separator {
 	margin-left: 3px;
 	margin-bottom: 0px !important;
 	display: inline-block;
+}
+
+#jsformplugin p {
+	margin-bottom: 0;
 }

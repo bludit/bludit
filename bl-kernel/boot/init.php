@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'GithubVersion');
-define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'');
+define('BLUDIT_VERSION',	'1.4');
+define('BLUDIT_CODENAME',	'Spot');
+define('BLUDIT_RELEASE_DATE',	'2016-06-19');
+define('BLUDIT_BUILD',		'20160619');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -65,12 +65,20 @@ define('ALERT_STATUS_OK', 0);
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
 
-// Salt length
-define('THUMBNAILS_WIDTH', 400);
-define('THUMBNAILS_HEIGHT', 400);
+// Amount of thumbnails shown on Bludit Quick images
 define('THUMBNAILS_AMOUNT', 6);
 
-// Salt length
+// Thubmnails size
+define('THUMBNAILS_WIDTH', 400);
+define('THUMBNAILS_HEIGHT', 400);
+define('THUMBNAILS_QUALITY', 100); // 100%
+
+// Profile image size
+define('PROFILE_IMG_WIDTH', 400);
+define('PROFILE_IMG_HEIGHT', 400);
+define('PROFILE_IMG_QUALITY', 100); // 100%
+
+// Password salt length
 define('SALT_LENGTH', 8);
 
 // Page brake string
@@ -83,7 +91,7 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 define('POSTS_PER_PAGE_ADMIN', 10);
 
 // Cli mode status for new posts/pages
-define('CLI_MODE', true);
+define('CLI_MODE', false);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
@@ -105,6 +113,9 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
+
+// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
+define('EXTREME_FRIENDLY_URL', false);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);

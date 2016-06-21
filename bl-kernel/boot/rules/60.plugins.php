@@ -96,16 +96,20 @@ function buildPlugins()
 			$Language->add($database);
 		}
 
-		// Push Plugin to array all plugins installed and not installed.
-		$plugins['all'][$pluginClass] = $Plugin;
+		// If the plugin is compatible with the Bludit version, add to arrays
+		if($Plugin->isCompatible()) {
 
-		// If the plugin is installed, order by hooks.
-		if($Plugin->installed())
-		{
-			foreach($pluginsEvents as $event=>$value)
-			{
-				if(method_exists($Plugin, $event)) {
-					array_push($plugins[$event], $Plugin);
+			// Push Plugin to array all plugins installed and not installed.
+			$plugins['all'][$pluginClass] = $Plugin;
+
+			// If the plugin is installed, order by hooks.
+			if($Plugin->installed()) {
+
+				foreach($pluginsEvents as $event=>$value) {
+
+					if(method_exists($Plugin, $event)) {
+						array_push($plugins[$event], $Plugin);
+					}
 				}
 			}
 		}

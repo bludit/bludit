@@ -100,7 +100,8 @@ $(document).ready(function() {
 
 		<div class="uk-navbar-flip">
 		<ul class="uk-navbar-nav">
-		<li>
+		<li class="uk-parent" data-uk-dropdown>
+
 			<?php
 				$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.png';
 				if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.png')) {
@@ -110,6 +111,12 @@ $(document).ready(function() {
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
 				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> Welcome <?php echo $Login->username() ?>
 			</a>
+
+			<div class="uk-dropdown uk-dropdown-navbar bludit-user-navbar">
+				<ul class="uk-nav uk-nav-navbar">
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a></li>
+				</ul>
+			</div>
 		</li>
 		</ul>
 		</div>

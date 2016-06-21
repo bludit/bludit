@@ -37,5 +37,5 @@
 		}
 	?>
 	</ul>
-	<p class="copyright"><?php echo $Site->footer() ?> | Design: <a href="http://html5up.net">HTML5 UP</a></p>
+	<p class="copyright"><?php echo $Site->footer() ?> | <a href="http://www.bludit.com">BLUDIT</a></p>
 </section>

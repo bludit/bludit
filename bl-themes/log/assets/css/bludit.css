@@ -14,6 +14,8 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
 	text-transform: none;
 	letter-spacing: 0;
+	font-weight: normal;
+	margin-bottom: 0.8em;
 }
 
 h1 {
@@ -38,6 +40,27 @@ h5 {
 
 h6 {
 	font-size: 1em;
+}
+
+p {
+	margin-bottom: 1.3em;
+}
+
+code {
+	border: 0;
+	color: #333;
+	margin: 0;
+	font-weight: bold;
+}
+
+pre code {
+	border: 1px solid #ffcb94;
+	font-weight: normal !important;
+	overflow-x: auto;
+}
+
+#main {
+	max-width: 980px;
 }
 
 #header {
@@ -123,7 +146,7 @@ header p {
 }
 
 blockquote p {
-	margin: 10px;
+	margin: 10px 0;
 }
 
 .author .name {
@@ -133,10 +156,6 @@ blockquote p {
 #sidebar {
 	margin-top: 2.2em;
 	min-width: 0;
-}
-
-.plugin {
-	font-size: 0.9em !important;
 }
 
 .plugin > h2 {

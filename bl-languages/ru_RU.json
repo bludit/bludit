@@ -3,7 +3,7 @@
 	{
 		"native": "Русский (Россия)",
 		"english-name": "Russian",
-		"last-update": "2015-11-17",
+		"last-update": "2016-06-01",
 		"author": "Сергей Ворон",
 		"email": "sergey@voron.pw",
 		"website": "http://voron.pw"
@@ -235,5 +235,8 @@
 	"delete-image": "Удалить изображение",
 	"image-description": "Описание изображения",
 
-	"social-networks-links": "Социальные сети"
+	"social-networks-links": "Социальные сети",
+
+	"email-access-code": "Проверочный код email",
+ 	"current-format": "Текущий формат"
 }
