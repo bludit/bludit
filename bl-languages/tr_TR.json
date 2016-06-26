@@ -231,8 +231,14 @@
 	
 	"click-on-the-image-for-options": "Özellikler için resme tıklayın.",
 	"set-as-cover-image": "Kapak resmi olarak ayarla",
-	"delete-image": "Resimi sil",
+	"delete-image": "Resmi sil",
 	"image-description": "Resim açıklaması",
 
-	"social-networks-links": "Sosyal ağ linkleri"
+	"social-networks-links": "Sosyal ağ linkleri",
+	
+	"email-access-code": "Email erişim kodu",
+	"current-format": "Geçerli format",
+
+	"welcome": "Hoşgeldiniz"
 }
+
