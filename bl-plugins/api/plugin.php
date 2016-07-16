@@ -157,7 +157,7 @@ class pluginAPI extends Plugin {
 		// Get parameters
 		$parameters = explode('/', $URI);
 
-		for($i=0; $i<4; $i++) {
+		for($i=0; $i<3; $i++) {
 			if(empty($parameters[$i])) {
 				return false;
 			} else {
@@ -172,6 +172,8 @@ class pluginAPI extends Plugin {
 			'bludit'=>'Bludit API plugin',
 			'message'=>'Check the parameters'
 		));
+
+
 
 		if($parameters[0]==='show') {
 

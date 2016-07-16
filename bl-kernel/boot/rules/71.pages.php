@@ -20,7 +20,7 @@ $pagesParentsPublished = array();
 
 // Search for changes on pages by the user.
 if( CLI_MODE ) {
-	$dbPages->regenerateCli();
+	$dbPages->cliMode();
 }
 
 // Build specific page.

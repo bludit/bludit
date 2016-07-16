@@ -12,27 +12,52 @@ function updateBludit()
 	// Check if Bludit need to be update.
 	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) )
 	{
-		// --- Update dates on posts ---
-		foreach($dbPosts->db as $key=>$post)
-		{
+		// LOG
+		Log::set('UPDATE SYSTEM - Starting...');
+
+		// LOG
+		Log::set('UPDATE SYSTEM - Checking posts.');
+
+		// Update posts
+		foreach($dbPosts->db as $key=>$post) {
+
+			// Dates
 			$date = Date::format($post['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
 			if($date !== false) {
-				$dbPosts->setPostDb($key,'date',$date);
+				$dbPosts->setPostDb($key, 'date', $date);
+			}
+
+			// Checksum
+			if( empty($post['md5file']) ) {
+				$checksum = md5_file(PATH_POSTS.$key.DS.FILENAME);
+				$dbPosts->setPostDb($key, 'md5file', $checksum);
 			}
 		}
 
 		$dbPosts->save();
 
-		// --- Update dates on pages ---
-		foreach($dbPages->db as $key=>$page)
-		{
+		// LOG
+		Log::set('UPDATE SYSTEM - Checking pages.');
+
+		// Update pages
+		foreach($dbPages->db as $key=>$page) {
+
 			$date = Date::format($page['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
 			if($date !== false) {
-				$dbPages->setPageDb($key,'date',$date);
+				$dbPages->setPageDb($key, 'date', $date);
+			}
+
+			// Checksum
+			if( empty($post['md5file']) ) {
+				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
+				$dbPages->setPageDb($key, 'md5file', $checksum);
 			}
 		}
 
 		$dbPages->save();
+
+		// LOG
+		Log::set('UPDATE SYSTEM - Checking directories.');
 
 		// --- Update directories ---
 		$directories = array(
@@ -44,8 +69,8 @@ function updateBludit()
 				PATH_TMP
 		);
 
-		foreach($directories as $dir)
-		{
+		foreach($directories as $dir) {
+
 			// Check if the directory is already created.
 			if(!file_exists($dir)) {
 				// Create the directory recursive.
@@ -56,7 +81,8 @@ function updateBludit()
 		// Set and save the database.
 		$Site->set(array('currentBuild'=>BLUDIT_BUILD));
 
-		Log::set('updateBludit'.LOG_SEP.'System updated');
+		// LOG
+		Log::set('UPDATE SYSTEM - Updated...');
 	}
 }
 

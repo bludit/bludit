@@ -40,6 +40,9 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 // Protecting against Symlink attacks.
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
+// Filename for posts and pages
+define('FILENAME', 'index.txt');
+
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
@@ -486,22 +489,22 @@ function install($adminPassword, $email, $timezone)
 		LOCK_EX
 	);
 
-	// File index.txt for error page
+	// File FILENAME for error page
 	$data = 'Title: '.$Language->get('Error').'
 Content: '.$Language->get('The page has not been found');
 
-	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for about page
+	// File FILENAME for about page
 	$data = 'Title: '.$Language->get('About').'
 Content:
 '.$Language->get('the-about-page-is-very-important').'
 
 '.$Language->get('change-this-pages-content-on-the-admin-panel');
 
-	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for welcome post
+	// File FILENAME for welcome post
 	$text1 = Text::replaceAssoc(
 			array(
 				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
@@ -520,7 +523,7 @@ Content:
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
 
-	file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_POSTS.$firstPostSlug.DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }

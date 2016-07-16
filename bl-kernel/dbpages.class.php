@@ -84,7 +84,7 @@ class dbPages extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$key.'/index.txt', $data) === false ) {
+		if( file_put_contents(PATH_PAGES.$key.FILENAME, $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}
@@ -172,7 +172,7 @@ class dbPages extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$newKey.DS.'index.txt', $data) === false ) {
+		if( file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}
@@ -198,7 +198,7 @@ class dbPages extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( Filesystem::rmfile(PATH_PAGES.$key.DS.'index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_PAGES.$key.DS.FILENAME) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
@@ -340,6 +340,166 @@ class dbPages extends dbJSON
 		return $count - 1;
 	}
 
+	public function cliMode()
+	{
+		// LOG
+		Log::set('CLI MODE - PAGES - Starting...');
+
+		$pageList = array();
+
+		$pagesDirectories = Filesystem::listDirectories(PATH_PAGES);
+		foreach( $pagesDirectories as $directory ) {
+
+			if( Sanitize::pathFile($directory.DS.FILENAME) ) {
+
+				// The key is the directory name
+				$key = basename($directory);
+
+				// Add the page key to the list
+				$pageList[$key] = true;
+
+				// LOG
+				Log::set('CLI MODE - Page found, key: '.$key);
+
+				// Search sub-pages
+				$subPaths = Filesystem::listDirectories($directory.DS);
+				foreach( $subPaths as $subDirectory )
+				{
+					// The key of the sub-page
+					$subKey = basename($subDirectory);
+
+					if( Sanitize::pathFile($subDirectory.DS.FILENAME) ) {
+
+						// Add the key of the sub-page, the key is composed by the directory/subdirectory
+						$pageList[$key.'/'.$subKey] = true;
+
+						// LOG
+						Log::set('CLI MODE - Page found, key: '.$key);
+					}
+				}
+			}
+		}
+
+		foreach( $pageList as $key=>$value ) {
+
+			if( !isset($this->db[$key]) ) {
+
+				// LOG
+				Log::set('CLI MODE - The page is not in the database, key: '.$key);
+
+				// Insert new post
+				$this->cliModeInsert($key);
+			}
+			else {
+				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
+
+				// If checksum is different, update the post
+				if( $this->db[$key]['md5file']!==$checksum ) {
+
+					// LOG
+					Log::set('CLI MODE - Different md5 checksum, key: '.$key);
+
+					// Update the post
+					$this->cliModeInsert($key, $update=true);
+				}
+			}
+		}
+
+		// LOG
+		Log::set('CLI MODE - Cleaning database...');
+
+		foreach( array_diff_key($this->db, $pageList) as $key=>$data ) {
+
+			// LOG
+			Log::set('CLI MODE - Removing page from database, key: '.$key);
+
+			// Remove the page from database
+			unset( $this->db[$key] );
+		}
+
+		// Save the database
+		$this->save();
+
+		// LOG
+		Log::set('CLI MODE - PAGES - Finishing...');
+
+		return true;
+	}
+
+	private function cliModeInsert($key, $update=false)
+	{
+		if($update) {
+			// LOG
+			Log::set('CLI MODE - cliModeInsert() - Updating the page, key: '.$key);
+
+			// Database from the current database
+			$dataForDb = $this->db[$key];
+			$dataForDb['dateModified'] = Date::current(DB_DATE_FORMAT);
+		}
+		else {
+			// LOG
+			Log::set('CLI MODE - cliModeInsert() - Inserting the new post, key: '.$key);
+
+			// Database for the new page, fields with the default values
+			$dataForDb = array();
+			foreach( $this->dbFields as $field=>$options ) {
+
+				if( !$options['inFile'] ) {
+					$dataForDb[$field] = $options['value'];
+				}
+			}
+
+			// Fields and value predefined in init.php
+			$dataForDb['username']	= CLI_USERNAME;
+			$dataForDb['status'] 	= CLI_STATUS;
+			$dataForDb['date'] 	= Date::current(DB_DATE_FORMAT);
+		}
+
+		// MD5 checksum
+		$dataForDb['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
+
+		// Generate the Object from the file
+		$Page = new Page($key);
+
+		foreach( $this->dbFields as $field=>$options ) {
+
+			if( !$options['inFile'] ) {
+
+				// Get the field from the file
+				// If the field doesn't exist, the function returns FALSE
+				$data = $Page->getField($field);
+
+				if( $data!==false ) {
+
+					$tmpValue = '';
+
+					if( $field=='tags' ) {
+						$tmpValue = $this->generateTags($data);
+					}
+					elseif( $field=='date' ) {
+
+						// Validate format date from file
+						if( Valid::date($data, DB_DATE_FORMAT) ) {
+
+							$tmpValue = $data;
+						}
+					}
+					else {
+						$tmpValue = Sanitize::html($data);
+					}
+
+					settype($tmpValue, gettype($options['value']));
+					$dataForDb[$field] = $tmpValue;
+				}
+			}
+		}
+
+		// Insert row in the database
+		$this->db[$key] = $dataForDb;
+
+		return true;
+	}
+
 	public function regenerateCli()
 	{
 		$db = $this->db;
@@ -359,7 +519,7 @@ class dbPages extends dbJSON
 		{
 			$key = basename($directory);
 
-			if(file_exists($directory.DS.'index.txt')) {
+			if(file_exists($directory.DS.FILENAME)) {
 				// The key is the directory name
 				$newPaths[$key] = true;
 			}
@@ -371,7 +531,7 @@ class dbPages extends dbJSON
 			{
 				$subKey = basename($subDirectory);
 
-				if(file_exists($subDirectory.DS.'index.txt')) {
+				if(file_exists($subDirectory.DS.FILENAME)) {
 					// The key is composed by the directory/subdirectory
 					$newPaths[$key.'/'.$subKey] = true;
 				}
