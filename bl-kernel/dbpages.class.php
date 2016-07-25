@@ -84,7 +84,7 @@ class dbPages extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$key.FILENAME, $data) === false ) {
+		if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}

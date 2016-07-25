@@ -91,7 +91,7 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 define('POSTS_PER_PAGE_ADMIN', 10);
 
 // Cli mode status for new posts/pages
-define('CLI_MODE', TRUE);
+define('CLI_MODE', FALSE);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
@@ -100,7 +100,7 @@ define('CLI_STATUS', 'published');
 define('CLI_USERNAME', 'admin');
 
 // Filename for posts and pages
-define('FILENAME', 'index.txt');
+define('FILENAME', 'index.md');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -123,17 +123,11 @@ define('EXTREME_FRIENDLY_URL', false);
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
 
-// Multibyte string extension loaded.
-define('MB_STRING', extension_loaded('mbstring'));
+// Set internal character encoding.
+mb_internal_encoding(CHARSET);
 
-if(MB_STRING)
-{
-	// Set internal character encoding.
-	mb_internal_encoding(CHARSET);
-
-	// Set HTTP output character encoding.
-	mb_http_output(CHARSET);
-}
+// Set HTTP output character encoding.
+mb_http_output(CHARSET);
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
