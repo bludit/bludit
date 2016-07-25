@@ -394,7 +394,8 @@ class dbPages extends dbJSON
 				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
 
 				// If checksum is different, update the post
-				if( $this->db[$key]['md5file']!==$checksum ) {
+				if( isset($this->db[$key]['md5file']) &&
+					$this->db[$key]['md5file']!==$checksum ) {
 
 					// LOG
 					Log::set('CLI MODE - Different md5 checksum, key: '.$key);
