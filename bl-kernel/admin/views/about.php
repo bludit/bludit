@@ -14,8 +14,18 @@ echo '
 ';
 
 	echo '<tr>';
-	echo '<td>Bludit</td>';
-	echo '<td>'.BLUDIT_VERSION.' ('.BLUDIT_CODENAME.')</td>';
+	echo '<td>Bludit version</td>';
+	echo '<td>'.BLUDIT_VERSION.'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Bludit codename</td>';
+	echo '<td>'.BLUDIT_CODENAME.'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Bludit build</td>';
+	echo '<td>'.BLUDIT_BUILD.'</td>';
 	echo '</tr>';
 
 	echo '<tr>';
