@@ -85,7 +85,7 @@ $(document).ready(function() {
 		},
 
 		notallowed: function(file, settings) {
-			alert("'.$L->g('Supported image file types').' "+settings.allow);
+			alert("<?php echo $L->g('error').'. '.$L->g('Supported image file types')?>: "+settings.allow);
 		}
 	};
 
