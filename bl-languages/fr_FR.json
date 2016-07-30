@@ -235,5 +235,10 @@
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
 
-	"social-networks-links": "Liens vers les réseaux sociaux"
+	"social-networks-links": "Liens vers les réseaux sociaux",
+
+	"email-access-code": "Code d’accès par email",
+	"current-format": "Format actuel",
+
+	"welcome": "Bienvenue"
 }
