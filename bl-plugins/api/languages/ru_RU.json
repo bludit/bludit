@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "Интерфейс для взаимодействия с Bludit через HTTP протокол."
+	}
+}

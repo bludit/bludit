@@ -12,7 +12,8 @@ class dbPosts extends dbJSON
 		'allowComments'=>	array('inFile'=>false,	'value'=>0),
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
-		'coverImage'=>		array('inFile'=>false,	'value'=>'')
+		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'md5file'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -25,7 +26,7 @@ class dbPosts extends dbJSON
 	// $total = FALSE, return the amount of published posts
 	public function numberPost($total=false)
 	{
-		// Amount of posts, published, scheduled and draft
+		// Amount of total posts, published, scheduled and draft
 		if($total) {
 			return count($this->db);
 		}
@@ -69,7 +70,7 @@ class dbPosts extends dbJSON
 	// Return TRUE if the post exists, FALSE otherwise.
 	public function postExists($key)
 	{
-		return isset($this->db[$key]);
+		return isset( $this->db[$key] );
 	}
 
 	// Generate a valid Key/Slug.
@@ -104,15 +105,17 @@ class dbPosts extends dbJSON
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
+
+		// Current date, format of DB_DATE_FORMAT
 		$currentDate = Date::current(DB_DATE_FORMAT);
 
-		// Generate the database key.
+		// Generate the database key / index
 		$key = $this->generateKey($args['slug']);
 
-		// The user is always who is loggued.
+		// The user is always who is loggued
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
-			Log::set(__METHOD__.LOG_SEP.'The session does not have the username.');
+			Log::set(__METHOD__.LOG_SEP.'Session username doesnt exists.');
 			return false;
 		}
 
@@ -129,7 +132,7 @@ class dbPosts extends dbJSON
 		// Verify arguments with the database fields.
 		foreach($this->dbFields as $field=>$options)
 		{
-			// If the field is in the arguments.
+			// If the field is in the arguments
 			if( isset($args[$field]) )
 			{
 				if($field=='tags') {
@@ -145,13 +148,13 @@ class dbPosts extends dbJSON
 					}
 				}
 			}
-			// Default value if not in the arguments.
+			// Set a default value if not in the arguments
 			else
 			{
 				$tmpValue = $options['value'];
 			}
 
-			// Check where the field will be written, if in the file or in the database.
+			// Check where the field will be written, in the file or in the database
 			if($options['inFile']) {
 				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
 			}
@@ -173,18 +176,27 @@ class dbPosts extends dbJSON
 
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_POSTS.$key.DS.'index.txt', $data) === false ) {
+		if( file_put_contents(PATH_POSTS.$key.DS.FILENAME, $data) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
 			return false;
 		}
 
+		// Calculate the checksum of the file
+		$dataForDb['md5file'] = md5_file(PATH_POSTS.$key.DS.FILENAME);
+
 		// Save the database
 		$this->db[$key] = $dataForDb;
 
-		// Sort posts before save.
+		// Sort posts before save
 		$this->sortByDate();
 
 		if( $this->save() === false ) {
+
+			// Trying to rollback
+			Log::set(__METHOD__.LOG_SEP.'Rollback...');
+			Filesystem::rmfile(PATH_POSTS.$key.DS.FILENAME);
+			Filesystem::rmdir(PATH_POSTS.$key);
+
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
@@ -214,7 +226,7 @@ class dbPosts extends dbJSON
 		}
 
 		// Delete the index.txt file.
-		if( Filesystem::rmfile(PATH_POSTS.$key.DS.'index.txt') === false ) {
+		if( Filesystem::rmfile(PATH_POSTS.$key.DS.FILENAME) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
 		}
 
@@ -261,20 +273,15 @@ class dbPosts extends dbJSON
 		return array();
 	}
 
-	// Delete all posts from an user.
+	// Delete all posts from an user
 	public function deletePostsByUser($username)
 	{
-		foreach($this->db as $key=>$value)
-		{
-			if($value['username']==$username) {
-				unset($this->db[$key]);
-			}
-		}
+		foreach($this->db as $key=>$value) {
 
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
+			if($value['username']==$username) {
+				$this->delete($key);
+				Log::set(__METHOD__.LOG_SEP.'Post deleted: '.$key);
+			}
 		}
 
 		Log::set(__METHOD__.LOG_SEP.'Posts from the user '.$username.' were delete.');
@@ -284,8 +291,8 @@ class dbPosts extends dbJSON
 	// Link-up all posts from an user to another user.
 	public function linkPostsToUser($oldUsername, $newUsername)
 	{
-		foreach($this->db as $key=>$value)
-		{
+		foreach($this->db as $key=>$value) {
+
 			if($value['username']==$oldUsername) {
 				$this->db[$key]['username'] = $newUsername;
 			}
@@ -308,6 +315,7 @@ class dbPosts extends dbJSON
 	public function removeUnpublished()
 	{
 		foreach($this->db as $key=>$values) {
+
 			if($values['status']!='published') {
 				unset($this->db[$key]);
 			}
@@ -319,7 +327,7 @@ class dbPosts extends dbJSON
 	// Return TRUE if there are new posts published, FALSE otherwise.
 	public function scheduler()
 	{
-		// Get current date.
+		// Get current date
 		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		$saveDatabase = false;
@@ -327,10 +335,11 @@ class dbPosts extends dbJSON
 		// Check scheduled posts
 		foreach($this->db as $postKey=>$values)
 		{
-			if($values['status']=='scheduled')
-			{
-				// Publish post.
+			if($values['status']=='scheduled') {
+
+				// Publish post
 				if($values['date']<=$currentDate) {
+
 					$this->db[$postKey]['status'] = 'published';
 					$saveDatabase = true;
 				}
@@ -348,7 +357,7 @@ class dbPosts extends dbJSON
 				return false;
 			}
 
-			Log::set(__METHOD__.LOG_SEP.'New post published from scheduler.');
+			Log::set(__METHOD__.LOG_SEP.'New posts published from the scheduler.');
 			return true;
 		}
 
@@ -401,110 +410,152 @@ class dbPosts extends dbJSON
 		return $a['date']<$b['date'];
 	}
 
-	// Return TRUE if there are new posts or orphan post deleted, FALSE otherwise.
-	public function regenerateCli()
+	public function cliMode()
 	{
-		$db = $this->db;
-		$allPosts = array();
-		$fields = array();
-		$currentDate = Date::current(DB_DATE_FORMAT);
+		// LOG
+		Log::set('CLI MODE - POSTS - Starting...');
 
-		// Generate default fields and values.
-		// --------------------------------------------------------------------------
-		foreach($this->dbFields as $field=>$options) {
-			if(!$options['inFile']) {
-				$fields[$field] = $options['value'];
-			}
-		}
+		$postList = array();
 
-		$fields['status'] 	= CLI_STATUS;
-		$fields['username'] 	= CLI_USERNAME;
-		$fields['date'] 	= $currentDate;
-
-		// Get all posts from the first level of directories.
 		$postsDirectories = Filesystem::listDirectories(PATH_POSTS);
-		foreach($postsDirectories as $directory)
-		{
 
-			// Check if the post has the index.txt file.
-			if(Sanitize::pathFile($directory.DS.'index.txt'))
-			{
-				// The key is the directory name.
+		foreach( $postsDirectories as $directory ) {
+
+			if( Sanitize::pathFile($directory.DS.FILENAME) ) {
+
+				// The key is the directory name
 				$key = basename($directory);
 
-				Log::set('----------------');
-				Log::set('CliMode - Post KEY: '.$key);
+				// Add the key to the list
+				$postList[$key] = true;
 
-				// This post exists
-				$allPosts[$key] = true;
+				// Checksum
+				$checksum = md5_file($directory.DS.FILENAME);
 
-				// Create the new entry if not exist inside the DATABASE.
+				// LOG
+				Log::set('CLI MODE - Post found, key: '.$key);
+
 				if( !isset($this->db[$key]) ) {
-					// New entry on database with the default fields and values.
-					$this->db[$key] = $fields;
 
-					Log::set('CliMode - New post: '.$key);
+					// LOG
+					Log::set('CLI MODE - The post is not in the database, key: '.$key);
+
+					// Insert new post
+					$this->cliModeInsert($key);
 				}
+				else {
+					// If checksum is different, update the post
+					if( $this->db[$key]['md5file']!==$checksum ) {
 
-				// Create the post from FILE.
-				$Post = new Post($key);
+						// LOG
+						Log::set('CLI MODE - Different md5 checksum, key: '.$key);
 
-				// Update all fields from FILE to DATABASE.
-				foreach($fields as $f=>$v)
-				{
-					// Get the value from FILE.
-					$valueFromFile = $Post->getField($f);
-
-					// If the field exists on the FILE, update it.
-					if( !empty($valueFromFile) )
-					{
-						Log::set('CliMode - Field to replace: '.$f);
-						Log::set('CliMode - value from file: '.$valueFromFile);
-
-						if($f=='tags') {
-							// Generate tags array.
-							$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
-						}
-						elseif($f=='date') {
-							// Validate Date from file
-							if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
-								$this->db[$key]['date'] = $valueFromFile;
-
-								if( $valueFromFile > $currentDate ) {
-									$this->db[$key]['status'] = 'scheduled';
-								}
-							}
-						}
-						else {
-							// Sanitize the values from file.
-							$this->db[$key][$f] = Sanitize::html($valueFromFile);
-						}
+						// Update the post
+						$this->cliModeInsert($key, $update=true);
 					}
 				}
 			}
 		}
 
-		// Remove orphan posts from db, the orphan posts are posts deleted by hand (directory deleted).
-		foreach( array_diff_key($db, $allPosts) as $key=>$data ) {
-			unset($this->db[$key]);
-			Log::set('CliMode - Deleted post: '.$key);
+		// LOG
+		Log::set('CLI MODE - Cleaning database...');
+
+		foreach( array_diff_key($this->db, $postList) as $key=>$data ) {
+			// LOG
+			Log::set('CLI MODE - Removing post from database, key: '.$key);
+
+			// Removing the post from database
+			unset( $this->db[$key] );
 		}
 
-		// Sort posts before save.
+		// Sort posts before save
 		$this->sortByDate();
 
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
+		// Save the database
+		$this->save();
+
+		// LOG
+		Log::set('CLI MODE - POSTS - Finishing...');
+
+		return true;
+	}
+
+	private function cliModeInsert($key, $update=false)
+	{
+		if($update) {
+			// LOG
+			Log::set('CLI MODE - cliModeInsert() - Updating the post, key: '.$key);
+
+			// Database from the current database
+			$dataForDb = $this->db[$key];
+			$dataForDb['dateModified'] = Date::current(DB_DATE_FORMAT);
+		}
+		else {
+			// LOG
+			Log::set('CLI MODE - cliModeInsert() - Inserting the new post, key: '.$key);
+
+			// Database for the new post, fields with the default values
+			$dataForDb = array();
+			foreach( $this->dbFields as $field=>$options ) {
+
+				if( !$options['inFile'] ) {
+					$dataForDb[$field] = $options['value'];
+				}
+			}
+
+			// Fields and value predefined in init.php
+			$dataForDb['username']	= CLI_USERNAME;
+			$dataForDb['status'] 	= CLI_STATUS;
+			$dataForDb['date'] 	= Date::current(DB_DATE_FORMAT);
 		}
 
-		if($this->db!=$db) {
-			Log::set(__METHOD__.LOG_SEP.'There are new or deleted posts.');
-			return true;
+		// MD5 checksum
+		$dataForDb['md5file'] = md5_file(PATH_POSTS.$key.DS.FILENAME);
+
+		// Generate the Object from the file
+		$Post = new Post($key);
+
+		foreach( $this->dbFields as $field=>$options ) {
+
+			if( !$options['inFile'] ) {
+
+				// Get the field from the file
+				// If the field doesn't exist, the function returns FALSE
+				$data = $Post->getField($field);
+
+				if( $data!==false ) {
+
+					$tmpValue = '';
+
+					if( $field=='tags' ) {
+						$tmpValue = $this->generateTags($data);
+					}
+					elseif( $field=='date' ) {
+
+						// Validate format date from file
+						if( Valid::date($data, DB_DATE_FORMAT) ) {
+
+							$tmpValue = $data;
+
+							if( $data > $currentDate ) {
+								$dataForDb['status'] = 'scheduled';
+							}
+						}
+					}
+					else {
+						$tmpValue = Sanitize::html($data);
+					}
+
+					settype($tmpValue, gettype($options['value']));
+					$dataForDb[$field] = $tmpValue;
+				}
+			}
 		}
 
-		return false;
+		// Insert row in the database
+		$this->db[$key] = $dataForDb;
+
+		return true;
 	}
 
 }

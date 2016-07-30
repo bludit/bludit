@@ -40,12 +40,12 @@ class Content {
 	// Parse the content from the file index.txt
 	private function build($path)
 	{
-		if( !Sanitize::pathFile($path.'index.txt') ) {
+		if( !Sanitize::pathFile($path.FILENAME) ) {
 			return false;
 		}
 
 		$tmp = 0;
-		$lines = file($path.'index.txt');
+		$lines = file($path.FILENAME);
 		foreach($lines as $lineNumber=>$line)
 		{
 			$parts = array_map('trim', explode(':', $line, 2));

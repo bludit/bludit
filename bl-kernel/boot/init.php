@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'1.4');
-define('BLUDIT_CODENAME',	'Spot');
-define('BLUDIT_RELEASE_DATE',	'2016-06-20');
-define('BLUDIT_BUILD',		'20160620');
+define('BLUDIT_VERSION',	'1.5beta');
+define('BLUDIT_CODENAME',	'');
+define('BLUDIT_RELEASE_DATE',	'2016-07-16');
+define('BLUDIT_BUILD',		'20160716');
 
 // Debug mode
 define('DEBUG_MODE', TRUE);
@@ -91,13 +91,16 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 define('POSTS_PER_PAGE_ADMIN', 10);
 
 // Cli mode status for new posts/pages
-define('CLI_MODE', false);
+define('CLI_MODE', FALSE);
 
 // Cli mode status for new posts/pages
 define('CLI_STATUS', 'published');
 
 // Cli mode username for new posts/pages
 define('CLI_USERNAME', 'admin');
+
+// Filename for posts and pages
+define('FILENAME', 'index.md');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -120,17 +123,11 @@ define('EXTREME_FRIENDLY_URL', false);
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
 
-// Multibyte string extension loaded.
-define('MB_STRING', extension_loaded('mbstring'));
+// Set internal character encoding.
+mb_internal_encoding(CHARSET);
 
-if(MB_STRING)
-{
-	// Set internal character encoding.
-	mb_internal_encoding(CHARSET);
-
-	// Set HTTP output character encoding.
-	mb_http_output(CHARSET);
-}
+// Set HTTP output character encoding.
+mb_http_output(CHARSET);
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');

@@ -43,7 +43,7 @@ class pluginPages extends Plugin {
 		}
 
 		$html .= '<div class="plugin-content">';
-		$html .= '<ul>';
+		$html .= '<ul class="parents">';
 
 		// Show home link ?
 		if($this->getDbField('homeLink')) {
@@ -59,8 +59,8 @@ class pluginPages extends Plugin {
 			if( $parent->published() )
 			{
 				// Print the parent
-				$html .= '<li>';
-				$html .= '<a class="parent '.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
+				$html .= '<li class="parent">';
+				$html .= '<a class="parent'.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
 				// Check if the parent has children
 				if(isset($pagesParents[$parent->key()]))

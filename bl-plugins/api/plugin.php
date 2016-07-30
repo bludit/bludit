@@ -48,7 +48,7 @@ class pluginAPI extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}</a></p>';
+		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}</a></p>';
 		$html .= '<div class="tip">Get a particular page, change the {PAGE-NAME} with the page friendly url.</div>';
 		$html .= '</div>';
 
@@ -157,7 +157,7 @@ class pluginAPI extends Plugin {
 		// Get parameters
 		$parameters = explode('/', $URI);
 
-		for($i=0; $i<4; $i++) {
+		for($i=0; $i<3; $i++) {
 			if(empty($parameters[$i])) {
 				return false;
 			} else {
@@ -172,6 +172,8 @@ class pluginAPI extends Plugin {
 			'bludit'=>'Bludit API plugin',
 			'message'=>'Check the parameters'
 		));
+
+
 
 		if($parameters[0]==='show') {
 

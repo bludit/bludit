@@ -40,6 +40,9 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 // Protecting against Symlink attacks.
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
+// Filename for posts and pages
+define('FILENAME', 'index.md');
+
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
@@ -89,17 +92,11 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
-// Multibyte string extension loaded.
-define('MB_STRING', extension_loaded('mbstring'));
+// Set internal character encoding.
+mb_internal_encoding(CHARSET);
 
-if(MB_STRING)
-{
-	// Set internal character encoding.
-	mb_internal_encoding(CHARSET);
-
-	// Set HTTP output character encoding.
-	mb_http_output(CHARSET);
-}
+// Set HTTP output character encoding.
+mb_http_output(CHARSET);
 
 // --- PHP Classes ---
 
@@ -216,6 +213,16 @@ function checkSystem()
 	if(!in_array('json', $phpModules))
 	{
 		$errorText = 'PHP module JSON is not installed. (ERR_204)';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
+	if(!in_array('mbstring', $phpModules))
+	{
+		$errorText = 'PHP module Multibyte String (mbstring) is not installed. (ERR_206)';
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'PHP module';
@@ -486,22 +493,22 @@ function install($adminPassword, $email, $timezone)
 		LOCK_EX
 	);
 
-	// File index.txt for error page
+	// File FILENAME for error page
 	$data = 'Title: '.$Language->get('Error').'
 Content: '.$Language->get('The page has not been found');
 
-	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for about page
+	// File FILENAME for about page
 	$data = 'Title: '.$Language->get('About').'
 Content:
 '.$Language->get('the-about-page-is-very-important').'
 
 '.$Language->get('change-this-pages-content-on-the-admin-panel');
 
-	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for welcome post
+	// File FILENAME for welcome post
 	$text1 = Text::replaceAssoc(
 			array(
 				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
@@ -520,7 +527,7 @@ Content:
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
 
-	file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_POSTS.$firstPostSlug.DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }
