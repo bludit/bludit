@@ -200,6 +200,16 @@ function checkSystem()
 		array_push($stdOut, $tmp);
 	}
 
+	if(!in_array('gd', $phpModules))
+	{
+		$errorText = 'PHP module GD is not installed.';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
 	if(!in_array('dom', $phpModules))
 	{
 		$errorText = 'PHP module DOM is not installed. (ERR_203)';
