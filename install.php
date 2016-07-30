@@ -41,7 +41,7 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Filename for posts and pages
-define('FILENAME', 'index.md');
+define('FILENAME', 'index.txt');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);

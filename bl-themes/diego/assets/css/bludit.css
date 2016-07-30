@@ -1,0 +1,186 @@
+body {
+	padding-top: 0;
+	background: #F7F7F7;
+}
+
+a {
+	border: none;
+}
+
+a:hover {
+	border-bottom: 1px dotted rgba(160, 160, 160, 0.65)
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-transform: none;
+	letter-spacing: 0;
+	font-weight: normal;
+	margin-bottom: 0.8em;
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+h2 {
+	font-size: 1.4em;
+}
+
+h3 {
+	font-size: 1.3em;
+}
+
+h4 {
+	font-size: 1.2em;
+}
+
+h5 {
+	font-size: 1.1em;
+}
+
+h6 {
+	font-size: 1em;
+}
+
+p {
+	margin-bottom: 1.3em;
+}
+
+code {
+	border: 0;
+	color: #333;
+	margin: 0;
+	font-weight: bold;
+}
+
+pre code {
+	border: 1px solid #ffcb94;
+	font-weight: normal !important;
+	overflow-x: auto;
+}
+
+#main {
+	max-width: 980px;
+}
+
+#header {
+	background-color: #f7f7f7;
+	border-bottom: 0;
+}
+
+#header h1 {
+	font-size: 1.4em;
+	font-weight: lighter;
+}
+
+#header .links {
+	border-left: 0;
+}
+
+#header .main ul li {
+	border-left: 0;
+}
+
+#header .main ul li > a {
+	color: #2672ec;
+}
+
+header p {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 0.9em;
+}
+
+#menu .links > li a h3 {
+	font-size: 1em;
+	margin-bottom: 0;
+}
+
+#intro header h2 {
+	font-weight: lighter;
+	margin-bottom: 0;
+}
+
+#intro header p {
+	font-size: 1em;
+}
+
+.post {
+	border: 0;
+}
+
+.post a {
+	color: #2672ec;
+}
+
+.post > header {
+	border-bottom-color: #F7F7F7;
+	margin-bottom: 1.3em;
+}
+
+.post > header .meta {
+	padding: 0.5em 3em 0.3em;
+	border-left: 0;
+}
+
+.post > header .title {
+	padding: 0.5em 3em 0.3em;
+}
+
+.post > header .title h1 {
+	font-size: 2em;
+	font-weight: normal;
+	margin-bottom: 5px;
+}
+
+.post > header .title h1 a {
+	color: #3c3b3b;
+}
+
+.post > footer .stats {
+	margin: 0;
+}
+
+.post > footer .actions {
+	margin: 0;
+}
+
+blockquote p {
+	margin: 10px 0;
+}
+
+.author .name {
+	letter-spacing: 0.05em;
+}
+
+#sidebar {
+	margin-top: 2.2em;
+	min-width: 0;
+}
+
+.plugin > h2 {
+	font-weight: normal !important;
+	text-transform: uppercase;
+}
+
+.plugin ul {
+	list-style: none !important;
+	padding: 0 !important;
+}
+
+.plugin li {
+	padding: 0 !important;
+}
+
+.plugin-pages ul.children {
+	margin: 0 0 0 10px;
+}
+
+.plugin-pages li.parent {
+	margin: 15px 0;
+}
+
+/* Only for Plugin tags */
+.plugin-tags li {
+	text-transform: capitalize;
+}
