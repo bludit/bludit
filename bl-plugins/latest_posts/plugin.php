@@ -45,7 +45,7 @@ class pluginLatestPosts extends Plugin {
 
 		foreach($posts as $Post)
 		{
-			$html .= '<li>';
+			$html .= '<li class="plugin-title">';
 			$html .= '<a href="'.$Post->permalink().'">'.$Post->title().'</a>';
 			$html .= '</li>';
 		}
