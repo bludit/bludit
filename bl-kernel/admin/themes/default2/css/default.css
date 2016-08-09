@@ -10,23 +10,6 @@
 	width: 80% !important;
 }
 
-#bl-sidebar .uk-nav-header {
-	font-weight: normal !important;
-	font-size: 16px;
-}
-
-#bl-sidebar .uk-nav {
-	margin: 0px 0 0 20px !important;
-}
-
-#bl-sidebar .bl-icon {
-	margin-right: 5px;
-}
-
-#bl-sidebar a {
-	color: #777 !important;
-}
-
 /* UIKIT HACKs buttons
 ---------------------------------------------------------------- */
 
@@ -39,17 +22,59 @@ body {
 	overflow-y: scroll;
 }
 
+/* TOPBAR
+---------------------------------------------------------------- */
+
 #bl-navbar {
 	background: #f1f1f1;
 	margin-bottom: 20px;
 	width: 100%;
 }
 
-#bl-navbar .bl-brand {
+#bl-navbar a.bl-brand {
 	font-size: 20px;
 	line-height: 60px;
-	margin: 0 30px;
+	margin: 0 0 0 35px;
 	text-transform: uppercase;
+	text-shadow: 0 1px 0 #fff;
+}
+
+#bl-navbar a.bl-brand:hover {
+	text-decoration: none;
+}
+
+/* SIDEBAR
+---------------------------------------------------------------- */
+
+#bl-sidebar a {
+	color: #777 !important;
+}
+
+#bl-sidebar .uk-nav {
+	margin: 0px 0 0 20px !important;
+}
+
+#bl-sidebar .uk-nav-header {
+	font-weight: normal !important;
+	font-size: 16px;
+}
+
+/* VIEW
+---------------------------------------------------------------- */
+
+#bl-view {
+	margin-right: 20px;
+}
+
+.plugin-incompatible,
+.theme-incompatible {
+	background: #ffdc7d;
+	border: 1px dashed #eec24a;
+	color: #826106;
+	display: table-cell;
+	font-size: 12px;
+	margin-top: 6px;
+	padding: 1px 10px;
 }
 
 /* OLD

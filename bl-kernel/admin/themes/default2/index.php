@@ -82,7 +82,9 @@ $(document).ready(function() {
 
 	<div class="uk-grid uk-grid-small">
 
-		<div id="bl-sidebar" class="uk-width-1-4">
+		<div class="uk-width-1-4">
+		<div id="bl-sidebar">
+
 		<ul class="uk-nav">
 
 		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?>>
@@ -129,14 +131,18 @@ $(document).ready(function() {
 		</li>
 
 		</ul>
+
+		</div>
 		</div>
 
 		<div class="uk-width-3-4">
+		<div id="bl-view">
 		<?php
 			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 			}
 		?>
+		</div>
 		</div>
 
 </div>
