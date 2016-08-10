@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Derniers messages",
+		"description": "Affiche les derniers messages publiés."
+	},
+
+	"amount-of-posts": "Nombre de messages à afficher"
+}

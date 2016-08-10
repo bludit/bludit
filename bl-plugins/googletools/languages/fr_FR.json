@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Outils Google",
+		"description": "Ce plugin génère la balise meta pour valider votre site avec Google Webmasters Tools et le code JavaScript pour suivre votre site avec Google Analytics."
+	},
+
+	"google-webmasters-tools": "Google Webmasters tools",
+	"google-analytics-tracking-id": "Code de suivis Google Analytics",
+	"complete-this-field-with-the-google-site-verification": "Remplissez ce champ avec la clé de vérification Google Site pour vérifier le propriétaire du site.",
+	"complete-this-field-with-the-tracking-id": "Remplissez ce champ avec l'ID de suivi pour générer le code de suivi Javascript pour Google Analytics."
+}
