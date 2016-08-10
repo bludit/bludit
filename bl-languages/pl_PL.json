@@ -234,5 +234,10 @@
 	"delete-image": "Usuń",
 	"image-description": "Opis obrazka",
 
-	"social-networks-links": "Odnośniki do serwisów społecznościowych"
+	"social-networks-links": "Odnośniki do serwisów społecznościowych",
+	
+	"email-access-code": "Otrzymaj kod dostępu poprzez e-mail",
+	"current-format": "Format",
+
+	"welcome": "Cześć, "
 }
