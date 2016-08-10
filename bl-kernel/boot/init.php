@@ -99,8 +99,8 @@ define('CLI_STATUS', 'published');
 // Cli mode username for new posts/pages
 define('CLI_USERNAME', 'admin');
 
-// Filename for posts and pages
-define('FILENAME', 'index.md');
+// Filename for posts and pages, you can change for example, for index.md
+define('FILENAME', 'index.txt');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');

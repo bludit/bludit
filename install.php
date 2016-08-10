@@ -41,7 +41,7 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Filename for posts and pages
-define('FILENAME', 'index.md');
+define('FILENAME', 'index.txt');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -196,6 +196,16 @@ function checkSystem()
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'File .htaccess';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
+	if(!in_array('gd', $phpModules))
+	{
+		$errorText = 'PHP module GD is not installed.';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
 		$tmp['errorText'] = $errorText;
 		array_push($stdOut, $tmp);
 	}
