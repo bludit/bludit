@@ -12,11 +12,48 @@ class Image {
 		// *** Open up the file
 		$this->image = $this->openImage($fileName);
 
+		// *** Fix issues with orientation being set in metadata
+		$this->fixOrientation($fileName);
+
 		// *** Get width and height
 		$this->width  = imagesx($this->image);
 		$this->height = imagesy($this->image);
 
 		$this->resizeImage($newWidth, $newHeight, $option);
+	}
+	
+	private function fixOrientation($filename) {
+		$exif = exif_read_data($filename);
+
+		if (!empty($exif['Orientation'])) {
+			switch ($exif['Orientation']) {
+				case 1:
+					break;
+				case 2:
+					$this->image = imageflip($this->image, IMG_FLIP_HORIZONTAL);
+					break;
+				case 3:
+					$this->image = imagerotate($this->image, 180, 0);
+					break;
+				case 4:
+					$this->image = imageflip($this->image, IMG_FLIP_VERTICAL);
+					break;
+				case 5:
+					$this->image = imageflip($this->image, IMG_FLIP_VERTICAL);
+					$this->image = imagerotate($this->image, -90, 0);
+					break;
+				case 6:
+					$this->image = imagerotate($this->image, -90, 0);
+					break;
+				case 7:
+					$this->image = imageflip($this->image, IMG_FLIP_HORIZONTAL);
+					$this->image = imagerotate($this->image, -90, 0);
+					break;
+				case 8:
+					$this->image = imagerotate($this->image, 90, 0);
+					break;
+			}
+		}
 	}
 
 	public function saveImage($savePath, $imageQuality="100", $forceJPG=false, $forcePNG=false)
