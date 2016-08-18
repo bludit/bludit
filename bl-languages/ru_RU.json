@@ -238,5 +238,7 @@
 	"social-networks-links": "Социальные сети",
 
 	"email-access-code": "Проверочный код email",
- 	"current-format": "Текущий формат"
+ 	"current-format": "Текущий формат",
+ 	
+ 	"welcome": "Добро пожаловать"
 }
