@@ -190,7 +190,7 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 	
-	if ((stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false || stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) && !file_exists(PATH_ROOT.'.htaccess')) {
+	if (array_key_exists('SERVER_SOFTWARE', $_SERVER) && ((stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false || stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) && !file_exists(PATH_ROOT.'.htaccess'))) {
 		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
 		error_log($errorText, 0);
 
