@@ -70,3 +70,12 @@
 		#menu > * {
 			border-top: solid 1px #dedede;
 		}
+		
+/* Responsive images */
+
+	@media \0screen {
+		img { 
+			width: auto; /* for ie 8 */
+		}
+	}
+	
