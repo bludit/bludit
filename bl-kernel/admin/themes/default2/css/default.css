@@ -10,16 +10,52 @@
 	width: 80% !important;
 }
 
+/* UIKIT HACKs tabs
+---------------------------------------------------------------- */
+
+.uk-nav-dropdown > li > a:focus,
+.uk-nav-dropdown > li > a:hover {
+	background-color: #007add !important;
+}
+
 /* UIKIT HACKs buttons
 ---------------------------------------------------------------- */
 
+.uk-button {
+	border-radius: 2px !important;
+	padding: 1px 20px !important;
+}
+
+.uk-button-primary {
+	background-color: #007add !important;
+}
+
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+	background-color: #0069BE !important;
+}
+
+
 /* UIKIT HACKs forms
 ---------------------------------------------------------------- */
+
+.uk-form input:not([type]), .uk-form input[type="text"], .uk-form input[type="password"], .uk-form input[type="email"], .uk-form input[type="url"], .uk-form input[type="search"], .uk-form input[type="tel"], .uk-form input[type="number"], .uk-form input[type="datetime"], .uk-form input[type="datetime-local"], .uk-form input[type="date"], .uk-form input[type="month"], .uk-form input[type="time"], .uk-form input[type="week"], .uk-form input[type="color"], .uk-form select, .uk-form textarea {
+	border-radius: 2px !important;
+}
+
+.uk-form-help-block {
+	color: #777 !important;
+	font-size: 0.9em !important;
+}
 
 /* CSS defaults
 ---------------------------------------------------------------- */
 body {
 	overflow-y: scroll;
+}
+
+#bl-container {
+	margin-bottom: 20px;
 }
 
 /* TOPBAR
@@ -66,6 +102,10 @@ body {
 	margin-right: 20px;
 }
 
+#bl-view .uk-width-2-10 {
+	padding-left: 10px !important;
+}
+
 .plugin-incompatible,
 .theme-incompatible {
 	background: #ffdc7d;
@@ -75,6 +115,21 @@ body {
 	font-size: 12px;
 	margin-top: 6px;
 	padding: 1px 10px;
+}
+
+/* DASHBOARD
+---------------------------------------------------------------- */
+
+#dashboard-panel .uk-panel {
+	background-color: #fafafa !important;
+	border: 1px solid #f8f8f8;
+	box-shadow: 5px 1px 1px #fdfdfd;
+	padding: 10px !important;
+}
+
+#dashboard-panel .uk-panel h4.panel-title {
+	text-transform: uppercase;
+	font-size: 14px !important;
 }
 
 /* OLD

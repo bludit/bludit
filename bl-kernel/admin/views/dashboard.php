@@ -59,12 +59,12 @@
 </div>
 </div>
 
-<div class="uk-grid" data-uk-grid-margin>
+<div id="dashboard-panel" class="uk-grid">
 
-	<div class="uk-width-medium-1-3">
+	<div class="uk-width-1-3">
 
-		<div class="uk-panel uk-panel-box">
-		<h4><?php $L->p('Statistics') ?></h4>
+		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Statistics') ?></h4>
 		<table class="uk-table statistics">
 			<tbody>
 			<tr>
@@ -85,10 +85,10 @@
 
 	</div>
 
-	<div class="uk-width-medium-1-3">
+	<div class="uk-width-1-3">
 
-		<div class="uk-panel uk-panel-box">
-		<h4><?php $L->p('Drafts') ?></h4>
+		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Drafts') ?></h4>
 		<ul class="uk-list">
 		<?php
 			if( empty($_draftPosts) && empty($_draftPages) ) {
@@ -108,10 +108,10 @@
 
 	</div>
 
-	<div class="uk-width-medium-1-3">
+	<div class="uk-width-1-3">
 
-		<div class="uk-panel uk-panel-box">
-		<h4><?php $L->p('Scheduled posts') ?></h4>
+		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Scheduled posts') ?></h4>
 		<ul class="uk-list">
 		<?php
 			if( empty($_scheduledPosts) ) {

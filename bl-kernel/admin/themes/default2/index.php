@@ -77,8 +77,7 @@ $(document).ready(function() {
 	<a href="" class="bl-brand">BLUDIT</a>
 </nav>
 
-<!-- View -->
-<div class="bl-container">
+<div id="bl-container">
 
 	<div class="uk-grid uk-grid-small">
 

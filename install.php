@@ -190,14 +190,21 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
-	if(!file_exists(PATH_ROOT.'.htaccess'))
-	{
-		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
-		error_log($errorText, 0);
+	// Check .htaccess file for different webservers
+	if( !file_exists(PATH_ROOT.'.htaccess') ) {
 
-		$tmp['title'] = 'File .htaccess';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
+		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
+			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
+			stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false
+		) {
+			$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
+			error_log($errorText, 0);
+
+			$tmp['title'] = 'File .htaccess';
+			$tmp['errorText'] = $errorText;
+			array_push($stdOut, $tmp);
+
+		}
 	}
 
 	if(!in_array('gd', $phpModules))
