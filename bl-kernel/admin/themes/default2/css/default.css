@@ -10,6 +10,29 @@
 	width: 80% !important;
 }
 
+.label-draft,
+.label-empty-title,
+.label-time {
+	background: #A979D1 none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5px;
+	font-size: 0.8em;
+}
+
+.label-empty-title {
+	background: #53D192;
+}
+
+.label-time {
+	font-style: italic;
+	background: #A979D1;
+}
+
 /* UIKIT HACKs tabs
 ---------------------------------------------------------------- */
 
@@ -130,6 +153,23 @@ body {
 #dashboard-panel .uk-panel h4.panel-title {
 	text-transform: uppercase;
 	font-size: 14px !important;
+}
+
+div.dashboard-links {
+	background-color: #fafafa !important;
+	border: 1px solid #f8f8f8;
+	box-shadow: 5px 1px 1px #fdfdfd;
+	margin-bottom: 20px;
+	padding: 50px 20px;
+}
+
+div.dashboard-links h4 {
+	margin-bottom: -8px !important;
+}
+
+/* NEW POST */
+h3.titleOptions {
+	font-size: 1em;
 }
 
 /* OLD
@@ -421,24 +461,7 @@ div.login-form {
 	width: 400px;
 }
 
-/* ----------- DASHBOARD ----------- */
 
-div.dashboard-links {
-	margin: 0 0 25px 0;
-}
-
-div.dashboard-links h4 {
-	margin-bottom: -8px !important;
-}
-
-div.dashboard-links a {
-	color: #555;
-}
-
-/* NEW POST */
-h3.titleOptions {
-	font-size: 1em;
-}
 
 /* ----------- PLUGIN LIST / THEME LIST ----------- */
 
@@ -456,28 +479,6 @@ div.plugin-links > span.separator {
 	color: #ccc;
 }
 
-.label-draft,
-.label-empty-title,
-.label-time {
-	background: #2672ec none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #ffffff;
-	display: inline-block;
-	padding: 0 8px;
-	text-align: center;
-	vertical-align: middle;
-	margin-right: 5px;
-	font-size: 0.9em;
-}
-
-.label-empty-title {
-	background: #ED8F26;
-}
-
-.label-time {
-	font-style: italic;
-	background: #ED3A26;
-}
 
 /* ----------- PAGINATOR ----------- */
 

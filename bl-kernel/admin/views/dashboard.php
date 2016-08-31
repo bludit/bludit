@@ -1,5 +1,4 @@
-<div class="uk-block uk-block-muted dashboard-links">
-<div class="uk-container">
+<div class="uk-block dashboard-links">
 <div class="uk-grid uk-grid-match" data-uk-grid-margin="{target:'.uk-panel'}">
 
 	<div class="uk-width-medium-1-3">
@@ -55,7 +54,6 @@
 
 	</div>
 
-</div>
 </div>
 </div>
 

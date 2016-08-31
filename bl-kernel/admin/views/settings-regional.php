@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Language and timezone'), 'icon'=>'cogs'));
+HTML::title(array('title'=>$L->g('Language and timezone'), 'icon'=>'globe'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
