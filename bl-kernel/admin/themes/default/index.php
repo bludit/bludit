@@ -75,6 +75,11 @@ $(document).ready(function() {
 
 <nav id="bl-navbar">
 	<a href="" class="bl-brand">BLUDIT</a>
+
+	<div class="bl-navbar-right">
+		Welcome <?php echo $Login->username() ?> -
+		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a>
+	</div>
 </nav>
 
 <div id="bl-container">
@@ -89,8 +94,11 @@ $(document).ready(function() {
 		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?>>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a>
 		</li>
+		<li>
+			<a target="_blank"  href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a>
+		</li>
 
-		<li class="uk-nav-header">Write</li>
+		<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
 		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a>
 		</li>

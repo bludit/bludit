@@ -91,6 +91,12 @@ body {
 	text-decoration: none;
 }
 
+#bl-navbar .bl-navbar-right {
+	float: right;
+	line-height: 60px;
+	margin: 0 35px 0 0;
+}
+
 /* SIDEBAR
 ---------------------------------------------------------------- */
 
