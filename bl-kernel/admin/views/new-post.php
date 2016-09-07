@@ -39,7 +39,7 @@ echo '<div class="uk-width-8-10">';
 echo '</div>';
 
 // ---- RIGHT SIDE ----
-echo '<div class="uk-width-2-10">';
+echo '<div class="sidebar-meta uk-width-2-10">';
 
 	// Tabs, general and advanced mode
 	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';

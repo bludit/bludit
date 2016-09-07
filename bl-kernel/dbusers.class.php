@@ -108,6 +108,15 @@ class dbUsers extends dbJSON
 		return $this->set($args);
 	}
 
+	// Disable the user
+	public function disableUser($username)
+	{
+		$args['username'] = $username;
+		$args['password'] = '!';
+
+		return $this->set($args);
+	}
+
 	public function set($args)
 	{
 		$dataForDb = array();

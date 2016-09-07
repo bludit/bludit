@@ -59,17 +59,6 @@
 }
 
 
-/* UIKIT HACKs forms
----------------------------------------------------------------- */
-
-.uk-form input:not([type]), .uk-form input[type="text"], .uk-form input[type="password"], .uk-form input[type="email"], .uk-form input[type="url"], .uk-form input[type="search"], .uk-form input[type="tel"], .uk-form input[type="number"], .uk-form input[type="datetime"], .uk-form input[type="datetime-local"], .uk-form input[type="date"], .uk-form input[type="month"], .uk-form input[type="time"], .uk-form input[type="week"], .uk-form input[type="color"], .uk-form select, .uk-form textarea {
-	border-radius: 2px !important;
-}
-
-.uk-form-help-block {
-	color: #777 !important;
-	font-size: 0.9em !important;
-}
 
 /* CSS defaults
 ---------------------------------------------------------------- */
@@ -167,10 +156,47 @@ div.dashboard-links h4 {
 	margin-bottom: -8px !important;
 }
 
-/* NEW POST */
-h3.titleOptions {
-	font-size: 1em;
+
+/* FORM
+---------------------------------------------------------------- */
+
+.uk-form input:not([type]), .uk-form input[type="text"], .uk-form input[type="password"], .uk-form input[type="email"], .uk-form input[type="url"], .uk-form input[type="search"], .uk-form input[type="tel"], .uk-form input[type="number"], .uk-form input[type="datetime"], .uk-form input[type="datetime-local"], .uk-form input[type="date"], .uk-form input[type="month"], .uk-form input[type="time"], .uk-form input[type="week"], .uk-form input[type="color"], .uk-form select, .uk-form textarea {
+	border-radius: 2px !important;
 }
+
+.uk-form-help-block {
+	color: #777 !important;
+	font-size: 0.9em !important;
+}
+
+.sidebar-meta .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
+
+.uk-form legend {
+	margin-top: 20px;
+}
+
+.uk-form legend.first-child {
+	margin-top: 0 !important;
+}
+
+button.aslink {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	border: 0 none;
+	color: #07d;
+	cursor: pointer;
+	display: block;
+	font-size: 1em;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+button.aslink:hover {
+	text-decoration: underline;
+}
+
 
 /* OLD
 ---------------------------------------------------------------- */
@@ -236,10 +262,6 @@ table.statistics tr:last-child td {
 
 /* ----------- FORM ----------- */
 
-.sidebar .uk-form-label {
-	font-size: 0.9em;
-	text-transform: uppercase;
-}
 
 #bludit-tags {
 	margin-top: 15px;

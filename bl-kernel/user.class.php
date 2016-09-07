@@ -46,6 +46,13 @@ class User
 		return $this->getField('password');
 	}
 
+	public function enabled()
+	{
+		$password = $this->getField('password');
+
+		return $password != '!';
+	}
+
 	public function salt()
 	{
 		return $this->getField('salt');
