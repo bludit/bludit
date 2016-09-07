@@ -51,82 +51,6 @@ $(document).ready(function() {
 <?php Alert::p() ?>
 </div>
 
-<!-- Navbar -->
-<nav class="uk-navbar bludit-navbar">
-
-	<!-- Navbar for Desktop -->
-	<div class="uk-container uk-container-center uk-hidden-small">
-
-		<ul class="uk-navbar-nav">
-		<li class="bludit-logo">BLUDIT</li>
-		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
-		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a></li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
-
-		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage') ?> ▾</a>
-			<div class="uk-dropdown uk-dropdown-navbar">
-				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Posts') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Pages') ?></a></li>
-				<?php if($Login->role() == 'admin') { ?>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><i class="uk-icon-users"></i> <?php $L->p('Users') ?></a></li>
-				<?php } ?>
-				</ul>
-			</div>
-		</li>
-
-		<?php if($Login->role() == 'admin') { ?>
-		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('Settings') ?> ▾</a>
-			<div class="uk-dropdown uk-dropdown-navbar">
-				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('General') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-cogs"></i> <?php $L->p('Advanced') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></li>
-
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><i class="uk-icon-puzzle-piece"></i> <?php $L->p('Plugins') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><i class="uk-icon-paint-brush"></i> <?php $L->p('Themes') ?></a></li>
-
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><i class="uk-icon-support"></i> <?php $L->p('About') ?></a></li>
-				</ul>
-			</div>
-		</li>
-		<?php } ?>
-
-		<li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a></li>
-
-		</ul>
-
-		<div class="uk-navbar-flip">
-		<ul class="uk-navbar-nav">
-		<li class="uk-parent" data-uk-dropdown>
-
-			<?php
-				$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.png';
-				if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.png')) {
-					$profilePictureSrc = HTML_PATH_UPLOADS_PROFILES.$Login->username().'.png';
-				}
-			?>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
-				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php $L->p('Welcome') ?> <?php echo $Login->username() ?>
-			</a>
-
-			<div class="uk-dropdown uk-dropdown-navbar bludit-user-navbar">
-				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a></li>
-				</ul>
-			</div>
-		</li>
-		</ul>
-		</div>
-	</div>
-
-	<!-- Navbar for Mobile -->
-	<a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
-	<div class="uk-navbar-brand uk-navbar-center uk-visible-small">BLUDIT</div>
-</nav>
-
 <!-- Offcanvas for Mobile -->
 <div id="offcanvas" class="uk-offcanvas">
 <div class="uk-offcanvas-bar">
@@ -149,13 +73,77 @@ $(document).ready(function() {
 </div>
 </div>
 
-<!-- View -->
-<div class="uk-container uk-container-center bl-view">
-<?php
-	if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
-		include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
-	}
-?>
+<nav id="bl-navbar">
+	<a href="" class="bl-brand">BLUDIT</a>
+</nav>
+
+<div id="bl-container">
+
+	<div class="uk-grid uk-grid-small">
+
+		<div class="uk-width-1-4">
+		<div id="bl-sidebar">
+
+		<ul class="uk-nav">
+
+		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a>
+		</li>
+
+		<li class="uk-nav-header">Write</li>
+		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
+		</li>
+
+		<li class="uk-nav-header">Manage</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Pages') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
+		</li>
+
+		<li class="uk-nav-header">Settings</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>
+		</li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
+		</li>
+
+		</ul>
+
+		</div>
+		</div>
+
+		<div class="uk-width-3-4">
+		<div id="bl-view">
+		<?php
+			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
+				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+			}
+		?>
+		</div>
+		</div>
+
 </div>
 
 <!-- Javascript -->

@@ -1,209 +1,246 @@
+.uk-form * {
+	border-radius: 2px !important;
+}
 
-/* UIKIT HACKs
+.uk-tab a {
+	color: #2196f3 !important;
+}
+
+a {
+	color: #2196f3 !important;
+}
+
+/* UIKIT HACKs navbar
 ---------------------------------------------------------------- */
-
-.uk-width-1-4 {
-	width: 20% !important;
+.uk-navbar {
+	background: #323232 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
 }
 
-.uk-width-3-4 {
-	width: 80% !important;
+.uk-navbar-nav a {
+	border: none !important;
+	border-radius: none !important;
+	text-shadow: none !important;
+	color: #fff !important;
+	font-weight: 300 !important;
+	padding: 0 25px !important;
 }
 
-.label-draft,
-.label-empty-title,
-.label-time {
-	background: #A979D1 none repeat scroll 0 0;
-	border-radius: 2px;
-	color: #ffffff;
-	display: inline-block;
-	padding: 0 8px;
+.uk-navbar-nav > li.uk-open > a,
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li:focus > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #BBBBBB !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-nav-navbar > li > a:focus,
+.uk-nav-navbar > li > a:hover {
+	background: none !important;
+	border-radius: 0 !important;
+	color: #888 !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+.uk-navbar-nav > li.uk-active > a {
+	background: none !important;
+	color: #BBBBBB !important;
+}
+
+.uk-navbar-nav .uk-border-circle {
+	border-radius: 20px !important;
+}
+
+.uk-dropdown-navbar {
+	margin: 0 !important;
+	padding: 10px 0 !important;
+	position: fixed;
 	text-align: center;
-	vertical-align: middle;
-	margin-right: 5px;
-	font-size: 0.8em;
+	width: 100%;
+	border-radius: 0 !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-top: 0 !important;
 }
 
-.label-empty-title {
-	background: #53D192;
+.uk-dropdown-navbar li {
+	display: inline-block !important;
 }
 
-.label-time {
-	font-style: italic;
-	background: #A979D1;
+.uk-dropdown-navbar a {
+	color: #323232 !important;
 }
 
-/* UIKIT HACKs tabs
+li.bludit-logo {
+	color: #fff !important;
+	display: block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 41px;
+	line-height: 40px;
+	margin-left: -1px;
+	margin-top: -1px;
+	margin-right: 12px;
+}
+
+.bludit-user-navbar {
+    background: #333 none repeat scroll 0 0;
+    border-color: #ccc;
+    border-radius: 0 0 5px 5px !important;
+    color: #fff;
+    position: absolute;
+}
+
+.bludit-user-navbar a {
+	color: #fff !important;
+}
+
+@media (min-width: 333px) and (max-width: 959px) {
+	/* Hidden the Welcome USERNAME */
+	.uk-navbar-flip {
+		display: none !important;
+	}
+
+	/* Expand and hidden the sidebar */
+	.uk-width-large-8-10 {
+		width: 100% !important;
+	}
+	/* Hidden the sidebar */
+	.uk-width-large-2-10 {
+		width: 0% !important;
+		display: none !important;
+	}
+}
+
+@media (min-width: 960px) {
+	.uk-width-large-4-5,
+	.uk-width-large-8-10 {
+		width: 75% !important;
+	}
+
+	.uk-width-large-1-5,
+	.uk-width-large-2-10 {
+		width: 25% !important;
+	}
+}
+
+/* UIKIT HACKs hidden navbar
 ---------------------------------------------------------------- */
 
-.uk-nav-dropdown > li > a:focus,
-.uk-nav-dropdown > li > a:hover {
-	background-color: #007add !important;
+.uk-navbar-brand {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-navbar-toggle {
+	text-shadow: none !important;
+	color: #fff !important;
+}
+
+.uk-nav-offcanvas > li > a {
+	color: #fff !important;
 }
 
 /* UIKIT HACKs buttons
 ---------------------------------------------------------------- */
-
 .uk-button {
-	border-radius: 2px !important;
-	padding: 1px 20px !important;
+	padding: 2px 26px;
+	text-shadow: none;
+	color: #333 !important;
 }
 
 .uk-button-primary {
-	background-color: #007add !important;
+	background: #2196f3 !important;
+	color: #fff !important;
 }
 
-.uk-button-primary:hover,
-.uk-button-primary:focus {
-	background-color: #0069BE !important;
+.uk-button-primary:hover {
+	background: #2EA3FF;
+	color: #fafafa !important;
 }
 
-
-
-/* CSS defaults
+/* UIKIT HACKs forms
 ---------------------------------------------------------------- */
+legend {
+	width: 70% !important;
+	margin-top: 40px !important;
+}
+
+legend.first-child {
+	margin-top: 0px !important;
+}
+
+
+
+.uk-form-label {
+	color: #666666;
+	font-weight: normal !important;
+}
+
+.uk-form-help-block {
+	color: #AAAAAA;
+	font-size: 0.9em;
+}
+
+.uk-table th,
+.uk-table td {
+	padding: 15px 10px;
+}
+
+.uk-table td.children {
+	padding: 15px 10px 15px 25px;
+}
+
+
+.uk-badge {
+	margin-right: 5px !important;
+	font-size: 0.9em;
+	padding: 2px 7px;
+	font-weight: normal;
+}
+
+a {
+	color: #2672ec;
+}
+
+.uk-panel-box {
+	background: #F9F9F9 !important;
+	border: 0;
+}
+
+.uk-container {
+	max-width: 1280px !important;
+}
+
+.uk-thumbnail {
+	margin: 2px 3px !important;
+	max-width: 30% !important;
+	padding: 0 !important;
+}
+
+.uk-progress-bar {
+	background: #2672ec !important;
+}
+
+.uk-placeholder {
+	margin-bottom: 0 !important;
+}
+
+
+/* ----------- BLUDIT ----------- */
+
 body {
 	overflow-y: scroll;
 }
 
-#bl-container {
-	margin-bottom: 20px;
-}
+.bludit-navbar {
 
-/* TOPBAR
----------------------------------------------------------------- */
-
-#bl-navbar {
-	background: #f1f1f1;
-	margin-bottom: 20px;
-	width: 100%;
-}
-
-#bl-navbar a.bl-brand {
-	font-size: 20px;
-	line-height: 60px;
-	margin: 0 0 0 35px;
-	text-transform: uppercase;
-	text-shadow: 0 1px 0 #fff;
-}
-
-#bl-navbar a.bl-brand:hover {
-	text-decoration: none;
-}
-
-/* SIDEBAR
----------------------------------------------------------------- */
-
-#bl-sidebar a {
-	color: #777 !important;
-}
-
-#bl-sidebar .uk-nav {
-	margin: 0px 0 0 20px !important;
-}
-
-#bl-sidebar .uk-nav-header {
-	font-weight: normal !important;
-	font-size: 16px;
-}
-
-/* VIEW
----------------------------------------------------------------- */
-
-#bl-view {
-	margin-right: 20px;
-}
-
-#bl-view .uk-width-2-10 {
-	padding-left: 10px !important;
-}
-
-.plugin-incompatible,
-.theme-incompatible {
-	background: #ffdc7d;
-	border: 1px dashed #eec24a;
-	color: #826106;
-	display: table-cell;
-	font-size: 12px;
-	margin-top: 6px;
-	padding: 1px 10px;
-}
-
-/* DASHBOARD
----------------------------------------------------------------- */
-
-#dashboard-panel .uk-panel {
-	background-color: #fafafa !important;
-	border: 1px solid #f8f8f8;
-	box-shadow: 5px 1px 1px #fdfdfd;
-	padding: 10px !important;
-}
-
-#dashboard-panel .uk-panel h4.panel-title {
-	text-transform: uppercase;
-	font-size: 14px !important;
-}
-
-div.dashboard-links {
-	background-color: #fafafa !important;
-	border: 1px solid #f8f8f8;
-	box-shadow: 5px 1px 1px #fdfdfd;
-	margin-bottom: 20px;
-	padding: 50px 20px;
-}
-
-div.dashboard-links h4 {
-	margin-bottom: -8px !important;
-}
-
-
-/* FORM
----------------------------------------------------------------- */
-
-.uk-form input:not([type]), .uk-form input[type="text"], .uk-form input[type="password"], .uk-form input[type="email"], .uk-form input[type="url"], .uk-form input[type="search"], .uk-form input[type="tel"], .uk-form input[type="number"], .uk-form input[type="datetime"], .uk-form input[type="datetime-local"], .uk-form input[type="date"], .uk-form input[type="month"], .uk-form input[type="time"], .uk-form input[type="week"], .uk-form input[type="color"], .uk-form select, .uk-form textarea {
-	border-radius: 2px !important;
-}
-
-.uk-form-help-block {
-	color: #777 !important;
-	font-size: 0.9em !important;
-}
-
-.sidebar-meta .uk-form-label {
-	font-size: 0.9em;
-	text-transform: uppercase;
-}
-
-.uk-form legend {
-	margin-top: 20px;
-}
-
-.uk-form legend.first-child {
-	margin-top: 0 !important;
-}
-
-button.aslink {
-	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-	border: 0 none;
-	color: #07d;
-	cursor: pointer;
-	display: block;
-	font-size: 1em;
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
-button.aslink:hover {
-	text-decoration: underline;
-}
-
-
-/* OLD
----------------------------------------------------------------- */
-
-.bl-view {
-	margin-top: 25px;
-	margin-bottom: 25px;
 }
 
 #logo {
@@ -233,7 +270,10 @@ button.delete-button:hover {
 	height: 400px;
 }
 
-
+.bl-view {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
 
 table.statistics tr:last-child td {
 	border-bottom: none !important;
@@ -262,6 +302,10 @@ table.statistics tr:last-child td {
 
 /* ----------- FORM ----------- */
 
+.sidebar .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
 
 #bludit-tags {
 	margin-top: 15px;
@@ -483,7 +527,24 @@ div.login-form {
 	width: 400px;
 }
 
+/* ----------- DASHBOARD ----------- */
 
+div.dashboard-links {
+	margin: 0 0 25px 0;
+}
+
+div.dashboard-links h4 {
+	margin-bottom: -8px !important;
+}
+
+div.dashboard-links a {
+	color: #555;
+}
+
+/* NEW POST */
+h3.titleOptions {
+	font-size: 1em;
+}
 
 /* ----------- PLUGIN LIST / THEME LIST ----------- */
 
@@ -501,6 +562,28 @@ div.plugin-links > span.separator {
 	color: #ccc;
 }
 
+.label-draft,
+.label-empty-title,
+.label-time {
+	background: #2672ec none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5px;
+	font-size: 0.9em;
+}
+
+.label-empty-title {
+	background: #ED8F26;
+}
+
+.label-time {
+	font-style: italic;
+	background: #ED3A26;
+}
 
 /* ----------- PAGINATOR ----------- */
 

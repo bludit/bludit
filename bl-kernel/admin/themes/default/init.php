@@ -356,7 +356,7 @@ $(document).ready(function() {
 	{
 		type: "json",
 		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
-		allow : "*.(jpg|jpeg|gif|png|svg)",
+		allow : "*.(jpg|jpeg|gif|png)",
 		params: {"type":"profilePicture", "username":"'.$username.'"},
 
 		loadstart: function() {
