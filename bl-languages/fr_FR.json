@@ -3,10 +3,10 @@
 	{
 		"native": "Français (France)",
 		"english-name": "French",
-		"last-update": "2016-02-29",
+		"last-update": "2016-08-18",
 		"author": "Frédéric K.",
 		"email": "stradfred@gmail.com",
-		"website": "http://flatboard.co.nf"
+		"website": "http://flatboard.free.fr"
 	},
 
 	"username": "Nom d’utilisateur",
@@ -235,5 +235,10 @@
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
 
-	"social-networks-links": "Liens vers les réseaux sociaux"
+	"social-networks-links": "Liens vers les réseaux sociaux",
+
+	"email-access-code": "Code d’accès par email",
+	"current-format": "Format actuel",
+
+	"welcome": "Bienvenue"
 }

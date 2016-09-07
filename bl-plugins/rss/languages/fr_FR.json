@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Flux RSS",
+		"description": "Ce plugin génére un flux RSS pour votre site."
+	}
+}

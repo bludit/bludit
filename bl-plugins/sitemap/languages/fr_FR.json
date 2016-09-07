@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Plan du site",
+		"description": "Ce plugin génère un fichier sitemap.xml qui permet de lister les pages de votre site pour indiquer aux moteurs de recherche sur l'organisation du contenu de votre site."
+	}
+}
