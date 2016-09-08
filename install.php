@@ -92,17 +92,11 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
-// Multibyte string extension loaded.
-define('MB_STRING', extension_loaded('mbstring'));
+// Set internal character encoding.
+mb_internal_encoding(CHARSET);
 
-if(MB_STRING)
-{
-	// Set internal character encoding.
-	mb_internal_encoding(CHARSET);
-
-	// Set HTTP output character encoding.
-	mb_http_output(CHARSET);
-}
+// Set HTTP output character encoding.
+mb_http_output(CHARSET);
 
 // --- PHP Classes ---
 
@@ -196,12 +190,29 @@ function checkSystem()
 		$phpModules = get_loaded_extensions();
 	}
 
-	if(!file_exists(PATH_ROOT.'.htaccess'))
+	// Check .htaccess file for different webservers
+	if( !file_exists(PATH_ROOT.'.htaccess') ) {
+
+		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
+			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
+			stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false
+		) {
+			$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
+			error_log($errorText, 0);
+
+			$tmp['title'] = 'File .htaccess';
+			$tmp['errorText'] = $errorText;
+			array_push($stdOut, $tmp);
+
+		}
+	}
+
+	if(!in_array('gd', $phpModules))
 	{
-		$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
+		$errorText = 'PHP module GD is not installed.';
 		error_log($errorText, 0);
 
-		$tmp['title'] = 'File .htaccess';
+		$tmp['title'] = 'PHP module';
 		$tmp['errorText'] = $errorText;
 		array_push($stdOut, $tmp);
 	}
@@ -219,6 +230,16 @@ function checkSystem()
 	if(!in_array('json', $phpModules))
 	{
 		$errorText = 'PHP module JSON is not installed. (ERR_204)';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
+	if(!in_array('mbstring', $phpModules))
+	{
+		$errorText = 'PHP module Multibyte String (mbstring) is not installed. (ERR_206)';
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'PHP module';
