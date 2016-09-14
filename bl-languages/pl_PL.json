@@ -3,10 +3,10 @@
 	{
 		"native": "Polski (Polska)",
 		"english-name": "Polish",
-		"last-update": "2016-02-14",
+		"last-update": "2016-08-10",
 		"author": "Dave",
 		"email": "dawid.stawicki@windowslive.com",
-		"website": "http://dave.de/"
+		"website": "http://dav3.de"
 	},
 
 	"username": "Użytkownik",
@@ -234,5 +234,10 @@
 	"delete-image": "Usuń",
 	"image-description": "Opis obrazka",
 
-	"social-networks-links": "Odnośniki do serwisów społecznościowych"
+	"social-networks-links": "Odnośniki do serwisów społecznościowych",
+	
+	"email-access-code": "Otrzymaj kod dostępu poprzez e-mail",
+	"current-format": "Format",
+
+	"welcome": "Cześć, "
 }

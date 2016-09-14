@@ -35,10 +35,20 @@ foreach($plugins['all'] as $Plugin)
 		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Activate').'</a>';
 	}
 
+
+
 	echo '
 	</div>
-	</td>
-	<td>'.$Plugin->description().'</td>
+	</td>';
+
+	echo '<td>';
+	echo $Plugin->description();
+	if( !$Plugin->isCompatible() ) {
+		echo '<div class="plugin-incompatible">This plugin is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
+	}
+	echo '</td>';
+
+	echo '
 	<td class="uk-text-center">'.$Plugin->version().'</td>
 	<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
 	';

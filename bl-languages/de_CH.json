@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
-		"last-update": "2016-05-31",
+		"last-update": "2016-09-09",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://clickwork.ch"
@@ -229,5 +229,8 @@
 	"image-description": "Bildbeschreibung",
 	"social-networks-links": "Links zu sozialen Netzwerken",
 	"email-access-code": "Zugangscode zuschicken",
-	"current-format": "Aktuelles Datumsformat"
+	"current-format": "Aktuelles Datumsformat",
+	"welcome": "Willkommen",
+	"to-enable-the-user-you-have-to-set-a-new-password": "Um den Benutzer zu aktivieren, musst Du ein neues Passwort eingeben.",
+        "do-you-want-to-disable-the-user": "Willst Du den Benutzer deaktivieren?"	
 }

@@ -180,3 +180,10 @@ blockquote p {
 .plugin-tags li {
 	text-transform: capitalize;
 }
+
+/* Responsive images */
+
+img {
+	max-width: 100%;
+	height: auto;
+}

@@ -240,5 +240,8 @@
 	"email-access-code": "Email access code",
 	"current-format": "Current format",
 
-	"welcome": "Welcome"
+	"welcome": "Welcome",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password.",
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ?"
 }

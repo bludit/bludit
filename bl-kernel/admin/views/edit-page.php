@@ -17,8 +17,8 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 	));
 
 // ---- LEFT SIDE ----
-echo '<div class="uk-grid">';
-echo '<div class="uk-width-large-8-10">';
+echo '<div class="uk-grid uk-grid-medium">';
+echo '<div class="bl-publish-view uk-width-8-10">';
 
 	// Title input
 	HTML::formInputText(array(
@@ -36,7 +36,6 @@ echo '<div class="uk-width-large-8-10">';
 		'placeholder'=>''
 	));
 
-
 	// Form buttons
 	echo '<div class="uk-form-row uk-margin-bottom">';
 	echo '	<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>';
@@ -52,7 +51,7 @@ if(count($_Page->children())===0)
 echo '</div>';
 
 // ---- RIGHT SIDE ----
-echo '<div class="sidebar uk-width-large-2-10">';
+echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// Tabs, general and advanced mode
 	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';

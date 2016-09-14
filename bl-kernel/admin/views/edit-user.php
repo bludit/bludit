@@ -64,6 +64,7 @@ if($Login->role()==='admin') {
 	));
 
 }
+
 	HTML::formInputText(array(
 		'name'=>'email',
 		'label'=>$L->g('Email'),
@@ -113,6 +114,25 @@ if($Login->role()==='admin') {
 		</div>
 	</div>';
 
+	HTML::legend(array('value'=>$L->g('Status')));
+
+	HTML::formInputText(array(
+		'name'=>'status',
+		'label'=>$L->g('Current status'),
+		'value'=>$_User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'disabled'=>true,
+		'tip'=>$_User->enabled()?'':$L->g('To enable the user you have to set a new password')
+	));
+
+if( $_User->enabled() ) {
+	echo '<div class="uk-form-row">
+		<div class="uk-form-controls">
+		<button type="submit" id="jsdisable-user" class="delete-button" name="disable-user"><i class="uk-icon-ban"></i> '.$L->g('Disable the user').'</button>
+		</div>
+	</div>';
+}
+
 if( ($Login->role()==='admin') && ($_User->username()!='admin') ) {
 
 	HTML::legend(array('value'=>$L->g('Delete')));
@@ -151,6 +171,12 @@ $(document).ready(function() {
 
 	$("#jsdelete-user-all").click(function() {
 		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+			return false;
+		}
+	});
+
+	$("#jsdisable-user").click(function() {
+		if(confirm("<?php $Language->p('do-you-want-to-disable-the-user') ?>")==false) {
 			return false;
 		}
 	});

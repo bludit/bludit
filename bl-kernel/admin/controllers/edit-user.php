@@ -4,6 +4,25 @@
 // Functions
 // ============================================================================
 
+function disableUser($username) {
+
+	global $dbUsers;
+	global $Language;
+	global $Login;
+
+	// The editors can't disable users
+	if($Login->role()!=='admin') {
+		return false;
+	}
+
+	if( $dbUsers->disableUser($username) ) {
+		Alert::set($Language->g('The changes have been saved'));
+	}
+	else {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
+	}
+}
+
 function editUser($args)
 {
 	global $dbUsers;
@@ -71,6 +90,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 	elseif(isset($_POST['delete-user-associate'])) {
 		deleteUser($_POST, false);
+	}
+	elseif(isset($_POST['disable-user'])) {
+		disableUser($_POST['username']);
 	}
 	else {
 		editUser($_POST);
