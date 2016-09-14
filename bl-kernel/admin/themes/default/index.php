@@ -74,6 +74,7 @@ $(document).ready(function() {
 </div>
 </div>
 
+<div class="bl-navbar-bg">
 <nav id="bl-navbar">
 	<a href="" class="bl-brand">BLUDIT</a>
 
@@ -82,6 +83,7 @@ $(document).ready(function() {
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a>
 	</div>
 </nav>
+</div>
 
 <div id="bl-container">
 

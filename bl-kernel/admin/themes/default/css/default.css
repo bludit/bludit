@@ -65,16 +65,20 @@ body {
 }
 
 #bl-container {
-	margin-bottom: 20px;
+	margin: 0 auto 20px;
+	max-width: 1800px;
 }
 
 /* TOPBAR
 ---------------------------------------------------------------- */
 
-#bl-navbar {
+.bl-navbar-bg {
 	background: #f1f1f1;
-	margin-bottom: 20px;
-	width: 100%;
+}
+
+#bl-navbar {
+	margin: 0 auto 20px;
+	max-width: 1800px;
 }
 
 #bl-navbar a.bl-brand {
@@ -97,6 +101,10 @@ body {
 
 /* SIDEBAR
 ---------------------------------------------------------------- */
+
+#bl-sidebar {
+	max-width: 250px;
+}
 
 #bl-sidebar a {
 	color: #777 !important;
