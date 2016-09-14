@@ -28,7 +28,7 @@ function buildThemes()
 			$database = file_get_contents($languageFilename);
 			$database = json_decode($database, true);
 			if(empty($database)) {
-				Log::set('99.themes.php'.LOG_SEP.'JSON Error on theme '.$themePath);
+				Log::set('99.themes.php'.LOG_SEP.'Language file error on theme '.$themePath);
 				break;
 			}
 
@@ -43,15 +43,20 @@ function buildThemes()
 			{
 				$metadataString = file_get_contents($filenameMetadata);
 				$metadata = json_decode($metadataString, true);
-				if(empty($metadata)) {
-					Log::set('99.themes.php'.LOG_SEP.'JSON Error on theme '.$themePath);
-					break;
+
+				if( !empty($metadata['compatible']) ) {
+
+					$explode = explode(',', $metadata['compatible']);
+
+					if(in_array(BLUDIT_VERSION, $explode)) {
+						$database = $database + $metadata;
+						array_push($themes, $database);
+					}
+				}
+				else {
+					Log::set('99.themes.php'.LOG_SEP.'Metadata file error on theme '.$themePath);
 				}
 
-				$database = $database + $metadata;
-
-				// Theme data
-				array_push($themes, $database);
 			}
 		}
 	}

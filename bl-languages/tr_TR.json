@@ -227,5 +227,18 @@
 	"click-here-to-cancel": "İptal etmek için tıklayın.",
 	"type-the-tag-and-press-enter": "Etiketi girin ve enter tuşuna basın.",
 	"manage-your-bludit-from-the-admin-panel": "Bludit'i [yönetici panelinden]({{ADMIN_AREA_LINK}}) yönetin.",
-	"there-are-no-images":"Hiç resim yok."
+	"there-are-no-images":"Hiç resim yok.",
+	
+	"click-on-the-image-for-options": "Özellikler için resme tıklayın.",
+	"set-as-cover-image": "Kapak resmi olarak ayarla",
+	"delete-image": "Resmi sil",
+	"image-description": "Resim açıklaması",
+
+	"social-networks-links": "Sosyal ağ linkleri",
+	
+	"email-access-code": "Email erişim kodu",
+	"current-format": "Geçerli format",
+
+	"welcome": "Hoşgeldiniz"
 }
+

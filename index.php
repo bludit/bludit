@@ -2,12 +2,12 @@
 
 /*
  * Bludit
- * http://www.bludit.com
+ * https://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
 
-// Check installation
+// Check if Bludit is installed
 if( !file_exists('bl-content/databases/site.php') )
 {
 	header('Location:./install.php');

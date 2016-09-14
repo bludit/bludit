@@ -51,7 +51,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>'Twitter',
 		'value'=>$Site->twitter(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'placeholder'=>'https://twitter.com/USERNAME',
 		'tip'=>''
 	));
 
@@ -60,7 +59,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>'Facebook',
 		'value'=>$Site->facebook(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'placeholder'=>'https://www.facebook.com/USERNAME',
 		'tip'=>''
 	));
 
@@ -69,16 +67,14 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>'Google+',
 		'value'=>$Site->googlePlus(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'placeholder'=>'https://plus.google.com/+USERNAME',
 		'tip'=>''
 	));
 
 	HTML::formInputText(array(
 		'name'=>'instagram',
 		'label'=>'Instagram',
-		'value'=>$Site->googlePlus(),
+		'value'=>$Site->instagram(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'placeholder'=>'https://www.instagram.com/USERNAME',
 		'tip'=>''
 	));
 
@@ -87,7 +83,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>'Github',
 		'value'=>$Site->github(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'placeholder'=>'https://github.com/USERNAME',
 		'tip'=>''
 	));
 

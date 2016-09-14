@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "Этот плагин генерирует RSS трансляцию на сайте."
+	}
+}

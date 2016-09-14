@@ -7,7 +7,6 @@ echo '
 <thead>
 	<tr>
 	<th>'.$L->g('Title').'</th>
-	<th>'.$L->g('Parent').'</th>
 	<th class="uk-text-center">'.$L->g('Position').'</th>
 	<th>'.$L->g('Friendly URL').'</th>
 	</tr>
@@ -15,23 +14,42 @@ echo '
 <tbody>
 ';
 
-	foreach($pagesParents as $parentKey=>$pageList)
+	foreach($pagesParents[NO_PARENT_CHAR] as $key=>$db)
 	{
-		foreach($pageList as $Page)
-		{
-			if($parentKey!==NO_PARENT_CHAR) {
-				$parentTitle = $pages[$Page->parentKey()]->title();
-			}
-			else {
-				$parentTitle = '';
-			}
+		// Parent page
+		$Page = $pages[$key];
 
-			echo '<tr>';
-			echo '<td>'.($Page->parentKey()?'- ':'').'<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label-draft">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
-			echo '<td>'.$parentTitle.'</td>';
-			echo '<td class="uk-text-center">'.$Page->position().'</td>';
-			echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$Url->filters('page').'/'.$Page->key().'</a></td>';
-			echo '</tr>';
+		$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$Page->key() : '/'.$Url->filters('page').'/'.$Page->key();
+
+		echo '<tr>';
+		echo '<td>';
+		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label-draft">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a>';
+		echo '</td>';
+		echo '<td class="uk-text-center">'.$Page->position().'</td>';
+		echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$friendlyURL.'</a></td>';
+		echo '</tr>';
+
+		// If the page has children
+		if(isset($pagesParents[$Page->key()]))
+		{
+			// Get the children
+			$children = $pagesParents[$Page->key()];
+
+			foreach($children as $keyChildren=>$dbChildren)
+			{
+				// Parent page
+				$Page = $pages[$keyChildren];
+
+				$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$Page->key() : '/'.$Url->filters('page').'/'.$Page->key();
+
+				echo '<tr class="children">';
+				echo '<td class="children">';
+				echo '<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->published()?'':'<span class="label-draft">'.$Language->g('Draft').'</span> ').($Page->title()?$Page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a>';
+				echo '</td>';
+				echo '<td class="uk-text-center">'.$Page->position().'</td>';
+				echo '<td><a target="_blank" href="'.$Page->permalink().'">'.$friendlyURL.'</a></td>';
+				echo '</tr>';
+			}
 		}
 	}
 

@@ -183,7 +183,6 @@ class Theme {
 		return $tmp;
 	}
 
-
 }
 
 ?>

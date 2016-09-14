@@ -25,7 +25,7 @@ class pluginSitemap extends Plugin {
 		// Create url, loc and lastmod elements
 		$url 		= $doc->createElement('url');
 		$loc 		= $doc->createElement('loc', $Site->url());
-		$lastmod	= $doc->createElement('lastmod', '');
+		$lastmod	= $doc->createElement('lastmod', Date::current(SITEMAP_DATE_FORMAT));
 
 		// Append loc and lastmod -> url
 		$url->appendChild($loc);

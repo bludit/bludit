@@ -47,6 +47,17 @@ var menuV8 = new function() {
 
 }
 
+// This function is the default to add the image to the textarea.
+// Only call when the textarea doesn't have a HTML Editor enabled.
+function editorAddImageDefault(filename) {
+
+	var textarea = $("#jscontent");
+	var imgHTML = '<img src="'+filename+'" alt="">';
+
+	textarea.val(textarea.val() + imgHTML);
+
+}
+
 $(document).ready(function() {
 
 	// Click on document.
@@ -87,8 +98,13 @@ $(document).ready(function() {
 	// Insert image
 	$("body").on("click", "#bludit-menuV8-insert", function(e) {
 
-		// This function is defined in each editor plugin.
-		editorAddImage( menuV8.getFilename() );
+		if(typeof editorAddImage == 'function') {
+			// This function is defined in each editor plugin.
+			editorAddImage( menuV8.getFilename() );
+		}
+		else {
+			editorAddImageDefault( menuV8.getFilename() );
+		}
 
 	});
 

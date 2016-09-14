@@ -11,13 +11,13 @@ class Content {
 		}
 	}
 
-	// Return true if valid
+	// Return TRUE if the content is loaded correctly
 	public function isValid()
 	{
 		return($this->vars!==false);
 	}
 
-	// Returns the value from the $field, FALSE if the field doesn't exist.
+	// Returns the value from the $field, FALSE if the field doesn't exist
 	public function getField($field)
 	{
 		if(isset($this->vars[$field])) {
@@ -27,7 +27,7 @@ class Content {
 		return false;
 	}
 
-	// $notoverwrite true if you don't want to replace the value if are set previusly
+	// Set a value to a field
 	public function setField($field, $value, $overwrite=true)
 	{
 		if($overwrite || empty($this->vars[$field])) {
@@ -37,14 +37,15 @@ class Content {
 		return true;
 	}
 
+	// Parse the content from the file index.txt
 	private function build($path)
 	{
-		if( !Sanitize::pathFile($path.'index.txt') ) {
+		if( !Sanitize::pathFile($path.FILENAME) ) {
 			return false;
 		}
 
 		$tmp = 0;
-		$lines = file($path.'index.txt');
+		$lines = file($path.FILENAME);
 		foreach($lines as $lineNumber=>$line)
 		{
 			$parts = array_map('trim', explode(':', $line, 2));
@@ -88,17 +89,17 @@ class Content {
 
 	}
 
-	// Returns the post title.
+	// Returns the title field
 	public function title()
 	{
 		return $this->getField('title');
 	}
 
-	// Returns the content.
-	// This content is markdown parser.
-	// (boolean) $fullContent, TRUE returns all content, if FALSE returns the first part of the content.
-	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
-	public function content($fullContent=true, $raw=true)
+	// Returns the content
+	// This content is markdown parser
+	// (boolean) $fullContent, TRUE returns all content, if FALSE returns the first part of the content
+	// (boolean) $noSanitize, TRUE returns the content without sanitized
+	public function content($fullContent=true, $noSanitize=true)
 	{
 		// This content is not sanitized.
 		$content = $this->getField('content');
@@ -107,55 +108,60 @@ class Content {
 			$content = $this->getField('breakContent');
 		}
 
-		if($raw) {
+		if($noSanitize) {
 			return $content;
 		}
 
 		return Sanitize::html($content);
 	}
 
+	// Returns the content
+	// This content is not markdown parser
+	// (boolean) $noSanitize, TRUE returns the content without sanitized
+	public function contentRaw($noSanitize=true)
+	{
+		// This content is not sanitized.
+		$content = $this->getField('contentRaw');
+
+		if($noSanitize) {
+			return $content;
+		}
+
+		return Sanitize::html($content);
+	}
+
+	// Returns TRUE if the content has the text splited
 	public function readMore()
 	{
 		return $this->getField('readMore');
 	}
 
-	// Returns the content. This content is not markdown parser.
-	// (boolean) $raw, TRUE returns the content without sanitized, FALSE otherwise.
-	public function contentRaw($raw=true)
-	{
-		// This content is not sanitized.
-		$content = $this->getField('contentRaw');
-
-		if($raw) {
-			return $content;
-		}
-
-		return Sanitize::html($content);
-	}
-
+	// Returns the field key
 	public function key()
 	{
 		return $this->getField('key');
 	}
 
-	// Returns TRUE if the post is published, FALSE otherwise.
+	// Returns TRUE if the post/page is published, FALSE otherwise.
 	public function published()
 	{
 		return ($this->getField('status')==='published');
 	}
 
-	// Returns TRUE if the post is scheduled, FALSE otherwise.
+	// Returns TRUE if the post/page is scheduled, FALSE otherwise.
 	public function scheduled()
 	{
 		return ($this->getField('status')==='scheduled');
 	}
 
-	// Returns TRUE if the post is draft, FALSE otherwise.
+	// Returns TRUE if the post/page is draft, FALSE otherwise.
 	public function draft()
 	{
 		return ($this->getField('status')=='draft');
 	}
 
+	// Returns the file name of the cover image, FALSE there isn't a cover image setted
+	// (boolean) $absolute, TRUE returns the absolute path and file name, FALSE just the file name
 	public function coverImage($absolute=true)
 	{
 		$fileName = $this->getField('coverImage');
@@ -171,12 +177,16 @@ class Content {
 		return $fileName;
 	}
 
+/*
+	DEPRECATED ?
+
 	public function profilePicture()
 	{
 		return HTML_PATH_UPLOADS_PROFILES.$this->username().'.jpg';
 	}
-
-	// Returns the user object if $field is false, otherwise returns the field's value.
+*/
+	// Returns the user object
+	// (boolean) $field, TRUE returns the value of the field, FALSE returns the object
 	public function user($field=false)
 	{
 		// Get the user object.
@@ -189,23 +199,26 @@ class Content {
 		return $User;
 	}
 
+	// Returns the username who created the post/page
 	public function username()
 	{
 		return $this->getField('username');
 	}
 
+	// Returns the description field
 	public function description()
 	{
 		return $this->getField('description');
 	}
 
-	// Returns the post date according to locale settings and format settings.
+	// Returns the date according to locale settings and format settings
 	public function date()
 	{
 		return $this->getField('date');
 	}
 
-	// Returns the post date according to locale settings and format as database stored.
+	// Returns the date according to locale settings and format as database stored
+	// (string) $format, you can specify the date format
 	public function dateRaw($format=false)
 	{
 		$date = $this->getField('dateRaw');
@@ -217,6 +230,8 @@ class Content {
 		return $date;
 	}
 
+	// Returns the tags
+	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
 	public function tags($returnsArray=false)
 	{
 		global $Url;
@@ -241,6 +256,8 @@ class Content {
 		}
 	}
 
+	// Returns the permalink
+	// (boolean) $absolute, TRUE returns the post/page link with the DOMAIN, FALSE without the DOMAIN
 	public function permalink($absolute=false)
 	{
 		global $Url;
@@ -271,5 +288,20 @@ class Content {
 		return '/'.$htmlPath.'/'.$tmp;
 	}
 
+	public function json($returnsArray=false)
+	{
+		$tmp['key'] 		= $this->key();
+		$tmp['title'] 		= $this->title();
+		$tmp['content'] 	= $this->content(); // Markdown parsed
+		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed
+		$tmp['description'] 	= $this->description();
+		$tmp['date'] 		= $this->dateRaw();
+		$tmp['permalink'] 	= $this->permalink(true);
 
+		if($returnsArray) {
+			return $tmp;
+		}
+
+		return json_encode($tmp);
+	}
 }

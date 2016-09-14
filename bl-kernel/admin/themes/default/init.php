@@ -27,7 +27,7 @@ class HTML {
 
 			// Prevent the form submit when press enter key.
 			$("form").keypress(function(e) {
-				if (e.which == 13) {
+				if( (e.which == 13) && (e.target.type !== "textarea") )  {
 					return false;
 				}
 			});
@@ -205,10 +205,10 @@ class HTML {
 
 	public static function bluditCoverImage($coverImage="")
 	{
+		global $L;
+
 		// Javascript code
 		include(PATH_JS.'bludit-cover-image.js');
-
-		global $L;
 
 		$style = '';
 		if(!empty($coverImage)) {
@@ -263,10 +263,10 @@ class HTML {
 
 	public static function bluditImagesV8()
 	{
+		global $L;
+
 		// Javascript code
 		include(PATH_JS.'bludit-images-v8.js');
-
-		global $L;
 
 		$html = '<!-- BLUDIT IMAGES V8 -->';
 		$html .= '

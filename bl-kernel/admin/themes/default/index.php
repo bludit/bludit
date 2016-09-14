@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<base href="<?php echo HTML_PATH_ADMIN_THEME ?>">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex,nofollow">
@@ -9,23 +8,22 @@
 	<title><?php echo $layout['title'] ?></title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_ADMIN_THEME.'img/favicon.png' ?>">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/uikit/upload.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/uikit/form-file.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/uikit/placeholder.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/uikit/progress.almost-flat.min.css?version=<?php echo BLUDIT_VERSION ?>">
-
-	<link rel="stylesheet" type="text/css" href="./css/default.css?version=<?php echo BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css?version=<?php echo BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/uikit.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/upload.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/form-file.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/placeholder.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/progress.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/default.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/jquery.datetimepicker.css?version='.BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/uikit/upload.min.js?version=<?php echo BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="./js/jquery.datetimepicker.js?version=<?php echo BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/uikit.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/upload.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/jquery.datetimepicker.js?version='.BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>
@@ -43,8 +41,8 @@ $(document).ready(function() {
 		echo '$("#alert").slideDown().delay(3500).slideUp();';
 	}
 ?>
-	$("#alert").click(function() {
-		$(this).hide();
+	$(window).click(function() {
+		$("#alert").hide();
 	});
 });
 </script>
@@ -61,12 +59,12 @@ $(document).ready(function() {
 
 		<ul class="uk-navbar-nav">
 		<li class="bludit-logo">BLUDIT</li>
-		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><i class="uk-icon-object-ungroup"></i> <?php $L->p('Dashboard') ?></a></li>
-		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></li>
+		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?> ><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
+		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a></li>
+		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
 
 		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-clone"></i> <?php $L->p('Manage') ?> ▾</a>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage') ?> ▾</a>
 			<div class="uk-dropdown uk-dropdown-navbar">
 				<ul class="uk-nav uk-nav-navbar">
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Posts') ?></a></li>
@@ -80,27 +78,30 @@ $(document).ready(function() {
 
 		<?php if($Login->role() == 'admin') { ?>
 		<li class="uk-parent" data-uk-dropdown>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('Settings') ?> ▾</a>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('Settings') ?> ▾</a>
 			<div class="uk-dropdown uk-dropdown-navbar">
 				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-th-large"></i> <?php $L->p('General') ?></a></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-th"></i> <?php $L->p('Advanced') ?></a></li>
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><i class="uk-icon-cog"></i> <?php $L->p('General') ?></a></li>
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><i class="uk-icon-cogs"></i> <?php $L->p('Advanced') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><i class="uk-icon-globe"></i> <?php $L->p('Language and timezone') ?></a></li>
-				<li class="uk-nav-divider"></li>
+
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><i class="uk-icon-puzzle-piece"></i> <?php $L->p('Plugins') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><i class="uk-icon-paint-brush"></i> <?php $L->p('Themes') ?></a></li>
-				<li class="uk-nav-divider"></li>
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
+
+				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><i class="uk-icon-support"></i> <?php $L->p('About') ?></a></li>
 				</ul>
 			</div>
 		</li>
 		<?php } ?>
+
+		<li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a></li>
 
 		</ul>
 
 		<div class="uk-navbar-flip">
 		<ul class="uk-navbar-nav">
 		<li class="uk-parent" data-uk-dropdown>
+
 			<?php
 				$profilePictureSrc = HTML_PATH_ADMIN_THEME_IMG.'default.png';
 				if(file_exists(PATH_UPLOADS_PROFILES.$Login->username().'.png')) {
@@ -108,13 +109,11 @@ $(document).ready(function() {
 				}
 			?>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>">
-				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php echo $Login->username() ?> ▾
+				<img class="uk-border-circle" width="28px" src="<?php echo $profilePictureSrc ?>" alt=""> <?php $L->p('Welcome') ?> <?php echo $Login->username() ?>
 			</a>
-			<div class="uk-dropdown uk-dropdown-navbar">
+
+			<div class="uk-dropdown uk-dropdown-navbar bludit-user-navbar">
 				<ul class="uk-nav uk-nav-navbar">
-				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$Login->username() ?>"><?php $L->p('Profile') ?></a></li>
-				<li class="uk-nav-divider"></li>
-				<li><a target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a></li>
 				<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a></li>
 				</ul>
 			</div>

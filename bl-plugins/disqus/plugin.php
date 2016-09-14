@@ -8,9 +8,9 @@ class pluginDisqus extends Plugin {
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
-			'enablePages'=>false,
-			'enablePosts'=>false,
-			'enableDefaultHomePage'=>false
+			'enablePages'=>0,
+			'enablePosts'=>0,
+			'enableDefaultHomePage'=>1
 		);
 	}
 
@@ -44,17 +44,20 @@ class pluginDisqus extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="enablePages" id="jsenablePages" type="checkbox" value="true" '.($this->getDbField('enablePages')?'checked':'').'>';
+		$html .= '<input type="hidden" name="enablePages" value="0">';
+		$html .= '<input name="enablePages" id="jsenablePages" type="checkbox" value="1" '.($this->getDbField('enablePages')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsenablePages">'.$Language->get('Enable Disqus on pages').'</label>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="enablePosts" id="jsenablePosts" type="checkbox" value="true" '.($this->getDbField('enablePosts')?'checked':'').'>';
+		$html .= '<input type="hidden" name="enablePosts" value="0">';
+		$html .= '<input name="enablePosts" id="jsenablePosts" type="checkbox" value="1" '.($this->getDbField('enablePosts')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsenablePosts">'.$Language->get('Enable Disqus on posts').'</label>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input name="enableDefaultHomePage" id="jsenableDefaultHomePage" type="checkbox" value="true" '.($this->getDbField('enableDefaultHomePage')?'checked':'').'>';
+		$html .= '<input type="hidden" name="enableDefaultHomePage" value="0">';
+		$html .= '<input name="enableDefaultHomePage" id="jsenableDefaultHomePage" type="checkbox" value="1" '.($this->getDbField('enableDefaultHomePage')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsenableDefaultHomePage">'.$Language->get('Enable Disqus on default home page').'</label>';
 		$html .= '</div>';
 

@@ -34,7 +34,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>$L->g('Locale'),
 		'value'=>$Site->locale(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('you-can-use-this-field-to-define-a-set-off')
+		'tip'=>$L->g('you-can-use-this-field-to-define-a-set-of')
 	));
 
 	HTML::legend(array('value'=>$L->g('Date and time formats')));
@@ -43,7 +43,8 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'name'=>'dateFormat',
 		'label'=>$L->g('Date format'),
 		'value'=>$Site->dateFormat(),
-		'class'=>'uk-width-1-2 uk-form-medium'
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>$L->g('Current format').': '.Date::current($Site->dateFormat())
 	));
 
 	echo '<div class="uk-form-row">

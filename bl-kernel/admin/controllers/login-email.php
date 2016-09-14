@@ -45,6 +45,7 @@ function checkPost($args)
 
 			$sent = Email::send(array(
 						'from'=>$Site->emailFrom(),
+						'fromName'=>$Site->title(),
 						'to'=>$email,
 						'subject'=>$subject,
 						'message'=>$message

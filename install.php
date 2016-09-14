@@ -26,6 +26,7 @@ define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
 
 define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
+define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
@@ -35,6 +36,12 @@ define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
+
+// Protecting against Symlink attacks.
+define('CHECK_SYMBOLIC_LINKS', TRUE);
+
+// Filename for posts and pages
+define('FILENAME', 'index.txt');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -85,17 +92,11 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
-// Multibyte string extension loaded.
-define('MB_STRING', extension_loaded('mbstring'));
+// Set internal character encoding.
+mb_internal_encoding(CHARSET);
 
-if(MB_STRING)
-{
-	// Set internal character encoding.
-	mb_internal_encoding(CHARSET);
-
-	// Set HTTP output character encoding.
-	mb_http_output(CHARSET);
-}
+// Set HTTP output character encoding.
+mb_http_output(CHARSET);
 
 // --- PHP Classes ---
 
@@ -199,6 +200,16 @@ function checkSystem()
 		array_push($stdOut, $tmp);
 	}
 
+	if(!in_array('gd', $phpModules))
+	{
+		$errorText = 'PHP module GD is not installed.';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
 	if(!in_array('dom', $phpModules))
 	{
 		$errorText = 'PHP module DOM is not installed. (ERR_203)';
@@ -212,6 +223,16 @@ function checkSystem()
 	if(!in_array('json', $phpModules))
 	{
 		$errorText = 'PHP module JSON is not installed. (ERR_204)';
+		error_log($errorText, 0);
+
+		$tmp['title'] = 'PHP module';
+		$tmp['errorText'] = $errorText;
+		array_push($stdOut, $tmp);
+	}
+
+	if(!in_array('mbstring', $phpModules))
+	{
+		$errorText = 'PHP module Multibyte String (mbstring) is not installed. (ERR_206)';
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'PHP module';
@@ -243,7 +264,7 @@ function install($adminPassword, $email, $timezone)
 
 	$stdOut = array();
 
-	if( date_default_timezone_set($timezone) ) {
+	if( !date_default_timezone_set($timezone) ) {
 		date_default_timezone_set('UTC');
 	}
 
@@ -305,6 +326,12 @@ function install($adminPassword, $email, $timezone)
 		error_log($errorText, 0);
 	}
 
+	if(!mkdir(PATH_TMP, $dirpermissions, true))
+	{
+		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
+		error_log($errorText, 0);
+	}
+
 	if(!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true))
 	{
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
@@ -361,7 +388,7 @@ function install($adminPassword, $email, $timezone)
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>$timezone,
-		'theme'=>'pure',
+		'theme'=>'log',
 		'adminTheme'=>'default',
 		'homepage'=>'',
 		'postsperpage'=>'6',
@@ -369,7 +396,6 @@ function install($adminPassword, $email, $timezone)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
-		'cliMode'=>false,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 
@@ -477,22 +503,22 @@ function install($adminPassword, $email, $timezone)
 		LOCK_EX
 	);
 
-	// File index.txt for error page
+	// File FILENAME for error page
 	$data = 'Title: '.$Language->get('Error').'
 Content: '.$Language->get('The page has not been found');
 
-	file_put_contents(PATH_PAGES.'error'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for about page
+	// File FILENAME for about page
 	$data = 'Title: '.$Language->get('About').'
 Content:
 '.$Language->get('the-about-page-is-very-important').'
 
 '.$Language->get('change-this-pages-content-on-the-admin-panel');
 
-	file_put_contents(PATH_PAGES.'about'.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
 
-	// File index.txt for welcome post
+	// File FILENAME for welcome post
 	$text1 = Text::replaceAssoc(
 			array(
 				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
@@ -511,7 +537,7 @@ Content:
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
 
-	file_put_contents(PATH_POSTS.$firstPostSlug.DS.'index.txt', $data, LOCK_EX);
+	file_put_contents(PATH_POSTS.$firstPostSlug.DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }
