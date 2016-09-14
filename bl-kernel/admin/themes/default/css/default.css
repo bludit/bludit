@@ -73,7 +73,8 @@ body {
 ---------------------------------------------------------------- */
 
 .bl-navbar-bg {
-	background: #f1f1f1;
+	background: #222;
+	color: #fff;
 }
 
 #bl-navbar {
@@ -81,12 +82,16 @@ body {
 	max-width: 1800px;
 }
 
+#bl-navbar a {
+	color: #fff;
+}
+
 #bl-navbar a.bl-brand {
 	font-size: 20px;
 	line-height: 60px;
 	margin: 0 0 0 35px;
 	text-transform: uppercase;
-	text-shadow: 0 1px 0 #fff;
+	color: #fff;
 }
 
 #bl-navbar a.bl-brand:hover {
