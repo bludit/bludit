@@ -3,11 +3,11 @@
 ---------------------------------------------------------------- */
 
 .uk-width-1-4 {
-	width: 20% !important;
+	width: 20%;
 }
 
 .uk-width-3-4 {
-	width: 80% !important;
+	width: 80%;
 }
 
 .label-draft,
@@ -57,8 +57,6 @@
 .uk-button-primary:focus {
 	background-color: #0069BE !important;
 }
-
-
 
 /* CSS defaults
 ---------------------------------------------------------------- */
@@ -113,15 +111,19 @@ body {
 	font-size: 16px;
 }
 
+.uk-navbar-toggle {
+	margin-top: 10px;
+}
+
 /* VIEW
 ---------------------------------------------------------------- */
 
 #bl-view {
-	margin-right: 20px;
+	padding-right: 10px;
 }
 
 #bl-view .uk-width-2-10 {
-	padding-left: 10px !important;
+
 }
 
 .plugin-incompatible,
@@ -154,7 +156,7 @@ div.dashboard-links {
 	background-color: #fafafa !important;
 	border: 1px solid #f8f8f8;
 	box-shadow: 5px 1px 1px #fdfdfd;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	padding: 50px 20px;
 }
 
@@ -175,7 +177,7 @@ div.dashboard-links h4 {
 	font-size: 0.9em !important;
 }
 
-.sidebar-meta .uk-form-label {
+.bl-publish-sidebar .uk-form-label {
 	font-size: 0.9em;
 	text-transform: uppercase;
 }
@@ -204,13 +206,40 @@ button.aslink:hover {
 }
 
 
-/* OLD
+/* RESPONSIVE
 ---------------------------------------------------------------- */
 
-.bl-view {
-	margin-top: 25px;
-	margin-bottom: 25px;
+@media (max-width: 960px) {
+
+	.uk-grid {
+		margin: 0 !important;
+	}
+
+	#bl-container {
+		margin: 0 10px !important;
+	}
+
+	#bl-view {
+		width: 100% !important;
+		padding: 0 !important;
+	}
+
+	.bl-brand {
+		margin: 0 !important;
+	}
+
+	.bl-publish-sidebar {
+		display: none !important;
+	}
+
+	.bl-publish-view {
+		width: 100% !important;
+		padding: 0 !important;
+	}
 }
+
+/* OLD
+---------------------------------------------------------------- */
 
 #logo {
 	background: #f4f4f4;

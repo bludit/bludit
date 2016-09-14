@@ -52,6 +52,7 @@ $(document).ready(function() {
 </div>
 
 <!-- Offcanvas for Mobile -->
+<a href="#offcanvas" class="uk-navbar-toggle uk-hidden-large" data-uk-offcanvas></a>
 <div id="offcanvas" class="uk-offcanvas">
 <div class="uk-offcanvas-bar">
 	<ul class="uk-nav uk-nav-offcanvas">
@@ -86,70 +87,66 @@ $(document).ready(function() {
 
 	<div class="uk-grid uk-grid-small">
 
-		<div class="uk-width-1-4">
-		<div id="bl-sidebar">
+		<div id="bl-sidebar" class="uk-width-1-4 uk-visible-large">
 
-		<ul class="uk-nav">
+			<ul class="uk-nav">
 
-		<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a>
-		</li>
-		<li>
-			<a target="_blank"  href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a>
-		</li>
+			<li <?php echo ($layout['view']=='dashboard')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a>
+			</li>
+			<li>
+				<a target="_blank"  href="<?php echo HTML_PATH_ROOT ?>"><?php $L->p('Website') ?></a>
+			</li>
 
-		<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
-		<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
-		</li>
+			<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
+			<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
+			</li>
 
-		<li class="uk-nav-header">Manage</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Pages') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
-		</li>
+			<li class="uk-nav-header">Manage</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Pages') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
+			</li>
 
-		<li class="uk-nav-header">Settings</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>
-		</li>
-		<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
-		</li>
+			<li class="uk-nav-header">Settings</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
+			</li>
 
-		</ul>
+			</ul>
 
 		</div>
-		</div>
 
-		<div class="uk-width-3-4">
-		<div id="bl-view">
+		<div id="bl-view" class="uk-width-3-4">
 		<?php
 			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 			}
 		?>
-		</div>
 		</div>
 
 </div>
