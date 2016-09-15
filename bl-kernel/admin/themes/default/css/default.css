@@ -115,6 +115,18 @@ body {
 	color: #777 !important;
 }
 
+#bl-sidebar a:hover {
+	color: #007add !important;
+}
+
+#bl-sidebar li.uk-active {
+	border-left: 3px solid #007add;
+}
+
+#bl-sidebar li.uk-active a {
+	color: #007add !important;
+}
+
 #bl-sidebar .uk-nav {
 	margin: 0px 0 0 20px !important;
 }
@@ -126,6 +138,8 @@ body {
 
 .uk-navbar-toggle {
 	margin-top: 10px;
+	text-shadow: 0 !important;
+	color: #fff;
 }
 
 /* VIEW
@@ -290,9 +304,9 @@ table.statistics tr:last-child td {
 /* ----------- ALERT ----------- */
 
 #alert {
-	bottom: 0;
+	top: 0;
 	color: #ffffff;
-	padding: 10px;
+	padding: 20px 60px;
 	display: none;
 	position: fixed;
 	text-align: center;

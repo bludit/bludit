@@ -109,33 +109,33 @@ $(document).ready(function() {
 			</li>
 
 			<li class="uk-nav-header">Manage</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='manage-posts')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='manage-pages')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Pages') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='users')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
 			</li>
 
 			<li class="uk-nav-header">Settings</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='settings-general')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='settings-advanced')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='settings-regional')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='plugins')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='themes')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>
 			</li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='about')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 			</li>
 
