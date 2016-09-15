@@ -241,6 +241,11 @@
 	"welcome": "Добре дошли!",
 
 	"to-enable-the-user-you-have-to-set-a-new-password": "За да се активира на ново потребителя трябва да му зададете нова парола .",
-	"do-you-want-to-disable-the-user": "Искате ли да деактивирате този потребител?"
+	"do-you-want-to-disable-the-user": "Искате ли да деактивирате този потребител?",
+	"disable-user-status": "Неактивен",
+	"enabled-user-status": "Активен",
+	"сurrent-status" : "Статус",
+	"disable-the-user" : "Деактивиране на потребителя"
+	
 }
 
