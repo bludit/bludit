@@ -57,7 +57,7 @@
 </div>
 </div>
 
-<div id="dashboard-panel" class="uk-grid">
+<div id="dashboard-panel" class="uk-grid uk-grid-small">
 
 	<div class="uk-width-1-3">
 
