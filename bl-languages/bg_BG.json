@@ -42,7 +42,7 @@
 	"profile": "Профил",
 	"email": "Имейл адрес",
 	"settings": "Настройки",
-	"general": "Общи настройки:",
+	"general": "Общи настройки",
 	"advanced": "Разширени настройки",
 	"regional": "Регионални настройки",
 	"about": "Относно",
@@ -236,6 +236,16 @@
 	"social-networks-links": "Социални мрежи:",
 
 	"email-access-code": "Имейл код за достъп",
-	"current-format": "Текущ формат"
+	"current-format": "Текущ формат",
+	
+	"welcome": "Добре дошли!",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "За да се активира на ново потребителя трябва да му зададете нова парола .",
+	"do-you-want-to-disable-the-user": "Искате ли да деактивирате този потребител?",
+	"disable-user-status": "Неактивен",
+	"enabled-user-status": "Активен",
+	"сurrent-status" : "Статус",
+	"disable-the-user" : "Деактивиране на потребителя"
+	
 }
 
