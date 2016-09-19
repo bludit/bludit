@@ -165,8 +165,8 @@
 	"publish": "Публикувай",
 	"please-check-your-theme-configuration": "Моля, проверете конфигурацията на вашата тема.",
 	"plugin-label": "Заглавие на компонент",
-	"enabled": "Разреши",
-	"disabled": "Забрани",
+	"enabled": "Активeн",
+	"disabled": "Неактивен",
 	"cli-mode": "Режим CLI",
 	"command-line-mode": "Режим на команден ред",
 	"enable-the-command-line-mode-if-you-add-edit": "Смени с режим на командния ред, ако добавяте, променяте или изтривате постове и страници от файловата система",
@@ -242,8 +242,6 @@
 
 	"to-enable-the-user-you-have-to-set-a-new-password": "За да се активира на ново потребителя трябва да му зададете нова парола .",
 	"do-you-want-to-disable-the-user": "Искате ли да деактивирате този потребител?",
-	"disable-user-status": "Неактивен",
-	"enabled-user-status": "Активен",
 	"сurrent-status" : "Статус",
 	"disable-the-user" : "Деактивиране на потребителя"
 	

@@ -118,8 +118,8 @@ if($Login->role()==='admin') {
 
 	HTML::formInputText(array(
 		'name'=>'status',
-		'label'=>$L->g('сurrent-status'),
-		'value'=>$_User->enabled()?$L->g('enabled-user-status'):$L->g('disable-user-status'),
+		'label'=>$L->g('сurrent status'),
+		'value'=>$_User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
 		'tip'=>$_User->enabled()?'':$L->g('To enable the user you have to set a new password')
@@ -128,7 +128,7 @@ if($Login->role()==='admin') {
 if( $_User->enabled() ) {
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
-		<button type="submit" id="jsdisable-user" class="delete-button" name="disable-user"><i class="uk-icon-ban"></i> '.$L->g('disable-the-user').'</button>
+		<button type="submit" id="jsdisable-user" class="delete-button" name="disable-user"><i class="uk-icon-ban"></i> '.$L->g('Disable the user').'</button>
 		</div>
 	</div>';
 }
