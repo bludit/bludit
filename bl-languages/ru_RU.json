@@ -240,5 +240,8 @@
 	"email-access-code": "Проверочный код email",
  	"current-format": "Текущий формат",
  	
- 	"welcome": "Добро пожаловать"
+ 	"welcome": "Добро пожаловать",
+ 	
+ 	"to-enable-the-user-you-have-to-set-a-new-password": "Чтобы включить пользователя, необходимо установить новый пароль.",
+	"do-you-want-to-disable-the-user": "Вы хотите отключить пользователя?"
 }
