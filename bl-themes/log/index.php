@@ -13,9 +13,8 @@
 			<nav class="links">
 				<ul>
 				<?php
-					$parents = $pagesParentsPublished[NO_PARENT_CHAR];
-					foreach($parents as $Parent) {
-						echo '<li><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li>';
+					foreach($parents as $Page) {
+						echo '<li><a href="'.$Page->permalink().'">'.$Page->title().'</a></li>';
 					}
 				?>
 				</ul>
@@ -34,12 +33,11 @@
 			<section>
 				<ul class="links">
 				<?php
-					$parents = $pagesParents[NO_PARENT_CHAR];
-					foreach($parents as $Parent) {
+					foreach($parents as $Page) {
 						echo '<li>';
-						echo '<a href="'.$Parent->permalink().'">
-							<h3>'.$Parent->title().'</h3>
-							<p>'.$Parent->description().'</p>
+						echo '<a href="'.$Page->permalink().'">
+							<h3>'.$Page->title().'</h3>
+							<p>'.$Page->description().'</p>
 						</a>';
 						echo '</li>';
 					}
@@ -56,41 +54,45 @@
 
 		</section>
 
+		<!-- Main -->
 		<div id="main">
-
-			<?php
-			    if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') || ($Url->whereAmI()=='blog') )
-			    {
-			        include(THEME_DIR_PHP.'home.php');
-			    }
-			    elseif($Url->whereAmI()=='post')
-			    {
-			        include(THEME_DIR_PHP.'post.php');
-			    }
-			    elseif($Url->whereAmI()=='page')
-			    {
-			        include(THEME_DIR_PHP.'page.php');
-			    }
-			?>
-
+		<?php
+			if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') || ($Url->whereAmI()=='blog') ) {
+				include(THEME_DIR_PHP.'home.php');
+			}
+			elseif($Url->whereAmI()=='post') {
+				include(THEME_DIR_PHP.'post.php');
+			}
+			elseif($Url->whereAmI()=='page') {
+				include(THEME_DIR_PHP.'page.php');
+			}
+		?>
 		</div>
 
 		<!-- Sidebar -->
 		<section id="sidebar">
-		<?php include(THEME_DIR_PHP.'sidebar.php') ?>
+		<?php
+			include(THEME_DIR_PHP.'sidebar.php');
+		?>
 		</section>
 
 	</div>
 
 	<!-- Scripts -->
-	<?php Theme::jquery() ?>
+	<?php
+		// Local jQuery
+		Theme::jquery();
+	?>
+
 	<script src="<?php echo HTML_PATH_THEME ?>assets/js/skel.min.js"></script>
 	<script src="<?php echo HTML_PATH_THEME ?>assets/js/util.js"></script>
 	<!--[if lte IE 8]><script src="<?php echo HTML_PATH_THEME ?>assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="<?php echo HTML_PATH_THEME ?>assets/js/main.js"></script>
 
-	<!-- Plugins Site Body End -->
-	<?php Theme::plugins('siteBodyEnd') ?>
+	<?php
+		// Plugins, site body end
+		Theme::plugins('siteBodyEnd');
+	?>
 
 </body>
 </html>

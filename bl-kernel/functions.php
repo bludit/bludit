@@ -183,6 +183,7 @@ function buildAllPages()
 	global $pagesParentsPublished;
 	global $pagesPublished;
 	global $dbPages;
+	global $parents;
 
 	// Get the page list
 	$list = $dbPages->getDB();
@@ -235,6 +236,8 @@ function buildAllPages()
 			}
 		}
 	}
+
+	$parents = $pagesParentsPublished[NO_PARENT_CHAR];
 
 	return $pages;
 }
