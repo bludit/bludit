@@ -7,12 +7,17 @@
 // Array with all pages.
 $pages = array();
 
+// Array with all published pages.
 $pagesPublished = array();
 
 // Array with all pages, order by parent.
 $pagesParents = array(NO_PARENT_CHAR=>array());
 
+// Array with all published pages, ordery by parent.
 $pagesParentsPublished = array();
+
+// Array with all published parent pages
+$parents = array();
 
 // ============================================================================
 // Main
