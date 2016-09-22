@@ -1,12 +1,12 @@
 <section id="one" class="tiles">
 <?php
-	foreach($parents as $Page) {
+	foreach($parents as $page) {
 		echo '<article>';
 		echo '<header class="major">';
 		echo '<h3>';
-		echo '<a href="'.$Page->permalink().'" class="link">'.$Page->title().'</a>';
+		echo '<a href="'.$page->permalink().'" class="link">'.$page->title().'</a>';
 		echo '</h3>';
-		echo '<p>'.$Page->description().'</p>';
+		echo '<p>'.$page->description().'</p>';
 		echo '</header>';
 		echo '</article>';
 	}

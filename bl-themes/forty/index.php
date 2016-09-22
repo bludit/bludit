@@ -3,11 +3,14 @@
 	Forty by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+	Bludit CMS
+	https://www.bludit.com
 -->
 <html>
 <head>
 
-<base href="<?php echo HTML_PATH_THEME ?>" target="_blank">
+<base href="<?php echo HTML_PATH_THEME ?>">
 
 <?php
 	// <meta charset="utf-8">
@@ -56,8 +59,8 @@
 		<nav id="menu">
 			<ul class="links">
 				<?php
-				foreach($parents as $Parent) {
-					echo '<li><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li>';
+				foreach($parents as $page) {
+					echo '<li><a href="'.$page->permalink().'">'.$page->title().'</a></li>';
 				}
 				?>
 			</ul>
@@ -103,16 +106,34 @@
 		<footer id="footer">
 			<div class="inner">
 				<ul class="icons">
-					<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				<?php
+					if($Site->twitter()) {
+						echo '<li><a href="'.$Site->twitter().'" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>';
+					}
+
+					if($Site->facebook()) {
+						echo '<li><a href="'.$Site->facebook().'" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>';
+					}
+
+					if($Site->instagram()) {
+						echo '<li><a href="'.$Site->instagram().'" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>';
+					}
+
+					if($Site->github()) {
+						echo '<li><a href="'.$Site->github().'" class="icon alt fa-github"><span class="label">Github</span></a></li>';
+					}
+
+					if( $plugins['all']['pluginRSS']->installed() ) {
+						echo '<li><a href="'.DOMAIN_BASE.'rss.xml'.'" class="icon alt fa-rss"><span class="label">RSS</span></a></li>';
+					}
+
+					if( $plugins['all']['pluginSitemap']->installed() ) {
+						echo '<li><a href="'.DOMAIN_BASE.'sitemap.xml'.'" class="icon alt fa-sitemap"><span class="label">Sitemap</span></a></li>';
+					}
+				?>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; Untitled</li>
-					<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-
+					<li><?php echo $Site->footer() ?> | <a href="http://www.bludit.com">BLUDIT</a></li>
 				</ul>
 			</div>
 		</footer>
