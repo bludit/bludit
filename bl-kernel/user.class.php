@@ -92,6 +92,10 @@ class User
 	{
 		$filename = $this->getField('username').'.png';
 
+		if( !file_exists(PATH_UPLOADS_PROFILES.$filename) ) {
+			return '#';
+		}
+
 		if($absolute) {
 			return HTML_PATH_UPLOADS_PROFILES.$filename;
 		}
