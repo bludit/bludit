@@ -118,7 +118,7 @@ if($Login->role()==='admin') {
 
 	HTML::formInputText(array(
 		'name'=>'status',
-		'label'=>$L->g('Current status'),
+		'label'=>$L->g('сurrent status'),
 		'value'=>$_User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
