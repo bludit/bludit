@@ -67,8 +67,33 @@ class pluginAPI extends Plugin {
 			// Get the authentication key
 			$authKey = $this->getDbField('authKey');
 
-			// Just a request HTTP with the website URL
-			Log::set( file_get_contents('https://www.bludit.com/api.php?authKey='.$authKey) );
+			$path = $this->phpPath();
+
+			// Check if curl is installed
+			if( function_exists('curl_version') ) {
+
+				$url = 'https://api.bludit.com/ping?authKey='.$authKey;
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+				curl_setopt($ch, CURLOPT_VERBOSE, true);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_CAINFO, $path.'api.bludit.com.crt');
+				$out = curl_exec($ch);
+
+				if (FALSE === $out) {
+					var_dump(curl_error($ch));
+					var_dump(curl_errno($ch));
+				}
+
+
+				curl_close($ch);
+
+				var_dump($out);
+			}
+
+
 		}
 	}
 
