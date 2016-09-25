@@ -7,10 +7,10 @@ class pluginAPI extends Plugin {
 		global $Security;
 
 		// This key is used for request such as get the list of all posts and pages
-		$authKey = md5($Security->key1().time().DOMAIN_BASE);
+		$authKey = md5($Security->key1().time().DOMAIN);
 
 		$this->dbFields = array(
-			'ping'=>0,		// 0 = false, 1 = true
+			'ping'=>1,		// 0 = false, 1 = true
 			'authKey'=>$authKey,	// Private key
 			'showAllAmount'=>15	// Amount of posts and pages for return
 		);
@@ -60,6 +60,13 @@ class pluginAPI extends Plugin {
 		$this->ping();
 	}
 
+	public function install($position=0)
+	{
+		parent::install($position);
+
+		$this->ping();
+	}
+
 	private function ping()
 	{
 		if($this->getDbField('ping')) {
@@ -76,7 +83,6 @@ class pluginAPI extends Plugin {
                                 curl_setopt($ch, CURLOPT_URL, $url);
                                 curl_setopt($ch, CURLOPT_HEADER, false);
                                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                                curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 				$out = curl_exec($ch);
 
 				if($out === false) {
