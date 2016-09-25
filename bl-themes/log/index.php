@@ -13,8 +13,8 @@
 			<nav class="links">
 				<ul>
 				<?php
-					foreach($parents as $Page) {
-						echo '<li><a href="'.$Page->permalink().'">'.$Page->title().'</a></li>';
+					foreach($parents as $page) {
+						echo '<li><a href="'.$page->permalink().'">'.$page->title().'</a></li>';
 					}
 				?>
 				</ul>
@@ -33,11 +33,11 @@
 			<section>
 				<ul class="links">
 				<?php
-					foreach($parents as $Page) {
+					foreach($parents as $page) {
 						echo '<li>';
-						echo '<a href="'.$Page->permalink().'">
-							<h3>'.$Page->title().'</h3>
-							<p>'.$Page->description().'</p>
+						echo '<a href="'.$page->permalink().'">
+							<h3>'.$page->title().'</h3>
+							<p>'.$page->description().'</p>
 						</a>';
 						echo '</li>';
 					}
