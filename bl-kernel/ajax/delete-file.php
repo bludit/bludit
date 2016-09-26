@@ -26,6 +26,9 @@ if( Sanitize::pathFile(PATH_UPLOADS.$filename) ) {
 	exit;
 }
 
-echo json_encode( array('status'=>0, 'msg'=>'The file does not exist.') );
+exit(json_encode(array(
+	'status'=>0,
+	'msg'=>'The file does not exist.'
+)));
 
 ?>

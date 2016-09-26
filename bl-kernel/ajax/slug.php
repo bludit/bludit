@@ -21,6 +21,9 @@ elseif( $_POST['type']==='post' ) {
 	$slug = $dbPosts->generateKey($text, $key);
 }
 
-echo json_encode( array('status'=>1, 'slug'=>$slug) );
+exit(json_encode(array(
+	'status'=>1,
+	'slug'=>$slug
+)));
 
 ?>

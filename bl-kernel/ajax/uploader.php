@@ -18,6 +18,15 @@ $filename = pathinfo($filename, PATHINFO_FILENAME);
 $filename = Text::replace(' ', '', $filename);
 $filename = Text::replace('_', '', $filename);
 
+// Check extension
+$validExtension = array('tiff', 'gif', 'png', 'jpg', 'jpeg', 'bmp');
+if( !in_array($fileExtension, $validExtension) ) {
+	exit(json_encode(array(
+		'status'=>1,
+		'msg'=>'Invalid extension file.'
+	)));
+}
+
 // Generate the next filename if the filename already exist.
 $tmpName = $filename.'.'.$fileExtension;
 if( file_exists(PATH_UPLOADS.$tmpName) )
@@ -47,7 +56,7 @@ if($type=='profilePicture')
 else {
 	// Generate the thumbnail
 	$Image = new Image();
-	
+
 	//Handling all other formats than svg
 	if (strcasecmp($fileExtension, 'svg') != 0) {
 		$Image->setImage(PATH_TMP.'original'.'.'.$fileExtension, THUMBNAILS_WIDTH, THUMBNAILS_HEIGHT, 'crop');
@@ -56,7 +65,7 @@ else {
 
 	// Move the original to the upload folder.
 	rename(PATH_TMP.'original'.'.'.$fileExtension, PATH_UPLOADS.$tmpName);
-	
+
 	//If it is a svg file, just save a copy in thumbnail-folder
 	if (strcasecmp($fileExtension, 'svg') == 0) {
 		symlink(PATH_UPLOADS.$tmpName, PATH_UPLOADS_THUMBNAILS.$tmpName);

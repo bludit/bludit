@@ -30,6 +30,9 @@ if( $layout['slug']==='ajax' )
 	// Check if the user is loggued.
 	if($Login->isLogged())
 	{
+		// Rules: Security check CSRF
+		include(PATH_RULES.'99.security.php');
+
 		// Load the ajax file.
 		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
 			include(PATH_AJAX.$layout['parameters'].'.php');
