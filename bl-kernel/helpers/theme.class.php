@@ -59,6 +59,7 @@ class Theme {
 		global $Url;
 		global $Post, $Page;
 		global $Site;
+		global $dbTags;
 
 		$tmp = $title;
 
@@ -69,6 +70,10 @@ class Theme {
 			}
 			elseif( $Url->whereAmI()=='page' ) {
 				$tmp = $Page->title().' - '.$Site->title();
+			}
+			elseif( $Url->whereAmI()=='tag' ) {
+				$tag = $dbTags->getTag($Url->slug());
+				$tmp = $tag.' - '.$Site->title();
 			}
 			else {
 				$tmp = $Site->title();
