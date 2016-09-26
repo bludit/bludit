@@ -9,6 +9,8 @@ echo 'var HTML_PATH_UPLOADS = "'.HTML_PATH_UPLOADS.'";'.PHP_EOL;
 echo 'var HTML_PATH_UPLOADS_THUMBNAILS = "'.HTML_PATH_UPLOADS_THUMBNAILS.'";'.PHP_EOL;
 echo 'var NO_PARENT_CHAR = "'.NO_PARENT_CHAR.'";'.PHP_EOL;
 
+echo 'var tokenCSRF = "'.$Security->getTokenCSRF().'";'.PHP_EOL;
+
 echo '</script>';
 
 ?>
@@ -40,7 +42,7 @@ function checkSlug(type, text, parentPage, key, writeResponse)
     {
         ajaxRequest = $.ajax({
             type: "POST",
-            data:{ type: "page", text: text, parent: parentPage, key: key },
+            data:{ tokenCSRF: tokenCSRF, type: "page", text: text, parent: parentPage, key: key},
             url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/slug' ?>"
         });
     }
@@ -48,7 +50,7 @@ function checkSlug(type, text, parentPage, key, writeResponse)
     {
         ajaxRequest = $.ajax({
             type: "POST",
-            data:{ type: "post", text: text, key: key },
+            data:{ tokenCSRF: tokenCSRF, type: "post", text: text, key: key },
             url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/slug' ?>"
         });
     }

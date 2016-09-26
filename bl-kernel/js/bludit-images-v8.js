@@ -31,7 +31,7 @@ $(document).ready(function() {
 		type: "json",
 		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
 		allow : "*.(jpg|jpeg|gif|png)",
-		params: {"type":"bludit-images-v8"},
+		params: {"tokenCSRF":tokenCSRF, "type":"bludit-images-v8"},
 
 		loadstart: function() {
 			$("#bludit-images-v8-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
