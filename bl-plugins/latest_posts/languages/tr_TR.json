@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Son yazılar",
+		"description": "En son yayınlana yazıları gösterir."
+	},
+
+	"amount-of-posts": "Yazı sayısı"
+}
