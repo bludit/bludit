@@ -232,5 +232,9 @@
 	"current-format": "Aktuelles Datumsformat",
 	"welcome": "Willkommen",
 	"to-enable-the-user-you-have-to-set-a-new-password": "Um den Benutzer zu aktivieren, musst Du ein neues Passwort eingeben.",
-        "do-you-want-to-disable-the-user": "Willst Du den Benutzer deaktivieren?"
+        "do-you-want-to-disable-the-user": "Willst Du den Benutzer deaktivieren?",
+	"сurrent-status" : "Status",
+	"disable-the-user" : "Benutzer deaktivieren",
+	"add-a-new-page": "Eine neue Seite hinzufügen",
+	"add-a-new-post": "Einen neuen Beitrag hinzufügen"
 }
