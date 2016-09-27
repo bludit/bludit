@@ -126,7 +126,7 @@ $(document).ready(function() {
 
 		ajaxRequest = $.ajax({
 			type: "POST",
-			data:{ filename: filenameSelected },
+			data:{ tokenCSRF: tokenCSRF, filename: filenameSelected },
 			url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/delete-file' ?>"
 		});
 

@@ -18,6 +18,15 @@ class dbTags extends dbJSON
 		parent::__construct(PATH_DATABASES.'tags.php');
 	}
 
+	public function getTag($slug) {
+
+		if( isset($this->db['postsIndex'][$slug]['name']) ) {
+			return $this->db['postsIndex'][$slug]['name'];
+		}
+
+		return '';
+	}
+
 	// Returns an array with all tags names
 	public function getAll()
 	{

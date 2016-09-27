@@ -243,5 +243,9 @@
 	"welcome": "Welcome",
 
 	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password.",
-	"do-you-want-to-disable-the-user": "Do you want to disable the user ?"
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ?",
+	"сurrent-status" : "Status",
+	"disable-the-user" : "Disable the user",
+	"add-a-new-page": "Add a new page",
+	"add-a-new-post": "Add a new post"
 }

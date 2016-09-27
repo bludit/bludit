@@ -108,7 +108,7 @@ $(document).ready(function() {
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
 			</li>
 
-			<li class="uk-nav-header">Manage</li>
+			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
 			<li <?php echo ($layout['view']=='manage-posts')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
 			</li>
@@ -119,7 +119,7 @@ $(document).ready(function() {
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
 			</li>
 
-			<li class="uk-nav-header">Settings</li>
+			<li class="uk-nav-header"><?php $L->p('Settings') ?></li>
 			<li <?php echo ($layout['view']=='settings-general')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General') ?></a>
 			</li>

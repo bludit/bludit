@@ -56,7 +56,7 @@ $(document).ready(function() {
 		type: "json",
 		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
 		allow : "*.(jpg|jpeg|gif|png)",
-		params: {"type":"cover-image"},
+		params: {"tokenCSRF":tokenCSRF, "type":"cover-image"},
 
 		loadstart: function() {
 			$("#cover-image-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");

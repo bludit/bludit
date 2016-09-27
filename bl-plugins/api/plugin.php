@@ -7,10 +7,10 @@ class pluginAPI extends Plugin {
 		global $Security;
 
 		// This key is used for request such as get the list of all posts and pages
-		$authKey = md5($Security->key1().time().DOMAIN_BASE);
+		$authKey = md5($Security->key1().time().DOMAIN);
 
 		$this->dbFields = array(
-			'ping'=>0,		// 0 = false, 1 = true
+			'ping'=>1,		// 0 = false, 1 = true
 			'authKey'=>$authKey,	// Private key
 			'showAllAmount'=>15	// Amount of posts and pages for return
 		);
@@ -60,6 +60,13 @@ class pluginAPI extends Plugin {
 		$this->ping();
 	}
 
+	public function install($position=0)
+	{
+		parent::install($position);
+
+		$this->ping();
+	}
+
 	private function ping()
 	{
 		if($this->getDbField('ping')) {
@@ -67,8 +74,34 @@ class pluginAPI extends Plugin {
 			// Get the authentication key
 			$authKey = $this->getDbField('authKey');
 
-			// Just a request HTTP with the website URL
-			Log::set( file_get_contents('https://www.bludit.com/api.php?authKey='.$authKey) );
+			$url = 'https://api.bludit.com/ping?authKey='.$authKey.'&url='.DOMAIN;
+
+			// Check if curl is installed
+			if( function_exists('curl_version') ) {
+
+                                $ch = curl_init();
+                                curl_setopt($ch, CURLOPT_URL, $url);
+                                curl_setopt($ch, CURLOPT_HEADER, false);
+                                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				$out = curl_exec($ch);
+
+				if($out === false) {
+					Log::set('Plugin API : '.'Curl error: '.curl_error($ch));
+				}
+
+				curl_close($ch);
+			}
+			else {
+				$options = array(
+					"ssl"=>array(
+						"verify_peer"=>false,
+						"verify_peer_name"=>false
+					)
+				);
+
+				$stream = stream_context_create($options);
+				$out = file_get_contents($url, false, $stream);
+			}
 		}
 	}
 

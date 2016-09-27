@@ -2,6 +2,8 @@
 
 HTML::title(array('title'=>$L->g('Manage posts'), 'icon'=>'folder'));
 
+echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-post"><i class="uk-icon-plus"></i> '.$L->g('Add a new post').'</a>';
+
 echo '
 <table class="uk-table uk-table-striped">
 <thead>
