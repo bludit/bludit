@@ -79,7 +79,7 @@ $(document).ready(function() {
 	<a href="" class="bl-brand">BLUDIT</a>
 
 	<div class="bl-navbar-right">
-		Welcome <?php echo $Login->username() ?> -
+		<?php $L->p('Welcome') ?> <?php echo $Login->username() ?> -
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><?php $L->p('Logout') ?></a>
 	</div>
 </nav>

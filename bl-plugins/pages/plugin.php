@@ -81,10 +81,12 @@ class pluginPages extends Plugin {
 					}
 					$html .= '</ul>';
 				}
+
+				$html .= '</li>';
 			}
 		}
 
-		$html .= '</li></ul>';
+		$html .= '</ul>';
  		$html .= '</div>';
  		$html .= '</div>';
 
