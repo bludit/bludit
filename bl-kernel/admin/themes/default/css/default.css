@@ -232,6 +232,11 @@ button.aslink:hover {
 	text-decoration: underline;
 }
 
+/* TABLE
+---------------------------------------------------------------- */
+.uk-table td.children {
+	padding-left: 20px;
+}
 
 /* RESPONSIVE
 ---------------------------------------------------------------- */
