@@ -243,7 +243,9 @@
 	"to-enable-the-user-you-have-to-set-a-new-password": "За да се активира на ново потребителя трябва да му зададете нова парола .",
 	"do-you-want-to-disable-the-user": "Искате ли да деактивирате този потребител?",
 	"сurrent-status" : "Статус",
-	"disable-the-user" : "Деактивиране на потребителя"
+	"disable-the-user" : "Деактивиране на потребителя",
+	"add-a-new-page": "Добавяне на нова страница",
+	"add-a-new-post": "Добавяне на нова публикация"
 	
 }
 
