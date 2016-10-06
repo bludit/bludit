@@ -95,7 +95,9 @@ class pluginRSS extends Plugin {
 			$doc = new DOMDocument();
 
 			// Load XML
+			libxml_disable_entity_loader(false);
 			$doc->load(PATH_PLUGINS_DATABASES.$this->directoryName.DS.'rss.xml');
+			libxml_disable_entity_loader(true);
 
 			// Print the XML
 			echo $doc->saveXML();

@@ -357,7 +357,7 @@ $(document).ready(function() {
 		type: "json",
 		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
 		allow : "*.(jpg|jpeg|gif|png)",
-		params: {"type":"profilePicture", "username":"'.$username.'"},
+		params: {"tokenCSRF":tokenCSRF, "type":"profilePicture", "username":"'.$username.'"},
 
 		loadstart: function() {
 			$("#bludit-profile-picture-progressbar").find(".uk-progress-bar").css("width", "0%").text("0%");
