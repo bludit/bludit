@@ -237,7 +237,9 @@ function buildAllPages()
 		}
 	}
 
-	$parents = $pagesParentsPublished[NO_PARENT_CHAR];
+	if( isset($pagesParentsPublished[NO_PARENT_CHAR]) ) {
+		$parents = $pagesParentsPublished[NO_PARENT_CHAR];
+	}
 
 	return $pages;
 }
