@@ -575,6 +575,15 @@ function checkPOST($args)
 	return true;
 }
 
+function redirect($url) {
+	if(!headers_sent()) {
+		header("Location:".$url, TRUE, 302);
+		exit;
+	}
+
+	exit('<meta http-equiv="refresh" content="0; url="'.$url.'">');
+}
+
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -585,19 +594,16 @@ if( alreadyInstalled() ) {
 	exit('Bludit already installed');
 }
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if( isset($_GET['demo']) ) {
+	install('demo123', '', 'UTC');
+	redirect(HTML_PATH_ROOT);
+}
+
+if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$error = checkPOST($_POST);
 
-	if($error===true)
-	{
-		if(!headers_sent())
-		{
-			header("Location:".HTML_PATH_ROOT, TRUE, 302);
-			exit;
-		}
-
-		exit('<meta http-equiv="refresh" content="0; url="'.HTML_PATH_ROOT.'">');
+	if($error===true) {
+		redirect(HTML_PATH_ROOT);
 	}
 }
 

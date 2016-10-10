@@ -74,7 +74,7 @@ class pluginAPI extends Plugin {
 			// Get the authentication key
 			$authKey = $this->getDbField('authKey');
 
-			$url = 'https://api.bludit.com/ping?authKey='.$authKey.'&url='.DOMAIN;
+			$url = 'https://api.bludit.com/ping?authKey='.$authKey.'&url='.DOMAIN_BASE;
 
 			// Check if curl is installed
 			if( function_exists('curl_version') ) {
