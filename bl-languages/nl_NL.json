@@ -218,32 +218,32 @@
 	"activate": "Activeer",
 	"deactivate": "Deactiveer"
 
-	"cover-image": "Cover image",
+	"cover-image": "Omslagfoto",
 	"blog": "Blog",
-	"more-images": "More images",
+	"more-images": "Meer afbeeldingen",
 
-	"click-here-to-cancel": "Click here to cancel.",
-	"type-the-tag-and-press-enter": "Type the tag and press enter.",
-	"add": "Add",
-	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area]({{ADMIN_AREA_LINK}})",
-	"there-are-no-images":"There are no images",
+	"click-here-to-cancel": "Klik hier om te annuleren.",
+	"type-the-tag-and-press-enter": "Typ de tag en druk op enter.",
+	"add": "Toevoegen",
+	"manage-your-bludit-from-the-admin-panel": "Beheer Bludit vanuit de [admin area]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"Er zijn geen afbeeldingen",
 
-	"click-on-the-image-for-options": "Click on the image for options.",
-	"set-as-cover-image": "Set as cover image",
-	"delete-image": "Delete image",
-	"image-description": "Image description",
+	"click-on-the-image-for-options": "Klik op de afbeelding voor opties.",
+	"set-as-cover-image": "Stel in als omslagfoto",
+	"delete-image": "Verwijder afbeelding",
+	"image-description": "Afbeeldingsomschrijving",
 
-	"social-networks-links": "Social networks links",
+	"social-networks-links": "Sociale media links",
 
-	"email-access-code": "Email access code",
-	"current-format": "Current format",
+	"email-access-code": "Email de toegangscode",
+	"current-format": "Huidig formaat",
 
-	"welcome": "Welcome",
+	"welcome": "Welkom",
 
-	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password.",
-	"do-you-want-to-disable-the-user": "Do you want to disable the user ?",
+	"to-enable-the-user-you-have-to-set-a-new-password": "Om de gebruiker te activeren moet je een nieuw wachtwoord instellen.",
+	"do-you-want-to-disable-the-user": "Wil je de gebruiker deactiveren ?",
 	"сurrent-status" : "Status",
-	"disable-the-user" : "Disable the user",
-	"add-a-new-page": "Add a new page",
-	"add-a-new-post": "Add a new post"
+	"disable-the-user" : "Deactiveer de gebruiker",
+	"add-a-new-page": "Voeg een nieuwe pagina toe",
+	"add-a-new-post": "Voeg een nieuwe post toe"
 }
