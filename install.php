@@ -416,12 +416,17 @@ function install($adminPassword, $email, $timezone)
 		'admin'=>array(
 		'firstName'=>$Language->get('Administrator'),
 		'lastName'=>'',
-		'twitter'=>'',
 		'role'=>'admin',
 		'password'=>$passwordHash,
 		'salt'=>$salt,
 		'email'=>$email,
-		'registered'=>$currentDate
+		'registered'=>$currentDate,
+		'tokenEmail': "",
+		'tokenEmailTTL': "2009-03-15 14:00",
+		'twitter': '',
+		'facebook': '',
+		'googlePlus': '',
+		'instagram': ''
 		)
 	);
 
