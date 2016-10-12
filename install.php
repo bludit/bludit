@@ -421,12 +421,12 @@ function install($adminPassword, $email, $timezone)
 		'salt'=>$salt,
 		'email'=>$email,
 		'registered'=>$currentDate,
-		'tokenEmail': "",
-		'tokenEmailTTL': "2009-03-15 14:00",
-		'twitter': '',
-		'facebook': '',
-		'googlePlus': '',
-		'instagram': ''
+		'tokenEmail'=>'',
+		'tokenEmailTTL'=>'2009-03-15 14:00',
+		'twitter'=>'',
+		'facebook'=>'',
+		'googlePlus'=>'',
+		'instagram'=>''
 		)
 	);
 

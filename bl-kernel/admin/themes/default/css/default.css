@@ -33,6 +33,11 @@
 	background: #A979D1;
 }
 
+.uk-tab-responsive > a::before {
+	content: "\f078";
+	padding-right: 3px;
+}
+
 /* UIKIT HACKs tabs
 ---------------------------------------------------------------- */
 
