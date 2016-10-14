@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "API",
-		"description": "Interface to interact with Bludit using HTTP protocol."
+		"description": "Interface om te communiceren met Bludit via het HTTP protocol."
 	}
 }

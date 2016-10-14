@@ -2,9 +2,9 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "A simple, beautiful, and embeddable JavaScript markdown editor by @WesCossick. Adapted by Diego Najar for Bludit."
+		"description": "Een simpele, mooie en integreerbare JavaScript markdown editor van @WesCossick. Aangepast door Diego Najar voor Bludit."
 	},
 	"toolbar": "Toolbar",
-	"tab-size": "Tab size",
-	"autosave": "Autosave"
+	"tab-size": "Tab grootte",
+	"autosave": "Automatisch opslaan"
 }

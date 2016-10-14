@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Sitemap",
-		"description": "This plugin generates a file sitemap.xml where you can list the web pages of your site to tell search engines about the organization of your site content."
+		"description": "Deze plugin genereerd een sitemap.xml bestand waar je een lijst met webpagina's kan zetten zodat zoekmachines de organisatie van je site content beter kan begrijpen."
 	}
 }

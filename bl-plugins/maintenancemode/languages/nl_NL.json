@@ -1,10 +1,10 @@
 {
 	"plugin-data":
 	{
-		"name": "Maintenance mode",
-		"description": "Set your site on maintenance mode, you can access to admin area."
+		"name": "Onderhoud modus",
+		"description": "Zet je site op onderhoud modus, je kan bij de admin pagina komen."
 	},
 
-	"enable-maintenance-mode": "Enable maintenance mode",
-	"message": "Message"
+	"enable-maintenance-mode": "Schakel de onderhoud modus in",
+	"message": "Bericht"
 }

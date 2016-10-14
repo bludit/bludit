@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Tags list",
-		"description": "Shows all tags."
+		"name": "Tag lijst",
+		"description": "Toon alle tags."
 	}
 }
