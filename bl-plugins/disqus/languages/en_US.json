@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Disqus comment system",
-		"description": "Disqus is a blog comment hosting service for web sites. It's necesary to register on Disqus.com before using this plugin."
+		"description": "Disqus is a blog comment hosting service for web sites. It's necessary to register on Disqus.com before using this plugin."
 	},
 
 	"disqus-shortname": "Disqus shortname",
