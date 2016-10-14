@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Deze plugin genereerd een sitemap.xml bestand waar je een lijst met webpagina's kan zetten zodat zoekmachines de organisatie van je site content beter kan begrijpen."
+	}
+}

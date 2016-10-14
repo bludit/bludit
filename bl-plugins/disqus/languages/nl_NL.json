@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus commentaar systeem",
+		"description": "Disqus is een blog commentaar hosting service voor web sites. Het is wel nodig om jezelf te registreren op Disqus.com voordat je deze plugin kan gebruiken."
+	},
+
+	"disqus-shortname": "Disqus shortname",
+	"enable-disqus-on-pages": "Schakel Disqus in op pagina's",
+	"enable-disqus-on-posts": "Schakel Disqus in op posts",
+	"enable-disqus-on-default-home-page": "Schakel Disqus in op de startpagina"
+}
