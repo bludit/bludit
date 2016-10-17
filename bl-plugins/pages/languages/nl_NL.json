@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Pagina lijst",
+		"description": "Laat een lijst met alle pagina's op volgorde zien."
+	},
+
+	"home": "Home",
+	"show-home-link": "Laat de homepage link zien"
+}

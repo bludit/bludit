@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Een simpele, mooie en integreerbare JavaScript markdown editor van @WesCossick. Aangepast door Diego Najar voor Bludit."
+	},
+	"toolbar": "Toolbar",
+	"tab-size": "Tab grootte",
+	"autosave": "Automatisch opslaan"
+}
