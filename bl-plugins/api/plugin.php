@@ -178,7 +178,7 @@ class pluginAPI extends Plugin {
 		}
 
 		// Remove the first part of the URI
-		$URI = mb_substr($URI, $length)
+		$URI = mb_substr($URI, $length);
 
 		// Parameters
 		// ------------------------------------------------------------
