@@ -178,7 +178,7 @@ class pluginAPI extends Plugin {
 		}
 
 		// Remove the first part of the URI
-		$URI = ltrim($URI, HTML_PATH_ROOT.'api/');
+		$URI = mb_substr($URI, $length)
 
 		// Parameters
 		// ------------------------------------------------------------
@@ -205,8 +205,6 @@ class pluginAPI extends Plugin {
 			'bludit'=>'Bludit API plugin',
 			'message'=>'Check the parameters'
 		));
-
-
 
 		if($parameters[0]==='show') {
 

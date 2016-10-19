@@ -112,7 +112,6 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 // PAGE FUNCTIONS
 // ----------------------------------------------------------------------------
 
-
 function sortPages($a, $b)
 {
 	if ($a['position'] == $b['position']) {

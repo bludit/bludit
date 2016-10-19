@@ -18,7 +18,7 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function css($files, $path=HTML_PATH_THEME_CSS, $echo=true)
+	public static function css($files, $path=DOMAIN_THEME_CSS, $echo=true)
 	{
 		if(!is_array($files)) {
 			$files = array($files);
