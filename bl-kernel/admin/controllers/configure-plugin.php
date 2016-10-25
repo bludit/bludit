@@ -6,7 +6,7 @@
 
 if($Login->role()!=='admin') {
 	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+	Redirect::page($adminfolder, 'dashboard');
 }
 
 // ============================================================================
@@ -28,12 +28,12 @@ foreach($plugins['all'] as $P)
 
 // Check if the plugin exists.
 if($_Plugin===false) {
-	Redirect::page('admin', 'plugins');
+	Redirect::page($adminfolder, 'plugins');
 }
 
 // Check if the plugin has the method form()
 if(!method_exists($_Plugin, 'form')) {
-	Redirect::page('admin', 'plugins');
+	Redirect::page($adminfolder, 'plugins');
 }
 
 // ============================================================================
