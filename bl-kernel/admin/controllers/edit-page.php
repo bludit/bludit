@@ -12,7 +12,8 @@ function editPage($args)
 {
 	global $dbPages;
 	global $Language;
-
+	global $adminfolder;
+	
 	if(!isset($args['parent'])) {
 		$args['parent'] = NO_PARENT_CHAR;
 	}
@@ -29,7 +30,7 @@ function editPage($args)
 
 		// Alert the user
 		Alert::set($Language->g('The changes have been saved'));
-		Redirect::page('admin', 'edit-page/'.$args['slug']);
+		Redirect::page($adminfolder, 'edit-page/'.$args['slug']);
 	}
 	else
 	{
@@ -41,6 +42,7 @@ function deletePage($key)
 {
 	global $dbPages;
 	global $Language;
+	global $adminfolder;
 
 	if( $dbPages->delete($key) )
 	{
@@ -48,7 +50,7 @@ function deletePage($key)
 		Theme::plugins('afterPageDelete');
 
 		Alert::set($Language->g('The page has been deleted successfully'));
-		Redirect::page('admin', 'manage-pages');
+		Redirect::page($adminfolder, 'manage-pages');
 	}
 	else
 	{
@@ -77,11 +79,13 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
+	
+global $adminfolder;
 
 if(!$dbPages->pageExists($layout['parameters']))
 {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$layout['parameters']);
-	Redirect::page('admin', 'manage-pages');
+	Redirect::page($adminfolder, 'manage-pages');
 }
 
 $_Page = $pages[$layout['parameters']];
