@@ -13,7 +13,7 @@ $posts = array();
 // ============================================================================
 
 // Search for changes on posts by the user.
-if( CLI_MODE && false) {
+if( CLI_MODE ) {
 	if($dbPosts->cliMode()) {
 		reIndexTagsPosts();
 	}
