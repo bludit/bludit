@@ -28,7 +28,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		Session::destroy();
 
 		// Redirect to login panel.
-		Redirect::page('admin', 'login');
+		Redirect::page($adminfolder, 'login');
 	}
 	else
 	{
