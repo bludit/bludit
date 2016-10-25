@@ -12,7 +12,8 @@ function addPage($args)
 {
 	global $dbPages;
 	global $Language;
-
+	global $adminfolder;
+	
 	// Add the page, if the $key is FALSE the creation of the post failure.
 	$key = $dbPages->add($args);
 
@@ -23,7 +24,7 @@ function addPage($args)
 
 		// Alert the user
 		Alert::set($Language->g('Page added successfully'));
-		Redirect::page('admin', 'manage-pages');
+		Redirect::page($adminfolder, 'manage-pages');
 	}
 	else
 	{
