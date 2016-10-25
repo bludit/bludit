@@ -6,7 +6,7 @@
 
 if($Login->role()!=='admin') {
 	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+	Redirect::page($adminfolder, 'dashboard');
 }
 
 // ============================================================================
@@ -36,4 +36,4 @@ else
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to install the theme: '.$themeDirname);
 }
 
-Redirect::page('admin', 'themes');
+Redirect::page($adminfolder, 'themes');
