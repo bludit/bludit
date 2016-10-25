@@ -110,6 +110,7 @@ if($Login->role()!=='admin') {
 $_User = $dbUsers->getUser($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
+global $adminfolder;
 if($_User===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page($adminfolder, 'users');
 }
