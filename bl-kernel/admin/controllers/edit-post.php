@@ -12,7 +12,8 @@ function editPost($args)
 {
 	global $dbPosts;
 	global $Language;
-
+	global $adminfolder;
+	
 	// Add the page, if the $key is FALSE the creation of the post failure.
 	$key = $dbPosts->edit($args);
 
@@ -26,7 +27,7 @@ function editPost($args)
 
 		// Alert the user
 		Alert::set($Language->g('The changes have been saved'));
-		Redirect::page('admin', 'edit-post/'.$args['slug']);
+		Redirect::page($adminfolder, 'edit-post/'.$args['slug']);
 	}
 	else
 	{
@@ -40,7 +41,8 @@ function deletePost($key)
 {
 	global $dbPosts;
 	global $Language;
-
+	global $adminfolder;
+	
 	if( $dbPosts->delete($key) )
 	{
 		// Reindex tags, this function is in 70.posts.php
@@ -50,7 +52,7 @@ function deletePost($key)
 		Theme::plugins('afterPostDelete');
 
 		Alert::set($Language->g('The post has been deleted successfully'));
-		Redirect::page('admin', 'manage-posts');
+		Redirect::page($adminfolder, 'manage-posts');
 	}
 	else
 	{
@@ -79,6 +81,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
+
+global $adminfolder;
 
 if(!$dbPosts->postExists($layout['parameters']))
 {
