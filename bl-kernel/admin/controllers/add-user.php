@@ -1,12 +1,14 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+	global $adminfolder;
+
 // ============================================================================
 // Check role
 // ============================================================================
 
 if($Login->role()!=='admin') {
 	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+	Redirect::page($adminfolder, 'dashboard');
 }
 
 // ============================================================================
@@ -76,7 +78,7 @@ function addUser($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	if( addUser($_POST) ) {
-		Redirect::page('admin', 'users');
+		Redirect::page($adminfolder, 'users');
 	}
 }
 
