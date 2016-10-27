@@ -80,8 +80,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // Main after POST
 // ============================================================================
 	
-global $adminfolder;
-
 if(!$dbPages->pageExists($layout['parameters']))
 {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$layout['parameters']);
