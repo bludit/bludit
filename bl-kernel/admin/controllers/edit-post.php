@@ -82,8 +82,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // Main after POST 
 // ============================================================================
 
-global $adminfolder;
-
 if(!$dbPosts->postExists($layout['parameters']))
 {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the post: '.$layout['parameters']);
