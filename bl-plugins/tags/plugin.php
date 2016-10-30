@@ -6,8 +6,15 @@ class pluginTags extends Plugin {
 	{
 		$this->dbFields = array(
 			'label'=>'Tags',
-			'sort'=>'date'
+			'sort'=>'date',
+			'link'=>''
 		);
+                $this->dbTokens = array(
+                        "[postUrl]",
+                        "[tagName]",
+                        "[tagCount]"
+                );
+                
 	}
 
 	public function form()
@@ -31,7 +38,14 @@ class pluginTags extends Plugin {
 				$html .= '<option value="'.$key.'">'.$Language->get($value).'</option>';
 			}
 		}
-		$html .= '</select>';
+                $html .= '</select>';
+		$html .= '</div>';
+                
+                $html .= '<div>';
+		$html .= '<label>'.$Language->get('Customize link').'</label>';
+		$html .= '<input name="link" id="jslink" type="text" value="'.$this->getDbField('link').'">';
+                $html .= '<pre>available tokens '.  implode(', ', $this->dbTokens).' <br/>'.
+                          htmlspecialchars('<a href="[token1]#content" >[token2] [token3]</a>').'</pre>';
 		$html .= '</div>';
 
 		return $html;
@@ -71,11 +85,26 @@ class pluginTags extends Plugin {
 				return strcmp($a['tagKey'], $b['tagKey']);
 			});
 		}
+                
+                
+                
 
 		foreach($tagArray as $tagKey=>$fields)
 		{
-			// Print the parent
-			$html .= '<li><a href="'.HTML_PATH_ROOT.$filter.'/'.$fields['tagKey'].'">'.$fields['name'].' ('.$fields['count'].')</a></li>';
+                        // Print the parent
+                        $link='<a href="'.HTML_PATH_ROOT.$filter.'/'.$fields['tagKey'].'">'.$fields['name'].' ('.$fields['count'].')</a>';
+                        if(!empty($this->getDbField('link'))){
+                            $replacments=array(
+                                "[postUrl]"=>HTML_PATH_ROOT.$filter.'/'.$fields['tagKey'], html_entity_decode($this->getDbField('link')),
+                                "[tagName]"=>$fields['name'],
+                                "[tagCount]"=>$fields['count']
+                            );
+                            $link=  html_entity_decode($this->getDbField('link'));
+                            foreach($this->dbTokens as $token){
+                                $link=  str_replace($token,$replacments[$token],$link);
+                            }
+                        }
+			$html .= "<li>$link</li>";
 		}
 		$html .= '</ul>';
  		$html .= '</div>';
