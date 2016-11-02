@@ -19,6 +19,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'class'=>'uk-width-1-3 uk-form-medium',
         'tip'=>$L->g('number-of-posts-to-show-per-page')
     ));
+    
+    HTML::formCheckbox(array(
+        'name'=>'shuffleIdeticalTags',
+        'label'=>$L->g('Shufle posts with identical tags'),
+        'checked'=>$Site->shuffleIdeticalTags(),
+        'class'=>'uk-width-1-3 uk-form-medium',
+    ));
 
     HTML::formSelect(array(
         'name'=>'homepage',

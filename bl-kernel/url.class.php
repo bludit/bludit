@@ -153,7 +153,7 @@ class Url
 		}
 		return 0;
 	}
-
+    
 	public function setNotFound($error = true)
 	{
 		$this->notFound = $error;

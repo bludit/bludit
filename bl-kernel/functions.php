@@ -27,16 +27,16 @@ function buildPost($key)
 	global $Parsedown;
 	global $Site;
 
-	// Post object, content from FILE.
+        // Post object, content from FILE.
 	$Post = new Post($key);
-	if( !$Post->isValid() ) {
+        if( !$Post->isValid() ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from file with key: '.$key);
 		return false;
 	}
 
 	// Post database, content from DATABASE JSON.
 	$db = $dbPosts->getPostDB($key);
-	if( !$db ) {
+        if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
 		return false;
 	}
@@ -45,8 +45,8 @@ function buildPost($key)
 	foreach($db as $field=>$value) {
 		$Post->setField($field, $value);
 	}
-
-	// Content in raw format
+        
+        // Content in raw format
 	$contentRaw = $Post->content();
 	$Post->setField('contentRaw', $contentRaw, true);
 
@@ -72,7 +72,7 @@ function buildPost($key)
 	$username = $Post->username();
 	$Post->setField('user', $dbUsers->getUser($username));
 
-	return $Post;
+        return $Post;
 }
 
 function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $tagKey=false)
@@ -105,8 +105,29 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 			array_push($posts, $Post);
 		}
 	}
+       return $posts;
+}
 
-	return $posts;
+function buildTagPosts($tag,$amount=3, $pageNumber=0){
+        global $dbTags;
+        $posts=array();
+        $tag=str_replace(" ", "-",$tag);
+        
+        $keys=  $dbTags->getList($pageNumber, $amount, $tag);
+        foreach($keys as $key=>$value) {
+            $Post = buildPost($key);
+            
+            if($Post==false){
+                break;
+            }
+            $posts['itms'][$key]=$Post->vars;
+            $posts['itms'][$key]['permalink']=$Post->permalink();
+        }
+           
+        $posts['count']=$dbTags->countPostsByTag($tag);
+        $posts['page']=$pageNumber;
+        
+        return $posts;
 }
 
 // PAGE FUNCTIONS
@@ -193,7 +214,7 @@ function buildAllPages()
 	// Remove the error page
 	unset($list['error']);
 
-	// Sorte pages
+	// Sort pages
 	uasort($list, 'sortPages');
 
 	foreach($list as $key=>$db)

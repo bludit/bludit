@@ -19,7 +19,7 @@ class dbPosts extends dbJSON
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'posts.php');
-	}
+        }
 
 	// Return the amount of posts
 	// $total = TRUE, returns the total of posts
@@ -103,9 +103,10 @@ class dbPosts extends dbJSON
 
 	public function add($args)
 	{
+                global $Site;
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
-
+                
 		// Current date, format of DB_DATE_FORMAT
 		$currentDate = Date::current(DB_DATE_FORMAT);
 
@@ -189,6 +190,10 @@ class dbPosts extends dbJSON
 
 		// Sort posts before save
 		$this->sortByDate();
+                
+                if($Site->shuffleIdeticalTags()){
+                    $this->mixTags();
+                }
 
 		if( $this->save() === false ) {
 
@@ -398,11 +403,63 @@ class dbPosts extends dbJSON
 		else {
 			uasort($this->db, array($this, 'sortLowToHigh'));
 		}
-
+                
 		return true;
 	}
+        
+	// Mix the posts so that neighbour posts have different Tags - 
+        // helpfull if you want to show diverse content. Case studies for example
+        public function mixTags()
+	{
+            $previousValue = null;
+            $finalArray=array();
+            $buffeArray=array();
 
-	private function sortLowToHigh($a, $b) {
+            // Get array keys
+            $arrayKeys = array_keys($this->db);
+            // Fetch last array key
+            $lastArrayKey = array_pop($arrayKeys);
+            
+            foreach($this->db as $key=>$row){
+                foreach($buffeArray as $bufferKey=>$bufferRow){                    
+                    // Get buffer array keys
+                    $finalArrayKeys = array_keys($finalArray);
+                    // Fetch last array key
+                    $finalArraylastArrayKey = array_pop($finalArrayKeys);
+
+                    if($bufferRow['tags']!=$finalArray[$finalArraylastArrayKey]['tags']){
+                        $finalArray[$bufferKey]=$bufferRow;
+                        unset($buffeArray[$bufferKey]);
+                    }
+                }
+                
+                $finalArrayKeys = array_keys($finalArray);
+                // Fetch last array key
+                $finalArraylastArrayKey = array_pop($finalArrayKeys);
+
+                if(empty($finalArray)){
+                    $finalArray[$key]=$row;
+                }
+                elseif($row['tags']==$finalArray[$finalArraylastArrayKey]['tags']){
+                    $buffeArray[$key]=$row;
+                }
+                else{
+                    $finalArray[$key]=$row;
+                }
+                
+                //reached the end so no other choice but to add the remaining buffer
+                if($key == $lastArrayKey) {
+                    $finalArray=array_merge($finalArray,$buffeArray);
+                }
+                
+                $previousValue = $row;
+            }
+            
+            $this->db=$finalArray;
+            return true;
+ 	}
+        
+        private function sortLowToHigh($a, $b) {
 		return $a['date']>$b['date'];
 	}
 
