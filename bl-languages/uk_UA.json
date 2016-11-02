@@ -3,7 +3,7 @@
 	{
 		"native": "Українська (Україна)",
 		"english-name": "Ukrainian",
-		"last-update": "2016-02-20",
+		"last-update": "2016-10-28",
 		"author": "Allec Bernz",
 		"email": "admin@allec.info",
 		"website": "http://allec.info"
@@ -235,5 +235,17 @@
 	"delete-image": "Видалити зображення",
 	"image-description": "Опис зображення",
 
-	"social-networks-links": "Лінки на соціальні мережі"
+	"social-networks-links": "Лінки на соціальні мережі",
+
+	"email-access-code": "Код доступу Email",
+	"current-format": "Поточний формат",
+
+	"welcome": "Ласкаво просимо",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "Щоб включити користувача, ви повинні встановити новий пароль.",
+	"do-you-want-to-disable-the-user": "Ви хочете відключити користувача?",
+	"сurrent-status" : "Статус",
+	"disable-the-user" : "Відключити користувача",
+	"add-a-new-page": "Додати нову сторінку",
+	"add-a-new-post": "Додати нову публікацію"
 }
