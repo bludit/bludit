@@ -33,23 +33,28 @@ class pluginAPI extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show all posts:</b> <a href="'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('authKey').'</a></p>';
+		$html .= '<p><b>Show all posts:</b> <a href="'.DOMAIN_BASE.'api/show/all/posts?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/posts?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get all posts from this site.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show all pages:</b> <a href="'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('authKey').'</a></p>';
+		$html .= '<p><b>Show all pages:</b> <a href="'.DOMAIN_BASE.'api/show/all/pages?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/pages?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get all pages from this site.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/post/{POST-NAME}">'.DOMAIN_BASE.'api/show/post/{POST-NAME}</a></p>';
+		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/post/POST-NAME?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/post/{POST-NAME}?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get a particular post, change the {POST-NAME} with the post friendly url.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}</a></p>';
+		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/PAGE-NAME?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get a particular page, change the {PAGE-NAME} with the page friendly url.</div>';
+		$html .= '</div>';
+                
+                $html .= '<div>';
+		$html .= '<p><b>Show posts by tag filter:</b> <a href="'.DOMAIN_BASE.'api/show/tag/TAG-NAME/PER-PAGE/PAGE-NUM?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/tag/{TAG-NAME}/{PER-PAGE}/{PAGE-NUM}?key='.$this->getDbField('authKey').'</a></p>';
+		$html .= '<div class="tip">Get all posts filterd by a tag name , per page limit and page number.</div>';
 		$html .= '</div>';
 
 		return $html;
