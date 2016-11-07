@@ -75,7 +75,7 @@ function buildPlugins()
 
 	foreach($pluginsDeclaredClasess as $pluginClass)
 	{
-		$Plugin = new $pluginClass($Site->locale());
+		$Plugin = new $pluginClass();
 
 		// Deprecated
 		// // Check if the plugin is translated.

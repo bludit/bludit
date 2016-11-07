@@ -25,8 +25,10 @@ class Plugin {
 	// (dbLanguage) Plugin's localisation.
 	public $language;
 
-	function __construct($locale)
+	function __construct()
 	{
+		global $Site;
+		
 		$this->dbFields = array();
 
 		$reflector = new ReflectionClass(get_class($this));
@@ -43,9 +45,15 @@ class Plugin {
 		// Init empty database
 		$this->db = $this->dbFields;
 
-		// Load localisation
-		$tmp = new dbLanguage($locale, PATH_PLUGINS.$this->directoryName.DS.'languages'.DS);
+		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
 
+		// --- Metadata ---
+		$this->filenameMetadata = PATH_PLUGINS.$this->directoryName().DS.'metadata.json';
+		$metadataString = file_get_contents($this->filenameMetadata);
+		$this->metadata = json_decode($metadataString, true);
+
+		// Load localisation
+		$tmp = new dbLanguage($Site->locale(), PATH_PLUGINS.$this->directoryName.DS.'languages'.DS);
 		// Set name and description from the language file.
 		$this->setMetadata('name',$tmp->db['plugin-data']['name']);
 		$this->setMetadata('description',$tmp->db['plugin-data']['description']);
@@ -53,13 +61,6 @@ class Plugin {
 		// Remove name and description
 		unset($tmp->db['plugin-data']);
 		$this->language = $tmp;
-
-		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
-
-		// --- Metadata ---
-		$this->filenameMetadata = PATH_PLUGINS.$this->directoryName().DS.'metadata.json';
-		$metadataString = file_get_contents($this->filenameMetadata);
-		$this->metadata = json_decode($metadataString, true);
 
 		// If the plugin is installed then get the database.
 		if($this->installed())
