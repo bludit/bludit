@@ -75,26 +75,27 @@ function buildPlugins()
 
 	foreach($pluginsDeclaredClasess as $pluginClass)
 	{
-		$Plugin = new $pluginClass;
+		$Plugin = new $pluginClass($Site->locale());
 
-		// Check if the plugin is translated.
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
-		if( !Sanitize::pathFile($languageFilename) ) {
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
-		}
+		// Deprecated
+		// // Check if the plugin is translated.
+		// $languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
+		// if( !Sanitize::pathFile($languageFilename) ) {
+		// 	$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.'en_US.json';
+		// }
 
-		$database = file_get_contents($languageFilename);
-		$database = json_decode($database, true);
+		// $database = file_get_contents($languageFilename);
+		// $database = json_decode($database, true);
 
-		// Set name and description from the language file.
-		$Plugin->setMetadata('name',$database['plugin-data']['name']);
-		$Plugin->setMetadata('description',$database['plugin-data']['description']);
+		// // Set name and description from the language file.
+		// $Plugin->setMetadata('name',$database['plugin-data']['name']);
+		// $Plugin->setMetadata('description',$database['plugin-data']['description']);
 
-		// Remove name and description, and add new words if there are.
-		unset($database['plugin-data']);
-		if(!empty($database)) {
-			$Language->add($database);
-		}
+		// // Remove name and description, and add new words if there are.
+		// unset($database['plugin-data']);
+		// if(!empty($database)) {
+		// 	$Language->add($database);
+		// }
 
 		// Push Plugin to array all plugins installed and not installed.
 		$plugins['all'][$pluginClass] = $Plugin;

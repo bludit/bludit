@@ -21,8 +21,11 @@ class Plugin {
 
 	// (array) Plugin's information.
 	public $metadata;
+	
+	// (array) Plugin's localisation.
+	public $language;
 
-	function __construct()
+	function __construct($locale)
 	{
 		$this->dbFields = array();
 
@@ -39,6 +42,17 @@ class Plugin {
 
 		// Init empty database
 		$this->db = $this->dbFields;
+
+		// Load localisation
+		$tmp = new dbLanguage($locale, PATH_PLUGINS.$this->directoryName.DS.'languages'.DS);
+
+		// Set name and description from the language file.
+		$this->setMetadata('name',$tmp->db['plugin-data']['name']);
+		$this->setMetadata('description',$tmp->db['plugin-data']['description']);
+
+		// Remove name and description
+		unset($tmp->db['plugin-data']);
+		$this->language = $tmp;
 
 		$this->filenameDb = PATH_PLUGINS_DATABASES.$this->directoryName.DS.'db.php';
 
@@ -218,8 +232,12 @@ class Plugin {
 
 	public function init()
 	{
-		// This method is used on childre classes.
-		// The user can define your own dbFields.
+		// This method is used on child classes.
+		// The user can define their own dbFields.
 	}
 
+	public function L($key)
+	{
+		return $this->language->get($key);
+	}
 }
