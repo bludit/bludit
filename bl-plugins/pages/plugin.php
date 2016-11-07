@@ -12,17 +12,15 @@ class pluginPages extends Plugin {
 
 	public function form()
 	{
-		global $Language;
-
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
+		$html .= '<label>'.$this->L('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<input type="hidden" name="homeLink" value="0">';
 		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="1" '.($this->getDbField('homeLink')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
+		$html .= '<label class="forCheckbox" for="jshomeLink">'.$this->L('Show home link').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -30,7 +28,6 @@ class pluginPages extends Plugin {
 
 	public function siteSidebar()
 	{
-		global $Language;
 		global $pagesParents;
 		global $Site, $Url;
 
@@ -48,7 +45,7 @@ class pluginPages extends Plugin {
 		// Show home link ?
 		if($this->getDbField('homeLink')) {
 			$html .= '<li>';
-			$html .= '<a class="parent'.( ($Url->whereAmI()=='home')?' active':'').'" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a>';
+			$html .= '<a class="parent'.( ($Url->whereAmI()=='home')?' active':'').'" href="'.$Site->homeLink().'">'.$this->L('Home').'</a>';
 			$html .= '</li>';
 		}
 

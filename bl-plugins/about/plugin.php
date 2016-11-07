@@ -12,14 +12,12 @@ class pluginAbout extends Plugin {
 
 	public function form()
 	{
-		global $Language;
-
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
+		$html .= '<label>'.$this->L('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('About').'</label>';
+		$html .= '<label>'.$this->L('About').'</label>';
 		$html .= '<textarea name="text" id="jstext">'.$this->getDbField('text').'</textarea>';
 		$html .= '</div>';
 
