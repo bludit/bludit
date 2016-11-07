@@ -22,7 +22,7 @@ class Plugin {
 	// (array) Plugin's information.
 	public $metadata;
 	
-	// (array) Plugin's localisation.
+	// (dbLanguage) Plugin's localisation.
 	public $language;
 
 	function __construct($locale)
