@@ -8,6 +8,7 @@ class dbSite extends dbJSON
 		'description'=>		array('inFile'=>false, 'value'=>''),
 		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
 		'postsperpage'=>	array('inFile'=>false, 'value'=>''),
+		'shuffleIdeticalTags'=>	array('inFile'=>false, 'value'=>''),
 		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
 		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
@@ -51,13 +52,13 @@ class dbSite extends dbJSON
 	{
 		foreach($args as $field=>$value)
 		{
-			if( isset($this->dbFields[$field]) )
+                   	if( isset($this->dbFields[$field]) )
 			{
 				$this->db[$field] = Sanitize::html($value);
-			}
-		}
-
-		if( $this->save() === false ) {
+                        }
+                }
+                
+                if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
@@ -237,6 +238,12 @@ class dbSite extends dbJSON
 	public function postsPerPage()
 	{
 		return $this->getField('postsperpage');
+	}
+        
+        // Returns if tags mix is enabled.
+	public function shuffleIdeticalTags()
+	{
+		return $this->getField('shuffleIdeticalTags');
 	}
 
 	// Returns the current language.

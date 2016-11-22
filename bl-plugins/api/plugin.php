@@ -33,23 +33,28 @@ class pluginAPI extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show all posts:</b> <a href="'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('authKey').'</a></p>';
+		$html .= '<p><b>Show all posts:</b> <a href="'.DOMAIN_BASE.'api/show/all/posts?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/posts?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get all posts from this site.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show all pages:</b> <a href="'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('authKey').'</a></p>';
+		$html .= '<p><b>Show all pages:</b> <a href="'.DOMAIN_BASE.'api/show/all/pages?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/all/pages?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get all pages from this site.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/post/{POST-NAME}">'.DOMAIN_BASE.'api/show/post/{POST-NAME}</a></p>';
+		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/post/POST-NAME?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/post/{POST-NAME}?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get a particular post, change the {POST-NAME} with the post friendly url.</div>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}</a></p>';
+		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/PAGE-NAME?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}?key='.$this->getDbField('authKey').'</a></p>';
 		$html .= '<div class="tip">Get a particular page, change the {PAGE-NAME} with the page friendly url.</div>';
+		$html .= '</div>';
+                
+                $html .= '<div>';
+		$html .= '<p><b>Show posts by tag filter:</b> <a href="'.DOMAIN_BASE.'api/show/tag/TAG-NAME/PER-PAGE/PAGE-NUM?key='.$this->getDbField('authKey').'">'.DOMAIN_BASE.'api/show/tag/{TAG-NAME}/{PER-PAGE}/{PAGE-NUM}?key='.$this->getDbField('authKey').'</a></p>';
+		$html .= '<div class="tip">Get all posts filterd by a tag name , per page limit and page number.</div>';
 		$html .= '</div>';
 
 		return $html;
@@ -133,6 +138,14 @@ class pluginAPI extends Plugin {
 
 		return json_encode($tmp);
 	}
+        
+        private function getTagPosts($tag,$amount=3,$pageNumber=0)
+	{
+            	$posts = buildTagPosts($tag,$amount,$pageNumber);
+                return json_encode($posts);
+	}
+        
+        
 
 	private function getPage($key)
 	{
@@ -167,7 +180,7 @@ class pluginAPI extends Plugin {
 
 	public function beforeRulesLoad()
 	{
-		global $Url;
+               global $Url;
 
 		// The URI start with /api/
 		$startString = HTML_PATH_ROOT.'api/';
@@ -176,6 +189,8 @@ class pluginAPI extends Plugin {
 		if( mb_substr($URI, 0, $length)!=$startString ) {
 			return false;
 		}
+                
+                header('Content-Type: application/json');
 
 		// Remove the first part of the URI
 		$URI = mb_substr($URI, $length);
@@ -188,41 +203,44 @@ class pluginAPI extends Plugin {
 		// show all pages {AUTH KEY}
 
 		// Get parameters
-		$parameters = explode('/', $URI);
+                $parameters = explode('/', $URI);
 
-		for($i=0; $i<3; $i++) {
-			if(empty($parameters[$i])) {
-				return false;
-			} else {
-				// Sanizite
-				$parameters[$i] = Sanitize::html($parameters[$i]);
-			}
-		}
-
-		// Default JSON
+                
+                // Default JSON
 		$json = json_encode(array(
 			'status'=>'0',
 			'bludit'=>'Bludit API plugin',
 			'message'=>'Check the parameters'
 		));
+                
+                if(!isset($_GET['key']) OR $_GET['key']!==$this->getDbField('authKey') ){
+                    exit($json);
+                }
+                
+		for($i=0; $i<count($parameters); $i++) {
+			// Sanizite
+			$parameters[$i] = Sanitize::html($parameters[$i]);
+		}
 
-		if($parameters[0]==='show') {
+		
+                if($parameters[0]==='show') {
 
 			if($parameters[1]==='all') {
 
-				// Authentication key from the URI
-				$authKey = $parameters[3];
-
-				// Compare keys
-				if( $authKey===$this->getDbField('authKey') ) {
-
-					if($parameters[2] === 'posts') {
-						$json = $this->getAllPosts();
-					}
-					elseif($parameters[2] === 'pages') {
-						$json = $this->getAllPages();
-					}
-				}
+				if($parameters[2] === 'posts') {
+                                        $json = $this->getAllPosts();
+                                }
+                                elseif($parameters[2] === 'pages') {
+                                        $json = $this->getAllPages();
+                                }
+			}
+                        elseif($parameters[1]==='tag') {
+                                if(isset($parameters[2]) AND isset($parameters[3])AND isset($parameters[4])){
+                                    $tag = $parameters[2];
+                                    $limit = $parameters[3];
+                                    $page = $parameters[4];
+                                    $json = $this->getTagPosts($tag,$limit,$page);
+                                }
 			}
 			elseif($parameters[1]==='post' || $parameters[1]==='page') {
 
@@ -236,9 +254,6 @@ class pluginAPI extends Plugin {
 				}
 			}
 		}
-
-		// Print the JSON
-		header('Content-Type: application/json');
-		exit($json);
+        	exit($json);
 	}
 }

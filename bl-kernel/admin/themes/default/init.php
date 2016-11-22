@@ -102,6 +102,32 @@ class HTML {
 		$args['type'] = 'password';
 		self::formInputText($args);
 	}
+        public static function formCheckbox($args)
+	{
+		$id = 'js'.$args['name'];
+		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
+		$placeholder = empty($args['placeholder']) ? '' : 'placeholder="'.$args['placeholder'].'"';
+
+		$html  = '<div class="uk-form-row">';
+
+		if(!empty($args['label'])) {
+			$html .= '<label for="'.$id.'" class="uk-form-label">'.$args['label'].'</label>';
+		}
+
+		$html .= '<div class="uk-form-controls">';
+                // without the hidden field it doesn't send any post value when the checkbox is not checked
+                $html .=  "<input type='hidden' value='0' name='".$args['name']."'>";
+		$html .= '<input type="checkbox" id="'.$id.'" name="'.$args['name'].'" '.$class.' '.$placeholder.' value=1 '.($args['checked']?"checked":"").' />';
+
+		if(!empty($args['tip'])) {
+			$html .= '<p class="uk-form-help-block">'.$args['tip'].'</p>';
+		}
+
+		$html .= '</div>';
+		$html .= '</div>';
+
+		echo $html;
+	}
 
 	public static function formTextarea($args)
 	{

@@ -18,11 +18,17 @@ class Url
 
 		// remove parameters GET, do not use parse_url because has problem with utf-8.
 		$explode = explode('?', $decode);
-		$this->uri = $explode[0];
+                $this->uri = $explode[0];
 
-		$this->parameters = $_GET;
+                // deal with server config when missing the get params
+                if(empty($_GET)){
+                    isset($explode[1]) ? parse_str($explode[1], $this->parameters):"";
+                }
+                else{
+                    $this->parameters=$_GET;
+                }
 
-		$this->uriStrlen = Text::length($this->uri);
+                $this->uriStrlen = Text::length($this->uri);
 
 		$this->whereAmI = 'home';
 
@@ -142,12 +148,12 @@ class Url
 
 	public function pageNumber()
 	{
-		if(isset($this->parameters['page'])) {
+            	if(isset($this->parameters['page'])) {
 			return $this->parameters['page'];
 		}
 		return 0;
 	}
-
+    
 	public function setNotFound($error = true)
 	{
 		$this->notFound = $error;
@@ -170,7 +176,7 @@ class Url
 		// Check if the filter is in the uri.
 		$position = Text::stringPosition($this->uri, $filter);
 
-		// If the position is FALSE, the filter isn't in the URI.
+                // If the position is FALSE, the filter isn't in the URI.
 		if($position===false) {
 			return false;
 		}
