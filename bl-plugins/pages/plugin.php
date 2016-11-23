@@ -6,7 +6,7 @@ class pluginPages extends Plugin {
 	{
 		$this->dbFields = array(
 			'homeLink'=>1,
-			'childrens'=>1,
+			'children'=>1,
 			'label'=>'Pages'
 		);
 	}
@@ -27,9 +27,9 @@ class pluginPages extends Plugin {
 		$html .= '</div>';
 		
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="childrens" value="0">';
-		$html .= '<input name="childrens" id="jschildrens" type="checkbox" value="1" '.($this->getDbField('childrens')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jschildrens">'.$Language->get('Show childrens').'</label>';
+		$html .= '<input type="hidden" name="children" value="0">';
+		$html .= '<input name="children" id="children" type="checkbox" value="1" '.($this->getDbField('children')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jschildren">'.$Language->get('Show children').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -70,7 +70,7 @@ class pluginPages extends Plugin {
 				$html .= '<a class="parent'.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
 				// Show children elements?
-				if($this->getDbField('childrens')) {
+				if($this->getDbField('children')) {
 
 					// Check if the parent has children
 					if(isset($pagesParents[$parent->key()]))
