@@ -1,5 +1,6 @@
 <?php
 
+
 class pluginAPI extends Plugin {
 
 	public function init()
@@ -75,6 +76,8 @@ class pluginAPI extends Plugin {
 	public function beforeRulesLoad()
 	{
 		global $Url;
+		global $dbPosts;
+		global $dbPages;
 
 		// Check if the URI start with /api/
 		$startString = HTML_PATH_ROOT.'api/';
@@ -104,13 +107,18 @@ class pluginAPI extends Plugin {
 
 		if( empty($inputs) ) {
 			// Default variables for $input
-			$inputs = array();
+			$inputs = array(
+				'token'=>''
+			);
 		}
 		else {
 			// Sanitize inputs
 			foreach( $inputs as $key=>$value ) {
 				if(empty($value)) {
-					return false;
+					$this->response(array(
+						'status'=>'1',
+						'message'=>'Invalid input.'
+					));
 				} else {
 					$inputs[$key] = Sanitize::html($value);
 				}
@@ -119,18 +127,21 @@ class pluginAPI extends Plugin {
 
 		// PARAMETERS
 		// ------------------------------------------------------------
-		// /api/posts 		| GET | returns all posts
-		// /api/posts/{slug}	| GET | returns the post with the {slug}
-		// /api/pages 		| GET | returns all pages
-		// /api/pages/{slug}	| GET | returns the page with the {slug}
-		// /api/cli/regenerate 	| PUT | check for new posts and pages
+		// /api/posts 		| GET  | returns all posts
+		// /api/posts/{slug}	| GET  | returns the post with the {slug}
+		// /api/pages 		| GET  | returns all pages
+		// /api/pages/{slug}	| GET  | returns the page with the {slug}
+		// /api/cli/regenerate 	| POST | check for new posts and pages
 
 		$parameters = explode('/', $URI);
 
 		// Sanitize parameters
 		foreach( $parameters as $key=>$value ) {
 			if(empty($value)) {
-				return false;
+				$this->response(array(
+					'status'=>'1',
+					'message'=>'Invalid parameter.'
+				));
 			} else {
 				$parameters[$key] = Sanitize::html($value);
 			}
@@ -138,10 +149,6 @@ class pluginAPI extends Plugin {
 
 		// Check authentication
 		if( $this->getDbField('authentication')==1 ) {
-			if( empty($inputs['token']) ) {
-				return false;
-			}
-
 			if( $inputs['token']!=$this->getDbField('token') ) {
 				$this->response(array(
 					'status'=>'1',
@@ -170,7 +177,22 @@ class pluginAPI extends Plugin {
 			$data = $this->getPage($parameters[1]);
 			$this->response($data);
 		}
+		// /api/cli/regenerate
+		elseif( ($method==='POST') && ($parameters[0]==='cli') && ($parameters[1]==='regenerate') ) {
 
+			// Regenerate posts
+			if( $dbPosts->cliMode() ) {
+				reIndexTagsPosts();
+			}
+
+			// Regenerate pages
+			$dbPages->cliMode();
+
+			$this->response(array(
+				'status'=>'0',
+				'message'=>'Pages and post regenerated.'
+			));
+		}
 	}
 
 // FUNCTIONS
@@ -234,11 +256,11 @@ class pluginAPI extends Plugin {
 			);
 		}
 
-		$data = $Post->json(true);
 		$data['status'] = '0';
 		$data['message'] = '';
+		$data['data'] = $Post->json( $returnsArray=true );
 
-		return $data;  
+		return $data;
 	}
 
 	private function getAllPosts()
@@ -247,11 +269,12 @@ class pluginAPI extends Plugin {
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>''
+			'message'=>'',
+			'data'=>array()
 		);
 
 		foreach($posts as $Post) {
-			array_push($tmp, $Post->json( $returnsArray=true ));
+			array_push($tmp['data'], $Post->json( $returnsArray=true ));
 		}
 
 		return $tmp;
@@ -269,9 +292,9 @@ class pluginAPI extends Plugin {
 			);
 		}
 
-		$data = $Page->json(true);
 		$data['status'] = '0';
 		$data['message'] = '';
+		$data['data'] = $Page->json( $returnsArray=true );
 
 		return $data;
 	}
@@ -282,12 +305,13 @@ class pluginAPI extends Plugin {
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>''
+			'message'=>'',
+			'data'=>array()
 		);
 
 		foreach($pages as $Page) {
 			if($Page->published()) {
-				array_push($tmp, $Page->json( $returnsArray=true ));
+				array_push($tmp['data'], $Page->json( $returnsArray=true ));
 			}
 		}
 
