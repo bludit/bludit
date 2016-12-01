@@ -7,10 +7,10 @@ define('BLUDIT_RELEASE_DATE',	'2016-10-11');
 define('BLUDIT_BUILD',		'20161011');
 
 // Debug mode
+// Change to FALSE, for prevent warning or error on browser
 define('DEBUG_MODE', TRUE);
 error_reporting(0); // Turn off all error reporting
-if(DEBUG_MODE)
-{
+if(DEBUG_MODE) {
 	// Turn on all error reporting
 	ini_set("display_errors", 1);
 	ini_set('display_startup_errors',1);
@@ -90,7 +90,7 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 // Post per page on Manage->Posts
 define('POSTS_PER_PAGE_ADMIN', 10);
 
-// Cli mode status for new posts/pages
+// Enable or disable Cli mode
 define('CLI_MODE', FALSE);
 
 // Cli mode status for new posts/pages
@@ -99,7 +99,7 @@ define('CLI_STATUS', 'published');
 // Cli mode username for new posts/pages
 define('CLI_USERNAME', 'admin');
 
-// Filename for posts and pages, you can change for example, for index.md
+// Filename for posts and pages, you can change it, for example, for index.md
 define('FILENAME', 'index.txt');
 
 // Database date format
@@ -117,8 +117,8 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
-// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard
-define('EXTREME_FRIENDLY_URL', false);
+// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard. Experimental!
+define('EXTREME_FRIENDLY_URL', FALSE);
 
 // Directory permissions
 define('DIR_PERMISSIONS', 0755);
