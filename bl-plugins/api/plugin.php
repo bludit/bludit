@@ -104,9 +104,7 @@ class pluginAPI extends Plugin {
 
 		if( empty($inputs) ) {
 			// Default variables for $input
-			$inputs = array(
-				'token'=>''
-			);
+			$inputs = array();
 		}
 		else {
 			// Sanitize inputs
@@ -140,6 +138,10 @@ class pluginAPI extends Plugin {
 
 		// Check authentication
 		if( $this->getDbField('authentication')==1 ) {
+			if( empty($inputs['token']) ) {
+				return false;
+			}
+
 			if( $inputs['token']!=$this->getDbField('token') ) {
 				return false;
 			}
