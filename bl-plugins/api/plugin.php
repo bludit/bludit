@@ -141,41 +141,46 @@ class pluginAPI extends Plugin {
 		// Check authentication
 		if( $this->getDbField('authentication')==1 ) {
 			if( $inputs['token']!=$this->getDbField('token') ) {
-				return false;
+				$this->response(array(
+					'status'=>'1',
+					'message'=>'Invalid token.'
+				));
 			}
 		}
 
-		// Default JSON
-		$json = json_encode(array(
-			'status'=>'0', // 0 = ok, 1 = error
-			'bludit'=>'Bludit API plugin',
-			'message'=>'Missing parameters, check the URL.'
-		));
-
 		// /api/posts
 		if( ($method==='GET') && ($parameters[0]==='posts') && empty($parameters[1]) ) {
-			$json = $this->getAllPosts();
+			$data = $this->getAllPosts();
+			$this->response($data);
 		}
 		// /api/pages
 		elseif( ($method==='GET') && ($parameters[0]==='pages') && empty($parameters[1]) ) {
-			$json = $this->getAllPages();
+			$data = $this->getAllPages();
+			$this->response($data);
 		}
 		// /api/posts/{slug}
 		elseif( ($method==='GET') && ($parameters[0]==='posts') && !empty($parameters[1]) ) {
-			$json = $this->getPost($key);
+			$data = $this->getPost($parameters[1]);
+			$this->response($data);
 		}
 		// /api/pages/{slug}
 		elseif( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
-			$json = $this->getPage($key);
+			$data = $this->getPage($parameters[1]);
+			$this->response($data);
 		}
 
-		// Print the JSON
-		header('Content-Type: application/json');
-		exit($json);
 	}
 
 // FUNCTIONS
 // ----------------------------------------------------------------------------
+
+	private function response($data=array())
+	{
+		$json = json_encode($data);
+
+		header('Content-Type: application/json');
+		exit($json);
+	}
 
 	private function ping()
 	{
@@ -221,27 +226,33 @@ class pluginAPI extends Plugin {
 		$Post = buildPost($key);
 
 		if(!$Post) {
-			return json_encode(array(
-				'status'=>'0',
-				'bludit'=>'Bludit API plugin',
-				'message'=>'The post doesn\'t exist'
-			));
+			return array(
+				'status'=>'1',
+				'message'=>'Post not found.'
+			);
 		}
 
-		return $Post->json();
+		$data = $Post->json(true);
+		$data['status'] = '0';
+		$data['message'] = '';
+
+		return $data;  
 	}
 
 	private function getAllPosts()
 	{
 		$posts = buildPostsForPage(0, $this->getDbField('showAllAmount'), true, false);
 
-		$tmp = array();
+		$tmp = array(
+			'status'=>'0',
+			'message'=>''
+		);
 
 		foreach($posts as $Post) {
 			array_push($tmp, $Post->json( $returnsArray=true ));
 		}
 
-		return json_encode($tmp);
+		return $tmp;
 	}
 
 	private function getPage($key)
@@ -250,21 +261,27 @@ class pluginAPI extends Plugin {
 		$Page = buildPage($key);
 
 		if(!$Page) {
-			return json_encode(array(
-				'status'=>'0',
-				'bludit'=>'Bludit API plugin',
-				'message'=>'The page doesn\'t exist'
-			));
+			return array(
+				'status'=>'1',
+				'message'=>'Page not found.'
+			);
 		}
 
-		return $Page->json();
+		$data = $Page->json(true);
+		$data['status'] = '0';
+		$data['message'] = '';
+
+		return $data;
 	}
 
 	private function getAllPages()
 	{
 		$pages = buildAllPages();
 
-		$tmp = array();
+		$tmp = array(
+			'status'=>'0',
+			'message'=>''
+		);
 
 		foreach($pages as $Page) {
 			if($Page->published()) {
@@ -272,7 +289,7 @@ class pluginAPI extends Plugin {
 			}
 		}
 
-		return json_encode($tmp);
+		return $tmp;
 	}
 
 }
