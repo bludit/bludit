@@ -6,22 +6,24 @@ class dbLanguage extends dbJSON
 	public $db;
 	public $currentLocale;
 
-	function __construct($locale)
+	function __construct( $locale, $path = null )
 	{
+		$path = $path ? $path : PATH_LANGUAGES;
+
 		$this->data = array();
 		$this->db = array();
 		$this->currentLocale = 'en_US';
 
 		// Default language en_US
-		$filename = PATH_LANGUAGES.'en_US.json';
+		$filename = $path.'en_US.json';
 		if( Sanitize::pathFile($filename) )
 		{
 			$Tmp = new dbJSON($filename, false);
-			$this->db = array_merge($this->db, $Tmp->db);
+			$this->db = $Tmp->db;
 		}
 
 		// User language
-		$filename = PATH_LANGUAGES.$locale.'.json';
+		$filename = $path.$locale.'.json';
 		if( Sanitize::pathFile($filename) && ($locale!=="en_US") )
 		{
 			$this->currentLocale = $locale;
@@ -29,8 +31,11 @@ class dbLanguage extends dbJSON
 			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
-		$this->data = $this->db['language-data'];
-		unset($this->db['language-data']);
+		if ( $this->data )
+		{
+			$this->data = $this->db['language-data'];
+			unset($this->db['language-data']);
+		}
 	}
 
 	public function getCurrentLocale()

@@ -12,15 +12,13 @@ class pluginLatestPosts extends Plugin {
 
 	public function form()
 	{
-		global $Language;
-
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
+		$html .= '<label>'.$this->L('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Amount of posts').'</label>';
+		$html .= '<label>'.$this->L('Amount of posts').'</label>';
 		$html .= '<input name="amount" id="jsamount" type="text" value="'.$this->getDbField('amount').'">';
 		$html .= '</div>';
 

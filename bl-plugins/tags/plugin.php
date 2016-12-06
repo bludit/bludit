@@ -12,23 +12,21 @@ class pluginTags extends Plugin {
 
 	public function form()
 	{
-		global $Language;
-
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
+		$html .= '<label>'.$this->L('Plugin label').'</label>';
 		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= $Language->get('Sort the tag list by').': <select name="sort">';
+		$html .= $this->L('Sort the tag list by').': <select name="sort">';
 
 		foreach(array('alpha' => 'Alphabetical order',
 		              'count' => 'Number of times each tag has been used',
 		              'date'  => 'Date each tag was first used') as $key=>$value) {
 			if ($key == $this->getDbField('sort')) {
-				$html .= '<option value="'.$key.'" selected>'.$Language->get($value).'</option>';
+				$html .= '<option value="'.$key.'" selected>'.$this->L($value).'</option>';
 			} else {
-				$html .= '<option value="'.$key.'">'.$Language->get($value).'</option>';
+				$html .= '<option value="'.$key.'">'.$this->L($value).'</option>';
 			}
 		}
 		$html .= '</select>';
@@ -39,7 +37,6 @@ class pluginTags extends Plugin {
 
 	public function siteSidebar()
 	{
-		global $Language;
 		global $dbTags;
 		global $Url;
 

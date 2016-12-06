@@ -21,22 +21,20 @@ class pluginsimpleMDE extends Plugin {
 
 	public function form()
 	{
-		global $Language;
-
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Toolbar').'</label>';
+		$html .= '<label>'.$this->L('Toolbar').'</label>';
 		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getDbField('toolbar').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Tab size').'</label>';
+		$html .= '<label>'.$this->L('Tab size').'</label>';
 		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<input type="hidden" name="autosave" value="0">';
 		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
+		$html .= '<label class="forCheckbox" for="jsautosave">'.$this->L('Autosave').'</label>';
 		$html .= '</div>';
 		
 		$html .= '<div>';
@@ -85,8 +83,6 @@ class pluginsimpleMDE extends Plugin {
 	public function adminBodyEnd()
 	{
 		global $layout;
-		global $Language;
-
 		$html = '';
 
 		// Load CSS and JS only on Controllers in array.
@@ -119,7 +115,7 @@ class pluginsimpleMDE extends Plugin {
 
 			// This function is necesary on each Editor, it is used by Bludit Images v8.
 			$html .= 'function editorAddImage(filename) {
-					addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
+					addContentSimpleMDE("!['.$this->L('Image description').']("+filename+")");
 				}'.PHP_EOL;
 
 			$html .= '$(document).ready(function() { '.PHP_EOL;
