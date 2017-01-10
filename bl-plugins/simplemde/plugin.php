@@ -129,6 +129,7 @@ class pluginsimpleMDE extends Plugin {
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: false,
+					placeholder: "Content here... Supports Markdown and HTML code.",
 					lineWrapping: true,
 					autoDownloadFontAwesome: false,
 					indentWithTabs: true,
