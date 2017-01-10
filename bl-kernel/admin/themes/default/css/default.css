@@ -209,9 +209,36 @@ div.dashboard-links h4 {
 	font-size: 0.9em !important;
 }
 
+.bl-publish-sidebar ul {
+	margin: 0;
+	padding: 0;
+}
+
+.bl-publish-sidebar li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.bl-publish-sidebar li:not(:first-child) {
+	margin-top: 10px;
+}
+
 .bl-publish-sidebar .uk-form-label {
 	font-size: 0.9em;
 	text-transform: uppercase;
+	font-weight: normal;
+}
+
+.bl-publish-sidebar .sidebar-view {
+	display: none;
+}
+
+.bl-publish-sidebar h2.sidebar-button {
+	font-size: 0.9em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
 }
 
 .uk-form legend {
@@ -340,19 +367,19 @@ table.statistics tr:last-child td {
 }
 
 #bludit-tags .uk-button {
-	padding: 0 12px !important;
-	margin-left: 10px;
+	margin-top: 5px;
 }
 
 #jstagList {
 	margin-top: 15px;
+	font-size: 0.9em;
 }
 
 #jstagList span.unselect,
 #jstagList span.select {
-	margin-top: 5px;
-	margin-right: 5px;
-	padding: 2px 15px;
+	margin-top: 7px;
+	margin-right: 7px;
+	padding: 1px 15px;
 	cursor: pointer;
 	display: inline-block;
 	border-radius: 3px;

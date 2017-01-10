@@ -12,6 +12,23 @@ if(version_compare(phpversion(), '5.3', '<')) {
 	exit('Current PHP version '.phpversion().', you need > 5.3. (ERR_202)');
 }
 
+// Check PHP modules
+if(!extension_loaded('mbstring')) {
+	exit('PHP module mbstring is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('json')) {
+	exit('PHP module json is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('gd')) {
+	exit('PHP module gd is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('dom')) {
+	exit('PHP module dom is not installed. Check the requirements.');
+}
+
 // Security constant
 define('BLUDIT', true);
 
@@ -184,14 +201,10 @@ function checkSystem()
 {
 	$stdOut = array();
 	$dirpermissions = 0755;
-	$phpModules = array();
-
-	if(function_exists('get_loaded_extensions')) {
-		$phpModules = get_loaded_extensions();
-	}
 
 	// Check .htaccess file for different webservers
-	if( !file_exists(PATH_ROOT.'.htaccess') ) {
+	if( !file_exists(PATH_ROOT.'.htaccess') )
+	{
 
 		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
 			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
@@ -203,48 +216,7 @@ function checkSystem()
 			$tmp['title'] = 'File .htaccess';
 			$tmp['errorText'] = $errorText;
 			array_push($stdOut, $tmp);
-
 		}
-	}
-
-	if(!in_array('gd', $phpModules))
-	{
-		$errorText = 'PHP module GD is not installed.';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('dom', $phpModules))
-	{
-		$errorText = 'PHP module DOM is not installed. (ERR_203)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('json', $phpModules))
-	{
-		$errorText = 'PHP module JSON is not installed. (ERR_204)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('mbstring', $phpModules))
-	{
-		$errorText = 'PHP module Multibyte String (mbstring) is not installed. (ERR_206)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
 	}
 
 	// Try to create the directory content

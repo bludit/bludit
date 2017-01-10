@@ -151,6 +151,20 @@ $(document).ready(function() {
 		?>
 		</div>
 
+		<?php
+			if( AUTO_SCROLL ) {
+		?>
+		<script>
+			// Auto scroll
+			$(document).ready(function () {
+				$('html, body').animate({
+					scrollTop: $('#bl-view').offset().top
+				}, 'slow');
+			});
+		</script>
+		<?php
+			}
+		?>
 </div>
 
 <!-- Javascript -->

@@ -4,7 +4,9 @@ class HTML {
 
 	public static function title($args)
 	{
-		$html = '<h2 class="title"><i class="uk-icon-'.$args['icon'].'"></i> '.$args['title'].'</h2>';
+		$id = empty($args['id']) ? '' : 'id="'.$args['id'].'"';
+
+		$html = '<h2 class="title" '.$id.'><i class="uk-icon-'.$args['icon'].'"></i> '.$args['title'].'</h2>';
 		echo $html;
 	}
 
@@ -81,7 +83,7 @@ class HTML {
 		$html .= '<label for="jstagInput" class="uk-form-label">'.$args['label'].'</label>';
 
 		$html .= '<div class="uk-form-controls">';
-		$html .= '<input id="jstagInput" type="text" class="uk-width-1-2" autocomplete="off">';
+		$html .= '<input id="jstagInput" type="text" class="uk-width-1-1" autocomplete="off">';
 		$html .= '<button id="jstagAdd" class="uk-button">'.$L->g('Add').'</button>';
 
 		$html .= '<div id="jstagList">';

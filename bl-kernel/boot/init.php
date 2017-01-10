@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'1.5.2');
-define('BLUDIT_CODENAME',	'Learning To Fly');
-define('BLUDIT_RELEASE_DATE',	'2016-10-11');
-define('BLUDIT_BUILD',		'20161011');
+define('BLUDIT_VERSION',	'1.6-beta');
+define('BLUDIT_CODENAME',	'');
+define('BLUDIT_RELEASE_DATE',	'');
+define('BLUDIT_BUILD',		'');
 
 // Debug mode
 // Change to FALSE, for prevent warning or error on browser
@@ -58,6 +58,9 @@ if(!defined('JSON_PRETTY_PRINT')) {
 
 // Protecting against Symlink attacks.
 define('CHECK_SYMBOLIC_LINKS', TRUE);
+
+// Auto scroll
+define('AUTO_SCROLL', TRUE);
 
 // Alert status ok
 define('ALERT_STATUS_OK', 0);
