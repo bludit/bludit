@@ -48,7 +48,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// GENERAL TAB
 	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> GENERAL</h2></li>';
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> '.$L->g('General').'</h2></li>';
 	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
 	// Description input
@@ -65,7 +65,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// IMAGES TAB
 	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> Images</h2></li>';
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> '.$L->g('Images').'</h2></li>';
 	echo '<li id="sidebar-images-view" class="sidebar-view">';
 
 	// --- BLUDIT COVER IMAGE ---
@@ -99,7 +99,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// ADVANCED TAB
 	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-advanced-view"><i class="uk-icon-angle-down"></i> ADVANCED</h2></li>';
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-advanced-view"><i class="uk-icon-angle-down"></i> '.$L->g('Advanced').'</h2></li>';
 	echo '<li id="sidebar-advanced-view" class="sidebar-view">';
 
 	// Status input
