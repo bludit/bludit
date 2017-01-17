@@ -238,5 +238,15 @@
 	"social-networks-links": "Sosiaalisen median linkit",
 
 	"email-access-code": "Pyydä tunnistautumiskoodi",
-	"current-format": "Nykyinen muoto"
+	"current-format": "Nykyinen muoto",
+
+	"welcome": "Welcome (No translation)",
+	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password. (No translation)",
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ? (No translation)",
+	"сurrent-status": "Status (No translation)",
+	"disable-the-user": "Disable the user (No translation)",
+	"add-a-new-page": "Add a new page (No translation)",
+	"add-a-new-post": "Add a new post (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }

@@ -227,5 +227,23 @@
 	"click-here-to-cancel": "ここをクリックしてキャンセル。",
 	"type-the-tag-and-press-enter": "タグを入力してEnterを押します。",
 	"manage-your-bludit-from-the-admin-panel": "[管理パネル]({{ADMIN_AREA_LINK}})からBluditを管理する",
-	"there-are-no-images":"画像はありません。"
+	"there-are-no-images":"画像はありません。",
+
+	"notifications": "Notifications (No translation)",
+	"click-on-the-image-for-options": "Click on the image for options. (No translation)",
+	"set-as-cover-image": "Set as cover image (No translation)",
+	"delete-image": "Delete image (No translation)",
+	"image-description": "Image description (No translation)",
+	"social-networks-links": "Social networks links (No translation)",
+	"email-access-code": "Email access code (No translation)",
+	"current-format": "Current format (No translation)",
+	"welcome": "Welcome (No translation)",
+	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password. (No translation)",
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ? (No translation)",
+	"сurrent-status": "Status (No translation)",
+	"disable-the-user": "Disable the user (No translation)",
+	"add-a-new-page": "Add a new page (No translation)",
+	"add-a-new-post": "Add a new post (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }

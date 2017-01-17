@@ -247,5 +247,9 @@
 	"сurrent-status" : "Status",
 	"disable-the-user" : "Deactiveer de gebruiker",
 	"add-a-new-page": "Voeg een nieuwe pagina toe",
-	"add-a-new-post": "Voeg een nieuwe post toe"
+	"add-a-new-post": "Voeg een nieuwe post toe",
+
+	"notifications": "Notifications (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }
