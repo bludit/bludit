@@ -247,5 +247,8 @@
 	"сurrent-status" : "Estado",
 	"disable-the-user" : "Desactivar o utilizador",
 	"add-a-new-page": "Adicionar nova página",
-	"add-a-new-post": "Adicionar novo post"
+	"add-a-new-post": "Adicionar novo post",
+
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }

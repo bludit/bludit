@@ -246,6 +246,9 @@
 	"сurrent-status" : "Durum",
 	"disable-the-user" : "Kullanıcıyı etkisizleştir",
 	"add-a-new-page": "Yeni sayfa ekle",
-	"add-a-new-post": "Yeni yazı ekle"
-}
+	"add-a-new-post": "Yeni yazı ekle",
 
+	"notifications": "Notifications (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
+}

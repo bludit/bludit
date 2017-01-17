@@ -235,5 +235,19 @@
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
 
-	"social-networks-links": "Liens vers les réseaux sociaux"
+	"social-networks-links": "Liens vers les réseaux sociaux",
+
+	"username-already-exists": "Username already exists (No translation)",
+	"statistics": "Statistics (No translation)",
+	"email-access-code": "Email access code (No translation)",
+	"current-format": "Current format (No translation)",
+	"welcome": "Welcome (No translation)",
+	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password. (No translation)",
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ? (No translation)",
+	"сurrent-status": "Status (No translation)",
+	"disable-the-user": "Disable the user (No translation)",
+	"add-a-new-page": "Add a new page (No translation)",
+	"add-a-new-post": "Add a new post (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }

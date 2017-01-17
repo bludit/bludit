@@ -236,5 +236,9 @@
 	"сurrent-status" : "Status",
 	"disable-the-user" : "Benutzer deaktivieren",
 	"add-a-new-page": "Eine neue Seite hinzufügen",
-	"add-a-new-post": "Einen neuen Beitrag hinzufügen"
+	"add-a-new-post": "Einen neuen Beitrag hinzufügen",
+
+	"notifications": "Notifications (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }

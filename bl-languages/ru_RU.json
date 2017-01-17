@@ -247,5 +247,9 @@
 	"сurrent-status" : "Статус",
 	"disable-the-user" : "Отключить пользователя",
 	"add-a-new-page": "Добавить страницу",
-	"add-a-new-post": "Добавить пост"
+	"add-a-new-post": "Добавить пост",
+
+	"notifications": "Notifications (No translation)",
+	"save-as-draft": "Save as draft (No translation)",
+	"missing-translation": "No translation"
 }
