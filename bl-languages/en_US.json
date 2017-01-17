@@ -249,5 +249,7 @@
 	"add-a-new-page": "Add a new page",
 	"add-a-new-post": "Add a new post",
 
-	"save-as-draft": "Save as draft"
+	"save-as-draft": "Save as draft",
+
+        "missing-translation": "No translation"
 }
