@@ -247,5 +247,7 @@
 	"сurrent-status" : "Статус",
 	"disable-the-user" : "Отключить пользователя",
 	"add-a-new-page": "Добавить страницу",
-	"add-a-new-post": "Добавить пост"
+	"add-a-new-post": "Добавить запись",
+	
+	"save-as-draft": "Сохранить как черновик"
 }
