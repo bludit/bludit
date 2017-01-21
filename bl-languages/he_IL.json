@@ -208,7 +208,45 @@
 	"date-format": "פורמט תאריך",
 	"time-format": "פורמט שעה",
 	"chat-with-developers-and-users-on-gitter":"שוחח עם מפתחים ומשתמשים ב[Gitter](https://gitter.im/dignajar/bludit)",
-
 	"this-is-a-brief-description-of-yourself-our-your-blog":"זהו תאור קצר עליך או על אתרך. בכדי לשנות אותו נווט לדף הניהול->הגדרות->תוספים והגדר את תוסף about",
-	"profile-picture": "תמונת פרופיל"
+	"profile-picture": "תמונת פרופיל",
+
+	"the-about-page-is-very-important": "דף האודות הוא כלי חשוב ומשמעותי עבור לקוחות ושותפים פוטנציאלים. דף זה הוא המקום הראשון בו ניתן ללמוד מי עומד מאחורי האתר.",
+	"change-this-pages-content-on-the-admin-panel": "ערוך עמוד זה דרך ממשק הניהול (ניהול- דפים- אודות).",
+	"about-your-site-or-yourself": "על האתר ועליך.",
+	"welcome-to-bludit": "ברוכים הבאים ל-Bludit",
+
+	"site-information": "מידע על האתר",
+	"date-and-time-formats": "תצורות תאריך ושעה",
+	"activate": "הפוך לפעיל",
+	"deactivate": "הפוך ללא פעיל",
+
+	"cover-image": "תמונת רקע",
+	"blog": "בלוג",
+	"more-images": "עוד תמונות",
+
+	"click-here-to-cancel": "לחץ לביטול",
+	"type-the-tag-and-press-enter": "הזן תגית ולחץ Enter",
+	"add": "הוספה",
+	"manage-your-bludit-from-the-admin-panel": "נהל את ה-Bludit שלך מ[ממשק הניהול]({{ADMIN_AREA_LINK}})",
+	"there-are-no-images":"אין תמונות",
+
+	"click-on-the-image-for-options": "לחץ על התמונה לאפשרויות נוספות",
+	"set-as-cover-image": "קבע כתמונת רקע",
+	"delete-image": "מחק תמונה",
+	"image-description": "תיאור התמונה",
+
+	"social-networks-links": "קישורים לרשתות חברתיות",
+
+	"email-access-code": "קוד גישה באימייל",
+	"current-format": "תצורה נוכחית",
+
+	"welcome": "ברוכים הבאים,",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "קבע סיסמא חדשה כדי להפעיל את המשתמש.",
+	"do-you-want-to-disable-the-user": "האם ברצונך להפוך משתמש זה ללא פעיל?",
+	"сurrent-status" : "סטטוס",
+	"disable-the-user" : "הפוך משתמש ללא פעיל",
+	"add-a-new-page": "הוספת דף",
+	"add-a-new-post": "הוספת הודעה"
 }
