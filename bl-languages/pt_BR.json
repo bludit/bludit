@@ -234,5 +234,8 @@
 	"сurrent-status" : "Estado atual",
 	"disable-the-user" : "Desabilitar usuário",
 	"add-a-new-page": "Criar nova página",
-	"add-a-new-post": "Criar nova entrada"
+	"add-a-new-post": "Criar nova entrada",
+	"invalid-cover-image-url": "URL inválida para a imagem de capa",
+	"external-cover-image": "Imagem de capa externa",
+	"cover-image-url": "URL da imagem de capa"	
 }
