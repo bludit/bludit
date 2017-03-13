@@ -46,7 +46,7 @@ foreach($plugins['all'] as $Plugin)
 
 	echo '
 	<td class="uk-text-center">'.$Plugin->version().'</td>
-	<td class="uk-text-center"><a targe="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
+	<td class="uk-text-center"><a target="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
 	';
 
 	echo '</tr>';

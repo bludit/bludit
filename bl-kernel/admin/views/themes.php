@@ -44,7 +44,7 @@ foreach($themes as $theme)
 
 	echo '
 	<td class="uk-text-center">'.$theme['version'].'</td>
-	<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
+	<td class="uk-text-center"><a target="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
 	';
 
 	echo '</tr>';
