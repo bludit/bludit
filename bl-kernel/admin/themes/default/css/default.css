@@ -591,6 +591,11 @@ tr.theme-installed {
 	background: #F2F7FF !important;
 }
 
+div.plugin-name i.settings-icon {
+	float: right;
+	margin-top: 3px;
+}
+
 div.plugin-links > a {
 	display: inline-block;
 	margin-top: 5px;

@@ -20,16 +20,18 @@ foreach($themes as $theme)
 	echo '
 	<tr '.($theme['dirname']==$Site->theme()?'class="theme-installed"':'class="theme-notInstalled"').'>
 	<td>
-	<div class="plugin-name">'.$theme['name'].'</div>
-	<div class="plugin-links">
+	<div class="plugin-name">
 	';
 
 	if($theme['dirname']!=$Site->theme()) {
-		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
+		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'" title="'.$L->g('Activate').'"><i class="uk-icon-square-o"></i></a> ';
+	}
+	else {
+		echo '<i class="uk-icon-check-square-o"></i> ';
 	}
 
 	echo '
-	</div>
+	'.$theme['name'].'</div>
 	</td>';
 
 	echo '<td>';
