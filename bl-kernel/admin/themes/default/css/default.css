@@ -594,6 +594,7 @@ tr.theme-installed {
 div.plugin-name i.settings-icon {
 	float: right;
 	margin-top: 3px;
+	margin-left: 3px;
 }
 
 div.plugin-links > a {
