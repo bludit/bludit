@@ -40,7 +40,7 @@ foreach($plugins['all'] as $Plugin)
 	echo '<td>';
 	echo $Plugin->description();
 	if( !$Plugin->isCompatible() ) {
-		echo '<div class="plugin-incompatible">This plugin is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
+		echo '<div class="plugin-incompatible"><i class="uk-icon-exclamation-triangle"></i> This plugin is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
 	}
 	echo '</td>';
 

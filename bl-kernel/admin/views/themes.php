@@ -38,7 +38,7 @@ foreach($themes as $theme)
 	echo $theme['description'];
 
 	if( !$theme['compatible'] ) {
-		echo '<div class="theme-incompatible">This theme is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
+		echo '<div class="theme-incompatible"><i class="uk-icon-exclamation-triangle"></i> This theme is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
 	}
 	echo '</td>';
 
