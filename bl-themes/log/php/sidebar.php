@@ -20,6 +20,10 @@
 			echo '<li><a href="'.$Site->facebook().'" class="fa-facebook"><span class="label">Facebook</span></a></li>';
 		}
 
+		if($Site->googlePlus()) {
+			echo '<li><a href="'.$Site->googlePlus().'" class="fa-google"><span class="label">Google+</span></a></li>';
+		}
+
 		if($Site->instagram()) {
 			echo '<li><a href="'.$Site->instagram().'" class="fa-instagram"><span class="label">Instagram</span></a></li>';
 		}
