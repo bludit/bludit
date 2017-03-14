@@ -247,5 +247,7 @@
 	"сurrent-status" : "Status",
 	"disable-the-user" : "Disable the user",
 	"add-a-new-page": "Add a new page",
-	"add-a-new-post": "Add a new post"
+	"add-a-new-post": "Add a new post",
+
+	"save-as-draft": "Save as draft"
 }

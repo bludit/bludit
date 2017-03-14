@@ -239,6 +239,13 @@
 	"email-access-code": "Email erişim kodu",
 	"current-format": "Geçerli format",
 
-	"welcome": "Hoşgeldiniz"
+	"welcome": "Hoşgeldiniz",
+	
+	"to-enable-the-user-you-have-to-set-a-new-password": "Kullanıcıyı aktif etmek için bir şifre belirlemelisiniz.",
+	"do-you-want-to-disable-the-user": "Kullanıcıyı etkisizleştirmek istiyor musunuz ?",
+	"сurrent-status" : "Durum",
+	"disable-the-user" : "Kullanıcıyı etkisizleştir",
+	"add-a-new-page": "Yeni sayfa ekle",
+	"add-a-new-post": "Yeni yazı ekle"
 }
 

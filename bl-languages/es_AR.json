@@ -240,5 +240,12 @@
 	"email-access-code": "Código de acceso via email",
 	"current-format": "Formato actual",
 
-	"welcome": "Bienvenido"
+	"welcome": "Bienvenido",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "Para habilitar el usuario debe asignarle una contraseña.",
+	"do-you-want-to-disable-the-user": "Quiere deshabilitar el usuario ?",
+	"сurrent-status" : "Estado",
+	"disable-the-user" : "Deshabilitar usuario",
+	"add-a-new-page": "Crear nueva pagina",
+	"add-a-new-post": "Crear nuevo post"
 }

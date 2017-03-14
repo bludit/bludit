@@ -2,13 +2,15 @@
 ================================
 **Fast**, **simple**, **extensible** and **flat file** CMS.
 
-Bludit is a simple web application to make your own **blog** or **site** in seconds, it's completly **free and open source**. Bludit uses flat-files (text files in JSON format) to store the posts and pages, you don't need to install or configure a database.
+Bludit is a simple web application to make your own **blog** or **site** in seconds, it's completely **free and open source**. Bludit uses flat-files to store the posts and pages, you don't need to install or configure a database. Bludit supports **Markdown** and HTML code for the content of the posts and pages.
 
 - [Documentation](https://docs.bludit.com)
 - [Help and Support](https://forum.bludit.com)
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
 - [More plugins and themes](https://forum.bludit.com/viewforum.php?f=14)
+
+[![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=S55XTNZ8YQXSA&lc=AR&item_name=BLUDIT&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
 
 Social networks
 ---------------
@@ -23,15 +25,19 @@ Social networks
 Requirements
 ------------
 
-You only need a web server with PHP support.
+You just need a web server with PHP support.
 
-- PHP 5.3 or higher.
+- PHP v5.3 or higher.
 - PHP [mbstring](http://php.net/manual/en/book.mbstring.php) module for full UTF-8 support.
-- Webserver:
-  * Apache with [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) module.
-  * Lighttpd with [mod_rewrite](http://redmine.lighttpd.net/projects/1/wiki/docs_modrewrite) module.
-  * Nginx with [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html) module.
+- PHP [gd](http://php.net/manual/en/book.image.php) module for image processing.
+- PHP [dom](http://php.net/manual/en/book.dom.php) module for DOM manipulation.
+- PHP [json](http://php.net/manual/en/book.json.php) module for JSON manipulation.
+- Supported web servers:
   * PHP Built-in web server
+  * Apache with module [mod_rewrite](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
+  * Lighttpd with module [mod_rewrite](http://redmine.lighttpd.net/projects/1/wiki/docs_modrewrite)
+  * Nginx with module [ngx_http_rewrite_module](http://nginx.org/en/docs/http/ngx_http_rewrite_module.html)
+  * Other
 
 Installation guide
 ------------------
@@ -43,4 +49,4 @@ Installation guide
 
 License
 -------
-Bludit is opensource software licensed under the [MIT license](https://tldrlegal.com/license/mit-license)
+Bludit is open source software licensed under the [MIT license](https://tldrlegal.com/license/mit-license).

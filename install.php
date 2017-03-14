@@ -12,6 +12,23 @@ if(version_compare(phpversion(), '5.3', '<')) {
 	exit('Current PHP version '.phpversion().', you need > 5.3. (ERR_202)');
 }
 
+// Check PHP modules
+if(!extension_loaded('mbstring')) {
+	exit('PHP module mbstring is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('json')) {
+	exit('PHP module json is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('gd')) {
+	exit('PHP module gd is not installed. Check the requirements.');
+}
+
+if(!extension_loaded('dom')) {
+	exit('PHP module dom is not installed. Check the requirements.');
+}
+
 // Security constant
 define('BLUDIT', true);
 
@@ -184,14 +201,10 @@ function checkSystem()
 {
 	$stdOut = array();
 	$dirpermissions = 0755;
-	$phpModules = array();
-
-	if(function_exists('get_loaded_extensions')) {
-		$phpModules = get_loaded_extensions();
-	}
 
 	// Check .htaccess file for different webservers
-	if( !file_exists(PATH_ROOT.'.htaccess') ) {
+	if( !file_exists(PATH_ROOT.'.htaccess') )
+	{
 
 		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
 			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
@@ -203,48 +216,7 @@ function checkSystem()
 			$tmp['title'] = 'File .htaccess';
 			$tmp['errorText'] = $errorText;
 			array_push($stdOut, $tmp);
-
 		}
-	}
-
-	if(!in_array('gd', $phpModules))
-	{
-		$errorText = 'PHP module GD is not installed.';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('dom', $phpModules))
-	{
-		$errorText = 'PHP module DOM is not installed. (ERR_203)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('json', $phpModules))
-	{
-		$errorText = 'PHP module JSON is not installed. (ERR_204)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
-	}
-
-	if(!in_array('mbstring', $phpModules))
-	{
-		$errorText = 'PHP module Multibyte String (mbstring) is not installed. (ERR_206)';
-		error_log($errorText, 0);
-
-		$tmp['title'] = 'PHP module';
-		$tmp['errorText'] = $errorText;
-		array_push($stdOut, $tmp);
 	}
 
 	// Try to create the directory content
@@ -416,12 +388,17 @@ function install($adminPassword, $email, $timezone)
 		'admin'=>array(
 		'firstName'=>$Language->get('Administrator'),
 		'lastName'=>'',
-		'twitter'=>'',
 		'role'=>'admin',
 		'password'=>$passwordHash,
 		'salt'=>$salt,
 		'email'=>$email,
-		'registered'=>$currentDate
+		'registered'=>$currentDate,
+		'tokenEmail'=>'',
+		'tokenEmailTTL'=>'2009-03-15 14:00',
+		'twitter'=>'',
+		'facebook'=>'',
+		'googlePlus'=>'',
+		'instagram'=>''
 		)
 	);
 
@@ -575,6 +552,15 @@ function checkPOST($args)
 	return true;
 }
 
+function redirect($url) {
+	if(!headers_sent()) {
+		header("Location:".$url, TRUE, 302);
+		exit;
+	}
+
+	exit('<meta http-equiv="refresh" content="0; url="'.$url.'">');
+}
+
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -585,19 +571,16 @@ if( alreadyInstalled() ) {
 	exit('Bludit already installed');
 }
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if( isset($_GET['demo']) ) {
+	install('demo123', '', 'UTC');
+	redirect(HTML_PATH_ROOT);
+}
+
+if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$error = checkPOST($_POST);
 
-	if($error===true)
-	{
-		if(!headers_sent())
-		{
-			header("Location:".HTML_PATH_ROOT, TRUE, 302);
-			exit;
-		}
-
-		exit('<meta http-equiv="refresh" content="0; url="'.HTML_PATH_ROOT.'">');
+	if($error===true) {
+		redirect(HTML_PATH_ROOT);
 	}
 }
 

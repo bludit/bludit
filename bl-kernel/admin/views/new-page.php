@@ -10,7 +10,8 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 		'value'=>$Security->getTokenCSRF()
 	));
 
-// ---- LEFT SIDE ----
+// LEFT SIDE
+// --------------------------------------------------------------------
 echo '<div class="uk-grid uk-grid-medium">';
 echo '<div class="bl-publish-view uk-width-8-10">';
 
@@ -33,25 +34,22 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 	// Form buttons
 	echo '<div class="uk-form-row uk-margin-bottom">
 		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
-		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-pages">'.$L->g('Cancel').'</a>
+		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>
 	</div>';
 
 echo '</div>';
 
-// ---- RIGHT SIDE ----
+// RIGHT SIDE
+// --------------------------------------------------------------------
 echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
-	// Tabs, general and advanced mode
-	echo '<ul class="uk-tab" data-uk-tab="{connect:\'#tab-options\'}">';
-	echo '<li><a href="">'.$L->g('General').'</a></li>';
-	echo '<li><a href="">'.$L->g('Images').'</a></li>';
-	echo '<li><a href="">'.$L->g('Advanced').'</a></li>';
-	echo '</ul>';
+	echo '<ul>';
 
-	echo '<ul id="tab-options" class="uk-switcher uk-margin">';
-
-	// ---- GENERAL TAB ----
-	echo '<li>';
+	// GENERAL TAB
+	// --------------------------------------------------------------------
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> '.$L->g('General').'</h2></li>';
+	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
 	// Description input
 	HTML::formTextarea(array(
@@ -63,23 +61,15 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'tip'=>$L->g('this-field-can-help-describe-the-content')
 	));
 
-	// Tags input
-	HTML::tags(array(
-		'name'=>'tags',
-		'label'=>$L->g('Tags'),
-		'allTags'=>$dbTags->getAll(),
-		'selectedTags'=>array()
-	));
-
 	echo '</li>';
 
-	// ---- IMAGES TAB ----
-	echo '<li>';
+	// IMAGES TAB
+	// --------------------------------------------------------------------
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> '.$L->g('Images').'</h2></li>';
+	echo '<li id="sidebar-images-view" class="sidebar-view">';
 
 	// --- BLUDIT COVER IMAGE ---
-	echo '<hr>';
 	HTML::bluditCoverImage();
-	echo '<hr>';
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -92,8 +82,25 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	echo '</li>';
 
-	// ---- ADVANCED TAB ----
-	echo '<li>';
+	// TAGS
+	// --------------------------------------------------------------------
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-tags-view"><i class="uk-icon-angle-down"></i> '.$L->g('Tags').'</h2></li>';
+	echo '<li id="sidebar-tags-view" class="sidebar-view">';
+
+	// Tags input
+	HTML::tags(array(
+		'name'=>'tags',
+		'label'=>'',
+		'allTags'=>$dbTags->getAll(),
+		'selectedTags'=>array()
+	));
+
+	echo '</li>';
+
+	// ADVANCED TAB
+	// --------------------------------------------------------------------
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-advanced-view"><i class="uk-icon-angle-down"></i> '.$L->g('Advanced').'</h2></li>';
+	echo '<li id="sidebar-advanced-view" class="sidebar-view">';
 
 	// Status input
 	HTML::formSelect(array(
@@ -151,33 +158,52 @@ HTML::formClose();
 $(document).ready(function()
 {
 
-    $("#jsslug").keyup(function() {
-        var text = $(this).val();
-        var parent = $("#jsparent").val();
+	$("#jsslug").keyup(function() {
+		var text = $(this).val();
+		var parent = $("#jsparent").val();
 
-        checkSlugPage(text, parent, "", $("#jsslug"));
-    });
+		checkSlugPage(text, parent, "", $("#jsslug"));
+	});
 
-    $("#jstitle").keyup(function() {
-        var text = $(this).val();
-        var parent = $("#jsparent").val();
+	$("#jstitle").keyup(function() {
+		var text = $(this).val();
+		var parent = $("#jsparent").val();
 
-        checkSlugPage(text, parent, "", $("#jsslug"));
-    });
+		checkSlugPage(text, parent, "", $("#jsslug"));
+	});
 
-    $("#jsparent").change(function() {
-        var parent = $(this).val();
-        var text = $("#jsslug").val();
+	$("#jsparent").change(function() {
+		var parent = $(this).val();
+		var text = $("#jsslug").val();
 
-        if(parent==NO_PARENT_CHAR) {
-            $("#jsparentExample").text("");
-        }
-        else {
-            $("#jsparentExample").text(parent+"/");
-        }
+		if(parent==NO_PARENT_CHAR) {
+			$("#jsparentExample").text("");
+		}
+		else {
+			$("#jsparentExample").text(parent+"/");
+		}
 
-        checkSlugPage(text, parent, "", $("#jsslug"));
-    });
+		checkSlugPage(text, parent, "", $("#jsslug"));
+	});
+
+	// Button Save as draft
+	$("#jsSaveDraft").on("click", function() {
+		$("#jsstatus").val("draft");
+		$(".uk-form").submit();
+	});
+
+	// Right sidebar
+	$(".sidebar-button").click(function() {
+		var view = "#" + $(this).data("view");
+
+		if( $(view).is(":visible") ) {
+			$(view).hide();
+		}
+		else {
+			$(".sidebar-view").hide();
+			$(view).show();			
+		}
+	});
 
 });
 

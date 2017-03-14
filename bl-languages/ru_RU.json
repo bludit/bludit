@@ -243,5 +243,11 @@
  	"welcome": "Добро пожаловать",
  	
  	"to-enable-the-user-you-have-to-set-a-new-password": "Чтобы включить пользователя, необходимо установить новый пароль.",
-	"do-you-want-to-disable-the-user": "Вы хотите отключить пользователя?"
+	"do-you-want-to-disable-the-user": "Вы хотите отключить пользователя?",
+	"сurrent-status" : "Статус",
+	"disable-the-user" : "Отключить пользователя",
+	"add-a-new-page": "Добавить страницу",
+	"add-a-new-post": "Добавить запись",
+	
+	"save-as-draft": "Сохранить как черновик"
 }

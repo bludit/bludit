@@ -112,7 +112,6 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 // PAGE FUNCTIONS
 // ----------------------------------------------------------------------------
 
-
 function sortPages($a, $b)
 {
 	if ($a['position'] == $b['position']) {
@@ -237,7 +236,9 @@ function buildAllPages()
 		}
 	}
 
-	$parents = $pagesParentsPublished[NO_PARENT_CHAR];
+	if( isset($pagesParentsPublished[NO_PARENT_CHAR]) ) {
+		$parents = $pagesParentsPublished[NO_PARENT_CHAR];
+	}
 
 	return $pages;
 }

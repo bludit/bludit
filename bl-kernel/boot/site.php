@@ -3,7 +3,7 @@
 // Load plugins rules
 include(PATH_RULES.'60.plugins.php');
 
-// Plugins before rules loaded, except plugins rules
+// Plugins before rules loaded
 Theme::plugins('beforeRulesLoad');
 
 // Load rules
