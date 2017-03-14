@@ -597,6 +597,10 @@ div.plugin-name i.settings-icon {
 	margin-left: 3px;
 }
 
+i.incompatible-warning {
+	color: #daa520;
+}
+
 div.plugin-links > a {
 	display: inline-block;
 	margin-top: 5px;

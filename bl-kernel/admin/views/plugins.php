@@ -39,13 +39,15 @@ foreach($plugins['all'] as $Plugin)
 
 	echo '<td>';
 	echo $Plugin->description();
-	if( !$Plugin->isCompatible() ) {
-		echo '<div class="plugin-incompatible"><i class="uk-icon-exclamation-triangle"></i> This plugin is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
-	}
 	echo '</td>';
+	echo '
+	<td class="uk-text-center">';
+	if( !$Plugin->isCompatible() ) {
+		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="This plugin is incompatible with Bludit v'.BLUDIT_VERSION.'"></i>';
+	}
+	echo $Plugin->version().'</td>';
 
 	echo '
-	<td class="uk-text-center">'.$Plugin->version().'</td>
 	<td class="uk-text-center"><a target="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>
 	';
 

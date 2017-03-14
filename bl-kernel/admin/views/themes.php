@@ -36,14 +36,16 @@ foreach($themes as $theme)
 
 	echo '<td>';
 	echo $theme['description'];
+	echo '</td>';
+	echo '
+	<td class="uk-text-center">';
 
 	if( !$theme['compatible'] ) {
-		echo '<div class="theme-incompatible"><i class="uk-icon-exclamation-triangle"></i> This theme is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
+		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="This theme is incompatible with Bludit v'.BLUDIT_VERSION.'"></i>';
 	}
-	echo '</td>';
+	echo $theme['version'].'</td>';
 
 	echo '
-	<td class="uk-text-center">'.$theme['version'].'</td>
 	<td class="uk-text-center"><a target="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
 	';
 
