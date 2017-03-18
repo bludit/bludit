@@ -6,6 +6,8 @@
 	},
 	"google-webmasters-tools": "Google Webmasters tools",
 	"google-analytics-tracking-id": "Google Analytics Tracking ID",
+	"google-tag-manager": "Google Tag Manager",
 	"complete-this-field-with-the-google-site-verification": "Complete this field with the Google Site verification to verify the site owner.",
-	"complete-this-field-with-the-tracking-id": "Complete this field with the Tracking ID to generate the Javascript tracking code for Google Analytics."
+	"complete-this-field-with-the-tracking-id": "Complete this field with the Tracking ID to generate the Javascript tracking code for Google Analytics.",
+	"complete-this-field-with-the-tracking-id-google-tag": "Complete this field with the ID"
 }
