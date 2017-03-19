@@ -7,6 +7,8 @@
 
 	"google-webmasters-tools": "Google Webmasters tools",
 	"google-analytics-tracking-id": "Google Analytics Tracking ID",
+	"google-tag-manager": "Google Tag Manager",
 	"complete-this-field-with-the-google-site-verification": "Vul dit veld in met de Google Site verificatie om jezelf te verifiëren als site beheerder.",
-	"complete-this-field-with-the-tracking-id": "Vul dit veld in met de Tracking ID om de Javascript tracking code te genereren voor Google Analytics."
+	"complete-this-field-with-the-tracking-id": "Vul dit veld in met de Tracking ID om de Javascript tracking code te genereren voor Google Analytics.",
+	"complete-this-field-with-the-tracking-id-google-tag": "Vul dit veld in met de Tracking ID."
 }
