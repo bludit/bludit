@@ -5,25 +5,15 @@ Database structure
 - To re index the list of posts and pages need to be sorted
 
 {
-	"postsIndex": {
-		"videos": {
-			"name": "Videos",
-			"list": [ "first-post", "second-post" ]
-		},
-		"pets": {
-			"name": "Pets",
-			"list": [ "second-post", "another-post" ]
-		}
+	"videos": {
+		"name": "Videos",
+		"posts": [ "first-post", "second-post" ],
+		"pages": [ "my-page", "second-page" ]
 	},
-	"pagesIndex": {
-		"videos": {
-			"name": "Videos",
-			"list": [ "first-post", "second-post" ]
-		},
-		"music": {
-			"name": "Music",
-			"list": [ "second-post", "another-post" ]
-		}
+	"pets": {
+		"name": "Pets",
+		"posts": [ "second-post", "bull-terrier" ],
+		"pages": [ ]
 	}
 }
 
@@ -31,25 +21,22 @@ Database structure
 
 class dbCategories extends dbJSON
 {
-	public $dbFields = array(
-		'postsIndex'=>array('inFile'=>false, 'value'=>array()),
-		'pagesIndex'=>array('inFile'=>false, 'value'=>array())
-	);
+	public $dbFields = array();
 
 	function __construct()
 	{
 		parent::__construct(PATH_DATABASES.'categories.php');
 	}
 
-	private function getByCategory($type='postsIndex', $categorySlug, $amountPerPage, $pageNumber)
+	private function getByCategory($type='posts', $categoryKey, $amountPerPage, $pageNumber)
 	{
 		// Check if the category exists
-		if( !isset($this->db[$type][$categorySlug]) ) {
-			Log::set(__METHOD__.LOG_SEP.'Error getting '.$type.' by the category: '.$categorySlug);
+		if( !isset($this->db[$categoryKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'Error getting '.$type.' by the category: '.$categoryKey);
 			return array();
 		}
 
-		$list = $this->db[$type][$categorySlug]['list'];
+		$list = $this->db[$categoryKey][$type];
 
 		$init = (int) $amountPerPage * $pageNumber;
 		$end  = (int) min( ($init + $amountPerPage - 1), count($list) - 1 );
@@ -64,60 +51,63 @@ class dbCategories extends dbJSON
 		return array_slice($tmp, $init, $amountPerPage, true);
 	}
 
-	public function getPagesByCategory($categorySlug, $amountPerPage, $pageNumber)
+	public function getPagesByCategory($categoryKey, $amountPerPage, $pageNumber)
 	{
-		return $this->getByCategory('pagesIndex', $categorySlug, $amountPerPage, $pageNumber);
+		return $this->getByCategory('pages', $categoryKey, $amountPerPage, $pageNumber);
 	}
 
-	public function getPostsByCategory($categorySlug, $amountPerPage, $pageNumber)
+	public function getPostsByCategory($categoryKey, $amountPerPage, $pageNumber)
 	{
-		return $this->getByCategory('postsIndex', $categorySlug, $amountPerPage, $pageNumber);
+		return $this->getByCategory('posts', $categoryKey, $amountPerPage, $pageNumber);
 	}
 
-	private function countByCategory($type='postsIndex', $categorySlug)
+	private function countByCategory($type='posts', $categoryKey)
 	{
-		if( isset($this->db[$type][$categorySlug]) ) {
-			return count($this->db[$type][$categorySlug]['list']);
+		if( isset($this->db[$categoryKey][$type]) ) {
+			return count($this->db[$categoryKey][$type]);
 		}
 
 		return 0;
 	}
 
-	public function countPostsByCategory($categorySlug)
+	public function countPostsByCategory($categoryKey)
 	{
-		return $this->countByCategory('postsIndex', $categorySlug);
+		return $this->countByCategory('posts', $categoryKey);
 	}
 
-	public function countPagesByCategory($categorySlug)
+	public function countPagesByCategory($categoryKey)
 	{
-		return $this->countByCategory('pagesIndex', $categorySlug);
+		return $this->countByCategory('pages', $categoryKey);
 	}
 
-	// Regenerate the posts index for each tag.
+	public function getAll()
+	{
+		$tmp = array();
+		foreach($this->db as $key=>$data) {
+			$tmp[$key] = $data['name'];
+		}
+
+		// Sort low to high, by value.
+		natcasesort($tmp);
+
+		return $tmp;
+	}
+
+	// Re-generate posts index
 	// (array) $db, the $db must be sorted by date and the posts published only.
-	public function reindexPosts($db)
+	public function reIndexPosts($db)
 	{
-		$tagsIndex = array();
+		$index = array();
 
-		// Foreach post
-		foreach($db as $postKey=>$values)
-		{
-			$tags = $values['tags'];
-
-			// Foreach tag from post
-			foreach($tags as $tagKey=>$tagName)
-			{
-				if( isset($tagsIndex[$tagKey]) ) {
-					array_push($tagsIndex[$tagKey]['posts'], $postKey);
-				}
-				else {
-					$tagsIndex[$tagKey]['name'] = $tagName;
-					$tagsIndex[$tagKey]['posts'] = array($postKey);
-				}
+		// Foreach post in the database
+		foreach($db as $postKey=>$postData) {
+			if(!empty($postData['category'])) {
+				$categoryKey = $postData['category'];
+				array_push($index, $postKey);
 			}
 		}
 
-		$this->db['postsIndex'] = $tagsIndex;
+		$this->db[$categoryKey]['posts'] = $index;
 
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
@@ -126,5 +116,28 @@ class dbCategories extends dbJSON
 
 		return true;
 	}
+
+	// Re-generate pages index
+	// (array) $db, the $db must be sorted by date and the posts published only.
+	public function reIndexPages($db)
+	{
+		$index = array();
+
+		// Foreach post in the database
+		foreach($db as $pageKey=>$pageData) {
+			$categoryKey = $pageData['category'];
+			array_push($index, $pageKey);
+		}
+
+		$this->db[$categoryKey]['pages'] = $index;
+
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
 
 }

@@ -51,6 +51,16 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> '.$L->g('General').'</h2></li>';
 	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
+	// Category
+	HTML::formSelect(array(
+		'name'=>'category',
+		'label'=>$L->g('Category'),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'options'=>$dbCategories->getAll(),
+		'selected'=>'',
+		'tip'=>''
+	));
+
 	// Description input
 	HTML::formTextarea(array(
 		'name'=>'description',

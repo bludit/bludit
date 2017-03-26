@@ -20,6 +20,23 @@ function reIndexTagsPosts()
 	return true;
 }
 
+function reIndexCategoriesPosts()
+{
+	global $dbPosts;
+	global $dbCategories;
+
+	// Remove unpublished.
+	$dbPosts->removeUnpublished();
+
+	// Regenerate the tags index for posts.
+	$dbCategories->reindexPosts( $dbPosts->db );
+
+	// Restore the database, before remove the unpublished.
+	$dbPosts->restoreDB();
+
+	return true;
+}
+
 function buildPost($key)
 {
 	global $dbPosts;
