@@ -3,7 +3,7 @@
 HTML::title(array('title'=>$L->g('Plugin Sort'), 'icon'=>'puzzle-piece'));
 
 foreach(array_keys($plugins) as $key) {
-	if ($key != 'all' and count($plugins[$key]) > 0) {
+	if ($key != 'all' and count($plugins[$key]) > 1) {
 		sortPlugins($plugins[$key], $key);
 		HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		HTML::formInputHidden(
