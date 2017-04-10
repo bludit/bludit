@@ -67,6 +67,7 @@ $(document).ready(function() {
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced settings') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins-sort' ?>"><?php $L->p('Plugin Sort') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
 	<?php } ?>
@@ -131,6 +132,9 @@ $(document).ready(function() {
 			</li>
 			<li <?php echo ($layout['view']=='plugins')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>
+			</li>
+			<li <?php echo ($layout['view']=='plugins-sort')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins-sort' ?>"><?php $L->p('Plugin Sort') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='themes')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>

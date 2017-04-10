@@ -259,3 +259,16 @@ function buildAllPages()
 
 	return $pages;
 }
+
+function sortPlugins(&$pluginList, $cat) {
+
+	usort($pluginList, function($p1, $p2) use ($cat) {
+		global $dbPluginSort;
+		if ($dbPluginSort->get($cat, $p1->directoryName) ==
+			$dbPluginSort->get($cat, $p2->directoryName)) {
+			return 0;
+		}
+		return ($dbPluginSort->get($cat, $p1->directoryName) <
+			$dbPluginSort->get($cat, $p2->directoryName))? -1 : 1;
+	});
+}
