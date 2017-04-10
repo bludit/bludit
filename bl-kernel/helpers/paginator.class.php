@@ -58,6 +58,40 @@ class Paginator {
 		return $url.'?page='.self::get('prevPage');
 	}
 
+	public static function urlLastPage()
+	{
+		global $Url;
+
+		$domain = trim(DOMAIN_BASE,'/');
+		$filter = trim($Url->activeFilter(), '/');
+
+		if(empty($filter)) {
+			$url = $domain.'/'.$Url->slug();
+		}
+		else {
+			$url = $domain.'/'.$filter.'/'.$Url->slug();
+		}
+
+		return $url.'?page='.self::get('numberOfPosts');
+	}
+
+	public static function urlFirstPage()
+	{
+		global $Url;
+
+		$domain = trim(DOMAIN_BASE,'/');
+		$filter = trim($Url->activeFilter(), '/');
+
+		if(empty($filter)) {
+			$url = $domain.'/'.$Url->slug();
+		}
+		else {
+			$url = $domain.'/'.$filter.'/'.$Url->slug();
+		}
+
+		return $url.'?page=0';
+	}
+
 	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)
 	{
 		global $Language;

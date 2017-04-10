@@ -2271,13 +2271,50 @@
 					content: '\f053';
 				}
 
+ul.actions.pagination .last {
+				text-decoration: none;
+			}
+
+				ul.actions.pagination .next:after {
+					content: "";
+					-moz-osx-font-smoothing: grayscale;
+					-webkit-font-smoothing: antialiased;
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					text-transform: none !important;
+				}
+
+				ul.actions.pagination .next:after {
+					content: '\f050';
+				}
+ul.actions.pagination .first {
+				text-decoration: none;
+			}
+
+				ul.actions.pagination .next:after {
+					content: "";
+					-moz-osx-font-smoothing: grayscale;
+					-webkit-font-smoothing: antialiased;
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					text-transform: none !important;
+				}
+
+				ul.actions.pagination .next:after {
+					content: '\f049';
+				}
+
+
 			@media screen and (max-width: 1280px) {
 
 				ul.actions.pagination {
 					text-align: center;
 				}
 
-					ul.actions.pagination .next, ul.actions.pagination .previous {
+					ul.actions.pagination .next, ul.actions.pagination .previous,
+					ul.actions.pagination .last, ul.actions.pagination .first {
 						min-width: 20em;
 					}
 
@@ -2285,7 +2322,8 @@
 
 			@media screen and (max-width: 736px) {
 
-				ul.actions.pagination .next, ul.actions.pagination .previous {
+				ul.actions.pagination .next, ul.actions.pagination .previous,
+				ul.actions.pagination .last, ul.actions.pagination .first {
 					min-width: 18em;
 				}
 

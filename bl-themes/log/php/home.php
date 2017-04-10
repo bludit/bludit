@@ -73,11 +73,18 @@
 <ul class="actions pagination">
 <?php
 	if( Paginator::get('showNewer') ) {
+		if (Paginator::get('prevPage') > -1) {
+			echo '<li><a href="'.Paginator::urlFirstPage().'" class="button big first">'.$Language->get('First page').'</a></li>';
+
+		}
 		echo '<li><a href="'.Paginator::urlPrevPage().'" class="button big previous">'.$Language->get('Prev page').'</a></li>';
 	}
 
 	if( Paginator::get('showOlder') ) {
 		echo '<li><a href="'.Paginator::urlNextPage().'" class="button big next">'.$Language->get('Next page').'</a></li>';
+		if (Paginator::get('nextPage') <= Paginator::get('numberOfPages')) {
+			echo '<li><a href="'.Paginator::urlLastPage().'" class="button big last">'.$Language->get('Last page').'</a></li>';
+		}
 	}
 ?>
 </ul>
