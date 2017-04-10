@@ -2271,7 +2271,7 @@
 					content: '\f053';
 				}
 
-ul.actions.pagination .last {
+			ul.actions.pagination .last {
 				text-decoration: none;
 			}
 
@@ -2288,7 +2288,7 @@ ul.actions.pagination .last {
 				ul.actions.pagination .next:after {
 					content: '\f050';
 				}
-ul.actions.pagination .first {
+			ul.actions.pagination .first {
 				text-decoration: none;
 			}
 
