@@ -19,7 +19,7 @@ class HTML {
 		echo $html;
 	}
 
-	public static function formClose()
+	public static function formClose($scr=true)
 	{
 		$html = '</form>';
 
@@ -38,7 +38,7 @@ class HTML {
 
 		</script>';
 
-		echo $html.$script;
+		echo $html.(($scr)? $script : '');
 	}
 
 	// label, name, value, tip
