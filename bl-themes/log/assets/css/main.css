@@ -2275,7 +2275,7 @@
 				text-decoration: none;
 			}
 
-				ul.actions.pagination .next:after {
+				ul.actions.pagination .last:after {
 					content: "";
 					-moz-osx-font-smoothing: grayscale;
 					-webkit-font-smoothing: antialiased;
@@ -2285,14 +2285,14 @@
 					text-transform: none !important;
 				}
 
-				ul.actions.pagination .next:after {
+				ul.actions.pagination .last:after {
 					content: '\f050';
 				}
 			ul.actions.pagination .first {
 				text-decoration: none;
 			}
 
-				ul.actions.pagination .next:after {
+				ul.actions.pagination .first:before {
 					content: "";
 					-moz-osx-font-smoothing: grayscale;
 					-webkit-font-smoothing: antialiased;
@@ -2302,7 +2302,7 @@
 					text-transform: none !important;
 				}
 
-				ul.actions.pagination .next:after {
+				ul.actions.pagination .first:before {
 					content: '\f049';
 				}
 

@@ -72,7 +72,7 @@ class Paginator {
 			$url = $domain.'/'.$filter.'/'.$Url->slug();
 		}
 
-		return $url.'?page='.self::get('numberOfPosts');
+		return $url.'?page='.self::get('numberOfPages');
 	}
 
 	public static function urlFirstPage()
