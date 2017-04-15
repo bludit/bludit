@@ -47,6 +47,7 @@ echo '
 <ul>
 <?php
 	if(Paginator::get('showNewer')) {
+		echo '<li class="first"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page=0">« '.$Language->g('First page').'</a></li>';
 		echo '<li class="previous"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page='.Paginator::get('prevPage').'">« '.$Language->g('Prev page').'</a></li>';
 	}
 
@@ -54,6 +55,7 @@ echo '
 
 	if(Paginator::get('showOlder')) {
 		echo '<li class="next"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page='.Paginator::get('nextPage').'">'.$Language->g('Next page').' »</a></li>';
+		echo '<li class="last"><a href="'.HTML_PATH_ADMIN_ROOT.'manage-posts?page='.Paginator::get('numberOfPages').'">'.$Language->g('Last page').' »</a></li>';
 	}
 ?>
 </ul>

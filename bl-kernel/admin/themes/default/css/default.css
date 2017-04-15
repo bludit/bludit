@@ -642,7 +642,15 @@ div.plugin-links > span.separator {
 }
 
 #paginator li.right {
-   margin-left: 10px;
+    margin-left: 10px;
+}
+
+#paginator li.next {
+		margin-right: 1em;
+}
+
+#paginator li.previous {
+		margin-left: 1em;
 }
 
 /* ----------- PLUGINS FORM ----------- */
