@@ -150,7 +150,7 @@ class dbCategories extends dbJSON
 
 		// Foreach post in the database
 		foreach($db as $postKey=>$postData) {
-			if(!empty($postData['category'])) {
+			if( !empty($postData['category']) && $this->exists($postData['category']) ) {
 				$categoryKey = $postData['category'];
 				array_push($index, $postKey);
 			}
@@ -167,10 +167,12 @@ class dbCategories extends dbJSON
 	{
 		$index = array();
 
-		// Foreach post in the database
+		// Foreach page in the database
 		foreach($db as $pageKey=>$pageData) {
-			$categoryKey = $pageData['category'];
-			array_push($index, $pageKey);
+			if( !empty($pageData['category']) && $this->exists($pageData['category']) ) {
+				$categoryKey = $pageData['category'];
+				array_push($index, $pageKey);
+			}
 		}
 
 		$this->db[$categoryKey]['pages'] = $index;

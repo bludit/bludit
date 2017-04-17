@@ -25,7 +25,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		<div class="uk-form-controls">
 		<button type="submit" name="edit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
 		<button type="submit" name="delete" class="uk-button uk-button-primary">'.$L->g('Delete').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'manage-categories" class="uk-button">'.$L->g('Cancel').'</a>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'categories" class="uk-button">'.$L->g('Cancel').'</a>
 		</div>
 	</div>';
 

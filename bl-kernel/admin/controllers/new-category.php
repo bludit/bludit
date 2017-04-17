@@ -44,7 +44,7 @@ function add($category)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	if( add($_POST['category']) ) {
-		Redirect::page('admin', 'manage-categories');
+		Redirect::page('admin', 'categories');
 	}
 }
 

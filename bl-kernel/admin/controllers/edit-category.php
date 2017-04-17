@@ -20,6 +20,11 @@ function edit($oldCategoryKey, $newCategory)
 	global $dbPages;
 	global $dbCategories;
 
+	if( Text::isEmpty($oldCategoryKey) || Text::isEmpty($newCategory) ) {
+		Alert::set($Language->g('Empty field'));
+		Redirect::page('admin', 'categories');
+	}
+	
 	if( $dbCategories->edit($oldCategoryKey, $newCategory) == false ) {
 		Alert::set($Language->g('Already exist a category'));
 	}
@@ -29,7 +34,7 @@ function edit($oldCategoryKey, $newCategory)
 		Alert::set($Language->g('The changes have been saved'));
 	}
 
-	Redirect::page('admin', 'manage-categories');
+	Redirect::page('admin', 'categories');
 }
 
 function delete($categoryKey)
@@ -41,7 +46,7 @@ function delete($categoryKey)
 
 	Alert::set($Language->g('The changes have been saved'));
 
-	Redirect::page('admin', 'manage-categories');
+	Redirect::page('admin', 'categories');
 }
 
 // ============================================================================
@@ -58,7 +63,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 		delete($_POST['categoryKey']);
 	}
 	elseif( isset($_POST['edit']) ) {
-		edit($_POST['categoryKey'], $_POST['categoryName']);
+		edit($_POST['categoryKey'], $_POST['category']);
 	}
 }
 
@@ -66,13 +71,13 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // Main after POST
 // ============================================================================
 
-if(!$dbCategories->exists($categoryKey))
-{
-	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the category: '.$layout['parameters']);
-	Redirect::page('admin', 'manage-categories');
+$categoryKey = $layout['parameters'];
+
+if(!$dbCategories->exists($categoryKey)) {
+	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the category: '.$categoryKey);
+	Redirect::page('admin', 'categories');
 }
 
-$categoryKey = $layout['parameters'];
 $category = $dbCategories->getName($layout['parameters']);
 
 $layout['title'] .= ' - '.$Language->g('Edit category').' - '.$category;
