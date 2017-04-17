@@ -385,6 +385,19 @@ class dbPosts extends dbJSON
 		return $tmp;
 	}
 
+	// Change all posts with the old category key for the new category key
+	public function changeCategory($oldCategoryKey, $newCategoryKey)
+	{
+		foreach($this->db as $key=>$value) {
+			if($value['category']==$oldCategoryKey) {
+				$this->db[$key]['category'] = $newCategoryKey;
+			}
+		}
+
+		// Save database
+		return $this->save();
+	}
+
 	// Sort posts by date.
 	public function sortByDate($HighToLow=true)
 	{

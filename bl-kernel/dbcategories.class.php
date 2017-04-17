@@ -7,16 +7,15 @@ Database structure
 {
 	"videos": {
 		"name": "Videos",
-		"posts": [ "first-post", "second-post" ],
+		"posts": [ "first-post", "bull-terrier" ],
 		"pages": [ "my-page", "second-page" ]
 	},
 	"pets": {
 		"name": "Pets",
 		"posts": [ "second-post", "bull-terrier" ],
-		"pages": [ ]
+		"pages": [ "cats-and-dogs" ]
 	}
 }
-
 */
 
 class dbCategories extends dbJSON
@@ -93,6 +92,56 @@ class dbCategories extends dbJSON
 		return $tmp;
 	}
 
+	public function add($category)
+	{
+		$categoryKey = $this->generateKey($category);
+		if( isset($this->db[$categoryKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'The category already exist, key: '.$categoryKey.', name: '.$category);
+			return false;
+		}
+
+		$this->db[$categoryKey]['name'] = $category;
+		$this->db[$categoryKey]['posts'] = array();
+		$this->db[$categoryKey]['pages'] = array();
+
+		$this->save();
+
+		return $categoryKey;
+	}
+
+	public function remove($categoryKey)
+	{
+		if( !isset($this->db[$categoryKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'The category does not exist, key: '.$categoryKey);
+			return false;
+		}
+
+		unset($this->db[$categoryKey]);
+
+		return $this->save();
+	}
+
+	public function edit($oldCategoryKey, $newCategory)
+	{
+		$newCategoryKey = $this->generateKey($newCategory);
+		if( isset($this->db[$newCategoryKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'The category already exist, key: '.$newCategoryKey.', name: '.$newCategory);
+			return false;
+		}
+
+		// Add the new category with the posts and pages from the old one
+		$this->db[$newCategoryKey]['name'] = $newCategory;
+		$this->db[$newCategoryKey]['posts'] = $this->db[$oldCategoryKey]['posts'];
+		$this->db[$newCategoryKey]['pages'] = $this->db[$oldCategoryKey]['posts'];
+
+		// Remove the old category
+		unset( $this->db[$oldCategoryKey] );
+
+		$this->save();
+
+		return $newCategoryKey;		
+	}
+
 	// Re-generate posts index
 	// (array) $db, the $db must be sorted by date and the posts published only.
 	public function reIndexPosts($db)
@@ -109,12 +158,7 @@ class dbCategories extends dbJSON
 
 		$this->db[$categoryKey]['posts'] = $index;
 
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
+		return $this->save();
 	}
 
 	// Re-generate pages index
@@ -131,13 +175,22 @@ class dbCategories extends dbJSON
 
 		$this->db[$categoryKey]['pages'] = $index;
 
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
+		return $this->save();
 	}
 
+	public function exists($categoryKey)
+	{
+		return isset( $this->db[$categoryKey] );
+	}
+
+	public function getName($categoryKey)
+	{
+		return $this->db[$categoryKey]['name'];
+	}
+
+	public function generateKey($category)
+	{
+		return Text::cleanUrl($category);
+	}
 
 }
