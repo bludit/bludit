@@ -51,6 +51,8 @@
 	"themes": "Themes",
 	"prev-page": "Prev page",
 	"next-page": "Next page",
+	"first-page": "First page",
+	"last-page": "Last page",
 	"configure-plugin": "Configure plugin",
 	"confirm-delete-this-action-cannot-be-undone": "Confirm delete, this action cannot be undone.",
 	"site-title": "Site title",
