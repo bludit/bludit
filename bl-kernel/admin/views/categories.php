@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Categories'), 'icon'=>'users'));
+HTML::title(array('title'=>$L->g('Categories'), 'icon'=>'tag'));
 
 echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-category"><i class="uk-icon-plus"></i> '.$L->g('Add a new category').'</a>';
 
@@ -9,7 +9,7 @@ echo '
 <thead>
 	<tr>
 	<th>'.$L->g('Name').'</th>
-	<th>'.$L->g('Slug').'</th>
+	<th>'.$L->g('Key').'</th>
 	</tr>
 </thead>
 <tbody>

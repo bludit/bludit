@@ -270,6 +270,10 @@ button.aslink:hover {
 	padding-left: 20px;
 }
 
+.uk-table td, .uk-table th {
+	padding: 14px 8px !important;
+}
+
 /* RESPONSIVE
 ---------------------------------------------------------------- */
 
@@ -598,7 +602,8 @@ div.plugin-name i.settings-icon {
 }
 
 i.incompatible-warning {
-	color: #daa520;
+	color: #FFC425;
+	padding-right: 5px;
 }
 
 div.plugin-links > a {

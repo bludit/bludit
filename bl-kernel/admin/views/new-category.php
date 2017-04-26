@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('New Category'), 'icon'=>'globe'));
+HTML::title(array('title'=>$L->g('New Category'), 'icon'=>'tag'));
 
 HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
