@@ -8,9 +8,9 @@ class pluginDisqus extends Plugin {
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
-			'enablePages'=>0,
-			'enablePosts'=>0,
-			'enableDefaultHomePage'=>1
+			'enablePages'=>1,
+			'enablePosts'=>1,
+			'enableDefaultHomePage'=>0
 		);
 	}
 
