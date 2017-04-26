@@ -14,7 +14,8 @@ class dbPages extends dbJSON
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
-		'coverImage'=>		array('inFile'=>false,	'value'=>'')
+		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'category'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()

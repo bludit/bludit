@@ -136,6 +136,12 @@ class Content {
 		return $this->getField('readMore');
 	}
 
+	// 
+	public function category()
+	{
+		return $this->getField('category');
+	}
+
 	// Returns the field key
 	public function key()
 	{

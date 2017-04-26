@@ -58,7 +58,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>$dbCategories->getAll(),
 		'selected'=>'',
-		'tip'=>''
+		'tip'=>'',
+		'addEmptySpace'=>true
 	));
 
 	// Description input

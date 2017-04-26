@@ -417,6 +417,10 @@ function install($adminPassword, $email, $timezone)
 
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File categories.php
+	$data = array();
+	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
 	// File tags.php
 	file_put_contents(
 		PATH_DATABASES.'tags.php',

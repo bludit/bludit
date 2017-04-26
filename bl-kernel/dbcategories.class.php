@@ -146,17 +146,20 @@ class dbCategories extends dbJSON
 	// (array) $db, the $db must be sorted by date and the posts published only.
 	public function reIndexPosts($db)
 	{
-		$index = array();
+		// Clean post list
+		foreach( $this->db as $key=>$value ) {
+			$this->db[$key]['posts'] = array();
+		}
 
 		// Foreach post in the database
 		foreach($db as $postKey=>$postData) {
-			if( !empty($postData['category']) && $this->exists($postData['category']) ) {
+			if( !empty($postData['category']) ) {
 				$categoryKey = $postData['category'];
-				array_push($index, $postKey);
+				if( isset($this->db[$categoryKey]['posts']) ) {
+					array_push($this->db[$categoryKey]['posts'], $postKey);
+				}
 			}
 		}
-
-		$this->db[$categoryKey]['posts'] = $index;
 
 		return $this->save();
 	}
@@ -165,17 +168,20 @@ class dbCategories extends dbJSON
 	// (array) $db, the $db must be sorted by date and the posts published only.
 	public function reIndexPages($db)
 	{
-		$index = array();
-
-		// Foreach page in the database
-		foreach($db as $pageKey=>$pageData) {
-			if( !empty($pageData['category']) && $this->exists($pageData['category']) ) {
-				$categoryKey = $pageData['category'];
-				array_push($index, $pageKey);
-			}
+		// Clean post list
+		foreach( $this->db as $key=>$value ) {
+			$this->db[$key]['pages'] = array();
 		}
 
-		$this->db[$categoryKey]['pages'] = $index;
+		// Foreach post in the database
+		foreach($db as $postKey=>$postData) {
+			if( !empty($postData['category']) ) {
+				$categoryKey = $postData['category'];
+				if( isset($this->db[$categoryKey]['pages']) ) {
+					array_push($this->db[$categoryKey]['pages'], $postKey);
+				}
+			}
+		}
 
 		return $this->save();
 	}

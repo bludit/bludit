@@ -138,6 +138,17 @@ function sortPages($a, $b)
 	return ($a['position'] < $b['position']) ? -1 : 1;
 }
 
+function reIndexCategoriesPages()
+{
+	global $dbPages;
+	global $dbCategories;
+
+	// Regenerate the tags index for posts.
+	$dbCategories->reindexPages( $dbPages->db );;
+
+	return true;
+}
+
 function buildPage($key)
 {
 	global $dbPages;

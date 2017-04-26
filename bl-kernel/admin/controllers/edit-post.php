@@ -21,6 +21,9 @@ function editPost($args)
 		// Reindex tags, this function is in 70.posts.php
 		reIndexTagsPosts();
 
+		// Re index categories
+		reIndexCategoriesPosts();
+
 		// Call the plugins after post created.
 		Theme::plugins('afterPostModify');
 

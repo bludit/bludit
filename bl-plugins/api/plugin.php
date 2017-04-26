@@ -1,6 +1,5 @@
 <?php
 
-
 class pluginAPI extends Plugin {
 
 	public function init()
@@ -21,13 +20,6 @@ class pluginAPI extends Plugin {
 	public function form()
 	{
 		$html = '';
-
-		$html .= '<div>';
-		$html .= '<input type="hidden" name="ping" value="0">';
-		$html .= '<input name="ping" id="jsping" type="checkbox" value="1" '.($this->getDbField('ping')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsping">Ping Bludit.com</label>';
-		$html .= '<div class="tip">Enable this feature to share your posts and pages with Bludit.com.</div>';
-		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<p><b>Authorization Key:</b> '.$this->getDbField('token').'</p>';
@@ -57,21 +49,9 @@ class pluginAPI extends Plugin {
 		return $html;
 	}
 
-	public function install($position=0)
-	{
-		parent::install($position);
-
-		$this->ping();
-	}
-
 
 // API HOOKS
 // ----------------------------------------------------------------------------
-
-	public function afterFormSave()
-	{
-		$this->ping();
-	}
 
 	public function beforeRulesLoad()
 	{
@@ -128,9 +108,9 @@ class pluginAPI extends Plugin {
 		// PARAMETERS
 		// ------------------------------------------------------------
 		// /api/posts 		| GET  | returns all posts
-		// /api/posts/{slug}	| GET  | returns the post with the {slug}
+		// /api/posts/{key}	| GET  | returns the post with the {key}
 		// /api/pages 		| GET  | returns all pages
-		// /api/pages/{slug}	| GET  | returns the page with the {slug}
+		// /api/pages/{key}	| GET  | returns the page with the {key}
 		// /api/cli/regenerate 	| POST | check for new posts and pages
 
 		$parameters = explode('/', $URI);
@@ -167,12 +147,12 @@ class pluginAPI extends Plugin {
 			$data = $this->getAllPages();
 			$this->response($data);
 		}
-		// /api/posts/{slug}
+		// /api/posts/{key}
 		elseif( ($method==='GET') && ($parameters[0]==='posts') && !empty($parameters[1]) ) {
 			$data = $this->getPost($parameters[1]);
 			$this->response($data);
 		}
-		// /api/pages/{slug}
+		// /api/pages/{key}
 		elseif( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
 			$data = $this->getPage($parameters[1]);
 			$this->response($data);
