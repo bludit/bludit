@@ -16,6 +16,12 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 		'value'=>$_Post->key()
 	));
 
+	// Unique identifier
+	HTML::formInputHidden(array(
+		'name'=>'uniqueId',
+		'value'=>$_Post->uniqueId()
+	));
+
 // LEFT SIDE
 // --------------------------------------------------------------------
 echo '<div class="uk-grid uk-grid-medium">';
