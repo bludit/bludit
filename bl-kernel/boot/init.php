@@ -273,3 +273,9 @@ $Url->checkFilters( $Site->uriFilters() );
 
 // --- Objects shortcuts ---
 $L = $Language;
+
+// Function for generating unique identifiers
+function generateUniqueId()
+{
+	return md5(uniqid('', true));
+}
