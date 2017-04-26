@@ -14,7 +14,8 @@ class dbPosts extends dbJSON
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
 		'md5file'=>		array('inFile'=>false,	'value'=>''),
-		'category'=>		array('inFile'=>false,	'value'=>'')
+		'category'=>		array('inFile'=>false,	'value'=>''),
+		'uuid'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -113,6 +114,9 @@ class dbPosts extends dbJSON
 
 		// Generate the database key / index
 		$key = $this->generateKey($args['slug']);
+
+		// Generate UUID
+		$args['uuid'] = md5(time().DOMAIN);
 
 		// The user is always who is loggued
 		$args['username'] = Session::get('username');

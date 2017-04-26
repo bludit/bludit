@@ -15,7 +15,8 @@ class dbPages extends dbJSON
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'category'=>		array('inFile'=>false,	'value'=>'')
+		'category'=>		array('inFile'=>false,	'value'=>''),
+		'uuid'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -29,6 +30,9 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
+
+		// Generate UUID
+		$args['uuid'] = md5(time().DOMAIN);
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');

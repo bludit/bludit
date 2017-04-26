@@ -142,6 +142,11 @@ class Content {
 		return $this->getField('category');
 	}
 
+	public function uuid()
+	{
+		return $this->getField('uuid');
+	}
+
 	// Returns the field key
 	public function key()
 	{
