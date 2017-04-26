@@ -176,6 +176,10 @@ class Content {
 			return false;
 		}
 
+		if (preg_match("/^https?:\/\//", $fileName)) {
+			$absolute=false;
+		}
+
 		if($absolute) {
 			return HTML_PATH_UPLOADS.$fileName;
 		}

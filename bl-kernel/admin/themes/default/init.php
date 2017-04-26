@@ -217,11 +217,37 @@ class HTML {
 
 		$style = '';
 		if(!empty($coverImage)) {
-			$style = 'background-image: url('.HTML_PATH_UPLOADS_THUMBNAILS.$coverImage.')';
+			if (preg_match("/^https?:\/\//", $coverImage)) {
+				$style = 'background-image: url('.$coverImage.')';
+			}
+			else {
+				$style = 'background-image: url('.HTML_PATH_UPLOADS_THUMBNAILS.$coverImage.')';
+			}
 		}
 
 		$html = '<!-- BLUDIT COVER IMAGE -->';
 		$html .= '
+		<div id="bludit-cover-image-modal" class="uk-modal">
+    		<div class="uk-modal-dialog">
+				<form class="uk-form uk-width-medium-1-3">
+					<fieldset>
+						<legend>'.$L->g('External Cover Image').'</legend>
+						<div class="uk-form-row">
+							<input id="external-cover-image-url" type="text" class="uk-width-5-6" placeholder="'.$L->g('Cover Image URL').'" autocomplete="off">
+							<button id="jsExternalCoverImageSave" class="uk-button">'.$L->g('Save').'</button>
+						</div>
+						<legend>'.$L->g('Cover image').'</legend>
+						<div class="uk-form-row">
+							<button id="jsCoverImageUpload" class="uk-button uk-button-primary uk-width-1-1"><i class="uk-icon-upload"></i>&nbsp;'.$L->g('Upload image').'</button>
+						</div>						
+					</fieldset>
+				</form>
+				<div class="uk-modal-footer">
+					<a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
+				</div>
+    		</div>
+		</div>
+
 		<div id="bludit-cover-image">
 		<div id="cover-image-thumbnail" class="uk-form-file uk-placeholder uk-text-center" style="'.$style.'">
 

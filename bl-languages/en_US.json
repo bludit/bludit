@@ -251,5 +251,8 @@
 	"add-a-new-page": "Add a new page",
 	"add-a-new-post": "Add a new post",
 
-	"save-as-draft": "Save as draft"
+	"save-as-draft": "Save as draft",
+	"invalid-cover-image-url": "Invalid cover image URL",
+	"external-cover-image": "External Cover Image",
+	"cover-image-url": "Cover Image URL"
 }
