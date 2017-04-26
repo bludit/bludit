@@ -251,5 +251,12 @@
 	"add-a-new-page": "Add a new page",
 	"add-a-new-post": "Add a new post",
 
-	"save-as-draft": "Save as draft"
+	"save-as-draft": "Save as draft",
+	"categories": "Сategories",
+	"add-a-new-category": "Add a new category",
+	"new-category": "New category",
+	"slug": "slug",
+	"edit-category": "Edit category",
+	"last-page": "Last page",
+	"first-page": "First page"
 }
