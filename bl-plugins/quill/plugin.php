@@ -75,9 +75,18 @@ class pluginQuill extends Plugin {
 		if( $this->enabled() ) {
 			$html .= '
 			<script>
-			var quill = new Quill("#jscontent", {
-				theme: "snow"
-			});
+
+var quill = new Quill("#editor-container", {
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline"],
+      ["image"]
+    ]
+  },
+  placeholder: "asd",
+  theme: "snow"
+});
 			</script>
 			';
 		}
