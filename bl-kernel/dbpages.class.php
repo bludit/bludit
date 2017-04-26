@@ -7,6 +7,7 @@ class dbPages extends dbJSON
 	private $dbFields = array(
 		'title'=>		array('inFile'=>true,	'value'=>''),
 		'content'=>		array('inFile'=>true,	'value'=>''),
+		'uniqueId'=>		array('inFile'=>false,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
@@ -28,6 +29,11 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
+		
+		// Generate unique identifier
+		if( empty($args['uniqueId']) ) {
+			$args['uniqueId'] = generateUniqueId();
+		}
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
@@ -105,6 +111,11 @@ class dbPages extends dbJSON
 		$dataForFile = array();
 
 		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
+		
+		// Generate unique identifier
+		if( empty($args['uniqueId']) ) {
+			$args['uniqueId'] = generateUniqueId();
+		}
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');

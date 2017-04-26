@@ -8,9 +8,9 @@ class pluginDisqus extends Plugin {
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
-			'enablePages'=>0,
-			'enablePosts'=>0,
-			'enableDefaultHomePage'=>1
+			'enablePages'=>1,
+			'enablePosts'=>1,
+			'enableDefaultHomePage'=>0
 		);
 	}
 
@@ -98,12 +98,42 @@ class pluginDisqus extends Plugin {
 
 	public function siteBodyEnd()
 	{
+		global $Page, $Post, $Url, $posts;
+		
+		switch($Url->whereAmI())
+		{
+			case 'post':
+				$absolutePermalink = $Post->permalink(true);
+				$uniqueId = $Post->uniqueId();
+				$disqusTitle = $Post->title();
+				break;
+			case 'page':
+				$absolutePermalink = $Page->permalink(true);
+				$uniqueId = $Page->uniqueId();
+				$disqusTitle = $Page->title();
+				break;
+				
+			default:
+				// Homepage - use the first post
+				if(isset($posts[0])) {
+					$absolutePermalink = $posts[0]->permalink(true);
+					$uniqueId = $posts[0]->uniqueId();
+					$disqusTitle = $posts[0]->title();
+				}
+		}
+		
 		if( $this->enable ) {
 
 			$html = '
 <script type="text/javascript">
 
 	var disqus_shortname = "'.$this->getDbField('shortname').'";
+
+	var disqus_config = function () {
+		this.page.url = "'.$absolutePermalink.'";
+		this.page.identifier = "'.$uniqueId.'";
+		this.page.title = "'.$disqusTitle.'";
+	};
 
 	(function() {
 	var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;

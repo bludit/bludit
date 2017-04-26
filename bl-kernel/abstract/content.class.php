@@ -136,6 +136,12 @@ class Content {
 		return $this->getField('readMore');
 	}
 
+	// Returns the unique identifier
+	public function uniqueId()
+	{
+		return $this->getField('uniqueId');
+	}
+
 	// Returns the field key
 	public function key()
 	{
@@ -291,6 +297,7 @@ class Content {
 	public function json($returnsArray=false)
 	{
 		$tmp['key'] 		= $this->key();
+		$tmp['uniqueId'] 		= $this->uniqueId();
 		$tmp['title'] 		= $this->title();
 		$tmp['content'] 	= $this->content(); // Markdown parsed
 		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed

@@ -5,6 +5,7 @@ class dbPosts extends dbJSON
 	private $dbFields = array(
 		'title'=>		array('inFile'=>true,	'value'=>''),
 		'content'=>		array('inFile'=>true,	'value'=>''),
+		'uniqueId'=>		array('inFile'=>false,	'value'=>''),
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
@@ -113,6 +114,11 @@ class dbPosts extends dbJSON
 
 		// Generate the database key / index
 		$key = $this->generateKey($args['slug']);
+		
+		// Generate unique identifier
+		if( empty($args['uniqueId']) ) {
+			$args['uniqueId'] = generateUniqueId();
+		}
 
 		// The user is always who is loggued
 		$args['username'] = Session::get('username');
