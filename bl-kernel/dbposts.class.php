@@ -116,7 +116,9 @@ class dbPosts extends dbJSON
 		$key = $this->generateKey($args['slug']);
 
 		// Generate UUID
-		$args['uuid'] = md5(time().DOMAIN);
+		if( empty($args['uuid']) ) {
+			$args['uuid'] = md5(time().DOMAIN);
+		}
 
 		// The user is always who is loggued
 		$args['username'] = Session::get('username');
@@ -206,11 +208,13 @@ class dbPosts extends dbJSON
 
 	public function edit($args)
 	{
+		// Modified date
+		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+
+		// Keep UUID
+		$args['uuid'] = $this->uuid();
+
 		if( $this->delete($args['key']) ) {
-
-			// Modified date
-			$args['dateModified'] = Date::current(DB_DATE_FORMAT);
-
 			return $this->add($args);
 		}
 
