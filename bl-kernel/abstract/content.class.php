@@ -240,6 +240,45 @@ class Content {
 
 		return $date;
 	}
+	
+	// Returns relative time (e.g. "1 minute ago")
+	// Based on http://stackoverflow.com/a/18602474
+	// Modified for Bludit
+	// $complete = false : short version
+	// $complete = true  : full version
+	public function relativeTime($complete = false) {
+		$current = new DateTime;
+		$past    = new DateTime($this->getField('date'));
+		$elapsed = $current->diff($past);
+		
+		$elapsed->w  = floor($elapsed->d / 7);
+		$elapsed->d -= $elapsed->w * 7;
+		
+		$string = array(
+			'y' => 'year',
+			'm' => 'month',
+			'w' => 'week',
+			'd' => 'day',
+			'h' => 'hour',
+			'i' => 'minute',
+			's' => 'second',
+		);
+		
+		foreach($string as $key => &$value) {
+			if($elapsed->$key) {
+				$value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : ' ');
+			} else {
+				unset($string[$key]);
+			}
+		}
+		
+		if(!$complete) {
+			$string = array_slice($string, 0 , 1);
+		}
+		
+		return $string ? implode(', ', $string) . ' ago' : 'Just now';
+		
+	}
 
 	// Returns the tags
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma

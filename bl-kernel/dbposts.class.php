@@ -212,7 +212,7 @@ class dbPosts extends dbJSON
 		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
 
 		// Keep UUID
-		$args['uuid'] = $this->uuid();
+		$args['uuid'] = $this->db[$args['key']]['uuid'];
 
 		if( $this->delete($args['key']) ) {
 			return $this->add($args);
