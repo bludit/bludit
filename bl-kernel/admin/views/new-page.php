@@ -23,16 +23,13 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 		'placeholder'=>$L->g('Title')
 	));
 
-	echo '<div style="padding-top: 10px"></div>';
-	
 	// Content input
-	// HTML::formTextarea(array(
-	// 	'name'=>'content',
-	// 	'value'=>'',
-	// 	'class'=>'uk-width-1-1 uk-form-large',
-	// 	'placeholder'=>''
-	// ));
-	echo '<div id="jscontent" name="content" class="uk-width-1-1 uk-form-large" placeholder="" style="margin-bottom: 10px"></div>';
+	HTML::formTextarea(array(
+		'name'=>'content',
+		'value'=>'',
+		'class'=>'uk-width-1-1 uk-form-large',
+		'placeholder'=>''
+	));
 
 	// Form buttons
 	echo '<div class="uk-form-row uk-margin-bottom">
@@ -215,7 +212,7 @@ $(document).ready(function()
 		}
 		else {
 			$(".sidebar-view").hide();
-			$(view).show();
+			$(view).show();			
 		}
 	});
 
