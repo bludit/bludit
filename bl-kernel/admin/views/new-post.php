@@ -23,13 +23,16 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 		'placeholder'=>$L->g('Title')
 	));
 
+	echo '<div style="padding-top: 10px"></div>';
+
 	// Content input
-	HTML::formTextarea(array(
-		'name'=>'content',
-		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>''
-	));
+	// HTML::formTextarea(array(
+	// 	'name'=>'content',
+	// 	'value'=>'',
+	// 	'class'=>'uk-width-1-1 uk-form-large',
+	// 	'placeholder'=>''
+	// ));
+	echo '<div id="jscontent" name="content" class="uk-width-1-1 uk-form-large" placeholder="" style="margin-bottom: 10px"></div>';
 
 	// Form buttons
 	echo '<div class="uk-form-row uk-margin-bottom">
@@ -73,7 +76,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	));
 
 	echo '</li>';
-	
+
 	// IMAGES TAB
 	// --------------------------------------------------------------------
 	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> '.$L->g('Images').'</h2></li>';
@@ -182,7 +185,7 @@ $(document).ready(function() {
 		}
 		else {
 			$(".sidebar-view").hide();
-			$(view).show();			
+			$(view).show();
 		}
 	});
 
