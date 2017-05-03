@@ -117,7 +117,7 @@ class dbPosts extends dbJSON
 
 		// Generate UUID
 		if( empty($args['uuid']) ) {
-			$args['uuid'] = md5(time().DOMAIN);
+			$args['uuid'] = md5(uniqid());
 		}
 
 		// The user is always who is loggued

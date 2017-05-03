@@ -44,6 +44,8 @@ class dbLanguage extends dbJSON
 		$key = Text::lowercase($string);
 		$key = Text::replace(' ', '-', $key);
 
+		#file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
+
 		if(isset($this->db[$key])) {
 			return $this->db[$key];
 		}

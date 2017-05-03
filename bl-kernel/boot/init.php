@@ -48,6 +48,8 @@ define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
 
+define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');
+
 // Log separator
 define('LOG_SEP', ' | ');
 

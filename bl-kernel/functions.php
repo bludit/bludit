@@ -92,7 +92,7 @@ function buildPost($key)
 	return $Post;
 }
 
-function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $tagKey=false)
+function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key, $type='tag')
 {
 	global $dbPosts;
 	global $dbTags;
@@ -100,9 +100,12 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 
 	$posts = array();
 
-	if($tagKey) {
+	if($type=='tag') {
 		// Get the keys list from tags database, this database is optimized for this case.
-		$list = $dbTags->getList($pageNumber, $amount, $tagKey);
+		$list = $dbTags->getList($pageNumber, $amount, $key);
+	}
+	elseif($type=='category') {
+		$list = $dbCategories->getList($pageNumber, $amount, $key);
 	}
 	else {
 		// Get the keys list from posts database.
