@@ -432,7 +432,9 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File categories.php
-	$data = array();
+	$data = array(
+		'videos'=>array('name'=>'Videos', 'posts'=>array(), 'pages'=>array())
+	);
 	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php

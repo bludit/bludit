@@ -201,19 +201,19 @@ class dbCategories extends dbJSON
 		return Text::cleanUrl($category);
 	}
 
-	public function getList($pageNumber, $postPerPage, $tagKey)
+	public function getListOfPosts($pageNumber, $postPerPage, $categoryKey)
 	{
-		if( !isset($this->db['postsIndex'][$tagKey]) ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the posts list by the tag key: '.$tagKey);
+		if( !isset($this->db[$categoryKey]) ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying get the posts list by the category key: '.$categoryKey);
 			return array();
 		}
 
 		$init = (int) $postPerPage * $pageNumber;
-		$end  = (int) min( ($init + $postPerPage - 1), $this->countPostsByTag($tagKey) - 1 );
+		$end  = (int) min( ($init + $postPerPage - 1), count($this->db[$categoryKey]['posts']) );
 		$outrange = $init<0 ? true : $init > $end;
 
 		if(!$outrange) {
-			$list = $this->db['postsIndex'][$tagKey]['posts'];
+			$list = $this->db[$categoryKey]['posts'];
 			$tmp = array_flip($list); // Change the posts keys list in the array key.
 			return array_slice($tmp, $init, $postPerPage, true);
 		}

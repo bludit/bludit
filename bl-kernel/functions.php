@@ -96,16 +96,17 @@ function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeU
 {
 	global $dbPosts;
 	global $dbTags;
+	global $dbCategories;
 	global $Url;
 
 	$posts = array();
 
-	if($type=='tag') {
+	if( $type=='tag' && $key ) {
 		// Get the keys list from tags database, this database is optimized for this case.
 		$list = $dbTags->getList($pageNumber, $amount, $key);
 	}
-	elseif($type=='category') {
-		$list = $dbCategories->getList($pageNumber, $amount, $key);
+	elseif( $type=='category' && $key ) {
+		$list = $dbCategories->getListOfPosts($pageNumber, $amount, $key);
 	}
 	else {
 		// Get the keys list from posts database.

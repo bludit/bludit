@@ -39,14 +39,14 @@ class pluginGoogleTools extends Plugin {
 	public function siteHead()
 	{
 		global $Url;
-		
+
 		$html = '';
-		
-		if((!empty($this->getDbField('google-site-verification'))) && ($Url->whereAmI()=='home')) {
+
+		if((!Text::isEmpty($this->getDbField('google-site-verification'))) && ($Url->whereAmI()=='home')) {
 			$html .= PHP_EOL.'<!-- Google Webmasters Tools -->'.PHP_EOL;
 			$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'">'.PHP_EOL;
 		}
-		
+
 		if(!(Text::isEmpty($this->getDbField('google-tag-manager')))) {
 			$html .= PHP_EOL."<!-- Google Tag Manager -->".PHP_EOL;
 			$html .= "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':".PHP_EOL;
@@ -56,7 +56,7 @@ class pluginGoogleTools extends Plugin {
 			$html .= "})(window,document,'script','dataLayer','".$this->getDbField('google-tag-manager')."');</script>".PHP_EOL;
 			$html .= "<!-- End Google Tag Manager -->".PHP_EOL;
 		}
-		
+
 		return $html;
 	}
 
@@ -65,14 +65,14 @@ class pluginGoogleTools extends Plugin {
 		if((Text::isEmpty($this->getDbField('google-tag-manager')))) {
 			return false;
 		}
-		
+
 		$html = '<!-- Google Tag Manager (noscript) -->'.PHP_EOL;
 		$html .= '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id='.$this->getDbField('google-tag-manager').'" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'.PHP_EOL;
 		$html .= '<!-- End Google Tag Manager (noscript) -->'.PHP_EOL;
-		
+
 		return $html;
 	}
-	
+
 	public function siteBodyEnd()
 	{
 		$html  = PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
