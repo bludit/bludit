@@ -22,7 +22,7 @@ function editPost($args)
 		reIndexTagsPosts();
 
 		// Re index categories
-		reIndexCategoriesPosts();
+		//reIndexCategoriesPosts();
 
 		// Call the plugins after post created.
 		Theme::plugins('afterPostModify');

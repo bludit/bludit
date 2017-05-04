@@ -20,7 +20,7 @@ function addPost($args)
 		reIndexTagsPosts();
 
 		// Re index categories
-		reIndexCategoriesPosts();
+		//reIndexCategoriesPosts();
 
 		// Call the plugins after post creation
 		Theme::plugins('afterPostCreate');

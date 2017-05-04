@@ -52,6 +52,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
 	// Category
+	/*
 	HTML::formSelect(array(
 		'name'=>'category',
 		'label'=>$L->g('Category'),
@@ -60,7 +61,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'selected'=>'',
 		'tip'=>'',
 		'addEmptySpace'=>true
-	));
+	));*/
 
 	// Description input
 	HTML::formTextarea(array(
@@ -212,7 +213,7 @@ $(document).ready(function()
 		}
 		else {
 			$(".sidebar-view").hide();
-			$(view).show();			
+			$(view).show();
 		}
 	});
 
