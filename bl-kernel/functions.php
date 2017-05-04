@@ -92,7 +92,7 @@ function buildPost($key)
 	return $Post;
 }
 
-function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key, $type='tag')
+function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key=false, $type='tag')
 {
 	global $dbPosts;
 	global $dbTags;

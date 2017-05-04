@@ -11,12 +11,7 @@ class pluginQuill extends Plugin {
 
 	public function init()
 	{
-		$this->dbFields = array(
-			'tabSize'=>'2',
-			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
-			'autosave'=>0,
-			'spellChecker'=>0
-		);
+		return false;
 	}
 
 	// Returns true if the plugins is loaded on the controller defined
@@ -37,35 +32,6 @@ class pluginQuill extends Plugin {
 		return $html;
 	}
 
-	public function form()
-	{
-		global $Language;
-
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Toolbar').'</label>';
-		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getDbField('toolbar').'">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Tab size').'</label>';
-		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<input type="hidden" name="autosave" value="0">';
-		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
-		$html .= '</div>';
-		
-		$html .= '<div>';
-		$html .= '<input type="hidden" name="spellChecker" value="0">';
-		$html .= '<input name="spellChecker" id="jsspellChecker" type="checkbox" value="1" '.($this->getDbField('spellChecker')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsspellChecker">'.$Language->get('spell-checker').'</label>';
-		$html .= '</div>';
-
-		return $html;
-	}
-
 	public function adminBodyEnd()
 	{
 		global $layout;
@@ -74,9 +40,11 @@ class pluginQuill extends Plugin {
 		$html = '';
 		if( $this->enabled() ) {
 			$html .= '
-			<script>
+<script>
 
-var quill = new Quill("#editor-container", {
+$("#jscontent").hide().after("<div id=\"quillcontent\"></div>");
+
+var quill = new Quill("#quillcontent", {
   modules: {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -84,10 +52,15 @@ var quill = new Quill("#editor-container", {
       ["image"]
     ]
   },
-  placeholder: "asd",
   theme: "snow"
 });
-			</script>
+
+$(".uk-form").submit(function( event ) {
+	$("#jscontent").val(quill.root.innerHTML);
+	return true;
+});
+
+</script>
 			';
 		}
 
