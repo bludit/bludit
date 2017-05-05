@@ -19,7 +19,7 @@ function addPage($args)
 	if($key)
 	{
 		// Re index categories
-		reIndexCategoriesPages();
+		//reIndexCategoriesPages();
 
 		// Call the plugins after page created.
 		Theme::plugins('afterPageCreate');
