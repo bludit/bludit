@@ -4,6 +4,12 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+$( window ).on( 'load', function() {
+	setTimeout( function() {
+		$('body').removeClass('is-loading');
+	})
+});
+			
 (function($) {
 
 	skel.breakpoints({
@@ -24,12 +30,6 @@
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
-
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
-			});
 
 		// Fix: Placeholder polyfill.
 			$('form').placeholder();

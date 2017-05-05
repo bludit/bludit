@@ -21,9 +21,14 @@ class Plugin {
 
 	// (array) Plugin's information.
 	public $metadata;
+	
+	// (dbLanguage) Plugin's localisation.
+	public $language;
 
 	function __construct()
 	{
+		global $Site;
+		
 		$this->dbFields = array();
 
 		$reflector = new ReflectionClass(get_class($this));
@@ -46,6 +51,16 @@ class Plugin {
 		$this->filenameMetadata = PATH_PLUGINS.$this->directoryName().DS.'metadata.json';
 		$metadataString = file_get_contents($this->filenameMetadata);
 		$this->metadata = json_decode($metadataString, true);
+
+		// Load localisation
+		$tmp = new dbLanguage($Site->locale(), PATH_PLUGINS.$this->directoryName.DS.'languages'.DS);
+		// Set name and description from the language file.
+		$this->setMetadata('name',$tmp->db['plugin-data']['name']);
+		$this->setMetadata('description',$tmp->db['plugin-data']['description']);
+
+		// Remove name and description
+		unset($tmp->db['plugin-data']);
+		$this->language = $tmp;
 
 		// If the plugin is installed then get the database.
 		if($this->installed())
@@ -218,8 +233,12 @@ class Plugin {
 
 	public function init()
 	{
-		// This method is used on childre classes.
-		// The user can define your own dbFields.
+		// This method is used on child classes.
+		// The user can define their own dbFields.
 	}
 
+	public function L($key)
+	{
+		return $this->language->get($key);
+	}
 }
