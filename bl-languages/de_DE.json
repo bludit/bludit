@@ -236,5 +236,13 @@
 	"сurrent-status" : "Status",
 	"disable-the-user" : "Benutzer deaktivieren",
 	"add-a-new-page": "Eine neue Seite hinzufügen",
-	"add-a-new-post": "Einen neuen Beitrag hinzufügen"
+	"add-a-new-post": "Einen neuen Beitrag hinzufügen",
+	"save-as-draft": "Als Entwurf speichern",
+	"categories": "Сategories",
+	"add-a-new-category": "Eine neue Kategorie hinzufügen",
+	"new-category": "Neue Kategorie",
+	"slug": "Slug",
+	"edit-category": "Kategorie bearbeiten",
+	"last-page": "Letzte Seite",
+	"first-page": "Erste Seite"
 }
