@@ -51,6 +51,7 @@ function addUser($args)
 	$tmp['username'] = $args['new_username'];
 	$tmp['password'] = $args['new_password'];
 	$tmp['role']	 = $args['role'];
+	$tmp['email']	 = $args['email'];
 
 	// Add the user to the database
 	if( $dbUsers->add($tmp) )

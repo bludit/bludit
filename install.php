@@ -331,7 +331,11 @@ function install($adminPassword, $email, $timezone)
 		'tags'=>array(),
 		'status'=>'published',
 		'date'=>$currentDate,
-		'position'=>0
+		'position'=>0,
+		'coverImage'=>'',
+		'md5file'=>'',
+		'category'=>'',
+		'uuid'=>md5(uniqid())
 	    	),
 		'about'=>array(
 		'description'=>$Language->get('About your site or yourself'),
@@ -339,7 +343,11 @@ function install($adminPassword, $email, $timezone)
 		'tags'=>array(),
 		'status'=>'published',
 		'date'=>$currentDate,
-		'position'=>1
+		'position'=>1,
+		'coverImage'=>'',
+		'md5file'=>'',
+		'category'=>'',
+		'uuid'=>md5(uniqid())
 	    	)
 	);
 
@@ -353,7 +361,11 @@ function install($adminPassword, $email, $timezone)
 		'status'=>'published',
 		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
 		'allowComments'=>'false',
-		'date'=>$currentDate
+		'date'=>$currentDate,
+		'coverImage'=>'',
+		'md5file'=>'',
+		'category'=>'',
+		'uuid'=>md5(uniqid())
 		)
 	);
 	file_put_contents(PATH_DATABASES.'posts.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -374,6 +386,8 @@ function install($adminPassword, $email, $timezone)
 		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
+		'uriBlog'=>'/blog/',
+		'uriCategory'=>'/category/',
 		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
@@ -416,6 +430,12 @@ function install($adminPassword, $email, $timezone)
 	);
 
 	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+	// File categories.php
+	$data = array(
+		'videos'=>array('name'=>'Videos', 'posts'=>array(), 'pages'=>array())
+	);
+	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
 	file_put_contents(

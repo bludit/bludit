@@ -13,7 +13,9 @@ class dbPosts extends dbJSON
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'md5file'=>		array('inFile'=>false,	'value'=>'')
+		'md5file'=>		array('inFile'=>false,	'value'=>''),
+		'category'=>		array('inFile'=>false,	'value'=>''),
+		'uuid'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -21,7 +23,7 @@ class dbPosts extends dbJSON
 		parent::__construct(PATH_DATABASES.'posts.php');
 	}
 
-	// Return the amount of posts
+	// Returns the amount of posts
 	// $total = TRUE, returns the total of posts
 	// $total = FALSE, return the amount of published posts
 	public function numberPost($total=false)
@@ -42,13 +44,14 @@ class dbPosts extends dbJSON
 		return $i;
 	}
 
-	// Returns the database
+	// Returns the complete database
 	public function getDB()
 	{
 		return $this->db;
 	}
 
-	// Return an array with the post's database, FALSE otherwise.
+	// Return an array with the post database, FALSE otherwise.
+	// Filtered by post key
 	public function getPostDB($key)
 	{
 		if($this->postExists($key)) {
@@ -112,6 +115,11 @@ class dbPosts extends dbJSON
 		// Generate the database key / index
 		$key = $this->generateKey($args['slug']);
 
+		// Generate UUID
+		if( empty($args['uuid']) ) {
+			$args['uuid'] = md5(uniqid());
+		}
+
 		// The user is always who is loggued
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
@@ -129,7 +137,7 @@ class dbPosts extends dbJSON
 			$args['status'] = 'scheduled';
 		}
 
-		// Verify arguments with the database fields.
+		// Verify arguments with the database fields
 		foreach($this->dbFields as $field=>$options)
 		{
 			// If the field is in the arguments
@@ -139,8 +147,9 @@ class dbPosts extends dbJSON
 					$tmpValue = $this->generateTags($args['tags']);
 				}
 				else {
-					// Sanitize if will be saved on database.
+					// Where the argument will be stored, database or file
 					if( !$options['inFile'] ) {
+						// Sanitize if going to be stored on database
 						$tmpValue = Sanitize::html($args[$field]);
 					}
 					else {
@@ -148,18 +157,16 @@ class dbPosts extends dbJSON
 					}
 				}
 			}
-			// Set a default value if not in the arguments
-			else
-			{
+			else {
+				// Set a default value if not in the arguments
 				$tmpValue = $options['value'];
 			}
 
-			// Check where the field will be written, in the file or in the database
+			// Check where the field will be stored in the file or in the database
 			if($options['inFile']) {
 				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
 			}
-			else
-			{
+			else {
 				// Set type
 				settype($tmpValue, gettype($options['value']));
 
@@ -168,7 +175,7 @@ class dbPosts extends dbJSON
 			}
 		}
 
-		// Make the directory.
+		// Create the directory
 		if( Filesystem::mkdir(PATH_POSTS.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_POSTS.$key);
 			return false;
@@ -184,19 +191,14 @@ class dbPosts extends dbJSON
 		// Calculate the checksum of the file
 		$dataForDb['md5file'] = md5_file(PATH_POSTS.$key.DS.FILENAME);
 
-		// Save the database
+		// Insert in the database
 		$this->db[$key] = $dataForDb;
 
-		// Sort posts before save
+		// Sort database posts before save
 		$this->sortByDate();
 
+		// Save database file
 		if( $this->save() === false ) {
-
-			// Trying to rollback
-			Log::set(__METHOD__.LOG_SEP.'Rollback...');
-			Filesystem::rmfile(PATH_POSTS.$key.DS.FILENAME);
-			Filesystem::rmdir(PATH_POSTS.$key);
-
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
 		}
@@ -206,11 +208,13 @@ class dbPosts extends dbJSON
 
 	public function edit($args)
 	{
+		// Modified date
+		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+
+		// Keep UUID
+		$args['uuid'] = $this->db[$args['key']]['uuid'];
+
 		if( $this->delete($args['key']) ) {
-
-			// Modified date
-			$args['dateModified'] = Date::current(DB_DATE_FORMAT);
-
 			return $this->add($args);
 		}
 
@@ -387,6 +391,19 @@ class dbPosts extends dbJSON
 		}
 
 		return $tmp;
+	}
+
+	// Change all posts with the old category key for the new category key
+	public function changeCategory($oldCategoryKey, $newCategoryKey)
+	{
+		foreach($this->db as $key=>$value) {
+			if($value['category']==$oldCategoryKey) {
+				$this->db[$key]['category'] = $newCategoryKey;
+			}
+		}
+
+		// Save database
+		return $this->save();
 	}
 
 	// Sort posts by date.

@@ -57,15 +57,16 @@
 		<!-- Main -->
 		<div id="main">
 		<?php
-			if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') || ($Url->whereAmI()=='blog') ) {
-				include(THEME_DIR_PHP.'home.php');
-			}
-			elseif($Url->whereAmI()=='post') {
+			if($Url->whereAmI()=='post') {
 				include(THEME_DIR_PHP.'post.php');
 			}
 			elseif($Url->whereAmI()=='page') {
 				include(THEME_DIR_PHP.'page.php');
 			}
+			else {
+				include(THEME_DIR_PHP.'home.php');
+			}
+
 		?>
 		</div>
 

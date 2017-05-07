@@ -20,29 +20,33 @@ foreach($themes as $theme)
 	echo '
 	<tr '.($theme['dirname']==$Site->theme()?'class="theme-installed"':'class="theme-notInstalled"').'>
 	<td>
-	<div class="plugin-name">'.$theme['name'].'</div>
-	<div class="plugin-links">
+	<div class="plugin-name">
 	';
 
 	if($theme['dirname']!=$Site->theme()) {
-		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
+		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'" title="'.$L->g('Activate').'"><i class="uk-icon-square-o"></i></a> ';
+	}
+	else {
+		echo '<i class="uk-icon-check-square-o"></i> ';
 	}
 
 	echo '
-	</div>
+	'.$theme['name'].'</div>
 	</td>';
 
 	echo '<td>';
 	echo $theme['description'];
+	echo '</td>';
+	echo '
+	<td class="uk-text-center">';
 
 	if( !$theme['compatible'] ) {
-		echo '<div class="theme-incompatible">This theme is incompatible with Bludit v'.BLUDIT_VERSION.'</div>';
+		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="This theme is incompatible with Bludit v'.BLUDIT_VERSION.'"></i>';
 	}
-	echo '</td>';
+	echo $theme['version'].'</td>';
 
 	echo '
-	<td class="uk-text-center">'.$theme['version'].'</td>
-	<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
+	<td class="uk-text-center"><a target="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
 	';
 
 	echo '</tr>';

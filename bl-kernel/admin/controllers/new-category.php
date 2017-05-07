@@ -4,38 +4,33 @@
 // Check role
 // ============================================================================
 
+if($Login->role()!=='admin') {
+	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
+	Redirect::page('admin', 'dashboard');
+}
+
 // ============================================================================
 // Functions
 // ============================================================================
-function addPost($args)
+
+function add($category)
 {
-	global $dbPosts;
+	global $dbCategories;
 	global $Language;
 
-	// Add the page, if the $key is FALSE the creation of the post failure.
-	$key = $dbPosts->add($args);
+	if( Text::isEmpty($category) ) {
+		Alert::set($Language->g('Category name is empty'), ALERT_STATUS_FAIL);
+		return false;
+	}
 
-	if($key) {
-		// Reindex tags, this function is in 70.posts.php
-		reIndexTagsPosts();
-
-		// Re index categories
-		//reIndexCategoriesPosts();
-
-		// Call the plugins after post creation
-		Theme::plugins('afterPostCreate');
-
-		// Alert for the user
-		Alert::set($Language->g('Post added successfully'));
-		Redirect::page('admin', 'manage-posts');
+	if( $dbCategories->add($category) ) {
+		Alert::set($Language->g('Category added'), ALERT_STATUS_OK);
+		return true;
 	}
 	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the post.');
-		Log::set(__METHOD__.LOG_SEP.'Cleaning database...');
-		$dbPosts->delete($key);
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the category.');
+		return false;
 	}
-
-	return false;
 }
 
 // ============================================================================
@@ -48,7 +43,9 @@ function addPost($args)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	addPost($_POST);
+	if( add($_POST['category']) ) {
+		Redirect::page('admin', 'categories');
+	}
 }
 
 // ============================================================================

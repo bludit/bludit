@@ -6,6 +6,8 @@
 	},
 	"google-webmasters-tools": "Google Webmaster Araçları",
 	"google-analytics-tracking-id": "Google Analytics İzleme No",
+	"google-tag-manager": "Google Tag Manager",
 	"complete-this-field-with-the-google-site-verification": "Google Site Doğrulama ile bu alanı doldurarak sitenizi doğrulayın",
-	"complete-this-field-with-the-tracking-id": "Bu alanı İzleme No ile doldurarak Google Analytics için Javascript kodu oluşturun."
+	"complete-this-field-with-the-tracking-id": "Bu alanı İzleme No ile doldurarak Google Analytics için Javascript kodu oluşturun.",
+	"complete-this-field-with-the-tracking-id-google-tag": "Bu alanı İzleme No ile doldurarak için Javascript kodu oluşturun."
 }

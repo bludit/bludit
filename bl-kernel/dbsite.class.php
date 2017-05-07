@@ -18,6 +18,7 @@ class dbSite extends dbJSON
 		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'uriBlog'=>		array('inFile'=>false, 'value'=>'/blog/'),
+		'uriCategory'=>		array('inFile'=>false, 'value'=>'/category/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
@@ -73,6 +74,7 @@ class dbSite extends dbJSON
 		$filters['page'] = $this->getField('uriPage');
 		$filters['tag'] = $this->getField('uriTag');
 		$filters['blog'] = $this->getField('uriBlog');
+		$filters['category'] = $this->getField('uriCategory');
 
 		if(empty($filter)) {
 			return $filters;
@@ -102,6 +104,12 @@ class dbSite extends dbJSON
 	public function urlBlog()
 	{
 		$filter = $this->getField('uriBlog');
+		return $this->url().ltrim($filter, '/');
+	}
+
+	public function urlCategory()
+	{
+		$filter = $this->getField('uriCategory');
 		return $this->url().ltrim($filter, '/');
 	}
 

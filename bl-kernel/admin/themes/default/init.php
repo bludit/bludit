@@ -143,6 +143,9 @@ class HTML {
 		$html .= '<label for="'.$id.'" class="uk-form-label">'.$args['label'].'</label>';
 		$html .= '<div class="uk-form-controls">';
 		$html .= '<select id="'.$id.'" name="'.$args['name'].'" '.$class.'>';
+		if(isset($args['addEmptySpace'])) {
+			$html .= '<option value=""></option>';
+		}
 		foreach($args['options'] as $key=>$value) {
 			$html .= '<option value="'.$key.'"'.( ($args['selected']==$key)?' selected="selected"':'').'>'.$value.'</option>';
 		}

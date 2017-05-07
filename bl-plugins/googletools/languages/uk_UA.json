@@ -7,6 +7,8 @@
 
 	"google-webmasters-tools": "Google Webmasters tools",
 	"google-analytics-tracking-id": "КОД відстеження Google Analytics",
+	"google-tag-manager": "Google Tag Manager",
 	"complete-this-field-with-the-google-site-verification": "Заповніть це поле для перевірки власника сайту.",
-	"complete-this-field-with-the-tracking-id": "Заповніть це поле для генерації Javascript-коду відстеження у Google Analytics."
+	"complete-this-field-with-the-tracking-id": "Заповніть це поле для генерації Javascript-коду відстеження у Google Analytics.",
+	"complete-this-field-with-the-tracking-id-google-tag": "Заповніть це поле для генерації Javascript-коду відстеження."
 }

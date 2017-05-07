@@ -108,6 +108,8 @@ class Image {
 
 		// *** Resample - create image canvas of x, y size
 		$this->imageResized = imagecreatetruecolor($optimalWidth, $optimalHeight);
+		imagealphablending($this->imageResized, false);
+		imagesavealpha($this->imageResized, true);
 		imagecopyresampled($this->imageResized, $this->image, 0, 0, 0, 0, $optimalWidth, $optimalHeight, $this->width, $this->height);
 
 
@@ -230,6 +232,8 @@ class Image {
 
 		// *** Now crop from center to exact requested size
 		$this->imageResized = imagecreatetruecolor($newWidth , $newHeight);
+		imagealphablending($this->imageResized, false);
+		imagesavealpha($this->imageResized, true);
 		imagecopyresampled($this->imageResized, $crop , 0, 0, $cropStartX, $cropStartY, $newWidth, $newHeight , $newWidth, $newHeight);
 	}
 }

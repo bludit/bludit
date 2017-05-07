@@ -24,6 +24,9 @@ function editPage($args)
 	{
 		$dbPages->regenerateCli();
 
+		// Re index categories
+		//reIndexCategoriesPages();
+
 		// Call the plugins after page created.
 		Theme::plugins('afterPageModify');
 

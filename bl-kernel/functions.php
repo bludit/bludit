@@ -20,6 +20,23 @@ function reIndexTagsPosts()
 	return true;
 }
 
+function reIndexCategoriesPosts()
+{
+	global $dbPosts;
+	global $dbCategories;
+
+	// Remove unpublished.
+	$dbPosts->removeUnpublished();
+
+	// Regenerate the tags index for posts.
+	$dbCategories->reindexPosts( $dbPosts->db );
+
+	// Restore the database, before remove the unpublished.
+	$dbPosts->restoreDB();
+
+	return true;
+}
+
 function buildPost($key)
 {
 	global $dbPosts;
@@ -75,17 +92,21 @@ function buildPost($key)
 	return $Post;
 }
 
-function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $tagKey=false)
+function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key=false, $type='tag')
 {
 	global $dbPosts;
 	global $dbTags;
+	global $dbCategories;
 	global $Url;
 
 	$posts = array();
 
-	if($tagKey) {
+	if( $type=='tag' && $key ) {
 		// Get the keys list from tags database, this database is optimized for this case.
-		$list = $dbTags->getList($pageNumber, $amount, $tagKey);
+		$list = $dbTags->getList($pageNumber, $amount, $key);
+	}
+	elseif( $type=='category' && $key ) {
+		$list = $dbCategories->getListOfPosts($pageNumber, $amount, $key);
 	}
 	else {
 		// Get the keys list from posts database.
@@ -119,6 +140,17 @@ function sortPages($a, $b)
 	}
 
 	return ($a['position'] < $b['position']) ? -1 : 1;
+}
+
+function reIndexCategoriesPages()
+{
+	global $dbPages;
+	global $dbCategories;
+
+	// Regenerate the tags index for posts.
+	$dbCategories->reindexPages( $dbPages->db );;
+
+	return true;
 }
 
 function buildPage($key)

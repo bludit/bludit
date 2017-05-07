@@ -48,6 +48,8 @@ define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
 
+define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');
+
 // Log separator
 define('LOG_SEP', ' | ');
 
@@ -144,6 +146,7 @@ include(PATH_KERNEL.'dbusers.class.php');
 include(PATH_KERNEL.'dbtags.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
+include(PATH_KERNEL.'dbcategories.class.php');
 include(PATH_KERNEL.'post.class.php');
 include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'user.class.php');
@@ -183,6 +186,7 @@ $dbPosts 	= new dbPosts();
 $dbPages 	= new dbPages();
 $dbUsers 	= new dbUsers();
 $dbTags 	= new dbTags();
+$dbCategories 	= new dbCategories();
 $Site 		= new dbSite();
 $Url 		= new Url();
 $Parsedown 	= new ParsedownExtra();

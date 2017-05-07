@@ -14,7 +14,9 @@ class dbPages extends dbJSON
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
-		'coverImage'=>		array('inFile'=>false,	'value'=>'')
+		'coverImage'=>		array('inFile'=>false,	'value'=>''),
+		'category'=>		array('inFile'=>false,	'value'=>''),
+		'uuid'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -28,6 +30,9 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		$key = $this->generateKey($args['slug'], $args['parent']);
+
+		// Generate UUID
+		$args['uuid'] = md5(time().DOMAIN);
 
 		// The user is always the one loggued.
 		$args['username'] = Session::get('username');
@@ -330,6 +335,19 @@ class dbPages extends dbJSON
 		}
 
 		return $tmp;
+	}
+
+	// Change all posts with the old category key for the new category key
+	public function changeCategory($oldCategoryKey, $newCategoryKey)
+	{
+		foreach($this->db as $key=>$value) {
+			if($value['category']==$oldCategoryKey) {
+				$this->db[$key]['category'] = $newCategoryKey;
+			}
+		}
+
+		// Save database
+		return $this->save();
 	}
 
 	public function count()

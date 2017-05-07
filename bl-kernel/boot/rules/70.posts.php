@@ -51,7 +51,12 @@ if( ($Url->whereAmI()==='post') && ($Url->notFound()===false) )
 // Build posts by specific tag.
 elseif( ($Url->whereAmI()==='tag') && ($Url->notFound()===false) )
 {
-	$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug());
+	$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug(), 'tag');
+}
+// Build posts by specific category.
+elseif( ($Url->whereAmI()==='category') && ($Url->notFound()===false) )
+{
+	$posts = buildPostsForPage($Url->pageNumber(), $Site->postsPerPage(), true, $Url->slug(), 'category');
 }
 // Build posts for homepage or admin area.
 else
