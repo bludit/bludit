@@ -360,14 +360,15 @@ class dbPages extends dbJSON
 		$currentDate = Date::current(DB_DATE_FORMAT);
 		$saveDatabase = false;
 
-		foreach($this->db as $postKey=>$values) {
-			if($values['status']=='scheduled') {
-				if($values['date']<=$currentDate) {
-					$this->db[$postKey]['status'] = 'published';
+		// The database need to be sorted by date
+		foreach($this->db as $pageKey=>$fields) {
+			if($fields['status']=='scheduled') {
+				if($fields['date']<=$currentDate) {
+					$this->db[$pageKey]['status'] = 'published';
 					$saveDatabase = true;
 				}
 			}
-			elseif($values['status']=='published') {
+			elseif($fields['status']=='published') {
 				break;
 			}
 		}
@@ -378,7 +379,7 @@ class dbPages extends dbJSON
 				return false;
 			}
 
-			Log::set(__METHOD__.LOG_SEP.'New posts published from the scheduler.');
+			Log::set(__METHOD__.LOG_SEP.'New pages published from the scheduler.');
 			return true;
 		}
 

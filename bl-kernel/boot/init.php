@@ -52,6 +52,10 @@ define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');
 
 // PAGES DATABASE
 define('DB_PAGES', PATH_DATABASES.'pages.php');
+define('DB_SITE', PATH_DATABASES.'site.php');
+
+// ADMIN URI FILTER
+define('ADMIN_URI_FILTER', '/admin/');
 
 // Log separator
 define('LOG_SEP', ' | ');

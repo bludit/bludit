@@ -7,7 +7,7 @@ class dbSite extends dbJSON
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
 		'description'=>		array('inFile'=>false, 'value'=>''),
 		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
-		'postsperpage'=>	array('inFile'=>false, 'value'=>''),
+		'itemsPerPage'=>	array('inFile'=>false, 'value'=>''),
 		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
 		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
@@ -15,9 +15,7 @@ class dbSite extends dbJSON
 		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
 		'homepage'=>		array('inFile'=>false, 'value'=>''),
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
-		'uriPost'=>		array('inFile'=>false, 'value'=>'/post/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		'uriBlog'=>		array('inFile'=>false, 'value'=>'/blog/'),
 		'uriCategory'=>		array('inFile'=>false, 'value'=>'/category/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
@@ -33,7 +31,7 @@ class dbSite extends dbJSON
 
 	function __construct()
 	{
-		parent::__construct(PATH_DATABASES.'site.php');
+		parent::__construct(DB_SITE);
 
 		// Set timezone
 		$this->setTimezone( $this->timezone() );
@@ -66,14 +64,13 @@ class dbSite extends dbJSON
 		return true;
 	}
 
-	// Returns an array with the filters for the url.
+	// Returns an array with the filters for the url
+	// or returns a string with the filter defined on $filter
 	public function uriFilters($filter='')
 	{
-		$filters['admin'] = '/admin/';
-		$filters['post'] = $this->getField('uriPost');
+		$filters['admin'] = ADMIN_URI_FILTER;
 		$filters['page'] = $this->getField('uriPage');
 		$filters['tag'] = $this->getField('uriTag');
-		$filters['blog'] = $this->getField('uriBlog');
 		$filters['category'] = $this->getField('uriCategory');
 
 		if(empty($filter)) {
@@ -81,12 +78,6 @@ class dbSite extends dbJSON
 		}
 
 		return $filters[$filter];
-	}
-
-	public function urlPost()
-	{
-		$filter = $this->getField('uriPost');
-		return $this->url().ltrim($filter, '/');
 	}
 
 	public function urlPage()
@@ -98,12 +89,6 @@ class dbSite extends dbJSON
 	public function urlTag()
 	{
 		$filter = $this->getField('uriTag');
-		return $this->url().ltrim($filter, '/');
-	}
-
-	public function urlBlog()
-	{
-		$filter = $this->getField('uriBlog');
 		return $this->url().ltrim($filter, '/');
 	}
 
@@ -138,19 +123,19 @@ class dbSite extends dbJSON
 		return $this->getField('googlePlus');
 	}
 
-	// Returns the site title.
+	// Returns the site title
 	public function title()
 	{
 		return $this->getField('title');
 	}
 
-	// Returns the site slogan.
+	// Returns the site slogan
 	public function slogan()
 	{
 		return $this->getField('slogan');
 	}
 
-	// Returns the site description.
+	// Returns the site description
 	public function description()
 	{
 		return $this->getField('description');
@@ -171,38 +156,37 @@ class dbSite extends dbJSON
 		return $this->getField('timeFormat');
 	}
 
-	// Returns the site theme name.
+	// Returns the site theme name
 	public function theme()
 	{
 		return $this->getField('theme');
 	}
 
-	// Returns the admin theme name.
+	// Returns the admin theme name
 	public function adminTheme()
 	{
 		return $this->getField('adminTheme');
 	}
 
-	// Returns the footer text.
+	// Returns the footer text
 	public function footer()
 	{
 		return $this->getField('footer');
 	}
 
-	// Returns the full domain and base url.
-	// For example, http://www.domain.com/bludit/
+	// Returns the full domain and base url
+	// For example, https://www.domain.com/bludit/
 	public function url()
 	{
 		return $this->getField('url');
 	}
 
-	// Returns the protocol and the domain, without the base url.
+	// Returns the protocol and the domain, without the base url
 	// For example, http://www.domain.com
 	public function domain()
 	{
 		// If the URL field is not set, try detect the domain.
-		if(Text::isEmpty( $this->url() ))
-		{
+		if(Text::isEmpty( $this->url() )) {
 			if(!empty($_SERVER['HTTPS'])) {
 				$protocol = 'https://';
 			}
@@ -211,13 +195,11 @@ class dbSite extends dbJSON
 			}
 
 			$domain = trim($_SERVER['HTTP_HOST'], '/');
-
 			return $protocol.$domain;
 		}
 
 		// Parse the domain from the field URL.
 		$parse = parse_url($this->url());
-
 		$domain = trim($parse['host'], '/');
 
 		return $parse['scheme'].'://'.$domain;
@@ -241,10 +223,10 @@ class dbSite extends dbJSON
 		return $this->getField('currentBuild');
 	}
 
-	// Returns posts per page.
-	public function postsPerPage()
+	// Returns the amount of pages per page
+	public function itemsPerPage()
 	{
-		return $this->getField('postsperpage');
+		return $this->getField('itemsPerPage');
 	}
 
 	// Returns the current language.

@@ -1,5 +1,62 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+function buildPage($key)
+{
+	global $dbPages;
+	global $dbUsers;
+	global $Parsedown;
+	global $Site;
+
+	// Page object, content from FILE
+	$Page = new Page($key);
+	if( !$Page->isValid() ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
+		return false;
+	}
+
+	// Page database, content from DATABASE JSON.
+	$db = $dbPages->getPageDB($key);
+	if( !$db ) {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
+		return false;
+	}
+
+	// Foreach field from DATABASE.
+	foreach($db as $field=>$value) {
+		$Page->setField($field, $value);
+	}
+
+	// Content in raw format
+	$contentRaw = $Page->content();
+	$Page->setField('contentRaw', $Page->content(), true);
+
+	// Parse markdown content.
+	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
+	$content = $Parsedown->text($content); // Parse Markdown.
+	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
+	$Page->setField('content', $content, true);
+
+	// Pagebrake
+	$explode = explode(PAGE_BREAK, $content);
+	$Page->setField('breakContent', $explode[0], true);
+	$Page->setField('readMore', !empty($explode[1]), true);
+
+	// Date format
+	$pageDate = $Page->date();
+	$Page->setField('dateRaw', $pageDate, true);
+
+	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
+	$Page->setField('date', $pageDateFormated, true);
+
+	// User object
+	$username = $Page->username();
+	$Page->setField('user', $dbUsers->getUser($username));
+
+	return $Page;
+}
+
+// ---- OLD
+
 // POST FUNCTIONS
 // ----------------------------------------------------------------------------
 
@@ -153,60 +210,7 @@ function reIndexCategoriesPages()
 	return true;
 }
 
-function buildPage($key)
-{
-	global $dbPages;
-	global $dbUsers;
-	global $Parsedown;
-	global $Site;
 
-	// Page object, content from FILE.
-	$Page = new Page($key);
-	if( !$Page->isValid() ) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
-		return false;
-	}
-
-	// Page database, content from DATABASE JSON.
-	$db = $dbPages->getPageDB($key);
-	if( !$db ) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
-		return false;
-	}
-
-	// Foreach field from DATABASE.
-	foreach($db as $field=>$value) {
-		$Page->setField($field, $value);
-	}
-
-	// Content in raw format
-	$contentRaw = $Page->content();
-	$Page->setField('contentRaw', $Page->content(), true);
-
-	// Parse markdown content.
-	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
-	$content = $Parsedown->text($content); // Parse Markdown.
-	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
-	$Page->setField('content', $content, true);
-
-	// Pagebrake
-	$explode = explode(PAGE_BREAK, $content);
-	$Page->setField('breakContent', $explode[0], true);
-	$Page->setField('readMore', !empty($explode[1]), true);
-
-	// Date format
-	$pageDate = $Page->date();
-	$Page->setField('dateRaw', $pageDate, true);
-
-	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
-	$Page->setField('date', $pageDateFormated, true);
-
-	// User object
-	$username = $Page->username();
-	$Page->setField('user', $dbUsers->getUser($username));
-
-	return $Page;
-}
 
 function buildAllPages()
 {

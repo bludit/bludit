@@ -16,22 +16,15 @@ class Url
 		// Decodes any %## encoding in the given string. Plus symbols ('+') are decoded to a space character.
 		$decode = urldecode($_SERVER['REQUEST_URI']);
 
-		// remove parameters GET, do not use parse_url because has problem with utf-8.
+		// Remove parameters GET, I don't use parse_url because has problem with utf-8
 		$explode = explode('?', $decode);
 		$this->uri = $explode[0];
-
 		$this->parameters = $_GET;
-
 		$this->uriStrlen = Text::length($this->uri);
-
 		$this->whereAmI = 'home';
-
 		$this->notFound = false;
-
 		$this->slug = '';
-
 		$this->filters = array();
-
 		$this->activeFilter = '';
 	}
 
@@ -40,7 +33,7 @@ class Url
 	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
 	public function checkFilters($filters)
 	{
-		// Get the admin filter
+		// Store the admin filter and remove
 		$adminFilter['admin'] = $filters['admin'];
 		unset($filters['admin']);
 
@@ -51,34 +44,25 @@ class Url
 		$filters = $adminFilter + $filters;
 		$this->filters = $filters;
 
-		foreach($filters as $filterName=>$filterURI)
-		{
-			// $slug will be FALSE if the filter is not included in the URI.
+		foreach($filters as $filterName=>$filterURI) {
+
+			// $slug will be FALSE if the filter is not included in the URI
 			$slug = $this->getSlugAfterFilter($filterURI);
 
-			if($slug!==false)
-			{
+			if($slug!==false) {
 				$this->slug 	= $slug;
 				$this->whereAmI = $filterName;
 				$this->activeFilter = $filterURI;
 
 				// If the slug is empty
-				if(Text::isEmpty($slug))
-				{
-					if($filterURI==='/')
-					{
+				if( Text::isEmpty($slug) ) {
+
+					if($filterURI==='/') {
 						$this->whereAmI = 'home';
 						break;
 					}
 
-					if($filterURI===$filters['blog'])
-					{
-						$this->whereAmI = 'blog';
-						break;
-					}
-
-					if($filterURI===$adminFilter['admin'])
-					{
+					if($filterURI===$adminFilter['admin']) {
 						$this->whereAmI = 'admin';
 						$this->slug = 'dashboard';
 						break;
@@ -124,7 +108,7 @@ class Url
 		return $filter;
 	}
 
-	// Return: home, tag, post
+	// Returns where is the user, home, pages, categories, tags..
 	public function whereAmI()
 	{
 		return $this->whereAmI;
@@ -148,7 +132,7 @@ class Url
 		return 0;
 	}
 
-	public function setNotFound($error = true)
+	public function setNotFound($error=true)
 	{
 		$this->notFound = $error;
 	}
