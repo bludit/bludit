@@ -44,13 +44,13 @@ function updateBludit()
 
 			$date = Date::format($page['date'], 'Y-m-d H:i', DB_DATE_FORMAT);
 			if($date !== false) {
-				$dbPages->setPageDb($key, 'date', $date);
+				$dbPages->setField($key, 'date', $date);
 			}
 
 			// Checksum
 			if( empty($post['md5file']) ) {
 				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
-				$dbPages->setPageDb($key, 'md5file', $checksum);
+				$dbPages->setField($key, 'md5file', $checksum);
 			}
 		}
 

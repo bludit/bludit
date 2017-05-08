@@ -50,6 +50,9 @@ define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
 
 define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');
 
+// PAGES DATABASE
+define('DB_PAGES', PATH_DATABASES.'pages.php');
+
 // Log separator
 define('LOG_SEP', ' | ');
 

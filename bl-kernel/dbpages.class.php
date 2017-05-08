@@ -10,78 +10,77 @@ class dbPages extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'status'=>		array('inFile'=>false,	'value'=>'draft'),
+		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
 		'coverImage'=>		array('inFile'=>false,	'value'=>''),
 		'category'=>		array('inFile'=>false,	'value'=>''),
-		'uuid'=>		array('inFile'=>false,	'value'=>'')
+		'md5file'=>		array('inFile'=>false,	'value'=>''),
+		'uuid'=>		array('inFile'=>false,	'value'=>''),
+		'allowComments'=>	array('inFile'=>false,	'value'=>false)
 	);
 
 	function __construct()
 	{
-		parent::__construct(PATH_DATABASES.'pages.php');
+		parent::__construct(DB_PAGES);
 	}
 
+	// Create a new page
 	public function add($args)
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
 
-		$key = $this->generateKey($args['slug'], $args['parent']);
-
-		// Generate UUID
-		$args['uuid'] = md5(time().DOMAIN);
-
-		// The user is always the one loggued.
+		// The user is always the one loggued
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
-		// Current date.
+		// Generate key
+		$key = $this->generateKey($args['slug'], $args['parent']);
+
+		// Generate UUID
+		$args['uuid'] = md5( uniqid() );
+
+		// Get current date
 		$args['date'] = Date::current(DB_DATE_FORMAT);
 
-		// Verify arguments with the database fields.
-		foreach($this->dbFields as $field=>$options)
-		{
-			if( isset($args[$field]) )
-			{
+		foreach($this->dbFields as $field=>$options) {
+			if( isset($args[$field]) ) {
 				if($field=='tags') {
-					$tmpValue = $this->generateTags($args['tags']);
+					$value = $this->generateTags($args['tags']);
 				}
 				else {
-					// Sanitize if will be saved on database.
 					if( !$options['inFile'] ) {
-						$tmpValue = Sanitize::html($args[$field]);
+						// Sanitize if will be stored on database
+						$value = Sanitize::html($args[$field]);
 					}
 					else {
-						$tmpValue = $args[$field];
+						$value = $args[$field];
 					}
 				}
 			}
-			// Default value for the field.
-			else
-			{
-				$tmpValue = $options['value'];
+			else {
+				// Default value for the field
+				$value = $options['value'];
 			}
 
-			// Check where the field will be written, in file or database.
+			// Where the data is stored
 			if($options['inFile']) {
-				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
+				$dataForFile[$field] = Text::firstCharUp($field).': '.$value;
 			}
-			else
-			{
+			else {
 				// Set type
-				settype($tmpValue, gettype($options['value']));
+				settype($value, gettype($options['value']));
 
 				// Save on database
-				$dataForDb[$field] = $tmpValue;
+				$dataForDb[$field] = $value;
 			}
 		}
 
-		// Make the directory. Recursive.
+		// Create the directory
 		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
 			return false;
@@ -90,7 +89,7 @@ class dbPages extends dbJSON
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
 		if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 			return false;
 		}
 
@@ -109,15 +108,15 @@ class dbPages extends dbJSON
 		$dataForDb = array();
 		$dataForFile = array();
 
-		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
-
-		// The user is always the one loggued.
+		// The user is always the one loggued
 		$args['username'] = Session::get('username');
 		if( Text::isEmpty($args['username']) ) {
 			return false;
 		}
 
-		// If the page is draft then the time created is now.
+		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
+
+		// If the page is draft then the time created is now
 		if( $this->db[$args['key']]['status']=='draft' ) {
 			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
@@ -125,50 +124,47 @@ class dbPages extends dbJSON
 			$args['date'] = $this->db[$args['key']]['date'];
 		}
 
+		// Current UUID
+		$args['uuid'] = $this->db[$args['key']]['uuid'];
+
 		// Modified date
 		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
 
-		// Verify arguments with the database fields.
-		foreach($this->dbFields as $field=>$options)
-		{
-			if( isset($args[$field]) )
-			{
+		foreach($this->dbFields as $field=>$options) {
+			if( isset($args[$field]) ) {
 				if($field=='tags') {
-					$tmpValue = $this->generateTags($args['tags']);
+					$value = $this->generateTags($args['tags']);
 				}
 				else {
-					// Sanitize if will be saved on database.
 					if( !$options['inFile'] ) {
-						$tmpValue = Sanitize::html($args[$field]);
+						// Sanitize if will be stored on database
+						$value = Sanitize::html($args[$field]);
 					}
 					else {
-						$tmpValue = $args[$field];
+						// Default value for the field
+						$value = $args[$field];
 					}
 				}
 			}
-			// Default value for the field.
-			else
-			{
-				$tmpValue = $options['value'];
+			else {
+				$value = $options['value'];
 			}
 
-			// Check where the field will be written, if in the file or in the database.
+			// Where the data is stored
 			if($options['inFile']) {
-				$dataForFile[$field] = Text::firstCharUp($field).': '.$tmpValue;
+				$dataForFile[$field] = Text::firstCharUp($field).': '.$value;
 			}
-			else
-			{
+			else {
 				// Set type
-				settype($tmpValue, gettype($options['value']));
+				settype($value, gettype($options['value']));
 
 				// Save on database
-				$dataForDb[$field] = $tmpValue;
+				$dataForDb[$field] = $value;
 			}
 		}
 
 		// Move the directory from old key to new key.
-		if($newKey!==$args['key'])
-		{
+		if($newKey!==$args['key']) {
 			if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
@@ -178,12 +174,12 @@ class dbPages extends dbJSON
 		// Make the index.txt and save the file.
 		$data = implode("\n", $dataForFile);
 		if( file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file index.txt');
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 			return false;
 		}
 
-		// Remove the old key.
-		unset($this->db[$args['key']]);
+		// Remove the old key
+		unset( $this->db[$args['key']] );
 
 		// Save the database
 		$this->db[$newKey] = $dataForDb;
@@ -197,22 +193,22 @@ class dbPages extends dbJSON
 
 	public function delete($key)
 	{
-		// Page doesn't exist in database.
+		// Page doesn't exist in database
 		if(!$this->pageExists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
 		}
 
-		// Delete the index.txt file.
+		// Delete the index.txt file
 		if( Filesystem::rmfile(PATH_PAGES.$key.DS.FILENAME) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file index.txt');
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file '.FILENAME);
 		}
 
-		// Delete the directory.
+		// Delete the directory
 		if( Filesystem::rmdir(PATH_PAGES.$key) === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
 		}
 
-		// Remove from database.
+		// Remove from database
 		unset($this->db[$key]);
 
 		// Save the database.
@@ -226,16 +222,18 @@ class dbPages extends dbJSON
 	// Return an array with the database for a page, FALSE otherwise.
 	public function getPageDB($key)
 	{
-		if($this->pageExists($key)) {
+		if( $this->pageExists($key) ) {
 			return $this->db[$key];
 		}
 
 		return false;
 	}
 
-	public function setPageDb($key, $field, $value)
+	// Set a field of the database
+	public function setField($key, $field, $value)
 	{
-		if($this->pageExists($key)) {
+		if( $this->pageExists($key) ) {
+			settype($value, gettype($this->dbFields[$key]['value']));
 			$this->db[$key][$field] = $value;
 		}
 
@@ -255,7 +253,7 @@ class dbPages extends dbJSON
 
 	public function parentKeyExists($key)
 	{
-		return isset($this->parentKeyList[$key]);
+		return isset( $this->parentKeyList[$key] );
 	}
 
 	public function addParentKey($key)
