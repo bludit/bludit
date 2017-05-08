@@ -353,6 +353,39 @@ class dbPages extends dbJSON
 		return $count - 1;
 	}
 
+	// Return TRUE if there are new pages published, FALSE otherwise.
+	public function scheduler()
+	{
+		// Get current date
+		$currentDate = Date::current(DB_DATE_FORMAT);
+		$saveDatabase = false;
+
+		foreach($this->db as $postKey=>$values) {
+			if($values['status']=='scheduled') {
+				if($values['date']<=$currentDate) {
+					$this->db[$postKey]['status'] = 'published';
+					$saveDatabase = true;
+				}
+			}
+			elseif($values['status']=='published') {
+				break;
+			}
+		}
+
+		if($saveDatabase) {
+			if( $this->save() === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+				return false;
+			}
+
+			Log::set(__METHOD__.LOG_SEP.'New posts published from the scheduler.');
+			return true;
+		}
+
+		return false;
+	}
+
+// --- OLD
 	public function cliMode()
 	{
 		// LOG
