@@ -111,5 +111,5 @@ $_User = $dbUsers->getUser($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_User===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page($adminfolder, 'users');
 }

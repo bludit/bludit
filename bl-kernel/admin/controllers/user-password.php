@@ -36,11 +36,10 @@ function setPassword($username, $new_password, $confirm_password)
 // ============================================================================
 // Main before POST
 // ============================================================================
-
+ 
 // ============================================================================
 // POST Method
 // ============================================================================
-
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	// Prevent editors to administrate other users.
@@ -51,7 +50,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 
 	if( setPassword($_POST['username'], $_POST['new_password'], $_POST['confirm_password']) ) {
-		Redirect::page('admin', 'users');
+		Redirect::page($adminfolder, 'users');
 	}
 }
 
@@ -67,7 +66,7 @@ $_user = $dbUsers->getDb($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_user===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page($adminfolder, 'users');
 }
 
 $_user['username'] = $layout['parameters'];

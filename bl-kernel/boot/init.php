@@ -43,7 +43,15 @@ define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
 
-define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
+/*  Kimberly Keown suggested revision: 
+Add variable that allows User to rename bl-kernel/admin folder. 
+User can then define variable in bl-kernel/boot/init.php and change the foldername itself to effect the rename. */
+
+// Define Admin folder variable.
+$adminfolder = 'admin';
+
+// Replace Admin string with folder variable.
+define('PATH_ADMIN',			PATH_KERNEL.$adminfolder.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
 define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
@@ -225,8 +233,9 @@ define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
 
-define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
-define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$Site->adminTheme().'/');
+// Replace Admin strings with folder variable.
+define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.$adminfolder.'/');
+define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/'.$adminfolder.'/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
 define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');

@@ -13,7 +13,8 @@ function checkPost($args)
 	global $Security;
 	global $Login;
 	global $Language;
-
+	global $adminfolder;
+	
 	if($Security->isBlocked()) {
 		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
 		return false;
@@ -25,7 +26,7 @@ function checkPost($args)
 		// Renew the token. This token will be the same inside the session for multiple forms.
 		$Security->generateTokenCSRF();
 
-		Redirect::page('admin', 'dashboard');
+		Redirect::page($adminfolder, 'dashboard');
 		return true;
 	}
 

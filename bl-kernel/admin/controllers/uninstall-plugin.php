@@ -6,7 +6,7 @@
 
 if($Login->role()!=='admin') {
 	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+	Redirect::page($adminfolder, 'dashboard');
 }
 
 // ============================================================================
@@ -29,4 +29,4 @@ $pluginClassName = $layout['parameters'];
 $Plugin = new $pluginClassName;
 $Plugin->uninstall();
 
-Redirect::page('admin', 'plugins');
+Redirect::page($adminfolder, 'plugins');

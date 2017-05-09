@@ -11,7 +11,8 @@ function addPost($args)
 {
 	global $dbPosts;
 	global $Language;
-
+	global $adminfolder;
+	
 	// Add the page, if the $key is FALSE the creation of the post failure.
 	$key = $dbPosts->add($args);
 
@@ -27,7 +28,7 @@ function addPost($args)
 
 		// Alert for the user
 		Alert::set($Language->g('Post added successfully'));
-		Redirect::page('admin', 'manage-posts');
+		Redirect::page($adminfolder, 'manage-posts');
 	}
 	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the post.');

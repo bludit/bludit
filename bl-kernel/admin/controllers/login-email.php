@@ -14,7 +14,8 @@ function checkPost($args)
 	global $Language;
 	global $dbUsers;
 	global $Site;
-
+	global $adminfolder;
+	
 	if($Security->isBlocked()) {
 		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
 		return false;
@@ -33,7 +34,7 @@ function checkPost($args)
 			$token = $dbUsers->generateTokenEmail($username);
 
 			// ---- EMAIL ----
-			$link = $Site->url().'admin/login-email?tokenEmail='.$token.'&username='.$username;
+			$link = $Site->url().$adminfolder.'/login-email?tokenEmail='.$token.'&username='.$username;
 			$subject = $Language->g('BLUDIT Login access code');
 			$message = Text::replaceAssoc(
 					array(
@@ -74,6 +75,7 @@ function checkGet($args)
 	global $Security;
 	global $Language;
 	global $Login;
+	global $adminfolder;
 
 	if($Security->isBlocked()) {
 		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
@@ -86,7 +88,7 @@ function checkGet($args)
 		// Renew the tokenCRFS. This token will be the same inside the session for multiple forms.
 		$Security->generateTokenCSRF();
 
-		Redirect::page('admin', 'dashboard');
+		Redirect::page($adminfolder, 'dashboard');
 		return true;
 	}
 
