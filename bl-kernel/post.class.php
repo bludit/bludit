@@ -19,10 +19,6 @@ class Post extends Content {
 		return $this->getField('key');
 	}
 
-	// Returns TRUE if the post is scheduled, FALSE otherwise.
-	public function scheduled()
-	{
-		return ($this->getField('status')==='scheduled');
-	}
+
 
 }
