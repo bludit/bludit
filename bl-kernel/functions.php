@@ -52,7 +52,6 @@ function buildPage($key)
 	return $page;
 }
 
-
 function reindexCategories()
 {
 	global $dbPages;
@@ -81,26 +80,52 @@ function reindexTags()
 	return true;
 }
 
-function buildPagesForAdmin($pageNumber)
+function buildPagesForAdmin()
 {
-	return buildPagesFor('admin', $pageNumber);
+	return buildPagesFor('admin');
 }
 
-function buildPagesForHome($pageNumber)
+function buildPagesForHome()
 {
-	return buildPagesFor('home', $pageNumber);
+	return buildPagesFor('home');
 }
 
-function buildPagesFor($for, $pageNumber)
+function buildPagesByCategory($categoryKey)
+{
+	return buildPagesFor('category', $categoryKey, false);
+}
+
+function buildPagesByTag($tagKey)
+{
+	return buildPagesFor('tag', false, $tagKey);
+}
+
+function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 {
 	global $dbPages;
+	global $dbCategories;
 	global $Site;
 
+	// Get the page number from URL
+	$pageNumber = $Url->pageNumber();
+
 	if($for=='admin') {
-		$list = $dbPages->getList($pageNumber, ITEMS_PER_PAGE_ADMIN, false);
+		$onlyPublished = false;
+		$amountOfItems = ITEMS_PER_PAGE_ADMIN;
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 	}
 	elseif($for=='home') {
-		$list = $dbPages->getList($pageNumber, $Site->postsPerPage(), true);
+		$onlyPublished = true;
+		$amountOfItems = $Site->postsPerPage();
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+	}
+	elseif($for=='category') {
+		$amountOfItems = $Site->postsPerPage();
+		$list = $dbCategories->getList($categoryKey, $pageNumber, $amountOfItems);
+	}
+	elseif($for=='tag') {
+		$amountOfItems = $Site->postsPerPage();
+		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
 
 	// There are not items for the page number then set the page notfound

@@ -7,12 +7,10 @@ Database structure
 {
 	"videos": {
 		"name": "Videos",
-		"posts": [ "first-post", "bull-terrier" ],
 		"pages": [ "my-page", "second-page" ]
 	},
 	"pets": {
 		"name": "Pets",
-		"posts": [ "second-post", "bull-terrier" ],
 		"pages": [ "cats-and-dogs" ]
 	}
 }
