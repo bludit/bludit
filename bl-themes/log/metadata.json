@@ -2,9 +2,9 @@
 	"author": "n33co",
 	"email": "",
 	"website": "http://html5up.net",
-	"version": "1.4",
+	"version": "1.6",
 	"releaseDate": "2016-05-20",
 	"license": "CCA 3.0",
-	"compatible": "1.5.2",
+	"compatible": "1.5.2,1.6",
 	"notes": ""
 }
