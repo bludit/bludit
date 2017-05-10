@@ -7,147 +7,119 @@ function buildPage($key)
 	global $Parsedown;
 	global $Site;
 
-	// Page object, content from FILE
-	$Page = new Page($key);
-	if( !$Page->isValid() ) {
+	// Page object, content from index.txt file
+	$page = new Page($key);
+	if( !$page->isValid() ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
 		return false;
 	}
 
-	// Page database, content from DATABASE JSON.
+	// Get the database from dbPages
 	$db = $dbPages->getPageDB($key);
 	if( !$db ) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
 		return false;
 	}
 
-	// Foreach field from DATABASE.
+	// Foreach field from database set on the object
 	foreach($db as $field=>$value) {
-		$Page->setField($field, $value);
+		$page->setField($field, $value);
 	}
 
-	// Content in raw format
-	$contentRaw = $Page->content();
-	$Page->setField('contentRaw', $Page->content(), true);
-
-	// Parse markdown content.
+	// Parse Markdown
+	$contentRaw = $page->contentRaw();
 	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
-	$content = $Parsedown->text($content); // Parse Markdown.
+	$content = $Parsedown->text($content); // Parse Markdown
 	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
-	$Page->setField('content', $content, true);
+	$page->setField('content', $content, true);
 
 	// Pagebrake
 	$explode = explode(PAGE_BREAK, $content);
-	$Page->setField('breakContent', $explode[0], true);
-	$Page->setField('readMore', !empty($explode[1]), true);
+	$page->setField('contentBreak', $explode[0], true);
+	$page->setField('readMore', !empty($explode[1]), true);
 
 	// Date format
-	$pageDate = $Page->date();
-	$Page->setField('dateRaw', $pageDate, true);
+	$pageDate = $page->date();
+	$page->setField('dateRaw', $pageDate, true);
 
-	$pageDateFormated = $Page->dateRaw( $Site->dateFormat() );
-	$Page->setField('date', $pageDateFormated, true);
+	$pageDateFormated = $page->dateRaw( $Site->dateFormat() );
+	$page->setField('date', $pageDateFormated, true);
 
-	// User object
-	$username = $Page->username();
-	$Page->setField('user', $dbUsers->getUser($username));
+	// Generate and set the User object
+	$username = $page->username();
+	$page->setField('user', $dbUsers->getUser($username));
 
-	return $Page;
+	return $page;
+}
+
+
+function reindexCategories()
+{
+	global $dbPages;
+	global $dbCategories;
+
+	// Get a database with published pages
+	$db = $dbPages->getPublishedDB();
+
+	// Regenerate the tags
+	$dbCategories->reindex($db);
+
+	return true;
+}
+
+function reindexTags()
+{
+	global $dbPages;
+	global $dbCategories;
+
+	// Get a database with published pages
+	$db = $dbPages->getPublishedDB();
+
+	// Regenerate the tags
+	$dbTags->reindex($db);
+
+	return true;
+}
+
+function buildPagesForAdmin($pageNumber)
+{
+	return buildPagesFor('admin', $pageNumber);
+}
+
+function buildPagesForHome($pageNumber)
+{
+	return buildPagesFor('home', $pageNumber);
+}
+
+function buildPagesFor($for, $pageNumber)
+{
+	global $dbPages;
+	global $Site;
+
+	if($for=='admin') {
+		$list = $dbPages->getList($pageNumber, ITEMS_PER_PAGE_ADMIN, false);
+	}
+	elseif($for=='home') {
+		$list = $dbPages->getList($pageNumber, $Site->postsPerPage(), true);
+	}
+
+	// There are not items for the page number then set the page notfound
+	if( empty($list) && $pageNumber>0 ) {
+		$Url->setNotFound(true);
+	}
+
+	$pages = array();
+	foreach($list as $pageKey=>$fields) {
+		$page = buildPage($pageKey);
+		if($page!==false) {
+			array_push($pages, $page);
+		}
+	}
+	return $pages;
 }
 
 // ---- OLD
 
-// POST FUNCTIONS
-// ----------------------------------------------------------------------------
-
-function reIndexTagsPosts()
-{
-	global $dbPosts;
-	global $dbTags;
-
-	// Remove unpublished.
-	$dbPosts->removeUnpublished();
-
-	// Regenerate the tags index for posts.
-	$dbTags->reindexPosts( $dbPosts->db );
-
-	// Restore the database, before remove the unpublished.
-	$dbPosts->restoreDB();
-
-	return true;
-}
-
-function reIndexCategoriesPosts()
-{
-	global $dbPosts;
-	global $dbCategories;
-
-	// Remove unpublished.
-	$dbPosts->removeUnpublished();
-
-	// Regenerate the tags index for posts.
-	$dbCategories->reindexPosts( $dbPosts->db );
-
-	// Restore the database, before remove the unpublished.
-	$dbPosts->restoreDB();
-
-	return true;
-}
-
-function buildPost($key)
-{
-	global $dbPosts;
-	global $dbUsers;
-	global $Parsedown;
-	global $Site;
-
-	// Post object, content from FILE.
-	$Post = new Post($key);
-	if( !$Post->isValid() ) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from file with key: '.$key);
-		return false;
-	}
-
-	// Post database, content from DATABASE JSON.
-	$db = $dbPosts->getPostDB($key);
-	if( !$db ) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the post from database with key: '.$key);
-		return false;
-	}
-
-	// Foreach field from DATABASE.
-	foreach($db as $field=>$value) {
-		$Post->setField($field, $value);
-	}
-
-	// Content in raw format
-	$contentRaw = $Post->content();
-	$Post->setField('contentRaw', $contentRaw, true);
-
-	// Parse the content
-	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
-	$content = $Parsedown->text($content); // Parse Markdown.
-	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
-	$Post->setField('content', $content, true);
-
-	// Pagebrake
-	$explode = explode(PAGE_BREAK, $content);
-	$Post->setField('breakContent', $explode[0], true);
-	$Post->setField('readMore', !empty($explode[1]), true);
-
-	// Date format
-	$postDate = $Post->date();
-	$Post->setField('dateRaw', $postDate, true);
-
-	$postDateFormated = $Post->dateRaw( $Site->dateFormat() );
-	$Post->setField('date', $postDateFormated, true);
-
-	// User object
-	$username = $Post->username();
-	$Post->setField('user', $dbUsers->getUser($username));
-
-	return $Post;
-}
 
 function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key=false, $type='tag')
 {
@@ -198,19 +170,6 @@ function sortPages($a, $b)
 
 	return ($a['position'] < $b['position']) ? -1 : 1;
 }
-
-function reIndexCategoriesPages()
-{
-	global $dbPages;
-	global $dbCategories;
-
-	// Regenerate the tags index for posts.
-	$dbCategories->reindexPages( $dbPages->db );;
-
-	return true;
-}
-
-
 
 function buildAllPages()
 {

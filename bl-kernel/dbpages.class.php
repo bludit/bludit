@@ -219,6 +219,18 @@ class dbPages extends dbJSON
 		return true;
 	}
 
+	// Returns a database with published pages
+	public function getPublishedDB()
+	{
+		$tmp = $this->db;
+		foreach($tmp as $key=>$fields) {
+			if($fields['status']!='published') {
+				unset($tmp[$key]);
+			}
+		}
+		return $tmp;
+	}
+
 	// Return an array with the database for a page, FALSE otherwise.
 	public function getPageDB($key)
 	{
@@ -228,6 +240,45 @@ class dbPages extends dbJSON
 
 		return false;
 	}
+
+	// Returns an array with a list of pages
+	// (int) $pageNumber, the page number
+	// (int) $amountOfItems, amount of items to return
+	// (boolean) $onlyPublished, TRUE to return only published pages
+	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
+	{
+		$db = $this->db;
+
+		if( $onlyPublished ) {
+			$db = $this->getPublishedDB();
+		}
+
+		$total = count($db);
+		$init = (int) $amountOfItems * $pageNumber;
+		$end  = (int) min( ($init + $amountOfItems - 1), $total );
+		$outrange = $init<0 ? true : $init>$end;
+
+		if(!$outrange) {
+			return array_slice($db, $init, $amountOfItems, true);
+		}
+
+		return array();
+	}
+
+	// Returns the amount of pages
+	// (boolean) $total, TRUE returns the total of pages
+	// (boolean) $total, FALSE returns the total of published pages (without draft and scheduled)
+	public function numberPages($onlyPublished=true)
+	{
+		if( $onlyPublished ) {
+			$db = $this->getPublishedDB();
+			return count($db);
+		}
+
+		return count($this->db);
+	}
+
+// ----- OLD
 
 	// Set a field of the database
 	public function setField($key, $field, $value)

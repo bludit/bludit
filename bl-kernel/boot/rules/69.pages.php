@@ -42,16 +42,18 @@ if( $Url->whereAmI()==='page' ) {
 	}
 }
 elseif( $Url->whereAmI()==='tag' ) {
-        $pages = buildPagesByTag( $Url->slug() );
+        $tagKey = $Url->slug();
+	$pages = buildPagesByTag($tagKey);
 }
 elseif( $Url->whereAmI()==='category' ) {
-        $pages = buildPagesByCategory( $Url->slug() );
+	$categoryKey = $Url->slug();
+        $pages = buildPagesByCategory($categoryKey);
 }
 elseif( $Url->whereAmI()==='home' ) {
-        $pages = buildPagesForHome( $Url->slug() );
+        $pages = buildPagesForHome();
 }
 elseif( $Url->whereAmI()==='admin' ) {
-        $pages = buildPagesForAdmin( $Url->slug() );
+        $pages = buildPagesForAdmin();
 }
 
 if( $Url->notFound() ) {

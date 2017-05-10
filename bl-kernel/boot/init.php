@@ -99,8 +99,8 @@ define('PAGE_BREAK', '<!-- pagebreak -->');
 // No parent character, md5('No parent')
 define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 
-// Post per page on Manage->Posts
-define('POSTS_PER_PAGE_ADMIN', 10);
+// Items per page for admin area
+define('ITEMS_PER_PAGE_ADMIN', 10);
 
 // Enable or disable Cli mode
 define('CLI_MODE', FALSE);

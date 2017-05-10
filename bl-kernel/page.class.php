@@ -56,7 +56,7 @@ class Page {
 			}
 
 			$implode = implode($output);
-			$this->vars['content'] = $implode;
+			$this->vars['contentRaw'] = $implode;
 		}
 	}
 
@@ -96,7 +96,7 @@ class Page {
 		$content = $this->getField('content');
 
 		if(!$fullContent) {
-			$content = $this->getField('breakContent');
+			return $this->contentBreak();
 		}
 
 		if($noSanitize) {
@@ -104,6 +104,11 @@ class Page {
 		}
 
 		return Sanitize::html($content);
+	}
+
+	public function contentBreak()
+	{
+		return $this->getField('contentBreak');
 	}
 
 	// Returns the raw content
