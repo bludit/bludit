@@ -103,7 +103,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	HTML::tags(array(
 		'name'=>'tags',
 		'label'=>'',
-		'allTags'=>$dbTags->getAll(),
+		'allTags'=>$dbTags->getKeyNameArray(),
 		'selectedTags'=>array()
 	));
 

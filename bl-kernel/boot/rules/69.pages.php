@@ -40,14 +40,15 @@ if( $Url->whereAmI()==='page' ) {
 	elseif( !$page->published() ) {
 		$Url->setNotFound(true);
 	}
+	else {
+		$pages[0] = $page;
+	}
 }
 elseif( $Url->whereAmI()==='tag' ) {
-        $tagKey = $Url->slug();
-	$pages = buildPagesByTag($tagKey);
+	$pages = buildPagesByTag();
 }
 elseif( $Url->whereAmI()==='category' ) {
-	$categoryKey = $Url->slug();
-        $pages = buildPagesByCategory($categoryKey);
+        $pages = buildPagesByCategory();
 }
 elseif( $Url->whereAmI()==='home' ) {
         $pages = buildPagesForHome();

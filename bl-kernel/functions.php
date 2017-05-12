@@ -90,13 +90,19 @@ function buildPagesForHome()
 	return buildPagesFor('home');
 }
 
-function buildPagesByCategory($categoryKey)
+function buildPagesByCategory()
 {
+	global $Url;
+
+	$categoryKey = $Url->slug();
 	return buildPagesFor('category', $categoryKey, false);
 }
 
-function buildPagesByTag($tagKey)
+function buildPagesByTag()
 {
+	global $Url;
+
+	$tagKey = $Url->slug();
 	return buildPagesFor('tag', false, $tagKey);
 }
 
@@ -140,125 +146,5 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 			array_push($pages, $page);
 		}
 	}
-	return $pages;
-}
-
-// ---- OLD
-
-
-function buildPostsForPage($pageNumber=0, $amount=POSTS_PER_PAGE_ADMIN, $removeUnpublished=true, $key=false, $type='tag')
-{
-	global $dbPosts;
-	global $dbTags;
-	global $dbCategories;
-	global $Url;
-
-	$posts = array();
-
-	if( $type=='tag' && $key ) {
-		// Get the keys list from tags database, this database is optimized for this case.
-		$list = $dbTags->getList($pageNumber, $amount, $key);
-	}
-	elseif( $type=='category' && $key ) {
-		$list = $dbCategories->getListOfPosts($pageNumber, $amount, $key);
-	}
-	else {
-		// Get the keys list from posts database.
-		$list = $dbPosts->getList($pageNumber, $amount, $removeUnpublished);
-	}
-
-	// There are not posts for the page number then set the page notfound
-	if(empty($list) && $pageNumber>0) {
-		$Url->setNotFound(true);
-	}
-
-	// Foreach post key, build the post.
-	foreach($list as $postKey=>$values)
-	{
-		$Post = buildPost($postKey);
-		if($Post!==false) {
-			array_push($posts, $Post);
-		}
-	}
-
-	return $posts;
-}
-
-// PAGE FUNCTIONS
-// ----------------------------------------------------------------------------
-
-function sortPages($a, $b)
-{
-	if ($a['position'] == $b['position']) {
-	    return 0;
-	}
-
-	return ($a['position'] < $b['position']) ? -1 : 1;
-}
-
-function buildAllPages()
-{
-	global $pagesParents;
-	global $pagesParentsPublished;
-	global $pagesPublished;
-	global $dbPages;
-	global $parents;
-
-	// Get the page list
-	$list = $dbPages->getDB();
-
-	// Clean pages array.
-	$pages = array();
-
-	// Remove the error page
-	unset($list['error']);
-
-	// Sorte pages
-	uasort($list, 'sortPages');
-
-	foreach($list as $key=>$db)
-	{
-		$Page = buildPage($key);
-
-		if($Page!==false)
-		{
-			// Filter pages, with and without parent
-
-			// If the page doesn't have a father, it's a parent page :P
-			if( $Page->parentKey()===false ) {
-				// Add the parent key in the dbPages
-				$dbPages->addParentKey($Page->key());
-
-				// Add the page as a parent page in the array
-				$pagesParents[NO_PARENT_CHAR][$Page->key()] = $Page;
-
-				// If the page is published
-				if($Page->published()) {
-					$pagesParentsPublished[NO_PARENT_CHAR][$Page->key()] = $Page;
-				}
-			}
-			else {
-				$pagesParents[$Page->parentKey()][$Page->key()] = $Page;
-
-				// If the page is published
-				if($Page->published()) {
-					$pagesParentsPublished[$Page->parentKey()][$Page->key()] = $Page;
-				}
-			}
-
-			// All pages in one array
-			$pages[$Page->key()] = $Page;
-
-			// If the page is published
-			if($Page->published()) {
-				$pagesPublished[$Page->parentKey()][$Page->key()] = $Page;
-			}
-		}
-	}
-
-	if( isset($pagesParentsPublished[NO_PARENT_CHAR]) ) {
-		$parents = $pagesParentsPublished[NO_PARENT_CHAR];
-	}
-
 	return $pages;
 }

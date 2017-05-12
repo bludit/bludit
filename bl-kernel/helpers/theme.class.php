@@ -72,7 +72,7 @@ class Theme {
 				$tmp = $Page->title().' - '.$Site->title();
 			}
 			elseif( $Url->whereAmI()=='tag' ) {
-				$tag = $dbTags->getTag($Url->slug());
+				$tag = $dbTags->getName($Url->slug());
 				$tmp = $tag.' - '.$Site->title();
 			}
 			else {
