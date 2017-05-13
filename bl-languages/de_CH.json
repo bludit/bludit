@@ -244,5 +244,7 @@
 	"slug": "Slug",
 	"edit-category": "Kategorie bearbeiten",
 	"last-page": "Letzte Seite",
-	"first-page": "Erste Seite"
+	"first-page": "Erste Seite",
+	"this-plugin-may-not-be-supported-by-this-version-of-bludit": "Dieses Plugin kann möglicherweise mit der installierten Version von Bludit nicht verwendet werden.",
+        "this-theme-may-not-be-supported-by-this-version-of-bludit": "Dieses Theme kann möglicherweise mit der installierten Version von Bludit nicht verwendet werden."
 }
