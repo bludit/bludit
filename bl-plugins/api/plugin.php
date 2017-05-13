@@ -22,29 +22,11 @@ class pluginAPI extends Plugin {
 		$html = '';
 
 		$html .= '<div>';
-		$html .= '<p><b>Authorization Key:</b> '.$this->getDbField('token').'</p>';
+		$html .= '<p><b>Token:</b> '.$this->getDbField('token').'</p>';
 		$html .= '<div class="tip">This key is private, do not share it with anyone.</div>';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<p><b>Show all posts:</b> <a href="'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('token').'">'.DOMAIN_BASE.'api/show/all/posts/'.$this->getDbField('token').'</a></p>';
-		$html .= '<div class="tip">Get all posts from this site.</div>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<p><b>Show all pages:</b> <a href="'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('token').'">'.DOMAIN_BASE.'api/show/all/pages/'.$this->getDbField('token').'</a></p>';
-		$html .= '<div class="tip">Get all pages from this site.</div>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<p><b>Show post:</b> <a href="'.DOMAIN_BASE.'api/show/post/{POST-NAME}">'.DOMAIN_BASE.'api/show/post/{POST-NAME}</a></p>';
-		$html .= '<div class="tip">Get a particular post, change the {POST-NAME} with the post friendly url.</div>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<p><b>Show page:</b> <a href="'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}">'.DOMAIN_BASE.'api/show/page/{PAGE-NAME}</a></p>';
-		$html .= '<div class="tip">Get a particular page, change the {PAGE-NAME} with the page friendly url.</div>';
-		$html .= '</div>';
+		$html .= '<div>Check the documentation about the API <a href="https://docs.bludit.com/en/api/introduction">Bludit Docs API</a></div>';
 
 		return $html;
 	}

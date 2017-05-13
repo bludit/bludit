@@ -1,10 +1,10 @@
 {
 	"author": "Bludit",
 	"email": "",
-	"website": "https://plugins.bludit.com",
-	"version": "1.5.2",
-	"releaseDate": "2016-05-28",
+	"website": "https://docs.bludit.com/en/api/introduction",
+	"version": "1.6",
+	"releaseDate": "2017-05-10",
 	"license": "MIT",
-	"compatible": "1.5.2",
+	"compatible": "1.5.2,1.6",
 	"notes": ""
 }

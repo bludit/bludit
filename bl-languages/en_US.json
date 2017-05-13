@@ -3,7 +3,7 @@
 	{
 		"native": "English (United States)",
 		"english-name": "English",
-		"last-update": "2016-02-13",
+		"last-update": "2017-05-08",
 		"author": "Diego",
 		"email": "",
 		"website": ""
@@ -228,7 +228,6 @@
 
 	"click-here-to-cancel": "Click here to cancel.",
 	"type-the-tag-and-press-enter": "Type the tag and press enter.",
-	"add": "Add",
 	"manage-your-bludit-from-the-admin-panel": "Manage your Bludit from the [admin area]({{ADMIN_AREA_LINK}})",
 	"there-are-no-images":"There are no images",
 
@@ -252,11 +251,7 @@
 	"add-a-new-post": "Add a new post",
 
 	"save-as-draft": "Save as draft",
-	"categories": "Сategories",
-	"add-a-new-category": "Add a new category",
-	"new-category": "New category",
 	"slug": "slug",
-	"edit-category": "Edit category",
-	"last-page": "Last page",
-	"first-page": "First page"
+	"this-plugin-may-not-be-supported-by-this-version-of-bludit": "This plugin may not be supported by this version of Bludit",
+	"this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

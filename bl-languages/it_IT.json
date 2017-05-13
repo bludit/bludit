@@ -235,5 +235,27 @@
 	"delete-image": "Elimima immagine",
 	"image-description": "Descrizione dell'immagine",
 
-	"social-networks-links": "Social Networks"
+	"social-networks-links": "Social Networks",
+	"email-access-code": "Codice di Accesso",
+	"current-format": "Formato attuale",
+
+	"welcome": "Benvenuto",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "Per attivare l'utente devi impostare una nuova password."
+	"do-you-want-to-disable-the-user": "Vuoi disabilitare l'utente ?",
+	"сurrent-status" : "Stato",
+	"disable-the-user" : "Disabilita l'utente",
+	"add-a-new-page": "Crea una nuova pagina",
+	"add-a-new-post": "Crea un nuovo post",
+
+	"save-as-draft": "Salva come bozza",
+	"categories": "Categorie",
+	"add-a-new-category": "Aggiungi una nuova categoria",
+	"new-category": "Nuova categoria",
+	"slug": "slug",
+	"edit-category": "Modifica categoria",
+	"last-page": "Ultima pagina",
+	"first-page": "Prima pagina"
+	
+	
 }

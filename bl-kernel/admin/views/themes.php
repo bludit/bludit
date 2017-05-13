@@ -41,7 +41,7 @@ foreach($themes as $theme)
 	<td class="uk-text-center">';
 
 	if( !$theme['compatible'] ) {
-		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="This theme is incompatible with Bludit v'.BLUDIT_VERSION.'"></i>';
+		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This theme may not be supported by this version of Bludit').'"></i>';
 	}
 	echo $theme['version'].'</td>';
 
