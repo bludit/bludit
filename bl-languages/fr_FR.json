@@ -235,5 +235,22 @@
 	"delete-image": "Supprimer l’image",
 	"image-description": "Description de l’image",
 
-	"social-networks-links": "Liens vers les réseaux sociaux"
+	"social-networks-links": "Liens vers les réseaux sociaux",
+	
+	"email-access-code": "Email access code",
+	"current-format": "Current format",
+
+	"welcome": "Salutations",
+
+	"to-enable-the-user-you-have-to-set-a-new-password": "To enable the user you have to set a new password.",
+	"do-you-want-to-disable-the-user": "Do you want to disable the user ?",
+	"сurrent-status" : "Status",
+	"disable-the-user" : "Disable the user",
+	"add-a-new-page": "Ajouter une page",
+	"add-a-new-post": "Ajouter un article ",
+
+	"save-as-draft": "Enregistrer comme brouillon",
+	"slug": "slug",
+	"this-plugin-may-not-be-supported-by-this-version-of-bludit": "L’extensions ne peut pas utiliser peut-être avec la version installée de Bludit.",
+        "this-theme-may-not-be-supported-by-this-version-of-bludit": "Le thème ne peut pas utiliser peut-être avec la version installée de Bludit."
 }
