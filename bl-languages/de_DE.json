@@ -77,6 +77,7 @@
 	"modified-date": "Letzte Änderung",
 	"empty-title": "Kein Titel",
 	"plugins": "Plugins",
+	"plugin-sort": "Plugins Reihenfolge",
 	"install-plugin": "Plugin aktivieren",
 	"uninstall-plugin": "Plugin deaktivieren",
 	"new-password": "Neues Passwort",

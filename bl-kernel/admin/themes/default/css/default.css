@@ -701,3 +701,11 @@ div.plugin-links > span.separator {
 #jsformplugin p {
 	margin-bottom: 0;
 }
+
+/* ----------- PLUGIN SORT ----------- */
+
+.sortable .handle {
+  margin-right: 0.75em;
+  font-size: 1.3em;
+  cursor: grab;
+}

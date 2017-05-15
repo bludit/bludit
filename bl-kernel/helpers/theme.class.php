@@ -160,6 +160,10 @@ class Theme {
 	{
 		global $plugins;
 
+		if ($type != 'all' and count($plugins[$type]) > 0) {
+			sortPlugins($plugins[$type], $type);
+		}
+
 		foreach($plugins[$type] as $plugin)
 		{
 			echo call_user_func(array($plugin, $type));
