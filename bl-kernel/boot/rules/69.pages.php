@@ -13,6 +13,12 @@ $allPages = array();
 // Object Page for the page filtered bye the user
 $page = false;
 
+// Array with all page parents published
+//$pageParents = array();
+
+// Array with all published pages, the array is a key=>Page-object
+$pagesKey = array();
+
 // ============================================================================
 // Main
 // ============================================================================
@@ -45,16 +51,16 @@ if( $Url->whereAmI()==='page' ) {
 	}
 }
 elseif( $Url->whereAmI()==='tag' ) {
-	$pages = buildPagesByTag();
+	buildPagesByTag();
 }
 elseif( $Url->whereAmI()==='category' ) {
-        $pages = buildPagesByCategory();
+        buildPagesByCategory();
 }
 elseif( $Url->whereAmI()==='home' ) {
-        $pages = buildPagesForHome();
+        buildPagesForHome();
 }
 elseif( $Url->whereAmI()==='admin' ) {
-        $pages = buildPagesForAdmin();
+        buildPagesForAdmin();
 }
 
 if( $Url->notFound() ) {

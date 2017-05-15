@@ -111,6 +111,9 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	global $dbPages;
 	global $dbCategories;
 	global $Site;
+	global $Url;
+	global $pagesKey;
+	global $pages;
 
 	// Get the page number from URL
 	$pageNumber = $Url->pageNumber();
@@ -122,15 +125,15 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	}
 	elseif($for=='home') {
 		$onlyPublished = true;
-		$amountOfItems = $Site->postsPerPage();
+		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 	}
 	elseif($for=='category') {
-		$amountOfItems = $Site->postsPerPage();
+		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbCategories->getList($categoryKey, $pageNumber, $amountOfItems);
 	}
 	elseif($for=='tag') {
-		$amountOfItems = $Site->postsPerPage();
+		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
 
@@ -139,10 +142,14 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 		$Url->setNotFound(true);
 	}
 
-	$pages = array();
+	$pages = array(); // global variable
+	$pagesKey = array(); // global variable
 	foreach($list as $pageKey=>$fields) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
+			// $pagesKey
+			$pagesKey[$pageKey] = $page;
+			// $pages
 			array_push($pages, $page);
 		}
 	}

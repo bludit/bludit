@@ -67,9 +67,9 @@ function buildThemes()
 // ============================================================================
 
 // Load the language file
-$languageFilename = PATH_THEME.'languages'.DS.$Site->locale().'.json';
+$languageFilename = THEME_DIR.'languages'.DS.$Site->locale().'.json';
 if( !Sanitize::pathFile($languageFilename) ) {
-	$languageFilename = PATH_THEME.'languages'.DS.'en_US.json';
+	$languageFilename = THEME_DIR.'languages'.DS.'en_US.json';
 }
 
 if( Sanitize::pathFile($languageFilename) )

@@ -44,8 +44,18 @@ class dbPages extends dbJSON
 		// Generate UUID
 		$args['uuid'] = md5( uniqid() );
 
-		// Get current date
-		$args['date'] = Date::current(DB_DATE_FORMAT);
+		// Date
+		$currentDate = Date::current(DB_DATE_FORMAT);
+
+		// Validate date
+		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
+			$args['date'] = $currentDate;
+		}
+
+		// Schedule page
+		if( ($args['date']>$currentDate) && ($args['status']=='published') ) {
+			$args['status'] = 'scheduled';
+		}
 
 		foreach($this->dbFields as $field=>$options) {
 			if( isset($args[$field]) ) {
@@ -93,8 +103,13 @@ class dbPages extends dbJSON
 			return false;
 		}
 
-		// Save the database
+		// Insert in database
 		$this->db[$key] = $dataForDb;
+
+		// Sort database
+		$this->sortByDate();
+
+		// Save database
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
@@ -181,8 +196,13 @@ class dbPages extends dbJSON
 		// Remove the old key
 		unset( $this->db[$args['key']] );
 
-		// Save the database
+		// Insert in database
 		$this->db[$newKey] = $dataForDb;
+
+		// Sort database
+		$this->sortByDate();
+
+		// Save database
 		if( $this->save() === false ) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 			return false;
@@ -268,7 +288,7 @@ class dbPages extends dbJSON
 	// Returns the amount of pages
 	// (boolean) $total, TRUE returns the total of pages
 	// (boolean) $total, FALSE returns the total of published pages (without draft and scheduled)
-	public function numberPages($onlyPublished=true)
+	public function count($onlyPublished=true)
 	{
 		if( $onlyPublished ) {
 			$db = $this->getPublishedDB();
@@ -276,6 +296,43 @@ class dbPages extends dbJSON
 		}
 
 		return count($this->db);
+	}
+
+	public function getParents($onlyPublished=true)
+	{
+		if( $onlyPublished ) {
+			$db = $this->getPublishedDB();
+		}
+		else {
+			$db = $this->db;
+		}
+
+		foreach( $db as $key=>$fields ) {
+			if( Text::stringContains($key, '/') ) {
+				unset($db[$key]);
+			}
+		}
+
+		return $db;
+	}
+
+	// Sort pages by date
+	public function sortByDate($HighToLow=true)
+	{
+		if($HighToLow) {
+			uasort($this->db, array($this, 'sortHighToLow'));
+		}
+		else {
+			uasort($this->db, array($this, 'sortLowToHigh'));
+		}
+		return true;
+	}
+
+	private function sortLowToHigh($a, $b) {
+		return $a['date']>$b['date'];
+	}
+	private function sortHighToLow($a, $b) {
+		return $a['date']<$b['date'];
 	}
 
 // ----- OLD
@@ -396,14 +453,6 @@ class dbPages extends dbJSON
 		return $this->save();
 	}
 
-	public function count()
-	{
-		$count = parent::count();
-
-		// DEBUG: Less than - 1 because the error page.
-		return $count - 1;
-	}
-
 	// Return TRUE if there are new pages published, FALSE otherwise.
 	public function scheduler()
 	{
@@ -437,258 +486,4 @@ class dbPages extends dbJSON
 		return false;
 	}
 
-// --- OLD
-	public function cliMode()
-	{
-		// LOG
-		Log::set('CLI MODE - PAGES - Starting...');
-
-		$pageList = array();
-
-		$pagesDirectories = Filesystem::listDirectories(PATH_PAGES);
-		foreach( $pagesDirectories as $directory ) {
-
-			if( Sanitize::pathFile($directory.DS.FILENAME) ) {
-
-				// The key is the directory name
-				$key = basename($directory);
-
-				// Add the page key to the list
-				$pageList[$key] = true;
-
-				// LOG
-				Log::set('CLI MODE - Page found, key: '.$key);
-
-				// Search sub-pages
-				$subPaths = Filesystem::listDirectories($directory.DS);
-				foreach( $subPaths as $subDirectory )
-				{
-					// The key of the sub-page
-					$subKey = basename($subDirectory);
-
-					if( Sanitize::pathFile($subDirectory.DS.FILENAME) ) {
-
-						// Add the key of the sub-page, the key is composed by the directory/subdirectory
-						$pageList[$key.'/'.$subKey] = true;
-
-						// LOG
-						Log::set('CLI MODE - Page found, key: '.$key);
-					}
-				}
-			}
-		}
-
-		foreach( $pageList as $key=>$value ) {
-
-			if( !isset($this->db[$key]) ) {
-
-				// LOG
-				Log::set('CLI MODE - The page is not in the database, key: '.$key);
-
-				// Insert new post
-				$this->cliModeInsert($key);
-			}
-			else {
-				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
-
-				// If checksum is different, update the post
-				if( !isset($this->db[$key]['md5file']) ||
-					$this->db[$key]['md5file']!==$checksum ) {
-
-					// LOG
-					Log::set('CLI MODE - Different md5 checksum, key: '.$key);
-
-					// Update the post
-					$this->cliModeInsert($key, $update=true);
-				}
-			}
-		}
-
-		// LOG
-		Log::set('CLI MODE - Cleaning database...');
-
-		foreach( array_diff_key($this->db, $pageList) as $key=>$data ) {
-
-			// LOG
-			Log::set('CLI MODE - Removing page from database, key: '.$key);
-
-			// Remove the page from database
-			unset( $this->db[$key] );
-		}
-
-		// Save the database
-		$this->save();
-
-		// LOG
-		Log::set('CLI MODE - PAGES - Finishing...');
-
-		return true;
-	}
-
-	private function cliModeInsert($key, $update=false)
-	{
-		if($update) {
-			// LOG
-			Log::set('CLI MODE - cliModeInsert() - Updating the page, key: '.$key);
-
-			// Database from the current database
-			$dataForDb = $this->db[$key];
-			$dataForDb['dateModified'] = Date::current(DB_DATE_FORMAT);
-		}
-		else {
-			// LOG
-			Log::set('CLI MODE - cliModeInsert() - Inserting the new post, key: '.$key);
-
-			// Database for the new page, fields with the default values
-			$dataForDb = array();
-			foreach( $this->dbFields as $field=>$options ) {
-
-				if( !$options['inFile'] ) {
-					$dataForDb[$field] = $options['value'];
-				}
-			}
-
-			// Fields and value predefined in init.php
-			$dataForDb['username']	= CLI_USERNAME;
-			$dataForDb['status'] 	= CLI_STATUS;
-			$dataForDb['date'] 	= Date::current(DB_DATE_FORMAT);
-		}
-
-		// MD5 checksum
-		$dataForDb['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
-
-		// Generate the Object from the file
-		$Page = new Page($key);
-
-		foreach( $this->dbFields as $field=>$options ) {
-
-			if( !$options['inFile'] ) {
-
-				// Get the field from the file
-				// If the field doesn't exist, the function returns FALSE
-				$data = $Page->getField($field);
-
-				if( $data!==false ) {
-
-					$tmpValue = '';
-
-					if( $field=='tags' ) {
-						$tmpValue = $this->generateTags($data);
-					}
-					elseif( $field=='date' ) {
-
-						// Validate format date from file
-						if( Valid::date($data, DB_DATE_FORMAT) ) {
-
-							$tmpValue = $data;
-						}
-					}
-					else {
-						$tmpValue = Sanitize::html($data);
-					}
-
-					settype($tmpValue, gettype($options['value']));
-					$dataForDb[$field] = $tmpValue;
-				}
-			}
-		}
-
-		// Insert row in the database
-		$this->db[$key] = $dataForDb;
-
-		return true;
-	}
-
-	public function regenerateCli()
-	{
-		$db = $this->db;
-		$newPaths = array();
-		$fields = array();
-
-		// Default fields and value
-		foreach($this->dbFields as $field=>$options) {
-			if(!$options['inFile']) {
-				$fields[$field] = $options['value'];
-			}
-		}
-
-		//$tmpPaths = glob(PATH_PAGES.'*', GLOB_ONLYDIR);
-		$tmpPaths = Filesystem::listDirectories(PATH_PAGES);
-		foreach($tmpPaths as $directory)
-		{
-			$key = basename($directory);
-
-			if(file_exists($directory.DS.FILENAME)) {
-				// The key is the directory name
-				$newPaths[$key] = true;
-			}
-
-			// Recovery pages from subdirectories
-			//$subPaths = glob($directory.DS.'*', GLOB_ONLYDIR);
-			$subPaths = Filesystem::listDirectories($directory.DS);
-			foreach($subPaths as $subDirectory)
-			{
-				$subKey = basename($subDirectory);
-
-				if(file_exists($subDirectory.DS.FILENAME)) {
-					// The key is composed by the directory/subdirectory
-					$newPaths[$key.'/'.$subKey] = true;
-				}
-			}
-		}
-
-		foreach($newPaths as $key=>$value)
-		{
-			if(!isset($this->db[$key]))
-			{
-				// Default values for the new pages.
-				$fields['status'] = CLI_STATUS;
-				$fields['date'] = Date::current(DB_DATE_FORMAT);
-				$fields['username'] = 'admin';
-
-				// Create the entry for the new page.
-				$this->db[$key] = $fields;
-			}
-
-			$Page = new Page($key);
-
-			// Update all fields from FILE to DATABASE.
-			foreach($fields as $f=>$v)
-			{
-				// If the field exists on the FILE, update it.
-				if($Page->getField($f))
-				{
-					$valueFromFile = $Page->getField($f);
-
-					if($f=='tags') {
-						// Generate tags array.
-						$this->db[$key]['tags'] = $this->generateTags($valueFromFile);
-					}
-					elseif($f=='date') {
-						// Validate Date from file
-						if(Valid::date($valueFromFile, DB_DATE_FORMAT)) {
-							$this->db[$key]['date'] = $valueFromFile;
-						}
-					}
-					else {
-						// Sanitize the values from file.
-						$this->db[$key][$f] = Sanitize::html($valueFromFile);
-					}
-				}
-			}
-		}
-
-		// Remove old pages from db
-		foreach( array_diff_key($db, $newPaths) as $key=>$data ) {
-			unset($this->db[$key]);
-		}
-
-		// Save the database.
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return $this->db!=$db;
-	}
 }

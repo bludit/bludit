@@ -9,18 +9,18 @@ echo '
 <thead>
 	<tr>
 	<th>'.$L->g('Name').'</th>
-	<th>'.$L->g('Key').'</th>
+	<th>'.$L->g('URL').'</th>
 	</tr>
 </thead>
 <tbody>
 ';
 
-$categories = $dbCategories->getAll();
+$categories = $dbCategories->getKeyNameArray();
 foreach($categories as $categoryKey=>$category)
 {
 	echo '<tr>';
 	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$categoryKey.'">'.$category.'</a></td>';
-	echo '<td>'.$categoryKey.'</td>';
+	echo '<td><a href="'.DOMAIN.$Url->filters('category', false).$categoryKey.'">'.DOMAIN.$Url->filters('category', false).$categoryKey.'</a></td>';
 	echo '</tr>';
 }
 

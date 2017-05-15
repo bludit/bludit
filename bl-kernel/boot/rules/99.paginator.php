@@ -1,34 +1,39 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Current page number.
+// Current page number
 $currentPage = $Url->pageNumber();
 Paginator::set('currentPage', $currentPage);
 
-// Number of pages.
 if($Url->whereAmI()=='admin') {
-	$postPerPage = POSTS_PER_PAGE_ADMIN;
-	$numberOfPosts = $dbPosts->numberPost(true); // published and drafts
+	$itemsPerPage = ITEMS_PER_PAGE_ADMIN;
+	$amountOfItems = $dbPages->count(false);
 }
 elseif($Url->whereAmI()=='tag') {
-	$postPerPage = $Site->postsPerPage();
+	$itemsPerPage = $Site->itemsPerPage();
 	$tagKey = $Url->slug();
-	$numberOfPosts = $dbTags->countPostsByTag($tagKey);
+	$amountOfItems = $dbTags->countPagesByTag($tagKey);
+}
+elseif($Url->whereAmI()=='category') {
+	$itemsPerPage = $Site->itemsPerPage();
+	$categoryKey = $Url->slug();
+	$amountOfItems = $dbCategories->countPagesByCategory($categoryKey);
 }
 else {
-	$postPerPage = $Site->postsPerPage();
-	$numberOfPosts = $dbPosts->numberPost(false); // published
+	$itemsPerPage = $Site->itemsPerPage();
+	$amountOfItems = $dbPages->count(true);
 }
 
-// Post per page.
-Paginator::set('postPerPage', $postPerPage);
+// Items per page
+Paginator::set('itemsPerPage', $itemsPerPage);
 
-// Number of posts
-Paginator::set('numberOfPosts', $numberOfPosts);
+// Amount of items
+Paginator::set('amountOfItems', $amountOfItems);
 
-$numberOfPages = (int) max(ceil($numberOfPosts / $postPerPage) -1, 0);
-Paginator::set('numberOfPages', $numberOfPages);
+// Amount of pages
+$amountOfPages = (int) max(ceil($amountOfItems / $itemsPerPage) -1, 0);
+Paginator::set('amountOfPages', $amountOfPages);
 
-$showOlder = $numberOfPages > $currentPage;
+$showOlder = $amountOfPages > $currentPage;
 Paginator::set('showOlder', $showOlder);
 
 $showNewer = $currentPage > 0;
@@ -40,5 +45,5 @@ Paginator::set('show', true);
 $nextPage = max(0, $currentPage+1);
 Paginator::set('nextPage', $nextPage);
 
-$prevPage = min($numberOfPages, $currentPage-1);
+$prevPage = min($amountOfPages, $currentPage-1);
 Paginator::set('prevPage', $prevPage);

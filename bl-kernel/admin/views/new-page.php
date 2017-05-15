@@ -52,16 +52,15 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
 	// Category
-	/*
 	HTML::formSelect(array(
 		'name'=>'category',
 		'label'=>$L->g('Category'),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$dbCategories->getAll(),
+		'options'=>$dbCategories->getKeyNameArray(),
 		'selected'=>'',
 		'tip'=>'',
 		'addEmptySpace'=>true
-	));*/
+	));
 
 	// Description input
 	HTML::formTextarea(array(
@@ -124,18 +123,30 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'tip'=>''
 	));
 
+	// Date input
+	HTML::formInputText(array(
+		'name'=>'date',
+		'value'=>Date::current(DB_DATE_FORMAT),
+		'class'=>'uk-width-1-1 uk-form-large',
+		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'label'=>$L->g('Date')
+	));
+
 	// Parent input
 	$options = array();
-	$options[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
-	$options += $dbPages->parentKeyList();
+	$parents = $dbPages->getParents(true);
+	foreach( $parents as $key=>$fields ) {
+		$options[$key] = $pagesKey[$key]->title();
+	}
 
 	HTML::formSelect(array(
 		'name'=>'parent',
 		'label'=>$L->g('Parent'),
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>$options,
-		'selected'=>NO_PARENT_CHAR,
-		'tip'=>''
+		'selected'=>'',
+		'tip'=>'',
+		'addEmptySpace'=>true
 	));
 
 	// Position input
@@ -169,6 +180,7 @@ HTML::formClose();
 
 $(document).ready(function()
 {
+	$("#jsdate").datetimepicker({format:"<?php echo DB_DATE_FORMAT ?>"});
 
 	$("#jsslug").keyup(function() {
 		var text = $(this).val();

@@ -58,6 +58,8 @@ class Page {
 			$implode = implode($output);
 			$this->vars['contentRaw'] = $implode;
 		}
+
+		return true;
 	}
 
 	// Returns TRUE if the content is loaded correctly, FALSE otherwise
@@ -145,6 +147,36 @@ class Page {
 		return $date;
 	}
 
+	// Returns the permalink
+	// (boolean) $absolute, TRUE returns the page link with the DOMAIN, FALSE without the DOMAIN
+	public function permalink($absolute=false)
+	{
+		global $Url;
+		global $Site;
+
+		$url = trim(DOMAIN_BASE,'/');
+		$key = $this->key();
+		$filter = trim($Url->filters('page'), '/');
+		$htmlPath = trim(HTML_PATH_ROOT,'/');
+
+		if(empty($filter)) {
+			$tmp = $key;
+		}
+		else {
+			$tmp = $filter.'/'.$key;
+		}
+
+		if($absolute) {
+			return $url.'/'.$tmp;
+		}
+
+		if(empty($htmlPath)) {
+			return '/'.$tmp;
+		}
+
+		return '/'.$htmlPath.'/'.$tmp;
+	}
+
 // ---- OLD
 
 	// Returns the user object
@@ -159,12 +191,6 @@ class Page {
 		}
 
 		return $User;
-	}
-
-	// Returns TRUE if the post is scheduled, FALSE otherwise.
-	public function scheduled()
-	{
-		return ($this->getField('status')==='scheduled');
 	}
 
 	// Returns the username who created the post/page
@@ -246,37 +272,7 @@ class Page {
 		}
 	}
 
-	// Returns the permalink
-	// (boolean) $absolute, TRUE returns the post/page link with the DOMAIN, FALSE without the DOMAIN
-	public function permalink($absolute=false)
-	{
-		global $Url;
-		global $Site;
 
-		$filterType = $this->getField('filterType');
-
-		$url = trim(DOMAIN_BASE,'/');
-		$key = $this->key();
-		$filter = trim($Url->filters($filterType), '/');
-		$htmlPath = trim(HTML_PATH_ROOT,'/');
-
-		if(empty($filter)) {
-			$tmp = $key;
-		}
-		else {
-			$tmp = $filter.'/'.$key;
-		}
-
-		if($absolute) {
-			return $url.'/'.$tmp;
-		}
-
-		if(empty($htmlPath)) {
-			return '/'.$tmp;
-		}
-
-		return '/'.$htmlPath.'/'.$tmp;
-	}
 
 	public function json($returnsArray=false)
 	{

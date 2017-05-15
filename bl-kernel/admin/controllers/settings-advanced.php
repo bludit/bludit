@@ -21,9 +21,9 @@ function setSettings($args)
 	// Add slash at the begin and end.
 	// This fields are in the settings->advanced mode
 	$args['url'] 		= Text::addSlashes($args['url'],false,true);
-	$args['uriPost'] 	= Text::addSlashes($args['uriPost']);
 	$args['uriPage'] 	= Text::addSlashes($args['uriPage']);
 	$args['uriTag'] 	= Text::addSlashes($args['uriTag']);
+	$args['uriCategory'] 	= Text::addSlashes($args['uriCategory']);
 
 	if(($args['uriPost']==$args['uriPage']) || ($args['uriPost']==$args['uriTag']) || ($args['uriPage']==$args['uriTag']) )
 	{

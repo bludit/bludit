@@ -45,12 +45,12 @@ class Text {
 		'А'=>'A', 'Б'=>'B', 'В'=>'V', 'Г'=>'G', 'Д'=>'D', 'Е'=>'E', 'Ж'=>'Zh', 'З'=>'Z',
 		'И'=>'I', 'Й'=>'J', 'К'=>'K', 'Л'=>'L', 'М'=>'M', 'Н'=>'N', 'О'=>'O', 'П'=>'P',
 		'Р'=>'R', 'С'=>'S', 'Т'=>'T', 'У'=>'U', 'Ф'=>'F', 'Х'=>'H', 'Ц'=>'C', 'Ч'=>'Ch',
-		'Ш'=>'Sh', 'Щ'=>'Sh', 'Ъ'=>'',	'Ь'=>'J','Ю'=>'Yu','Я'=>'Ya',		
+		'Ш'=>'Sh', 'Щ'=>'Sh', 'Ъ'=>'',	'Ь'=>'J','Ю'=>'Yu','Я'=>'Ya',
 		'а'=>'a', 'б'=>'b', 'в'=>'v', 'г'=>'g', 'д'=>'d', 'е'=>'e', 'ж'=>'zh','з'=>'z',
 		'и'=>'i', 'й'=>'j', 'к'=>'k', 'л'=>'l', 'м'=>'m', 'н'=>'n', 'о'=>'o','п'=>'p',
 		'р'=>'r', 'с'=>'s', 'т'=>'t', 'у'=>'u', 'ф'=>'f', 'х'=>'h', 'ц'=>'c', 'ч'=>'ch',
 		'ш'=>'sh', 'щ'=>'sh', 'ъ'=>'', 'ь'=>'j', 'ю'=>'yu', 'я'=>'ya',
-		
+
 		// Ukrainian
 		'Є'=>'Ye', 'І'=>'I', 'Ї'=>'Yi', 'Ґ'=>'G',
 		'є'=>'ye', 'і'=>'i', 'ї'=>'yi', 'ґ'=>'g',
@@ -172,6 +172,11 @@ class Text {
 	public static function stringPosition($string, $substring)
 	{
 		return mb_strpos($string, $substring, 0, 'UTF-8');
+	}
+
+	public static function stringContains($string, $substring)
+	{
+		return (self::stringPosition($string, $substring) !== false);
 	}
 
 	// Returns the portion of string specified by the start and length parameters.

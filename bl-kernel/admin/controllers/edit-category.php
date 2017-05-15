@@ -16,25 +16,23 @@ if($Login->role()!=='admin') {
 function edit($oldCategoryKey, $newCategory)
 {
 	global $Language;
-	global $dbPosts;
 	global $dbPages;
 	global $dbCategories;
 
 	if( Text::isEmpty($oldCategoryKey) || Text::isEmpty($newCategory) ) {
-		Alert::set($Language->g('Empty field'));
-		Redirect::page('admin', 'categories');
+		Alert::set($Language->g('Empty fields'));
+		Redirect::page('categories');
 	}
-	
+
 	if( $dbCategories->edit($oldCategoryKey, $newCategory) == false ) {
 		Alert::set($Language->g('Already exist a category'));
 	}
 	else {
 		$dbPages->changeCategory($oldCategoryKey, $newCategory);
-		$dbPosts->changeCategory($oldCategoryKey, $newCategory);
 		Alert::set($Language->g('The changes have been saved'));
 	}
 
-	Redirect::page('admin', 'categories');
+	Redirect::page('categories');
 }
 
 function delete($categoryKey)
@@ -45,8 +43,7 @@ function delete($categoryKey)
 	$dbCategories->remove($categoryKey);
 
 	Alert::set($Language->g('The changes have been saved'));
-
-	Redirect::page('admin', 'categories');
+	Redirect::page('categories');
 }
 
 // ============================================================================
@@ -73,11 +70,11 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 
 $categoryKey = $layout['parameters'];
 
-if(!$dbCategories->exists($categoryKey)) {
+if( !$dbCategories->exists($categoryKey) ) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the category: '.$categoryKey);
-	Redirect::page('admin', 'categories');
+	Redirect::page('categories');
 }
 
 $category = $dbCategories->getName($layout['parameters']);
 
-$layout['title'] .= ' - '.$Language->g('Edit category').' - '.$category;
+$layout['title'] .= ' - '.$Language->g('Edit Category').' - '.$category;

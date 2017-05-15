@@ -3,9 +3,8 @@
 class Paginator {
 
 	public static $pager = array(
-		'numberOfPostsAndDraft'=>0,
-		'numberOfPosts'=>0,
-		'numberOfPages'=>0,
+		'itemsPerPage'=>0,
+		'amountOfPages'=>0,
 		'nextPage'=>0,
 		'prevPage'=>0,
 		'currentPage'=>0,

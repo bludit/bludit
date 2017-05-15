@@ -1,13 +1,13 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'1.6-beta');
-define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'');
+define('BLUDIT_VERSION',	'2.0');
+define('BLUDIT_CODENAME',	'Next');
+define('BLUDIT_RELEASE_DATE',	'2017-10-10');
+define('BLUDIT_BUILD',		'20171010');
 
 // Debug mode
-// Change to FALSE, for prevent warning or error on browser
+// Change to FALSE, for prevent warning or errors on browser
 define('DEBUG_MODE', TRUE);
 error_reporting(0); // Turn off all error reporting
 if(DEBUG_MODE) {
@@ -33,7 +33,6 @@ define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
 define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
 define('PATH_JS',			PATH_KERNEL.'js'.DS);
 
-define('PATH_POSTS',			PATH_CONTENT.'posts'.DS);
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
@@ -54,6 +53,7 @@ define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');
 define('DB_PAGES', PATH_DATABASES.'pages.php');
 define('DB_SITE', PATH_DATABASES.'site.php');
 define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
+define('DB_TAGS', PATH_DATABASES.'tags.php');
 
 // ADMIN URI FILTER
 define('ADMIN_URI_FILTER', '/admin/');
@@ -66,7 +66,7 @@ if(!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
-// Protecting against Symlink attacks.
+// Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Auto scroll
@@ -103,16 +103,16 @@ define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
 // Items per page for admin area
 define('ITEMS_PER_PAGE_ADMIN', 10);
 
-// Enable or disable Cli mode
+// Cli mode, enable or disable
 define('CLI_MODE', FALSE);
 
-// Cli mode status for new posts/pages
+// Cli mode, status for new pages
 define('CLI_STATUS', 'published');
 
-// Cli mode username for new posts/pages
+// Cli mode, username for new pages
 define('CLI_USERNAME', 'admin');
 
-// Filename for posts and pages, you can change it, for example, for index.md
+// Filename
 define('FILENAME', 'index.txt');
 
 // Database date format
@@ -133,29 +133,27 @@ define('CHARSET', 'UTF-8');
 // EXTREME FRIENDLY URL, TRUE for dissmiss internet standard. Experimental!
 define('EXTREME_FRIENDLY_URL', FALSE);
 
-// Directory permissions
+// Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
 
-// Set internal character encoding.
+// Set internal character encoding
 mb_internal_encoding(CHARSET);
 
-// Set HTTP output character encoding.
+// Set HTTP output character encoding
 mb_http_output(CHARSET);
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_ABSTRACT.'content.class.php');
+include(PATH_ABSTRACT.'dblist.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
-include(PATH_KERNEL.'dbposts.class.php');
 include(PATH_KERNEL.'dbpages.class.php');
 include(PATH_KERNEL.'dbusers.class.php');
 include(PATH_KERNEL.'dbtags.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
 include(PATH_KERNEL.'dbcategories.class.php');
-include(PATH_KERNEL.'post.class.php');
 include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'user.class.php');
 include(PATH_KERNEL.'url.class.php');
@@ -185,12 +183,10 @@ include(PATH_HELPERS.'image.class.php');
 // Session
 Session::start();
 if(Session::started()===false) {
-	Log::set('init.php'.LOG_SEP.'Error occurred when trying to start the session.');
-	exit('Bludit. Failed to start session.');
+	exit('Bludit CMS. Session initialization failure.');
 }
 
 // Objects
-$dbPosts 	= new dbPosts();
 $dbPages 	= new dbPages();
 $dbUsers 	= new dbUsers();
 $dbTags 	= new dbTags();
@@ -244,26 +240,17 @@ define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
-define('JQUERY',			HTML_PATH_ADMIN_THEME_JS.'jquery.min.js');
+define('JQUERY',			HTML_PATH_ROOT.'bl-kernel/js/jquery.min.js');
 
 // --- PHP paths with dependency ---
-// This paths are absolutes for the OS.
-
+// This paths are absolutes for the OS
 // Depreacted, use THEME_DIR and THEME_DIR_XXX
-define('PATH_THEME',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
-define('PATH_THEME_PHP',		PATH_THEME.'php'.DS);
-define('PATH_THEME_CSS',		PATH_THEME.'css'.DS);
-define('PATH_THEME_JS',			PATH_THEME.'js'.DS);
-define('PATH_THEME_IMG',		PATH_THEME.'img'.DS);
-define('PATH_THEME_LANG',		PATH_THEME.'languages'.DS);
-
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
-define('THEME_DIR_PHP',			PATH_THEME.'php'.DS);
-define('THEME_DIR_CSS',			PATH_THEME.'css'.DS);
-define('THEME_DIR_JS',			PATH_THEME.'js'.DS);
-define('THEME_DIR_IMG',			PATH_THEME.'img'.DS);
-define('THEME_DIR_LANG',		PATH_THEME.'languages'.DS);
-
+define('THEME_DIR_PHP',			THEME_DIR.'php'.DS);
+define('THEME_DIR_CSS',			THEME_DIR.'css'.DS);
+define('THEME_DIR_JS',			THEME_DIR.'js'.DS);
+define('THEME_DIR_IMG',			THEME_DIR.'img'.DS);
+define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 
 // --- Absolute paths with domain ---
 // This paths are absolutes for the user / web browsing.
@@ -283,3 +270,8 @@ $Url->checkFilters( $Site->uriFilters() );
 
 // --- Objects shortcuts ---
 $L = $Language;
+
+// DEBUG: Print constants
+// $arr = array_filter(get_defined_constants(), 'is_string');
+// echo json_encode($arr);
+// exit;

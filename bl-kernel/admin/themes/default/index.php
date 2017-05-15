@@ -102,23 +102,17 @@ $(document).ready(function() {
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
-			<li <?php echo ($layout['view']=='new-post')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a>
-			</li>
 			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
-			<li <?php echo ($layout['view']=='manage-posts')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Posts') ?></a>
-			</li>
 			<li <?php echo ($layout['view']=='manage-pages')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Pages') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Pages') ?></a>
 			</li>
-			<!--<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
+			<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
-			</li>-->
+			</li>
 			<li <?php echo ($layout['view']=='users')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
 			</li>
@@ -131,7 +125,7 @@ $(document).ready(function() {
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='settings-regional')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='plugins')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a>

@@ -81,19 +81,16 @@ class dbList extends dbJSON
 	public function edit($oldKey, $newName)
 	{
 		$newKey = $this->generateKey($newName);
-		if( isset($this->db[$newKey]) ) {
-			Log::set(__METHOD__.LOG_SEP.'Error the key already exist');
-			return false;
-		}
 
 		$this->db[$newKey]['name'] = $newName;
 		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
 
 		// Remove the old category
-		unset( $this->db[$oldKey] );
+		if( $oldKey != $newKey ) {
+			unset( $this->db[$oldKey] );
+		}
 
 		$this->save();
-
 		return $newKey;
 	}
 
@@ -131,6 +128,11 @@ class dbList extends dbJSON
 		}
 
 		return 0;
+	}
+
+	public function exists($key)
+	{
+		return isset( $this->db[$key] );
 	}
 
 }

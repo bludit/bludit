@@ -16,22 +16,31 @@ function addPage($args)
 	// Add the page, if the $key is FALSE the creation of the post failure.
 	$key = $dbPages->add($args);
 
-	if($key)
-	{
-		// Re index categories
-		//reIndexCategoriesPages();
+	if($key) {
+		// Re-index categories
+		reindexCategories();
 
-		// Call the plugins after page created.
+		// Re-index tags
+		reindextags();
+
+		// Call the plugins after page created
 		Theme::plugins('afterPageCreate');
 
-		// Alert the user
-		Alert::set($Language->g('Page added successfully'));
-		Redirect::page('admin', 'manage-pages');
+		// Create an alert
+		Alert::set( $Language->g('Page added successfully') );
+
+		// Redirect
+		Redirect::page('pages');
+
+		return true;
 	}
-	else
-	{
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the page.');
+	else {
+		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the page');
+		Log::set(__METHOD__.LOG_SEP.'Cleaning database...');
+		$dbPages->delete($key);
 	}
+
+	return false;
 }
 
 // ============================================================================

@@ -44,8 +44,7 @@ else
 {
 	// Boot rules
 	include(PATH_RULES.'60.plugins.php');
-	include(PATH_RULES.'70.posts.php');
-	include(PATH_RULES.'71.pages.php');
+	include(PATH_RULES.'69.pages.php');
 	include(PATH_RULES.'99.header.php');
 	include(PATH_RULES.'99.paginator.php');
 	include(PATH_RULES.'99.themes.php');

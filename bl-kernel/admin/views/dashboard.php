@@ -66,10 +66,6 @@
 		<table class="uk-table statistics">
 			<tbody>
 			<tr>
-			<td><?php $Language->p('Posts') ?></td>
-			<td><?php echo $dbPosts->count() ?></td>
-			</tr>
-			<tr>
 			<td><?php $Language->p('Pages') ?></td>
 			<td><?php echo $dbPages->count() ?></td>
 			</tr>
@@ -89,13 +85,10 @@
 		<h4 class="panel-title"><?php $L->p('Drafts') ?></h4>
 		<ul class="uk-list">
 		<?php
-			if( empty($_draftPosts) && empty($_draftPages) ) {
+			if( empty($_draftPages) ) {
 				echo '<li>'.$Language->g('There are no drafts').'</li>';
 			}
 			else {
-				foreach($_draftPosts as $Post) {
-					echo '<li><span class="label-draft">'.$Language->g('Post').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
-				}
 				foreach($_draftPages as $Page) {
 					echo '<li><span class="label-draft">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
