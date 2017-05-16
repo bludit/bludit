@@ -70,6 +70,32 @@ class HTML {
 		echo $html;
 	}
 
+	// label, name, value, tip
+	public static function formInputRadio($args)
+	{
+		$id = 'js'.$args['name'];
+		$type = isset($args['type']) ? $args['type'] : 'text';
+		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
+		$placeholder = empty($args['placeholder']) ? '' : 'placeholder="'.$args['placeholder'].'"';
+		$disabled = empty($args['disabled']) ? '' : 'disabled';
+
+		$html  = '<div class="uk-form-row">';
+
+		$html .= '<div class="uk-form-controls">';
+		$html .= '<label for="'.$id.'" class="uk-form-label">';
+		$html .= '<input id="'.$id.'" name="'.$args['name'].'" type="'.$type.'" '.$class.' '.$placeholder.' autocomplete="off" '.$disabled.' value="'.$args['value'].'">';
+		$html .= $args['label'].'</label>';
+
+		if(!empty($args['tip'])) {
+			$html .= '<p class="uk-form-help-block">'.$args['tip'].'</p>';
+		}
+
+		$html .= '</div>';
+		$html .= '</div>';
+
+		echo $html;
+	}
+
 	public static function tags($args)
 	{
 		global $L;

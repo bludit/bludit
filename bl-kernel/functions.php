@@ -4,6 +4,7 @@ function buildPage($key)
 {
 	global $dbPages;
 	global $dbUsers;
+	global $dbCategories;
 	global $Parsedown;
 	global $Site;
 
@@ -48,6 +49,10 @@ function buildPage($key)
 	// Generate and set the User object
 	$username = $page->username();
 	$page->setField('user', $dbUsers->getUser($username));
+
+	// Category
+	$categoryKey = $page->categoryKey();
+	$page->setField('categoryMap', $dbCategories->getMap($categoryKey));
 
 	return $page;
 }

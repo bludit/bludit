@@ -135,4 +135,15 @@ class dbList extends dbJSON
 		return isset( $this->db[$key] );
 	}
 
+	// Returns an array with a portion of the database filtered by key
+	// Returns array( 'name'=>'', 'list'=>array() )
+	public function getMap($key)
+	{
+		if( isset($this->db[$key]) ) {
+			return $this->db[$key];
+		}
+
+		return false;
+	}
+
 }

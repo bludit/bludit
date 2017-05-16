@@ -81,10 +81,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // Main after POST
 // ============================================================================
 
-if(!$dbPages->pageExists($layout['parameters']))
-{
+if( !$dbPages->exists($layout['parameters']) ) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$layout['parameters']);
-	Redirect::page('admin', 'manage-pages');
+	Redirect::page('pages');
 }
 
-$_Page = $pages[$layout['parameters']];
+$page = $pagesKey[$layout['parameters']];

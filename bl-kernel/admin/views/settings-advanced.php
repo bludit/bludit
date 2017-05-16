@@ -12,21 +12,12 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
     HTML::legend(array('value'=>$L->g('General'), 'class'=>'first-child'));
 
     HTML::formSelect(array(
-        'name'=>'postsperpage',
-        'label'=>$L->g('Posts per page'),
+        'name'=>'itemsPerPage',
+        'label'=>$L->g('Items per page'),
         'options'=>array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8'),
-        'selected'=>$Site->postsPerPage(),
+        'selected'=>$Site->itemsPerPage(),
         'class'=>'uk-width-1-3 uk-form-medium',
         'tip'=>$L->g('number-of-posts-to-show-per-page')
-    ));
-
-    HTML::formSelect(array(
-        'name'=>'homepage',
-        'label'=>$L->g('Default home page'),
-        'options'=>$_homePageList,
-        'selected'=>$Site->homepage(),
-        'class'=>'uk-width-1-3 uk-form-medium',
-        'tip'=>''
     ));
 
     HTML::formInputText(array(
@@ -35,6 +26,25 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
         'value'=>$Site->url(),
         'class'=>'uk-width-1-2 uk-form-medium',
         'tip'=>$L->g('the-url-of-your-site')
+    ));
+
+    HTML::legend(array('value'=>$L->g('Website or Blog')));
+
+    HTML::formInputRadio(array(
+        'name'=>'orderBy',
+        'type'=>'radio',
+        'label'=>$L->g('Website'),
+        'value'=>'position',
+        'class'=>'',
+        'tip'=>'Select this option if you want to order your pages by position.'
+    ));
+
+    HTML::formInputRadio(array(
+        'name'=>'orderBy',
+        'type'=>'radio',
+        'label'=>$L->g('Blog'),
+        'value'=>'date',
+        'class'=>''
     ));
 
     HTML::legend(array('value'=>$L->g('Email account settings')));
@@ -48,14 +58,6 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
     ));
 
     HTML::legend(array('value'=>$L->g('URL Filters')));
-
-    HTML::formInputText(array(
-        'name'=>'uriPost',
-        'label'=>$L->g('Posts'),
-        'value'=>$Site->uriFilters('post'),
-        'class'=>'uk-width-1-2 uk-form-medium',
-        'tip'=>''
-    ));
 
     HTML::formInputText(array(
         'name'=>'uriPage',
@@ -74,22 +76,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
     ));
 
     HTML::formInputText(array(
-        'name'=>'uriBlog',
-        'label'=>$L->g('Blog'),
-        'value'=>$Site->uriFilters('blog'),
-        'class'=>'uk-width-1-2 uk-form-medium',
-        'tip'=>''
-    ));
-
-/*
-    HTML::formInputText(array(
         'name'=>'uriCategory',
         'label'=>$L->g('Category'),
         'value'=>$Site->uriFilters('category'),
         'class'=>'uk-width-1-2 uk-form-medium',
         'tip'=>''
     ));
-*/
+
     echo '<div class="uk-form-row">
         <div class="uk-form-controls">
         <button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>

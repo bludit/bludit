@@ -214,7 +214,7 @@ class dbPages extends dbJSON
 	public function delete($key)
 	{
 		// Page doesn't exist in database
-		if(!$this->pageExists($key)) {
+		if(!$this->exists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
 		}
 
@@ -254,7 +254,7 @@ class dbPages extends dbJSON
 	// Return an array with the database for a page, FALSE otherwise.
 	public function getPageDB($key)
 	{
-		if( $this->pageExists($key) ) {
+		if( $this->exists($key) ) {
 			return $this->db[$key];
 		}
 
@@ -316,6 +316,12 @@ class dbPages extends dbJSON
 		return $db;
 	}
 
+	// Return TRUE if the page exists, FALSE otherwise.
+	public function exists($key)
+	{
+		return isset( $this->db[$key] );
+	}
+
 	// Sort pages by date
 	public function sortByDate($HighToLow=true)
 	{
@@ -340,7 +346,7 @@ class dbPages extends dbJSON
 	// Set a field of the database
 	public function setField($key, $field, $value)
 	{
-		if( $this->pageExists($key) ) {
+		if( $this->exists($key) ) {
 			settype($value, gettype($this->dbFields[$key]['value']));
 			$this->db[$key][$field] = $value;
 		}
@@ -348,11 +354,7 @@ class dbPages extends dbJSON
 		return false;
 	}
 
-	// Return TRUE if the page exists, FALSE otherwise.
-	public function pageExists($key)
-	{
-		return isset($this->db[$key]);
-	}
+
 
 	public function parentKeyList()
 	{

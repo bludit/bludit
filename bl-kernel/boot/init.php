@@ -271,6 +271,9 @@ $Url->checkFilters( $Site->uriFilters() );
 // --- Objects shortcuts ---
 $L = $Language;
 
+// --- CONSTANTS with dependency ---
+define('ORDER_BY', $Site->orderBy());
+
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');
 // echo json_encode($arr);

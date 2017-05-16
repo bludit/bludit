@@ -13,7 +13,7 @@ HTML::formOpen(array('class'=>'uk-form-stacked'));
 	// Key input
 	HTML::formInputHidden(array(
 		'name'=>'key',
-		'value'=>$_Page->key()
+		'value'=>$page->key()
 	));
 
 // LEFT SIDE
@@ -24,7 +24,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 	// Title input
 	HTML::formInputText(array(
 		'name'=>'title',
-		'value'=>$_Page->title(),
+		'value'=>$page->title(),
 		'class'=>'uk-width-1-1 uk-form-large',
 		'placeholder'=>$L->g('Title')
 	));
@@ -32,7 +32,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 	// Content input
 	HTML::formTextarea(array(
 		'name'=>'content',
-		'value'=>$_Page->contentRaw(false),
+		'value'=>$page->contentRaw(false),
 		'class'=>'uk-width-1-1 uk-form-large',
 		'placeholder'=>''
 	));
@@ -44,7 +44,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
 	';
 
-if(count($_Page->children())===0)
+if(count($page->children())===0)
 {
 	echo '	<button id="jsdelete" name="delete-page" class="uk-button" type="submit">'.$L->g('Delete').'</button>';
 	echo '	<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>';
@@ -66,22 +66,21 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li id="sidebar-general-view" class="sidebar-view">';
 
 	// Category
-	/*
 	HTML::formSelect(array(
 		'name'=>'category',
 		'label'=>$L->g('Category'),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$dbCategories->getAll(),
-		'selected'=>$_Page->category(),
+		'options'=>$dbCategories->getKeyNameArray(),
+		'selected'=>$page->categoryKey(),
 		'tip'=>'',
 		'addEmptySpace'=>true
 	));
-	*/
+
 	// Description input
 	HTML::formTextarea(array(
 		'name'=>'description',
 		'label'=>$L->g('description'),
-		'value'=>$_Page->description(),
+		'value'=>$page->description(),
 		'rows'=>'4',
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'tip'=>$L->g('this-field-can-help-describe-the-content')
@@ -95,7 +94,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li id="sidebar-images-view" class="sidebar-view">';
 
 	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage($_Page->coverImage(false));
+	HTML::bluditCoverImage($page->coverImage(false));
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -118,8 +117,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	HTML::tags(array(
 		'name'=>'tags',
 		'label'=>$L->g('Tags'),
-		'allTags'=>$dbTags->getAll(),
-		'selectedTags'=>$_Page->tags(true)
+		'allTags'=>$dbTags->getKeyNameArray(),
+		'selectedTags'=>$page->tags(true)
 	));
 
 	echo '</li>';
@@ -135,25 +134,34 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'label'=>$L->g('Status'),
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
-		'selected'=>($_Page->draft()?'draft':'published'),
+		'selected'=>($page->draft()?'draft':'published'),
 		'tip'=>''
 	));
 
+	// Date input
+	HTML::formInputText(array(
+		'name'=>'date',
+		'value'=>$page->dateRaw(),
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'label'=>$L->g('Date')
+	));
+
 // If the page is parent then doesn't can have a parent.
-if(count($_Page->children())===0)
+if(count($page->children())===0)
 {
 	// Parent input
 	$options = array();
 	$options[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
 	$options += $dbPages->parentKeyList();
-	unset($options[$_Page->key()]);
+	unset($options[$page->key()]);
 
 	HTML::formSelect(array(
 		'name'=>'parent',
 		'label'=>$L->g('Parent'),
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>$options,
-		'selected'=>$_Page->parentKey(),
+		'selected'=>$page->parentKey(),
 		'tip'=>''
 	));
 }
@@ -161,16 +169,16 @@ if(count($_Page->children())===0)
 	// Position input
 	HTML::formInputText(array(
 		'name'=>'position',
-		'value'=>$_Page->position(),
-		'class'=>'uk-width-1-1 uk-form-large',
+		'value'=>$page->position(),
+		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('Position')
 	));
 
 	// Slug input
 	HTML::formInputText(array(
 		'name'=>'slug',
-		'value'=>$_Page->slug(),
-		'class'=>'uk-width-1-1 uk-form-large',
+		'value'=>$page->slug(),
+		'class'=>'uk-width-1-1 uk-form-medium',
 		'tip'=>$L->g('you-can-modify-the-url-which-identifies'),
 		'label'=>$L->g('Friendly URL')
 	));
@@ -190,6 +198,8 @@ HTML::formClose();
 $(document).ready(function()
 {
 	var key = $("#jskey").val();
+
+	$("#jsdate").datetimepicker({format:"<?php echo DB_DATE_FORMAT ?>"});
 
 	$("#jsslug").keyup(function() {
 		var text = $(this).val();

@@ -177,7 +177,30 @@ class Page {
 		return '/'.$htmlPath.'/'.$tmp;
 	}
 
-// ---- OLD
+	// Returns the category key
+	public function categoryKey()
+	{
+		return $this->getField('category');
+	}
+
+	// Returns the field from the array
+	// categoryMap = array( 'name'=>'', 'list'=>array() )
+	public function categoryMap($field)
+	{
+		$map = $this->getField('categoryMap');
+
+		if($field=='key') {
+			return $this->categoryKey();
+		}
+		elseif($field=='name') {
+			return $map['name'];
+		}
+		elseif($field=='list') {
+			return $map['list'];
+		}
+
+		return false;
+	}
 
 	// Returns the user object
 	// (boolean) $field, TRUE returns the value of the field, FALSE returns the object
@@ -250,23 +273,18 @@ class Page {
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
 	public function tags($returnsArray=false)
 	{
-		global $Url;
-
 		$tags = $this->getField('tags');
 
 		if($returnsArray) {
-
 			if($tags==false) {
 				return array();
 			}
-
 			return $tags;
 		}
 		else {
 			if($tags==false) {
 				return false;
 			}
-
 			// Return string with tags separeted by comma.
 			return implode(', ', $tags);
 		}
@@ -312,12 +330,6 @@ class Page {
 	public function readMore()
 	{
 		return $this->getField('readMore');
-	}
-
-	//
-	public function category()
-	{
-		return $this->getField('category');
 	}
 
 	public function uuid()

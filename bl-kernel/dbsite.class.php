@@ -26,7 +26,8 @@ class dbSite extends dbJSON
 		'facebook'=>		array('inFile'=>false, 'value'=>''),
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
-		'github'=>		array('inFile'=>false, 'value'=>'')
+		'github'=>		array('inFile'=>false, 'value'=>''),
+		'orderBy'=>		array('inFile'=>false, 'value'=>'date') // date or position
 	);
 
 	function __construct()
@@ -121,6 +122,11 @@ class dbSite extends dbJSON
 	public function googlePlus()
 	{
 		return $this->getField('googlePlus');
+	}
+
+	public function orderBy()
+	{
+		return $this->getField('orderBy');
 	}
 
 	// Returns the site title

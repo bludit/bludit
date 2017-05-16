@@ -127,7 +127,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	HTML::formInputText(array(
 		'name'=>'date',
 		'value'=>Date::current(DB_DATE_FORMAT),
-		'class'=>'uk-width-1-1 uk-form-large',
+		'class'=>'uk-width-1-1 uk-form-medium',
 		'tip'=>$L->g('To schedule the post just select the date and time'),
 		'label'=>$L->g('Date')
 	));
@@ -153,7 +153,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	HTML::formInputText(array(
 		'name'=>'position',
 		'value'=>'1',
-		'class'=>'uk-width-1-1 uk-form-large',
+		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('Position')
 	));
 
@@ -161,7 +161,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	HTML::formInputText(array(
 		'name'=>'slug',
 		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-large',
+		'class'=>'uk-width-1-1 uk-form-medium',
 		'tip'=>$L->g('you-can-modify-the-url-which-identifies'),
 		'label'=>$L->g('Friendly URL')
 	));
