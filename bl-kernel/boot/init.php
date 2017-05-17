@@ -54,6 +54,7 @@ define('DB_PAGES', PATH_DATABASES.'pages.php');
 define('DB_SITE', PATH_DATABASES.'site.php');
 define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
+define('DB_NOTIFICATIONS', PATH_DATABASES.'notifications.php');
 
 // ADMIN URI FILTER
 define('ADMIN_URI_FILTER', '/admin/');
@@ -273,6 +274,9 @@ $L = $Language;
 
 // --- CONSTANTS with dependency ---
 define('ORDER_BY', $Site->orderBy());
+
+$ADMIN_CONTROLLER = ''; // modified on bl-kernel/
+$ADMIN_VIEW = '';
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');

@@ -14,22 +14,17 @@ $plugins = array(
 
 	'pageBegin'=>array(),
 	'pageEnd'=>array(),
-	'postBegin'=>array(),
-	'postEnd'=>array(),
 
+	'beforeAdminLoad'=>array(),
+	'afterAdminLoad'=>array(),
 	'adminHead'=>array(),
 	'adminBodyBegin'=>array(),
 	'adminBodyEnd'=>array(),
 	'adminSidebar'=>array(),
-	'beforeAdminLoad'=>array(),
-	'afterAdminLoad'=>array(),
 
 	'beforeRulesLoad'=>array(),
 	'afterFormSave'=>array(),
 
-	'afterPostCreate'=>array(),
-	'afterPostModify'=>array(),
-	'afterPostDelete'=>array(),
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
 	'afterPageDelete'=>array(),

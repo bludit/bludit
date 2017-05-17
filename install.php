@@ -41,7 +41,6 @@ define('PATH_CONTENT',		PATH_ROOT.'bl-content'.DS);
 define('PATH_KERNEL',		PATH_ROOT.'bl-kernel'.DS);
 define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
 
-define('PATH_POSTS',		PATH_CONTENT.'posts'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
 define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
@@ -172,9 +171,7 @@ function getLanguageList()
 	$files = glob(PATH_LANGUAGES.'*.json');
 
 	$tmp = array();
-
-	foreach($files as $file)
-	{
+	foreach($files as $file) {
 		$t = new dbJSON($file, false);
 		$native = $t->db['language-data']['native'];
 		$locale = basename($file, '.json');
@@ -184,13 +181,13 @@ function getLanguageList()
 	return $tmp;
 }
 
-// Generate a random string.
+// Generate a random string
 // Thanks, http://stackoverflow.com/questions/4356289/php-random-string-generator
 function getRandomString($length = 10) {
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 }
 
-// Check if Bludit is installed.
+// Check if Bludit is installed
 function alreadyInstalled() {
     return file_exists(PATH_DATABASES.'site.php');
 }
@@ -203,8 +200,7 @@ function checkSystem()
 	$dirpermissions = 0755;
 
 	// Check .htaccess file for different webservers
-	if( !file_exists(PATH_ROOT.'.htaccess') )
-	{
+	if( !file_exists(PATH_ROOT.'.htaccess') ) {
 
 		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
 			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
@@ -223,8 +219,7 @@ function checkSystem()
 	@mkdir(PATH_CONTENT, $dirpermissions, true);
 
 	// Check if the directory content is writeable.
-	if(!is_writable(PATH_CONTENT))
-	{
+	if(!is_writable(PATH_CONTENT)) {
 		$errorText = 'Writing test failure, check directory content permissions. (ERR_205)';
 		error_log($errorText, 0);
 
@@ -236,7 +231,7 @@ function checkSystem()
 	return $stdOut;
 }
 
-// Finish with the installation.
+// Installation function
 function install($adminPassword, $email, $timezone)
 {
 	global $Language;
@@ -255,65 +250,54 @@ function install($adminPassword, $email, $timezone)
 
 	// 7=read,write,execute | 5=read,execute
 	$dirpermissions = 0755;
-	$firstPostSlug = 'first-post';
 
-	if(!mkdir(PATH_POSTS.$firstPostSlug, $dirpermissions, true))
-	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_POSTS.$firstPostSlug;
+	if(!mkdir(PATH_PAGES.'welcome', $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'welcome';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PAGES.'error', $dirpermissions, true))
-	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'error';
-		error_log($errorText, 0);
-	}
-
-	if(!mkdir(PATH_PAGES.'about', $dirpermissions, true))
-	{
+	if(!mkdir(PATH_PAGES.'about', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'about';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true))
-	{
+	if(!mkdir(PATH_PAGES.'error', $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'error';
+		error_log($errorText, 0);
+	}
+
+	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true))
-	{
+	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true))
-	{
+	if(!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tags';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'about', $dirpermissions, true))
-	{
+	if(!mkdir(PATH_PLUGINS_DATABASES.'about', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'about';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true))
-	{
+	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_TMP, $dirpermissions, true))
-	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
+	if(!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true))
-	{
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
+	if(!mkdir(PATH_TMP, $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
 		error_log($errorText, 0);
 	}
 
@@ -326,49 +310,50 @@ function install($adminPassword, $email, $timezone)
 	// File pages.php
 	$data = array(
 		'error'=>array(
-		'description'=>'Error page',
-		'username'=>'admin',
-		'tags'=>array(),
-		'status'=>'published',
-		'date'=>$currentDate,
-		'position'=>0,
-		'coverImage'=>'',
-		'md5file'=>'',
-		'category'=>'',
-		'uuid'=>md5(uniqid())
+			'description'=>$Language->get('Page not found'),
+			'username'=>'admin',
+			'tags'=>array(),
+			'status'=>'published',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>false,
+			'position'=>0,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid())
 	    	),
 		'about'=>array(
-		'description'=>$Language->get('About your site or yourself'),
-		'username'=>'admin',
-		'tags'=>array(),
-		'status'=>'published',
-		'date'=>$currentDate,
-		'position'=>1,
-		'coverImage'=>'',
-		'md5file'=>'',
-		'category'=>'',
-		'uuid'=>md5(uniqid())
+			'description'=>$Language->get('About your site or yourself'),
+			'username'=>'admin',
+			'tags'=>array(),
+			'status'=>'published',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>false,
+			'position'=>2,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid())
+	    	),
+		'welcome'=>array(
+			'description'=>$Language->get('Welcome to Bludit'),
+			'username'=>'admin',
+			'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
+			'status'=>'published',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>false,
+			'position'=>1,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid())
 	    	)
 	);
 
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
-
-	// File posts.php
-	$data = array(
-	$firstPostSlug=>array(
-		'description'=>$Language->get('Welcome to Bludit'),
-		'username'=>'admin',
-		'status'=>'published',
-		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
-		'allowComments'=>'false',
-		'date'=>$currentDate,
-		'coverImage'=>'',
-		'md5file'=>'',
-		'category'=>'',
-		'uuid'=>md5(uniqid())
-		)
-	);
-	file_put_contents(PATH_DATABASES.'posts.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File site.php
 	$data = array(
@@ -383,10 +368,8 @@ function install($adminPassword, $email, $timezone)
 		'adminTheme'=>'default',
 		'homepage'=>'',
 		'postsperpage'=>'6',
-		'uriPost'=>'/post/',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
-		'uriBlog'=>'/blog/',
 		'uriCategory'=>'/category/',
 		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
 		'emailFrom'=>'no-reply@'.DOMAIN
@@ -433,28 +416,18 @@ function install($adminPassword, $email, $timezone)
 
 	// File categories.php
 	$data = array(
-		'videos'=>array('name'=>'Videos', 'posts'=>array(), 'pages'=>array())
+		'videos'=>array('name'=>'Videos', 'list'=>array()),
+		'music'=>array('name'=>'Music', 'list'=>array())
 	);
 	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
-	file_put_contents(
-		PATH_DATABASES.'tags.php',
-		$dataHead.json_encode(
-			array(
-				'postsIndex'=>array(
-					'bludit'=>array('name'=>'Bludit', 'posts'=>array('first-post')),
-					'cms'=>array('name'=>'CMS', 'posts'=>array('first-post')),
-					'flat-files'=>array('name'=>'Flat files', 'posts'=>array('first-post'))
-				),
-				'pagesIndex'=>array()
-			),
-		JSON_PRETTY_PRINT),
-		LOCK_EX
+	$data = array(
+		'bludit'=>array('name'=>'Bludit', 'list'=>array('welcome')),
+		'cms'=>array('name'=>'CMS', 'list'=>array('welcome')),
+		'flat-files'=>array('name'=>'Flat files', 'list'=>array('welcome'))
 	);
-
-
-	// PLUGINS
+	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File plugins/pages/db.php
 	file_put_contents(
@@ -507,22 +480,15 @@ function install($adminPassword, $email, $timezone)
 		LOCK_EX
 	);
 
-	// File FILENAME for error page
-	$data = 'Title: '.$Language->get('Error').'
-Content: '.$Language->get('The page has not been found');
-
+	// File for error page
+	$data = 'Title: '.$Language->get('Error').PHP_EOL.'Content: '.$Language->get('The page has not been found');
 	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
-	// File FILENAME for about page
-	$data = 'Title: '.$Language->get('About').'
-Content:
-'.$Language->get('the-about-page-is-very-important').'
-
-'.$Language->get('change-this-pages-content-on-the-admin-panel');
-
+	// File for about page
+	$data = 'Title: '.$Language->get('About').PHP_EOL.'Content: '.$Language->get('the-about-page-is-very-important').' '.$Language->get('change-this-pages-content-on-the-admin-panel');
 	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
 
-	// File FILENAME for welcome post
+	// File for welcome page
 	$text1 = Text::replaceAssoc(
 			array(
 				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
@@ -530,7 +496,7 @@ Content:
 			$Language->get('Manage your Bludit from the admin panel')
 	);
 
-	$data = 'Title: '.$Language->get('First post').'
+	$data = 'Title: '.$Language->get('Welcome').'
 Content:
 
 ## '.$Language->get('Whats next').'
@@ -541,7 +507,7 @@ Content:
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
 
-	file_put_contents(PATH_POSTS.$firstPostSlug.DS.FILENAME, $data, LOCK_EX);
+	file_put_contents(PATH_POSTS.$welcomePageKey.DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }
@@ -552,15 +518,8 @@ function checkPOST($args)
 	global $Language;
 
 	// Check empty password
-	if( strlen($args['password']) < 6 )
-	{
+	if( strlen($args['password']) < 6 ) {
 		return '<div>'.$Language->g('Password must be at least 6 characters long').'</div>';
-	}
-
-	// Check invalid email
-	if( !Valid::email($args['email']) && ($args['noCheckEmail']=='0') )
-	{
-		return '<div>'.$Language->g('Your email address is invalid').'</div><div id="jscompleteEmail">'.$Language->g('Proceed anyway').'</div>';
 	}
 
 	// Sanitize email
@@ -588,7 +547,7 @@ function redirect($url) {
 $error = '';
 
 if( alreadyInstalled() ) {
-	exit('Bludit already installed');
+	exit('Bludit is already installed');
 }
 
 if( isset($_GET['demo']) ) {
@@ -598,7 +557,6 @@ if( isset($_GET['demo']) ) {
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$error = checkPOST($_POST);
-
 	if($error===true) {
 		redirect(HTML_PATH_ROOT);
 	}
@@ -625,7 +583,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="./js/jstz.min.js?version=<?php echo time() ?>"></script>
-
 </head>
 <body class="uk-height-1-1">
 <div class="uk-vertical-align uk-text-center uk-height-1-1">
@@ -637,10 +594,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		$system = checkSystem();
 
 		// Missing requirements
-		if(!empty($system))
-		{
-			foreach($system as $values)
-			{
+		if(!empty($system)) {
+			foreach($system as $values) {
 				echo '<div class="uk-panel">';
 				echo '<div class="uk-panel-badge uk-badge uk-badge-danger">FAIL</div>';
 				echo '<h3 class="uk-panel-title">'.$values['title'].'</h3>';
@@ -661,7 +616,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		?>
 
 		<form id="jsformInstaller" class="uk-form uk-form-stacked" method="post" action="" autocomplete="off">
-		<input type="hidden" name="noCheckEmail" id="jsnoCheckEmail" value="0">
 		<input type="hidden" name="timezone" id="jstimezone" value="0">
 
 		<div class="uk-form-row">
@@ -718,18 +672,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 <script>
 $(document).ready(function()
 {
-
 	// Timezone
 	var timezone = jstz.determine();
 	$("#jstimezone").val( timezone.name() );
-
-	// Proceed without email field.
-	$("#jscompleteEmail").on("click", function() {
-
-		$("#jsnoCheckEmail").val("1");
-
-		$("#jsformInstaller").submit();
-	});
 
 	// Show password
 	$("#jsshowPassword").on("click", function() {
