@@ -30,21 +30,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
     HTML::legend(array('value'=>$L->g('Website or Blog')));
 
-    HTML::formInputRadio(array(
+    HTML::formSelect(array(
         'name'=>'orderBy',
-        'type'=>'radio',
-        'label'=>$L->g('Website'),
-        'value'=>'position',
-        'class'=>'',
-        'tip'=>'Select this option if you want to order your pages by position.'
-    ));
-
-    HTML::formInputRadio(array(
-        'name'=>'orderBy',
-        'type'=>'radio',
-        'label'=>$L->g('Blog'),
-        'value'=>'date',
-        'class'=>''
+        'label'=>$L->g('Order Pages By'),
+        'options'=>array('date'=>'Date','position'=>'Position'),
+        'selected'=>$Site->orderBy(),
+        'class'=>'uk-width-1-3 uk-form-medium',
+        'tip'=>$L->g('Order the pages by date to create a Blog or order the pages by position to create a Website')
     ));
 
     HTML::legend(array('value'=>$L->g('Email account settings')));

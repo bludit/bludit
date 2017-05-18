@@ -401,6 +401,19 @@ function install($adminPassword, $email, $timezone)
 
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
+	// File syslog.php
+	$data = array(
+		array(
+		'date'=>$currentDate,
+		'dictionaryKey'=>'welcome-to-bludit',
+		'username'=>'admin',
+		'idExecution'=>uniqid(),
+		'method'=>'POST'
+	));
+
+	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+
+
 	// File security.php
 	$randomKey = getRandomString();
 	$randomKey = sha1($randomKey);
@@ -507,7 +520,7 @@ Content:
 - '.$Language->get('Read the documentation for more information').'
 - '.$Language->get('Share with your friends and enjoy');
 
-	file_put_contents(PATH_POSTS.$welcomePageKey.DS.FILENAME, $data, LOCK_EX);
+	file_put_contents(PATH_PAGES.'welcome'.DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }

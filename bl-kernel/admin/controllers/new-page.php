@@ -12,6 +12,7 @@ function addPage($args)
 {
 	global $dbPages;
 	global $Language;
+	global $Syslog;
 
 	// Add the page, if the $key is FALSE the creation of the post failure.
 	$key = $dbPages->add($args);
@@ -25,6 +26,12 @@ function addPage($args)
 
 		// Call the plugins after page created
 		Theme::plugins('afterPageCreate');
+
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'new-page-created',
+			'notes'=>$args['title']
+		));
 
 		// Create an alert
 		Alert::set( $Language->g('Page added successfully') );

@@ -33,6 +33,11 @@ class dbLanguage extends dbJSON
 		unset($this->db['language-data']);
 	}
 
+	public function exists($key)
+	{
+		return isset( $this->db[$key] );
+	}
+
 	public function getCurrentLocale()
 	{
 		return $this->currentLocale;

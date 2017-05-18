@@ -17,6 +17,7 @@ function setSettings($args)
 {
 	global $Site;
 	global $Language;
+	global $Syslog;
 
 	// Add slash at the begin and end.
 	// This fields are in the settings->advanced mode
@@ -33,7 +34,17 @@ function setSettings($args)
 	}
 
 	if( $Site->set($args) ) {
-		Alert::set($Language->g('the-changes-have-been-saved'));
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'changes-on-settings',
+			'notes'=>''
+		));
+
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
+
+		// Redirect
+		Redirect::page('settings-general');
 	}
 	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
@@ -53,7 +64,6 @@ function setSettings($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	setSettings($_POST);
-	Redirect::page($layout['controller']);
 }
 
 // ============================================================================

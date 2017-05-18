@@ -54,7 +54,7 @@ define('DB_PAGES', PATH_DATABASES.'pages.php');
 define('DB_SITE', PATH_DATABASES.'site.php');
 define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
-define('DB_NOTIFICATIONS', PATH_DATABASES.'notifications.php');
+define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 
 // ADMIN URI FILTER
 define('ADMIN_URI_FILTER', '/admin/');
@@ -155,6 +155,7 @@ include(PATH_KERNEL.'dbtags.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 include(PATH_KERNEL.'dbsite.class.php');
 include(PATH_KERNEL.'dbcategories.class.php');
+include(PATH_KERNEL.'dbsyslog.class.php');
 include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'user.class.php');
 include(PATH_KERNEL.'url.class.php');
@@ -196,6 +197,7 @@ $Site 		= new dbSite();
 $Url 		= new Url();
 $Parsedown 	= new ParsedownExtra();
 $Security	= new Security();
+$Syslog 	= new dbSyslog();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.
@@ -275,8 +277,9 @@ $L = $Language;
 // --- CONSTANTS with dependency ---
 define('ORDER_BY', $Site->orderBy());
 
-$ADMIN_CONTROLLER = ''; // modified on bl-kernel/
+$ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';
+$ID_EXECUTION = uniqid(); // string 13 characters long
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');
