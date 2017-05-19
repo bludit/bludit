@@ -406,13 +406,13 @@ function install($adminPassword, $email, $timezone)
 		array(
 		'date'=>$currentDate,
 		'dictionaryKey'=>'welcome-to-bludit',
-		'username'=>'admin',
+		'notes'=>'',
 		'idExecution'=>uniqid(),
-		'method'=>'POST'
+		'method'=>'POST',
+		'username'=>'admin'
 	));
 
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
-
 
 	// File security.php
 	$randomKey = getRandomString();
