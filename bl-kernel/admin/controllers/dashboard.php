@@ -32,6 +32,12 @@ function updateBludit()
 				$checksum = md5_file(PATH_POSTS.$key.DS.FILENAME);
 				$dbPosts->setPostDb($key, 'md5file', $checksum);
 			}
+
+			// UUID
+			if( empty($post['uuid']) ) {
+				$uuid = uniqid();
+				$dbPosts->setPostDb($key, 'uuid', $uuid);
+			}
 		}
 
 		$dbPosts->save();
@@ -48,9 +54,15 @@ function updateBludit()
 			}
 
 			// Checksum
-			if( empty($post['md5file']) ) {
+			if( empty($page['md5file']) ) {
 				$checksum = md5_file(PATH_PAGES.$key.DS.FILENAME);
 				$dbPages->setPageDb($key, 'md5file', $checksum);
+			}
+
+			// UUID
+			if( empty($page['uuid']) ) {
+				$uuid = uniqid();
+				$dbPages->setPostDb($key, 'uuid', $uuid);
 			}
 		}
 
