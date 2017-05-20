@@ -6,5 +6,6 @@
 	},
 	"toolbar": "Barra de herramientas",
 	"tab-size": "Tamaño de la tabulación",
-	"autosave": "Autoguardado"
+	"autosave": "Autoguardado",
+	"content-here-supports-markdown-and-html-code": "Contenido aquí. Soporta Markdown y código HTML."
 }
