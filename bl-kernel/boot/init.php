@@ -2,9 +2,9 @@
 
 // Bludit version
 define('BLUDIT_VERSION',	'1.6');
-define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'');
-define('BLUDIT_BUILD',		'');
+define('BLUDIT_CODENAME',	'Another place in the world');
+define('BLUDIT_RELEASE_DATE',	'2017-05-22');
+define('BLUDIT_BUILD',		'20170520');
 
 // Debug mode
 // Change to FALSE, for prevent warning or error on browser
