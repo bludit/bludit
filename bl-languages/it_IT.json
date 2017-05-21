@@ -241,10 +241,10 @@
 
 	"welcome": "Benvenuto",
 
-	"to-enable-the-user-you-have-to-set-a-new-password": "Per attivare l'utente devi impostare una nuova password."
+	"to-enable-the-user-you-have-to-set-a-new-password": "Per attivare l'utente devi impostare una nuova password.",
 	"do-you-want-to-disable-the-user": "Vuoi disabilitare l'utente ?",
-	"сurrent-status" : "Stato",
-	"disable-the-user" : "Disabilita l'utente",
+	"сurrent-status": "Stato",
+	"disable-the-user": "Disabilita l'utente",
 	"add-a-new-page": "Crea una nuova pagina",
 	"add-a-new-post": "Crea un nuovo post",
 
