@@ -6,5 +6,6 @@
 	},
 	"toolbar": "Werkzeugleiste",
 	"tab-size": "Abstände der Tabstopps",
-	"autosave": "Autosave"
+	"autosave": "Autosave",
+	"content-here-supports-markdown-and-html-code": "Hier kann die Inhalt eingefügt werden. Der Editor unterstützt Markdown und HTML-Code."
 }
