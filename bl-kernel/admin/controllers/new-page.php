@@ -14,7 +14,7 @@ function addPage($args)
 	global $Language;
 	global $Syslog;
 
-	// Add the page, if the $key is FALSE the creation of the post failure.
+	// Add the page, if the $key is FALSE the creation of the page failure
 	$key = $dbPages->add($args);
 
 	if($key) {

@@ -116,6 +116,7 @@ class Url
 
 	public function setWhereAmI($where)
 	{
+		$GLOBALS['WHERE_AM_I'] = $where;
 		$this->whereAmI = $where;
 	}
 

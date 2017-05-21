@@ -181,12 +181,6 @@ function getLanguageList()
 	return $tmp;
 }
 
-// Generate a random string
-// Thanks, http://stackoverflow.com/questions/4356289/php-random-string-generator
-function getRandomString($length = 10) {
-    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-}
-
 // Check if Bludit is installed
 function alreadyInstalled() {
     return file_exists(PATH_DATABASES.'site.php');
@@ -378,7 +372,7 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File users.php
-	$salt = getRandomString();
+	$salt = uniqid();
 	$passwordHash = sha1($adminPassword.$salt);
 
 	$data = array(
@@ -415,8 +409,7 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
-	$randomKey = getRandomString();
-	$randomKey = sha1($randomKey);
+	$randomKey = sha1( uniqid() );
 
 	$data = array(
 		'key1'=>$randomKey,

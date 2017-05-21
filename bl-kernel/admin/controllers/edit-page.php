@@ -12,51 +12,77 @@ function editPage($args)
 {
 	global $dbPages;
 	global $Language;
+	global $Syslog;
 
 	if(!isset($args['parent'])) {
 		$args['parent'] = NO_PARENT_CHAR;
 	}
 
-	// Add the page, if the $key is FALSE the creation of the post failure.
+	// Edit the page
 	$key = $dbPages->edit($args);
 
-	if($key)
-	{
-		$dbPages->regenerateCli();
+	if($key) {
+		// Re-index categories
+		reindexCategories();
 
-		// Re index categories
-		//reIndexCategoriesPages();
+		// Re-index tags
+		reindextags();
 
-		// Call the plugins after page created.
+		// Call the plugins after page modified
 		Theme::plugins('afterPageModify');
 
-		// Alert the user
-		Alert::set($Language->g('The changes have been saved'));
-		Redirect::page('admin', 'edit-page/'.$args['slug']);
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'page-edited',
+			'notes'=>$args['title']
+		));
+
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
+
+		// Redirect
+		Redirect::page('edit-page/'.$key);
 	}
-	else
-	{
+	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the page.');
 	}
+
+	return false;
 }
 
 function deletePage($key)
 {
 	global $dbPages;
 	global $Language;
+	global $Syslog;
 
-	if( $dbPages->delete($key) )
-	{
-		// Call the plugins after post created.
+	if( $dbPages->delete($key) ) {
+		// Re-index categories
+		reindexCategories();
+
+		// Re-index tags
+		reindextags();
+
+		// Call the plugins after page deleted
 		Theme::plugins('afterPageDelete');
 
-		Alert::set($Language->g('The page has been deleted successfully'));
-		Redirect::page('admin', 'manage-pages');
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'page-deleted',
+			'notes'=>$key
+		));
+
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
+
+		// Redirect
+		Redirect::page('pages');
 	}
-	else
-	{
+	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the page.');
 	}
+
+	return false;
 }
 
 // ============================================================================

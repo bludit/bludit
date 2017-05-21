@@ -49,20 +49,13 @@ class dbSite extends dbJSON
 
 	public function set($args)
 	{
-		foreach($args as $field=>$value)
-		{
-			if( isset($this->dbFields[$field]) )
-			{
+		foreach($args as $field=>$value) {
+			if( isset($this->dbFields[$field]) ) {
 				$this->db[$field] = Sanitize::html($value);
 			}
 		}
 
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
+		return $this->save();
 	}
 
 	// Returns an array with the filters for the url

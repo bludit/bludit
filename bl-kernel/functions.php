@@ -74,7 +74,7 @@ function reindexCategories()
 function reindexTags()
 {
 	global $dbPages;
-	global $dbCategories;
+	global $dbTags;
 
 	// Get a database with published pages
 	$db = $dbPages->getPublishedDB();
@@ -126,12 +126,14 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	if($for=='admin') {
 		$onlyPublished = false;
 		$amountOfItems = ITEMS_PER_PAGE_ADMIN;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$removeErrorPage = false;
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, $removeErrorPage);
 	}
 	elseif($for=='home') {
 		$onlyPublished = true;
 		$amountOfItems = $Site->itemsPerPage();
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$removeErrorPage = true;
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, $removeErrorPage);
 	}
 	elseif($for=='category') {
 		$amountOfItems = $Site->itemsPerPage();

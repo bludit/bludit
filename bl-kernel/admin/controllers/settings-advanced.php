@@ -17,26 +17,54 @@ function setSettings($args)
 {
 	global $Site;
 	global $Language;
+	global $Syslog;
+	global $dbPages;
 
-	// Add slash at the begin and end.
-	// This fields are in the settings->advanced mode
+	// Add slash at the begin and end
 	$args['url'] 		= Text::addSlashes($args['url'],false,true);
 	$args['uriPage'] 	= Text::addSlashes($args['uriPage']);
 	$args['uriTag'] 	= Text::addSlashes($args['uriTag']);
 	$args['uriCategory'] 	= Text::addSlashes($args['uriCategory']);
 
-	if(($args['uriPost']==$args['uriPage']) || ($args['uriPost']==$args['uriTag']) || ($args['uriPage']==$args['uriTag']) )
-	{
+	if(	($args['uriPage']==$args['uriTag']) ||
+		($args['uriPage']==$args['uriCategory']) ||
+		($args['uriTag']==$args['uriCategory'])
+	) {
 		$args = array();
 	}
 
 	if( $Site->set($args) ) {
-		Alert::set($Language->g('the-changes-have-been-saved'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'changes-on-settings',
+			'notes'=>''
+		));
+
+		// Check actual order by, if different than the new settings sort pages
+		if( $Site->orderBy()!=ORDER_BY ) {
+			if( $Site->orderBy()=='date' ) {
+				$dbPages->sortByDate();
+			}
+			else {
+				$dbPages->sortByPosition();
+			}
+
+			// Save database state
+			$dbPages->save();
+
+			// Re-index categories
+			reindexCategories();
+
+			// Re-index tags
+			reindextags();
+		}
+
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
 	}
 
+	// Redirect
+	Redirect::page('settings-advanced');
 	return true;
 }
 
@@ -51,7 +79,6 @@ function setSettings($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	setSettings($_POST);
-	Redirect::page('admin', $layout['controller']);
 }
 
 // ============================================================================

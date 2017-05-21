@@ -280,6 +280,7 @@ define('ORDER_BY', $Site->orderBy());
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';
 $ID_EXECUTION = uniqid(); // string 13 characters long
+$WHERE_AM_I = $Url->whereAmI();
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');

@@ -107,7 +107,7 @@ class dbPages extends dbJSON
 		$this->db[$key] = $dataForDb;
 
 		// Sort database
-		$this->sortByDate();
+		$this->sortBy();
 
 		// Save database
 		if( $this->save() === false ) {
@@ -200,7 +200,7 @@ class dbPages extends dbJSON
 		$this->db[$newKey] = $dataForDb;
 
 		// Sort database
-		$this->sortByDate();
+		$this->sortBy();
 
 		// Save database
 		if( $this->save() === false ) {
@@ -265,8 +265,12 @@ class dbPages extends dbJSON
 	// (int) $pageNumber, the page number
 	// (int) $amountOfItems, amount of items to return
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
+	public function getList($pageNumber, $amountOfItems, $onlyPublished=true, $removeErrorPage=true)
 	{
+		if( $removeErrorPage ) {
+			unset($this->db['error']);
+		}
+
 		$db = $this->db;
 
 		if( $onlyPublished ) {
@@ -322,22 +326,50 @@ class dbPages extends dbJSON
 		return isset( $this->db[$key] );
 	}
 
-	// Sort pages by date
-	public function sortByDate($HighToLow=true)
+	public function sortBy()
+	{
+		if( ORDER_BY=='date' ) {
+			return $this->sortByDate(true);
+		} else {
+			return $this->sortByPosition(false);
+		}
+	}
+
+	// Sort pages by position
+	public function sortByPosition($HighToLow=false)
 	{
 		if($HighToLow) {
-			uasort($this->db, array($this, 'sortHighToLow'));
+			uasort($this->db, array($this, 'sortByPositionHighToLow'));
 		}
 		else {
-			uasort($this->db, array($this, 'sortLowToHigh'));
+			uasort($this->db, array($this, 'sortByPositionLowToHigh'));
 		}
 		return true;
 	}
 
-	private function sortLowToHigh($a, $b) {
+	private function sortByPositionLowToHigh($a, $b) {
+		return $a['position']>$b['position'];
+	}
+	private function sortByPositionHighToLow($a, $b) {
+		return $a['position']<$b['position'];
+	}
+
+	// Sort pages by date
+	public function sortByDate($HighToLow=true)
+	{
+		if($HighToLow) {
+			uasort($this->db, array($this, 'sortByDateHighToLow'));
+		}
+		else {
+			uasort($this->db, array($this, 'sortByDateLowToHigh'));
+		}
+		return true;
+	}
+
+	private function sortByDateLowToHigh($a, $b) {
 		return $a['date']>$b['date'];
 	}
-	private function sortHighToLow($a, $b) {
+	private function sortByDateHighToLow($a, $b) {
 		return $a['date']<$b['date'];
 	}
 

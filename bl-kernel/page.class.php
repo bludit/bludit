@@ -314,7 +314,6 @@ class Page {
 	public function coverImage($absolute=true)
 	{
 		$fileName = $this->getField('coverImage');
-
 		if(empty($fileName)) {
 			return false;
 		}

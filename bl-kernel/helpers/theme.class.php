@@ -2,6 +2,104 @@
 
 class Theme {
 
+	// Return the metatag <title> with a predefine structure
+	public static function headTitle()
+	{
+		global $Url;
+		global $Site;
+		global $dbTags;
+		global $dbCategories;
+		global $WHERE_AM_I;
+		global $page;
+
+		$title = $Site->title();
+
+		if( $WHERE_AM_I=='page' ) {
+			$title = $page->title().' - '.$Site->title();
+		}
+		elseif( $WHERE_AM_I=='tag' ) {
+			$tagKey = $Url->slug();
+			$tagName = $dbTags->getName($tagKey);
+			$title = $tagName.' - '.$Site->title();
+		}
+		elseif( $WHERE_AM_I=='category' ) {
+			$categoryKey = $Url->slug();
+			$categoryName = $dbCategories->getName($categoryKey);
+			$title = $categoryName.' - '.$Site->title();
+		}
+
+		return '<title>'.$title.'</title>'.PHP_EOL;
+	}
+
+	// Return the metatag <decription> with a predefine structure
+	public static function headDescription()
+	{
+		global $Site;
+		global $WHERE_AM_I;
+		global $page;
+
+		$description = $Site->description();
+
+		if( $WHERE_AM_I=='page' ) {
+			$description = $page->description();
+		}
+
+		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
+	}
+
+	public static function charset($charset)
+	{
+		return '<meta charset="'.$charset.'">'.PHP_EOL;
+	}
+
+	public static function viewport($content)
+	{
+		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
+	}
+
+	public static function css($files, $path=HTML_PATH_THEME)
+	{
+		if( !is_array($files) ) {
+			$files = array($files);
+		}
+
+		$links = '';
+		foreach($files as $file) {
+			$links .= '<link rel="stylesheet" type="text/css" href="'.$path.$file.'">'.PHP_EOL;
+		}
+
+		return $links;
+	}
+
+	public static function javascript($files, $path=HTML_PATH_THEME)
+	{
+		if( !is_array($files) ) {
+			$files = array($files);
+		}
+
+		$scripts = '';
+		foreach($files as $file) {
+			$scripts .= '<script src="'.$path.$file.'"></script>'.PHP_EOL;
+		}
+
+		return $scripts;
+	}
+
+	public static function js($files, $path=HTML_PATH_THEME)
+	{
+		self::javascript($files, $path);
+	}
+
+	public static function plugins($type)
+	{
+		global $plugins;
+		foreach($plugins[$type] as $plugin) {
+			echo call_user_func(array($plugin, $type));
+		}
+	}
+
+// ---- OLD
+
 	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $typeIcon=true, $echo=true)
 	{
 		$type = 'image/png';
@@ -18,106 +116,12 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function css($files, $path=DOMAIN_THEME_CSS, $echo=true)
-	{
-		if(!is_array($files)) {
-			$files = array($files);
-		}
 
-		$tmp = '';
-		foreach($files as $file) {
-			$tmp .= '<link rel="stylesheet" type="text/css" href="'.$path.$file.'">'.PHP_EOL;
-		}
 
-		if($echo) {
-			echo $tmp;
-		}
 
-		return $tmp;
-	}
 
-	public static function javascript($files, $path=HTML_PATH_THEME_JS, $echo=true)
-	{
-		if(!is_array($files)) {
-			$files = array($files);
-		}
 
-		$tmp = '';
-		foreach($files as $file) {
-			$tmp .= '<script src="'.$path.$file.'"></script>'.PHP_EOL;
-		}
 
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function title($title=false, $echo=true)
-	{
-		global $Url;
-		global $Post, $Page;
-		global $Site;
-		global $dbTags;
-
-		$tmp = $title;
-
-		if(empty($title))
-		{
-			if( $Url->whereAmI()=='post' ) {
-				$tmp = $Post->title().' - '.$Site->title();
-			}
-			elseif( $Url->whereAmI()=='page' ) {
-				$tmp = $Page->title().' - '.$Site->title();
-			}
-			elseif( $Url->whereAmI()=='tag' ) {
-				$tag = $dbTags->getName($Url->slug());
-				$tmp = $tag.' - '.$Site->title();
-			}
-			else {
-				$tmp = $Site->title();
-			}
-		}
-
-		$tmp = '<title>'.$tmp.'</title>'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function description($description=false, $echo=true)
-	{
-		global $Url;
-		global $Post, $Page;
-		global $Site;
-
-		$tmp = $description;
-
-		if(empty($description))
-		{
-			if( $Url->whereAmI()=='post' ) {
-				$tmp = $Post->description();
-			}
-			elseif( $Url->whereAmI()=='page' ) {
-				$tmp = $Page->description();
-			}
-			else {
-				$tmp = $Site->description();
-			}
-		}
-
-		$tmp = '<meta name="description" content="'.$tmp.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
 
 	public static function keywords($keywords, $echo=true)
 	{
@@ -134,37 +138,11 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function viewport($content='width=device-width, initial-scale=1.0', $echo=true)
-	{
-		$tmp = '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
 
-		if($echo) {
-			echo $tmp;
-		}
 
-		return $tmp;
-	}
 
-	public static function charset($charset, $echo=true)
-	{
-		$tmp = '<meta charset="'.$charset.'">'.PHP_EOL;
 
-		if($echo) {
-			echo $tmp;
-		}
 
-		return $tmp;
-	}
-
-	public static function plugins($type)
-	{
-		global $plugins;
-
-		foreach($plugins[$type] as $plugin)
-		{
-			echo call_user_func(array($plugin, $type));
-		}
-	}
 
 	public static function jquery($echo=true)
 	{
