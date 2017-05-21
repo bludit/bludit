@@ -297,7 +297,9 @@ button.aslink:hover {
 	}
 
 	.bl-publish-sidebar {
-		display: none !important;
+        	width: 100%;
+    		padding-left: 0;
+    		margin: 20px 0;
 	}
 
 	.bl-publish-view {
