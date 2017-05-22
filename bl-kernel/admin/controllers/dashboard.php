@@ -62,7 +62,7 @@ function updateBludit()
 			// UUID
 			if( empty($page['uuid']) ) {
 				$uuid = uniqid();
-				$dbPages->setPostDb($key, 'uuid', $uuid);
+				$dbPages->setPageDb($key, 'uuid', $uuid);
 			}
 		}
 
