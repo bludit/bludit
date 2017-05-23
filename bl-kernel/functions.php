@@ -145,7 +145,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	}
 
 	// There are not items for the page number then set the page notfound
-	if( empty($list) && $pageNumber>0 ) {
+	if( empty($list) && $pageNumber>1 ) {
 		$Url->setNotFound(true);
 	}
 

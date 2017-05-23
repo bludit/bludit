@@ -277,8 +277,11 @@ class dbPages extends dbJSON
 			$db = $this->getPublishedDB();
 		}
 
+		// The first page number is 1, so the real is 0
+		$realPageNumber = $pageNumber - 1;
+
 		$total = count($db);
-		$init = (int) $amountOfItems * $pageNumber;
+		$init = (int) $amountOfItems * $realPageNumber;
 		$end  = (int) min( ($init + $amountOfItems - 1), $total );
 		$outrange = $init<0 ? true : $init>$end;
 

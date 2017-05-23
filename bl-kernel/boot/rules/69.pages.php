@@ -63,6 +63,7 @@ elseif( $Url->whereAmI()==='admin' ) {
         buildPagesForAdmin();
 }
 
+// Set page 404 not found
 if( $Url->notFound() ) {
 	$Url->setWhereAmI('page');
 	$page = new Page('error');

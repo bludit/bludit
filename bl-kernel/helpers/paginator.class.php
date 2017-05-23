@@ -4,13 +4,15 @@ class Paginator {
 
 	public static $pager = array(
 		'itemsPerPage'=>0,
-		'amountOfPages'=>0,
-		'nextPage'=>0,
-		'prevPage'=>0,
-		'currentPage'=>0,
-		'showOlder'=>false,
-		'showNewer'=>false,
-		'show'=>false
+		'amountOfPages'=>1,
+		'amountOfItems'=>0,
+		'firstPage'=>1,
+		'nextPage'=>1,
+		'prevPage'=>1,
+		'currentPage'=>1,
+		'showPrev'=>false,
+		'showNext'=>false,
+		'showNextPrev'=>false
 	);
 
 	public static function set($key, $value)
@@ -23,58 +25,62 @@ class Paginator {
 		return self::$pager[$key];
 	}
 
-	public static function urlNextPage()
+	public static function amountOfPages()
 	{
-		global $Url;
-
-		$domain = trim(DOMAIN_BASE,'/');
-		$filter = trim($Url->activeFilter(), '/');
-
-		if(empty($filter)) {
-			$url = $domain.'/'.$Url->slug();
-		}
-		else {
-			$url = $domain.'/'.$filter.'/'.$Url->slug();
-		}
-
-		return $url.'?page='.self::get('nextPage');
+		return self::get('amountOfPages');
 	}
 
-	public static function urlPrevPage()
+	public static function nextPage()
 	{
-		global $Url;
-
-		$domain = trim(DOMAIN_BASE,'/');
-		$filter = trim($Url->activeFilter(), '/');
-
-		if(empty($filter)) {
-			$url = $domain.'/'.$Url->slug();
-		}
-		else {
-			$url = $domain.'/'.$filter.'/'.$Url->slug();
-		}
-
-		return $url.'?page='.self::get('prevPage');
+		return self::get('nextPage');
 	}
 
-	public static function urlLastPage()
+	public static function prevPage()
 	{
-		global $Url;
-
-		$domain = trim(DOMAIN_BASE,'/');
-		$filter = trim($Url->activeFilter(), '/');
-
-		if(empty($filter)) {
-			$url = $domain.'/'.$Url->slug();
-		}
-		else {
-			$url = $domain.'/'.$filter.'/'.$Url->slug();
-		}
-
-		return $url.'?page='.self::get('numberOfPages');
+		return self::get('prevPage');
 	}
 
-	public static function urlFirstPage()
+	public static function showNext()
+	{
+		return self::get('showNext');
+	}
+
+	public static function showPrev()
+	{
+		return self::get('showPrev');
+	}
+
+	public static function firstPage()
+	{
+		return self::get('firstPage');
+	}
+
+	// Returns the absolute URL for the first page
+	public static function firstPageUrl()
+	{
+		return self::absoluteUrl( self::firstPage() );
+	}
+
+	// Returns the absolute URL for the last page
+	public static function lastPageUrl()
+	{
+		return self::absoluteUrl( self::amountOfPages() );
+	}
+
+	// Returns the absolute URL for the next page
+	public static function nextPageUrl()
+	{
+		return self::absoluteUrl( self::nextPage() );
+	}
+
+	// Returns the absolute URL for the previous page
+	public static function prevPageUrl()
+	{
+		return self::absoluteUrl( self::prevPage() );
+	}
+
+	// Return the absoulte URL with the current filter
+	public static function absoluteUrl($pageNumber)
 	{
 		global $Url;
 
@@ -88,7 +94,7 @@ class Paginator {
 			$url = $domain.'/'.$filter.'/'.$Url->slug();
 		}
 
-		return $url.'?page=0';
+		return $url.'?page='.$pageNumber;
 	}
 
 	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)

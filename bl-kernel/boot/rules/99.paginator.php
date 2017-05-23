@@ -30,20 +30,25 @@ Paginator::set('itemsPerPage', $itemsPerPage);
 Paginator::set('amountOfItems', $amountOfItems);
 
 // Amount of pages
-$amountOfPages = (int) max(ceil($amountOfItems / $itemsPerPage) -1, 0);
+$amountOfPages = (int) max(ceil($amountOfItems / $itemsPerPage), 1);
 Paginator::set('amountOfPages', $amountOfPages);
 
-$showOlder = $amountOfPages > $currentPage;
-Paginator::set('showOlder', $showOlder);
+// TRUE if exists a next page to show
+$showNext = $amountOfPages > $currentPage;
+Paginator::set('showNext', $showNext);
 
-$showNewer = $currentPage > 0;
-Paginator::set('showNewer', $showNewer);
+// TRUE if exists a previous page to show
+$showPrev = $currentPage > Paginator::firstPage();
+Paginator::set('showPrev', $showPrev);
 
-$show = $showNewer && $showOlder;
-Paginator::set('show', true);
+// TRUE if exists a next and previous page to show
+$showNextPrev = $showNext && $showPrev;
+Paginator::set('showNextPrev', $showNextPrev);
 
+// Integer with the next page
 $nextPage = max(0, $currentPage+1);
 Paginator::set('nextPage', $nextPage);
 
+// Integer with the previous page
 $prevPage = min($amountOfPages, $currentPage-1);
 Paginator::set('prevPage', $prevPage);
