@@ -10,7 +10,7 @@ Bludit is a simple web application to make your own **blog** or **site** in seco
 - [Themes](https://themes.bludit.com)
 - [More plugins and themes](https://forum.bludit.com/viewforum.php?f=14)
 
-[![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=S55XTNZ8YQXSA&lc=AR&item_name=BLUDIT&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
+[![Donate](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/bludit)
 
 Social networks
 ---------------
