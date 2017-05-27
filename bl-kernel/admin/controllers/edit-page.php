@@ -112,4 +112,4 @@ if( !$dbPages->exists($layout['parameters']) ) {
 	Redirect::page('pages');
 }
 
-$page = $pagesKey[$layout['parameters']];
+$page = $pagesByKey[$layout['parameters']];

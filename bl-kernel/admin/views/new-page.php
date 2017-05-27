@@ -136,7 +136,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	$options = array();
 	$parents = $dbPages->getParents(true);
 	foreach( $parents as $key=>$fields ) {
-		$options[$key] = $pagesKey[$key]->title();
+		$options[$key] = $pagesByKey[$key]->title();
 	}
 
 	HTML::formSelect(array(

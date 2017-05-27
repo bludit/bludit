@@ -4,97 +4,62 @@ class pluginPages extends Plugin {
 
 	public function init()
 	{
+		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'homeLink'=>1,
-			'children'=>1,
-			'label'=>'Pages'
+			'label'=>'Pages',
+			'homeLink'=>true,
+			'children'=>true
 		);
 	}
 
+	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
-		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
+		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<input type="hidden" name="homeLink" value="0">';
-		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="1" '.($this->getDbField('homeLink')?'checked':'').'>';
+		$html .= '<input id="jshomeLink" name="homeLink" type="checkbox" value="true" '.($this->getValue('homeLink')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
 		$html .= '</div>';
-		
+
 		$html .= '<div>';
 		$html .= '<input type="hidden" name="children" value="0">';
-		$html .= '<input name="children" id="children" type="checkbox" value="1" '.($this->getDbField('children')?'checked':'').'>';
+		$html .= '<input id="jschildren" name="children" type="checkbox" value="true" '.($this->getValue('children')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jschildren">'.$Language->get('Show children').'</label>';
 		$html .= '</div>';
 
 		return $html;
 	}
 
+	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
 		global $Language;
-		global $pagesParents;
-		global $Site, $Url;
+		global $pages;
+		global $Url;
 
+		// URL base filter for categories
+		$filter = $Url->filters('page');
+
+		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
-
-		// Print the label if not empty.
-		$label = $this->getDbField('label');
-		if( !empty($label) ) {
-			$html .= '<h2>'.$label.'</h2>';
-		}
-
+		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<ul class="parents">';
+		$html .= '<ul>';
 
-		// Show home link ?
-		if($this->getDbField('homeLink')) {
+		// By default the database of categories are alphanumeric sorted
+		foreach( $pages as $page ) {
 			$html .= '<li>';
-			$html .= '<a class="parent'.( ($Url->whereAmI()=='home')?' active':'').'" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a>';
+			$html .= '<a href="'.DOMAIN_BASE.$filter.'/'.$page->key().'">';
+			$html .= $page->title();
+			$html .= '</a>';
 			$html .= '</li>';
-		}
-
-		$parents = $pagesParents[NO_PARENT_CHAR];
-		foreach($parents as $parent)
-		{
-			// Check if the parent is published
-			if( $parent->published() )
-			{
-				// Print the parent
-				$html .= '<li class="parent">';
-				$html .= '<a class="parent'.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
-
-				// Show children elements?
-				if($this->getDbField('children')) {
-
-					// Check if the parent has children
-					if(isset($pagesParents[$parent->key()]))
-					{
-						$children = $pagesParents[$parent->key()];
-
-						// Print children
-						$html .= '<ul class="children">';
-						foreach($children as $child)
-						{
-							// Check if the child is published
-							if( $child->published() )
-							{
-								$html .= '<li class="child">';
-								$html .= '<a class="'.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
-								$html .= '</li>';
-							}
-						}
-						$html .= '</ul>';
-					}
-				}	
-
-				$html .= '</li>';
-			}
 		}
 
 		$html .= '</ul>';

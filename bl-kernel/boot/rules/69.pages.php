@@ -17,7 +17,7 @@ $page = false;
 //$pageParents = array();
 
 // Array with all published pages, the array is a key=>Page-object
-$pagesKey = array();
+$pagesByKey = array();
 
 // ============================================================================
 // Main

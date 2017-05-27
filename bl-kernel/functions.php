@@ -117,7 +117,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	global $dbCategories;
 	global $Site;
 	global $Url;
-	global $pagesKey;
+	global $pagesByKey;
 	global $pages;
 
 	// Get the page number from URL
@@ -150,12 +150,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	}
 
 	$pages = array(); // global variable
-	$pagesKey = array(); // global variable
+	$pagesByKey = array(); // global variable
 	foreach($list as $pageKey=>$fields) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
-			// $pagesKey
-			$pagesKey[$pageKey] = $page;
+			// $pagesByKey
+			$pagesByKey[$pageKey] = $page;
 			// $pages
 			array_push($pages, $page);
 		}

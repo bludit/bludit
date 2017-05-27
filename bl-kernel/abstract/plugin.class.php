@@ -55,6 +55,26 @@ class Plugin {
 		}
 	}
 
+	public function setDb($args)
+	{
+		foreach($this->dbFields as $key=>$value) {
+			if( isset($args[$key]) ) {
+				$value = Sanitize::html( $args[$key] );
+				settype($value, gettype($this->dbFields[$key]));
+				$this->db[$key] = $value;
+			}
+		}
+
+		$this->save();
+	}
+
+	public function save()
+	{
+		$tmp = new dbJSON($this->filenameDb);
+		$tmp->db = $this->db;
+		$tmp->save();
+	}
+
 	public function htmlPath()
 	{
 		return HTML_PATH_PLUGINS.$this->directoryName.'/';
@@ -86,6 +106,22 @@ class Plugin {
 		return true;
 	}
 
+	// Returns the value of the field from the database
+	// (string) $field
+	// (boolean) $html, TRUE returns the value sanitized, FALSE unsanitized
+	public function getValue($field, $html=true)
+	{
+		if( isset($this->db[$field]) ) {
+			if($html) {
+				return $this->db[$field];
+			}
+			else {
+				return Sanitize::htmlDecode($this->db[$field]);
+			}
+		}
+		return false;
+	}
+
 	public function getDbField($key, $html=true)
 	{
 		if(isset($this->db[$key])) {
@@ -101,33 +137,6 @@ class Plugin {
 		}
 
 		return '';
-	}
-
-	public function setDb($args)
-	{
-		$tmp = $this->db;
-
-		foreach($this->dbFields as $key=>$value)
-		{
-			if(isset($args[$key]))
-			{
-				// Sanitize value
-				$tmpValue = Sanitize::html( $args[$key] );
-
-				// Set type
-				settype($tmpValue, gettype($value));
-
-				// Set value
-				$tmp[$key] = $tmpValue;
-			}
-		}
-
-		$this->db = $tmp;
-
-		// Save db on file
-		$Tmp = new dbJSON($this->filenameDb);
-		$Tmp->db = $tmp;
-		$Tmp->save();
 	}
 
 	public function name()

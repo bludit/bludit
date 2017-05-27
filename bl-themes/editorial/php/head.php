@@ -9,6 +9,7 @@
 
         echo Theme::css('assets/css/main.css');
         echo '<noscript>'.Theme::css('assets/css/noscript.css').'</noscript>';
+	echo Theme::css('assets/css/bludit.css');
 
         // Load plugins with the hook siteHead
         Theme::plugins('siteHead');
