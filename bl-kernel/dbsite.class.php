@@ -174,7 +174,7 @@ class dbSite extends dbJSON
 	}
 
 	// Returns the full domain and base url
-	// For example, https://www.domain.com/bludit/
+	// For example, https://www.domain.com/bludit
 	public function url()
 	{
 		return $this->getField('url');
