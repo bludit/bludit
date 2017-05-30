@@ -29,8 +29,8 @@ class pluginDisqus extends Plugin {
 			$html  = '<div id="disqus_thread"></div>';
 			$html .= '<script type="text/javascript">
 					var disqus_config = function () {
-						this.page.url = '.$page->permalink().';
-						this.page.identifier = '.$page->uuid().';
+						this.page.url = "'.$page->permalink().'";
+						this.page.identifier = "'.$page->uuid().'";
 					};
 
 					(function() {
@@ -42,15 +42,11 @@ class pluginDisqus extends Plugin {
 				</script>
 
 				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-				';
+			';
+			return $html;
 		}
 
 		return false;
-	}
-
-	public function siteHead()
-	{
-		return '<style>#disqus_thread { margin: 20px 0 }</style>';
 	}
 
 }

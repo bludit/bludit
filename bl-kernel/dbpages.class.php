@@ -18,7 +18,7 @@ class dbPages extends dbJSON
 		'category'=>		array('inFile'=>false,	'value'=>''),
 		'md5file'=>		array('inFile'=>false,	'value'=>''),
 		'uuid'=>		array('inFile'=>false,	'value'=>''),
-		'allowComments'=>	array('inFile'=>false,	'value'=>false)
+		'allowComments'=>	array('inFile'=>false,	'value'=>true)
 	);
 
 	function __construct()

@@ -18,7 +18,9 @@
 
 		<!-- Header -->
 		<header id="header">
-			<a href="<?php echo $Site->url() ?>" class="logo"><strong><?php echo $Site->title() ?></strong> <?php echo $Site->slogan() ?></a>
+			<a href="<?php echo $Site->url() ?>" class="logo">
+				<strong><?php echo $Site->title() ?></strong> <?php echo $Site->slogan() ?>
+			</a>
 			<ul class="icons">
 				<li><a href="<?php echo $Site->twitter() ?>" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="<?php echo $Site->facebook() ?>" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
@@ -28,7 +30,7 @@
 		</header>
 
 		<?php
-			if( $WHERE_AM_I=='page' ) {
+			if($WHERE_AM_I=='page') {
 				include(THEME_DIR_PHP.'page.php');
 			} else {
 				include(THEME_DIR_PHP.'home.php');
@@ -40,10 +42,11 @@
 
 	<!-- Sidebar -->
 	<div id="sidebar">
-	<div class="inner">
-	<?php include(THEME_DIR_PHP.'sidebar.php') ?>
+		<div class="inner">
+		<?php include(THEME_DIR_PHP.'sidebar.php') ?>
+		</div>
 	</div>
-	</div>
+
 </div>
 
 <!-- Scripts -->

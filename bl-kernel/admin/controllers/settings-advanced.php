@@ -21,7 +21,6 @@ function setSettings($args)
 	global $dbPages;
 
 	// Add slash at the begin and end
-	$args['url'] 		= Text::addSlashes($args['url'],false,true);
 	$args['uriPage'] 	= Text::addSlashes($args['uriPage']);
 	$args['uriTag'] 	= Text::addSlashes($args['uriTag']);
 	$args['uriCategory'] 	= Text::addSlashes($args['uriCategory']);

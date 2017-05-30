@@ -324,7 +324,7 @@ function install($adminPassword, $email, $timezone)
 			'status'=>'published',
 			'date'=>$currentDate,
 			'dateModified'=>'',
-			'allowComments'=>false,
+			'allowComments'=>true,
 			'position'=>2,
 			'coverImage'=>'',
 			'md5file'=>'',
@@ -338,7 +338,7 @@ function install($adminPassword, $email, $timezone)
 			'status'=>'published',
 			'date'=>$currentDate,
 			'dateModified'=>'',
-			'allowComments'=>false,
+			'allowComments'=>true,
 			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
@@ -350,6 +350,15 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File site.php
+
+	// If the website is not installed inside a folder the URL not need finish with /
+	// Example (root): https://domain.com
+	// Example (inside a folder): https://domain.com/folder/
+	if(HTML_PATH_ROOT=='/') {
+		$siteUrl = PROTOCOL.DOMAIN;
+	} else {
+		$siteUrl = PROTOCOL.DOMAIN.HTML_PATH_ROOT;
+	}
 	$data = array(
 		'title'=>'BLUDIT',
 		'slogan'=>'CMS',
@@ -365,7 +374,7 @@ function install($adminPassword, $email, $timezone)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'uriCategory'=>'/category/',
-		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
+		'url'=>$siteUrl,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 

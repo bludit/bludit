@@ -259,6 +259,7 @@ define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 // This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
 define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_THEME',			DOMAIN.HTML_PATH_THEME);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
 define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
 define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);

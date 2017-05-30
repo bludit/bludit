@@ -149,7 +149,7 @@ class Page {
 
 	// Returns the permalink
 	// (boolean) $absolute, TRUE returns the page link with the DOMAIN, FALSE without the DOMAIN
-	public function permalink($absolute=false)
+	public function permalink($absolute=true)
 	{
 		global $Url;
 		global $Site;
@@ -364,6 +364,12 @@ class Page {
 	public function title()
 	{
 		return $this->getField('title');
+	}
+
+	// Returns TRUE if the page has enabled the comments, FALSE otherwise
+	public function allowComments()
+	{
+		return $this->getField('allowComments');
 	}
 
 	// Returns the page position

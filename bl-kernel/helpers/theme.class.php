@@ -57,7 +57,7 @@ class Theme {
 		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
 	}
 
-	public static function css($files, $path=HTML_PATH_THEME)
+	public static function css($files)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -65,13 +65,13 @@ class Theme {
 
 		$links = '';
 		foreach($files as $file) {
-			$links .= '<link rel="stylesheet" type="text/css" href="'.$path.$file.'">'.PHP_EOL;
+			$links .= '<link rel="stylesheet" type="text/css" href="'.DOMAIN_THEME.$file.'">'.PHP_EOL;
 		}
 
 		return $links;
 	}
 
-	public static function javascript($files, $path=HTML_PATH_THEME)
+	public static function javascript($files)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -79,15 +79,15 @@ class Theme {
 
 		$scripts = '';
 		foreach($files as $file) {
-			$scripts .= '<script src="'.$path.$file.'"></script>'.PHP_EOL;
+			$scripts .= '<script src="'.DOMAIN_THEME.$file.'"></script>'.PHP_EOL;
 		}
 
 		return $scripts;
 	}
 
-	public static function js($files, $path=HTML_PATH_THEME)
+	public static function js($files)
 	{
-		self::javascript($files, $path);
+		return self::javascript($files);
 	}
 
 	public static function plugins($type)
@@ -116,13 +116,6 @@ class Theme {
 		return $tmp;
 	}
 
-
-
-
-
-
-
-
 	public static function keywords($keywords, $echo=true)
 	{
 		if(is_array($keywords)) {
@@ -137,12 +130,6 @@ class Theme {
 
 		return $tmp;
 	}
-
-
-
-
-
-
 
 	public static function jquery($echo=true)
 	{

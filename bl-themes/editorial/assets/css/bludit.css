@@ -53,3 +53,9 @@ div.plugin-menu 	span.category-name {
 div.plugin-menu 	a.page-title {
 	padding: 0;
 }
+
+/* Plugin Disqus
+------------------------------------------------------------------------------ */
+#disqus_thread {
+	margin-top: 60px;
+}
