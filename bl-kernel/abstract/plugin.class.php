@@ -181,9 +181,15 @@ class Plugin {
 
 	public function isCompatible()
 	{
-		$explode = explode(',', $this->getMetadata('compatible'));
-
-		return in_array(BLUDIT_VERSION, $explode);
+		$bluditRoot = explode('.', BLUDIT_VERSION);
+		$compatible = explode(',', $this->getMetadata('compatible'));
+		foreach( $compatible as $version ) {
+			$root = explode('.', $version);
+			if( $root[0]==$bluditRoot[0] && $root[1]==$bluditRoot[1] ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public function directoryName()

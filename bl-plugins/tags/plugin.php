@@ -5,8 +5,7 @@ class pluginTags extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'label'=>'Tags',
-			'sort'=>'date'
+			'label'=>'Tags'
 		);
 	}
 
@@ -15,23 +14,8 @@ class pluginTags extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
-		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= $Language->get('Sort the tag list by').': <select name="sort">';
-
-		foreach(array('alpha' => 'Alphabetical order',
-		              'count' => 'Number of times each tag has been used',
-		              'date'  => 'Date each tag was first used') as $key=>$value) {
-			if ($key == $this->getDbField('sort')) {
-				$html .= '<option value="'.$key.'" selected>'.$Language->get($value).'</option>';
-			} else {
-				$html .= '<option value="'.$key.'">'.$Language->get($value).'</option>';
-			}
-		}
-		$html .= '</select>';
+		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '</div>';
 
 		return $html;
@@ -43,7 +27,6 @@ class pluginTags extends Plugin {
 		global $dbTags;
 		global $Url;
 
-		$db = $dbTags->db['postsIndex'];
 		$filter = $Url->filters('tag');
 
 		$html  = '<div class="plugin plugin-tags">';
@@ -51,32 +34,16 @@ class pluginTags extends Plugin {
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
-		$tagArray = array();
-
-		foreach($db as $tagKey=>$fields)
-		{
-			$tagArray[] = array('tagKey'=>$tagKey, 'count'=>$dbTags->countPostsByTag($tagKey), 'name'=>$fields['name']);
+		// By default the database of tags are alphanumeric sorted
+		foreach( $dbTags->db as $key=>$fields ) {
+			$html .= '<li>';
+			$html .= '<a href="'.DOMAIN_BASE.$filter.'/'.$key.'">';
+			$html .= $fields['name'];
+			$html .= ' ('.count($fields['list']).')';
+			$html .= '</a>';
+			$html .= '</li>';
 		}
 
-		// Sort the array based on options
-		if ($this->getDbField('sort') == "count")
-		{
-			usort($tagArray, function($a, $b) {
-				return $b['count'] - $a['count'];
-			});
-		}
-		elseif ($this->getDbField('sort') == "alpha")
-		{
-			usort($tagArray, function($a, $b) {
-				return strcmp($a['tagKey'], $b['tagKey']);
-			});
-		}
-
-		foreach($tagArray as $tagKey=>$fields)
-		{
-			// Print the parent
-			$html .= '<li><a href="'.HTML_PATH_ROOT.$filter.'/'.$fields['tagKey'].'">'.$fields['name'].' ('.$fields['count'].')</a></li>';
-		}
 		$html .= '</ul>';
  		$html .= '</div>';
  		$html .= '</div>';

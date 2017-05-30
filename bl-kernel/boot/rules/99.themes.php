@@ -45,11 +45,14 @@ function buildThemes()
 				$metadata = json_decode($metadataString, true);
 
 				$database['compatible'] = false;
-
 				if( !empty($metadata['compatible']) ) {
-					$explode = explode(',', $metadata['compatible']);
-					if(in_array(BLUDIT_VERSION, $explode)) {
-						$database['compatible'] = true;
+					$bluditRoot = explode('.', BLUDIT_VERSION);
+					$compatible = explode(',', $metadata['compatible']);
+					foreach( $compatible as $version ) {
+						$root = explode('.', $version);
+						if( $root[0]==$bluditRoot[0] && $root[1]==$bluditRoot[1] ) {
+							$database['compatible'] = true;
+						}
 					}
 				}
 

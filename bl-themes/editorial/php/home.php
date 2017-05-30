@@ -19,7 +19,7 @@
 <!-- Section -->
 <section>
         <header class="major">
-                <h2>Ipsum sed dolor</h2>
+                <h2>Pages</h2>
         </header>
 
         <div class="posts">
