@@ -451,7 +451,8 @@ function install($adminPassword, $email, $timezone)
 			array(
 				'position'=>0,
 				'homeLink'=>true,
-				'label'=>$Language->get('Pages')
+				'label'=>$Language->get('Pages'),
+				'amountOfItems'=>5
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

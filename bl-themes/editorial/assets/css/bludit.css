@@ -2,34 +2,43 @@
 /* Plugins
 ------------------------------------------------------------------------------ */
 
-div.plugin {
-
-}
-
-div.plugin h2.plugin-label {
+div.plugin 	h2.plugin-label {
 	border-bottom: solid 3px #f56a6a;
 	display: inline-block;
 	margin: 0 0 2em 0;
 	padding: 0 0.75em 0.5em 0;
 }
 
-div.plugin ul {
+div.plugin 	ul {
 	list-style: none;
 }
 
-div.plugin ul li {
+div.plugin 	ul li {
 	border-top: solid 1px rgba(210, 215, 217, 0.75);
 	margin: 0.5em 0 0 0;
 	padding: 0.5em 0 0 0;
 }
 
-div.plugin a {
+div.plugin 	a {
 	border-bottom: 0;
 	color: inherit;
 	cursor: pointer;
 	display: block;
 	font-size: 1.1em;
 	padding: 0.625em 0;
+}
+
+/* Plugin Tags
+------------------------------------------------------------------------------ */
+
+div.plugin-tags 	ul li {
+	border: none;
+	display: inline-block;
+}
+
+div.plugin-tags 	a {
+	display: inline-block;
+	margin: 5px;
 }
 
 /* Plugin Menu

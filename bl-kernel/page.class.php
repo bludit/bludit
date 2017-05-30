@@ -152,29 +152,13 @@ class Page {
 	public function permalink($absolute=true)
 	{
 		global $Url;
-		global $Site;
-
-		$url = trim(DOMAIN_BASE,'/');
-		$key = $this->key();
-		$filter = trim($Url->filters('page'), '/');
-		$htmlPath = trim(HTML_PATH_ROOT,'/');
-
-		if(empty($filter)) {
-			$tmp = $key;
-		}
-		else {
-			$tmp = $filter.'/'.$key;
-		}
 
 		if($absolute) {
-			return $url.'/'.$tmp;
+			return DOMAIN_PAGE.$key;
 		}
 
-		if(empty($htmlPath)) {
-			return '/'.$tmp;
-		}
-
-		return '/'.$htmlPath.'/'.$tmp;
+		$filter = $Url->filters('page', true);
+		return trim(HTML_PATH_ROOT,'/').'/'.$filter.'/'.$key;
 	}
 
 	// Returns the category key
@@ -319,7 +303,7 @@ class Page {
 		}
 
 		if($absolute) {
-			return HTML_PATH_UPLOADS.$fileName;
+			return DOMAIN_UPLOADS.$fileName;
 		}
 
 		return $fileName;

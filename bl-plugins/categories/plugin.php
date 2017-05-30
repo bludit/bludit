@@ -42,7 +42,7 @@ class pluginCategories extends Plugin {
 		// By default the database of categories are alphanumeric sorted
 		foreach( $dbCategories->db as $key=>$fields ) {
 			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_BASE.$filter.'/'.$key.'">';
+			$html .= '<a href="'.DOMAIN_CATEGORY.$key.'">';
 			$html .= $fields['name'];
 			$html .= ' ('.count($fields['list']).')';
 			$html .= '</a>';

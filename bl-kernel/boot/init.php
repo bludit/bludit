@@ -245,9 +245,18 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 define('JQUERY',			HTML_PATH_ROOT.'bl-kernel/js/jquery.min.js');
 
+// --- Objects with dependency ---
+$Language 	= new dbLanguage( $Site->locale() );
+$Login 		= new Login( $dbUsers );
+$Url->checkFilters( $Site->uriFilters() );
+
+// --- Objects shortcuts ---
+$L = $Language;
+
+// --- CONSTANTS with dependency ---
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
-// Depreacted, use THEME_DIR and THEME_DIR_XXX
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
 define('THEME_DIR_PHP',			THEME_DIR.'php'.DS);
 define('THEME_DIR_CSS',			THEME_DIR.'css'.DS);
@@ -258,7 +267,7 @@ define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 // --- Absolute paths with domain ---
 // This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
-define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_BASE',			$Site->url());
 define('DOMAIN_THEME',			DOMAIN.HTML_PATH_THEME);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
 define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
@@ -266,16 +275,10 @@ define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
+define('DOMAIN_TAGS',			trim(DOMAIN_BASE, '/').'/'.$Url->filters('tag',$trim=true).'/');
+define('DOMAIN_CATEGORY',		trim(DOMAIN_BASE, '/').'/'.$Url->filters('category',$trim=true).'/');
+define('DOMAIN_PAGE',			trim(DOMAIN_BASE, '/').'/'.$Url->filters('page',$trim=true).'/');
 
-// --- Objects with dependency ---
-$Language 	= new dbLanguage( $Site->locale() );
-$Login 		= new Login( $dbUsers );
-$Url->checkFilters( $Site->uriFilters() );
-
-// --- Objects shortcuts ---
-$L = $Language;
-
-// --- CONSTANTS with dependency ---
 define('ORDER_BY', $Site->orderBy());
 
 $ADMIN_CONTROLLER = '';

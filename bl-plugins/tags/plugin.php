@@ -30,16 +30,15 @@ class pluginTags extends Plugin {
 		$filter = $Url->filters('tag');
 
 		$html  = '<div class="plugin plugin-tags">';
-		$html .= '<h2>'.$this->getDbField('label').'</h2>';
+		$html .= '<h2 class="plugin-label">'.$this->getDbField('label').'</h2>';
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
 		// By default the database of tags are alphanumeric sorted
 		foreach( $dbTags->db as $key=>$fields ) {
 			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_BASE.$filter.'/'.$key.'">';
+			$html .= '<a href="'.DOMAIN_TAGS.$key.'">';
 			$html .= $fields['name'];
-			$html .= ' ('.count($fields['list']).')';
 			$html .= '</a>';
 			$html .= '</li>';
 		}

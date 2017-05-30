@@ -29,6 +29,7 @@ class pluginOpenGraph extends Plugin {
 		global $Site;
 		global $WHERE_AM_I;
 		global $pages;
+		global $page;
 
 		$og = array(
 			'locale'	=>$Site->locale(),
@@ -45,12 +46,12 @@ class pluginOpenGraph extends Plugin {
 			// The user filter by page
 			case 'page':
 				$og['type']		= 'article';
-				$og['title']		= $Page->title();
-				$og['description']	= $Page->description();
-				$og['url']		= $Page->permalink($absolute=true);
-				$og['image'] 		= $Page->coverImage($absolute=true);
+				$og['title']		= $page->title();
+				$og['description']	= $page->description();
+				$og['url']		= $page->permalink($absolute=true);
+				$og['image'] 		= $page->coverImage($absolute=true);
 
-				$content = $Page->content();
+				$content = $page->content();
 				break;
 
 			// The user is in the homepage
