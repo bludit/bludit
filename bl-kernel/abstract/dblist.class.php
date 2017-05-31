@@ -24,7 +24,7 @@ class dbList extends dbJSON
 		parent::__construct($file);
 	}
 
-	private function getList($key, $amountOfItems, $pageNumber)
+	public function getList($key, $pageNumber, $amountOfItems)
 	{
 		if( !isset($this->db[$key]) ) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);

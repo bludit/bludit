@@ -30,9 +30,6 @@ class pluginCategories extends Plugin {
 		global $dbCategories;
 		global $Url;
 
-		// URL base filter for categories
-		$filter = $Url->filters('category');
-
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-categories">';
 		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';

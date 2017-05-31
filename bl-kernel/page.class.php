@@ -153,6 +153,7 @@ class Page {
 	{
 		global $Url;
 
+		$key = $this->getField('key');
 		if($absolute) {
 			return DOMAIN_PAGE.$key;
 		}

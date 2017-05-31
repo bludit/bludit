@@ -115,6 +115,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 {
 	global $dbPages;
 	global $dbCategories;
+	global $dbTags;
 	global $Site;
 	global $Url;
 	global $pagesByKey;

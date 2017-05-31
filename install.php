@@ -370,7 +370,7 @@ function install($adminPassword, $email, $timezone)
 		'theme'=>'editorial',
 		'adminTheme'=>'default',
 		'homepage'=>'',
-		'itemsPerPage'=>'6',
+		'itemsPerPage'=>6,
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'uriCategory'=>'/category/',

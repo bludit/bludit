@@ -29,7 +29,6 @@ class pluginMenu extends Plugin {
 		global $Language;
 		global $dbCategories;
 		global $Url;
-		global $pagesByKey;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-menu">';
@@ -45,7 +44,8 @@ class pluginMenu extends Plugin {
 				$html .= '<span class="category-name">'.$fields['name'].'</span>';
 				$html .= '<ul class="submenu">';
 				foreach( $pageList as $pageKey ) {
-					$page = $pagesByKey[$pageKey];
+					// Create the page object from the page key
+					$page = buildPage($pageKey);
 					$html .= '<li>';
 					$html .= '<a href="'.$page->permalink().'" class="page-title">';
 					$html .= $page->title();

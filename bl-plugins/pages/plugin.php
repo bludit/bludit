@@ -40,17 +40,21 @@ class pluginPages extends Plugin {
 	public function siteSidebar()
 	{
 		global $Language;
-		global $pages;
 		global $Url;
-
-		// URL base filter for categories
-		$filter = $Url->filters('page');
+		global $Site;
+		global $dbPages;
 
 		// Amount of pages to show
 		$amountOfItems = $this->getValue('amountOfItems');
 
-		// Slice array of pages
-		$pages = array_slice($pages, 0, $amountOfItems);
+		// Page number the first one
+		$pageNumber = 1;
+
+		// Only published pages
+		$onlyPublished = true;
+
+		// Get the list of pages
+		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
@@ -61,16 +65,18 @@ class pluginPages extends Plugin {
 		// Show Home page link
 		if( $this->getValue('homeLink') ) {
 			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_BASE.'">';
+			$html .= '<a href="'.$Site->url().'">';
 			$html .= $Language->get('Home page');
 			$html .= '</a>';
 			$html .= '</li>';
 		}
 
-		// By default the database of categories are alphanumeric sorted
-		foreach( $pages as $page ) {
+		// Show page list
+		foreach( $pages as $pageKey=>$fields ) {
+			// Create the page object from the page key
+			$page = buildPage($pageKey);
 			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_BASE.$filter.'/'.$page->key().'">';
+			$html .= '<a href="'.$page->permalink().'">';
 			$html .= $page->title();
 			$html .= '</a>';
 			$html .= '</li>';

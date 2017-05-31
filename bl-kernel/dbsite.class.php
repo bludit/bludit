@@ -7,7 +7,7 @@ class dbSite extends dbJSON
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
 		'description'=>		array('inFile'=>false, 'value'=>''),
 		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
-		'itemsPerPage'=>	array('inFile'=>false, 'value'=>''),
+		'itemsPerPage'=>	array('inFile'=>false, 'value'=>6),
 		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
 		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
