@@ -16,6 +16,27 @@ class dbSyslog extends dbJSON
 		parent::__construct(DB_SYSLOG);
 	}
 
+	// Returns TRUE if the ID of execution exists, FALSE otherwise
+	public function exists($idExecution)
+	{
+		foreach($this->db as $field) {
+			if( $field['idExecution']==$idExecution ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function get($idExecution)
+	{
+		foreach($this->db as $field) {
+			if( $field['idExecution']==$idExecution ) {
+				return $field;
+			}
+		}
+		return false;
+	}
+
 	public function add($args)
 	{
 		global $Language;
