@@ -163,3 +163,14 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	}
 	return $pages;
 }
+
+function pluginEnabled($pluginName) {
+	global $plugins;
+
+	$pluginClass = 'plugin'.Text::firstCharUp($pluginName);
+	if( isset($plugins['all'][$pluginClass]) ) {
+		return $plugins['all'][$pluginClass]->installed();
+	}
+
+	return false;
+}

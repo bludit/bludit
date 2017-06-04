@@ -90,6 +90,21 @@ class dbSite extends dbJSON
 	{
 		$filter = $this->getField('uriCategory');
 		return $this->url().ltrim($filter, '/');
+
+	}
+
+	// Returns the URL of the rss.xml file
+	// You need to have enabled the plugin RSS
+	public function rss()
+	{
+		return DOMAIN_BASE.'rss.xml';
+	}
+
+	// Returns the URL of the sitemap.xml file
+	// You need to have enabled the plugin Sitemap
+	public function sitemap()
+	{
+		return DOMAIN_BASE.'sitemap.xml';
 	}
 
 	public function twitter()

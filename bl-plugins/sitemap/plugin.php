@@ -6,7 +6,6 @@ class pluginSitemap extends Plugin {
 	{
 		global $Site;
 		global $dbPages;
-		global $Url;
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -16,10 +15,14 @@ class pluginSitemap extends Plugin {
 		$xml .= '</url>';
 
 		// Get keys of pages
-		$keys = array_keys($dbPages->db);
+		$keys = $dbPages->db;
+		unset($keys['error']);
+		$keys = array_keys($keys);
+
 		foreach($keys as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
+
 			$xml .= '<url>';
 			$xml .= '<loc>'.$page->permalink().'</loc>';
 			$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';

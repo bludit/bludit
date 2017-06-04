@@ -26,6 +26,17 @@
 				<li><a href="<?php echo $Site->facebook() ?>" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 				<li><a href="<?php echo $Site->instagram() ?>" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 				<li><a href="<?php echo $Site->github() ?>" class="icon fa-github"><span class="label">GitHub</span></a></li>
+				<?php
+					// Check if the plugin RSS is enabled
+					if( pluginEnabled('RSS') ) {
+						echo '<li><a href="'.$Site->rss().'" class="icon fa-rss"><span class="label">RSS</span></a></li>';
+					}
+
+					// Check if the plugin Sitemap is enabled
+					if( pluginEnabled('sitemap') ) {
+						echo '<li><a href="'.$Site->sitemap().'" class="icon fa-sitemap"><span class="label">Sitemap</span></a></li>';
+					}
+				?>
 			</ul>
 		</header>
 
