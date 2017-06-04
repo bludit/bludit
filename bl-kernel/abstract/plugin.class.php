@@ -197,6 +197,11 @@ class Plugin {
 		return $this->directoryName;
 	}
 
+	public function workspace()
+	{
+		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
+	}
+
 	// Return TRUE if the installation success, otherwise FALSE.
 	public function install($position=0)
 	{

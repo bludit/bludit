@@ -28,7 +28,6 @@ class pluginCategories extends Plugin {
 	{
 		global $Language;
 		global $dbCategories;
-		global $Url;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-categories">';

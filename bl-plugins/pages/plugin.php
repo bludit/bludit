@@ -71,8 +71,9 @@ class pluginPages extends Plugin {
 			$html .= '</li>';
 		}
 
-		// Show page list
-		foreach( $pages as $pageKey=>$fields ) {
+		// Get keys of pages
+		$keys = array_keys($pages);
+		foreach($keys as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 			$html .= '<li>';

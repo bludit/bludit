@@ -56,9 +56,6 @@ define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 
-// ADMIN URI FILTER
-define('ADMIN_URI_FILTER', '/admin/');
-
 // Log separator
 define('LOG_SEP', ' | ');
 
@@ -136,6 +133,9 @@ define('EXTREME_FRIENDLY_URL', FALSE);
 
 // Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
+
+// Admin URI filter
+define('ADMIN_URI_FILTER', '/admin/');
 
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
@@ -250,10 +250,19 @@ $Language 	= new dbLanguage( $Site->locale() );
 $Login 		= new Login( $dbUsers );
 $Url->checkFilters( $Site->uriFilters() );
 
-// --- Objects shortcuts ---
-$L = $Language;
-
 // --- CONSTANTS with dependency ---
+
+// Tag URI filter
+define('TAG_URI_FILTER', $Url->filters('tag'));
+
+// Category URI filter
+define('CATEGORY_URI_FILTER', $Url->filters('category'));
+
+// Page URI filter
+define('PAGE_URI_FILTER', $Url->filters('page'));
+
+// Content order by: date / position
+define('ORDER_BY', $Site->orderBy());
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
@@ -267,7 +276,7 @@ define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 // --- Absolute paths with domain ---
 // This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
-define('DOMAIN_BASE',			$Site->url());
+define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
 define('DOMAIN_THEME',			DOMAIN.HTML_PATH_THEME);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
 define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
@@ -275,16 +284,18 @@ define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
-define('DOMAIN_TAGS',			trim(DOMAIN_BASE, '/').'/'.$Url->filters('tag',$trim=true).'/');
-define('DOMAIN_CATEGORY',		trim(DOMAIN_BASE, '/').'/'.$Url->filters('category',$trim=true).'/');
-define('DOMAIN_PAGE',			trim(DOMAIN_BASE, '/').'/'.$Url->filters('page',$trim=true).'/');
 
-define('ORDER_BY', $Site->orderBy());
+define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
+define('DOMAIN_CATEGORY',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
+define('DOMAIN_PAGE',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
 
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';
 $ID_EXECUTION = uniqid(); // string 13 characters long
 $WHERE_AM_I = $Url->whereAmI();
+
+// --- Objects shortcuts ---
+$L = $Language;
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');

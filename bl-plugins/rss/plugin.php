@@ -2,12 +2,44 @@
 
 class pluginRSS extends Plugin {
 
+	public function init()
+	{
+		// Fields and default values for the database of this plugin
+		$this->dbFields = array(
+			'amountOfItems'=>5
+		);
+	}
+
+	// Method called on the settings of the plugin on the admin area
+	public function form()
+	{
+		global $Language;
+
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Amount of items').'</label>';
+		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
+		$html .= '</div>';
+
+		return $html;
+	}
+
 	private function createXML()
 	{
 		global $Site;
 		global $dbPages;
-		global $dbPosts;
 		global $Url;
+
+		// Amount of pages to show
+		$amountOfItems = $this->getValue('amountOfItems');
+
+		// Page number the first one
+		$pageNumber = 1;
+
+		// Only published pages
+		$onlyPublished = true;
+
+		// Get the list of pages
+		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';
@@ -16,13 +48,17 @@ class pluginRSS extends Plugin {
 		$xml .= '<link>'.$Site->url().'</link>';
 		$xml .= '<description>'.$Site->description().'</description>';
 
-		$posts = buildPostsForPage(0, 10, true);
-		foreach($posts as $Post)
-		{
+		// Get keys of pages
+		$keys = array_keys($pages);
+		foreach($keys as $pageKey) {
+			// Create the page object from the page key
+			$page = buildPage($pageKey);
 			$xml .= '<item>';
-			$xml .= '<title>'.$Post->title().'</title>';
-			$xml .= '<link>'.$Post->permalink(true).'</link>';
-			$xml .= '<description>'.$Post->description().'</description>';
+			$xml .= '<title>'.$page->title().'</title>';
+			$xml .= '<link>'.$page->permalink().'</link>';
+			$xml .= '<description>'.$page->contentBreak().'</description>';
+			$xml .= '<pubDate>'.$page->dateRaw('r').'</pubDate>';
+			$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
 			$xml .= '</item>';
 		}
 
@@ -30,24 +66,14 @@ class pluginRSS extends Plugin {
 
 		// New DOM document
 		$doc = new DOMDocument();
-
-		// Friendly XML code
 		$doc->formatOutput = true;
-
 		$doc->loadXML($xml);
-
-		$doc->save(PATH_PLUGINS_DATABASES.$this->directoryName.DS.'rss.xml');
+		$doc->save($this->workspace().'rss.xml');
 	}
 
-	public function install($position = 0)
+	public function install($position=0)
 	{
 		parent::install($position);
-
-		$this->createXML();
-	}
-
-	public function afterPostCreate()
-	{
 		$this->createXML();
 	}
 
@@ -56,17 +82,7 @@ class pluginRSS extends Plugin {
 		$this->createXML();
 	}
 
-	public function afterPostModify()
-	{
-		$this->createXML();
-	}
-
 	public function afterPageModify()
-	{
-		$this->createXML();
-	}
-
-	public function afterPostDelete()
 	{
 		$this->createXML();
 	}
@@ -78,32 +94,28 @@ class pluginRSS extends Plugin {
 
 	public function siteHead()
 	{
-		$html = '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
-		return $html;
+		return '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
 	}
 
 	public function beforeRulesLoad()
 	{
 		global $Url;
 
-		if( $Url->uri() === HTML_PATH_ROOT.'rss.xml' )
-		{
+		if($Url->uri()===HTML_PATH_ROOT.'rss.xml') {
 			// Send XML header
 			header('Content-type: text/xml');
-
-			// New DOM document
 			$doc = new DOMDocument();
 
 			// Load XML
 			libxml_disable_entity_loader(false);
-			$doc->load(PATH_PLUGINS_DATABASES.$this->directoryName.DS.'rss.xml');
+			$doc->load($this->workspace().'rss.xml');
 			libxml_disable_entity_loader(true);
 
 			// Print the XML
 			echo $doc->saveXML();
 
 			// Stop Bludit running
-			exit;
+			exit(0);
 		}
 	}
 
