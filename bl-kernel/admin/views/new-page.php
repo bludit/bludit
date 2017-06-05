@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('New page'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('New content'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 

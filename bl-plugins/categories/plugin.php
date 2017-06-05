@@ -6,7 +6,8 @@ class pluginCategories extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Categories'
+			'label'=>'Categories',
+			'showCero'=>false
 		);
 	}
 
@@ -18,6 +19,12 @@ class pluginCategories extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<input type="hidden" name="showCero" value="false">';
+		$html .= '<input id="jsshowCero" name="showCero" type="checkbox" value="true" '.($this->getValue('showCero')?'checked':'').'>';
+		$html .= '<label class="forCheckbox" for="jsshowCero">'.$Language->get('Show categories without content').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -37,12 +44,15 @@ class pluginCategories extends Plugin {
 
 		// By default the database of categories are alphanumeric sorted
 		foreach( $dbCategories->db as $key=>$fields ) {
-			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_CATEGORY.$key.'">';
-			$html .= $fields['name'];
-			$html .= ' ('.count($fields['list']).')';
-			$html .= '</a>';
-			$html .= '</li>';
+			$count = count($fields['list']);
+			if($this->getValue('showCero') || $count>0) {
+				$html .= '<li>';
+				$html .= '<a href="'.DOMAIN_CATEGORY.$key.'">';
+				$html .= $fields['name'];
+				$html .= ' ('.count($fields['list']).')';
+				$html .= '</a>';
+				$html .= '</li>';
+			}
 		}
 
 		$html .= '</ul>';

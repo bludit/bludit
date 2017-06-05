@@ -103,7 +103,7 @@ $(document).ready(function() {
 
 			<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
 			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New content') ?></a>
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
