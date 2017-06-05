@@ -26,10 +26,19 @@ if($Login->role()!=='admin') {
 // ============================================================================
 $pluginClassName = $layout['parameters'];
 
-foreach($plugins['all'] as $P)
-{
-	if($P->className()==$pluginClassName) {
-		$P->install();
+foreach($plugins['all'] as $plugin) {
+	if($plugin->className()==$pluginClassName) {
+		// Install plugin
+		if( $plugin->install() ) {
+			// Add to syslog
+			$Syslog->add(array(
+				'dictionaryKey'=>'plugin-installed',
+				'notes'=>$plugin->name()
+			));
+
+			// Create an alert
+			Alert::set($Language->g('Plugin installed'));
+		}
 	}
 }
 

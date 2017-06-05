@@ -108,7 +108,7 @@ $(document).ready(function() {
 
 			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
 			<li <?php echo ($layout['view']=='manage-pages')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Pages') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Content') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>

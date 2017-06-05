@@ -113,3 +113,5 @@ if( !$dbPages->exists($layout['parameters']) ) {
 }
 
 $page = $pagesByKey[$layout['parameters']];
+
+$layout['title'] .= ' - '.$Language->g('Edit Content');

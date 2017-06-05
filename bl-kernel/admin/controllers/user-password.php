@@ -51,7 +51,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 
 	if( setPassword($_POST['username'], $_POST['new_password'], $_POST['confirm_password']) ) {
-		Redirect::page('admin', 'users');
+		Redirect::page('users');
 	}
 }
 
@@ -67,7 +67,7 @@ $_user = $dbUsers->getDb($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_user===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page('users');
 }
 
 $_user['username'] = $layout['parameters'];

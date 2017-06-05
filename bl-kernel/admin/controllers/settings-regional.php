@@ -18,25 +18,18 @@ function setSettings($args)
 	global $Site;
 	global $Language;
 
-	// Add slash at the begin and end.
-	// This fields are in the settings->advanced mode
-	if(isset($args['form-advanced'])) {
-		$args['url'] 		= Text::addSlashes($args['url'],false,true);
-		$args['uriPost'] 	= Text::addSlashes($args['uriPost']);
-		$args['uriPage'] 	= Text::addSlashes($args['uriPage']);
-		$args['uriTag'] 	= Text::addSlashes($args['uriTag']);
-
-		if(($args['uriPost']==$args['uriPage']) || ($args['uriPost']==$args['uriTag']) || ($args['uriPage']==$args['uriTag']) )
-		{
-			$args = array();
-		}
-	}
-
 	if( $Site->set($args) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'changes-on-settings',
+			'notes'=>''
+		));
+
+		// Create alert
 		Alert::set($Language->g('the-changes-have-been-saved'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
+
+		// Redirect
+		Redirect::page('settings-regional');
 	}
 
 	return true;
@@ -53,7 +46,6 @@ function setSettings($args)
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
 	setSettings($_POST);
-	Redirect::page('admin', $layout['controller']);
 }
 
 // ============================================================================

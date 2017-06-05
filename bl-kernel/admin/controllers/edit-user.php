@@ -16,11 +16,17 @@ function disableUser($username) {
 	}
 
 	if( $dbUsers->disableUser($username) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-disabled',
+			'notes'=>$username
+		));
+
+		// Create an alert
 		Alert::set($Language->g('The changes have been saved'));
 	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
-	}
+
+	return true;
 }
 
 function editUser($args)
@@ -29,11 +35,17 @@ function editUser($args)
 	global $Language;
 
 	if( $dbUsers->set($args) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-edited',
+			'notes'=>$args['username']
+		));
+
+		// Create an alert
 		Alert::set($Language->g('The changes have been saved'));
 	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
-	}
+
+	return true;
 }
 
 function deleteUser($args, $deleteContent=false)
@@ -61,11 +73,17 @@ function deleteUser($args, $deleteContent=false)
 	}
 
 	if( $dbUsers->delete($args['username']) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-deleted',
+			'notes'=>$args['username']
+		));
+
+		// Create an alert
 		Alert::set($Language->g('User deleted'));
 	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the user.');
-	}
+
+	return true;
 }
 
 // ============================================================================
@@ -111,5 +129,5 @@ $_User = $dbUsers->getUser($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_User===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page('users');
 }
