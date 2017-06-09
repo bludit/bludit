@@ -257,6 +257,12 @@
 	"new-category": "New category",
 	"slug": "slug",
 	"edit-category": "Edit category",
-	"last-page": "Last page",
-	"first-page": "First page"
+
+	"new-theme-configured": "New theme configured",
+	"plugin-configured": "Plugin configured",
+	"new-category-created": "New category created",
+	"new-page-created": "New page created",
+	"page-deleted": "Page deleted",
+	"changes-on-settings": "Changes on settings"
+
 }

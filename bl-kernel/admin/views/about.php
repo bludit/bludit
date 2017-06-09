@@ -28,16 +28,6 @@ echo '
 	echo '<td>'.BLUDIT_BUILD.'</td>';
 	echo '</tr>';
 
-	echo '<tr>';
-	echo '<td>PHP version</td>';
-	echo '<td>'.phpversion().'</td>';
-	echo '</tr>';
-
-	echo '<tr>';
-	echo '<td>PHP modules</td>';
-	echo '<td>'.implode(', ',get_loaded_extensions()).')</td>';
-	echo '</tr>';
-
 echo '
 </tbody>
 </table>

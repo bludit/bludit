@@ -4,13 +4,13 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New post') ?></a></h4>
-		<p><?php $L->p('Create a new article for your blog') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New content') ?></a></h4>
+		<p><?php $L->p('Create a new page for your site') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage posts') ?></a></h4>
-		<p><?php $L->p('edit-or-remove-your-blogs-posts') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage content') ?></a></h4>
+		<p><?php $L->p('Edit or delete pages from your site') ?></p>
 		</div>
 
 	</div>
@@ -18,13 +18,13 @@
 	<div class="uk-width-medium-1-3" style="border-right: 1px solid #E6E6E6; border-left: 1px solid #E6E6E6">
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New page') ?></a></h4>
-		<p><?php $L->p('Create a new page for your website') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-category' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New category') ?></a></h4>
+		<p><?php $L->p('Create a new category to organize your pages') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
-		<p><?php $L->p('edit-or-remove-your=pages') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage categories') ?></a></h4>
+		<p><?php $L->p('Edit or delete your categories') ?></p>
 		</div>
 
 	</div>
@@ -35,7 +35,7 @@
 
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'add-user' ?>"><i class="uk-icon-user-plus"></i> <?php $L->p('Add a new user') ?></a></h4>
-		<p><?php $L->p('Invite a friend to collaborate on your website') ?></p>
+		<p><?php $L->p('Invite a friend to collaborate on your site') ?></p>
 		</div>
 
 		<div class="uk-panel">
@@ -62,6 +62,49 @@
 	<div class="uk-width-1-3">
 
 		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Notifications') ?></h4>
+		<ul class="uk-list uk-list-line">
+		<?php
+			$logs = array_slice($Syslog->db, 0, NOTIFICATIONS_AMOUNT);
+			foreach($logs as $log) {
+				$dict = $L->g($log['dictionaryKey']);
+				echo '<li>';
+				echo $dict;
+				if( !empty($log['notes'])) {
+					echo ' ('.$log['notes'].')';
+				}
+				echo '<br><span class="notification-date">';
+				echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
+				echo ' - by '.$log['username'];
+				echo '</span>';
+
+				echo '</li>';
+			}
+		?>
+		</ul>
+		</div>
+
+	</div>
+
+	<div class="uk-width-1-3">
+
+		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Scheduled pages') ?></h4>
+		<ul class="uk-list">
+		<?php
+			if( empty($_scheduledPosts) ) {
+				echo '<li>'.$Language->g('There are no scheduled pages').'</li>';
+			}
+			else {
+				foreach($_scheduledPosts as $Post) {
+					echo '<li><span class="label-time">'.$Post->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				}
+			}
+		?>
+		</ul>
+		</div>
+
+		<div class="uk-panel">
 		<h4 class="panel-title"><?php $L->p('Statistics') ?></h4>
 		<table class="uk-table statistics">
 			<tbody>
@@ -86,7 +129,7 @@
 		<ul class="uk-list">
 		<?php
 			if( empty($_draftPages) ) {
-				echo '<li>'.$Language->g('There are no drafts').'</li>';
+				echo '<li>'.$Language->g('There are no draft pages').'</li>';
 			}
 			else {
 				foreach($_draftPages as $Page) {
@@ -99,24 +142,6 @@
 
 	</div>
 
-	<div class="uk-width-1-3">
 
-		<div class="uk-panel">
-		<h4 class="panel-title"><?php $L->p('Scheduled posts') ?></h4>
-		<ul class="uk-list">
-		<?php
-			if( empty($_scheduledPosts) ) {
-				echo '<li>'.$Language->g('There are no scheduled posts').'</li>';
-			}
-			else {
-				foreach($_scheduledPosts as $Post) {
-					echo '<li><span class="label-time">'.$Post->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
-				}
-			}
-		?>
-		</ul>
-		</div>
-
-	</div>
 
 </div>

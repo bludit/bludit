@@ -164,6 +164,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	return $pages;
 }
 
+// Returns TRUE if the plugin is enabled, FALSE otherwise
 function pluginEnabled($pluginName) {
 	global $plugins;
 

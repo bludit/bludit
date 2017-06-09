@@ -9,15 +9,18 @@ echo '
 <thead>
 	<tr>
 	<th>'.$L->g('Title').'</th>
-	<th class="uk-text-center">'.$L->g('Position').'</th>
+';
+
+echo '<th class="uk-text-center">'.( (ORDER_BY=='date') ? $L->g('Date') : $L->g('Position') ).'</th>';
+
+echo '
 	<th>'.$L->g('URL').'</th>
 	</tr>
 </thead>
 <tbody>
 ';
 
-foreach($pages as $page)
-{
+foreach($pages as $page) {
 	$status = false;
 	if($page->scheduled()) {
 		$status = $Language->g('Scheduled');
@@ -27,7 +30,9 @@ foreach($pages as $page)
 	}
 	echo '<tr>';
 	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($status?'<span class="label-draft">'.$status.'</span>':'').($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
-	echo '<td class="uk-text-center">'.$page->dateRaw().'</td>';
+
+	echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
+
 	$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
 	echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 	echo '</tr>';

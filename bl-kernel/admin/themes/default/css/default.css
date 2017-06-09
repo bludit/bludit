@@ -196,6 +196,10 @@ div.dashboard-links h4 {
 	margin-bottom: -8px !important;
 }
 
+#dashboard-panel .notification-date {
+	font-size: 0.8em;
+}
+
 
 /* FORM
 ---------------------------------------------------------------- */

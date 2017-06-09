@@ -164,7 +164,7 @@ class Page {
 		$key = $this->getValue('key');
 
 		if($absolute) {
-			return DOMAIN_PAGE.$key;
+			return DOMAIN_PAGES.$key;
 		}
 
 		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;

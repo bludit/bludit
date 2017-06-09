@@ -20,34 +20,30 @@ foreach($themes as $theme)
 	echo '
 	<tr '.($theme['dirname']==$Site->theme()?'class="theme-installed"':'class="theme-notInstalled"').'>
 	<td>
-	<div class="plugin-name">
+	<div class="plugin-name">'.$theme['name'].'</div>
+	<div class="plugin-links">
 	';
 
 	if($theme['dirname']!=$Site->theme()) {
-		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'" title="'.$L->g('Activate').'"><i class="uk-icon-square-o"></i></a> ';
-	}
-	else {
-		echo '<i class="uk-icon-check-square-o"></i> ';
+		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
 	}
 
 	echo '
-	'.$theme['name'].'</div>
+	</div>
 	</td>';
 
 	echo '<td>';
 	echo $theme['description'];
 	echo '</td>';
-	echo '
-	<td class="uk-text-center">';
 
+	echo '<td class="uk-text-center">';
 	if( !$theme['compatible'] ) {
-		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="This theme is incompatible with Bludit v'.BLUDIT_VERSION.'"></i>';
+		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This plugin may not be supported by this version of Bludit').'"></i>';
 	}
-	echo $theme['version'].'</td>';
+	echo $theme['version'];
+	echo '</td>';
 
-	echo '
-	<td class="uk-text-center"><a target="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>
-	';
+	echo '<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>';
 
 	echo '</tr>';
 }

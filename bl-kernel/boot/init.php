@@ -122,6 +122,12 @@ define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
 
+// Notifications date format
+define('NOTIFICATIONS_DATE_FORMAT', 'F j, Y, g:i a');
+
+// Amount of items to show on notification panel
+define('NOTIFICATIONS_AMOUNT', 10);
+
 // Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
 define('TOKEN_EMAIL_TTL', '+15 minutes');
 
@@ -286,8 +292,8 @@ define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 
 define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
-define('DOMAIN_CATEGORY',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
-define('DOMAIN_PAGE',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
+define('DOMAIN_CATEGORIES',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
+define('DOMAIN_PAGES',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
 
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';

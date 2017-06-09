@@ -38,7 +38,7 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
 		$html .= '</div>';
-		
+
 		$html .= '<div>';
 		$html .= '<input type="hidden" name="spellChecker" value="0">';
 		$html .= '<input name="spellChecker" id="jsspellChecker" type="checkbox" value="1" '.($this->getDbField('spellChecker')?'checked':'').'>';
@@ -105,7 +105,7 @@ class pluginsimpleMDE extends Plugin {
 
 			// Spell Checker
 			$spellCheckerEnable = $this->getDbField('spellChecker')?'true':'false';
-			
+
 			$pluginPath = $this->htmlPath();
 
 			$html  = '<script>'.PHP_EOL;
@@ -129,7 +129,7 @@ class pluginsimpleMDE extends Plugin {
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: false,
-					placeholder: "Content here... Supports Markdown and HTML code.",
+					placeholder: "Content here. Supports Markdown and HTML code.",
 					lineWrapping: true,
 					autoDownloadFontAwesome: false,
 					indentWithTabs: true,

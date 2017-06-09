@@ -47,7 +47,7 @@ class pluginCategories extends Plugin {
 			$count = count($fields['list']);
 			if($this->getValue('showCero') || $count>0) {
 				$html .= '<li>';
-				$html .= '<a href="'.DOMAIN_CATEGORY.$key.'">';
+				$html .= '<a href="'.DOMAIN_CATEGORIES.$key.'">';
 				$html .= $fields['name'];
 				$html .= ' ('.count($fields['list']).')';
 				$html .= '</a>';
