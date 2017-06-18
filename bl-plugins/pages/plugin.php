@@ -20,17 +20,21 @@ class pluginPages extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Home link').'</label>';
+		$html .= '<select name="homeLink">';
+		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$Language->get('Show the home link on the sidebar').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Amount of items').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<input type="hidden" name="homeLink" value="false">';
-		$html .= '<input id="jshomeLink" name="homeLink" type="checkbox" value="true" '.($this->getValue('homeLink')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
 		$html .= '</div>';
 
 		return $html;

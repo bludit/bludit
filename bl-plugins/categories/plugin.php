@@ -18,13 +18,17 @@ class pluginCategories extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="showCero" value="false">';
-		$html .= '<input id="jsshowCero" name="showCero" type="checkbox" value="true" '.($this->getValue('showCero')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsshowCero">'.$Language->get('Show categories without content').'</label>';
+		$html .= '<label>'.$Language->get('Categories without content').'</label>';
+		$html .= '<select name="showCero">';
+		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$Language->get('Show the categories without content').'</span>';
 		$html .= '</div>';
 
 		return $html;

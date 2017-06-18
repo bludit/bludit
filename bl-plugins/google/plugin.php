@@ -18,19 +18,19 @@ class pluginGoogle extends Plugin {
 		$html  = '<div>';
 		$html .= '<label for="jsgoogle-site-verification">'.$Language->get('Google Webmasters tools').'</label>';
 		$html .= '<input id="jsgoogle-site-verification" type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
-		$html .= '<div class="tip">'.$Language->get('complete-this-field-with-the-google-site-verification').'</div>';
+		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-google-site-verification').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label for="jstracking-id">'.$Language->get('Google Analytics Tracking ID').'</label>';
 		$html .= '<input id="jsgoogle-analytics-tracking-id" type="text" name="google-analytics-tracking-id" value="'.$this->getDbField('google-analytics-tracking-id').'">';
-		$html .= '<div class="tip">'.$Language->get('complete-this-field-with-the-tracking-id').'</div>';
+		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-tracking-id').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label for="jsgoogle-tag-manager">'.$Language->get('Google Tag Manager').'</label>';
 		$html .= '<input id="jsgoogle-tag-manager" type="text" name="google-tag-manager" value="'.$this->getDbField('google-tag-manager').'">';
-		$html .= '<div class="tip">'.$Language->get('complete-this-field-with-the-tracking-id-google-tag').'</div>';
+		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-tracking-id-google-tag').'</span>';
 		$html .= '</div>';
 
 		return $html;

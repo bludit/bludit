@@ -39,6 +39,42 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>$L->g('Order the content by date to create a Blog or order the content by position to create a Website')
 	));
 
+	HTML::legend(array('value'=>$L->g('Special content')));
+
+	$options = array();
+	foreach($dbPages->db as $key=>$fields) {
+		$page = buildPage($key);
+		$options[$key] = $page->title();
+	}
+	HTML::formSelect(array(
+		'name'=>'pageError',
+		'label'=>$L->g('404 Page Not Found'),
+		'options'=>$options,
+		'selected'=>$Site->pageError(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>$L->g('This page is showed only when the page does not exist anymore')
+	));
+
+	HTML::formSelect(array(
+		'name'=>'pageAbout',
+		'label'=>$L->g('About page'),
+		'options'=>$options,
+		'addEmptySpace'=>true,
+		'selected'=>$Site->pageAbout(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>$L->g('This page is to define a history about you or the content of your site')
+	));
+
+	HTML::formSelect(array(
+		'name'=>'pageContact',
+		'label'=>$L->g('Contact page'),
+		'options'=>$options,
+		'addEmptySpace'=>true,
+		'selected'=>$Site->pageContact(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>$L->g('Page for contact information')
+	));
+
 	HTML::legend(array('value'=>$L->g('Email account settings')));
 
 	HTML::formInputText(array(

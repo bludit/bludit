@@ -38,7 +38,8 @@ if( !method_exists($plugin, 'form') ) {
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$plugin->setDb($_POST);
+	// Call the method post of the plugin
+	$plugin->post();
 
 	// Add to syslog
 	$Syslog->add(array(

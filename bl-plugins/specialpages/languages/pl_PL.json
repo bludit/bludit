@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Lista stron",
+		"description": "Wyświetla listę stron znajdujących się w witrynie."
+	},
+
+	"home": "Strona główna",
+	"show-home-link": "Pokaż odnośnik do strony głównek"
+}

@@ -251,6 +251,18 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
+	// Returns a database with drafts pages
+	public function getDraftDB()
+	{
+		$tmp = $this->db;
+		foreach($tmp as $key=>$fields) {
+			if($fields['status']!='draft') {
+				unset($tmp[$key]);
+			}
+		}
+		return $tmp;
+	}
+
 	// Return an array with the database for a page, FALSE otherwise.
 	public function getPageDB($key)
 	{
@@ -265,12 +277,8 @@ class dbPages extends dbJSON
 	// (int) $pageNumber, the page number
 	// (int) $amountOfItems, amount of items to return
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $amountOfItems, $onlyPublished=true, $removeErrorPage=true)
+	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
 	{
-		if( $removeErrorPage ) {
-			unset($this->db['error']);
-		}
-
 		$db = $this->db;
 
 		if( $onlyPublished ) {

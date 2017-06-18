@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Sayfa listesi",
+		"description": "Sayfaları listeler."
+	},
+
+	"home": "Anasayfa",
+	"show-home-link": "Anasayfa linkini göster"
+}

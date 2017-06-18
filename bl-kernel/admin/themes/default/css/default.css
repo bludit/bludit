@@ -665,43 +665,39 @@ div.plugin-links > span.separator {
 /* ----------- PLUGINS FORM ----------- */
 
 #jsformplugin div {
-	margin-bottom: 1.1em;
+	margin-bottom: 15px;
+	display: table;
+	width: 100%;
 }
 
-#jsformplugin label {
-	margin: 0 0 5px 0 !important;
+#jsformplugin > div > label,
+#jsformplugin > div > input[type=text],
+#jsformplugin > div > input[type=checkbox],
+#jsformplugin > div > textarea,
+#jsformplugin > div > select {
+	display: table-cell;
+}
+
+#jsformplugin > div > span.tip {
+	color: #999;
+	margin-top: 5px;
+	font-size: 0.9em;
 	display: block;
 }
 
-#jsformplugin div.tip {
-	font-size: 0.9em;
-	color: #AAAAAA;
+#jsformplugin > div > label {
+	width: 200px;
 }
 
-#jsformplugin textarea {
-	min-width: 400px;
-	width: 60%;
+#jsformplugin > div > textarea,
+#jsformplugin > div > input[type=text] {
+	width: 50%;
+}
+
+#jsformplugin > div > select {
+	width: 35%;
+}
+
+#jsformplugin > div > textarea {
 	min-height: 100px;
-}
-
-#jsformplugin input[type=text] {
-	min-width: 400px;
-	width: 60%;
-	height: 37px;
-}
-
-#jsformplugin input[type="checkbox"] {
-	vertical-align: middle;
-	margin-left: 0px;
-	margin-right: 10px;
-}
-
-#jsformplugin label.forCheckbox {
-	margin-left: 3px;
-	margin-bottom: 0px !important;
-	display: inline-block;
-}
-
-#jsformplugin p {
-	margin-bottom: 0;
 }

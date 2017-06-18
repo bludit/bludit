@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Special pages",
+		"description": "Shows a list of pages, you can define the amount of items and the order depends of settings."
+	}
+}

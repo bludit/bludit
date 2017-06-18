@@ -127,14 +127,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	if($for=='admin') {
 		$onlyPublished = false;
 		$amountOfItems = ITEMS_PER_PAGE_ADMIN;
-		$removeErrorPage = false;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, $removeErrorPage);
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 	}
 	elseif($for=='home') {
 		$onlyPublished = true;
 		$amountOfItems = $Site->itemsPerPage();
-		$removeErrorPage = true;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, $removeErrorPage);
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 	}
 	elseif($for=='category') {
 		$amountOfItems = $Site->itemsPerPage();

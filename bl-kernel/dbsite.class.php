@@ -27,7 +27,10 @@ class dbSite extends dbJSON
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
-		'orderBy'=>		array('inFile'=>false, 'value'=>'date') // date or position
+		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
+		'pageError'=>		array('inFile'=>false, 'value'=>'error'),
+		'pageAbout'=>		array('inFile'=>false, 'value'=>'about'),
+		'pageContact'=>		array('inFile'=>false, 'value'=>'contact')
 	);
 
 	function __construct()
@@ -135,6 +138,21 @@ class dbSite extends dbJSON
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
+	}
+
+	public function pageError()
+	{
+		return $this->getField('pageError');
+	}
+
+	public function pageAbout()
+	{
+		return $this->getField('pageAbout');
+	}
+
+	public function pageContact()
+	{
+		return $this->getField('pageContact');
 	}
 
 	// Returns the site title

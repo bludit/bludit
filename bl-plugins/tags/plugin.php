@@ -16,6 +16,7 @@ class pluginTags extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
 		$html .= '</div>';
 
 		return $html;
