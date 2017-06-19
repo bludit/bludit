@@ -114,6 +114,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'settings-advanced">'.$L->g('Cancel').'</a>
 		</div>
 	</div>';
 

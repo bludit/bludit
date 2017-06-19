@@ -673,7 +673,6 @@ div.plugin-links > span.separator {
 #jsformplugin > div > label,
 #jsformplugin > div > input[type=text],
 #jsformplugin > div > input[type=checkbox],
-#jsformplugin > div > button[type=submit],
 #jsformplugin > div > textarea,
 #jsformplugin > div > select {
 	display: table-cell;
