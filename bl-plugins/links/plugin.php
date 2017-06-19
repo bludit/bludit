@@ -4,6 +4,7 @@ class pluginLinks extends Plugin {
 
 	public function init()
 	{
+		// JSON database
 		$jsondb = json_encode(array(
 			'Bludit'=>'https://bludit.com',
 			'Donate'=>'https://paypal.me/bludit'
@@ -14,20 +15,44 @@ class pluginLinks extends Plugin {
 			'label'=>'Links',
 			'jsondb'=>$jsondb
 		);
+
+		$this->formButtons = false;
 	}
 
+	// Method called when a POST request is sent
 	public function post()
 	{
+		// Get current jsondb value from database
 		$jsondb = $this->getValue('jsondb', $unsanitized=false);
+
+		// Convert JSON to Array
 		$links = json_decode($jsondb, true);
 
-		$name = $_POST['linkName'];
-		$url = $_POST['linkURL'];
+		if( isset($_POST['deleteLink']) ) {
+			// Values from $_POST
+			$name = $_POST['deleteLink'];
 
-		$links[$url] = $name;
+			// Delete the link
+			unset($links[$name]);
+		}
+		elseif( isset($_POST['addLink']) ) {
+			// Values from $_POST
+			$name = $_POST['linkName'];
+			$url = $_POST['linkURL'];
 
-		$this->db['jsondb'] = json_encode($links);
-		$this->save();
+			// Check empty string
+			if( empty($name) ) { return false; }
+
+			// Add the link
+			$links[$name] = $url;
+		}
+
+		// Sanitize the new values and replace the current values of the database
+		$this->db['label'] = Sanitize::html($_POST['label']);
+		$this->db['jsondb'] = Sanitize::html(json_encode($links));
+
+		// Save the database
+		return $this->save();
 	}
 
 	// Method called on plugin settings on the admin area
@@ -37,23 +62,54 @@ class pluginLinks extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
 		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<button name="save" class="blue" type="submit">Save</button>';
+		$html .= '</div>';
+
+		// New link, when the user click on save button this call the method post()
+		// and the new link is added to the database
+		$html .= '<legend>'.$Language->get('Add a new link').'</legend>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Name').'</label>';
+		$html .= '<input name="linkName" type="text" value="">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Url').'</label>';
+		$html .= '<input name="linkURL" type="text" value="">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<button name="addLink" class="blue" type="submit">Add</button>';
+		$html .= '</div>';
+
+		$html .= '<legend>'.$Language->get('Links').'</legend>';
 
 		// Get the JSON DB, getValue() with the option unsanitized HTML code
 		$jsondb = $this->getValue('jsondb', $unsanitized=false);
 		$links = json_decode($jsondb, true);
 		foreach($links as $name=>$url) {
 			$html .= '<div>';
-			$html .= '<input name="'.$name.'" type="text" value="'.$name.'">';
-			$html .= '<input name="'.$url.'" type="text" value="'.$url.'">';
+			$html .= '<label>'.$Language->get('Name').'</label>';
+			$html .= '<input type="text" value="'.$name.'" disabled>';
 			$html .= '</div>';
-		}
 
-		$html .= '<div>';
-		$html .= 'Nombre <input name="linkName" type="text" value="">';
-		$html .= '<br>URL <input name="linkURL" type="text" value="">';
-		$html .= '</div>';
+			$html .= '<div>';
+			$html .= '<label>'.$Language->get('Url').'</label>';
+			$html .= '<input type="text" value="'.$url.'" disabled>';
+			$html .= '</div>';
+
+			$html .= '<div>';
+			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">Delete</button>';
+			$html .= '</div>';
+
+			$html .= '</br>';
+		}
 
 		return $html;
 	}

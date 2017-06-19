@@ -28,6 +28,8 @@ class Plugin {
 	// (array) Database fields, only for initialize
 	public $dbFields;
 
+	public $formButtons;
+
 	function __construct()
 	{
 		$this->dbFields = array();
@@ -39,6 +41,8 @@ class Plugin {
 
 		// Class Name
 		$this->className = $reflector->getName();
+
+		$this->formButtons = true;
 
 		// Call the method init() from the children
 		$this->init();
@@ -60,6 +64,8 @@ class Plugin {
 		}
 	}
 
+	// DEPRECATED
+	// 2017-06-19
 	public function setDb($args)
 	{
 		foreach($this->dbFields as $key=>$value) {
@@ -189,6 +195,11 @@ class Plugin {
 		return $this->className;
 	}
 
+	public function formButtons()
+	{
+		return $this->formButtons;
+	}
+
 	public function isCompatible()
 	{
 		$bluditRoot = explode('.', BLUDIT_VERSION);
@@ -255,7 +266,18 @@ class Plugin {
 
 	public function post()
 	{
-		$this->setDb($_POST);
+		$args = $_POST;
+		foreach($this->dbFields as $key=>$value) {
+			if( isset($args[$key]) ) {
+				$value = Sanitize::html( $args[$key] );
+				if($value==='false') { $value = false; }
+				elseif($value==='true') { $value = true; }
+				settype($value, gettype($this->dbFields[$key]));
+				$this->db[$key] = $value;
+			}
+		}
+
+		return $this->save();
 	}
 
 }

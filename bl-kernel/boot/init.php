@@ -67,9 +67,6 @@ if(!defined('JSON_PRETTY_PRINT')) {
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
-// Auto scroll
-define('AUTO_SCROLL', TRUE);
-
 // Alert status ok
 define('ALERT_STATUS_OK', 0);
 

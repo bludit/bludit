@@ -38,17 +38,21 @@ if( !method_exists($plugin, 'form') ) {
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	// Call the method post of the plugin
-	$plugin->post();
-
 	// Add to syslog
 	$Syslog->add(array(
 		'dictionaryKey'=>'plugin-configured',
 		'notes'=>$plugin->name()
 	));
 
-	// Create an alert
-	Alert::set( $Language->g('The changes have been saved') );
+	// Call the method post of the plugin
+	if( $plugin->post() ) {
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
+	}
+	else {
+		// Create an alert
+		Alert::set( $Language->g('Complete all fields') );
+	}
 }
 
 // ============================================================================

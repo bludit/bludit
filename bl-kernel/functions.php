@@ -173,3 +173,9 @@ function pluginEnabled($pluginName) {
 
 	return false;
 }
+
+function printDebug($array) {
+	echo '<pre>';
+	var_dump($array);
+	echo '</pre>';
+}
