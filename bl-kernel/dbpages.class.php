@@ -239,6 +239,23 @@ class dbPages extends dbJSON
 		return true;
 	}
 
+	// Change a value of a page
+	public function setField($key, $field, $value)
+	{
+		if( $this->exists($key) ) {
+			settype($value, gettype($this->dbFields[$field]['value']));
+			$this->db[$key][$field] = $value;
+			return $this->save();
+		}
+
+		return false;
+	}
+
+	public function setStatus($key, $value)
+	{
+		return $this->setField($key, 'status', $value);
+	}
+
 	// Returns a database with published pages
 	public function getPublishedDB()
 	{
@@ -386,16 +403,7 @@ class dbPages extends dbJSON
 
 // ----- OLD
 
-	// Set a field of the database
-	public function setField($key, $field, $value)
-	{
-		if( $this->exists($key) ) {
-			settype($value, gettype($this->dbFields[$key]['value']));
-			$this->db[$key][$field] = $value;
-		}
 
-		return false;
-	}
 
 
 

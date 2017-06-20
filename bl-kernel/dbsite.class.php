@@ -27,10 +27,7 @@ class dbSite extends dbJSON
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
-		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
-		'pageError'=>		array('inFile'=>false, 'value'=>'error'),
-		'pageAbout'=>		array('inFile'=>false, 'value'=>'about'),
-		'pageContact'=>		array('inFile'=>false, 'value'=>'contact')
+		'orderBy'=>		array('inFile'=>false, 'value'=>'date') // date or position
 	);
 
 	function __construct()

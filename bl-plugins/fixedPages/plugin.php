@@ -1,18 +1,17 @@
 <?php
 
-class pluginLinks extends Plugin {
+class pluginFixedPages extends Plugin {
 
 	public function init()
 	{
 		// JSON database
 		$jsondb = json_encode(array(
-			'Bludit'=>'https://bludit.com',
-			'Donate'=>'https://paypal.me/bludit'
+			'about'=>'About'
 		));
 
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Links',
+			'label'=>'Fixed Pages',
 			'jsondb'=>$jsondb
 		);
 
@@ -23,37 +22,42 @@ class pluginLinks extends Plugin {
 	// Method called when a POST request is sent
 	public function post()
 	{
+		global $dbPages;
+
 		// Get current jsondb value from database
 		// All data stored in the database is html encoded
 		$jsondb = $this->db['jsondb'];
 		$jsondb = Sanitize::htmlDecode($jsondb);
 
 		// Convert JSON to Array
-		$links = json_decode($jsondb, true);
+		$pagesFixed = json_decode($jsondb, true);
 
 		// Check if the user click on the button delete or add
-		if( isset($_POST['deleteLink']) ) {
+		if( isset($_POST['delete']) ) {
 			// Values from $_POST
-			$name = $_POST['deleteLink'];
+			$pageKey = $_POST['delete'];
+
+			// Change the status of the page from fixed to published
+			$dbPages->setStatus($pageKey, 'published');
 
 			// Delete the link from the array
-			unset($links[$name]);
+			unset($pagesFixed[$pageKey]);
 		}
-		elseif( isset($_POST['addLink']) ) {
+		elseif( isset($_POST['add']) ) {
 			// Values from $_POST
-			$name = $_POST['linkName'];
-			$url = $_POST['linkURL'];
+			$pageTitle = $_POST['newPageTitle'];
+			$pageKey = $_POST['newPageKey'];
 
-			// Check empty string
-			if( empty($name) ) { return false; }
+			// Change the status of the page from fixed to published
+			$dbPages->setStatus($pageKey, 'fixed');
 
 			// Add the link
-			$links[$name] = $url;
+			$pagesFixed[$pageKey] = $pageTitle;
 		}
 
 		// Encode html to store the values on the database
 		$this->db['label'] = Sanitize::html($_POST['label']);
-		$this->db['jsondb'] = Sanitize::html(json_encode($links));
+		$this->db['jsondb'] = Sanitize::html(json_encode($pagesFixed));
 
 		// Save the database
 		return $this->save();
@@ -63,6 +67,15 @@ class pluginLinks extends Plugin {
 	public function form()
 	{
 		global $Language;
+		global $dbPages;
+
+		$options = array();
+		foreach($dbPages->db as $key=>$fields) {
+			$page = buildPage($key);
+			if($page->published()) {
+				$options[$key] = $page->title();
+			}
+		}
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
@@ -74,42 +87,52 @@ class pluginLinks extends Plugin {
 		$html .= '<button name="save" class="blue" type="submit">Save</button>';
 		$html .= '</div>';
 
-		// New link, when the user click on save button this call the method post()
-		// and the new link is added to the database
-		$html .= '<legend>'.$Language->get('Add a new link').'</legend>';
+		// NEW PAGE
+		$html .= '<legend>'.$Language->get('New fixed page').'</legend>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Name').'</label>';
-		$html .= '<input name="linkName" type="text" value="">';
+		$html .= '<label>'.$Language->get('Title').'</label>';
+		$html .= '<input name="newPageTitle" type="text" value="">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Url').'</label>';
-		$html .= '<input name="linkURL" type="text" value="">';
+		$html .= '<label>'.$Language->get('Page').'</label>';
+		$html .= '<select name="newPageKey">';
+		foreach($options as $key=>$title) {
+			$html .= '<option value="'.$key.'">'.$title.'</option>';
+		}
+		$html .= '</select>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="addLink" class="blue" type="submit">Add</button>';
+		$html .= '<button name="add" class="blue" type="submit">Add</button>';
 		$html .= '</div>';
 
-		$html .= '<legend>'.$Language->get('Links').'</legend>';
+		// LIST OF PAGES
+		$html .= '<legend>'.$Language->get('Fixed pages').'</legend>';
 
-		// Get the JSON DB, getValue() with the option unsanitized HTML code
 		$jsondb = $this->getValue('jsondb', $unsanitized=false);
-		$links = json_decode($jsondb, true);
-		foreach($links as $name=>$url) {
+		$pagesFixed = json_decode($jsondb, true);
+		foreach($pagesFixed as $pageKey=>$pageTitle) {
 			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Name').'</label>';
-			$html .= '<input type="text" value="'.$name.'" disabled>';
+			$html .= '<label>'.$Language->get('Title').'</label>';
+			$html .= '<input type="text" value="'.$pageTitle.'" disabled>';
+			$html .= '</div>';
+
+			$page = buildPage($pageKey);
+			if($page) {
+				$title = $page->title();
+			} else {
+				$title = $Language->get('Error page deleted');
+			}
+
+			$html .= '<div>';
+			$html .= '<label>'.$Language->get('Page linked').'</label>';
+			$html .= '<input type="text" value="'.$title.'" disabled>';
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Url').'</label>';
-			$html .= '<input type="text" value="'.$url.'" disabled>';
-			$html .= '</div>';
-
-			$html .= '<div>';
-			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">Delete</button>';
+			$html .= '<button name="delete" type="submit" value="'.$pageKey.'">Delete</button>';
 			$html .= '</div>';
 
 			$html .= '</br>';
@@ -131,13 +154,13 @@ class pluginLinks extends Plugin {
 
 		// Get the JSON DB, getValue() with the option unsanitized HTML code
 		$jsondb = $this->getValue('jsondb', false);
-		$links = json_decode($jsondb);
+		$pagesFixed = json_decode($jsondb);
 
 		// By default the database of categories are alphanumeric sorted
-		foreach( $links as $name=>$url ) {
+		foreach($pagesFixed as $key=>$title) {
 			$html .= '<li>';
-			$html .= '<a href="'.$url.'">';
-			$html .= $name;
+			$html .= '<a href="'.DOMAIN_PAGES.$key.'">';
+			$html .= $title;
 			$html .= '</a>';
 			$html .= '</li>';
 		}
