@@ -353,6 +353,22 @@ class Page {
 		return ($this->getValue('status')=='draft');
 	}
 
+	public function sticky()
+	{
+		return ($this->getValue('status')=='sticky');
+	}
+
+	public function fixed()
+	{
+		return ($this->getValue('status')=='fixed');
+	}
+
+	// (string) Returns status of the page
+	public function status()
+	{
+		return $this->getValue('status');
+	}
+
 	// Returns the title field
 	public function title()
 	{

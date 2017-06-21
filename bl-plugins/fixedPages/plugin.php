@@ -4,139 +4,32 @@ class pluginFixedPages extends Plugin {
 
 	public function init()
 	{
-		// JSON database
-		$jsondb = json_encode(array(
-			'about'=>'About'
-		));
-
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
 			'label'=>'Fixed Pages',
-			'jsondb'=>$jsondb
+			'homeLink'=>true
 		);
-
-		// Disable default Save and Cancel button
-		$this->formButtons = false;
 	}
 
-	// Method called when a POST request is sent
-	public function post()
-	{
-		global $dbPages;
-
-		// Get current jsondb value from database
-		// All data stored in the database is html encoded
-		$jsondb = $this->db['jsondb'];
-		$jsondb = Sanitize::htmlDecode($jsondb);
-
-		// Convert JSON to Array
-		$pagesFixed = json_decode($jsondb, true);
-
-		// Check if the user click on the button delete or add
-		if( isset($_POST['delete']) ) {
-			// Values from $_POST
-			$pageKey = $_POST['delete'];
-
-			// Change the status of the page from fixed to published
-			$dbPages->setStatus($pageKey, 'published');
-
-			// Delete the link from the array
-			unset($pagesFixed[$pageKey]);
-		}
-		elseif( isset($_POST['add']) ) {
-			// Values from $_POST
-			$pageTitle = $_POST['newPageTitle'];
-			$pageKey = $_POST['newPageKey'];
-
-			// Change the status of the page from fixed to published
-			$dbPages->setStatus($pageKey, 'fixed');
-
-			// Add the link
-			$pagesFixed[$pageKey] = $pageTitle;
-		}
-
-		// Encode html to store the values on the database
-		$this->db['label'] = Sanitize::html($_POST['label']);
-		$this->db['jsondb'] = Sanitize::html(json_encode($pagesFixed));
-
-		// Save the database
-		return $this->save();
-	}
-
-	// Method called on plugin settings on the admin area
+	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
 		global $Language;
-		global $dbPages;
-
-		$options = array();
-		foreach($dbPages->db as $key=>$fields) {
-			$page = buildPage($key);
-			if($page->published()) {
-				$options[$key] = $page->title();
-			}
-		}
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="save" class="blue" type="submit">Save</button>';
-		$html .= '</div>';
-
-		// NEW PAGE
-		$html .= '<legend>'.$Language->get('New fixed page').'</legend>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Title').'</label>';
-		$html .= '<input name="newPageTitle" type="text" value="">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Page').'</label>';
-		$html .= '<select name="newPageKey">';
-		foreach($options as $key=>$title) {
-			$html .= '<option value="'.$key.'">'.$title.'</option>';
-		}
+		$html .= '<label>'.$Language->get('Home link').'</label>';
+		$html .= '<select name="homeLink">';
+		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
 		$html .= '</select>';
+		$html .= '<span class="tip">'.$Language->get('Show the home link on the sidebar').'</span>';
 		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<button name="add" class="blue" type="submit">Add</button>';
-		$html .= '</div>';
-
-		// LIST OF PAGES
-		$html .= '<legend>'.$Language->get('Fixed pages').'</legend>';
-
-		$jsondb = $this->getValue('jsondb', $unsanitized=false);
-		$pagesFixed = json_decode($jsondb, true);
-		foreach($pagesFixed as $pageKey=>$pageTitle) {
-			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Title').'</label>';
-			$html .= '<input type="text" value="'.$pageTitle.'" disabled>';
-			$html .= '</div>';
-
-			$page = buildPage($pageKey);
-			if($page) {
-				$title = $page->title();
-			} else {
-				$title = $Language->get('Error page deleted');
-			}
-
-			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Page linked').'</label>';
-			$html .= '<input type="text" value="'.$title.'" disabled>';
-			$html .= '</div>';
-
-			$html .= '<div>';
-			$html .= '<button name="delete" type="submit" value="'.$pageKey.'">Delete</button>';
-			$html .= '</div>';
-
-			$html .= '</br>';
-		}
 
 		return $html;
 	}
@@ -145,6 +38,11 @@ class pluginFixedPages extends Plugin {
 	public function siteSidebar()
 	{
 		global $Language;
+		global $Url;
+		global $Site;
+		global $dbPages;
+
+		$pages = $dbPages->getFixedDB();
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
@@ -152,15 +50,23 @@ class pluginFixedPages extends Plugin {
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
-		// Get the JSON DB, getValue() with the option unsanitized HTML code
-		$jsondb = $this->getValue('jsondb', false);
-		$pagesFixed = json_decode($jsondb);
-
-		// By default the database of categories are alphanumeric sorted
-		foreach($pagesFixed as $key=>$title) {
+		// Show Home page link
+		if( $this->getValue('homeLink') ) {
 			$html .= '<li>';
-			$html .= '<a href="'.DOMAIN_PAGES.$key.'">';
-			$html .= $title;
+			$html .= '<a href="'.$Site->url().'">';
+			$html .= $Language->get('Home page');
+			$html .= '</a>';
+			$html .= '</li>';
+		}
+
+		// Get keys of pages
+		$keys = array_keys($pages);
+		foreach($keys as $pageKey) {
+			// Create the page object from the page key
+			$page = buildPage($pageKey);
+			$html .= '<li>';
+			$html .= '<a href="'.$page->permalink().'">';
+			$html .= $page->title();
 			$html .= '</a>';
 			$html .= '</li>';
 		}

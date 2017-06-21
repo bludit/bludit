@@ -13,6 +13,8 @@ class dbUsers extends dbJSON
 		'registered'=>		array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
 		'tokenEmail'=>		array('inFile'=>false, 'value'=>''),
 		'tokenEmailTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
+		'tokenAuth'=>		array('inFile'=>false, 'value'=>''),
+		'tokenAuthTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
 		'twitter'=>		array('inFile'=>false, 'value'=>''),
 		'facebook'=>		array('inFile'=>false, 'value'=>''),
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
@@ -69,6 +71,17 @@ class dbUsers extends dbJSON
 			}
 		}
 
+		return false;
+	}
+
+	// Returns the username with the authentication token assigned, FALSE otherwise
+	public function getByAuthToken($token)
+	{
+		foreach($this->db as $username=>$fields) {
+			if($fields['tokenAuth']==$token) {
+				return $username;
+			}
+		}
 		return false;
 	}
 

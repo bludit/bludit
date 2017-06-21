@@ -11,6 +11,8 @@
 }
 
 .label-draft,
+.label-fixed,
+.label-sticky,
 .label-empty-title,
 .label-time {
 	background: #A979D1 none repeat scroll 0 0;
@@ -22,6 +24,10 @@
 	vertical-align: middle;
 	margin-right: 5px;
 	font-size: 0.8em;
+}
+
+.label-fixed {
+	background: #7BD179;
 }
 
 .label-empty-title {

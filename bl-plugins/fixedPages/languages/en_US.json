@@ -1,7 +1,11 @@
 {
 	"plugin-data":
 	{
-		"name": "Fixed Pages",
-		"description": "Show a list of links."
-	}
+		"name": "Fixed pages",
+		"description": "Shows a list of pages, you can define the amount of items and the order depends of settings."
+	},
+
+	"home-page": "Home page",
+	"show-home-link": "Show home link",
+	"amount-of-items": "Amount of items"
 }

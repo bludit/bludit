@@ -22,14 +22,11 @@ echo '
 
 foreach($pages as $page) {
 	$status = false;
-	if($page->scheduled()) {
-		$status = $Language->g('Scheduled');
-	}
-	elseif(!$page->published()) {
-		$status = $Language->g('Draft');
+	if($page->status()!='published') {
+		$status = $Language->g( $page->status() );
 	}
 	echo '<tr>';
-	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($status?'<span class="label-draft">'.$status.'</span>':'').($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
+	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($status?'<span class="label-'.$page->status().'">'.$status.'</span>':'').($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ').'</a></td>';
 
 	echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
 

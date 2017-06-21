@@ -268,6 +268,18 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
+	// (array) Returns a database with the fixed pages
+	public function getFixedDB()
+	{
+		$tmp = $this->db;
+		foreach($tmp as $key=>$fields) {
+			if($fields['status']!='fixed') {
+				unset($tmp[$key]);
+			}
+		}
+		return $tmp;
+	}
+
 	// Returns a database with drafts pages
 	public function getDraftDB()
 	{

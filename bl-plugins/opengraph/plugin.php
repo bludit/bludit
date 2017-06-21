@@ -41,8 +41,7 @@ class pluginOpenGraph extends Plugin {
 			'siteName'	=>$Site->title()
 		);
 
-		switch($WHERE_AM_I)
-		{
+		switch($WHERE_AM_I) {
 			// The user filter by page
 			case 'page':
 				$og['type']		= 'article';
@@ -56,6 +55,7 @@ class pluginOpenGraph extends Plugin {
 
 			// The user is in the homepage
 			default:
+				$content = '';
 				// The image it's from the first page
 				if(isset($pages[0]) ) {
 					$og['image'] 	= $pages[0]->coverImage($absolute=true);

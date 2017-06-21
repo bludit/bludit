@@ -133,8 +133,13 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'status',
 		'label'=>$L->g('Status'),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
-		'selected'=>($page->draft()?'draft':'published'),
+		'options'=>array(
+			'published'=>$L->g('Published'),
+			'draft'=>$L->g('Draft'),
+			'fixed'=>$L->g('Fixed'),
+			'sticky'=>$L->g('Sticky')
+		),
+		'selected'=>$page->status(),
 		'tip'=>''
 	));
 

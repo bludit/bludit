@@ -4,14 +4,12 @@ class pluginAPI extends Plugin {
 
 	public function init()
 	{
-		global $Security;
-
-		// This key is used for request such as get the list of all posts and pages
-		$token = md5($Security->key1().time().DOMAIN);
+		// Generate the API Token
+		$token = md5( uniqid().time().DOMAIN );
 
 		$this->dbFields = array(
 			'ping'=>0,		// 0 = false, 1 = true
-			'token'=>$token,	// Private key
+			'token'=>$token,	// API Token
 			'showAllAmount'=>15,	// Amount of posts and pages for return
 			'authentication'=>1	// Authentication required
 		);
@@ -56,9 +54,11 @@ class pluginAPI extends Plugin {
 	public function beforeRulesLoad()
 	{
 		global $Url;
-		global $dbPosts;
 		global $dbPages;
+		global $dbUsers;
 
+		// CHECK URL
+		// ------------------------------------------------------------
 		// Check if the URI start with /api/
 		$startString = HTML_PATH_ROOT.'api/';
 		$URI = $Url->uri();
@@ -70,72 +70,46 @@ class pluginAPI extends Plugin {
 		// Remove the first part of the URI
 		$URI = mb_substr($URI, $length);
 
-		// METHODS
-		// ------------------------------------------------------------
-		// GET
-		// POST
-		// PUT
-		// DELETE
-
-		$method = $_SERVER['REQUEST_METHOD'];
-
 		// INPUTS
 		// ------------------------------------------------------------
-		// token 	| authentication token
-
-		$inputs = json_decode(file_get_contents('php://input'),true);
-
-		if( empty($inputs) ) {
-			// Default variables for $input
-			$inputs = array(
-				'token'=>''
-			);
-		}
-		else {
-			// Sanitize inputs
-			foreach( $inputs as $key=>$value ) {
-				if(empty($value)) {
-					$this->response(array(
-						'status'=>'1',
-						'message'=>'Invalid input.'
-					));
-				} else {
-					$inputs[$key] = Sanitize::html($value);
-				}
-			}
-		}
+		$inputs = $this->getInputs();
 
 		// PARAMETERS
 		// ------------------------------------------------------------
-		// /api/posts 		| GET  | returns all posts
-		// /api/posts/{key}	| GET  | returns the post with the {key}
-		// /api/pages 		| GET  | returns all pages
-		// /api/pages/{key}	| GET  | returns the page with the {key}
-		// /api/cli/regenerate 	| POST | check for new posts and pages
+		$parameters = $this->getParameters($URI);
 
-		$parameters = explode('/', $URI);
+		// API TOKEN
+		// ------------------------------------------------------------
+		$tokenAPI = $this->getValue('token');
 
-		// Sanitize parameters
-		foreach( $parameters as $key=>$value ) {
-			if(empty($value)) {
-				$this->response(array(
-					'status'=>'1',
-					'message'=>'Invalid parameter.'
-				));
-			} else {
-				$parameters[$key] = Sanitize::html($value);
+		// Check empty token
+		if( empty($inputs['token']) ) {
+			$this->response(array(
+				'status'=>'1',
+				'message'=>'Missing API token.'
+			));
+		}
+
+		// Check the token is valid
+		if( $inputs['token']!=$tokenAPI ) {
+			$this->response(array(
+				'status'=>'1',
+				'message'=>'Invalid API token.'
+			));
+		}
+
+		// AUTHENTICATION TOKEN
+		// ------------------------------------------------------------
+		$writePermissions = false;
+		if( !empty($inputs['authentication']) ) {
+			// Get the user with the authentication token
+			$username = $dbUsers->getByAuthToken($inputs['authentication']);
+			if( $username!==false ) {
+				// Enable write permissions
+				$writePermissions = true;
 			}
 		}
 
-		// Check authentication
-		if( $this->getDbField('authentication')==1 ) {
-			if( $inputs['token']!=$this->getDbField('token') ) {
-				$this->response(array(
-					'status'=>'1',
-					'message'=>'Invalid token.'
-				));
-			}
-		}
 
 		// /api/posts
 		if( ($method==='GET') && ($parameters[0]==='posts') && empty($parameters[1]) ) {
@@ -175,13 +149,68 @@ class pluginAPI extends Plugin {
 		}
 	}
 
-// FUNCTIONS
+// PRIVATE METHODS
 // ----------------------------------------------------------------------------
+
+	private function getParameters($URI)
+	{
+		// PARAMETERS
+		// ------------------------------------------------------------
+		// /api/pages 		| GET  | returns all pages
+		// /api/pages/{key}	| GET  | returns the page with the {key}
+		// /api/cli/regenerate 	| POST | check for new posts and pages
+
+		$parameters = explode('/', $URI);
+
+		// Sanitize parameters
+		foreach($parameters as $key=>$value) {
+			$parameters[$key] = Sanitize::html($value);
+		}
+
+		return $parameters;
+	}
+
+	private function getInputs()
+	{
+		// METHODS
+		// ------------------------------------------------------------
+		// GET
+		// POST
+		// PUT
+		// DELETE
+
+		$method = $_SERVER['REQUEST_METHOD'];
+
+		switch($method) {
+			case "POST":
+				$inputs = $_POST;
+				break;
+			case "GET":
+			case "DELETE":
+				$inputs = $_GET;
+				break;
+			case "PUT":
+				$inputs = file_get_contents("php://input");
+				break;
+			default:
+				$inputs = json_encode(array());
+				break;
+		}
+
+		// Input data need to be JSON
+		$inputs = json_decode(file_get_contents('php://input'),true);
+
+		// Sanitize inputs
+		foreach($inputs as $key=>$value) {
+			$inputs[$key] = Sanitize::html($value);
+		}
+
+		return $inputs;
+	}
 
 	private function response($data=array())
 	{
 		$json = json_encode($data);
-
 		header('Content-Type: application/json');
 		exit($json);
 	}
