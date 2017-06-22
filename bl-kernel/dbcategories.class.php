@@ -21,8 +21,9 @@ class dbCategories extends dbList
 			$this->db[$key]['list'] = array();
 		}
 
-		// Foreach post in the database
-		$db = $dbPages->getDB();
+		// Get a database with published pages
+		$db = $dbPages->getPublishedDB();
+
 		foreach($db as $pageKey=>$pageFields) {
 			if( !empty($pageFields['category']) ) {
 				$categoryKey = $pageFields['category'];

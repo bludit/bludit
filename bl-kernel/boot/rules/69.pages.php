@@ -7,10 +7,10 @@
 // Array with all published pages
 $pages = array();
 
-// Array with all pages (published, draft, scheduled)
+// Array with all pages (published, fixed, sticky, draft, scheduled)
 $allPages = array();
 
-// Object Page for the page filtered bye the user
+// Object Page for the page filtered by the user
 $page = false;
 
 // Array with all page parents published
@@ -30,6 +30,12 @@ if( $dbPages->scheduler() ) {
 
         // Reindex categories
         reindexCategories();
+
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'page-published-from-scheduler',
+		'notes'=>''
+	));
 }
 
 // Build specific page

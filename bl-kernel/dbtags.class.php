@@ -16,7 +16,9 @@ class dbTags extends dbList
 	{
 		global $dbPages;
 
-		$db = $dbPages->getDB();
+		// Get a database with published pages
+		$db = $dbPages->getPublishedDB();
+
 		$tagsIndex = array();
 
 		foreach($db as $pageKey=>$pageFields) {

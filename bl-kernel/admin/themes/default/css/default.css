@@ -13,6 +13,7 @@
 .label-draft,
 .label-fixed,
 .label-sticky,
+.label-scheduled,
 .label-empty-title,
 .label-time {
 	background: #A979D1 none repeat scroll 0 0;
@@ -27,6 +28,10 @@
 }
 
 .label-fixed {
+	background: #7BD179;
+}
+
+.label-scheduled {
 	background: #7BD179;
 }
 

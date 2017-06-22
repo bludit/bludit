@@ -59,30 +59,14 @@ function buildPage($key)
 
 function reindexCategories()
 {
-	global $dbPages;
 	global $dbCategories;
-
-	// Get a database with published pages
-	$db = $dbPages->getPublishedDB();
-
-	// Regenerate the tags
-	$dbCategories->reindex($db);
-
-	return true;
+	return $dbCategories->reindex();
 }
 
 function reindexTags()
 {
-	global $dbPages;
 	global $dbTags;
-
-	// Get a database with published pages
-	$db = $dbPages->getPublishedDB();
-
-	// Regenerate the tags
-	$dbTags->reindex($db);
-
-	return true;
+	return $dbTags->reindex();
 }
 
 function buildPagesForAdmin()
@@ -207,6 +191,63 @@ function createNewPage($args) {
 	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page');
 	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...');
 	$dbPages->delete($key);
+
+	return false;
+}
+
+function editPage($args) {
+	global $dbPages;
+	global $Syslog;
+
+	if(!isset($args['parent'])) {
+		$args['parent'] = NO_PARENT_CHAR;
+	}
+
+	$key = $dbPages->edit($args);
+	if($key) {
+		// Call the plugins after page modified
+		Theme::plugins('afterPageModify');
+
+		// Re-index categories
+		reindexCategories();
+
+		// Re-index tags
+		reindextags();
+
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'page-edited',
+			'notes'=>$args['title']
+		));
+
+		return $key;
+	}
+
+	return false;
+}
+
+function deletePage($key) {
+	global $dbPages;
+	global $Syslog;
+
+	if( $dbPages->delete($key) ) {
+		// Call the plugins after page deleted
+		Theme::plugins('afterPageDelete');
+
+		// Re-index categories
+		reindexCategories();
+
+		// Re-index tags
+		reindextags();
+
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'page-deleted',
+			'notes'=>$key
+		));
+
+		return true;
+	}
 
 	return false;
 }

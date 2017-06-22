@@ -42,7 +42,7 @@ class dbPages extends dbJSON
 		$key = $this->generateKey($args['slug'], $args['parent']);
 
 		// Generate UUID
-		$args['uuid'] = md5( uniqid() );
+		$args['uuid'] = $this->generateUUID();
 
 		// Date
 		$currentDate = Date::current(DB_DATE_FORMAT);
@@ -314,6 +314,9 @@ class dbPages extends dbJSON
 			$db = $this->getPublishedDB();
 		}
 
+		// Remove Error page from the list
+		unset($db['error']);
+
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
 
@@ -360,7 +363,7 @@ class dbPages extends dbJSON
 		return $db;
 	}
 
-	// Return TRUE if the page exists, FALSE otherwise.
+	// Return TRUE if the page exists, FALSE otherwise
 	public function exists($key)
 	{
 		return isset( $this->db[$key] );
@@ -411,6 +414,43 @@ class dbPages extends dbJSON
 	}
 	private function sortByDateHighToLow($a, $b) {
 		return $a['date']<$b['date'];
+	}
+
+	private function generateUUID() {
+		return md5( uniqid().time() );
+	}
+
+	// Returns TRUE if there are new pages published, FALSE otherwise
+	public function scheduler()
+	{
+		// Get current date
+		$currentDate = Date::current(DB_DATE_FORMAT);
+		$saveDatabase = false;
+
+		// The database need to be sorted by date
+		foreach($this->db as $pageKey=>$fields) {
+			if($fields['status']=='scheduled') {
+				if($fields['date']<=$currentDate) {
+					$this->db[$pageKey]['status'] = 'published';
+					$saveDatabase = true;
+				}
+			}
+			elseif( ($fields['status']=='published') && (ORDER_BY=='date') ) {
+				break;
+			}
+		}
+
+		if($saveDatabase) {
+			if( $this->save() === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+				return false;
+			}
+
+			Log::set(__METHOD__.LOG_SEP.'New pages published from the scheduler.');
+			return true;
+		}
+
+		return false;
 	}
 
 // ----- OLD
@@ -518,37 +558,6 @@ class dbPages extends dbJSON
 		return $this->save();
 	}
 
-	// Return TRUE if there are new pages published, FALSE otherwise.
-	public function scheduler()
-	{
-		// Get current date
-		$currentDate = Date::current(DB_DATE_FORMAT);
-		$saveDatabase = false;
 
-		// The database need to be sorted by date
-		foreach($this->db as $pageKey=>$fields) {
-			if($fields['status']=='scheduled') {
-				if($fields['date']<=$currentDate) {
-					$this->db[$pageKey]['status'] = 'published';
-					$saveDatabase = true;
-				}
-			}
-			elseif($fields['status']=='published') {
-				break;
-			}
-		}
-
-		if($saveDatabase) {
-			if( $this->save() === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-				return false;
-			}
-
-			Log::set(__METHOD__.LOG_SEP.'New pages published from the scheduler.');
-			return true;
-		}
-
-		return false;
-	}
 
 }
