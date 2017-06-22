@@ -42,8 +42,8 @@ if( $Url->whereAmI()==='page' ) {
 	if($page===false) {
 		$Url->setNotFound(true);
 	}
-	// The page is not published
-	elseif( !$page->published() ) {
+	// The page is not published, still scheduled or draft
+	elseif( $page->scheduled() || $page->draft() ) {
 		$Url->setNotFound(true);
 	}
 	else {

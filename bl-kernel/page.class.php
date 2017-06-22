@@ -335,29 +335,31 @@ class Page {
 		return $this->getValue('key');
 	}
 
-	// Returns TRUE if the post/page is published, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is published, FALSE otherwise
 	public function published()
 	{
 		return ($this->getValue('status')==='published');
 	}
 
-	// Returns TRUE if the post/page is scheduled, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is scheduled, FALSE otherwise
 	public function scheduled()
 	{
 		return ($this->getValue('status')==='scheduled');
 	}
 
-	// Returns TRUE if the post/page is draft, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is draft, FALSE otherwise
 	public function draft()
 	{
 		return ($this->getValue('status')=='draft');
 	}
 
+	// (boolean) Returns TRUE if the page is sticky, FALSE otherwise
 	public function sticky()
 	{
 		return ($this->getValue('status')=='sticky');
 	}
 
+	// (boolean) Returns TRUE if the page is fixed, FALSE otherwise
 	public function fixed()
 	{
 		return ($this->getValue('status')=='fixed');

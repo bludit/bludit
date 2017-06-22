@@ -179,3 +179,34 @@ function printDebug($array) {
 	var_dump($array);
 	echo '</pre>';
 }
+
+function createNewPage($args) {
+	global $dbPages;
+	global $Syslog;
+
+	$key = $dbPages->add($args);
+	if($key) {
+		// Call the plugins after page created
+		Theme::plugins('afterPageCreate');
+
+		// Re-index categories
+		reindexCategories();
+
+		// Re-index tags
+		reindextags();
+
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'new-page-created',
+			'notes'=>$args['title']
+		));
+
+		return $key;
+	}
+
+	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page');
+	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...');
+	$dbPages->delete($key);
+
+	return false;
+}

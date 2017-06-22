@@ -307,7 +307,7 @@ function install($adminPassword, $email, $timezone)
 			'description'=>$Language->get('Page not found'),
 			'username'=>'admin',
 			'tags'=>array(),
-			'status'=>'published',
+			'status'=>'system',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>false,
