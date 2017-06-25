@@ -292,6 +292,18 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
+	// Returns a database with drafts pages
+	public function getScheduledDB()
+	{
+		$tmp = $this->db;
+		foreach($tmp as $key=>$fields) {
+			if($fields['status']!='scheduled') {
+				unset($tmp[$key]);
+			}
+		}
+		return $tmp;
+	}
+
 	// Return an array with the database for a page, FALSE otherwise.
 	public function getPageDB($key)
 	{

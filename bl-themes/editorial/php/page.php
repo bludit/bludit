@@ -13,5 +13,3 @@
         <!-- Plugins with the hook pageEnd -->
         <?php Theme::plugins('pageEnd') ?>
 </section>
-
-<?php var_dump($page); ?>

@@ -2,6 +2,8 @@
 
 class pluginAPI extends Plugin {
 
+	private $method;
+
 	public function init()
 	{
 		// Generate the API Token
@@ -15,9 +17,11 @@ class pluginAPI extends Plugin {
 
 	public function form()
 	{
+		global $Language;
+
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('API Token').'</label>';
-		$html .= '<input type="text" value="'.$this->getValue('token').'" disabled>';
+		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
 		$html .= '<span class="tip">'.$Language->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
 		$html .= '</div>';
 
@@ -52,6 +56,10 @@ class pluginAPI extends Plugin {
 
 		// Remove the first part of the URI
 		$URI = mb_substr($URI, $length);
+
+		// METHOD
+		// ------------------------------------------------------------
+		$method = $this->getMethod();
 
 		// INPUTS
 		// ------------------------------------------------------------
@@ -121,6 +129,19 @@ class pluginAPI extends Plugin {
 // PRIVATE METHODS
 // ----------------------------------------------------------------------------
 
+	private function getMethod()
+	{
+		// METHODS
+		// ------------------------------------------------------------
+		// GET
+		// POST
+		// PUT
+		// DELETE
+
+		$this->method = $_SERVER['REQUEST_METHOD'];
+		return $this->method;
+	}
+
 	private function getParameters($URI)
 	{
 		// PARAMETERS
@@ -141,16 +162,7 @@ class pluginAPI extends Plugin {
 
 	private function getInputs()
 	{
-		// METHODS
-		// ------------------------------------------------------------
-		// GET
-		// POST
-		// PUT
-		// DELETE
-
-		$method = $_SERVER['REQUEST_METHOD'];
-
-		switch($method) {
+		switch($this->method) {
 			case "POST":
 				$inputs = $_POST;
 				break;
@@ -224,7 +236,7 @@ class pluginAPI extends Plugin {
 		foreach($keys as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
-			array_push($tmp['data'], $Page->json( $returnsArray=true ));
+			array_push($tmp['data'], $page->json( $returnsArray=true ));
 		}
 
 		return $tmp;

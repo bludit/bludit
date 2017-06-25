@@ -92,12 +92,15 @@
 		<h4 class="panel-title"><?php $L->p('Scheduled pages') ?></h4>
 		<ul class="uk-list">
 		<?php
-			if( empty($_scheduledPosts) ) {
+			$scheduledPages = $dbPages->getScheduledDB();
+			if( empty($scheduledPages) ) {
 				echo '<li>'.$Language->g('There are no scheduled pages').'</li>';
 			}
 			else {
-				foreach($_scheduledPosts as $Post) {
-					echo '<li><span class="label-time">'.$Post->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-post/'.$Post->key().'">'.($Post->title()?$Post->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				$keys = array_keys($scheduledPages);
+				foreach($keys as $key) {
+					$page = buildPage($key);
+					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>
@@ -128,12 +131,15 @@
 		<h4 class="panel-title"><?php $L->p('Drafts') ?></h4>
 		<ul class="uk-list">
 		<?php
-			if( empty($_draftPages) ) {
+			$draftPages = $dbPages->getDraftDB();
+			if( empty($draftPages) ) {
 				echo '<li>'.$Language->g('There are no draft pages').'</li>';
 			}
 			else {
-				foreach($_draftPages as $Page) {
-					echo '<li><span class="label-draft">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$Page->key().'">'.($Page->title()?$Page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				$keys = array_keys($scheduledPages);
+				foreach($keys as $key) {
+					$page = buildPage($key);
+					echo '<li><span class="label-draft">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>

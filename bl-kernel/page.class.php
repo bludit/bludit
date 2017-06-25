@@ -18,6 +18,7 @@ class Page {
 	{
 		$filePath = PATH_PAGES.$key.DS.FILENAME;
 
+		// Check if the file exists
 		if( !Sanitize::pathFile($filePath) ) {
 			return false;
 		}
@@ -25,32 +26,38 @@ class Page {
 		$tmp = 0;
 		$lines = file($filePath);
 		foreach($lines as $lineNumber=>$line) {
-			$parts = array_map('trim', explode(':', $line, 2));
+			// Split the line in 2 parts, limiter by :
+			$parts = explode(':', $line, 2);
 
-			// Lowercase variable
+			// Remove all characters except letters and dash -
+			$parts[0] = preg_replace('/[^A-Za-z\-]/', '', $parts[0]);
+
+			// Lowercase
 			$parts[0] = Text::lowercase($parts[0]);
 
-			// If variables is content then break the foreach and process the content after.
-			if($parts[0]==='content') {
+			// Check if the current line start the content of the page
+			// We have two breakers, the word content or 3 dash ---
+			if( ($parts[0]==='content') || ($parts[0]==='---') ) {
 				$tmp = $lineNumber;
 				break;
 			}
 
 			if( !empty($parts[0]) && !empty($parts[1]) ) {
-				// Sanitize all fields, except Content.
+				$parts[1] = trim($parts[1]);
+				// Sanitize all fields, except the content
 				$this->vars[$parts[0]] = Sanitize::html($parts[1]);
 			}
 		}
 
 		// Process the content
 		if($tmp!==0) {
-			// Next line after "Content:" variable
+			// Next line after "Content:" or "---"
 			$tmp++;
 
 			// Remove lines after Content
 			$output = array_slice($lines, $tmp);
 
-			if(!empty($parts[1])) {
+			if( !empty($parts[1]) ) {
 				array_unshift($output, "\n");
 				array_unshift($output, $parts[1]);
 			}

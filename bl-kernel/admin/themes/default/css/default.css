@@ -681,15 +681,13 @@ div.plugin-links > span.separator {
 	width: 100%;
 }
 
-#jsformplugin > div > label,
-#jsformplugin > div > input[type=text],
-#jsformplugin > div > input[type=checkbox],
-#jsformplugin > div > textarea,
-#jsformplugin > div > select {
-	display: table-cell;
+#jsformplugin ul {
+	padding: 0;
+	list-style: none;
+	margin-bottom: 10px;
 }
 
-#jsformplugin > div > button[type=submit] {
+#jsformplugin button[type=submit] {
 	margin-left: 200px;
 	border-radius: 2px;
 	padding: 1px 20px;
@@ -702,9 +700,17 @@ div.plugin-links > span.separator {
 	cursor: pointer;
 }
 
-#jsformplugin > div > button[type=submit].blue {
+#jsformplugin button[type=submit].blue {
 	background: #007add !important;
 	color: #fff;
+}
+
+#jsformplugin > div > label,
+#jsformplugin > div > input[type=text],
+#jsformplugin > div > input[type=checkbox],
+#jsformplugin > div > textarea,
+#jsformplugin > div > select {
+	display: table-cell;
 }
 
 #jsformplugin > div > span.tip {
