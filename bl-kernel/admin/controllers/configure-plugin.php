@@ -48,6 +48,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	if( $plugin->post() ) {
 		// Create an alert
 		Alert::set( $Language->g('The changes have been saved') );
+		Redirect::page('configure-plugin/'.$plugin->className());
 	}
 	else {
 		// Create an alert

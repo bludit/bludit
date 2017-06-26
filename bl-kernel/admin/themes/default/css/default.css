@@ -681,12 +681,6 @@ div.plugin-links > span.separator {
 	width: 100%;
 }
 
-#jsformplugin ul {
-	padding: 0;
-	list-style: none;
-	margin-bottom: 10px;
-}
-
 #jsformplugin button[type=submit] {
 	margin-left: 200px;
 	border-radius: 2px;
@@ -703,6 +697,11 @@ div.plugin-links > span.separator {
 #jsformplugin button[type=submit].blue {
 	background: #007add !important;
 	color: #fff;
+}
+
+#jsformplugin button[type=submit].small {
+	font-size: 0.9em;
+	min-height: 20px;
 }
 
 #jsformplugin > div > label,
@@ -735,4 +734,15 @@ div.plugin-links > span.separator {
 
 #jsformplugin > div > textarea {
 	min-height: 100px;
+}
+
+@media (max-width: 960px) {
+
+	#jsformplugin div {
+		display: block;
+	}
+
+	#jsformplugin button[type=submit] {
+		margin: 0;
+	}
 }

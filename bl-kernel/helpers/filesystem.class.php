@@ -3,12 +3,16 @@
 class Filesystem {
 
 	// Returns an array with the absolutes directories.
-	public static function listDirectories($path, $regex='*')
+	public static function listDirectories($path, $regex='*', $sortByDate=false)
 	{
 		$directories = glob($path.$regex, GLOB_ONLYDIR);
 
 		if(empty($directories)) {
 			return array();
+		}
+
+		if($sortByDate) {
+			usort($directories, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
 		}
 
 		return $directories;
