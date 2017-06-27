@@ -23,15 +23,55 @@ class dbUsers extends dbJSON
 
 	function __construct()
 	{
-		parent::__construct(PATH_DATABASES.'users.php');
+		parent::__construct(DB_USERS);
+	}
+
+	// Disable the user
+	public function disableUser($username)
+	{
+		$args['username'] = $username;
+		$args['password'] = '!';
+
+		return $this->set($args);
+	}
+
+	// Return TRUE if the user exists, FALSE otherwise
+	public function exists($username)
+	{
+		return isset($this->db[$username]);
+	}
+
+	// Set the parameters of a user
+	public function set($args)
+	{
+		// Current database of the user
+		$user = $this->db[$args['username']];
+
+		// Verify arguments with the database fields
+		foreach($args as $field=>$value) {
+			if( isset($this->dbFields[$field]) ) {
+				$value = Sanitize::html($value);
+				settype($value, gettype($this->dbFields[$field]['value']));
+				$user[$field] = $value;
+			}
+		}
+
+		// Save the database
+		$this->db[$args['username']] = $user;
+		return $this->save();
+	}
+
+	// Delete an user
+	public function delete($username)
+	{
+		unset($this->db[$username]);
+		return $this->save();
 	}
 
 	public function getUser($username)
 	{
-		$User = new User();
-
-		if($this->userExists($username))
-		{
+		if($this->userExists($username)) {
+			$User = new User();
 			$User->setField('username', $username);
 
 			foreach($this->db[$username] as $key=>$value) {
@@ -44,16 +84,11 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
-	public function getAll()
-	{
-		return $this->db;
-	}
-
-	// Return an array with the username databases, filtered by username.
+// ---- OLD
+	// Returns array with the username databases filtered by username, FALSE otherwise
 	public function getDb($username)
 	{
-		if($this->userExists($username))
-		{
+		if($this->userExists($username)) {
 			$user = $this->db[$username];
 
 			return $user;
@@ -61,6 +96,14 @@ class dbUsers extends dbJSON
 
 		return false;
 	}
+
+
+	public function getAll()
+	{
+		return $this->db;
+	}
+
+
 
 	// Return the username associated to an email, if the email does not exists return FALSE.
 	public function getByEmail($email)
@@ -121,63 +164,11 @@ class dbUsers extends dbJSON
 		return $this->set($args);
 	}
 
-	// Disable the user
-	public function disableUser($username)
-	{
-		$args['username'] = $username;
-		$args['password'] = '!';
 
-		return $this->set($args);
-	}
 
-	public function set($args)
-	{
-		$dataForDb = array();
 
-		$user = $this->getDb($args['username']);
 
-		if($user===false)
-		{
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the username '.$args['username']);
-			return false;
-		}
 
-		// Verify arguments with the database fields.
-		foreach($args as $field=>$value)
-		{
-			if( isset($this->dbFields[$field]) )
-			{
-				// Sanitize.
-				$tmpValue = Sanitize::html($value);
-
-				// Set type.
-				settype($tmpValue, gettype($this->dbFields[$field]['value']));
-
-				$user[$field] = $tmpValue;
-			}
-		}
-
-		// Save the database
-		$this->db[$args['username']] = $user;
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
-	}
-
-	public function delete($username)
-	{
-		unset($this->db[$username]);
-
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
-	}
 
 	public function add($args)
 	{

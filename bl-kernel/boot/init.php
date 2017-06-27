@@ -55,6 +55,7 @@ define('DB_SITE', PATH_DATABASES.'site.php');
 define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
+define('DB_USERS', PATH_DATABASES.'users.php');
 
 // Log separator
 define('LOG_SEP', ' | ');
@@ -184,6 +185,7 @@ include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
+include(PATH_HELPERS.'tcp.class.php');
 
 // Session
 Session::start();

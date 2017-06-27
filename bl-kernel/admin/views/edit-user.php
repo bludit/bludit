@@ -16,7 +16,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	// Security token
 	HTML::formInputHidden(array(
 		'name'=>'username',
-		'value'=>$_User->username()
+		'value'=>$User->username()
 	));
 
 	HTML::legend(array('value'=>$L->g('Profile'), 'class'=>'first-child'));
@@ -24,7 +24,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'usernameDisable',
 		'label'=>$L->g('Username'),
-		'value'=>$_User->username(),
+		'value'=>$User->username(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
 		'tip'=>''
@@ -33,7 +33,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'firstName',
 		'label'=>$L->g('First name'),
-		'value'=>$_User->firstName(),
+		'value'=>$User->firstName(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -41,7 +41,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	HTML::formInputText(array(
 		'name'=>'lastName',
 		'label'=>$L->g('Last name'),
-		'value'=>$_User->lastName(),
+		'value'=>$User->lastName(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -49,7 +49,7 @@ HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal
 	echo '<div class="uk-form-row">
 		<label class="uk-form-label">'.$L->g('password').'</label>
 		<div class="uk-form-controls">
-		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$_User->username().'">'.$L->g('Change password').'</a>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$User->username().'">'.$L->g('Change password').'</a>
 		</div>
 	</div>';
 
@@ -59,7 +59,7 @@ if($Login->role()==='admin') {
 		'name'=>'role',
 		'label'=>$L->g('Role'),
 		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
-		'selected'=>$_User->role(),
+		'selected'=>$User->role(),
 		'tip'=>''
 	));
 
@@ -68,7 +68,7 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'email',
 		'label'=>$L->g('Email'),
-		'value'=>$_User->email(),
+		'value'=>$User->email(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('email-will-not-be-publicly-displayed')
 	));
@@ -78,7 +78,7 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'twitter',
 		'label'=>'Twitter',
-		'value'=>$_User->twitter(),
+		'value'=>$User->twitter(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -86,7 +86,7 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'facebook',
 		'label'=>'Facebook',
-		'value'=>$_User->facebook(),
+		'value'=>$User->facebook(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -94,7 +94,7 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'googlePlus',
 		'label'=>'Google+',
-		'value'=>$_User->googlePlus(),
+		'value'=>$User->googlePlus(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -102,7 +102,7 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'instagram',
 		'label'=>'Instagram',
-		'value'=>$_User->instagram(),
+		'value'=>$User->instagram(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>''
 	));
@@ -119,13 +119,13 @@ if($Login->role()==='admin') {
 	HTML::formInputText(array(
 		'name'=>'status',
 		'label'=>$L->g('сurrent status'),
-		'value'=>$_User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
+		'value'=>$User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
-		'tip'=>$_User->enabled()?'':$L->g('To enable the user you have to set a new password')
+		'tip'=>$User->enabled()?'':$L->g('To enable the user you have to set a new password')
 	));
 
-if( $_User->enabled() ) {
+if( $User->enabled() ) {
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" id="jsdisable-user" class="delete-button" name="disable-user"><i class="uk-icon-ban"></i> '.$L->g('Disable the user').'</button>
@@ -133,7 +133,7 @@ if( $_User->enabled() ) {
 	</div>';
 }
 
-if( ($Login->role()==='admin') && ($_User->username()!='admin') ) {
+if( ($Login->role()==='admin') && ($User->username()!='admin') ) {
 
 	HTML::legend(array('value'=>$L->g('Delete')));
 
@@ -152,7 +152,7 @@ echo '</div>';
 
 echo '<div class="uk-width-3-10" style="margin-top: 50px; text-align: center;">';
 
-HTML::profileUploader($_User->username());
+HTML::profileUploader($User->username());
 
 echo '</div>';
 echo '</div>';

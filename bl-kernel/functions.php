@@ -251,3 +251,79 @@ function deletePage($key) {
 
 	return false;
 }
+
+function disableUser($username) {
+	global $dbUsers;
+	global $Login;
+	global $Syslog;
+
+	// The editors can't disable users
+	if($Login->role()!=='admin') {
+		return false;
+	}
+
+	if( $dbUsers->disableUser($username) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-disabled',
+			'notes'=>$username
+		));
+
+		return true;
+	}
+
+	return false;
+}
+
+function editUser($args) {
+	global $dbUsers;
+	global $Syslog;
+
+	if( $dbUsers->set($args) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-edited',
+			'notes'=>$args['username']
+		));
+
+		return true;
+	}
+
+	return false;
+}
+
+function deleteUser($args, $deleteContent=false)
+{
+	global $dbUsers;
+	global $Login;
+	global $Syslog;
+
+	// The user admin cannot be deleted
+	if($args['username']=='admin') {
+		return false;
+	}
+
+	// The editors can't delete users
+	if($Login->role()!=='admin') {
+		return false;
+	}
+
+	if($deleteContent) {
+		//$dbPosts->deletePostsByUser($args['username']);
+	}
+	else {
+		//$dbPosts->linkPostsToUser($args['username'], 'admin');
+	}
+
+	if( $dbUsers->delete($args['username']) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-deleted',
+			'notes'=>$args['username']
+		));
+
+		return true;
+	}
+
+	return false;
+}

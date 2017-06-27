@@ -57,6 +57,9 @@ class dbSyslog extends dbJSON
 		// Insert at beggining of the database
 		array_unshift($this->db, $data);
 
+		// Keep just NOTIFICATIONS_AMOUNT notifications
+		$this->db = array_slice($this->db, 0, NOTIFICATIONS_AMOUNT);
+
 		// Save
 		return $this->save();
 	}
