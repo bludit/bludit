@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "About",
-		"description": "Little description about your site or yourself."
+		"name": "Version",
+		"description": "Show the current version and check for new updates"
 	}
 }
