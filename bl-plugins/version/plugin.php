@@ -28,18 +28,22 @@ class pluginVersion extends Plugin {
 	{
 		global $ADMIN_CONTROLLER;
 
-		$timeToCheck = time() + 10;
-		if( ($ADMIN_CONTROLLER=='dashboard') && (Session::get('timeToCheck')>$timeToCheck) ) {
-			//$versions = $this->getVersion();
-			$versions = array('latest'=>'2.1');
-			Session::set('timeToCheck', $timeToCheck);
+		$timeToCheck = Session::get('timeToCheck') + 10*60;
+		if( ($ADMIN_CONTROLLER=='dashboard') && ($timeToCheck<time()) ) {
+			$versions = $this->getVersion();
+			$versions = array('latest'=>'2.0');
+			Session::set('timeToCheck', time());
 			Session::set('latestVersion', $versions['latest']);
 		}
 
 		if( version_compare(Session::get('latestVersion'), BLUDIT_VERSION, '>') ) {
 			$html = '<div id="plugin-version"><a href="https://www.bludit.com">New version available</a></div>';
 		} else {
-			$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="">Upgrade to Bludit PRO</a></div>';
+			if(BLUDIT_PRO) {
+				$html = '<div id="plugin-version">Bludit PRO v'.BLUDIT_VERSION.'</div>';
+			} else {
+				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="">Upgrade to Bludit PRO</a></div>';
+			}
 		}
 
 		return $html;
@@ -48,12 +52,11 @@ class pluginVersion extends Plugin {
 	private function getVersion()
 	{
 		$url = 'https://version.bludit.com';
-
 		$output = TCP::http($url);
 
 		$json = json_decode($output, true);
 		if(empty($json)) {
-			return array('version'=>'');
+			return array('latest'=>'');
 		}
 
 		return $json;

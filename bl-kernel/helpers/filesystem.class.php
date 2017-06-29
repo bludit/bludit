@@ -54,4 +54,8 @@ class Filesystem {
 		return unlink($filename);
 	}
 
+	public static function fileExists($filename)
+	{
+		return file_exists($filename);
+	}
 }

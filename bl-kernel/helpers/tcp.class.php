@@ -2,7 +2,7 @@
 
 class TCP {
 
-	public static function http($url, $method='GET', $verifySSL=true)
+	public static function http($url, $method='GET', $verifySSL=true, $timeOut=1)
 	{
 		if( function_exists('curl_version') ) {
 			$ch = curl_init();
@@ -10,6 +10,8 @@ class TCP {
 			// TRUE to include the header in the output
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $verifySSL);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeOut);
+			curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);
 			if($method=='POST') {
 				curl_setopt($ch, CURLOPT_POST, true);
 			}
@@ -22,7 +24,8 @@ class TCP {
 		else {
 			$options = array(
 				'http'=>array(
-					'method'=>$method
+					'method'=>$method,
+					'timeout'=>$timeOut
 				),
 				"ssl"=>array(
 					"verify_peer"=>$verifySSL,

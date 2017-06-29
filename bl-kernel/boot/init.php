@@ -187,6 +187,11 @@ include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
 
+// Include Bludit PRO
+if( file_exists(PATH_KERNEL.'bludit.pro.php') ) {
+	include(PATH_KERNEL.'bludit.pro.php');
+}
+
 // Session
 Session::start();
 if(Session::started()===false) {
