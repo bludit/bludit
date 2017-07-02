@@ -39,7 +39,7 @@ class pluginVersion extends Plugin {
 		if( version_compare(Session::get('latestVersion'), BLUDIT_VERSION, '>') ) {
 			$html = '<div id="plugin-version"><a href="https://www.bludit.com">New version available</a></div>';
 		} else {
-			if(BLUDIT_PRO) {
+			if(defined('BLUDIT_PRO')) {
 				$html = '<div id="plugin-version">Bludit PRO v'.BLUDIT_VERSION.'</div>';
 			} else {
 				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="">Upgrade to Bludit PRO</a></div>';

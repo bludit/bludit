@@ -114,6 +114,16 @@ if($Login->role()==='admin') {
 		</div>
 	</div>';
 
+	HTML::legend(array('value'=>$L->g('Authentication Token')));
+
+	HTML::formInputText(array(
+		'name'=>'tokenAuth',
+		'label'=>$L->g('Token'),
+		'value'=>$User->tokenAuth(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>$L->g('This token is similar to your password, do not share this token.')
+	));
+
 	HTML::legend(array('value'=>$L->g('Status')));
 
 	HTML::formInputText(array(

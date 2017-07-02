@@ -25,8 +25,8 @@ class pluginCategories extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Categories without content').'</label>';
 		$html .= '<select name="showCero">';
-		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
+		$html .= '<option value="true" '.($this->getValue('showCero')===true?'selected':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')===false?'selected':'').'>Disabled</option>';
 		$html .= '</select>';
 		$html .= '<span class="tip">'.$Language->get('Show the categories without content').'</span>';
 		$html .= '</div>';

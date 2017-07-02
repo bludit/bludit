@@ -30,6 +30,12 @@ $pluginClassName = $layout['parameters'];
 if( isset($plugins['all'][$pluginClassName]) ) {
 	$plugin = $plugins['all'][$pluginClassName];
 
+	// Plugins for Bludit PRO
+	$blackList = array('pluginTimeMachine', 'pluginRemoteContent');
+	if( in_array($pluginClassName, $blackList) && !defined('BLUDIT_PRO') ) {
+		Redirect::page('plugins');
+	}
+
 	// Install plugin
 	if( $plugin->install() ) {
 		// Add to syslog

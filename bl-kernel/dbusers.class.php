@@ -41,6 +41,60 @@ class dbUsers extends dbJSON
 		return isset($this->db[$username]);
 	}
 
+	// Create a new user
+	public function add($args)
+	{
+		$dataForDb = array();
+
+		// Verify arguments with the database fields.
+		foreach($this->dbFields as $field=>$options)
+		{
+			// If the user send the field.
+			if( isset($args[$field]) )
+			{
+				// Sanitize if will be saved on database.
+				if( !$options['inFile'] ) {
+					$tmpValue = Sanitize::html($args[$field]);
+				}
+				else {
+					$tmpValue = $args[$field];
+				}
+			}
+			// Uses a default value for the field.
+			else
+			{
+				$tmpValue = $options['value'];
+			}
+
+			// Set type
+			settype($tmpValue, gettype($options['value']));
+
+			// Save on database
+			$dataForDb[$field] = $tmpValue;
+		}
+
+		// Check if the user alredy exists.
+		if( $this->userExists($dataForDb['username']) ) {
+			return false;
+		}
+
+		// Current date.
+		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
+
+		// Password
+		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);
+		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
+
+		// Save the database
+		$this->db[$dataForDb['username']] = $dataForDb;
+		if( $this->save() === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+			return false;
+		}
+
+		return true;
+	}
+
 	// Set the parameters of a user
 	public function set($args)
 	{
@@ -170,57 +224,6 @@ class dbUsers extends dbJSON
 
 
 
-	public function add($args)
-	{
-		$dataForDb = array();
 
-		// Verify arguments with the database fields.
-		foreach($this->dbFields as $field=>$options)
-		{
-			// If the user send the field.
-			if( isset($args[$field]) )
-			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
-				}
-				else {
-					$tmpValue = $args[$field];
-				}
-			}
-			// Uses a default value for the field.
-			else
-			{
-				$tmpValue = $options['value'];
-			}
-
-			// Set type
-			settype($tmpValue, gettype($options['value']));
-
-			// Save on database
-			$dataForDb[$field] = $tmpValue;
-		}
-
-		// Check if the user alredy exists.
-		if( $this->userExists($dataForDb['username']) ) {
-			return false;
-		}
-
-		// Current date.
-		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
-
-		// Password
-		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);
-		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
-
-		// Save the database
-		$this->db[$dataForDb['username']] = $dataForDb;
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
-	}
 
 }

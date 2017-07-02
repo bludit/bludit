@@ -263,7 +263,6 @@ class Plugin {
 				$this->db[$key] = $value;
 			}
 		}
-
 		return $this->save();
 	}
 

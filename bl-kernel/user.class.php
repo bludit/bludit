@@ -36,6 +36,11 @@ class User
 		return $this->getField('lastName');
 	}
 
+	public function tokenAuth()
+	{
+		return $this->getField('tokenAuth');
+	}
+
 	public function role()
 	{
 		return $this->getField('role');

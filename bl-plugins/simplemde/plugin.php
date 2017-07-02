@@ -14,8 +14,8 @@ class pluginsimpleMDE extends Plugin {
 		$this->dbFields = array(
 			'tabSize'=>'2',
 			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
-			'autosave'=>0,
-			'spellChecker'=>0
+			'autosave'=>true,
+			'spellChecker'=>true
 		);
 	}
 
@@ -34,15 +34,19 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="autosave" value="0">';
-		$html .= '<input name="autosave" id="jsautosave" type="checkbox" value="1" '.($this->getDbField('autosave')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsautosave">'.$Language->get('Autosave').'</label>';
+		$html .= '<label>'.$Language->get('Autosave').'</label>';
+		$html .= '<select name="autosave">';
+		$html .= '<option value="true" '.($this->getValue('autosave')===true?'selected':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('autosave')===false?'selected':'').'>Disabled</option>';
+		$html .= '</select>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="spellChecker" value="0">';
-		$html .= '<input name="spellChecker" id="jsspellChecker" type="checkbox" value="1" '.($this->getDbField('spellChecker')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jsspellChecker">'.$Language->get('spell-checker').'</label>';
+		$html .= '<label>'.$Language->get('Spell Checker').'</label>';
+		$html .= '<select name="spellChecker">';
+		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>Disabled</option>';
+		$html .= '</select>';
 		$html .= '</div>';
 
 		return $html;
