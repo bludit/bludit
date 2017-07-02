@@ -137,6 +137,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'label'=>$L->g('Date')
 	));
 
+/*
 	// Parent input
 	$options = array();
 	$parents = $dbPages->getParents(true);
@@ -153,7 +154,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'tip'=>'',
 		'addEmptySpace'=>true
 	));
-
+*/
 	// Position input
 	HTML::formInputText(array(
 		'name'=>'position',

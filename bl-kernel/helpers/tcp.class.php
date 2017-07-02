@@ -2,13 +2,15 @@
 
 class TCP {
 
-	public static function http($url, $method='GET', $verifySSL=true, $timeOut=1)
+	public static function http($url, $method='GET', $verifySSL=true, $timeOut=1, $followRedirections=true, $binary=true, $headers=false)
 	{
 		if( function_exists('curl_version') ) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
-			// TRUE to include the header in the output
-			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_HEADER, $headers);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $followRedirections);
+			curl_setopt($ch, CURLOPT_BINARYTRANSFER, $binary);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $verifySSL);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeOut);
 			curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);
@@ -25,11 +27,12 @@ class TCP {
 			$options = array(
 				'http'=>array(
 					'method'=>$method,
-					'timeout'=>$timeOut
+					'timeout'=>$timeOut,
+					'follow_location'=>$followRedirections
 				),
 				"ssl"=>array(
-					"verify_peer"=>$verifySSL,
-					"verify_peer_name"=>$verifySSL
+					"verify_peer"=>false,
+					"verify_peer_name"=>false
 				)
 			);
 			$stream = stream_context_create($options);
@@ -39,5 +42,10 @@ class TCP {
 		return $output;
 	}
 
+	public static function download($url, $destination)
+	{
+		$data = self::http($url, $method='GET', $verifySSL=true, $timeOut=3, $followRedirections=true, $binary=true, $headers=false);
+		return file_put_contents($destination, $data);
+	}
 
 }

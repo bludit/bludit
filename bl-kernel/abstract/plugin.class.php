@@ -218,13 +218,7 @@ class Plugin {
 		return $this->directoryName;
 	}
 
-	// Returns the absolute path for PHP with the workspace for the plugin
-	public function workspace()
-	{
-		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
-	}
-
-	// Return TRUE if the installation success, otherwise FALSE.
+	// Return TRUE if the installation success, otherwise FALSE
 	public function install($position=0)
 	{
 		if($this->installed()) {
@@ -243,14 +237,7 @@ class Plugin {
 
 	public function uninstall()
 	{
-		// Delete all files.
-		$files = Filesystem::listFiles( $this->phpPathDB() );
-		foreach($files as $file) {
-			unlink($file);
-		}
-
-		// Delete the directory.
-		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
+		Filesystem::deleteRecursive(PATH_PLUGINS_DATABASES.$this->directoryName);
 	}
 
 	public function installed()

@@ -151,7 +151,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'tip'=>$L->g('To schedule the post just select the date and time'),
 		'label'=>$L->g('Date')
 	));
-
+/*
 // If the page is parent then doesn't can have a parent.
 if(count($page->children())===0)
 {
@@ -170,7 +170,7 @@ if(count($page->children())===0)
 		'tip'=>''
 	));
 }
-
+*/
 	// Position input
 	HTML::formInputText(array(
 		'name'=>'position',

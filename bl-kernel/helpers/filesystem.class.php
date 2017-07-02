@@ -58,4 +58,40 @@ class Filesystem {
 	{
 		return file_exists($filename);
 	}
+
+	public static function directoryExists($path)
+	{
+		return file_exists($path);
+	}
+
+	public static function copyRecursive($source, $destination)
+	{
+		$destination = rtrim($destination, '/');
+
+		foreach($iterator = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+				RecursiveIteratorIterator::SELF_FIRST) as $item) {
+					if($item->isDir()) {
+						@mkdir($destination.DS.$iterator->getSubPathName());
+					} else {
+						copy($item, $destination.DS.$iterator->getSubPathName());
+					}
+		}
+		return true;
+	}
+
+	public static function deleteRecursive($source)
+	{
+		foreach(new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
+			RecursiveIteratorIterator::CHILD_FIRST) as $item) {
+				if($item->isFile()) {
+					unlink($item);
+				} else {
+					rmdir($item);
+				}
+		}
+
+		return rmdir($source);
+	}
 }
