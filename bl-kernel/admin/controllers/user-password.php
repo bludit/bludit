@@ -8,6 +8,7 @@ function setPassword($username, $new_password, $confirm_password)
 {
 	global $dbUsers;
 	global $Language;
+	global $Syslog;
 
 	// Password length
 	if( strlen($new_password) < 6 )
@@ -20,6 +21,11 @@ function setPassword($username, $new_password, $confirm_password)
 	{
 		if( $dbUsers->setPassword($username, $new_password) ) {
 			Alert::set($Language->g('The changes have been saved'), ALERT_STATUS_OK);
+			// Add to syslog
+			$Syslog->add(array(
+				'dictionaryKey'=>'user-password-changed',
+				'notes'=>$username
+			));
 			return true;
 		}
 		else {
