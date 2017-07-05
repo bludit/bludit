@@ -218,7 +218,7 @@ class Plugin {
 		return $this->directoryName;
 	}
 
-	// Return TRUE if the installation success, otherwise FALSE
+	// Return TRUE if the installation success, otherwise FALSE.
 	public function install($position=0)
 	{
 		if($this->installed()) {
@@ -237,7 +237,14 @@ class Plugin {
 
 	public function uninstall()
 	{
-		Filesystem::deleteRecursive(PATH_PLUGINS_DATABASES.$this->directoryName);
+		// Delete all files.
+		$files = Filesystem::listFiles( $this->phpPathDB() );
+		foreach($files as $file) {
+			unlink($file);
+		}
+
+		// Delete the directory.
+		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
 	}
 
 	public function installed()
@@ -263,7 +270,28 @@ class Plugin {
 				$this->db[$key] = $value;
 			}
 		}
+
 		return $this->save();
+	}
+
+	public function webhook($URI=false)
+	{
+		global $Url;
+
+		if(empty($URI)) {
+			return false;
+		}
+
+		// Check URI start with the webhook
+		$startString = HTML_PATH_ROOT.$URI;
+		$URI = $Url->uri();
+		$length = mb_strlen($startString, CHARSET);
+		if( mb_substr($URI, 0, $length)!=$startString ) {
+			return false;
+		}
+
+		Log::set(__METHOD__.LOG_SEP.'Webhook requested.');
+		return true;
 	}
 
 }

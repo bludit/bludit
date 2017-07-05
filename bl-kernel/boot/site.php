@@ -3,8 +3,8 @@
 // Load plugins rules
 include(PATH_RULES.'60.plugins.php');
 
-// Plugins before rules loaded
-Theme::plugins('beforeRulesLoad');
+// Plugins before all
+Theme::plugins('beforeAll');
 
 // Load rules
 include(PATH_RULES.'69.pages.php');
@@ -30,3 +30,6 @@ else {
 
 // Plugins after site loaded
 Theme::plugins('afterSiteLoad');
+
+// Plugins after all
+Theme::plugins('afterAll');

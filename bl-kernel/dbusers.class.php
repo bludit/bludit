@@ -46,39 +46,24 @@ class dbUsers extends dbJSON
 	{
 		$dataForDb = array();
 
-		// Verify arguments with the database fields.
-		foreach($this->dbFields as $field=>$options)
-		{
-			// If the user send the field.
-			if( isset($args[$field]) )
-			{
-				// Sanitize if will be saved on database.
-				if( !$options['inFile'] ) {
-					$tmpValue = Sanitize::html($args[$field]);
-				}
-				else {
-					$tmpValue = $args[$field];
-				}
+		// Verify arguments with the database fields
+		foreach($this->dbFields as $field=>$options) {
+			if( isset($args[$field]) ) {
+				$value = Sanitize::html($args[$field]);
 			}
-			// Uses a default value for the field.
-			else
-			{
-				$tmpValue = $options['value'];
+			// Use the default value for the field
+			else {
+				$value = $options['value'];
 			}
 
 			// Set type
-			settype($tmpValue, gettype($options['value']));
+			settype($value, gettype($options['value']));
 
 			// Save on database
-			$dataForDb[$field] = $tmpValue;
+			$dataForDb[$field] = $value;
 		}
 
-		// Check if the user alredy exists.
-		if( $this->userExists($dataForDb['username']) ) {
-			return false;
-		}
-
-		// Current date.
+		// Current date
 		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
 
 		// Password
@@ -87,12 +72,7 @@ class dbUsers extends dbJSON
 
 		// Save the database
 		$this->db[$dataForDb['username']] = $dataForDb;
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
+		return $this->save();
 	}
 
 	// Set the parameters of a user

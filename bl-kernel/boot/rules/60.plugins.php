@@ -23,6 +23,8 @@ $plugins = array(
 	'adminSidebar'=>array(),
 
 	'beforeRulesLoad'=>array(),
+	'beforeAll'=>array(),
+	'afterAll'=>array(),
 
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),

@@ -32,14 +32,8 @@ class dbPages extends dbJSON
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
 
-		// The user is always the one loggued
-		$args['username'] = Session::get('username');
-		if( Text::isEmpty($args['username']) ) {
-			return false;
-		}
-
 		// Generate key
-		$key = $this->generateKey($args['slug'], $args['parent']);
+		$key = $this->generateKey($args['slug']);
 
 		// Generate UUID
 		$args['uuid'] = $this->generateUUID();
@@ -48,7 +42,7 @@ class dbPages extends dbJSON
 		$currentDate = Date::current(DB_DATE_FORMAT);
 
 		// Validate date
-		if(!Valid::date($args['date'], DB_DATE_FORMAT)) {
+		if( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
 			$args['date'] = $currentDate;
 		}
 
@@ -103,6 +97,9 @@ class dbPages extends dbJSON
 			return false;
 		}
 
+		// Checksum MD5
+		$dataForDb['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
+
 		// Insert in database
 		$this->db[$key] = $dataForDb;
 
@@ -110,10 +107,7 @@ class dbPages extends dbJSON
 		$this->sortBy();
 
 		// Save database
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
+		$this->save();
 
 		return $key;
 	}
@@ -123,15 +117,9 @@ class dbPages extends dbJSON
 		$dataForDb = array();
 		$dataForFile = array();
 
-		// The user is always the one loggued
-		$args['username'] = Session::get('username');
-		if( Text::isEmpty($args['username']) ) {
-			return false;
-		}
+		$newKey = $this->generateKey($args['slug'], NO_PARENT_CHAR, false, $args['key']);
 
-		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
-
-		// If the page is draft then the time created is now
+		// If the page is draft then the created time is the current
 		if( $this->db[$args['key']]['status']=='draft' ) {
 			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
@@ -196,6 +184,9 @@ class dbPages extends dbJSON
 		// Remove the old key
 		unset( $this->db[$args['key']] );
 
+		// Checksum MD5
+		$dataForDb['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
+
 		// Insert in database
 		$this->db[$newKey] = $dataForDb;
 
@@ -203,10 +194,7 @@ class dbPages extends dbJSON
 		$this->sortBy();
 
 		// Save database
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
+		$this->save();
 
 		return $newKey;
 	}
@@ -465,28 +453,7 @@ class dbPages extends dbJSON
 		return false;
 	}
 
-// ----- OLD
-
-
-
-
-
-	public function parentKeyList()
-	{
-		return $this->parentKeyList;
-	}
-
-	public function parentKeyExists($key)
-	{
-		return isset( $this->parentKeyList[$key] );
-	}
-
-	public function addParentKey($key)
-	{
-		$this->parentKeyList[$key] = $key;
-	}
-
-	// Generate a valid Key/Slug.
+	// Generate a valid Key/Slug
 	public function generateKey($text, $parent=NO_PARENT_CHAR, $returnSlug=false, $oldKey='')
 	{
 		if(Text::isEmpty($text)) {
@@ -525,6 +492,59 @@ class dbPages extends dbJSON
 
 		return $newKey;
 	}
+
+	public function rescanClimode()
+	{
+		$pagesDirectories = Filesystem::listDirectories(PATH_PAGES, $regex='*', $sortByDate=false);
+		foreach($pagesDirectories as $directory) {
+			if( Sanitize::pathFile($directory.DS.FILENAME) ) {
+				// Page key
+				$pageKey = basename($directory);
+
+				// Checksum
+				$checksum = md5_file($directory.DS.FILENAME);
+
+				if( !isset($this->db[$pageKey]) ) {
+					insertClimode($pageKey);
+				} elseif($this->db[$pageKey]['checksum']!=$checksum) {
+					updateClimode($pageKey);
+				}
+			}
+		}
+	}
+
+	public function insertClimode($key)
+	{
+
+	}
+
+	public function updateClimode($key)
+	{
+
+	}
+
+// ----- OLD
+
+
+
+
+
+	public function parentKeyList()
+	{
+		return $this->parentKeyList;
+	}
+
+	public function parentKeyExists($key)
+	{
+		return isset( $this->parentKeyList[$key] );
+	}
+
+	public function addParentKey($key)
+	{
+		$this->parentKeyList[$key] = $key;
+	}
+
+
 
 	// Returns the database
 	public function getDB()
