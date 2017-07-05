@@ -137,12 +137,13 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'label'=>$L->g('Date')
 	));
 
-/*
 	// Parent input
 	$options = array();
-	$parents = $dbPages->getParents(true);
-	foreach( $parents as $key=>$fields ) {
-		$options[$key] = $pagesByKey[$key]->title();
+	$parentsList = $dbPages->getParents();
+	$parentsKey = array_keys($parentsList);
+	foreach($parentsKey as $pageKey) {
+		$parent = buildPage($pageKey);
+		$options[$pageKey] = $parent->title();
 	}
 
 	HTML::formSelect(array(
@@ -154,7 +155,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'tip'=>'',
 		'addEmptySpace'=>true
 	));
-*/
+
 	// Position input
 	HTML::formInputText(array(
 		'name'=>'position',

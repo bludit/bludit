@@ -252,6 +252,11 @@ class Plugin {
 		return file_exists($this->filenameDb);
 	}
 
+	public function workspace()
+	{
+		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
+	}
+
 	public function init()
 	{
 		// This method is used on childre classes.

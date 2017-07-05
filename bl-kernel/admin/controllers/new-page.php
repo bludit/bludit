@@ -18,7 +18,7 @@
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	if( createNewPage($_POST)!==false ) {
+	if( createPage($_POST)!==false ) {
 		Alert::set( $Language->g('Page added successfully') );
 	}
 

@@ -33,7 +33,7 @@ class dbPages extends dbJSON
 		$dataForFile = array(); // This data will be saved in the file
 
 		// Generate key
-		$key = $this->generateKey($args['slug']);
+		$key = $this->generateKey($args['slug'], $args['parent']);
 
 		// Generate UUID
 		$args['uuid'] = $this->generateUUID();
@@ -117,7 +117,7 @@ class dbPages extends dbJSON
 		$dataForDb = array();
 		$dataForFile = array();
 
-		$newKey = $this->generateKey($args['slug'], NO_PARENT_CHAR, false, $args['key']);
+		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
 
 		// If the page is draft then the created time is the current
 		if( $this->db[$args['key']]['status']=='draft' ) {
@@ -345,21 +345,16 @@ class dbPages extends dbJSON
 		return count($this->db);
 	}
 
-	public function getParents($onlyPublished=true)
+	// Returns an array with all parents pages key, a parent page is not a child
+	public function getParents()
 	{
-		if( $onlyPublished ) {
-			$db = $this->getPublishedDB();
-		}
-		else {
-			$db = $this->db;
-		}
-
-		foreach( $db as $key=>$fields ) {
+		$db = $this->getPublishedDB();
+		foreach($db as $key=>$fields) {
+			// if the key has slash then is a child
 			if( Text::stringContains($key, '/') ) {
 				unset($db[$key]);
 			}
 		}
-
 		return $db;
 	}
 
@@ -454,13 +449,13 @@ class dbPages extends dbJSON
 	}
 
 	// Generate a valid Key/Slug
-	public function generateKey($text, $parent=NO_PARENT_CHAR, $returnSlug=false, $oldKey='')
+	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
 	{
 		if(Text::isEmpty($text)) {
 			$text = 'empty';
 		}
 
-		if( Text::isEmpty($parent) || ($parent==NO_PARENT_CHAR) ) {
+		if( empty($parent) ) {
 			$newKey = Text::cleanUrl($text);
 		}
 		else {

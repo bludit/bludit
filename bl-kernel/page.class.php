@@ -436,7 +436,6 @@ class Page {
 	public function children()
 	{
 		$tmp = array();
-		//$paths = glob(PATH_PAGES.$this->getValue('key').DS.'*', GLOB_ONLYDIR);
 		$paths = Filesystem::listDirectories(PATH_PAGES.$this->getValue('key').DS);
 		foreach($paths as $path) {
 			array_push($tmp, basename($path));
