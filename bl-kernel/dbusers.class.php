@@ -70,6 +70,9 @@ class dbUsers extends dbJSON
 		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);
 		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
 
+		// Auth token
+		$dataForDb['tokenAuth'] = $this->generateAuthToken();
+
 		// Save the database
 		$this->db[$dataForDb['username']] = $dataForDb;
 		return $this->save();
@@ -116,6 +119,25 @@ class dbUsers extends dbJSON
 		}
 
 		return false;
+	}
+
+	public function generateAuthToken()
+	{
+		return md5( uniqid().time().DOMAIN );
+	}
+
+	public function setPassword($username, $password)
+	{
+		$salt = Text::randomText(SALT_LENGTH);
+		$hash = sha1($password.$salt);
+		$tokenAuth = $this->generateAuthToken();
+
+		$args['username']	= $username;
+		$args['salt']		= $salt;
+		$args['password']	= $hash;
+		$args['tokenAuth']	= $tokenAuth;
+
+		return $this->set($args);
 	}
 
 // ---- OLD
@@ -185,25 +207,5 @@ class dbUsers extends dbJSON
 
 		return $token;
 	}
-
-	public function setPassword($username, $password)
-	{
-		$salt = Text::randomText(SALT_LENGTH);
-		$hash = sha1($password.$salt);
-
-		$args['username']	= $username;
-		$args['salt']		= $salt;
-		$args['password']	= $hash;
-
-		return $this->set($args);
-	}
-
-
-
-
-
-
-
-
 
 }

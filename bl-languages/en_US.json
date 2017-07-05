@@ -263,6 +263,8 @@
 	"new-category-created": "New category created",
 	"new-page-created": "New page created",
 	"page-deleted": "Page deleted",
-	"changes-on-settings": "Changes on settings"
+	"page-edited": "Page edited",
+	"changes-on-settings": "Changes on settings",
+	"plugin-installed": "Plugin installed"
 
 }

@@ -237,14 +237,8 @@ class Plugin {
 
 	public function uninstall()
 	{
-		// Delete all files.
-		$files = Filesystem::listFiles( $this->phpPathDB() );
-		foreach($files as $file) {
-			unlink($file);
-		}
-
-		// Delete the directory.
-		rmdir(PATH_PLUGINS_DATABASES.$this->directoryName);
+		$path = PATH_PLUGINS_DATABASES.$this->directoryName;
+		return Filesystem::deleteRecursive($path);
 	}
 
 	public function installed()
@@ -279,6 +273,7 @@ class Plugin {
 		return $this->save();
 	}
 
+	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook
 	public function webhook($URI=false)
 	{
 		global $Url;
@@ -296,7 +291,7 @@ class Plugin {
 		}
 
 		Log::set(__METHOD__.LOG_SEP.'Webhook requested.');
-		return true;
+		return mb_substr($URI, $length);
 	}
 
 }

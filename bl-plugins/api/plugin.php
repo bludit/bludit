@@ -38,7 +38,7 @@ class pluginAPI extends Plugin {
 // API HOOKS
 // ----------------------------------------------------------------------------
 
-	public function beforeRulesLoad()
+	public function beforeAll()
 	{
 		global $Url;
 		global $dbPages;
@@ -46,16 +46,10 @@ class pluginAPI extends Plugin {
 
 		// CHECK URL
 		// ------------------------------------------------------------
-		// Check if the URI start with /api/
-		$startString = HTML_PATH_ROOT.'api/';
-		$URI = $Url->uri();
-		$length = mb_strlen($startString, CHARSET);
-		if( mb_substr($URI, 0, $length)!=$startString ) {
+		$URI = $this->webhook('api');
+		if( $URI===false ) {
 			return false;
 		}
-
-		// Remove the first part of the URI
-		$URI = mb_substr($URI, $length);
 
 		// METHOD
 		// ------------------------------------------------------------
@@ -178,8 +172,12 @@ class pluginAPI extends Plugin {
 				break;
 		}
 
+		if(!is_string($inputs)) {
+			return false;
+		}
+
 		// Input data need to be JSON
-		$inputs = json_decode(file_get_contents('php://input'),true);
+		$inputs = json_decode($inputs,true);
 
 		// Sanitize inputs
 		foreach($inputs as $key=>$value) {

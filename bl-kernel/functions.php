@@ -340,7 +340,7 @@ function deleteUser($args, $deleteContent=false)
 	return false;
 }
 
-function addUser($args) {
+function createUser($args) {
 	global $dbUsers;
 	global $Language;
 	global $Syslog;
