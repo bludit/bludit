@@ -291,7 +291,7 @@ class Plugin {
 		}
 
 		Log::set(__METHOD__.LOG_SEP.'Webhook requested.');
-		return mb_substr($URI, $length);
+		return true;
 	}
 
 }

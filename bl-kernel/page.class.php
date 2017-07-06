@@ -75,6 +75,7 @@ class Page {
 		return($this->vars!==false);
 	}
 
+	// DEPRACTED
 	// Returns the value from the $field, FALSE if the field doesn't exist
 	public function getField($field)
 	{
@@ -92,6 +93,11 @@ class Page {
 		}
 
 		return false;
+	}
+
+	public function getDB()
+	{
+		return $this->vars;
 	}
 
 	// Set a field with a value

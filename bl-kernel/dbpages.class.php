@@ -27,7 +27,7 @@ class dbPages extends dbJSON
 	}
 
 	// Create a new page
-	public function add($args)
+	public function add($args, $climode=false)
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
@@ -84,17 +84,19 @@ class dbPages extends dbJSON
 			}
 		}
 
-		// Create the directory
-		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
-			return false;
-		}
+		if( $climode===false ) {
+			// Create the directory
+			if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
+				return false;
+			}
 
-		// Make the index.txt and save the file.
-		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
-			return false;
+			// Make the index.txt and save the file.
+			$data = implode("\n", $dataForFile);
+			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+				return false;
+			}
 		}
 
 		// Checksum MD5
@@ -112,7 +114,7 @@ class dbPages extends dbJSON
 		return $key;
 	}
 
-	public function edit($args)
+	public function edit($args, $climode=false)
 	{
 		$dataForDb = array();
 		$dataForFile = array();
@@ -166,19 +168,21 @@ class dbPages extends dbJSON
 			}
 		}
 
-		// Move the directory from old key to new key.
-		if($newKey!==$args['key']) {
-			if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
+		if( $climode===false ) {
+			// Move the directory from old key to new key.
+			if($newKey!==$args['key']) {
+				if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
+					Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
+					return false;
+				}
+			}
+
+			// Make the index.txt and save the file.
+			$data = implode("\n", $dataForFile);
+			if( file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data) === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 				return false;
 			}
-		}
-
-		// Make the index.txt and save the file.
-		$data = implode("\n", $dataForFile);
-		if( file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
-			return false;
 		}
 
 		// Remove the old key
@@ -490,39 +494,96 @@ class dbPages extends dbJSON
 
 	public function rescanClimode()
 	{
-		$pagesDirectories = Filesystem::listDirectories(PATH_PAGES, $regex='*', $sortByDate=false);
-		foreach($pagesDirectories as $directory) {
+		Log::set('CLI MODE'.LOG_SEP.'Starting re-scan on pages directory.');
+		$pageList = array();
+
+		// Search for pages
+		$directories = Filesystem::listDirectories(PATH_PAGES, $regex='*', $sortByDate=false);
+		foreach($directories as $directory) {
 			if( Sanitize::pathFile($directory.DS.FILENAME) ) {
-				// Page key
 				$pageKey = basename($directory);
+				$pageList[$pageKey] = true;
 
-				// Checksum
-				$checksum = md5_file($directory.DS.FILENAME);
-
-				if( !isset($this->db[$pageKey]) ) {
-					insertClimode($pageKey);
-				} elseif($this->db[$pageKey]['checksum']!=$checksum) {
-					updateClimode($pageKey);
+				// Search for children pages
+				$subDirectories = Filesystem::listDirectories(PATH_PAGES.$pageKey.DS, $regex='*', $sortByDate=false);
+				foreach($subDirectories as $subDirectory) {
+					if( Sanitize::pathFile($subDirectory.DS.FILENAME) ) {
+						$subPageKey = basename($subDirectory);
+						$subPageKey = $pageKey.'/'.$subPageKey;
+						$pageList[$subPageKey] = true;
+					}
 				}
 			}
 		}
+
+		Log::set('CLI MODE'.LOG_SEP.'Updating pages...');
+		$keys = array_keys($pageList);
+		foreach($keys as $pageKey) {
+			// Checksum
+			$checksum = md5_file(PATH_PAGES.$pageKey.DS.FILENAME);
+
+			// New page
+			if( !isset($this->db[$pageKey]) ) {
+				$this->verifyFieldsClimode($pageKey, true);
+			}
+			// Update page
+			elseif($this->db[$pageKey]['md5file']!=$checksum) {
+				$this->verifyFieldsClimode($pageKey, false);
+			}
+		}
+
+		Log::set('CLI MODE'.LOG_SEP.'Removing pages...');
+		foreach( array_diff_key($this->db, $pageList) as $pageKey=>$data ) {
+			Log::set('CLI MODE'.LOG_SEP.'Removing page from database, key: '.$pageKey);
+			unset( $this->db[$pageKey] );
+		}
+		$this->save();
 	}
 
-	public function insertClimode($key)
+	private function verifyFieldsClimode($key, $insert=true)
 	{
+		$page = new Page($key);
+		$db = $page->getDB();
 
+		// Content from file
+		$db['content'] = $db['contentRaw'];
+
+		// Parent
+		$db['parent'] = '';
+		$db['slug'] = $key;
+		$explodeKey = explode('/', $key);
+		if(isset($explodeKey[1])) {
+			$db['parent'] = $explodeKey[0];
+			$db['slug'] = $explodeKey[1];
+		}
+
+		// Date
+		if( !isset($db['date']) ) {
+			$db['date'] = Date::current(DB_DATE_FORMAT);
+		}
+
+		// Status
+		if( !isset($db['status']) ) {
+			$db['status'] = CLI_STATUS;
+		}
+
+		// Owner username
+		if( !isset($db['username']) ) {
+			$db['username'] = CLI_USERNAME;
+		}
+
+		// New page or update page
+		if($insert) {
+			Log::set('CLI MODE'.LOG_SEP.'New page found, key:'.$key);
+			return $this->add($db, $climode=true);
+		} else {
+			Log::set('CLI MODE'.LOG_SEP.'Different checksum, updating page, key:'.$key);
+			return $this->edit($db, $climode=true);
+		}
 	}
 
-	public function updateClimode($key)
-	{
-
-	}
 
 // ----- OLD
-
-
-
-
 
 	public function parentKeyList()
 	{

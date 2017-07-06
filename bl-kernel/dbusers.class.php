@@ -51,7 +51,6 @@ class dbUsers extends dbJSON
 			if( isset($args[$field]) ) {
 				$value = Sanitize::html($args[$field]);
 			}
-			// Use the default value for the field
 			else {
 				$value = $options['value'];
 			}
@@ -63,14 +62,9 @@ class dbUsers extends dbJSON
 			$dataForDb[$field] = $value;
 		}
 
-		// Current date
 		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
-
-		// Password
-		$dataForDb['salt'] = Text::randomText(SALT_LENGTH);
-		$dataForDb['password'] = sha1($dataForDb['password'].$dataForDb['salt']);
-
-		// Auth token
+		$dataForDb['salt'] = $this->generateSalt();
+		$dataForDb['password'] = $this->generatePasswordHash($dataForDb['password'], $dataForDb['salt']);
 		$dataForDb['tokenAuth'] = $this->generateAuthToken();
 
 		// Save the database
@@ -107,7 +101,7 @@ class dbUsers extends dbJSON
 
 	public function getUser($username)
 	{
-		if($this->userExists($username)) {
+		if($this->exists($username)) {
 			$User = new User();
 			$User->setField('username', $username);
 
@@ -126,10 +120,25 @@ class dbUsers extends dbJSON
 		return md5( uniqid().time().DOMAIN );
 	}
 
+	public function generateEmailToken()
+	{
+		return $this->generateAuthToken();
+	}
+
+	public function generateSalt()
+	{
+		return Text::randomText(SALT_LENGTH);
+	}
+
+	public function generatePasswordHash($password, $salt)
+	{
+		return sha1($password.$salt);
+	}
+
 	public function setPassword($username, $password)
 	{
-		$salt = Text::randomText(SALT_LENGTH);
-		$hash = sha1($password.$salt);
+		$salt = $this->generateSalt();
+		$hash = $this->generatePasswordHash($password, $salt);
 		$tokenAuth = $this->generateAuthToken();
 
 		$args['username']	= $username;
@@ -140,28 +149,7 @@ class dbUsers extends dbJSON
 		return $this->set($args);
 	}
 
-// ---- OLD
-	// Returns array with the username databases filtered by username, FALSE otherwise
-	public function getDb($username)
-	{
-		if($this->userExists($username)) {
-			$user = $this->db[$username];
-
-			return $user;
-		}
-
-		return false;
-	}
-
-
-	public function getAll()
-	{
-		return $this->db;
-	}
-
-
-
-	// Return the username associated to an email, if the email does not exists return FALSE.
+	// Return the username associated to an email, FALSE otherwise
 	public function getByEmail($email)
 	{
 		foreach($this->db as $username=>$values) {
@@ -169,7 +157,6 @@ class dbUsers extends dbJSON
 				return $username;
 			}
 		}
-
 		return false;
 	}
 
@@ -184,28 +171,37 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
-	// Return TRUE if the user exists, FALSE otherwise.
-	public function userExists($username)
-	{
-		return isset($this->db[$username]);
-	}
-
-	public function generateTokenEmail($username)
+	public function setTokenEmail($username)
 	{
 		// Random hash
-		$token = sha1(Text::randomText(SALT_LENGTH).time());
+		$token = $this->generateEmailToken();
 		$this->db[$username]['tokenEmail'] = $token;
 
 		// Token time to live, defined by TOKEN_EMAIL_TTL
 		$this->db[$username]['tokenEmailTTL'] = Date::currentOffset(DB_DATE_FORMAT, TOKEN_EMAIL_TTL);
 
 		// Save the database
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
+		$this->save();
 		return $token;
 	}
+
+// ---- OLD
+	// Returns array with the username databases filtered by username, FALSE otherwise
+	public function getDb($username)
+	{
+		if($this->exists($username)) {
+			$user = $this->db[$username];
+
+			return $user;
+		}
+
+		return false;
+	}
+
+	public function getAll()
+	{
+		return $this->db;
+	}
+
 
 }

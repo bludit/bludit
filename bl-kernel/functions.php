@@ -352,7 +352,7 @@ function createUser($args) {
 	}
 
 	// Check already exist username
-	if( $dbUsers->userExists($args['new_username']) ) {
+	if( $dbUsers->exists($args['new_username']) ) {
 		Alert::set($Language->g('username-already-exists'), ALERT_STATUS_FAIL);
 		return false;
 	}
