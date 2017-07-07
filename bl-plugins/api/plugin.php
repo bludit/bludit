@@ -46,7 +46,7 @@ class pluginAPI extends Plugin {
 
 		// CHECK URL
 		// ------------------------------------------------------------
-		$URI = $this->webhook('api');
+		$URI = $this->webhook('api', $returnsAfterURI=true);
 		if( $URI===false ) {
 			return false;
 		}
@@ -59,9 +59,23 @@ class pluginAPI extends Plugin {
 		// ------------------------------------------------------------
 		$inputs = $this->getInputs();
 
+		if( empty($inputs) ) {
+			$this->response(array(
+				'status'=>'1',
+				'message'=>'Missing inputs.'
+			));
+		}
+
 		// PARAMETERS
 		// ------------------------------------------------------------
 		$parameters = $this->getParameters($URI);
+
+		if( empty($parameters) ) {
+			$this->response(array(
+				'status'=>'1',
+				'message'=>'Missing parameters.'
+			));
+		}
 
 		// API TOKEN
 		// ------------------------------------------------------------
@@ -172,19 +186,24 @@ class pluginAPI extends Plugin {
 				break;
 		}
 
-		if(!is_string($inputs)) {
-			return false;
+		return $this->cleanInputs($inputs);
+	}
+
+	private function cleanInputs($inputs)
+	{
+		$tmp = array();
+		if( is_array($inputs) ) {
+			foreach($inputs as $key=>$value) {
+				$tmp[$key] = Sanitize::html($value);
+			}
 		}
-
-		// Input data need to be JSON
-		$inputs = json_decode($inputs,true);
-
-		// Sanitize inputs
-		foreach($inputs as $key=>$value) {
-			$inputs[$key] = Sanitize::html($value);
+		elseif( is_string($inputs) ) {
+			$tmp = json_decode($inputs, true);
+			if(json_last_error()===0) {
+				$tmp = array();
+			}
 		}
-
-		return $inputs;
+		return $tmp;
 	}
 
 	private function response($data=array())
@@ -240,10 +259,10 @@ class pluginAPI extends Plugin {
 		return $tmp;
 	}
 
-	private function newPage($args)
+	private function createPage($args)
 	{
 		// This function is defined on functions.php
-		return createNewPage($args);
+		return createPage($args);
 	}
 
 }

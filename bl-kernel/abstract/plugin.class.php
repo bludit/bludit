@@ -28,6 +28,7 @@ class Plugin {
 	// (array) Database fields, only for initialize
 	public $dbFields;
 
+	// (boolean) Enable or disable default Save and Cancel button on plugin settings
 	public $formButtons;
 
 	function __construct()
@@ -274,7 +275,8 @@ class Plugin {
 	}
 
 	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook
-	public function webhook($URI=false)
+	// Example: https://www.mybludit.com/api/foo/bar
+	public function webhook($URI=false, $returnsAfterURI=false)
 	{
 		global $Url;
 
@@ -288,6 +290,10 @@ class Plugin {
 		$length = mb_strlen($startString, CHARSET);
 		if( mb_substr($URI, 0, $length)!=$startString ) {
 			return false;
+		}
+
+		if($returnsAfterURI) {
+			return mb_substr($URI, $length);
 		}
 
 		Log::set(__METHOD__.LOG_SEP.'Webhook requested.');

@@ -39,3 +39,25 @@ echo '
 </tbody>
 </table>
 ';
+?>
+
+<!-- Paginator -->
+<div id="paginator">
+<ul>
+	<?php
+		// Show previus page link
+		if(Paginator::showPrev()) {
+			echo '<li class="first"><a href="'.Paginator::prevPageUrl().'" class="previous"><- Previous</a></li>';
+		}
+
+		for($i=1; $i<=Paginator::amountOfPages(); $i++) {
+			echo '<li><a href='.Paginator::absoluteUrl($i).' class="page">'.$i.'</a></li>';
+		}
+
+		// Show next page link
+		if(Paginator::showNext()) {
+			echo '<li class="next"><a href="'.Paginator::nextPageUrl().'" class="next">Next -></a></li>';
+		}
+	?>
+</ul>
+</div>

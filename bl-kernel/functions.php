@@ -1,5 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// (object) Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
 function buildPage($key)
 {
 	global $dbPages;
@@ -208,6 +209,7 @@ function editPage($args) {
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
 	if( Text::isEmpty($args['username']) ) {
+		Log::set('Function editPage()'.LOG_SEP.'Empty username.');
 		return false;
 	}
 
@@ -235,6 +237,7 @@ function editPage($args) {
 		return $key;
 	}
 
+	Log::set('Function editPage()'.LOG_SEP.'ERROR: Something happen when try to edit the page.');
 	return false;
 }
 
@@ -304,8 +307,7 @@ function editUser($args) {
 	return false;
 }
 
-function deleteUser($args, $deleteContent=false)
-{
+function deleteUser($args, $deleteContent=false) {
 	global $dbUsers;
 	global $Login;
 	global $Syslog;
@@ -384,8 +386,6 @@ function createUser($args) {
 			'notes'=>$tmp['username']
 		));
 
-		// Create an alert
-		Alert::set($Language->g('user-has-been-added-successfully'), ALERT_STATUS_OK);
 		return true;
 	}
 

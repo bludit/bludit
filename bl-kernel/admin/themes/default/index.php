@@ -8,7 +8,7 @@
 	<title><?php echo $layout['title'] ?></title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_ADMIN_THEME.'img/favicon.png' ?>">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_ADMIN_THEME.'img/favicon.png?'.time() ?>">
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/uikit.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
@@ -57,16 +57,14 @@ $(document).ready(function() {
 <div class="uk-offcanvas-bar">
 	<ul class="uk-nav uk-nav-offcanvas">
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-post' ?>"><?php $L->p('New post') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-posts' ?>"><?php $L->p('Manage posts') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage pages') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New content') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage content') ?></a></li>
 	<?php if($Login->role() == 'admin') { ?>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Manage categories') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Manage users') ?></a></li>
-	<!-- <li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Manage categories') ?></a></li> -->
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-general' ?>"><?php $L->p('General settings') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-advanced' ?>"><?php $L->p('Advanced settings') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language and timezone') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'settings-regional' ?>"><?php $L->p('Language') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>"><?php $L->p('Plugins') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a></li>
@@ -77,6 +75,7 @@ $(document).ready(function() {
 
 <div class="bl-navbar-bg">
 <nav id="bl-navbar">
+<img class="logo" src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" />
 	<a href="" class="bl-brand">BLUDIT</a>
 
 	<div class="bl-navbar-right">

@@ -98,14 +98,20 @@ body {
 	max-width: 1800px;
 }
 
+#bl-navbar img.logo {
+	height: 25px;
+	margin-bottom: 6px;
+	margin-left: 15px;
+	margin-right: 5px;
+}
+
 #bl-navbar a {
 	color: #fff;
 }
 
 #bl-navbar a.bl-brand {
-	font-size: 20px;
-	line-height: 60px;
-	margin: 0 0 0 35px;
+	font-size: 15px;
+	line-height: 35px;
 	text-transform: uppercase;
 	color: #fff;
 }
@@ -116,7 +122,7 @@ body {
 
 #bl-navbar .bl-navbar-right {
 	float: right;
-	line-height: 60px;
+	line-height: 35px;
 	margin: 0 35px 0 0;
 }
 
@@ -637,8 +643,16 @@ div.plugin-links > span.separator {
     list-style-type: none;
     margin: 15px 0;
     padding: 0;
-    font-size: 0.9em;
+    font-size: 1em;
     text-align: center;
+}
+
+#paginator li.next {
+	margin-left: 1em;
+}
+
+#paginator li.previous {
+	margin-right: 1em;
 }
 
 #paginator a {
@@ -647,31 +661,9 @@ div.plugin-links > span.separator {
 
 #paginator li {
     display: inline;
-    float: none !important;
+    margin: 0 5px;
 }
 
-#paginator li.left {
-    margin-right: 10px;
-}
-
-#paginator li.list {
-    background: #e0e0e0;
-    color: #747474;
-    padding: 2px 11px;
-    margin: 0px 15px;
-}
-
-#paginator li.right {
-    margin-left: 10px;
-}
-
-#paginator li.next {
-		margin-right: 1em;
-}
-
-#paginator li.previous {
-		margin-left: 1em;
-}
 
 /* ----------- PLUGINS FORM ----------- */
 
