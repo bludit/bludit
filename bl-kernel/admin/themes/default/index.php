@@ -75,8 +75,8 @@ $(document).ready(function() {
 
 <div class="bl-navbar-bg">
 <nav id="bl-navbar">
-<img class="logo" src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" />
-	<a href="" class="bl-brand">BLUDIT</a>
+	<img id="bludit-logo" class="logo" src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" />
+	<span class="bl-brand">BLUDIT</span>
 
 	<div class="bl-navbar-right">
 		<?php $L->p('Welcome') ?> <?php echo $Login->username() ?> -

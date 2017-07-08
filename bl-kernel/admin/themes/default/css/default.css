@@ -100,16 +100,16 @@ body {
 
 #bl-navbar img.logo {
 	height: 25px;
-	margin-bottom: 6px;
-	margin-left: 15px;
-	margin-right: 5px;
+	margin-bottom: 8px;
+	margin-left: 22px;
+	margin-right: 0px;
 }
 
 #bl-navbar a {
 	color: #fff;
 }
 
-#bl-navbar a.bl-brand {
+#bl-navbar span.bl-brand {
 	font-size: 15px;
 	line-height: 35px;
 	text-transform: uppercase;
