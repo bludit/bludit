@@ -1,0 +1,337 @@
+
+/* ------------------------
+Default tags
+------------------------ */
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: #2672ec;
+}
+
+a:hover,
+a:focus
+{
+	text-decoration: none;
+}
+
+p {
+	margin: 1.4em 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+table {
+	empty-cells: show;
+	border: 1px solid #cbcbcb;
+	width: 100%;
+	font-size: 0.9em;
+}
+
+thead {
+	background-color: #e0e0e0;
+	color: #000;
+	text-align: left;
+	vertical-align: bottom;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2}
+
+tr:hover {background-color: #e7f0ff}
+
+th, td {
+	padding: 0.5em 1em;
+}
+
+pre, code {
+	white-space: pre-wrap !important;
+}
+
+blockquote {
+    color: #7e7e7e;
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    font-style: italic;
+    font-weight: 200;
+    margin: 26px 40px;
+}
+
+.note {
+	background: #FFB06C;
+	color: #777;
+	font-size: 0.9em;
+	margin: 30px 0;
+}
+
+.note-title {
+	color: #fff;
+	padding: 0 10px;
+}
+
+.note p {
+	background: rgba(255, 255, 255, 0.8);
+	padding: 12px 10px;
+	margin: 0;
+}
+
+/* ------------------------
+Content / Main
+------------------------ */
+#layout {
+	padding: 0;
+}
+
+.content {
+	padding: 2em 1em 0;
+}
+
+.subhead {
+	text-transform: uppercase;
+	color: #aaa;
+	border-bottom: 1px solid #eee;
+	padding: 0.4em 0;
+	font-size: 80%;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+}
+
+.footer {
+	font-size: 0.9em;
+	color: #999;
+	text-align: center;
+	margin: 30px 0;
+}
+
+/* ------------------------
+Paginator
+------------------------ */
+#paginator {
+margin: 20px 0;
+}
+
+#paginator a {
+color: #2672ec;
+}
+
+#paginator ul {
+clear: both;
+list-style-type: none;
+margin: 0;
+overflow: auto;
+padding: 0;
+}
+
+#paginator li {
+display: block;
+}
+
+#paginator li.left {
+float: left !important;
+}
+
+#paginator li.list {
+background: #e0e0e0;
+color: #747474;
+padding: 2px 11px;
+}
+
+#paginator li.right {
+float: right !important;
+}
+
+/* ------------------------
+Pages and Posts
+------------------------ */
+.page,
+.post {
+margin: 0 0 70px 0;
+}
+
+.page-title,
+.post-title
+{
+font-size: 2.6em;
+margin: 0;
+}
+
+.page-title a,
+.post-title a
+{
+color: #555;
+display: inline-block;
+}
+
+.page a.read-more,
+.post a.read-more{
+display: block;
+text-align: center;
+padding: 2px 5px;
+}
+
+
+.page-content,
+.post-content {
+color: #444;
+line-height: 1.7em;
+margin-top: 22px;
+margin-bottom: 60px;
+}
+
+.page-content hr,
+.post-content hr {
+display: block;
+height: 1px;
+border: 0;
+border-top: 1px solid #ccc;
+margin: 30px 0;
+padding: 0;
+}
+
+.page-content h2,
+.post-content h2
+{
+color: #555;
+margin: 30px 0 30px 0;
+font-size: 2em;
+}
+
+.page-content h3,
+.post-content h3
+{
+color: #555;
+margin: 35px 0 25px 0;
+font-size: 1.5em;
+}
+
+.page-content h4,
+.post-content h4
+{
+color: #555;
+margin: 25px 0 15px 0;
+font-size: 1.2em;
+}
+
+.post-meta,
+.page-meta {
+font-size: 90%;
+margin: 0;
+}
+
+.post-meta span.date,
+.page-meta span.date {
+color: #999;
+margin-right: 10px;
+}
+
+.post-meta span.author,
+.page-meta span.author {
+color: #ccc;
+}
+
+/* ------------------------
+Sidebar
+------------------------ */
+.sidebar {
+
+}
+
+.sidebar-content {
+	padding: 30px 10px 0 30px;
+}
+
+.sidebar a {
+	color: #555;
+}
+
+.sidebar a:hover {
+	color: #000;
+}
+
+.sidebar h1.title {
+	font-size: 1.4em;
+	font-weight: lighter;
+	margin: 0 0 0 20px;
+	padding: 0;
+	color: #333;
+	text-align: left;
+}
+
+/* ------------------------
+Plugins
+------------------------ */
+div.plugin {
+	margin-top: 10px;
+}
+
+div.plugin  h2 {
+	border-bottom: 1px solid #ccc;
+	color: #ccc;
+	display: inline-block;
+	font-size: 1em;
+	margin-bottom: 5px;
+}
+
+div.plugin-content {
+	padding: 0 10px;
+}
+
+div.plugin-content li {
+	margin-top: 5px;
+}
+
+div.plugin-content ul {
+	display: block;
+	list-style-type: none;
+	margin: 5px 0;
+	padding: 0;
+}
+
+div.plugin-content ul > li > ul > li {
+	margin: 10px;
+}
+
+div.plugin-content ul > li > ul > li > a {
+	color: #555;
+}
+
+div.plugin-pages span.parent {
+    color: #2672ec;
+    display: inline-block;
+    font-size: 1.2em;
+    margin: 8px 0 2px;
+    padding: 10px 0 4px 10px;
+}
+
+div.plugin-pages h2 {
+	display: none;
+}
+
+/* ------------------------
+Responsive
+------------------------ */
+
+@media (min-width: 48em) {
+	.content {
+		padding: 1em 3em 0;
+		margin-left: 25%;
+	}
+
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		overflow: auto;
+	}
+}

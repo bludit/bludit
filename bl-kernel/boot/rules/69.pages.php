@@ -11,7 +11,7 @@ $pages = array();
 $allPages = array();
 
 // Object Page for the page filtered by the user
-$page = false;
+$page = $Page = false;
 
 // Array with all page parents published
 //$pageParents = array();
@@ -42,7 +42,7 @@ if( $dbPages->scheduler() ) {
 if( $Url->whereAmI()==='page' ) {
 
         // Build the page
-	$page = buildPage( $Url->slug() );
+	$page = $Page = buildPage( $Url->slug() );
 
 	// The page doesn't exist
 	if($page===false) {
