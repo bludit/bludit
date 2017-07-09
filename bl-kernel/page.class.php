@@ -183,6 +183,12 @@ class Page {
 		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;
 	}
 
+	// Returns the category name
+	public function category()
+	{
+		return $this->categoryMap('name');
+	}
+
 	// Returns the category key
 	public function categoryKey()
 	{

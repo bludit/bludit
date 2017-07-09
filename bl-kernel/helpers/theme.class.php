@@ -98,23 +98,14 @@ class Theme {
 		}
 	}
 
+	public static function favicon($file='favicon.png', $typeIcon='image/png')
+	{
+		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
+	}
+
 // ---- OLD
 
-	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $typeIcon=true, $echo=true)
-	{
-		$type = 'image/png';
-		if($typeIcon) {
-			$type = 'image/x-icon';
-		}
 
-		$tmp = '<link rel="shortcut icon" href="'.$path.$file.'" type="'.$type.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
 
 	public static function keywords($keywords, $echo=true)
 	{

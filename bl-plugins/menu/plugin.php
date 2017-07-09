@@ -33,7 +33,12 @@ class pluginMenu extends Plugin {
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-menu">';
-		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+
+		// Print the label only if not empty
+		if( $this->getValue('label') ) {
+			$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		}
+
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul class="menu">';
 
@@ -41,14 +46,14 @@ class pluginMenu extends Plugin {
 		foreach( $dbCategories->db as $key=>$fields ) {
 			$pageList = $fields['list'];
 			if( count($pageList) > 0 ) {
-				$html .= '<li>';
+				$html .= '<li class="menu">';
 				$html .= '<span class="category-name">'.$fields['name'].'</span>';
 				$html .= '<ul class="submenu">';
 				foreach( $pageList as $pageKey ) {
 					// Create the page object from the page key
 					$page = buildPage($pageKey);
-					$html .= '<li>';
-					$html .= '<a href="'.$page->permalink().'" class="page-title">';
+					$html .= '<li class="submenu">';
+					$html .= '<a href="'.$page->permalink().'">';
 					$html .= $page->title();
 					$html .= '</a>';
 					$html .= '</li>';
