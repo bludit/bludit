@@ -11,6 +11,8 @@ $pages = array();
 $page = $Page = false;
 
 // Array with pages order by parent
+// This variable is initializade only when the site is order by position
+// This is for not degradate the peromance on blogs
 /*
 array(
 	PARENT => array(), // all parent pages
