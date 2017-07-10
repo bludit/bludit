@@ -16,6 +16,27 @@ class dbSyslog extends dbJSON
 		parent::__construct(DB_SYSLOG);
 	}
 
+	// Returns TRUE if the ID of execution exists, FALSE otherwise
+	public function exists($idExecution)
+	{
+		foreach($this->db as $field) {
+			if( $field['idExecution']==$idExecution ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function get($idExecution)
+	{
+		foreach($this->db as $field) {
+			if( $field['idExecution']==$idExecution ) {
+				return $field;
+			}
+		}
+		return false;
+	}
+
 	public function add($args)
 	{
 		global $Language;
@@ -35,6 +56,9 @@ class dbSyslog extends dbJSON
 
 		// Insert at beggining of the database
 		array_unshift($this->db, $data);
+
+		// Keep just NOTIFICATIONS_AMOUNT notifications
+		$this->db = array_slice($this->db, 0, NOTIFICATIONS_AMOUNT);
 
 		// Save
 		return $this->save();

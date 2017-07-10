@@ -7,17 +7,17 @@
 // Array with all published pages
 $pages = array();
 
-// Array with all pages (published, draft, scheduled)
+// Array with all pages (published, fixed, sticky, draft, scheduled)
 $allPages = array();
 
-// Object Page for the page filtered bye the user
-$page = false;
+// Object Page for the page filtered by the user
+$page = $Page = false;
 
 // Array with all page parents published
 //$pageParents = array();
 
 // Array with all published pages, the array is a key=>Page-object
-$pagesKey = array();
+$pagesByKey = array();
 
 // ============================================================================
 // Main
@@ -30,20 +30,26 @@ if( $dbPages->scheduler() ) {
 
         // Reindex categories
         reindexCategories();
+
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'page-published-from-scheduler',
+		'notes'=>''
+	));
 }
 
 // Build specific page
 if( $Url->whereAmI()==='page' ) {
 
         // Build the page
-	$page = buildPage( $Url->slug() );
+	$page = $Page = buildPage( $Url->slug() );
 
 	// The page doesn't exist
 	if($page===false) {
 		$Url->setNotFound(true);
 	}
-	// The page is not published
-	elseif( !$page->published() ) {
+	// The page is not published, still scheduled or draft
+	elseif( $page->scheduled() || $page->draft() ) {
 		$Url->setNotFound(true);
 	}
 	else {
@@ -63,7 +69,9 @@ elseif( $Url->whereAmI()==='admin' ) {
         buildPagesForAdmin();
 }
 
+// Set page 404 not found
 if( $Url->notFound() ) {
 	$Url->setWhereAmI('page');
-	$page = new Page('error');
+	$page = buildPage('error');
+	$pages[0] = $page;
 }

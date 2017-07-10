@@ -181,12 +181,6 @@ function getLanguageList()
 	return $tmp;
 }
 
-// Generate a random string
-// Thanks, http://stackoverflow.com/questions/4356289/php-random-string-generator
-function getRandomString($length = 10) {
-    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-}
-
 // Check if Bludit is installed
 function alreadyInstalled() {
     return file_exists(PATH_DATABASES.'site.php');
@@ -313,7 +307,7 @@ function install($adminPassword, $email, $timezone)
 			'description'=>$Language->get('Page not found'),
 			'username'=>'admin',
 			'tags'=>array(),
-			'status'=>'published',
+			'status'=>'system',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>false,
@@ -330,7 +324,7 @@ function install($adminPassword, $email, $timezone)
 			'status'=>'published',
 			'date'=>$currentDate,
 			'dateModified'=>'',
-			'allowComments'=>false,
+			'allowComments'=>true,
 			'position'=>2,
 			'coverImage'=>'',
 			'md5file'=>'',
@@ -344,7 +338,7 @@ function install($adminPassword, $email, $timezone)
 			'status'=>'published',
 			'date'=>$currentDate,
 			'dateModified'=>'',
-			'allowComments'=>false,
+			'allowComments'=>true,
 			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
@@ -356,6 +350,15 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File site.php
+
+	// If the website is not installed inside a folder the URL not need finish with /
+	// Example (root): https://domain.com
+	// Example (inside a folder): https://domain.com/folder/
+	if(HTML_PATH_ROOT=='/') {
+		$siteUrl = PROTOCOL.DOMAIN;
+	} else {
+		$siteUrl = PROTOCOL.DOMAIN.HTML_PATH_ROOT;
+	}
 	$data = array(
 		'title'=>'BLUDIT',
 		'slogan'=>'CMS',
@@ -364,21 +367,21 @@ function install($adminPassword, $email, $timezone)
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>$timezone,
-		'theme'=>'log',
+		'theme'=>'editorial',
 		'adminTheme'=>'default',
 		'homepage'=>'',
-		'postsperpage'=>'6',
+		'itemsPerPage'=>6,
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'uriCategory'=>'/category/',
-		'url'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT,
+		'url'=>$siteUrl,
 		'emailFrom'=>'no-reply@'.DOMAIN
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File users.php
-	$salt = getRandomString();
+	$salt = uniqid();
 	$passwordHash = sha1($adminPassword.$salt);
 
 	$data = array(
@@ -415,8 +418,7 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
-	$randomKey = getRandomString();
-	$randomKey = sha1($randomKey);
+	$randomKey = sha1( uniqid() );
 
 	$data = array(
 		'key1'=>$randomKey,
@@ -449,7 +451,8 @@ function install($adminPassword, $email, $timezone)
 			array(
 				'position'=>0,
 				'homeLink'=>true,
-				'label'=>$Language->get('Pages')
+				'label'=>$Language->get('Pages'),
+				'amountOfItems'=>5
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

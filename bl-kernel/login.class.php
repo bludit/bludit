@@ -117,7 +117,7 @@ class Login {
 			$this->setLogin($username, $user['role']);
 
 			// Invalidate the current token.
-			$this->dbUsers->generateTokenEmail($username);
+			$this->dbUsers->setTokenEmail($username);
 
 			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by Token-email - Username: '.$username);
 

@@ -23,7 +23,8 @@ $plugins = array(
 	'adminSidebar'=>array(),
 
 	'beforeRulesLoad'=>array(),
-	'afterFormSave'=>array(),
+	'beforeAll'=>array(),
+	'afterAll'=>array(),
 
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
@@ -91,7 +92,7 @@ function buildPlugins()
 			$Language->add($database);
 		}
 
-		// Push Plugin to array all plugins installed and not installed.
+		// Array with plugin all plugins, installed and not installed
 		$plugins['all'][$pluginClass] = $Plugin;
 
 		// If the plugin is installed, order by hooks.

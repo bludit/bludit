@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Edit page'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('Edit content'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 
@@ -133,8 +133,13 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'status',
 		'label'=>$L->g('Status'),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
-		'selected'=>($page->draft()?'draft':'published'),
+		'options'=>array(
+			'published'=>$L->g('Published'),
+			'drpaft'=>$L->g('Draft'),
+			'fixed'=>$L->g('Fixed'),
+			'sticky'=>$L->g('Sticky')
+		),
+		'selected'=>$page->status(),
 		'tip'=>''
 	));
 
@@ -147,24 +152,28 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'label'=>$L->g('Date')
 	));
 
-// If the page is parent then doesn't can have a parent.
-if(count($page->children())===0)
-{
 	// Parent input
-	$options = array();
-	$options[NO_PARENT_CHAR] = '('.$Language->g('No parent').')';
-	$options += $dbPages->parentKeyList();
-	unset($options[$page->key()]);
+	// Check if the page has children
+	if(count($page->children())===0) {
+		$options = array();
+		$parentsList = $dbPages->getParents();
+		$parentsKey = array_keys($parentsList);
+		foreach($parentsKey as $pageKey) {
+			$parent = buildPage($pageKey);
+			$options[$pageKey] = $parent->title();
+		}
+		unset($options[$page->key()]);
 
-	HTML::formSelect(array(
-		'name'=>'parent',
-		'label'=>$L->g('Parent'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$options,
-		'selected'=>$page->parentKey(),
-		'tip'=>''
-	));
-}
+		HTML::formSelect(array(
+			'name'=>'parent',
+			'label'=>$L->g('Parent'),
+			'class'=>'uk-width-1-1 uk-form-medium',
+			'options'=>$options,
+			'selected'=>$page->parentKey(),
+			'tip'=>'',
+			'addEmptySpace'=>true
+		));
+	}
 
 	// Position input
 	HTML::formInputText(array(

@@ -1,9 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "Últimas entradas",
-		"description": "Muestra las últimas entradas publicadas."
-	},
-
-	"amount-of-posts": "Cantidad de entradas"
-}

@@ -55,9 +55,7 @@ define('DB_SITE', PATH_DATABASES.'site.php');
 define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
-
-// ADMIN URI FILTER
-define('ADMIN_URI_FILTER', '/admin/');
+define('DB_USERS', PATH_DATABASES.'users.php');
 
 // Log separator
 define('LOG_SEP', ' | ');
@@ -69,9 +67,6 @@ if(!defined('JSON_PRETTY_PRINT')) {
 
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);
-
-// Auto scroll
-define('AUTO_SCROLL', TRUE);
 
 // Alert status ok
 define('ALERT_STATUS_OK', 0);
@@ -125,6 +120,12 @@ define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'd M - h:i a');
 
+// Notifications date format
+define('NOTIFICATIONS_DATE_FORMAT', 'F j, Y, g:i a');
+
+// Amount of items to show on notification panel
+define('NOTIFICATIONS_AMOUNT', 10);
+
 // Token time to live for login via email. The offset is defined by http://php.net/manual/en/datetime.modify.php
 define('TOKEN_EMAIL_TTL', '+15 minutes');
 
@@ -136,6 +137,9 @@ define('EXTREME_FRIENDLY_URL', FALSE);
 
 // Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
+
+// Admin URI filter
+define('ADMIN_URI_FILTER', '/admin/');
 
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
@@ -181,6 +185,12 @@ include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
+include(PATH_HELPERS.'tcp.class.php');
+
+// Include Bludit PRO
+if( file_exists(PATH_KERNEL.'bludit.pro.php') ) {
+	include(PATH_KERNEL.'bludit.pro.php');
+}
 
 // Session
 Session::start();
@@ -245,9 +255,27 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 define('JQUERY',			HTML_PATH_ROOT.'bl-kernel/js/jquery.min.js');
 
+// --- Objects with dependency ---
+$Language 	= new dbLanguage( $Site->locale() );
+$Login 		= new Login( $dbUsers );
+$Url->checkFilters( $Site->uriFilters() );
+
+// --- CONSTANTS with dependency ---
+
+// Tag URI filter
+define('TAG_URI_FILTER', $Url->filters('tag'));
+
+// Category URI filter
+define('CATEGORY_URI_FILTER', $Url->filters('category'));
+
+// Page URI filter
+define('PAGE_URI_FILTER', $Url->filters('page'));
+
+// Content order by: date / position
+define('ORDER_BY', $Site->orderBy());
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
-// Depreacted, use THEME_DIR and THEME_DIR_XXX
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);
 define('THEME_DIR_PHP',			THEME_DIR.'php'.DS);
 define('THEME_DIR_CSS',			THEME_DIR.'css'.DS);
@@ -259,6 +287,7 @@ define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 // This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
 define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_THEME',			DOMAIN.HTML_PATH_THEME);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
 define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);
 define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
@@ -266,20 +295,17 @@ define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 
-// --- Objects with dependency ---
-$Language 	= new dbLanguage( $Site->locale() );
-$Login 		= new Login( $dbUsers );
-$Url->checkFilters( $Site->uriFilters() );
-
-// --- Objects shortcuts ---
-$L = $Language;
-
-// --- CONSTANTS with dependency ---
-define('ORDER_BY', $Site->orderBy());
+define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
+define('DOMAIN_CATEGORIES',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
+define('DOMAIN_PAGES',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
 
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';
 $ID_EXECUTION = uniqid(); // string 13 characters long
+$WHERE_AM_I = $Url->whereAmI();
+
+// --- Objects shortcuts ---
+$L = $Language;
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');

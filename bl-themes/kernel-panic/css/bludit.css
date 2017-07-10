@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+img {
+	max-width: 100%;
+}
+
+a.home-title {
+	color: #222;
+}
+
+/* PAGES */
+
+article.page:not(:last-child) {
+	margin-bottom: 100px;
+}
+
+article.page header {
+	margin-bottom: 20px;
+}
+
+article.page header a:hover {
+	text-decoration: none;
+}
+
+article.page header h2 {
+	font-size: 2.4em;
+}
+
+/* PLUGINS */
+
+div.plugin:not(:last-child) {
+	margin-bottom: 40px;
+}
+
+div.plugin h2.plugin-label {
+	font-size: 1em;
+	text-transform: uppercase;
+	margin: 20px 0;
+}
+
+div.plugin ul {
+	list-style: none;
+	padding: 0;
+}
+
+div.plugin-menu li.menu:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+div.plugin-menu ul.submenu {
+	margin-left: 10px;
+}

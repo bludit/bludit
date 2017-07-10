@@ -7,7 +7,7 @@ class dbSite extends dbJSON
 		'slogan'=>		array('inFile'=>false, 'value'=>''),
 		'description'=>		array('inFile'=>false, 'value'=>''),
 		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
-		'itemsPerPage'=>	array('inFile'=>false, 'value'=>''),
+		'itemsPerPage'=>	array('inFile'=>false, 'value'=>6),
 		'language'=>		array('inFile'=>false, 'value'=>'en'),
 		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
 		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
@@ -49,20 +49,13 @@ class dbSite extends dbJSON
 
 	public function set($args)
 	{
-		foreach($args as $field=>$value)
-		{
-			if( isset($this->dbFields[$field]) )
-			{
+		foreach($args as $field=>$value) {
+			if( isset($this->dbFields[$field]) ) {
 				$this->db[$field] = Sanitize::html($value);
 			}
 		}
 
-		if( $this->save() === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-			return false;
-		}
-
-		return true;
+		return $this->save();
 	}
 
 	// Returns an array with the filters for the url
@@ -97,6 +90,21 @@ class dbSite extends dbJSON
 	{
 		$filter = $this->getField('uriCategory');
 		return $this->url().ltrim($filter, '/');
+
+	}
+
+	// Returns the URL of the rss.xml file
+	// You need to have enabled the plugin RSS
+	public function rss()
+	{
+		return DOMAIN_BASE.'rss.xml';
+	}
+
+	// Returns the URL of the sitemap.xml file
+	// You need to have enabled the plugin Sitemap
+	public function sitemap()
+	{
+		return DOMAIN_BASE.'sitemap.xml';
 	}
 
 	public function twitter()
@@ -127,6 +135,21 @@ class dbSite extends dbJSON
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
+	}
+
+	public function pageError()
+	{
+		return $this->getField('pageError');
+	}
+
+	public function pageAbout()
+	{
+		return $this->getField('pageAbout');
+	}
+
+	public function pageContact()
+	{
+		return $this->getField('pageContact');
 	}
 
 	// Returns the site title
@@ -181,7 +204,7 @@ class dbSite extends dbJSON
 	}
 
 	// Returns the full domain and base url
-	// For example, https://www.domain.com/bludit/
+	// For example, https://www.domain.com/bludit
 	public function url()
 	{
 		return $this->getField('url');

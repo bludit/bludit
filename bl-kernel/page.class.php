@@ -18,6 +18,7 @@ class Page {
 	{
 		$filePath = PATH_PAGES.$key.DS.FILENAME;
 
+		// Check if the file exists
 		if( !Sanitize::pathFile($filePath) ) {
 			return false;
 		}
@@ -25,32 +26,38 @@ class Page {
 		$tmp = 0;
 		$lines = file($filePath);
 		foreach($lines as $lineNumber=>$line) {
-			$parts = array_map('trim', explode(':', $line, 2));
+			// Split the line in 2 parts, limiter by :
+			$parts = explode(':', $line, 2);
 
-			// Lowercase variable
+			// Remove all characters except letters and dash -
+			$parts[0] = preg_replace('/[^A-Za-z\-]/', '', $parts[0]);
+
+			// Lowercase
 			$parts[0] = Text::lowercase($parts[0]);
 
-			// If variables is content then break the foreach and process the content after.
-			if($parts[0]==='content') {
+			// Check if the current line start the content of the page
+			// We have two breakers, the word content or 3 dash ---
+			if( ($parts[0]==='content') || ($parts[0]==='---') ) {
 				$tmp = $lineNumber;
 				break;
 			}
 
 			if( !empty($parts[0]) && !empty($parts[1]) ) {
-				// Sanitize all fields, except Content.
+				$parts[1] = trim($parts[1]);
+				// Sanitize all fields, except the content
 				$this->vars[$parts[0]] = Sanitize::html($parts[1]);
 			}
 		}
 
 		// Process the content
 		if($tmp!==0) {
-			// Next line after "Content:" variable
+			// Next line after "Content:" or "---"
 			$tmp++;
 
 			// Remove lines after Content
 			$output = array_slice($lines, $tmp);
 
-			if(!empty($parts[1])) {
+			if( !empty($parts[1]) ) {
 				array_unshift($output, "\n");
 				array_unshift($output, $parts[1]);
 			}
@@ -68,6 +75,7 @@ class Page {
 		return($this->vars!==false);
 	}
 
+	// DEPRACTED
 	// Returns the value from the $field, FALSE if the field doesn't exist
 	public function getField($field)
 	{
@@ -76,6 +84,20 @@ class Page {
 		}
 
 		return false;
+	}
+
+	public function getValue($field)
+	{
+		if(isset($this->vars[$field])) {
+			return $this->vars[$field];
+		}
+
+		return false;
+	}
+
+	public function getDB()
+	{
+		return $this->vars;
 	}
 
 	// Set a field with a value
@@ -95,7 +117,7 @@ class Page {
 	public function content($fullContent=true, $noSanitize=true)
 	{
 		// This content is not sanitized.
-		$content = $this->getField('content');
+		$content = $this->getValue('content');
 
 		if(!$fullContent) {
 			return $this->contentBreak();
@@ -110,7 +132,7 @@ class Page {
 
 	public function contentBreak()
 	{
-		return $this->getField('contentBreak');
+		return $this->getValue('contentBreak');
 	}
 
 	// Returns the raw content
@@ -119,7 +141,7 @@ class Page {
 	public function contentRaw($noSanitize=true)
 	{
 		// This content is not sanitized.
-		$content = $this->getField('contentRaw');
+		$content = $this->getValue('contentRaw');
 
 		if($noSanitize) {
 			return $content;
@@ -131,14 +153,14 @@ class Page {
 	// Returns the date according to locale settings and format settings
 	public function date()
 	{
-		return $this->getField('date');
+		return $this->getValue('date');
 	}
 
 	// Returns the date according to locale settings and format as database stored
 	// (string) $format, you can specify the date format
 	public function dateRaw($format=false)
 	{
-		$date = $this->getField('dateRaw');
+		$date = $this->getValue('dateRaw');
 
 		if($format) {
 			return Date::format($date, DB_DATE_FORMAT, $format);
@@ -149,45 +171,35 @@ class Page {
 
 	// Returns the permalink
 	// (boolean) $absolute, TRUE returns the page link with the DOMAIN, FALSE without the DOMAIN
-	public function permalink($absolute=false)
+	public function permalink($absolute=true)
 	{
-		global $Url;
-		global $Site;
-
-		$url = trim(DOMAIN_BASE,'/');
-		$key = $this->key();
-		$filter = trim($Url->filters('page'), '/');
-		$htmlPath = trim(HTML_PATH_ROOT,'/');
-
-		if(empty($filter)) {
-			$tmp = $key;
-		}
-		else {
-			$tmp = $filter.'/'.$key;
-		}
+		// Get the key of the page
+		$key = $this->getValue('key');
 
 		if($absolute) {
-			return $url.'/'.$tmp;
+			return DOMAIN_PAGES.$key;
 		}
 
-		if(empty($htmlPath)) {
-			return '/'.$tmp;
-		}
+		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;
+	}
 
-		return '/'.$htmlPath.'/'.$tmp;
+	// Returns the category name
+	public function category()
+	{
+		return $this->categoryMap('name');
 	}
 
 	// Returns the category key
 	public function categoryKey()
 	{
-		return $this->getField('category');
+		return $this->getValue('category');
 	}
 
 	// Returns the field from the array
 	// categoryMap = array( 'name'=>'', 'list'=>array() )
 	public function categoryMap($field)
 	{
-		$map = $this->getField('categoryMap');
+		$map = $this->getValue('categoryMap');
 
 		if($field=='key') {
 			return $this->categoryKey();
@@ -207,7 +219,7 @@ class Page {
 	public function user($field=false)
 	{
 		// Get the user object.
-		$User = $this->getField('user');
+		$User = $this->getValue('user');
 
 		if($field) {
 			return $User->getField($field);
@@ -219,13 +231,13 @@ class Page {
 	// Returns the username who created the post/page
 	public function username()
 	{
-		return $this->getField('username');
+		return $this->getValue('username');
 	}
 
 	// Returns the description field
 	public function description()
 	{
-		return $this->getField('description');
+		return $this->getValue('description');
 	}
 
 
@@ -237,7 +249,7 @@ class Page {
 	// $complete = true  : full version
 	public function relativeTime($complete = false) {
 		$current = new DateTime;
-		$past    = new DateTime($this->getField('date'));
+		$past    = new DateTime($this->getValue('date'));
 		$elapsed = $current->diff($past);
 
 		$elapsed->w  = floor($elapsed->d / 7);
@@ -273,7 +285,7 @@ class Page {
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
 	public function tags($returnsArray=false)
 	{
-		$tags = $this->getField('tags');
+		$tags = $this->getValue('tags');
 
 		if($returnsArray) {
 			if($tags==false) {
@@ -313,14 +325,13 @@ class Page {
 	// (boolean) $absolute, TRUE returns the absolute path and file name, FALSE just the file name
 	public function coverImage($absolute=true)
 	{
-		$fileName = $this->getField('coverImage');
-
+		$fileName = $this->getValue('coverImage');
 		if(empty($fileName)) {
 			return false;
 		}
 
 		if($absolute) {
-			return HTML_PATH_UPLOADS.$fileName;
+			return DOMAIN_UPLOADS.$fileName;
 		}
 
 		return $fileName;
@@ -329,54 +340,78 @@ class Page {
 	// Returns TRUE if the content has the text splited
 	public function readMore()
 	{
-		return $this->getField('readMore');
+		return $this->getValue('readMore');
 	}
 
 	public function uuid()
 	{
-		return $this->getField('uuid');
+		return $this->getValue('uuid');
 	}
 
 	// Returns the field key
 	public function key()
 	{
-		return $this->getField('key');
+		return $this->getValue('key');
 	}
 
-	// Returns TRUE if the post/page is published, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is published, FALSE otherwise
 	public function published()
 	{
-		return ($this->getField('status')==='published');
+		return ($this->getValue('status')==='published');
 	}
 
-	// Returns TRUE if the post/page is scheduled, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is scheduled, FALSE otherwise
 	public function scheduled()
 	{
-		return ($this->getField('status')==='scheduled');
+		return ($this->getValue('status')==='scheduled');
 	}
 
-	// Returns TRUE if the post/page is draft, FALSE otherwise.
+	// (boolean) Returns TRUE if the page is draft, FALSE otherwise
 	public function draft()
 	{
-		return ($this->getField('status')=='draft');
+		return ($this->getValue('status')=='draft');
+	}
+
+	// (boolean) Returns TRUE if the page is sticky, FALSE otherwise
+	public function sticky()
+	{
+		return ($this->getValue('status')=='sticky');
+	}
+
+	// (boolean) Returns TRUE if the page is fixed, FALSE otherwise
+	public function fixed()
+	{
+		return ($this->getValue('status')=='fixed');
+	}
+
+	// (string) Returns status of the page
+	public function status()
+	{
+		return $this->getValue('status');
 	}
 
 	// Returns the title field
 	public function title()
 	{
-		return $this->getField('title');
+		return $this->getValue('title');
+	}
+
+	// Returns TRUE if the page has enabled the comments, FALSE otherwise
+	public function allowComments()
+	{
+		return $this->getValue('allowComments');
 	}
 
 	// Returns the page position
 	public function position()
 	{
-		return $this->getField('position');
+		return $this->getValue('position');
 	}
 
 	// Returns the page slug
 	public function slug()
 	{
-		$explode = explode('/', $this->getField('key'));
+		$explode = explode('/', $this->getValue('key'));
 
 		// Check if the page have a parent.
 		if(!empty($explode[1])) {
@@ -389,7 +424,7 @@ class Page {
 	// Returns the parent key, if the page doesn't have a parent returns FALSE
 	public function parentKey()
 	{
-		$explode = explode('/', $this->getField('key'));
+		$explode = explode('/', $this->getValue('key'));
 		if(isset($explode[1])) {
 			return $explode[0];
 		}
@@ -413,8 +448,7 @@ class Page {
 	public function children()
 	{
 		$tmp = array();
-		//$paths = glob(PATH_PAGES.$this->getField('key').DS.'*', GLOB_ONLYDIR);
-		$paths = Filesystem::listDirectories(PATH_PAGES.$this->getField('key').DS);
+		$paths = Filesystem::listDirectories(PATH_PAGES.$this->getValue('key').DS);
 		foreach($paths as $path) {
 			array_push($tmp, basename($path));
 		}

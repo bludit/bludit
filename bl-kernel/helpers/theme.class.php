@@ -2,122 +2,110 @@
 
 class Theme {
 
-	public static function favicon($file='favicon.png', $path=HTML_PATH_THEME_IMG, $typeIcon=true, $echo=true)
-	{
-		$type = 'image/png';
-		if($typeIcon) {
-			$type = 'image/x-icon';
-		}
-
-		$tmp = '<link rel="shortcut icon" href="'.$path.$file.'" type="'.$type.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function css($files, $path=DOMAIN_THEME_CSS, $echo=true)
-	{
-		if(!is_array($files)) {
-			$files = array($files);
-		}
-
-		$tmp = '';
-		foreach($files as $file) {
-			$tmp .= '<link rel="stylesheet" type="text/css" href="'.$path.$file.'">'.PHP_EOL;
-		}
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function javascript($files, $path=HTML_PATH_THEME_JS, $echo=true)
-	{
-		if(!is_array($files)) {
-			$files = array($files);
-		}
-
-		$tmp = '';
-		foreach($files as $file) {
-			$tmp .= '<script src="'.$path.$file.'"></script>'.PHP_EOL;
-		}
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function title($title=false, $echo=true)
+	// Return the metatag <title> with a predefine structure
+	public static function headTitle()
 	{
 		global $Url;
-		global $Post, $Page;
 		global $Site;
 		global $dbTags;
+		global $dbCategories;
+		global $WHERE_AM_I;
+		global $page;
 
-		$tmp = $title;
+		$title = $Site->title();
 
-		if(empty($title))
-		{
-			if( $Url->whereAmI()=='post' ) {
-				$tmp = $Post->title().' - '.$Site->title();
-			}
-			elseif( $Url->whereAmI()=='page' ) {
-				$tmp = $Page->title().' - '.$Site->title();
-			}
-			elseif( $Url->whereAmI()=='tag' ) {
-				$tag = $dbTags->getName($Url->slug());
-				$tmp = $tag.' - '.$Site->title();
-			}
-			else {
-				$tmp = $Site->title();
-			}
+		if( $WHERE_AM_I=='page' ) {
+			$title = $page->title().' - '.$Site->title();
+		}
+		elseif( $WHERE_AM_I=='tag' ) {
+			$tagKey = $Url->slug();
+			$tagName = $dbTags->getName($tagKey);
+			$title = $tagName.' - '.$Site->title();
+		}
+		elseif( $WHERE_AM_I=='category' ) {
+			$categoryKey = $Url->slug();
+			$categoryName = $dbCategories->getName($categoryKey);
+			$title = $categoryName.' - '.$Site->title();
 		}
 
-		$tmp = '<title>'.$tmp.'</title>'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
+		return '<title>'.$title.'</title>'.PHP_EOL;
 	}
 
-	public static function description($description=false, $echo=true)
+	// Return the metatag <decription> with a predefine structure
+	public static function headDescription()
 	{
-		global $Url;
-		global $Post, $Page;
 		global $Site;
+		global $WHERE_AM_I;
+		global $page;
 
-		$tmp = $description;
+		$description = $Site->description();
 
-		if(empty($description))
-		{
-			if( $Url->whereAmI()=='post' ) {
-				$tmp = $Post->description();
-			}
-			elseif( $Url->whereAmI()=='page' ) {
-				$tmp = $Page->description();
-			}
-			else {
-				$tmp = $Site->description();
-			}
+		if( $WHERE_AM_I=='page' ) {
+			$description = $page->description();
 		}
 
-		$tmp = '<meta name="description" content="'.$tmp.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
+		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
 	}
+
+	public static function charset($charset)
+	{
+		return '<meta charset="'.$charset.'">'.PHP_EOL;
+	}
+
+	public static function viewport($content)
+	{
+		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
+	}
+
+	public static function css($files)
+	{
+		if( !is_array($files) ) {
+			$files = array($files);
+		}
+
+		$links = '';
+		foreach($files as $file) {
+			$links .= '<link rel="stylesheet" type="text/css" href="'.DOMAIN_THEME.$file.'">'.PHP_EOL;
+		}
+
+		return $links;
+	}
+
+	public static function javascript($files)
+	{
+		if( !is_array($files) ) {
+			$files = array($files);
+		}
+
+		$scripts = '';
+		foreach($files as $file) {
+			$scripts .= '<script src="'.DOMAIN_THEME.$file.'"></script>'.PHP_EOL;
+		}
+
+		return $scripts;
+	}
+
+	public static function js($files)
+	{
+		return self::javascript($files);
+	}
+
+	public static function plugins($type)
+	{
+		global $plugins;
+		foreach($plugins[$type] as $plugin) {
+			echo call_user_func(array($plugin, $type));
+		}
+	}
+
+	public static function favicon($file='favicon.png', $typeIcon='image/png')
+	{
+		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
+	}
+
+// ---- OLD
+
+
 
 	public static function keywords($keywords, $echo=true)
 	{
@@ -132,38 +120,6 @@ class Theme {
 		}
 
 		return $tmp;
-	}
-
-	public static function viewport($content='width=device-width, initial-scale=1.0', $echo=true)
-	{
-		$tmp = '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function charset($charset, $echo=true)
-	{
-		$tmp = '<meta charset="'.$charset.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function plugins($type)
-	{
-		global $plugins;
-
-		foreach($plugins[$type] as $plugin)
-		{
-			echo call_user_func(array($plugin, $type));
-		}
 	}
 
 	public static function jquery($echo=true)

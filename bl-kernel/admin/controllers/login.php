@@ -20,17 +20,17 @@ function checkPost($args)
 	}
 
 	// Verify User sanitize the input
-	if( $Login->verifyUser($_POST['username'], $_POST['password']) )
-	{
+	if( $Login->verifyUser($_POST['username'], $_POST['password']) ) {
 		// Renew the token. This token will be the same inside the session for multiple forms.
 		$Security->generateTokenCSRF();
-
-		Redirect::page('admin', 'dashboard');
+		Redirect::page('dashboard');
 		return true;
 	}
 
 	// Bruteforce protection, add IP to blacklist.
 	$Security->addLoginFail();
+
+	// Create alert
 	Alert::set($Language->g('Username or password incorrect'));
 
 	return false;

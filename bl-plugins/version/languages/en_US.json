@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Version",
+		"description": "Show the current version and check for new updates"
+	}
+}

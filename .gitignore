@@ -1,3 +1,5 @@
 .DS_Store
 bl-content/*
 bl-plugins/timemachine
+bl-plugins/remote-content
+bl-kernel/bludit.pro.php

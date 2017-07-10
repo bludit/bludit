@@ -17,6 +17,7 @@ function add($category)
 {
 	global $dbCategories;
 	global $Language;
+	global $Syslog;
 
 	if( Text::isEmpty($category) ) {
 		Alert::set($Language->g('Category name is empty'), ALERT_STATUS_FAIL);
@@ -24,8 +25,17 @@ function add($category)
 	}
 
 	if( $dbCategories->add($category) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'new-category-created',
+			'notes'=>$category
+		));
+
+		// Create an alert
 		Alert::set($Language->g('Category added'), ALERT_STATUS_OK);
-		return true;
+
+		// Redirect
+		Redirect::page('categories');
 	}
 	else {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the category.');
@@ -43,9 +53,7 @@ function add($category)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	if( add($_POST['category']) ) {
-		Redirect::page('categories');
-	}
+	add($_POST['category']);
 }
 
 // ============================================================================

@@ -4,70 +4,6 @@
 // Functions
 // ============================================================================
 
-function disableUser($username) {
-
-	global $dbUsers;
-	global $Language;
-	global $Login;
-
-	// The editors can't disable users
-	if($Login->role()!=='admin') {
-		return false;
-	}
-
-	if( $dbUsers->disableUser($username) ) {
-		Alert::set($Language->g('The changes have been saved'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
-	}
-}
-
-function editUser($args)
-{
-	global $dbUsers;
-	global $Language;
-
-	if( $dbUsers->set($args) ) {
-		Alert::set($Language->g('The changes have been saved'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to edit the user.');
-	}
-}
-
-function deleteUser($args, $deleteContent=false)
-{
-	global $dbUsers;
-	global $dbPosts;
-	global $Language;
-	global $Login;
-
-	// The user admin cannot be deleted.
-	if($args['username']=='admin') {
-		return false;
-	}
-
-	// The editors cannot delete users.
-	if($Login->role()!=='admin') {
-		return false;
-	}
-
-	if($deleteContent) {
-		$dbPosts->deletePostsByUser($args['username']);
-	}
-	else {
-		$dbPosts->linkPostsToUser($args['username'], 'admin');
-	}
-
-	if( $dbUsers->delete($args['username']) ) {
-		Alert::set($Language->g('User deleted'));
-	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the user.');
-	}
-}
-
 // ============================================================================
 // Main before POST
 // ============================================================================
@@ -78,18 +14,17 @@ function deleteUser($args, $deleteContent=false)
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	// Prevent editors to administrate other users.
-	if($Login->role()!=='admin')
-	{
+	// Prevent non-administrators to change other users
+	if($Login->role()!=='admin') {
 		$_POST['username'] = $Login->username();
 		unset($_POST['role']);
 	}
 
 	if(isset($_POST['delete-user-all'])) {
-		deleteUser($_POST, true);
+		deleteUser($_POST, $deleteContent=true);
 	}
 	elseif(isset($_POST['delete-user-associate'])) {
-		deleteUser($_POST, false);
+		deleteUser($_POST, $deleteContent=false);
 	}
 	elseif(isset($_POST['disable-user'])) {
 		disableUser($_POST['username']);
@@ -97,19 +32,22 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	else {
 		editUser($_POST);
 	}
+
+	Alert::set($Language->g('The changes have been saved'));
 }
 
 // ============================================================================
 // Main after POST
 // ============================================================================
 
+// Prevent non-administrators to change other users
 if($Login->role()!=='admin') {
 	$layout['parameters'] = $Login->username();
 }
 
-$_User = $dbUsers->getUser($layout['parameters']);
+$User = $dbUsers->getUser($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
-if($_User===false) {
-	Redirect::page('admin', 'users');
+if($User===false) {
+	Redirect::page('users');
 }

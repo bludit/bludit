@@ -30,7 +30,7 @@ function checkPost($args)
 		if($username!=false)
 		{
 			// Generate the token and the token expiration date.
-			$token = $dbUsers->generateTokenEmail($username);
+			$token = $dbUsers->setTokenEmail($username);
 
 			// ---- EMAIL ----
 			$link = $Site->url().'admin/login-email?tokenEmail='.$token.'&username='.$username;

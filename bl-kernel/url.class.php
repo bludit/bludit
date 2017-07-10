@@ -116,6 +116,7 @@ class Url
 
 	public function setWhereAmI($where)
 	{
+		$GLOBALS['WHERE_AM_I'] = $where;
 		$this->whereAmI = $where;
 	}
 
@@ -127,9 +128,9 @@ class Url
 	public function pageNumber()
 	{
 		if(isset($this->parameters['page'])) {
-			return $this->parameters['page'];
+			return (int)$this->parameters['page'];
 		}
-		return 0;
+		return 1;
 	}
 
 	public function setNotFound($error=true)

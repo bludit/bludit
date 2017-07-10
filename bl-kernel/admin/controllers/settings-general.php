@@ -46,9 +46,6 @@ function setSettings($args)
 		// Redirect
 		Redirect::page('settings-general');
 	}
-	else {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the settings.');
-	}
 
 	return true;
 }

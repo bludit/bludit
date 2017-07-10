@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('New page'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('New content'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 
@@ -118,7 +118,12 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'status',
 		'label'=>$L->g('Status'),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array('published'=>$L->g('Published'), 'draft'=>$L->g('Draft')),
+		'options'=>array(
+			'published'=>$L->g('Published'),
+			'draft'=>$L->g('Draft'),
+			'fixed'=>$L->g('Fixed'),
+			'sticky'=>$L->g('Sticky')
+		),
 		'selected'=>'published',
 		'tip'=>''
 	));
@@ -134,9 +139,11 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// Parent input
 	$options = array();
-	$parents = $dbPages->getParents(true);
-	foreach( $parents as $key=>$fields ) {
-		$options[$key] = $pagesKey[$key]->title();
+	$parentsList = $dbPages->getParents();
+	$parentsKey = array_keys($parentsList);
+	foreach($parentsKey as $pageKey) {
+		$parent = buildPage($pageKey);
+		$options[$pageKey] = $parent->title();
 	}
 
 	HTML::formSelect(array(

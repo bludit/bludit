@@ -8,6 +8,7 @@ function setPassword($username, $new_password, $confirm_password)
 {
 	global $dbUsers;
 	global $Language;
+	global $Syslog;
 
 	// Password length
 	if( strlen($new_password) < 6 )
@@ -20,6 +21,11 @@ function setPassword($username, $new_password, $confirm_password)
 	{
 		if( $dbUsers->setPassword($username, $new_password) ) {
 			Alert::set($Language->g('The changes have been saved'), ALERT_STATUS_OK);
+			// Add to syslog
+			$Syslog->add(array(
+				'dictionaryKey'=>'user-password-changed',
+				'notes'=>$username
+			));
 			return true;
 		}
 		else {
@@ -51,7 +57,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 	}
 
 	if( setPassword($_POST['username'], $_POST['new_password'], $_POST['confirm_password']) ) {
-		Redirect::page('admin', 'users');
+		Redirect::page('users');
 	}
 }
 
@@ -67,7 +73,7 @@ $_user = $dbUsers->getDb($layout['parameters']);
 
 // If the user doesn't exist, redirect to the users list.
 if($_user===false) {
-	Redirect::page('admin', 'users');
+	Redirect::page('users');
 }
 
 $_user['username'] = $layout['parameters'];

@@ -1,11 +1,11 @@
 {
 	"plugin-data":
 	{
-		"name": "Page list",
-		"description": "Shows the list of pages in order."
+		"name": "Pages",
+		"description": "Shows a list of pages, you can define the amount of items and the order depends of settings."
 	},
 
-	"home": "Home",
+	"home-page": "Home page",
 	"show-home-link": "Show home link",
-	"show-children": "Show children"
+	"amount-of-items": "Amount of items"
 }

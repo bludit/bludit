@@ -32,6 +32,12 @@ function edit($oldCategoryKey, $newCategory)
 		Alert::set($Language->g('The changes have been saved'));
 	}
 
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'category-edited',
+		'notes'=>$newCategory
+	));
+
 	Redirect::page('categories');
 }
 
@@ -40,9 +46,19 @@ function delete($categoryKey)
 	global $Language;
 	global $dbCategories;
 
+	// Remove the category by key
 	$dbCategories->remove($categoryKey);
 
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'category-deleted',
+		'notes'=>$categoryKey
+	));
+
+	// Create an alert
 	Alert::set($Language->g('The changes have been saved'));
+
+	// Redirect
 	Redirect::page('categories');
 }
 

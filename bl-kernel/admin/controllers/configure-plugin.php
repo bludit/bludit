@@ -6,7 +6,7 @@
 
 if($Login->role()!=='admin') {
 	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+	Redirect::page('dashboard');
 }
 
 // ============================================================================
@@ -16,24 +16,20 @@ if($Login->role()!=='admin') {
 // ============================================================================
 // Main before POST
 // ============================================================================
-$_Plugin = false;
+$plugin = false;
 $pluginClassName = $layout['parameters'];
 
-foreach($plugins['all'] as $P)
-{
-	if($P->className()==$pluginClassName) {
-		$_Plugin = $P;
-	}
+// Check if the plugin exists
+if( isset($plugins['all'][$pluginClassName]) ) {
+	$plugin = $plugins['all'][$pluginClassName];
 }
-
-// Check if the plugin exists.
-if($_Plugin===false) {
-	Redirect::page('admin', 'plugins');
+else {
+	Redirect::page('plugins');
 }
 
 // Check if the plugin has the method form()
-if(!method_exists($_Plugin, 'form')) {
-	Redirect::page('admin', 'plugins');
+if( !method_exists($plugin, 'form') ) {
+	Redirect::page('plugins');
 }
 
 // ============================================================================
@@ -42,11 +38,22 @@ if(!method_exists($_Plugin, 'form')) {
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$_Plugin->setDb($_POST);
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'plugin-configured',
+		'notes'=>$plugin->name()
+	));
 
-	Theme::plugins('afterFormSave');
-
-	Alert::set($Language->g('the-changes-have-been-saved'));
+	// Call the method post of the plugin
+	if( $plugin->post() ) {
+		// Create an alert
+		Alert::set( $Language->g('The changes have been saved') );
+		Redirect::page('configure-plugin/'.$plugin->className());
+	}
+	else {
+		// Create an alert
+		Alert::set( $Language->g('Complete all fields') );
+	}
 }
 
 // ============================================================================

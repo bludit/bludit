@@ -24,7 +24,7 @@ class dbList extends dbJSON
 		parent::__construct($file);
 	}
 
-	private function getList($key, $amountOfItems, $pageNumber)
+	public function getList($key, $pageNumber, $amountOfItems)
 	{
 		if( !isset($this->db[$key]) ) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
@@ -33,8 +33,11 @@ class dbList extends dbJSON
 
 		$list = $this->db[$key]['list'];
 
+		// The first page number is 1, so the real is 0
+		$realPageNumber = $pageNumber - 1;
+
 		$total = count($list);
-		$init = (int) $amountOfItems * $pageNumber;
+		$init = (int) $amountOfItems * $realPageNumber;
 		$end  = (int) min( ($init + $amountOfItems - 1), $total );
 		$outrange = $init<0 ? true : $init>$end;
 
@@ -62,6 +65,8 @@ class dbList extends dbJSON
 
 		$this->db[$key]['name'] = $name;
 		$this->db[$key]['list'] = array();
+
+		$this->sortAlphanumeric();
 		$this->save();
 
 		return $key;
@@ -90,8 +95,16 @@ class dbList extends dbJSON
 			unset( $this->db[$oldKey] );
 		}
 
+		$this->sortAlphanumeric();
 		$this->save();
 		return $newKey;
+	}
+
+	// Sort the categories by "Natural order"
+	private function sortAlphanumeric()
+	{
+		// Sort key alphanumeric strings, a01, a10, b10, c02
+		return ksort($this->db);
 	}
 
 	// Returns the name associated to the key, FALSE if the key doesn't exist
@@ -105,16 +118,11 @@ class dbList extends dbJSON
 	}
 
 	// Returns an array with key=>name of the list
-	public function getKeyNameArray($sortAlphanumeric=true)
+	public function getKeyNameArray()
 	{
 		$tmp = array();
 		foreach($this->db as $key=>$fields) {
 			$tmp[$key] = $fields['name'];
-		}
-
-		// Sort alphanumeric strings, a01, a10, a11, a20
-		if($sortAlphanumeric) {
-			natcasesort($tmp);
 		}
 
 		return $tmp;

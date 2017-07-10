@@ -4,97 +4,87 @@ class pluginPages extends Plugin {
 
 	public function init()
 	{
+		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'homeLink'=>1,
-			'children'=>1,
-			'label'=>'Pages'
+			'label'=>'Pages',
+			'homeLink'=>true,
+			'amountOfItems'=>5
 		);
 	}
 
+	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Plugin label').'</label>';
-		$html .= '<input name="label" id="jslabel" type="text" value="'.$this->getDbField('label').'">';
+		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="homeLink" value="0">';
-		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="1" '.($this->getDbField('homeLink')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
+		$html .= '<label>'.$Language->get('Home link').'</label>';
+		$html .= '<select name="homeLink">';
+		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$Language->get('Show the home link on the sidebar').'</span>';
 		$html .= '</div>';
-		
+
 		$html .= '<div>';
-		$html .= '<input type="hidden" name="children" value="0">';
-		$html .= '<input name="children" id="children" type="checkbox" value="1" '.($this->getDbField('children')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jschildren">'.$Language->get('Show children').'</label>';
+		$html .= '<label>'.$Language->get('Amount of items').'</label>';
+		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
 		$html .= '</div>';
 
 		return $html;
 	}
 
+	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
 		global $Language;
-		global $pagesParents;
-		global $Site, $Url;
+		global $Url;
+		global $Site;
+		global $dbPages;
 
+		// Amount of pages to show
+		$amountOfItems = $this->getValue('amountOfItems');
+
+		// Page number the first one
+		$pageNumber = 1;
+
+		// Only published pages
+		$onlyPublished = true;
+
+		// Get the list of pages
+		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
+
+		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
-
-		// Print the label if not empty.
-		$label = $this->getDbField('label');
-		if( !empty($label) ) {
-			$html .= '<h2>'.$label.'</h2>';
-		}
-
+		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<ul class="parents">';
+		$html .= '<ul>';
 
-		// Show home link ?
-		if($this->getDbField('homeLink')) {
+		// Show Home page link
+		if( $this->getValue('homeLink') ) {
 			$html .= '<li>';
-			$html .= '<a class="parent'.( ($Url->whereAmI()=='home')?' active':'').'" href="'.$Site->homeLink().'">'.$Language->get('Home').'</a>';
+			$html .= '<a href="'.$Site->url().'">';
+			$html .= $Language->get('Home page');
+			$html .= '</a>';
 			$html .= '</li>';
 		}
 
-		$parents = $pagesParents[NO_PARENT_CHAR];
-		foreach($parents as $parent)
-		{
-			// Check if the parent is published
-			if( $parent->published() )
-			{
-				// Print the parent
-				$html .= '<li class="parent">';
-				$html .= '<a class="parent'.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
-
-				// Show children elements?
-				if($this->getDbField('children')) {
-
-					// Check if the parent has children
-					if(isset($pagesParents[$parent->key()]))
-					{
-						$children = $pagesParents[$parent->key()];
-
-						// Print children
-						$html .= '<ul class="children">';
-						foreach($children as $child)
-						{
-							// Check if the child is published
-							if( $child->published() )
-							{
-								$html .= '<li class="child">';
-								$html .= '<a class="'.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
-								$html .= '</li>';
-							}
-						}
-						$html .= '</ul>';
-					}
-				}	
-
-				$html .= '</li>';
-			}
+		// Get keys of pages
+		$keys = array_keys($pages);
+		foreach($keys as $pageKey) {
+			// Create the page object from the page key
+			$page = buildPage($pageKey);
+			$html .= '<li>';
+			$html .= '<a href="'.$page->permalink().'">';
+			$html .= $page->title();
+			$html .= '</a>';
+			$html .= '</li>';
 		}
 
 		$html .= '</ul>';

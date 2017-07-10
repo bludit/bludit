@@ -11,8 +11,7 @@ class pluginOpenGraph extends Plugin {
 
 		$images = $finder->query("//img");
 
-		if($images->length>0)
-		{
+		if($images->length>0) {
 			// First image from the list
 			$image = $images->item(0);
 			// Get value from attribute src
@@ -26,8 +25,11 @@ class pluginOpenGraph extends Plugin {
 
 	public function siteHead()
 	{
-		global $Url, $Site;
-		global $Post, $Page, $posts;
+		global $Url;
+		global $Site;
+		global $WHERE_AM_I;
+		global $pages;
+		global $page;
 
 		$og = array(
 			'locale'	=>$Site->locale(),
@@ -39,36 +41,25 @@ class pluginOpenGraph extends Plugin {
 			'siteName'	=>$Site->title()
 		);
 
-		switch($Url->whereAmI())
-		{
-			// The user filter by post
-			case 'post':
-				$og['type']		= 'article';
-				$og['title']		= $Post->title().' | '.$og['title'];
-				$og['description']	= $Post->description();
-				$og['url']		= $Post->permalink(true);
-				$og['image'] 		= $Post->coverImage(false);
-
-				$content = $Post->content();
-				break;
-
+		switch($WHERE_AM_I) {
 			// The user filter by page
 			case 'page':
 				$og['type']		= 'article';
-				$og['title']		= $Page->title().' | '.$og['title'];
-				$og['description']	= $Page->description();
-				$og['url']		= $Page->permalink(true);
-				$og['image'] 		= $Page->coverImage(false);
+				$og['title']		= $page->title();
+				$og['description']	= $page->description();
+				$og['url']		= $page->permalink($absolute=true);
+				$og['image'] 		= $page->coverImage($absolute=true);
 
-				$content = $Page->content();
+				$content = $page->content();
 				break;
 
 			// The user is in the homepage
 			default:
-				// The image it's from the first post
-				if(isset($posts[0])) {
-					$og['image'] = $posts[0]->coverImage(false);
-					$content = $posts[0]->content();
+				$content = '';
+				// The image it's from the first page
+				if(isset($pages[0]) ) {
+					$og['image'] 	= $pages[0]->coverImage($absolute=true);
+					$content 	= $pages[0]->content();
 				}
 				break;
 		}
@@ -81,19 +72,16 @@ class pluginOpenGraph extends Plugin {
 		$html .= '<meta property="og:url" content="'.$og['url'].'">'.PHP_EOL;
 		$html .= '<meta property="og:siteName" content="'.$og['siteName'].'">'.PHP_EOL;
 
-		// If the post o page doesn't have a coverImage try to get an image from the HTML content
-		if($og['image']===false) {
-
+		// If the page doesn't have a coverImage try to get an image from the HTML content
+		if( empty($og['image']) ) {
 			// Get the image from the content
-			$src = $this->getImage( $content );
-
+			$src = $this->getImage($content);
 			if($src!==false) {
-				$html .= '<meta property="og:image" content="'.DOMAIN.$src.'">'.PHP_EOL;
+				$og['image'] = DOMAIN.$src;
 			}
 		}
-		else {
-			$html .= '<meta property="og:image" content="'.DOMAIN_UPLOADS.$og['image'].'">'.PHP_EOL;
-		}
+
+		$html .= '<meta property="og:image" content="'.$og['image'].'">'.PHP_EOL;
 
 		return $html;
 	}
