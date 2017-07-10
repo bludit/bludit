@@ -4,17 +4,23 @@
 // Variables
 // ============================================================================
 
-// Array with all published pages
+// Array with pages, each page is a Object Page
 $pages = array();
 
-// Array with all pages (published, fixed, sticky, draft, scheduled)
-$allPages = array();
-
-// Object Page for the page filtered by the user
+// Page filtered by the user, is a Object Page
 $page = $Page = false;
 
-// Array with all page parents published
-//$pageParents = array();
+// Array with pages order by parent
+/*
+array(
+	PARENT => array(), // all parent pages
+	parentKey1 => array(), // all children of parentKey1
+	parentKey2 => array(), // all children of parentKey2
+	...
+	parentKeyN => array(), // all children of parentKeyN
+)
+*/
+$pagesByParent = array(PARENT=>array());
 
 // Array with all published pages, the array is a key=>Page-object
 $pagesByKey = array();
@@ -40,7 +46,6 @@ if( $dbPages->scheduler() ) {
 
 // Build specific page
 if( $Url->whereAmI()==='page' ) {
-
         // Build the page
 	$page = $Page = buildPage( $Url->slug() );
 
@@ -48,7 +53,7 @@ if( $Url->whereAmI()==='page' ) {
 	if($page===false) {
 		$Url->setNotFound(true);
 	}
-	// The page is not published, still scheduled or draft
+	// The page is not published, scheduled or draft
 	elseif( $page->scheduled() || $page->draft() ) {
 		$Url->setNotFound(true);
 	}
@@ -67,6 +72,11 @@ elseif( $Url->whereAmI()==='home' ) {
 }
 elseif( $Url->whereAmI()==='admin' ) {
         buildPagesForAdmin();
+}
+
+if(ORDER_BY==='position') {
+	$allPages = false; // All pages are published, draft, scheduled
+	buildPagesByParent(false);
 }
 
 // Set page 404 not found

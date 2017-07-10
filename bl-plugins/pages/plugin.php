@@ -47,6 +47,7 @@ class pluginPages extends Plugin {
 		global $Url;
 		global $Site;
 		global $dbPages;
+		global $pagesByParent;
 
 		// Amount of pages to show
 		$amountOfItems = $this->getValue('amountOfItems');
@@ -66,25 +67,48 @@ class pluginPages extends Plugin {
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
-		// Show Home page link
-		if( $this->getValue('homeLink') ) {
-			$html .= '<li>';
-			$html .= '<a href="'.$Site->url().'">';
-			$html .= $Language->get('Home page');
-			$html .= '</a>';
-			$html .= '</li>';
-		}
+		if(ORDER_BY==='position') {
+			foreach($pagesByParent[PARENT] as $parent) {
+				$html .= '<li class="parent">';
+				$html .= '<h3>';
+				$html .= $parent->title();
+				$html .= '</h3>';
 
-		// Get keys of pages
-		$keys = array_keys($pages);
-		foreach($keys as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-			$html .= '<li>';
-			$html .= '<a href="'.$page->permalink().'">';
-			$html .= $page->title();
-			$html .= '</a>';
-			$html .= '</li>';
+				if(!empty($pagesByParent[$parent->key()])) {
+					$html .= '<ul class="child">';
+					foreach($pagesByParent[$parent->key()] as $child) {
+						$html .= '<li class="child">';
+						$html .= '<a class="child" href="'.$child->permalink().'">';
+						$html .= $child->title();
+						$html .= '</a>';
+						$html .= '</li>';
+					}
+					$html .= '</ul>';
+				}
+				$html .= '</li>';
+			}
+		}
+		else {
+			// Show Home page link
+			if( $this->getValue('homeLink') ) {
+				$html .= '<li>';
+				$html .= '<a href="'.$Site->url().'">';
+				$html .= $Language->get('Home page');
+				$html .= '</a>';
+				$html .= '</li>';
+			}
+
+			// Get keys of pages
+			$keys = array_keys($pages);
+			foreach($keys as $pageKey) {
+				// Create the page object from the page key
+				$page = buildPage($pageKey);
+				$html .= '<li>';
+				$html .= '<a href="'.$page->permalink().'">';
+				$html .= $page->title();
+				$html .= '</a>';
+				$html .= '</li>';
+			}
 		}
 
 		$html .= '</ul>';

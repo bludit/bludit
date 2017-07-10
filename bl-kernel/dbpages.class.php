@@ -307,6 +307,7 @@ class dbPages extends dbJSON
 	}
 
 	// Returns an array with a list of pages
+	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number
 	// (int) $amountOfItems, amount of items to return
 	// (boolean) $onlyPublished, TRUE to return only published pages

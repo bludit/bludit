@@ -93,8 +93,8 @@ define('SALT_LENGTH', 8);
 // Page brake string
 define('PAGE_BREAK', '<!-- pagebreak -->');
 
-// No parent character, md5('No parent')
-define('NO_PARENT_CHAR', '3849abb4cb7abd24c2d8dac17b216f17');
+// Parent key for the array $pagesByParents
+define('PARENT', 'BLUDIT3849abb4cb7abd24c2d8dac17b216f17');
 
 // Items per page for admin area
 define('ITEMS_PER_PAGE_ADMIN', 10);

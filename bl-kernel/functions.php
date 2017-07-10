@@ -1,8 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // (object) Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
-function buildPage($key)
-{
+function buildPage($key) {
 	global $dbPages;
 	global $dbUsers;
 	global $dbCategories;
@@ -140,11 +139,36 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 		if($page!==false) {
 			// $pagesByKey
 			$pagesByKey[$pageKey] = $page;
+
 			// $pages
 			array_push($pages, $page);
 		}
 	}
 	return $pages;
+}
+
+function buildPagesByParent($allPages=true) {
+	global $dbPages;
+	global $pagesByParent;
+
+	$keys = array_keys($dbPages->db);
+	foreach($keys as $pageKey) {
+		$page = buildPage($pageKey);
+		if($page!==false) {
+			if($allPages || $page->published()) {
+				$parentKey = $page->parentKey();
+				// FALSE if the page is parent
+				if($parentKey===false) {
+					array_push($pagesByParent[PARENT], $page);
+				} else {
+					if( !isset($pagesByParent[$parentKey]) ) {
+						$pagesByParent[$parentKey] = array();
+					}
+					array_push($pagesByParent[$parentKey], $page);
+				}
+			}
+		}
+	}
 }
 
 // Returns TRUE if the plugin is enabled, FALSE otherwise
