@@ -4,27 +4,34 @@
 // Variables
 // ============================================================================
 
-// Array with pages, each page is a Object Page
+// Array with pages, each page is a Page Object
 $pages = array();
 
-// Page filtered by the user, is a Object Page
+// Page filtered by the user, is a Page Object
 $page = $Page = false;
 
 // Array with pages order by parent
-// This variable is initializade only when the site is order by position
-// This is for not degradate the peromance on blogs
+// This variable is initializade only when the site is order by position to not degradate the peromance on blogs
 /*
-array(
-	PARENT => array(), // all parent pages
-	parentKey1 => array(), // all children of parentKey1
-	parentKey2 => array(), // all children of parentKey2
-	...
-	parentKeyN => array(), // all children of parentKeyN
-)
+	array(
+		PARENT => array(), // all parent pages
+		parentKey1 => array(), // all children of parentKey1
+		parentKey2 => array(), // all children of parentKey2
+		...
+		parentKeyN => array(), // all children of parentKeyN
+	)
 */
 $pagesByParent = array(PARENT=>array());
 
-// Array with all published pages, the array is a key=>Page-object
+// Array with pages,
+/*
+	array(
+		pageKey1 => Page Object,
+		pageKey2 => Page Object,
+		...
+		pageKeyN => Page Object,
+	)
+*/
 $pagesByKey = array();
 
 // ============================================================================
@@ -44,6 +51,12 @@ if( $dbPages->scheduler() ) {
 		'dictionaryKey'=>'page-published-from-scheduler',
 		'notes'=>''
 	));
+}
+
+if( $Site->homepage() && $Url->whereAmI()==='home' ) {
+	$Url->setWhereAmI('page');
+	$slug = $Site->homepage();
+	$Url->setSlug($slug);
 }
 
 // Build specific page

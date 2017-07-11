@@ -1,10 +1,8 @@
 <!doctype html>
 <html lang="<?php echo $Site->language() ?>">
 <head>
-
 <!-- Meta tags -->
 <?php include('php/head.php') ?>
-
 </head>
 <body>
 
@@ -24,18 +22,11 @@
 
         <!-- Content -->
         <?php
-            if( ($Url->whereAmI()=='home') || ($Url->whereAmI()=='tag') )
-            {
-                include('php/home.php');
-            }
-            elseif($Url->whereAmI()=='post')
-            {
-                include('php/post.php');
-            }
-            elseif($Url->whereAmI()=='page')
-            {
-                include('php/page.php');
-            }
+			if($WHERE_AM_I=='page') {
+				include(THEME_DIR_PHP.'page.php');
+			} else {
+				include(THEME_DIR_PHP.'home.php');
+			}
         ?>
 
         <!-- Footer -->

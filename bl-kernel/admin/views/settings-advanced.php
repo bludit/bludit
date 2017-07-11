@@ -28,6 +28,18 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>$L->g('the-url-of-your-site')
 	));
 
+	HTML::legend(array('value'=>$L->g('Home page')));
+
+	HTML::formSelect(array(
+		'name'=>'homepage',
+		'label'=>$L->g('Default home page'),
+		'options'=>$homepageOptions,
+		'selected'=>$Site->homepage(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>'',
+		'addEmptySpace'=>true
+	));
+
 	HTML::legend(array('value'=>$L->g('Website or Blog')));
 
 	HTML::formSelect(array(

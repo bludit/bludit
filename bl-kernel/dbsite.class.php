@@ -280,10 +280,14 @@ class dbSite extends dbJSON
 		return $short;
 	}
 
-	// Returns the current homepage.
+	// Returns the current homepage, FALSE if not defined homepage
 	public function homepage()
 	{
-		return $this->getField('homepage');
+		$homepage = $this->getField('homepage');
+		if( empty($homepage) ) {
+			return false;
+		}
+		return $homepage;
 	}
 
 	// Set the locale.

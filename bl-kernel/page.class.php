@@ -392,10 +392,10 @@ class Page {
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
-		global $pages;
-
-		if( isset($pages[$this->parentKey()]) ) {
-			return $pages[$this->parentKey()]->{$method}();
+		$parentKey = $this->parentKey();
+		if( $parentKey ) {
+			$page = buildPage($parentKey);
+			return $page->{$method}();
 		}
 
 		return false;

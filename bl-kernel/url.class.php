@@ -81,6 +81,11 @@ class Url
 		return $this->slug;
 	}
 
+	public function setSlug($slug)
+	{
+		$this->slug = $slug;
+	}
+
 	public function activeFilter()
 	{
 		return $this->activeFilter;

@@ -83,5 +83,10 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
+$allPublishedPages = buildAllpages(false);
 
-
+// Homepage select options
+$homepageOptions = array();
+foreach($allPublishedPages as $key=>$page) {
+	$homepageOptions[$key] = $page->title();
+}

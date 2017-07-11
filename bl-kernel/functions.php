@@ -171,6 +171,32 @@ function buildPagesByParent($allPages=true) {
 	}
 }
 
+// Returns an Array with all pages existing on the system
+// (boolean) $allPages, TRUE returns all pages with any status, FALSE all published pages
+/*
+	array(
+		pageKey1 => Page object,
+		pageKey2 => Page object,
+		...
+		pageKeyN => Page object,
+	)
+*/
+function buildAllpages($allPages=true) {
+	global $dbPages;
+
+	$tmp = array();
+	$keys = array_keys($dbPages->db);
+	foreach($keys as $pageKey) {
+		$page = buildPage($pageKey);
+		if($page!==false) {
+			if($allPages || $page->published()) {
+				$tmp[$page->key()] = $page;
+			}
+		}
+	}
+	return $tmp;
+}
+
 // Returns TRUE if the plugin is enabled, FALSE otherwise
 function pluginEnabled($pluginName) {
 	global $plugins;
