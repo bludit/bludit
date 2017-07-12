@@ -1,6 +1,7 @@
 <h1 class="subhead">
 <?php
-	echo $pagesByParent[PARENT][$page->parentKey()]->title();
+	$parentKey = $page->parentKey();
+	echo $pagesByParentByKey[PARENT][$parentKey]->title();
 	echo ' -> ';
 	echo $page->title();
 ?>
@@ -11,7 +12,7 @@
 
 	<header class="page-header">
 		<h2 class="page-title">
-			<a href="<?php echo $Page->permalink() ?>"><?php echo $Page->title() ?></a>
+			<?php echo $Page->title() ?>
 		</h2>
 	</header>
 
@@ -21,7 +22,8 @@
 
 	<div class="edit-this-page">
 		<?php
-			echo '<a href="'.$GITHUB_BASE_URL.$Page->key().'/'.FILENAME.'">Edit this page</a>';
+			echo '<a class="pure-button pure-button-primary" href="'.$GITHUB_BASE_URL.$Page->key().'/'.FILENAME.'"><i class="fa fa-pencil"></i> Edit this page</a>';
+			echo '<a class="pure-button" href="'.$GITHUB_BASE_URL.$Page->key().'/'.FILENAME.'"><i class="fa fa-info-circle"></i> How to edit this page ?</a>';
 		?>
 	</div>
 

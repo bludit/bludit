@@ -1,5 +1,9 @@
 <div class="sidebar-content">
+
+<div class="logo">
+<img class="logo" src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" />
 <h1 class="title"><?php echo $Site->title() ?></h1>
+</div>
 
 <?php
 

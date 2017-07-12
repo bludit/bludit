@@ -43,9 +43,19 @@ class Page {
 			}
 
 			if( !empty($parts[0]) && !empty($parts[1]) ) {
-				$parts[1] = trim($parts[1]);
+				// remove missing dashs -
+				$field = preg_replace('/[^A-Za-z]/', '', $parts[0]);
+
+				// remove empty spaces on borders
+				$value = trim($parts[1]);
+
+				// position accept only integers
+				if($field=='position') {
+					$value = preg_replace('/[^0-9]/', '', $value);
+				}
+
 				// Sanitize all fields, except the content
-				$this->vars[$parts[0]] = Sanitize::html($parts[1]);
+				$this->vars[$field] = Sanitize::html($value);
 			}
 		}
 

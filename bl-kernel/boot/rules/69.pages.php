@@ -5,34 +5,80 @@
 // ============================================================================
 
 // Array with pages, each page is a Page Object
+// Filtered by pagenumber, amount of items per page and sorted by date/position
+/*
+	array(
+		0 => Page Object,
+		1 => Page Object,
+		...
+		N => Page Object
+	)
+*/
 $pages = array();
+
+// Array with pages, each page is a Page Object
+// Filtered by pagenumber and amount of items per page
+/*
+	array(
+		"pageKey1" => Page Object,
+		"pageKey2" => Page Object,
+		...
+		"pageKeyN" => Page Object,
+	)
+*/
+$pagesByKey = array();
 
 // Page filtered by the user, is a Page Object
 $page = $Page = false;
 
 // Array with pages order by parent
-// This variable is initializade only when the site is order by position to not degradate the peromance on blogs
+// Sorted by position or date
 /*
 	array(
-		PARENT => array(), // all parent pages
-		parentKey1 => array(), // all children of parentKey1
-		parentKey2 => array(), // all children of parentKey2
+		PARENT => array(
+			0 => Page Object,
+			...,
+			N => Page Object),
+		"parentKey1" => array(
+			0 => Page Object,
+			...,
+			N => Page Object),
+		"parentKey2" => array(
+			0 => Page Object,
+			...,
+			N => Page Object),
 		...
-		parentKeyN => array(), // all children of parentKeyN
+		"parentKeyN" => array(
+			0 => Page Object,
+			...,
+			N => Page Object),
 	)
 */
 $pagesByParent = array(PARENT=>array());
 
-// Array with pages,
+// Array with pages order by parent and by key
 /*
 	array(
-		pageKey1 => Page Object,
-		pageKey2 => Page Object,
+		PARENT => array(
+			"parentKey1" => Page Object,
+			...,
+			"parentKeyN" => Page Object),
+		"parentKey1" => array(
+			"childKeyA" => Page Object,
+			...,
+			"childKeyB" => Page Object),
+		"parentKey2" => array(
+			"childKeyJ" => Page Object,
+			...,
+			"childKeyO" => Page Object),
 		...
-		pageKeyN => Page Object,
+		"parentKeyN" => array(
+			"childKeyW" => Page Object,
+			...,
+			"childKeyZ" => Page Object),
 	)
 */
-$pagesByKey = array();
+$pagesByParentByKey = array(PARENT=>array());
 
 // ============================================================================
 // Main
@@ -53,10 +99,16 @@ if( $dbPages->scheduler() ) {
 	));
 }
 
+// Generate pages parent tree, only published pages
+buildPagesByParent(false);
+
+// Set home page is the user defined one
 if( $Site->homepage() && $Url->whereAmI()==='home' ) {
-	$Url->setWhereAmI('page');
-	$slug = $Site->homepage();
-	$Url->setSlug($slug);
+	$pageKey = $Site->homepage();
+	if( $dbPages->exists($pageKey) ) {
+		$Url->setSlug($pageKey);
+		$Url->setWhereAmI('page');
+	}
 }
 
 // Build specific page
@@ -87,11 +139,6 @@ elseif( $Url->whereAmI()==='home' ) {
 }
 elseif( $Url->whereAmI()==='admin' ) {
         buildPagesForAdmin();
-}
-
-if(ORDER_BY==='position') {
-	$allPages = false; // All pages are published, draft, scheduled
-	buildPagesByParent(false);
 }
 
 // Set page 404 not found

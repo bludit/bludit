@@ -11,7 +11,7 @@ header('Content-Type: application/json');
 //		slug: valid slug text
 
 $text 	= isset($_POST['text']) ? $_POST['text'] : '';
-$parent = isset($_POST['parent']) ? $_POST['parent'] : NO_PARENT_CHAR;
+$parent = isset($_POST['parent']) ? $_POST['parent'] : PARENT;
 $key 	= isset($_POST['key']) ? $_POST['key'] : '';
 
 if( $_POST['type']==='page' ) {

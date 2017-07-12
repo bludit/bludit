@@ -48,6 +48,20 @@ tr {
 	border-color: inherit;
 }
 
+.pure-button {
+	font-size: 0.9em;
+	margin-right: 10px;
+}
+
+div.logo {
+}
+
+img.logo {
+	width: 32px;
+	float: left;
+	margin-left: 12px;
+}
+
 tr:nth-child(even) {background-color: #f2f2f2}
 
 tr:hover {background-color: #e7f0ff}
@@ -69,7 +83,7 @@ blockquote {
 }
 
 .note {
-	background: #FFB06C;
+	background: #FBDF6B;
 	color: #777;
 	font-size: 0.9em;
 	margin: 30px 0;

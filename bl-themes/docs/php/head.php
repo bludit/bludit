@@ -12,6 +12,9 @@
 	echo Theme::css('css/blog.css');
 	echo Theme::css('css/rainbow.github.css');
 
+	echo Theme::fontAwesome();
+
+	echo Theme::jquery();
 	echo Theme::js('js/rainbow.min.js');
 
         // Load plugins with the hook siteHead

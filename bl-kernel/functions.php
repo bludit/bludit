@@ -147,9 +147,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 	return $pages;
 }
 
+// Generate the global variable $pagesByParent, defined on 69.pages.php
+// (boolean) $allPages, TRUE include all status, FALSE only include published status
 function buildPagesByParent($allPages=true) {
 	global $dbPages;
 	global $pagesByParent;
+	global $pagesByParentByKey;
 
 	$keys = array_keys($dbPages->db);
 	foreach($keys as $pageKey) {
@@ -160,11 +163,13 @@ function buildPagesByParent($allPages=true) {
 				// FALSE if the page is parent
 				if($parentKey===false) {
 					array_push($pagesByParent[PARENT], $page);
+					$pagesByParentByKey[PARENT][$page->key()] = $page;
 				} else {
 					if( !isset($pagesByParent[$parentKey]) ) {
 						$pagesByParent[$parentKey] = array();
 					}
 					array_push($pagesByParent[$parentKey], $page);
+					$pagesByParentByKey[$parentKey][$page->key()] = $page;
 				}
 			}
 		}
@@ -264,7 +269,7 @@ function editPage($args) {
 	}
 
 	if(!isset($args['parent'])) {
-		$args['parent'] = NO_PARENT_CHAR;
+		$args['parent'] = '';
 	}
 
 	$key = $dbPages->edit($args);

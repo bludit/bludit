@@ -32,6 +32,7 @@ define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
 define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
 define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
 define('PATH_JS',			PATH_KERNEL.'js'.DS);
+define('PATH_CSS',			PATH_KERNEL.'css'.DS);
 
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
@@ -109,7 +110,7 @@ define('CLI_STATUS', 'published');
 define('CLI_USERNAME', 'admin');
 
 // Filename
-define('FILENAME', 'index.txt');
+define('FILENAME', 'index.md');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -248,6 +249,9 @@ define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
 define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 
+define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
+define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
+
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
@@ -287,6 +291,8 @@ define('THEME_DIR_LANG',		THEME_DIR.'languages'.DS);
 // This paths are absolutes for the user / web browsing.
 define('DOMAIN',			$Site->domain());
 define('DOMAIN_BASE',			DOMAIN.HTML_PATH_ROOT);
+define('DOMAIN_CORE_JS',		DOMAIN.HTML_PATH_CORE_JS);
+define('DOMAIN_CORE_CSS',		DOMAIN.HTML_PATH_CORE_CSS);
 define('DOMAIN_THEME',			DOMAIN.HTML_PATH_THEME);
 define('DOMAIN_THEME_CSS',		DOMAIN.HTML_PATH_THEME_CSS);
 define('DOMAIN_THEME_JS',		DOMAIN.HTML_PATH_THEME_JS);

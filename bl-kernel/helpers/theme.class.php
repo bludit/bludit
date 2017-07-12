@@ -103,9 +103,20 @@ class Theme {
 		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
 
+	public static function fontAwesome()
+	{
+		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/font-awesome.min.css'.'">'.PHP_EOL;
+	}
+
+	public static function jquery($cdn=false)
+	{
+		if($cdn) {
+			return '<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>';
+		}
+		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
+	}
+
 // ---- OLD
-
-
 
 	public static function keywords($keywords, $echo=true)
 	{
@@ -122,27 +133,7 @@ class Theme {
 		return $tmp;
 	}
 
-	public static function jquery($echo=true)
-	{
-		$tmp = '<script src="'.HTML_PATH_ADMIN_THEME_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
 
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
-
-	public static function fontAwesome($echo=true, $online=false)
-	{
-		$tmp = '<link rel="stylesheet" href="'.HTML_PATH_ADMIN_THEME_CSS.'font-awesome.min.css'.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
-	}
 
 }
 
