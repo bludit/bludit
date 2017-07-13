@@ -57,7 +57,7 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Filename for posts and pages
-define('FILENAME', 'index.txt');
+define('FILENAME', 'index.md');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -582,23 +582,22 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 <!DOCTYPE HTML>
 <html class="uk-height-1-1 uk-notouch">
 <head>
-	<base href="bl-kernel/admin/themes/default/">
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title><?php echo $Language->get('Bludit Installer') ?></title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/admin/themes/default/img/favicon.png=<?php echo time() ?>">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="./css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
-	<link rel="stylesheet" type="text/css" href="./css/installer.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/default/css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/default/css/installer.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="./js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="./js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="./js/jstz.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/admin/themes/default/js/uikit/uikit.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/admin/themes/default/js/jstz.min.js?version=<?php echo time() ?>"></script>
 </head>
 <body class="uk-height-1-1">
 <div class="uk-vertical-align uk-text-center uk-height-1-1">
@@ -632,7 +631,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		?>
 
 		<form id="jsformInstaller" class="uk-form uk-form-stacked" method="post" action="" autocomplete="off">
-		<input type="hidden" name="timezone" id="jstimezone" value="0">
+		<input type="hidden" name="timezone" id="jstimezone" value="UTC">
 
 		<div class="uk-form-row">
 		<input type="text" value="admin" class="uk-width-1-1 uk-form-large" disabled>
