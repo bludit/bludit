@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 $filename = isset($_POST['filename']) ? $_POST['filename'] : '';
 
 if( empty($filename) ) {
-	echo json_encode( array('status'=>0, 'msg'=>'The filename is empty.') );
+	echo json_encode( array('status'=>1, 'msg'=>'The filename is empty.') );
 	exit;
 }
 
@@ -21,13 +21,13 @@ if( Sanitize::pathFile(PATH_UPLOADS.$filename) ) {
 	// Delete the thumnails.
 	Filesystem::rmfile(PATH_UPLOADS_THUMBNAILS.$filename);
 
-	echo json_encode( array('status'=>1, 'msg'=>'The file was deleted.') );
+	echo json_encode( array('status'=>0, 'msg'=>'The file was deleted.') );
 
 	exit;
 }
 
 exit(json_encode(array(
-	'status'=>0,
+	'status'=>1,
 	'msg'=>'The file does not exist.'
 )));
 

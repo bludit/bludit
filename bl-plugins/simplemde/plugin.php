@@ -68,7 +68,7 @@ class pluginsimpleMDE extends Plugin {
 			$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/simplemde.min.css">';
 
 			// Font-awesome is a dependency of SimpleMDE
-			$html .= '<link rel="stylesheet" href="'.HTML_PATH_ADMIN_THEME_CSS.'font-awesome.min.css">';
+			$html .= '<link rel="stylesheet" href="'.HTML_PATH_CORE_CSS.'font-awesome/font-awesome.min.css">';
 
 			// SimpleMDE js
 			$html .= '<script src="'.$pluginPath.'js/simplemde.min.js"></script>';

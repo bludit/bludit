@@ -19,41 +19,21 @@ echo '</script>';
 
 var ajaxRequest;
 
-function checkSlugPage(text, parent, oldKey, writeResponse)
-{
-    parent = typeof parent !== 'undefined' ? parent : PARENT;
-    oldKey = typeof oldKey !== 'undefined' ? oldKey : "";
-
-    checkSlug("page", text, parent, oldKey, writeResponse);
-}
-
-function checkSlugPost(text, oldKey, writeResponse)
-{
-    checkSlug("post", text, null, oldKey, writeResponse);
-}
-
-function checkSlug(type, text, parentPage, key, writeResponse)
-{
+function generateSlug(text, parentKey, currentKey, writeResponse) {
     if(ajaxRequest) {
         ajaxRequest.abort();
     }
 
-    if(type=="page")
-    {
-        ajaxRequest = $.ajax({
-            type: "POST",
-            data:{ tokenCSRF: tokenCSRF, type: "page", text: text, parent: parentPage, key: key},
-            url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/slug' ?>"
-        });
-    }
-    else
-    {
-        ajaxRequest = $.ajax({
-            type: "POST",
-            data:{ tokenCSRF: tokenCSRF, type: "post", text: text, key: key },
-            url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/slug' ?>"
-        });
-    }
+    ajaxRequest = $.ajax({
+        type: "POST",
+        data: {
+            tokenCSRF: tokenCSRF,
+            text: text,
+            parentKey: parentKey,
+            currentKey: currentKey
+        },
+        url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/slug' ?>"
+    });
 
     // Callback handler that will be called on success
     ajaxRequest.done(function (response, textStatus, jqXHR){

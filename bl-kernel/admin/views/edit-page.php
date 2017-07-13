@@ -214,28 +214,28 @@ $(document).ready(function()
 		var text = $(this).val();
 		var parent = $("#jsparent").val();
 
-		checkSlugPage(text, parent, key, $("#jsslug"));
+		generateSlug(text, parent, key, $("#jsslug"));
 	});
 
 	$("#jstitle").keyup(function() {
 		var text = $(this).val();
 		var parent = $("#jsparent").val();
 
-		checkSlugPage(text, parent, key, $("#jsslug"));
+		generateSlug(text, parent, key, $("#jsslug"));
 	});
 
 	$("#jsparent").change(function() {
 		var parent = $(this).val();
 		var text = $("#jsslug").val();
 
-		if(parent==NO_PARENT_CHAR) {
+		if (parent=="") {
 			$("#jsparentExample").text("");
 		}
 		else {
 			$("#jsparentExample").text(parent+"/");
 		}
 
-		checkSlugPage(text, parent, key, $("#jsslug"));
+		generateSlug(text, parent, key, $("#jsslug"));
 	});
 
 	$("#jsdelete").click(function() {

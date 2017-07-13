@@ -150,6 +150,12 @@ $(document).ready(function() {
 
 </div>
 
+<script>
+$( "#bludit-logo" ).dblclick(function() {
+	alert( "Hey! what are you doing ?" );
+});
+</script>
+
 <!-- Javascript -->
 <?php include(PATH_JS.'functions.php') ?>
 

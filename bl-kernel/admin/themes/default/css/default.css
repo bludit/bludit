@@ -368,7 +368,7 @@ table.statistics tr:last-child td {
 #alert {
 	top: 0;
 	color: #ffffff;
-	padding: 20px 60px;
+	padding: 8px 80px;
 	display: none;
 	position: fixed;
 	text-align: center;

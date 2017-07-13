@@ -17,23 +17,19 @@ $layout['parameters'] = implode('/', $explodeSlug);
 
 // Disable Magic Quotes.
 // Thanks, http://stackoverflow.com/questions/517008/how-to-turn-off-magic-quotes-on-shared-hosting
-if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
-{
+if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) ) {
     $_POST	= array_map('stripslashes', $_POST);
     $_GET	= array_map('stripslashes', $_GET);
     $_COOKIE	= array_map('stripslashes', $_COOKIE);
 }
 
 // --- AJAX ---
-if( $layout['slug']==='ajax' )
-{
-	// Check if the user is loggued.
-	if($Login->isLogged())
-	{
+if ($layout['slug']==='ajax') {
+	if ($Login->isLogged()) {
 		// Rules: Security check CSRF
 		include(PATH_RULES.'99.security.php');
 
-		// Load the ajax file.
+		// Load the ajax file
 		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
 			include(PATH_AJAX.$layout['parameters'].'.php');
 		}
