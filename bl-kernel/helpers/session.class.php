@@ -55,13 +55,9 @@
 	public static function destroy()
 	{
 		session_destroy();
-
 		unset($_SESSION);
-
 		self::$started = false;
-
 		Log::set(__METHOD__.LOG_SEP.'Session destroyed.');
-
 		return !isset($_SESSION);
 	}
 

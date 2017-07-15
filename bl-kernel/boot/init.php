@@ -57,6 +57,7 @@ define('DB_CATEGORIES', PATH_DATABASES.'categories.php');
 define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 define('DB_USERS', PATH_DATABASES.'users.php');
+define('DB_SECURITY', PATH_DATABASES.'security.php');
 
 // Log separator
 define('LOG_SEP', ' | ');

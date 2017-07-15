@@ -91,7 +91,7 @@ function checkGet($args)
 	}
 
 	// Bruteforce protection, add IP to blacklist.
-	$Security->addLoginFail();
+	$Security->addToBlacklist();
 	return false;
 }
 

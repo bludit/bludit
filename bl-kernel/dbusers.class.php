@@ -185,18 +185,17 @@ class dbUsers extends dbJSON
 		return $token;
 	}
 
-// ---- OLD
 	// Returns array with the username databases filtered by username, FALSE otherwise
-	public function getDb($username)
+	public function getDB($username)
 	{
-		if($this->exists($username)) {
-			$user = $this->db[$username];
-
-			return $user;
+		if ($this->exists($username)) {
+			return $this->db[$username];
 		}
-
 		return false;
 	}
+
+// ---- OLD
+
 
 	public function getAll()
 	{

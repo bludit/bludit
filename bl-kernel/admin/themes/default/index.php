@@ -144,6 +144,9 @@ $(document).ready(function() {
 		<?php
 			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+			} else {
+				echo '<h1 style="width:100%; text-align:center">Hey!</h1>';
+				echo '<h2 style="width:100%; text-align:center">Have you seen my ball?</h2>';
 			}
 		?>
 		</div>

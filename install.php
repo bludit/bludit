@@ -418,10 +418,7 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
-	$randomKey = sha1( uniqid() );
-
 	$data = array(
-		'key1'=>$randomKey,
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()
