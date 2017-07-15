@@ -72,10 +72,9 @@ class dbPages extends dbJSON
 			}
 
 			// Where the data is stored
-			if($options['inFile']) {
-				$dataForFile[$field] = Text::firstCharUp($field).': '.$value;
-			}
-			else {
+			if ($options['inFile']) {
+				$dataForFile[$field] = $this->stylingFieldsForFile($field, $value);
+			} else {
 				// Set type
 				settype($value, gettype($options['value']));
 
@@ -84,7 +83,7 @@ class dbPages extends dbJSON
 			}
 		}
 
-		if( $climode===false ) {
+		if ($climode===false) {
 			// Create the directory
 			if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
@@ -92,7 +91,7 @@ class dbPages extends dbJSON
 			}
 
 			// Make the index.txt and save the file.
-			$data = implode("\n", $dataForFile);
+			$data = implode(PHP_EOL, $dataForFile);
 			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 				return false;
@@ -155,11 +154,9 @@ class dbPages extends dbJSON
 				$value = $options['value'];
 			}
 
-			// Where the data is stored
-			if($options['inFile']) {
-				$dataForFile[$field] = Text::firstCharUp($field).': '.$value;
-			}
-			else {
+			if ($options['inFile']) {
+				$dataForFile[$field] = $this->stylingFieldsForFile($field, $value);
+			} else {
 				// Set type
 				settype($value, gettype($options['value']));
 
@@ -309,7 +306,7 @@ class dbPages extends dbJSON
 	// Returns an array with a list of pages
 	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number
-	// (int) $amountOfItems, amount of items to return
+	// (int) $amountOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
 	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
 	{
@@ -321,6 +318,10 @@ class dbPages extends dbJSON
 
 		// Remove Error page from the list
 		unset($db['error']);
+
+		if($amountOfItems==-1) {
+			return $db;
+		}
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
@@ -583,6 +584,25 @@ class dbPages extends dbJSON
 		}
 	}
 
+	private function stylingFieldsForFile($field, $value)
+	{
+		// Support for Markdown files, good approach for Github
+		if (FILENAME==='index.md') {
+			if ($field==='title') {
+				return '#Title: '.$value;
+			} elseif ($field==='content') {
+				return '---'.PHP_EOL.$value;
+			} else {
+				return '<!-- '.Text::firstCharUp($field).': '.$value.' -->';
+			}
+		}
+
+		// Legacy style of Bludit with index.txt
+		if ($field==='content') {
+			return 'Content:'.PHP_EOL.$value;
+		}
+		return Text::firstCharUp($field).': '.$value;
+	}
 
 // ----- OLD
 

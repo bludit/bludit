@@ -32,8 +32,13 @@ div.plugin:not(:last-child) {
 	margin-bottom: 40px;
 }
 
-div.plugin h2.plugin-label {
+div.plugin > h1,h2,h3,h4 {
 	font-size: 1em;
+}
+
+div.plugin h2.plugin-label {
+	border-bottom: 1px solid #ebebeb;
+	padding-bottom: 5px;
 	text-transform: uppercase;
 	margin: 20px 0;
 }
@@ -43,10 +48,23 @@ div.plugin ul {
 	padding: 0;
 }
 
+/* PLUGIN MENU */
+
 div.plugin-menu li.menu:not(:last-child) {
 	margin-bottom: 10px;
 }
 
 div.plugin-menu ul.submenu {
 	margin-left: 10px;
+}
+
+/* PLUGIN PAGES */
+
+div.plugin-pages li.parent h3 {
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+
+div.plugin-pages ul.child {
+	margin-left: 5px;
 }

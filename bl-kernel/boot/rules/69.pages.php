@@ -100,7 +100,7 @@ if( $dbPages->scheduler() ) {
 }
 
 // Generate pages parent tree, only published pages
-buildPagesByParent(false);
+//buildPagesByParent(true);
 
 // Set home page is the user defined one
 if( $Site->homepage() && $Url->whereAmI()==='home' ) {

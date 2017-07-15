@@ -9,6 +9,12 @@
 		"website": ""
 	},
 
+	"installer-page-about-content": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information. \n Change this page's content on the admin panel, manage, pages and click on the about page.",
+	"installer-page-error-content": "Opps, page not found, sorry!",
+	"page-not-found": "Page not found",
+	"about-your-site-or-yourself": "About your site or yourself",
+	"welcome-to-bludit": "Welcome to Bludit",
+
 	"username": "Username",
 	"password": "Password",
 	"confirm-password": "Confirm Password",
@@ -215,7 +221,7 @@
 	"the-about-page-is-very-important": "The about page is an important and powerful tool for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
 	"change-this-pages-content-on-the-admin-panel": "Change this page's content on the admin panel, manage, pages and click on the about page.",
 	"about-your-site-or-yourself": "About your site or yourself",
-	"welcome-to-bludit": "Welcome to Bludit",
+
 
 	"site-information": "Site information",
 	"date-and-time-formats": "Date and time formats",
