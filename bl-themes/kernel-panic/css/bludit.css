@@ -8,6 +8,33 @@ a.home-title {
 	color: #222;
 }
 
+ul, ol {
+	margin-bottom: 1.5em;
+}
+
+ul li {
+	padding-bottom: 6px;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 1.5em;
+}
+
+table thead {
+	background: #555555;
+	color: #FFF;
+}
+
+table td,
+table th {
+	padding-left: 5px;
+}
+
+h1,
+h2 {
+	font-weight: bold;
+}
 /* PAGES */
 
 article.page:not(:last-child) {
@@ -32,7 +59,11 @@ div.plugin:not(:last-child) {
 	margin-bottom: 40px;
 }
 
-div.plugin > h1,h2,h3,h4 {
+div.plugin > h1,
+div.plugin > h2,
+div.plugin > h3,
+div.plugin > h4,
+div.plugin > h5 {
 	font-size: 1em;
 }
 

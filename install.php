@@ -342,7 +342,7 @@ function install($adminPassword, $email, $timezone)
 			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
-			'category'=>'',
+			'category'=>'general',
 			'uuid'=>md5(uniqid())
 	    	)
 	);
@@ -431,8 +431,9 @@ function install($adminPassword, $email, $timezone)
 
 	// File categories.php
 	$data = array(
-		'videos'=>array('name'=>'Videos', 'list'=>array()),
-		'music'=>array('name'=>'Music', 'list'=>array())
+		'general'=>array('name'=>'General', 'list'=>array()),
+		'music'=>array('name'=>'Music', 'list'=>array()),
+		'videos'=>array('name'=>'Videos', 'list'=>array())
 	);
 	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 

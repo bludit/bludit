@@ -17,6 +17,7 @@ class pluginSitemap extends Plugin {
 		// Get DB
 		$pageNumber = 1;
 		$amountOfItems = -1;
+		$onlyPublished = true;
 		$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		$keys = array_keys($db);

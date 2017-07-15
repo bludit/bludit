@@ -203,9 +203,7 @@ function buildAllpages($onlyPublished=true) {
 	foreach($keys as $pageKey) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
-			if($allPages || $page->published()) {
-				$tmp[$page->key()] = $page;
-			}
+			$tmp[$page->key()] = $page;
 		}
 	}
 	return $tmp;
