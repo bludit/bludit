@@ -3,7 +3,7 @@
 	{
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
-		"last-update": "2016-09-28",
+		"last-update": "2017-07-10",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://clickwork.ch"
@@ -236,5 +236,21 @@
 	"сurrent-status" : "Status",
 	"disable-the-user" : "Benutzer deaktivieren",
 	"add-a-new-page": "Eine neue Seite hinzufügen",
-	"add-a-new-post": "Einen neuen Beitrag hinzufügen"
+	"add-a-new-post": "Einen neuen Beitrag hinzufügen",
+	"save-as-draft": "Als Entwurf speichern",
+	"categories": "Kategorien",
+	"add-a-new-category": "Eine neue Kategorie hinzufügen",
+	"new-category": "Neue Katgeorie",
+	"slug": "slug",
+	"edit-category": "Kategorie bearbeiten",
+	"new-theme-configured": "New theme configured",
+	"plugin-configured": "Plugin configured",
+	"new-category-created": "New category created",
+	"new-page-created": "New page created",
+	"page-deleted": "Page deleted",
+	"page-edited": "Page edited",
+	"user-edited": "User edited",
+	"changes-on-settings": "Changes on settings",
+	"plugin-installed": "Plugin installed",
+	"user-password-changed": "User password changed"
 }
