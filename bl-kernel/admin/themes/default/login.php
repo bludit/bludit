@@ -13,10 +13,10 @@
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/uikit.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/login.css?version='.BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_CORE_CSS.'font-awesome/font-awesome.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_CORE_CSS.'font-awesome/font-awesome.min.css?version='.BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/uikit.min.js?version='.BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
