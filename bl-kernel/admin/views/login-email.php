@@ -4,7 +4,7 @@
 
 <form method="post" action="" class="uk-form" autocomplete="off">
 
-	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php $Security->printTokenCSRF() ?>">
+	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php echo $Security->getTokenCSRF() ?>">
 
 	<div class="uk-form-row">
 	<input name="email" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Email') ?>" type="text">

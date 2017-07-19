@@ -19,6 +19,26 @@ class Login {
 		return Session::get('role');
 	}
 
+	// Returns TRUE if the user is logged, FALSE otherwise
+	public function isLogged()
+	{
+		if (Session::get('fingerPrint')===$this->fingerPrint()) {
+			$username = Session::get('username');
+			if (!empty($username)) {
+				return true;
+			}
+			else {
+				Log::set(__METHOD__.LOG_SEP.'Session username empty, destroy the session.');
+				Session::destroy();
+				return false;
+			}
+		}
+
+		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. Current fingerPrint: '.Session::get('fingerPrint').' !== Current fingerPrint: '.$this->fingerPrint());
+		return false;
+	}
+
+	// Set the session for the user logged
 	public function setLogin($username, $role)
 	{
 		Session::set('username',	$username);
@@ -26,30 +46,12 @@ class Login {
 		Session::set('fingerPrint',	$this->fingerPrint());
 		Session::set('sessionTime',	time());
 
-		Log::set(__METHOD__.LOG_SEP.'Set fingerPrint: '.$this->fingerPrint());
+		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint: '.$this->fingerPrint());
 	}
 
-	public function isLogged()
-	{
-		if(Session::get('fingerPrint')===$this->fingerPrint())
-		{
-			$username = Session::get('username');
-
-			if(!empty($username)) {
-				return true;
-			}
-			else {
-				Log::set(__METHOD__.LOG_SEP.'Session username empty: '.$username);
-			}
-		}
-		else
-		{
-			Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. Session fingerPrint: '.Session::get('fingerPrint').' !== Current fingerPrint: '.$this->fingerPrint());
-		}
-
-		return false;
-	}
-
+	// Check if the username and the password are valid
+	// Returns TRUE if valid and set the session
+	// Returns FALSE for invalid username or password
 	public function verifyUser($username, $password)
 	{
 		$username = Sanitize::html($username);
@@ -58,25 +60,21 @@ class Login {
 		$username = trim($username);
 		$password = trim($password);
 
-		if(empty($username) || empty($password)) {
+		if (empty($username) || empty($password)) {
 			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username.' - Password: '.$password);
 			return false;
 		}
 
-		$user = $this->dbUsers->getDb($username);
+		$user = $this->dbUsers->getDB($username);
 		if($user==false) {
 			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
 			return false;
 		}
 
-		$passwordHash = sha1($password.$user['salt']);
-
-		if($passwordHash === $user['password'])
-		{
+		$passwordHash = $this->dbUsers->generatePasswordHash($password, $user['salt']);
+		if ($passwordHash===$user['password']) {
 			$this->setLogin($username, $user['role']);
-
 			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username: '.$username);
-
 			return true;
 		}
 		else {
@@ -130,27 +128,14 @@ class Login {
 		return false;
 	}
 
-	public function fingerPrint($random=false)
+	public function fingerPrint()
 	{
 		// User agent
 		$agent = getenv('HTTP_USER_AGENT');
-		if(empty($agent)) {
-			$agent = 'Bludit/1.0 (Mr Nibbler Protocol)';
+		if (empty($agent)) {
+			$agent = 'Bludit/2.0 (Mr Nibbler Protocol)';
 		}
 
-		// User IP
-		if(getenv('HTTP_X_FORWARDED_FOR'))
-			$ip = getenv('HTTP_X_FORWARDED_FOR');
-		elseif(getenv('HTTP_CLIENT_IP'))
-			$ip = getenv('HTTP_CLIENT_IP');
-		else
-			$ip = getenv('REMOTE_ADDR');
-
-		if($random) {
-			return sha1(mt_rand().$agent.$ip);
-		}
-
-		// DEBUG: Ver CLIENT IP, hay veces que retorna la ip ::1 y otras 127.0.0.1
 		return sha1($agent);
 	}
 

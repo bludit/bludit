@@ -57,7 +57,7 @@ define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
 // Filename for posts and pages
-define('FILENAME', 'index.md');
+define('FILENAME', 'index.txt');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -321,7 +321,7 @@ function install($adminPassword, $email, $timezone)
 			'description'=>$Language->get('About your site or yourself'),
 			'username'=>'admin',
 			'tags'=>array(),
-			'status'=>'published',
+			'status'=>'fixed',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
@@ -342,7 +342,7 @@ function install($adminPassword, $email, $timezone)
 			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
-			'category'=>'',
+			'category'=>'general',
 			'uuid'=>md5(uniqid())
 	    	)
 	);
@@ -367,7 +367,7 @@ function install($adminPassword, $email, $timezone)
 		'language'=>$Language->getCurrentLocale(),
 		'locale'=>$Language->getCurrentLocale(),
 		'timezone'=>$timezone,
-		'theme'=>'editorial',
+		'theme'=>'kernel-panic',
 		'adminTheme'=>'default',
 		'homepage'=>'',
 		'itemsPerPage'=>6,
@@ -418,10 +418,7 @@ function install($adminPassword, $email, $timezone)
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
-	$randomKey = sha1( uniqid() );
-
 	$data = array(
-		'key1'=>$randomKey,
 		'minutesBlocked'=>5,
 		'numberFailuresAllowed'=>10,
 		'blackList'=>array()
@@ -431,8 +428,9 @@ function install($adminPassword, $email, $timezone)
 
 	// File categories.php
 	$data = array(
-		'videos'=>array('name'=>'Videos', 'list'=>array()),
-		'music'=>array('name'=>'Music', 'list'=>array())
+		'general'=>array('name'=>'General', 'list'=>array()),
+		'music'=>array('name'=>'Music', 'list'=>array()),
+		'videos'=>array('name'=>'Videos', 'list'=>array())
 	);
 	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -497,11 +495,11 @@ function install($adminPassword, $email, $timezone)
 	);
 
 	// File for error page
-	$data = 'Title: '.$Language->get('Error').PHP_EOL.'Content: '.$Language->get('The page has not been found');
+	$data = 'Title: '.$Language->get('Error').PHP_EOL.'Content: '.PHP_EOL.$Language->get('installer-page-error-content');
 	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
 	// File for about page
-	$data = 'Title: '.$Language->get('About').PHP_EOL.'Content: '.$Language->get('the-about-page-is-very-important').' '.$Language->get('change-this-pages-content-on-the-admin-panel');
+	$data = 'Title: '.$Language->get('About').PHP_EOL.'Content: '.PHP_EOL.$Language->get('installer-page-about-content');
 	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
 
 	// File for welcome page

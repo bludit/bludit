@@ -50,14 +50,12 @@ else
 	// User not logged.
 	// Slug is login.
 	// Slug is login-email.
-	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') )
-	{
+	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') ) {
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';
 
-		if($Url->slug()==='login-email')
-		{
+		if ($Url->slug()==='login-email') {
 			$layout['controller']	= 'login-email';
 			$layout['view']		= 'login-email';
 		}

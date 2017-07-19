@@ -83,7 +83,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
-$allPublishedPages = buildAllpages(false);
+$allPublishedPages = buildAllpages(true);
 
 // Homepage select options
 $homepageOptions = array();

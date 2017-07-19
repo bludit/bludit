@@ -14,11 +14,13 @@ class pluginSitemap extends Plugin {
 		$xml .= '<loc>'.$Site->url().'</loc>';
 		$xml .= '</url>';
 
-		// Get keys of pages
-		$keys = $dbPages->db;
-		unset($keys['error']);
-		$keys = array_keys($keys);
+		// Get DB
+		$pageNumber = 1;
+		$amountOfItems = -1;
+		$onlyPublished = true;
+		$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
+		$keys = array_keys($db);
 		foreach($keys as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);

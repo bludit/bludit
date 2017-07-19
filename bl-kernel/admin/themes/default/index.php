@@ -18,6 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/progress.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/default.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/jquery.datetimepicker.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo DOMAIN_CORE_CSS.'font-awesome/font-awesome.min.css?version='.BLUDIT_VERSION ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="<?php echo HTML_PATH_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
@@ -144,6 +145,9 @@ $(document).ready(function() {
 		<?php
 			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+			} else {
+				echo '<h1 style="width:100%; text-align:center">Hey!</h1>';
+				echo '<h2 style="width:100%; text-align:center">Have you seen my ball?</h2>';
 			}
 		?>
 		</div>

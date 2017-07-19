@@ -149,28 +149,32 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 
 // Generate the global variable $pagesByParent, defined on 69.pages.php
 // (boolean) $allPages, TRUE include all status, FALSE only include published status
-function buildPagesByParent($allPages=true) {
+function buildPagesByParent($onlyPublished=true) {
 	global $dbPages;
 	global $pagesByParent;
 	global $pagesByParentByKey;
 
-	$keys = array_keys($dbPages->db);
+	// Get DB
+	$pageNumber = 1;
+	$amountOfItems = -1;
+	$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+
+	// Get Keys
+	$keys = array_keys($db);
 	foreach($keys as $pageKey) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
-			if($allPages || $page->published()) {
-				$parentKey = $page->parentKey();
-				// FALSE if the page is parent
-				if($parentKey===false) {
-					array_push($pagesByParent[PARENT], $page);
-					$pagesByParentByKey[PARENT][$page->key()] = $page;
-				} else {
-					if( !isset($pagesByParent[$parentKey]) ) {
-						$pagesByParent[$parentKey] = array();
-					}
-					array_push($pagesByParent[$parentKey], $page);
-					$pagesByParentByKey[$parentKey][$page->key()] = $page;
+			$parentKey = $page->parentKey();
+			// FALSE if the page is parent
+			if($parentKey===false) {
+				array_push($pagesByParent[PARENT], $page);
+				$pagesByParentByKey[PARENT][$page->key()] = $page;
+			} else {
+				if( !isset($pagesByParent[$parentKey]) ) {
+					$pagesByParent[$parentKey] = array();
 				}
+				array_push($pagesByParent[$parentKey], $page);
+				$pagesByParentByKey[$parentKey][$page->key()] = $page;
 			}
 		}
 	}
@@ -186,17 +190,20 @@ function buildPagesByParent($allPages=true) {
 		pageKeyN => Page object,
 	)
 */
-function buildAllpages($allPages=true) {
+function buildAllpages($onlyPublished=true) {
 	global $dbPages;
 
+	// Get DB
+	$pageNumber = 1;
+	$amountOfItems = -1;
+	$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+
 	$tmp = array();
-	$keys = array_keys($dbPages->db);
+	$keys = array_keys($db);
 	foreach($keys as $pageKey) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
-			if($allPages || $page->published()) {
-				$tmp[$page->key()] = $page;
-			}
+			$tmp[$page->key()] = $page;
 		}
 	}
 	return $tmp;

@@ -24,8 +24,8 @@ class Page {
 		}
 
 		$tmp = 0;
-		$lines = file($filePath);
-		foreach($lines as $lineNumber=>$line) {
+		$file = file($filePath);
+		foreach($file as $lineNumber=>$line) {
 			// Split the line in 2 parts, limiter by :
 			$parts = explode(':', $line, 2);
 
@@ -60,20 +60,15 @@ class Page {
 		}
 
 		// Process the content
-		if($tmp!==0) {
+		if ($tmp!==0) {
 			// Next line after "Content:" or "---"
 			$tmp++;
 
-			// Remove lines after Content
-			$output = array_slice($lines, $tmp);
+			// Get all lines after "Content:" or "---"
+			$content = array_slice($file, $tmp);
 
-			if( !empty($parts[1]) ) {
-				array_unshift($output, "\n");
-				array_unshift($output, $parts[1]);
-			}
-
-			$implode = implode($output);
-			$this->vars['contentRaw'] = $implode;
+			// Join lines in one variable, this is RAW content from file
+			$this->vars['contentRaw'] = implode($content);
 		}
 
 		return true;

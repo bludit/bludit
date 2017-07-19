@@ -217,6 +217,11 @@ div.dashboard-links h4 {
 	font-size: 0.8em;
 }
 
+#dashboard-hello {
+	background-color: #FBDF6B;
+	padding: 20px;
+	margin-bottom: 8px;
+}
 
 /* FORM
 ---------------------------------------------------------------- */
