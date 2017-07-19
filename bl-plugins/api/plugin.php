@@ -47,7 +47,7 @@ class pluginAPI extends Plugin {
 		// CHECK URL
 		// ------------------------------------------------------------
 		$URI = $this->webhook('api', $returnsAfterURI=true);
-		if( $URI===false ) {
+		if ($URI===false) {
 			return false;
 		}
 
@@ -55,26 +55,20 @@ class pluginAPI extends Plugin {
 		// ------------------------------------------------------------
 		$method = $this->getMethod();
 
-		// INPUTS
+		// METHOD INPUTS
 		// ------------------------------------------------------------
-		$inputs = $this->getInputs();
+		$inputs = $this->getMethodInputs();
 
-		if( empty($inputs) ) {
-			$this->response(array(
-				'status'=>'1',
-				'message'=>'Missing inputs.'
-			));
+		if ( empty($inputs) ) {
+			$this->response(404,'Not Found', array('message'=>'Missing method inputs.'));
 		}
 
-		// PARAMETERS
+		// ENDPOINT PARAMETERS
 		// ------------------------------------------------------------
-		$parameters = $this->getParameters($URI);
+		$parameters = $this->getEndpointParameters($URI);
 
-		if( empty($parameters) ) {
-			$this->response(array(
-				'status'=>'1',
-				'message'=>'Missing parameters.'
-			));
+		if ( empty($parameters) ) {
+			$this->response(404,'Not Found', array('message'=>'Missing endpoint parameters.'));
 		}
 
 		// API TOKEN
@@ -82,56 +76,47 @@ class pluginAPI extends Plugin {
 		$tokenAPI = $this->getValue('token');
 
 		// Check empty token
-		if( empty($inputs['token']) ) {
-			$this->response(array(
-				'status'=>'1',
-				'message'=>'Missing API token.'
-			));
+		if ( empty($inputs['token']) ) {
+			$this->response(404,'Not Found', array('message'=>'Missing API token.'));
 		}
 
 		// Check the token is valid
-		if( $inputs['token']!=$tokenAPI ) {
-			$this->response(array(
-				'status'=>'1',
-				'message'=>'Invalid API token.'
-			));
+		if ($inputs['token']!==$tokenAPI) {
+			$this->response(401, 'Unauthorized', array('message'=>'Invalid API token.'));
 		}
 
 		// AUTHENTICATION TOKEN
 		// ------------------------------------------------------------
 		$writePermissions = false;
-		if( !empty($inputs['authentication']) ) {
+		if ( !empty($inputs['authentication']) ) {
 			// Get the user with the authentication token
 			$username = $dbUsers->getByAuthToken($inputs['authentication']);
-			if( $username!==false ) {
+			if ($username!==false) {
 				// Enable write permissions
 				$writePermissions = true;
 			}
 		}
 
-		// REQUESTS
+		// ENDPOINTS
 		// ------------------------------------------------------------
 
 		// (GET) /api/pages
-		if( ($method==='GET') && ($parameters[0]==='pages') && empty($parameters[1]) ) {
+		if ( ($method==='GET') && ($parameters[0]==='pages') && empty($parameters[1]) ) {
 			$data = $this->getPages();
 		}
 		// (GET) /api/pages/<key>
-		elseif( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
+		elseif ( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
 			$data = $this->getPage($parameters[1]);
 		}
 		// (POST) /api/pages
-		elseif( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
+		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->newPage($inputs);
 		}
 		else {
-			$data = array(
-				'status'=>'1',
-				'message'=>'Error: URI not found or Access denied.'
-			);
+			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
 		}
 
-		$this->response($data);
+		$this->response(200, 'OK', $data);
 	}
 
 // PRIVATE METHODS
@@ -150,25 +135,7 @@ class pluginAPI extends Plugin {
 		return $this->method;
 	}
 
-	private function getParameters($URI)
-	{
-		// PARAMETERS
-		// ------------------------------------------------------------
-		// /api/pages 		| GET  | returns all pages
-		// /api/pages/{key}	| GET  | returns the page with the {key}
-		// /api/cli/regenerate 	| POST | check for new posts and pages
-
-		$parameters = explode('/', $URI);
-
-		// Sanitize parameters
-		foreach($parameters as $key=>$value) {
-			$parameters[$key] = Sanitize::html($value);
-		}
-
-		return $parameters;
-	}
-
-	private function getInputs()
+	private function getMethodInputs()
 	{
 		switch($this->method) {
 			case "POST":
@@ -189,15 +156,32 @@ class pluginAPI extends Plugin {
 		return $this->cleanInputs($inputs);
 	}
 
+	private function getEndpointParameters($URI)
+	{
+		// ENDPOINT Parameters
+		// ------------------------------------------------------------
+		// /api/pages 		| GET  | returns all pages
+		// /api/pages/{key}	| GET  | returns the page with the {key}
+		// /api/pages 		| POST | create a new page
+
+		$parameters = explode('/', $URI);
+
+		// Sanitize parameters
+		foreach ($parameters as $key=>$value) {
+			$parameters[$key] = Sanitize::html($value);
+		}
+
+		return $parameters;
+	}
+
 	private function cleanInputs($inputs)
 	{
 		$tmp = array();
-		if( is_array($inputs) ) {
+		if ( is_array($inputs) ) {
 			foreach($inputs as $key=>$value) {
 				$tmp[$key] = Sanitize::html($value);
 			}
-		}
-		elseif( is_string($inputs) ) {
+		} elseif ( is_string($inputs) ) {
 			$tmp = json_decode($inputs, true);
 			if(json_last_error()===0) {
 				$tmp = array();
@@ -206,10 +190,11 @@ class pluginAPI extends Plugin {
 		return $tmp;
 	}
 
-	private function response($data=array())
+	private function response($code=200, $message='OK', $data=array())
 	{
-		$json = json_encode($data);
+		header('HTTP/1.1 '.$code.' '.$message);
 		header('Content-Type: application/json');
+		$json = json_encode($data);
 		exit($json);
 	}
 
@@ -218,7 +203,7 @@ class pluginAPI extends Plugin {
 		// Generate the object Page
 		$Page = buildPage($key);
 
-		if(!$Page) {
+		if (!$Page) {
 			return array(
 				'status'=>'1',
 				'message'=>'Page not found.'
@@ -250,7 +235,7 @@ class pluginAPI extends Plugin {
 
 		// Get keys of pages
 		$keys = array_keys($list);
-		foreach($keys as $pageKey) {
+		foreach ($keys as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 			array_push($tmp['data'], $page->json( $returnsArray=true ));
