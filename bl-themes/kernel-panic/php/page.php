@@ -12,7 +12,7 @@
                         </header>
                         <?php echo $page->content() ?>
                         <footer>
-                                <div class="category"><i class="icon-price-tag"></i> <?php echo $page->category() ?></div>
+                                <div class="date"><i class="fa fa-clock-o"></i> <?php echo $page->date() ?></div>
                         </footer>
                 </article>
 </section>

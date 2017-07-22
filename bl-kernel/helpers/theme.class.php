@@ -105,7 +105,7 @@ class Theme {
 
 	public static function fontAwesome()
 	{
-		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/font-awesome.min.css'.'">'.PHP_EOL;
+		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/css/font-awesome.min.css'.'">'.PHP_EOL;
 	}
 
 	public static function jquery($cdn=false)

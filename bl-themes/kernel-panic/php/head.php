@@ -9,9 +9,10 @@
 	echo Theme::headTitle();
 	echo Theme::headDescription();
 
-	echo Theme::favicon('favicon.png');
+	echo Theme::favicon('img/favicon.png');
 
-        echo Theme::css('css/icomoon.css');
+	echo Theme::fontAwesome();
+
         echo Theme::css('css/style.css');
 	echo Theme::css('css/bludit.css');
 
