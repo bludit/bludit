@@ -72,6 +72,9 @@ th, td {
 
 pre, code {
 	white-space: pre-wrap !important;
+	background: #ededed;
+	border-radius: 2px;
+	padding: 2px 5px;
 }
 
 blockquote {
@@ -83,7 +86,7 @@ blockquote {
 }
 
 .note {
-	background: #FBDF6B;
+	background: #EBD065;
 	color: #777;
 	font-size: 0.9em;
 	margin: 30px 0;
