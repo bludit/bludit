@@ -586,7 +586,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	<title><?php echo $Language->get('Bludit Installer') ?></title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/admin/themes/default/img/favicon.png=<?php echo time() ?>">
+	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/admin/themes/default/img/favicon.png?version=<?php echo time() ?>">
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/default/css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
