@@ -70,11 +70,36 @@ th, td {
 	padding: 0.5em 1em;
 }
 
+pre, pre code {
+    font-size: 14px;
+}
 pre, code {
-	white-space: pre-wrap !important;
-	background: #ededed;
-	border-radius: 2px;
-	padding: 2px 5px;
+    border-radius: 3px;
+    font-family: Consolas,"Liberation Mono",Courier,monospace;
+}
+pre {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border: 1px solid #e7e9ee;
+    color: #4d4d4c;
+    line-height: 21px;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
+    padding: 10px 10px;
+}
+pre, code {
+    white-space: pre-wrap;
+}
+code, kbd, pre, samp {
+    font-family: monospace,monospace;
+    font-size: 1em;
+}
+pre {
+    overflow: auto;
+}
+
+code {
+	background: #f6f6f6;
+	padding: 4px;
 }
 
 blockquote {
