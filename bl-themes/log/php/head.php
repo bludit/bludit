@@ -1,25 +1,29 @@
 <?php
-	Theme::charset('utf-8');
-	Theme::viewport('width=device-width, initial-scale=1');
+	echo Theme::charset('utf-8');
+	echo Theme::viewport('width=device-width, initial-scale=1');
 
-	Theme::title();
-	Theme::description();
+	echo Theme::headTitle();
+	echo Theme::headDescription();
 
-	Theme::favicon('favicon.png');
-?>
+	echo Theme::favicon('img/favicon.png');
 
-<!--[if lte IE 8]><script src="<?php echo HTML_PATH_THEME ?>assets/js/ie/html5shiv.js"></script><![endif]-->
-<link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/main.css">
-<!--[if lte IE 9]><link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/ie9.css" /><![endif]-->
-<!--[if lte IE 8]><link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/ie8.css" /><![endif]-->
-<link rel="stylesheet" href="<?php echo HTML_PATH_THEME ?>assets/css/bludit.css">
+	echo '<!--[if lt IE 8]>';
+	echo Theme::js('assets/js/ie/html5shiv.js');
+	echo '<![endif]-->';
 
-<?php
+	echo Theme::css('assets/css/main.css');
 
-// Add local Fonts Awesome
-Theme::fontAwesome();
+	echo '<!--[if lt IE 9]>';
+	echo Theme::css('assets/css/ie9.css');
+	echo '<![endif]-->';
 
-// Load plugins, hook: Site head
-Theme::plugins('siteHead');
+	echo '<!--[if lt IE 8]>';
+	echo Theme::css('assets/css/ie8.css');
+	echo '<![endif]-->';
 
+	echo Theme::css('assets/css/bludit.css');
+
+	echo Theme::fontAwesome();
+
+        Theme::plugins('siteHead');
 ?>

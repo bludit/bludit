@@ -9,12 +9,13 @@
 
 		<!-- Header -->
 		<header id="header">
-			<h1><a href="<?php echo $Site->url() ?>"><?php echo $Site->title() ?></a></h1>
+			<h1><a href="<?php echo Theme::siteUrl() ?>"><?php echo Theme::title() ?></a></h1>
 			<nav class="links">
 				<ul>
 				<?php
-					foreach($parents as $page) {
-						echo '<li><a href="'.$page->permalink().'">'.$page->title().'</a></li>';
+					// Print all pages parents
+					foreach($pagesByParent[PARENT] as $pageParent) {
+						echo '<li><a href="'.$pageParent->permalink().'">'.$pageParent->title().'</a></li>';
 					}
 				?>
 				</ul>
@@ -33,11 +34,11 @@
 			<section>
 				<ul class="links">
 				<?php
-					foreach($parents as $page) {
+					foreach($pagesByParent[PARENT] as $pageParent) {
 						echo '<li>';
-						echo '<a href="'.$page->permalink().'">
-							<h3>'.$page->title().'</h3>
-							<p>'.$page->description().'</p>
+						echo '<a href="'.$pageParent->permalink().'">
+							<h3>'.$pageParent->title().'</h3>
+							<p>'.$pageParent->description().'</p>
 						</a>';
 						echo '</li>';
 					}
@@ -48,7 +49,7 @@
 			<!-- Actions -->
 			<section>
 				<ul class="actions vertical">
-					<li><a href="<?php echo $Site->url().'admin/' ?>" class="button big fit"><?php $L->p('Login') ?></a></li>
+					<li><a href="<?php echo Theme::adminUrl() ?>" class="button big fit"><?php $L->p('Login') ?></a></li>
 				</ul>
 			</section>
 
@@ -57,16 +58,11 @@
 		<!-- Main -->
 		<div id="main">
 		<?php
-			if($Url->whereAmI()=='post') {
-				include(THEME_DIR_PHP.'post.php');
-			}
-			elseif($Url->whereAmI()=='page') {
+			if($WHERE_AM_I=='page') {
 				include(THEME_DIR_PHP.'page.php');
-			}
-			else {
+			} else {
 				include(THEME_DIR_PHP.'home.php');
 			}
-
 		?>
 		</div>
 
@@ -81,17 +77,14 @@
 
 	<!-- Scripts -->
 	<?php
-		// Local jQuery
-		Theme::jquery();
-	?>
+		echo Theme::jquery();
+		echo Theme::js('assets/js/skel.min.js');
+		echo Theme::js('assets/js/util.js');
+		echo '<!--[if lt IE 8]>';
+		echo Theme::js('assets/js/ie/respond.min.js');
+		echo '<![endif]-->';
+		echo Theme::js('assets/js/main.js');
 
-	<script src="<?php echo HTML_PATH_THEME ?>assets/js/skel.min.js"></script>
-	<script src="<?php echo HTML_PATH_THEME ?>assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="<?php echo HTML_PATH_THEME ?>assets/js/ie/respond.min.js"></script><![endif]-->
-	<script src="<?php echo HTML_PATH_THEME ?>assets/js/main.js"></script>
-
-	<?php
-		// Plugins, site body end
 		Theme::plugins('siteBodyEnd');
 	?>
 

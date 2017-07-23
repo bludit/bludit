@@ -7,6 +7,8 @@
 
 	//Theme::favicon('favicon.png');
 
+	echo Theme::fontAwesome();
+
         echo Theme::css('assets/css/main.css');
         echo '<noscript>'.Theme::css('assets/css/noscript.css').'</noscript>';
 	echo Theme::css('assets/css/bludit.css');

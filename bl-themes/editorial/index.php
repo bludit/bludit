@@ -62,7 +62,7 @@
 
 <!-- Scripts -->
 <?php
-	echo Theme::javascript('assets/js/jquery.min.js');
+	echo Theme::jquery();
 	echo Theme::javascript('assets/js/skel.min.js');
 	echo Theme::javascript('assets/js/util.js');
 	echo '<!--[if lte IE 8]>'.Theme::javascript('assets/js/ie/respond.min.js').'<![endif]-->';

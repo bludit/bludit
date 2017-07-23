@@ -138,7 +138,6 @@ $(document).ready(function() {
 			</li>
 
 			</ul>
-
 		</div>
 
 		<div id="bl-view" class="uk-width-3-4">

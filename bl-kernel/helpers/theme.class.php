@@ -2,6 +2,44 @@
 
 class Theme {
 
+	public static function title()
+	{
+		global $Site;
+		return $Site->title();
+	}
+
+	public static function description()
+	{
+		global $Site;
+		return $Site->description();
+	}
+
+	public static function slogan()
+	{
+		global $Site;
+		return $Site->slogan();
+	}
+
+	public static function footer()
+	{
+		global $Site;
+		return $Site->footer();
+	}
+
+	public static function siteUrl()
+	{
+		global $Site;
+		return $Site->url();
+	}
+
+	public static function adminUrl()
+	{
+		global $Site;
+		$siteUrl = $Site->url();
+		$siteUrl = rtrim($siteUrl, '/');
+		return $siteUrl.ADMIN_URI_FILTER;
+	}
+
 	// Return the metatag <title> with a predefine structure
 	public static function headTitle()
 	{
