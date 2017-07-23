@@ -10,12 +10,12 @@
         echo Theme::css('css/pure-min.css');
 	echo Theme::css('css/grids-responsive-min.css');
 	echo Theme::css('css/blog.css');
-	echo Theme::css('css/rainbow.github.css');
+	echo Theme::css('css/rainbow-github.css');
 
 	echo Theme::fontAwesome();
-
 	echo Theme::jquery();
-	echo Theme::js('js/rainbow.min.js');
+
+	echo Theme::js('js/rainbow-custom.min.js');
 
         // Load plugins with the hook siteHead
         Theme::plugins('siteHead');
