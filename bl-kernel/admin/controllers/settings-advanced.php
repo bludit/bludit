@@ -88,5 +88,10 @@ $allPublishedPages = buildAllpages(true);
 // Homepage select options
 $homepageOptions = array();
 foreach($allPublishedPages as $key=>$page) {
-	$homepageOptions[$key] = $page->title();
+	$parentKey = $page->parentKey();
+	if ($parentKey) {
+		$homepageOptions[$key] = $pagesByParentByKey[PARENT][$parentKey]->title() .'->'. $page->title();
+	} else {
+		$homepageOptions[$key] = $page->title();
+	}
 }

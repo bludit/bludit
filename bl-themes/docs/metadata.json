@@ -1,10 +1,10 @@
 {
 	"author": "Bludit",
 	"email": "",
-	"website": "https://github.com/dignajar/bludit-themes",
+	"website": "http://themes.bludit.com",
 	"version": "1.0",
-	"releaseDate": "2016-01-15",
+	"releaseDate": "2017-07-10",
 	"license": "MIT",
-	"compatible": "1.3,1.4,1.5beta",
+	"compatible": "2.0",
 	"notes": ""
 }

@@ -1,8 +1,10 @@
 <h1 class="subhead">
 <?php
 	$parentKey = $page->parentKey();
-	echo $pagesByParentByKey[PARENT][$parentKey]->title();
-	echo ' -> ';
+	if ($parentKey) {
+		echo $pagesByParentByKey[PARENT][$parentKey]->title();
+		echo ' -> ';
+	}
 	echo $page->title();
 ?>
 </h1>
