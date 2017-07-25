@@ -113,30 +113,21 @@ if( $Site->homepage() && $Url->whereAmI()==='home' ) {
 
 // Build specific page
 if( $Url->whereAmI()==='page' ) {
-        // Build the page
-	$page = $Page = buildPage( $Url->slug() );
-
-	// The page doesn't exist
-	if($page===false) {
-		$Url->setNotFound(true);
-	}
-	// The page is not published, scheduled or draft
-	elseif( $page->scheduled() || $page->draft() ) {
-		$Url->setNotFound(true);
-	}
-	else {
-		$pages[0] = $page;
-	}
+	buildThePage();
 }
+// Build pages by tag
 elseif( $Url->whereAmI()==='tag' ) {
 	buildPagesByTag();
 }
+// Build pages by category
 elseif( $Url->whereAmI()==='category' ) {
         buildPagesByCategory();
 }
+// Build pages for the homepage
 elseif( $Url->whereAmI()==='home' ) {
         buildPagesForHome();
 }
+// Build pages for the admin area
 elseif( $Url->whereAmI()==='admin' ) {
         buildPagesForAdmin();
 }
@@ -144,6 +135,6 @@ elseif( $Url->whereAmI()==='admin' ) {
 // Set page 404 not found
 if( $Url->notFound() ) {
 	$Url->setWhereAmI('page');
-	$page = buildPage('error');
+	$page = $Page = buildPage('error');
 	$pages[0] = $page;
 }

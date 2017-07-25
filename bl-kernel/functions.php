@@ -57,46 +57,61 @@ function buildPage($key) {
 	return $page;
 }
 
-function reindexCategories()
-{
+function reindexCategories() {
 	global $dbCategories;
 	return $dbCategories->reindex();
 }
 
-function reindexTags()
-{
+function reindexTags() {
 	global $dbTags;
 	return $dbTags->reindex();
 }
 
-function buildPagesForAdmin()
-{
+function buildThePage() {
+	global $Url;
+	global $page, $Page;
+	global $pages;
+
+	$page = $Page = buildPage( $Url->slug() );
+
+	// The page doesn't exist
+	if($page===false) {
+		$Url->setNotFound(true);
+		return false;
+	}
+	// The page is not published
+	elseif( $page->scheduled() || $page->draft() ) {
+		$Url->setNotFound(true);
+		return false;
+	}
+
+	$pages[0] = $page;
+	return true;
+}
+
+function buildPagesForAdmin() {
 	return buildPagesFor('admin');
 }
 
-function buildPagesForHome()
-{
+function buildPagesForHome() {
 	return buildPagesFor('home');
 }
 
-function buildPagesByCategory()
-{
+function buildPagesByCategory() {
 	global $Url;
 
 	$categoryKey = $Url->slug();
 	return buildPagesFor('category', $categoryKey, false);
 }
 
-function buildPagesByTag()
-{
+function buildPagesByTag() {
 	global $Url;
 
 	$tagKey = $Url->slug();
 	return buildPagesFor('tag', false, $tagKey);
 }
 
-function buildPagesFor($for, $categoryKey=false, $tagKey=false)
-{
+function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
 	global $dbCategories;
 	global $dbTags;
@@ -127,9 +142,10 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false)
 		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
 
-	// There are not items for the page number then set the page notfound
-	if( empty($list) && $pageNumber>1 ) {
+	// There are not items, invalid tag, invalid category, out of range, etc...
+	if( $list===false ) {
 		$Url->setNotFound(true);
+		return false;
 	}
 
 	$pages = array(); // global variable
@@ -260,6 +276,7 @@ function createPage($args) {
 	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page');
 	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...');
 	$dbPages->delete($key);
+	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning finished...');
 
 	return false;
 }

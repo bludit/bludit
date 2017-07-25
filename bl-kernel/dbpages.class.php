@@ -303,7 +303,7 @@ class dbPages extends dbJSON
 		return false;
 	}
 
-	// Returns an array with a list of pages
+	// Returns an array with a list of pages, FALSE if out of range
 	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number
 	// (int) $amountOfItems, amount of items to return, if -1 returns all the items
@@ -335,7 +335,7 @@ class dbPages extends dbJSON
 			return array_slice($db, $init, $amountOfItems, true);
 		}
 
-		return array();
+		return false;
 	}
 
 	// Returns the amount of pages

@@ -28,7 +28,7 @@ class dbList extends dbJSON
 	{
 		if( !isset($this->db[$key]) ) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
-			return array();
+			return false;
 		}
 
 		$list = $this->db[$key]['list'];
@@ -43,7 +43,7 @@ class dbList extends dbJSON
 
 		if($outrange) {
 			Log::set(__METHOD__.LOG_SEP.'Error out of range');
-			return array();
+			return false;
 		}
 
 		$list = array_flip($list);
