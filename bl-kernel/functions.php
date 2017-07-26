@@ -470,3 +470,20 @@ function createUser($args) {
 
 	return false;
 }
+
+function editSettings($args) {
+	global $Site;
+	global $Syslog;
+
+	if( $Site->set($args) ) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'changes-on-settings',
+			'notes'=>''
+		));
+
+		return true;
+	}
+
+	return false;
+}
