@@ -35,7 +35,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 	echo '<div class="uk-form-row uk-margin-bottom">
 		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
 		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
-		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'pages">'.$L->g('Cancel').'</a>
 	</div>';
 
 echo '</div>';

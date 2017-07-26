@@ -3,8 +3,7 @@
 	echo Theme::viewport('width=device-width, initial-scale=1');
 
 	echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-	echo '<link href="//fonts.googleapis.com/css?family=Roboto:400,300,100,500" rel="stylesheet" type="text/css">';
-	echo '<link href="//fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,500" rel="stylesheet" type="text/css">';
+	echo '<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">';
 
 	echo Theme::headTitle();
 	echo Theme::headDescription();

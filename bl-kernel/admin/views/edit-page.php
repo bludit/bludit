@@ -47,7 +47,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 if(count($page->children())===0)
 {
 	echo '	<button id="jsdelete" name="delete-page" class="uk-button" type="submit">'.$L->g('Delete').'</button>';
-	echo '	<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'manage-posts">'.$L->g('Cancel').'</a>';
+	echo '	<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'pages">'.$L->g('Cancel').'</a>';
 }
 
 	echo '</div>';
