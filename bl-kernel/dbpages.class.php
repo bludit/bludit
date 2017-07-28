@@ -604,6 +604,11 @@ class dbPages extends dbJSON
 		return Text::firstCharUp($field).': '.$value;
 	}
 
+	public function getDBFields()
+	{
+		return $this->dbFields;
+	}
+
 // ----- OLD
 
 	public function parentKeyList()
@@ -666,7 +671,5 @@ class dbPages extends dbJSON
 		// Save database
 		return $this->save();
 	}
-
-
 
 }

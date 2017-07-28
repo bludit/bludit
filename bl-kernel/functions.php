@@ -67,6 +67,17 @@ function reindexTags() {
 	return $dbTags->reindex();
 }
 
+function buildErrorPage() {
+	global $dbPages;
+	global $Language;
+
+	$page = new Page(false);
+	$page->setField('title', 'Page not found');
+	$page->setField('content', $Language->get('installer-page-error-content'));
+
+	return $page;
+}
+
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
@@ -76,12 +87,12 @@ function buildThePage() {
 
 	// The page doesn't exist
 	if($page===false) {
-		$Url->setNotFound(true);
+		$Url->setNotFound();
 		return false;
 	}
 	// The page is not published
 	elseif( $page->scheduled() || $page->draft() ) {
-		$Url->setNotFound(true);
+		$Url->setNotFound();
 		return false;
 	}
 
@@ -144,7 +155,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 
 	// There are not items, invalid tag, invalid category, out of range, etc...
 	if( $list===false ) {
-		$Url->setNotFound(true);
+		$Url->setNotFound();
 		return false;
 	}
 

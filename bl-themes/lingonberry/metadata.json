@@ -1,0 +1,10 @@
+{
+	"author": "Anders Norén",
+	"email": "anders@andersnoren.se",
+	"website": "http://www.andersnoren.se/",
+	"version": "1.0",
+	"releaseDate": "2016-01-28",
+	"license": "GPL V2",
+	"compatible": "1.3,1.4,1.5,1.5.2",
+	"notes": ""
+}

@@ -135,6 +135,11 @@ elseif( $Url->whereAmI()==='admin' ) {
 // Set page 404 not found
 if( $Url->notFound() ) {
 	$Url->setWhereAmI('page');
+	$Url->setHttpCode(404);
+
 	$page = $Page = buildPage('error');
+	if ($page===false) {
+		$page = buildErrorPage();
+	}
 	$pages[0] = $page;
 }

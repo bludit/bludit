@@ -10,6 +10,8 @@ class Url
 	private $notFound;
 	private $parameters;
 	private $activeFilter;
+	private $httpCode;
+	private $httpMessage;
 
 	function __construct()
 	{
@@ -26,6 +28,8 @@ class Url
 		$this->slug = '';
 		$this->filters = array();
 		$this->activeFilter = '';
+		$this->httpCode = 200;
+		$this->httpMessage = 'OK';
 	}
 
 	// Filters change for different languages
@@ -68,7 +72,7 @@ class Url
 						break;
 					}
 
-					$this->setNotFound(true);
+					$this->setNotFound();
 				}
 
 				break;
@@ -138,9 +142,31 @@ class Url
 		return 1;
 	}
 
-	public function setNotFound($error=true)
+	public function setNotFound()
 	{
-		$this->notFound = $error;
+		$this->notFound = true;
+		$this->httpCode = 404;
+		$this->httpMessage = 'Not Found';
+	}
+
+	public function httpCode()
+	{
+		return $this->httpCode;
+	}
+
+	public function setHttpCode($code = 200)
+	{
+		$this->httpCode = $code;
+	}
+
+	public function httpMessage()
+	{
+		return $this->httpMessage;
+	}
+
+	public function setHttpMessage($msg = 'OK')
+	{
+		$this->httpMessage = $msg;
 	}
 
 	// Returns the slug after the $filter, the slug could be an empty string
