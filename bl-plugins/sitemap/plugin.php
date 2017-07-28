@@ -62,11 +62,10 @@ class pluginSitemap extends Plugin {
 		$this->createXML();
 	}
 
-	public function beforeRulesLoad()
+	public function beforeAll()
 	{
-		global $Url;
-
-		if($Url->uri()===HTML_PATH_ROOT.'sitemap.xml') {
+		$webhook = 'sitemap.xml';
+		if( $this->webhook($webhook) ) {
 			// Send XML header
 			header('Content-type: text/xml');
 			$doc = new DOMDocument();
@@ -86,5 +85,4 @@ class pluginSitemap extends Plugin {
 			exit(0);
 		}
 	}
-
 }

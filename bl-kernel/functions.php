@@ -265,7 +265,7 @@ function createPage($args) {
 	}
 
 	$key = $dbPages->add($args);
-	if($key) {
+	if ($key) {
 		// Call the plugins after page created
 		Theme::plugins('afterPageCreate');
 

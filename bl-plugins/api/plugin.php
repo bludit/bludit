@@ -46,7 +46,7 @@ class pluginAPI extends Plugin {
 
 		// CHECK URL
 		// ------------------------------------------------------------
-		$URI = $this->webhook('api', $returnsAfterURI=true);
+		$URI = $this->webhook('api', $returnsAfterURI=true, $fixed=false);
 		if ($URI===false) {
 			return false;
 		}

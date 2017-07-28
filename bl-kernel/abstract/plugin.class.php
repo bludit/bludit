@@ -276,11 +276,11 @@ class Plugin {
 
 	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook
 	// Example: https://www.mybludit.com/api/foo/bar
-	public function webhook($URI=false, $returnsAfterURI=false)
+	public function webhook($URI=false, $returnsAfterURI=false, $fixed=true)
 	{
 		global $Url;
 
-		if(empty($URI)) {
+		if (empty($URI)) {
 			return false;
 		}
 
@@ -288,12 +288,22 @@ class Plugin {
 		$startString = HTML_PATH_ROOT.$URI;
 		$URI = $Url->uri();
 		$length = mb_strlen($startString, CHARSET);
-		if( mb_substr($URI, 0, $length)!=$startString ) {
+		if (mb_substr($URI, 0, $length)!=$startString) {
 			return false;
 		}
 
-		if($returnsAfterURI) {
-			return mb_substr($URI, $length);
+		$afterURI = mb_substr($URI, $length);
+		if (!empty($afterURI)) {
+			if ($fixed) {
+				return false;
+			}
+			if ($afterURI[0]!='/') {
+				return false;
+			}
+		}
+
+		if ($returnsAfterURI) {
+			return $afterURI;
 		}
 
 		Log::set(__METHOD__.LOG_SEP.'Webhook requested.');

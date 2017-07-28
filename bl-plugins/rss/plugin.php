@@ -97,11 +97,10 @@ class pluginRSS extends Plugin {
 		return '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
 	}
 
-	public function beforeRulesLoad()
+	public function beforeAll()
 	{
-		global $Url;
-
-		if($Url->uri()===HTML_PATH_ROOT.'rss.xml') {
+		$webhook = 'rss.xml';
+		if( $this->webhook($webhook) ) {
 			// Send XML header
 			header('Content-type: text/xml');
 			$doc = new DOMDocument();
@@ -118,5 +117,4 @@ class pluginRSS extends Plugin {
 			exit(0);
 		}
 	}
-
 }
