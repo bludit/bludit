@@ -125,7 +125,9 @@ class pluginLinks extends Plugin {
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
-		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		if ($this->getValue('label')) {
+			$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		}
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
