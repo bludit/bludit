@@ -2,6 +2,7 @@
 <section class="content">
         <?php foreach ($pages as $page): ?>
                 <article class="page">
+                        <?php Theme::plugins('pageBegin') ?>
                         <header>
                                 <a href="<?php echo $page->permalink() ?>">
                                         <h2><?php echo $page->title() ?></h2>
@@ -21,6 +22,7 @@
                                 </div>
                                 <?php } ?>
                         </footer>
+                        <?php Theme::plugins('pageEnd') ?>
                 </article>
         <?php endforeach ?>
 </section>

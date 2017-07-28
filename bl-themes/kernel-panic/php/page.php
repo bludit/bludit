@@ -1,6 +1,7 @@
 <!-- Section -->
 <section class="content">
                 <article class="page">
+                        <?php Theme::plugins('pageBegin') ?>
                         <header>
                                 <a href="<?php echo $page->permalink() ?>">
                                         <h2><?php echo $page->title() ?></h2>
@@ -14,5 +15,6 @@
                         <footer>
                                 <div class="date"><i class="fa fa-clock-o"></i> <?php echo $page->date() ?></div>
                         </footer>
+                        <?php Theme::plugins('pageEnd') ?>
                 </article>
 </section>

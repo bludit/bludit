@@ -131,7 +131,7 @@ class Theme {
 	public static function plugins($type)
 	{
 		global $plugins;
-		foreach($plugins[$type] as $plugin) {
+		foreach ($plugins[$type] as $plugin) {
 			echo call_user_func(array($plugin, $type));
 		}
 	}

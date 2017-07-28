@@ -23,9 +23,15 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
-		global $page;
+		global $pages;
+		global $Url;
 
-		if( ($page->key()!='error') && ($page->allowComments()) ) {
+		$page = $pages[0];
+		if (empty($page)) {
+			return false;
+		}
+
+		if ( (!$Url->notFound()) && ($Url->whereAmI()=='page') && ($page->allowComments()) ) {
 			$html  = '<div id="disqus_thread"></div>';
 			$html .= '<script type="text/javascript">
 					var disqus_config = function () {
@@ -40,8 +46,6 @@ class pluginDisqus extends Plugin {
 						(d.head || d.body).appendChild(s);
 					})();
 				</script>
-
-				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 			';
 			return $html;
 		}

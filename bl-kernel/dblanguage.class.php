@@ -76,6 +76,8 @@ class dbLanguage extends dbJSON
 		echo $this->get($string);
 	}
 
+	// Add more keys=>values to the current dicionary
+	// Will be overwrite if exist the key with the new value
 	public function add($array)
 	{
 		$this->db = array_merge($array, $this->db);

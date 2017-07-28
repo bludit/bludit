@@ -5,6 +5,8 @@
 <?php include(THEME_DIR_PHP.'head.php') ?>
 </head>
 <body>
+	<?php Theme::plugins('siteBodyBegin') ?>
+
 	<div id="wrapper">
 
 		<!-- Header -->
@@ -58,7 +60,7 @@
 		<!-- Main -->
 		<div id="main">
 		<?php
-			if($WHERE_AM_I=='page') {
+			if ($WHERE_AM_I=='page') {
 				include(THEME_DIR_PHP.'page.php');
 			} else {
 				include(THEME_DIR_PHP.'home.php');
@@ -68,9 +70,7 @@
 
 		<!-- Sidebar -->
 		<section id="sidebar">
-		<?php
-			include(THEME_DIR_PHP.'sidebar.php');
-		?>
+		<?php include(THEME_DIR_PHP.'sidebar.php') ?>
 		</section>
 
 	</div>
@@ -84,9 +84,8 @@
 		echo Theme::js('assets/js/ie/respond.min.js');
 		echo '<![endif]-->';
 		echo Theme::js('assets/js/main.js');
-
-		Theme::plugins('siteBodyEnd');
 	?>
 
+	<?php Theme::plugins('siteBodyEnd') ?>
 </body>
 </html>

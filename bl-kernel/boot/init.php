@@ -143,6 +143,9 @@ define('DIR_PERMISSIONS', 0755);
 // Admin URI filter
 define('ADMIN_URI_FILTER', '/admin/');
 
+// Default language file, in this case is English
+define('DEFAULT_LANGUAGE_FILE', 'en_US.json');
+
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
 

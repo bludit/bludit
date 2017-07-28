@@ -7,6 +7,7 @@
 <?php include(THEME_DIR_PHP.'head.php') ?>
 </head>
 <body>
+	<?php Theme::plugins('siteBodyBegin') ?>
 
 	<div id="fh5co-main">
 		<div class="fh5co-intro text-center">
@@ -32,7 +33,7 @@
 							</div>
 							<div class="col-md-9">
 							<?php
-								if($WHERE_AM_I=='page') {
+								if ($WHERE_AM_I=='page') {
 									include(THEME_DIR_PHP.'page.php');
 								} else {
 									include(THEME_DIR_PHP.'home.php');
@@ -57,5 +58,6 @@
 		</div>
 	</footer>
 
+	<?php Theme::plugins('siteBodyEnd') ?>
 </body>
 </html>
