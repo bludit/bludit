@@ -58,7 +58,7 @@ function buildPlugins()
 	$currentDeclaredClasess = get_declared_classes();
 
 	// Load each plugin clasess
-	foreach($list as $pluginPath) {
+	foreach ($list as $pluginPath) {
 		// Check if the directory has the plugin.php
 		if (file_exists($pluginPath.DS.'plugin.php')) {
 			include($pluginPath.DS.'plugin.php');
