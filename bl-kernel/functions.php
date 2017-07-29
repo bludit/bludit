@@ -10,20 +10,20 @@ function buildPage($key) {
 
 	// Page object, content from index.txt file
 	$page = new Page($key);
-	if( !$page->isValid() ) {
+	if (!$page->isValid()) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
 		return false;
 	}
 
 	// Get the database from dbPages
 	$db = $dbPages->getPageDB($key);
-	if( !$db ) {
+	if (!$db) {
 		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
 		return false;
 	}
 
 	// Foreach field from database set on the object
-	foreach($db as $field=>$value) {
+	foreach ($db as $field=>$value) {
 		$page->setField($field, $value);
 	}
 
@@ -497,4 +497,48 @@ function editSettings($args) {
 	}
 
 	return false;
+}
+
+function editCategory($oldCategoryKey, $newCategory) {
+	global $Language;
+	global $dbPages;
+	global $dbCategories;
+	global $Syslog;
+
+	if( Text::isEmpty($oldCategoryKey) || Text::isEmpty($newCategory) ) {
+		Alert::set($Language->g('Empty fields'));
+		return false;
+	}
+
+	if( $dbCategories->edit($oldCategoryKey, $newCategory) == false ) {
+		Alert::set($Language->g('Already exist a category'));
+		return false;
+	}
+
+	$dbPages->changeCategory($oldCategoryKey, $newCategory);
+
+	$Syslog->add(array(
+		'dictionaryKey'=>'category-edited',
+		'notes'=>$newCategory
+	));
+
+	Alert::set($Language->g('The changes have been saved'));
+	return true;
+}
+
+function deleteCategory($categoryKey) {
+	global $Language;
+	global $dbCategories;
+	global $Syslog;
+
+	// Remove the category by key
+	$dbCategories->remove($categoryKey);
+
+	$Syslog->add(array(
+		'dictionaryKey'=>'category-deleted',
+		'notes'=>$categoryKey
+	));
+
+	Alert::set($Language->g('The changes have been saved'));
+	return true;
 }

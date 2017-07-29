@@ -15,8 +15,10 @@
 			<nav class="links">
 				<ul>
 				<?php
-					// Print all pages parents
-					foreach($pagesByParent[PARENT] as $pageParent) {
+					$fixedPages = $dbPages->getFixedDB();
+					$keys = array_keys($fixedPages);
+					foreach($keys as $pageKey) {
+						$pageParent = buildPage($pageKey);
 						echo '<li><a href="'.$pageParent->permalink().'">'.$pageParent->title().'</a></li>';
 					}
 				?>
@@ -36,7 +38,17 @@
 			<section>
 				<ul class="links">
 				<?php
-					foreach($pagesByParent[PARENT] as $pageParent) {
+					echo '<li>';
+					echo '<a href="'.$Site->url().'">
+						<h3>'.$Language->get('Home page').'</h3>
+						<p>'.$Site->description().'</p>
+					</a>';
+					echo '</li>';
+
+					$fixedPages = $dbPages->getFixedDB();
+					$keys = array_keys($fixedPages);
+					foreach($keys as $pageKey) {
+						$pageParent = buildPage($pageKey);
 						echo '<li>';
 						echo '<a href="'.$pageParent->permalink().'">
 							<h3>'.$pageParent->title().'</h3>

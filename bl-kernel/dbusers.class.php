@@ -101,7 +101,7 @@ class dbUsers extends dbJSON
 
 	public function getUser($username)
 	{
-		if($this->exists($username)) {
+		if ($this->exists($username)) {
 			$User = new User();
 			$User->setField('username', $username);
 
