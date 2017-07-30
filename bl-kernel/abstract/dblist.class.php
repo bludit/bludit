@@ -26,12 +26,18 @@ class dbList extends dbJSON
 
 	public function getList($key, $pageNumber, $amountOfItems)
 	{
-		if( !isset($this->db[$key]) ) {
+		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
 			return false;
 		}
 
 		$list = $this->db[$key]['list'];
+
+		if ($amountOfItems==-1) {
+			// Invert keys to values, is necesary returns as key the key pages
+			$list = array_flip($list);
+			return $list;
+		}
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;

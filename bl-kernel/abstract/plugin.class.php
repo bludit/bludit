@@ -181,6 +181,11 @@ class Plugin {
 		return $this->getMetadata('website');
 	}
 
+	public function position()
+	{
+		return $this->getValue('position');
+	}
+
 	public function version()
 	{
 		return $this->getMetadata('version');
@@ -220,7 +225,7 @@ class Plugin {
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.
-	public function install($position=0)
+	public function install($position=1)
 	{
 		if($this->installed()) {
 			return false;

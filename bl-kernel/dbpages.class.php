@@ -319,7 +319,7 @@ class dbPages extends dbJSON
 		// Remove Error page from the list
 		unset($db['error']);
 
-		if($amountOfItems==-1) {
+		if ($amountOfItems==-1) {
 			return $db;
 		}
 

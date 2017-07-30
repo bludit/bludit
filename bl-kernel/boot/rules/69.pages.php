@@ -85,7 +85,7 @@ $pagesByParentByKey = array(PARENT=>array());
 // ============================================================================
 
 // Execute the scheduler
-if( $dbPages->scheduler() ) {
+if ($dbPages->scheduler()) {
 	// Reindex tags
 	reindexTags();
 
@@ -103,7 +103,7 @@ if( $dbPages->scheduler() ) {
 buildPagesByParent(true);
 
 // Set home page is the user defined one
-if( $Site->homepage() && $Url->whereAmI()==='home' ) {
+if ($Site->homepage() && $Url->whereAmI()==='home') {
 	$pageKey = $Site->homepage();
 	if( $dbPages->exists($pageKey) ) {
 		$Url->setSlug($pageKey);
@@ -112,31 +112,28 @@ if( $Site->homepage() && $Url->whereAmI()==='home' ) {
 }
 
 // Build specific page
-if( $Url->whereAmI()==='page' ) {
+if ($Url->whereAmI()==='page') {
 	buildThePage();
 }
 // Build pages by tag
-elseif( $Url->whereAmI()==='tag' ) {
+elseif ($Url->whereAmI()==='tag') {
 	buildPagesByTag();
 }
 // Build pages by category
-elseif( $Url->whereAmI()==='category' ) {
+elseif ($Url->whereAmI()==='category') {
         buildPagesByCategory();
 }
 // Build pages for the homepage
-elseif( $Url->whereAmI()==='home' ) {
+elseif ($Url->whereAmI()==='home') {
         buildPagesForHome();
 }
 // Build pages for the admin area
-elseif( $Url->whereAmI()==='admin' ) {
+elseif ($Url->whereAmI()==='admin') {
         buildPagesForAdmin();
 }
 
 // Set page 404 not found
-if( $Url->notFound() ) {
-	$Url->setWhereAmI('page');
-	$Url->setHttpCode(404);
-
+if ($Url->notFound()) {
 	$page = $Page = buildPage('error');
 	if ($page===false) {
 		$page = buildErrorPage();

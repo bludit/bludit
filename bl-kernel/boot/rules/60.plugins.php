@@ -102,6 +102,11 @@ function buildPlugins()
 				}
 			}
 		}
+
+		uasort($plugins['siteSidebar'], function ($a, $b) {
+            		return $a->position()>$b->position();
+        		}
+    		);
 	}
 }
 

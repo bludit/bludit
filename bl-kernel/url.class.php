@@ -144,6 +144,7 @@ class Url
 
 	public function setNotFound()
 	{
+		$this->whereAmI = 'page';
 		$this->notFound = true;
 		$this->httpCode = 404;
 		$this->httpMessage = 'Not Found';
