@@ -42,7 +42,7 @@
                         }
 
                         for($i=1; $i<=Paginator::amountOfPages(); $i++) {
-                                echo '<a href='.Paginator::absoluteUrl($i).' class="page">'.$i.'</a>';
+                                echo '<a href='.Paginator::numberUrl($i).' class="page">'.$i.'</a>';
                         }
 
                         // Show next page link

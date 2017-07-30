@@ -58,29 +58,29 @@ class Paginator {
 	// Returns the absolute URL for the first page
 	public static function firstPageUrl()
 	{
-		return self::absoluteUrl( self::firstPage() );
+		return self::numberUrl( self::firstPage() );
 	}
 
 	// Returns the absolute URL for the last page
 	public static function lastPageUrl()
 	{
-		return self::absoluteUrl( self::amountOfPages() );
+		return self::numberUrl( self::amountOfPages() );
 	}
 
 	// Returns the absolute URL for the next page
 	public static function nextPageUrl()
 	{
-		return self::absoluteUrl( self::nextPage() );
+		return self::numberUrl( self::nextPage() );
 	}
 
 	// Returns the absolute URL for the previous page
 	public static function prevPageUrl()
 	{
-		return self::absoluteUrl( self::prevPage() );
+		return self::numberUrl( self::prevPage() );
 	}
 
-	// Return the absoulte URL with the current filter
-	public static function absoluteUrl($pageNumber)
+	// Return the absoulte URL with the page number
+	public static function numberUrl($pageNumber)
 	{
 		global $Url;
 

@@ -36,7 +36,6 @@ class Theme {
 	{
 		global $Site;
 		$siteUrl = $Site->url();
-		$siteUrl = rtrim($siteUrl, '/');
 		return $siteUrl.ADMIN_URI_FILTER;
 	}
 

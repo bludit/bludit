@@ -140,8 +140,8 @@ define('EXTREME_FRIENDLY_URL', FALSE);
 // Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
 
-// Admin URI filter
-define('ADMIN_URI_FILTER', '/admin/');
+// Admin URI filter to access to the admin panel
+define('ADMIN_URI_FILTER', 'admin');
 
 // Default language file, in this case is English
 define('DEFAULT_LANGUAGE_FILE', 'en_US.json');
@@ -247,7 +247,7 @@ define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
 
-define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.'admin/');
+define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.ADMIN_URI_FILTER.'/');
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');

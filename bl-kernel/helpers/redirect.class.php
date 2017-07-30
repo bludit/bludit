@@ -14,8 +14,7 @@ class Redirect {
 
 	public static function page($page)
 	{
-		$base = ltrim(ADMIN_URI_FILTER, '/');
-		self::url(HTML_PATH_ROOT.$base.$page);
+		self::url(HTML_PATH_ROOT.ADMIN_URI_FILTER.'/'.$page);
 	}
 
 	public static function home()

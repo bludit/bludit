@@ -68,3 +68,17 @@
 
 <?php endforeach; ?>
 
+<!-- Pagination -->
+<ul class="actions pagination">
+<?php
+	// Show previus page link
+	if(Paginator::showPrev()) {
+		echo '<li><a href="'.Paginator::prevPageUrl().'" class="button big previous">Previous Page</a></li>';
+	}
+
+	// Show next page link
+	if(Paginator::showNext()) {
+		echo '<li><a href="'.Paginator::nextPageUrl().'" class="button big next">Next Page</a></li>';
+	}
+?>
+</ul>

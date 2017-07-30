@@ -62,7 +62,7 @@ class dbSite extends dbJSON
 	// or returns a string with the filter defined on $filter
 	public function uriFilters($filter='')
 	{
-		$filters['admin'] = ADMIN_URI_FILTER;
+		$filters['admin'] = '/'.ADMIN_URI_FILTER;
 		$filters['page'] = $this->getField('uriPage');
 		$filters['tag'] = $this->getField('uriTag');
 		$filters['category'] = $this->getField('uriCategory');
