@@ -18,14 +18,10 @@
 
 <!-- Section -->
 <section>
-        <header class="major">
-                <h2>Pages</h2>
-        </header>
-
         <div class="posts">
         <?php foreach ($pages as $page): ?>
                 <article>
-                        <a href="#" class="image"><img src="<?php echo $page->coverImage() ?>" alt="" /></a>
+                        <a href="<?php echo $page->permalink() ?>" class="image"><img src="<?php echo $page->coverImage() ?>" alt="" /></a>
                         <h3><?php echo $page->title() ?></h3>
                         <p><?php echo $page->description() ?></p>
                         <ul class="actions">

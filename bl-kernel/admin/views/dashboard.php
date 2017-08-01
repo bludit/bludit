@@ -139,7 +139,7 @@
 				$keys = array_keys($scheduledPages);
 				foreach($keys as $key) {
 					$page = buildPage($key);
-					echo '<li><span class="label-draft">'.$Language->g('Page').'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+					echo '<li><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>

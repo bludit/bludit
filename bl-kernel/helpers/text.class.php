@@ -215,7 +215,10 @@ class Text {
 
 	public static function imgRel2Abs($string, $base)
 	{
-		return preg_replace('/(src)="([^:"]*)(?:")/', "$1=\"$base$2\"", $string);
+		$pattern = "/<img([^>]*) src=\"([^http|https|ftp|\/\/][^\"]*)\"/";
+		$replace = "<img\${1} src=\"".$base. "\${2}\"";
+
+		return preg_replace($pattern, $replace, $string);
 	}
 
 	public static function pre2htmlentities($string)
@@ -224,5 +227,4 @@ class Text {
 			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
 			$string);
 	}
-
 }
