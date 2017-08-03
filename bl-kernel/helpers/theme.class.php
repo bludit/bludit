@@ -26,6 +26,22 @@ class Theme {
 		return $Site->footer();
 	}
 
+	public static function rssUrl()
+	{
+		if (pluginEnabled('RSS')) {
+			return DOMAIN_BASE.'rss.xml';
+		}
+		return false;
+	}
+
+	public static function sitemapUrl()
+	{
+		if (pluginEnabled('Sitemap')) {
+			return DOMAIN_BASE.'sitemap.xml';
+		}
+		return false;
+	}
+
 	public static function siteUrl()
 	{
 		global $Site;

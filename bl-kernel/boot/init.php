@@ -111,7 +111,7 @@ define('CLI_STATUS', 'published');
 define('CLI_USERNAME', 'admin');
 
 // Filename
-define('FILENAME', 'index.txt');
+define('FILENAME', 'index.md');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');

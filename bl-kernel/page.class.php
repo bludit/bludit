@@ -174,6 +174,12 @@ class Page {
 		return $date;
 	}
 
+	// Returns the date according to locale settings and format settings
+	public function dateModified()
+	{
+		return $this->getValue('dateModified');
+	}
+
 	// Returns the permalink
 	// (boolean) $absolute, TRUE returns the page link with the DOMAIN, FALSE without the DOMAIN
 	public function permalink($absolute=true)

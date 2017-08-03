@@ -1,0 +1,69 @@
+body {
+	color: #333;
+	font-weight: 400;
+}
+
+.bl-list {
+        margin: 20px 0;
+}
+
+.bl-container-title {
+        padding: 7em 0;
+}
+
+.bl-container-main {
+        padding-bottom: 7em;
+}
+
+.bl-author img {
+	max-width: 50%;
+	border-radius: 150px;
+}
+
+.bl-author .name {
+	margin-top: 10px;
+	margin-bottom: 4px;
+}
+
+.bl-author .social a {
+	font-size: 0.9em;
+}
+
+.plugin-content ul {
+	list-style: none;
+	padding: 0 5px;
+}
+
+a.page-parent {
+	color: #000;
+}
+
+/*
+Page and post content
+------------------------------------------------
+*/
+.bl-page-post-content p {
+        margin-bottom: 10px;
+}
+
+.bl-page-post-content ul {
+
+}
+
+.bl-page-post-content h1,
+.bl-page-post-content h2,
+.bl-page-post-content h3,
+.bl-page-post-content h4,
+.bl-page-post-content h5,
+.bl-page-post-content h6 {
+        margin: 0 0 20px 0;
+}
+
+.bl-page-post-content h1:not(:first-child),
+.bl-page-post-content h2:not(:first-child),
+.bl-page-post-content h3:not(:first-child),
+.bl-page-post-content h4:not(:first-child),
+.bl-page-post-content h5:not(:first-child),
+.bl-page-post-content h6:not(:first-child) {
+	margin-top: 40px;
+}

@@ -68,15 +68,15 @@ class pluginPages extends Plugin {
 		$html .= '<ul>';
 
 		if(ORDER_BY==='position') {
-			foreach($pagesByParent[PARENT] as $parent) {
+			foreach($pagesByParent[PARENT] as $Parent) {
 				$html .= '<li class="parent">';
 				$html .= '<h3>';
-				$html .= $parent->title();
+				$html .= $Parent->title();
 				$html .= '</h3>';
 
-				if(!empty($pagesByParent[$parent->key()])) {
+				if(!empty($pagesByParent[$Parent->key()])) {
 					$html .= '<ul class="child">';
-					foreach($pagesByParent[$parent->key()] as $child) {
+					foreach($pagesByParent[$Parent->key()] as $child) {
 						$html .= '<li class="child">';
 						$html .= '<a class="child" href="'.$child->permalink().'">';
 						$html .= $child->title();
