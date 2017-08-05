@@ -111,7 +111,15 @@ class dbPosts extends dbJSON
 
 		// Current date, format of DB_DATE_FORMAT
 		$currentDate = Date::current(DB_DATE_FORMAT);
-
+		
+		// Generate title 
+		if( empty($args['title']) ) {
+			$args['title'] = Text::truncate($args['content'], 60);
+			
+			// Assign the new title to the slug as well.
+			$args['slug'] = $args['title'];
+		}
+		
 		// Generate the database key / index
 		$key = $this->generateKey($args['slug']);
 
