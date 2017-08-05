@@ -216,23 +216,22 @@ class Text {
 	// Truncates the string under the limit specified by the limit parameter.
 	public static function truncate($string, $limit, $end = '...')
 	{
-		
-		// Check if string is only one word
-		if(preg_match('/\s/', $string)) {
+		// Check if over $limit
+		if(mb_strlen($string) > $limit) {
 			
-			// Append the string specified by the end parameter to the end of the string as it is over the limit.
-			$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, 'UTF-8'), 'UTF-8')).$end;
-			
-		} else {
-			$truncate = trim(mb_substr($string, 0, $limit, 'UTF-8'));
-			
-			// Check if string is more than limit
-			if(mb_strlen($string) > $limit) {
-				// Append $end
-				$truncate = $truncate.$end;
+			// Check if string is only one word
+			if(preg_match('/\s/', $string)) {
+				
+				// Append the string specified by the end parameter to the end of the string as it is over the limit.
+				$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, 'UTF-8'), 'UTF-8'));
+			} else {
+				$truncate = trim(mb_substr($string, 0, $limit, 'UTF-8'));
 			}
+			$truncate = $truncate.$end;
+		} else {
+			$truncate = $string;
 		}
-
+		
 		if(empty($truncate)) {
 			return '';
 		}
