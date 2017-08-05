@@ -2,10 +2,8 @@
 
 class pluginsimpleMDE extends Plugin {
 
-	private $loadWhenController = array(
-		'new-post',
+	private $loadOnController = array(
 		'new-page',
-		'edit-post',
 		'edit-page'
 	);
 
@@ -54,13 +52,9 @@ class pluginsimpleMDE extends Plugin {
 
 	public function adminHead()
 	{
-		global $layout;
+		if (in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
+			$html = '';
 
-		$html = '';
-
-		// Load CSS and JS only on Controllers in array.
-		if(in_array($layout['controller'], $this->loadWhenController))
-		{
 			// Path plugin.
 			$pluginPath = $this->htmlPath();
 
@@ -81,30 +75,22 @@ class pluginsimpleMDE extends Plugin {
 					.CodeMirror, .CodeMirror-scroll { min-height: 400px !important; border-radius: 0 !important; }
 				</style>';
 
+			return $html;
 		}
 
-		return $html;
+		return false;
 	}
 
 	public function adminBodyEnd()
 	{
-		global $layout;
-		global $Language;
-
-		$html = '';
-
-		// Load CSS and JS only on Controllers in array.
-		if(in_array($layout['controller'], $this->loadWhenController))
-		{
+		if (in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			// Autosave
-			global $_Page, $_Post;
-			$autosaveID = $layout['controller'];
+			global $Page;
+			global $Language;
+			$autosaveID = $GLOBALS['ADMIN_CONTROLLER'];
 			$autosaveEnable = $this->getDbField('autosave')?'true':'false';
-			if(isset($_Page)) {
-				$autosaveID = $_Page->key();
-			}
-			if(isset($_Post)) {
-				$autosaveID = $_Post->key();
+			if (!empty($Page)) {
+				$autosaveID = $Page->key();
 			}
 
 			// Spell Checker
@@ -148,8 +134,9 @@ class pluginsimpleMDE extends Plugin {
 			});';
 
 			$html .= '}); </script>';
+			return $html;
 		}
 
-		return $html;
+		return false;
 	}
 }
