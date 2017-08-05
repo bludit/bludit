@@ -28,9 +28,17 @@ class dbPages extends dbJSON
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
-
+		
+		// Generate title 
+		if( empty($args['title']) ) {
+			$args['title'] = Text::truncate($args['content'], 60);
+			
+			// Assign the new title to the slug as well.
+			$args['slug'] = $args['title'];
+		}
+		
 		$key = $this->generateKey($args['slug'], $args['parent']);
-
+		
 		// Generate UUID
 		$args['uuid'] = md5(time().DOMAIN);
 
