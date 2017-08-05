@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Links",
-		"description": "Show a list of links."
+		"description": "Shows a link list in the sidebar, you can modify these links in settings."
 	}
 }

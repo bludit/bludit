@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Categories",
-		"description": "Shows all categories."
+		"description": "Shows all categories on the system on the sidebar."
 	}
 }

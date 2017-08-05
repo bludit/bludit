@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Tags list",
-		"description": "Shows all tags."
+		"description": "Shows all tags on the sidebar."
 	}
 }

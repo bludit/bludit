@@ -1,6 +1,6 @@
 <?php
 
-class pluginTwitterCard extends Plugin {
+class pluginTwitterCards extends Plugin {
 
 	public function siteHead()
 	{
@@ -39,7 +39,7 @@ class pluginTwitterCard extends Plugin {
 				break;
 		}
 
-		$html  = PHP_EOL.'<!-- Twitter Card -->'.PHP_EOL;
+		$html  = PHP_EOL.'<!-- Twitter Cards -->'.PHP_EOL;
 		$html .= '<meta property="twitter:card" content="'.$data['card'].'">'.PHP_EOL;
 		$html .= '<meta property="twitter:site" content="'.$data['site'].'">'.PHP_EOL;
 		$html .= '<meta property="twitter:title" content="'.$data['title'].'">'.PHP_EOL;

@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Google",
-		"description": "This plugin generate the meta tag to validate your site with Google Webmasters Tools and the JavaScript code to track your site with Google Analytics."
+		"description": "This plugin generates the necessary code for the following Google tools: Google Analytics, Google Tag Manager and Google Site Verification HTML Tag."
 	},
 
 	"google-webmasters-tools": "Google Webmasters tools",

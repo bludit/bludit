@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Menu",
-		"description": "Show a menu organized by categories and pages."
+		"description": "Shows a menu on the sidebar, organized by categories and pages."
 	}
 }

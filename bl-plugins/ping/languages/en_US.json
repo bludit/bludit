@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Ping",
-		"description": "Ping the Feed of Bludit to share your site with other users."
+		"description": "Ping Bludit's feed to share your site with other users."
 	}
 }

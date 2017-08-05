@@ -2,9 +2,8 @@
 	"plugin-data":
 	{
 		"name": "Fixed pages",
-		"description": "Shows a list of pages, you can define the amount of items and the order depends of settings."
+		"description": "Shows the fixed pages on the sidebar, this plugin is useful when you want to create a blog with static pages."
 	},
-
 	"home-page": "Home page",
 	"show-home-link": "Show home link",
 	"amount-of-items": "Amount of items"

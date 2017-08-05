@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Pages",
-		"description": "Shows a list of pages, you can define the amount of items and the order depends of settings."
+		"description": "Shows a list of pages, you can define the amount of items. <br> The order of the pages is taken from the settings of Bludit."
 	},
 
 	"home-page": "Home page",

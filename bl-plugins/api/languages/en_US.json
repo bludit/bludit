@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "API",
-		"description": "Interface to interact with Bludit using HTTP protocol."
+		"description": "Interface to interact with Bludit using HTTP protocol. <br> Read more about this plugin on <a href=\"https://docs.bludit.com/en/api/introduction\">API Introduction</a>."
 	}
 }
