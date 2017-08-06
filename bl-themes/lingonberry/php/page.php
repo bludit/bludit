@@ -21,10 +21,36 @@
 		
 					<h2 class="post-title"><a href="<?php echo $Page->permalink() ?>" rel="bookmark" title="<?php echo $Page->title() ?>"><?php echo $Page->title() ?></a></h2>
 					
+					<div class="post-meta">
+					
+						<span class="post-date"><a href="<?php echo $Page->permalink() ?>" title="<?php echo $Page->date() ?>"><?php echo $Page->date() ?></a></span>
+						<span class="date-sep"> / </span>
+						<span class="post-author"><?php
+							if( Text::isNotEmpty($Page->user('firstName')) || Text::isNotEmpty($Page->user('lastName')) ) {
+								echo $Page->user('firstName').' '.$Page->user('lastName');
+							}
+								else {
+								echo $Page->user('username');
+							}
+						?></span>
+						
+					</div> <!-- /post-meta -->
 				</div> <!-- /post-header -->
 				
 				<div class="post-content">
 					<?php echo $Page->content() ?>
+					
+					<div class="post-cat-tags">
+						<p class="post-tags">Tags: 
+							<?php
+								$tags = $Page->tags(true);
+								
+								foreach($tags as $tagKey=>$tagName) {
+									echo '<a class="post-category" href="'.HTML_PATH_ROOT.$Url->filters('tag').'/'.$tagKey.'">'.$tagName.'</a>';
+								}
+							?>
+						</p>
+					</div>
 				</div> <!-- /post-content -->
 			</div> <!-- /post content-inner -->
 			

@@ -1,31 +1,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+<meta name="keywords" content="HTML,CSS,XML,JavaScript">
 <title><?php echo $Site->title() ?></title>
 
 <?php
 
 	// CSS
-	Theme::css(array(
-	'style.css',
-	'bludit.css'
+	echo Theme::css(array(
+	'css/style.css',
+	'css/bludit.css'
 	));
 
 	// Javascript
-	Theme::javascript(array(
+	echo Theme::javascript(array(
 	'jquery-1.12.0.min.js',
 	'jquery-migrate-1.2.1.min.js'
 	));
-	
-	// <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-	if($Url->whereAmI() == 'post') {
-		Theme::keywords($Post->tags());
-		Theme::description($Post->description());
-	} elseif($Url->whereAmI() == 'page') {
+
+	if($WHERE_AM_I == 'page') {
 		Theme::keywords($Page->tags());
 		Theme::description($Page->description());
-	} else {
-		Theme::description($Site->description());
-	}
+	} 
 	
 ?>
 
