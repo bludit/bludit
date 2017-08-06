@@ -227,4 +227,30 @@ class Text {
 			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
 			$string);
 	}
+	
+	// Truncates the string under the limit specified by the limit parameter.
+	public static function truncate($string, $limit, $end = '...')
+	{
+		// Check if over $limit
+		if(mb_strlen($string) > $limit) {
+			
+			// Check if string is only one word
+			if(preg_match('/\s/', $string)) {
+				
+				// Append the string specified by the end parameter to the end of the string as it is over the limit.
+				$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, 'UTF-8'), 'UTF-8'));
+			} else {
+				$truncate = trim(mb_substr($string, 0, $limit, 'UTF-8'));
+			}
+			$truncate = $truncate.$end;
+		} else {
+			$truncate = $string;
+		}
+		
+		if(empty($truncate)) {
+			return '';
+		}
+
+		return $truncate;
+	}
 }
