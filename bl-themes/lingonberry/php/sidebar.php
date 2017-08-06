@@ -6,10 +6,12 @@
 					<h3 class="widget-title">Recent Posts</h3>
 						<ul>
 							<?php
-								$posts = buildPostsForPage(0, 5, true, false);
+								$pages = $dbPages->getList(1, 5, true, false);
+								$keys = array_keys($pages);
 								
-								foreach($posts as $Post) {
-									echo '<li><a href="'.$Post->permalink().'">'.$Post->title().'</a></li>';
+								foreach($keys as $pageKey) {
+									$page = buildPage($pageKey);
+									echo '<li><a href="'.$page->permalink().'">'.$page->title().'</a></li>';
 								}
 							?>
 						</ul>
@@ -29,7 +31,7 @@
 								global $dbTags;
 								global $Url;
 								
-								$db = $dbTags->db['postsIndex'];
+								$db = $dbTags->db;
 								$filter = $Url->filters('tag');
 								
 								$tagArray = array();

@@ -1,6 +1,6 @@
 <div class="content section-inner">
 	<div class="posts">
-	<?php foreach($posts as $Post): ?>
+	<?php foreach($pages as $Post): ?>
 		<div class="post format-standard">
 			<div class="post-bubbles">
 				<a href="<?php echo $Post->permalink() ?>" class="format-bubble" title="<?php echo $Post->title() ?>"></a>
