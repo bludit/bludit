@@ -154,7 +154,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	// Parent input
 	// Check if the page has children
-	if(count($page->children())===0) {
+	if(count($page->children())==0) {
 		$options = array();
 		$parentsList = $dbPages->getParents();
 		$parentsKey = array_keys($parentsList);

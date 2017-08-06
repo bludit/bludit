@@ -591,6 +591,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/default/css/uikit/uikit.almost-flat.min.css?version=<?php echo time() ?>">
 	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/default/css/installer.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="bl-kernel/css/font-awesome/css/font-awesome.min.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
