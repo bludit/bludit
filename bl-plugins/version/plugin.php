@@ -54,7 +54,7 @@ class pluginVersion extends Plugin {
 		$output = TCP::http($url);
 
 		$json = json_decode($output, true);
-		if(empty($json)) {
+		if (empty($json)) {
 			return false;
 		}
 

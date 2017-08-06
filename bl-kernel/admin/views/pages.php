@@ -24,6 +24,8 @@ echo '
 function table($status, $icon='arrow-circle-o-down') {
 	global $pages;
 	global $Url;
+	global $Language;
+
 	$showLegend = true;
 	foreach ($pages as $key=>$page) {
 		if ($page->status()==$status) {

@@ -31,20 +31,12 @@ class dbPages extends dbJSON
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
-		
-		// Generate title if empty
-		if( empty($args['title']) ) {
-			$args['title'] = Text::truncate($args['content'], 60);
-			
-			// Assign the new title to the slug as well.
-			$args['slug'] = $args['title'];
+
+		// Generate slug from content if the title is empty
+		if (empty($args['title'])) {
+			$args['slug'] = Text::truncate($args['content'], 60, '');
 		}
-		
-		// Generate description if empty
-		if( empty($args['description']) ) {
-			$args['description'] = Text::truncate($args['content'], 100);
-		}		
-		
+
 		// Generate key
 		$key = $this->generateKey($args['slug'], $args['parent']);
 

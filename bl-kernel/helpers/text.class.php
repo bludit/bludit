@@ -134,7 +134,7 @@ class Text {
 		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
 
 		if(function_exists('iconv')) {
-			$string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+			$string = iconv(CHARSET, 'ASCII//TRANSLIT', $string);
 		}
 
 		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);
@@ -152,26 +152,26 @@ class Text {
 	}
 
 	// String to lowercase
-	public static function lowercase($string, $encoding='UTF-8')
+	public static function lowercase($string)
 	{
-		return mb_strtolower($string, $encoding);
+		return mb_strtolower($string, CHARSET);
 	}
 
 	// Make a string's first character uppercase
-	public static function firstCharUp($string, $encoding='UTF-8')
+	public static function firstCharUp($string)
 	{
 		// Thanks http://stackoverflow.com/questions/2517947/ucfirst-function-for-multibyte-character-encodings
-		$strlen 	= mb_strlen($string, $encoding);
-		$firstChar 	= mb_substr($string, 0, 1, $encoding);
-		$then 		= mb_substr($string, 1, $strlen - 1, $encoding);
+		$strlen 	= mb_strlen($string, CHARSET);
+		$firstChar 	= mb_substr($string, 0, 1, CHARSET);
+		$then 		= mb_substr($string, 1, $strlen - 1, CHARSET);
 
-		return mb_strtoupper($firstChar, $encoding).$then;
+		return mb_strtoupper($firstChar, CHARSET).$then;
 	}
 
 	// Find position of first occurrence of substring in a string otherwise returns FALSE.
 	public static function stringPosition($string, $substring)
 	{
-		return mb_strpos($string, $substring, 0, 'UTF-8');
+		return mb_strpos($string, $substring, 0, CHARSET);
 	}
 
 	public static function stringContains($string, $substring)
@@ -182,7 +182,7 @@ class Text {
 	// Returns the portion of string specified by the start and length parameters.
 	public static function cut($string, $start, $length)
 	{
-		$cut = mb_substr($string, $start, $length, 'UTF-8');
+		$cut = mb_substr($string, $start, $length, CHARSET);
 
 		if(empty($cut)) {
 			return '';
@@ -194,7 +194,7 @@ class Text {
 	// Return string length
 	public static function length($string)
 	{
-		return mb_strlen($string, 'UTF-8');
+		return mb_strlen($string, CHARSET);
 	}
 
 	public static function isEmpty($string)
@@ -227,26 +227,26 @@ class Text {
 			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
 			$string);
 	}
-	
+
 	// Truncates the string under the limit specified by the limit parameter.
 	public static function truncate($string, $limit, $end = '...')
 	{
 		// Check if over $limit
 		if(mb_strlen($string) > $limit) {
-			
+
 			// Check if string is only one word
 			if(preg_match('/\s/', $string)) {
-				
+
 				// Append the string specified by the end parameter to the end of the string as it is over the limit.
-				$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, 'UTF-8'), 'UTF-8'));
+				$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, CHARSET), CHARSET));
 			} else {
-				$truncate = trim(mb_substr($string, 0, $limit, 'UTF-8'));
+				$truncate = trim(mb_substr($string, 0, $limit, CHARSET));
 			}
 			$truncate = $truncate.$end;
 		} else {
 			$truncate = $string;
 		}
-		
+
 		if(empty($truncate)) {
 			return '';
 		}
