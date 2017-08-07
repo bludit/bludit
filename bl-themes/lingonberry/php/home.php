@@ -10,14 +10,14 @@
 				
 					<?php if($Post->coverImage()) {
 							echo '<div class="featured-media">';
-							echo	'<a href="'.$Post->permalink().'" rel="bookmark" title="'.$Post->title().'">';
-							echo		'<img class="attachment-post-image wp-post-image cover-image" src="'.$Post->coverImage().'" alt="Cover Image">';
+							echo 	'<img class="attachment-post-image wp-post-image cover-image" src="'.$Post->coverImage().'" alt="Cover Image">';
 							echo		'<div class="media-caption-container">';
-							echo			'<p class="media-caption">'.$Post->description().'</p>';
+							echo			'<a href="'.$Post->permalink().'" rel="bookmark" title="'.$Post->title().'">';
+							echo				'<p class="media-caption">'.$Post->description().'</p>';
+							echo			'</a>';
 							echo		'</div>';
-							echo	'</a>';
 							echo '</div> <!-- /featured-media -->';
-						} ?>
+					} ?>
 					
 					<h2 class="post-title"><a href="<?php echo $Post->permalink() ?>" rel="bookmark" title="<?php echo $Post->title() ?>"><?php echo $Post->title() ?></a></h2>
 					<div class="post-meta">
