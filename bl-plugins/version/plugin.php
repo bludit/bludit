@@ -32,10 +32,10 @@ class pluginVersion extends Plugin {
 		if( ($ADMIN_CONTROLLER=='dashboard') && ($timeToCheck<time()) ) {
 			$versions = $this->getVersion();
 			Session::set('timeToCheck', time());
-			Session::set('stableVersion', $versions['stableVersion']);
+			Session::set('version', $versions['version']);
 		}
 
-		if( version_compare(Session::get('stableVersion'), BLUDIT_VERSION, '>') ) {
+		if( version_compare(Session::get('version'), BLUDIT_VERSION, '>') ) {
 			$html = '<div id="plugin-version"><a href="https://www.bludit.com">New version available</a></div>';
 		} else {
 			if(defined('BLUDIT_PRO')) {
@@ -54,10 +54,10 @@ class pluginVersion extends Plugin {
 		$output = TCP::http($url);
 
 		$json = json_decode($output, true);
-		if (empty($json)) {
+		if (empty($json['stable'])) {
 			return false;
 		}
 
-		return $json;
+		return $json['stable'];
 	}
 }
