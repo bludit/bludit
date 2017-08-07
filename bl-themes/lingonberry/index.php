@@ -25,6 +25,8 @@
 			<div class="navigation-inner section-inner">
 				<ul class="blog-menu">
 					<?php
+						echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$Site->url().'">'.$Language->get('Homepage').'</a></li> ';
+
 						$fixedPages = $dbPages->getFixedDB();
 						$fpKeys  = array_keys($fixedPages);
 						foreach($fpKeys as $pageKey) {
@@ -40,7 +42,13 @@
 		<div class="header section">
 			<div class="header-inner section-inner">
 
-				<a href="<?php echo $Site->url() ?>" rel="home" class="logo"><img src="<?php echo(HTML_PATH_UPLOADS_PROFILES.'admin.png') ?>" alt="<?php echo $Site->title() ?>"></a>
+				<?php
+					$file = DOMAIN_UPLOADS_PROFILES.'admin.png';
+					if( !file_exists(PATH_UPLOADS_PROFILES.'admin.png') ) {
+						$file = DOMAIN_THEME.'css/images/logo.png';
+					}
+					echo '<a href="'.$Site->url().'" rel="home" class="logo"><img src="'.$file.'" alt="'.$Site->title().'"></a>';
+				?>
 
 				<h1 class="blog-title">
 					<a href="<?php echo $Site->url() ?>" rel="home"><?php echo $Site->title() ?></a>
@@ -50,7 +58,6 @@
 					<div class="bar"></div>
 					<div class="bar"></div>
 					<div class="bar"></div>
-
 					<div class="clear"></div>
 				</div>
 
