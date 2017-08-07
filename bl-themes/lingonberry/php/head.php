@@ -10,12 +10,13 @@
 		'css/bludit.css'
 	));
 
-	// JQuery from Bludit
-	echo Theme::jquery();
-	echo Theme::js('js/jquery-migrate-1.2.1.min.js');
+	echo Theme::js(array(
+		'js/jquery-1.12.0.min.js',
+		'js/jquery-migrate-1.2.1.min.js'
+	));
 
-	echo '<link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Raleway:600,500,400" rel="stylesheet" type="text/css">';
+	echo '<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Raleway:600,500,400" rel="stylesheet" type="text/css">';
 
-        // Load plugins with the hook siteHead
-        Theme::plugins('siteHead');
+    // Load plugins with the hook siteHead
+    Theme::plugins('siteHead');
 ?>

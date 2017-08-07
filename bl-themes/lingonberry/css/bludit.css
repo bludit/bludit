@@ -8,8 +8,10 @@
     font-size: 80%;
 }
 
-
-
 .comment-respond {
 	display: block;
+}
+
+.featured-media img {
+	min-width: 100%;
 }

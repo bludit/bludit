@@ -6,7 +6,7 @@
 					<h3 class="widget-title">Recent Posts</h3>
 						<ul>
 							<?php
-								$pages = $dbPages->getList(1, 5, true, false);
+								$pages = $dbPages->getList(1, 5, true);
 								$keys = array_keys($pages);
 								
 								foreach($keys as $pageKey) {
@@ -27,10 +27,6 @@
 					<h3 class="widget-title">Tags</h3>
 						<ul>
 							<?php
-								global $Language;
-								global $dbTags;
-								global $Url;
-								
 								$db = $dbTags->db;
 								$filter = $Url->filters('tag');
 								

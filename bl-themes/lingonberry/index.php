@@ -6,13 +6,20 @@
 	</head>
 	
 	<?php
-		if( $WHERE_AM_I=='home' )
+		if( ($WHERE_AM_I == 'home') || ($WHERE_AM_I == 'tag')  )
 		{
 			echo '<body class="header-image fullwidth">';
 		}
 		else
 		{
-			echo '<body class="page page-template-default">';
+			if( $Page->status() == "fixed" )
+			{
+				echo '<body class="page page-template-default">';
+			}
+			elseif( $Page->status() == "published" )
+			{
+				echo '<body class="single single-post">';
+			}	
 		}
 	?>
 
@@ -20,19 +27,21 @@
 		<!-- Plugins Site Body Begin -->
 		<?php Theme::plugins('siteBodyBegin') ?>
 	
-		<!-- <div class="navigation" >
+		<div class="navigation" >
 			<div class="navigation-inner section-inner">
 				<ul class="blog-menu">
 					<?php
-						/** $parents = $pagesParents[NO_PARENT_CHAR];
-						foreach($parents as $Parent) {
-							echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$Parent->permalink().'">'.$Parent->title().'</a></li> ';
-						} */
+						$fixedPages = $dbPages->getFixedDB();
+						$fpKeys  = array_keys($fixedPages);
+						foreach($fpKeys as $pageKey) {
+							$page = buildPage($pageKey);
+							echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$page->permalink().'">'.$page->title().'</a></li> ';
+						} 
 					?>
 				 </ul>
 				 <div class="clear"></div>
 			</div> <!-- /navigation-inner -->
-		<!-- </div> <!-- /navigation -->
+		</div> <!-- /navigation -->
 	
 		<div class="header section">
 			<div class="header-inner section-inner">
@@ -43,26 +52,33 @@
 					<a href="<?php echo $Site->url() ?>" rel="home"><?php echo $Site->title() ?></a>
 				</h1>
 				
-				<!-- <div class="nav-toggle">
+				<div class="nav-toggle">
 					<div class="bar"></div>
 					<div class="bar"></div>
 					<div class="bar"></div>
 					
 					<div class="clear"></div>
-				</div> -->
+				</div>
  				
 				<div class="clear"></div>
 			</div> <!-- /header section -->
 		</div> <!-- /header-inner section-inner -->
 		
 		<?php
-			if( $WHERE_AM_I=='home' )
+			if( ($WHERE_AM_I == 'home') || ($WHERE_AM_I == 'tag') )
 			{
 				include(THEME_DIR_PHP.'home.php');
 			}
 			else
 			{
-				include(THEME_DIR_PHP.'page.php');
+				if( $Page->status() == "fixed" )
+				{
+					include(THEME_DIR_PHP.'page.php');
+				}
+				elseif( $Page->status() == "published" )
+				{
+					include(THEME_DIR_PHP.'post.php');
+				}
 			}
 		?>
 		
@@ -77,7 +93,7 @@
 				</p>
 				
 				<p class="credits-right">
-					<span>Lingonberry by <a href="http://www.andersnoren.se">Anders Noren</a> — </span><span>Ported by <a href="http://www.iamnobuna.ga">Hakim Zulkufli</a> — </span><a class="tothetop">Up ↑</a>
+					<span>Lingonberry by <a href="http://www.andersnoren.se">Anders Noren</a> — Proudly Powered by <a href="https://www.bludit.com/">Bludit</a> — </span><a class="tothetop">Up ↑</a>
 				</p>
 
 				<div class="clear"></div>
@@ -88,9 +104,9 @@
 		<?php Theme::plugins('siteBodyEnd') ?>
 		
 		<!-- Javascript -->
-		<?php Theme::javascript(array(
-			'flexslider.min.js',
-			'global.js'
+		<?php echo Theme::js(array(
+			'js/flexslider.min.js',
+			'js/global.js'
 		)); ?>
 		
 	</body>
