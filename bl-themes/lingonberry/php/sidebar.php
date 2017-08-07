@@ -55,7 +55,7 @@
 
 		<div class="footer-c widgets">
 			<div class="widget-content">
-					<h3 class="widget-title">Links</h3>
+					<h3 class="widget-title">Feed</h3>
 						<ul>
 							<li><a href="<?php echo Theme::sitemapUrl() ?>">Sitemap</a></li>
 							<li><a href="<?php echo Theme::rssUrl()?>">RSS Feed</a></li>
