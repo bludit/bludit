@@ -5,6 +5,8 @@
 	echo Theme::headTitle();
 	echo Theme::headDescription();
 
+	echo Theme::favicon('favicon.png');
+
 	echo Theme::css(array(
 		'css/style.css',
 		'css/bludit.css'

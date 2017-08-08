@@ -126,10 +126,9 @@ class dbPages extends dbJSON
 		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
 
 		// If the page is draft then the created time is the current
-		if( $this->db[$args['key']]['status']=='draft' ) {
+		if ($this->db[$args['key']]['status']=='draft') {
 			$args['date'] = Date::current(DB_DATE_FORMAT);
-		}
-		else {
+		} elseif (!Valid::date($args['date'], DB_DATE_FORMAT)) {
 			$args['date'] = $this->db[$args['key']]['date'];
 		}
 
