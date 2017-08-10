@@ -11,7 +11,7 @@ class pluginsimpleMDE extends Plugin {
 	{
 		$this->dbFields = array(
 			'tabSize'=>'2',
-			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen", "guide"',
+			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen"',
 			'autosave'=>true,
 			'spellChecker'=>true
 		);
@@ -127,19 +127,18 @@ class pluginsimpleMDE extends Plugin {
 						uniqueId: "'.$autosaveID.'",
 						delay: 1000,
 					},
-					toolbar: [	{	
-									name: "pageBreak",
-									action: function addPageBreak(editor){
-												var cm = editor.codemirror;
-												output = "\n<!-- pagebreak -->\n\n";
-												cm.replaceSelection(output);
-											},
-									className: "fa fa-book",
-									title: "Pagebreak",
-								},
-								"|",
-								'.Sanitize::htmlDecode($this->getDbField('toolbar')).'
-							]
+					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).',
+						"|",
+						{
+						name: "pageBreak",
+						action: function addPageBreak(editor){
+							var cm = editor.codemirror;
+							output = "\n'.PAGE_BREAK.'\n";
+							cm.replaceSelection(output);
+							},
+						className: "fa fa-minus-square-o",
+						title: "'.$Language->get('Pagebreak').'",
+						}]
 			});';
 
 			$html .= '}); </script>';
