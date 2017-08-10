@@ -127,7 +127,19 @@ class pluginsimpleMDE extends Plugin {
 						uniqueId: "'.$autosaveID.'",
 						delay: 1000,
 					},
-					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).']
+					toolbar: [	{	
+									name: "pageBreak",
+									action: function addPageBreak(editor){
+												var cm = editor.codemirror;
+												output = "\n<!-- pagebreak -->\n\n";
+												cm.replaceSelection(output);
+											},
+									className: "fa fa-book",
+									title: "Pagebreak",
+								},
+								"|",
+								'.Sanitize::htmlDecode($this->getDbField('toolbar')).'
+							]
 			});';
 
 			$html .= '}); </script>';
