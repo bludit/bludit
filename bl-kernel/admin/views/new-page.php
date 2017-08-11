@@ -164,6 +164,15 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'label'=>$L->g('Position')
 	));
 
+	// External Coverimage
+	HTML::formInputText(array(
+		'name'=>'externalCoverImage',
+		'value'=>'',
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'label'=>$L->g('External Cover Image'),
+		'tip'=>$L->g('Image URL')
+	));
+
 	// Slug input
 	HTML::formInputText(array(
 		'name'=>'slug',

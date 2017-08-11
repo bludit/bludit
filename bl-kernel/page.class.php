@@ -289,16 +289,22 @@ class Page {
 		return json_encode($tmp);
 	}
 
-	// Returns the file name of the cover image, FALSE there isn't a cover image setted
+	// Returns the file name, FALSE there isn't a cover image setted
+	// If the user defined an External Cover Image the complete URL is going to be returned
 	// (boolean) $absolute, TRUE returns the absolute path and file name, FALSE just the file name
 	public function coverImage($absolute=true)
 	{
 		$fileName = $this->getValue('coverImage');
-		if(empty($fileName)) {
+		if (empty($fileName)) {
 			return false;
 		}
 
-		if($absolute) {
+		// Check if external cover image, is a valid URL
+		if (filter_var($fileName, FILTER_VALIDATE_URL)) {
+			return $fileName;
+		}
+
+		if ($absolute) {
 			return DOMAIN_UPLOADS.$fileName;
 		}
 

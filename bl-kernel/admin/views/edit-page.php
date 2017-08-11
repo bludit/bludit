@@ -94,7 +94,14 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '<li id="sidebar-images-view" class="sidebar-view">';
 
 	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage($page->coverImage(false));
+	$coverImage = $page->coverImage(false);
+	$externalCoverImage = '';
+	if (filter_var($coverImage, FILTER_VALIDATE_URL)) {
+		$coverImage = '';
+		$externalCoverImage = $page->coverImage(false);
+	}
+
+	HTML::bluditCoverImage($coverImage);
 
 	// --- BLUDIT QUICK IMAGES ---
 	HTML::bluditQuickImages();
@@ -181,6 +188,15 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'value'=>$page->position(),
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('Position')
+	));
+
+	// External Coverimage
+	HTML::formInputText(array(
+		'name'=>'externalCoverImage',
+		'value'=>$externalCoverImage,
+		'class'=>'uk-width-1-1 uk-form-medium',
+		'label'=>$L->g('External Cover Image'),
+		'tip'=>$L->g('Image URL')
 	));
 
 	// Slug input
