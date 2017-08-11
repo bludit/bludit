@@ -120,9 +120,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>array(
 			'published'=>$L->g('Published'),
-			'draft'=>$L->g('Draft'),
 			'fixed'=>$L->g('Fixed'),
-			'sticky'=>$L->g('Sticky')
+			'draft'=>$L->g('Draft')
 		),
 		'selected'=>'published',
 		'tip'=>''
