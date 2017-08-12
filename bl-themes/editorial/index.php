@@ -9,6 +9,8 @@
 </head>
 <body>
 
+<?php Theme::plugins('siteBodyBegin') ?>
+
 <!-- Wrapper -->
 <div id="wrapper">
 
@@ -68,6 +70,8 @@
 	echo '<!--[if lte IE 8]>'.Theme::javascript('assets/js/ie/respond.min.js').'<![endif]-->';
 	echo Theme::javascript('assets/js/main.js');
 ?>
+
+<?php Theme::plugins('siteBodyEnd') ?>
 
 </body>
 </html>

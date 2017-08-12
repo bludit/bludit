@@ -154,7 +154,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'date',
 		'value'=>$page->dateRaw(),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'tip'=>$L->g('To schedule the page just select the date and time'),
 		'label'=>$L->g('Date')
 	));
 

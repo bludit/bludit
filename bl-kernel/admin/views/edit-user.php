@@ -70,7 +70,7 @@ if($Login->role()==='admin') {
 		'label'=>$L->g('Email'),
 		'value'=>$User->email(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('email-will-not-be-publicly-displayed')
+		'tip'=>$L->g('Recommended for recovery password and notifications.')
 	));
 
 	HTML::legend(array('value'=>$L->g('Social networks links')));
@@ -121,7 +121,7 @@ if($Login->role()==='admin') {
 		'label'=>$L->g('Token'),
 		'value'=>$User->tokenAuth(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('This token is similar to your password, do not share this token.')
+		'tip'=>$L->g('This token is similar to your password, you should not share it.')
 	));
 
 	HTML::legend(array('value'=>$L->g('Status')));
@@ -132,7 +132,7 @@ if($Login->role()==='admin') {
 		'value'=>$User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,
-		'tip'=>$User->enabled()?'':$L->g('To enable the user you have to set a new password')
+		'tip'=>$User->enabled()?'':$L->g('To enable the user you must set a new password.')
 	));
 
 if( $User->enabled() ) {
@@ -149,7 +149,7 @@ if( ($Login->role()==='admin') && ($User->username()!='admin') ) {
 
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
-		<button type="submit" id="jsdelete-user-associate" class="delete-button" name="delete-user-associate"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and associate its posts to admin user').'</button>
+		<button type="submit" id="jsdelete-user-associate" class="delete-button" name="delete-user-associate"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and associate its pages to admin user').'</button>
 		<button type="submit" id="jsdelete-user-all" class="delete-button" name="delete-user-all"><i class="uk-icon-ban"></i> '.$L->g('Delete the user and all its posts').'</button>
 		</div>
 	</div>';
@@ -174,19 +174,19 @@ echo '</div>';
 $(document).ready(function() {
 
 	$("#jsdelete-user-associate").click(function() {
-		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+		if(confirm("<?php $Language->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});
 
 	$("#jsdelete-user-all").click(function() {
-		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
+		if(confirm("<?php $Language->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});
 
 	$("#jsdisable-user").click(function() {
-		if(confirm("<?php $Language->p('do-you-want-to-disable-the-user') ?>")==false) {
+		if(confirm("<?php $Language->p('Do you want to disable the user') ?>")==false) {
 			return false;
 		}
 	});

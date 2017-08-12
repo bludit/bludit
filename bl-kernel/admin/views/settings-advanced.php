@@ -48,7 +48,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'options'=>array('date'=>'Date','position'=>'Position'),
 		'selected'=>$Site->orderBy(),
 		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>$L->g('Order the content by date to create a Blog or order the content by position to create a Website')
+		'tip'=>$L->g('Order the content by date to build a Blog or order the content by position to build a Website.')
 	));
 
 	HTML::legend(array('value'=>$L->g('Email account settings')));

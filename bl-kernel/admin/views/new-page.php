@@ -132,7 +132,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'date',
 		'value'=>Date::current(DB_DATE_FORMAT),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('To schedule the post just select the date and time'),
+		'tip'=>$L->g('To schedule the page just select the date and time'),
 		'label'=>$L->g('Date')
 	));
 
@@ -177,7 +177,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'slug',
 		'value'=>'',
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('you-can-modify-the-url-which-identifies'),
+		'tip'=>$L->g('You can modify the URL which identifies a page...'),
 		'label'=>$L->g('Friendly URL')
 	));
 
