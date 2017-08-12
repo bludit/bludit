@@ -5,7 +5,7 @@
 	echo Theme::headTitle();
 	echo Theme::headDescription();
 
-	//Theme::favicon('favicon.png');
+	Theme::favicon('assets/favicon.png');
 
 	echo Theme::fontAwesome();
 
