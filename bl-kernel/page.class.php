@@ -8,7 +8,7 @@ class Page {
 	{
 		$this->vars = false;
 
-		if( $this->build($key) ) {
+		if ($this->build($key)) {
 			$this->vars['key'] = $key;
 		}
 	}
@@ -19,7 +19,7 @@ class Page {
 		$filePath = PATH_PAGES.$key.DS.FILENAME;
 
 		// Check if the file exists
-		if( !Sanitize::pathFile($filePath) ) {
+		if (!Sanitize::pathFile($filePath)) {
 			return false;
 		}
 
@@ -29,28 +29,35 @@ class Page {
 			// Split the line in 2 parts, limiter by :
 			$parts = explode(':', $line, 2);
 
-			// Remove all characters except letters and dash -
-			$parts[0] = preg_replace('/[^A-Za-z\-]/', '', $parts[0]);
+			$field = $parts[0]; // title, date, slug
+			$value = isset($parts[1])?$parts[1]:false; // value of title, value of date
 
-			// Lowercase
-			$parts[0] = Text::lowercase($parts[0]);
+			// Remove all characters except letters and dash - from field
+			$field = preg_replace('/[^A-Za-z\-]/', '', $field);
+
+			// Field to lowercase
+			$field = Text::lowercase($field);
 
 			// Check if the current line start the content of the page
 			// We have two breakers, the word content or 3 dash ---
-			if( ($parts[0]==='content') || ($parts[0]==='---') ) {
+			if( ($field==='content') || ($field==='---') ) {
 				$tmp = $lineNumber;
 				break;
 			}
 
-			if( !empty($parts[0]) && !empty($parts[1]) ) {
-				// remove missing dashs -
-				$field = preg_replace('/[^A-Za-z]/', '', $parts[0]);
+			if( !empty($field) && !empty($value) ) {
+				// Remove missing dashs -
+				$field = preg_replace('/[^A-Za-z]/', '', $field);
 
-				// remove empty spaces on borders
-				$value = trim($parts[1]);
+				// Remove <-- and -->
+				$value = preg_replace('/<\-\-/', '', $value);
+				$value = preg_replace('/\-\->/', '', $value);
 
-				// position accept only integers
-				if($field=='position') {
+				// Remove empty spaces on borders
+				$value = trim($value);
+
+				// Position accepts only integers
+				if ($field=='position') {
 					$value = preg_replace('/[^0-9]/', '', $value);
 				}
 
