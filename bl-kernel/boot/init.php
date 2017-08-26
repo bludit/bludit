@@ -209,12 +209,16 @@ elseif( empty($base) ) {
 	$base = dirname($base);
 }
 
-if($base!=DS) {
+// Assume URLs are rewritten to server root if current URL doesn't start with $base
+if (strpos($_SERVER['REQUEST_URI'], $base) !== 0) {
+	$base = '/';
+}
+
+if($base!=DS and strlen($base > 0)) {
 	$base = trim($base, '/');
 	$base = '/'.$base.'/';
 }
 else {
-	// Workaround for Windows Web Servers
 	$base = '/';
 }
 
