@@ -11,14 +11,18 @@ $html  = '<div class="plugin plugin-pages">';
 $html .= '<div class="plugin-content">';
 $html .= '<ul class="parent">';
 
-foreach($pagesByParent[PARENT] as $parent) {
+foreach ($pagesByParent[PARENT] as $parent) {
 	$html .= '<li class="parent">';
 	$html .= '<span class="parent">'.$parent->title().'</span>';
 
-	if(!empty($pagesByParent[$parent->key()])) {
+	if (!empty($pagesByParent[$parent->key()])) {
 		$html .= '<ul class="child">';
-		foreach($pagesByParent[$parent->key()] as $child) {
-			$html .= '<li class="child">';
+		foreach ($pagesByParent[$parent->key()] as $child) {
+			if ($child->key()==$page->key()) {
+				$html .= '<li class="child selected">';
+			} else {
+				$html .= '<li class="child">';
+			}
 			$html .= '<a class="child" href="'.$child->permalink().'">';
 			$html .= $child->title();
 			$html .= '</a>';

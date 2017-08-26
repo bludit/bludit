@@ -71,7 +71,7 @@ th, td {
 }
 
 pre, pre code {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 pre, code {
     border-radius: 3px;
@@ -100,6 +100,7 @@ pre {
 code {
 	background: #f6f6f6;
 	padding: 4px;
+	font-size: 14px !important;
 }
 
 blockquote {
@@ -334,10 +335,6 @@ div.plugin-content {
 	padding: 0 10px;
 }
 
-div.plugin-content li {
-	margin-top: 5px;
-}
-
 div.plugin-content ul {
 	display: block;
 	list-style-type: none;
@@ -346,17 +343,27 @@ div.plugin-content ul {
 }
 
 div.plugin-content ul > li > ul > li {
-	margin: 10px;
+	border-left: 1px solid #dddddd;
+	padding-left: 10px;
+	padding: 5px 0 5px 10px;
+	margin-left: 13px;
+	font-size: 0.9em;
 }
 
 div.plugin-content ul > li > ul > li > a {
 	color: #555;
+	cursor: pointer;
+}
+
+div.plugin-content ul > li > ul > li.selected {
+	border-left: 4px solid #2672ec;
+	margin-left: 10px;
 }
 
 div.plugin-pages span.parent {
     color: #2672ec;
     display: inline-block;
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 8px 0 2px;
     padding: 10px 0 4px 10px;
 }
