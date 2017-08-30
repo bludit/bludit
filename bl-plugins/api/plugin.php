@@ -60,7 +60,7 @@ class pluginAPI extends Plugin {
 		$inputs = $this->getMethodInputs();
 
 		if ( empty($inputs) ) {
-			$this->response(404,'Not Found', array('message'=>'Missing method inputs.'));
+			$this->response(404, 'Not Found', array('message'=>'Missing method inputs.'));
 		}
 
 		// ENDPOINT PARAMETERS
@@ -68,19 +68,20 @@ class pluginAPI extends Plugin {
 		$parameters = $this->getEndpointParameters($URI);
 
 		if ( empty($parameters) ) {
-			$this->response(404,'Not Found', array('message'=>'Missing endpoint parameters.'));
+			$this->response(404, 'Not Found', array('message'=>'Missing endpoint parameters.'));
 		}
 
 		// API TOKEN
 		// ------------------------------------------------------------
+		// Token from the plugin, the user can change it on the settings of the plugin
 		$tokenAPI = $this->getValue('token');
 
 		// Check empty token
 		if ( empty($inputs['token']) ) {
-			$this->response(404,'Not Found', array('message'=>'Missing API token.'));
+			$this->response(404, 'Not Found', array('message'=>'Missing API token.'));
 		}
 
-		// Check the token is valid
+		// Check if the token is valid
 		if ($inputs['token']!==$tokenAPI) {
 			$this->response(401, 'Unauthorized', array('message'=>'Invalid API token.'));
 		}
@@ -164,6 +165,7 @@ class pluginAPI extends Plugin {
 		// /api/pages/{key}	| GET  | returns the page with the {key}
 		// /api/pages 		| POST | create a new page
 
+		$URI = ltrim($URI, '/');
 		$parameters = explode('/', $URI);
 
 		// Sanitize parameters
@@ -193,6 +195,7 @@ class pluginAPI extends Plugin {
 	private function response($code=200, $message='OK', $data=array())
 	{
 		header('HTTP/1.1 '.$code.' '.$message);
+		header('Access-Control-Allow-Origin: *');
 		header('Content-Type: application/json');
 		$json = json_encode($data);
 		exit($json);
