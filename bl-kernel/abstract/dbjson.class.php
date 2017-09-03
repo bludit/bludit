@@ -33,7 +33,7 @@ class dbJSON
 			$array = $this->unserialize($implode);
 
 			if(empty($array)) {
-				Log::set(__METHOD__.LOG_SEP.'Invalid JSON file: '.$file.', cannot be decoded. Check the file content.');
+				//Log::set(__METHOD__.LOG_SEP.'Invalid JSON file: '.$file.', cannot be decoded. Check the file content.');
 			}
 			else {
 				$this->db = $array;

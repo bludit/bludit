@@ -27,6 +27,7 @@ class pluginVersion extends Plugin {
 	public function adminBodyEnd()
 	{
 		global $ADMIN_CONTROLLER;
+		global $Language;
 
 		$timeToCheck = Session::get('timeToCheck') + 10*60;
 		if( ($ADMIN_CONTROLLER=='dashboard') && ($timeToCheck<time()) ) {
@@ -35,17 +36,22 @@ class pluginVersion extends Plugin {
 			Session::set('version', $versions['version']);
 		}
 
-		if( version_compare(Session::get('version'), BLUDIT_VERSION, '>') ) {
-			$html = '<div id="plugin-version"><a href="https://www.bludit.com">New version available</a></div>';
+		if ($this->newVersion()) {
+			$html = '<div id="plugin-version"><a href="https://www.bludit.com">'.$Language->get('New version available').'</a></div>';
 		} else {
 			if(defined('BLUDIT_PRO')) {
 				$html = '<div id="plugin-version">Bludit PRO v'.BLUDIT_VERSION.'</div>';
 			} else {
-				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="">Upgrade to Bludit PRO</a></div>';
+				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="https://pro.bludit.com">'.$Language->get('Upgrade to Bludit PRO').'</a></div>';
 			}
 		}
 
 		return $html;
+	}
+
+	public function newVersion()
+	{
+		return version_compare(Session::get('version'), BLUDIT_VERSION, '>');
 	}
 
 	private function getVersion()

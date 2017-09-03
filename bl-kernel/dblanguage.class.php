@@ -4,31 +4,30 @@ class dbLanguage extends dbJSON
 {
 	public $data;
 	public $db;
-	public $currentLocale;
+	public $currentLanguage;
 
-	function __construct($locale)
+	function __construct($currentLanguage)
 	{
 		$this->data = array();
 		$this->db = array();
-		$this->currentLocale = 'en_US';
+		$this->currentLanguage = $currentLanguage;
 
-		// Default language en_US
-		$filename = PATH_LANGUAGES.'en_US.json';
-		if( Sanitize::pathFile($filename) )
-		{
+		// Load default language
+		$filename = PATH_LANGUAGES.DEFAULT_LANGUAGE_FILE;
+		if (Sanitize::pathFile($filename)) {
 			$Tmp = new dbJSON($filename, false);
 			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
-		// User language
-		$filename = PATH_LANGUAGES.$locale.'.json';
-		if( Sanitize::pathFile($filename) && ($locale!=="en_US") )
-		{
-			$this->currentLocale = $locale;
+		// If the user defined a new language replace the content of the default language
+		// If the new dictionary has missing keys this are going to take from the default language
+		$filename = PATH_LANGUAGES.$currentLanguage.'.json';
+		if (Sanitize::pathFile($filename) && (DEFAULT_LANGUAGE_FILE!==$currentLanguage.'.json')) {
 			$Tmp = new dbJSON($filename, false);
 			$this->db = array_merge($this->db, $Tmp->db);
 		}
 
+		// Language-data
 		$this->data = $this->db['language-data'];
 		unset($this->db['language-data']);
 	}
@@ -38,81 +37,79 @@ class dbLanguage extends dbJSON
 		return isset( $this->db[$key] );
 	}
 
-	public function getCurrentLocale()
+	public function locale()
 	{
-		return $this->currentLocale;
+		if (isset($this->data['locale'])) {
+			return $this->data['locale'];
+		}
+
+		return $this->currentLanguage;
 	}
 
-	// Return the translation, if the translation does'n exist then return the English translation.
+	// Return the translation, if the translation doesn't exist returns the English translation
 	public function get($string)
 	{
 		$key = Text::lowercase($string);
 		$key = Text::replace(' ', '-', $key);
 
-		#file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
+		//file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
 
-		if(isset($this->db[$key])) {
+		if (isset($this->db[$key])) {
 			return $this->db[$key];
 		}
 
+		return 'NO AVAILABLE: '.$string;
 		return $string;
 	}
 
-	// Returns translation.
+	// Returns translation
 	public function g($string)
 	{
 		return $this->get($string);
 	}
 
-	// Print translation.
+	// Print translation
 	public function printMe($string)
 	{
 		echo $this->get($string);
 	}
 
-	// Print translation.
+	// Print translation
 	public function p($string)
 	{
 		echo $this->get($string);
 	}
 
-	// Add more keys=>values to the current dicionary
-	// Will be overwrite if exist the key with the new value
+	// Add keys=>values to the current dicionary
+	// This method overwrite the key=>value
 	public function add($array)
 	{
 		$this->db = array_merge($array, $this->db);
 	}
 
-	// Returns the item from plugin-data.
+	// Returns the item from language-data
 	public function getData($key)
 	{
-		if(isset($this->data[$key])) {
+		if (isset($this->data[$key])) {
 			return $this->data[$key];
 		}
 
-		return '';
+		return false;
 	}
 
-	// Returns an array with all dictionaries.
+	// Returns an array with all dictionaries
 	public function getLanguageList()
 	{
 		$files = Filesystem::listFiles(PATH_LANGUAGES, '*', 'json');
-
 		$tmp = array();
-
-		foreach($files as $file)
-		{
+		foreach($files as $file) {
 			$t = new dbJSON($file, false);
-
-			// Check if the JSON is complete.
-			if(isset($t->db['language-data']['native']))
-			{
+			if (isset($t->db['language-data']['native'])) {
 				$native = $t->db['language-data']['native'];
 				$locale = basename($file, '.json');
 				$tmp[$locale] = $native;
 			}
 		}
-
 		return $tmp;
 	}
 }

@@ -63,8 +63,8 @@ HTML::formClose();
 $(document).ready(function() {
 
 	$("#jslanguage").change(function () {
-		var locale = $("#jslanguage option:selected").val();
-		$("#jslocale").attr("value",locale);
+		$("#jslocale").attr("value", "<?php $L->p('You can change this field when save the current changes') ?>");
+		$("#jslocale").attr("disabled", true);
 	});
 
 });

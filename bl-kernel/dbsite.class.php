@@ -49,8 +49,8 @@ class dbSite extends dbJSON
 
 	public function set($args)
 	{
-		foreach($args as $field=>$value) {
-			if( isset($this->dbFields[$field]) ) {
+		foreach ($args as $field=>$value) {
+			if (isset($this->dbFields[$field])) {
 				$this->db[$field] = Sanitize::html($value);
 			}
 		}
@@ -290,18 +290,22 @@ class dbSite extends dbJSON
 		return $homepage;
 	}
 
-	// Set the locale.
+	// Set the locale, returns TRUE is success, FALSE otherwise
 	public function setLocale($locale)
 	{
-		if(setlocale(LC_ALL, $locale.'.UTF-8')!==false) {
-			return true;
+		$localeList = explode(',', $locale);
+		foreach ($localeList as $locale) {
+			$locale = trim($locale);
+			if (setlocale(LC_ALL, $locale.'.UTF-8')!==false) {
+				return true;
+			}
+			elseif (setlocale(LC_ALL, $locale)!==false) {
+				return true;
+			}
 		}
 
-		if(setlocale(LC_ALL, $locale.'.UTF8')!==false) {
-			return true;
-		}
-
-		return setlocale(LC_ALL, $locale);
+		// Not was possible to set a locale, using default locale
+		return false;
 	}
 
 	// Set the timezone.

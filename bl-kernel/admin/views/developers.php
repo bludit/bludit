@@ -13,3 +13,7 @@ printTable('Loaded extensions',get_loaded_extensions());
 
 // Site object
 printTable('$Site object database',$Site->db);
+
+// Locales installed
+exec('locale -a', $locales);
+printTable('Locales installed', $locales);

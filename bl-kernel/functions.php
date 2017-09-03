@@ -498,6 +498,17 @@ function editSettings($args) {
 	global $Site;
 	global $Syslog;
 
+	if (isset($args['language'])) {
+		if ($args['language']!=$Site->language()) {
+			$tmp = new dbJSON(PATH_LANGUAGES.$args['language'].'.json', false);
+			if (isset($tmp->db['language-data']['locale'])) {
+				$args['locale'] = $tmp->db['language-data']['locale'];
+			} else {
+				$args['locale'] = $args['language'];
+			}
+		}
+	}
+
 	if( $Site->set($args) ) {
 		// Add to syslog
 		$Syslog->add(array(

@@ -10,7 +10,7 @@
 
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage content') ?></a></h4>
-		<p><?php $L->p('Edit or delete pages from your site') ?></p>
+		<p><?php $L->p('Edit or delete content from your site') ?></p>
 		</div>
 
 	</div>
@@ -19,7 +19,7 @@
 
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-category' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New category') ?></a></h4>
-		<p><?php $L->p('Create a new category to organize your pages') ?></p>
+		<p><?php $L->p('Create a new category to organize your content') ?></p>
 		</div>
 
 		<div class="uk-panel">
@@ -65,6 +65,17 @@
 		<h4 class="panel-title"><?php $L->p('Notifications') ?></h4>
 		<ul class="uk-list uk-list-line">
 		<?php
+			// Print New version if the plugin Version is installed
+			if (pluginEnabled('Version')) {
+				if ($plugins['all']['pluginVersion']->newVersion()) {
+					echo '<li>';
+					echo '<b>'.$L->g('New version available').'</b>';
+					echo '<br><a href="https://www.bludit.com" target="_black">Bludit.com</a>';
+					echo '</li>';
+				}
+			}
+
+			// Print Notifications
 			$logs = array_slice($Syslog->db, 0, NOTIFICATIONS_AMOUNT);
 			foreach($logs as $log) {
 				$dict = $L->g($log['dictionaryKey']);
@@ -77,7 +88,6 @@
 				echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
 				echo ' - by '.$log['username'];
 				echo '</span>';
-
 				echo '</li>';
 			}
 		?>

@@ -111,7 +111,7 @@ define('CLI_STATUS', 'published');
 define('CLI_USERNAME', 'admin');
 
 // Filename
-define('FILENAME', 'index.txt');
+define('FILENAME', 'index.md');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -264,7 +264,7 @@ define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 define('JQUERY',			HTML_PATH_ROOT.'bl-kernel/js/jquery.min.js');
 
 // --- Objects with dependency ---
-$Language 	= new dbLanguage( $Site->locale() );
+$Language 	= new dbLanguage( $Site->language() );
 $Login 		= new Login( $dbUsers );
 $Url->checkFilters( $Site->uriFilters() );
 

@@ -25,7 +25,7 @@
 	<div class="edit-this-page">
 		<?php
 			echo '<a class="pure-button pure-button-primary" href="'.$GITHUB_BASE_URL.$Page->key().'/'.FILENAME.'"><i class="fa fa-pencil"></i> Edit this page</a>';
-			echo '<a class="pure-button" href="'.$GITHUB_BASE_URL.$Page->key().'/'.FILENAME.'"><i class="fa fa-info-circle"></i> How to edit this page ?</a>';
+			echo '<a class="pure-button" href="'.$HOW_TO_EDIT_LINK.'"><i class="fa fa-info-circle"></i> How to edit this page ?</a>';
 		?>
 	</div>
 
