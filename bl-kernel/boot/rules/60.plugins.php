@@ -9,6 +9,8 @@ $plugins = array(
 	'siteBodyBegin'=>array(),
 	'siteBodyEnd'=>array(),
 	'siteSidebar'=>array(),
+	'siteCSS'=>array(),
+	'siteJavascript'=>array(),
 	'beforeSiteLoad'=>array(),
 	'afterSiteLoad'=>array(),
 
