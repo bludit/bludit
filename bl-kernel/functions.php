@@ -72,8 +72,8 @@ function buildErrorPage() {
 	global $Language;
 
 	$page = new Page(false);
-	$page->setField('title', 'Page not found');
-	$page->setField('content', $Language->get('installer-page-error-content'));
+	$page->setField('title', $Language->get('page-not-found'));
+	$page->setField('content', $Language->get('page-not-found-content'));
 
 	return $page;
 }

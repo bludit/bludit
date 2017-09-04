@@ -28,13 +28,23 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>$L->g('the-url-of-your-site')
 	));
 
-	HTML::legend(array('value'=>$L->g('Home page')));
+	HTML::legend(array('value'=>$L->g('Predefined pages')));
 
 	HTML::formSelect(array(
 		'name'=>'homepage',
-		'label'=>$L->g('Default home page'),
+		'label'=>$L->g('Home page'),
 		'options'=>$homepageOptions,
 		'selected'=>$Site->homepage(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>'',
+		'addEmptySpace'=>true
+	));
+
+	HTML::formSelect(array(
+		'name'=>'pageNotFound',
+		'label'=>$L->g('Page not found'),
+		'options'=>$homepageOptions,
+		'selected'=>$Site->pageNotFound(),
 		'class'=>'uk-width-1-3 uk-form-medium',
 		'tip'=>'',
 		'addEmptySpace'=>true

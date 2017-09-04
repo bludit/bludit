@@ -14,6 +14,7 @@ class dbSite extends dbJSON
 		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
 		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
 		'homepage'=>		array('inFile'=>false, 'value'=>''),
+		'pageNotFound'=>	array('inFile'=>false, 'value'=>''),
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'uriCategory'=>		array('inFile'=>false, 'value'=>'/category/'),
@@ -288,6 +289,16 @@ class dbSite extends dbJSON
 			return false;
 		}
 		return $homepage;
+	}
+
+	// Returns the page defined for "Page not found", FALSE if not defined
+	public function pageNotFound()
+	{
+		$pageNotFound = $this->getField('pageNotFound');
+		if( empty($pageNotFound) ) {
+			return false;
+		}
+		return $pageNotFound;
 	}
 
 	// Set the locale, returns TRUE is success, FALSE otherwise

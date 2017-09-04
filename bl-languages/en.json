@@ -147,5 +147,8 @@
 	"there-are-no-draft-pages": "There are no draft pages",
 	"order-content-by": "Order content By",
 	"edit-or-delete-content-from-your-site": "Edit or delete content from your site",
-	"order-the-content-by-position-to-build-a-website": "Order the content by position to build a Website or order the content by date to build a Blog."
+	"order-the-content-by-position-to-build-a-website": "Order the content by position to build a Website or order the content by date to build a Blog.",
+	"page-not-found-content": "Hey! look like the page doesn't exist.",
+	"page-not-found": "Page not found",
+	"predefined-pages": "Predefined pages"
 }

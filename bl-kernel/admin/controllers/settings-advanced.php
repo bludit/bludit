@@ -94,4 +94,6 @@ foreach($allPublishedPages as $key=>$page) {
 	} else {
 		$homepageOptions[$key] = $page->title();
 	}
+
+	ksort($homepageOptions);
 }
