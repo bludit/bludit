@@ -320,9 +320,6 @@ class dbPages extends dbJSON
 			$db = $this->getPublishedDB();
 		}
 
-		// Remove Error page from the list
-		unset($db['error']);
-
 		if ($amountOfItems==-1) {
 			return $db;
 		}

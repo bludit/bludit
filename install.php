@@ -255,11 +255,6 @@ function install($adminPassword, $email, $timezone)
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PAGES.'error', $dirpermissions, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'error';
-		error_log($errorText, 0);
-	}
-
 	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
 		error_log($errorText, 0);
@@ -303,20 +298,6 @@ function install($adminPassword, $email, $timezone)
 
 	// File pages.php
 	$data = array(
-		'error'=>array(
-			'description'=>$Language->get('Page not found'),
-			'username'=>'admin',
-			'tags'=>array(),
-			'status'=>'system',
-			'date'=>$currentDate,
-			'dateModified'=>'',
-			'allowComments'=>false,
-			'position'=>0,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'',
-			'uuid'=>md5(uniqid())
-	    	),
 		'about'=>array(
 			'description'=>$Language->get('About your site or yourself'),
 			'username'=>'admin',
@@ -493,10 +474,6 @@ function install($adminPassword, $email, $timezone)
 		JSON_PRETTY_PRINT),
 		LOCK_EX
 	);
-
-	// File for error page
-	$data = 'Title: '.$Language->get('Error').PHP_EOL.'Content: '.PHP_EOL.$Language->get('installer-page-error-content');
-	file_put_contents(PATH_PAGES.'error'.DS.FILENAME, $data, LOCK_EX);
 
 	// File for about page
 	$data = 'Title: '.$Language->get('About').PHP_EOL.'Content: '.PHP_EOL.$Language->get('installer-page-about-content');
