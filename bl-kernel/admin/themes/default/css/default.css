@@ -645,31 +645,32 @@ div.plugin-links > span.separator {
 
 /* ----------- PAGINATOR ----------- */
 
+#paginator {
+	margin: 30px 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
 #paginator ul {
     list-style-type: none;
     margin: 15px 0;
     padding: 0;
-    font-size: 1em;
-    text-align: center;
-}
-
-#paginator li.next {
-	margin-left: 1em;
-}
-
-#paginator li.previous {
-	margin-right: 1em;
-}
-
-#paginator a {
-    color: #2672ec;
+    font-size: 1.1em;
+    text-align: left;
 }
 
 #paginator li {
-    display: inline;
-    margin: 0 5px;
+	display: inline;
+	margin: 0 5px;
 }
 
+#paginator li.disabled {
+	color: #ccc;
+}
+
+#paginator a {
+    color: #333;
+}
 
 /* ----------- PLUGINS FORM ----------- */
 

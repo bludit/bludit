@@ -25,7 +25,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>$L->g('Site URL'),
 		'value'=>$Site->url(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('the-url-of-your-site')
+		'tip'=>$L->g('full-url-of-your-site')
 	));
 
 	HTML::legend(array('value'=>$L->g('Predefined pages')));
@@ -36,7 +36,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'options'=>$homepageOptions,
 		'selected'=>$Site->homepage(),
 		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>'',
+		'tip'=>$L->g('Returning page for the main page'),
 		'addEmptySpace'=>true
 	));
 
@@ -46,7 +46,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'options'=>$homepageOptions,
 		'selected'=>$Site->pageNotFound(),
 		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>'',
+		'tip'=>$L->g('Returning page when the page doesnt exist'),
 		'addEmptySpace'=>true
 	));
 

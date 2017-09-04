@@ -108,6 +108,8 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
+define('DEFAULT_LANGUAGE_FILE', 'en.json');
+
 // Set internal character encoding.
 mb_internal_encoding(CHARSET);
 
@@ -127,27 +129,23 @@ include(PATH_KERNEL.'dblanguage.class.php');
 // --- LANGUAGE and LOCALE ---
 
 // Language from the URI
-if(isset($_GET['language'])) {
-	$localeFromHTTP = Sanitize::html($_GET['language']);
-}
-else {
+$languageFromHTTP = 'en_US';
+$localeFromHTTP = 'en_US';
+
+if (isset($_GET['language'])) {
+	$languageFromHTTP = Sanitize::html($_GET['language']);
+} else {
+	// Try to detect the language browser
+	$languageFromHTTP = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
 	// Try to detect the locale
-	if( function_exists('locale_accept_from_http') ) {
+	if (function_exists('locale_accept_from_http')) {
 		$localeFromHTTP = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 	}
-	else {
-		$explodeLocale = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		$localeFromHTTP = empty($explodeLocale[0])?'en_US':str_replace('-', '_', $explodeLocale[0]);
-	}
-}
-
-// Check if the dictionary exists, otherwise the default language is English.
-if( !file_exists(PATH_LANGUAGES.$localeFromHTTP.'.json') ) {
-	$localeFromHTTP = 'en_US';
 }
 
 // Get language file
-$Language = new dbLanguage($localeFromHTTP);
+$Language = new dbLanguage('en_US');
 
 // Set locale
 setlocale(LC_ALL, $localeFromHTTP);
@@ -345,8 +343,8 @@ function install($adminPassword, $email, $timezone)
 		'slogan'=>'CMS',
 		'description'=>'',
 		'footer'=>'Copyright © '.Date::current('Y'),
-		'language'=>$Language->getCurrentLocale(),
-		'locale'=>$Language->getCurrentLocale(),
+		'language'=>$Language->locale(),
+		'locale'=>$Language->locale(),
 		'timezone'=>$timezone,
 		'theme'=>'kernel-panic',
 		'adminTheme'=>'default',

@@ -42,7 +42,7 @@ class pluginVersion extends Plugin {
 			if(defined('BLUDIT_PRO')) {
 				$html = '<div id="plugin-version">Bludit PRO v'.BLUDIT_VERSION.'</div>';
 			} else {
-				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a href="https://pro.bludit.com">'.$Language->get('Upgrade to Bludit PRO').'</a></div>';
+				$html = '<div id="plugin-version">Bludit v'.BLUDIT_VERSION.'<a target="_blank" href="https://pro.bludit.com">'.$Language->get('Upgrade to Bludit PRO').'</a></div>';
 			}
 		}
 

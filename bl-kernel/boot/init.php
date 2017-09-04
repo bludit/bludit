@@ -111,7 +111,7 @@ define('CLI_STATUS', 'published');
 define('CLI_USERNAME', 'admin');
 
 // Filename
-define('FILENAME', 'index.md');
+define('FILENAME', 'index.txt');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
@@ -144,7 +144,7 @@ define('DIR_PERMISSIONS', 0755);
 define('ADMIN_URI_FILTER', 'admin');
 
 // Default language file, in this case is English
-define('DEFAULT_LANGUAGE_FILE', 'en_US.json');
+define('DEFAULT_LANGUAGE_FILE', 'en.json');
 
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
