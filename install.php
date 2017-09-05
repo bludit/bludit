@@ -8,25 +8,25 @@
 */
 
 // Check PHP version
-if(version_compare(phpversion(), '5.3', '<')) {
+if (version_compare(phpversion(), '5.3', '<')) {
 	exit('Current PHP version '.phpversion().', you need > 5.3. (ERR_202)');
 }
 
 // Check PHP modules
-if(!extension_loaded('mbstring')) {
-	exit('PHP module mbstring is not installed. Check the requirements.');
+if (!extension_loaded('mbstring')) {
+	exit('PHP module mbstring is not installed. <a href="https://docs.bludit.com/en/getting-started/requirements">Check the requirements</a>.');
 }
 
-if(!extension_loaded('json')) {
-	exit('PHP module json is not installed. Check the requirements.');
+if (!extension_loaded('json')) {
+	exit('PHP module json is not installed. <a href="https://docs.bludit.com/en/getting-started/requirements">Check the requirements</a>.');
 }
 
-if(!extension_loaded('gd')) {
-	exit('PHP module gd is not installed. Check the requirements.');
+if (!extension_loaded('gd')) {
+	exit('PHP module gd is not installed. <a href="https://docs.bludit.com/en/getting-started/requirements">Check the requirements</a>.');
 }
 
-if(!extension_loaded('dom')) {
-	exit('PHP module dom is not installed. Check the requirements.');
+if (!extension_loaded('dom')) {
+	exit('PHP module dom is not installed. <a href="https://docs.bludit.com/en/getting-started/requirements">Check the requirements</a>.');
 }
 
 // Security constant
@@ -40,54 +40,49 @@ define('PATH_ROOT',		__DIR__.DS);
 define('PATH_CONTENT',		PATH_ROOT.'bl-content'.DS);
 define('PATH_KERNEL',		PATH_ROOT.'bl-kernel'.DS);
 define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
-
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
 define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
-
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
-
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 
-// Protecting against Symlink attacks.
+// Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);
 
-// Filename for posts and pages
+// Filename for pages
 define('FILENAME', 'index.txt');
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
-if(!empty($_SERVER['HTTPS'])) {
+if (!empty($_SERVER['HTTPS'])) {
 	define('PROTOCOL', 'https://');
-}
-else {
+} else {
 	define('PROTOCOL', 'http://');
 }
 
 // Base URL
-// The user can define the base URL.
-// Left empty if you want to Bludit try to detect the base URL.
+// Change the base URL or leave it empty if you want to Bludit try to detect the base URL.
 $base = '';
 
-if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base)) {
 	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
 	$base = dirname($base);
-}
-elseif( empty($base) ) {
+} elseif (empty($base)) {
 	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 	$base = dirname($base);
 }
 
-if($base!=DS) {
+if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
+	$base = '/';
+} elseif ($base!=DS) {
 	$base = trim($base, '/');
 	$base = '/'.$base.'/';
-}
-else {
+} else {
 	// Workaround for Windows Web Servers
 	$base = '/';
 }
@@ -98,7 +93,7 @@ define('HTML_PATH_ROOT', $base);
 define('LOG_SEP', ' | ');
 
 // JSON
-if(!defined('JSON_PRETTY_PRINT')) {
+if (!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
@@ -108,12 +103,13 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
+// Default language file
 define('DEFAULT_LANGUAGE_FILE', 'en.json');
 
-// Set internal character encoding.
+// Set internal character encoding
 mb_internal_encoding(CHARSET);
 
-// Set HTTP output character encoding.
+// Set HTTP output character encoding
 mb_http_output(CHARSET);
 
 // --- PHP Classes ---
@@ -127,9 +123,8 @@ include(PATH_HELPERS.'date.class.php');
 include(PATH_KERNEL.'dblanguage.class.php');
 
 // --- LANGUAGE and LOCALE ---
-
-// Language from the URI
-$languageFromHTTP = 'en_US';
+// Try to detect the language from browser or headers
+$languageFromHTTP = 'en';
 $localeFromHTTP = 'en_US';
 
 if (isset($_GET['language'])) {
@@ -144,8 +139,15 @@ if (isset($_GET['language'])) {
 	}
 }
 
-// Get language file
-$Language = new dbLanguage('en_US');
+$finalLanguage = 'en';
+$languageFiles = getLanguageList();
+foreach ($languageFiles as $fname=>$native) {
+	if ( ($languageFromHTTP==$fname) || ($localeFromHTTP==$fname) ) {
+		$finalLanguage = $fname;
+	}
+}
+
+$Language = new dbLanguage($finalLanguage);
 
 // Set locale
 setlocale(LC_ALL, $localeFromHTTP);
@@ -154,7 +156,7 @@ setlocale(LC_ALL, $localeFromHTTP);
 
 // Check if timezone is defined in php.ini
 $iniDate = ini_get('date.timezone');
-if(empty($iniDate)) {
+if (empty($iniDate)) {
 	// Timezone not defined in php.ini, then set UTC as default.
 	date_default_timezone_set('UTC');
 }
@@ -181,24 +183,23 @@ function getLanguageList()
 
 // Check if Bludit is installed
 function alreadyInstalled() {
-    return file_exists(PATH_DATABASES.'site.php');
+	return file_exists(PATH_DATABASES.'site.php');
 }
 
-// Check the system, permissions, php version, modules, etc.
-// Returns an array with the problems otherwise empty array.
+// Check write permissions and .htaccess file
 function checkSystem()
 {
 	$stdOut = array();
 	$dirpermissions = 0755;
 
 	// Check .htaccess file for different webservers
-	if( !file_exists(PATH_ROOT.'.htaccess') ) {
+	if (!file_exists(PATH_ROOT.'.htaccess')) {
 
 		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
 			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
 			stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false
 		) {
-			$errorText = 'Missing file, upload the file .htaccess (ERR_201)';
+			$errorText = 'Missing file, upload the file .htaccess  (ERROR_204)';
 			error_log($errorText, 0);
 
 			$tmp['title'] = 'File .htaccess';
@@ -211,8 +212,8 @@ function checkSystem()
 	@mkdir(PATH_CONTENT, $dirpermissions, true);
 
 	// Check if the directory content is writeable.
-	if(!is_writable(PATH_CONTENT)) {
-		$errorText = 'Writing test failure, check directory content permissions. (ERR_205)';
+	if (!is_writable(PATH_CONTENT)) {
+		$errorText = 'Writing test failure, check directory content permissions. (ERROR_205)';
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'PHP permissions';
@@ -243,47 +244,50 @@ function install($adminPassword, $email, $timezone)
 	// 7=read,write,execute | 5=read,execute
 	$dirpermissions = 0755;
 
-	if(!mkdir(PATH_PAGES.'welcome', $dirpermissions, true)) {
+	// PAGES
+	if (!mkdir(PATH_PAGES.'welcome', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'welcome';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PAGES.'about', $dirpermissions, true)) {
+	if (!mkdir(PATH_PAGES.'about', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'about';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true)) {
+	// PLUGINS
+	if (!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true)) {
+	if (!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true)) {
+	if (!mkdir(PATH_PLUGINS_DATABASES.'tags', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tags';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_PLUGINS_DATABASES.'about', $dirpermissions, true)) {
+	if (!mkdir(PATH_PLUGINS_DATABASES.'about', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'about';
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true)) {
+	// UPLOADS directories
+	if (!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true)) {
+	if (!mkdir(PATH_UPLOADS_THUMBNAILS, $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
 		error_log($errorText, 0);
 	}
 
-	if(!mkdir(PATH_TMP, $dirpermissions, true)) {
+	if (!mkdir(PATH_TMP, $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
 		error_log($errorText, 0);
 	}
@@ -333,7 +337,7 @@ function install($adminPassword, $email, $timezone)
 	// If the website is not installed inside a folder the URL not need finish with /
 	// Example (root): https://domain.com
 	// Example (inside a folder): https://domain.com/folder/
-	if(HTML_PATH_ROOT=='/') {
+	if (HTML_PATH_ROOT=='/') {
 		$siteUrl = PROTOCOL.DOMAIN;
 	} else {
 		$siteUrl = PROTOCOL.DOMAIN.HTML_PATH_ROOT;
@@ -343,18 +347,20 @@ function install($adminPassword, $email, $timezone)
 		'slogan'=>'CMS',
 		'description'=>'',
 		'footer'=>'Copyright © '.Date::current('Y'),
-		'language'=>$Language->locale(),
+		'itemsPerPage'=>6,
+		'language'=>$Language->currentLanguage(),
 		'locale'=>$Language->locale(),
 		'timezone'=>$timezone,
 		'theme'=>'kernel-panic',
 		'adminTheme'=>'default',
 		'homepage'=>'',
-		'itemsPerPage'=>6,
+		'pageNotFound'=>'',
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'uriCategory'=>'/category/',
 		'url'=>$siteUrl,
-		'emailFrom'=>'no-reply@'.DOMAIN
+		'emailFrom'=>'no-reply@'.DOMAIN,
+		'orderBy'=>'date'
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -365,19 +371,21 @@ function install($adminPassword, $email, $timezone)
 
 	$data = array(
 		'admin'=>array(
-		'firstName'=>$Language->get('Administrator'),
-		'lastName'=>'',
-		'role'=>'admin',
-		'password'=>$passwordHash,
-		'salt'=>$salt,
-		'email'=>$email,
-		'registered'=>$currentDate,
-		'tokenEmail'=>'',
-		'tokenEmailTTL'=>'2009-03-15 14:00',
-		'twitter'=>'',
-		'facebook'=>'',
-		'googlePlus'=>'',
-		'instagram'=>''
+			'firstName'=>$Language->get('Administrator'),
+			'lastName'=>'',
+			'role'=>'admin',
+			'password'=>$passwordHash,
+			'salt'=>$salt,
+			'email'=>$email,
+			'registered'=>$currentDate,
+			'tokenEmail'=>'',
+			'tokenEmailTTL'=>'2009-03-15 14:00',
+			'tokenAuth'=>'',
+			'tokenAuthTTL'=>'2009-03-15 14:00',
+			'twitter'=>'',
+			'facebook'=>'',
+			'googlePlus'=>'',
+			'instagram'=>''
 		)
 	);
 
@@ -386,12 +394,12 @@ function install($adminPassword, $email, $timezone)
 	// File syslog.php
 	$data = array(
 		array(
-		'date'=>$currentDate,
-		'dictionaryKey'=>'welcome-to-bludit',
-		'notes'=>'',
-		'idExecution'=>uniqid(),
-		'method'=>'POST',
-		'username'=>'admin'
+			'date'=>$currentDate,
+			'dictionaryKey'=>'welcome-to-bludit',
+			'notes'=>'',
+			'idExecution'=>uniqid(),
+			'method'=>'POST',
+			'username'=>'admin'
 	));
 
 	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -426,7 +434,7 @@ function install($adminPassword, $email, $timezone)
 		PATH_PLUGINS_DATABASES.'pages'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
-				'position'=>0,
+				'position'=>1,
 				'homeLink'=>true,
 				'label'=>$Language->get('Pages'),
 				'amountOfItems'=>5
@@ -466,7 +474,7 @@ function install($adminPassword, $email, $timezone)
 		PATH_PLUGINS_DATABASES.'tags'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
-				'position'=>0,
+				'position'=>2,
 				'label'=>$Language->get('Tags')
 			),
 		JSON_PRETTY_PRINT),

@@ -46,6 +46,11 @@ class dbLanguage extends dbJSON
 		return $this->currentLanguage;
 	}
 
+	public function currentLanguage()
+	{
+		return $this->currentLanguage;
+	}
+
 	// Return the translation, if the translation doesn't exist returns the English translation
 	public function get($string)
 	{

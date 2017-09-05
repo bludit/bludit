@@ -231,11 +231,12 @@ elseif( empty($base) ) {
 	$base = dirname($base);
 }
 
-if($base!=DS) {
+if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
+	$base = '/';
+} elseif ($base!=DS) {
 	$base = trim($base, '/');
 	$base = '/'.$base.'/';
-}
-else {
+} else {
 	// Workaround for Windows Web Servers
 	$base = '/';
 }
