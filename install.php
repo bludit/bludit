@@ -166,12 +166,10 @@ if (empty($iniDate)) {
 // ============================================================================
 
 // Returns an array with all languages
-function getLanguageList()
-{
+function getLanguageList() {
 	$files = glob(PATH_LANGUAGES.'*.json');
-
 	$tmp = array();
-	foreach($files as $file) {
+	foreach ($files as $file) {
 		$t = new dbJSON($file, false);
 		$native = $t->db['language-data']['native'];
 		$locale = basename($file, '.json');
@@ -496,13 +494,11 @@ function install($adminPassword, $email, $timezone)
 	$data = 'Title: '.$Language->get('Welcome').'
 Content:
 
-## '.$Language->get('Whats next').'
 - '.$text1.'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Chat with developers and users on Gitter').'
-- '.$Language->get('Visit the support forum').'
-- '.$Language->get('Read the documentation for more information').'
-- '.$Language->get('Share with your friends and enjoy');
+- '.$Language->get('visit-the-forum-for-support').'
+- '.$Language->get('Read the documentation for more information');
 
 	file_put_contents(PATH_PAGES.'welcome'.DS.FILENAME, $data, LOCK_EX);
 
@@ -647,8 +643,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		<select id="jslanguage" name="language" class="uk-width-1-1">
 		<?php
 			$htmlOptions = getLanguageList();
-			foreach($htmlOptions as $locale=>$nativeName) {
-				echo '<option value="'.$locale.'"'.( ($localeFromHTTP===$locale)?' selected="selected"':'').'>'.$nativeName.'</option>';
+			foreach($htmlOptions as $fname=>$native) {
+				echo '<option value="'.$fname.'"'.( ($finalLanguage===$fname)?' selected="selected"':'').'>'.$native.'</option>';
 			}
 		?>
 		</select>
