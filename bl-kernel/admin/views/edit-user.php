@@ -70,7 +70,7 @@ if($Login->role()==='admin') {
 		'label'=>$L->g('Email'),
 		'value'=>$User->email(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('Recommended for recovery password and notifications.')
+		'tip'=>$L->g('Recommended for recovery password and notifications')
 	));
 
 	HTML::legend(array('value'=>$L->g('Social networks links')));
@@ -121,14 +121,14 @@ if($Login->role()==='admin') {
 		'label'=>$L->g('Token'),
 		'value'=>$User->tokenAuth(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('This token is similar to your password, you should not share it.')
+		'tip'=>$L->g('this-token-is-similar-to-your-password-you-should-not-share-it')
 	));
 
 	HTML::legend(array('value'=>$L->g('Status')));
 
 	HTML::formInputText(array(
 		'name'=>'status',
-		'label'=>$L->g('сurrent status'),
+		'label'=>$L->g('Current status'),
 		'value'=>$User->enabled()?$L->g('Enabled'):$L->g('Disabled'),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'disabled'=>true,

@@ -484,7 +484,7 @@ function createUser($args) {
 	if( $dbUsers->add($tmp) ) {
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'new-user',
+			'dictionaryKey'=>'new-user-created',
 			'notes'=>$tmp['username']
 		));
 
@@ -564,4 +564,22 @@ function deleteCategory($categoryKey) {
 
 	Alert::set($Language->g('The changes have been saved'));
 	return true;
+}
+
+function activateTheme($themeDirectory) {
+	global $Site;
+	global $Syslog;
+
+	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
+		$Site->set(array('theme'=>$themeDirname));
+
+		$Syslog->add(array(
+			'dictionaryKey'=>'new-theme-configured',
+			'notes'=>$themeDirname
+		));
+
+		Alert::set( $Language->g('The changes have been saved') );
+		return true;
+	}
+	return false;
 }

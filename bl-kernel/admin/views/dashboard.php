@@ -82,7 +82,7 @@
 				echo '<li>';
 				echo $dict;
 				if( !empty($log['notes'])) {
-					echo ' ('.$log['notes'].')';
+					echo ' « <b>'.$log['notes'].'</b> »';
 				}
 				echo '<br><span class="notification-date">';
 				echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
