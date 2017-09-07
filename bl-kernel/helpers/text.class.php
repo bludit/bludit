@@ -191,6 +191,11 @@ class Text {
 		return $cut;
 	}
 
+	public static function removeHTMLTags($string)
+	{
+		return strip_tags($string);
+	}
+
 	// Return string length
 	public static function length($string)
 	{

@@ -34,7 +34,8 @@ class dbPages extends dbJSON
 
 		// Generate slug from content if the title is empty
 		if (empty($args['title'])) {
-			$args['slug'] = Text::truncate($args['content'], 60, '');
+			$tmpslug = Text::removeHTMLTags($args['content']);
+			$args['slug'] = Text::truncate($tmpslug, 60, '');
 		}
 
 		// Generate key
