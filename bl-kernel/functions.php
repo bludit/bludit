@@ -248,6 +248,58 @@ function pluginEnabled($pluginName) {
 	return false;
 }
 
+function activatePlugin($pluginClassName) {
+	global $plugins;
+	global $Syslog;
+	global $Language;
+
+	// Check if the plugin exists
+	if (isset($plugins['all'][$pluginClassName])) {
+		$plugin = $plugins['all'][$pluginClassName];
+		$blackList = array('pluginTimeMachine', 'pluginRemoteContent');
+		if (in_array($pluginClassName, $blackList) && !defined('BLUDIT_PRO')) {
+			return false;
+		}
+
+		if ($plugin->install()) {
+			// Add to syslog
+			$Syslog->add(array(
+				'dictionaryKey'=>'plugin-activated',
+				'notes'=>$plugin->name()
+			));
+
+			// Create an alert
+			Alert::set($Language->g('plugin-activated'));
+			return true;
+		}
+	}
+	return false;
+}
+
+function deactivatePlugin($pluginClassName) {
+	global $plugins;
+	global $Syslog;
+	global $Language;
+
+	// Check if the plugin exists
+	if (isset($plugins['all'][$pluginClassName])) {
+		$plugin = $plugins['all'][$pluginClassName];
+
+		if ($plugin->uninstall()) {
+			// Add to syslog
+			$Syslog->add(array(
+				'dictionaryKey'=>'plugin-deactivated',
+				'notes'=>$plugin->name()
+			));
+
+			// Create an alert
+			Alert::set($Language->g('plugin-deactivated'));
+			return true;
+		}
+	}
+	return false;
+}
+
 function printDebug($array) {
 	echo '<pre>';
 	var_dump($array);
@@ -497,6 +549,7 @@ function createUser($args) {
 function editSettings($args) {
 	global $Site;
 	global $Syslog;
+	global $Language;
 
 	if (isset($args['language'])) {
 		if ($args['language']!=$Site->language()) {
@@ -509,13 +562,35 @@ function editSettings($args) {
 		}
 	}
 
-	if( $Site->set($args) ) {
-		// Add to syslog
+	if (isset($args['uriPage'])) {
+		$args['uriPage'] = Text::addSlashes($args['uriPage']);
+	}
+	if (isset($args['uriTag'])) {
+		$args['uriTag'] = Text::addSlashes($args['uriTag']);
+	}
+	if (isset($args['uriCategory'])) {
+		$args['uriCategory'] = Text::addSlashes($args['uriCategory']);
+	}
+
+	if ($Site->set($args)) {
+		// Check current order-by if changed it reorder the content
+		if ($Site->orderBy()!=ORDER_BY) {
+			if ($Site->orderBy()=='date') {
+				$dbPages->sortByDate();
+			} else {
+				$dbPages->sortByPosition();
+			}
+			$dbPages->save();
+		}
+
+		// Add syslog
 		$Syslog->add(array(
 			'dictionaryKey'=>'changes-on-settings',
 			'notes'=>''
 		));
 
+		// Create alert
+		Alert::set($Language->g('The changes have been saved'));
 		return true;
 	}
 

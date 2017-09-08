@@ -101,11 +101,5 @@
 // Try update Bludit
 //updateBludit();
 
-// Get draft pages
-$_draftPages = array();
-foreach($pages as $Page)
-{
-	if(!$Page->published()) {
-		array_push($_draftPages, $Page);
-	}
-}
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Dashboard');

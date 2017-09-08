@@ -1,7 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "API",
-		"description": "Bludit'e HTTP protokolü üzerinden erişmek için arayüz."
-	}
-}

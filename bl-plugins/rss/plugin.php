@@ -18,6 +18,7 @@ class pluginRSS extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Amount of items').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
+		$html .= '<span class="tip">'.$Language->get('Amount of items to show on the feed').'</span>';
 		$html .= '</div>';
 
 		return $html;

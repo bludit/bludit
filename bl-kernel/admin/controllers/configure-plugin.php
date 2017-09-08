@@ -4,8 +4,8 @@
 // Check role
 // ============================================================================
 
-if($Login->role()!=='admin') {
-	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
+if ($Login->role()!=='admin') {
+	Alert::set($Language->g('You do not have sufficient permissions'));
 	Redirect::page('dashboard');
 }
 
@@ -59,3 +59,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
+
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Plugin').' - '.$plugin->name();

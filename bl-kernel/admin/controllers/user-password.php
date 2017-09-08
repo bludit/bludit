@@ -77,3 +77,6 @@ if($_user===false) {
 }
 
 $_user['username'] = $layout['parameters'];
+
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Change password');

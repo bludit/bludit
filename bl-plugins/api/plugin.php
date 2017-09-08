@@ -28,7 +28,7 @@ class pluginAPI extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Amount of pages').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
-		$html .= '<span class="tip">'.$Language->get('The amount of pages to return when you call to /api/pages').'</span>';
+		$html .= '<span class="tip">'.$Language->get('This is the maximum of pages to return when you call to').'</span>';
 		$html .= '</div>';
 
 		return $html;

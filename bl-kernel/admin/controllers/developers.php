@@ -4,10 +4,16 @@
 // Check role
 // ============================================================================
 
+if ($Login->role()!=='admin') {
+	Alert::set($Language->g('You do not have sufficient permissions'));
+	Redirect::page('dashboard');
+}
+
 // ============================================================================
 // Functions
 // ============================================================================
 
+// This function is used on the VIEW to show the tables
 function printTable($title, $array) {
 	echo '<h2>'.$title.'</h2>';
 	echo '
@@ -47,3 +53,5 @@ function printTable($title, $array) {
 // ============================================================================
 // Main after POST
 // ============================================================================
+
+$layout['title'] .= ' - '.$Language->g('Developers');

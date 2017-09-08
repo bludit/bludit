@@ -63,6 +63,7 @@
 .uk-button {
 	border-radius: 2px !important;
 	padding: 1px 20px !important;
+	margin-right: 5px;
 }
 
 .uk-button-primary {
@@ -701,6 +702,7 @@ div.plugin-links > span.separator {
 #jsformplugin button[type=submit].small {
 	font-size: 0.9em;
 	min-height: 20px;
+	background: #E6E6E6;
 }
 
 #jsformplugin > div > label,

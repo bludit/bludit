@@ -4,9 +4,9 @@
 // Check role
 // ============================================================================
 
-if($Login->role()!=='admin') {
-	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+if ($Login->role()!=='admin') {
+	Alert::set($Language->g('You do not have sufficient permissions'));
+	Redirect::page('dashboard');
 }
 
 // ============================================================================
@@ -21,14 +21,14 @@ if($Login->role()!=='admin') {
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
-	if (editSettings($_POST)) {
-		Alert::set($Language->g('the-changes-have-been-saved'));
-		Redirect::page('settings-regional');
-	}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	editSettings($_POST);
+	Redirect::page('settings-regional');
 }
 
 // ============================================================================
 // Main after POST
 // ============================================================================
+
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Language and timezone');

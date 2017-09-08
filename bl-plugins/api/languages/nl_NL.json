@@ -1,7 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "API",
-		"description": "Interface om te communiceren met Bludit via het HTTP protocol."
-	}
-}

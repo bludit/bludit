@@ -4,7 +4,6 @@
 		"name": "Fixed pages",
 		"description": "Shows the fixed pages on the sidebar, this plugin is useful when you want to create a blog with static pages."
 	},
-	"home-page": "Home page",
-	"show-home-link": "Show home link",
-	"amount-of-items": "Amount of items"
+	"home-link": "Home link",
+	"show-the-home-link-on-the-sidebar": "Show the home link on the sidebar."
 }

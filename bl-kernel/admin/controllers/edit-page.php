@@ -46,4 +46,5 @@ if( !$dbPages->exists($layout['parameters']) ) {
 
 $page = $pagesByKey[$layout['parameters']];
 
-$layout['title'] .= ' - '.$Language->g('Edit Content');
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Edit Content').' - '.$page->title();

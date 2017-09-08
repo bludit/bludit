@@ -51,3 +51,6 @@ $User = $dbUsers->getUser($layout['parameters']);
 if($User===false) {
 	Redirect::page('users');
 }
+
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Edit user');

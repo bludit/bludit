@@ -3,5 +3,6 @@
 	{
 		"name": "Links",
 		"description": "Shows a link list in the sidebar, you can modify these links in settings."
-	}
+	},
+	"add-a-new-link": "Add a new link"
 }

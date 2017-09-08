@@ -3,5 +3,6 @@
 	{
 		"name": "RSS Feed",
 		"description": "This plugin generates an RSS feed of your site."
-	}
+	},
+	"amount-of-items-to-show-on-the-feed": "Amount of items to show on the feed."
 }

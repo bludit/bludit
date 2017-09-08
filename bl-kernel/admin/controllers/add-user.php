@@ -4,9 +4,9 @@
 // Check role
 // ============================================================================
 
-if($Login->role()!=='admin') {
-	Alert::set($Language->g('you-do-not-have-sufficient-permissions'));
-	Redirect::page('admin', 'dashboard');
+if ($Login->role()!=='admin') {
+	Alert::set($Language->g('You do not have sufficient permissions'));
+	Redirect::page('dashboard');
 }
 
 // ============================================================================
@@ -21,9 +21,8 @@ if($Login->role()!=='admin') {
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
-	if( createUser($_POST) ) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if (createUser($_POST)) {
 		Redirect::page('users');
 	}
 }
@@ -31,3 +30,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
+
+// Title of the page
+$layout['title'] .= ' - '.$Language->g('Add a new user');

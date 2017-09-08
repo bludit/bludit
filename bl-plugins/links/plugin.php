@@ -67,7 +67,7 @@ class pluginLinks extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
 		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('Title of the plugin for the sidebar').'</span>';
+		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';

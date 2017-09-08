@@ -3,5 +3,7 @@
 	{
 		"name": "Categories",
 		"description": "Shows all categories on the system on the sidebar."
-	}
+	},
+	"categories-without-content": "Categories without content",
+	"show-the-categories-without-content": "Show the categories without content."
 }
