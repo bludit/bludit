@@ -3,7 +3,7 @@
 $string = file_get_contents("bl-languages/en.json");
 $english = json_decode($string, true);
 
-$string = file_get_contents("bl-languages/de_DE.json");
+$string = file_get_contents("bl-languages/ja_JP.json");
 $spanish = json_decode($string, true);
 
 $tmp = array();

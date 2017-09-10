@@ -196,5 +196,8 @@
 	"the-changes-have-been-saved": "The changes have been saved",
 	"label": "Label",
 	"links": "Links",
-	"this-title-is-almost-always-used-in-the-sidebar-of-the-site": "This title is almost always used in the sidebar of the site."
+	"this-title-is-almost-always-used-in-the-sidebar-of-the-site": "This title is almost always used in the sidebar of the site.",
+	"password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long",
+	"ip-address-has-been-blocked": "IP address has been blocked",
+	"try-again-in-a-few-minutes": "Try again in a few minutes"
 }

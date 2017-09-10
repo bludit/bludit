@@ -31,11 +31,11 @@
 <div class="uk-vertical-align-middle login-box">
 <h1>BLUDIT</h1>
 <?php
-	if(Alert::defined()) {
-		echo '<div class="uk-alert">'.Alert::get().'</div>';
+	if (Alert::defined()) {
+		echo '<div class="uk-alert uk-alert-danger">'.Alert::get().'</div>';
 	}
 
-	if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
+	if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 		include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 	}
 ?>
