@@ -199,5 +199,7 @@
 	"this-title-is-almost-always-used-in-the-sidebar-of-the-site": "This title is almost always used in the sidebar of the site.",
 	"password-must-be-at-least-6-characters-long": "Ο κωδικός πρέπει να είναι 6 χαρακτήρες μακρής",
 	"ip-address-has-been-blocked": "Η διεύθυνση IP έχει μπλοκαριστεί.",
-	"try-again-in-a-few-minutes": "Προσπαθήστε ξανά σε μερικά λεπτά."
+	"try-again-in-a-few-minutes": "Προσπαθήστε ξανά σε μερικά λεπτά.",
+	"page-published-from-scheduler": "Page published from scheduler",
+	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information."
 }

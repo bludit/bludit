@@ -198,5 +198,7 @@
 	"this-title-is-almost-always-used-in-the-sidebar-of-the-site": "This title is almost always used in the sidebar of the site.",
 	"password-must-be-at-least-6-characters-long": "Паролата трябва да е с дължина най-малко 6 символа",
 	"ip-address-has-been-blocked": "IP адрес е блокиран.",
-	"try-again-in-a-few-minutes": "Опитайте отново след няколко минути."
+	"try-again-in-a-few-minutes": "Опитайте отново след няколко минути.",
+	"page-published-from-scheduler": "Page published from scheduler",
+	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information."
 }
