@@ -22,42 +22,53 @@ echo '
 ';
 
 function table($status, $icon='arrow-circle-o-down') {
-	global $pages;
 	global $Url;
 	global $Language;
+	global $published;
+	global $drafts;
+	global $scheduled;
+	global $fixed;
 
-	$showLegend = true;
-	foreach ($pages as $key=>$page) {
-		if ($page->status()==$status) {
-			if ($showLegend) {
-				$showLegend = false;
-				echo '<tr>
-				<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;"><i class="fa fa-'.$icon.'" aria-hidden="true"></i> '.$status.'</td>
-				<td></td>
-				<td></td>
-				</tr>';
-			}
-			unset($pages[$key]);
-			echo '<tr>';
-			echo '<td>
-				<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'
-				.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
-				.'</a>
-			</td>';
+	if ($status=='published') {
+		$list = $published;
+	} elseif ($status=='draft') {
+		$list = $drafts;
+	} elseif ($status=='scheduled') {
+		$list = $scheduled;
+	} elseif ($status=='fixed') {
+		$list = $fixed;
+	}
 
-			echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
+	if (!empty($list)) {
+		echo '<tr>
+		<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;"><i class="fa fa-'.$icon.'" aria-hidden="true"></i> '.$status.'</td>
+		<td></td>
+		<td></td>
+		</tr>';
+	}
 
-			$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
-			echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-			echo '</tr>';
-		}
+	foreach($list as $pageKey=>$fields) {
+		$page = buildPage($pageKey);
+		echo '<tr>';
+		echo '<td>
+			<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'
+			.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+			.'</a>
+		</td>';
+
+		echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
+
+		$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+		echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+		echo '</tr>';
 	}
 }
 
-table('draft', 'spinner');
-table('scheduled', 'clock-o');
-table('fixed', 'thumb-tack');
-table('sticky', 'sticky-note-o');
+if ($Url->pageNumber()==1) {
+	table('draft', 'spinner');
+	table('scheduled', 'clock-o');
+	table('fixed', 'thumb-tack');
+}
 table('published', 'check');
 
 echo '

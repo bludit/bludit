@@ -16,8 +16,7 @@
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if( isset($_POST['delete-page']) ) {
 		if( deletePage($_POST['key']) ) {
 			Alert::set( $Language->g('The changes have been saved') );
@@ -38,13 +37,12 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 // Main after POST
 // ============================================================================
-
-if( !$dbPages->exists($layout['parameters']) ) {
-	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$layout['parameters']);
+$pageKey = $layout['parameters'];
+$page = buildPage($pageKey);
+if ($page===false) {
+	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$pageKey);
 	Redirect::page('pages');
 }
-
-$page = $pagesByKey[$layout['parameters']];
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Edit Content').' - '.$page->title();

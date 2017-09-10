@@ -100,10 +100,6 @@ function buildThePage() {
 	return true;
 }
 
-function buildPagesForAdmin() {
-	return buildPagesFor('admin');
-}
-
 function buildPagesForHome() {
 	return buildPagesFor('home');
 }
@@ -128,27 +124,21 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbTags;
 	global $Site;
 	global $Url;
-	global $pagesByKey;
 	global $pages;
 
 	// Get the page number from URL
 	$pageNumber = $Url->pageNumber();
 
-	if($for=='admin') {
-		$onlyPublished = false;
-		$amountOfItems = ITEMS_PER_PAGE_ADMIN;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
-	}
-	elseif($for=='home') {
+	if ($for=='home') {
 		$onlyPublished = true;
 		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 	}
-	elseif($for=='category') {
+	elseif ($for=='category') {
 		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbCategories->getList($categoryKey, $pageNumber, $amountOfItems);
 	}
-	elseif($for=='tag') {
+	elseif ($for=='tag') {
 		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
@@ -160,14 +150,9 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	}
 
 	$pages = array(); // global variable
-	$pagesByKey = array(); // global variable
 	foreach($list as $pageKey=>$fields) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
-			// $pagesByKey
-			$pagesByKey[$pageKey] = $page;
-
-			// $pages
 			array_push($pages, $page);
 		}
 	}
@@ -309,6 +294,7 @@ function printDebug($array) {
 function createPage($args) {
 	global $dbPages;
 	global $Syslog;
+	global $Language;
 
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
@@ -338,6 +324,8 @@ function createPage($args) {
 			'dictionaryKey'=>'new-page-created',
 			'notes'=>$args['title']
 		));
+
+		Alert::set( $Language->g('new-page-created') );
 
 		return $key;
 	}
@@ -550,6 +538,7 @@ function editSettings($args) {
 	global $Site;
 	global $Syslog;
 	global $Language;
+	global $dbPages;
 
 	if (isset($args['language'])) {
 		if ($args['language']!=$Site->language()) {

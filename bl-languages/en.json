@@ -199,5 +199,7 @@
 	"this-title-is-almost-always-used-in-the-sidebar-of-the-site": "This title is almost always used in the sidebar of the site.",
 	"password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long",
 	"ip-address-has-been-blocked": "IP address has been blocked",
-	"try-again-in-a-few-minutes": "Try again in a few minutes"
+	"try-again-in-a-few-minutes": "Try again in a few minutes",
+	"page-published-from-scheduler": "Page published from scheduler",
+	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information."
 }

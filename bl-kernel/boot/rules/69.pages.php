@@ -16,18 +16,6 @@
 */
 $pages = array();
 
-// Array with pages, each page is a Page Object
-// Filtered by pagenumber and amount of items per page
-/*
-	array(
-		"pageKey1" => Page Object,
-		"pageKey2" => Page Object,
-		...
-		"pageKeyN" => Page Object,
-	)
-*/
-$pagesByKey = array();
-
 // Page filtered by the user, is a Page Object
 $page = $Page = false;
 
@@ -126,10 +114,6 @@ elseif ($Url->whereAmI()==='category') {
 // Build pages for the homepage
 elseif ($Url->whereAmI()==='home') {
         buildPagesForHome();
-}
-// Build pages for the admin area
-elseif ($Url->whereAmI()==='admin') {
-        buildPagesForAdmin();
 }
 
 // Set page 404 not found

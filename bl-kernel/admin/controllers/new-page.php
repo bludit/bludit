@@ -16,11 +16,8 @@
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-	if (createPage($_POST)!==false) {
-		Alert::set( $Language->g('Page added successfully') );
-	}
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	createPage($_POST);
 	Redirect::page('pages');
 }
 

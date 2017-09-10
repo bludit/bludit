@@ -88,5 +88,4 @@ else
 
 	// Load plugins after the admin area is loaded.
 	Theme::plugins('afterAdminLoad');
-
 }
