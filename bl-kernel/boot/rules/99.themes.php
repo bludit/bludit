@@ -20,7 +20,7 @@ function buildThemes()
 		// Check if the theme is translated.
 		$languageFilename = $themePath.DS.'languages'.DS.$Site->locale().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
-			$languageFilename = $themePath.DS.'languages'.DS.'en_US.json';
+			$languageFilename = $themePath.DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
 
 		if( Sanitize::pathFile($languageFilename) )
@@ -72,7 +72,7 @@ function buildThemes()
 // Load the language file
 $languageFilename = THEME_DIR.'languages'.DS.$Site->locale().'.json';
 if( !Sanitize::pathFile($languageFilename) ) {
-	$languageFilename = THEME_DIR.'languages'.DS.'en_US.json';
+	$languageFilename = THEME_DIR.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 }
 
 if( Sanitize::pathFile($languageFilename) )

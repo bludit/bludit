@@ -9,7 +9,7 @@ class dbSite extends dbJSON
 		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
 		'itemsPerPage'=>	array('inFile'=>false, 'value'=>6),
 		'language'=>		array('inFile'=>false, 'value'=>'en'),
-		'locale'=>		array('inFile'=>false, 'value'=>'en_US'),
+		'locale'=>		array('inFile'=>false, 'value'=>'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ'),
 		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
 		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
 		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
