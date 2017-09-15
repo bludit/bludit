@@ -63,6 +63,4 @@ class dbSyslog extends dbJSON
 		// Save
 		return $this->save();
 	}
-
-
 }

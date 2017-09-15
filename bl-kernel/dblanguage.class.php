@@ -32,10 +32,12 @@ class dbLanguage extends dbJSON
 		unset($this->db['language-data']);
 	}
 
+	/*
 	public function exists($key)
 	{
 		return isset( $this->db[$key] );
 	}
+	*/
 
 	public function locale()
 	{
@@ -92,6 +94,7 @@ class dbLanguage extends dbJSON
 		$this->db = array_merge($array, $this->db);
 	}
 
+	/*
 	// Returns the item from language-data
 	public function getData($key)
 	{
@@ -101,6 +104,7 @@ class dbLanguage extends dbJSON
 
 		return false;
 	}
+	*/
 
 	// Returns an array with all dictionaries
 	public function getLanguageList()

@@ -77,30 +77,6 @@ class dbSite extends dbJSON
 		return $filters[$filter];
 	}
 
-	public function urlPage()
-	{
-		$filter = $this->getField('uriPage');
-		return $this->url().ltrim($filter, '/');
-	}
-
-	public function urlTag()
-	{
-		$filter = $this->getField('uriTag');
-		return $this->url().ltrim($filter, '/');
-	}
-
-	public function urlCategory()
-	{
-		$filter = $this->getField('uriCategory');
-		return $this->url().ltrim($filter, '/');
-	}
-
-	public function urlBlog()
-	{
-		$filter = $this->getField('uriBlog');
-		return $this->url().ltrim($filter, '/');
-	}
-
 	// Returns the URL of the rss.xml file
 	// You need to have enabled the plugin RSS
 	public function rss()
@@ -143,21 +119,6 @@ class dbSite extends dbJSON
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
-	}
-
-	public function pageError()
-	{
-		return $this->getField('pageError');
-	}
-
-	public function pageAbout()
-	{
-		return $this->getField('pageAbout');
-	}
-
-	public function pageContact()
-	{
-		return $this->getField('pageContact');
 	}
 
 	// Returns the site title
@@ -242,12 +203,13 @@ class dbSite extends dbJSON
 		return $parse['scheme'].'://'.$domain;
 	}
 
+/* DEPRECATED
 	// Returns the relative home link
 	public function homeLink()
 	{
 		return HTML_PATH_ROOT;
 	}
-
+*/
 	// Returns the timezone.
 	public function timezone()
 	{
@@ -278,7 +240,8 @@ class dbSite extends dbJSON
 		return $this->getField('locale');
 	}
 
-	// Returns the current language in short format.
+/* DEPRECATED
+	// Returns the current language in short format
 	public function shortLanguage()
 	{
 		$locale = $this->locale();
@@ -287,7 +250,7 @@ class dbSite extends dbJSON
 
 		return $short;
 	}
-
+*/
 	// Returns the current homepage, FALSE if not defined homepage
 	public function homepage()
 	{

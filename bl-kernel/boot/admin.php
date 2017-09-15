@@ -11,7 +11,7 @@ $layout = array(
 
 // Get the view, controller, and the parameters from the URL.
 $explodeSlug = $Url->explodeSlug();
-$layout['controller'] = $layout['view'] = $layout['slug'] = $explodeSlug[0];
+$layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
 $layout['parameters'] = implode('/', $explodeSlug);
 

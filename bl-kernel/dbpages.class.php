@@ -244,12 +244,12 @@ class dbPages extends dbJSON
 
 		return false;
 	}
-
+/* DEPRECATED
 	public function setStatus($key, $value)
 	{
 		return $this->setField($key, 'status', $value);
 	}
-
+*/
 	// Returns a database with published pages
 	public function getPublishedDB()
 	{
@@ -606,29 +606,33 @@ class dbPages extends dbJSON
 		return Text::firstCharUp($field).': '.$value;
 	}
 
+/* DEPRECATED
 	public function getDBFields()
 	{
 		return $this->dbFields;
 	}
+*/
 
-// ----- OLD
-
+/* DEPRECATED
 	public function parentKeyList()
 	{
 		return $this->parentKeyList;
 	}
+*/
 
+/* DEPRECATED
 	public function parentKeyExists($key)
 	{
 		return isset( $this->parentKeyList[$key] );
 	}
+*/
 
+/* DEPRECATED
 	public function addParentKey($key)
 	{
 		$this->parentKeyList[$key] = $key;
 	}
-
-
+*/
 
 	// Returns the database
 	public function getDB()
