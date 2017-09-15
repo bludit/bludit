@@ -37,47 +37,34 @@ class Url
 	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
 	public function checkFilters($filters)
 	{
-		// Store the admin filter and remove
+		// Put the "admin" filter first
 		$adminFilter['admin'] = $filters['admin'];
 		unset($filters['admin']);
-
-		// Sort filters by length
 		uasort($filters, array($this, 'sortByLength'));
+		$this->filters = $adminFilter + $filters;
 
-		// Push the admin filter first
-		$filters = $adminFilter + $filters;
-		$this->filters = $filters;
+		foreach ($this->filters as $filterName=>$filterURI) {
+			// $filterName = 'category'
+			// $filterURI = '/category/'
 
-		foreach($filters as $filterName=>$filterURI) {
+			$filterFull = ltrim($filterURI, '/');
+			$filterFull = HTML_PATH_ROOT.$filterFull;
+			$filterLenght = mb_strlen($filterFull, CHARSET);
 
-			// $slug will be FALSE if the filter is not included in the URI
-			$slug = $this->getSlugAfterFilter($filterURI);
-
-			if($slug!==false) {
-				$this->slug 	= $slug;
+			if (mb_substr($this->uri, 0, $filterLenght, CHARSET)==$filterURI) {
+				$this->slug = mb_substr($this->uri, $filterLenght+1);
 				$this->whereAmI = $filterName;
 				$this->activeFilter = $filterURI;
 
-				// If the slug is empty
-				if( Text::isEmpty($slug) ) {
-
-					if($filterURI==='/') {
-						$this->whereAmI = 'home';
-						break;
-					}
-
-					if($filterURI===$adminFilter['admin']) {
-						$this->whereAmI = 'admin';
-						$this->slug = 'dashboard';
-						break;
-					}
-
-					$this->setNotFound();
+				if (empty($this->slug) && (($filterName=='blog') || ($filterURI=='/')) ) {
+					$this->whereAmI = 'home';
 				}
 
-				break;
+				return true;
 			}
 		}
+
+		$this->setNotFound();
 	}
 
 	public function slug()
@@ -168,52 +155,6 @@ class Url
 	public function setHttpMessage($msg = 'OK')
 	{
 		$this->httpMessage = $msg;
-	}
-
-	// Returns the slug after the $filter, the slug could be an empty string
-	// If the filter is not included in the uri, returns FALSE
-	// ex: http://domain.com/cms/$filter/slug123 => slug123
-	// ex: http://domain.com/cms/$filter/name/lastname => name/lastname
-	// ex: http://domain.com/cms/$filter/ => empty string
-	// ex: http://domain.com/cms/$filter => empty string
-	private function getSlugAfterFilter($filter)
-	{
-		// Remove both slash from the filter
-		$filter = trim($filter, '/');
-
-		// Add to the filter the root directory
-		$filter = HTML_PATH_ROOT.$filter;
-
-		// Check if the filter is in the uri.
-		$position = Text::stringPosition($this->uri, $filter);
-
-		// If the position is FALSE, the filter isn't in the URI.
-		if($position===false) {
-			return false;
-		}
-
-		// Start position to cut
-		$start = $position + Text::length($filter);
-
-		// End position to cut
-		$end = $this->uriStrlen;
-
-		// Get the slug from the URI
-		$slug = Text::cut($this->uri, $start, $end);
-
-		if(Text::isEmpty($slug)) {
-			return '';
-		}
-
-		if($slug[0]=='/') {
-			return ltrim($slug, '/');
-		}
-
-		if($filter==HTML_PATH_ROOT) {
-			return $slug;
-		}
-
-		return false;
 	}
 
 	private function sortByLength($a, $b)

@@ -18,6 +18,7 @@ class dbSite extends dbJSON
 		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
 		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
 		'uriCategory'=>		array('inFile'=>false, 'value'=>'/category/'),
+		'uriBlog'=>		array('inFile'=>false, 'value'=>'/blog/'),
 		'url'=>			array('inFile'=>false, 'value'=>''),
 		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
 		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
@@ -67,6 +68,7 @@ class dbSite extends dbJSON
 		$filters['page'] = $this->getField('uriPage');
 		$filters['tag'] = $this->getField('uriTag');
 		$filters['category'] = $this->getField('uriCategory');
+		$filters['blog'] = $this->getField('uriBlog');
 
 		if(empty($filter)) {
 			return $filters;
@@ -91,7 +93,12 @@ class dbSite extends dbJSON
 	{
 		$filter = $this->getField('uriCategory');
 		return $this->url().ltrim($filter, '/');
+	}
 
+	public function urlBlog()
+	{
+		$filter = $this->getField('uriBlog');
+		return $this->url().ltrim($filter, '/');
 	}
 
 	// Returns the URL of the rss.xml file

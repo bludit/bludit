@@ -561,6 +561,10 @@ function editSettings($args) {
 		$args['uriCategory'] = Text::addSlashes($args['uriCategory']);
 	}
 
+	if (isset($args['uriBlog'])) {
+		$args['uriBlog'] = Text::addSlashes($args['uriBlog']);
+	}
+
 	if ($Site->set($args)) {
 		// Check current order-by if changed it reorder the content
 		if ($Site->orderBy()!=ORDER_BY) {

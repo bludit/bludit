@@ -3,8 +3,8 @@
 // Bludit version
 define('BLUDIT_VERSION',	'2.0');
 define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'2017-10-10');
-define('BLUDIT_BUILD',		'20171010');
+define('BLUDIT_RELEASE_DATE',	'2017-09-11');
+define('BLUDIT_BUILD',		'20170911');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -280,6 +280,9 @@ define('CATEGORY_URI_FILTER', $Url->filters('category'));
 // Page URI filter
 define('PAGE_URI_FILTER', $Url->filters('page'));
 
+// Blog URI filter
+define('BLOG_URI_FILTER', $Url->filters('blog'));
+
 // Content order by: date / position
 define('ORDER_BY', $Site->orderBy());
 
@@ -309,6 +312,7 @@ define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
 define('DOMAIN_CATEGORIES',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
 define('DOMAIN_PAGES',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
+define('DOMAIN_BLOG',			Text::addSlashes(DOMAIN_BASE.BLOG_URI_FILTER, false, true));
 
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';

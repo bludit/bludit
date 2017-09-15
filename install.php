@@ -356,6 +356,7 @@ function install($adminPassword, $email, $timezone)
 		'uriPage'=>'/',
 		'uriTag'=>'/tag/',
 		'uriCategory'=>'/category/',
+		'uriBlog'=>'/blog/',
 		'url'=>$siteUrl,
 		'emailFrom'=>'no-reply@'.DOMAIN,
 		'orderBy'=>'date'

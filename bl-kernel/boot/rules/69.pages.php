@@ -99,6 +99,10 @@ if ($Site->homepage() && $Url->whereAmI()==='home') {
 	}
 }
 
+if ($Url->whereAmI()==='blog') {
+	$Url->setWhereAmI('home');
+}
+
 // Build specific page
 if ($Url->whereAmI()==='page') {
 	buildThePage();
