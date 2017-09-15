@@ -14,7 +14,7 @@ echo '
 ';
 	echo '<tr>';
 	echo '<td>Bludit Edition</td>';
-	if (defined('BLUDIT_PROs')) {
+	if (defined('BLUDIT_PRO')) {
 		echo '<td>PRO - '.$L->g('Thanks for support Bludit').'</td>';
 	} else {
 		echo '<td>Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
