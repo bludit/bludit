@@ -42,7 +42,6 @@ class Url
 		unset($filters['admin']);
 		uasort($filters, array($this, 'sortByLength'));
 		$this->filters = $adminFilter + $filters;
-		$this->filters = $filters;
 
 		foreach ($this->filters as $filterName=>$filterURI) {
 			// $filterName = 'category'
@@ -69,7 +68,7 @@ class Url
 
 			// Check coincidence with complete filterURI
 			if ($subString==$filterURI) {
-				$this->slug = mb_substr($this->uri, $filterFullLenght+1);
+				$this->slug = mb_substr($this->uri, $filterFullLenght);
 				$this->whereAmI = $filterName;
 				$this->activeFilter = $filterURI;
 
