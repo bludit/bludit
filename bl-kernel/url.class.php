@@ -61,7 +61,7 @@ class Url
 			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
 
 			// Check coincidence without the last slash at the end, this case is notfound
-			if ($subString==$filterURIwoSlash) {
+			if (($subString==$filterURIwoSlash) && ($filterName!='admin')) {
 				$this->setNotFound();
 				return false;
 			}
@@ -79,6 +79,8 @@ class Url
 				} elseif (!empty($this->slug) && ($filterName=='blog')) {
 					$this->setNotFound();
 					return false;
+				} elseif ($filterName=='admin') {
+					$this->slug = ltrim($this->slug, '/');
 				}
 
 				return true;
