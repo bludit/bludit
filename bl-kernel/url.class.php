@@ -42,28 +42,51 @@ class Url
 		unset($filters['admin']);
 		uasort($filters, array($this, 'sortByLength'));
 		$this->filters = $adminFilter + $filters;
+		$this->filters = $filters;
 
 		foreach ($this->filters as $filterName=>$filterURI) {
 			// $filterName = 'category'
 			// $filterURI = '/category/'
+			// $filterURIwoSlash = '/category'
+			$filterURIwoSlash = rtrim($filterURI, '/');
 
+			// $filterFull = '/base_url/category/'
 			$filterFull = ltrim($filterURI, '/');
 			$filterFull = HTML_PATH_ROOT.$filterFull;
-			$filterLenght = mb_strlen($filterFull, CHARSET);
+			$filterFullLenght = mb_strlen($filterFull, CHARSET);
 
-			if (mb_substr($this->uri, 0, $filterLenght, CHARSET)==$filterURI) {
-				$this->slug = mb_substr($this->uri, $filterLenght+1);
+			// $filterFullwoSlash = '/base_url/category'
+			$filterFullwoSlash = ltrim($filterURIwoSlash, '/');
+			$filterFullwoSlash = HTML_PATH_ROOT.$filterURIwoSlash;
+
+			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
+
+			// Check coincidence without the last slash at the end, this case is notfound
+			if ($subString==$filterURIwoSlash) {
+				$this->setNotFound();
+				return false;
+			}
+
+			// Check coincidence with complete filterURI
+			if ($subString==$filterURI) {
+				$this->slug = mb_substr($this->uri, $filterFullLenght+1);
 				$this->whereAmI = $filterName;
 				$this->activeFilter = $filterURI;
 
 				if (empty($this->slug) && (($filterName=='blog') || ($filterURI=='/')) ) {
 					$this->whereAmI = 'home';
+				} elseif (!empty($this->slug) && ($filterURI=='/')) {
+					$this->whereAmI = 'page';
+				} elseif (!empty($this->slug) && ($filterName=='blog')) {
+					$this->setNotFound();
+					return false;
 				}
 
 				return true;
 			}
 		}
 
+		return false;
 		$this->setNotFound();
 	}
 
