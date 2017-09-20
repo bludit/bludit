@@ -186,7 +186,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'position',
 		'value'=>$page->position(),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'label'=>$L->g('Position')
+		'label'=>$L->g('Position'),
+		'tip'=>$L->g('This field is used when you order the pages by position')
 	));
 
 	// External Coverimage

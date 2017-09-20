@@ -45,4 +45,4 @@ if ($page===false) {
 }
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Edit Content').' - '.$page->title();
+$layout['title'] .= ' - '.$Language->g('Edit page').' - '.$page->title();

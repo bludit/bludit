@@ -30,16 +30,16 @@
 	"website": "Website",
 	"publish": "Publish",
 	"manage": "Manage",
-	"content": "Content",
+
 	"category": "Category",
 	"categories": "Categories",
 	"users": "Users",
 	"settings": "Settings",
 	"general": "General",
 	"advanced": "Advanced",
-	"new-content": "New content",
-	"manage-content": "Manage content",
-	"add-new-content": "Add new content",
+
+
+
 	"new-category": "New category",
 	"you-do-not-have-sufficient-permissions": "You do not have sufficient permissions",
 	"add-a-new-user": "Add a new user",
@@ -84,7 +84,7 @@
 	"external-cover-image": "External cover image",
 	"parent": "Parent",
 	"full-image-url": "Full image URL.",
-	"this-field-is-used-when-you-order-the-content-by-position": "This field is used when you order the content by position.",
+
 	"position": "Position",
 	"friendly-url": "Friendly URL",
 	"image-description": "Image description",
@@ -131,7 +131,7 @@
 	"editor": "Editor",
 	"administrator": "Administrator",
 	"edit-user": "Edit user",
-	"edit-content": "Edit content",
+
 	"profile": "Profile",
 	"change-password": "Change password",
 	"enabled": "Enabled",
@@ -210,5 +210,6 @@
 	"edit-page": "Edit page",
 	"create-a-new-category-to-organize-your-pages": "Create a new category to organize your pages",
 	"edit-or-delete-pages-from-your-site": "Edit or delete pages from your site",
-	"add-new-page": "Add new page"
+	"add-new-page": "Add new page",
+	"this-field-is-used-when-you-order-the-pages-by-position": "This field is used when you order the pages by position."
 }
