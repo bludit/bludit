@@ -302,7 +302,7 @@ function install($adminPassword, $email, $timezone)
 			'description'=>$Language->get('About your site or yourself'),
 			'username'=>'admin',
 			'tags'=>array(),
-			'status'=>'fixed',
+			'status'=>'static',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,

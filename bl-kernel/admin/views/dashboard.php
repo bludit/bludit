@@ -4,13 +4,13 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New content') ?></a></h4>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New page') ?></a></h4>
 		<p><?php $L->p('Create a new page for your site') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage content') ?></a></h4>
-		<p><?php $L->p('Edit or delete content from your site') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
+		<p><?php $L->p('Edit or delete pages from your site') ?></p>
 		</div>
 
 	</div>
@@ -19,7 +19,7 @@
 
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-category' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New category') ?></a></h4>
-		<p><?php $L->p('Create a new category to organize your content') ?></p>
+		<p><?php $L->p('Create a new category to organize your pages') ?></p>
 		</div>
 
 		<div class="uk-panel">

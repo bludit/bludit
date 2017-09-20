@@ -36,7 +36,7 @@ $drafts = $dbPages->getDraftDB();
 
 $scheduled = $dbPages->getScheduledDB();
 
-$fixed = $dbPages->getFixedDB();
+$static = $dbPages->getStaticDB();
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Manage Content');

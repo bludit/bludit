@@ -139,7 +139,7 @@
 	"profile-picture": "Profile picture",
 	"edit-or-delete-your-categories": "Edit or delete your categories",
 	"create-a-new-page-for-your-site": "Create a new page for your site",
-	"create-a-new-category-to-organize-your-content": "Create a new category to organize your content",
+
 	"confirm-delete-this-action-cannot-be-undone": "Confirm delete, this action cannot be undone.",
 	"do-you-want-to-disable-the-user": "Do you want to disable the user ?",
 	"new-password": "New password",
@@ -152,7 +152,7 @@
 	"there-are-no-scheduled-pages": "There are no scheduled pages",
 	"there-are-no-draft-pages": "There are no draft pages",
 	"order-content-by": "Order content By",
-	"edit-or-delete-content-from-your-site": "Edit or delete content from your site",
+
 	"order-the-content-by-position-to-build-a-website": "Order the content by position to build a Website or order the content by date to build a Blog.",
 	"page-not-found-content": "Hey! look like the page doesn't exist.",
 	"page-not-found": "Page not found",
@@ -203,5 +203,11 @@
 	"page-published-from-scheduler": "Page published from scheduler",
 	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
 	"blog": "Blog",
-	"complete-all-fields": "Complete all fields"
+	"complete-all-fields": "Complete all fields",
+	"static": "Static",
+	"manage-pages": "Manage pages",
+	"new-page": "New page",
+	"edit-page": "Edit page",
+	"create-a-new-category-to-organize-your-pages": "Create a new category to organize your pages",
+	"edit-or-delete-pages-from-your-site": "Edit or delete pages from your site"
 }

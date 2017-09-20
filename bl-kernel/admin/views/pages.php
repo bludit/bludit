@@ -1,10 +1,9 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Manage content'), 'icon'=>'folder'));
+HTML::title(array('title'=>$L->g('Manage pages'), 'icon'=>'folder'));
 
 echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-page"><i class="uk-icon-plus"></i> '.$L->g('Add new content').'</a>';
 
-// Fixed page list
 echo '
 <table class="uk-table uk-table-striped">
 <thead>
@@ -27,7 +26,7 @@ function table($status, $icon='arrow-circle-o-down') {
 	global $published;
 	global $drafts;
 	global $scheduled;
-	global $fixed;
+	global $static;
 
 	if ($status=='published') {
 		$list = $published;
@@ -35,8 +34,8 @@ function table($status, $icon='arrow-circle-o-down') {
 		$list = $drafts;
 	} elseif ($status=='scheduled') {
 		$list = $scheduled;
-	} elseif ($status=='fixed') {
-		$list = $fixed;
+	} elseif ($status=='static') {
+		$list = $static;
 	}
 
 	if (!empty($list)) {
@@ -67,7 +66,7 @@ function table($status, $icon='arrow-circle-o-down') {
 if ($Url->pageNumber()==1) {
 	table('draft', 'spinner');
 	table('scheduled', 'clock-o');
-	table('fixed', 'thumb-tack');
+	table('static', 'thumb-tack');
 }
 table('published', 'check');
 

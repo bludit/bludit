@@ -58,8 +58,8 @@ $(document).ready(function() {
 <div class="uk-offcanvas-bar">
 	<ul class="uk-nav uk-nav-offcanvas">
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New content') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage content') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage pages') ?></a></li>
 	<?php if($Login->role() == 'admin') { ?>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Manage categories') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Manage users') ?></a></li>
@@ -103,12 +103,12 @@ $(document).ready(function() {
 
 			<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
 			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New content') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
 			<li <?php echo ($layout['view']=='pages')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Content') ?></a>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Pages') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>

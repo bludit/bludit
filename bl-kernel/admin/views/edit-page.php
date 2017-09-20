@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Edit content'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('Edit page'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 
@@ -142,7 +142,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>array(
 			'published'=>$L->g('Published'),
-			'fixed'=>$L->g('Fixed'),
+			'static'=>$L->g('Static'),
 			'draft'=>$L->g('Draft')
 		),
 		'selected'=>$page->status(),

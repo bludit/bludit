@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('New content'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('New page'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 
@@ -120,7 +120,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>array(
 			'published'=>$L->g('Published'),
-			'fixed'=>$L->g('Fixed'),
+			'static'=>$L->g('Static'),
 			'draft'=>$L->g('Draft')
 		),
 		'selected'=>'published',
@@ -161,7 +161,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'value'=>'1',
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('Position'),
-		'tip'=>$L->g('This field is used when you order the content by position')
+		'tip'=>$L->g('This field is used when you order the page by position')
 	));
 
 	// External Coverimage

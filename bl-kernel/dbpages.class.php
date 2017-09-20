@@ -262,12 +262,12 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
-	// (array) Returns a database with the fixed pages
-	public function getFixedDB()
+	// (array) Returns a database with the static pages
+	public function getStaticDB()
 	{
 		$tmp = $this->db;
 		foreach($tmp as $key=>$fields) {
-			if($fields['status']!='fixed') {
+			if($fields['status']!='static') {
 				unset($tmp[$key]);
 			}
 		}
