@@ -27,11 +27,11 @@
 					<?php
 						echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$Site->url().'">'.$Language->get('Homepage').'</a></li> ';
 
-						$fixedPages = $dbPages->getFixedDB();
-						$fpKeys  = array_keys($fixedPages);
-						foreach($fpKeys as $pageKey) {
-							$fpage = buildPage($pageKey);
-							echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$fpage->permalink().'">'.$fpage->title().'</a></li> ';
+						$staticPages = $dbPages->getStaticDB();
+						$staticPagesKeyList = array_keys($staticPages);
+						foreach ($staticPagesKeyList as $pageKey) {
+							$staticPage = buildPage($pageKey);
+							echo '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="'.$staticPage->permalink().'">'.$staticPage->title().'</a></li> ';
 						}
 					?>
 				 </ul>
@@ -67,10 +67,10 @@
 
 		<?php
 			if($WHERE_AM_I == 'page') {
-				if( $Page->status() == "fixed" ) {
+				if( $Page->status() == "static" ) {
 					include(THEME_DIR_PHP.'page.php');
 				}
-				elseif( $Page->status() == "published" ) {
+				else {
 					include(THEME_DIR_PHP.'post.php');
 				}
 			} else {

@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Static pages",
+		"description": "Shows the static pages on the sidebar, this plugin is useful when you want to create a blog with pages."
+	},
+	"home-link": "Home link",
+	"show-the-home-link-on-the-sidebar": "Show the home link on the sidebar."
+}

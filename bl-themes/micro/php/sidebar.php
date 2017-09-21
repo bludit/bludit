@@ -5,17 +5,16 @@
 </h1>
 
 <ul class="fixed-pages">
-
-<?php
-$fixedPages = $dbPages->getFixedDB();
-$keys = array_keys($fixedPages);
-foreach($keys as $pageKey) {
-        $page = buildPage($pageKey);
-        echo '<li>';
-        echo '<a href="'.$page->permalink().'">';
-        echo $page->title();
-        echo '</a>';
-        echo '</li>';
-}
-?>
+	<?php
+		$staticPages = $dbPages->getStaticDB();
+		$staticPagesKeyList = array_keys($staticPages);
+		foreach ($staticPagesKeyList as $pageKey) {
+			$staticPage = buildPage($pageKey);
+			echo '<li>';
+			echo '<a href="'.$staticPage->permalink().'">';
+			echo $staticPage->title();
+			echo '</a>';
+			echo '</li>';
+		}
+	?>
 </ul>

@@ -1,12 +1,12 @@
 <?php
 
-class pluginFixedPages extends Plugin {
+class pluginStaticPages extends Plugin {
 
 	public function init()
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Fixed Pages',
+			'label'=>'Static Pages',
 			'homeLink'=>true
 		);
 	}
@@ -42,7 +42,7 @@ class pluginFixedPages extends Plugin {
 		global $Site;
 		global $dbPages;
 
-		$pages = $dbPages->getFixedDB();
+		$pages = $dbPages->getStaticDB();
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';
