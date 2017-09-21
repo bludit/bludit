@@ -200,5 +200,17 @@
 	"ip-address-has-been-blocked": "آدرس IP مسدود شده.",
 	"try-again-in-a-few-minutes": "لطفا ً چند دقیقه دیگر دوباره تلاش کنید.",
 	"page-published-from-scheduler": "Page published from scheduler",
-	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information."
+	"installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
+	"blog": "Blog",
+	"complete-all-fields": "Complete all fields",
+	"static": "Static",
+	"manage-pages": "Manage pages",
+	"new-page": "New page",
+	"edit-page": "Edit page",
+	"create-a-new-category-to-organize-your-pages": "Create a new category to organize your pages",
+	"edit-or-delete-pages-from-your-site": "Edit or delete pages from your site",
+	"add-new-page": "Add new page",
+	"this-field-is-used-when-you-order-the-pages-by-position": "This field is used when you order the pages by position.",
+	"about-your-site-or-yourself": "About your site or yourself",
+	"homepage": "Homepage"
 }
