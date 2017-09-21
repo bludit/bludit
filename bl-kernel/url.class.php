@@ -69,16 +69,18 @@ class Url
 			// Check coincidence with complete filterURI
 			if ($subString==$filterURI) {
 				$this->slug = mb_substr($this->uri, $filterFullLenght);
-				$this->whereAmI = $filterName;
+				$this->setWhereAmI($filterName);
 				$this->activeFilter = $filterURI;
 
-				if (empty($this->slug) && (($filterName=='blog') || ($filterURI=='/')) ) {
-					$this->whereAmI = 'home';
-				} elseif (!empty($this->slug) && ($filterURI=='/')) {
-					$this->whereAmI = 'page';
+				if (empty($this->slug) && ($filterName=='blog')) {
+					$this->setWhereAmI('home');
 				} elseif (!empty($this->slug) && ($filterName=='blog')) {
 					$this->setNotFound();
 					return false;
+				} elseif (empty($this->slug) && ($filterURI=='/')) {
+					$this->setWhereAmI('home');
+				} elseif (!empty($this->slug) && ($filterURI=='/')) {
+					$this->setWhereAmI('page');
 				} elseif ($filterName=='admin') {
 					$this->slug = ltrim($this->slug, '/');
 				}
@@ -87,8 +89,8 @@ class Url
 			}
 		}
 
-		return false;
 		$this->setNotFound();
+		return false;
 	}
 
 	public function slug()
@@ -155,7 +157,7 @@ class Url
 
 	public function setNotFound()
 	{
-		$this->whereAmI = 'page';
+		$this->setWhereAmI('page');
 		$this->notFound = true;
 		$this->httpCode = 404;
 		$this->httpMessage = 'Not Found';

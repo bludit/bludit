@@ -39,4 +39,4 @@ $scheduled = $dbPages->getScheduledDB();
 $static = $dbPages->getStaticDB();
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Manage Content');
+$layout['title'] .= ' - '.$Language->g('Manage Pages');

@@ -122,7 +122,8 @@ elseif ($Url->whereAmI()==='home') {
 
 // Set page 404 not found
 if ($Url->notFound()) {
-	$page = buildPage( $Site->pageNotFound() );
+	$pageNotFoundKey = $Site->pageNotFound();
+	$page = buildPage( $pageNotFoundKey );
 	if ($page===false) {
 		$page = buildErrorPage();
 	}

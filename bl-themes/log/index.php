@@ -15,11 +15,11 @@
 			<nav class="links">
 				<ul>
 				<?php
-					$fixedPages = $dbPages->getFixedDB();
-					$keys = array_keys($fixedPages);
-					foreach($keys as $pageKey) {
-						$pageParent = buildPage($pageKey);
-						echo '<li><a href="'.$pageParent->permalink().'">'.$pageParent->title().'</a></li>';
+					$staticPages = $dbPages->getStaticDB();
+					$staticPagesKeyList = array_keys($staticPages);
+					foreach ($staticPagesKeyList as $pageKey) {
+						$staticPage = buildPage($pageKey);
+						echo '<li><a href="'.$staticPage->permalink().'">'.$staticPage->title().'</a></li>';
 					}
 				?>
 				</ul>
@@ -39,21 +39,19 @@
 				<ul class="links">
 				<?php
 					echo '<li>';
-					echo '<a href="'.$Site->url().'">
-						<h3>'.$Language->get('Home page').'</h3>
-						<p>'.$Site->description().'</p>
-					</a>';
+					echo '<a href="'.$Site->url().'">';
+					echo '<h3>'.$Language->get('Home page').'</h3>';
+					echo '<p>'.$Site->description().'</p>';
+					echo '</a>';
 					echo '</li>';
 
-					$fixedPages = $dbPages->getFixedDB();
-					$keys = array_keys($fixedPages);
-					foreach($keys as $pageKey) {
-						$pageParent = buildPage($pageKey);
+					foreach ($staticPagesKeyList as $pageKey) {
+						$staticPage = buildPage($pageKey);
 						echo '<li>';
-						echo '<a href="'.$pageParent->permalink().'">
-							<h3>'.$pageParent->title().'</h3>
-							<p>'.$pageParent->description().'</p>
-						</a>';
+						echo '<a href="'.$staticPage->permalink().'">';
+						echo '<h3>'.$staticPage->title().'</h3>';
+						echo '<p>'.$staticPage->description().'</p>';
+						echo '</a>';
 						echo '</li>';
 					}
 				?>

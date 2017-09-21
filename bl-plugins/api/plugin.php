@@ -43,6 +43,7 @@ class pluginAPI extends Plugin {
 		global $Url;
 		global $dbPages;
 		global $dbUsers;
+		global $Login;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -95,6 +96,8 @@ class pluginAPI extends Plugin {
 			if ($username!==false) {
 				// Enable write permissions
 				$writePermissions = true;
+				// Loggin the user to create the session
+				$Login->setLogin($username, 'admin');
 			}
 		}
 
@@ -107,11 +110,22 @@ class pluginAPI extends Plugin {
 		}
 		// (GET) /api/pages/<key>
 		elseif ( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
-			$data = $this->getPage($parameters[1]);
+			$pageKey = $parameters[1];
+			$data = $this->getPage($pageKey);
+		}
+		// (PUT) /api/pages/<key>
+		elseif ( ($method==='PUT') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
+			$pageKey = $parameters[1];
+			$data = $this->editPage($pageKey, $inputs);
+		}
+		// (DELETE) /api/pages/<key>
+		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
+			$pageKey = $parameters[1];
+			$data = $this->deletePage($pageKey);
 		}
 		// (POST) /api/pages
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
-			$data = $this->newPage($inputs);
+			$data = $this->createPage($inputs);
 		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
@@ -201,26 +215,6 @@ class pluginAPI extends Plugin {
 		exit($json);
 	}
 
-	private function getPage($key)
-	{
-		// Generate the object Page
-		$Page = buildPage($key);
-
-		if (!$Page) {
-			return array(
-				'status'=>'1',
-				'message'=>'Page not found.'
-			);
-		}
-
-		$data = array();
-		$data['status'] = '0';
-		$data['message'] = 'Page filtered by key: '.$key;
-		$data['data'] = $Page->json( $returnsArray=true );
-
-		return $data;
-	}
-
 	private function getPages()
 	{
 		global $dbPages;
@@ -247,10 +241,76 @@ class pluginAPI extends Plugin {
 		return $tmp;
 	}
 
+	private function getPage($key)
+	{
+		// Generate the object Page
+		$Page = buildPage($key);
+
+		if (!$Page) {
+			return array(
+				'status'=>'1',
+				'message'=>'Page not found.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Page filtered by key: '.$key,
+			'data'=>$Page->json( $returnsArray=true )
+		);
+	}
+
 	private function createPage($args)
 	{
 		// This function is defined on functions.php
-		return createPage($args);
+		$key = createPage($args);
+
+		if ($key===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'Error trying to create the new page.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Page created.',
+			'data'=>array('key'=>$key)
+		);
+	}
+
+	private function editPage($key, $args)
+	{
+		$args['key'] = $key;
+		$newKey = editPage($args);
+
+		if ($newKey===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'Error trying to edit the page.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Page edited.',
+			'data'=>array('key'=>$newKey)
+		);
+	}
+
+	private function deletePage($key)
+	{
+		if (deletePage($key)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Page deleted.'
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'Error trying to delete the page.'
+		);
 	}
 
 }

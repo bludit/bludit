@@ -196,7 +196,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'value'=>$externalCoverImage,
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('External Cover Image'),
-		'tip'=>$L->g('Image URL')
+		'tip'=>$L->g('Full image URL')
 	));
 
 	// Slug input

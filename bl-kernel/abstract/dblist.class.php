@@ -26,6 +26,10 @@ class dbList extends dbJSON
 
 	public function getList($key, $pageNumber, $amountOfItems)
 	{
+		if (empty($key)) {
+			return false;
+		}
+
 		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
 			return false;

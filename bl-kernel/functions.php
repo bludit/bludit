@@ -8,6 +8,10 @@ function buildPage($key) {
 	global $Parsedown;
 	global $Site;
 
+	if (empty($key)) {
+		return false;
+	}
+
 	// Page object, content from index.txt file
 	$page = new Page($key);
 	if (!$page->isValid()) {
@@ -70,10 +74,12 @@ function reindexTags() {
 function buildErrorPage() {
 	global $dbPages;
 	global $Language;
+	global $dbUsers;
 
 	$page = new Page(false);
 	$page->setField('title', $Language->get('page-not-found'));
 	$page->setField('content', $Language->get('page-not-found-content'));
+	$page->setField('user', $dbUsers->getUser('admin'));
 
 	return $page;
 }
