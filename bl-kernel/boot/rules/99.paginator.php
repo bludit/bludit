@@ -6,7 +6,7 @@ Paginator::set('currentPage', $currentPage);
 
 if($Url->whereAmI()=='admin') {
 	$itemsPerPage = ITEMS_PER_PAGE_ADMIN;
-	$amountOfItems = $dbPages->count(false);
+	$amountOfItems = $dbPages->count(true);
 }
 elseif($Url->whereAmI()=='tag') {
 	$itemsPerPage = $Site->itemsPerPage();

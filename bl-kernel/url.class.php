@@ -67,7 +67,7 @@ class Url
 			}
 
 			// Check coincidence with complete filterURI
-			if ($subString==$filterURI) {
+			if ($subString==$filterFull) {
 				$this->slug = mb_substr($this->uri, $filterFullLenght);
 				$this->setWhereAmI($filterName);
 				$this->activeFilter = $filterURI;

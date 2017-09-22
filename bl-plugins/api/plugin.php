@@ -78,7 +78,7 @@ class pluginAPI extends Plugin {
 		$tokenAPI = $this->getValue('token');
 
 		// Check empty token
-		if ( empty($inputs['token']) ) {
+		if (empty($inputs['token'])) {
 			$this->response(404, 'Not Found', array('message'=>'Missing API token.'));
 		}
 
@@ -168,6 +168,11 @@ class pluginAPI extends Plugin {
 				break;
 		}
 
+		// Try to get raw data
+		if (empty($inputs)) {
+			$inputs = file_get_contents('php://input');
+		}
+
 		return $this->cleanInputs($inputs);
 	}
 
@@ -193,16 +198,17 @@ class pluginAPI extends Plugin {
 	private function cleanInputs($inputs)
 	{
 		$tmp = array();
-		if ( is_array($inputs) ) {
-			foreach($inputs as $key=>$value) {
+		if (is_array($inputs)) {
+			foreach ($inputs as $key=>$value) {
 				$tmp[$key] = Sanitize::html($value);
 			}
-		} elseif ( is_string($inputs) ) {
+		} elseif(is_string($inputs)) {
 			$tmp = json_decode($inputs, true);
-			if(json_last_error()===0) {
+			if (json_last_error()!==JSON_ERROR_NONE) {
 				$tmp = array();
 			}
 		}
+
 		return $tmp;
 	}
 
@@ -264,7 +270,7 @@ class pluginAPI extends Plugin {
 	{
 		// This function is defined on functions.php
 		$key = createPage($args);
-
+var_dump($key);exit;
 		if ($key===false) {
 			return array(
 				'status'=>'1',

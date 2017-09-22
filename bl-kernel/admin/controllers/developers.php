@@ -27,12 +27,16 @@ function printTable($title, $array) {
 		<tbody>
 	';
 
-	foreach($array as $key=>$value) {
+	foreach ($array as $key=>$value) {
 		if($value===false) { $value = 'false'; }
 		elseif($value===true) { $value = 'true'; }
 		echo '<tr>';
 		echo '<td>'.$key.'</td>';
-		echo '<td>'.Sanitize::html($value).'</td>';
+		if (is_array($value)) {
+			echo '<td>'.json_encode($value).'</td>';
+		} else {
+			echo '<td>'.Sanitize::html($value).'</td>';
+		}
 		echo '</tr>';
 	}
 

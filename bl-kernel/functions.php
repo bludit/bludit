@@ -304,12 +304,13 @@ function createPage($args) {
 
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
-	if ( Text::isEmpty($args['username']) ) {
+	if ( empty($args['username']) ) {
+		Log::set('Function createPage()'.LOG_SEP.'Empty username.');
 		return false;
 	}
 
 	// External Cover Image
-	if ( Text::isNotEmpty(($args['externalCoverImage'])) ) {
+	if ( !empty($args['externalCoverImage']) ) {
 		$args['coverImage'] = $args['externalCoverImage'];
 		unset($args['externalCoverImage']);
 	}
@@ -350,19 +351,15 @@ function editPage($args) {
 
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
-	if ( Text::isEmpty($args['username']) ) {
+	if ( empty($args['username']) ) {
 		Log::set('Function editPage()'.LOG_SEP.'Empty username.');
 		return false;
 	}
 
 	// External Cover Image
-	if ( Text::isNotEmpty(($args['externalCoverImage'])) ) {
+	if ( !empty($args['externalCoverImage']) ) {
 		$args['coverImage'] = $args['externalCoverImage'];
 		unset($args['externalCoverImage']);
-	}
-
-	if (!isset($args['parent'])) {
-		$args['parent'] = '';
 	}
 
 	$key = $dbPages->edit($args);
