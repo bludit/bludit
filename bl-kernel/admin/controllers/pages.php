@@ -27,7 +27,7 @@ $pageNumber = $Url->pageNumber();
 $published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
-if (empty($published)) {
+if (empty($published) && $Url->pageNumber()>1) {
 	Redirect::page('pages');
 }
 

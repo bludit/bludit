@@ -98,7 +98,7 @@ class pluginAPI extends Plugin {
 
 				// Get the object user to check the role
 				$user = $dbUsers->getUser($username);
-				if ($user->role()=='admin') {
+				if (($user->role()=='admin') && ($user->enabled())) {
 
 					// Loggin the user to create the session
 					$Login->setLogin($username, 'admin');

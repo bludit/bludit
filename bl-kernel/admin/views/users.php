@@ -12,6 +12,7 @@ echo '
 	<th>'.$L->g('First name').'</th>
 	<th>'.$L->g('Last name').'</th>
 	<th>'.$L->g('Email').'</th>
+	<th class="uk-text-center">'.$L->g('Status').'</th>
 	<th class="uk-text-center">'.$L->g('Role').'</th>
 	<th class="uk-text-center">'.$L->g('Registered').'</th>
 	</tr>
@@ -19,16 +20,17 @@ echo '
 <tbody>
 ';
 
-$users = $dbUsers->getAll();
-foreach($users as $username=>$field)
-{
+// Get all users objects
+$users = $dbUsers->getAllUsers();
+foreach ($users as $username=>$User) {
 	echo '<tr>';
 	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-	echo '<td>'.$field['firstName'].'</td>';
-	echo '<td>'.$field['lastName'].'</td>';
-	echo '<td>'.$field['email'].'</td>';
-	echo '<td class="uk-text-center">'.$field['role'].'</td>';
-	echo '<td class="uk-text-center">'.Date::format($field['registered'], DB_DATE_FORMAT, DB_DATE_FORMAT).'</td>';
+	echo '<td>'.$User->firstName().'</td>';
+	echo '<td>'.$User->lastName().'</td>';
+	echo '<td>'.$User->email().'</td>';
+	echo '<td class="uk-text-center">'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
+	echo '<td class="uk-text-center">'.$User->role().'</td>';
+	echo '<td class="uk-text-center">'.Date::format($User->registered(), DB_DATE_FORMAT, DB_DATE_FORMAT).'</td>';
 	echo '</tr>';
 }
 

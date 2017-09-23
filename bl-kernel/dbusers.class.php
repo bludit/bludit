@@ -192,13 +192,17 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
-// ---- OLD
-
-
 	public function getAll()
 	{
 		return $this->db;
 	}
 
-
+	public function getAllUsers()
+	{
+		$tmp = array();
+		foreach ($this->db as $username=>$fields) {
+			$tmp[$username] = $this->getUser($username);
+		}
+		return $tmp;
+	}
 }

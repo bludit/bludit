@@ -19,5 +19,3 @@
 </form>
 
 </div>
-
-<a class="login-email" href="<?php echo HTML_PATH_ADMIN_ROOT.'login-email' ?>"><i class="uk-icon-envelope-o"></i> <?php $L->p('Email access code') ?></a>
