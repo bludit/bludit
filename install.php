@@ -367,6 +367,7 @@ function install($adminPassword, $email, $timezone)
 	// File users.php
 	$salt = uniqid();
 	$passwordHash = sha1($adminPassword.$salt);
+	$tokenAuth = md5( uniqid().time().DOMAIN );
 
 	$data = array(
 		'admin'=>array(
@@ -379,7 +380,7 @@ function install($adminPassword, $email, $timezone)
 			'registered'=>$currentDate,
 			'tokenEmail'=>'',
 			'tokenEmailTTL'=>'2009-03-15 14:00',
-			'tokenAuth'=>'',
+			'tokenAuth'=>$tokenAuth,
 			'tokenAuthTTL'=>'2009-03-15 14:00',
 			'twitter'=>'',
 			'facebook'=>'',

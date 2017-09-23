@@ -105,13 +105,11 @@ class dbUsers extends dbJSON
 			$User = new User();
 			$User->setField('username', $username);
 
-			foreach($this->db[$username] as $key=>$value) {
+			foreach ($this->db[$username] as $key=>$value) {
 				$User->setField($key, $value);
 			}
-
 			return $User;
 		}
-
 		return false;
 	}
 
@@ -152,8 +150,8 @@ class dbUsers extends dbJSON
 	// Return the username associated to an email, FALSE otherwise
 	public function getByEmail($email)
 	{
-		foreach($this->db as $username=>$values) {
-			if($values['email']==$email) {
+		foreach ($this->db as $username=>$values) {
+			if ($values['email']==$email) {
 				return $username;
 			}
 		}
@@ -163,8 +161,8 @@ class dbUsers extends dbJSON
 	// Returns the username with the authentication token assigned, FALSE otherwise
 	public function getByAuthToken($token)
 	{
-		foreach($this->db as $username=>$fields) {
-			if($fields['tokenAuth']==$token) {
+		foreach ($this->db as $username=>$fields) {
+			if ($fields['tokenAuth']==$token) {
 				return $username;
 			}
 		}

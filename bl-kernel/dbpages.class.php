@@ -10,7 +10,7 @@ class dbPages extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'status'=>		array('inFile'=>false,	'value'=>'draft'), // published, draft, scheduled
+		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, scheduled
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
@@ -142,8 +142,8 @@ class dbPages extends dbJSON
 					}
 				}
 			} else {
-				// Default value for the field
-				$value = $options['value'];
+				// By default is the current value
+				$value = $this->db[$args['key']][$field];
 			}
 
 			$args[$field] = $value;
@@ -157,9 +157,6 @@ class dbPages extends dbJSON
 		} elseif (!Valid::date($args['date'], DB_DATE_FORMAT)) {
 			$args['date'] = $this->db[$args['key']]['date'];
 		}
-
-		// Current UUID
-		$args['uuid'] = $this->db[$args['key']]['uuid'];
 
 		// Date
 		$currentDate = Date::current(DB_DATE_FORMAT);
@@ -192,9 +189,9 @@ class dbPages extends dbJSON
 			}
 		}
 
-		if( $climode===false ) {
+		if ($climode===false) {
 			// Move the directory from old key to new key.
-			if($newKey!==$args['key']) {
+			if ($newKey!==$args['key']) {
 				if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
 					Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 					return false;
@@ -203,7 +200,7 @@ class dbPages extends dbJSON
 
 			// Make the index.txt and save the file.
 			$data = implode("\n", $dataForFile);
-			if( file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data) === false ) {
+			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data)===false) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 				return false;
 			}
