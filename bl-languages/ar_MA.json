@@ -212,5 +212,12 @@
 	"add-new-page": "Add new page",
 	"this-field-is-used-when-you-order-the-pages-by-position": "This field is used when you order the pages by position.",
 	"about-your-site-or-yourself": "About your site or yourself",
-	"homepage": "Homepage"
+	"homepage": "Homepage",
+	"disabled": "Disabled",
+	"to-enable-the-user-you-must-set-a-new-password": "To enable the user you must set a new password.",
+	"delete-the-user-and-associate-his-pages-to-admin-user": "Delete the user and associate his pages to admin user",
+	"delete-the-user-and-all-his-pages": "Delete the user and all his pages",
+	"user-disabled": "User disabled",
+	"user-password-changed": "User password changed",
+	"page-edited": "Page edited"
 }
