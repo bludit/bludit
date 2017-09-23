@@ -40,7 +40,7 @@ function table($status, $icon='arrow-circle-o-down') {
 
 	if (!empty($list)) {
 		echo '<tr>
-		<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;"><i class="fa fa-'.$icon.'" aria-hidden="true"></i> '.$status.'</td>
+		<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;"><i class="fa fa-'.$icon.'" aria-hidden="true"></i> '.$Language->g($status).'</td>
 		<td></td>
 		<td></td>
 		</tr>';

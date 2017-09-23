@@ -285,11 +285,12 @@ class dbPages extends dbJSON
 	public function getStaticDB()
 	{
 		$tmp = $this->db;
-		foreach($tmp as $key=>$fields) {
-			if($fields['status']!='static') {
+		foreach ($tmp as $key=>$fields) {
+			if ($fields['status']!='static') {
 				unset($tmp[$key]);
 			}
 		}
+		uasort($tmp, array($this, 'sortByPositionLowToHigh'));
 		return $tmp;
 	}
 

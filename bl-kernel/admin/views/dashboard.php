@@ -146,7 +146,7 @@
 				echo '<li>'.$Language->g('There are no draft pages').'</li>';
 			}
 			else {
-				$keys = array_keys($scheduledPages);
+				$keys = array_keys($draftPages);
 				foreach($keys as $key) {
 					$page = buildPage($key);
 					echo '<li><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
