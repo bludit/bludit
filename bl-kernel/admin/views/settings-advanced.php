@@ -32,7 +32,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 
 	HTML::formSelect(array(
 		'name'=>'homepage',
-		'label'=>$L->g('Home page'),
+		'label'=>$L->g('Homepage'),
 		'options'=>$homepageOptions,
 		'selected'=>$Site->homepage(),
 		'class'=>'uk-width-1-3 uk-form-medium',
@@ -55,7 +55,7 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	HTML::formSelect(array(
 		'name'=>'orderBy',
 		'label'=>$L->g('Order content By'),
-		'options'=>array('date'=>'Date','position'=>'Position'),
+		'options'=>array('date'=>$L->g('Date'),'position'=>$L->g('Position')),
 		'selected'=>$Site->orderBy(),
 		'class'=>'uk-width-1-3 uk-form-medium',
 		'tip'=>$L->g('Order the content by position to build a Website')

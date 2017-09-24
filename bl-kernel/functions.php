@@ -349,10 +349,15 @@ function editPage($args) {
 	global $dbPages;
 	global $Syslog;
 
-	// The user is always the one loggued
-	$args['username'] = Session::get('username');
-	if ( empty($args['username']) ) {
-		Log::set('Function editPage()'.LOG_SEP.'Empty username.');
+	// Check the key is not empty
+	if (empty($args['key'])) {
+		Log::set('Function editPage()'.LOG_SEP.'Empty key.');
+		return false;
+	}
+
+	// Check if the page key exist
+	if (!$dbPages->exists($args['key'])) {
+		Log::set('Function editPage()'.LOG_SEP.'Page key does not exist, '.$args['key']);
 		return false;
 	}
 
@@ -360,6 +365,17 @@ function editPage($args) {
 	if ( !empty($args['externalCoverImage']) ) {
 		$args['coverImage'] = $args['externalCoverImage'];
 		unset($args['externalCoverImage']);
+	}
+
+	// Title and content need to be here because from inside the dbPages is not visible
+	if (empty($args['title']) || empty($args['content'])) {
+		$page = buildPage($args['key']);
+		if (empty($args['title'])) {
+			$args['title'] = $page->title();
+		}
+		if (empty($args['content'])) {
+			$args['content'] = $page->contentRaw();
+		}
 	}
 
 	$key = $dbPages->edit($args);

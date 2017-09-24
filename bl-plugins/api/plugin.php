@@ -91,13 +91,20 @@ class pluginAPI extends Plugin {
 		// ------------------------------------------------------------
 		$writePermissions = false;
 		if ( !empty($inputs['authentication']) ) {
-			// Get the user with the authentication token
+
+			// Get the user with the authentication token, FALSE if doesn't exit
 			$username = $dbUsers->getByAuthToken($inputs['authentication']);
 			if ($username!==false) {
-				// Enable write permissions
-				$writePermissions = true;
-				// Loggin the user to create the session
-				$Login->setLogin($username, 'admin');
+
+				// Get the object user to check the role
+				$user = $dbUsers->getUser($username);
+				if (($user->role()=='admin') && ($user->enabled())) {
+
+					// Loggin the user to create the session
+					$Login->setLogin($username, 'admin');
+					// Enable write permissions
+					$writePermissions = true;
+				}
 			}
 		}
 
@@ -270,7 +277,7 @@ class pluginAPI extends Plugin {
 	{
 		// This function is defined on functions.php
 		$key = createPage($args);
-var_dump($key);exit;
+
 		if ($key===false) {
 			return array(
 				'status'=>'1',

@@ -154,7 +154,7 @@
 	"order-content-by": "Order content By",
 
 	"order-the-content-by-position-to-build-a-website": "Order the content by position to build a Website or order the content by date to build a Blog.",
-	"page-not-found-content": "Hey! look like the page doesn't exist.",
+	"page-not-found-content": "Hey! looks like the page doesn't exist.",
 	"page-not-found": "Page not found",
 	"predefined-pages": "Predefined pages",
 	"returning-page-when-the-page-doesnt-exist": "Returning page when the page doesn't exist, leave it blank if you want to returns a default message.",
@@ -213,5 +213,12 @@
 	"add-new-page": "Add new page",
 	"this-field-is-used-when-you-order-the-pages-by-position": "This field is used when you order the pages by position.",
 	"about-your-site-or-yourself": "About your site or yourself",
-	"homepage": "Homepage"
+	"homepage": "Homepage",
+	"disabled": "Disabled",
+	"to-enable-the-user-you-must-set-a-new-password": "To enable the user you must set a new password.",
+	"delete-the-user-and-associate-his-pages-to-admin-user": "Delete the user and associate his pages to admin user",
+	"delete-the-user-and-all-his-pages": "Delete the user and all his pages",
+	"user-disabled": "User disabled",
+	"user-password-changed": "User password changed",
+	"page-edited": "Page edited"
 }
