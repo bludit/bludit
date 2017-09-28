@@ -4,7 +4,7 @@
 		"native": "Deutsch (Schweiz)",
 		"english-name": "German",
 		"locale": "de, de_CH",
-		"last-update": "2017-09-28",
+		"last-update": "2017-09-29",
 		"author": "Clickwork",
 		"email": "egoetschel@clickwork.ch",
 		"website": "https://clickwork.ch"
@@ -186,7 +186,7 @@
 	"user-edited": "Benutzer bearbeitet",
 	"user-deleted": "Benutzer gelöscht",
 	"recommended-for-recovery-password-and-notifications": "Recommended for recovery password and notifications.",
-	"authentication-token": "Authentifizierungs Token",
+	"authentication-token": "Authentifizierungs-Token",
 	"token": "Token",
 	"current-status": "Aktueller Status",
 	"upload-image": "Bild hochladen",
