@@ -30,16 +30,16 @@
 	"website": "Website",
 	"publish": "Publish",
 	"manage": "Manage",
-
+	"content": "Content",
 	"category": "Category",
 	"categories": "Categories",
 	"users": "Users",
 	"settings": "Settings",
 	"general": "General",
 	"advanced": "Advanced",
-
-
-
+	"new-content": "New content",
+	"manage-content": "Manage content",
+	"add-new-content": "Add new content",
 	"new-category": "New category",
 	"you-do-not-have-sufficient-permissions": "You do not have sufficient permissions",
 	"add-a-new-user": "Add a new user",
@@ -84,7 +84,7 @@
 	"external-cover-image": "External cover image",
 	"parent": "Parent",
 	"full-image-url": "Full image URL.",
-
+	"this-field-is-used-when-you-order-the-content-by-position": "This field is used when you order the content by position.",
 	"position": "Position",
 	"friendly-url": "Friendly URL",
 	"image-description": "Image description",
@@ -131,7 +131,7 @@
 	"editor": "Editor",
 	"administrator": "Administrator",
 	"edit-user": "Edit user",
-
+	"edit-content": "Edit content",
 	"profile": "Profile",
 	"change-password": "Change password",
 	"enabled": "Enabled",
@@ -139,7 +139,7 @@
 	"profile-picture": "Profile picture",
 	"edit-or-delete-your-categories": "Edit or delete your categories",
 	"create-a-new-page-for-your-site": "Create a new page for your site",
-
+	"create-a-new-category-to-organize-your-content": "Create a new category to organize your content",
 	"confirm-delete-this-action-cannot-be-undone": "Confirm delete, this action cannot be undone.",
 	"do-you-want-to-disable-the-user": "Do you want to disable the user ?",
 	"new-password": "New password",
@@ -152,7 +152,7 @@
 	"there-are-no-scheduled-pages": "There are no scheduled pages",
 	"there-are-no-draft-pages": "There are no draft pages",
 	"order-content-by": "Order content By",
-
+	"edit-or-delete-content-from-your-site": "Edit or delete content from your site",
 	"order-the-content-by-position-to-build-a-website": "Order the content by position to build a Website or order the content by date to build a Blog.",
 	"page-not-found-content": "Hey! looks like the page doesn't exist.",
 	"page-not-found": "Page not found",
@@ -220,5 +220,14 @@
 	"delete-the-user-and-all-his-pages": "Delete the user and all his pages",
 	"user-disabled": "User disabled",
 	"user-password-changed": "User password changed",
-	"page-edited": "Page edited"
+	"page-edited": "Page edited",
+	"the-password-and-confirmation-password-do-not-match": "The password and confirmation password do not match",
+	"scheduled-content": "Scheduled content",
+	"there-are-no-scheduled-content": "There are no scheduled content",
+	"new-content-created": "New content created",
+	"content-edited": "Content edited",
+	"content-deleted": "Contente deleted",
+	"undefined": "Undefined",
+	"create-new-content-for-your-site": "Create new content for your site",
+	"there-are-no-draft-content": "There are no draft content"
 }
