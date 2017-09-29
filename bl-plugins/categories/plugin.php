@@ -7,7 +7,7 @@ class pluginCategories extends Plugin {
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
 			'label'=>'Categories',
-			'showCero'=>false
+			'hideCero'=>true
 		);
 	}
 
@@ -23,12 +23,11 @@ class pluginCategories extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Categories without content').'</label>';
-		$html .= '<select name="showCero">';
-		$html .= '<option value="true" '.($this->getValue('showCero')===true?'selected':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('showCero')===false?'selected':'').'>Disabled</option>';
+		$html .= '<label>'.$Language->get('Hide Categories without content').'</label>';
+		$html .= '<select name="hideCero">';
+		$html .= '<option value="true" '.($this->getValue('hideCero')===true?'selected':'').'>'.$Language->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('hideCero')===false?'selected':'').'>'.$Language->get('Disabled').'</option>';
 		$html .= '</select>';
-		$html .= '<span class="tip">'.$Language->get('Show the categories without content').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -47,9 +46,9 @@ class pluginCategories extends Plugin {
 		$html .= '<ul>';
 
 		// By default the database of categories are alphanumeric sorted
-		foreach( $dbCategories->db as $key=>$fields ) {
+		foreach ($dbCategories->db as $key=>$fields) {
 			$count = count($fields['list']);
-			if($this->getValue('showCero') || $count>0) {
+			if (!$this->getValue('hideCero') || $count>0) {
 				$html .= '<li>';
 				$html .= '<a href="'.DOMAIN_CATEGORIES.$key.'">';
 				$html .= $fields['name'];
