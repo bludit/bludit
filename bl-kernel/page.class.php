@@ -25,7 +25,7 @@ class Page {
 
 		$tmp = 0;
 		$file = file($filePath);
-		foreach($file as $lineNumber=>$line) {
+		foreach ($file as $lineNumber=>$line) {
 			// Split the line in 2 parts, limiter by :
 			$parts = explode(':', $line, 2);
 
@@ -40,12 +40,19 @@ class Page {
 
 			// Check if the current line start the content of the page
 			// We have two breakers, the word content or 3 dash ---
-			if( ($field==='content') || ($field==='---') ) {
+			if ($field==='content') {
 				$tmp = $lineNumber;
+				$styleTypeUsed = 'Content:';
 				break;
 			}
 
-			if( !empty($field) && !empty($value) ) {
+			if ($field==='---') {
+				$tmp = $lineNumber;
+				$styleTypeUsed = '---';
+				break;
+			}
+
+			if (!empty($field) && !empty($value)) {
 				// Remove missing dashs -
 				$field = preg_replace('/[^A-Za-z]/', '', $field);
 
@@ -68,11 +75,13 @@ class Page {
 
 		// Process the content
 		if ($tmp!==0) {
-			// Next line after "Content:" or "---"
-			$tmp++;
-
-			// Get all lines after "Content:" or "---"
+			// Get all lines starting from "Content:" or "---"
 			$content = array_slice($file, $tmp);
+
+			// Remove "Content:" or "---" and keep next characters if there are
+			$content[0] = substr($content[0], strpos($content[0], $styleTypeUsed) + strlen($styleTypeUsed));
+
+			$content[0] = trim($content[0]);
 
 			// Join lines in one variable, this is RAW content from file
 			$this->vars['contentRaw'] = implode($content);
@@ -84,7 +93,7 @@ class Page {
 	// Returns TRUE if the content is loaded correctly, FALSE otherwise
 	public function isValid()
 	{
-		return($this->vars!==false);
+		return $this->vars!==false;
 	}
 
 	// DEPRACTED
