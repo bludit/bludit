@@ -92,6 +92,14 @@ if($Login->role()==='admin') {
 	));
 
 	HTML::formInputText(array(
+		'name'=>'codepen',
+		'label'=>'Codepen',
+		'value'=>$User->codepen(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
 		'name'=>'googlePlus',
 		'label'=>'Google+',
 		'value'=>$User->googlePlus(),

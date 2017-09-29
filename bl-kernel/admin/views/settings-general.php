@@ -63,6 +63,14 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	));
 
 	HTML::formInputText(array(
+		'name'=>'codepen',
+		'label'=>'Codepen',
+		'value'=>$Site->codepen(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
+	HTML::formInputText(array(
 		'name'=>'googlePlus',
 		'label'=>'Google+',
 		'value'=>$Site->googlePlus(),

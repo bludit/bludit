@@ -17,6 +17,7 @@ class dbUsers extends dbJSON
 		'tokenAuthTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
 		'twitter'=>		array('inFile'=>false, 'value'=>''),
 		'facebook'=>		array('inFile'=>false, 'value'=>''),
+		'codepen'=>		array('inFile'=>false, 'value'=>''),
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>'')
 	);
