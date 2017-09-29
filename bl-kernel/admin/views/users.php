@@ -29,7 +29,7 @@ foreach ($users as $username=>$User) {
 	echo '<td>'.$User->lastName().'</td>';
 	echo '<td>'.$User->email().'</td>';
 	echo '<td class="uk-text-center">'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
-	echo '<td class="uk-text-center">'.$User->role().'</td>';
+	echo '<td class="uk-text-center">'.($User->role()=='admin'?$L->g('Administrator'):$L->g('Editor')).'</td>';
 	echo '<td class="uk-text-center">'.Date::format($User->registered(), DB_DATE_FORMAT, DB_DATE_FORMAT).'</td>';
 	echo '</tr>';
 }
