@@ -26,6 +26,7 @@ class dbSite extends dbJSON
 		'currentBuild'=>	array('inFile'=>false, 'value'=>0),
 		'twitter'=>		array('inFile'=>false, 'value'=>''),
 		'facebook'=>		array('inFile'=>false, 'value'=>''),
+		'codepen'=>		array('inFile'=>false, 'value'=>''),
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
@@ -99,6 +100,11 @@ class dbSite extends dbJSON
 	public function facebook()
 	{
 		return $this->getField('facebook');
+	}
+
+	public function codepen()
+	{
+		return $this->getField('codepen');
 	}
 
 	public function instagram()
