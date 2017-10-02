@@ -328,11 +328,11 @@ function createPage($args) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'new-page-created',
+			'dictionaryKey'=>'new-content-created',
 			'notes'=>$args['title']
 		));
 
-		Alert::set( $Language->g('new-page-created') );
+		Alert::set( $Language->g('new-content-created') );
 
 		return $key;
 	}
@@ -391,7 +391,7 @@ function editPage($args) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'page-edited',
+			'dictionaryKey'=>'content-edited',
 			'notes'=>$args['title']
 		));
 
@@ -418,7 +418,7 @@ function deletePage($key) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'page-deleted',
+			'dictionaryKey'=>'content-deleted',
 			'notes'=>$key
 		));
 

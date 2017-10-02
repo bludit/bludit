@@ -28,7 +28,7 @@ $published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
 if (empty($published) && $Url->pageNumber()>1) {
-	Redirect::page('pages');
+	Redirect::page('content');
 }
 
 // List of drafts pages
@@ -39,4 +39,4 @@ $scheduled = $dbPages->getScheduledDB();
 $static = $dbPages->getStaticDB();
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Manage Pages');
+$layout['title'] .= ' - '.$Language->g('Manage content');

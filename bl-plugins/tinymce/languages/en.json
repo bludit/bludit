@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "TinyMCE",
-		"description": "HTML Editor for formatting content. This plugin needs a license, there are free and paid. <br> Read more about on <a href=\"https://www.tinymce.com\">Tinymce</a>."
+		"description": "HTML Editor for formatting content. This plugin needs a license, there are free and paid. <br> Read more about it on <a href=\"https://www.tinymce.com\">Tinymce</a>."
 	}
 }

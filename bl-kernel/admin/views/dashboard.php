@@ -4,13 +4,13 @@
 	<div class="uk-width-medium-1-3">
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New page') ?></a></h4>
-		<p><?php $L->p('Create a new page for your site') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><i class="uk-icon-pencil"></i> <?php $L->p('New content') ?></a></h4>
+		<p><?php $L->p('Create new content for your site') ?></p>
 		</div>
 
 		<div class="uk-panel">
-		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage pages') ?></a></h4>
-		<p><?php $L->p('Edit or delete pages from your site') ?></p>
+		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><i class="uk-icon-folder-o"></i> <?php $L->p('Manage content') ?></a></h4>
+		<p><?php $L->p('Edit or delete content from your site') ?></p>
 		</div>
 
 	</div>
@@ -19,7 +19,7 @@
 
 		<div class="uk-panel">
 		<h4><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-category' ?>"><i class="uk-icon-file-text-o"></i> <?php $L->p('New category') ?></a></h4>
-		<p><?php $L->p('Create a new category to organize your pages') ?></p>
+		<p><?php $L->p('Create a new category to organize your content') ?></p>
 		</div>
 
 		<div class="uk-panel">
@@ -99,18 +99,18 @@
 	<div class="uk-width-1-3">
 
 		<div class="uk-panel">
-		<h4 class="panel-title"><?php $L->p('Scheduled pages') ?></h4>
+		<h4 class="panel-title"><?php $L->p('Scheduled content') ?></h4>
 		<ul class="uk-list">
 		<?php
 			$scheduledPages = $dbPages->getScheduledDB();
 			if( empty($scheduledPages) ) {
-				echo '<li>'.$Language->g('There are no scheduled pages').'</li>';
+				echo '<li>'.$Language->g('There are no scheduled content').'</li>';
 			}
 			else {
 				$keys = array_keys($scheduledPages);
 				foreach($keys as $key) {
 					$page = buildPage($key);
-					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>
@@ -122,7 +122,7 @@
 		<table class="uk-table statistics">
 			<tbody>
 			<tr>
-			<td><?php $Language->p('Pages') ?></td>
+			<td><?php $Language->p('Content') ?></td>
 			<td><?php echo $dbPages->count() ?></td>
 			</tr>
 			<tr>
@@ -138,18 +138,18 @@
 	<div class="uk-width-1-3">
 
 		<div class="uk-panel">
-		<h4 class="panel-title"><?php $L->p('Drafts') ?></h4>
+		<h4 class="panel-title"><?php $L->p('Draft content') ?></h4>
 		<ul class="uk-list">
 		<?php
 			$draftPages = $dbPages->getDraftDB();
 			if( empty($draftPages) ) {
-				echo '<li>'.$Language->g('There are no draft pages').'</li>';
+				echo '<li>'.$Language->g('There are no draft content').'</li>';
 			}
 			else {
 				$keys = array_keys($draftPages);
 				foreach($keys as $key) {
 					$page = buildPage($key);
-					echo '<li><a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+					echo '<li><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
 			}
 		?>

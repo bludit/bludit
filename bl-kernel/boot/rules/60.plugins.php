@@ -72,7 +72,7 @@ function buildPlugins()
 		$Plugin = new $pluginClass;
 
 		// Check if the plugin is translated
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->locale().'.json';
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}

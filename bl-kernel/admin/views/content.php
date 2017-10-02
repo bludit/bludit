@@ -1,8 +1,8 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Manage pages'), 'icon'=>'folder'));
+HTML::title(array('title'=>$L->g('Manage content'), 'icon'=>'folder'));
 
-echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-page"><i class="uk-icon-plus"></i> '.$L->g('Add new page').'</a>';
+echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-content"><i class="uk-icon-plus"></i> '.$L->g('Add new content').'</a>';
 
 echo '
 <table class="uk-table uk-table-striped">
@@ -50,7 +50,7 @@ function table($status, $icon='arrow-circle-o-down') {
 		$page = buildPage($pageKey);
 		echo '<tr>';
 		echo '<td>
-			<a href="'.HTML_PATH_ADMIN_ROOT.'edit-page/'.$page->key().'">'
+			<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
 			.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
 			.'</a>
 		</td>';

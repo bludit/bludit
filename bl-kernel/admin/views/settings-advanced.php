@@ -9,23 +9,24 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'value'=>$Security->getTokenCSRF()
 	));
 
-	HTML::legend(array('value'=>$L->g('General'), 'class'=>'first-child'));
+	HTML::legend(array('value'=>$L->g('Content')));
 
 	HTML::formSelect(array(
 		'name'=>'itemsPerPage',
 		'label'=>$L->g('Items per page'),
-		'options'=>array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8', '-1'=>'All pages'),
+		'options'=>array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8', '-1'=>$L->g('All pages')),
 		'selected'=>$Site->itemsPerPage(),
 		'class'=>'uk-width-1-3 uk-form-medium',
 		'tip'=>$L->g('Number of items to show per page')
 	));
 
-	HTML::formInputText(array(
-		'name'=>'url',
-		'label'=>$L->g('Site URL'),
-		'value'=>$Site->url(),
-		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('full-url-of-your-site')
+	HTML::formSelect(array(
+		'name'=>'orderBy',
+		'label'=>$L->g('Order content by'),
+		'options'=>array('date'=>$L->g('Date'),'position'=>$L->g('Position')),
+		'selected'=>$Site->orderBy(),
+		'class'=>'uk-width-1-3 uk-form-medium',
+		'tip'=>$L->g('order-the-content-by-date-to-build-a-blog')
 	));
 
 	HTML::legend(array('value'=>$L->g('Predefined pages')));
@@ -36,29 +37,17 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'options'=>$homepageOptions,
 		'selected'=>$Site->homepage(),
 		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>$L->g('Returning page for the main page'),
-		'addEmptySpace'=>true
+		'tip'=>$L->g('Returning page for the main page')
 	));
 
+	$homepageOptions[' '] = '- '.$L->g('Default message').' -';
 	HTML::formSelect(array(
 		'name'=>'pageNotFound',
 		'label'=>$L->g('Page not found'),
 		'options'=>$homepageOptions,
 		'selected'=>$Site->pageNotFound(),
 		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>$L->g('Returning page when the page doesnt exist'),
-		'addEmptySpace'=>true
-	));
-
-	HTML::legend(array('value'=>$L->g('Website or Blog')));
-
-	HTML::formSelect(array(
-		'name'=>'orderBy',
-		'label'=>$L->g('Order content By'),
-		'options'=>array('date'=>$L->g('Date'),'position'=>$L->g('Position')),
-		'selected'=>$Site->orderBy(),
-		'class'=>'uk-width-1-3 uk-form-medium',
-		'tip'=>$L->g('Order the content by position to build a Website')
+		'tip'=>$L->g('Returning page when the page doesnt exist')
 	));
 
 	HTML::legend(array('value'=>$L->g('Email account settings')));
@@ -69,6 +58,17 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'value'=>$Site->emailFrom(),
 		'class'=>'uk-width-1-2 uk-form-medium',
 		'tip'=>$L->g('Emails will be sent from this address')
+	));
+
+	HTML::legend(array('value'=>$L->g('Site URL')));
+
+	HTML::formInputText(array(
+		'name'=>'url',
+		'label'=>'',
+		'value'=>$Site->url(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>$L->g('full-url-of-your-site'),
+		'placeholder'=>'https://'
 	));
 
 	HTML::legend(array('value'=>$L->g('URL Filters')));

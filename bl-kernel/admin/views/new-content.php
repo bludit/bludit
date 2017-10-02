@@ -1,6 +1,6 @@
 <?php
 
-HTML::title(array('title'=>$L->g('New page'), 'icon'=>'file-text-o'));
+HTML::title(array('title'=>$L->g('New content'), 'icon'=>'file-text-o'));
 
 HTML::formOpen(array('class'=>'uk-form-stacked'));
 
@@ -35,7 +35,7 @@ echo '<div class="bl-publish-view uk-width-8-10">';
 	echo '<div class="uk-form-row uk-margin-bottom">
 		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
 		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
-		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'pages">'.$L->g('Cancel').'</a>
+		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'content">'.$L->g('Cancel').'</a>
 	</div>';
 
 echo '</div>';
@@ -132,12 +132,14 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'name'=>'date',
 		'value'=>Date::current(DB_DATE_FORMAT),
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('To schedule the page select the date and time'),
+		'tip'=>$L->g('To schedule the content select the date and time'),
 		'label'=>$L->g('Date')
 	));
 
+	echo '<hr>';
+
 	// Parent input
-	$options = array();
+	$options = array(' '=>'- '.$L->g('No parent').' -');
 	$parentsList = $dbPages->getParents();
 	$parentsKey = array_keys($parentsList);
 	foreach($parentsKey as $pageKey) {
@@ -151,18 +153,22 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'options'=>$options,
 		'selected'=>'',
-		'tip'=>'',
-		'addEmptySpace'=>true
+		'tip'=>''
 	));
+
+	echo '<hr>';
 
 	// Position input
 	HTML::formInputText(array(
 		'name'=>'position',
-		'value'=>'1',
+		'type'=>'number',
+		'value'=>$dbPages->nextPositionNumber(),
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('Position'),
-		'tip'=>$L->g('This field is used when you order the pages by position')
+		'tip'=>$L->g('This field is used when you order the content by position')
 	));
+
+	echo '<hr>';
 
 	// External Coverimage
 	HTML::formInputText(array(
@@ -170,15 +176,18 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'value'=>'',
 		'class'=>'uk-width-1-1 uk-form-medium',
 		'label'=>$L->g('External Cover Image'),
-		'tip'=>$L->g('Full image URL')
+		'tip'=>$L->g('Full image URL'),
+		'placeholder'=>"https://"
 	));
+
+	echo '<hr>';
 
 	// Slug input
 	HTML::formInputText(array(
 		'name'=>'slug',
 		'value'=>'',
 		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('URL associated with the page'),
+		'tip'=>$L->g('URL associated with the content'),
 		'label'=>$L->g('Friendly URL')
 	));
 

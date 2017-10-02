@@ -3,8 +3,8 @@
 class pluginsimpleMDE extends Plugin {
 
 	private $loadOnController = array(
-		'new-page',
-		'edit-page'
+		'new-content',
+		'edit-content'
 	);
 
 	public function init()
