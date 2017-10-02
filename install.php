@@ -237,7 +237,7 @@ function checkSystem()
 }
 
 // Finish with the installation.
-function install($adminPassword, $email, $timezone)
+function install($adminUsername, $adminPassword, $email, $timezone)
 {
 	global $Language;
 
@@ -327,7 +327,7 @@ function install($adminPassword, $email, $timezone)
 	$data = array(
 		'error'=>array(
 		'description'=>'Error page',
-		'username'=>'admin',
+		'username'=>$adminUsername,
 		'tags'=>array(),
 		'status'=>'published',
 		'date'=>$currentDate,
@@ -339,7 +339,7 @@ function install($adminPassword, $email, $timezone)
 	    	),
 		'about'=>array(
 		'description'=>$Language->get('About your site or yourself'),
-		'username'=>'admin',
+		'username'=>$adminUsername,
 		'tags'=>array(),
 		'status'=>'published',
 		'date'=>$currentDate,
@@ -357,7 +357,7 @@ function install($adminPassword, $email, $timezone)
 	$data = array(
 	$firstPostSlug=>array(
 		'description'=>$Language->get('Welcome to Bludit'),
-		'username'=>'admin',
+		'username'=>$adminUsername,
 		'status'=>'published',
 		'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
 		'allowComments'=>'false',
@@ -399,7 +399,7 @@ function install($adminPassword, $email, $timezone)
 	$passwordHash = sha1($adminPassword.$salt);
 
 	$data = array(
-		'admin'=>array(
+		$adminUsername=>array(
 		'firstName'=>$Language->get('Administrator'),
 		'lastName'=>'',
 		'role'=>'admin',
@@ -551,6 +551,11 @@ function checkPOST($args)
 {
 	global $Language;
 
+	// Check empty username
+	if( strlen($args['username']) < 6 )
+	{
+		return '<div>'.$Language->g('Username must be at least 6 characters long').'</div>';
+	}
 	// Check empty password
 	if( strlen($args['password']) < 6 )
 	{
@@ -567,7 +572,7 @@ function checkPOST($args)
 	$email = sanitize::email($args['email']);
 
 	// Install Bludit
-	install($args['password'], $email, $args['timezone']);
+	install($args['username'], $args['password'], $email, $args['timezone']);
 
 	return true;
 }
@@ -665,7 +670,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		<input type="hidden" name="timezone" id="jstimezone" value="0">
 
 		<div class="uk-form-row">
-		<input type="text" value="admin" class="uk-width-1-1 uk-form-large" disabled>
+		<input name="username" id="jsusername" type="text" class="uk-width-1-1 uk-form-large" value="<?php echo isset($_POST['username'])?$_POST['username']:'' ?>" placeholder="<?php echo $Language->get('Username') ?>">
 		</div>
 
 		<div class="uk-form-row">

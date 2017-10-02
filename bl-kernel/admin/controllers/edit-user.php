@@ -43,8 +43,9 @@ function deleteUser($args, $deleteContent=false)
 	global $Language;
 	global $Login;
 
+	$AdminUsername = $dbUsers->getAdminUser()['username'];
 	// The user admin cannot be deleted.
-	if($args['username']=='admin') {
+	if($args['username']==$AdminUsername) {
 		return false;
 	}
 
@@ -57,7 +58,7 @@ function deleteUser($args, $deleteContent=false)
 		$dbPosts->deletePostsByUser($args['username']);
 	}
 	else {
-		$dbPosts->linkPostsToUser($args['username'], 'admin');
+		$dbPosts->linkPostsToUser($args['username'], $AdminUsername);
 	}
 
 	if( $dbUsers->delete($args['username']) ) {
