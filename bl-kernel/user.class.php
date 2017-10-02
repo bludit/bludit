@@ -83,6 +83,11 @@ class User
 		return $this->getField('facebook');
 	}
 
+	public function codepen()
+	{
+		return $this->getField('codepen');
+	}
+
 	public function googlePlus()
 	{
 		return $this->getField('googlePlus');

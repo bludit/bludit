@@ -241,5 +241,7 @@
 	"latest-content": "Latest content",
 	"default-message": "Default message",
 	"no-parent": "No parent",
-	"have-you-seen-my-ball": "Have you seen my ball?"
+	"have-you-seen-my-ball": "Have you seen my ball?",
+	"pagebreak": "Page break",
+	"this-plugin-may-not-be-supported-by-this-version-of-bludit": "This plugin may not be supported by this version of Bludit"
 }

@@ -66,6 +66,10 @@ class Filesystem {
 
 	public static function copyRecursive($source, $destination)
 	{
+		if (!self::directoryExists($source)) {
+			return false;
+		}
+
 		$destination = rtrim($destination, '/');
 
 		foreach($iterator = new RecursiveIteratorIterator(
@@ -82,6 +86,10 @@ class Filesystem {
 
 	public static function deleteRecursive($source)
 	{
+		if (!self::directoryExists($source)) {
+			return false;
+		}
+
 		foreach(new RecursiveIteratorIterator(
 			new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
 			RecursiveIteratorIterator::CHILD_FIRST) as $item) {
