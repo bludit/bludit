@@ -521,6 +521,8 @@ class dbPages extends dbJSON
 
 	public function regenerateCli()
 	{
+		global $dbUsers;
+		$AdminUsername = $dbUsers->getAdminUser()['username'];
 		$db = $this->db;
 		$newPaths = array();
 		$fields = array();
@@ -564,7 +566,7 @@ class dbPages extends dbJSON
 				// Default values for the new pages.
 				$fields['status'] = CLI_STATUS;
 				$fields['date'] = Date::current(DB_DATE_FORMAT);
-				$fields['username'] = 'admin';
+				$fields['username'] = $AdminUsername;
 
 				// Create the entry for the new page.
 				$this->db[$key] = $fields;

@@ -72,6 +72,18 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
+	// Return first the username associated with the role 'admin', if a user with 'admin' role not found return FALSE.
+	public function getAdminUser()
+	{
+		foreach($this->db as $username=>$values) {
+			if($values['role']=='admin') {
+				return $username;
+			}
+		}
+
+		return false;
+	}
+
 	// Return TRUE if the user exists, FALSE otherwise.
 	public function userExists($username)
 	{
