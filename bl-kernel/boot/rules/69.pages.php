@@ -82,7 +82,7 @@ if ($dbPages->scheduler()) {
 
 	// Add to syslog
 	$Syslog->add(array(
-		'dictionaryKey'=>'page-published-from-scheduler',
+		'dictionaryKey'=>'content-published-from-scheduler',
 		'notes'=>''
 	));
 }

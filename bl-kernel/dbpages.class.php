@@ -487,18 +487,17 @@ class dbPages extends dbJSON
 	// Generate a valid Key/Slug
 	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
 	{
-		if(Text::isEmpty($text)) {
+		if (Text::isEmpty($text)) {
 			$text = 'empty';
 		}
 
-		if( empty($parent) ) {
+		if (Text::isEmpty($parent)) {
 			$newKey = Text::cleanUrl($text);
-		}
-		else {
+		} else {
 			$newKey = Text::cleanUrl($parent).'/'.Text::cleanUrl($text);
 		}
 
-		if($newKey!==$oldKey) {
+		if ($newKey!==$oldKey) {
 			// Verify if the key is already been used
 			if( isset($this->db[$newKey]) ) {
 				if( !Text::endsWithNumeric($newKey) ) {
@@ -511,7 +510,7 @@ class dbPages extends dbJSON
 			}
 		}
 
-		if($returnSlug) {
+		if ($returnSlug) {
 			$explode = explode('/', $newKey);
 
 			if(isset($explode[1])) {

@@ -58,7 +58,7 @@ class dbLanguage extends dbJSON
 			return $this->db[$key];
 		}
 
-		file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
+		//file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
 		return $string;
 	}
 
