@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Latest content",
+		"description": "Shows a list of pages, you can define the amount of items. <br> The order of the pages is taken from the settings of Bludit."
+	},
+
+	"home-page": "Home page",
+	"show-home-link": "Show home link",
+	"amount-of-items": "Amount of items"
+}

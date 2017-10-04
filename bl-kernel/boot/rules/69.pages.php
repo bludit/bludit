@@ -14,7 +14,7 @@
 		N => Page Object
 	)
 */
-$pages = array();
+$content = $pages = array();
 
 // Page filtered by the user, is a Page Object
 $page = $Page = false;
@@ -67,6 +67,8 @@ $pagesByParent = array(PARENT=>array());
 	)
 */
 $pagesByParentByKey = array(PARENT=>array());
+
+$posts = array();
 
 // ============================================================================
 // Main
@@ -127,5 +129,5 @@ if ($Url->notFound()) {
 	if ($page===false) {
 		$page = buildErrorPage();
 	}
-	$pages[0] = $Page = $page;
+	$content[0] = $pages[0] = $Page = $page;
 }

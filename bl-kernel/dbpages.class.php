@@ -10,7 +10,7 @@ class dbPages extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, static, draft, scheduled
+		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, scheduled
 		'type'=>		array('inFile'=>false,	'value'=>'post'), // post, page
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),

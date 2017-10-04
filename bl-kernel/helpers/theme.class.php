@@ -67,18 +67,22 @@ class Theme {
 
 		$title = $Site->title();
 
-		if( $WHERE_AM_I=='page' ) {
-			$title = $page->title().' - '.$Site->title();
+		if (Text::isNotEmpty($Site->slogan())) {
+			$title = $Site->slogan().' | '.$Site->title();
 		}
-		elseif( $WHERE_AM_I=='tag' ) {
+
+		if ($WHERE_AM_I=='page') {
+			$title = $page->title().' | '.$Site->title();
+		}
+		elseif ($WHERE_AM_I=='tag') {
 			$tagKey = $Url->slug();
 			$tagName = $dbTags->getName($tagKey);
-			$title = $tagName.' - '.$Site->title();
+			$title = $tagName.' | '.$Site->title();
 		}
-		elseif( $WHERE_AM_I=='category' ) {
+		elseif ($WHERE_AM_I=='category') {
 			$categoryKey = $Url->slug();
 			$categoryName = $dbCategories->getName($categoryKey);
-			$title = $categoryName.' - '.$Site->title();
+			$title = $categoryName.' | '.$Site->title();
 		}
 
 		return '<title>'.$title.'</title>'.PHP_EOL;
@@ -156,38 +160,29 @@ class Theme {
 		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
 
-	public static function fontAwesome()
+	public static function fontAwesome($cdn=false)
 	{
+		if ($cdn) {
+			return '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">'.PHP_EOL;
+		}
 		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/css/font-awesome.min.css'.'">'.PHP_EOL;
 	}
 
 	public static function jquery($cdn=false)
 	{
-		if($cdn) {
+		if ($cdn) {
 			return '<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>';
 		}
 		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
 	}
 
-// ---- OLD
-
-	public static function keywords($keywords, $echo=true)
+	public static function keywords($keywords)
 	{
-		if(is_array($keywords)) {
+		if (is_array($keywords)) {
 			$keywords = implode(',', $keywords);
 		}
-
-		$tmp = '<meta name="keywords" content="'.$keywords.'">'.PHP_EOL;
-
-		if($echo) {
-			echo $tmp;
-		}
-
-		return $tmp;
+		return '<meta name="keywords" content="'.$keywords.'">'.PHP_EOL;
 	}
-
-
-
 }
 
 ?>

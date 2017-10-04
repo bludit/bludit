@@ -87,7 +87,7 @@ function buildErrorPage() {
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
-	global $pages;
+	global $content, $pages;
 
 	$page = $Page = buildPage( $Url->slug() );
 
@@ -102,7 +102,7 @@ function buildThePage() {
 		return false;
 	}
 
-	$pages[0] = $page;
+	$content[0] = $pages[0] = $page;
 	return true;
 }
 
@@ -130,7 +130,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbTags;
 	global $Site;
 	global $Url;
-	global $pages;
+	global $content, $pages;
 
 	// Get the page number from URL
 	$pageNumber = $Url->pageNumber();
@@ -162,6 +162,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 			array_push($pages, $page);
 		}
 	}
+	$content = $pages;
 	return $pages;
 }
 
