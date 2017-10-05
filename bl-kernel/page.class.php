@@ -81,7 +81,7 @@ class Page {
 			// Remove "Content:" or "---" and keep next characters if there are
 			$content[0] = substr($content[0], strpos($content[0], $styleTypeUsed) + strlen($styleTypeUsed));
 
-			$content[0] = trim($content[0]);
+			$content[0] = ltrim($content[0]);
 
 			// Join lines in one variable, this is RAW content from file
 			$this->vars['contentRaw'] = implode($content);
