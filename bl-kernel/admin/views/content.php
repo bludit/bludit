@@ -84,7 +84,7 @@ echo '
 		if(Paginator::showPrev()) {
 			echo '<li><a href="'.Paginator::prevPageUrl().'" class="previous"><i class="fa fa-arrow-circle-o-left"></i> Previous</a></li>';
 		} else {
-			echo '<li class="disabled"><i class="fa fa-arrow-circle-o-left"></i> Previous</li>';
+			echo '<li class="disabled"><i class="fa fa-arrow-circle-o-left"></i> '.$Language->g('Previous').'</li>';
 		}
 
 		for($i=1; $i<=Paginator::amountOfPages(); $i++) {
@@ -93,7 +93,7 @@ echo '
 
 		// Show next page link
 		if(Paginator::showNext()) {
-			echo '<li><a href="'.Paginator::nextPageUrl().'" class="next">Next <i class="fa fa-arrow-circle-o-right"></i></a></li>';
+			echo '<li><a href="'.Paginator::nextPageUrl().'" class="next">'.$Language->g('Next').' <i class="fa fa-arrow-circle-o-right"></i></a></li>';
 		} else {
 			echo '<li class="disabled">Next <i class="fa fa-arrow-circle-o-right"></i></li>';
 		}
