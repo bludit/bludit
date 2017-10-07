@@ -2,25 +2,32 @@
 
 class pluginOpenGraph extends Plugin {
 
-	// Returns the first image from the HTML content
-	private function getImage($content)
+	public function init()
 	{
-		$dom = new DOMDocument();
-		$dom->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8">'.$content);
-		$finder = new DomXPath($dom);
+		// Fields and default values for the database of this plugin
+		$this->dbFields = array(
+			'defaultImage'=>''
+		);
+	}
 
-		$images = $finder->query("//img");
+	public function form()
+	{
+		global $Language;
 
-		if($images->length>0) {
-			// First image from the list
-			$image = $images->item(0);
-			// Get value from attribute src
-			$imgSrc = $image->getAttribute('src');
-			// Returns the image src
-			return $imgSrc;
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<select name="defaultImage">';
+
+		$images = Filesystem::listFiles(PATH_UPLOADS);
+		foreach ($images as $image) {
+			$base = basename($image);
+			$html .= '<option value="'.$base.'" '.(($this->getValue('defaultImage')==$base)?'selected':'').'>'.$base.'</option>';
 		}
 
-		return false;
+		$html .= '</select>';
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	public function siteHead()
@@ -41,7 +48,7 @@ class pluginOpenGraph extends Plugin {
 			'siteName'	=>$Site->title()
 		);
 
-		switch($WHERE_AM_I) {
+		switch ($WHERE_AM_I) {
 			// The user filter by page
 			case 'page':
 				$og['type']		= 'article';
@@ -73,16 +80,39 @@ class pluginOpenGraph extends Plugin {
 		$html .= '<meta property="og:siteName" content="'.$og['siteName'].'">'.PHP_EOL;
 
 		// If the page doesn't have a coverImage try to get an image from the HTML content
-		if( empty($og['image']) ) {
+		if (empty($og['image'])) {
 			// Get the image from the content
 			$src = $this->getImage($content);
-			if($src!==false) {
-				$og['image'] = DOMAIN.$src;
+			if ($src!==false) {
+				$og['image'] = $src;
+			} else {
+				$og['image'] = DOMAIN_UPLOADS.$this->getValue('defaultImage');
 			}
 		}
 
 		$html .= '<meta property="og:image" content="'.$og['image'].'">'.PHP_EOL;
 
 		return $html;
+	}
+
+	// Returns the first image from the HTML content
+	private function getImage($content)
+	{
+		$dom = new DOMDocument();
+		$dom->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8">'.$content);
+		$finder = new DomXPath($dom);
+
+		$images = $finder->query("//img");
+
+		if($images->length>0) {
+			// First image from the list
+			$image = $images->item(0);
+			// Get value from attribute src
+			$imgSrc = $image->getAttribute('src');
+			// Returns the image src
+			return $imgSrc;
+		}
+
+		return false;
 	}
 }

@@ -35,7 +35,7 @@ function buildPage($key) {
 	$contentRaw = $page->contentRaw();
 	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
 	$content = $Parsedown->text($content); // Parse Markdown
-	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
+	$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS); // Parse img src relative to absolute (with domain)
 	$page->setField('content', $content, true);
 
 	// Pagebrake
