@@ -89,6 +89,9 @@ define('PROFILE_IMG_WIDTH', 400);
 define('PROFILE_IMG_HEIGHT', 400);
 define('PROFILE_IMG_QUALITY', 100); // 100%
 
+// Password length
+define('PASSWORD_LENGTH', 6);
+
 // Password salt length
 define('SALT_LENGTH', 8);
 

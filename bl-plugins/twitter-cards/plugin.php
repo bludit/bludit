@@ -16,6 +16,12 @@ class pluginTwitterCards extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
+		$html .= '</div>';
+
+		/*
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Default image').'</label>';
 		$html .= '<select name="defaultImage">';
 
 		$images = Filesystem::listFiles(PATH_UPLOADS);
@@ -26,6 +32,7 @@ class pluginTwitterCards extends Plugin {
 
 		$html .= '</select>';
 		$html .= '</div>';
+		*/
 
 		return $html;
 	}
@@ -80,7 +87,9 @@ class pluginTwitterCards extends Plugin {
 			if ($src!==false) {
 				$og['image'] = $src;
 			} else {
-				$og['image'] = DOMAIN_UPLOADS.$this->getValue('defaultImage');
+				if (Text::isNotEmpty($this->getValue('defaultImage'))) {
+					$og['image'] = $this->getValue('defaultImage');
+				}
 			}
 		}
 

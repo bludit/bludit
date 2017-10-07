@@ -5201,7 +5201,7 @@ tbody.collapse.in {
 .pagination > li > span {
   position: relative;
   float: left;
-  padding: 14px 12px;
+  padding: 5px 10px;
   line-height: 1.42857;
   text-decoration: none;
   color: #e32929;

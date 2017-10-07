@@ -522,8 +522,8 @@ function createUser($args) {
 	}
 
 	// Password length
-	if( strlen($args['new_password']) < 6 ) {
-		Alert::set($Language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
+	if( Text::length($args['new_password']) < PASSWORD_LENGTH ) {
+		Alert::set($Language->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 

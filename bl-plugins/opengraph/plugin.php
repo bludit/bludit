@@ -16,6 +16,12 @@ class pluginOpenGraph extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
+		$html .= '</div>';
+
+		/*
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Default image').'</label>';
 		$html .= '<select name="defaultImage">';
 
 		$images = Filesystem::listFiles(PATH_UPLOADS);
@@ -26,6 +32,7 @@ class pluginOpenGraph extends Plugin {
 
 		$html .= '</select>';
 		$html .= '</div>';
+		*/
 
 		return $html;
 	}
@@ -64,7 +71,7 @@ class pluginOpenGraph extends Plugin {
 			default:
 				$content = '';
 				// The image it's from the first page
-				if(isset($pages[0]) ) {
+				if (isset($pages[0]) ) {
 					$og['image'] 	= $pages[0]->coverImage($absolute=true);
 					$content 	= $pages[0]->content();
 				}
@@ -86,12 +93,13 @@ class pluginOpenGraph extends Plugin {
 			if ($src!==false) {
 				$og['image'] = $src;
 			} else {
-				$og['image'] = DOMAIN_UPLOADS.$this->getValue('defaultImage');
+				if (Text::isNotEmpty($this->getValue('defaultImage'))) {
+					$og['image'] = $this->getValue('defaultImage');
+				}
 			}
 		}
 
 		$html .= '<meta property="og:image" content="'.$og['image'].'">'.PHP_EOL;
-
 		return $html;
 	}
 
