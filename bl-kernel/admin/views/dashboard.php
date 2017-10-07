@@ -122,10 +122,13 @@
 		<table class="uk-table statistics">
 			<tbody>
 			<tr>
-			<td><?php $Language->p('Content') ?></td>
-			<td><?php echo $dbPages->count() ?></td>
+			<td><?php $Language->p('Published') ?></td>
+			<td><?php echo count($dbPages->getPublishedDB()) ?></td>
 			</tr>
 			<tr>
+			<td><?php $Language->p('Static') ?></td>
+			<td><?php echo count($dbPages->getStaticDB()) ?></td>
+			</tr>
 			<td><?php $Language->p('Users') ?></td>
 			<td><?php echo $dbUsers->count() ?></td>
 			</tr>
