@@ -4,7 +4,7 @@
         </a>
 </h1>
 
-<ul class="fixed-pages">
+<ul class="static-pages">
 	<?php
 		$staticPages = $dbPages->getStaticDB();
 		$staticPagesKeyList = array_keys($staticPages);
