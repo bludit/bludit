@@ -7,7 +7,7 @@ class pluginLinks extends Plugin {
 		// JSON database
 		$jsondb = json_encode(array(
 			'Bludit'=>'https://www.bludit.com',
-			'Donate'=>'https://paypal.me/bludit'
+			'Bludit PRO'=>'https://pro.bludit.com'
 		));
 
 		// Fields and default values for the database of this plugin

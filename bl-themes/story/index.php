@@ -36,7 +36,7 @@
 
 </div>
 
-<!-- Javascript Scripts -->
+<!-- Javascript -->
 <?php
 	echo Theme::javascript('assets/js/jquery.min.js');
 	echo Theme::javascript('assets/js/jquery.scrollex.min.js');

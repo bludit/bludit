@@ -82,7 +82,7 @@ echo '
 	<?php
 		// Show previus page link
 		if(Paginator::showPrev()) {
-			echo '<li><a href="'.Paginator::prevPageUrl().'" class="previous"><i class="fa fa-arrow-circle-o-left"></i> Previous</a></li>';
+			echo '<li><a href="'.Paginator::prevPageUrl().'" class="previous"><i class="fa fa-arrow-circle-o-left"></i> '.$Language->g('Previous').'</a></li>';
 		} else {
 			echo '<li class="disabled"><i class="fa fa-arrow-circle-o-left"></i> '.$Language->g('Previous').'</li>';
 		}
@@ -95,7 +95,7 @@ echo '
 		if(Paginator::showNext()) {
 			echo '<li><a href="'.Paginator::nextPageUrl().'" class="next">'.$Language->g('Next').' <i class="fa fa-arrow-circle-o-right"></i></a></li>';
 		} else {
-			echo '<li class="disabled">Next <i class="fa fa-arrow-circle-o-right"></i></li>';
+			echo '<li class="disabled">'.$Language->g('Next').' <i class="fa fa-arrow-circle-o-right"></i></li>';
 		}
 	?>
 </ul>
