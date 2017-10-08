@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
 	Theme design by HTML5 UP - html5up.net | @ajlkn
-	Website running with Bludit - bludit.com | @bludit
+	Website running on BLUDIT - bludit.com | @bludit
 -->
 <html>
 <head>
@@ -9,10 +9,14 @@
 </head>
 <body>
 
+<?php 	// Load plugins
+	Theme::plugins('siteBodyBegin');
+?>
+
 <!-- Wrapper -->
 <div id="wrapper" class="divided">
 
-	<?php
+	<?php // Load /php/home.php
 		include(THEME_DIR_PHP.'home.php');
 	?>
 
@@ -32,17 +36,17 @@
 
 </div>
 
-<!-- Scripts -->
+<!-- Javascript Scripts -->
 <?php
-	// Javascript files
 	echo Theme::javascript('assets/js/jquery.min.js');
 	echo Theme::javascript('assets/js/jquery.scrollex.min.js');
 	echo Theme::javascript('assets/js/jquery.scrolly.min.js');
 	echo Theme::javascript('assets/js/skel.min.js');
 	echo Theme::javascript('assets/js/util.js');
 	echo Theme::javascript('assets/js/main.js');
+?>
 
-	// Plugins
+<?php 	// Load plugins
 	Theme::plugins('siteBodyEnd');
 ?>
 

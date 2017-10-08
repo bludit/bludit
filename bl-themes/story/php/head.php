@@ -9,9 +9,12 @@
 	// Favicon
 	echo Theme::favicon('assets/favicon.png');
 
+	// FontAwesome from Bludit Core
+	echo Theme::fontAwesome();
+
 	// CSS
         echo Theme::css('assets/css/main.css');
 
-        // Load plugins with the hook siteHead
+        // Load plugins
         Theme::plugins('siteHead');
 ?>
