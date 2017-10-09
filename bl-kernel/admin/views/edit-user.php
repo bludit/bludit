@@ -129,7 +129,7 @@ if($Login->role()==='admin') {
 		'label'=>$L->g('Token'),
 		'value'=>$User->tokenAuth(),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>$L->g('this-token-is-similar-to-your-password-you-should-not-share-it')
+		'tip'=>$L->g('this-token-is-similar-to-a-password-it-should-not-be-shared')
 	));
 
 	HTML::legend(array('value'=>$L->g('Status')));
