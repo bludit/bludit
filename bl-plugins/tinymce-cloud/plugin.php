@@ -1,6 +1,6 @@
 <?php
 
-class pluginTinymce extends Plugin {
+class pluginTinymceCloud extends Plugin {
 
 	private $loadOnController = array(
 		'new-content',
@@ -10,7 +10,7 @@ class pluginTinymce extends Plugin {
 	public function adminHead()
 	{
 		if (in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
-			return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
+			return '<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>';
 		}
 		return false;
 	}
@@ -43,11 +43,11 @@ class pluginTinymce extends Plugin {
 				paste_as_text: true,
     				document_base_url: "'.DOMAIN_UPLOADS.'",
 				plugins: [
-					"advlist autolink link image",
-					"code fullscreen",
-					"table paste pagebreak autosave"
+					"advlist autolink link image print preview anchor",
+					"visualblocks code fullscreen",
+					"media table paste pagebreak"
 				],
-				toolbar: "restoredraft bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen"
+				toolbar: "bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen"
 			});
 
 			</script>';
