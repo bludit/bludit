@@ -209,7 +209,7 @@
 	"homepage": "Hauptseite",
 	"disabled": "Deaktiviert",
 	"there-are-no-draft-content": "Es sind keine Entwürfe vorhanden.",
-	"to-enable-the-user-you-must-set-a-new-password": "Um den Benutzer zu aktivieren muss ein neues Passwort vergeben werden.",
+	"to-enable-the-user-you-must-set-a-new-password": "Um den Benutzer zu aktivieren, muss ein neues Passwort vergeben werden.",
 	"delete-the-user-and-associate-his-pages-to-admin-user": "Benutzer löschen und seine Inhalte dem Benutzer admin übertragen.",
 	"delete-the-user-and-all-his-pages": "Benutzer und alle seine Inhalte löschen.",
 	"user-disabled": "Benutzer deaktiviert",
