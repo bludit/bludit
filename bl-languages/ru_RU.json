@@ -182,7 +182,6 @@
     "token": "Токен",
     "current-status": "Текущий статус",
     "upload-image": "Загрузить изображение",
-    "this-token-is-similar-to-your-password-you-should-not-share-it": "Этот токен совпадает с Вашим паролем. Никому не говорите его.",
     "the-changes-have-been-saved": "Изменения сохранены",
     "label": "Метка",
     "links": "Ссылки",
@@ -228,5 +227,8 @@
     "this-plugin-may-not-be-supported-by-this-version-of-bludit": "This plugin may not be supported by this version of Bludit",
     "previous": "Previous",
     "previous-page": "Previous page",
-    "next-page": "Next page"
+    "next-page": "Next page",
+    "scheduled": "Scheduled",
+    "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
 }

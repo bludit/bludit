@@ -182,7 +182,6 @@
     "token": "Token",
     "current-status": "Current status",
     "upload-image": "Resim yükle",
-    "this-token-is-similar-to-your-password-you-should-not-share-it": "This token is similar to your password, you should not share it.",
     "the-changes-have-been-saved": "Değişiklikler kaydedildi.",
     "label": "Label",
     "links": "Links",
@@ -228,5 +227,8 @@
     "this-plugin-may-not-be-supported-by-this-version-of-bludit": "This plugin may not be supported by this version of Bludit",
     "previous": "Previous",
     "previous-page": "Previous page",
-    "next-page": "Next page"
+    "next-page": "Next page",
+    "scheduled": "Scheduled",
+    "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
 }
