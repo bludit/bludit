@@ -35,7 +35,7 @@ function buildPage($key) {
 	$contentRaw = $page->contentRaw();
 	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
 	$content = $Parsedown->text($content); // Parse Markdown
-	$content = Text::imgRel2Abs($content, HTML_PATH_UPLOADS); // Parse img src relative to absolute.
+	$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS); // Parse img src relative to absolute (with domain)
 	$page->setField('content', $content, true);
 
 	// Pagebrake
@@ -87,7 +87,7 @@ function buildErrorPage() {
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
-	global $pages;
+	global $content, $pages;
 
 	$page = $Page = buildPage( $Url->slug() );
 
@@ -102,7 +102,7 @@ function buildThePage() {
 		return false;
 	}
 
-	$pages[0] = $page;
+	$content[0] = $pages[0] = $page;
 	return true;
 }
 
@@ -130,7 +130,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbTags;
 	global $Site;
 	global $Url;
-	global $pages;
+	global $content, $pages;
 
 	// Get the page number from URL
 	$pageNumber = $Url->pageNumber();
@@ -162,6 +162,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 			array_push($pages, $page);
 		}
 	}
+	$content = $pages;
 	return $pages;
 }
 
@@ -328,11 +329,11 @@ function createPage($args) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'new-page-created',
+			'dictionaryKey'=>'new-content-created',
 			'notes'=>$args['title']
 		));
 
-		Alert::set( $Language->g('new-page-created') );
+		Alert::set( $Language->g('new-content-created') );
 
 		return $key;
 	}
@@ -391,7 +392,7 @@ function editPage($args) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'page-edited',
+			'dictionaryKey'=>'content-edited',
 			'notes'=>$args['title']
 		));
 
@@ -418,7 +419,7 @@ function deletePage($key) {
 
 		// Add to syslog
 		$Syslog->add(array(
-			'dictionaryKey'=>'page-deleted',
+			'dictionaryKey'=>'content-deleted',
 			'notes'=>$key
 		));
 
@@ -521,8 +522,8 @@ function createUser($args) {
 	}
 
 	// Password length
-	if( strlen($args['new_password']) < 6 ) {
-		Alert::set($Language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
+	if( Text::length($args['new_password']) < PASSWORD_LENGTH ) {
+		Alert::set($Language->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 

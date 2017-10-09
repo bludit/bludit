@@ -220,8 +220,8 @@ class Text {
 
 	public static function imgRel2Abs($string, $base)
 	{
-		$pattern = "/<img([^>]*) src=\"([^http|https|ftp|\/\/][^\"]*)\"/";
-		$replace = "<img\${1} src=\"".$base. "\${2}\"";
+		$pattern = '/<img([^>]*)(src)=\"(?!https:)(?!http:)(?!\/\/)(.*?)\"(.*?)>/';
+		$replace = "<img\${1} src=\"".$base."\${3}\" \${4}>";
 
 		return preg_replace($pattern, $replace, $string);
 	}

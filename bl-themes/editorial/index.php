@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
 	Theme design by HTML5 UP - html5up.net | @ajlkn
-	Website running with Bludit - bludit.com | @bludit
+	Website running on BLUDIT - bludit.com | @bludit
 -->
 <html>
 <head>
@@ -9,7 +9,9 @@
 </head>
 <body>
 
-<?php Theme::plugins('siteBodyBegin') ?>
+<?php 	// Load plugins
+	Theme::plugins('siteBodyBegin');
+?>
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -43,7 +45,7 @@
 		</header>
 
 		<?php
-			if($WHERE_AM_I=='page') {
+			if ($WHERE_AM_I=='page') {
 				include(THEME_DIR_PHP.'page.php');
 			} else {
 				include(THEME_DIR_PHP.'home.php');
@@ -64,14 +66,16 @@
 
 <!-- Scripts -->
 <?php
-	echo Theme::jquery();
+	echo Theme::javascript('assets/js/jquery.min.js');
 	echo Theme::javascript('assets/js/skel.min.js');
 	echo Theme::javascript('assets/js/util.js');
 	echo '<!--[if lte IE 8]>'.Theme::javascript('assets/js/ie/respond.min.js').'<![endif]-->';
 	echo Theme::javascript('assets/js/main.js');
 ?>
 
-<?php Theme::plugins('siteBodyEnd') ?>
+<?php 	// Load plugins
+	Theme::plugins('siteBodyEnd');
+?>
 
 </body>
 </html>

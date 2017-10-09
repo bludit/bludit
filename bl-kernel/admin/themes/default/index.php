@@ -58,8 +58,8 @@ $(document).ready(function() {
 <div class="uk-offcanvas-bar">
 	<ul class="uk-nav uk-nav-offcanvas">
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><?php $L->p('Dashboard') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a></li>
-	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'manage-pages' ?>"><?php $L->p('Manage pages') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><?php $L->p('New content') ?></a></li>
+	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Manage content') ?></a></li>
 	<?php if($Login->role() == 'admin') { ?>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Manage categories') ?></a></li>
 	<li><a href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Manage users') ?></a></li>
@@ -102,13 +102,13 @@ $(document).ready(function() {
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Publish') ?></li>
-			<li <?php echo ($layout['view']=='new-page')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-page' ?>"><?php $L->p('New page') ?></a>
+			<li <?php echo ($layout['view']=='new-content')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><?php $L->p('New content') ?></a>
 			</li>
 
 			<li class="uk-nav-header"><?php $L->p('Manage') ?></li>
-			<li <?php echo ($layout['view']=='pages')?'class="uk-active"':'' ?>>
-				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'pages' ?>"><?php $L->p('Pages') ?></a>
+			<li <?php echo ($layout['view']=='content')?'class="uk-active"':'' ?>>
+				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
 			</li>
 			<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
@@ -145,8 +145,8 @@ $(document).ready(function() {
 			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 			} else {
-				echo '<h1 style="width:100%; text-align:center">Hey!</h1>';
-				echo '<h2 style="width:100%; text-align:center">Have you seen my ball?</h2>';
+				echo '<h1 style="width:100%; text-align:center">'.$L->g('Page not found').'</h1>';
+				echo '<h2 style="width:100%; text-align:center">'.$L->g('Have you seen my ball').'</h2>';
 			}
 		?>
 		</div>

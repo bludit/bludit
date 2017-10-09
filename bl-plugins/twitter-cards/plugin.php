@@ -2,6 +2,41 @@
 
 class pluginTwitterCards extends Plugin {
 
+	public function init()
+	{
+		// Fields and default values for the database of this plugin
+		$this->dbFields = array(
+			'defaultImage'=>''
+		);
+	}
+
+	public function form()
+	{
+		global $Language;
+
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
+		$html .= '</div>';
+
+		/*
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<select name="defaultImage">';
+
+		$images = Filesystem::listFiles(PATH_UPLOADS);
+		foreach ($images as $image) {
+			$base = basename($image);
+			$html .= '<option value="'.$base.'" '.(($this->getValue('defaultImage')==$base)?'selected':'').'>'.$base.'</option>';
+		}
+
+		$html .= '</select>';
+		$html .= '</div>';
+		*/
+
+		return $html;
+	}
+
 	public function siteHead()
 	{
 		global $Url;
@@ -49,8 +84,12 @@ class pluginTwitterCards extends Plugin {
 		if( empty($data['image']) ) {
 			// Get the image from the content
 			$src = $this->getImage($content);
-			if($src!==false) {
-				$data['image'] = DOMAIN.$src;
+			if ($src!==false) {
+				$og['image'] = $src;
+			} else {
+				if (Text::isNotEmpty($this->getValue('defaultImage'))) {
+					$og['image'] = $this->getValue('defaultImage');
+				}
 			}
 		}
 

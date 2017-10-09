@@ -7,11 +7,9 @@ $oldKey = isset($_POST['currentKey']) ? $_POST['currentKey'] : '';
 
 $slug = $dbPages->generateKey($text, $parent, $returnSlug=true, $oldKey);
 
-exit(json_encode(
-	array(
-		'status'=>0,
-		'slug'=>$slug
-	)
-));
+exit (json_encode(array(
+	'status'=>0,
+	'slug'=>$slug
+)));
 
 ?>

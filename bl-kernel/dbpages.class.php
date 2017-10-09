@@ -11,6 +11,7 @@ class dbPages extends dbJSON
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
 		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, scheduled
+		'type'=>		array('inFile'=>false,	'value'=>'post'), // post, page
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
 		'position'=>		array('inFile'=>false,	'value'=>0),
@@ -66,17 +67,19 @@ class dbPages extends dbJSON
 		// Generate UUID
 		$args['uuid'] = $this->generateUUID();
 
-		// Date
-		$currentDate = Date::current(DB_DATE_FORMAT);
-
 		// Validate date
 		if ( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
-			$args['date'] = $currentDate;
+			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		// Schedule page
-		if ( ($args['date']>$currentDate) && ($args['status']=='published') ) {
+		if ( ($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published') ) {
 			$args['status'] = 'scheduled';
+		}
+
+		// Set type
+		if ($args['status']=='static') {
+			$args['type'] = 'page';
 		}
 
 		foreach ($this->dbFields as $field=>$options) {
@@ -143,7 +146,11 @@ class dbPages extends dbJSON
 				}
 			} else {
 				// By default is the current value
-				$value = $this->db[$args['key']][$field];
+				if (isset($this->db[$args['key']][$field])) {
+					$value = $this->db[$args['key']][$field];
+				} else {
+					$value = $options['value'];
+				}
 			}
 
 			$args[$field] = $value;
@@ -158,20 +165,17 @@ class dbPages extends dbJSON
 			$args['date'] = $this->db[$args['key']]['date'];
 		}
 
-		// Date
-		$currentDate = Date::current(DB_DATE_FORMAT);
-
 		// Modified date
 		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
 
-		// Validate date
-		if ( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
-			$args['date'] = $currentDate;
+		// Schedule page
+		if ( ($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published') ) {
+			$args['status'] = 'scheduled';
 		}
 
-		// Schedule page
-		if ( ($args['date']>$currentDate) && ($args['status']=='published') ) {
-			$args['status'] = 'scheduled';
+		// Set type
+		if ($args['status']=='static') {
+			$args['type'] = 'page';
 		}
 
 		foreach ($this->dbFields as $field=>$options) {
@@ -227,17 +231,12 @@ class dbPages extends dbJSON
 	public function delete($key)
 	{
 		// Page doesn't exist in database
-		if(!$this->exists($key)) {
+		if (!$this->exists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
 		}
 
-		// Delete the index.txt file
-		if( Filesystem::rmfile(PATH_PAGES.$key.DS.FILENAME) === false ) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the file '.FILENAME);
-		}
-
-		// Delete the directory
-		if( Filesystem::rmdir(PATH_PAGES.$key) === false ) {
+		// Delete directory and files
+		if (Filesystem::deleteRecursive(PATH_PAGES.$key) === false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
 		}
 
@@ -245,14 +244,14 @@ class dbPages extends dbJSON
 		unset($this->db[$key]);
 
 		// Save the database.
-		if( $this->save() === false ) {
+		if ($this->save()===false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 		}
 
 		return true;
 	}
 
-	// Change a value of a page
+	// Change a field's value
 	public function setField($key, $field, $value)
 	{
 		if( $this->exists($key) ) {
@@ -263,12 +262,7 @@ class dbPages extends dbJSON
 
 		return false;
 	}
-/* DEPRECATED
-	public function setStatus($key, $value)
-	{
-		return $this->setField($key, 'status', $value);
-	}
-*/
+
 	// Returns a database with published pages
 	public function getPublishedDB()
 	{
@@ -281,7 +275,8 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
-	// (array) Returns a database with the static pages
+	// Returns an array with a list of keys/database of static pages
+	// By default the static pages are sort by position
 	public function getStaticDB()
 	{
 		$tmp = $this->db;
@@ -294,11 +289,11 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
-	// Returns a database with drafts pages
+	// Returns an array with a list of keys/database of draft pages
 	public function getDraftDB()
 	{
 		$tmp = $this->db;
-		foreach($tmp as $key=>$fields) {
+		foreach ($tmp as $key=>$fields) {
 			if($fields['status']!='draft') {
 				unset($tmp[$key]);
 			}
@@ -306,7 +301,7 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
-	// Returns a database with drafts pages
+	// Returns an array with a list of keys/database of scheduled pages
 	public function getScheduledDB()
 	{
 		$tmp = $this->db;
@@ -318,14 +313,26 @@ class dbPages extends dbJSON
 		return $tmp;
 	}
 
-	// Return an array with the database for a page, FALSE otherwise.
+	// Return an array with the database for a page, FALSE otherwise
 	public function getPageDB($key)
 	{
-		if( $this->exists($key) ) {
+		if ($this->exists($key)) {
 			return $this->db[$key];
 		}
 
 		return false;
+	}
+
+	// Returns the next number of the bigger position
+	public function nextPositionNumber()
+	{
+		$tmp = 1;
+		foreach ($this->db as $key=>$fields) {
+			if ($fields['position']>$tmp) {
+				$tmp = $fields['position'];
+			}
+		}
+		return ++$tmp;
 	}
 
 	// Returns an array with a list of pages, FALSE if out of range
@@ -337,7 +344,7 @@ class dbPages extends dbJSON
 	{
 		$db = $this->db;
 
-		if( $onlyPublished ) {
+		if ($onlyPublished) {
 			$db = $this->getPublishedDB();
 		}
 
@@ -353,7 +360,7 @@ class dbPages extends dbJSON
 		$end  = (int) min( ($init + $amountOfItems - 1), $total );
 		$outrange = $init<0 ? true : $init>$end;
 
-		if(!$outrange) {
+		if (!$outrange) {
 			return array_slice($db, $init, $amountOfItems, true);
 		}
 
@@ -394,11 +401,10 @@ class dbPages extends dbJSON
 
 	public function sortBy()
 	{
-		if( ORDER_BY=='date' ) {
+		if (ORDER_BY=='date') {
 			return $this->sortByDate(true);
-		} else {
-			return $this->sortByPosition(false);
 		}
+		return $this->sortByPosition(false);
 	}
 
 	// Sort pages by position
@@ -406,17 +412,18 @@ class dbPages extends dbJSON
 	{
 		if($HighToLow) {
 			uasort($this->db, array($this, 'sortByPositionHighToLow'));
-		}
-		else {
+		} else {
 			uasort($this->db, array($this, 'sortByPositionLowToHigh'));
 		}
 		return true;
 	}
 
-	private function sortByPositionLowToHigh($a, $b) {
+	private function sortByPositionLowToHigh($a, $b)
+	{
 		return $a['position']>$b['position'];
 	}
-	private function sortByPositionHighToLow($a, $b) {
+	private function sortByPositionHighToLow($a, $b)
+	{
 		return $a['position']<$b['position'];
 	}
 
@@ -425,17 +432,18 @@ class dbPages extends dbJSON
 	{
 		if($HighToLow) {
 			uasort($this->db, array($this, 'sortByDateHighToLow'));
-		}
-		else {
+		} else {
 			uasort($this->db, array($this, 'sortByDateLowToHigh'));
 		}
 		return true;
 	}
 
-	private function sortByDateLowToHigh($a, $b) {
+	private function sortByDateLowToHigh($a, $b)
+	{
 		return $a['date']>$b['date'];
 	}
-	private function sortByDateHighToLow($a, $b) {
+	private function sortByDateHighToLow($a, $b)
+	{
 		return $a['date']<$b['date'];
 	}
 
@@ -479,18 +487,17 @@ class dbPages extends dbJSON
 	// Generate a valid Key/Slug
 	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
 	{
-		if(Text::isEmpty($text)) {
+		if (Text::isEmpty($text)) {
 			$text = 'empty';
 		}
 
-		if( empty($parent) ) {
+		if (Text::isEmpty($parent)) {
 			$newKey = Text::cleanUrl($text);
-		}
-		else {
+		} else {
 			$newKey = Text::cleanUrl($parent).'/'.Text::cleanUrl($text);
 		}
 
-		if($newKey!==$oldKey) {
+		if ($newKey!==$oldKey) {
 			// Verify if the key is already been used
 			if( isset($this->db[$newKey]) ) {
 				if( !Text::endsWithNumeric($newKey) ) {
@@ -503,7 +510,7 @@ class dbPages extends dbJSON
 			}
 		}
 
-		if($returnSlug) {
+		if ($returnSlug) {
 			$explode = explode('/', $newKey);
 
 			if(isset($explode[1])) {
@@ -625,34 +632,6 @@ class dbPages extends dbJSON
 		}
 		return Text::firstCharUp($field).': '.$value;
 	}
-
-/* DEPRECATED
-	public function getDBFields()
-	{
-		return $this->dbFields;
-	}
-*/
-
-/* DEPRECATED
-	public function parentKeyList()
-	{
-		return $this->parentKeyList;
-	}
-*/
-
-/* DEPRECATED
-	public function parentKeyExists($key)
-	{
-		return isset( $this->parentKeyList[$key] );
-	}
-*/
-
-/* DEPRECATED
-	public function addParentKey($key)
-	{
-		$this->parentKeyList[$key] = $key;
-	}
-*/
 
 	// Returns the database
 	public function getDB()

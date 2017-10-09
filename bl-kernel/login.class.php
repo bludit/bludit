@@ -61,7 +61,12 @@ class Login {
 		$password = trim($password);
 
 		if (empty($username) || empty($password)) {
-			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username.' - Password: '.$password);
+			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username);
+			return false;
+		}
+
+		if (Text::length($password)<PASSWORD_LENGTH) {
+			Log::set(__METHOD__.LOG_SEP.'Password lenght less than required.');
 			return false;
 		}
 

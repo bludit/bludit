@@ -18,7 +18,7 @@ function buildThemes()
 	foreach($themesPaths as $themePath)
 	{
 		// Check if the theme is translated.
-		$languageFilename = $themePath.DS.'languages'.DS.$Site->locale().'.json';
+		$languageFilename = $themePath.DS.'languages'.DS.$Site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = $themePath.DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}

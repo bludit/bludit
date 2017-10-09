@@ -32,13 +32,6 @@ class dbLanguage extends dbJSON
 		unset($this->db['language-data']);
 	}
 
-	/*
-	public function exists($key)
-	{
-		return isset( $this->db[$key] );
-	}
-	*/
-
 	public function locale()
 	{
 		if (isset($this->data['locale'])) {
@@ -65,7 +58,7 @@ class dbLanguage extends dbJSON
 			return $this->db[$key];
 		}
 
-		return 'NO AVAILABLE: '.$string;
+		//file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
 		return $string;
 	}
 

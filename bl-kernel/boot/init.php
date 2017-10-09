@@ -3,14 +3,14 @@
 // Bludit version
 define('BLUDIT_VERSION',	'2.0');
 define('BLUDIT_CODENAME',	'');
-define('BLUDIT_RELEASE_DATE',	'2017-09-23');
-define('BLUDIT_BUILD',		'20170923');
+define('BLUDIT_RELEASE_DATE',	'2017-10-04');
+define('BLUDIT_BUILD',		'20171004');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
 define('DEBUG_MODE', TRUE);
 error_reporting(0); // Turn off all error reporting
-if(DEBUG_MODE) {
+if (DEBUG_MODE) {
 	// Turn on all error reporting
 	ini_set("display_errors", 1);
 	ini_set('display_startup_errors',1);
@@ -89,6 +89,9 @@ define('PROFILE_IMG_WIDTH', 400);
 define('PROFILE_IMG_HEIGHT', 400);
 define('PROFILE_IMG_QUALITY', 100); // 100%
 
+// Password length
+define('PASSWORD_LENGTH', 6);
+
 // Password salt length
 define('SALT_LENGTH', 8);
 
@@ -100,9 +103,6 @@ define('PARENT', 'BLUDIT3849abb4cb7abd24c2d8dac17b216f17');
 
 // Items per page for admin area
 define('ITEMS_PER_PAGE_ADMIN', 10);
-
-// Cli mode, enable or disable
-define('CLI_MODE', FALSE);
 
 // Cli mode, status for new pages
 define('CLI_STATUS', 'published');
@@ -192,14 +192,13 @@ include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
 
-// Include Bludit PRO
-if( file_exists(PATH_KERNEL.'bludit.pro.php') ) {
+if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 	include(PATH_KERNEL.'bludit.pro.php');
 }
 
 // Session
 Session::start();
-if(Session::started()===false) {
+if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failure.');
 }
 
@@ -222,11 +221,10 @@ $Syslog 	= new dbSyslog();
 // Left empty if you want to Bludit try to detect the base URL.
 $base = '';
 
-if( !empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base) ) {
+if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base)) {
 	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
 	$base = dirname($base);
-}
-elseif( empty($base) ) {
+} elseif (empty($base)) {
 	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 	$base = dirname($base);
 }
@@ -247,22 +245,17 @@ define('HTML_PATH_THEME',		HTML_PATH_THEMES.$Site->theme().'/');
 define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
-
 define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.ADMIN_URI_FILTER.'/');
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$Site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
 define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
-
 define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
 define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
-
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
-
-define('JQUERY',			HTML_PATH_ROOT.'bl-kernel/js/jquery.min.js');
 
 // --- Objects with dependency ---
 $Language 	= new dbLanguage( $Site->language() );

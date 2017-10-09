@@ -62,14 +62,14 @@ h1.site-title {
 	font-size: 1.2em;
 }
 
-ul.fixed-pages {
+ul.static-pages {
 	font-size: 1em;
 	list-style: none;
-	margin: 0;
+	margin: 0 0 100px 0;
 	padding: 0;
 }
 
-ul.fixed-pages a {
+ul.static-pages a {
 	color: #777;
 }
 

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $allPublishedPages = buildAllpages(true);
 
 // Homepage select options
-$homepageOptions = array();
+$homepageOptions = array(' '=>'- '.$L->g('Latest content').' -');
 foreach($allPublishedPages as $key=>$page) {
 	$parentKey = $page->parentKey();
 	if ($parentKey) {

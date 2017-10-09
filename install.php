@@ -254,11 +254,6 @@ function install($adminPassword, $email, $timezone)
 	}
 
 	// PLUGINS
-	if (!mkdir(PATH_PLUGINS_DATABASES.'pages', $dirpermissions, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'pages';
-		error_log($errorText, 0);
-	}
-
 	if (!mkdir(PATH_PLUGINS_DATABASES.'simplemde', $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simplemde';
 		error_log($errorText, 0);
@@ -303,6 +298,7 @@ function install($adminPassword, $email, $timezone)
 			'username'=>'admin',
 			'tags'=>array(),
 			'status'=>'static',
+			'type'=>'page',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
@@ -310,13 +306,16 @@ function install($adminPassword, $email, $timezone)
 			'coverImage'=>'',
 			'md5file'=>'',
 			'category'=>'',
-			'uuid'=>md5(uniqid())
+			'uuid'=>md5(uniqid()),
+			'parent'=>'',
+			'slug'=>'about'
 	    	),
 		'welcome'=>array(
 			'description'=>$Language->get('Welcome to Bludit'),
 			'username'=>'admin',
 			'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
 			'status'=>'published',
+			'type'=>'post',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
@@ -324,7 +323,9 @@ function install($adminPassword, $email, $timezone)
 			'coverImage'=>'',
 			'md5file'=>'',
 			'category'=>'general',
-			'uuid'=>md5(uniqid())
+			'uuid'=>md5(uniqid()),
+			'parent'=>'',
+			'slug'=>'welcome'
 	    	)
 	);
 
@@ -429,20 +430,6 @@ function install($adminPassword, $email, $timezone)
 	);
 	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-	// File plugins/pages/db.php
-	file_put_contents(
-		PATH_PLUGINS_DATABASES.'pages'.DS.'db.php',
-		$dataHead.json_encode(
-			array(
-				'position'=>1,
-				'homeLink'=>true,
-				'label'=>$Language->get('Pages'),
-				'amountOfItems'=>5
-			),
-		JSON_PRETTY_PRINT),
-		LOCK_EX
-	);
-
 	// File plugins/about/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES.'about'.DS.'db.php',
@@ -496,6 +483,7 @@ function install($adminPassword, $email, $timezone)
 	$data = 'Title: '.$Language->get('Welcome').'
 Content:
 
+- '.$Language->get('congratulations-you-have-successfully-installed-your-bludit').'
 - '.$text1.'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Chat with developers and users on Gitter').'
