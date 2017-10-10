@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Páginas estáticas",
+		"description": "Muestra las páginas estáticas en la barra lateral, este plugin es útil cuando quieres crear un blog con páginas."
+	},
+	"home-link": "Enlace Home",
+	"show-the-home-link-on-the-sidebar": "Mostrar el vínculo de inicio en la barra lateral."
+}

@@ -26,8 +26,8 @@ class pluginLatestContent extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Home link').'</label>';
 		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>Disabled</option>';
+		$html .= '<option value="true" '.($this->getValue('showCero')?'checked':'').'>'.$Language->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('showCero')?'checked':'').'>'.$Language->get('Disabled').'</option>';
 		$html .= '</select>';
 		$html .= '<span class="tip">'.$Language->get('Show the home link on the sidebar').'</span>';
 		$html .= '</div>';

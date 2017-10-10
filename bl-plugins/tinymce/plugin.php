@@ -43,11 +43,15 @@ class pluginTinymce extends Plugin {
 				paste_as_text: true,
     				document_base_url: "'.DOMAIN_UPLOADS.'",
 				plugins: [
-					"advlist autolink link image",
-					"code fullscreen",
-					"table paste pagebreak autosave"
+					"autosave fullpage",
+					"searchreplace autolink directionality",
+					"visualblocks visualchars",
+					"fullscreen image link media template",
+					"codesample table hr pagebreak",
+					"advlist lists textcolor wordcount",
+					"contextmenu colorpicker textpattern"
 				],
-				toolbar: "restoredraft bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen"
+				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat image table | pagebreak code fullscreen"
 			});
 
 			</script>';
