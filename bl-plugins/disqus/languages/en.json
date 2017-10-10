@@ -1,12 +1,9 @@
 {
 	"plugin-data":
 	{
-		"name": "Disqus comment system",
-		"description": "Disqus is a comment hosting service for web sites. <br> It's necessary to be registered on <a href=\"https://disqus.com\">Disqus</a> to use this service."
+		"name": "Disqus,
+		"description": "Disqus is a comment hosting service for web sites.<br>It's necessary to be registered on <a href=\"https://disqus.com\">Disqus</a> to use this service."
 	},
 
-	"disqus-shortname": "Disqus shortname",
-	"enable-disqus-on-pages": "Enable Disqus on pages",
-	"enable-disqus-on-posts": "Enable Disqus on posts",
-	"enable-disqus-on-default-home-page": "Enable Disqus on default home page"
+	"disqus-shortname": "Disqus shortname"
 }
