@@ -2,9 +2,9 @@
 	"author": "TinyMCE",
 	"email": "",
 	"website": "https://www.tinymce.com",
-	"version": "Latest",
-	"releaseDate": "",
+	"version": "4.7.1",
+	"releaseDate": "2017-10-09",
 	"license": "GPL v2",
 	"compatible": "2.0",
-	"notes": "This plugin use the CDN of Tinymce to get the latest file, so is not possible to determinate the version and release date."
+	"notes": ""
 }

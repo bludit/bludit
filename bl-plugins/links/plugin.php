@@ -71,7 +71,7 @@ class pluginLinks extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="save" class="blue" type="submit">Save</button>';
+		$html .= '<button name="save" class="blue" type="submit">'.$Language->get('Save').'</button>';
 		$html .= '</div>';
 
 		// New link, when the user click on save button this call the method post()
@@ -109,7 +109,7 @@ class pluginLinks extends Plugin {
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">Delete</button>';
+			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">'.$Language->get('Delete').'</button>';
 			$html .= '</div>';
 
 			$html .= '</br>';

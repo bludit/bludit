@@ -10,7 +10,7 @@ class pluginTinymce extends Plugin {
 	public function adminHead()
 	{
 		if (in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
-			return '<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>';
+			return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
 		}
 		return false;
 	}
@@ -28,6 +28,10 @@ class pluginTinymce extends Plugin {
 
 			tinymce.init({
 				selector: "#jscontent",
+				theme: "modern",
+				skin: "bludit",
+				min_height: 500,
+				max_height: 1000,
 				element_format : "html",
 				entity_encoding : "raw",
 				schema: "html5",
@@ -35,16 +39,19 @@ class pluginTinymce extends Plugin {
 				menubar:false,
 				branding: false,
 				browser_spellcheck: true,
-				autoresize_bottom_margin: "50",
 				pagebreak_separator: "'.PAGE_BREAK.'",
 				paste_as_text: true,
     				document_base_url: "'.DOMAIN_UPLOADS.'",
 				plugins: [
-					"autoresize advlist autolink lists link image charmap print preview anchor",
-					"searchreplace visualblocks code fullscreen",
-					"insertdatetime media table contextmenu paste code pagebreak"
+					"autosave fullpage",
+					"searchreplace autolink directionality",
+					"visualblocks visualchars",
+					"fullscreen image link media template",
+					"codesample table hr pagebreak",
+					"advlist lists textcolor wordcount",
+					"contextmenu colorpicker textpattern"
 				],
-				toolbar: "bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | styleselect | link forecolor backcolor removeformat image | pagebreak code fullscreen"
+				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat image table | pagebreak code fullscreen"
 			});
 
 			</script>';

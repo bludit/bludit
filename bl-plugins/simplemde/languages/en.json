@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Markdown editor, enable it to create some formatting code for your site."
+		"description": "Markdown editor, cleaned interface to create markup language."
 	},
 	"toolbar": "Toolbar",
 	"tab-size": "Tab size",
