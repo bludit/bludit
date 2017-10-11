@@ -482,8 +482,9 @@ function install($adminPassword, $email, $timezone)
 
 	$data = 'Title: '.$Language->get('Welcome').'
 Content:
+'.$Language->get('congratulations-you-have-successfully-installed-your-bludit').'
 
-- '.$Language->get('congratulations-you-have-successfully-installed-your-bludit').'
+### '.$Language->get('whats-next').'
 - '.$text1.'
 - '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
 - '.$Language->get('Chat with developers and users on Gitter').'
