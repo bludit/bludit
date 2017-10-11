@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Neueste Inhalte",
+		"description": "Liste der neuesten Inhalte. Die Anzahl kann in den Einstellungen gewählt werden. Die Reihenfolge entspricht der unter \"Einstellungen\" > \"Erweitert\" gewählten Option."
+	},
+	"home-link": "Hauptseite",
+	"show-the-home-link-on-the-sidebar": "Zeigt einen Link zur Hauptseite.",
+	"amount-of-items": "Anzahl der Inhalte"
+}
