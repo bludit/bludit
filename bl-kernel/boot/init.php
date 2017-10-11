@@ -209,7 +209,7 @@ $dbTags 	= new dbTags();
 $dbCategories 	= new dbCategories();
 $Site 		= new dbSite();
 $Url 		= new Url();
-$Parsedown 	= new ParsedownExtra();
+$Parsedown 	= new Parsedown();
 $Security	= new Security();
 $Syslog 	= new dbSyslog();
 
