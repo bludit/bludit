@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Maintenance mode",
+		"name": "Wartungsmodus",
 		"description": "Aktivierung des Wartungsmodus mit Zugang zum Administrationsbereich."
 	},
 
