@@ -7,7 +7,7 @@
 	echo Theme::headDescription();
 
 	// Favicon
-	echo Theme::favicon('assets/favicon.png');
+	echo Theme::favicon('img/favicon.png');
 
 	// CSS
 	echo Theme::css('vendor/bootstrap/css/bootstrap.min.css');
