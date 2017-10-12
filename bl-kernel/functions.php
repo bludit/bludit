@@ -199,6 +199,18 @@ function buildPagesByParent($onlyPublished=true) {
 	}
 }
 
+function buildStaticPages() {
+	global $dbPages;
+
+	$tmp = array();
+	$staticPages = $dbPages->getStaticDB($onlyKeys=true);
+	foreach ($staticPages as $pageKey) {
+		$staticPage = buildPage($pageKey);
+		array_push($tmp, $staticPage);
+	}
+	return $tmp;
+}
+
 // Returns an Array with all pages existing on the system
 // (boolean) $allPages, TRUE returns all pages with any status, FALSE all published pages
 /*

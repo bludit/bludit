@@ -44,7 +44,7 @@ class TCP {
 
 	public static function download($url, $destination)
 	{
-		$data = self::http($url, $method='GET', $verifySSL=true, $timeOut=3, $followRedirections=true, $binary=true, $headers=false);
+		$data = self::http($url, $method='GET', $verifySSL=true, $timeOut=30, $followRedirections=true, $binary=true, $headers=false);
 		return file_put_contents($destination, $data);
 	}
 

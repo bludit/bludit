@@ -50,9 +50,7 @@ class Theme {
 
 	public static function adminUrl()
 	{
-		global $Site;
-		$siteUrl = $Site->url();
-		return $siteUrl.ADMIN_URI_FILTER;
+		return DOMAIN_ADMIN;
 	}
 
 	// Return the metatag <title> with a predefine structure

@@ -10,7 +10,10 @@
 		//	return true;
 
 		// DEBUG: Ver un nombre con alguna llave random al momentode instalar.
-		$session_name = 'Bludit-KEY';
+		$session_name = 'BLUDIT-KEY';
+
+		// Try to set the session timeout on server side, 1 hour of timeout
+		ini_set('session.gc_maxlifetime', SESSION_GC_MAXLIFETIME);
 
 		// If TRUE cookie will only be sent over secure connections.
 		$secure = false;
@@ -18,15 +21,11 @@
 		// If set to TRUE then PHP will attempt to send the httponly flag when setting the session cookie.
 		$httponly = true;
 
-		// This specifies the lifetime of the cookie in seconds which is sent to the browser.
-		// The value 0 means until the browser is closed.
-		$cookieLifetime = 0;
-
 		// Gets current cookies params.
 		$cookieParams = session_get_cookie_params();
 
 		session_set_cookie_params(
-			$cookieLifetime,
+			SESSION_COOKIE_LIFE_TIME,
 			$cookieParams["path"],
 			$cookieParams["domain"],
 			$secure,
@@ -42,7 +41,7 @@
 		// Regenerated the session, delete the old one. There are problems with AJAX.
 		//session_regenerate_id(true);
 
-		if(!self::$started) {
+		if (!self::$started) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to start the session.');
 		}
 	}
@@ -72,7 +71,7 @@
 	{
 		$key = 's_'.$key;
 
-		if( isset($_SESSION[$key]) ) {
+		if ( isset($_SESSION[$key]) ) {
 			return $_SESSION[$key];
 		}
 
