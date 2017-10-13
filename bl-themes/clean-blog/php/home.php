@@ -37,7 +37,15 @@
 
 			<!-- Pager -->
 			<div class="clearfix">
-				<a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+			<?php
+				if(Paginator::showPrev()) {
+					echo '<a class="btn btn-secondary float-left" href="'.Paginator::prevPageUrl().'">&larr; Previous Page</a>';
+				}
+
+				if(Paginator::showNext()) {
+					echo '<a class="btn btn-secondary float-left" href="'.Paginator::nextPageUrl().'">Next Page &rarr;</a>';
+				}
+			?>
 			</div>
 
 		</div>
