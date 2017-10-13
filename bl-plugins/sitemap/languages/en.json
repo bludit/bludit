@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Sitemap",
-		"description": "This plugin generates a Sitemap.xml of your site."
+		"description": "This plugin generates a sitemap.xml of your site."
 	}
 }

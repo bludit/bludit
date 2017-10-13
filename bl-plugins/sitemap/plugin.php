@@ -2,6 +2,19 @@
 
 class pluginSitemap extends Plugin {
 
+	// Method called on the settings of the plugin on the admin area
+	public function form()
+	{
+		global $Language;
+
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Sitemap URL').'</label>';
+		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
 	private function createXML()
 	{
 		global $Site;
