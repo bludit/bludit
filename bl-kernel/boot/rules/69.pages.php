@@ -122,6 +122,10 @@ elseif ($Url->whereAmI()==='home') {
         buildPagesForHome();
 }
 
+if (isset($pages[0])) {
+	$page = $Page = $pages[0];
+}
+
 // Set page 404 not found
 if ($Url->notFound()) {
 	$pageNotFoundKey = $Site->pageNotFound();
