@@ -146,6 +146,14 @@ define('ADMIN_URI_FILTER', 'admin');
 // Default language file, in this case is English
 define('DEFAULT_LANGUAGE_FILE', 'en.json');
 
+// Session timeout server side, gc_maxlifetime
+// 3600 = 1hour
+define('SESSION_GC_MAXLIFETIME', 3600);
+
+// Session lifetime of the cookie in seconds which is sent to the browser
+// The value 0 means until the browser is closed
+define('SESSION_COOKIE_LIFE_TIME', 0);
+
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
 
@@ -301,6 +309,8 @@ define('DOMAIN_THEME_IMG',		DOMAIN.HTML_PATH_THEME_IMG);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
+
+define('DOMAIN_ADMIN',			DOMAIN_BASE.ADMIN_URI_FILTER);
 
 define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
 define('DOMAIN_CATEGORIES',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));

@@ -15,10 +15,7 @@
 			<nav class="links">
 				<ul>
 				<?php
-					$staticPages = $dbPages->getStaticDB();
-					$staticPagesKeyList = array_keys($staticPages);
-					foreach ($staticPagesKeyList as $pageKey) {
-						$staticPage = buildPage($pageKey);
+					foreach ($staticPages as $staticPage) {
 						echo '<li><a href="'.$staticPage->permalink().'">'.$staticPage->title().'</a></li>';
 					}
 				?>
@@ -45,8 +42,7 @@
 					echo '</a>';
 					echo '</li>';
 
-					foreach ($staticPagesKeyList as $pageKey) {
-						$staticPage = buildPage($pageKey);
+					foreach ($staticPages as $staticPage) {
 						echo '<li>';
 						echo '<a href="'.$staticPage->permalink().'">';
 						echo '<h3>'.$staticPage->title().'</h3>';

@@ -277,7 +277,7 @@ class dbPages extends dbJSON
 
 	// Returns an array with a list of keys/database of static pages
 	// By default the static pages are sort by position
-	public function getStaticDB()
+	public function getStaticDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -286,6 +286,9 @@ class dbPages extends dbJSON
 			}
 		}
 		uasort($tmp, array($this, 'sortByPositionLowToHigh'));
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
 		return $tmp;
 	}
 

@@ -68,7 +68,7 @@ $pagesByParent = array(PARENT=>array());
 */
 $pagesByParentByKey = array(PARENT=>array());
 
-$posts = array();
+$staticContent = $staticPages = buildStaticPages();
 
 // ============================================================================
 // Main
