@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Links",
-		"description": "Zeigt eine Link-Liste in der Seitenseiste (bei Themes mit einer Seitenleiste). Die Links können in den Einstellungen bearbeitet werden."
+		"description": "Zeigt eine Link-Liste in der Seitenleiste (bei Themes mit einer Seitenleiste). Die Links können in den Einstellungen bearbeitet werden."
 	},
 	"add-a-new-link": "Einen neuen Link hinzufügen"
 }
