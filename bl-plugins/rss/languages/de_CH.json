@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "Das Plugin erstellt erstellt einen RSS Feed der Inhalte. Er kann aufgerufen werden unter http://meinedomain.ch/rss.xml."
+	},
+	"amount-of-items-to-show-on-the-feed": "Anzahl der gezeigten Inhalte."
+}
