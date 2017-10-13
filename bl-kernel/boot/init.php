@@ -199,6 +199,7 @@ include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
+include(PATH_HELPERS.'dom.class.php');
 
 if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 	include(PATH_KERNEL.'bludit.pro.php');

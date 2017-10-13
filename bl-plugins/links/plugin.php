@@ -89,7 +89,7 @@ class pluginLinks extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="addLink" class="blue" type="submit">Add</button>';
+		$html .= '<button name="addLink" class="blue" type="submit">'.$Language->get('Add').'</button>';
 		$html .= '</div>';
 
 		$html .= '<legend>'.$Language->get('Links').'</legend>';

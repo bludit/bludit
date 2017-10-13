@@ -43,7 +43,7 @@ class pluginTinymce extends Plugin {
 				paste_as_text: true,
     				document_base_url: "'.DOMAIN_UPLOADS.'",
 				plugins: [
-					"autosave fullpage",
+					"autosave",
 					"searchreplace autolink directionality",
 					"visualblocks visualchars",
 					"fullscreen image link media template",

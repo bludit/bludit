@@ -16,6 +16,11 @@ class pluginRSS extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
+		$html .= '<label>'.$Language->get('RSS URL').'</label>';
+		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Amount of items').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
 		$html .= '<span class="tip">'.$Language->get('Amount of items to show on the feed').'</span>';

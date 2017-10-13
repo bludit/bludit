@@ -2,6 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Sitemap",
-		"description": "This plugin generates a Sitemap.xml of your site."
-	}
+		"description": "This plugin generates a sitemap.xml file, which provides the list of pages on your website, this helps search engines organize and filter content from their website."
+	},
+	"sitemap-url": "Sitemap URL"
 }
