@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Disqus",
-		"description": "Disqus is a comment hosting service for web sites. <br> It's necessary to be registered on <a href=\"https://disqus.com\">Disqus</a> to use this service."
+		"description": "Disqus is a comment hosting service for web sites.<br>It's necessary to be registered on <a href=\"https://disqus.com\">Disqus</a> to use this service."
 	},
 	"disqus-shortname": "Disqus shortname"
 }

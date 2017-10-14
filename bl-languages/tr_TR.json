@@ -167,7 +167,7 @@
     "follow-bludit-on": "Follow Bludit on",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "Bludit'i [yönetici panelinden]({{ADMIN_AREA_LINK}}) yönetin.",
-    "chat-with-developers-and-users-on-gitter": "Geliştiriciler ve kullanıcılarla konuşmak için  [Gitter](https://gitter.im/bludit/support) adresini ziyaret et",
+    "chat-with-developers-and-users-on-gitter": "Geliştiriciler ve kullanıcılarla konuşmak için  [Gitter](https:\/\/gitter.im\/bludit\/support) adresini ziyaret et",
     "this-is-a-brief-description-of-yourself-our-your-site": "Bu kısım siten hakkında bilgi verir.Burayı değiştirmek ve düzenlemek için admin->eklentiler->tanımı düzenle",
     "read-the-documentation-for-more-information": "Daha fazla bilgi için [documentation](https:\/\/docs.bludit.com) dökümanları okuyun",
     "new-version-available": "New version available",
@@ -230,5 +230,6 @@
     "next-page": "Next page",
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

@@ -167,7 +167,7 @@
     "follow-bludit-on": "Siga Bludit em",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "Administre seu Bludit a partir do [painel de aadministração]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Converse com os desenvolvedores e usuários em [Gitter](https://gitter.im/bludit/support)",
+    "chat-with-developers-and-users-on-gitter": "Converse com os desenvolvedores e usuários em [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Breve descrição de você ou de seu site, para mudar este texto, vá ao painel de administração, ajustes, complementos, e configure o complemento Sobre",
     "read-the-documentation-for-more-information": "Leia a [documentação](https:\/\/docs.bludit.com) para mais informações",
     "new-version-available": "New version available",
@@ -230,5 +230,6 @@
     "next-page": "Next page",
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

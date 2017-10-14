@@ -167,7 +167,7 @@
     "follow-bludit-on": "Слідуйте за Bludit на",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "Керуйте вашим Bludit через [панель управління]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Чат з розробниками і користувачами [Gitter](https://gitter.im/bludit/support)",
+    "chat-with-developers-and-users-on-gitter": "Чат з розробниками і користувачами [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Це короткий опис про себе або про сайт, щоб змінити цей текст зайдіть в панель адміністратора, налаштування, плагіни, і налаштуйте плагін про сайт.",
     "read-the-documentation-for-more-information": "Читайте [документацію](https:\/\/docs.bludit.com) для отримання додаткової інформації",
     "new-version-available": "New version available",
@@ -230,5 +230,6 @@
     "next-page": "Next page",
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

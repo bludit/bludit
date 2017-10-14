@@ -167,7 +167,7 @@
     "follow-bludit-on": "Follow Bludit on",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "透過[admin area](.\/admin\/)管理您的Bludit",
-    "chat-with-developers-and-users-on-gitter": "與開發者或使用者聊聊天吧~ [Gitter](https://gitter.im/bludit/support)",
+    "chat-with-developers-and-users-on-gitter": "與開發者或使用者聊聊天吧~ [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "這是關於您的自己或是網站的簡短介紹，如果想要修改介紹，請至管理介面\/設定\/延伸模組，設定一個名為關於的延伸模組。",
     "read-the-documentation-for-more-information": "閱讀[documentation](https:\/\/docs.bludit.com)來獲得更多資訊",
     "new-version-available": "New version available",
@@ -230,5 +230,6 @@
     "next-page": "Next page",
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

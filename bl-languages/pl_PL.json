@@ -5,7 +5,7 @@
         "last-update": "2017-10-12",
         "author": "Dawid dave Stawicki",
         "email": "dawid.stawicki@windowslive.com",
-        "website": "http://"
+        "website": "http:\/\/"
     },
     "dashboard": "Kokpit",
     "manage-users": "Zarządzanie użytkownikami",
@@ -167,7 +167,7 @@
     "follow-bludit-on": "obserwuj Bludit w serwisach",
     "visit-the-forum-for-support": "w razie potrzeb, koniecznie odwiedź [forum wsparcia](https:\/\/forum.bludit.org),",
     "manage-your-bludit-from-the-admin-panel": "Zarządzaj stroną poprzez [kokpit]({{ADMIN_AREA_LINK}}),",
-    "chat-with-developers-and-users-on-gitter": "dołącz do dyskusji z twórcami i użytkownikami na [Gitter](https://gitter.im/bludit/support),",
+    "chat-with-developers-and-users-on-gitter": "dołącz do dyskusji z twórcami i użytkownikami na [Gitter](https:\/\/gitter.im\/bludit\/support),",
     "this-is-a-brief-description-of-yourself-our-your-site": "To jest krótki opis strony lub Ciebie. Aby zmienić treść tej strony udaj się do kokpitu, a następnie przejdź w ustawienia, wtyczki i wybierz konfigurację na liście O mnie.",
     "read-the-documentation-for-more-information": "sięgnij po [dokumentację](http:\/\/docs.bludit.com) by dowiedzieć się więcej informacji.",
     "new-version-available": "Nowa wersja jest już dostępna",
@@ -182,7 +182,6 @@
     "token": "Token",
     "current-status": "Aktualny status",
     "upload-image": "Wyślij obrazek",
-    "this-token-is-similar-to-your-password-you-should-not-share-it": "Token wygenerowany został na podstawie hasła. Nie powinieneś go nikomu udostępniać.",
     "the-changes-have-been-saved": "Zmiany zostały zapisane",
     "label": "Label",
     "links": "Links",
@@ -225,5 +224,12 @@
     "have-you-seen-my-ball": "Have you seen my ball?",
     "pagebreak": "Podział strony",
     "pages": "Strony",
-    "this-plugin-may-not-be-supported-by-this-version-of-bludit": "Wtyczka ta być może nie jest kompatybilna z tą wersją Bludit"
+    "this-plugin-may-not-be-supported-by-this-version-of-bludit": "Wtyczka ta być może nie jest kompatybilna z tą wersją Bludit",
+    "previous": "Previous",
+    "previous-page": "Previous page",
+    "next-page": "Next page",
+    "scheduled": "Scheduled",
+    "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**.",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

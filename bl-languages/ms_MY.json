@@ -167,7 +167,7 @@
     "follow-bludit-on": "Ikut Bludit di",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "Uruskan Bludit anda di [panel pentadbir]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Sembang dengan pembangun dan pengguna di [Gitter](https://gitter.im/bludit/support)",
+    "chat-with-developers-and-users-on-gitter": "Sembang dengan pembangun dan pengguna di [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Ini ialah perihal ringkas anda atau laman web anda. Untuk mengubahnya, pergi ke Panel Pentadbir -> Tetapan -> Pemalam dan tetapkan tatarajah pemalam \"About\".",
     "read-the-documentation-for-more-information": "Baca [documentasi](https:\/\/docs.bludit.com) untuk maklumat lanjut",
     "new-version-available": "New version available",
@@ -230,5 +230,6 @@
     "next-page": "Next page",
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**"
+    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
 }

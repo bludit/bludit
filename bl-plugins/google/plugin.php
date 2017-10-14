@@ -44,7 +44,7 @@ class pluginGoogle extends Plugin {
 		$html = '';
 
 		// Google HTML tag
-		if( $this->getValue('google-site-verification') && ($WHERE_AM_I=='home') ) {
+		if ($this->getValue('google-site-verification') && ($WHERE_AM_I=='home')) {
 			$html .= PHP_EOL.'<!-- Google HTML tag -->'.PHP_EOL;
 			$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'" />'.PHP_EOL;
 		}
@@ -65,36 +65,32 @@ class pluginGoogle extends Plugin {
 
 	public function siteBodyBegin()
 	{
-		$html = '';
-
 		// Google Tag Manager
-		if( $this->getValue('google-tag-manager') ) {
-			$html .= '<!-- Google Tag Manager (noscript) -->'.PHP_EOL;
+		if ($this->getValue('google-tag-manager')) {
+			$html  = '<!-- Google Tag Manager (noscript) -->'.PHP_EOL;
 			$html .= '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id='.$this->getValue('google-tag-manager').'" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'.PHP_EOL;
 			$html .= '<!-- End Google Tag Manager (noscript) -->'.PHP_EOL;
+			return $html;
 		}
-
-		return $html;
+		return false;
 	}
 
 	public function siteBodyEnd()
 	{
-		$html = '';
-
 		// Google Analytics
-		if( $this->getValue('google-analytics-tracking-id') ) {
-			$html .= PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
-			$html .= "<script>
-					(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-					})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		if ($this->getValue('google-analytics-tracking-id')) {
+			$html  = PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
+			$html .= '
+			<script async src="https://www.googletagmanager.com/gtag/js?id='.$this->getValue('google-analytics-tracking-id').'"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag("js", new Date());
 
-					ga('create', '".$this->getValue('google-analytics-tracking-id')."', 'auto');
-					ga('send', 'pageview');
-				</script>".PHP_EOL;
+				gtag("config", "'.$this->getValue('google-analytics-tracking-id').'");
+			</script>'.PHP_EOL;
+			return $html;
 		}
-
-		return $html;
+		return false;
 	}
 }
