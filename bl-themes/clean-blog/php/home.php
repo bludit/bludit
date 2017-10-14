@@ -39,11 +39,11 @@
 			<div class="clearfix">
 			<?php
 				if(Paginator::showPrev()) {
-					echo '<a class="btn btn-secondary float-left" href="'.Paginator::prevPageUrl().'">&larr; Previous Page</a>';
+					echo '<a class="btn btn-secondary float-left" href="'.Paginator::prevPageUrl().'">&larr; '.$Language->get('Previuos page').'</a>';
 				}
 
 				if(Paginator::showNext()) {
-					echo '<a class="btn btn-secondary float-left" href="'.Paginator::nextPageUrl().'">Next Page &rarr;</a>';
+					echo '<a class="btn btn-secondary float-left" href="'.Paginator::nextPageUrl().'">'.$Language->get('Next page').' &rarr;</a>';
 				}
 			?>
 			</div>
