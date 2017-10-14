@@ -12,6 +12,7 @@
 	// CSS
 	echo Theme::css('vendor/bootstrap/css/bootstrap.min.css');
 	echo Theme::css('css/clean-blog.min.css');
+	echo Theme::css('css/bludit.css');
 
 	// FontAwesome from Bludit Core
 	echo Theme::fontAwesome();
