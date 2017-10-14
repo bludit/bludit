@@ -167,7 +167,7 @@
     "follow-bludit-on": "Segui Bludit su",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "Amministra Bludit dal [pannello di amministrazione]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Chatta con gli sviluppatori e gli utenti su [Gitter](https:\/\/gitter.im\/dignajar\/bludit)",
+    "chat-with-developers-and-users-on-gitter": "Chatta con gli sviluppatori e gli utenti su [Gitter](https://gitter.im/bludit/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Questa è una breve descrizione del tuo sito. Per cambiare il testo vai nel pannello di amministrazione, impostazioni, plugins e configura il plugin about.",
     "read-the-documentation-for-more-information": "Leggi la [documentazione](https:\/\/docs.bludit.com) per ulteriori informazioni",
     "new-version-available": "New version available",

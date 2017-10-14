@@ -167,7 +167,7 @@
     "follow-bludit-on": "Bluditをフォローする",
     "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
     "manage-your-bludit-from-the-admin-panel": "[管理パネル]({{ADMIN_AREA_LINK}})からBluditを管理する",
-    "chat-with-developers-and-users-on-gitter": "[Gitter](https:\/\/gitter.im\/dignajar\/bludit)で開発者やユーザーとチャットする",
+    "chat-with-developers-and-users-on-gitter": "[Gitter](https://gitter.im/bludit/support)で開発者やユーザーとチャットする",
     "this-is-a-brief-description-of-yourself-our-your-site": "ここには、あなた自身やサイトについての説明文を書きます。文章を変更するには、管理パネルから設定→プラグインと進み、aboutプラグインの設定から変更します。",
     "read-the-documentation-for-more-information": "詳細について[文書](https:\/\/docs.bludit.com)を読む",
     "new-version-available": "New version available",
