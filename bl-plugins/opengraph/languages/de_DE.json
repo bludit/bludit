@@ -3,6 +3,6 @@
 	{
 		"name": "Open Graph",
 		"description": "Plugin zur Verwendung des Open Graph Protocols (beispielsweise für Facebook)."
-	}
+	},
 	"default-image": "Standardbild"
 }
