@@ -2,10 +2,11 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Einfacher Editor auf der grundlage der Auszeichnungssprache Markdown."
+		"description": "Einfacher Editor auf der Grundlage der Auszeichnungssprache Markdown."
 	},
 	"toolbar": "Werkzeugleiste",
 	"tab-size": "Abstände der Tabstopps",
 	"autosave": "Automatische Speicherung",
-	"spell-checker": "Rechtschreibprüfung"
+	"spell-checker": "Rechtschreibprüfung",
+	"content-here-supports-markdown-and-html-code": "Hier kann der Inhalt eingefügt werden. Der Editor unterstützt Markdown und HTML-Code."
 }
