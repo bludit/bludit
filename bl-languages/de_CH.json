@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2017-10-14",
+        "last-update": "2017-10-16",
         "author": "Clickwork",
         "email": "egoetschel@clickwork.ch",
         "website": "https:\/\/clickwork.ch"
@@ -15,7 +15,7 @@
     "advanced-settings": "Erweiterte Einstellungen",
     "thanks-for-support-bludit": "Vielen Dank für die Unterstützung von Bludit!",
     "upgrade-to-bludit-pro": "Upgrade auf Bludit PRO",
-    "language": "Sprache",
+    "language": "Sprache/Zeitzone",
     "plugin": "Plugin",
     "plugins": "Plugins",
     "developers": "Enwickler",
