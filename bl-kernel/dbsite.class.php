@@ -202,20 +202,15 @@ class dbSite extends dbJSON
 			return $protocol.$domain;
 		}
 
-		// Parse the domain from the field URL.
+		// Parse the domain from the field url (Settings->Advanced)
 		$parse = parse_url($this->url());
-		$domain = trim($parse['host'], '/');
+		$domain = rtrim($parse['host'], '/');
+		$port = !empty($parse['port']) ? ':'.$parse['port'] : '';
+		$scheme = !empty($parse['scheme']) ? $parse['scheme'].'://' : 'http://';
 
-		return $parse['scheme'].'://'.$domain;
+		return $scheme.$domain.$port;
 	}
 
-/* DEPRECATED
-	// Returns the relative home link
-	public function homeLink()
-	{
-		return HTML_PATH_ROOT;
-	}
-*/
 	// Returns the timezone.
 	public function timezone()
 	{
@@ -246,17 +241,6 @@ class dbSite extends dbJSON
 		return $this->getField('locale');
 	}
 
-/* DEPRECATED
-	// Returns the current language in short format
-	public function shortLanguage()
-	{
-		$locale = $this->locale();
-		$explode = explode('_', $locale);
-		$short = array_shift($explode);
-
-		return $short;
-	}
-*/
 	// Returns the current homepage, FALSE if not defined homepage
 	public function homepage()
 	{
