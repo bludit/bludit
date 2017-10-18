@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2017-10-16",
+        "last-update": "2017-10-17",
         "author": "Clickwork",
         "email": "egoetschel@clickwork.ch",
         "website": "https:\/\/clickwork.ch"
@@ -165,7 +165,7 @@
     "email-access-code": "Zugangscode zuschicken",
     "whats-next": "Und so geht es weiter:",
     "username-or-password-incorrect": "Falscher Benutzername und\/oder falsches Passwort",
-    "follow-bludit-on": "Bludit folgen bei",
+    "follow-bludit-on": "Den [Newsletter](http:\/\/eepurl.com/b6mpKf) abonnieren und Bludit folgen bei",
     "visit-the-forum-for-support": "Bei Fragen und Problemen das [Forum](https:\/\/forum.bludit.org) besuchen",
     "manage-your-bludit-from-the-admin-panel": "Bludit im [Administrationsbereich]({{ADMIN_AREA_LINK}}) verwalten",
     "chat-with-developers-and-users-on-gitter": "Mit Entwicklern und Benutzern bei [Gitter](https:\/\/gitter.im\/budit\/support) chatten",

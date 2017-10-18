@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Menu",
+		"description": "Affiche un menu dans la barre latérale et le contenu est organisé par catégories."
+	}
+}
