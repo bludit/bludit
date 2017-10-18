@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Dernier contenu",
+		"description": "Liste des derniers contenus, vous pouvez définir le nombre d’éléments. <br> L’ordre du contenu est tiré des paramètres avancés de Bludit."
+	},
+	"home-link": "Lien vers la page d’acceuil.",
+	"show-the-home-link-on-the-sidebar": "Afficher le lien vers la page d’acceuil sur la barre latérale.",
+	"amount-of-items": "Quantité d’objets"
+}

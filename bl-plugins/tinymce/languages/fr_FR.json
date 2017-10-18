@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "TinyMCE est un éditeur HTML WYSIWYG (What You See Is What You Get) développé en Javascript. Recommandé pour les utilisateurs qui ne sont pas alaise avec le format Markdown."
+	}
+}
