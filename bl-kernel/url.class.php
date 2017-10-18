@@ -73,7 +73,7 @@ class Url
 				$this->activeFilter = $filterURI;
 
 				if (empty($this->slug) && ($filterName=='blog')) {
-					$this->setWhereAmI('home');
+					$this->setWhereAmI('blog');
 				} elseif (!empty($this->slug) && ($filterName=='blog')) {
 					$this->setNotFound();
 					return false;

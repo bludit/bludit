@@ -101,8 +101,10 @@ if ($Site->homepage() && $Url->whereAmI()==='home') {
 	}
 }
 
+// The filter blog alway show all the content
+// Change the where am i to use
 if ($Url->whereAmI()==='blog') {
-	$Url->setWhereAmI('home');
+	//$Url->setWhereAmI('home');
 }
 
 // Build specific page
@@ -118,7 +120,7 @@ elseif ($Url->whereAmI()==='category') {
         buildPagesByCategory();
 }
 // Build pages for the homepage
-elseif ($Url->whereAmI()==='home') {
+elseif ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) {
         buildPagesForHome();
 }
 
