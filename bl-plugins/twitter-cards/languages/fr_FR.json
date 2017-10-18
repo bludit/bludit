@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Cartes Twitter",
+		"description": "Les Cartes Twitter sont des protocoles qui vous permettent d’attacher des photos, des vidéos et autres médias interactifs à vos tweets, cela vas vous aider à générer du trafic vers votre site."
+	},
+	"default-image": "Image par défaut."
+}
