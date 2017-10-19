@@ -22,28 +22,28 @@ class pluginsimpleMDE extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Toolbar').'</label>';
+		$html .= '<label>'.$Language->get('toolbar').'</label>';
 		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getDbField('toolbar').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Tab size').'</label>';
+		$html .= '<label>'.$Language->get('tab-size').'</label>';
 		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Autosave').'</label>';
+		$html .= '<label>'.$Language->get('autosave').'</label>';
 		$html .= '<select name="autosave">';
-		$html .= '<option value="true" '.($this->getValue('autosave')===true?'selected':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('autosave')===false?'selected':'').'>Disabled</option>';
+		$html .= '<option value="true" '.($this->getValue('autosave')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('autosave')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Spell Checker').'</label>';
+		$html .= '<label>'.$Language->get('spell-checker').'</label>';
 		$html .= '<select name="spellChecker">';
-		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>Disabled</option>';
+		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -116,7 +116,7 @@ class pluginsimpleMDE extends Plugin {
 					toolbarTips: true,
 					toolbarGuideIcon: true,
 					autofocus: false,
-					placeholder: "'.$Language->get('Content here Supports Markdown and HTML code').'",
+					placeholder: "'.$Language->get('content-here-supports-markdown-and-html-code').'",
 					lineWrapping: true,
 					autoDownloadFontAwesome: false,
 					indentWithTabs: true,
