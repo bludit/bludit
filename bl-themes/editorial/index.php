@@ -26,18 +26,28 @@
 				<strong><?php echo $Site->title() ?></strong> <?php echo $Site->slogan() ?>
 			</a>
 			<ul class="icons">
-				<li><a href="<?php echo $Site->twitter() ?>" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="<?php echo $Site->facebook() ?>" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-				<li><a href="<?php echo $Site->instagram() ?>" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="<?php echo $Site->github() ?>" class="icon fa-github"><span class="label">GitHub</span></a></li>
 				<?php
+        	    			if ($Site->twitter()) {
+						echo '<li><a href="'.$Site->twitter().'" class="icon fa-twitter"><span class="label">Twitter</span></a></li>';
+					}
+					if ($Site->facebook()) {
+						echo '<li><a href="'.$Site->facebook().'" class="icon fa-facebook"><span class="label">Facebook</span></a></li>';
+					}
+					if ($Site->instagram()) {
+						echo '<li><a href="'.$Site->instagram().'" class="icon fa-instagram"><span class="label">Instagram</span></a></li>';
+					}
+					if ($Site->github()) {
+						echo '<li><a href="'.$Site->github().'" class="icon fa-github"><span class="label">Github</span></a></li>';
+					}
+					if ($Site->codepen()) {
+						echo '<li><a href="'.$Site->codepen().'" class="icon fa-codepen"><span class="label">Codepen</span></a></li>';
+					}
 					// Check if the plugin RSS is enabled
-					if( pluginEnabled('RSS') ) {
+					if (pluginEnabled('RSS')) {
 						echo '<li><a href="'.$Site->rss().'" class="icon fa-rss"><span class="label">RSS</span></a></li>';
 					}
-
 					// Check if the plugin Sitemap is enabled
-					if( pluginEnabled('sitemap') ) {
+					if (pluginEnabled('sitemap')) {
 						echo '<li><a href="'.$Site->sitemap().'" class="icon fa-sitemap"><span class="label">Sitemap</span></a></li>';
 					}
 				?>

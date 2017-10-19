@@ -85,10 +85,10 @@ class pluginTwitterCards extends Plugin {
 			// Get the image from the content
 			$src = $this->getImage($content);
 			if ($src!==false) {
-				$og['image'] = $src;
+				$data['image'] = $src;
 			} else {
 				if (Text::isNotEmpty($this->getValue('defaultImage'))) {
-					$og['image'] = $this->getValue('defaultImage');
+					$data['image'] = $this->getValue('defaultImage');
 				}
 			}
 		}

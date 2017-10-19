@@ -70,7 +70,7 @@ function buildThemes()
 // ============================================================================
 
 // Load the language file
-$languageFilename = THEME_DIR.'languages'.DS.$Site->locale().'.json';
+$languageFilename = THEME_DIR.'languages'.DS.$Site->language().'.json';
 if( !Sanitize::pathFile($languageFilename) ) {
 	$languageFilename = THEME_DIR.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 }

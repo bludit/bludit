@@ -43,7 +43,7 @@
 				}
 
 				if(Paginator::showNext()) {
-					echo '<a class="btn btn-secondary float-left" href="'.Paginator::nextPageUrl().'">'.$Language->get('Next page').' &rarr;</a>';
+					echo '<a class="btn btn-secondary float-right" href="'.Paginator::nextPageUrl().'">'.$Language->get('Next page').' &rarr;</a>';
 				}
 			?>
 			</div>
