@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "SimpleMDE",
+		"description": "Редактор с простым интерфейсом для создания markup разметки."
+	},
+	"toolbar": "Панель инструментов",
+	"tab-size": "Размер панели",
+	"autosave": "Автосохранения",
+	"spell-checker": "Проверка орфографии",
+	"content-here-supports-markdown-and-html-code": "Содержимое поддерживаем Markdown и HTML коды"
+}
