@@ -49,9 +49,9 @@ class pluginDisqus extends Plugin {
 		}
 
 		if ( !$Url->notFound() && 
-		     (
-			($this->getDbField('enablePosts') && $Page->status()=='published') || 
-			($this->getDbField('enablePages') && $Page->status()=='static')
+		     ( $Url->whereAmI()=='page' &&
+			(($this->getDbField('enablePosts') && $Page->status()=='published') || 
+			($this->getDbField('enablePages') && $Page->status()=='static'))
 		     ) && 
 		     $page->allowComments() ) {
 			$html  = '<div id="disqus_thread"></div>';
