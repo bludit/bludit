@@ -386,10 +386,10 @@ class dbPages extends dbJSON
 	// Returns an array with all parents pages key, a parent page is not a child
 	public function getParents()
 	{
-		$db = $this->getPublishedDB();
-		foreach($db as $key=>$fields) {
+		$db = $this->getPublishedDB() + $this->getStaticDB();
+		foreach ($db as $key=>$fields) {
 			// if the key has slash then is a child
-			if( Text::stringContains($key, '/') ) {
+			if (Text::stringContains($key, '/')) {
 				unset($db[$key]);
 			}
 		}

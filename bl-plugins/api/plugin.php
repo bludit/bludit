@@ -168,19 +168,38 @@ class pluginAPI extends Plugin {
 				$inputs = $_GET;
 				break;
 			case "PUT":
-				$inputs = file_get_contents("php://input");
+				$inputs = '';
 				break;
 			default:
 				$inputs = json_encode(array());
 				break;
 		}
 
-		// Try to get raw data
+		// Try to get raw/json data
 		if (empty($inputs)) {
 			$inputs = file_get_contents('php://input');
 		}
 
 		return $this->cleanInputs($inputs);
+	}
+
+	// Returns an array with key=>value
+	// If the content is JSON is parsed to array
+	private function cleanInputs($inputs)
+	{
+		$tmp = array();
+		if (is_array($inputs)) {
+			foreach ($inputs as $key=>$value) {
+				$tmp[$key] = Sanitize::html($value);
+			}
+		} elseif (is_string($inputs)) {
+			$tmp = json_decode($inputs, true);
+			if (json_last_error()!==JSON_ERROR_NONE) {
+				$tmp = array();
+			}
+		}
+
+		return $tmp;
 	}
 
 	private function getEndpointParameters($URI)
@@ -200,23 +219,6 @@ class pluginAPI extends Plugin {
 		}
 
 		return $parameters;
-	}
-
-	private function cleanInputs($inputs)
-	{
-		$tmp = array();
-		if (is_array($inputs)) {
-			foreach ($inputs as $key=>$value) {
-				$tmp[$key] = Sanitize::html($value);
-			}
-		} elseif(is_string($inputs)) {
-			$tmp = json_decode($inputs, true);
-			if (json_last_error()!==JSON_ERROR_NONE) {
-				$tmp = array();
-			}
-		}
-
-		return $tmp;
 	}
 
 	private function response($code=200, $message='OK', $data=array())
