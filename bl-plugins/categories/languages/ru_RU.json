@@ -4,5 +4,5 @@
 		"name": "Categories",
 		"description": "Показывает все категории на боковой панели."
 	},
-	"hide-categories-without-content": "Скрывать категории без содержимого"
+	"hide-categories-without-content": "Скрывать пустые категории"
 }
