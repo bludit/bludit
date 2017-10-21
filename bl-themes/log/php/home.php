@@ -70,15 +70,15 @@
 
 <!-- Pagination -->
 <ul class="actions pagination">
-<?php
-	// Show previus page link
-	if(Paginator::showPrev()) {
-		echo '<li><a href="'.Paginator::prevPageUrl().'" class="button big previous">Previous Page</a></li>';
-	}
 
-	// Show next page link
-	if(Paginator::showNext()) {
-		echo '<li><a href="'.Paginator::nextPageUrl().'" class="button big next">Next Page</a></li>';
-	}
-?>
+	<!-- Show previus page link -->
+	<?php if(Paginator::showPrev()) { ?>
+		<li><a href="<?php echo Paginator::prevPageUrl() ?>" class="button big previous"><?php $Language->p('Previous Page') ?></a></li>
+    <?php } ?>
+
+	<!-- Show next page link -->
+	<?php if(Paginator::showNext()) { ?>
+		<li><a href="<?php echo Paginator::nextPageUrl() ?>" class="button big next"><?php $Language->p('Next Page') ?></a></li>
+    <?php } ?>
+
 </ul>
