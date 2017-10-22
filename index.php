@@ -8,8 +8,7 @@
 */
 
 // Check if Bludit is installed
-if( !file_exists('bl-content/databases/site.php') )
-{
+if (!file_exists('bl-content/databases/site.php')) {
 	header('Location:./install.php');
 	exit('<a href="./install.php">Install Bludit first.</a>');
 }
