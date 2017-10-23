@@ -29,7 +29,7 @@
 	}
 
 	if (Paginator::showNext()) {
-		echo '<li><a href="'.Paginator::nextPageUrl().'">'.$L->get('Previuos').'</a></li>';
+		echo '<li><a href="'.Paginator::nextPageUrl().'">'.$L->get('Previous').'</a></li>';
 	}
 ?>
 </ul>
