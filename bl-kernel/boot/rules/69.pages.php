@@ -68,6 +68,16 @@ $pagesByParent = array(PARENT=>array());
 */
 $pagesByParentByKey = array(PARENT=>array());
 
+// Array with static content, each item is a Page Object
+// Order by position
+/*
+	array(
+		0 => Page Object,
+		1 => Page Object,
+		...
+		N => Page Object
+	)
+*/
 $staticContent = $staticPages = buildStaticPages();
 
 // ============================================================================
@@ -90,7 +100,7 @@ if ($dbPages->scheduler()) {
 }
 
 // Generate pages parent tree, only published pages
-buildPagesByParent(true);
+buildPagesByParent(true, true);
 
 // Set home page is the user defined one
 if ($Site->homepage() && $Url->whereAmI()==='home') {

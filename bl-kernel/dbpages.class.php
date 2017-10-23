@@ -264,13 +264,16 @@ class dbPages extends dbJSON
 	}
 
 	// Returns a database with published pages
-	public function getPublishedDB()
+	public function getPublishedDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if ($fields['status']!='published') {
 				unset($tmp[$key]);
 			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
 		}
 		return $tmp;
 	}
@@ -293,7 +296,7 @@ class dbPages extends dbJSON
 	}
 
 	// Returns an array with a list of keys/database of draft pages
-	public function getDraftDB()
+	public function getDraftDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -301,17 +304,23 @@ class dbPages extends dbJSON
 				unset($tmp[$key]);
 			}
 		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
 		return $tmp;
 	}
 
 	// Returns an array with a list of keys/database of scheduled pages
-	public function getScheduledDB()
+	public function getScheduledDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach($tmp as $key=>$fields) {
 			if($fields['status']!='scheduled') {
 				unset($tmp[$key]);
 			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
 		}
 		return $tmp;
 	}
@@ -386,10 +395,10 @@ class dbPages extends dbJSON
 	// Returns an array with all parents pages key, a parent page is not a child
 	public function getParents()
 	{
-		$db = $this->getPublishedDB();
-		foreach($db as $key=>$fields) {
+		$db = $this->getPublishedDB() + $this->getStaticDB();
+		foreach ($db as $key=>$fields) {
 			// if the key has slash then is a child
-			if( Text::stringContains($key, '/') ) {
+			if (Text::stringContains($key, '/')) {
 				unset($db[$key]);
 			}
 		}

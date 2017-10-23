@@ -60,6 +60,20 @@ class pluginGoogle extends Plugin {
 			$html .= "<!-- End Google Tag Manager -->".PHP_EOL;
 		}
 
+		// Google Analytics
+		if ($this->getValue('google-analytics-tracking-id')) {
+			$html  = PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
+			$html .= '
+			<script async src="https://www.googletagmanager.com/gtag/js?id='.$this->getValue('google-analytics-tracking-id').'"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag("js", new Date());
+
+				gtag("config", "'.$this->getValue('google-analytics-tracking-id').'");
+			</script>'.PHP_EOL;
+		}
+
 		return $html;
 	}
 
@@ -75,22 +89,4 @@ class pluginGoogle extends Plugin {
 		return false;
 	}
 
-	public function siteBodyEnd()
-	{
-		// Google Analytics
-		if ($this->getValue('google-analytics-tracking-id')) {
-			$html  = PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
-			$html .= '
-			<script async src="https://www.googletagmanager.com/gtag/js?id='.$this->getValue('google-analytics-tracking-id').'"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag("js", new Date());
-
-				gtag("config", "'.$this->getValue('google-analytics-tracking-id').'");
-			</script>'.PHP_EOL;
-			return $html;
-		}
-		return false;
-	}
 }
