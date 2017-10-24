@@ -57,6 +57,16 @@ article.page footer {
 	text-align: right;
 }
 
+/* PAGINATION */
+
+.pagination {
+        width: 100%;
+}
+
+.pagination > li > a.float-right {
+        float: right;
+}
+
 /* PLUGINS */
 
 div.plugin:not(:last-child) {
