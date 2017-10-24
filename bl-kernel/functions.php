@@ -168,28 +168,30 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 
 // Generate the global variable $pagesByParent, defined on 69.pages.php
 // (boolean) $allPages, TRUE include all status, FALSE only include published status
-function buildPagesByParent($onlyPublished=true) {
+function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	global $dbPages;
 	global $pagesByParent;
 	global $pagesByParentByKey;
 
-	// Get DB
-	$pageNumber = 1;
-	$amountOfItems = -1;
-	$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+	$onlyKeys = true;
+	$keys = array();
+	if ($publishedPages) {
+		$keys = array_merge($keys, $dbPages->getPublishedDB($onlyKeys));
+	}
+	if ($staticPages) {
+		$keys = array_merge($keys, $dbPages->getStaticDB($onlyKeys));
+	}
 
-	// Get Keys
-	$keys = array_keys($db);
-	foreach($keys as $pageKey) {
+	foreach ($keys as $pageKey) {
 		$page = buildPage($pageKey);
-		if($page!==false) {
+		if ($page!==false) {
 			$parentKey = $page->parentKey();
 			// FALSE if the page is parent
-			if($parentKey===false) {
+			if ($parentKey===false) {
 				array_push($pagesByParent[PARENT], $page);
 				$pagesByParentByKey[PARENT][$page->key()] = $page;
 			} else {
-				if( !isset($pagesByParent[$parentKey]) ) {
+				if (!isset($pagesByParent[$parentKey])) {
 					$pagesByParent[$parentKey] = array();
 				}
 				array_push($pagesByParent[$parentKey], $page);
@@ -221,19 +223,29 @@ function buildStaticPages() {
 		pageKeyN => Page object,
 	)
 */
-function buildAllpages($onlyPublished=true) {
+function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true, $scheduledPages=true) {
 	global $dbPages;
 
 	// Get DB
-	$pageNumber = 1;
-	$amountOfItems = -1;
-	$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+	$onlyKeys = true;
+	$keys = array();
+	if ($publishedPages) {
+		$keys = array_merge($keys, $dbPages->getPublishedDB($onlyKeys));
+	}
+	if ($staticPages) {
+		$keys = array_merge($keys, $dbPages->getStaticDB($onlyKeys));
+	}
+	if ($draftPages) {
+		$keys = array_merge($keys, $dbPages->getDraftDB($onlyKeys));
+	}
+	if ($scheduledPages) {
+		$keys = array_merge($keys, $dbPages->getScheduledDB($onlyKeys));
+	}
 
 	$tmp = array();
-	$keys = array_keys($db);
-	foreach($keys as $pageKey) {
+	foreach ($keys as $pageKey) {
 		$page = buildPage($pageKey);
-		if($page!==false) {
+		if ($page!==false) {
 			$tmp[$page->key()] = $page;
 		}
 	}

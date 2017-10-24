@@ -26,3 +26,15 @@
                 </article>
         <?php endforeach ?>
 </section>
+
+<!-- Pagination -->
+<ul class="pagination">
+<?php
+if (Paginator::showPrev()) {
+        echo '<li><a href="'.Paginator::prevPageUrl().'">'.$L->get('Previous page').'</a></li>';
+}
+if (Paginator::showNext()) {
+        echo '<li><a href="'.Paginator::nextPageUrl().'" class="float-right">'.$L->get('Next page').'</a></li>';
+}
+?>
+</ul>

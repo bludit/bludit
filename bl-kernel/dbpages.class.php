@@ -264,13 +264,16 @@ class dbPages extends dbJSON
 	}
 
 	// Returns a database with published pages
-	public function getPublishedDB()
+	public function getPublishedDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if ($fields['status']!='published') {
 				unset($tmp[$key]);
 			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
 		}
 		return $tmp;
 	}
@@ -293,7 +296,7 @@ class dbPages extends dbJSON
 	}
 
 	// Returns an array with a list of keys/database of draft pages
-	public function getDraftDB()
+	public function getDraftDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -301,17 +304,23 @@ class dbPages extends dbJSON
 				unset($tmp[$key]);
 			}
 		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
 		return $tmp;
 	}
 
 	// Returns an array with a list of keys/database of scheduled pages
-	public function getScheduledDB()
+	public function getScheduledDB($onlyKeys=false)
 	{
 		$tmp = $this->db;
 		foreach($tmp as $key=>$fields) {
 			if($fields['status']!='scheduled') {
 				unset($tmp[$key]);
 			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
 		}
 		return $tmp;
 	}

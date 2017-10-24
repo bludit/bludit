@@ -29,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 // Main after POST
 // ============================================================================
-$allPublishedPages = buildAllpages(true);
+$allPages = buildAllpages($publishedPages=true, $staticPages=true, $draftPages=false, $scheduledPages=false);
 
 // Homepage select options
 $homepageOptions = array(' '=>'- '.$L->g('Latest content').' -');
-foreach($allPublishedPages as $key=>$page) {
+foreach ($allPages as $key=>$page) {
 	$parentKey = $page->parentKey();
 	if ($parentKey) {
 		$homepageOptions[$key] = $pagesByParentByKey[PARENT][$parentKey]->title() .'->'. $page->title();

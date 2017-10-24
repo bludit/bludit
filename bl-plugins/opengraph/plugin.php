@@ -89,7 +89,7 @@ class pluginOpenGraph extends Plugin {
 		// If the page doesn't have a coverImage try to get an image from the HTML content
 		if (empty($og['image'])) {
 			// Get the image from the content
-			$src = $this->getImage($content);
+			$src = DOM::getFirstImage($content);
 			if ($src!==false) {
 				$og['image'] = $src;
 			} else {
@@ -103,24 +103,4 @@ class pluginOpenGraph extends Plugin {
 		return $html;
 	}
 
-	// Returns the first image from the HTML content
-	private function getImage($content)
-	{
-		$dom = new DOMDocument();
-		$dom->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8">'.$content);
-		$finder = new DomXPath($dom);
-
-		$images = $finder->query("//img");
-
-		if($images->length>0) {
-			// First image from the list
-			$image = $images->item(0);
-			// Get value from attribute src
-			$imgSrc = $image->getAttribute('src');
-			// Returns the image src
-			return $imgSrc;
-		}
-
-		return false;
-	}
 }

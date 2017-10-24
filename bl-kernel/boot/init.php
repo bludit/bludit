@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'2.0');
+define('BLUDIT_VERSION',	'2.0.1');
 define('BLUDIT_CODENAME',	'Morty');
-define('BLUDIT_RELEASE_DATE',	'2017-10-16');
-define('BLUDIT_BUILD',		'20171016');
+define('BLUDIT_RELEASE_DATE',	'2017-10-23');
+define('BLUDIT_BUILD',		'20171023');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -178,7 +178,6 @@ include(PATH_KERNEL.'user.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');
 include(PATH_KERNEL.'parsedown.class.php');
-include(PATH_KERNEL.'parsedownextra.class.php');
 include(PATH_KERNEL.'security.class.php');
 
 // Include functions
