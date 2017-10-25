@@ -37,7 +37,7 @@ class pluginVersion extends Plugin {
 		}
 
 		if ($this->newVersion()) {
-			$html = '<div id="plugin-version"><a href="https://www.bludit.com">'.$Language->get('New version available').'</a></div>';
+			$html = '<div id="plugin-version"><a href="https://www.bludit.com"><i class="fa fa-download" aria-hidden="true"></i> '.$Language->get('New version available').'</a></div>';
 		} else {
 			if(defined('BLUDIT_PRO')) {
 				$html = '<div id="plugin-version">Bludit PRO v'.BLUDIT_VERSION.'</div>';
