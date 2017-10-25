@@ -2,7 +2,7 @@
 
 class TCP {
 
-	public static function http($url, $method='GET', $verifySSL=true, $timeOut=1, $followRedirections=true, $binary=true, $headers=false)
+	public static function http($url, $method='GET', $verifySSL=true, $timeOut=10, $followRedirections=true, $binary=true, $headers=false)
 	{
 		if( function_exists('curl_version') ) {
 			$ch = curl_init();
