@@ -102,4 +102,36 @@ class Filesystem {
 
 		return rmdir($source);
 	}
+
+	public static function zip($source, $destination)
+	{
+		if (!extension_loaded('zip') || !file_exists($source)) {
+			return false;
+		}
+
+		$zip = new ZipArchive();
+		if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
+			return false;
+		}
+
+		if (is_dir($source) === true) {
+			$iterator = new RecursiveDirectoryIterator($source);
+			$iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
+			$files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+
+			foreach ($files as $file) {
+				$file = realpath($file);
+				if (is_dir($file)) {
+					$zip->addEmptyDir(str_replace($source, '', $file));
+				} elseif (is_file($file)) {
+					$zip->addFromString(str_replace($source, '', $file), file_get_contents($file));
+				}
+			}
+		} elseif (is_file($source)) {
+			$zip->addFromString(basename($source), file_get_contents($source));
+		}
+
+		return $zip->close();
+	}
+
 }

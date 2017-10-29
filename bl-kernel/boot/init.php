@@ -116,6 +116,9 @@ define('FILENAME', 'index.txt');
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 
+// Database date format
+define('BACKUP_DATE_FORMAT', 'Y-m-d-H-i-s');
+
 // Sitemap date format
 define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 
