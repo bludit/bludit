@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2017-10-17",
+        "last-update": "2017-10-29",
         "author": "Clickwork",
         "email": "egoetschel@clickwork.ch",
         "website": "https:\/\/clickwork.ch"
@@ -166,7 +166,7 @@
     "whats-next": "Und so geht es weiter:",
     "username-or-password-incorrect": "Falscher Benutzername und\/oder falsches Passwort",
     "follow-bludit-on": "Den [deutschsprachigen Newsletter](http:\/\/eepurl.com/b6mpKf) abonnieren und Bludit folgen bei",
-    "visit-the-forum-for-support": "Bei Fragen und Problemen das [Forum](https:\/\/forum.bludit.org) besuchen",
+    "visit-the-forum-for-support": "Bei Fragen und Problemen das [Support-Forum](https:\/\/forum.bludit.org) mit deutschsprachigem Forum besuchen",
     "manage-your-bludit-from-the-admin-panel": "Bludit im [Administrationsbereich]({{ADMIN_AREA_LINK}}) verwalten",
     "chat-with-developers-and-users-on-gitter": "Mit Entwicklern und Benutzern bei [Gitter](https:\/\/gitter.im\/budit\/support) chatten",
     "this-is-a-brief-description-of-yourself-our-your-site": "Hier kann beispielsweise eine kurze Beschreibung der Person, die den Blog oder die Website betreibt, oder der Website stehen. Der Text kann im Administrationsbereich in den Einstellungen des Plugins \"Über\" geändert werden.",
