@@ -125,7 +125,7 @@ class Text {
 
 	public static function cleanUrl($string, $separator='-')
 	{
-		if(EXTREME_FRIENDLY_URL) {
+		if (EXTREME_FRIENDLY_URL) {
 			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
 			return $string;
 		}
@@ -133,8 +133,10 @@ class Text {
 		// Transliterate characters to ASCII
 		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
 
-		if(function_exists('iconv')) {
-			$string = iconv(CHARSET, 'ASCII//TRANSLIT', $string);
+		if (function_exists('iconv')) {
+			if (@iconv(CHARSET, 'ASCII//TRANSLIT//IGNORE', $string)!==false) {
+				$string = iconv(CHARSET, 'ASCII//TRANSLIT//IGNORE', $string);
+			}
 		}
 
 		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);

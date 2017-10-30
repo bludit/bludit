@@ -230,6 +230,11 @@ class dbPages extends dbJSON
 
 	public function delete($key)
 	{
+		// This is need it, because if the key is empty the Filesystem::deleteRecursive is going to delete PATH_PAGES
+		if (empty($key)) {
+			return false;
+		}
+
 		// Page doesn't exist in database
 		if (!$this->exists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
@@ -507,6 +512,11 @@ class dbPages extends dbJSON
 			$newKey = Text::cleanUrl($text);
 		} else {
 			$newKey = Text::cleanUrl($parent).'/'.Text::cleanUrl($text);
+		}
+
+		// cleanURL can return empty string
+		if (Text::isEmpty($newKey)) {
+			$newKey = 'empty';
 		}
 
 		if ($newKey!==$oldKey) {
