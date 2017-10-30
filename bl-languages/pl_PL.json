@@ -2,7 +2,7 @@
     "language-data": {
         "native": "Polski (Polska)",
         "english-name": "Polish",
-        "last-update": "2017-10-12",
+        "last-update": "2017-10-28",
         "author": "Dawid dave Stawicki",
         "email": "dawid.stawicki@windowslive.com",
         "website": "http:\/\/"
@@ -206,8 +206,8 @@
     "scheduled-content": "Zaplanowane wpisy",
     "there-are-no-scheduled-content": "Brak zaplanowanej zawartości.",
     "new-content-created": "Utworzono nową zawartość",
-    "content-edited": "Content edited",
-    "content-deleted": "Contente deleted",
+    "content-edited": "Edytowano zawartość",
+    "content-deleted": "Usuniętyo zawartość",
     "undefined": "Niezdefiniowany",
     "create-new-content-for-your-site": "Utwórz nową zawartość swojej strony",
     "there-are-no-draft-content": "Brak szkiców.",
@@ -225,11 +225,11 @@
     "pagebreak": "Podział strony",
     "pages": "Strony",
     "this-plugin-may-not-be-supported-by-this-version-of-bludit": "Wtyczka ta być może nie jest kompatybilna z tą wersją Bludit",
-    "previous": "Previous",
-    "previous-page": "Previous page",
-    "next-page": "Next page",
-    "scheduled": "Scheduled",
-    "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
-    "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**.",
-    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
+    "previous": "Wstecz",
+    "previous-page": "Poprzednia strona",
+    "next-page": "Kolejna strona",
+    "scheduled": "Zaplanowane",
+    "this-token-is-similar-to-a-password-it-should-not-be-shared": "Token generowany jest na podstawie hasła, nie udostępniaj go nikomu.",
+    "congratulations-you-have-successfully-installed-your-bludit": "Gratulacje, **Bludit** został zainstalowany pomyślnie.",
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ten motyw może być niekompatybilny z Twoją wersją Bludit"
 }
