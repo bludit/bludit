@@ -2,6 +2,36 @@
 
 class HTML {
 
+	// Returns HTML and Javascript code for the box TAGs when you create/edit content
+	public static function tags($args) {
+		global $L;
+
+		// Javascript
+		$javascript  = '<script>';
+		$javascript .= file_get_contents(PATH_JS.'bludit-tags.js', true);
+		$javascript .= '</script>';
+
+		// HTML
+		$html  = '<div id="bludit-tags" class="uk-form-row">';
+		$html .= '	<input type="hidden" id="jstags" name="tags" value="">';
+		$html .= '	<label for="jstagInput" class="uk-form-label">'.$args['label'].'</label>';
+
+		$html .= '	<div class="uk-form-controls">';
+		$html .= '		<input id="jstagInput" type="text" class="uk-width-1-1" autocomplete="off">';
+		$html .= '		<button id="jstagAdd" class="uk-button">'.$L->g('Add').'</button>';
+		$html .= '		<div id="jstagList">';
+
+		foreach ($args['allTags'] as $tag) {
+			$html .= '		<span data-tag="'.$tag.'" class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
+		}
+
+		$html .= '		</div>';
+		$html .= '	</div>';
+		$html .= '</div>';
+
+		echo $html.$javascript;
+	}
+
 	public static function title($args)
 	{
 		$id = empty($args['id']) ? '' : 'id="'.$args['id'].'"';
@@ -96,34 +126,7 @@ class HTML {
 		echo $html;
 	}
 
-	public static function tags($args)
-	{
-		global $L;
-		// Javascript code
-		include(PATH_JS.'bludit-tags.js');
 
-		$html  = '<div id="bludit-tags" class="uk-form-row">';
-
-		$html .= '<input type="hidden" id="jstags" name="tags" value="">';
-
-		$html .= '<label for="jstagInput" class="uk-form-label">'.$args['label'].'</label>';
-
-		$html .= '<div class="uk-form-controls">';
-		$html .= '<input id="jstagInput" type="text" class="uk-width-1-1" autocomplete="off">';
-		$html .= '<button id="jstagAdd" class="uk-button">'.$L->g('Add').'</button>';
-
-		$html .= '<div id="jstagList">';
-
-		foreach($args['allTags'] as $tag) {
-			$html .= '<span data-tag="'.$tag.'" class="'.( in_array($tag, $args['selectedTags'])?'select':'unselect' ).'">'.$tag.'</span>';
-		}
-
-		$html .= '</div>';
-		$html .= '</div>';
-		$html .= '</div>';
-
-		echo $html;
-	}
 
 	public static function formInputPassword($args)
 	{

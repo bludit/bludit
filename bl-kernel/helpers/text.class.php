@@ -123,6 +123,9 @@ class Text {
 		return str_replace(array_keys($replace), array_values($replace), $text);
 	}
 
+	// Convert invalid characters to valid characters for a URL
+	// Characters that cannot be converted will be removed from the string
+	// This function can return an empty string
 	public static function cleanUrl($string, $separator='-')
 	{
 		if (EXTREME_FRIENDLY_URL) {

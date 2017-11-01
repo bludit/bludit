@@ -62,18 +62,27 @@ class dbList extends dbJSON
 
 	public function generateKey($name)
 	{
-		return Text::cleanUrl($name);
+		$key = Text::cleanUrl($name);
+		if (empty($key)) {
+			return false;
+		}
+		return $key;
 	}
 
 	public function add($name)
 	{
 		$key = $this->generateKey($name);
-		if( isset($this->db[$key]) ) {
+		if ($key===false) {
+			Log::set(__METHOD__.LOG_SEP.'Error when try to generate the key');
+			return false;
+		}
+
+		if (isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'Error key already exist: '.$key);
 			return false;
 		}
 
-		$this->db[$key]['name'] = $name;
+		$this->db[$key]['name'] = Sanitize::html($name);
 		$this->db[$key]['list'] = array();
 
 		$this->sortAlphanumeric();
@@ -97,10 +106,10 @@ class dbList extends dbJSON
 	{
 		$newKey = $this->generateKey($newName);
 
-		$this->db[$newKey]['name'] = $newName;
+		$this->db[$newKey]['name'] = Sanitize::html($newName);
 		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
 
-		// Remove the old category
+		// Remove the old key
 		if( $oldKey != $newKey ) {
 			unset( $this->db[$oldKey] );
 		}

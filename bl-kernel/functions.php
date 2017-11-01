@@ -634,6 +634,34 @@ function editSettings($args) {
 	return false;
 }
 
+// Add a new category to the system
+// Returns TRUE is success added, FALSE otherwise
+function createCategory($category) {
+	global $dbCategories;
+	global $Language;
+	global $Syslog;
+
+	if (Text::isEmpty($category)) {
+		// Set an alert
+		Alert::set($Language->g('Category name is empty'), ALERT_STATUS_FAIL);
+		return false;
+	}
+
+	if ($dbCategories->add($category)) {
+		// Add to syslog
+		$Syslog->add(array(
+			'dictionaryKey'=>'new-category-created',
+			'notes'=>$category
+		));
+
+		// Set an alert
+		Alert::set($Language->g('Category added'), ALERT_STATUS_OK);
+		return true;
+	}
+
+	return false;
+}
+
 function editCategory($oldCategoryKey, $newCategory) {
 	global $Language;
 	global $dbPages;
