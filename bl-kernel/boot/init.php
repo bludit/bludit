@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'2.0.1');
+define('BLUDIT_VERSION',	'2.0.2');
 define('BLUDIT_CODENAME',	'Morty');
-define('BLUDIT_RELEASE_DATE',	'2017-10-23');
-define('BLUDIT_BUILD',		'20171023');
+define('BLUDIT_RELEASE_DATE',	'2017-11-02');
+define('BLUDIT_BUILD',		'20171102');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -115,6 +115,9 @@ define('FILENAME', 'index.txt');
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
+
+// Database date format
+define('BACKUP_DATE_FORMAT', 'Y-m-d-H-i-s');
 
 // Sitemap date format
 define('SITEMAP_DATE_FORMAT', 'Y-m-d');

@@ -136,7 +136,7 @@ class pluginsimpleMDE extends Plugin {
 							output = "\n'.PAGE_BREAK.'\n";
 							cm.replaceSelection(output);
 							},
-						className: "fa fa-minus-square-o",
+						className: "fa fa-scissors",
 						title: "'.$Language->get('Pagebreak').'",
 						}]
 			});';
