@@ -11,9 +11,9 @@
 						<p><?php echo $page->content(false) ?></p>
 
 						<!-- Read more button -->
-						<?php if($page->readMore()) { ?>
+						<?php if($firstPage->readMore()) { ?>
 						<ul class="actions">
-								<li><a href="<?php echo $page->permalink() ?>" class="button"><?php $Language->p('More') ?></a></li>
+								<li><a href="<?php echo $firstPage->permalink() ?>" class="button"><?php $Language->p('More') ?></a></li>
 						</ul>
 						<?php } ?>
 
