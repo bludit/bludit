@@ -2,24 +2,28 @@
 
 class Cookie {
 
-	public static function get($name)
+	public static function get($key)
 	{
-		if(isset($_COOKIE[$name]))
-		{
-			return($_COOKIE[$name]);
+		if (isset($_COOKIE[$key])) {
+			return $_COOKIE[$name];
 		}
-
-		return(false);
+		return false;
 	}
 
-	public static function add($name, $value, $expire = 525600)
+	public static function set($key, $value, $daysToExpire=30)
 	{
-		setcookie($name, $value, time() + ($expire * 60));
+		// The time the cookie expires.
+		// This is a Unix timestamp so is in number of seconds since the epoch.
+		// In other words, you'll most likely set this with the time() function plus the number of seconds before you want it to expire.
+		// Or you might use mktime(). time()+60*60*24*30 will set the cookie to expire in 30 days.
+		// If set to 0, or omitted, the cookie will expire at the end of the session (when the browser closes).
+		$expire = time()+60*60*24*$daysToExpire;
+		setcookie($key, $value, $expire);
 	}
 
-	public static function isSet($name)
+	public static function isset($key)
 	{
-		return(isset($_COOKIE[$name]));
+		return isset($_COOKIE[$key]);
 	}
 
 }

@@ -11,8 +11,7 @@ class dbUsers extends dbJSON
 		'salt'=>		array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
 		'email'=>		array('inFile'=>false, 'value'=>''),
 		'registered'=>		array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
-		'tokenEmail'=>		array('inFile'=>false, 'value'=>''),
-		'tokenEmailTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
+		'tokenRemember'=>	array('inFile'=>false, 'value'=>''),
 		'tokenAuth'=>		array('inFile'=>false, 'value'=>''),
 		'tokenAuthTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
 		'twitter'=>		array('inFile'=>false, 'value'=>''),
@@ -119,7 +118,7 @@ class dbUsers extends dbJSON
 		return md5( uniqid().time().DOMAIN );
 	}
 
-	public function generateEmailToken()
+	public function generateRememberToken()
 	{
 		return $this->generateAuthToken();
 	}
@@ -132,6 +131,13 @@ class dbUsers extends dbJSON
 	public function generatePasswordHash($password, $salt)
 	{
 		return sha1($password.$salt);
+	}
+
+	public function setRememberToken($username, $token)
+	{
+		$args['username']	= $username;
+		$args['tokenRemember']	= $token;
+		return $this->set($args);
 	}
 
 	public function setPassword($username, $password)
@@ -170,18 +176,25 @@ class dbUsers extends dbJSON
 		return false;
 	}
 
-	public function setTokenEmail($username)
+	// Returns the username with the remember token assigned, FALSE otherwise
+	public function getByRememberToken($token)
 	{
-		// Random hash
-		$token = $this->generateEmailToken();
-		$this->db[$username]['tokenEmail'] = $token;
+		foreach ($this->db as $username=>$fields) {
+			if ($fields['tokenRemember']==$token) {
+				return $username;
+			}
+		}
+		return false;
+	}
 
-		// Token time to live, defined by TOKEN_EMAIL_TTL
-		$this->db[$username]['tokenEmailTTL'] = Date::currentOffset(DB_DATE_FORMAT, TOKEN_EMAIL_TTL);
-
-		// Save the database
-		$this->save();
-		return $token;
+	// This function clean all tokens for Remember me
+	// This function is used when some hacker try to use an invalid remember token
+	public function invalidateAllRememberTokens()
+	{
+		foreach ($this->db as $username=>$values) {
+			$this->db[$username]['tokenRemember'] = '';
+		}
+		return $this->save();
 	}
 
 	// Returns array with the username databases filtered by username, FALSE otherwise
