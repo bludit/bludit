@@ -5,7 +5,7 @@ class Cookie {
 	public static function get($key)
 	{
 		if (isset($_COOKIE[$key])) {
-			return $_COOKIE[$name];
+			return $_COOKIE[$key];
 		}
 		return false;
 	}

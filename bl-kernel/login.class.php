@@ -61,6 +61,20 @@ class Login {
 		// Set the token on the cookies
 		Cookie::set(REMEMBER_COOKIE_USERNAME, $username, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
 		Cookie::set(REMEMBER_COOKIE_TOKEN, $token, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
+
+		Log::set(__METHOD__.LOG_SEP.'Cookies seted for Remember Me.');
+	}
+
+	public function invalidateRememberMe()
+	{
+		// Invalidate all tokens on the user databases
+		$this->dbUsers->invalidateAllRememberTokens();
+
+		// Destroy the cookies
+		Cookie::set(REMEMBER_COOKIE_USERNAME, '', -1);
+		Cookie::set(REMEMBER_COOKIE_TOKEN, '', -1);
+		unset($_COOKIE[REMEMBER_COOKIE_USERNAME]);
+		unset($_COOKIE[REMEMBER_COOKIE_TOKEN]);
 	}
 
 	// Check if the username and the password are valid
@@ -101,11 +115,16 @@ class Login {
 		return false;
 	}
 
-	// Verified Remember Token
-	// If valid log in the user
-	// If not valid invalidate all remember me tokens
-	public function verifyUserByRemember($username, $token)
+	// Check if the user has the cookies and the correct token
+	public function verifyUserByRemember()
 	{
+		if (!Cookie::isset(REMEMBER_COOKIE_USERNAME) || !Cookie::isset(REMEMBER_COOKIE_TOKEN)) {
+			return false;
+		}
+
+		$username 	= Cookie::get(REMEMBER_COOKIE_USERNAME);
+		$token 		= Cookie::get(REMEMBER_COOKIE_TOKEN);
+
 		$username 	= Sanitize::html($username);
 		$token 		= Sanitize::html($token);
 
@@ -113,20 +132,21 @@ class Login {
 		$token 		= trim($token);
 
 		if (empty($username) || empty($token)) {
-			$this->dbUsers->invalidateAllRememberTokens();
+			$this->invalidateRememberMe();
 			Log::set(__METHOD__.LOG_SEP.'Username or Token empty. Username: '.$username.' - Token: '.$token);
 			return false;
 		}
 
-		if ($username !== $this->getByRememberToken($token)) {
-			$this->dbUsers->invalidateAllRememberTokens();
-			Log::set(__METHOD__.LOG_SEP.'The user has different token or the token doesnt exist.');
+		if ($username !== $this->dbUsers->getByRememberToken($token)) {
+			$this->invalidateRememberMe();
+			Log::set(__METHOD__.LOG_SEP.'The user has different token or the token doesn\'t exist.');
 			return false;
 		}
 
 		// Validate user and login
 		$user = $this->dbUsers->getDb($username);
 		$this->setLogin($username, $user['role']);
+		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
 		return true;
 	}
 
@@ -141,6 +161,8 @@ class Login {
 
 	public function logout()
 	{
-		return Session::destroy();
+		$this->invalidateRememberMe();
+		Session::destroy();
+		return true;
 	}
 }

@@ -47,14 +47,7 @@ function checkRememberMe()
 		return false;
 	}
 
-	if (!Cookie::isset(REMEMBER_COOKIE_USERNAME) || !Cookie::isset(REMEMBER_COOKIE_TOKEN)) {
-		return false;
-	}
-
-	$username = Cookie::get(REMEMBER_COOKIE_USERNAME);
-	$token = Cookie::get(REMEMBER_COOKIE_TOKEN);
-
-	if ($Login->verifyUserByRemember($username, $token)) {
+	if ($Login->verifyUserByRemember()) {
 		$Security->generateTokenCSRF();
 		Redirect::page('dashboard');
 		return true;
