@@ -1,0 +1,3 @@
+[submodule "bl-themes/clean-blog"]
+	path = bl-themes/clean-blog
+	url = git@github.com:bludit-themes/clean-blog.git
