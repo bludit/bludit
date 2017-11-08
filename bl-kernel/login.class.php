@@ -9,11 +9,13 @@ class Login {
 		$this->dbUsers = $dbUsers;
 	}
 
+	// Returns the username of the user logged
 	public function username()
 	{
 		return Session::get('username');
 	}
 
+	// Returns the role of the user logged
 	public function role()
 	{
 		return Session::get('role');
@@ -26,9 +28,8 @@ class Login {
 			$username = Session::get('username');
 			if (!empty($username)) {
 				return true;
-			}
-			else {
-				Log::set(__METHOD__.LOG_SEP.'Session username empty, destroy the session.');
+			} else {
+				Log::set(__METHOD__.LOG_SEP.'Session username empty, destroying the session.');
 				Session::destroy();
 				return false;
 			}
@@ -47,6 +48,33 @@ class Login {
 		Session::set('sessionTime',	time());
 
 		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint: '.$this->fingerPrint());
+	}
+
+	public function setRememberMe($username)
+	{
+		$username = Sanitize::html($username);
+
+		// Set the token on the users database
+		$token = $this->dbUsers->generateRememberToken();
+		$this->dbUsers->setRememberToken($username, $token);
+
+		// Set the token on the cookies
+		Cookie::set(REMEMBER_COOKIE_USERNAME, $username, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
+		Cookie::set(REMEMBER_COOKIE_TOKEN, $token, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
+
+		Log::set(__METHOD__.LOG_SEP.'Cookies seted for Remember Me.');
+	}
+
+	public function invalidateRememberMe()
+	{
+		// Invalidate all tokens on the user databases
+		$this->dbUsers->invalidateAllRememberTokens();
+
+		// Destroy the cookies
+		Cookie::set(REMEMBER_COOKIE_USERNAME, '', -1);
+		Cookie::set(REMEMBER_COOKIE_TOKEN, '', -1);
+		unset($_COOKIE[REMEMBER_COOKIE_USERNAME]);
+		unset($_COOKIE[REMEMBER_COOKIE_TOKEN]);
 	}
 
 	// Check if the username and the password are valid
@@ -71,7 +99,7 @@ class Login {
 		}
 
 		$user = $this->dbUsers->getDB($username);
-		if($user==false) {
+		if ($user==false) {
 			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
 			return false;
 		}
@@ -82,71 +110,59 @@ class Login {
 			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username: '.$username);
 			return true;
 		}
-		else {
-			Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
-		}
 
+		Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
 		return false;
 	}
 
-	public function verifyUserByToken($username, $token)
+	// Check if the user has the cookies and the correct token
+	public function verifyUserByRemember()
 	{
-		$username = Sanitize::html($username);
-		$token = Sanitize::html($token);
-
-		$username = trim($username);
-		$token = trim($token);
-
-		if(empty($username) || empty($token)) {
-			Log::set(__METHOD__.LOG_SEP.'Username or Token-email empty. Username: '.$username.' - Token-email: '.$token);
+		if (!Cookie::isset(REMEMBER_COOKIE_USERNAME) || !Cookie::isset(REMEMBER_COOKIE_TOKEN)) {
 			return false;
 		}
 
+		$username 	= Cookie::get(REMEMBER_COOKIE_USERNAME);
+		$token 		= Cookie::get(REMEMBER_COOKIE_TOKEN);
+
+		$username 	= Sanitize::html($username);
+		$token 		= Sanitize::html($token);
+
+		$username 	= trim($username);
+		$token 		= trim($token);
+
+		if (empty($username) || empty($token)) {
+			$this->invalidateRememberMe();
+			Log::set(__METHOD__.LOG_SEP.'Username or Token empty. Username: '.$username.' - Token: '.$token);
+			return false;
+		}
+
+		if ($username !== $this->dbUsers->getByRememberToken($token)) {
+			$this->invalidateRememberMe();
+			Log::set(__METHOD__.LOG_SEP.'The user has different token or the token doesn\'t exist.');
+			return false;
+		}
+
+		// Validate user and login
 		$user = $this->dbUsers->getDb($username);
-		if($user==false) {
-			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
-			return false;
-		}
-
-		$currentTime = Date::current(DB_DATE_FORMAT);
-		if($user['tokenEmailTTL']<$currentTime) {
-			Log::set(__METHOD__.LOG_SEP.'Token-email expired: '.$username);
-			return false;
-		}
-
-		if($token === $user['tokenEmail'])
-		{
-			// Set the user loggued.
-			$this->setLogin($username, $user['role']);
-
-			// Invalidate the current token.
-			$this->dbUsers->setTokenEmail($username);
-
-			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by Token-email - Username: '.$username);
-
-			return true;
-		}
-		else {
-			Log::set(__METHOD__.LOG_SEP.'Token-email incorrect.');
-		}
-
-		return false;
+		$this->setLogin($username, $user['role']);
+		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
+		return true;
 	}
 
 	public function fingerPrint()
 	{
-		// User agent
 		$agent = getenv('HTTP_USER_AGENT');
 		if (empty($agent)) {
 			$agent = 'Bludit/2.0 (Mr Nibbler Protocol)';
 		}
-
 		return sha1($agent);
 	}
 
 	public function logout()
 	{
-		return Session::destroy();
+		$this->invalidateRememberMe();
+		Session::destroy();
+		return true;
 	}
-
 }

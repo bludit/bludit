@@ -110,6 +110,11 @@ define('CLI_STATUS', 'published');
 // Cli mode, username for new pages
 define('CLI_USERNAME', 'admin');
 
+// Remember me
+define('REMEMBER_COOKIE_USERNAME', 'BLUDITREMEMBERUSERNAME');
+define('REMEMBER_COOKIE_TOKEN', 'BLUDITREMEMBERTOKEN');
+define('REMEMBER_COOKIE_EXPIRE_IN_DAYS', 30);
+
 // Filename
 define('FILENAME', 'index.txt');
 
@@ -202,6 +207,7 @@ include(PATH_HELPERS.'paginator.class.php');
 include(PATH_HELPERS.'image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
 include(PATH_HELPERS.'dom.class.php');
+include(PATH_HELPERS.'cookie.class.php');
 
 if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 	include(PATH_KERNEL.'bludit.pro.php');

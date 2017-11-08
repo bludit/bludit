@@ -13,6 +13,10 @@
 	</div>
 
 	<div class="uk-form-row">
+	<label><input type="checkbox" name="remember"> Remember me</label>
+	</div>
+
+	<div class="uk-form-row">
 	<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Login') ?></button>
 	</div>
 

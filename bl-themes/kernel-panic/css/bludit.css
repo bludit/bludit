@@ -37,7 +37,7 @@ h2 {
 }
 /* PAGES */
 
-article.page:not(:last-child) {
+article.page {
 	margin-bottom: 100px;
 }
 
