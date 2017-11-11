@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		deleteCategory($_POST['categoryKey']);
 	}
 	elseif (isset($_POST['edit'])) {
-		editCategory($_POST['categoryKey'], $_POST['category']);
+		editCategory($_POST['categoryKey'], $_POST['category'], $_POST['categoryDescription']);
 	}
 
 	Redirect::page('categories');

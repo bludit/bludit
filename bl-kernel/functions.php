@@ -662,7 +662,7 @@ function createCategory($category) {
 	return false;
 }
 
-function editCategory($oldCategoryKey, $newCategory) {
+function editCategory($oldCategoryKey, $newCategory, $newDescription) {
 	global $Language;
 	global $dbPages;
 	global $dbCategories;
@@ -673,7 +673,8 @@ function editCategory($oldCategoryKey, $newCategory) {
 		return false;
 	}
 
-	if( $dbCategories->edit($oldCategoryKey, $newCategory) == false ) {
+	$properties = array('description' => $newDescription);
+	if( $dbCategories->edit($oldCategoryKey, $newCategory, $properties) == false ) {
 		Alert::set($Language->g('Already exist a category'));
 		return false;
 	}
