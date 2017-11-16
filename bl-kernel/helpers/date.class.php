@@ -28,7 +28,7 @@ class Date {
 		// Returns a new DateTime instance or FALSE on failure.
 		$Date = DateTime::createFromFormat($currentFormat, $date);
 
-		if($Date!==false) {
+		if ($Date!==false) {
 			return $Date->format($outputFormat);
 		}
 
