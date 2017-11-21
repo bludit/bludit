@@ -5,8 +5,8 @@ class pluginGoogle extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'google-analytics-tracking-id'=>'',
-			'google-site-verification'=>'',
+			'google-site-verification'=>''
+			'google-analytics-tracking-id'=>'',,
 			'google-tag-manager'=>''
 		);
 	}
@@ -16,14 +16,14 @@ class pluginGoogle extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label for="jsgoogle-site-verification">'.$Language->get('Google Webmasters tools').'</label>';
-		$html .= '<input id="jsgoogle-site-verification" type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
+		$html .= '<label>'.$Language->get('Google Webmasters tools').'</label>';
+		$html .= '<input type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
 		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-google-site-verification').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label for="jstracking-id">'.$Language->get('Google Analytics Tracking ID').'</label>';
-		$html .= '<input id="jsgoogle-analytics-tracking-id" type="text" name="google-analytics-tracking-id" value="'.$this->getDbField('google-analytics-tracking-id').'">';
+		$html .= '<label>'.$Language->get('Google Analytics Tracking ID').'</label>';
+		$html .= '<input type="text" name="google-analytics-tracking-id" value="'.$this->getDbField('google-analytics-tracking-id').'">';
 		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-tracking-id').'</span>';
 		$html .= '</div>';
 
@@ -39,12 +39,11 @@ class pluginGoogle extends Plugin {
 	public function siteHead()
 	{
 		global $Url;
-		global $WHERE_AM_I;
 
 		$html = '';
 
 		// Google HTML tag
-		if ($this->getValue('google-site-verification') && ($WHERE_AM_I=='home')) {
+		if( $this->getValue('google-site-verification') && $Url->whereAmI()=='home' ) {
 			$html .= PHP_EOL.'<!-- Google HTML tag -->'.PHP_EOL;
 			$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'" />'.PHP_EOL;
 		}
@@ -61,8 +60,8 @@ class pluginGoogle extends Plugin {
 		}
 
 		// Google Analytics
-		if ($this->getValue('google-analytics-tracking-id')) {
-			$html  = PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
+		if( $this->getValue('google-analytics-tracking-id') ) {
+			$html .= PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
 			$html .= '
 			<script async src="https://www.googletagmanager.com/gtag/js?id='.$this->getValue('google-analytics-tracking-id').'"></script>
 			<script>
