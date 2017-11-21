@@ -5,8 +5,8 @@ class pluginGoogle extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'google-site-verification'=>''
-			'google-analytics-tracking-id'=>'',,
+			'google-site-verification'=>'',
+			'google-analytics-tracking-id'=>'',
 			'google-tag-manager'=>''
 		);
 	}
