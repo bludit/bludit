@@ -44,7 +44,7 @@ class pluginGoogle extends Plugin {
 
                 // Google HTML tag
                 if( $this->getValue('google-site-verification') && $Url->whereAmI()=='home' ) {
-                        $html .= PHP_EOL."<!-- Google HTML tag -->";
+                        $html .= PHP_EOL."<!-- Google HTML tag -->".PHP_EOL;
                         $html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'" />'.PHP_EOL;
                 }
 
