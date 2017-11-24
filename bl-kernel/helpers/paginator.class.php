@@ -107,7 +107,7 @@ class Paginator {
 		if(self::get('showNext'))
 		{
 			if($textPrevPage===false) {
-				$textPrevPage = '« '.$Language->g('Prev page');
+				$textPrevPage = '« '.$Language->g('Previous page');
 			}
 
 			$html .= '<li class="left">';
