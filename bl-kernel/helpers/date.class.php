@@ -35,6 +35,13 @@ class Date {
 		return false;
 	}
 
+	public static function convertToUTC($date, $currentFormat, $outputFormat)
+	{
+		$Date = DateTime::createFromFormat($currentFormat, $date);
+		$Date->setTimezone(new DateTimeZone('UTC'));
+		return $Date->format($outputFormat);
+	}
+
 	public static function timeago($time)
 	{
 		$time = time() - $time;

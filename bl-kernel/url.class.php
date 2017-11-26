@@ -155,12 +155,12 @@ class Url
 		return 1;
 	}
 
-	public function setNotFound()
+	public function setNotFound($notFound=true, $httpCode=404, $httpMessage='Not Found')
 	{
 		$this->setWhereAmI('page');
-		$this->notFound = true;
-		$this->httpCode = 404;
-		$this->httpMessage = 'Not Found';
+		$this->notFound = $notFound;
+		$this->httpCode = $httpCode;
+		$this->httpMessage = $httpMessage;
 	}
 
 	public function httpCode()
