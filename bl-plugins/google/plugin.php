@@ -16,14 +16,14 @@ class pluginGoogle extends Plugin {
 		global $Language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Google Webmasters tools').'</label>';
-		$html .= '<input type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
+		$html .= '<label for="jsgoogle-site-verification">'.$Language->get('Google Webmasters tools').'</label>';
+		$html .= '<input id="jsgoogle-site-verification" type="text" name="google-site-verification" value="'.$this->getDbField('google-site-verification').'">';
 		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-google-site-verification').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Google Analytics Tracking ID').'</label>';
-		$html .= '<input type="text" name="google-analytics-tracking-id" value="'.$this->getDbField('google-analytics-tracking-id').'">';
+		$html .= '<label for="jstracking-id">'.$Language->get('Google Analytics Tracking ID').'</label>';
+		$html .= '<input id="jstracking-id" type="text" name="google-analytics-tracking-id" value="'.$this->getDbField('google-analytics-tracking-id').'">';
 		$html .= '<span class="tip">'.$Language->get('complete-this-field-with-the-tracking-id').'</span>';
 		$html .= '</div>';
 
