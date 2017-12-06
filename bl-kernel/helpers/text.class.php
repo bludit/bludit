@@ -234,7 +234,9 @@ class Text {
 	public static function pre2htmlentities($string)
 	{
 		return preg_replace_callback('/<pre.*?><code(.*?)>(.*?)<\/code><\/pre>/imsu',
-			create_function('$input', 'return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";'),
+		        function ($input) {
+                                return "<pre><code $input[1]>".htmlentities($input[2])."</code></pre>";
+                        },
 			$string);
 	}
 
