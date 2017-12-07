@@ -12,7 +12,11 @@ class Filesystem {
 		}
 
 		if($sortByDate) {
-			usort($directories, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
+			usort($directories, 
+			      function($a, $b) {
+				      return filemtime($b) - filemtime($a);
+			      }
+			);
 		}
 
 		return $directories;
@@ -27,7 +31,11 @@ class Filesystem {
 		}
 
 		if ($sortByDate) {
-			usort($files, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
+			usort($files, 
+				function($a, $b) {
+					return filemtime($b) - filemtime($a);
+				}
+			);
 		}
 
 		return $files;
