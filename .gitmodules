@@ -1,3 +1,6 @@
 [submodule "bl-themes/clean-blog"]
 	path = bl-themes/clean-blog
 	url = git@github.com:bludit-themes/clean-blog.git
+[submodule "bl-themes/kernel-panic"]
+	path = bl-themes/kernel-panic
+	url = git@github.com:bludit-themes/kernel-panic.git
