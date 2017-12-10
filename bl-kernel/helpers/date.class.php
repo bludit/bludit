@@ -12,14 +12,18 @@ class Date {
 	public static function current($format)
 	{
 		$Date = new DateTime();
-		return $Date->format($format);
+		$output = $Date->format($format);
+
+		return Self::translate($output);
 	}
 
 	public static function currentOffset($format, $offset)
 	{
 		$Date = new DateTime();
 		$Date->modify($offset);
-		return $Date->format($format);
+		$output = $Date->format($format);
+
+		return Self::translate($output);
 	}
 
 	// Format a local time/date according to locale settings.
@@ -29,7 +33,8 @@ class Date {
 		$Date = DateTime::createFromFormat($currentFormat, $date);
 
 		if ($Date!==false) {
-			return $Date->format($outputFormat);
+			$output = $Date->format($outputFormat);
+			return Self::translate($output);
 		}
 
 		return false;
@@ -39,7 +44,22 @@ class Date {
 	{
 		$Date = DateTime::createFromFormat($currentFormat, $date);
 		$Date->setTimezone(new DateTimeZone('UTC'));
-		return $Date->format($outputFormat);
+		$output = $Date->format($outputFormat);
+
+		return Self::translate($output);
+	}
+
+	public static function translate($date)
+	{
+		global $Language;
+
+		// If English default language don't translate
+		if ($Language->currentLanguage()=='en') {
+			return $date;
+		}
+
+		$dates = $Language->getDates();
+		return str_replace(array_keys($dates), array_values($dates), $date);
 	}
 
 	public static function timeago($time)

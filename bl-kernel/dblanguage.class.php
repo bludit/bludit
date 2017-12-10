@@ -5,6 +5,7 @@ class dbLanguage extends dbJSON
 	public $data;
 	public $db;
 	public $currentLanguage;
+	public $dates;
 
 	function __construct($currentLanguage)
 	{
@@ -30,6 +31,10 @@ class dbLanguage extends dbJSON
 		// Language-data
 		$this->data = $this->db['language-data'];
 		unset($this->db['language-data']);
+
+		// Dates
+		$this->dates = $this->db['dates'];
+		unset($this->db['dates']);
 	}
 
 	public function locale()
@@ -113,5 +118,11 @@ class dbLanguage extends dbJSON
 			}
 		}
 		return $tmp;
+	}
+
+	// Returns array with all the dates and months
+	public function getDates()
+	{
+		return $this->dates;
 	}
 }
