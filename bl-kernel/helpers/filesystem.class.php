@@ -24,7 +24,7 @@ class Filesystem {
 
 	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false)
 	{
-		$files = glob($path.$regex.'.'.$extension);
+		$files = glob($path.$regex.'.'.$extension,GLOB_BRACE);
 
 		if (empty($files)) {
 			return array();

@@ -15,7 +15,7 @@ $filename = Text::replace(' ', '', $filename);
 $filename = Text::replace('_', '', $filename);
 
 // Check extension
-$validExtension = array('tiff', 'gif', 'png', 'jpg', 'jpeg', 'bmp', 'svg');
+$validExtension = explode(',',ALLOWED_EXTENSIONS_IMAGES.ALLOWED_EXTENSIONS_FILES);
 if (!in_array($fileExtension, $validExtension)) {
 	$validExtensionString = implode(',', $validExtension);
 	exit (json_encode(array(
@@ -58,6 +58,16 @@ if ($type=='profilePicture') {
 	$absoluteURLThumbnail = '';
 	$absolutePath = PATH_UPLOADS_PROFILES.$tmpName;
 }
+// --- FILES ---
+else if ($type=='bludit-files-v8') {
+	// Move the original to the upload folder
+	rename($originalFile, PATH_UPLOADS.$tmpName);
+
+	// Paths
+	$absoluteURL = DOMAIN_UPLOADS.$tmpName;
+	$absoluteURLThumbnail = '';
+	$absolutePath = PATH_UPLOADS.$tmpName;
+}
 // --- OTHERS ---
 else {
 	// Exclude generate thumbnail for SVG format
@@ -89,7 +99,7 @@ if (Sanitize::pathFile($originalFile)) {
 
 exit (json_encode(array(
 	'status'=>0,
-	'message'=>'Image uploaded success.',
+	'message'=>'File uploaded success.',
 	'filename'=>$tmpName,
 	'absoluteURL'=>$absoluteURL,
 	'absoluteURLThumbnail'=>$absoluteURLThumbnail,

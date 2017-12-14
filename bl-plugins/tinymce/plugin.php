@@ -26,6 +26,10 @@ class pluginTinymce extends Plugin {
 				tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"'.$Language->get('Image description').'\">" + "\n");
 			}
 
+			function editorAddLink(filename) {
+				tinymce.activeEditor.insertContent("<a href=\""+HTML_PATH_UPLOADS+filename+"\">"+filename+"</a>" + "\n");
+			}
+
 			tinymce.init({
 				selector: "#jscontent",
 				theme: "modern",

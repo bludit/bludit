@@ -30,7 +30,7 @@ $(document).ready(function() {
 	{
 		type: "json",
 		action: HTML_PATH_ADMIN_ROOT+"ajax/uploader",
-		allow : "*.(jpg|jpeg|gif|png)",
+		allow : "*.("+ALLOWED_EXTENSIONS_IMAGES+")",
 		params: {"tokenCSRF":tokenCSRF, "type":"bludit-images-v8"},
 
 		loadstart: function() {

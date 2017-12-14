@@ -589,6 +589,116 @@ table.statistics tr:last-child td {
 
 }
 
+/* ----------- BLUDIT FILES V8 ----------- */
+#bludit-files-v8 {
+
+}
+
+#bludit-files-v8-upload {
+	width: 100%;
+	padding: 0;
+	margin-bottom: 15px !important;
+}
+
+#bludit-files-v8-drag-drop {
+	padding: 20px;
+}
+
+#bludit-files-v8-progressbar {
+	display: none;
+	margin: 20px;
+}
+
+#bludit-files-v8-thumbnails {
+	max-height: 350px;
+	overflow: auto;
+	font-size: 0;
+}
+
+#bludit-files-v8-items .bludit-file-item {
+	width: 49% !important;
+}
+
+/* Bludit File Menu v8 */
+
+#bludit-filemenuV8 {
+	display: none;
+	z-index: 1020;
+	position: absolute;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	background: #FFF;
+	color: #333;
+	border-radius: 2px;
+	list-style-type: none;
+	padding: 5px;
+	margin: 0;
+}
+
+#bludit-filemenuV8 li {
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+#bludit-filemenuV8 li:hover {
+	background-color: #2672ec;
+	color: #fff;
+}
+
+#bludit-filemenuV8 li i {
+	margin-right: 10px;
+}
+
+/* ----------- BLUDIT QUICK FILES ----------- */
+#bludit-quick-files {
+
+}
+
+#bludit-quick-files a.moreFiles {
+	margin: 15px 0 0;
+	width: 100%;
+	background: #F5F5F5 !important;
+	color: #555;
+}
+
+#bludit-quick-files h4.label {
+	background: #f8f8f8;
+	color: #aaa;
+	padding: 2px 5px;
+	font-size: 0.9em;
+}
+
+#bludit-quick-files-items {
+	font-size: auto;
+}
+
+#bludit-quick-files-items .bludit-file-item {
+	width: 100%;
+}
+
+/* ----------- BLUDIT FILE ITEMS  ----------- */
+.bludit-file-item {
+	border: 1px solid white;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 4px 2px;
+	cursor: default;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	white-space: nowrap;
+}
+
+.bludit-file-item:hover {
+	border: 1px solid #ddd;
+}
+
+.bludit-border-active {
+	border: solid 3px orange !important;
+}
+
 /* ----------- BLUDIT PROFILE PICTURE ----------- */
 
 #bludit-profile-picture-drag-drop {

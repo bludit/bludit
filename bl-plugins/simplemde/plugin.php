@@ -109,6 +109,11 @@ class pluginsimpleMDE extends Plugin {
 					addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
 				}'.PHP_EOL;
 
+			// This function is necesary on each Editor, it is used by Bludit Files v8.
+			$html .= 'function editorAddLink(filename) {
+					addContentSimpleMDE("["+filename+"]("+HTML_PATH_UPLOADS+filename+")");
+				}'.PHP_EOL;
+
 			$html .= '$(document).ready(function() { '.PHP_EOL;
 			$html .= 'simplemde = new SimpleMDE({
 					element: document.getElementById("jscontent"),

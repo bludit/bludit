@@ -4,3 +4,4 @@ bl-plugins/timemachine
 bl-plugins/remote-content
 bl-kernel/bludit.pro.php
 bl-themes/docs
+*.geany
