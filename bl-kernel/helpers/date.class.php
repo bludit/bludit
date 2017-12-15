@@ -2,6 +2,21 @@
 
 class Date {
 
+	// Returns string with the date translated
+	// Example: $date = 'Mon, 27th March' > 'Lun, 27th Marzo'
+	public static function translate($date)
+	{
+		global $Language;
+
+		// If English default language don't translate
+		if ($Language->currentLanguage()=='en') {
+			return $date;
+		}
+
+		$dates = $Language->getDates();
+		return str_replace(array_keys($dates), array_values($dates), $date);
+	}
+
 	// Return current Unix timestamp, GMT+0
 	public static function unixTime()
 	{
@@ -14,7 +29,7 @@ class Date {
 		$Date = new DateTime();
 		$output = $Date->format($format);
 
-		return Self::translate($output);
+		return self::translate($output);
 	}
 
 	public static function currentOffset($format, $offset)
@@ -23,7 +38,7 @@ class Date {
 		$Date->modify($offset);
 		$output = $Date->format($format);
 
-		return Self::translate($output);
+		return self::translate($output);
 	}
 
 	// Format a local time/date according to locale settings.
@@ -34,7 +49,7 @@ class Date {
 
 		if ($Date!==false) {
 			$output = $Date->format($outputFormat);
-			return Self::translate($output);
+			return self::translate($output);
 		}
 
 		return false;
@@ -46,20 +61,7 @@ class Date {
 		$Date->setTimezone(new DateTimeZone('UTC'));
 		$output = $Date->format($outputFormat);
 
-		return Self::translate($output);
-	}
-
-	public static function translate($date)
-	{
-		global $Language;
-
-		// If English default language don't translate
-		if ($Language->currentLanguage()=='en') {
-			return $date;
-		}
-
-		$dates = $Language->getDates();
-		return str_replace(array_keys($dates), array_values($dates), $date);
+		return self::translate($output);
 	}
 
 	public static function timeago($time)

@@ -21,9 +21,9 @@ class Cookie {
 		setcookie($key, $value, $expire);
 	}
 
-	public static function isset($key)
+	public static function isEmpty($key)
 	{
-		return isset($_COOKIE[$key]);
+		return empty($_COOKIE[$key]);
 	}
 
 }
