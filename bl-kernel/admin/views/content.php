@@ -48,18 +48,20 @@ function table($status, $icon='arrow-circle-o-down') {
 
 	foreach($list as $pageKey=>$fields) {
 		$page = buildPage($pageKey);
-		echo '<tr>';
-		echo '<td>
-			<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-			.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
-			.'</a>
-		</td>';
+		if ($page) {
+			echo '<tr>';
+			echo '<td>
+				<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
+				.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+				.'</a>
+			</td>';
 
-		echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
+			echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
 
-		$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
-		echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-		echo '</tr>';
+			$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+			echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+			echo '</tr>';
+		}
 	}
 }
 

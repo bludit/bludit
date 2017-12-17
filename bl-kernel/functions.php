@@ -167,7 +167,6 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 }
 
 // Generate the global variable $pagesByParent, defined on 69.pages.php
-// (boolean) $allPages, TRUE include all status, FALSE only include published status
 function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	global $dbPages;
 	global $pagesByParent;
@@ -387,7 +386,7 @@ function editPage($args) {
 	}
 
 	// External Cover Image
-	if ( !empty($args['externalCoverImage']) ) {
+	if (!empty($args['externalCoverImage'])) {
 		$args['coverImage'] = $args['externalCoverImage'];
 		unset($args['externalCoverImage']);
 	}

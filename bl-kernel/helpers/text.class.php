@@ -151,6 +151,7 @@ class Text {
 	}
 
 	// Replace all occurrences of the search string with the replacement string.
+	// replace("%body%", "black", "<body text='%body%'>");
 	public static function replace($search, $replace, $string)
 	{
 		return str_replace($search,$replace,$string);
