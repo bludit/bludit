@@ -87,6 +87,8 @@ include(PATH_KERNEL.'dbsite.class.php');
 include(PATH_KERNEL.'dbcategories.class.php');
 include(PATH_KERNEL.'dbsyslog.class.php');
 include(PATH_KERNEL.'page.class.php');
+include(PATH_KERNEL.'category.class.php');
+include(PATH_KERNEL.'tag.class.php');
 include(PATH_KERNEL.'user.class.php');
 include(PATH_KERNEL.'url.class.php');
 include(PATH_KERNEL.'login.class.php');

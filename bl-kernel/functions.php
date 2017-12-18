@@ -705,6 +705,41 @@ function deleteCategory($categoryKey) {
 	return true;
 }
 
+// Returns an array with all the categories
+// By default, the database of categories is alphanumeric sorted
+function getCategories() {
+	global $dbCategories;
+
+	$list = array();
+	foreach ($dbCategories->db as $key=>$fields) {
+		$category = new Category($key);
+		array_push($list, $category);
+	}
+	return $list;
+}
+
+// Returns the object category if the category exists, FALSE otherwise
+function getCategory($key) {
+	$category = new Category($key);
+	if (!$category->isValid()) {
+		return false;
+	}
+	return $category;
+}
+
+// Returns an array with all the tags
+// By default, the database of tags is alphanumeric sorted
+function getTags() {
+	global $dbTags;
+
+	$list = array();
+	foreach ($dbTags->db as $key=>$fields) {
+		$tag = new Tag($key);
+		array_push($list, $tag);
+	}
+	return $list;
+}
+
 function activateTheme($themeDirectory) {
 	global $Site;
 	global $Syslog;
