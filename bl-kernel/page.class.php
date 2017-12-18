@@ -440,7 +440,17 @@ class Page {
 
 		return $tmp;
 	}
+	public function subpages()
+	{
+		return $this->children();
+	}
 
+	// Returns TRUE if the page has subpages/children, FALSE otherwise
+	public function hasSubpages()
+	{
+		$subpages = $this->subpages();
+		return !empty($subpages);
+	}
 
 
 	// Returns relative time (e.g. "1 minute ago")
