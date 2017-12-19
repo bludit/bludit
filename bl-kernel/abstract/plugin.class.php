@@ -86,7 +86,7 @@ class Plugin {
 	{
 		$tmp = new dbJSON($this->filenameDb);
 		$tmp->db = $this->db;
-		$tmp->save();
+		return $tmp->save();
 	}
 
 	public function htmlPath()
@@ -275,7 +275,6 @@ class Plugin {
 				$this->db[$key] = $value;
 			}
 		}
-
 		return $this->save();
 	}
 
