@@ -19,9 +19,7 @@ class dbPages extends dbJSON
 		'category'=>		array('inFile'=>false,	'value'=>''),
 		'md5file'=>		array('inFile'=>false,	'value'=>''),
 		'uuid'=>		array('inFile'=>false,	'value'=>''),
-		'allowComments'=>	array('inFile'=>false,	'value'=>true),
-		'parent'=>		array('inFile'=>false,	'value'=>''),
-		'slug'=>		array('inFile'=>false,	'value'=>'')
+		'allowComments'=>	array('inFile'=>false,	'value'=>true)
 	);
 
 	function __construct()
@@ -59,6 +57,11 @@ class dbPages extends dbJSON
 		if (empty($args['title']) || empty($args['slug'])) {
 			$tmpslug = Text::removeHTMLTags($args['content']);
 			$args['slug'] = Text::truncate($tmpslug, 60, '');
+		}
+
+		// Parent
+		if (!isset($args['parent'])) {
+			$args['parent'] = '';
 		}
 
 		// Generate key
@@ -156,6 +159,11 @@ class dbPages extends dbJSON
 			$args[$field] = $value;
 		}
 
+		// Parent
+		if (!isset($args['parent'])) {
+			$args['parent'] = '';
+		}
+
 		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
 
 		// If the page is draft then the created time is the current
@@ -213,6 +221,9 @@ class dbPages extends dbJSON
 		// Remove the old key
 		unset( $this->db[$args['key']] );
 
+		// Reindex Orphan Children
+		$this->reindexChildren($args['key'], $newKey);
+
 		// Checksum MD5
 		$dataForDb['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
 
@@ -226,6 +237,19 @@ class dbPages extends dbJSON
 		$this->save();
 
 		return $newKey;
+	}
+
+	// This function reindex the orphan children with the new parent key
+	// If a page has subpages and the page change his key is necesarry check the children key
+	public function reindexChildren($oldParentKey, $newParentKey) {
+		$tmp = $this->db;
+		foreach ($tmp as $key=>$fields) {
+			if (Text::startsWith($key, $oldParentKey.'/')) {
+				$newKey = Text::replace($oldParentKey.'/', $newParentKey.'/', $key);
+				$this->db[$newKey] = $this->db[$key];
+				unset($this->db[$key]);
+			}
+		}
 	}
 
 	public function delete($key)

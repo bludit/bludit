@@ -118,7 +118,7 @@ class Login {
 	// Check if the user has the cookies and the correct token
 	public function verifyUserByRemember()
 	{
-		if (!Cookie::isset(REMEMBER_COOKIE_USERNAME) || !Cookie::isset(REMEMBER_COOKIE_TOKEN)) {
+		if (Cookie::isEmpty(REMEMBER_COOKIE_USERNAME) || Cookie::isEmpty(REMEMBER_COOKIE_TOKEN)) {
 			return false;
 		}
 

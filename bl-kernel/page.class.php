@@ -399,7 +399,7 @@ class Page {
 		$explode = explode('/', $this->getValue('key'));
 
 		// Check if the page have a parent.
-		if(!empty($explode[1])) {
+		if (!empty($explode[1])) {
 			return $explode[1];
 		}
 
@@ -410,7 +410,7 @@ class Page {
 	public function parentKey()
 	{
 		$explode = explode('/', $this->getValue('key'));
-		if(isset($explode[1])) {
+		if (isset($explode[1])) {
 			return $explode[0];
 		}
 
@@ -421,7 +421,7 @@ class Page {
 	public function parentMethod($method)
 	{
 		$parentKey = $this->parentKey();
-		if( $parentKey ) {
+		if ($parentKey) {
 			$page = buildPage($parentKey);
 			return $page->{$method}();
 		}
@@ -434,13 +434,23 @@ class Page {
 	{
 		$tmp = array();
 		$paths = Filesystem::listDirectories(PATH_PAGES.$this->getValue('key').DS);
-		foreach($paths as $path) {
+		foreach ($paths as $path) {
 			array_push($tmp, basename($path));
 		}
 
 		return $tmp;
 	}
+	public function subpages()
+	{
+		return $this->children();
+	}
 
+	// Returns TRUE if the page has subpages/children, FALSE otherwise
+	public function hasSubpages()
+	{
+		$subpages = $this->subpages();
+		return !empty($subpages);
+	}
 
 
 	// Returns relative time (e.g. "1 minute ago")
