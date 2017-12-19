@@ -417,6 +417,12 @@ class Page {
 		return false;
 	}
 
+	// Returns TURE if the page has a parent, FALSE otherwise
+	public function hasParent()
+	{
+		return $this->parentKey()!==false;
+	}
+
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
