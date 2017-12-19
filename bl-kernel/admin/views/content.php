@@ -56,7 +56,7 @@ function table($status, $icon='arrow-circle-o-down') {
 				.'</a>
 			</td>';
 
-			echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw() : $page->position() ).'</td>';
+			echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw(ADMIN_PANEL_DATE_FORMAT) : $page->position() ).'</td>';
 
 			$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
 			echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';

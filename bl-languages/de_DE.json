@@ -3,12 +3,14 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2017-10-29",
-        "author": "Clickwork",
-        "email": "egoetschel@clickwork.ch",
-        "website": "https:\/\/clickwork.ch"
+        "last-update": "2017-12-20",
+        "authors": {
+		"0": "Clickwork https://clickwork.ch",
+		"1": "blog2read https://github.com/blog2read",
+		"2": ""
+	}
     },
-	 "dates": {
+    "dates": {
 	"Mon": "Mo",
 	"Tue": "Di",
 	"Wed": "Mi",

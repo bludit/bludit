@@ -3,10 +3,12 @@
         "native": "Español",
         "english-name": "Spanish",
         "locale": "es, es_ES, es_AR, es_MX",
-        "last-update": "2017-10-14",
-        "author": "Bludit",
-        "email": "",
-        "website": "https://www.bludit.com"
+        "last-update": "2017-12-20",
+        "authors": {
+		"0": "Diego @dignajar",
+		"1": "",
+		"2": ""
+	}
     },
     "dates": {
 	"Mon": "Lun",
@@ -271,5 +273,6 @@
     "scheduled": "Programado",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Este token es similar a una contraseña, no debe compartirse.",
     "congratulations-you-have-successfully-installed-your-bludit": "Felicitaciones Usted ha instalado con éxito **Bludit**",
-    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Este tema puede no ser compatible con esta versión de Bludit"
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Este tema puede no ser compatible con esta versión de Bludit",
+    "read-more": "Leer más"
 }

@@ -68,6 +68,9 @@ define('BACKUP_DATE_FORMAT', 'Y-m-d-H-i-s');
 // Sitemap date format
 define('SITEMAP_DATE_FORMAT', 'Y-m-d');
 
+// Date format for Manage Content, Manage Users
+define('ADMIN_PANEL_DATE_FORMAT', 'D, j M Y, H:i');
+
 // Date format for Dashboard schedule posts
 define('SCHEDULED_DATE_FORMAT', 'D, j M Y, H:i');
 

@@ -2,5 +2,6 @@
 bl-content/*
 bl-plugins/timemachine
 bl-plugins/remote-content
+bl-plugins/simple-stats
 bl-kernel/bludit.pro.php
 bl-themes/docs

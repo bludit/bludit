@@ -3,10 +3,12 @@
         "native": "English",
         "english-name": "English",
         "locale": "en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ",
-        "last-update": "2017-10-14",
-        "author": "Bludit",
-        "email": "",
-	"website": "https://www.bludit.com"
+        "last-update": "2017-12-20",
+        "authors": {
+		"0": "Diego @dignajar",
+		"1": "Clickwork https://clickwork.ch",
+		"2": "xm74"
+	}
     },
     "dates": {
 	"Mon": "Mon",
