@@ -98,24 +98,15 @@
 
 	<div class="uk-width-1-3">
 
-		<div class="uk-panel">
-		<h4 class="panel-title"><?php $L->p('Scheduled content') ?></h4>
-		<ul class="uk-list">
-		<?php
-			$scheduledPages = $dbPages->getScheduledDB();
-			if( empty($scheduledPages) ) {
-				echo '<li>'.$Language->g('There are no scheduled content').'</li>';
-			}
-			else {
-				$keys = array_keys($scheduledPages);
-				foreach($keys as $key) {
-					$page = buildPage($key);
-					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
-				}
-			}
+		<?php if (pluginEnabled('SimpleStats')) {
+			$SimpleStats = getPlugin('SimpleStats');
+			echo '<div class="uk-panel">';
+			echo '<h4 class="panel-title">'.$SimpleStats->getValue('label').'</h4>';
+			echo $SimpleStats->dashboard();
+			echo '</div>';
+		}
 		?>
-		</ul>
-		</div>
+
 
 		<div class="uk-panel">
 		<h4 class="panel-title"><?php $L->p('Statistics') ?></h4>
@@ -139,6 +130,25 @@
 	</div>
 
 	<div class="uk-width-1-3">
+
+		<div class="uk-panel">
+		<h4 class="panel-title"><?php $L->p('Scheduled content') ?></h4>
+		<ul class="uk-list">
+		<?php
+			$scheduledPages = $dbPages->getScheduledDB();
+			if( empty($scheduledPages) ) {
+				echo '<li>'.$Language->g('There are no scheduled content').'</li>';
+			}
+			else {
+				$keys = array_keys($scheduledPages);
+				foreach($keys as $key) {
+					$page = buildPage($key);
+					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
+				}
+			}
+		?>
+		</ul>
+		</div>
 
 		<div class="uk-panel">
 		<h4 class="panel-title"><?php $L->p('Draft content') ?></h4>

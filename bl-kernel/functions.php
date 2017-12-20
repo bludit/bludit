@@ -251,6 +251,16 @@ function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true
 	return $tmp;
 }
 
+function getPlugin($pluginName) {
+	global $plugins;
+
+	if (pluginEnabled($pluginName)) {
+		$pluginClass = 'plugin'.Text::firstCharUp($pluginName);
+		return $plugins['all'][$pluginClass];
+	}
+	return false;
+}
+
 // Returns TRUE if the plugin is enabled, FALSE otherwise
 function pluginEnabled($pluginName) {
 	global $plugins;
