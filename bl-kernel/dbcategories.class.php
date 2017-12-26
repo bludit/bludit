@@ -17,17 +17,17 @@ class dbCategories extends dbList
 		global $dbPages;
 
 		// Foreach category
-		foreach( $this->db as $key=>$value ) {
+		foreach ($this->db as $key=>$value) {
 			$this->db[$key]['list'] = array();
 		}
 
 		// Get a database with published pages
-		$db = $dbPages->getPublishedDB();
+		$db = $dbPages->getPublishedDB(false);
 
-		foreach($db as $pageKey=>$pageFields) {
-			if( !empty($pageFields['category']) ) {
+		foreach ($db as $pageKey=>$pageFields) {
+			if (!empty($pageFields['category'])) {
 				$categoryKey = $pageFields['category'];
-				if( isset($this->db[$categoryKey]['list']) ) {
+				if (isset($this->db[$categoryKey]['list'])) {
 					array_push($this->db[$categoryKey]['list'], $pageKey);
 				}
 			}

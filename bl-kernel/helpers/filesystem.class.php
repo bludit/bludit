@@ -12,7 +12,7 @@ class Filesystem {
 		}
 
 		if($sortByDate) {
-			usort($directories, 
+			usort($directories,
 			      function($a, $b) {
 				      return filemtime($b) - filemtime($a);
 			      }
@@ -22,6 +22,8 @@ class Filesystem {
 		return $directories;
 	}
 
+	// Returns an array with the list of files with the absolute path
+	// $sortByDate = TRUE, the first file is the newer file
 	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false)
 	{
 		$files = glob($path.$regex.'.'.$extension);
@@ -31,7 +33,7 @@ class Filesystem {
 		}
 
 		if ($sortByDate) {
-			usort($files, 
+			usort($files,
 				function($a, $b) {
 					return filemtime($b) - filemtime($a);
 				}

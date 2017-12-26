@@ -292,8 +292,8 @@ class dbPages extends dbJSON
 		return false;
 	}
 
-	// Returns a database with published pages
-	public function getPublishedDB($onlyKeys=false)
+	// Returns a database with published pages keys
+	public function getPublishedDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -309,7 +309,7 @@ class dbPages extends dbJSON
 
 	// Returns an array with a list of keys/database of static pages
 	// By default the static pages are sort by position
-	public function getStaticDB($onlyKeys=false)
+	public function getStaticDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -325,7 +325,7 @@ class dbPages extends dbJSON
 	}
 
 	// Returns an array with a list of keys/database of draft pages
-	public function getDraftDB($onlyKeys=false)
+	public function getDraftDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
@@ -340,7 +340,7 @@ class dbPages extends dbJSON
 	}
 
 	// Returns an array with a list of keys/database of scheduled pages
-	public function getScheduledDB($onlyKeys=false)
+	public function getScheduledDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
 		foreach($tmp as $key=>$fields) {
@@ -376,17 +376,17 @@ class dbPages extends dbJSON
 		return ++$tmp;
 	}
 
-	// Returns an array with a list of pages, FALSE if out of range
+	// Returns an array with a list of key of pages, FALSE if out of range
 	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number
 	// (int) $amountOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
 	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
 	{
-		$db = $this->db;
+		$db = array_keys($this->db);
 
 		if ($onlyPublished) {
-			$db = $this->getPublishedDB();
+			$db = $this->getPublishedDB(true);
 		}
 
 		if ($amountOfItems==-1) {
@@ -414,7 +414,7 @@ class dbPages extends dbJSON
 	public function count($onlyPublished=true)
 	{
 		if ($onlyPublished) {
-			$db = $this->getPublishedDB();
+			$db = $this->getPublishedDB(false);
 			return count($db);
 		}
 
@@ -424,11 +424,11 @@ class dbPages extends dbJSON
 	// Returns an array with all parents pages key, a parent page is not a child
 	public function getParents()
 	{
-		$db = $this->getPublishedDB() + $this->getStaticDB();
-		foreach ($db as $key=>$fields) {
+		$db = $this->getPublishedDB(true) + $this->getStaticDB(true);
+		foreach ($db as $pageKey) {
 			// if the key has slash then is a child
-			if (Text::stringContains($key, '/')) {
-				unset($db[$key]);
+			if (Text::stringContains($pageKey, '/')) {
+				unset($db[$pageKey]);
 			}
 		}
 		return $db;

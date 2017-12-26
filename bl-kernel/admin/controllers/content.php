@@ -31,12 +31,9 @@ if (empty($published) && $Url->pageNumber()>1) {
 	Redirect::page('content');
 }
 
-// List of drafts pages
-$drafts = $dbPages->getDraftDB();
-
-$scheduled = $dbPages->getScheduledDB();
-
-$static = $dbPages->getStaticDB();
+$drafts = $dbPages->getDraftDB(true);
+$scheduled = $dbPages->getScheduledDB(true);
+$static = $dbPages->getStaticDB(true);
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Manage content');

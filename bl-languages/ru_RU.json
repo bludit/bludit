@@ -1,11 +1,14 @@
 {
     "language-data": {
         "native": "Русский (Россия)",
-        "english-name": "Russian",
-        "last-update": "2017-10-17",
-        "author": "Сергей Ворон",
-        "email": "sergey@voron.pw",
-        "website": "http:\/\/voron.pw"
+	"english-name": "Russian",
+	"locale": "ru, ru_RU",
+	"last-update": "2017-10-17",
+        "authors": {
+		"0": "Сергей Ворон http://voron.pw",
+		"1": "",
+		"2": ""
+	}
     },
     "dashboard": "Панель управления",
     "manage-users": "Управление пользователями",

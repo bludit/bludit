@@ -99,8 +99,7 @@ class pluginLatestContent extends Plugin {
 			}
 
 			// Get keys of pages
-			$keys = array_keys($pages);
-			foreach($keys as $pageKey) {
+			foreach($pages as $pageKey) {
 				// Create the page object from the page key
 				$page = buildPage($pageKey);
 				$html .= '<li>';

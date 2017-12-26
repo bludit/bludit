@@ -46,7 +46,7 @@ function table($status, $icon='arrow-circle-o-down') {
 		</tr>';
 	}
 
-	foreach($list as $pageKey=>$fields) {
+	foreach($list as $pageKey) {
 		$page = buildPage($pageKey);
 		if ($page) {
 			echo '<tr>';

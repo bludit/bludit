@@ -246,8 +246,7 @@ class pluginAPI extends Plugin {
 		);
 
 		// Get keys of pages
-		$keys = array_keys($list);
-		foreach ($keys as $pageKey) {
+		foreach ($list as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 			array_push($tmp['data'], $page->json( $returnsArray=true ));

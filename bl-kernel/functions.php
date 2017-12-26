@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// (object) Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
+// Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
 function buildPage($key) {
 	global $dbPages;
 	global $dbUsers;
@@ -61,6 +61,8 @@ function buildPage($key) {
 	return $page;
 }
 
+// Execute a re-index of categories
+// If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
 	global $dbCategories;
 	return $dbCategories->reindex();
@@ -71,19 +73,24 @@ function reindexTags() {
 	return $dbTags->reindex();
 }
 
+// Returns a Page Object, this generate on the fly a page-not-found
 function buildErrorPage() {
 	global $dbPages;
 	global $Language;
 	global $dbUsers;
 
 	$page = new Page(false);
-	$page->setField('title', $Language->get('page-not-found'));
-	$page->setField('content', $Language->get('page-not-found-content'));
-	$page->setField('user', $dbUsers->getUser('admin'));
+	$page->setField('title', 	$Language->get('page-not-found'));
+	$page->setField('content', 	$Language->get('page-not-found-content'));
+	$page->setField('user', 	$dbUsers->getUser('admin'));
 
 	return $page;
 }
 
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
+// This function generate a particular page from the slug of the url
+// The page is stored on the global variable $page
+// If the slug has not a page associacted returns FALSE and set not-found
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
@@ -96,20 +103,23 @@ function buildThePage() {
 		$Url->setNotFound();
 		return false;
 	}
-	// The page is not published
+	// The page is NOT published
 	elseif( $page->scheduled() || $page->draft() ) {
 		$Url->setNotFound();
 		return false;
 	}
 
+	// The page was generate successfully
 	$content[0] = $pages[0] = $page;
 	return true;
 }
 
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
 function buildPagesForHome() {
 	return buildPagesFor('home');
 }
 
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
 function buildPagesByCategory() {
 	global $Url;
 
@@ -117,6 +127,7 @@ function buildPagesByCategory() {
 	return buildPagesFor('category', $categoryKey, false);
 }
 
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
 function buildPagesByTag() {
 	global $Url;
 
@@ -124,6 +135,7 @@ function buildPagesByTag() {
 	return buildPagesFor('tag', false, $tagKey);
 }
 
+// Generate the global variables $pages and $content, defined on 69.pages.php
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
 	global $dbCategories;
@@ -156,7 +168,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	}
 
 	$pages = array(); // global variable
-	foreach($list as $pageKey=>$fields) {
+	foreach($list as $pageKey) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
 			array_push($pages, $page);

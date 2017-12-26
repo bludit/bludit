@@ -17,7 +17,7 @@ class dbTags extends dbList
 		global $dbPages;
 
 		// Get a database with published pages
-		$db = $dbPages->getPublishedDB();
+		$db = $dbPages->getPublishedDB(false);
 
 		$tagsIndex = array();
 

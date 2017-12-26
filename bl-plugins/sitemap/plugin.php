@@ -31,10 +31,9 @@ class pluginSitemap extends Plugin {
 		$pageNumber = 1;
 		$amountOfItems = -1;
 		$onlyPublished = true;
-		$db = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
-		$keys = array_keys($db);
-		foreach($keys as $pageKey) {
+		foreach($pages as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 

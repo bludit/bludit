@@ -24,6 +24,7 @@ class dbList extends dbJSON
 		parent::__construct($file);
 	}
 
+	// Returns an array with a list of key of pages, FALSE if out of range
 	public function getList($key, $pageNumber, $amountOfItems)
 	{
 		if (empty($key)) {
@@ -39,7 +40,7 @@ class dbList extends dbJSON
 
 		if ($amountOfItems==-1) {
 			// Invert keys to values, is necesary returns as key the key pages
-			$list = array_flip($list);
+			//$list = array_flip($list);
 			return $list;
 		}
 
@@ -56,7 +57,7 @@ class dbList extends dbJSON
 			return false;
 		}
 
-		$list = array_flip($list);
+		//$list = array_flip($list);
 		return array_slice($list, $init, $amountOfItems, true);
 	}
 
