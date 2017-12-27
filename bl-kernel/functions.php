@@ -273,14 +273,20 @@ function getPlugin($pluginClassName) {
 	return false;
 }
 
+// DEPRACTED
 // Returns TRUE if the plugin is enabled and installed, FALSE otherwise
 function pluginEnabled($pluginClassName) {
-	global $plugins;
+	return pluginActivated($pluginClassName);
+}
 
-	if (isset($plugins['all'][$pluginClassName])) {
-		return $plugins['all'][$pluginClassName]->installed();
-	}
-	return false;
+// Returns TRUE if the plugin is activaed / installed, FALSE otherwise
+function pluginActivated($pluginClassName) {
+        global $plugins;
+
+        if (isset($plugins['all'][$pluginClassName])) {
+                return $plugins['all'][$pluginClassName]->installed();
+        }
+        return false;
 }
 
 function activatePlugin($pluginClassName) {
