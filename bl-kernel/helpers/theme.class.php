@@ -28,7 +28,7 @@ class Theme {
 
 	public static function rssUrl()
 	{
-		if (pluginEnabled('RSS')) {
+		if (pluginEnabled('pluginRSS')) {
 			return DOMAIN_BASE.'rss.xml';
 		}
 		return false;
@@ -36,7 +36,7 @@ class Theme {
 
 	public static function sitemapUrl()
 	{
-		if (pluginEnabled('Sitemap')) {
+		if (pluginEnabled('pluginSitemap')) {
 			return DOMAIN_BASE.'sitemap.xml';
 		}
 		return false;

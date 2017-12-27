@@ -66,7 +66,7 @@
 		<ul class="uk-list uk-list-line">
 		<?php
 			// Print New version if the plugin Version is installed
-			if (pluginEnabled('Version')) {
+			if (pluginEnabled('pluginVersion')) {
 				if ($plugins['all']['pluginVersion']->newVersion()) {
 					echo '<li>';
 					echo '<b>'.$L->g('New version available').'</b>';
@@ -98,8 +98,8 @@
 
 	<div class="uk-width-1-3">
 
-		<?php if (pluginEnabled('SimpleStats')) {
-			$SimpleStats = getPlugin('SimpleStats');
+		<?php if (pluginEnabled('pluginSimpleStats')) {
+			$SimpleStats = getPlugin('pluginSimpleStats');
 			echo '<div class="uk-panel">';
 			echo '<h4 class="panel-title">'.$SimpleStats->getValue('label').'</h4>';
 			echo $SimpleStats->dashboard();

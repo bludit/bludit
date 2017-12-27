@@ -263,25 +263,23 @@ function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true
 	return $tmp;
 }
 
-function getPlugin($pluginName) {
+// Returns the plugin Object if is enabled and installed, FALSE otherwise
+function getPlugin($pluginClassName) {
 	global $plugins;
 
-	if (pluginEnabled($pluginName)) {
-		$pluginClass = 'plugin'.Text::firstCharUp($pluginName);
-		return $plugins['all'][$pluginClass];
+	if (pluginEnabled($pluginClassName)) {
+		return $plugins['all'][$pluginClassName];
 	}
 	return false;
 }
 
-// Returns TRUE if the plugin is enabled, FALSE otherwise
-function pluginEnabled($pluginName) {
+// Returns TRUE if the plugin is enabled and installed, FALSE otherwise
+function pluginEnabled($pluginClassName) {
 	global $plugins;
 
-	$pluginClass = 'plugin'.Text::firstCharUp($pluginName);
-	if( isset($plugins['all'][$pluginClass]) ) {
-		return $plugins['all'][$pluginClass]->installed();
+	if (isset($plugins['all'][$pluginClassName])) {
+		return $plugins['all'][$pluginClassName]->installed();
 	}
-
 	return false;
 }
 
