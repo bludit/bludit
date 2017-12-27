@@ -141,8 +141,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	// Parent input
 	$options = array(' '=>'- '.$L->g('No parent').' -');
 	$parentsList = $dbPages->getParents();
-	$parentsKey = array_keys($parentsList);
-	foreach($parentsKey as $pageKey) {
+	foreach ($parentsList as $pageKey) {
 		$parent = buildPage($pageKey);
 		$options[$pageKey] = $parent->title();
 	}
