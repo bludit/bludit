@@ -51,7 +51,7 @@ class pluginStaticPages extends Plugin {
 		$html .= '<ul>';
 
 		// Show Home page link
-		if( $this->getValue('homeLink') ) {
+		if ($this->getValue('homeLink')) {
 			$html .= '<li>';
 			$html .= '<a href="'.$Site->url().'">';
 			$html .= $Language->get('Home page');
@@ -60,7 +60,7 @@ class pluginStaticPages extends Plugin {
 		}
 
 		// Get keys of pages
-		foreach($keys as $pageKey) {
+		foreach ($pages as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 			$html .= '<li>';
