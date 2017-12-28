@@ -136,11 +136,10 @@
 		<ul class="uk-list">
 		<?php
 			$scheduledPages = $dbPages->getScheduledDB(true);
-			if( empty($scheduledPages) ) {
+			if (empty($scheduledPages)) {
 				echo '<li>'.$Language->g('There are no scheduled content').'</li>';
-			}
-			else {
-				foreach($keys as $key) {
+			} else {
+				foreach ($scheduledPages as $key) {
 					$page = buildPage($key);
 					echo '<li><span class="label-time">'.$page->dateRaw(SCHEDULED_DATE_FORMAT).'</span><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
@@ -154,11 +153,10 @@
 		<ul class="uk-list">
 		<?php
 			$draftPages = $dbPages->getDraftDB(true);
-			if( empty($draftPages) ) {
+			if (empty($draftPages)) {
 				echo '<li>'.$Language->g('There are no draft content').'</li>';
-			}
-			else {
-				foreach($keys as $key) {
+			} else {
+				foreach ($draftPages as $key) {
 					$page = buildPage($key);
 					echo '<li><a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'.($page->title()?$page->title():'['.$Language->g('Empty title').'] ').'</a></li>';
 				}
