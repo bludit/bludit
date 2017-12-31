@@ -13,8 +13,12 @@ class Date {
 			return $date;
 		}
 
+		// Get the array of dates from the language file
 		$dates = $Language->getDates();
-		return str_replace(array_keys($dates), array_values($dates), $date);
+		foreach ($dates as $english=>$anotherLang) {
+			$date = preg_replace('/\b'.$english.'\b/u', $anotherLang, $date);
+		}
+		return $date;
 	}
 
 	// Return current Unix timestamp, GMT+0
