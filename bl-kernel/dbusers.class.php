@@ -180,8 +180,10 @@ class dbUsers extends dbJSON
 	public function getByRememberToken($token)
 	{
 		foreach ($this->db as $username=>$fields) {
-			if ($fields['tokenRemember']==$token) {
-				return $username;
+			if (!empty($fields['tokenRemember'])) {
+				if ($fields['tokenRemember']==$token) {
+					return $username;
+				}
 			}
 		}
 		return false;

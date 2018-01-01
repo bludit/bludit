@@ -53,7 +53,6 @@ function checkRememberMe()
 		return true;
 	}
 
-	$Security->addToBlacklist();
 	return false;
 }
 
