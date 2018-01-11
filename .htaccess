@@ -5,11 +5,14 @@ AddDefaultCharset UTF-8
 # Enable rewrite rules
 RewriteEngine on
 
+# Make this Folder our base
+RewriteBase /
+
 # Deny direct access to .txt files
 RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]
 
 # All URL process by index.php
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*) index.php [PT,L]
+RewriteRule ^(.*) index.php/ [PT,L]
 
 </IfModule>
