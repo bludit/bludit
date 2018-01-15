@@ -43,7 +43,7 @@ PHP Built-in web server
 - PHP [json](http://php.net/manual/en/book.json.php) module for JSON manipulation.
 - Supported web servers:
    * Bludit supports almost every webserver
-   * PHP Built-in web server
+   * PHP Built-in web server (`php -S localhost:8000`)
 
 Installation Guide
 ------------------
