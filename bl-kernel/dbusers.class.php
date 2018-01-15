@@ -79,12 +79,19 @@ class dbUsers extends dbJSON
 		$user = $this->db[$args['username']];
 
 		// Verify arguments with the database fields
-		foreach($args as $field=>$value) {
-			if( isset($this->dbFields[$field]) ) {
+		foreach ($args as $field=>$value) {
+			if (isset($this->dbFields[$field])) {
 				$value = Sanitize::html($value);
 				settype($value, gettype($this->dbFields[$field]['value']));
 				$user[$field] = $value;
 			}
+		}
+
+		// Set a new password
+		if (!empty($args['password'])) {
+			$user['salt'] = $this->generateSalt();
+			$user['password'] = $this->generatePasswordHash($args['password'], $user['salt']);
+			$user['tokenAuth'] = $this->generateAuthToken();
 		}
 
 		// Save the database
@@ -142,14 +149,8 @@ class dbUsers extends dbJSON
 
 	public function setPassword($username, $password)
 	{
-		$salt = $this->generateSalt();
-		$hash = $this->generatePasswordHash($password, $salt);
-		$tokenAuth = $this->generateAuthToken();
-
 		$args['username']	= $username;
-		$args['salt']		= $salt;
 		$args['password']	= $hash;
-		$args['tokenAuth']	= $tokenAuth;
 
 		return $this->set($args);
 	}
