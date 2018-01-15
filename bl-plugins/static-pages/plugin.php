@@ -25,8 +25,8 @@ class pluginStaticPages extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Home link').'</label>';
 		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('homeLink')?'checked':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('homeLink')?'checked':'').'>Disabled</option>';
+		$html .= '<option value="true" '.($this->getValue('homeLink')?'selected':'').'>Enabled</option>';
+		$html .= '<option value="false" '.(!$this->getValue('homeLink')?'selected':'').'>Disabled</option>';
 		$html .= '</select>';
 		$html .= '<span class="tip">'.$Language->get('Show the home link on the sidebar').'</span>';
 		$html .= '</div>';
