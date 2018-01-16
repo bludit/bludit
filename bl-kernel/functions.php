@@ -341,12 +341,6 @@ function deactivatePlugin($pluginClassName) {
 	return false;
 }
 
-function printDebug($array) {
-	echo '<pre>';
-	var_dump($array);
-	echo '</pre>';
-}
-
 function createPage($args) {
 	global $dbPages;
 	global $Syslog;
