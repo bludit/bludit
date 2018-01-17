@@ -274,5 +274,6 @@
     "scheduled": "Veröffentlichung geplant",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Dieser Token ist genauso wichtig wie ein Passwort und sollte nicht weitergegen werden.",
     "congratulations-you-have-successfully-installed-your-bludit": "Gratulation, **Bludit** wurde erfolgreich installiert!",
-    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Dieses Theme wird möglicherweise von der installierten Version von Bludit nicht unterstützt."
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Dieses Theme wird möglicherweise von der installierten Version von Bludit nicht unterstützt.",
+    "read-more": "Weiterlesen"
 }
