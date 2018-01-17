@@ -43,7 +43,7 @@ PHP Built-in web server
 - PHP [json](http://php.net/manual/en/book.json.php) module for JSON manipulation.
 - Supported web servers:
    * Bludit supports almost every webserver
-   * PHP Built-in web server
+   * PHP Built-in web server (`php -S localhost:8000`)
 
 Installation Guide
 ------------------
@@ -58,6 +58,16 @@ Docker Image
 ------------
 Bludit provides an official Docker image.
 - https://hub.docker.com/r/bludit/docker/
+
+Backers
+-------
+Become a **Backer** and support Bludit with a monthly contribution to help us continue development. [Become a Backer](https://opencollective.com/bludit#backer)
+
+Sponsors
+--------
+Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development. [Become a Sponsor](https://opencollective.com/bludit#sponsor)
+
+<a href="https://opencollective.com/bludit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/0/avatar.svg"></a>
 
 License
 -------
