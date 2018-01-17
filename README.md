@@ -61,11 +61,11 @@ Bludit provides an official Docker image.
 
 Backers
 -------
-Become a **Backer** Support Bludit with a monthly contribution to help us continue development. [[Become a Backer](https://opencollective.com/bludit#backer)]
+Become a **Backer** and support Bludit with a monthly contribution to help us continue development. [Become a Backer](https://opencollective.com/bludit#backer)
 
 Sponsors
 --------
-Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development. [[Become a Sponsor](https://opencollective.com/bludit#sponsor)]
+Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development. [Become a Sponsor](https://opencollective.com/bludit#sponsor)
 
 <a href="https://opencollective.com/bludit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/0/avatar.svg"></a>
 
