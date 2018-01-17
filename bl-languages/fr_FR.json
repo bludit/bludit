@@ -274,5 +274,6 @@
     "scheduled": "Prévu",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Ce jeton est similaire à un mot de passe, il ne doit pas être partagé.",
     "congratulations-you-have-successfully-installed-your-bludit": "Félicitations, vous avez réussi à installer votre site sous **Bludit**",
-    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ce thème peut ne pas être pris en charge par cette version de Bludit."
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ce thème peut ne pas être pris en charge par cette version de Bludit.",
+    "read-more": "Lire la suite"
 }
