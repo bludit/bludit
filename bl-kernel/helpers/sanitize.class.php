@@ -9,7 +9,7 @@ class Sanitize {
 	{
 		$flags = ENT_COMPAT;
 
-		if(defined('ENT_HTML5')) {
+		if (defined('ENT_HTML5')) {
 			$flags = ENT_COMPAT|ENT_HTML5;
 		}
 

@@ -19,7 +19,8 @@ class dbPages extends dbJSON
 		'category'=>		array('inFile'=>false,	'value'=>''),
 		'md5file'=>		array('inFile'=>false,	'value'=>''),
 		'uuid'=>		array('inFile'=>false,	'value'=>''),
-		'allowComments'=>	array('inFile'=>false,	'value'=>true)
+		'allowComments'=>	array('inFile'=>false,	'value'=>true),
+		'template'=>		array('inFile'=>false,	'value'=>'')
 	);
 
 	function __construct()
@@ -28,22 +29,20 @@ class dbPages extends dbJSON
 	}
 
 	// Create a new page
+	// This function returns the key of the new page
 	public function add($args, $climode=false)
 	{
 		$dataForDb = array();	// This data will be saved in the database
 		$dataForFile = array(); // This data will be saved in the file
 
+		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$options) {
 			if (isset($args[$field])) {
-				if ($field=='tags') {
-					$value = $this->generateTags($args['tags']);
+				if ($options['inFile'] || is_array($args[$field])) {
+					$value = $args[$field];
 				} else {
-					if( !$options['inFile'] ) {
-						// Sanitize if will be stored on database
-						$value = Sanitize::html($args[$field]);
-					} else {
-						$value = $args[$field];
-					}
+					// Sanitize if will be stored on database
+					$value = Sanitize::html($args[$field]);
 				}
 			} else {
 				// Default value for the field
@@ -53,10 +52,20 @@ class dbPages extends dbJSON
 			$args[$field] = $value;
 		}
 
-		// Generate slug from content if the title is empty
-		if (empty($args['title']) || empty($args['slug'])) {
-			$tmpslug = Text::removeHTMLTags($args['content']);
-			$args['slug'] = Text::truncate($tmpslug, 60, '');
+		// Tags
+		if (!empty($args['tags'])) {
+			$args['tags'] = $this->generateTags($args['tags']);
+		} else {
+			$args['tags'] = array();
+		}
+
+		// Slug from title or content
+		if (empty($args['slug'])) {
+			if (!empty($args['title'])) {
+				$args['slug'] = $this->generateSlug($args['title']);
+			} else {
+				$args['slug'] = $this->generateSlug($args['content']);
+			}
 		}
 
 		// Parent
@@ -71,20 +80,21 @@ class dbPages extends dbJSON
 		$args['uuid'] = $this->generateUUID();
 
 		// Validate date
-		if ( !Valid::date($args['date'], DB_DATE_FORMAT) ) {
+		if (!Valid::date($args['date'], DB_DATE_FORMAT)) {
 			$args['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		// Schedule page
-		if ( ($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published') ) {
+		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published')) {
 			$args['status'] = 'scheduled';
 		}
 
-		// Set type
+		// Set type of the page
 		if ($args['status']=='static') {
 			$args['type'] = 'page';
 		}
 
+		// Set type to the variables
 		foreach ($this->dbFields as $field=>$options) {
 			$value = $args[$field];
 
@@ -135,17 +145,14 @@ class dbPages extends dbJSON
 		$dataForDb = array();
 		$dataForFile = array();
 
+		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$options) {
 			if (isset($args[$field])) {
-				if ($field=='tags') {
-					$value = $this->generateTags($args['tags']);
+				if ($options['inFile'] || is_array($args[$field])) {
+					$value = $args[$field];
 				} else {
-					if( !$options['inFile'] ) {
-						// Sanitize if will be stored on database
-						$value = Sanitize::html($args[$field]);
-					} else {
-						$value = $args[$field];
-					}
+					// Sanitize if will be stored on database
+					$value = Sanitize::html($args[$field]);
 				}
 			} else {
 				// By default is the current value
@@ -157,6 +164,13 @@ class dbPages extends dbJSON
 			}
 
 			$args[$field] = $value;
+		}
+
+		// Tags
+		if (!empty($args['tags'])) {
+			$args['tags'] = $this->generateTags($args['tags']);
+		} else {
+			$args['tags'] = array();
 		}
 
 		// Parent
@@ -177,15 +191,16 @@ class dbPages extends dbJSON
 		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
 
 		// Schedule page
-		if ( ($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published') ) {
+		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published')) {
 			$args['status'] = 'scheduled';
 		}
 
-		// Set type
+		// Set type of the page
 		if ($args['status']=='static') {
 			$args['type'] = 'page';
 		}
 
+		// Set type to the variables
 		foreach ($this->dbFields as $field=>$options) {
 			$value = $args[$field];
 
@@ -283,7 +298,7 @@ class dbPages extends dbJSON
 	// Change a field's value
 	public function setField($key, $field, $value)
 	{
-		if( $this->exists($key) ) {
+		if ($this->exists($key)) {
 			settype($value, gettype($this->dbFields[$field]['value']));
 			$this->db[$key][$field] = $value;
 			return $this->save();
@@ -343,7 +358,7 @@ class dbPages extends dbJSON
 	public function getScheduledDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
-		foreach($tmp as $key=>$fields) {
+		foreach ($tmp as $key=>$fields) {
 			if($fields['status']!='scheduled') {
 				unset($tmp[$key]);
 			}
@@ -490,6 +505,12 @@ class dbPages extends dbJSON
 
 	private function generateUUID() {
 		return md5( uniqid().time() );
+	}
+
+	// Returns string without HTML tags and truncated
+	private function generateSlug($text, $truncateLength=60) {
+		$tmpslug = Text::removeHTMLTags($text);
+		returns Text::truncate($tmpslug, $truncateLength, '');
 	}
 
 	// Returns TRUE if there are new pages published, FALSE otherwise
