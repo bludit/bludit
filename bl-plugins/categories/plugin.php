@@ -50,10 +50,15 @@ class pluginCategories extends Plugin {
 			$count = count($fields['list']);
 			if (!$this->getValue('hideCero') || $count>0) {
 				$html .= '<li>';
+				if ($count < 1) {
+				$html .= $fields['name'];
+				$html .= ' ('.count($fields['list']).')';
+				} else {
 				$html .= '<a href="'.DOMAIN_CATEGORIES.$key.'">';
 				$html .= $fields['name'];
 				$html .= ' ('.count($fields['list']).')';
 				$html .= '</a>';
+				}
 				$html .= '</li>';
 			}
 		}
