@@ -110,6 +110,8 @@ $(document).ready(function() {
 			<li <?php echo ($layout['view']=='content')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
 			</li>
+
+			<?php if($Login->role() == 'admin') { ?>
 			<li <?php echo ($layout['view']=='categories')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
 			</li>
@@ -133,9 +135,12 @@ $(document).ready(function() {
 			<li <?php echo ($layout['view']=='themes')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>"><?php $L->p('Themes') ?></a>
 			</li>
+
 			<li <?php echo ($layout['view']=='about')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 			</li>
+
+			<?php } ?>
 
 			</ul>
 		</div>

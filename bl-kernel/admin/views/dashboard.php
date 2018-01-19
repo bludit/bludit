@@ -14,7 +14,7 @@
 		</div>
 
 	</div>
-
+	<?php if($Login->role() == 'admin') { ?>
 	<div class="uk-width-medium-1-3" style="border-right: 1px solid #E6E6E6; border-left: 1px solid #E6E6E6">
 
 		<div class="uk-panel">
@@ -28,6 +28,7 @@
 		</div>
 
 	</div>
+	<?php } ?>
 
 	<div class="uk-width-medium-1-3">
 
