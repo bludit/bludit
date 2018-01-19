@@ -439,11 +439,11 @@ class dbPages extends dbJSON
 	// Returns an array with all parents pages key, a parent page is not a child
 	public function getParents()
 	{
-		$db = $this->getPublishedDB(true) + $this->getStaticDB(true);
-		foreach ($db as $pageKey) {
+		$db = $this->getPublishedDB();
+		foreach ($db as $key=>$pageKey) {
 			// if the key has slash then is a child
 			if (Text::stringContains($pageKey, '/')) {
-				unset($db[$pageKey]);
+				unset($db[$key]);
 			}
 		}
 		return $db;
@@ -510,7 +510,7 @@ class dbPages extends dbJSON
 	// Returns string without HTML tags and truncated
 	private function generateSlug($text, $truncateLength=60) {
 		$tmpslug = Text::removeHTMLTags($text);
-		returns Text::truncate($tmpslug, $truncateLength, '');
+		return Text::truncate($tmpslug, $truncateLength, '');
 	}
 
 	// Returns TRUE if there are new pages published, FALSE otherwise
