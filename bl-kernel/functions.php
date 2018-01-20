@@ -297,11 +297,6 @@ function activatePlugin($pluginClassName) {
 	// Check if the plugin exists
 	if (isset($plugins['all'][$pluginClassName])) {
 		$plugin = $plugins['all'][$pluginClassName];
-		$blackList = array('pluginTimeMachine', 'pluginRemoteContent');
-		if (in_array($pluginClassName, $blackList) && !defined('BLUDIT_PRO')) {
-			return false;
-		}
-
 		if ($plugin->install()) {
 			// Add to syslog
 			$Syslog->add(array(

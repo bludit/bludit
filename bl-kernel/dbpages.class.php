@@ -257,6 +257,9 @@ class dbPages extends dbJSON
 	// This function reindex the orphan children with the new parent key
 	// If a page has subpages and the page change his key is necesarry check the children key
 	public function reindexChildren($oldParentKey, $newParentKey) {
+		if ($oldParentKey==$newParentKey){
+			return false;
+		}
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if (Text::startsWith($key, $oldParentKey.'/')) {
