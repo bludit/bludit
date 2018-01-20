@@ -32,14 +32,6 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('autosave').'</label>';
-		$html .= '<select name="autosave">';
-		$html .= '<option value="true" '.($this->getValue('autosave')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('autosave')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
-		$html .= '</select>';
-		$html .= '</div>';
-
-		$html .= '<div>';
 		$html .= '<label>'.$Language->get('spell-checker').'</label>';
 		$html .= '<select name="spellChecker">';
 		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
@@ -122,11 +114,6 @@ class pluginsimpleMDE extends Plugin {
 					indentWithTabs: true,
 					tabSize: '.$this->getDbField('tabSize').',
 					spellChecker: '.$spellCheckerEnable.',
-					autosave: {
-						enabled: '.$autosaveEnable.',
-						uniqueId: "'.$autosaveID.'",
-						delay: 1000,
-					},
 					toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).',
 						"|",
 						{
