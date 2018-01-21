@@ -21,7 +21,7 @@
 // ============================================================================
 
 // List of published pages
-$onlyPublished = false;
+$onlyPublished = true;
 $amountOfItems = ITEMS_PER_PAGE_ADMIN;
 $pageNumber = $Url->pageNumber();
 $published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
