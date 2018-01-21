@@ -273,5 +273,6 @@
     "scheduled": "Scheduled",
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "This token is similar to a password, it should not be shared.",
     "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**",
-    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit"
+    "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit",
+    "read-more": "Повече информация"
 }
