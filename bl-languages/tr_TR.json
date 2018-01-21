@@ -276,5 +276,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Bu belirteç bir parolaya benzer, paylaşılmamalıdır..",
     "congratulations-you-have-successfully-installed-your-bludit": "Tebrikler ** Bludit ** 'ı başarıyla yüklediniz.",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Bu tema Bludit'in bu sürümü tarafından desteklenmeyebilir",
-    "read-more": "Devamını oku"
+    "read-more": "Devamını oku",
+    "remember-me": "Remember me"
 }

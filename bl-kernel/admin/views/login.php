@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="uk-form-row">
-	<label><input type="checkbox" name="remember"> Remember me</label>
+	<label><input type="checkbox" name="remember"> <?php $L->p('Remember me') ?></label>
 	</div>
 
 	<div class="uk-form-row">

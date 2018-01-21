@@ -275,5 +275,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Цей токен схожий на пароль, ним не слід ділитися.",
     "congratulations-you-have-successfully-installed-your-bludit": "Вітаємо, ви успішно встановили **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ця тема може не підтримуватися цією версією Bludit",
-    "read-more": "Читати далі"
+    "read-more": "Читати далі",
+    "remember-me": "Remember me"
 }

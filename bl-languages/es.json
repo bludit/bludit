@@ -274,5 +274,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Este token es similar a una contraseña, no debe compartirse.",
     "congratulations-you-have-successfully-installed-your-bludit": "Felicitaciones Usted ha instalado con éxito **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Este tema puede no ser compatible con esta versión de Bludit",
-    "read-more": "Leer más"
+    "read-more": "Leer más",
+    "remember-me": "Recordarme"
 }
