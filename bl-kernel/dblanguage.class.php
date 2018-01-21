@@ -6,12 +6,15 @@ class dbLanguage extends dbJSON
 	public $db;
 	public $currentLanguage;
 	public $dates;
+	public $specialChars;
 
 	function __construct($currentLanguage)
 	{
 		$this->data = array();
 		$this->db = array();
 		$this->currentLanguage = $currentLanguage;
+		$this->dates = array();
+		$this->specialChars = array();
 
 		// Load default language
 		$filename = PATH_LANGUAGES.DEFAULT_LANGUAGE_FILE;
@@ -33,8 +36,16 @@ class dbLanguage extends dbJSON
 		unset($this->db['language-data']);
 
 		// Dates
-		$this->dates = $this->db['dates'];
-		unset($this->db['dates']);
+		if (isset($this->db['dates'])) {
+			$this->dates = $this->db['dates'];
+			unset($this->db['dates']);
+		}
+
+		// Special chars
+		if (isset($this->db['special-chars'])) {
+			$this->specialChars = $this->db['special-chars'];
+			unset($this->db['special-chars']);
+		}
 	}
 
 	public function locale()
@@ -124,5 +135,11 @@ class dbLanguage extends dbJSON
 	public function getDates()
 	{
 		return $this->dates;
+	}
+
+	// Returns array with all the special characters from this language
+	public function getSpecialChars()
+	{
+		return $this->specialChars;
 	}
 }
