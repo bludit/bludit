@@ -11,6 +11,11 @@
             "3": ""
         }
     },
+    "special-chars": {
+	"ä": "ae",
+	"ö": "oe",
+	"ü": "ue"
+    },    
     "dates": {
         "Mon": "Mo",
         "Tue": "Di",
