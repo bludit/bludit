@@ -69,6 +69,7 @@ Become a **Sponsor** and support Bludit with a monthly contribution to help us c
 
 <a href="https://opencollective.com/bludit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bludit/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/bludit/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/2/avatar.svg"></a>
 
 License
 -------
