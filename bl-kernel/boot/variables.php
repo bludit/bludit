@@ -43,7 +43,7 @@ define('PAGE_BREAK', '<!-- pagebreak -->');
 define('PARENT', 'BLUDIT3849abb4cb7abd24c2d8dac17b216f17');
 
 // Items per page for admin area
-define('ITEMS_PER_PAGE_ADMIN', 10);
+define('ITEMS_PER_PAGE_ADMIN', 20);
 
 // Cli mode, status for new pages
 define('CLI_STATUS', 'published');

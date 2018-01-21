@@ -438,14 +438,9 @@ class Page {
 	// Returns an array with all children's key
 	public function children()
 	{
-		$tmp = array();
-		$paths = Filesystem::listDirectories(PATH_PAGES.$this->getValue('key').DS);
-		foreach ($paths as $path) {
-			array_push($tmp, basename($path));
-		}
-
-		return $tmp;
+		return $this->getValue('children');
 	}
+
 	public function subpages()
 	{
 		return $this->children();
@@ -456,6 +451,11 @@ class Page {
 	{
 		$subpages = $this->subpages();
 		return !empty($subpages);
+	}
+
+	public function isParent()
+	{
+		return $this->hasSubpages();
 	}
 
 

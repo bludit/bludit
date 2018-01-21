@@ -302,6 +302,10 @@ button.aslink:hover {
 	padding: 14px 8px !important;
 }
 
+.uk-table td.child-title {
+	padding-left: 20px !important;
+}
+
 /* RESPONSIVE
 ---------------------------------------------------------------- */
 

@@ -253,6 +253,15 @@ $(document).ready(function()
 		}
 	});
 
+	$("#jsstatus").change(function() {
+		if ($(this).val()=='static') {
+			$("#jsparent").val(' ');
+			$("#jsparent").attr('disabled','disabled');
+		} else {
+			$("#jsparent").removeAttr('disabled');
+		}
+	});
+
 });
 
 </script>

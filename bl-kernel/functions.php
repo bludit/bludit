@@ -58,6 +58,9 @@ function buildPage($key) {
 	$categoryKey = $page->categoryKey();
 	$page->setField('categoryMap', $dbCategories->getMap($categoryKey));
 
+	// Get the keys of the child
+	$page->setField('children', $dbPages->getChildren($key));
+
 	return $page;
 }
 
@@ -188,9 +191,6 @@ function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	$keys = array();
 	if ($publishedPages) {
 		$keys = array_merge($keys, $dbPages->getPublishedDB($onlyKeys));
-	}
-	if ($staticPages) {
-		$keys = array_merge($keys, $dbPages->getStaticDB($onlyKeys));
 	}
 
 	foreach ($keys as $pageKey) {

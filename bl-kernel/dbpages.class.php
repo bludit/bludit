@@ -426,6 +426,8 @@ class dbPages extends dbJSON
 		return false;
 	}
 
+
+
 	// Returns the amount of pages
 	// (boolean) $total, TRUE returns the total of pages
 	// (boolean) $total, FALSE returns the total of published pages (without draft and scheduled)
@@ -439,7 +441,7 @@ class dbPages extends dbJSON
 		return count($this->db);
 	}
 
-	// Returns an array with all parents pages key, a parent page is not a child
+	// Returns an array with all parents pages key. A parent page is not a child
 	public function getParents()
 	{
 		$db = $this->getPublishedDB();
@@ -450,6 +452,18 @@ class dbPages extends dbJSON
 			}
 		}
 		return $db;
+	}
+
+	public function getChildren($parentKey)
+	{
+		$tmp = $this->db;
+		$list = array();
+		foreach ($tmp as $key=>$fields) {
+			if (Text::startsWith($key, $parentKey.'/')) {
+				array_push($list, $key);
+			}
+		}
+		return $list;
 	}
 
 	// Return TRUE if the page exists, FALSE otherwise

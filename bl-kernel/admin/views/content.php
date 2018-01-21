@@ -20,6 +20,8 @@ echo '
 <tbody>
 ';
 
+
+
 function table($status, $icon='arrow-circle-o-down') {
 	global $Url;
 	global $Language;
@@ -40,27 +42,64 @@ function table($status, $icon='arrow-circle-o-down') {
 
 	if (!empty($list)) {
 		echo '<tr>
-		<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;"><i class="fa fa-'.$icon.'" aria-hidden="true"></i> '.$Language->g($status).'</td>
+		<td style="color: #aaa; font-size: 0.9em; text-transform: uppercase;">'.$Language->g($status).'</td>
 		<td></td>
 		<td></td>
 		</tr>';
 	}
 
-	foreach($list as $pageKey) {
-		$page = buildPage($pageKey);
-		if ($page) {
-			echo '<tr>';
-			echo '<td>
-				<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-				.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
-				.'</a>
-			</td>';
+	if (ORDER_BY=='position') {
+		foreach ($list as $pageKey) {
+			$page = buildPage($pageKey);
+			if ($page) {
+				if ($page->isParent()) {
+					echo '<tr>
+					<td>
+						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-'.$icon.'"></i> '
+						.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+						.'</a>
+					</td>
+					<td class="uk-text-center">'.$page->position().'</td>';
 
-			echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw(ADMIN_PANEL_DATE_FORMAT) : $page->position() ).'</td>';
+					$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+					echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+					echo '</tr>';
 
-			$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
-			echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-			echo '</tr>';
+					foreach ($page->children() as $childKey) {
+						$child = buildPage($childKey);
+						echo '<tr>
+						<td class="child-title">
+
+							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-circle-thin"></i> '
+							.($child->title()?$child->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+							.'</a>
+						</td>
+						<td class="uk-text-center">'.$child->position().'</td>';
+
+						$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$child->key() : '/'.$Url->filters('page').'/'.$child->key();
+						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
+						echo '</tr>';
+					}
+				}
+			}
+		}
+	} else {
+		foreach ($list as $pageKey) {
+			$page = buildPage($pageKey);
+			if ($page) {
+				echo '<tr>';
+				echo '<td>
+					<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-'.$icon.'"></i> '
+					.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+					.'</a>
+				</td>';
+
+				echo '<td class="uk-text-center">'.( (ORDER_BY=='date') ? $page->dateRaw(ADMIN_PANEL_DATE_FORMAT) : $page->position() ).'</td>';
+
+				$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+				echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+				echo '</tr>';
+			}
 		}
 	}
 }
@@ -70,7 +109,7 @@ if ($Url->pageNumber()==1) {
 	table('scheduled', 'clock-o');
 	table('static', 'thumb-tack');
 }
-table('published', 'check');
+table('published', 'circle-o');
 
 echo '
 </tbody>
