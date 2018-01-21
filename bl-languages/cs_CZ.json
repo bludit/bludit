@@ -275,5 +275,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Tento token je podobný heslu, neměl by proto být s nikým sdílen.",
     "congratulations-you-have-successfully-installed-your-bludit": "Gratulujeme, úspěšně jste nainstalovali váš **Bludit**.",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Tato šablona nemusí podporovat současnou verzi Bludit",
-    "read-more": "Číst dále"
+    "read-more": "Číst dále",
+    "remember-me": "Remember me"
 }
