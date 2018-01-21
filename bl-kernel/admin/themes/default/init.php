@@ -167,11 +167,12 @@ class HTML {
 		$id = 'js'.$args['name'];
 		$type = isset($args['type']) ? $args['type'] : 'text';
 		$class = empty($args['class']) ? '' : 'class="'.$args['class'].'"';
+		$disabled = empty($args['disabled']) ? '' : 'disabled';
 
 		$html  = '<div class="uk-form-row">';
 		$html .= '<label for="'.$id.'" class="uk-form-label">'.$args['label'].'</label>';
 		$html .= '<div class="uk-form-controls">';
-		$html .= '<select id="'.$id.'" name="'.$args['name'].'" '.$class.'>';
+		$html .= '<select id="'.$id.'" name="'.$args['name'].'" '.$class.' '.$disabled.'>';
 		if(isset($args['addEmptySpace'])) {
 			$html .= '<option value=""></option>';
 		}

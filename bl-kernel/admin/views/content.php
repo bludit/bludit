@@ -52,21 +52,22 @@ function table($status, $icon='arrow-circle-o-down') {
 		foreach ($list as $pageKey) {
 			$page = buildPage($pageKey);
 			if ($page) {
-				echo '<tr>
-				<td>
-					<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-'.$icon.'"></i> '
-					.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
-					.'</a>
-				</td>
-				<td class="uk-text-center">'.$page->position().'</td>';
+				if ($page->isParent() || $status!='published') {
+					echo '<tr>
+					<td>
+						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-'.$icon.'"></i> '
+						.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+						.'</a>
+					</td>
+					<td class="uk-text-center">'.$page->position().'</td>';
 
-				$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
-				echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-				echo '</tr>';
+					$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+					echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+					echo '</tr>';
 
-				if ($page->isParent()) {
 					foreach ($page->children() as $childKey) {
 						$child = buildPage($childKey);
+						if ($child->published()) {
 						echo '<tr>
 						<td class="child-title">
 
@@ -79,6 +80,7 @@ function table($status, $icon='arrow-circle-o-down') {
 						$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$child->key() : '/'.$Url->filters('page').'/'.$child->key();
 						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
 						echo '</tr>';
+						}
 					}
 				}
 			}

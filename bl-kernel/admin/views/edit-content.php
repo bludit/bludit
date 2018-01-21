@@ -177,7 +177,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 			'class'=>'uk-width-1-1 uk-form-medium',
 			'options'=>$options,
 			'selected'=>$page->parentKey(),
-			'tip'=>''
+			'tip'=>'',
+			'disabled'=>$page->status()=='static'
 		));
 
 		echo '<hr>';
