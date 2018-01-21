@@ -274,6 +274,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Token generowany jest na podstawie hasła, nie udostępniaj go nikomu.",
     "congratulations-you-have-successfully-installed-your-bludit": "Gratulacje, **Bludit** został zainstalowany pomyślnie.",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ten motyw może być niekompatybilny z Twoją wersją Bludit",
-    "read-more": "Read more",
+    "read-more": "Czytaj dalej",
     "remember-me": "Remember me"
 }
