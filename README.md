@@ -12,7 +12,9 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - [Themes](https://themes.bludit.com)
 - [More plugins and themes](https://forum.bludit.org/viewforum.php?f=14)
 
-[![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/) <img src="https://opencollective.com/bludit/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen" />
+[![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
+<img src="https://opencollective.com/bludit/tiers/backer/badge.svg?label=Backer&color=red" />
+<img src="https://opencollective.com/bludit/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen" />
 
 Social Networks
 ---------------
@@ -61,11 +63,13 @@ Bludit provides an official Docker image.
 
 Backers
 -------
-Become a **Backer** and support Bludit with a monthly contribution to help us continue development. [Become a Backer](https://opencollective.com/bludit#backer)
+Become a **Backer** and support Bludit with a monthly contribution to help us continue development.
+- [Become a Backer](https://opencollective.com/bludit#backer)
 
 Sponsors
 --------
-Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development. [Become a Sponsor](https://opencollective.com/bludit#sponsor)
+Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development.
+- [Become a Sponsor](https://opencollective.com/bludit#sponsor)
 
 <a href="https://opencollective.com/bludit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bludit/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bludit/sponsor/1/avatar.svg"></a>
