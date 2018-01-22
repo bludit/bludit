@@ -417,12 +417,6 @@ class Page {
 		return false;
 	}
 
-	// Returns TURE if the page has a parent, FALSE otherwise
-	public function hasParent()
-	{
-		return $this->parentKey()!==false;
-	}
-
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
@@ -435,24 +429,38 @@ class Page {
 		return false;
 	}
 
+	// Returns TURE if the page has a parent, FALSE otherwise
+	public function hasParent()
+	{
+		return $this->parentKey()!==false;
+	}
+
+	// Returns TRUE if the page is a child, FALSE otherwise
+	public function isChild()
+	{
+		return $this->parentKey()!==false;
+	}
+
 	// Returns an array with all children's key
 	public function children()
 	{
 		return $this->getValue('children');
 	}
 
+	// Returns an array with all children's key
 	public function subpages()
 	{
 		return $this->children();
 	}
 
-	// Returns TRUE if the page has subpages/children, FALSE otherwise
+	// Returns TRUE if the page has children
 	public function hasSubpages()
 	{
 		$subpages = $this->subpages();
 		return !empty($subpages);
 	}
 
+	// Returns TRUE if the page is a parent
 	public function isParent()
 	{
 		return $this->hasSubpages();

@@ -52,7 +52,7 @@ function table($status, $icon='arrow-circle-o-down') {
 		foreach ($list as $pageKey) {
 			$page = buildPage($pageKey);
 			if ($page) {
-				if ($page->isParent() || $status!='published') {
+				if (!$page->isChild() || $status!='published') {
 					echo '<tr>
 					<td>
 						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-'.$icon.'"></i> '
@@ -71,7 +71,7 @@ function table($status, $icon='arrow-circle-o-down') {
 						echo '<tr>
 						<td class="child-title">
 
-							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-circle-thin"></i> '
+							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-angle-right"></i> '
 							.($child->title()?$child->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
 							.'</a>
 						</td>
@@ -111,7 +111,7 @@ if ($Url->pageNumber()==1) {
 	table('scheduled', 'clock-o');
 	table('static', 'thumb-tack');
 }
-table('published', 'circle-o');
+table('published', 'chevron-right');
 
 echo '
 </tbody>
