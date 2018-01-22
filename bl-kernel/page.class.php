@@ -328,6 +328,16 @@ class Page {
 		return $fileName;
 	}
 
+	// Returns the absolute URL of the thumbnail of the cover image, FALSE if the page doen't have cover image
+	public function thumbCoverImage()
+	{
+		$coverImageFilename = $this->coverImage(false);
+		if ($coverImageFilename==false) {
+			return false;
+		}
+		return DOMAIN_UPLOADS_THUMBNAILS.$coverImageFilename;
+	}
+
 	// Returns TRUE if the content has the text splited
 	public function readMore()
 	{
