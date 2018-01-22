@@ -14,6 +14,10 @@ Bludit supports **Markdown** and **HTML code** for the content.
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 
+<img src="https://opencollective.com/bludit/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen" />
+
+<object type="image/svg+xml" data="https://opencollective.com/bludit/tiers/sponsor.svg?avatarHeight=36&width=600" />
+
 Social Networks
 ---------------
 
