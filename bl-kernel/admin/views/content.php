@@ -111,7 +111,7 @@ if ($Url->pageNumber()==1) {
 	table('scheduled', 'clock-o');
 	table('static', 'thumb-tack');
 }
-table('published', 'chevron-right');
+table('published', '');
 
 echo '
 </tbody>
