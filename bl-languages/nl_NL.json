@@ -274,6 +274,6 @@
     "this-token-is-similar-to-a-password-it-should-not-be-shared": "Deze token is gelijk als het wachtwoord, deel het daarom niet.",
     "congratulations-you-have-successfully-installed-your-bludit": "Gefeliciteerd je hebt jouw **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Dit theme kan niet worden ondersteund door deze versie van Bludit",
-    "read-more": "Verder lezen",
-    "remember-me": "Remember me"
+    "read-more": "Lees meer",
+    "remember-me": "Onthoudt mij!"
 }
