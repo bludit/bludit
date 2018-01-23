@@ -298,8 +298,10 @@ class Page {
 		$tmp['date'] 		= $this->dateRaw();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
+		$tmp['coverImage'] 		= $this->coverImage(true);
+		$tmp['coverImageFilename'] 	= $this->coverImage(false);
 
-		if($returnsArray) {
+		if ($returnsArray) {
 			return $tmp;
 		}
 
