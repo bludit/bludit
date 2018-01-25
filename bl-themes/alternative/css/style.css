@@ -26,3 +26,17 @@ section {
 	background: #eee;
 	color: #444;
 }
+
+/* Alternate the background color */
+section.page:nth-child(even) {
+	background: #FAFAFA;
+}
+
+.page-description {
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+.page-cover-image {
+	background-size: cover;
+	background-position: center;
+}

@@ -127,15 +127,15 @@ if (Session::started()===false) {
 }
 
 // Objects
-$dbPages 	= new dbPages();
-$dbUsers 	= new dbUsers();
-$dbTags 	= new dbTags();
-$dbCategories 	= new dbCategories();
-$Site 		= new dbSite();
-$Url 		= new Url();
-$Parsedown 	= new Parsedown();
-$Security	= new Security();
-$Syslog 	= new dbSyslog();
+$dbPages 			= new dbPages();
+$dbUsers 			= new dbUsers();
+$dbTags 			= new dbTags();
+$dbCategories 			= new dbCategories();
+$site = $Site 			= new dbSite();
+$url = $Url			= new Url();
+$parsedown = $Parsedown 	= new Parsedown();
+$security = $Security		= new Security();
+$syslog = $Syslog 		= new dbSyslog();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.
@@ -183,8 +183,8 @@ define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
-$Language 	= new dbLanguage( $Site->language() );
-$Login 		= new Login( $dbUsers );
+$language = $Language 	= new dbLanguage( $Site->language() );
+$login = $Login 	= new Login( $dbUsers );
 $Url->checkFilters( $Site->uriFilters() );
 
 // --- CONSTANTS with dependency ---
@@ -242,7 +242,7 @@ $ID_EXECUTION = uniqid(); // string 13 characters long
 $WHERE_AM_I = $Url->whereAmI();
 
 // --- Objects shortcuts ---
-$L = $Language;
+$L = $language;
 
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');

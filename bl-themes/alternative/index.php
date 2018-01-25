@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
+<?php include(THEME_DIR_PHP.'head.php') ?>
+</head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Scrolling Nav - Start Bootstrap Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
+<body id="page-top">
 
     <!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -41,22 +28,14 @@
 		</div>
 	</nav>
 
-	<section class="page">
-	<div class="container">
-		<h1 class="page-title">Section Heading</h1>
-
-		<p class="page-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-		<div class="page-cover-image py-6 mb-4" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
-			<div style="height: 300px;"></div>
-		</div>
-
-		<div class="page-content">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
-		</div>
-	</div>
-	</section>
-
+	<!-- Content -->
+	<?php
+		if ($WHERE_AM_I=='page') {
+			include(THEME_DIR_PHP.'page.php');
+		} else {
+			include(THEME_DIR_PHP.'home.php');
+		}
+	?>
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
