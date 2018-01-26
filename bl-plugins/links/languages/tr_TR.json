@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Bağlantılar",
+		"description": "Bağlantıları kenar panelinde gösterir, ayarlardan bu bağlantıları düzenleyebilirsiniz."
+	},
+	"add-a-new-link": "Yeni bağlantı ekle"
+}
