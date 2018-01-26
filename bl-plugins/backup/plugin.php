@@ -66,7 +66,7 @@ class pluginBackup extends Plugin {
 		}
 
 		$html  = '<div>';
-		$html .= '<button name="createBackup" value="true" class="left small blue" type="submit"><i class="uk-icon-plus"></i> '.$Language->get('Create backup').'</button>';
+		$html .= '<button name="createBackup" value="true" class="left small blue" type="submit"><i class="uk-icon-plus"></i> '.$Language->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -76,8 +76,8 @@ class pluginBackup extends Plugin {
 
 			$html .= '<div>';
 			$html .= '<h3>'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h3>';
-			$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$basename.'"><i class="uk-icon-download"></i> '.$Language->get('Download').'</a>';
-			$html .= '<button name="restoreBackup" value="'.$basename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('Restore backup').'</button>';
+			$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$basename.'"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
+			$html .= '<button name="restoreBackup" value="'.$basename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
