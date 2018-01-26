@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Kategoriler",
-		"description": "Tüm kategorileri kenar panelinde göster."
+		"description": "Tüm kategorileri yan panelde göster."
 	},
 	"hide-categories-without-content": "İçeriksiz kategorileri gizle"
 }
