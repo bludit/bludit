@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "İçerik yazmak için kullanışlı bir editör. Markdown koduyla çalışmak istemeyen kullanıcılar için önerilir."
+	}
+}
