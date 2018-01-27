@@ -216,7 +216,7 @@ function buildStaticPages() {
 	global $dbPages;
 
 	$tmp = array();
-	$staticPages = $dbPages->getStaticDB($onlyKeys=true);
+	$staticPages = $dbPages->getStaticDB();
 	foreach ($staticPages as $pageKey) {
 		$staticPage = buildPage($pageKey);
 		array_push($tmp, $staticPage);

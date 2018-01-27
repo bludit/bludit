@@ -18,7 +18,9 @@
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<!-- Page title -->
-				<h2 class="page-title"><?php echo $page->title() ?></h2>
+				<a class="page-title" href="<?php echo $page->permalink() ?>">
+					<h2 class="page-title"><?php echo $page->title() ?></h2>
+				</a>
 
 				<!-- Page content, until the pagebreak -->
 				<div class="page-content">
@@ -36,16 +38,27 @@
 <?php endforeach ?>
 
 <!-- Pagination -->
-<nav aria-label="Page navigation example">
+<?php if (Paginator::amountOfPages()>1): ?>
+<nav class="my-4" aria-label="Page navigation">
 	<ul class="pagination justify-content-center">
-		<li class="page-item disabled">
-		<a class="page-link" href="#" tabindex="-1">Previous</a>
+
+		<!-- Previuos button -->
+		<li class="page-item <?php if (Paginator::showNext()) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo Paginator::prevPageUrl() ?>" tabindex="-1">Previous</a>
 		</li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item">
-		<a class="page-link" href="#">Next</a>
+
+		<!-- List of pages -->
+		<?php for ($i = 1; $i <= Paginator::amountOfPages(); $i++): ?>
+		<li class="page-item <?php if ($i==Paginator::currentPage()) echo 'active' ?>">
+			<a class="page-link" href="<?php echo Paginator::numberUrl($i) ?>"><?php echo $i ?></a>
 		</li>
+		<?php endfor ?>
+
+		<!-- Next button -->
+		<li class="page-item <?php if (Paginator::showPrev()) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">Next</a>
+		</li>
+
 	</ul>
 </nav>
+<?php endif ?>

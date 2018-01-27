@@ -32,6 +32,10 @@ section.page:nth-child(even) {
 	background: #FAFAFA;
 }
 
+a.page-title {
+	color: #333;
+}
+
 .page-description {
 	font-size: 1.25rem;
 	font-weight: 300;
@@ -39,4 +43,9 @@ section.page:nth-child(even) {
 .page-cover-image {
 	background-size: cover;
 	background-position: center;
+}
+
+.nav-link {
+	font-size: 0.8em;
+	text-transform: uppercase;
 }

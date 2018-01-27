@@ -30,6 +30,11 @@ class Paginator {
 		return self::get('amountOfPages');
 	}
 
+	public static function currentPage()
+	{
+		return self::get('currentPage');
+	}
+
 	public static function nextPage()
 	{
 		return self::get('nextPage');
