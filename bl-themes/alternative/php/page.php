@@ -1,14 +1,15 @@
-<section class="page">
+<section class="page mt-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<!-- Page title -->
 				<h1 class="page-title"><?php echo $page->title() ?></h1>
 
-				<!-- Page description -->
+				<!-- Page description
 				<?php if ($page->description()): ?>
 				<p class="page-description"><?php echo $page->description() ?></p>
 				<?php endif ?>
+				-->
 
 				<!-- Page cover image -->
 				<?php if ($page->coverImage()): ?>

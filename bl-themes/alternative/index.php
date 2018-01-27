@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<?php include(THEME_DIR_PHP.'head.php') ?>
+<?php
+	include(THEME_DIR_PHP.'head.php');
+?>
 </head>
 <body id="page-top">
 
@@ -19,24 +21,16 @@
 		}
 	?>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+	<!-- Footer -->
+	<?php
+		include(THEME_DIR_PHP.'footer.php');
+	?>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Load Javascript -->
+	<?php
+		echo Theme::js('js/jquery.min.js');
+		echo Theme::js('js/bootstrap.min.js');
+	?>
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
-
-  </body>
-
+</body>
 </html>
