@@ -1,5 +1,5 @@
-<!-- Header -->
-<header class="bg-light-gray">
+<!-- Welcome message -->
+<header class="welcome bg-light">
 	<div class="container text-center">
 		<!-- Site title -->
 		<h1><?php echo $site->slogan() ?></h1>
@@ -13,17 +13,17 @@
 
 <!-- Print all the content -->
 <?php foreach ($content as $page): ?>
-<section class="page">
+<section class="home-page">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<!-- Page title -->
-				<a class="page-title" href="<?php echo $page->permalink() ?>">
-					<h2 class="page-title"><?php echo $page->title() ?></h2>
+				<a class="text-dark" href="<?php echo $page->permalink() ?>">
+					<h2><?php echo $page->title() ?></h2>
 				</a>
 
-				<!-- Page content, until the pagebreak -->
-				<div class="page-content">
+				<!-- Page content until the pagebreak -->
+				<div>
 				<?php echo $page->contentBreak() ?>
 				</div>
 
