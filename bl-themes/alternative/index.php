@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php
-	include(THEME_DIR_PHP.'head.php');
-?>
+<?php include(THEME_DIR_PHP.'head.php'); ?>
 </head>
 <body id="page-top">
 
+	<!-- Load Bludit Plugins: Site Body Begin -->
+	<?php Theme::plugins('siteBodyBegin'); ?>
+
 	<!-- Navbar -->
-	<?php
-		include(THEME_DIR_PHP.'navbar.php');
-	?>
+	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
 
 	<!-- Content -->
 	<?php
@@ -22,15 +21,16 @@
 	?>
 
 	<!-- Footer -->
-	<?php
-		include(THEME_DIR_PHP.'footer.php');
-	?>
+	<?php include(THEME_DIR_PHP.'footer.php'); ?>
 
-	<!-- Load Javascript -->
+	<!-- Javascript -->
 	<?php
 		echo Theme::js('js/jquery.min.js');
 		echo Theme::js('js/bootstrap.min.js');
 	?>
+
+	<!-- Load Bludit Plugins: Site Body End -->
+	<?php Theme::plugins('siteBodyEnd'); ?>
 
 </body>
 </html>

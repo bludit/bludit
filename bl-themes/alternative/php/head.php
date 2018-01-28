@@ -3,19 +3,19 @@
 <meta name="author" content="Bludit CMS">
 
 <!-- Dynamic title tag -->
-<?php echo Theme::headTitle() ?>
+<?php echo Theme::headTitle(); ?>
 
 <!-- Dynamic description tag -->
-<?php echo Theme::headDescription() ?>
+<?php echo Theme::headDescription(); ?>
 
 <!-- Favicon -->
-<?php echo Theme::favicon('img/favicon.png') ?>
+<?php echo Theme::favicon('img/favicon.png'); ?>
 
-<!-- Load CSS: Bootstrap core -->
-<?php echo Theme::css('css/bootstrap.min.css') ?>
+<!-- CSS: Bootstrap -->
+<?php echo Theme::css('css/bootstrap.min.css'); ?>
 
-<!-- Load CSS: Styles for this theme -->
-<?php echo Theme::css('css/style.css') ?>
+<!-- CSS: Styles for this theme -->
+<?php echo Theme::css('css/style.css'); ?>
 
-<!-- Load plugins for the site head -->
-<?php Theme::plugins('siteHead') ?>
+<!-- Load Bludit Plugins: Site head -->
+<?php Theme::plugins('siteHead'); ?>

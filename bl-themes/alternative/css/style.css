@@ -50,5 +50,4 @@ section.home-page:nth-child(even) { /* Alternate the background color */
 
 .nav-link {
 	font-size: 0.8em;
-	text-transform: uppercase;
 }

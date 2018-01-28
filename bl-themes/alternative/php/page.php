@@ -2,6 +2,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
+				<!-- Load Bludit Plugins: Page Begin -->
+				<?php Theme::plugins('pageBegin'); ?>
+
 				<!-- Page title -->
 				<h1 class="page-title"><?php echo $page->title() ?></h1>
 
@@ -22,6 +25,9 @@
 				<div class="page-content">
 				<?php echo $page->content() ?>
 				</div>
+
+				<!-- Load Bludit Plugins: Page End -->
+				<?php Theme::plugins('pageEnd'); ?>
 			</div>
 		</div>
 	</div>

@@ -17,6 +17,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
+				<!-- Load Bludit Plugins: Page Begin -->
+				<?php Theme::plugins('pageBegin'); ?>
+
 				<!-- Page title -->
 				<a class="text-dark" href="<?php echo $page->permalink() ?>">
 					<h2><?php echo $page->title() ?></h2>
@@ -31,6 +34,9 @@
 				<?php if ($page->readMore()): ?>
 				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink() ?>" role="button">Read more</a>
 				<?php endif ?>
+
+				<!-- Load Bludit Plugins: Page End -->
+				<?php Theme::plugins('pageEnd'); ?>
 			</div>
 		</div>
 	</div>
