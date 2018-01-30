@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Site Haritası",
+		"description": "Bu eklenti, web sitenizdeki sayfaların listesini sağlayan bir sitemap.xml dosyası oluşturur; bu, arama motorlarının web sitelerindeki içeriği organize etmesine ve filtrelemesine yardımcı olur."
+	},
+	"sitemap-url": "Site Haritası URL"
+}
