@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Beslemesi",
+		"description": "Bu eklenti, sitenizin RSS beslemesini üretir.<br>Besleme URL'si https://example.com/rss.xml gibi görünür."
+	},
+	"amount-of-items-to-show-on-the-feed": "Özet akışında gösterilecek öğe miktarı.",
+	"rss-url": "RSS URL"
+}
