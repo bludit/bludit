@@ -1,4 +1,4 @@
-<section class="page">
+<section class="page mt-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">

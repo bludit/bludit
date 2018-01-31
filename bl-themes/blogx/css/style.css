@@ -41,19 +41,3 @@ footer {
 	height: 22px;
 	padding-bottom: 5px;
 }
-
-/* Home - Header */
-header.welcome {
-	padding: 100px 0;
-}
-
-/* Home - Page */
-section.home-page:nth-child(even) { /* Alternate the background color */
-	background: #FAFAFA;
-}
-
-.page-cover-image {
-	background-size: cover;
-	background-position: center;
-}
-
