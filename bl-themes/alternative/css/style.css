@@ -12,6 +12,15 @@ section {
 	padding: 150px 0;
 }
 
+/* Navbar */
+.navbar-nav-svg {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	vertical-align: text-top;
+	color: rgba(255,255,255,.5);
+}
+
 /* Home - Header */
 header.welcome {
 	padding: 154px 0 100px;
