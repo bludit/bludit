@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Disqus yorum sistemi",
+		"name": "Disqus Yorum Sistemi",
 		"description": "Diqus siteler için yorum hostingi yapan bir hostingdir.Eklentiyi kullanmadan önce Disqus.com adresine kayıt olmanız gerekmektedir."
 	},
 	"disqus-shortname": "Disqus",
