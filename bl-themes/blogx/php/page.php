@@ -12,8 +12,10 @@
 			<h2><?php echo $page->title(); ?></h2>
 		</a>
 
+		<?php if (!$page->static()): ?>
 		<!-- Creation date -->
 		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?></h6>
+		<?php endif ?>
 
 		<!-- Full content -->
 		<?php echo $page->content(); ?>
