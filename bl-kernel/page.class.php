@@ -381,6 +381,12 @@ class Page {
 		return ($this->getValue('status')=='sticky');
 	}
 
+	// (boolean) Returns TRUE if the page is sticky, FALSE otherwise
+	public function isStatic()
+	{
+		return ($this->getValue('status')=='static');
+	}
+
 	// (string) Returns status of the page
 	public function status()
 	{

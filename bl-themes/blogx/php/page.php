@@ -12,7 +12,7 @@
 			<h2><?php echo $page->title(); ?></h2>
 		</a>
 
-		<?php if (!$page->static()): ?>
+		<?php if (!$page->isStatic()): ?>
 		<!-- Creation date -->
 		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?></h6>
 		<?php endif ?>
