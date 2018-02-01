@@ -1,28 +1,28 @@
 <?php foreach ($content as $page): ?>
 
 <!-- Post -->
-<div class="card mt-5 mb-5 border-0">
+<div class="card my-5 border-0">
 
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
-	<img class="card-img-top mb-3 rounded-0" src="<?php echo $page->coverImage() ?>" alt="Cover Image">
+	<img class="card-img-top mb-3 rounded-0" alt="Cover Image" src="<?php echo $page->coverImage(); ?>"/>
 	<?php endif ?>
 
 	<div class="card-body p-0">
 		<!-- Title -->
-		<a class="text-dark" href="<?php echo $page->permalink() ?>">
-			<h2 class="card-title"><?php echo $page->title() ?></h2>
+		<a class="text-dark" href="<?php echo $page->permalink(); ?>">
+			<h2><?php echo $page->title(); ?></h2>
 		</a>
 
 		<!-- Creation date -->
-		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date() ?></h6>
+		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?></h6>
 
 		<!-- Breaked content -->
-		<p class="card-text"><?php echo $page->contentBreak() ?></p>
+		<?php echo $page->contentBreak(); ?>
 
 		<!-- "Read more" button -->
 		<?php if ($page->readMore()): ?>
-		<a href="<?php echo $page->permalink() ?>">Read more</a>
+		<a href="<?php echo $page->permalink(); ?>">Read more</a>
 		<?php endif ?>
 	</div>
 

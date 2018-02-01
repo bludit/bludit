@@ -1,34 +1,22 @@
-<section class="page mt-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 mx-auto">
-				<!-- Load Bludit Plugins: Page Begin -->
-				<?php Theme::plugins('pageBegin'); ?>
+<!-- Post -->
+<div class="card my-5 border-0">
 
-				<!-- Page title -->
-				<h1 class="page-title"><?php echo $page->title() ?></h1>
+	<!-- Cover image -->
+	<?php if ($page->coverImage()): ?>
+	<img class="card-img-top mb-3 rounded-0" alt="Cover Image" src="<?php echo $page->coverImage(); ?>"/>
+	<?php endif ?>
 
-				<!-- Page description
-				<?php if ($page->description()): ?>
-				<p class="page-description"><?php echo $page->description() ?></p>
-				<?php endif ?>
-				-->
+	<div class="card-body p-0">
+		<!-- Title -->
+		<a class="text-dark" href="<?php echo $page->permalink(); ?>">
+			<h2><?php echo $page->title(); ?></h2>
+		</a>
 
-				<!-- Page cover image -->
-				<?php if ($page->coverImage()): ?>
-				<div class="page-cover-image py-6 mb-4" style="background-image: url('<?php echo $page->coverImage() ?>');">
-					<div style="height: 300px;"></div>
-				</div>
-				<?php endif ?>
+		<!-- Creation date -->
+		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?></h6>
 
-				<!-- Page content -->
-				<div class="page-content">
-				<?php echo $page->content() ?>
-				</div>
-
-				<!-- Load Bludit Plugins: Page End -->
-				<?php Theme::plugins('pageEnd'); ?>
-			</div>
-		</div>
+		<!-- Full content -->
+		<?php echo $page->content(); ?>
 	</div>
-</section>
+
+</div>

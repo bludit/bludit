@@ -41,3 +41,17 @@ footer {
 	height: 22px;
 	padding-bottom: 5px;
 }
+
+/* Plugins */
+.plugin {
+	margin-top: 3rem;
+}
+.plugin-label {
+	font-size: 1em;
+	text-transform: uppercase;
+}
+
+.plugin ul {
+	list-style: none;
+	padding: 0 0 0 10px;
+}
