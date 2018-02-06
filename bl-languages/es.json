@@ -275,5 +275,9 @@
     "congratulations-you-have-successfully-installed-your-bludit": "Felicitaciones Usted ha instalado con éxito **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Este tema puede no ser compatible con esta versión de Bludit",
     "read-more": "Leer más",
-    "remember-me": "Recordarme"
+    "remember-me": "Recordarme",
+    "plugins-position": "Plugin position",
+    "plugins-position-changed": "Plugin position changed",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
+    "change-the-position-of-the-plugins": "Change the position of the plugins"
 }
