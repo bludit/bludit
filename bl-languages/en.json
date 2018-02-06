@@ -29,7 +29,7 @@
         "Jan": "Jan",
         "Feb": "Feb",
         "Mar": "Mar",
-        "Apr": "Apr",    
+        "Apr": "Apr",
         "Jun": "Jun",
         "Jul": "Jul",
         "Aug": "Aug",
@@ -276,5 +276,9 @@
     "congratulations-you-have-successfully-installed-your-bludit": "Congratulations you have successfully installed your **Bludit**.",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "This theme may not be supported by this version of Bludit",
     "read-more": "Read more",
-    "remember-me": "Remember me"
+    "remember-me": "Remember me",
+    "plugins-position": "Plugin position",
+    "plugins-position-changed": "Plugin position changed",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
+    "change-the-position-of-the-plugins": "Change the position of the plugins"
 }

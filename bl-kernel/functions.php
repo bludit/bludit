@@ -336,6 +336,27 @@ function deactivatePlugin($pluginClassName) {
 	return false;
 }
 
+function changePluginsPosition($pluginClassList) {
+	global $plugins;
+	global $Syslog;
+	global $Language;
+
+	foreach ($pluginClassList as $position=>$pluginClassName) {
+		if (isset($plugins['all'][$pluginClassName])) {
+			$plugin = $plugins['all'][$pluginClassName];
+			$plugin->setPosition(++$position);
+		}
+	}
+
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'plugins-sorted',
+		'notes'=>''
+	));
+
+	return true;
+}
+
 function createPage($args) {
 	global $dbPages;
 	global $Syslog;

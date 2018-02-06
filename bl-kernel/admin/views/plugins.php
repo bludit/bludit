@@ -2,6 +2,8 @@
 
 HTML::title(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
 
+echo '<a href="'.HTML_PATH_ADMIN_ROOT.'plugins-position"><i class="uk-icon-plus"></i> '.$L->g('Change the position of the plugins').'</a>';
+
 echo '
 <table class="uk-table">
 <thead>

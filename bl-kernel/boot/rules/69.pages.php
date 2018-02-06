@@ -42,7 +42,7 @@ $page = $Page = false;
 			N => Page Object),
 	)
 */
-$pagesByParent = array(PARENT=>array());
+//$pagesByParent = array(PARENT=>array()); // DEPREACTED
 
 // Array with pages order by parent and by key
 /*
@@ -66,7 +66,7 @@ $pagesByParent = array(PARENT=>array());
 			"childKeyZ" => Page Object),
 	)
 */
-$pagesByParentByKey = array(PARENT=>array());
+//$pagesByParentByKey = array(PARENT=>array()); // DEPREACTED
 
 // Array with static content, each item is a Page Object
 // Order by position
@@ -100,7 +100,7 @@ if ($dbPages->scheduler()) {
 }
 
 // Generate pages parent tree, only published pages
-buildPagesByParent(true, true);
+//buildPagesByParent(true, true);
 
 // Set home page is the user defined one
 if ($Site->homepage() && $Url->whereAmI()==='home') {
@@ -111,25 +111,19 @@ if ($Site->homepage() && $Url->whereAmI()==='home') {
 	}
 }
 
-// The filter blog alway show all the content
-// Change the where am i to use
-if ($Url->whereAmI()==='blog') {
-	//$Url->setWhereAmI('home');
-}
-
 // Build specific page
 if ($Url->whereAmI()==='page') {
 	buildThePage();
 }
-// Build pages by tag
+// Build content by tag
 elseif ($Url->whereAmI()==='tag') {
 	buildPagesByTag();
 }
-// Build pages by category
+// Build content by category
 elseif ($Url->whereAmI()==='category') {
         buildPagesByCategory();
 }
-// Build pages for the homepage
+// Build content for the homepage
 elseif ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) {
         buildPagesForHome();
 }

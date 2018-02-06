@@ -227,7 +227,7 @@ class Plugin {
 	// Return TRUE if the installation success, otherwise FALSE.
 	public function install($position=1)
 	{
-		if($this->installed()) {
+		if ($this->installed()) {
 			return false;
 		}
 
@@ -276,6 +276,17 @@ class Plugin {
 			}
 		}
 		return $this->save();
+	}
+
+	public function setField($field, $value)
+	{
+		$this->db[$field] = Sanitize::html($value);
+		return $this->save();
+	}
+
+	public function setPosition($position)
+	{
+		return $this->setField('position', $position);
 	}
 
 	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook

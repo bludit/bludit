@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/form-file.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/placeholder.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/progress.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/sortable.min.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/default.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/jquery.datetimepicker.css?version='.BLUDIT_VERSION ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_CORE_CSS.'font-awesome/css/font-awesome.min.css?version='.BLUDIT_VERSION ?>">
@@ -24,6 +25,7 @@
 	<script charset="utf-8" src="<?php echo HTML_PATH_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/uikit.min.js?version='.BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/upload.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/sortable.min.js?version='.BLUDIT_VERSION ?>"></script>
 	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/jquery.datetimepicker.js?version='.BLUDIT_VERSION ?>"></script>
 
 	<!-- Plugins -->
