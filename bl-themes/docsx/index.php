@@ -8,9 +8,6 @@
 	<!-- Load Bludit Plugins: Site Body Begin -->
 	<?php Theme::plugins('siteBodyBegin'); ?>
 
-	<!-- Navbar -->
-	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
-
 	<!-- Content -->
 	<div class="container-fluid">
 		<div class="row">
