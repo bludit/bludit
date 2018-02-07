@@ -6,7 +6,7 @@
 		foreach ($pagesKeys as $pageKey) {
 			// Build the page
 			$page = buildPage($pageKey);
-			// If the page is not a child this means the page is main page or parent page
+			// If the page is not a child this means the page is parent-page
 			if (!$page->isChild()) {
 				echo '<h6>'.$page->title().'</h6>';
 
@@ -14,13 +14,13 @@
 				$childrenKeys = $page->children();
 				// Check if the page has children
 				if ($childrenKeys!==false) {
-					echo '<ul class="nav flex-column">';
 					// Foreach child
+					echo '<ul class="nav flex-column">';
 					foreach ($childrenKeys as $childKey) {
 						// Build the child
 						$pageChild = buildPage($childKey);
 						echo '<li class="nav-item">';
-						echo '<a class="nav-link active" href="#">'.$pageChild->title().'</a>';
+						echo '<a class="nav-link active" href="'.$pageChild->permalink().'">'.$pageChild->title().'</a>';
 						echo '</li>';
 					}
 					echo '</ul>';
