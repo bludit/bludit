@@ -59,7 +59,7 @@ function buildPage($key) {
 	$page->setField('categoryMap', $dbCategories->getMap($categoryKey));
 
 	// Get the keys of the child
-	$page->setField('children', $dbPages->getChildren($key));
+	$page->setField('childrenKeys', $dbPages->getChildren($key));
 
 	return $page;
 }

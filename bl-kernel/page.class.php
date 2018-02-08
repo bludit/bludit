@@ -459,16 +459,29 @@ class Page {
 		return $this->parentKey()!==false;
 	}
 
-	// Returns an array with all children's key
+	// Returns an array with all children as page-object
 	public function children()
 	{
-		return $this->getValue('children');
+		$list = array();
+		$childrenKeys = $this->getValue('childrenKeys');
+		foreach ($childrenKeys as $childKey) {
+			$child = buildPage($childKey);
+			array_push($list, $child);
+		}
+
+		return $list;
+	}
+
+	// Returns an array with all children's keys
+	public function childrenKeys()
+	{
+		return $this->getValue('childrenKeys');
 	}
 
 	// Returns an array with all children's key
-	public function subpages()
+	public function subpagesKeys()
 	{
-		return $this->children();
+		return $this->childrenKeys();
 	}
 
 	// Returns TRUE if the page has children
@@ -521,6 +534,5 @@ class Page {
 		}
 
 		return $string ? implode(', ', $string) . ' ago' : 'Just now';
-
 	}
 }
