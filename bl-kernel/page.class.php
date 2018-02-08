@@ -435,6 +435,12 @@ class Page {
 		return false;
 	}
 
+	// Returns TRUE if the page is a parent, has or not children
+	public function isParent()
+	{
+		return $this->parentKey()===false;
+	}
+
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
@@ -447,19 +453,26 @@ class Page {
 		return false;
 	}
 
-	// Returns TURE if the page has a parent, FALSE otherwise
-	public function hasParent()
-	{
-		return $this->parentKey()!==false;
-	}
-
 	// Returns TRUE if the page is a child, FALSE otherwise
 	public function isChild()
 	{
 		return $this->parentKey()!==false;
 	}
 
-	// Returns an array with all children as page-object
+	// Returns TRUE if the page has children
+	public function hasChildren()
+	{
+		$childrenKeys = $this->childrenKeys();
+		return !empty($childrenKeys);
+	}
+
+	// Returns an array with all children's keys
+	public function childrenKeys()
+	{
+		return $this->getValue('childrenKeys');
+	}
+
+	// Returns an array with all children as Page-Object
 	public function children()
 	{
 		$list = array();
@@ -471,32 +484,6 @@ class Page {
 
 		return $list;
 	}
-
-	// Returns an array with all children's keys
-	public function childrenKeys()
-	{
-		return $this->getValue('childrenKeys');
-	}
-
-	// Returns an array with all children's key
-	public function subpagesKeys()
-	{
-		return $this->childrenKeys();
-	}
-
-	// Returns TRUE if the page has children
-	public function hasSubpages()
-	{
-		$subpages = $this->subpages();
-		return !empty($subpages);
-	}
-
-	// Returns TRUE if the page is a parent
-	public function isParent()
-	{
-		return $this->hasSubpages();
-	}
-
 
 	// Returns relative time (e.g. "1 minute ago")
 	// Based on http://stackoverflow.com/a/18602474

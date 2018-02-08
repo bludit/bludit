@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
+// Returns a Page-Object, the class is page.class.php, FALSE if something fail to load the page
 function buildPage($key) {
 	global $dbPages;
 	global $dbUsers;
@@ -64,19 +64,22 @@ function buildPage($key) {
 	return $page;
 }
 
-// Execute a re-index of categories
+// Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
 	global $dbCategories;
 	return $dbCategories->reindex();
 }
 
+// Re-index database of tags
+// If you create/edit/remove a page is necessary regenerate the database of tags
 function reindexTags() {
 	global $dbTags;
 	return $dbTags->reindex();
 }
 
-// Returns a Page Object, this generate on the fly a page-not-found
+// Generate on the fly a 404 page-not-found
+// Returns a Page-Object
 function buildErrorPage() {
 	global $dbPages;
 	global $Language;
@@ -91,9 +94,9 @@ function buildErrorPage() {
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
-// This function generate a particular page from the slug of the url
+// This function generate a particular page from the current slug of the url
 // The page is stored on the global variable $page
-// If the slug has not a page associacted returns FALSE and set not-found
+// If the slug has not a page associacted returns FALSE and is set not-found as true
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
@@ -102,12 +105,12 @@ function buildThePage() {
 	$page = $Page = buildPage( $Url->slug() );
 
 	// The page doesn't exist
-	if($page===false) {
+	if ($page===false) {
 		$Url->setNotFound();
 		return false;
 	}
 	// The page is NOT published
-	elseif( $page->scheduled() || $page->draft() ) {
+	elseif ( $page->scheduled() || $page->draft() ) {
 		$Url->setNotFound();
 		return false;
 	}
@@ -138,7 +141,9 @@ function buildPagesByTag() {
 	return buildPagesFor('tag', false, $tagKey);
 }
 
-// Generate the global variables $pages and $content, defined on 69.pages.php
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
+// Generate the global variables $pages / $content, defined on 69.pages.php
+// This function is use for buildPagesForHome(), buildPagesByCategory(), buildPagesByTag()
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
 	global $dbCategories;
@@ -171,9 +176,9 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	}
 
 	$pages = array(); // global variable
-	foreach($list as $pageKey) {
+	foreach ($list as $pageKey) {
 		$page = buildPage($pageKey);
-		if($page!==false) {
+		if ($page!==false) {
 			array_push($pages, $page);
 		}
 	}
@@ -181,6 +186,39 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	return $pages;
 }
 
+// Returns an array with all the static pages as Page-Object
+// The static pages are order by position all the time
+function buildStaticPages() {
+	global $dbPages;
+
+	$list = array();
+	$staticPages = $dbPages->getStaticDB();
+	foreach ($staticPages as $pageKey) {
+		$staticPage = buildPage($pageKey);
+		array_push($list, $staticPage);
+	}
+
+	return $list;
+}
+
+// Returns an array with all the parent pages as Page-Object
+// The pages are order by the settings on the system
+function buildParentPages() {
+	global $dbPages;
+
+	$list = array();
+	$pagesKey = $dbPages->getPublishedDB();
+	foreach ($pagesKey as $pageKey) {
+		$page = buildPage($pageKey);
+		if ($page->isParent()) {
+			array_push($list, $page);
+		}
+	}
+
+	return $list;
+}
+
+// DEPRECATED
 // Generate the global variable $pagesByParent, defined on 69.pages.php
 function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	global $dbPages;
@@ -212,20 +250,8 @@ function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	}
 }
 
-function buildStaticPages() {
-	global $dbPages;
-
-	$tmp = array();
-	$staticPages = $dbPages->getStaticDB();
-	foreach ($staticPages as $pageKey) {
-		$staticPage = buildPage($pageKey);
-		array_push($tmp, $staticPage);
-	}
-	return $tmp;
-}
-
+// DEPRECATED
 // Returns an Array with all pages existing on the system
-// (boolean) $allPages, TRUE returns all pages with any status, FALSE all published pages
 /*
 	array(
 		pageKey1 => Page object,
@@ -263,7 +289,7 @@ function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true
 	return $tmp;
 }
 
-// Returns the plugin Object if is enabled and installed, FALSE otherwise
+// Returns the Plugin-Object if is enabled and installed, FALSE otherwise
 function getPlugin($pluginClassName) {
 	global $plugins;
 
