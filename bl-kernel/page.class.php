@@ -485,6 +485,17 @@ class Page {
 		return $list;
 	}
 
+	// Returns the amount of minutes takes to read the page
+	public function readingTime() {
+		$words = $this->content(true);
+		$words = strip_tags($words);
+		$words = str_word_count($words);
+		$average = $words / 200;
+		$minutes = round($average);
+
+		return $minutes;
+	}
+
 	// Returns relative time (e.g. "1 minute ago")
 	// Based on http://stackoverflow.com/a/18602474
 	// Modified for Bludit
