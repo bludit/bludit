@@ -65,8 +65,7 @@ function table($status, $icon='arrow-circle-o-down') {
 					echo '<td><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 					echo '</tr>';
 
-					foreach ($page->children() as $childKey) {
-						$child = buildPage($childKey);
+					foreach ($page->children() as $child) {
 						if ($child->published()) {
 						echo '<tr>
 						<td class="child-title">

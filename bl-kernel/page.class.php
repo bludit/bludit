@@ -487,13 +487,19 @@ class Page {
 
 	// Returns the amount of minutes takes to read the page
 	public function readingTime() {
+		global $Language;
+
 		$words = $this->content(true);
 		$words = strip_tags($words);
 		$words = str_word_count($words);
 		$average = $words / 200;
 		$minutes = round($average);
 
-		return $minutes;
+		if ($minutes>0) {
+			return $minutes.' '.$Language->get('minutes');
+		}
+
+		return '~1 '.$Language->get('minute');
 	}
 
 	// Returns relative time (e.g. "1 minute ago")

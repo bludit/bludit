@@ -280,5 +280,8 @@
     "plugins-position": "Plugin position",
     "plugins-position-changed": "Plugin position changed",
     "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
-    "change-the-position-of-the-plugins": "Change the position of the plugins"
+    "change-the-position-of-the-plugins": "Change the position of the plugins",
+    "reading-time": "Reading time",
+    "minutes": "minutes",
+    "minute": "minute"
 }

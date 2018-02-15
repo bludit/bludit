@@ -15,7 +15,7 @@
 		</a>
 
 		<!-- Creation date -->
-		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?></h6>
+		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?> - <?php echo $Language->get('Reading time') . ': ' . $page->readingTime() . $Language->get('minutes') ?></h6>
 
 		<!-- Breaked content -->
 		<?php echo $page->contentBreak(); ?>
