@@ -37,6 +37,7 @@ class pluginTinymce extends Plugin {
 				schema: "html5",
 				statusbar: false,
 				menubar:false,
+				remove_script_host: false,
 				branding: false,
 				browser_spellcheck: true,
 				pagebreak_separator: "'.PAGE_BREAK.'",
