@@ -14,6 +14,10 @@ section {
 	padding: 150px 0;
 }
 
+img {
+	max-width: 100%;
+}
+
 /* Navbar */
 .navbar-nav-svg {
 	display: inline-block;

@@ -17,5 +17,11 @@
 <!-- CSS: Styles for this theme -->
 <?php echo Theme::css('css/style.css'); ?>
 
+<!-- CSS: Highlight -->
+<?php echo Theme::css('css/highlight.github.min.css'); ?>
+
+<!-- Google Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
 <!-- Load Bludit Plugins: Site head -->
 <?php Theme::plugins('siteHead'); ?>
