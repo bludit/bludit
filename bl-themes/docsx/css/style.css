@@ -10,6 +10,15 @@ a {
 	color: #005ec3;
 }
 
+/* Navbar */
+.navbar-nav-svg {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: text-top;
+	color: rgba(255,255,255,.5);
+}
+
 /* Toc */
 #toc {
     float: right;
@@ -17,6 +26,7 @@ a {
     margin: 0 0 0.5em 0.5em;
     padding: 1em;
     background-color: #f5f5f5;
+    display: none;
 }
 
 #toc ul {
@@ -106,7 +116,37 @@ code {
 	font-size: 14px !important;
 }
 
+table {
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+th, td {
+	padding: 0.5em 1em;
+    }
+
 /* Footer */
+footer {
+	border-top: 1px solid #ccc;
+	padding: 10px;
+	margin: 10px 0;
+	font-size: 0.8em;
+}
 
 /* Sidebar */
 .sidebar {

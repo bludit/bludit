@@ -36,9 +36,7 @@
 		</div>
 
 		<footer>
-		<p class="pull-left">
-		© Prometheus Authors 2018
-		</p>
+			<p class="m-0 text-right text-black text-uppercase"><?php echo $site->footer(); ?><span class="ml-3 text-warning">Powered by <a target="_blank" class="text-warning" href="https://www.bludit.com">Bludit</a></span></p>
 		</footer>
 	</div>
 
@@ -57,12 +55,17 @@
 	<!-- TOC generator -->
 	<script>
 		$(document).ready(function() {
+			var enableToc = false;
 			if ($('#page-content > h2').length > 1) {
 				$('#page-content > h2').each(function() {
-					$('#toc-content').append('<li><a href="' + $(this).attr('id') + '">' + $(this).text() + '</a></li>');
+					if ($(this).attr('id')) {
+						enableToc = true;
+						$('#toc-content').append('<li><a href="#' + $(this).attr('id') + '">' + $(this).text() + '</a></li>');
+					}
 				});
-			} else {
-				$('#toc').hide();
+			}
+			if (enableToc) {
+				$('#toc').show();
 			}
 		});
 	</script>
