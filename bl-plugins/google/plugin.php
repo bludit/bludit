@@ -43,13 +43,13 @@ class pluginGoogle extends Plugin {
 		$html = '';
 
 		// Google HTML tag
-		if( $this->getValue('google-site-verification') && $Url->whereAmI()=='home' ) {
+		if ($this->getValue('google-site-verification') && $Url->whereAmI()=='home') {
 			$html .= PHP_EOL.'<!-- Google HTML tag -->'.PHP_EOL;
 			$html .= '<meta name="google-site-verification" content="'.$this->getDbField('google-site-verification').'" />'.PHP_EOL;
 		}
 
 		// Google Tag Manager
-		if( $this->getValue('google-tag-manager') ) {
+		if ($this->getValue('google-tag-manager')) {
 			$html .= PHP_EOL."<!-- Google Tag Manager -->".PHP_EOL;
 			$html .= "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':".PHP_EOL;
 			$html .= "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],".PHP_EOL;
@@ -60,7 +60,7 @@ class pluginGoogle extends Plugin {
 		}
 
 		// Google Analytics
-		if( $this->getValue('google-analytics-tracking-id') ) {
+		if ($this->getValue('google-analytics-tracking-id')) {
 			$html .= PHP_EOL.'<!-- Google Analytics -->'.PHP_EOL;
 			$html .= '
 			<script async src="https://www.googletagmanager.com/gtag/js?id='.$this->getValue('google-analytics-tracking-id').'"></script>
@@ -78,14 +78,15 @@ class pluginGoogle extends Plugin {
 
 	public function siteBodyBegin()
 	{
+		$html = '';
+
 		// Google Tag Manager
 		if ($this->getValue('google-tag-manager')) {
-			$html  = '<!-- Google Tag Manager (noscript) -->'.PHP_EOL;
+			$html .= '<!-- Google Tag Manager (noscript) -->'.PHP_EOL;
 			$html .= '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id='.$this->getValue('google-tag-manager').'" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'.PHP_EOL;
 			$html .= '<!-- End Google Tag Manager (noscript) -->'.PHP_EOL;
-			return $html;
 		}
-		return false;
-	}
 
+		return $html;
+	}
 }
