@@ -6,7 +6,7 @@
 				<?php Theme::plugins('pageBegin'); ?>
 
 				<!-- Page title -->
-				<h1 class="page-title"><?php echo $page->title() ?></h1>
+				<h1 class="title"><?php echo $page->title() ?></h1>
 
 				<!-- Page description
 				<?php if ($page->description()): ?>

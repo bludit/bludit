@@ -18,6 +18,42 @@ img {
 	max-width: 100%;
 }
 
+
+pre {
+	background: #eee;
+	padding: 10px;
+}
+
+table {
+	empty-cells: show;
+	border: 1px solid #cbcbcb;
+	width: 100%;
+	font-size: 0.9em;
+	margin-bottom: 1rem;
+}
+
+thead {
+	background-color: #e0e0e0;
+	color: #000;
+	text-align: left;
+	vertical-align: bottom;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+th, td {
+	padding: 0.5em 1em;
+}
+
+h1.title,
+h2.title {
+	font-size: 2.3rem;
+}
+
 /* Navbar */
 .navbar-nav-svg {
 	display: inline-block;
@@ -50,6 +86,7 @@ footer {
 .plugin {
 	margin-top: 3rem;
 }
+
 .plugin-label {
 	font-size: 1em;
 	text-transform: uppercase;

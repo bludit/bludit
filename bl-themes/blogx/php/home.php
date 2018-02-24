@@ -11,11 +11,11 @@
 	<div class="card-body p-0">
 		<!-- Title -->
 		<a class="text-dark" href="<?php echo $page->permalink(); ?>">
-			<h2><?php echo $page->title(); ?></h2>
+			<h2 class="title"><?php echo $page->title(); ?></h2>
 		</a>
 
 		<!-- Creation date -->
-		<h6 class="card-subtitle mb-2 text-muted"><?php echo $page->date(); ?> - <?php echo $Language->get('Reading time') . ': ' . $page->readingTime(); ?></h6>
+		<h6 class="card-subtitle mb-3 text-muted"><?php echo $page->date(); ?> - <?php echo $Language->get('Reading time') . ': ' . $page->readingTime(); ?></h6>
 
 		<!-- Breaked content -->
 		<?php echo $page->contentBreak(); ?>
@@ -35,7 +35,7 @@
 <!-- Pagination -->
 <?php if (Paginator::amountOfPages()>1): ?>
 <nav class="my-4" aria-label="Page navigation">
-	<ul class="pagination justify-content-center">
+	<ul class="pagination">
 
 		<!-- Previuos button -->
 		<li class="page-item <?php if (Paginator::showNext()) echo 'disabled' ?>">
