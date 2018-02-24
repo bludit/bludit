@@ -17,6 +17,10 @@ define('ALERT_STATUS_OK', 0);
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
 
+// Allowed file extensions
+define('ALLOWED_EXTENSIONS_IMAGES','jpg,jpeg,gif,png');
+define('ALLOWED_EXTENSIONS_FILES','doc,docx,xls,xlsx,ppt,pptx,rtf,pdf,zip,rar');
+
 // Amount of thumbnails shown on Bludit Quick images
 define('THUMBNAILS_AMOUNT', 6);
 

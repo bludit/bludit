@@ -26,7 +26,7 @@ class Filesystem {
 	// $sortByDate = TRUE, the first file is the newer file
 	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false)
 	{
-		$files = glob($path.$regex.'.'.$extension);
+		$files = glob($path.$regex.'.'.$extension,GLOB_BRACE);
 
 		if (empty($files)) {
 			return array();

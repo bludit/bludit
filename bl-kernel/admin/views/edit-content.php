@@ -114,6 +114,22 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 
 	echo '</li>';
 
+	// FILES TAB
+	// --------------------------------------------------------------------
+	echo '<li><h2 class="sidebar-button" data-view="sidebar-files-view"><i class="uk-icon-angle-down"></i> '.$L->g('Files').'</h2></li>';
+	echo '<li id="sidebar-files-view" class="sidebar-view">';
+
+	// --- BLUDIT QUICK FILES ---
+	HTML::bluditQuickFiles();
+
+	// --- BLUDIT FILES V8 ---
+	HTML::bluditFilesV8();
+
+	// --- BLUDIT FILE MENU V8 ---
+	HTML::bluditFileMenuV8();
+
+	echo '</li>';
+
 
 	// TAGS
 	// --------------------------------------------------------------------

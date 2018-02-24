@@ -7,6 +7,8 @@ echo 'var HTML_PATH_ADMIN_ROOT = "'.HTML_PATH_ADMIN_ROOT.'";'.PHP_EOL;
 echo 'var HTML_PATH_ADMIN_THEME = "'.HTML_PATH_ADMIN_THEME.'";'.PHP_EOL;
 echo 'var HTML_PATH_UPLOADS = "'.HTML_PATH_UPLOADS.'";'.PHP_EOL;
 echo 'var HTML_PATH_UPLOADS_THUMBNAILS = "'.HTML_PATH_UPLOADS_THUMBNAILS.'";'.PHP_EOL;
+echo 'var ALLOWED_EXTENSIONS_IMAGES = "'.str_replace(',','|',ALLOWED_EXTENSIONS_IMAGES).'";'.PHP_EOL;
+echo 'var ALLOWED_EXTENSIONS_FILES = "'.str_replace(',','|',ALLOWED_EXTENSIONS_FILES).'";'.PHP_EOL;
 echo 'var PARENT = "'.PARENT.'";'.PHP_EOL;
 
 echo 'var tokenCSRF = "'.$Security->getTokenCSRF().'";'.PHP_EOL;

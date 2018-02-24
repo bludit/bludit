@@ -216,7 +216,7 @@ class HTML {
 		<div id="bludit-quick-images-thumbnails" onmousedown="return false">
 		';
 
-		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','{'.ALLOWED_EXTENSIONS_IMAGES.'}',true);
 		array_splice($thumbnailList, THUMBNAILS_AMOUNT);
 		foreach($thumbnailList as $file) {
 			$filename = basename($file);
@@ -324,7 +324,7 @@ class HTML {
 			<div id="bludit-images-v8-thumbnails">
 		';
 
-		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','*',true);
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS,'*','{'.ALLOWED_EXTENSIONS_IMAGES.'}',true);
 		foreach($thumbnailList as $file) {
 			$filename = basename($file);
 			$html .= '<img class="bludit-thumbnail" src="'.HTML_PATH_UPLOADS_THUMBNAILS.$filename.'" data-filename="'.$filename.'" alt="Thumbnail">';
@@ -339,6 +339,111 @@ class HTML {
 		$html .= '
 			<div class="uk-modal-footer">
 				'.$L->g('Click on the image for options').' <a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
+			</div>
+
+		</div>
+		</div>
+		';
+
+		echo $html;
+	}
+
+	public static function bluditQuickFiles()
+	{
+		// Javascript code
+		include(PATH_JS.'bludit-quick-files.js');
+
+		global $L;
+
+		$html = '<!-- BLUDIT QUICK FILES -->';
+		$html .= '
+		<div id="bludit-quick-files">
+		<div id="bludit-quick-files-items" onmousedown="return false">
+		';
+
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS,'*','{'.ALLOWED_EXTENSIONS_FILES.'}',true);
+		array_splice($thumbnailList, THUMBNAILS_AMOUNT);
+		foreach($thumbnailList as $file) {
+			$filename = basename($file);
+			$html .= '<div class="bludit-file-item" data-filename="'.$filename.'" >'.$filename.'</div>';
+		}
+
+		$html .= '
+		</div>
+		';
+
+		$html .= '<div class="empty-files uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no files').'</div>';
+
+		$html .= '
+		<a data-uk-modal href="#bludit-files-v8" class="moreImages uk-button">'.$L->g('Upload and more files').'</a>
+
+		</div>
+		';
+
+		echo $html;
+	}
+
+	public static function bluditFileMenuV8()
+	{
+		// Javascript code
+		include(PATH_JS.'bludit-filemenu-v8.js');
+
+		global $L;
+
+		$html  = '<!-- BLUDIT FILEMENU V8 -->';
+		$html .= '
+		<ul id="bludit-filemenuV8">
+			<li id="bludit-filemenuV8-insert"><i class="uk-icon-plus"></i>'.$L->g('Insert file').'</li>
+			<li id="bludit-filemenuV8-delete"><i class="uk-icon-trash"></i>'.$L->g('Delete file').'</li>
+		</ul>
+		';
+
+		echo $html;
+	}
+
+	public static function bluditFilesV8()
+	{
+		global $L;
+
+		// Javascript code
+		include(PATH_JS.'bludit-files-v8.js');
+
+		$html = '<!-- BLUDIT FILES V8 -->';
+		$html .= '
+		<div id="bludit-files-v8" class="uk-modal">
+		<div class="uk-modal-dialog">
+
+			<div id="bludit-files-v8-upload" class="uk-form-file uk-placeholder uk-text-center">
+
+				<div id="bludit-files-v8-drag-drop">
+					<div><i class="uk-icon-picture-o"></i> '.$L->g('Upload file').'</div>
+					<div style="font-size:0.8em;">'.$L->g('Drag and drop or click here').'<input id="bludit-files-v8-file-select" type="file"></div>
+				</div>
+
+				<div id="bludit-files-v8-progressbar" class="uk-progress">
+					<div class="uk-progress-bar" style="width: 0%;">0%</div>
+				</div>
+
+			</div>
+
+			<div id="bludit-files-v8-items">
+		';
+
+		$thumbnailList = Filesystem::listFiles(PATH_UPLOADS,'*','{'.ALLOWED_EXTENSIONS_FILES.'}',true);
+		foreach($thumbnailList as $file) {
+			$filename = basename($file);
+			$html .= '<div class="bludit-file-item" data-filename="'.$filename.'">'.$filename.'</div>';
+		}
+
+		$html .= '
+			</div>
+		';
+
+		$html .= '<div class="empty-files uk-block uk-text-center uk-block-muted" '.( !empty($thumbnailList)?'style="display:none"':'' ).'>'.$L->g('There are no files').'</div>';
+
+		$html .= '
+			<div class="uk-modal-footer">
+				'.$L->g('Click on the file for options').' <a href="" class="uk-modal-close">'.$L->g('Click here to cancel').'</a>
 			</div>
 
 		</div>
