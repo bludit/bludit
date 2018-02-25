@@ -11,12 +11,6 @@
             ""
         ]
     },
-    "special-chars": {
-	"ä": "ae",
-	"ö": "oe",
-	"ü": "ue",
-	"ß": "ss"
-    },
     "dates": {
         "Mon": "Mo",
         "Tue": "Di",
@@ -55,6 +49,12 @@
         "October": "Oktober",
         "November": "November",
         "December": "Dezember"
+    },
+    "special-chars": {
+        "ä": "ae",
+        "ö": "oe",
+        "ü": "ue",
+        "ß": "ss"
     },
     "dashboard": "Dashboard",
     "manage-users": "Benutzer verwalten",
@@ -283,6 +283,7 @@
     "read-more": "Weiterlesen",
     "remember-me": "Angemeldet bleiben",
     "plugins-position": "Plugin position",
+    "plugins-sorted": "Plugins sorted",
     "plugins-position-changed": "Plugin position changed",
     "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
     "change-the-position-of-the-plugins": "Change the position of the plugins",

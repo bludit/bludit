@@ -1,9 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "Statische Seiten",
-		"description": "Zeigt die statischen Seiten in der Seitenleiste (bei Themes mit einer Seitenleiste). Das Plugin kann beispielsweise für einen Blog mit zusätzlichen Seiten verwendet werden."
-	},
-	"home-link": "Hauptseite",
-	"show-the-home-link-on-the-sidebar": "Link zur Hauptseite"
-}

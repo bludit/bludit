@@ -1,9 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "Pages statiques",
-		"description": "Affiche les pages statiques sur la barre latérale, ce plugin est utile lorsque vous souhaitez créer un blog avec des pages."
-	},
-	"home-link": "Lien vers la page d’acceuil.",
-	"show-the-home-link-on-the-sidebar": "Afficher le lien vers la page d’acceuil sur la barre latérale."
-}
