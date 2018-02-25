@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Son İçerik",
+		"description": "Son yazılarınızı istediğiniz sırada gösterebilirsiniz.<br>İçerik sıralama ayarlarını Gelişmiş Ayarlar bölümünden yapabilirsiniz."
+	},
+	"home-link": "Anasayfa bağlantısı",
+	"show-the-home-link-on-the-sidebar": "Anasayfa bağlantısını kenar çubuğunda göster.",
+	"amount-of-items": "İçerik sayısı"
+}

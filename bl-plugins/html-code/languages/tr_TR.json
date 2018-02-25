@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "HTML Kod",
+		"description": "HTML, CSS ya da Javascript kodlarınızı sitenizin istediğiniz bölümüne ekleyin."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "&#60;head&#62; &#60;/head&#62; tagleri arasına eklenecek kodlar.",
+	"insert-code-in-the-theme-at-the-top": "Sayfanızın en üstüne eklenecek kodlar.",
+	"insert-code-in-the-theme-at-the-bottom": "Sayfanızın en altına eklenecek kodlar."
+}
