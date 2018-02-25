@@ -4,12 +4,12 @@
         "english-name": "English",
         "locale": "en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ",
         "last-update": "2018-02-25",
-        "authors": {
-            "0": "Diego @dignajar",
-            "1": "Clickwork https://clickwork.ch",
-            "2": "xm74",
-            "3": ""
-	    }
+        "authors": [
+            "Diego @dignajar",
+            "Clickwork https:\/\/clickwork.ch",
+            "xm74",
+            ""
+        ]
     },
     "dates": {
         "Mon": "Mon",
@@ -285,13 +285,13 @@
     "minute": "minute",
     "example-page-1-slug": "create-your-own-content",
     "example-page-1-title": "Create your own content",
-    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](/admin) with the username `admin` and the password you set on the installation process.",
+    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](.\/admin) with the username `admin` and the password you set in the installation process.",
     "example-page-2-slug": "set-up-your-new-site",
     "example-page-2-title": "Set up your new site",
-    "example-page-2-content": "Update the settings of your site from the [admin panel](/admin), you can change the title, description and the social networks from [Settings > General](/admin/settings-general).",
+    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from [Settings > General](.\/admin\/settings-general).",
     "example-page-3-slug": "follow-bludit",
     "example-page-3-title": "Follow Bludit",
-    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https://www.facebook.com/bluditcms/), [Twitter](https://twitter.com/bludit) and [GooglePlus](https://plus.google.com/+Bluditcms) or visit our [Blog](https://blog.bludit.com).",
+    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) and [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) or visit our [Blog](https:\/\/blog.bludit.com).",
     "example-page-4-slug": "about",
     "example-page-4-title": "About",
     "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc."

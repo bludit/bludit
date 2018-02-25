@@ -4,12 +4,12 @@
         "english-name": "German",
         "locale": "de, de_DE",
         "last-update": "2017-12-20",
-        "authors": {
-            "0": "Clickwork https://clickwork.ch",
-            "1": "blog2read https://github.com/blog2read",
-            "2": "",
-            "3": ""
-        }
+        "authors": [
+            "Clickwork https:\/\/clickwork.ch",
+            "blog2read https:\/\/github.com\/blog2read",
+            "",
+            ""
+        ]
     },
     "special-chars": {
 	"ä": "ae",
@@ -35,7 +35,7 @@
         "Jan": "Jan",
         "Feb": "Feb",
         "Mar": "Mär",
-        "Apr": "Apr",	    
+        "Apr": "Apr",
         "Jun": "Jun",
         "Jul": "Jul",
         "Aug": "Aug",
@@ -63,7 +63,7 @@
     "advanced-settings": "Erweiterte Einstellungen",
     "thanks-for-support-bludit": "Vielen Dank für die Unterstützung von Bludit!",
     "upgrade-to-bludit-pro": "Upgrade auf Bludit PRO",
-    "language": "Sprache/Zeitzone",
+    "language": "Sprache\/Zeitzone",
     "plugin": "Plugin",
     "plugins": "Plugins",
     "developers": "Enwickler",
@@ -213,7 +213,7 @@
     "email-access-code": "Zugangscode zuschicken",
     "whats-next": "Und so geht es weiter:",
     "username-or-password-incorrect": "Falscher Benutzername und\/oder falsches Passwort",
-    "follow-bludit-on": "Den [deutschsprachigen Newsletter](http:\/\/eepurl.com/b6mpKf) abonnieren und Bludit folgen bei",
+    "follow-bludit-on": "Den [deutschsprachigen Newsletter](http:\/\/eepurl.com\/b6mpKf) abonnieren und Bludit folgen bei",
     "visit-the-forum-for-support": "Bei Fragen und Problemen das [Support-Forum](https:\/\/forum.bludit.org) mit deutschsprachigem Forum besuchen",
     "manage-your-bludit-from-the-admin-panel": "Bludit im [Administrationsbereich]({{ADMIN_AREA_LINK}}) verwalten",
     "chat-with-developers-and-users-on-gitter": "Mit Entwicklern und Benutzern bei [Gitter](https:\/\/gitter.im\/budit\/support) chatten",
@@ -239,7 +239,6 @@
     "ip-address-has-been-blocked": "Die IP-Adresse wurde gesperrt.",
     "try-again-in-a-few-minutes": "Bitte, es in einigen Minuten noch einmal versuchen.",
     "content-published-from-scheduler": "Geplante Veröffentlichung veröffentlicht",
-    "installer-page-about-content": "Die Seite \"Über\" ist eine wichtige Seite. Denn viele wollen wissen, wer einen Blog oder eine Website betreibt.",
     "blog": "Blog",
     "complete-all-fields": "Bitte alle Felder ausfüllen",
     "static": "Statisch",
@@ -282,5 +281,24 @@
     "congratulations-you-have-successfully-installed-your-bludit": "Gratulation, **Bludit** wurde erfolgreich installiert!",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Dieses Theme wird möglicherweise von der installierten Version von Bludit nicht unterstützt.",
     "read-more": "Weiterlesen",
-    "remember-me": "Angemeldet bleiben"
+    "remember-me": "Angemeldet bleiben",
+    "plugins-position": "Plugin position",
+    "plugins-position-changed": "Plugin position changed",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
+    "change-the-position-of-the-plugins": "Change the position of the plugins",
+    "reading-time": "Reading time",
+    "minutes": "minutes",
+    "minute": "minute",
+    "example-page-1-slug": "create-your-own-content",
+    "example-page-1-title": "Create your own content",
+    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](.\/admin) with the username `admin` and the password you set on the installation process.",
+    "example-page-2-slug": "set-up-your-new-site",
+    "example-page-2-title": "Set up your new site",
+    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from [Settings > General](.\/admin\/settings-general).",
+    "example-page-3-slug": "follow-bludit",
+    "example-page-3-title": "Follow Bludit",
+    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) and [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) or visit our [Blog](https:\/\/blog.bludit.com).",
+    "example-page-4-slug": "about",
+    "example-page-4-title": "About",
+    "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc."
 }

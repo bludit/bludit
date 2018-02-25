@@ -3,17 +3,17 @@
         "native": "Español",
         "english-name": "Spanish",
         "locale": "es, es_ES, es_AR, es_MX",
-        "last-update": "2017-12-20",
-        "authors": {
-            "0": "Diego @dignajar",
-            "1": "",
-            "2": ""
-        }
+        "last-update": "2018-02-24",
+        "authors": [
+            "Diego @dignajar",
+            "",
+            ""
+        ]
     },
     "dates": {
         "Mon": "Lun",
         "Tue": "Mar",
-        "Wed": "Mier",
+        "Wed": "Mie",
         "Thu": "Jue",
         "Fri": "Vie",
         "Sat": "Sab",
@@ -232,7 +232,6 @@
     "ip-address-has-been-blocked": "La direccion IP fue bloqueada.",
     "try-again-in-a-few-minutes": "Vuelva a intentar en unos minutos.",
     "content-published-from-scheduler": "Content published from scheduler",
-    "installer-page-about-content": "The about page is an important and powerful for potential clients and partners. For those who wonder who is behind the website, your About page is the first source of information.",
     "blog": "Blog",
     "complete-all-fields": "Completar todos los campos",
     "static": "Estática",
@@ -266,7 +265,7 @@
     "have-you-seen-my-ball": "¿Viste mi pelota?",
     "pagebreak": "Corte de página",
     "pages": "Páginas",
-    "this-plugin-may-not-be-supported-by-this-version-of-bludit": "This plugin may not be supported by this version of Bludit",
+    "this-plugin-may-not-be-supported-by-this-version-of-bludit": "Este plugin puede que no sea soportado por esta versión de Bludit",
     "previous": "Anterior",
     "previous-page": "Página anterior",
     "next-page": "Página siguiente",
@@ -276,8 +275,23 @@
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Este tema puede no ser compatible con esta versión de Bludit",
     "read-more": "Leer más",
     "remember-me": "Recordarme",
-    "plugins-position": "Plugin position",
-    "plugins-position-changed": "Plugin position changed",
-    "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
-    "change-the-position-of-the-plugins": "Change the position of the plugins"
+    "plugins-position": "Posición de los plugins",
+    "plugins-position-changed": "Cambio la posicion de los plugins",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Arrastrar y soltar para establecer la posición de los plugins.",
+    "change-the-position-of-the-plugins": "Cambiar la posición de los plugins",
+    "reading-time": "Tiempo de lectura",
+    "minutes": "minutos",
+    "minute": "minuto",
+    "example-page-1-slug": "crea-tu-propio-contenido",
+    "example-page-1-title": "Crea tu propio contenido",
+    "example-page-1-content": "Comience a escribir su propio contenido o edite el actual para adaptarse a sus necesidades. Para crear, editar o eliminar contenido debe iniciar sesión en el [panel de administración](/admin) con el nombre de usuario `admin` y la contraseña que configuró en el proceso de instalación.",
+    "example-page-2-slug": "set-up-your-new-site",
+    "example-page-2-title": "Configure su nuevo sitio",
+    "example-page-2-content": "Actualice la configuración de su sitio desde el [panel de administración](/admin), puede cambiar el título, la descripción y las redes sociales desde [Configuracion > General](/admin/settings-general).",
+    "example-page-3-slug": "follow-bludit",
+    "example-page-3-title": "Sigue Bludit",
+    "example-page-3-content": "Obtener información sobre noticias, nuevos lanzamientos, nuevos temas o nuevos plugins en nuestras redes sociales [Facebook](https://www.facebook.com/bluditcms/), [Twitter](https://www.twitter.com/bludit) y [GooglePlus](https://plus.google.com/+bluditcms) o visite nuestro [blog](https://blog.bludit.com).",
+    "example-page-4-slug": "acerca-de",
+    "example-page-4-title": "Acerca de",
+    "example-page-4-content": "Su página `Acerca de` es una de las páginas más visitadas en su sitio, necesita ser simple con algunas claves, como su nombre, quién es usted, cómo puede ponerse en contacto con usted o una pequeña historia."
 }

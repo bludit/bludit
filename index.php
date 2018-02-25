@@ -9,7 +9,9 @@
 
 // Check if Bludit is installed
 if (!file_exists('bl-content/databases/site.php')) {
-	header('Location:./install.php');
+	$base = dirname($_SERVER['SCRIPT_NAME']);
+	$base = rtrim($base, '/');
+	header('Location:'.$base.'/install.php');
 	exit('<a href="./install.php">Install Bludit first.</a>');
 }
 
@@ -30,7 +32,7 @@ define('PATH_BOOT', PATH_ROOT.'bl-kernel'.DS.'boot'.DS);
 require(PATH_BOOT.'init.php');
 
 // Admin area
-if($Url->whereAmI()==='admin') {
+if ($Url->whereAmI()==='admin') {
 	require(PATH_BOOT.'admin.php');
 }
 // Site

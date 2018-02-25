@@ -4,12 +4,12 @@
         "english-name": "Ukrainian",
         "locale": "uk_UA",
         "last-update": "2018-02-12",
-        "authors": {
-            "0": "Aleksei86 https://aleksei86.info/",
-            "1": "",
-            "2": "",
-            "3": ""
-	    }
+        "authors": [
+            "Aleksei86 https:\/\/aleksei86.info\/",
+            "",
+            "",
+            ""
+        ]
     },
     "dates": {
         "Mon": "Пн",
@@ -233,7 +233,6 @@
     "ip-address-has-been-blocked": "IP-адресу заблоковано.",
     "try-again-in-a-few-minutes": "Повторіть спробу через декілька хвилин.",
     "content-published-from-scheduler": "Контент опубліковано за розкладом",
-    "installer-page-about-content": "Сторінка Про нас є важливою для потенційних клієнтів та партнерів. Для тих, кому цікаво, хто стоїть за веб-сайтом, Ваша сторінка Про нас є першим джерелом інформації.",
     "blog": "Блог",
     "complete-all-fields": "Заповніть всі поля",
     "static": "Статичний",
@@ -280,5 +279,20 @@
     "plugins-position": "Позиція плагіна",
     "plugins-position-changed": "Позицію плагіна змінено",
     "drag-and-drop-to-set-the-position-of-the-plugin": "Перетягніть та відпустіть, щоб встановити позицію плагінів",
-    "change-the-position-of-the-plugins": "Змінити положення плагінів"
+    "change-the-position-of-the-plugins": "Змінити положення плагінів",
+    "reading-time": "Reading time",
+    "minutes": "minutes",
+    "minute": "minute",
+    "example-page-1-slug": "create-your-own-content",
+    "example-page-1-title": "Create your own content",
+    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](.\/admin) with the username `admin` and the password you set on the installation process.",
+    "example-page-2-slug": "set-up-your-new-site",
+    "example-page-2-title": "Set up your new site",
+    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from [Settings > General](.\/admin\/settings-general).",
+    "example-page-3-slug": "follow-bludit",
+    "example-page-3-title": "Follow Bludit",
+    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) and [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) or visit our [Blog](https:\/\/blog.bludit.com).",
+    "example-page-4-slug": "about",
+    "example-page-4-title": "About",
+    "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc."
 }

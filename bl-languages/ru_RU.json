@@ -4,12 +4,12 @@
         "english-name": "Russian",
         "locale": "ru, ru_RU",
         "last-update": "2018-01-11",
-        "authors": {
-            "0": "Сергей Ворон http://voron.pw",
-            "1": "Макс Костиков https://kostikov.co",
-            "2": "",
-            "3": ""
-        }
+        "authors": [
+            "Сергей Ворон http:\/\/voron.pw",
+            "Макс Костиков https:\/\/kostikov.co",
+            "",
+            ""
+        ]
     },
     "dates": {
         "Monday": "Понедельник",
@@ -233,7 +233,6 @@
     "ip-address-has-been-blocked": "IP адрес заблокирован.",
     "try-again-in-a-few-minutes": "Попробуйте еще раз через несколько минут.",
     "content-published-from-scheduler": "Запланированный контент опубликован",
-    "installer-page-about-content": "Страница \"О нас\" важна и значительна для потенциальных клиентов и партнеров. Для тех, кому интересен Ваш сайт, страница \"О нас\" - это первоисточник информации.",
     "blog": "Блог",
     "complete-all-fields": "Заполните все поля",
     "static": "Статическая",
@@ -276,5 +275,24 @@
     "congratulations-you-have-successfully-installed-your-bludit": "Поздравляем! Вы успешно установили **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Эта тема может не поддерживаться текущей версией Bludit",
     "read-more": "Читать далее",
-    "remember-me": "Запомнить"
+    "remember-me": "Запомнить",
+    "plugins-position": "Plugin position",
+    "plugins-position-changed": "Plugin position changed",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Drag and Drop to set the position of the plugins",
+    "change-the-position-of-the-plugins": "Change the position of the plugins",
+    "reading-time": "Reading time",
+    "minutes": "minutes",
+    "minute": "minute",
+    "example-page-1-slug": "create-your-own-content",
+    "example-page-1-title": "Create your own content",
+    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](.\/admin) with the username `admin` and the password you set on the installation process.",
+    "example-page-2-slug": "set-up-your-new-site",
+    "example-page-2-title": "Set up your new site",
+    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from [Settings > General](.\/admin\/settings-general).",
+    "example-page-3-slug": "follow-bludit",
+    "example-page-3-title": "Follow Bludit",
+    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) and [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) or visit our [Blog](https:\/\/blog.bludit.com).",
+    "example-page-4-slug": "about",
+    "example-page-4-title": "About",
+    "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc."
 }
