@@ -1,0 +1,766 @@
+
+/* UIKIT HACKs
+---------------------------------------------------------------- */
+
+.uk-width-1-4 {
+	width: 15%;
+}
+
+.uk-width-3-4 {
+	width: 84%;
+}
+
+.label-draft,
+.label-fixed,
+.label-sticky,
+.label-scheduled,
+.label-empty-title,
+.label-time {
+	background: #A979D1 none repeat scroll 0 0;
+	border-radius: 2px;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	vertical-align: middle;
+	margin-right: 5px;
+	font-size: 0.8em;
+}
+
+.label-fixed {
+	background: #7BD179;
+}
+
+.label-scheduled {
+	background: #7BD179;
+}
+
+.label-empty-title {
+	background: #53D192;
+}
+
+.label-time {
+	font-style: italic;
+	background: #A979D1;
+}
+
+.uk-tab-responsive > a::before {
+	content: "\f078";
+	padding-right: 3px;
+}
+
+/* UIKIT HACKs tabs
+---------------------------------------------------------------- */
+
+.uk-nav-dropdown > li > a:focus,
+.uk-nav-dropdown > li > a:hover {
+	background-color: #007add !important;
+}
+
+/* UIKIT HACKs buttons
+---------------------------------------------------------------- */
+
+.uk-button {
+	border-radius: 2px !important;
+	padding: 1px 20px !important;
+	margin-right: 5px;
+}
+
+.uk-button-primary {
+	background-color: #007add !important;
+}
+
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+	background-color: #0069BE !important;
+}
+
+/* CSS defaults
+---------------------------------------------------------------- */
+body {
+	overflow-y: scroll;
+}
+
+#bl-container {
+	margin: 0 auto 20px;
+	max-width: 1800px;
+}
+
+/* TOPBAR
+---------------------------------------------------------------- */
+
+.bl-navbar-bg {
+	background: #222;
+	color: #fff;
+}
+
+#bl-navbar {
+	margin: 0 auto 20px;
+	max-width: 1800px;
+}
+
+#bl-navbar img.logo {
+	height: 25px;
+	margin-bottom: 8px;
+	margin-left: 22px;
+	margin-right: 0px;
+}
+
+#bl-navbar a {
+	color: #fff;
+}
+
+#bl-navbar span.bl-brand {
+	font-size: 15px;
+	line-height: 35px;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+#bl-navbar a.bl-brand:hover {
+	text-decoration: none;
+}
+
+#bl-navbar .bl-navbar-right {
+	float: right;
+	line-height: 35px;
+	margin: 0 35px 0 0;
+}
+
+/* SIDEBAR
+---------------------------------------------------------------- */
+
+#bl-sidebar {
+	max-width: 220px;
+}
+
+#bl-sidebar a {
+	color: #777 !important;
+}
+
+#bl-sidebar a:hover {
+	color: #007add !important;
+}
+
+#bl-sidebar li.uk-active {
+	border-left: 3px solid #007add;
+}
+
+#bl-sidebar li.uk-active a {
+	color: #007add !important;
+}
+
+#bl-sidebar .uk-nav {
+	margin: 0px 0 0 20px !important;
+}
+
+#bl-sidebar .uk-nav-header {
+	font-weight: normal !important;
+	font-size: 16px;
+}
+
+.uk-navbar-toggle {
+	margin-top: -2px;
+	text-shadow: 0 !important;
+	color: #fff;
+}
+
+
+/* VIEW
+---------------------------------------------------------------- */
+
+#bl-view {
+	padding-right: 10px;
+}
+
+#bl-view .uk-width-2-10 {
+
+}
+
+.plugin-incompatible,
+.theme-incompatible {
+	background: #ffdc7d;
+	border: 1px dashed #eec24a;
+	color: #826106;
+	display: table-cell;
+	font-size: 12px;
+	margin-top: 6px;
+	padding: 1px 10px;
+}
+
+/* DASHBOARD
+---------------------------------------------------------------- */
+
+#dashboard-panel .uk-panel {
+	background-color: #fafafa !important;
+	border: 1px solid #f8f8f8;
+	box-shadow: 5px 1px 1px #fdfdfd;
+	padding: 10px !important;
+}
+
+#dashboard-panel .uk-panel h4.panel-title {
+	text-transform: uppercase;
+	font-size: 14px !important;
+}
+
+div.dashboard-links {
+	background-color: #fafafa !important;
+	border: 1px solid #f8f8f8;
+	box-shadow: 5px 1px 1px #fdfdfd;
+	margin-bottom: 10px;
+	padding: 50px 20px;
+}
+
+div.dashboard-links h4 {
+	margin-bottom: -8px !important;
+}
+
+#dashboard-panel .notification-date {
+	font-size: 0.8em;
+}
+
+#dashboard-hello {
+	background-color: #FBDF6B;
+	padding: 20px;
+	margin-bottom: 8px;
+}
+
+/* FORM
+---------------------------------------------------------------- */
+
+.uk-form input:not([type]), .uk-form input[type="text"], .uk-form input[type="password"], .uk-form input[type="email"], .uk-form input[type="url"], .uk-form input[type="search"], .uk-form input[type="tel"], .uk-form input[type="number"], .uk-form input[type="datetime"], .uk-form input[type="datetime-local"], .uk-form input[type="date"], .uk-form input[type="month"], .uk-form input[type="time"], .uk-form input[type="week"], .uk-form input[type="color"], .uk-form select, .uk-form textarea {
+	border-radius: 2px !important;
+}
+
+.uk-form-help-block {
+	color: #777 !important;
+	font-size: 0.9em !important;
+}
+
+.bl-publish-sidebar ul {
+	margin: 0;
+	padding: 0;
+}
+
+.bl-publish-sidebar li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.bl-publish-sidebar li:not(:first-child) {
+	margin-top: 10px;
+}
+
+.bl-publish-sidebar .uk-form-label {
+	font-size: 0.9em;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
+.bl-publish-sidebar .sidebar-view {
+	display: none;
+}
+
+.bl-publish-sidebar h2.sidebar-button {
+	font-size: 0.9em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+}
+
+.uk-form legend {
+	margin-top: 20px;
+}
+
+.uk-form legend.first-child {
+	margin-top: 0 !important;
+}
+
+button.aslink {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	border: 0 none;
+	color: #07d;
+	cursor: pointer;
+	display: block;
+	font-size: 1em;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+button.aslink:hover {
+	text-decoration: underline;
+}
+
+/* TABLE
+---------------------------------------------------------------- */
+.uk-table td.children {
+	padding-left: 20px;
+}
+
+.uk-table td, .uk-table th {
+	padding: 14px 8px !important;
+}
+
+.uk-table td.child-title {
+	padding-left: 20px !important;
+}
+
+/* RESPONSIVE
+---------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+
+	.uk-grid {
+		margin: 0 !important;
+	}
+
+	#bl-container {
+		margin: 0 10px !important;
+	}
+
+	#bl-view {
+		width: 100% !important;
+		padding: 0 !important;
+	}
+
+	.bl-brand {
+		margin: 0 !important;
+	}
+
+	.bl-publish-sidebar {
+		width: 100% !important;
+		padding: 0 !important;
+		margin-bottom: 25px !important;
+	}
+
+	.bl-publish-view {
+		width: 100% !important;
+		padding: 0 !important;
+	}
+}
+
+/* OLD
+---------------------------------------------------------------- */
+
+#logo {
+	background: #f4f4f4;
+	padding:20px 0;
+}
+
+h2.title {
+	margin: 0 0 20px 0;
+}
+
+button.delete-button {
+    background: none;
+    border: 0 none;
+    color: #da2727;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+button.delete-button:hover {
+	text-decoration: underline;
+}
+
+#jscontent {
+	height: 400px;
+}
+
+
+
+table.statistics tr:last-child td {
+	border-bottom: none !important;
+}
+
+/* ----------- ALERT ----------- */
+
+#alert {
+	top: 0;
+	color: #ffffff;
+	padding: 8px 80px;
+	display: none;
+	position: fixed;
+	text-align: center;
+	z-index: 100;
+	right: 0;
+}
+
+.alert-ok {
+	background: #4374C1;
+}
+
+.alert-fail {
+	background: #c14343;
+}
+
+/* ----------- FORM ----------- */
+
+
+#bludit-tags {
+	margin-top: 15px;
+}
+
+#bludit-tags .uk-button {
+	margin-top: 5px;
+}
+
+#jstagList {
+	margin-top: 15px;
+	font-size: 0.9em;
+}
+
+#jstagList span.unselect,
+#jstagList span.select {
+	margin-top: 7px;
+	margin-right: 7px;
+	padding: 1px 15px;
+	cursor: pointer;
+	display: inline-block;
+	border-radius: 3px;
+	background: #f1f1f1;
+	vertical-align: middle;
+}
+
+#jstagList span.unselect:before {
+	font-family: FontAwesome;
+	content: "\f067";
+	padding-right: 5px;
+}
+
+#jstagList span.unselect {
+	color: #AAA;
+}
+
+#jstagList span.unselect:hover {
+	color: #888;
+}
+
+#jstagList span.select:before {
+	font-family: FontAwesome;
+	content: "\f00c";
+	padding-right: 5px;
+}
+
+#jstagList span.select {
+	color: #2196f3;
+	padding: 2px 13px;
+}
+
+/* ----------- BLUDIT IMAGES V8 ----------- */
+#bludit-images-v8 {
+
+}
+
+#bludit-images-v8 .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 15% !important;
+}
+
+#bludit-images-v8-upload {
+	width: 100%;
+	padding: 0;
+	margin-bottom: 15px !important;
+}
+
+#bludit-images-v8-drag-drop {
+	padding: 20px;
+}
+
+#bludit-images-v8-progressbar {
+	display: none;
+	margin: 20px;
+}
+
+#bludit-images-v8-thumbnails {
+	max-height: 350px;
+	overflow: auto;
+	font-size: 0;
+}
+
+/* Bludit Menu v8 */
+
+#bludit-menuV8 {
+	display: none;
+	z-index: 1020;
+	position: absolute;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	background: #FFF;
+	color: #333;
+	border-radius: 2px;
+	list-style-type: none;
+	padding: 5px;
+	margin: 0;
+}
+
+#bludit-menuV8 li {
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+#bludit-menuV8 li:hover {
+	background-color: #2672ec;
+	color: #fff;
+}
+
+#bludit-menuV8 li i {
+	margin-right: 10px;
+}
+
+/* ----------- BLUDIT QUICK IMAGES ----------- */
+#bludit-quick-images {
+
+}
+
+#bludit-quick-images a.moreImages {
+	margin: 15px 0 0;
+	width: 100%;
+	background: #F5F5F5 !important;
+	color: #555;
+}
+
+#bludit-quick-images h4.label {
+	background: #f8f8f8;
+	color: #aaa;
+	padding: 2px 5px;
+	font-size: 0.9em;
+}
+
+#bludit-quick-images-thumbnails {
+	font-size: 0;
+}
+
+#bludit-quick-images .bludit-thumbnail {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: inline-block;
+	height: auto;
+	margin: 2px;
+	padding: 0;
+	width: 31% !important;
+}
+
+/* ----------- BLUDIT COVER IMAGE ----------- */
+#bludit-cover-image {
+
+}
+
+#cover-image-thumbnail {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #666;
+	height: 130px;
+	padding: 0;
+	width: 100%;
+}
+
+#cover-image-upload {
+	color: #999;
+	position: relative;
+	top: 35%;
+}
+
+#cover-image-delete {
+	background: rgba(255, 255, 255, 0.7);
+	bottom: 0;
+	color: #000;
+	display: none;
+	font-size: 2.2em;
+	padding: 4px 10px;
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+}
+
+#cover-image-progressbar {
+	display: none;
+	left: 5%;
+	position: relative;
+	top: 33%;
+	width: 90%;
+
+}
+
+/* ----------- BLUDIT PROFILE PICTURE ----------- */
+
+#bludit-profile-picture-drag-drop {
+	width: 100%;
+	padding: 15px 0;
+}
+
+#bludit-profile-picture-progressbar {
+	display: none;
+	margin: 15px 0 0;
+	width: 100%;
+}
+
+/* ----------- LOGIN FORM ----------- */
+
+div.login-box > h1 {
+	font-weight: lighter;
+	letter-spacing: 4px;
+	margin-bottom: 50px;
+}
+
+div.login-form {
+	background: #f1f1f1 none repeat scroll 0 0;
+	padding: 20px;
+	width: 400px;
+}
+
+
+
+/* ----------- PLUGIN LIST / THEME LIST ----------- */
+
+tr.plugin-installed,
+tr.theme-installed {
+	background: #F2F7FF !important;
+}
+
+div.plugin-name i.settings-icon {
+	float: right;
+	margin-top: 3px;
+	margin-left: 3px;
+}
+
+i.incompatible-warning {
+	color: #FFC425;
+	padding-right: 5px;
+}
+
+div.plugin-links > a {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+div.plugin-links > span.separator {
+	color: #ccc;
+}
+
+
+/* ----------- PAGINATOR ----------- */
+
+#paginator {
+	margin: 30px 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
+#paginator ul {
+    list-style-type: none;
+    margin: 15px 0;
+    padding: 0;
+    font-size: 1em;
+    text-align: left;
+}
+
+#paginator li {
+	display: inline;
+	margin: 0 5px;
+}
+
+#paginator li.disabled {
+	color: #ccc;
+}
+
+#paginator a {
+    color: #333;
+}
+
+/* ----------- PLUGINS FORM ----------- */
+
+#jsformplugin div {
+	margin-bottom: 15px;
+	display: table;
+	width: 100%;
+}
+
+#jsformplugin button[type=submit] {
+	margin-left: 200px;
+	border-radius: 2px;
+	padding: 1px 20px;
+	border: 1px solid rgba(0,0,0,.06);
+	line-height: 28px;
+	min-height: 30px;
+	cursor: pointer;
+}
+
+#jsformplugin button[type=submit].left {
+	margin: 0 5px 0 0;
+	border-radius: 2px;
+	padding: 1px 20px;
+	border: 1px solid rgba(0,0,0,.06);
+	line-height: 28px;
+	min-height: 30px;
+	cursor: pointer;
+}
+
+#jsformplugin button[type=submit].blue {
+	background: #007add !important;
+	color: #fff;
+}
+
+#jsformplugin button[type=submit].small {
+	font-size: 0.9em;
+	min-height: 20px;
+	background: #f5f5f5;
+}
+
+#jsformplugin button[type=submit].small:hover {
+	background: #f2f2f2;
+}
+
+#jsformplugin > div > label,
+#jsformplugin > div > input[type=text],
+#jsformplugin > div > input[type=checkbox],
+#jsformplugin > div > textarea,
+#jsformplugin > div > select {
+	display: table-cell;
+}
+
+#jsformplugin > div > span.tip {
+	color: #999;
+	margin-top: 5px;
+	font-size: 0.9em;
+	display: block;
+}
+
+#jsformplugin > div > label {
+	width: 200px;
+}
+
+#jsformplugin > div > textarea,
+#jsformplugin > div > input[type=text] {
+	width: 50%;
+}
+
+#jsformplugin > div > select {
+	width: 35%;
+}
+
+#jsformplugin > div > textarea {
+	min-height: 100px;
+}
+
+@media (max-width: 960px) {
+
+	#jsformplugin div {
+		display: block;
+	}
+
+	#jsformplugin button[type=submit] {
+		margin: 0;
+	}
+}

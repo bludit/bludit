@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "Con las tarjetas de Twitter puedes adjuntar fotos, videos y experiencias multimedia a tweets."
+	},
+	"default-image": "Imagen predeterminada"
+}

@@ -1,0 +1,3 @@
+Title: About us
+Content:
+<p>Šis puslapis - rašytojų priglobstis. Ir nesvarbu koks žanras yra tavo mėgstamiausias. Laukiami visi. Dėl techninių sumetimų rašytojai gali prisidėti tik gavę specialius kvietimus.</p>

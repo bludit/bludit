@@ -1,0 +1,37 @@
+Lightbox
+==========
+
+Lightbox und Galerie basierend auf dem Lightbox-Skript von Lokesh Dhakar.
+
+Lightbox
+--------
+
+Um die Lightbox zu verwenden, muss ein Attribut "data-lightbox" zu jedem verlinkten Bild hinzugefügt werden. Für jedes Bild muss ein anderer Wert für das Attribut vergeben werdenden. Beispielsweise:
+
+<a href="/bl-content/uploads/image-1.jpg" data-lightbox="image-1" data-title="My caption"><img src="image-1.jpg"></a>
+
+Achtung: Der Link des Bildes muss den vollständigen Pfad enthalten zum Verzeichnis, in dem es auf dem Server abgelegt ist. Beispielsweise:
+
+/bl-content/uploads/
+
+Galerie
+-------
+
+Um eine Bildunterschrift zu verwenden, kann kann zusätzlich das Attribut "data-title" verwendet werden.
+    
+Um eine Gruppe von Bildern in einer Galerie zu zeigen, wird dem Attribut "data-lightbox" für alle Bilder derselbe Wert verwendet. Beispielsweise:
+
+<a href="/bl-content/uploads/image-2.jpg" data-lightbox="gallery"><img src="image-2.jpg"></a>
+<a href="/bl-content/uploads/image-3.jpg" data-lightbox="gallery"><img src="image-3.jpg"></a>
+<a href="/bl-content/uploads/image-4.jpg" data-lightbox="gallery"><img src="image-4.jpg"></a>
+
+Achtung: Der Link des Bildes muss den vollständigen Pfad enthalten zum Verzeichnis, in dem es auf dem Server abgelegt ist. Beispielsweise:
+
+/bl-content/uploads/
+
+Website
+-------
+
+Website des Skripts mit weiteren Informationen:
+
+http://lokeshdhakar.com/projects/lightbox2/

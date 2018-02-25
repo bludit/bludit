@@ -1,0 +1,15 @@
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+
+# Enable rewrite rules
+RewriteEngine on
+
+# Deny direct access to .txt files
+RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]
+
+# All URL process by index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*) index.php [PT,L]
+
+</IfModule>

@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Tryb konserwacji",
+		"description": "Przełącz stronę w tryb konwersacji (wówczas działać będzie tylko kokpit)."
+	},
+
+	"enable-maintenance-mode": "Włącz tryb konwersacji",
+	"message": "Wiadomość"
+}

@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Google",
+		"description": "Einbindung des Codes für die Verwendung der Google Search Console, von Google Analytics und des Google Tag Managers."
+	},
+
+	"google-webmasters-tools": "Site Verification Code",
+	"google-analytics-tracking-id": "Tracking ID",
+	"google-tag-manager": "Container ID",
+	"complete-this-field-with-the-google-site-verification": "Site Verification Code zur Bestätigung der Inhaberschaft der Website.",
+	"complete-this-field-with-the-tracking-id": "Tracking ID, um das JavaScript für die Verwendung von Google Analytics zu erzeugen.",
+	"complete-this-field-with-the-tracking-id-google-tag": "Container ID, um das JavaScript für die Verwendung des Google Tag Managers zu erzeugen."
+}

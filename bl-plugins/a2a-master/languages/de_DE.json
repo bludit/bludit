@@ -1,0 +1,10 @@
+{
+        "plugin-data":
+        {
+                "name": "a2a share buttons",
+                "description": "AddToAny ist ein Set von Buttons, um Beiträge und Seiten in sozialen Netzwerken zu teilen."
+        },
+        "enable-addtoany-on-pages": "AddToAny auf Seiten",
+        "enable-addtoany-on-posts": "AddToAny bei Beiträgen",
+        "enable-google-url-shortener": "Google URL shortener"
+}

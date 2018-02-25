@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Комментарии Disqus",
+		"description": "Disqus это сервис комментариев для сайтов и блогов. Необходимо быть зарегистрированным на Disqus.com перед использованием плагина."
+	},
+	"disqus-shortname": "Disqus shortname",
+	"enable-disqus-on-pages": "Disqus на страницах",
+	"enable-disqus-on-posts": "Disqus в записях"
+}

@@ -1,0 +1,10 @@
+{
+        "plugin-data":
+        {
+                "name": "a2a share buttons",
+                "description": "Agrega a tus posts y paginas botones para compartir en las diferentes redes sociales."
+        },
+        "enable-addtoany-on-pages": "Habilitar en paginas",
+        "enable-addtoany-on-posts": "Habilitar en entradas",
+        "enable-google-url-shortener": "Habilitar Google URL shortener"
+}

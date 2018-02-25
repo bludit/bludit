@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Категорії",
+		"description": "Показує всі категорії на бічній панелі."
+	},
+	"hide-categories-without-content": "Сховати категорії без вмісту"
+}

@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "Das Plugin erstellt erstellt einen RSS Feed der Inhalte."
+	},
+	"amount-of-items-to-show-on-the-feed": "Anzahl der gezeigten Inhalte."
+}

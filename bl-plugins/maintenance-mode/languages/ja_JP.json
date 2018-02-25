@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Maintenance mode",
+		"description": "メンテンナンス・モードに設定します。管理エリアにはアクセスできます。"
+	},
+
+	"enable-maintenance-mode": "メンテンナンス・モードを有効にする",
+	"message": "メッセージ"
+}

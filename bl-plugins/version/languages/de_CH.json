@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Version",
+		"description": "Zeigt die installierte Version von Bludit in der rechten unteren Ecke des Administrationsbereichs an. Tipp: Regelmässig prüfen, ob eine neue Version verfügbar ist."
+	}
+}

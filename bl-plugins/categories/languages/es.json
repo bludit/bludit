@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Categorías",
+		"description": "Muestra todas las categorías en la barra lateral."
+	},
+	"hide-categories-without-content": "Ocultar categorías sin contenido"
+}

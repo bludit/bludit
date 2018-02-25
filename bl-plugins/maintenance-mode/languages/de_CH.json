@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Wartungsmodus",
+		"description": "Aktivierung des Wartungsmodus mit Zugang zum Administrationsbereich."
+	},
+
+	"enable-maintenance-mode": "Aktivierung des Wartungsmodus",
+	"message": "Auf der Website angezeigter Hinweis"
+}

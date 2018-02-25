@@ -1,0 +1,10 @@
+{
+        "author": "Max Kostikov",
+        "email": "max@kostikov.co",
+        "website": "https://kostikov.co",
+        "version": "0.3.0",
+        "releaseDate": "2017-10-27",
+        "license": "MIT",
+        "compatible": "2.0",
+        "notes": "Based on AddToAny plugin by 320up"
+}

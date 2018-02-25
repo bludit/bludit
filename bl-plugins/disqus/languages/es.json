@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus",
+		"description": "Disqus es un servicio de comentarios online.<br>Es necesario registrarse en Disqus.com antes de utilizar este plugin."
+	},
+	"disqus-shortname": "Disqus shortname"
+}
