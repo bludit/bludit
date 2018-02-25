@@ -3,5 +3,13 @@
 	{
 		"name": "Backup",
 		"description": "The simple way to backup your Bludit."
+<<<<<<< HEAD
 	}
 }
+=======
+	},
+		"create-backup": "Create Backup",
+		"download": "Download",
+		"restore-backup": "Restore Backup"
+}
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af

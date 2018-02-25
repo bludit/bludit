@@ -276,6 +276,14 @@ class pluginAPI extends Plugin {
 
 	private function createPage($args)
 	{
+<<<<<<< HEAD
+=======
+		// Unsanitize content because all values are sanitized
+		if (isset($args['content'])) {
+			$args['content'] = Text::htmlDecode($args['content']);
+		}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 		// This function is defined on functions.php
 		$key = createPage($args);
 
@@ -295,6 +303,14 @@ class pluginAPI extends Plugin {
 
 	private function editPage($key, $args)
 	{
+<<<<<<< HEAD
+=======
+		// Unsanitize content because all values are sanitized
+		if (isset($args['content'])) {
+			$args['content'] = Text::htmlDecode($args['content']);
+		}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 		$args['key'] = $key;
 		$newKey = editPage($args);
 

@@ -65,20 +65,33 @@
     "themes": "Temalar",
     "about": "Hakkında",
     "url": "URL",
+<<<<<<< HEAD
     "welcome": "Hoşgeldiniz",
+=======
+    "welcome": "Merhaba",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "logout": "Çıkış",
     "website": "Website",
     "publish": "Yayınla",
     "manage": "Yönet",
+<<<<<<< HEAD
     "content": "İçerik",
+=======
+    "content": "İçerikler",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "category": "Kategori",
     "categories": "Kategoriler",
     "users": "Kullanıcılar",
     "settings": "Ayarlar",
     "general": "Genel",
     "advanced": "Gelişmiş",
+<<<<<<< HEAD
     "new-content": "Yeni içerik",
     "manage-content": "İçeriği yönet",
+=======
+    "new-content": "İçerik Ekle",
+    "manage-content": "İçerikler",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "add-new-content": "Yeni içerik ekle",
     "new-category": "Yeni kategori",
     "you-do-not-have-sufficient-permissions": "Bu sayfaya erişmek için gerekli izinlere sahip değilsiniz.",
@@ -128,7 +141,11 @@
     "position": "Konum",
     "friendly-url": "Basit URL",
     "image-description": "Resim açıklaması",
+<<<<<<< HEAD
     "add-a-new-category": "Yeni bir kategori ekle",
+=======
+    "add-a-new-category": "Yeni kategori ekle",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "name": "Ad",
     "username": "Kullanıcı Adı",
     "first-name": "Ad",
@@ -140,7 +157,11 @@
     "site-information": "Site bilgisi",
     "site-title": "Site başlığı",
     "use-this-field-to-name-your-site": "Bu alanı sitenize ad vermek için kullanın.",
+<<<<<<< HEAD
     "site-slogan": "Site slogan",
+=======
+    "site-slogan": "Site sloganı",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "use-this-field-to-add-a-catchy-phrase": "Bu alanı sitenize akılda kalıcı bir cümle seçmek için kullanın.",
     "site-description": "Site tanımı",
     "you-can-add-a-site-description-to-provide": "Bir site tanımı ekleyebilirsiniz.",
@@ -159,7 +180,11 @@
     "date-and-time-formats": "Tarih ve saat formatları",
     "date-format": "Tarih formatı",
     "current-format": "Şimdiki format",
+<<<<<<< HEAD
     "version": "Versyion",
+=======
+    "version": "Sürüm",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "author": "Yazar",
     "activate": "Aktifleştir",
     "deactivate": "Pasifleştir",
@@ -186,19 +211,32 @@
     "invite-a-friend-to-collaborate-on-your-site": "Bir arkadaşınızı sitenize davet edin",
     "number-of-items-to-show-per-page": "Sayfa başına gösterilecek öğe sayısı.",
     "website-or-blog": "Web sitesi veya blog",
+<<<<<<< HEAD
     "order-content-by": "İçerik sıralaması:",
+=======
+    "order-content-by": "İçerik sıralaması",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "edit-or-delete-content-from-your-site": "Sitenizden içerik düzenleme veya silme",
     "order-the-content-by-date-to-build-a-blog": "Blog için tarihe göre sıralayın ya da Web sitesi oluşturmak için içeriğe göre sıralayın.",
     "page-not-found-content": "Hey! böyle bir sayfa yok gibi.",
     "page-not-found": "Sayfa bulunamadı",
     "predefined-pages": "Önceden tanımlanmış sayfalar",
+<<<<<<< HEAD
     "returning-page-when-the-page-doesnt-exist": "Şayet dönülen sayfa bulunamadı ise varsayılan bir ileti döndürmek isterseniz boş bırakın.",
     "returning-page-for-the-main-page": "Ana sayfaya dönülürken, ana sayfadaki tüm sayfaları göstermek isterseniz boş bırakın.",
+=======
+    "returning-page-when-the-page-doesnt-exist": "404 sayfası göstermek yerine bir ileti göstermek isterseniz boş bırakın.",
+    "returning-page-for-the-main-page": "Ana sayfadaki tüm sayfaları göstermek isterseniz boş bırakın.",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "full-url-of-your-site": "Sitenizin tam URL'si. HTTP veya HTTPS protokolüyle tamamlayın (yalnızca sunucunuzda SSL'yi etkinleştirdiyseniz).",
     "with-the-locales-you-can-set-the-regional-user-interface": "Yerel ayarlarla, dilinizdeki tarihler gibi bölgesel kullanıcı arabirimini ayarlayabilirsiniz. Yerel ayarların sisteminize kurulması gerekir.",
     "bludit-installer": "Bludit Yükleyici",
     "choose-your-language": "Dili seçin",
+<<<<<<< HEAD
     "next": "İleri",
+=======
+    "next": "Sonraki",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
     "complete-the-form-choose-a-password-for-the-username-admin": "Bu formu doldurarak, « admin » kullanıcısı için bir şifre belirleyin",
     "show-password": "Şifreyi göster",
     "install": "Yükle",

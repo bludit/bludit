@@ -52,7 +52,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1 text-center">
+<<<<<<< HEAD
 					<p><?php echo $Site->footer() ?></p>
+=======
+					<p><?php echo $Site->footer() ?><br>Powered by <a href="https://www.bludit.com" target="_blank">BLUDIT</a></p>
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 				</div>
 			</div>
 		</div>

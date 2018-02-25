@@ -3,9 +3,15 @@
         "native": "Українська (Україна)",
         "english-name": "Ukrainian",
         "locale": "uk_UA",
+<<<<<<< HEAD
         "last-update": "2017-12-16",
         "authors": {
             "0": "Aleksei86",
+=======
+        "last-update": "2018-02-12",
+        "authors": {
+            "0": "Aleksei86 https://aleksei86.info/",
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
             "1": "",
             "2": "",
             "3": ""
@@ -276,5 +282,13 @@
     "congratulations-you-have-successfully-installed-your-bludit": "Вітаємо, ви успішно встановили **Bludit**",
     "this-theme-may-not-be-supported-by-this-version-of-bludit": "Ця тема може не підтримуватися цією версією Bludit",
     "read-more": "Читати далі",
+<<<<<<< HEAD
     "remember-me": "Remember me"
+=======
+    "remember-me": "Запам'ятати мене",
+    "plugins-position": "Позиція плагіна",
+    "plugins-position-changed": "Позицію плагіна змінено",
+    "drag-and-drop-to-set-the-position-of-the-plugin": "Перетягніть та відпустіть, щоб встановити позицію плагінів",
+    "change-the-position-of-the-plugins": "Змінити положення плагінів"
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 }

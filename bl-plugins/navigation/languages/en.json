@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Latest content",
+		"description": "List of latest contents, you can set the number of items.<br>The order of the content is taken from the advanced settings of Bludit."
+	},
+	"home-link": "Home link",
+	"show-the-home-link-on-the-sidebar": "Show the home link on the sidebar.",
+	"amount-of-items": "Amount of items"
+}

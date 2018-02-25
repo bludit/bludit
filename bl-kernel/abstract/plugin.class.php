@@ -227,7 +227,11 @@ class Plugin {
 	// Return TRUE if the installation success, otherwise FALSE.
 	public function install($position=1)
 	{
+<<<<<<< HEAD
 		if($this->installed()) {
+=======
+		if ($this->installed()) {
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 			return false;
 		}
 
@@ -278,6 +282,20 @@ class Plugin {
 		return $this->save();
 	}
 
+<<<<<<< HEAD
+=======
+	public function setField($field, $value)
+	{
+		$this->db[$field] = Sanitize::html($value);
+		return $this->save();
+	}
+
+	public function setPosition($position)
+	{
+		return $this->setField('position', $position);
+	}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook
 	// Example: https://www.mybludit.com/api/foo/bar
 	public function webhook($URI=false, $returnsAfterURI=false, $fixed=true)

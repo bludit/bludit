@@ -1,0 +1,8 @@
+.DS_Store
+bl-content/*
+bl-plugins/timemachine
+bl-plugins/remote-content
+bl-plugins/simple-stats
+bl-plugins/discovery
+bl-kernel/bludit.pro.php
+bl-themes/docs

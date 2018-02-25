@@ -42,7 +42,11 @@ $page = $Page = false;
 			N => Page Object),
 	)
 */
+<<<<<<< HEAD
 $pagesByParent = array(PARENT=>array());
+=======
+//$pagesByParent = array(PARENT=>array()); // DEPREACTED
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 // Array with pages order by parent and by key
 /*
@@ -66,7 +70,11 @@ $pagesByParent = array(PARENT=>array());
 			"childKeyZ" => Page Object),
 	)
 */
+<<<<<<< HEAD
 $pagesByParentByKey = array(PARENT=>array());
+=======
+//$pagesByParentByKey = array(PARENT=>array()); // DEPREACTED
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 // Array with static content, each item is a Page Object
 // Order by position
@@ -100,7 +108,11 @@ if ($dbPages->scheduler()) {
 }
 
 // Generate pages parent tree, only published pages
+<<<<<<< HEAD
 buildPagesByParent(true, true);
+=======
+//buildPagesByParent(true, true);
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 // Set home page is the user defined one
 if ($Site->homepage() && $Url->whereAmI()==='home') {
@@ -111,16 +123,20 @@ if ($Site->homepage() && $Url->whereAmI()==='home') {
 	}
 }
 
+<<<<<<< HEAD
 // The filter blog alway show all the content
 // Change the where am i to use
 if ($Url->whereAmI()==='blog') {
 	//$Url->setWhereAmI('home');
 }
 
+=======
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 // Build specific page
 if ($Url->whereAmI()==='page') {
 	buildThePage();
 }
+<<<<<<< HEAD
 // Build pages by tag
 elseif ($Url->whereAmI()==='tag') {
 	buildPagesByTag();
@@ -130,6 +146,17 @@ elseif ($Url->whereAmI()==='category') {
         buildPagesByCategory();
 }
 // Build pages for the homepage
+=======
+// Build content by tag
+elseif ($Url->whereAmI()==='tag') {
+	buildPagesByTag();
+}
+// Build content by category
+elseif ($Url->whereAmI()==='category') {
+        buildPagesByCategory();
+}
+// Build content for the homepage
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 elseif ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) {
         buildPagesForHome();
 }

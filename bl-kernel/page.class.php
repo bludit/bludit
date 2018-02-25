@@ -298,8 +298,15 @@ class Page {
 		$tmp['date'] 		= $this->dateRaw();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
+<<<<<<< HEAD
 
 		if($returnsArray) {
+=======
+		$tmp['coverImage'] 		= $this->coverImage(true);
+		$tmp['coverImageFilename'] 	= $this->coverImage(false);
+
+		if ($returnsArray) {
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 			return $tmp;
 		}
 
@@ -379,6 +386,15 @@ class Page {
 		return ($this->getValue('status')=='sticky');
 	}
 
+<<<<<<< HEAD
+=======
+	// (boolean) Returns TRUE if the page is static, FALSE otherwise
+	public function static()
+	{
+		return ($this->getValue('status')=='static');
+	}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 	// (string) Returns status of the page
 	public function status()
 	{
@@ -427,6 +443,15 @@ class Page {
 		return false;
 	}
 
+<<<<<<< HEAD
+=======
+	// Returns TRUE if the page is a parent, has or not children
+	public function isParent()
+	{
+		return $this->parentKey()===false;
+	}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
 	public function parentMethod($method)
 	{
@@ -439,18 +464,22 @@ class Page {
 		return false;
 	}
 
+<<<<<<< HEAD
 	// Returns TURE if the page has a parent, FALSE otherwise
 	public function hasParent()
 	{
 		return $this->parentKey()!==false;
 	}
 
+=======
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 	// Returns TRUE if the page is a child, FALSE otherwise
 	public function isChild()
 	{
 		return $this->parentKey()!==false;
 	}
 
+<<<<<<< HEAD
 	// Returns an array with all children's key
 	public function children()
 	{
@@ -476,6 +505,50 @@ class Page {
 		return $this->hasSubpages();
 	}
 
+=======
+	// Returns TRUE if the page has children
+	public function hasChildren()
+	{
+		$childrenKeys = $this->childrenKeys();
+		return !empty($childrenKeys);
+	}
+
+	// Returns an array with all children's keys
+	public function childrenKeys()
+	{
+		return $this->getValue('childrenKeys');
+	}
+
+	// Returns an array with all children as Page-Object
+	public function children()
+	{
+		$list = array();
+		$childrenKeys = $this->getValue('childrenKeys');
+		foreach ($childrenKeys as $childKey) {
+			$child = buildPage($childKey);
+			array_push($list, $child);
+		}
+
+		return $list;
+	}
+
+	// Returns the amount of minutes takes to read the page
+	public function readingTime() {
+		global $Language;
+
+		$words = $this->content(true);
+		$words = strip_tags($words);
+		$words = str_word_count($words);
+		$average = $words / 200;
+		$minutes = round($average);
+
+		if ($minutes>0) {
+			return $minutes.' '.$Language->get('minutes');
+		}
+
+		return '~1 '.$Language->get('minute');
+	}
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 	// Returns relative time (e.g. "1 minute ago")
 	// Based on http://stackoverflow.com/a/18602474
@@ -513,6 +586,9 @@ class Page {
 		}
 
 		return $string ? implode(', ', $string) . ' ago' : 'Just now';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 	}
 }

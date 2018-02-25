@@ -1,6 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+<<<<<<< HEAD
 // Returns a Page object, the class is page.class.php, FALSE if something fail to load the page
+=======
+// Returns a Page-Object, the class is page.class.php, FALSE if something fail to load the page
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function buildPage($key) {
 	global $dbPages;
 	global $dbUsers;
@@ -59,24 +63,42 @@ function buildPage($key) {
 	$page->setField('categoryMap', $dbCategories->getMap($categoryKey));
 
 	// Get the keys of the child
+<<<<<<< HEAD
 	$page->setField('children', $dbPages->getChildren($key));
+=======
+	$page->setField('childrenKeys', $dbPages->getChildren($key));
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 	return $page;
 }
 
+<<<<<<< HEAD
 // Execute a re-index of categories
+=======
+// Re-index database of categories
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
 	global $dbCategories;
 	return $dbCategories->reindex();
 }
 
+<<<<<<< HEAD
+=======
+// Re-index database of tags
+// If you create/edit/remove a page is necessary regenerate the database of tags
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function reindexTags() {
 	global $dbTags;
 	return $dbTags->reindex();
 }
 
+<<<<<<< HEAD
 // Returns a Page Object, this generate on the fly a page-not-found
+=======
+// Generate on the fly a 404 page-not-found
+// Returns a Page-Object
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function buildErrorPage() {
 	global $dbPages;
 	global $Language;
@@ -91,9 +113,15 @@ function buildErrorPage() {
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
+<<<<<<< HEAD
 // This function generate a particular page from the slug of the url
 // The page is stored on the global variable $page
 // If the slug has not a page associacted returns FALSE and set not-found
+=======
+// This function generate a particular page from the current slug of the url
+// The page is stored on the global variable $page
+// If the slug has not a page associacted returns FALSE and is set not-found as true
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function buildThePage() {
 	global $Url;
 	global $page, $Page;
@@ -102,12 +130,20 @@ function buildThePage() {
 	$page = $Page = buildPage( $Url->slug() );
 
 	// The page doesn't exist
+<<<<<<< HEAD
 	if($page===false) {
+=======
+	if ($page===false) {
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 		$Url->setNotFound();
 		return false;
 	}
 	// The page is NOT published
+<<<<<<< HEAD
 	elseif( $page->scheduled() || $page->draft() ) {
+=======
+	elseif ( $page->scheduled() || $page->draft() ) {
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 		$Url->setNotFound();
 		return false;
 	}
@@ -138,7 +174,13 @@ function buildPagesByTag() {
 	return buildPagesFor('tag', false, $tagKey);
 }
 
+<<<<<<< HEAD
 // Generate the global variables $pages and $content, defined on 69.pages.php
+=======
+// This function is only used from the rule 69.pages.php, DO NOT use this function!
+// Generate the global variables $pages / $content, defined on 69.pages.php
+// This function is use for buildPagesForHome(), buildPagesByCategory(), buildPagesByTag()
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
 	global $dbCategories;
@@ -171,9 +213,15 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	}
 
 	$pages = array(); // global variable
+<<<<<<< HEAD
 	foreach($list as $pageKey) {
 		$page = buildPage($pageKey);
 		if($page!==false) {
+=======
+	foreach ($list as $pageKey) {
+		$page = buildPage($pageKey);
+		if ($page!==false) {
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 			array_push($pages, $page);
 		}
 	}
@@ -181,6 +229,42 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	return $pages;
 }
 
+<<<<<<< HEAD
+=======
+// Returns an array with all the static pages as Page-Object
+// The static pages are order by position all the time
+function buildStaticPages() {
+	global $dbPages;
+
+	$list = array();
+	$staticPages = $dbPages->getStaticDB();
+	foreach ($staticPages as $pageKey) {
+		$staticPage = buildPage($pageKey);
+		array_push($list, $staticPage);
+	}
+
+	return $list;
+}
+
+// Returns an array with all the parent pages as Page-Object
+// The pages are order by the settings on the system
+function buildParentPages() {
+	global $dbPages;
+
+	$list = array();
+	$pagesKey = $dbPages->getPublishedDB();
+	foreach ($pagesKey as $pageKey) {
+		$page = buildPage($pageKey);
+		if ($page->isParent()) {
+			array_push($list, $page);
+		}
+	}
+
+	return $list;
+}
+
+// DEPRECATED
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 // Generate the global variable $pagesByParent, defined on 69.pages.php
 function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	global $dbPages;
@@ -212,6 +296,7 @@ function buildPagesByParent($publishedPages=true, $staticPages=true) {
 	}
 }
 
+<<<<<<< HEAD
 function buildStaticPages() {
 	global $dbPages;
 
@@ -226,6 +311,10 @@ function buildStaticPages() {
 
 // Returns an Array with all pages existing on the system
 // (boolean) $allPages, TRUE returns all pages with any status, FALSE all published pages
+=======
+// DEPRECATED
+// Returns an Array with all pages existing on the system
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 /*
 	array(
 		pageKey1 => Page object,
@@ -263,7 +352,11 @@ function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true
 	return $tmp;
 }
 
+<<<<<<< HEAD
 // Returns the plugin Object if is enabled and installed, FALSE otherwise
+=======
+// Returns the Plugin-Object if is enabled and installed, FALSE otherwise
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function getPlugin($pluginClassName) {
 	global $plugins;
 
@@ -336,6 +429,30 @@ function deactivatePlugin($pluginClassName) {
 	return false;
 }
 
+<<<<<<< HEAD
+=======
+function changePluginsPosition($pluginClassList) {
+	global $plugins;
+	global $Syslog;
+	global $Language;
+
+	foreach ($pluginClassList as $position=>$pluginClassName) {
+		if (isset($plugins['all'][$pluginClassName])) {
+			$plugin = $plugins['all'][$pluginClassName];
+			$plugin->setPosition(++$position);
+		}
+	}
+
+	// Add to syslog
+	$Syslog->add(array(
+		'dictionaryKey'=>'plugins-sorted',
+		'notes'=>''
+	));
+
+	return true;
+}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 function createPage($args) {
 	global $dbPages;
 	global $Syslog;

@@ -1,14 +1,18 @@
 @charset "UTF-8";
 
+<<<<<<< HEAD
 body .home-title{
 	text-decoration: none;
 }
 
 
+=======
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 img {
 	max-width: 100%;
 }
 
+<<<<<<< HEAD
 .home-title {
 	text-decoration: none;
 	color: #222;	
@@ -19,6 +23,12 @@ img {
 }
 
 
+=======
+a.home-title {
+	color: #222;
+}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 ul, ol {
 	margin-bottom: 1.5em;
 }

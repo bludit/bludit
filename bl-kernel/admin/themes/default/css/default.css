@@ -86,6 +86,13 @@ body {
 	max-width: 1800px;
 }
 
+<<<<<<< HEAD
+=======
+.hint {
+
+}
+
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 /* TOPBAR
 ---------------------------------------------------------------- */
 
@@ -649,6 +656,33 @@ div.plugin-links > span.separator {
 	color: #ccc;
 }
 
+<<<<<<< HEAD
+=======
+.plugin-position {
+	display: block !important;
+	margin: 10px 0 !important;
+	padding: 10px !important;
+	line-height: 50px !important;
+	height: 50px !important;
+	width: 30% !important;
+	min-width: 100px !important;
+	cursor: move !important;
+	border: 1px solid #ccc !important;
+	background: #fafafa;
+}
+
+.uk-sortable-item {
+	background: #fafafa !important;
+}
+
+.uk-sortable-placeholder {
+	background: #fafafa !important;
+}
+
+.plugin-position-wrap {
+	z-index: 200;
+}
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 /* ----------- PAGINATOR ----------- */
 

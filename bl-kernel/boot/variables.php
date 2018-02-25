@@ -57,7 +57,11 @@ define('REMEMBER_COOKIE_TOKEN', 'BLUDITREMEMBERTOKEN');
 define('REMEMBER_COOKIE_EXPIRE_IN_DAYS', 30);
 
 // Filename
+<<<<<<< HEAD
 define('FILENAME', 'index.txt');
+=======
+define('FILENAME', 'index.md');
+>>>>>>> 07153963c9695a734b5721d73818da6a083bc8af
 
 // Database date format
 define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
