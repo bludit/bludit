@@ -243,13 +243,20 @@ function install($adminPassword, $email, $timezone)
 	$dirpermissions = 0755;
 
 	// PAGES
-	if (!mkdir(PATH_PAGES.'welcome', $dirpermissions, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'welcome';
+	if (!mkdir(PATH_PAGES.$Language->get('example-page-1-slug'), $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-1-slug');
 		error_log($errorText, 0);
 	}
-
-	if (!mkdir(PATH_PAGES.'about', $dirpermissions, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.'about';
+	if (!mkdir(PATH_PAGES.$Language->get('example-page-2-slug'), $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-2-slug');
+		error_log($errorText, 0);
+	}
+	if (!mkdir(PATH_PAGES.$Language->get('example-page-3-slug'), $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-3-slug');
+		error_log($errorText, 0);
+	}
+	if (!mkdir(PATH_PAGES.$Language->get('example-page-4-slug'), $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-4-slug');
 		error_log($errorText, 0);
 	}
 
@@ -293,8 +300,59 @@ function install($adminPassword, $email, $timezone)
 
 	// File pages.php
 	$data = array(
-		'about'=>array(
-			'description'=>$Language->get('About your site or yourself'),
+		$Language->get('example-page-1-slug')=>array(
+			'description'=>'',
+			'username'=>'admin',
+			'tags'=>array(),
+			'status'=>'published',
+			'type'=>'page',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>true,
+			'position'=>1,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid()),
+			'parent'=>'',
+			'slug'=>$Language->get('example-page-1-slug')
+	    	),
+		$Language->get('example-page-2-slug')=>array(
+			'description'=>'',
+			'username'=>'admin',
+			'tags'=>array(),
+			'status'=>'published',
+			'type'=>'page',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>true,
+			'position'=>1,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid()),
+			'parent'=>'',
+			'slug'=>$Language->get('example-page-2-slug')
+		),
+		$Language->get('example-page-3-slug')=>array(
+			'description'=>'',
+			'username'=>'admin',
+			'tags'=>array(),
+			'status'=>'published',
+			'type'=>'page',
+			'date'=>$currentDate,
+			'dateModified'=>'',
+			'allowComments'=>true,
+			'position'=>1,
+			'coverImage'=>'',
+			'md5file'=>'',
+			'category'=>'',
+			'uuid'=>md5(uniqid()),
+			'parent'=>'',
+			'slug'=>$Language->get('example-page-3-slug')
+		),
+		$Language->get('example-page-4-slug')=>array(
+			'description'=>'',
 			'username'=>'admin',
 			'tags'=>array(),
 			'status'=>'static',
@@ -302,31 +360,14 @@ function install($adminPassword, $email, $timezone)
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
-			'position'=>2,
+			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
 			'category'=>'',
 			'uuid'=>md5(uniqid()),
 			'parent'=>'',
-			'slug'=>'about'
-	    	),
-		'welcome'=>array(
-			'description'=>$Language->get('Welcome to Bludit'),
-			'username'=>'admin',
-			'tags'=>array('bludit'=>'Bludit','cms'=>'CMS','flat-files'=>'Flat files'),
-			'status'=>'published',
-			'type'=>'post',
-			'date'=>$currentDate,
-			'dateModified'=>'',
-			'allowComments'=>true,
-			'position'=>1,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'general',
-			'uuid'=>md5(uniqid()),
-			'parent'=>'',
-			'slug'=>'welcome'
-	    	)
+			'slug'=>$Language->get('example-page-4-slug')
+		)
 	);
 
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -343,14 +384,14 @@ function install($adminPassword, $email, $timezone)
 	}
 	$data = array(
 		'title'=>'BLUDIT',
-		'slogan'=>'CMS',
-		'description'=>'',
+		'slogan'=>$Language->get('welcome-to-bludit'),
+		'description'=>$Language->get('congratulations-you-have-successfully-installed-your-bludit'),
 		'footer'=>'Copyright © '.Date::current('Y'),
 		'itemsPerPage'=>6,
 		'language'=>$Language->currentLanguage(),
 		'locale'=>$Language->locale(),
 		'timezone'=>$timezone,
-		'theme'=>'kernel-panic',
+		'theme'=>'alternative',
 		'adminTheme'=>'default',
 		'homepage'=>'',
 		'pageNotFound'=>'',
@@ -360,7 +401,14 @@ function install($adminPassword, $email, $timezone)
 		'uriBlog'=>'/blog/',
 		'url'=>$siteUrl,
 		'emailFrom'=>'no-reply@'.DOMAIN,
-		'orderBy'=>'date'
+		'orderBy'=>'date',
+		'currentBuild'=>'0',
+		'twitter'=>'https://twitter.com/bludit',
+		'facebook'=>'https://www.facebook.com/bluditcms',
+		'codepen'=>'',
+		'googlePlus'=>'https://plus.google.com/+Bluditcms',
+		'github'=> 'https://github.com/bludit',
+		'dateFormat'=>'F j, Y'
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -429,19 +477,6 @@ function install($adminPassword, $email, $timezone)
 	);
 	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
-	// File plugins/about/db.php
-	file_put_contents(
-		PATH_PLUGINS_DATABASES.'about'.DS.'db.php',
-		$dataHead.json_encode(
-			array(
-				'position'=>0,
-				'label'=>$Language->get('About'),
-				'text'=>$Language->get('this-is-a-brief-description-of-yourself-our-your-site')
-			),
-		JSON_PRETTY_PRINT),
-		LOCK_EX
-	);
-
 	// File plugins/simplemde/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
@@ -450,6 +485,19 @@ function install($adminPassword, $email, $timezone)
 				'position'=>0,
 				'tabSize'=>4,
 				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;, &quot;guide&quot;'
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/about/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'about'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>1,
+				'label'=>$Language->get('About'),
+				'text'=>$Language->get('this-is-a-brief-description-of-yourself-our-your-site')
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -467,30 +515,21 @@ function install($adminPassword, $email, $timezone)
 		LOCK_EX
 	);
 
-	// File for about page
-	$data = 'Title: '.$Language->get('About').PHP_EOL.'Content: '.PHP_EOL.$Language->get('installer-page-about-content');
-	file_put_contents(PATH_PAGES.'about'.DS.FILENAME, $data, LOCK_EX);
+	// Page create-your-own-content
+	$data = 'Title: '.$Language->get('example-page-1-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-1-content');
+	file_put_contents(PATH_PAGES.$Language->get('example-page-1-slug').DS.FILENAME, $data, LOCK_EX);
 
-	// File for welcome page
-	$text1 = Text::replaceAssoc(
-			array(
-				'{{ADMIN_AREA_LINK}}'=>PROTOCOL.DOMAIN.HTML_PATH_ROOT.'admin'
-			),
-			$Language->get('Manage your Bludit from the admin panel')
-	);
+	// Page set-up-your-new-site
+	$data = 'Title: '.$Language->get('example-page-2-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-2-content');
+	file_put_contents(PATH_PAGES.$Language->get('example-page-2-slug').DS.FILENAME, $data, LOCK_EX);
 
-	$data = 'Title: '.$Language->get('Welcome').'
-Content:
-'.$Language->get('congratulations-you-have-successfully-installed-your-bludit').'
+	// Page follow-bludit
+	$data = 'Title: '.$Language->get('example-page-3-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-3-content');
+	file_put_contents(PATH_PAGES.$Language->get('example-page-3-slug').DS.FILENAME, $data, LOCK_EX);
 
-### '.$Language->get('whats-next').'
-- '.$text1.'
-- '.$Language->get('Follow Bludit on').' [Twitter](https://twitter.com/bludit) / [Facebook](https://www.facebook.com/bluditcms) / [Google+](https://plus.google.com/+Bluditcms)
-- '.$Language->get('Chat with developers and users on Gitter').'
-- '.$Language->get('visit-the-forum-for-support').'
-- '.$Language->get('Read the documentation for more information');
-
-	file_put_contents(PATH_PAGES.'welcome'.DS.FILENAME, $data, LOCK_EX);
+	// Page about
+	$data = 'Title: '.$Language->get('example-page-4-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-4-content');
+	file_put_contents(PATH_PAGES.$Language->get('example-page-4-slug').DS.FILENAME, $data, LOCK_EX);
 
 	return true;
 }
@@ -506,10 +545,10 @@ function checkPOST($args)
 	}
 
 	// Sanitize email
-	$email = sanitize::email($args['email']);
+	//$email = sanitize::email($args['email']);
 
 	// Install Bludit
-	install($args['password'], $email, $args['timezone']);
+	install($args['password'], '', $args['timezone']);
 
 	return true;
 }
