@@ -2,7 +2,7 @@
 
 /*
  * Bludit
- * https://www.bludit.comb
+ * https://www.bludit.com
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
