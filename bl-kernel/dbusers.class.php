@@ -91,12 +91,13 @@ class dbUsers extends dbJSON
 		if (!empty($args['password'])) {
 			$user['salt'] = $this->generateSalt();
 			$user['password'] = $this->generatePasswordHash($args['password'], $user['salt']);
-			$user['tokenAuth'] = $this->generateAuthToken();
+			$user['tokenAuth'] = $this->generateAuthToken();		
+			// Save the database
+			$this->db[$args['username']] = $user;
+			return $this->save();	
 		}
 
-		// Save the database
-		$this->db[$args['username']] = $user;
-		return $this->save();
+		
 	}
 
 	// Delete an user
@@ -122,7 +123,7 @@ class dbUsers extends dbJSON
 
 	public function generateAuthToken()
 	{
-		return md5( uniqid().time().DOMAIN );
+		return md5(uniqid().time().DOMAIN);
 	}
 
 	public function generateRememberToken()
@@ -131,7 +132,7 @@ class dbUsers extends dbJSON
 	}
 
 	public function generateSalt()
-	{
+	{	
 		return Text::randomText(SALT_LENGTH);
 	}
 
@@ -150,7 +151,7 @@ class dbUsers extends dbJSON
 	public function setPassword($username, $password)
 	{
 		$args['username']	= $username;
-		$args['password']	= $hash;
+		$args['password']	= $password;
 
 		return $this->set($args);
 	}
