@@ -50,10 +50,13 @@ class pluginTinymce extends Plugin {
 					"codesample table hr pagebreak",
 					"advlist lists textcolor wordcount",
 					"contextmenu colorpicker textpattern",
-					"emoticons", "print"
+					"emoticons", "print", "paypal"
 				],
-				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | emoticons | print |alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat media table | pagebreak code fullscreen"
+				
+				toolbar: "restoredraft paypal | formatselect | bold italic strikethrough forecolor backcolor  | link | emoticons | print |alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat media table | pagebreak code fullscreen",
+				
 			});
+			
 
 			</script>';
 		}
