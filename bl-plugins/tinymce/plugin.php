@@ -37,7 +37,6 @@ class pluginTinymce extends Plugin {
 				schema: "html5",
 				statusbar: false,
 				menubar:false,
-				remove_script_host: false,
 				branding: false,
 				browser_spellcheck: true,
 				pagebreak_separator: "'.PAGE_BREAK.'",
@@ -50,9 +49,10 @@ class pluginTinymce extends Plugin {
 					"fullscreen image link media template",
 					"codesample table hr pagebreak",
 					"advlist lists textcolor wordcount",
-					"contextmenu colorpicker textpattern"
+					"contextmenu colorpicker textpattern",
+					"emoticons", "print"
 				],
-				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat image table | pagebreak code fullscreen"
+				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | emoticons | print |alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat media table | pagebreak code fullscreen"
 			});
 
 			</script>';
