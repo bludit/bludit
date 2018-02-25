@@ -19,8 +19,8 @@ class dbSyslog extends dbJSON
 	// Returns TRUE if the ID of execution exists, FALSE otherwise
 	public function exists($idExecution)
 	{
-		foreach($this->db as $field) {
-			if( $field['idExecution']==$idExecution ) {
+		foreach ($this->db as $field) {
+			if ($field['idExecution']==$idExecution) {
 				return true;
 			}
 		}
@@ -29,8 +29,8 @@ class dbSyslog extends dbJSON
 
 	public function get($idExecution)
 	{
-		foreach($this->db as $field) {
-			if( $field['idExecution']==$idExecution ) {
+		foreach ($this->db as $field) {
+			if ($field['idExecution']==$idExecution) {
 				return $field;
 			}
 		}
@@ -45,12 +45,13 @@ class dbSyslog extends dbJSON
 		$data['date'] = Date::current(DB_DATE_FORMAT);
 		$data['dictionaryKey'] = $args['dictionaryKey'];
 		$data['notes'] = Sanitize::html($args['notes']);
+		// Unique ID for each execution, defined in boot/init.php
 		$data['idExecution'] = $GLOBALS['ID_EXECUTION'];
 		$data['method'] = $_SERVER['REQUEST_METHOD'];
 
 		// Username
 		$data['username'] = Session::get('username');
-		if( Text::isEmpty($data['username']) ) {
+		if (Text::isEmpty($data['username'])) {
 			return false;
 		}
 
