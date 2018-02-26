@@ -382,7 +382,7 @@ class Page {
 	}
 
 	// (boolean) Returns TRUE if the page is static, FALSE otherwise
-	public function static()
+	public function isStatic()
 	{
 		return ($this->getValue('status')=='static');
 	}
