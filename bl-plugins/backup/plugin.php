@@ -47,10 +47,10 @@ class pluginBackup extends Plugin {
 	{
 		if (isset($_POST['createBackup'])) {
 			return $this->createBackup();
-		}
-
-		if (isset($_POST['restoreBackup'])) {
+		} elseif (isset($_POST['restoreBackup'])) {
 			return $this->restoreBackup($_POST['restoreBackup']);
+		} elseif (isset($_POST['deleteBackup'])) {
+			return $this->deleteBackup($_POST['deleteBackup']);
 		}
 
 		return false;
@@ -76,8 +76,12 @@ class pluginBackup extends Plugin {
 
 			$html .= '<div>';
 			$html .= '<h3>'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h3>';
-			$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$basename.'"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
-			$html .= '<button name="restoreBackup" value="'.$basename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
+			// Allow download if a zip file
+			if ($this->zip) {
+				$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
+			}
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-trash-o"></i> '.$Language->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
@@ -107,7 +111,7 @@ class pluginBackup extends Plugin {
 		return true;
 	}
 
-	public function restoreBackup($backupFilename)
+	public function restoreBackup($filename)
 	{
 		// Remove current files
 		foreach ($this->directoriesToBackup as $dir) {
@@ -115,11 +119,27 @@ class pluginBackup extends Plugin {
 		}
 
 		// Recover backuped files
-		$tmp = $this->workspace().$backupFilename;
+		// Zip format
 		if ($this->zip) {
+			$tmp = $this->workspace().$filename.'.zip';
 			return Filesystem::unzip($tmp, PATH_CONTENT);
 		}
+
+		// Directory format
+		$tmp = $this->workspace().$filename;
 		return Filesystem::copyRecursive($tmp, PATH_CONTENT);
 	}
 
+	public function deleteBackup($filename)
+	{
+		// Zip format
+		if ($this->zip) {
+			$tmp = $this->workspace().$filename.'.zip';
+			return Filesystem::rmfile($tmp);
+		}
+
+		// Directory format
+		$tmp = $this->workspace().$filename;
+		return Filesystem::deleteRecursive($tmp);
+	}
 }

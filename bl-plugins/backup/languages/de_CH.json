@@ -3,5 +3,9 @@
 	{
 		"name": "Backup",
 		"description": "Einfach Backups erstellen und wiederherstellen."
-	}
+	},
+	"create-backup": "Create Backup",
+	"download": "Download",
+	"restore-backup": "Restore Backup",
+	"delete-backup": "Delete Backup"
 }

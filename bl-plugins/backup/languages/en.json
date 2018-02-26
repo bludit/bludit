@@ -4,7 +4,8 @@
 		"name": "Backup",
 		"description": "The simple way to backup your Bludit."
 	},
-		"create-backup": "Create Backup",
-		"download": "Download",
-		"restore-backup": "Restore Backup"
+	"create-backup": "Create Backup",
+	"download": "Download",
+	"restore-backup": "Restore Backup",
+	"delete-backup": "Delete Backup"
 }

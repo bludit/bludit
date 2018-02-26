@@ -4,7 +4,8 @@
 		"name": "Yedekleme",
 		"description": "Yedek almak için en kolay yol."
 	},
-		"create-backup": "Yedek Al",
-		"download": "İndir",
-		"restore-backup": "Geri Yükle"
+	"create-backup": "Yedek Al",
+	"download": "İndir",
+	"restore-backup": "Geri Yükle",
+	"delete-backup": "Delete Backup"
 }
