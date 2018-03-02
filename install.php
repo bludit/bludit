@@ -223,7 +223,7 @@ function checkSystem()
 }
 
 // Installation function
-function install($adminPassword, $email, $timezone)
+function install($adminPassword, $email='', $timezone)
 {
 	global $Language;
 
@@ -425,7 +425,7 @@ function install($adminPassword, $email, $timezone)
 			'role'=>'admin',
 			'password'=>$passwordHash,
 			'salt'=>$salt,
-			'email'=>$email,
+			'email'=>'',
 			'registered'=>$currentDate,
 			'tokenRemember'=>'',
 			'tokenAuth'=>$tokenAuth,
@@ -647,12 +647,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 		<div class="uk-form-row">
 		<input name="password" id="jspassword" type="password" class="uk-width-1-1 uk-form-large" value="<?php echo isset($_POST['password'])?$_POST['password']:'' ?>" placeholder="<?php echo $Language->get('Password') ?>">
 		</div>
-
-		<!--
-		<div class="uk-form-row">
-		<input name="email" id="jsemail" type="text" class="uk-width-1-1 uk-form-large" placeholder="<?php echo $Language->get('Email') ?>" autocomplete="off" maxlength="100">
-		</div>
-		-->
 
 		<div class="uk-form-row">
 		<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Install') ?></button>
