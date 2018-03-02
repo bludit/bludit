@@ -149,10 +149,18 @@ class Url
 
 	public function pageNumber()
 	{
-		if(isset($this->parameters['page'])) {
+		if (isset($this->parameters['page'])) {
 			return (int)$this->parameters['page'];
 		}
 		return 1;
+	}
+
+	public function parameter($field)
+	{
+		if (isset($this->parameters[$field])) {
+			return $this->parameters[$field];
+		}
+		return false;
 	}
 
 	public function setNotFound()

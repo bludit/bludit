@@ -190,17 +190,46 @@ function checkSystem()
 	$stdOut = array();
 	$dirpermissions = 0755;
 
-	// Check .htaccess file for different webservers
-	if (!file_exists(PATH_ROOT.'.htaccess')) {
+	// Try to create .htaccess file if not exists
+	$htaccessContent = 'AddDefaultCharset UTF-8
 
-		if (	!isset($_SERVER['SERVER_SOFTWARE']) ||
-			stripos($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false ||
-			stripos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false
-		) {
-			$errorText = 'Missing file, upload the file .htaccess  (ERROR_204)';
+<IfModule mod_rewrite.c>
+
+# Enable rewrite rules
+RewriteEngine on
+
+# Deny direct access to .txt files
+RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]
+
+# All URL process by index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*) index.php [PT,L]
+
+</IfModule>';
+
+	if ( !file_exists(PATH_ROOT.'.htaccess') || (filesize(PATH_ROOT.'.htaccess')<1) ) {
+		if (!file_put_contents(PATH_ROOT.'.htaccess', $htaccessContent)) {
+			if (!empty($_SERVER['SERVER_SOFTWARE'])) {
+				$webserver = Text::lowercase($_SERVER['SERVER_SOFTWARE']);
+				if (Text::stringContains($webserver, 'apache') || Text::stringContains($webserver, 'litespeed')) {
+					$errorText = 'Missing file, upload the file .htaccess (ERROR_204)';
+					error_log($errorText, 0);
+
+					$tmp['title'] = 'File .htaccess';
+					$tmp['errorText'] = $errorText;
+					array_push($stdOut, $tmp);
+				}
+			}
+		}
+	}
+
+	// Check mod_rewrite module
+	if (function_exists('apache_get_modules') ) {
+		if (!in_array('mod_rewrite', apache_get_modules())) {
+			$errorText = 'Module mod_rewrite is not installed or loaded.';
 			error_log($errorText, 0);
 
-			$tmp['title'] = 'File .htaccess';
+			$tmp['title'] = 'Apache mod_rewrite module';
 			$tmp['errorText'] = $errorText;
 			array_push($stdOut, $tmp);
 		}
