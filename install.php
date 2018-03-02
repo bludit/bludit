@@ -223,6 +223,18 @@ RewriteRule ^(.*) index.php [PT,L]
 		}
 	}
 
+	// Check mod_rewrite module
+	if (function_exists('apache_get_modules') ) {
+		if (!in_array('mod_rewrite', apache_get_modules())) {
+			$errorText = 'Module mod_rewrite is not installed or loaded.';
+			error_log($errorText, 0);
+
+			$tmp['title'] = 'Apache mod_rewrite module';
+			$tmp['errorText'] = $errorText;
+			array_push($stdOut, $tmp);
+		}
+	}
+
 	// Try to create the directory content
 	@mkdir(PATH_CONTENT, $dirpermissions, true);
 
