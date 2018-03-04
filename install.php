@@ -214,7 +214,7 @@ RewriteRule ^(.*) index.php [PT,L]
 		if (!empty($_SERVER['SERVER_SOFTWARE'])) {
 			$webserver = Text::lowercase($_SERVER['SERVER_SOFTWARE']);
 			if (Text::stringContains($webserver, 'apache') || Text::stringContains($webserver, 'litespeed')) {
-				$errorText = 'Missing file, upload the file .htaccess (ERROR_204)';
+				$errorText = 'Missing file, upload the file .htaccess';
 				error_log($errorText, 0);
 
 				$tmp['title'] = 'File .htaccess';
@@ -223,7 +223,6 @@ RewriteRule ^(.*) index.php [PT,L]
 			}
 		}
 	}
-
 
 	// Check mod_rewrite module
 	if (function_exists('apache_get_modules') ) {
@@ -242,7 +241,7 @@ RewriteRule ^(.*) index.php [PT,L]
 
 	// Check if the directory content is writeable.
 	if (!is_writable(PATH_CONTENT)) {
-		$errorText = 'Writing test failure, check directory content permissions. (ERROR_205)';
+		$errorText = 'Writing test failure, check directory "bl-content" permissions.';
 		error_log($errorText, 0);
 
 		$tmp['title'] = 'PHP permissions';
