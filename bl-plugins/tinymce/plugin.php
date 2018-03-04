@@ -44,7 +44,7 @@ class pluginTinymce extends Plugin {
 				paste_as_text: true,
     				document_base_url: "'.DOMAIN_UPLOADS.'",
 				plugins: [
-					"autosave",
+					"autosave, code",
 					"searchreplace autolink directionality",
 					"visualblocks visualchars",
 					"fullscreen image link media template",
@@ -52,7 +52,8 @@ class pluginTinymce extends Plugin {
 					"advlist lists textcolor wordcount",
 					"contextmenu colorpicker textpattern"
 				],
-				toolbar: "restoredraft | formatselect | bold italic strikethrough forecolor backcolor  | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat image table | pagebreak code fullscreen"
+				toolbar1: "restoredraft | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | outdent indent | removeformat image | pagebreak code",
+				toolbar2: "formatselect | table | numlist bullist | fullscreen"
 			});
 
 			</script>';
