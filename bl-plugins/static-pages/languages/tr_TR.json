@@ -1,9 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "Statik Sayfalar",
-		"description": "Statik sayfaları kenar çubuğunda gösterir, sayfalar içeren bir blog oluşturacaksanız oldukça kullanışlıdır."
-	},
-	"home-link": "Anasayfa bağlantısı",
-	"show-the-home-link-on-the-sidebar": "Kenar çubuğunda anasayfa bağlantısını göster."
-}
