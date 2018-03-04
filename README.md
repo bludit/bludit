@@ -6,6 +6,8 @@ Bludit is a web application to build your own **website** or **blog** in seconds
 
 Bludit supports **Markdown** and **HTML code** for the content.
 
+Bludit is a **Flat-File** CMS.
+
 - [Documentation](https://docs.bludit.com)
 - [Help and Support](https://forum.bludit.org)
 - [Plugins](https://plugins.bludit.com)
@@ -29,29 +31,20 @@ Requirements
 
 You just need a web server with PHP support.
 
-PHP v5.3 or higher.
-PHP mbstring module for full UTF-8 support.
-PHP gd module for image processing.
-PHP dom module for DOM manipulation.
-PHP json module for JSON manipulation.
-Supported web servers:
-Bludit supports almost every webserver
-PHP Built-in web server
-
 - PHP v5.3 or higher.
 - PHP [mbstring](http://php.net/manual/en/book.mbstring.php) module for full UTF-8 support.
 - PHP [gd](http://php.net/manual/en/book.image.php) module for image processing.
 - PHP [dom](http://php.net/manual/en/book.dom.php) module for DOM manipulation.
 - PHP [json](http://php.net/manual/en/book.json.php) module for JSON manipulation.
 - Supported web servers:
-   * Bludit supports almost every webserver
+   * Bludit supports almost every web server
    * PHP Built-in web server (`php -S localhost:8000`)
 
 Installation Guide
 ------------------
 
 1. Download the latest version from the official page. [Bludit.com](https://www.bludit.com)
-2. Extract the zip file into a directory like bludit.
+2. Extract the zip file into a directory like `bludit`.
 3. Upload the directory `bludit` to your web server or hosting.
 4. Visit your domain https://example.com/bludit/
 5. Follow the Bludit Installer to configure the website.
