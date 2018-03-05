@@ -45,9 +45,9 @@ foreach($plugins['all'] as $Plugin)
 	echo '</td>';
 
 	echo '<td class="uk-text-center">';
-	if( !$Plugin->isCompatible() ) {
-		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This plugin may not be supported by this version of Bludit').'"></i>';
-	}
+	// if( !$Plugin->isCompatible() ) {
+	// 	echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This plugin may not be supported by this version of Bludit').'"></i>';
+	// }
 	echo '<span>'.$Plugin->version().'</span>';
 	echo '</td>';
 

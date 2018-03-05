@@ -37,9 +37,9 @@ foreach($themes as $theme)
 	echo '</td>';
 
 	echo '<td class="uk-text-center">';
-	if( !$theme['compatible'] ) {
-		echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This theme may not be supported by this version of Bludit').'"></i>';
-	}
+	// if( !$theme['compatible'] ) {
+	// 	echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This theme may not be supported by this version of Bludit').'"></i>';
+	// }
 	echo $theme['version'];
 	echo '</td>';
 

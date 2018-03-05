@@ -55,12 +55,10 @@ h2.title {
 }
 
 /* Navbar */
-.navbar-nav-svg {
-	display: inline-block;
+img.nav-svg-icon {
 	width: 1rem;
 	height: 1rem;
-	vertical-align: text-top;
-	color: rgba(255,255,255,.5);
+	padding-bottom: 2px;
 }
 
 .nav-link {
