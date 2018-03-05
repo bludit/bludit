@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Último contenido",
-		"description": "Lista los últimos contenidos, puede establecer el número de elementos.<br>El orden del contenido se toma de la configuración avanzada de Bludit."
+		"description": "Cree su propio menú de navegación con las últimas páginas o páginas estáticas."
 	},
 	"home-link": "Enlace Home",
 	"show-the-home-link-on-the-sidebar": "Mostrar el vínculo de inicio en la barra lateral.",
