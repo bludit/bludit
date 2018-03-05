@@ -94,6 +94,14 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'tip'=>''
 	));
 
+	HTML::formInputText(array(
+		'name'=>'linkedin',
+		'label'=>'Linkedin',
+		'value'=>$Site->linkedin(),
+		'class'=>'uk-width-1-2 uk-form-medium',
+		'tip'=>''
+	));
+
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>

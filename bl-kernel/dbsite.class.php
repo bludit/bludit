@@ -30,6 +30,7 @@ class dbSite extends dbJSON
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
+		'linkedin'=>		array('inFile'=>false, 'value'=>''),
 		'orderBy'=>		array('inFile'=>false, 'value'=>'date') // date or position
 	);
 
@@ -120,6 +121,11 @@ class dbSite extends dbJSON
 	public function googlePlus()
 	{
 		return $this->getField('googlePlus');
+	}
+
+	public function linkedin()
+	{
+		return $this->getField('linkedin');
 	}
 
 	public function orderBy()
