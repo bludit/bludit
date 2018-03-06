@@ -12,7 +12,7 @@
 			<h1 class="title"><?php echo $page->title(); ?></h1>
 		</a>
 
-		<?php if (!$page->isStatic()): ?>
+		<?php if (!$page->isStatic() && !$Url->notFound()): ?>
 		<!-- Creation date -->
 		<h6 class="card-subtitle mb-3 text-muted"><?php echo $page->date(); ?> - <?php echo $Language->get('Reading time') . ': ' . $page->readingTime() ?></h6>
 		<?php endif ?>

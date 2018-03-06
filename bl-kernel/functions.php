@@ -659,15 +659,19 @@ function editSettings($args) {
 	if (isset($args['uriPage'])) {
 		$args['uriPage'] = Text::addSlashes($args['uriPage']);
 	}
+
 	if (isset($args['uriTag'])) {
 		$args['uriTag'] = Text::addSlashes($args['uriTag']);
 	}
+
 	if (isset($args['uriCategory'])) {
 		$args['uriCategory'] = Text::addSlashes($args['uriCategory']);
 	}
 
 	if (isset($args['uriBlog'])) {
 		$args['uriBlog'] = Text::addSlashes($args['uriBlog']);
+	} else {
+		$args['uriBlog'] = '';
 	}
 
 	if ($Site->set($args)) {

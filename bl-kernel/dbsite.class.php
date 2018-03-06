@@ -67,19 +67,10 @@ class dbSite extends dbJSON
 	public function uriFilters($filter='')
 	{
 		$filters['admin'] = '/'.ADMIN_URI_FILTER;
+		$filters['page'] = $this->getField('uriPage');
+		$filters['tag'] = $this->getField('uriTag');
+		$filters['category'] = $this->getField('uriCategory');
 
-		if ($this->getField('uriPage')) {
-			$filters['page'] = $this->getField('uriPage');
-		}
-
-		if ($this->getField('uriTag')) {
-			$filters['tag'] = $this->getField('uriTag');
-		}
-
-		if ($this->getField('uriCategory')) {
-			$filters['category'] = $this->getField('uriCategory');
-		}
-		
 		if ($this->getField('uriBlog')) {
 			$filters['blog'] = $this->getField('uriBlog');
 		}
@@ -88,7 +79,11 @@ class dbSite extends dbJSON
 			return $filters;
 		}
 
-		return $filters[$filter];
+		if (isset($filters[$filter])) {
+			return $filters[$filter];
+		}
+
+		return false;
 	}
 
 	// Returns the URL of the rss.xml file

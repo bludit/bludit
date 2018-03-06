@@ -198,9 +198,6 @@ define('CATEGORY_URI_FILTER', $Url->filters('category'));
 // Page URI filter
 define('PAGE_URI_FILTER', $Url->filters('page'));
 
-// Blog URI filter
-define('BLOG_URI_FILTER', $Url->filters('blog'));
-
 // Content order by: date / position
 define('ORDER_BY', $Site->orderBy());
 
@@ -234,7 +231,6 @@ define('DOMAIN_ADMIN',			DOMAIN_BASE.ADMIN_URI_FILTER);
 define('DOMAIN_TAGS',			Text::addSlashes(DOMAIN_BASE.TAG_URI_FILTER, false, true));
 define('DOMAIN_CATEGORIES',		Text::addSlashes(DOMAIN_BASE.CATEGORY_URI_FILTER, false, true));
 define('DOMAIN_PAGES',			Text::addSlashes(DOMAIN_BASE.PAGE_URI_FILTER, false, true));
-define('DOMAIN_BLOG',			Text::addSlashes(DOMAIN_BASE.BLOG_URI_FILTER, false, true));
 
 $ADMIN_CONTROLLER = '';
 $ADMIN_VIEW = '';

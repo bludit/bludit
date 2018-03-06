@@ -102,7 +102,8 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'label'=>$L->g('Blog'),
 		'value'=>$Site->uriFilters('blog'),
 		'class'=>'uk-width-1-2 uk-form-medium',
-		'tip'=>DOMAIN_BLOG
+		'tip'=>DOMAIN.$Site->uriFilters('blog'),
+		'disabled'=>!$Site->uriFilters('blog')
 	));
 
 	echo '<div class="uk-form-row">
@@ -113,3 +114,21 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 	</div>';
 
 HTML::formClose();
+
+?>
+
+<script>
+$(document).ready(function() {
+
+	$("#jshomepage").change(function() {
+		if ($(this).val()==' ') {
+			$("#jsuriBlog").attr('value', '');
+			$("#jsuriBlog").attr('disabled', 'disabled');
+		} else {
+			$("#jsuriBlog").removeAttr('disabled');
+			$("#jsuriBlog").attr('value', '/blog/');
+		}
+	});
+
+});
+</script>
