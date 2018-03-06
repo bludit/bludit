@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigation",
+		"description": "Menü für die Anzeige von veröffentlichten und statischen Inhalten."
+	},
+	"home-link": "Hauptseite zeigen",
+	"show-the-home-link-on-the-sidebar": "Show the home link on the sidebar.",
+	"amount-of-items": "Anzahl Inhalte"
+}
