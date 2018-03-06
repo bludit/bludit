@@ -62,17 +62,29 @@ class dbSite extends dbJSON
 		return $this->save();
 	}
 
-	// Returns an array with the filters for the url
-	// or returns a string with the filter defined on $filter
+	// Returns an array with the URL filters
+	// Also, you can get the a particular filter
 	public function uriFilters($filter='')
 	{
 		$filters['admin'] = '/'.ADMIN_URI_FILTER;
-		$filters['page'] = $this->getField('uriPage');
-		$filters['tag'] = $this->getField('uriTag');
-		$filters['category'] = $this->getField('uriCategory');
-		$filters['blog'] = $this->getField('uriBlog');
 
-		if(empty($filter)) {
+		if ($this->getField('uriPage')) {
+			$filters['page'] = $this->getField('uriPage');
+		}
+
+		if ($this->getField('uriTag')) {
+			$filters['tag'] = $this->getField('uriTag');
+		}
+
+		if ($this->getField('uriCategory')) {
+			$filters['category'] = $this->getField('uriCategory');
+		}
+		
+		if ($this->getField('uriBlog')) {
+			$filters['blog'] = $this->getField('uriBlog');
+		}
+
+		if (empty($filter)) {
 			return $filters;
 		}
 
