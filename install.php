@@ -306,6 +306,11 @@ function install($adminPassword, $email='', $timezone)
 		error_log($errorText, 0);
 	}
 
+	if (!mkdir(PATH_PLUGINS_DATABASES.'version', $dirpermissions, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'version';
+		error_log($errorText, 0);
+	}
+
 	// UPLOADS directories
 	if (!mkdir(PATH_UPLOADS_PROFILES, $dirpermissions, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
@@ -540,6 +545,17 @@ function install($adminPassword, $email='', $timezone)
 			array(
 				'position'=>2,
 				'label'=>$Language->get('Tags')
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/version/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'version'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>1
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

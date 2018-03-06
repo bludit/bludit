@@ -66,16 +66,6 @@
 		<h4 class="panel-title"><?php $L->p('Notifications') ?></h4>
 		<ul class="uk-list uk-list-line">
 		<?php
-			// Print New version if the plugin Version is installed
-			if (pluginEnabled('pluginVersion')) {
-				if ($plugins['all']['pluginVersion']->newVersion()) {
-					echo '<li>';
-					echo '<b>'.$L->g('New version available').'</b>';
-					echo '<br><a href="https://www.bludit.com" target="_black">Bludit.com</a>';
-					echo '</li>';
-				}
-			}
-
 			// Print Notifications
 			$logs = array_slice($Syslog->db, 0, NOTIFICATIONS_AMOUNT);
 			foreach($logs as $log) {
