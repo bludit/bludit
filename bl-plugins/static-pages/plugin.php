@@ -61,13 +61,11 @@ class pluginStaticPages extends Plugin {
 		}
 
 		// Show static pages
-		if ($this->getValue('staticPages')) {
-			$staticPages = buildStaticPages();
-			foreach ($staticPages as $page) {
-				$html .= '<li>';
-				$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
-				$html .= '</li>';
-			}
+		$staticPages = buildStaticPages();
+		foreach ($staticPages as $page) {
+			$html .= '<li>';
+			$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
+			$html .= '</li>';
 		}
 
 		$html .= '</ul>';
