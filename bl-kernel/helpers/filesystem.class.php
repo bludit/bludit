@@ -78,7 +78,7 @@ class Filesystem {
 	// If the destination directory not exists is created
 	// $source = /home/diego/example or /home/diego/example/
 	// $destination = /home/diego/newplace or /home/diego/newplace/
-	public static function copyRecursive($source, $destination)
+	public static function copyRecursive($source, $destination, $skipDirectory=false)
 	{
 		$source 	= rtrim($source, DS);
 		$destination 	= rtrim($destination, DS);
@@ -99,11 +99,15 @@ class Filesystem {
 		foreach ($iterator = new RecursiveIteratorIterator(
 				new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
 				RecursiveIteratorIterator::SELF_FIRST) as $item) {
-					if ($item->isDir()) {
-						@mkdir($destination.DS.$iterator->getSubPathName());
-					} else {
-						copy($item, $destination.DS.$iterator->getSubPathName());
-					}
+
+			$currentDirectory = dirname($item->getPathName());
+			if ($skipDirectory !== $currentDirectory) {
+				if ($item->isDir()) {
+					@mkdir($destination.DS.$iterator->getSubPathName());
+				} else {
+					copy($item, $destination.DS.$iterator->getSubPathName());
+				}
+			}
 		}
 
 		return true;
