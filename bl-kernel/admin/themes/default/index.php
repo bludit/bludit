@@ -162,7 +162,7 @@ $(document).ready(function() {
 
 <script>
 $( "#bludit-logo" ).dblclick(function() {
-	alert( "Hey! what are you doing ?" );
+	alert( "happy birthday! first commit 2015-03-08 (04cd68561b5bb0d1528bf80004192265fc0e335c)" );
 });
 </script>
 
