@@ -4,15 +4,14 @@
 
 Bludit is a web application to build your own **website** or **blog** in seconds, it's completely **free and open source**. Bludit uses files in JSON format to store the content, you don't need to install or configure a database. You only need a web server with PHP support.
 
-Bludit supports **Markdown** and **HTML code** for the content.
-
 Bludit is a **Flat-File** CMS.
 
-- [Documentation](https://docs.bludit.com)
-- [Help and Support](https://forum.bludit.org)
+Bludit supports **Markdown** and **HTML code** for the content.
+
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
-- [More plugins and themes](https://forum.bludit.org/viewforum.php?f=14)
+- [Documentation](https://docs.bludit.com)
+- Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 [![Backers](https://opencollective.com/bludit/tiers/backer/badge.svg?label=Backer&color=red)](https://opencollective.com/bludit)
@@ -24,7 +23,7 @@ Social Networks
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
 - [Google+](https://plus.google.com/+Bluditcms)
-- [Gitter Chat](https://gitter.im/bludit/support)
+- [Youtube](https://www.youtube.com/channel/UCuLu0Z_CHBsTiYTDz129x9Q?view_as=subscriber)
 
 Requirements
 ------------
