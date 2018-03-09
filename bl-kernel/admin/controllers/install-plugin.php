@@ -26,4 +26,4 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 $pluginClassName = $layout['parameters'];
 activatePlugin($pluginClassName);
-Redirect::page('plugins');
+Redirect::page('plugins#'.$pluginClassName);

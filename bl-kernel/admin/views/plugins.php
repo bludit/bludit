@@ -17,25 +17,21 @@ echo '
 <tbody>
 ';
 
-foreach($plugins['all'] as $Plugin)
-{
-	echo '<tr '.($Plugin->installed()?'class="plugin-installed"':'class="plugin-notInstalled"').'>
+foreach ($plugins['all'] as $Plugin) {
+	echo '<tr id="'.$Plugin->className().'" '.($Plugin->installed()?'class="plugin-installed"':'class="plugin-notInstalled"').'>
 	<td>
 	<div class="plugin-name">'.$Plugin->name().'</div>
 	<div class="plugin-links">';
 
-	if($Plugin->installed()) {
-		if(method_exists($Plugin, 'form')) {
+	if ($Plugin->installed()) {
+		if (method_exists($Plugin, 'form')) {
 			echo '<a class="configure" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'">'.$L->g('Settings').'</a>';
 			echo '<span class="separator"> | </span>';
 		}
 		echo '<a class="uninstall" href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'">'.$L->g('Deactivate').'</a>';
-	}
-	else {
+	} else {
 		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Activate').'</a>';
 	}
-
-
 
 	echo '</div>';
 	echo '</td>';
