@@ -35,10 +35,10 @@
 <!-- Pagination -->
 <?php if (Paginator::amountOfPages()>1): ?>
 <nav class="my-4" aria-label="Page navigation">
-	<ul class="pagination">
+	<ul class="pagination flex-wrap">
 
-		<!-- Previuos button -->
-		<li class="page-item <?php if (Paginator::showNext()) echo 'disabled' ?>">
+		<!-- Previous button -->
+		<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
 			<a class="page-link" href="<?php echo Paginator::prevPageUrl() ?>" tabindex="-1">Previous</a>
 		</li>
 
@@ -50,7 +50,7 @@
 		<?php endfor ?>
 
 		<!-- Next button -->
-		<li class="page-item <?php if (Paginator::showPrev()) echo 'disabled' ?>">
+		<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
 			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">Next</a>
 		</li>
 

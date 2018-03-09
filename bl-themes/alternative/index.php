@@ -28,7 +28,7 @@
 
 	<!-- Javascript -->
 	<?php
-		echo Theme::js('js/jquery.min.js');
+		echo Theme::jquery();
 		echo Theme::js('js/bootstrap.min.js');
 	?>
 

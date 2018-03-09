@@ -169,7 +169,7 @@ class Theme {
 	public static function jquery($cdn=false)
 	{
 		if ($cdn) {
-			return '<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>';
+			return '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>';
 		}
 		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
 	}
