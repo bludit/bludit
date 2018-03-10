@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigation",
+		"description": "Créez votre propre menu de navigation avec les dernières pages ou pages statiques."
+	},
+	"home-link": "Lien de la page d’accueil",
+	"show-the-home-link-on-the-sidebar": "Afficher un lien vers la page d’accueil dans la barre latérale.",
+	"amount-of-items": "Quantité d’articles"
+}
