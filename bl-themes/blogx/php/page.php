@@ -1,6 +1,9 @@
 <!-- Post -->
 <div class="card my-5 border-0">
 
+	<!-- Load Bludit Plugins: Page Begin -->
+	<?php Theme::plugins('pageBegin'); ?>
+
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
 	<img class="card-img-top mb-3 rounded-0" alt="Cover Image" src="<?php echo $page->coverImage(); ?>"/>
@@ -19,6 +22,10 @@
 
 		<!-- Full content -->
 		<?php echo $page->content(); ?>
+
 	</div>
+
+	<!-- Load Bludit Plugins: Page End -->
+	<?php Theme::plugins('pageEnd'); ?>
 
 </div>

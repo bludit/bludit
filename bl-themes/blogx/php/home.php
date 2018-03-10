@@ -3,6 +3,9 @@
 <!-- Post -->
 <div class="card my-5 border-0">
 
+	<!-- Load Bludit Plugins: Page Begin -->
+	<?php Theme::plugins('pageBegin'); ?>
+
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
 	<img class="card-img-top mb-3 rounded-0" alt="Cover Image" src="<?php echo $page->coverImage(); ?>"/>
@@ -24,7 +27,11 @@
 		<?php if ($page->readMore()): ?>
 		<a href="<?php echo $page->permalink(); ?>">Read more</a>
 		<?php endif ?>
+
 	</div>
+
+	<!-- Load Bludit Plugins: Page End -->
+	<?php Theme::plugins('pageEnd'); ?>
 
 </div>
 
