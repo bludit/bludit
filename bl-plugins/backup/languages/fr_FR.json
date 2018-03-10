@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Sauvegarde",
+		"description": "Un moyen simple de sauvegarder votre Bludit."
+	},
+	"create-backup": "Créer une sauvegarde",
+	"download": "Télécharger",
+	"restore-backup": "Restaurer la sauvegarde",
+	"delete-backup": "Supprimer la sauvegarde"
+}
