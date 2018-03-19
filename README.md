@@ -14,8 +14,6 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
-[![Backers](https://opencollective.com/bludit/tiers/backer/badge.svg?label=Backer&color=red)](https://opencollective.com/bludit)
-[![Sponsors](https://opencollective.com/bludit/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen)](https://opencollective.com/bludit)
 
 Social Networks
 ---------------
