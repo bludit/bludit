@@ -32,7 +32,7 @@
 
 				<!-- Shows "read more" button if necessary -->
 				<?php if ($page->readMore()): ?>
-				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button">Read more</a>
+				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button"><?php echo $Language->get('Read more'); ?></a>
 				<?php endif ?>
 
 				<!-- Load Bludit Plugins: Page End -->
@@ -50,7 +50,7 @@
 
 		<!-- Previous button -->
 		<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::prevPageUrl() ?>" tabindex="-1">Previous</a>
+			<a class="page-link" href="<?php echo Paginator::prevPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
 		</li>
 
 		<!-- List of pages -->
@@ -62,7 +62,7 @@
 
 		<!-- Next button -->
 		<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">Next</a>
+			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?></a>
 		</li>
 
 	</ul>
