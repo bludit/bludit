@@ -141,15 +141,16 @@ $(document).ready(function() {
 			<li <?php echo ($layout['view']=='about')?'class="uk-active"':'' ?>>
 				<a href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 			</li>
-
 			<?php } ?>
 
 			</ul>
+
+			<?php Theme::plugins('adminSidebar'); ?>
 		</div>
 
 		<div id="bl-view" class="uk-width-3-4">
 		<?php
-			if( Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php') ) {
+			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 			} else {
 				echo '<h1 style="width:100%; text-align:center">'.$L->g('Page not found').'</h1>';

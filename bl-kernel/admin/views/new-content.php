@@ -193,6 +193,8 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 	echo '</li>';
 	echo '<ul>';
 
+	Theme::plugins('adminContentSidebar');
+
 echo '</div>';
 echo '</div>';
 

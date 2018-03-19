@@ -21,6 +21,7 @@ $plugins = array(
 	'adminBodyBegin'=>array(),
 	'adminBodyEnd'=>array(),
 	'adminSidebar'=>array(),
+	'adminContentSidebar'=>array(),
 
 	'beforeRulesLoad'=>array(),
 	'beforeAll'=>array(),
