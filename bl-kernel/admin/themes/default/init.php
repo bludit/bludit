@@ -43,9 +43,10 @@ class HTML {
 	public static function formOpen($args)
 	{
 		$class = empty($args['class']) ? '' : ' '.$args['class'];
-		$id = empty($args['id']) ? '' : 'id="'.$args['id'].'"';
+		$id = empty($args['id']) ? '' : ' id="'.$args['id'].'" ';
+		$enctype = empty($args['enctype']) ? '' : ' enctype="'.$args['enctype'].'" ';
 
-		$html = '<form class="uk-form'.$class.'" '.$id.' method="post" action="" autocomplete="off">';
+		$html = '<form class="uk-form'.$class.'" '.$enctype.$id.' method="post" action="" autocomplete="off">';
 		echo $html;
 	}
 
