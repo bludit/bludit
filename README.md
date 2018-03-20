@@ -14,8 +14,6 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
-[![Backers](https://opencollective.com/bludit/tiers/backer/badge.svg?label=Backer&color=red)](https://opencollective.com/bludit)
-[![Sponsors](https://opencollective.com/bludit/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen)](https://opencollective.com/bludit)
 
 Social Networks
 ---------------
@@ -56,16 +54,14 @@ Bludit provides an official Docker image.
 Backers
 -------
 Become a **Backer** and support Bludit with a monthly contribution to help us continue development.
-- [Become a Backer](https://opencollective.com/bludit#backer)
+- [Become a Backer](https://www.patreon.com/bePatron?c=921115&rid=2458859)
 
 Sponsors
 --------
 Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development.
-- [Become a Sponsor](https://opencollective.com/bludit#sponsor)
+- [Become a Sponsor](https://www.patreon.com/bePatron?c=921115&rid=2458860)
 
-<a href="https://opencollective.com/clickwork" target="_blank"><img src="https://opencollective.com/bludit/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/kreativmind" target="_blank"><img src="https://opencollective.com/proxy/images/?src=https%3A%2F%2Flogo.clearbit.com%2Fkreativmind.com&height=60"></a>
-<a href="https://opencollective.com/janrippl" target="_blank"><img src="https://opencollective.com/bludit/sponsor/2/avatar.svg"></a>
+- <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 
 License
 -------
