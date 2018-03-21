@@ -49,7 +49,7 @@
         "November": "Novembre",
         "December": "Dicembre"
     },
-    #"dashboard": "Pannello",
+    "dashboard": "Pannello",
     "manage-users": "Gestisci utenti",
     "manage-categories": "Gestisci categorie",
     "general-settings": "Impostazioni generali",
