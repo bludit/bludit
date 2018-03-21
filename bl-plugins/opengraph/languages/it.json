@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Il protocollo Open Graph permette a qualsiasi pagina web di diventare un rich object in un social graph."
+	},
+	"default-image": "Immagine predefinita"
+}

@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Pagine Statiche",
+		"description": "Crea il tuo menu du navigazione con le pagine statiche."
+	},
+	"home-link": "Collegamento Home",
+	"show-the-home-link-on-the-sidebar": "Visualizza il collegamento della home nella barra laterale."
+}

@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Codice HTML",
+		"description": "Aggiungi codice HTML, CSS o Javascript nel metadata head, nel header o nel footer del tuo sito."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "Inserisci il codice nel tema all'interno del tag &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-theme-at-the-top": "Inserisci il codice in alto nel tema.",
+	"insert-code-in-the-theme-at-the-bottom": "Inserisci il codice in basso nel tema."
+}

@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "Con Twitter Cards, puoi aggiungere foto, video e media ai tuoi tweet, aiutando a guidare il traffico sul tuo sito."
+	},
+	"default-image": "Immagine predefinita"
+}

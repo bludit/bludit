@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Questo plugin genera un file sitemap.xml, Che offre l'elenco delle pagine sul tuo sito web, questo aiuya i motori di ricerca ad organizzare e filtrare il contenuto del proprio sito web."
+	},
+	"sitemap-url": "URL sitemap"
+}
