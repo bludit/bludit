@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigazione",
+		"description": "Crea il tuo menu di navigazione con le ultime pagine o con le pagine statiche."
+	},
+	"home-link": "Link Home",
+	"show-the-home-link-on-the-sidebar": "Mostra il collegamento alla home nella barra laterale.",
+	"amount-of-items": "Quantità di voci"
+}
