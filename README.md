@@ -62,6 +62,8 @@ Become a **Sponsor** and support Bludit with a monthly contribution to help us c
 - [Become a Sponsor](https://www.patreon.com/bePatron?c=921115&rid=2458860)
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
+- <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
+- <a href="https://www.patreon.com/user/creators?u=10313233" target="_blank">Garriet Selent</a>
 
 License
 -------
