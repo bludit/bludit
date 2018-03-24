@@ -2,6 +2,11 @@
 
 class pluginSitemap extends Plugin {
 
+	public function init()
+	{
+		$this->formButtons = false;
+	}
+
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
