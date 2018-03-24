@@ -150,7 +150,7 @@ class dbUsers extends dbJSON
 	public function setPassword($username, $password)
 	{
 		$args['username']	= $username;
-		$args['password']	= $hash;
+		$args['password']	= $password;
 
 		return $this->set($args);
 	}
