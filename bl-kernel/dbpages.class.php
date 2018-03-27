@@ -10,7 +10,7 @@ class dbPages extends dbJSON
 		'description'=>		array('inFile'=>false,	'value'=>''),
 		'username'=>		array('inFile'=>false,	'value'=>''),
 		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, scheduled
+		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, sticky, scheduled
 		'type'=>		array('inFile'=>false,	'value'=>'post'), // post, page
 		'date'=>		array('inFile'=>false,	'value'=>''),
 		'dateModified'=>	array('inFile'=>false,	'value'=>''),
@@ -363,6 +363,21 @@ class dbPages extends dbJSON
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if($fields['status']!='scheduled') {
+				unset($tmp[$key]);
+			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
+		return $tmp;
+	}
+
+	// Returns an array with a list of keys of sticky pages
+	public function getStickyDB($onlyKeys=true)
+	{
+		$tmp = $this->db;
+		foreach ($tmp as $key=>$fields) {
+			if($fields['status']!='sticky') {
 				unset($tmp[$key]);
 			}
 		}

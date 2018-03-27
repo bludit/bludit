@@ -34,6 +34,7 @@ if (empty($published) && $Url->pageNumber()>1) {
 $drafts = $dbPages->getDraftDB(true);
 $scheduled = $dbPages->getScheduledDB(true);
 $static = $dbPages->getStaticDB(true);
+$sticky = $dbPages->getStickyDB(true);
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Manage content');

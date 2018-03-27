@@ -159,6 +159,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 		$onlyPublished = true;
 		$amountOfItems = $Site->itemsPerPage();
 		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+
+		// Include sticky pages only in the first page
+		if ($pageNumber==1) {
+			$sticky = $dbPages->getStickyDB();
+			$list = array_merge($sticky, $list);
+		}
 	}
 	elseif ($for=='category') {
 		$amountOfItems = $Site->itemsPerPage();

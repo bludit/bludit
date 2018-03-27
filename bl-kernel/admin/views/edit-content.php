@@ -143,6 +143,7 @@ echo '<div class="bl-publish-sidebar uk-width-2-10">';
 		'options'=>array(
 			'published'=>$L->g('Published'),
 			'static'=>$L->g('Static'),
+			'sticky'=>$L->g('Sticky'),
 			'draft'=>$L->g('Draft')
 		),
 		'selected'=>$page->status(),

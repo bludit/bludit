@@ -29,6 +29,7 @@ function table($status, $icon='arrow-circle-o-down') {
 	global $drafts;
 	global $scheduled;
 	global $static;
+	global $sticky;
 
 	if ($status=='published') {
 		$list = $published;
@@ -38,6 +39,8 @@ function table($status, $icon='arrow-circle-o-down') {
 		$list = $scheduled;
 	} elseif ($status=='static') {
 		$list = $static;
+	} elseif ($status=='sticky') {
+		$list = $sticky;
 	}
 
 	if (!empty($list)) {
@@ -109,6 +112,7 @@ if ($Url->pageNumber()==1) {
 	table('draft', 'spinner');
 	table('scheduled', 'clock-o');
 	table('static', 'thumb-tack');
+	table('sticky', 'sticky-note-o');
 }
 table('published', '');
 
