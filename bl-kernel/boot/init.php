@@ -240,9 +240,6 @@ $WHERE_AM_I = $Url->whereAmI();
 // --- Objects shortcuts ---
 $L = $language;
 
-// GDPR
-Cookie::set('BLUDIT_GDPR_ALLOW_TRACKING', true, 7);
-
 // DEBUG: Print constants
 // $arr = array_filter(get_defined_constants(), 'is_string');
 // echo json_encode($arr);
