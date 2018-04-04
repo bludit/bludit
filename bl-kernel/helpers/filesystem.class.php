@@ -24,7 +24,8 @@ class Filesystem {
 
 	// Returns an array with the list of files with the absolute path
 	// $sortByDate = TRUE, the first file is the newer file
-	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false)
+	// $chunk = amount of chunks, FALSE if you don't want to chunk
+	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false, $chunk=false)
 	{
 		$files = glob($path.$regex.'.'.$extension);
 
@@ -38,6 +39,12 @@ class Filesystem {
 					return filemtime($b) - filemtime($a);
 				}
 			);
+		}
+
+		// Split the list of files into chunks
+		// http://php.net/manual/en/function.array-chunk.php
+		if ($chunk) {
+			return array_chunk($files, $chunk);
 		}
 
 		return $files;
