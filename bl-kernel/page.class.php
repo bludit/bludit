@@ -222,6 +222,13 @@ class Page {
 		return $this->getValue('category');
 	}
 
+	// Returns the category description
+	public function categoryDescription()
+	{
+		global $dbCategories;
+		return $dbCategories->getProperty($this->categoryKey(), 'description');
+	}
+
 	// Returns the field from the array
 	// categoryMap = array( 'name'=>'', 'list'=>array() )
 	public function categoryMap($field)

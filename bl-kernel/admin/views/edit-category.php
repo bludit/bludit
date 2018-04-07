@@ -21,6 +21,13 @@ HTML::formOpen(array('class'=>'uk-form-horizontal'));
 		'class'=>'uk-width-1-2 uk-form-medium'
 	));
 
+	HTML::formTextArea(array(
+		'name'=>'categoryDescription',
+		'label'=>$L->g('Description'),
+		'value'=>$dbCategories->getProperty($categoryKey, 'description'),
+		'class'=>'uk-width-1-2 uk-form-medium'
+	));
+
 	echo '<div class="uk-form-row">
 		<div class="uk-form-controls">
 		<button type="submit" name="edit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>

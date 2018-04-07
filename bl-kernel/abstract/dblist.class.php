@@ -103,12 +103,15 @@ class dbList extends dbJSON
 		return $this->save();
 	}
 
-	public function edit($oldKey, $newName)
+	public function edit($oldKey, $newName, $properties)
 	{
 		$newKey = $this->generateKey($newName);
 
 		$this->db[$newKey]['name'] = Sanitize::html($newName);
 		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
+
+		foreach ($properties as $propertyKey => $propertyValue)
+			$this->db[$newKey][$propertyKey] = Sanitize::html($propertyValue);
 
 		// Remove the old key
 		if( $oldKey != $newKey ) {
@@ -130,8 +133,14 @@ class dbList extends dbJSON
 	// Returns the name associated to the key, FALSE if the key doesn't exist
 	public function getName($key)
 	{
-		if( isset($this->db[$key]) ) {
-			return $this->db[$key]['name'];
+		return $this->getProperty($key, 'name');
+	}
+
+	// Returns a property associated to the key, FALSE if the key doesn't exist
+	public function getProperty($key, $property)
+	{
+		if( isset($this->db[$key]) && isset($this->db[$key][$property])) {
+			return $this->db[$key][$property];
 		}
 
 		return false;
