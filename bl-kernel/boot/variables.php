@@ -105,3 +105,7 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // Session lifetime of the cookie in seconds which is sent to the browser
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
+
+// New Global Variables
+$GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES'] = 5;
+$GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'] = true;

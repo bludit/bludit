@@ -74,15 +74,6 @@
 				<div class="tab-pane show active" id="images" role="tabpanel" aria-labelledby="images-tab">
 
 					<?php
-						echo Bootstrap::formTitle(array('title'=>'Upload an image'));
-					?>
-
-					<div class="w-75 custom-file">
-					<input type="file" class="custom-file-input" id="customFile">
-					<label class="custom-file-label" for="customFile">Choose file</label>
-					</div>
-
-					<?php
 						echo Bootstrap::formTitle(array('title'=>'Cover image'));
 					?>
 
@@ -92,7 +83,7 @@
 						echo Bootstrap::formTitle(array('title'=>'Select images'));
 					?>
 
-					<button type="button" class="btn" data-toggle="modal" data-target="#bluditMediaModal">Media</button>
+					<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
 				</div>
 				<!-- TABS OPTIONS -->
