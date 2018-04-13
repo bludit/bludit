@@ -18,6 +18,9 @@
 </head>
 <body>
 
+<!-- Javascript variables and function -->
+<?php include(PATH_JS.'functions.php') ?>
+
 <!-- TOPBAR -->
 <?php include('html/topbar.php'); ?>
 
@@ -36,10 +39,10 @@
 			<!-- TABS -->
 			<ul class="nav nav-tabs" id="dynamicTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">Content</a>
+					<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">Content</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+					<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false">Options</a>
@@ -48,7 +51,7 @@
 			<form class="tab-content mt-3" id="dynamicTabContent">
 
 				<!-- TABS CONTENT -->
-				<div class="tab-pane" id="content" role="tabpanel" aria-labelledby="content-tab">
+				<div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
 
 					<?php
 						// Title
@@ -71,7 +74,13 @@
 
 				</div>
 				<!-- TABS IMAGES -->
-				<div class="tab-pane show active" id="images" role="tabpanel" aria-labelledby="images-tab">
+				<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+
+					<?php
+						echo Bootstrap::formTitle(array('title'=>'Select images'));
+					?>
+
+					<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
 					<?php
 						echo Bootstrap::formTitle(array('title'=>'Cover image'));
@@ -80,10 +89,16 @@
 					<img class="img-thumbnail" alt="200x200" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1627e1b2b7e%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1627e1b2b7e%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4296875%22%20y%3D%22104.65%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 100px; height: 100px;">
 
 					<?php
-						echo Bootstrap::formTitle(array('title'=>'Select images'));
+						echo Bootstrap::formTitle(array('title'=>'External Cover image'));
 					?>
 
-					<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
+					<?php
+						echo Bootstrap::formInputTextBlock(array(
+							'name'=>'externalCoverImage',
+							'placeholder'=>'https://',
+							'tip'=>'You can set a cover image from external URL, such as a CDN or some server dedicate for images.'
+						));
+					?>
 
 				</div>
 				<!-- TABS OPTIONS -->
@@ -140,9 +155,14 @@
 
 						// Parent
 						echo Bootstrap::formInputText(array(
-							'name'=>'parent',
+							'name'=>'parentTMP',
 							'label'=>'Parent',
 							'placeholder'=>'Start writing the title of the page parent'
+						));
+
+						echo Bootstrap::formInputHidden(array(
+							'name'=>'parent',
+							'value'=>''
 						));
 
 						// Position
@@ -175,19 +195,31 @@
 </div>
 
 <script>
+var quill;
+function insertMedia(filename) {
+	var Delta = Quill.import('delta');
+	quill.updateContents(new Delta()
+		.retain(quill.getSelection().index)
+		.insert('<img alt="'+filename+'" src="'+DOMAIN_UPLOADS+filename+'" />')
+	);
+}
+
 $(document).ready(function() {
 
-	var quill = new Quill('#editor', {
+	quill = new Quill('#editor', {
 		modules: {
-		toolbar: [
-		[{ header: [1, 2, false] }],
-		['bold', 'italic', 'underline'],
-		['image', 'code-block']
-		]
+			toolbar: [
+				[{ header: [1, 2, false] }],
+				['bold', 'italic', 'underline'],
+				['image', 'code-block']
+			]
 		},
 		placeholder: 'Content, support Markdown and HTML.',
 		theme: 'snow'  // or 'bubble'
 	});
+
+	// Change button images event handler to open the Media Manager
+	quill.getModule('toolbar').addHandler('image', openMediaManager);
 
 	// Template autocomplete
 	$('input[name="template"]').autoComplete({
@@ -203,15 +235,27 @@ $(document).ready(function() {
 	});
 
 	// Parent autocomplete
-	var xhr;
-	$("#jsparent").autoComplete({
-		source: function(term, response){
-			try { xhr.abort(); } catch(e){}
-			xhr = $.getJSON('http://localhost:8000/parents.json', { q: term }, function(data){ response(data); });
+	var parentsXHR;
+	var parentsList; // Keep the parent list returned to get the key by the title page
+	$("#jsparentTMP").autoComplete({
+		source: function(term, response) {
+			// Prevent call inmediatly another ajax request
+			try { parentsXHR.abort(); } catch(e){}
+			parentsXHR = $.getJSON("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/get-parents", {query: term},
+				function(data) {
+					parentsList = data;
+					term = term.toLowerCase();
+					var matches = [];
+					for (var title in data) {
+						if (~title.toLowerCase().indexOf(term))
+							matches.push(title);
+					}
+					response(matches);
+			});
 		},
-		onSelect: function(e, term, item){
-			console.log(term);
-			console.log(item);
+		onSelect: function(e, term, item) {
+			var parentKey = parentsList[term];
+			$("#jsparent").attr("value", parentKey);
 		}
 	});
 

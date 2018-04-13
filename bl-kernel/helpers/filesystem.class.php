@@ -200,4 +200,26 @@ class Filesystem {
 		$zip->extractTo($destination);
 		return $zip->close();
 	}
+
+	// Returns the next filename if the filename already exist
+	public static function nextFilename($path=PATH_UPLOADS, $filename) {
+		// Clean filename and get extension
+		$filename 	= Text::lowercase($filename);
+		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
+		$filename 	= pathinfo($filename, PATHINFO_FILENAME);
+		$filename 	= Text::replace(' ', '', $filename);
+		$filename 	= Text::replace('_', '', $filename);
+
+		// Search for the next filename
+		$tmpName = $filename.'.'.$fileExtension;
+		if (Sanitize::pathFile($path.$tmpName)) {
+			$number = 0;
+			$tmpName = $filename.'_'.$number.'.'.$fileExtension;
+			while (Sanitize::pathFile($path.$tmpName)) {
+				$number++;
+				$tmpName = $filename.'_'.$number.'.'.$fileExtension;
+			}
+		}
+		return $tmpName;
+	}
 }

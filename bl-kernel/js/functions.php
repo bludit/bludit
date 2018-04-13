@@ -12,6 +12,8 @@ echo 'var PARENT = "'.PARENT.'";'.PHP_EOL;
 echo 'var BLUDIT_VERSION = "'.BLUDIT_VERSION.'";'.PHP_EOL;
 echo 'var BLUDIT_BUILD = "'.BLUDIT_BUILD.'";'.PHP_EOL;
 
+echo 'var DOMAIN_UPLOADS = "'.DOMAIN_UPLOADS.'";'.PHP_EOL;
+
 echo 'var tokenCSRF = "'.$Security->getTokenCSRF().'";'.PHP_EOL;
 
 echo '</script>';

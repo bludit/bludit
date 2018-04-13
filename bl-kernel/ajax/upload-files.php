@@ -2,36 +2,38 @@
 header('Content-Type: application/json');
 
 foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
+	// Get the next filename if already exist the file to not overwrite the original file
+	$nextFilename = Filesystem::nextFilename(PATH_UPLOADS, $filename);
 
-	// Clean filename and get extension
-	$filename 	= Text::lowercase($filename);
-	$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
-	$filename 	= pathinfo($filename, PATHINFO_FILENAME);
-	$filename 	= Text::replace(' ', '', $filename);
-	$filename 	= Text::replace('_', '', $filename);
+	// File extension
+	$fileExtension 	= pathinfo($nextFilename, PATHINFO_EXTENSION);
 
-	// Generate the next filename if the filename already exist
-	$tmpName = $filename.'.'.$fileExtension;
-	if (Sanitize::pathFile(PATH_UPLOADS.$tmpName)) {
-		$number = 0;
-		$tmpName = $filename.'_'.$number.'.'.$fileExtension;
-		while (Sanitize::pathFile(PATH_UPLOADS.$tmpName)) {
-			$number++;
-			$tmpName = $filename.'_'.$number.'.'.$fileExtension;
-		}
+	// Move from temporary directory to uploads folder
+	rename($_FILES['bluditInputFiles']['tmp_name'][$key], PATH_UPLOADS.$nextFilename);
+
+	// Generate Thumbnail
+
+	// Exclude generate thumbnail for SVG format and generate a symlink to the svg
+	if ($fileExtension == 'svg') {
+		symlink(PATH_UPLOADS.$nextFilename, PATH_UPLOADS_THUMBNAILS.$nextFilename);
+	} else {
+		$Image = new Image();
+		$Image->setImage(PATH_UPLOADS.$nextFilename, $GLOBALS['THUMBNAILS_WIDTH'], $GLOBALS['THUMBNAILS_HEIGHT'], 'crop');
+		$Image->saveImage(PATH_UPLOADS_THUMBNAILS.$nextFilename, $GLOBALS['THUMBNAILS_QUALITY'], true);
 	}
-
-	// Move from temporary PHP folder to temporary Bludit folder
-	$originalFile = PATH_TMP.'original'.'.'.$fileExtension;
-	move_uploaded_file($_FILES['bluditInputFiles']['tmp_name'][$key], $originalFile);
-
-	rename($originalFile, PATH_UPLOADS.$tmpName);
 }
+
+$absoluteURL 		= DOMAIN_UPLOADS.$nextFilename;
+$absoluteURLThumbnail 	= DOMAIN_UPLOADS_THUMBNAILS.$nextFilename;
+$absolutePath 		= PATH_UPLOADS.$nextFilename;
 
 exit (json_encode(array(
 	'status'=>0,
 	'message'=>'Image uploaded success.',
-	'filename'=>$tmpName
+	'filename'=>$nextFilename,
+	'absoluteURL'=>$absoluteURL,
+	'absoluteURLThumbnail'=>$absoluteURLThumbnail,
+	'absolutePath'=>$absolutePath
 )));
 
 ?>

@@ -146,4 +146,9 @@ class Bootstrap {
 
 		return $html;
 	}
+
+	public static function formInputHidden($args)
+	{
+		return '<input type="hidden" id="js'.$args['name'].'" name="'.$args['name'].'" value="'.$args['value'].'">';
+	}
 }

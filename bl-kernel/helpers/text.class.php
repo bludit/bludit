@@ -101,7 +101,6 @@ class Text {
 		return( mb_substr($string, $length)===$endsString );
 	}
 
-
 	public static function endsWithNumeric($string)
 	{
 		return( is_numeric(mb_substr($string, -1, 1)) );
@@ -269,4 +268,5 @@ class Text {
 
 		return $truncate;
 	}
+
 }

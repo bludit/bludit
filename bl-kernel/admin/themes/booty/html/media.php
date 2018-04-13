@@ -66,6 +66,14 @@ $amountOfPages = count($listOfFilesByPage);
 echo 'var preLoadFiles = '.json_encode($preLoadFiles).';';
 ?>
 
+function openMediaManager() {
+	$('#jsbluditMediaModal').modal('show')
+}
+
+function closeMediaManager() {
+	$('#jsbluditMediaModal').modal('hide')
+}
+
 // Remove all files from the table
 function cleanFiles() {
 	$('#jsbluditMediaTable').empty();
@@ -77,13 +85,13 @@ function displayFiles(files) {
 	cleanFiles();
 	// Regenerate the table
 	$.each(files, function(key, filename) {
-		tableRow = '<tr>'+
+		tableRow = '<tr id="js'+filename+'">'+
 				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="<?php echo HTML_PATH_UPLOADS_THUMBNAILS ?>'+filename+'" style="width: 50px; height: 50px;"></td>'+
-				'<td>'+
+				'<td class="information">'+
 					'<div>'+filename+'</div>'+
 					'<div>'+
-						'<button type="button" class="btn btn-link p-0 mr-2">Insert</button>'+
-						'<button type="button" class="btn btn-link p-0 mr-2">Delete</button>'+
+						'<button onClick="insertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-link p-0 mr-2">Insert</button>'+
+						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-link p-0 mr-2">Delete</button>'+
 					'</div>'+
 				'</td>'+
 			'</tr>';
@@ -93,10 +101,24 @@ function displayFiles(files) {
 
 // Get the list of files via AJAX, filter by the page number
 function getFiles(pageNumber) {
-	$.getJSON("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
-		{ pageNumber: pageNumber, path: "<?php echo PATH_UPLOADS_THUMBNAILS ?>"},
+	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
+		{ 	tokenCSRF: tokenCSRF,
+			pageNumber: pageNumber,
+			path: "<?php echo PATH_UPLOADS_THUMBNAILS ?>"
+		},
 		function(data) {
 			displayFiles(data.files);
+	});
+}
+
+// Delete the file and the thumbnail if exist
+function deleteMedia(filename) {
+	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/delete-file",
+		{ 	tokenCSRF: tokenCSRF,
+			filename: filename
+		},
+		function(data) {
+			getFiles(1);
 	});
 }
 
@@ -122,13 +144,16 @@ $(document).ready(function() {
 				if (xhr.upload) {
 					xhr.upload.addEventListener("progress", function(e) {
 						if (e.lengthComputable) {
-							var percentComplete = e.loaded / e.total;
+							var percentComplete = (e.loaded / e.total)*100;
 							$("#jsbluditProgressBar").width(percentComplete+"%");
 						}
 					}, false);
 				}
 				return xhr;
 			}
+		}).done(function() {
+			// Get the files of the first page, this include the uploaded files
+			getFiles(1);
 		});
 	});
 });

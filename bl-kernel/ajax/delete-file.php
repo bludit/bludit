@@ -2,10 +2,12 @@
 header('Content-Type: application/json');
 
 // $_POST
-// (string) $filename: Name of file to delete, just the filename
+// ----------------------------------------------------------------------------
+// (string) $_POST['path'] Name of file to delete, just the filename
+$filename = isset($_POST['filename']) ? $_POST['filename'] : false;
+// ----------------------------------------------------------------------------
 
-$filename = isset($_POST['filename']) ? $_POST['filename'] : '';
-if (Text::isEmpty($filename)) {
+if ($filename==false) {
 	exit (json_encode(array(
 		'status'=>1,
 		'message'=>'The filename is empty.'
@@ -13,18 +15,12 @@ if (Text::isEmpty($filename)) {
 }
 
 // Check if the filename exist
-if (!Sanitize::pathFile(PATH_UPLOADS.$filename)) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'The file does not exist.'
-	)));
+if (Sanitize::pathFile(PATH_UPLOADS.$filename)) {
+	Filesystem::rmfile(PATH_UPLOADS.$filename);
 }
-// Delete the file
-Filesystem::rmfile(PATH_UPLOADS.$filename);
 
 // Check if the file has a thumbnail
 if (Sanitize::pathFile(PATH_UPLOADS_THUMBNAILS.$filename)) {
-	// Delete the file
 	Filesystem::rmfile(PATH_UPLOADS_THUMBNAILS.$filename);
 }
 

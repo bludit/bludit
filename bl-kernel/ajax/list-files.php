@@ -1,15 +1,22 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
-// $_GET
+// $_POST
 // ----------------------------------------------------------------------------
-// (integer) $_GET['pageNumber']
-$pageNumber = isset($_GET['pageNumber']) ? (int)$_GET['pageNumber'] : '1';
+// (integer) $_POST['pageNumber'] > 0
+$pageNumber = !empty($_POST['pageNumber']) ? (int)$_POST['pageNumber'] : 1;
 $pageNumber = $pageNumber - 1;
 
-// (string) $_GET['path']
-$path = isset($_GET['path']) ? $_GET['path'] : PATH_UPLOADS_THUMBNAILS;
+// (string) $_POST['path']
+$path = isset($_POST['path']) ? $_POST['path'] : false;
 // ----------------------------------------------------------------------------
+
+if ($path==false) {
+	exit (json_encode(array(
+		'status'=>1,
+		'files'=>'Invalid path.'
+	)));
+}
 
 // Get all files from the directory $path, also split the array by numberOfItems
 $listOfFilesByPage = Filesystem::listFiles($path, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
