@@ -1,26 +1,29 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Users'), 'icon'=>'users'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'person'));
 
-echo '<a href="'.HTML_PATH_ADMIN_ROOT.'add-user"><i class="uk-icon-plus"></i> '.$L->g('add-a-new-user').'</a>';
+echo Bootstrap::link(array(
+	'title'=>$L->g('add-a-new-user'),
+	'href'=>HTML_PATH_ADMIN_ROOT.'new-user',
+	'icon'=>'plus'
+));
 
 echo '
-<table class="uk-table uk-table-striped">
-<thead>
-	<tr>
-	<th>'.$L->g('Username').'</th>
-	<th>'.$L->g('First name').'</th>
-	<th>'.$L->g('Last name').'</th>
-	<th>'.$L->g('Email').'</th>
-	<th class="uk-text-center">'.$L->g('Status').'</th>
-	<th class="uk-text-center">'.$L->g('Role').'</th>
-	<th class="uk-text-center">'.$L->g('Registered').'</th>
-	</tr>
-</thead>
-<tbody>
+<table class="table table-striped mt-3">
+	<thead>
+		<tr>
+			<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('First name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Last name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Registered').'</th>
+		</tr>
+	</thead>
+	<tbody>
 ';
 
-// Get all users objects
 $users = $dbUsers->getAllUsers();
 foreach ($users as $username=>$User) {
 	echo '<tr>';
@@ -35,6 +38,6 @@ foreach ($users as $username=>$User) {
 }
 
 echo '
-</tbody>
+	</tbody>
 </table>
 ';

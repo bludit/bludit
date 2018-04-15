@@ -2,6 +2,52 @@
 
 class Bootstrap {
 
+	public static function css($filename) {
+		if (is_array($filename)) {
+			$tmp = '';
+			foreach ($filename as $file) {
+				$tmp .= '<link rel="stylesheet" type="text/css" href="'.HTML_PATH_ADMIN_THEME.'css/'.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+			}
+		} else {
+			$tmp = '<link rel="stylesheet" type="text/css" href="'.HTML_PATH_ADMIN_THEME.'css/'.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		}
+		return $tmp;
+	}
+
+	public static function js($filename) {
+		if (is_array($filename)) {
+			$tmp = '';
+			foreach ($filename as $file) {
+				$tmp .= '<script charset="utf-8" src="'.HTML_PATH_ADMIN_THEME.'js/'.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+			}
+		} else {
+			$tmp = '<script charset="utf-8" src="'.HTML_PATH_ADMIN_THEME.'js/'.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		}
+		return $tmp;
+	}
+
+	public static function link($args)
+	{
+		$options = 'href="'.$args['href'].'"';
+		if (isset($args['class'])) {
+			$options .= ' class="'.$args['class'].'"';
+		}
+		if (isset($args['target'])) {
+			$options .= ' target="'.$args['target'].'"';
+		}
+
+		if (isset($args['icon'])) {
+			return '<a '.$options.'><span class="oi oi-'.$args['icon'].'" style="font-size: 0.7em;"></span> '.$args['title'].'</a>';
+		}
+
+		return '<a '.$options.'>'.$args['title'].'</a>';
+	}
+
+	public static function pageTitle($args)
+	{
+		return '<h2 class="mt-0 mb-3"><span class="oi oi-'.$args['icon'].'" style="font-size: 0.7em;"></span> '.$args['title'].'</h2>';
+	}
+
 	public static function formTitle($args)
 	{
 		return '<h4 class="mt-4 mb-3">'.$args['title'].'</h4>';

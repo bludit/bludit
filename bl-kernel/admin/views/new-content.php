@@ -1,270 +1,231 @@
-<?php
+<!-- TABS -->
+<ul class="nav nav-tabs" id="dynamicTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">Content</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false">Options</a>
+	</li>
+</ul>
+<form class="tab-content mt-3" id="dynamicTabContent">
 
-HTML::title(array('title'=>$L->g('New content'), 'icon'=>'file-text-o'));
+	<?php
+		// Token CSRF
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'tokenCSRF',
+			'value'=>$Security->getTokenCSRF()
+		));
 
-HTML::formOpen(array('class'=>'uk-form-stacked'));
+		// Parent
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'parent',
+			'value'=>''
+		));
 
-	// Security token
-	HTML::formInputHidden(array(
-		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
-	));
+		// Status = published, draft, sticky, static
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'status',
+			'value'=>'published'
+		));
+	?>
 
-// LEFT SIDE
-// --------------------------------------------------------------------
-echo '<div class="uk-grid uk-grid-medium">';
-echo '<div class="bl-publish-view uk-width-8-10">';
+	<!-- TABS CONTENT -->
+	<div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
 
-	// Title input
-	HTML::formInputText(array(
-		'name'=>'title',
-		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>$L->g('Title')
-	));
+		<?php
+			// Title
+			echo Bootstrap::formInputTextBlock(array(
+				'name'=>'title',
+				'placeholder'=>'Enter title',
+				'class'=>'form-control-lg'
+			));
+		?>
 
-	// Content input
-	HTML::formTextarea(array(
-		'name'=>'content',
-		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>''
-	));
+		<div class="form-group mt-2">
+			<div id="jscontent" name="content"></div>
+		</div>
 
-	// Form buttons
-	echo '<div class="uk-form-row uk-margin-bottom">
-		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
-		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
-		<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'content">'.$L->g('Cancel').'</a>
-	</div>';
+		<div class="form-group mt-2">
+			<button type="button" class="btn btn-primary">Save</button>
+			<button type="button" class="btn" id="jssaveAsDraft">Save as draft</button>
+			<button type="button" class="btn">Cancel</button>
+		</div>
 
-echo '</div>';
+	</div>
 
-// RIGHT SIDE
-// --------------------------------------------------------------------
-echo '<div class="bl-publish-sidebar uk-width-2-10">';
+	<!-- TABS IMAGES -->
+	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
 
-	echo '<ul>';
+		<?php
+			echo Bootstrap::formTitle(array('title'=>'Select images'));
+		?>
 
-	// GENERAL TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> '.$L->g('General').'</h2></li>';
-	echo '<li id="sidebar-general-view" class="sidebar-view">';
+		<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
-	// Category
-	HTML::formSelect(array(
-		'name'=>'category',
-		'label'=>$L->g('Category'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$dbCategories->getKeyNameArray(),
-		'selected'=>'',
-		'tip'=>'',
-		'addEmptySpace'=>true
-	));
+		<?php
+			echo Bootstrap::formTitle(array('title'=>'Cover image'));
+		?>
 
-	// Description input
-	HTML::formTextarea(array(
-		'name'=>'description',
-		'label'=>$L->g('description'),
-		'value'=>'',
-		'rows'=>'4',
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('this-field-can-help-describe-the-content')
-	));
+		<img class="img-thumbnail" alt="200x200" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1627e1b2b7e%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1627e1b2b7e%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4296875%22%20y%3D%22104.65%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 100px; height: 100px;">
 
-	echo '</li>';
+		<?php
+			echo Bootstrap::formTitle(array('title'=>'External Cover image'));
+		?>
 
-	// IMAGES TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> '.$L->g('Images').'</h2></li>';
-	echo '<li id="sidebar-images-view" class="sidebar-view">';
+		<?php
+			echo Bootstrap::formInputTextBlock(array(
+				'name'=>'externalCoverImage',
+				'placeholder'=>'https://',
+				'tip'=>'You can set a cover image from external URL, such as a CDN or some server dedicate for images.'
+			));
+		?>
 
-	// --- BLUDIT COVER IMAGE ---
-	HTML::bluditCoverImage();
+	</div>
 
-	// --- BLUDIT QUICK IMAGES ---
-	HTML::bluditQuickImages();
+	<!-- TABS OPTIONS -->
+	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
+	<h4 class="mt-4 mb-3">General</h4>
+		<?php
+			// Category
+			echo Bootstrap::formSelect(array(
+				'name'=>'category',
+				'label'=>'Category',
+				'selected'=>'',
+				'options'=>array(
+					''=>'- Uncategorized -',
+					'music'=>'Music',
+					'videos'=>'Videos'
+				)
+			));
 
-	// --- BLUDIT IMAGES V8 ---
-	HTML::bluditImagesV8();
+			// Tags
+			echo Bootstrap::formInputText(array(
+				'name'=>'tags',
+				'label'=>'Tags',
+				'placeholder'=>'Tags separeted by comma'
+			));
 
-	// --- BLUDIT MENU V8 ---
-	HTML::bluditMenuV8();
+			// Description
+			echo Bootstrap::formTextarea(array(
+				'name'=>'description',
+				'label'=>'Description',
+				'placeholder'=>'Small description about the content',
+				'rows'=>'4'
+			));
+		?>
+		<h4 class="mt-4 mb-3">Advanced</h4>
+		<?php
+			// Date
+			echo Bootstrap::formInputText(array(
+				'name'=>'date',
+				'label'=>'Date',
+				'placeholder'=>'YYYY-MM-DD hh:mm:ss'
+			));
 
-	echo '</li>';
+			// Type
+			echo Bootstrap::formSelect(array(
+				'name'=>'type',
+				'label'=>'Type',
+				'selected'=>'',
+				'options'=>array(
+					''=>'- Default -',
+					'sticky'=>'Sticky',
+					'static'=>'Static'
+				)
+			));
 
-	// TAGS
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-tags-view"><i class="uk-icon-angle-down"></i> '.$L->g('Tags').'</h2></li>';
-	echo '<li id="sidebar-tags-view" class="sidebar-view">';
+			// Parent
+			echo Bootstrap::formInputText(array(
+				'name'=>'parentTMP',
+				'label'=>'Parent',
+				'placeholder'=>'Start writing the title of the page parent'
+			));
 
-	// Tags input
-	HTML::tags(array(
-		'name'=>'tags',
-		'label'=>'',
-		'allTags'=>$dbTags->getKeyNameArray(),
-		'selectedTags'=>array()
-	));
+			// Position
+			echo Bootstrap::formInputText(array(
+				'name'=>'position',
+				'label'=>'Position',
+				'placeholder'=>''
+			));
 
-	echo '</li>';
+			// Friendly URL
+			echo Bootstrap::formInputText(array(
+				'name'=>'slug',
+				'label'=>'Friendly URL',
+				'placeholder'=>'Leave empty for automaticly complete'
+			));
 
-	// ADVANCED TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-advanced-view"><i class="uk-icon-angle-down"></i> '.$L->g('Advanced').'</h2></li>';
-	echo '<li id="sidebar-advanced-view" class="sidebar-view">';
+			// Template
+			echo Bootstrap::formInputText(array(
+				'name'=>'template',
+				'label'=>'Template',
+				'placeholder'=>''
+			));
+		?>
 
-	// Status input
-	HTML::formSelect(array(
-		'name'=>'status',
-		'label'=>$L->g('Status'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array(
-			'published'=>$L->g('Published'),
-			'static'=>$L->g('Static'),
-			'sticky'=>$L->g('Sticky'),
-			'draft'=>$L->g('Draft')
-		),
-		'selected'=>'published',
-		'tip'=>''
-	));
-
-	// Date input
-	HTML::formInputText(array(
-		'name'=>'date',
-		'value'=>Date::current(DB_DATE_FORMAT),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('To schedule the content select the date and time'),
-		'label'=>$L->g('Date')
-	));
-
-	echo '<hr>';
-
-	// Parent input
-	$options = array(' '=>'- '.$L->g('No parent').' -');
-	$parentsList = $dbPages->getParents();
-	foreach ($parentsList as $pageKey) {
-		$parent = buildPage($pageKey);
-		$options[$pageKey] = $parent->title();
-	}
-
-	HTML::formSelect(array(
-		'name'=>'parent',
-		'label'=>$L->g('Parent'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$options,
-		'selected'=>'',
-		'tip'=>''
-	));
-
-	echo '<hr>';
-
-	// Position input
-	HTML::formInputText(array(
-		'name'=>'position',
-		'type'=>'number',
-		'value'=>$dbPages->nextPositionNumber(),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'label'=>$L->g('Position'),
-		'tip'=>$L->g('This field is used when you order the content by position')
-	));
-
-	echo '<hr>';
-
-	// External Coverimage
-	HTML::formInputText(array(
-		'name'=>'externalCoverImage',
-		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'label'=>$L->g('External Cover Image'),
-		'tip'=>$L->g('Full image URL'),
-		'placeholder'=>"https://"
-	));
-
-	echo '<hr>';
-
-	// Slug input
-	HTML::formInputText(array(
-		'name'=>'slug',
-		'value'=>'',
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('URL associated with the content'),
-		'label'=>$L->g('Friendly URL')
-	));
-
-	echo '</li>';
-	echo '<ul>';
-
-	Theme::plugins('adminContentSidebar');
-
-echo '</div>';
-echo '</div>';
-
-HTML::formClose();
-
-?>
+	</div>
+</form>
 
 <script>
-
-$(document).ready(function()
-{
-	$("#jsdate").datetimepicker({format:"<?php echo DB_DATE_FORMAT ?>"});
-
-	$("#jsslug").keyup(function() {
-		var text = $(this).val();
-		var parent = $("#jsparent").val();
-
-		generateSlug(text, parent, "", $("#jsslug"));
-	});
-
-	$("#jstitle").keyup(function() {
-		var text = $(this).val();
-		var parent = $("#jsparent").val();
-
-		generateSlug(text, parent, "", $("#jsslug"));
-	});
-
-	$("#jsparent").change(function() {
-		var parent = $(this).val();
-		var text = $("#jsslug").val();
-
-		if(parent=="") {
-			$("#jsparentExample").text("");
-		}
-		else {
-			$("#jsparentExample").text(parent+"/");
-		}
-
-		generateSlug(text, parent, "", $("#jsslug"));
-	});
+$(document).ready(function() {
 
 	// Button Save as draft
-	$("#jsSaveDraft").on("click", function() {
+	$("#jssaveAsDraft").on("click", function() {
 		$("#jsstatus").val("draft");
-		$(".uk-form").submit();
+		$("#dynamicTabContent").submit();
 	});
 
-	// Right sidebar
-	$(".sidebar-button").click(function() {
-		var view = "#" + $(this).data("view");
+	// Type selector modiefied the status
+	$("#jstype").on("change", function() {
+		var status = $("#jstype option:selected").val();
+		$("#jsstatus").val(status);
+	});
 
-		if( $(view).is(":visible") ) {
-			$(view).hide();
-		}
-		else {
-			$(".sidebar-view").hide();
-			$(view).show();
+	// Template autocomplete
+	$('input[name="template"]').autoComplete({
+		minChars: 2,
+		source: function(term, suggest){
+			term = term.toLowerCase();
+			var choices = ['ActionScript', 'Acti', 'Asp'];
+			var matches = [];
+			for (i=0; i<choices.length; i++)
+				if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+			suggest(matches);
 		}
 	});
 
-	$("#jsstatus").change(function() {
-		if ($(this).val()=='static') {
-			$("#jsparent").val(' ');
-			$("#jsparent").attr('disabled','disabled');
-		} else {
-			$("#jsparent").removeAttr('disabled');
+	// Parent autocomplete
+	var parentsXHR;
+	var parentsList; // Keep the parent list returned to get the key by the title page
+	$("#jsparentTMP").autoComplete({
+		source: function(term, response) {
+			// Prevent call inmediatly another ajax request
+			try { parentsXHR.abort(); } catch(e){}
+			parentsXHR = $.getJSON("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/get-parents", {query: term},
+				function(data) {
+					parentsList = data;
+					term = term.toLowerCase();
+					var matches = [];
+					for (var title in data) {
+						if (~title.toLowerCase().indexOf(term))
+							matches.push(title);
+					}
+					response(matches);
+			});
+		},
+		onSelect: function(e, term, item) {
+			var parentKey = parentsList[term];
+			$("#jsparent").attr("value", parentKey);
 		}
 	});
 
 });
-
 </script>
+
+<?php
+	// Include Bludit Media Manager
+	include(PATH_ADMIN_THEMES.'booty/html/media.php');
+?>
