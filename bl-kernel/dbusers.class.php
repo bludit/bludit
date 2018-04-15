@@ -88,7 +88,7 @@ class dbUsers extends dbJSON
 		}
 
 		// Set a new password
-		if (!empty($args['password'])) {
+		if (!empty($args['password']) && $args['password'] !== '!') {
 			$user['salt'] = $this->generateSalt();
 			$user['password'] = $this->generatePasswordHash($args['password'], $user['salt']);
 			$user['tokenAuth'] = $this->generateAuthToken();
