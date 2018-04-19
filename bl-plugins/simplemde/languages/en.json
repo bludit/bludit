@@ -2,11 +2,11 @@
 	"plugin-data":
 	{
 		"name": "SimpleMDE",
-		"description": "Editor Markdown, interfaccia pulita per creare linguaggio markup."
+		"description": "Markdown editor, cleaned interface to create markup language."
 	},
-	"toolbar": "Barra degli strumenti",
-	"tab-size": "Dimensione Tab",
-	"autosave": "Salvataggio Automatico",
-	"spell-checker": "Correttore",
-	"content-here-supports-markdown-and-html-code": "Il contenuto qui supporta il codice Markdown e HTML"
+	"toolbar": "Toolbar",
+	"tab-size": "Tab size",
+	"autosave": "Autosave",
+	"spell-checker": "Spell Checker",
+	"content-here-supports-markdown-and-html-code": "Content here supports Markdown and HTML code"
 }
