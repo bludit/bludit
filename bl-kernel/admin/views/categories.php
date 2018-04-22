@@ -1,4 +1,4 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Categories'), 'icon'=>'grid-three-up'));
 

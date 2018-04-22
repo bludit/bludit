@@ -79,7 +79,7 @@ class dbList extends dbJSON
 		}
 
 		if (isset($this->db[$key])) {
-			Log::set(__METHOD__.LOG_SEP.'Error key already exist: '.$key);
+			Log::set(__METHOD__.LOG_SEP.'Error key already exists: '.$key);
 			return false;
 		}
 
@@ -111,7 +111,27 @@ class dbList extends dbJSON
 		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
 
 		// Remove the old key
-		if( $oldKey != $newKey ) {
+		if ($oldKey!=$newKey) {
+			unset( $this->db[$oldKey] );
+		}
+
+		$this->sortAlphanumeric();
+		$this->save();
+		return $newKey;
+	}
+
+	public function changeKey($oldKey, $newKey)
+	{
+		if ($this->exists($newKey)) {
+			Log::set(__METHOD__.LOG_SEP.'Error key already exists: '.$newKey);
+			return false;
+		}
+
+		$this->db[$newKey]['name'] = $this->db[$oldKey]['name'];
+		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
+
+		// Remove the old key
+		if ($oldKey!=$newKey) {
 			unset( $this->db[$oldKey] );
 		}
 

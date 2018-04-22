@@ -201,6 +201,9 @@ define('PAGE_URI_FILTER', $Url->filters('page'));
 // Content order by: date / position
 define('ORDER_BY', $Site->orderBy());
 
+// Allow unicode characters in the URL
+define('EXTREME_FRIENDLY_URL', $Site->extremeFriendly());
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);

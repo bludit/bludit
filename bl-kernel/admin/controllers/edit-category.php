@@ -23,10 +23,9 @@ if ($Login->role()!=='admin') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (isset($_POST['delete'])) {
-		deleteCategory($_POST['categoryKey']);
-	}
-	elseif (isset($_POST['edit'])) {
-		editCategory($_POST['categoryKey'], $_POST['category']);
+		deleteCategory($_POST);
+	} elseif (isset($_POST['edit'])) {
+		editCategory($_POST);
 	}
 
 	Redirect::page('categories');
@@ -42,7 +41,7 @@ if (!$dbCategories->exists($categoryKey)) {
 	Redirect::page('categories');
 }
 
-$category = $dbCategories->getName($layout['parameters']);
+$categoryName = $dbCategories->getName($layout['parameters']);
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Edit Category').' - '.$category;
+$layout['title'] .= ' - '.$Language->g('Edit Category').' - '.$categoryName;

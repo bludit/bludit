@@ -86,9 +86,6 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
-// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard. Experimental!
-define('EXTREME_FRIENDLY_URL', FALSE);
-
 // Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
 

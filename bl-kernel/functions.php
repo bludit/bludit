@@ -323,7 +323,7 @@ function pluginActivated($pluginClassName) {
 
 function activatePlugin($pluginClassName) {
 	global $plugins;
-	global $Syslog;
+	global $syslog;
 	global $Language;
 
 	// Check if the plugin exists
@@ -331,7 +331,7 @@ function activatePlugin($pluginClassName) {
 		$plugin = $plugins['all'][$pluginClassName];
 		if ($plugin->install()) {
 			// Add to syslog
-			$Syslog->add(array(
+			$syslog->add(array(
 				'dictionaryKey'=>'plugin-activated',
 				'notes'=>$plugin->name()
 			));
@@ -346,7 +346,7 @@ function activatePlugin($pluginClassName) {
 
 function deactivatePlugin($pluginClassName) {
 	global $plugins;
-	global $Syslog;
+	global $syslog;
 	global $Language;
 
 	// Check if the plugin exists
@@ -355,7 +355,7 @@ function deactivatePlugin($pluginClassName) {
 
 		if ($plugin->uninstall()) {
 			// Add to syslog
-			$Syslog->add(array(
+			$syslog->add(array(
 				'dictionaryKey'=>'plugin-deactivated',
 				'notes'=>$plugin->name()
 			));
@@ -370,7 +370,7 @@ function deactivatePlugin($pluginClassName) {
 
 function changePluginsPosition($pluginClassList) {
 	global $plugins;
-	global $Syslog;
+	global $syslog;
 	global $Language;
 
 	foreach ($pluginClassList as $position=>$pluginClassName) {
@@ -381,7 +381,7 @@ function changePluginsPosition($pluginClassList) {
 	}
 
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'plugins-sorted',
 		'notes'=>''
 	));
@@ -391,7 +391,7 @@ function changePluginsPosition($pluginClassList) {
 
 function createPage($args) {
 	global $dbPages;
-	global $Syslog;
+	global $syslog;
 	global $Language;
 
 	// The user is always the one loggued
@@ -419,7 +419,7 @@ function createPage($args) {
 		reindextags();
 
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'new-content-created',
 			'notes'=>$args['title']
 		));
@@ -439,7 +439,7 @@ function createPage($args) {
 
 function editPage($args) {
 	global $dbPages;
-	global $Syslog;
+	global $syslog;
 
 	// Check the key is not empty
 	if (empty($args['key'])) {
@@ -482,7 +482,7 @@ function editPage($args) {
 		reindextags();
 
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'content-edited',
 			'notes'=>$args['title']
 		));
@@ -496,7 +496,7 @@ function editPage($args) {
 
 function deletePage($key) {
 	global $dbPages;
-	global $Syslog;
+	global $syslog;
 
 	if( $dbPages->delete($key) ) {
 		// Call the plugins after page deleted
@@ -509,7 +509,7 @@ function deletePage($key) {
 		reindextags();
 
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'content-deleted',
 			'notes'=>$key
 		));
@@ -523,7 +523,7 @@ function deletePage($key) {
 function disableUser($username) {
 	global $dbUsers;
 	global $Login;
-	global $Syslog;
+	global $syslog;
 
 	// The editors can't disable users
 	if($Login->role()!=='admin') {
@@ -532,7 +532,7 @@ function disableUser($username) {
 
 	if( $dbUsers->disableUser($username) ) {
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'user-disabled',
 			'notes'=>$username
 		));
@@ -545,11 +545,11 @@ function disableUser($username) {
 
 function editUser($args) {
 	global $dbUsers;
-	global $Syslog;
+	global $syslog;
 
 	if( $dbUsers->set($args) ) {
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'user-edited',
 			'notes'=>$args['username']
 		));
@@ -563,7 +563,7 @@ function editUser($args) {
 function deleteUser($args, $deleteContent=false) {
 	global $dbUsers;
 	global $Login;
-	global $Syslog;
+	global $syslog;
 
 	// The user admin cannot be deleted
 	if($args['username']=='admin') {
@@ -584,7 +584,7 @@ function deleteUser($args, $deleteContent=false) {
 
 	if( $dbUsers->delete($args['username']) ) {
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'user-deleted',
 			'notes'=>$args['username']
 		));
@@ -598,7 +598,7 @@ function deleteUser($args, $deleteContent=false) {
 function createUser($args) {
 	global $dbUsers;
 	global $Language;
-	global $Syslog;
+	global $syslog;
 
 	// Check empty username
 	if( Text::isEmpty($args['new_username']) ) {
@@ -634,7 +634,7 @@ function createUser($args) {
 	// Add the user to the database
 	if( $dbUsers->add($tmp) ) {
 		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'new-user-created',
 			'notes'=>$tmp['username']
 		));
@@ -647,7 +647,7 @@ function createUser($args) {
 
 function editSettings($args) {
 	global $Site;
-	global $Syslog;
+	global $syslog;
 	global $Language;
 	global $dbPages;
 
@@ -692,7 +692,7 @@ function editSettings($args) {
 		}
 
 		// Add syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'changes-on-settings',
 			'notes'=>''
 		));
@@ -706,71 +706,80 @@ function editSettings($args) {
 }
 
 // Add a new category to the system
-// Returns TRUE is success added, FALSE otherwise
+// Returns TRUE is successfully added, FALSE otherwise
 function createCategory($category) {
 	global $dbCategories;
 	global $Language;
-	global $Syslog;
+	global $syslog;
 
 	if (Text::isEmpty($category)) {
-		// Set an alert
 		Alert::set($Language->g('Category name is empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	if ($dbCategories->add($category)) {
-		// Add to syslog
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'new-category-created',
 			'notes'=>$category
 		));
 
-		// Set an alert
 		Alert::set($Language->g('Category added'), ALERT_STATUS_OK);
 		return true;
 	}
 
+	Alert::set($Language->g('The category already exists'), ALERT_STATUS_FAIL);
 	return false;
 }
 
-function editCategory($oldCategoryKey, $newCategory) {
+function editCategory($args) {
 	global $Language;
 	global $dbPages;
 	global $dbCategories;
-	global $Syslog;
+	global $syslog;
 
-	if( Text::isEmpty($oldCategoryKey) || Text::isEmpty($newCategory) ) {
+	if (Text::isEmpty($args['categoryName']) || Text::isEmpty($args['categoryKey']) ) {
 		Alert::set($Language->g('Empty fields'));
 		return false;
 	}
 
-	if( $dbCategories->edit($oldCategoryKey, $newCategory) == false ) {
-		Alert::set($Language->g('Already exist a category'));
+	if ($args['oldCategoryKey']!==$args['categoryKey']) {
+		// Edit the category key and keep the category name
+		$newCategoryKey = $dbCategories->changeKey($args['oldCategoryKey'], $args['categoryKey']);
+	} else {
+		// Edit the category name
+		$newCategoryKey = $dbCategories->edit($args['oldCategoryKey'], $args['categoryName']);
+	}
+
+	if ($newCategoryKey==false) {
+		Alert::set($Language->g('The category already exists'));
 		return false;
 	}
 
-	$dbPages->changeCategory($oldCategoryKey, $newCategory);
+	// Change the category key in the pages database
+	$dbPages->changeCategory($args['oldCategoryKey'], $newCategoryKey);
 
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'category-edited',
-		'notes'=>$newCategory
+		'notes'=>$newCategoryKey
 	));
 
 	Alert::set($Language->g('The changes have been saved'));
 	return true;
 }
 
-function deleteCategory($categoryKey) {
+function deleteCategory($args) {
 	global $Language;
 	global $dbCategories;
-	global $Syslog;
+	global $syslog;
 
 	// Remove the category by key
-	$dbCategories->remove($categoryKey);
+	$dbCategories->remove($args['oldCategoryKey']);
 
-	$Syslog->add(array(
+	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
+
+	$syslog->add(array(
 		'dictionaryKey'=>'category-deleted',
-		'notes'=>$categoryKey
+		'notes'=>$args['oldCategoryKey']
 	));
 
 	Alert::set($Language->g('The changes have been saved'));
@@ -814,12 +823,12 @@ function getTags() {
 
 function activateTheme($themeDirectory) {
 	global $Site;
-	global $Syslog;
+	global $syslog;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
 		$Site->set(array('theme'=>$themeDirname));
 
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'new-theme-configured',
 			'notes'=>$themeDirname
 		));

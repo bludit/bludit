@@ -22,8 +22,9 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	createCategory($_POST['category']);
-	Redirect::page('categories');
+	if (createCategory($_POST['category'])) {
+		Redirect::page('categories');
+	}
 }
 
 // ============================================================================

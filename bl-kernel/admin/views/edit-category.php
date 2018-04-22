@@ -1,32 +1,49 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$L->g('Edit Category'), 'icon'=>'globe'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'grid-three-up'));
 
-HTML::formOpen(array('class'=>'uk-form-horizontal'));
+echo Bootstrap::formOpen(array());
 
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$Security->getTokenCSRF()
 	));
 
-	HTML::formInputHidden(array(
-		'name'=>'categoryKey',
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'oldCategoryName',
+		'value'=>$categoryName
+	));
+
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'oldCategoryKey',
 		'value'=>$categoryKey
 	));
 
-	HTML::formInputText(array(
-		'name'=>'category',
-		'label'=>$L->g('Name'),
-		'value'=>$category,
-		'class'=>'uk-width-1-2 uk-form-medium'
+	echo Bootstrap::formInputTextBlock(array(
+		'name'=>'categoryName',
+		'label'=>$L->g('Category name'),
+		'value'=>$categoryName,
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
 	));
 
-	echo '<div class="uk-form-row">
-		<div class="uk-form-controls">
-		<button type="submit" name="edit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<button type="submit" name="delete" class="uk-button uk-button-primary">'.$L->g('Delete').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'categories" class="uk-button">'.$L->g('Cancel').'</a>
-		</div>
-	</div>';
+	echo Bootstrap::formInputGroupText(array(
+		'name'=>'categoryKey',
+		'label'=>$L->g('Category key'),
+		'labelInside'=>DOMAIN_CATEGORIES,
+		'value'=>$categoryKey,
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
 
-HTML::formClose();
+	echo '
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary mr-2" name="edit">'.$L->g('Save').'</button>
+		<button type="submit" class="btn btn-secondary mr-2" name="delete">'.$L->g('Delete').'</button>
+		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'categories" role="button">'.$L->g('Cancel').'</a>
+	</div>
+	';
+
+echo Bootstrap::formClose();

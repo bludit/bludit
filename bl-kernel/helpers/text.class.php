@@ -121,7 +121,7 @@ class Text {
 		return str_replace(array_keys($replace), array_values($replace), $text);
 	}
 
-	// Convert invalid characters to valid characters for a URL
+	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
 	public static function cleanUrl($string, $separator='-')
@@ -129,6 +129,8 @@ class Text {
 		global $Language;
 
 		if (EXTREME_FRIENDLY_URL) {
+			$string = trim($string, '-');
+			$string = self::lowercase($string);
 			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
 			return $string;
 		}

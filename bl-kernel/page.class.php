@@ -222,6 +222,12 @@ class Page {
 		return $this->getValue('category');
 	}
 
+	// Returns the category permalink
+	public function categoryPermalink()
+	{
+		return DOMAIN_CATEGORIES.$this->categoryKey();
+	}
+
 	// Returns the field from the array
 	// categoryMap = array( 'name'=>'', 'list'=>array() )
 	public function categoryMap($field)

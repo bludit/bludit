@@ -31,7 +31,8 @@ class dbSite extends dbJSON
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
 		'linkedin'=>		array('inFile'=>false, 'value'=>''),
-		'orderBy'=>		array('inFile'=>false, 'value'=>'date') // date or position
+		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
+		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true)
 	);
 
 	function __construct()
@@ -98,6 +99,11 @@ class dbSite extends dbJSON
 	public function sitemap()
 	{
 		return DOMAIN_BASE.'sitemap.xml';
+	}
+
+	public function extremeFriendly()
+	{
+		return $this->getField('extremeFriendly');
 	}
 
 	public function twitter()

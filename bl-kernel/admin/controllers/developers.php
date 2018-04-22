@@ -15,15 +15,8 @@ if ($Login->role()!=='admin') {
 
 // This function is used on the VIEW to show the tables
 function printTable($title, $array) {
-	echo '<h2>'.$title.'</h2>';
-	echo '
-		<table class="uk-table uk-table-striped">
-		<thead>
-			<tr>
-			<th class="uk-width-1-5"></th>
-			<th class="uk-width-3-5"></th>
-			</tr>
-		</thead>
+	echo '<h2 class="mb-2 mt-4">'.$title.'</h2>';
+	echo '<table class="table table-striped mt-3">
 		<tbody>
 	';
 

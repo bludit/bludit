@@ -1,26 +1,28 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$L->g('New Category'), 'icon'=>'tag'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('New Category'), 'icon'=>'grid-three-up'));
 
-HTML::formOpen(array('class'=>'uk-form-horizontal'));
+echo Bootstrap::formOpen(array());
 
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$Security->getTokenCSRF()
 	));
 
-	HTML::formInputText(array(
+	echo Bootstrap::formInputTextBlock(array(
 		'name'=>'category',
-		'label'=>$L->g('Name'),
-		'value'=>'',
-		'class'=>'uk-width-1-2 uk-form-medium'
+		'label'=>$L->g('Category name'),
+		'value'=>isset($_POST['category'])?$_POST['category']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
 	));
 
-	echo '<div class="uk-form-row">
-		<div class="uk-form-controls">
-		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'categories" class="uk-button">'.$L->g('Cancel').'</a>
-		</div>
-	</div>';
+	echo '
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary mr-2">Save</button>
+		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'categories" role="button">Cancel</a>
+	</div>
+	';
 
-HTML::formClose();
+echo Bootstrap::formClose();

@@ -7,7 +7,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<a class="navbar-brand" href="#">
-				<img src="img/logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""> Bludit
+				<img src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""> Bludit
 			</a>
 		</nav>
 	</div>
