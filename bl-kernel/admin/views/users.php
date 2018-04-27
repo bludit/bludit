@@ -13,12 +13,12 @@ echo '
 	<thead>
 		<tr>
 			<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('First name').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Last name').'</th>
+			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('First name').'</th>
+			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Last name').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Registered').'</th>
+			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Registered').'</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,12 +28,12 @@ $users = $dbUsers->getAllUsers();
 foreach ($users as $username=>$User) {
 	echo '<tr>';
 	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-	echo '<td>'.$User->firstName().'</td>';
-	echo '<td>'.$User->lastName().'</td>';
+	echo '<td class="d-none d-lg-table-cell">'.$User->firstName().'</td>';
+	echo '<td class="d-none d-lg-table-cell">'.$User->lastName().'</td>';
 	echo '<td>'.$User->email().'</td>';
-	echo '<td class="uk-text-center">'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
-	echo '<td class="uk-text-center">'.($User->role()=='admin'?$L->g('Administrator'):$L->g('Editor')).'</td>';
-	echo '<td class="uk-text-center">'.Date::format($User->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
+	echo '<td>'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
+	echo '<td>'.($User->role()=='admin'?$L->g('Administrator'):$L->g('Editor')).'</td>';
+	echo '<td class="d-none d-lg-table-cell">'.Date::format($User->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
 	echo '</tr>';
 }
 

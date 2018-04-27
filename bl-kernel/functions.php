@@ -601,25 +601,25 @@ function createUser($args) {
 	global $syslog;
 
 	// Check empty username
-	if( Text::isEmpty($args['new_username']) ) {
+	if (Text::isEmpty($args['new_username'])) {
 		Alert::set($Language->g('username-field-is-empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Check already exist username
-	if( $dbUsers->exists($args['new_username']) ) {
+	if ($dbUsers->exists($args['new_username'])) {
 		Alert::set($Language->g('username-already-exists'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Password length
-	if( Text::length($args['new_password']) < PASSWORD_LENGTH ) {
+	if (Text::length($args['new_password']) < PASSWORD_LENGTH) {
 		Alert::set($Language->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Check new password and confirm password are equal
-	if( $args['new_password'] != $args['confirm_password'] ) {
+	if ($args['new_password'] != $args['confirm_password']) {
 		Alert::set($Language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
 		return false;
 	}
@@ -632,7 +632,7 @@ function createUser($args) {
 	$tmp['email']	 = $args['email'];
 
 	// Add the user to the database
-	if( $dbUsers->add($tmp) ) {
+	if ($dbUsers->add($tmp)) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-user-created',
@@ -717,7 +717,7 @@ function createCategory($category) {
 		return false;
 	}
 
-	if ($dbCategories->add($category)) {
+	if ($dbCategories->add(array('name'=>$category))) {
 		$syslog->add(array(
 			'dictionaryKey'=>'new-category-created',
 			'notes'=>$category
@@ -737,18 +737,12 @@ function editCategory($args) {
 	global $dbCategories;
 	global $syslog;
 
-	if (Text::isEmpty($args['categoryName']) || Text::isEmpty($args['categoryKey']) ) {
+	if (Text::isEmpty($args['name']) || Text::isEmpty($args['newKey']) ) {
 		Alert::set($Language->g('Empty fields'));
 		return false;
 	}
 
-	if ($args['oldCategoryKey']!==$args['categoryKey']) {
-		// Edit the category key and keep the category name
-		$newCategoryKey = $dbCategories->changeKey($args['oldCategoryKey'], $args['categoryKey']);
-	} else {
-		// Edit the category name
-		$newCategoryKey = $dbCategories->edit($args['oldCategoryKey'], $args['categoryName']);
-	}
+	$newCategoryKey = $dbCategories->edit($args);
 
 	if ($newCategoryKey==false) {
 		Alert::set($Language->g('The category already exists'));
@@ -756,7 +750,7 @@ function editCategory($args) {
 	}
 
 	// Change the category key in the pages database
-	$dbPages->changeCategory($args['oldCategoryKey'], $newCategoryKey);
+	$dbPages->changeCategory($args['oldKey'], $newCategoryKey);
 
 	$syslog->add(array(
 		'dictionaryKey'=>'category-edited',

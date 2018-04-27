@@ -45,40 +45,51 @@ class Bootstrap {
 
 	public static function pageTitle($args)
 	{
-		return '<h2 class="mt-0 mb-3"><span class="oi oi-'.$args['icon'].'" style="font-size: 0.7em;"></span> '.$args['title'].'</h2>';
+		$icon = $args['icon'];
+		$title = $args['title'];
+return <<<EOF
+<h2 class="mt-0 mb-3">
+	<span class="oi oi-$icon" style="font-size: 0.7em;"></span> $title
+</h2>
+EOF;
 	}
 
 	public static function formOpen($args)
 	{
-		$class = empty($args['class']) ? '' : ' '.$args['class'];
-		$id = empty($args['id']) ? '' : ' id="'.$args['id'].'" ';
-		$enctype = empty($args['enctype']) ? '' : ' enctype="'.$args['enctype'].'" ';
+		$class = empty($args['class'])?'':'class="'.$args['class'].'"';
+		$id = empty($args['id'])?'':'id="'.$args['id'].'"';
+		$enctype = empty($args['enctype'])?'':'enctype="'.$args['enctype'].'"';
+		$action = empty($args['action'])?'action=""':'action="'.$args['action'].'"';
+		$method = empty($args['method'])?'method="post"':'method="'.$args['method'].'"';
 
-		$html = '<form class="'.$class.'" '.$enctype.$id.' method="post" action="" autocomplete="off">';
-		return $html;
+return <<<EOF
+<form $class $enctype $id $method $action autocomplete="off">
+EOF;
 	}
 
 	public static function formClose()
 	{
-		$html = '</form>';
-
-		$script = '<script>
-		$(document).ready(function() {
-			// Prevent the form submit when press enter key.
-			$("form").keypress(function(e) {
-				if ((e.which == 13) && (e.target.type !== "textarea")) {
-					return false;
-				}
-			});
-		});
-		</script>';
-
-		return $html.$script;
+return <<<EOF
+</form>
+<script>
+$(document).ready(function() {
+	// Prevent the form submit when press enter key.
+	$("form").keypress(function(e) {
+		if ((e.which == 13) && (e.target.type !== "textarea")) {
+			return false;
+		}
+	});
+});
+</script>
+EOF;
 	}
 
 	public static function formTitle($args)
 	{
-		return '<h4 class="mt-4 mb-3">'.$args['title'].'</h4>';
+		$title = $args['title'];
+return <<<EOF
+<h4 class="mt-4 mb-3 font-weight-normal">$title</h4>
+EOF;
 	}
 
 	public static function formInputTextBlock($args)
@@ -188,31 +199,36 @@ EOF;
 
 	public static function formInputText($args)
 	{
-		$id = 'js'.$args['name'];
+		$label = isset($args['label'])?$args['label']:'';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$tip = isset($args['tip'])?$args['tip']:'';
+		$value = isset($args['value'])?$args['value']:'';
+		$name = $args['name'];
+		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
 		}
+		$disabled = isset($args['disabled'])?'disabled':'';
 
 		$class = 'form-control';
 		if (isset($args['class'])) {
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group row">';
-
-		if (isset($args['label'])) {
-			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		$type = 'text';
+		if (isset($args['type'])) {
+			$type = $args['type'];
 		}
 
-		$html .= '<div class="col-sm-10">';
-		$html .= '<input type="text" class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" placeholder="'.$args['placeholder'].'">';
-		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
-		}
-		$html .= '</div>';
-		$html .= '</div>';
-
-		return $html;
+return <<<EOF
+<div class="form-group row">
+	<label for="$id" class="col-sm-2 col-form-label">$label</label>
+	<div class="col-sm-10">
+		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled>
+		<small class="form-text text-muted">$tip</small>
+	</div>
+</div>
+EOF;
 	}
 
 	public static function formSelect($args)

@@ -57,8 +57,8 @@
 			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
 			} else {
-				echo '<h1 style="width:100%; text-align:center">'.$L->g('Page not found').'</h1>';
-				echo '<h2 style="width:100%; text-align:center">'.$L->g('Choose a page from the sidebar.').'</h2>';
+				echo '<h1 class="text-center">'.$L->g('Page not found').'</h1>';
+				echo '<h2 class="text-center">'.$L->g('Choose a page from the sidebar.').'</h2>';
 			}
 		?>
 		</div>

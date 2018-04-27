@@ -47,18 +47,15 @@ class dbUsers extends dbJSON
 		$dataForDb = array();
 
 		// Verify arguments with the database fields
-		foreach($this->dbFields as $field=>$options) {
-			if( isset($args[$field]) ) {
+		foreach ($this->dbFields as $field=>$options) {
+			if (isset($args[$field])) {
 				$value = Sanitize::html($args[$field]);
-			}
-			else {
+			} else {
 				$value = $options['value'];
 			}
 
 			// Set type
 			settype($value, gettype($options['value']));
-
-			// Save on database
 			$dataForDb[$field] = $value;
 		}
 

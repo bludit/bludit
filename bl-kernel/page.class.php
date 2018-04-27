@@ -216,6 +216,12 @@ class Page {
 		return $this->categoryMap('name');
 	}
 
+	// Returns the category name
+	public function categoryTemplate()
+	{
+		return $this->categoryMap('template');
+	}
+
 	// Returns the category key
 	public function categoryKey()
 	{

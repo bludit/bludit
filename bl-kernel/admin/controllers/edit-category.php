@@ -41,7 +41,7 @@ if (!$dbCategories->exists($categoryKey)) {
 	Redirect::page('categories');
 }
 
-$categoryName = $dbCategories->getName($layout['parameters']);
+$categoryMap = $dbCategories->getMap($categoryKey);
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Edit Category').' - '.$categoryName;
+$layout['title'] .= ' - '.$Language->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';

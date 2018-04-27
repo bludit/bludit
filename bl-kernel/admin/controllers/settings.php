@@ -23,31 +23,12 @@ if ($Login->role()!=='admin') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	editSettings($_POST);
-	Redirect::page('settings-advanced');
+	Redirect::page('settings');
 }
 
 // ============================================================================
 // Main after POST
 // ============================================================================
-$allPages = buildAllpages($publishedPages=true, $staticPages=true, $draftPages=false, $scheduledPages=false);
-
-// Generate $pagesByParentByKey and pagesByParent
-$pagesByParent = array(PARENT=>array());
-$pagesByParentByKey = array(PARENT=>array());
-buildPagesByParent(true, true);
-
-// Homepage select options
-$homepageOptions = array(' '=>'- '.$L->g('Default').' -');
-foreach ($allPages as $key=>$page) {
-	$parentKey = $page->parentKey();
-	if ($parentKey) {
-		$homepageOptions[$key] = $pagesByParentByKey[PARENT][$parentKey]->title() .'->'. $page->title();
-	} else {
-		$homepageOptions[$key] = $page->title();
-	}
-
-	ksort($homepageOptions);
-}
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Advanced Settings');

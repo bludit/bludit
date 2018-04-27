@@ -12,21 +12,20 @@
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Prevent non-administrators to change other users
-	if($Login->role()!=='admin') {
+	if ($Login->role()!=='admin') {
 		$_POST['username'] = $Login->username();
 		unset($_POST['role']);
 	}
 
-	if(isset($_POST['delete-user-all'])) {
+	if (isset($_POST['delete-user-all'])) {
 		deleteUser($_POST, $deleteContent=true);
 	}
-	elseif(isset($_POST['delete-user-associate'])) {
+	elseif (isset($_POST['delete-user-associate'])) {
 		deleteUser($_POST, $deleteContent=false);
 	}
-	elseif(isset($_POST['disable-user'])) {
+	elseif (isset($_POST['disable-user'])) {
 		disableUser($_POST['username']);
 	}
 	else {

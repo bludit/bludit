@@ -1,54 +1,53 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Themes'), 'icon'=>'paint-brush'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Themes'), 'icon'=>'puzzle-piece'));
 
 echo '
-<table class="uk-table">
-<thead>
-<tr>
-	<th class="uk-width-1-5">'.$L->g('Name').'</th>
-	<th class="uk-width-3-5">'.$L->g('Description').'</th>
-	<th class="uk-text-center">'.$L->g('Version').'</th>
-	<th class="uk-text-center">'.$L->g('Author').'</th>
-	</tr>
-</thead>
-<tbody>
+<table class="table  mt-3">
+	<thead>
+		<tr>
+			<th class="border-bottom-0 w-25" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Description').'</th>
+			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Version').'</th>
+			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Author').'</th>
+		</tr>
+	</thead>
+	<tbody>
 ';
 
-foreach($themes as $theme)
-{
+foreach ($themes as $theme) {
 	echo '
-	<tr '.($theme['dirname']==$Site->theme()?'class="theme-installed"':'class="theme-notInstalled"').'>
-	<td>
-	<div class="plugin-name">'.$theme['name'].'</div>
-	<div class="plugin-links">
+	<tr '.($theme['dirname']==$Site->theme()?'class="bg-light"':'').'>
+		<td class="align-middle pt-3 pb-3">
+			<div>'.$theme['name'].'</div>
+			<div class="mt-1">
 	';
 
-	if($theme['dirname']!=$Site->theme()) {
-		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
+	if ($theme['dirname']!=$Site->theme()) {
+		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
 	}
 
 	echo '
-	</div>
-	</td>';
+			</div>
+		</td>
+	';
 
-	echo '<td>';
+	echo '<td class="align-middle">';
 	echo $theme['description'];
 	echo '</td>';
 
-	echo '<td class="uk-text-center">';
-	// if( !$theme['compatible'] ) {
-	// 	echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This theme may not be supported by this version of Bludit').'"></i>';
-	// }
-	echo $theme['version'];
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
+		echo '<span>'.$theme['version'].'</span>';
 	echo '</td>';
 
-	echo '<td class="uk-text-center"><a targe="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a></td>';
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">
+		<a target="_blank" href="'.$theme['website'].'">'.$theme['author'].'</a>
+	</td>';
 
 	echo '</tr>';
 }
 
 echo '
-</tbody>
+	</tbody>
 </table>
 ';

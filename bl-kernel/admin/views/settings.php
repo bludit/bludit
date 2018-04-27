@@ -19,15 +19,18 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		<a class="nav-link" id="language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="language" aria-selected="false">Language</a>
 	</li>
 </ul>
-<form class="tab-content mt-4" id="dynamicTabContent">
+<?php
+	echo Bootstrap::formOpen(array(
+		'id'=>'dynamicTabContent',
+		'class'=>'tab-content mt-4',
+	));
 
-	<?php
-		// Token CSRF
-		echo Bootstrap::formInputHidden(array(
-			'name'=>'tokenCSRF',
-			'value'=>$Security->getTokenCSRF()
-		));
-	?>
+	// Token CSRF
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$Security->getTokenCSRF()
+	));
+?>
 
 	<!-- TABS GENERAL -->
 	<div class="tab-pane show active" id="general" role="tabpanel" aria-labelledby="general-tab">
@@ -67,6 +70,13 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>$L->g('you-can-add-a-small-text-on-the-bottom')
 		));
+
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
 	?>
 	</div>
 
@@ -129,7 +139,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'url',
-			'label'=>'',
+			'label'=>'URL',
 			'value'=>$Site->url(),
 			'class'=>'',
 			'placeholder'=>'',
@@ -137,13 +147,15 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'https://'
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
+
 		echo Bootstrap::formSelect(array(
 			'name'=>'extremeFriendly',
-			'label'=>$L->g('Extreme Friendly URL'),
+			'label'=>'Allow Unicode',
 			'options'=>array('true'=>'Enabled', 'false'=>'Disable'),
 			'selected'=>$Site->extremeFriendly(),
 			'class'=>'',
-			'tip'=>'Is on, allow unicode characters in the URL and some part of the system'
+			'tip'=>'Allow unicode characters in the URL and some part of the system.'
 		));
 
 		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
@@ -184,6 +196,13 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>DOMAIN.$Site->uriFilters('blog'),
 			'disabled'=>!$Site->uriFilters('blog')
 		));
+
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
 	?>
 	</div>
 
@@ -252,11 +271,66 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>''
 		));
+
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
 	?>
 	</div>
 
 	<!-- TABS TIMEZONE AND LANGUAGES -->
 	<div class="tab-pane" id="language" role="tabpanel" aria-labelledby="language-tab">
+	<?php
 
+		echo Bootstrap::formSelect(array(
+			'name'=>'language',
+			'label'=>$L->g('Language'),
+			'options'=>$Language->getLanguageList(),
+			'selected'=>$Site->language(),
+			'class'=>'',
+			'tip'=>$L->g('select-your-sites-language')
+		));
+
+		echo Bootstrap::formSelect(array(
+			'name'=>'timezone',
+			'label'=>$L->g('Timezone'),
+			'options'=>Date::timezoneList(),
+			'selected'=>$Site->timezone(),
+			'class'=>'',
+			'tip'=>$L->g('select-a-timezone-for-a-correct')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'locale',
+			'label'=>$L->g('Locale'),
+			'value'=>$Site->locale(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('with-the-locales-you-can-set-the-regional-user-interface')
+		));
+
+		echo Bootstrap::formTitle(array('title'=>$L->g('Date and time formats')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'dateFormat',
+			'label'=>$L->g('Date format'),
+			'value'=>$Site->dateFormat(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('Current format').': '.Date::current($Site->dateFormat())
+		));
+
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
+	?>
 	</div>
-</form>
+<?php
+	echo Bootstrap::formClose();
+?>

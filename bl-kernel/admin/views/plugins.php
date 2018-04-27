@@ -1,58 +1,61 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece'));
 
-echo '<a href="'.HTML_PATH_ADMIN_ROOT.'plugins-position"><i class="uk-icon-plus"></i> '.$L->g('Change the position of the plugins').'</a>';
+echo Bootstrap::link(array(
+	'title'=>$L->g('Change the position of the plugins'),
+	'href'=>HTML_PATH_ADMIN_ROOT.'plugins-position',
+	'icon'=>'elevator'
+));
 
 echo '
-<table class="uk-table">
-<thead>
-	<tr>
-	<th class="uk-width-1-5">'.$L->g('Name').'</th>
-	<th class="uk-width-3-5">'.$L->g('Description').'</th>
-	<th class="uk-text-center">'.$L->g('Version').'</th>
-	<th class="uk-text-center">'.$L->g('Author').'</th>
-	</tr>
-</thead>
-<tbody>
+<table class="table  mt-3">
+	<thead>
+		<tr>
+			<th class="border-bottom-0 w-25" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Description').'</th>
+			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Version').'</th>
+			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Author').'</th>
+		</tr>
+	</thead>
+	<tbody>
 ';
 
-foreach ($plugins['all'] as $Plugin) {
-	echo '<tr id="'.$Plugin->className().'" '.($Plugin->installed()?'class="plugin-installed"':'class="plugin-notInstalled"').'>
-	<td>
-	<div class="plugin-name">'.$Plugin->name().'</div>
-	<div class="plugin-links">';
+foreach ($plugins['all'] as $plugin) {
+	echo '<tr id="'.$plugin->className().'" '.($plugin->installed()?'class="bg-light"':'').'>
 
-	if ($Plugin->installed()) {
-		if (method_exists($Plugin, 'form')) {
-			echo '<a class="configure" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$Plugin->className().'">'.$L->g('Settings').'</a>';
-			echo '<span class="separator"> | </span>';
+	<td class="align-middle pt-3 pb-3">
+		<div>'.$plugin->name().'</div>
+		<div class="mt-1">';
+
+		if ($plugin->installed()) {
+			if (method_exists($plugin, 'form')) {
+				echo '<a class="mr-3" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$plugin->className().'">'.$L->g('Settings').'</a>';
+			}
+			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$plugin->className().'">'.$L->g('Deactivate').'</a>';
+		} else {
+			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$plugin->className().'">'.$L->g('Activate').'</a>';
 		}
-		echo '<a class="uninstall" href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$Plugin->className().'">'.$L->g('Deactivate').'</a>';
-	} else {
-		echo '<a class="install" href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$Plugin->className().'">'.$L->g('Activate').'</a>';
-	}
 
-	echo '</div>';
+		echo '</div>';
 	echo '</td>';
 
-	echo '<td>';
-	echo $Plugin->description();
+	echo '<td class="align-middle">';
+		echo $plugin->description();
 	echo '</td>';
 
-	echo '<td class="uk-text-center">';
-	// if( !$Plugin->isCompatible() ) {
-	// 	echo '<i class="uk-icon-exclamation-triangle incompatible-warning" title="'.$L->g('This plugin may not be supported by this version of Bludit').'"></i>';
-	// }
-	echo '<span>'.$Plugin->version().'</span>';
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
+		echo '<span>'.$plugin->version().'</span>';
 	echo '</td>';
 
-	echo '<td class="uk-text-center"><a target="_blank" href="'.$Plugin->website().'">'.$Plugin->author().'</a></td>';
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">
+		<a target="_blank" href="'.$plugin->website().'">'.$plugin->author().'</a>
+	</td>';
 
 	echo '</tr>';
 }
 
 echo '
-</tbody>
+	</tbody>
 </table>
 ';

@@ -10,29 +10,33 @@ echo Bootstrap::formOpen(array());
 	));
 
 	echo Bootstrap::formInputHidden(array(
-		'name'=>'oldCategoryName',
-		'value'=>$categoryName
-	));
-
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'oldCategoryKey',
-		'value'=>$categoryKey
+		'name'=>'oldKey',
+		'value'=>$categoryMap['key']
 	));
 
 	echo Bootstrap::formInputTextBlock(array(
-		'name'=>'categoryName',
+		'name'=>'name',
 		'label'=>$L->g('Category name'),
-		'value'=>$categoryName,
+		'value'=>$categoryMap['name'],
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
 	));
 
 	echo Bootstrap::formInputGroupText(array(
-		'name'=>'categoryKey',
+		'name'=>'newKey',
 		'label'=>$L->g('Category key'),
 		'labelInside'=>DOMAIN_CATEGORIES,
-		'value'=>$categoryKey,
+		'value'=>$categoryMap['key'],
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputTextBlock(array(
+		'name'=>'template',
+		'label'=>$L->g('Category template'),
+		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
