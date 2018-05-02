@@ -158,17 +158,15 @@ class Page {
 
 	// Returns the raw content
 	// This content is not markdown parser
-	// (boolean) $noSanitize, TRUE returns the content without sanitized
-	public function contentRaw($noSanitize=true)
+	// (boolean) $sanitize, TRUE returns the content sanitized
+	public function contentRaw($sanitize=false)
 	{
 		// This content is not sanitized.
 		$content = $this->getValue('contentRaw');
-
-		if($noSanitize) {
-			return $content;
+		if ($sanitize) {
+			return Sanitize::html($content);
 		}
-
-		return Sanitize::html($content);
+		return $content;
 	}
 
 	// Returns the date according to locale settings and format settings
@@ -305,7 +303,7 @@ class Page {
 		$tmp['key'] 		= $this->key();
 		$tmp['title'] 		= $this->title();
 		$tmp['content'] 	= $this->content(); // Markdown parsed
-		$tmp['contentRaw'] 	= $this->contentRaw(); // No Markdown parsed
+		$tmp['contentRaw'] 	= $this->contentRaw(true); // No Markdown parsed
 		$tmp['description'] 	= $this->description();
 		$tmp['date'] 		= $this->dateRaw();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
@@ -437,13 +435,18 @@ class Page {
 	}
 
 	// Returns the parent key, if the page doesn't have a parent returns FALSE
+	public function parent()
+	{
+		return $this->parentKey();
+	}
+
+	// Returns the parent key, if the page doesn't have a parent returns FALSE
 	public function parentKey()
 	{
 		$explode = explode('/', $this->getValue('key'));
 		if (isset($explode[1])) {
 			return $explode[0];
 		}
-
 		return false;
 	}
 

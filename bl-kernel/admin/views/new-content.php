@@ -40,7 +40,8 @@
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'title',
 				'placeholder'=>'Enter title',
-				'class'=>'form-control-lg'
+				'class'=>'form-control-lg',
+				'value'=>''
 			));
 		?>
 
@@ -79,7 +80,8 @@
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
 				'placeholder'=>'https://',
-				'tip'=>'You can set a cover image from external URL, such as a CDN or some server dedicate for images.'
+				'value'=>'',
+				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicate for images.'
 			));
 		?>
 
@@ -87,8 +89,9 @@
 
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
-	<h4 class="mt-4 mb-3">General</h4>
 		<?php
+			echo Bootstrap::formTitle(array('title'=>'General'));
+
 			// Category
 			echo Bootstrap::formSelect(array(
 				'name'=>'category',
@@ -115,9 +118,9 @@
 				'placeholder'=>'Small description about the content',
 				'rows'=>'4'
 			));
-		?>
-		<h4 class="mt-4 mb-3">Advanced</h4>
-		<?php
+
+			echo Bootstrap::formTitle(array('title'=>'Advanced'));
+
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
