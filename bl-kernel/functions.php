@@ -394,6 +394,12 @@ function createPage($args) {
 	global $syslog;
 	global $Language;
 
+	// Check if the autosave page exists for this new page and delete it
+	$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+	if (!empty($pageKey)) {
+		deletePage($pageKey);
+	}
+
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
 	if ( empty($args['username']) ) {
@@ -440,6 +446,12 @@ function createPage($args) {
 function editPage($args) {
 	global $dbPages;
 	global $syslog;
+
+	// Check if the autosave page exists for this new page and delete it
+	$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+	if (!empty($pageKey)) {
+		deletePage($pageKey);
+	}
 
 	// Check the key is not empty
 	if (empty($args['key'])) {

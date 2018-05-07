@@ -10,9 +10,12 @@
 		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false">Options</a>
 	</li>
 </ul>
-<form class="tab-content mt-3" id="dynamicTabContent">
-
 	<?php
+		echo Bootstrap::formOpen(array(
+			'id'=>'jsform',
+			'class'=>'tab-content mt-4'
+		));
+
 		// Token CSRF
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'tokenCSRF',
@@ -23,6 +26,12 @@
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'parent',
 			'value'=>$page->parent()
+		));
+
+		// UUID
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'uuid',
+			'value'=>$dbPages->generateUUID()
 		));
 
 		// Status = published, draft, sticky, static
@@ -56,9 +65,9 @@
 		</div>
 
 		<div class="form-group mt-2">
-			<button type="button" class="btn btn-primary">Save</button>
+			<button type="submit" class="btn btn-primary">Save</button>
 			<button type="button" class="btn" id="jssaveAsDraft">Save as draft</button>
-			<button type="button" class="btn">Cancel</button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn"><?php echo $L->g('Cancel') ?></a>
 		</div>
 
 	</div>
@@ -109,18 +118,15 @@
 			echo Bootstrap::formSelect(array(
 				'name'=>'category',
 				'label'=>'Category',
-				'selected'=>'',
-				'options'=>array(
-					''=>'- Uncategorized -',
-					'music'=>'Music',
-					'videos'=>'Videos'
-				)
+				'selected'=>$page->categoryKey(),
+				'options'=>$dbCategories->getKeyNameArray()
 			));
 
 			// Tags
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
 				'label'=>'Tags',
+				'value'=>$page->tags(),
 				'placeholder'=>'Tags separeted by comma'
 			));
 
@@ -129,7 +135,8 @@
 				'name'=>'description',
 				'label'=>'Description',
 				'placeholder'=>'Small description about the content',
-				'rows'=>'4'
+				'rows'=>'4',
+				'value'=>$page->description()
 			));
 
 			echo Bootstrap::formTitle(array('title'=>'Advanced'));
@@ -146,7 +153,7 @@
 			echo Bootstrap::formSelect(array(
 				'name'=>'type',
 				'label'=>'Type',
-				'selected'=>'',
+				'selected'=>$page->status(),
 				'options'=>array(
 					''=>'- Default -',
 					'sticky'=>'Sticky',
@@ -158,7 +165,8 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
 				'label'=>'Parent',
-				'placeholder'=>'Start writing the title of the page parent'
+				'placeholder'=>'Start writing the title of the page parent',
+				'value'=>($page->parent()?$page->parentMethod('title'):'')
 			));
 
 			// Position
@@ -173,6 +181,7 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'slug',
 				'label'=>'Friendly URL',
+				'value'=>$page->slug(),
 				'placeholder'=>'Leave empty for automaticly complete'
 			));
 
@@ -180,7 +189,8 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'template',
 				'label'=>'Template',
-				'placeholder'=>''
+				'placeholder'=>'',
+				'value'=>$page->template()
 			));
 		?>
 
@@ -201,6 +211,18 @@ $(document).ready(function() {
 		var status = $("#jstype option:selected").val();
 		$("#jsstatus").val(status);
 	});
+
+	// Autosave
+	setInterval(
+		function() {
+			var uuid = $("#jsuuid").val();
+			var title = $("#jstitle").val();
+			var content = $("#jscontent").val();
+			var ajax = new bluditAjax()
+			ajax.autosave(uuid, title, content);
+		},
+		10*1000
+	);
 
 	// Template autocomplete
 	$('input[name="template"]').autoComplete({

@@ -22,7 +22,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 <?php
 	echo Bootstrap::formOpen(array(
 		'id'=>'dynamicTabContent',
-		'class'=>'tab-content mt-4',
+		'class'=>'tab-content mt-4'
 	));
 
 	// Token CSRF

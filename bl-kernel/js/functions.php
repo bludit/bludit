@@ -2,6 +2,40 @@
 
 var ajaxRequest;
 
+function autosave(title, content) {
+	var ajaxRequest;
+	
+    if(ajaxRequest) {
+        ajaxRequest.abort();
+    }
+
+    ajaxRequest = $.ajax({
+        type: "POST",
+        data: {
+            tokenCSRF: tokenCSRF, // token from env variables
+            title: title,
+            content: content
+        },
+        url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/save-as-draft' ?>"
+    });
+
+    // Callback handler that will be called on success
+    ajaxRequest.done(function (response, textStatus, jqXHR){
+        console.log("Autosave done.");
+    });
+
+    // Callback handler that will be called on failure
+    ajaxRequest.fail(function (jqXHR, textStatus, errorThrown){
+        console.log("Autosave error on ajax call.");
+    });
+
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    ajaxRequest.always(function () {
+        console.log("Autosave always.");
+    });
+}
+
 function generateSlug(text, parentKey, currentKey, writeResponse) {
     if(ajaxRequest) {
         ajaxRequest.abort();

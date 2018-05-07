@@ -10,9 +10,12 @@
 		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false">Options</a>
 	</li>
 </ul>
-<form class="tab-content mt-3" id="dynamicTabContent">
-
 	<?php
+		echo Bootstrap::formOpen(array(
+			'id'=>'jsform',
+			'class'=>'tab-content mt-4'
+		));
+
 		// Token CSRF
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'tokenCSRF',
@@ -23,6 +26,12 @@
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'parent',
 			'value'=>''
+		));
+
+		// UUID
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'uuid',
+			'value'=>$dbPages->generateUUID()
 		));
 
 		// Status = published, draft, sticky, static
@@ -50,9 +59,9 @@
 		</div>
 
 		<div class="form-group mt-2">
-			<button type="button" class="btn btn-primary">Save</button>
+			<button type="submit" class="btn btn-primary">Save</button>
 			<button type="button" class="btn" id="jssaveAsDraft">Save as draft</button>
-			<button type="button" class="btn">Cancel</button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn"><?php echo $L->g('Cancel') ?></a>
 		</div>
 
 	</div>
@@ -97,11 +106,7 @@
 				'name'=>'category',
 				'label'=>'Category',
 				'selected'=>'',
-				'options'=>array(
-					''=>'- Uncategorized -',
-					'music'=>'Music',
-					'videos'=>'Videos'
-				)
+				'options'=>$dbCategories->getKeyNameArray()
 			));
 
 			// Tags
@@ -125,7 +130,8 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
 				'label'=>'Date',
-				'placeholder'=>'YYYY-MM-DD hh:mm:ss'
+				'placeholder'=>'YYYY-MM-DD hh:mm:ss',
+				'value'=>Date::current(DB_DATE_FORMAT)
 			));
 
 			// Type
@@ -178,14 +184,35 @@ $(document).ready(function() {
 	// Button Save as draft
 	$("#jssaveAsDraft").on("click", function() {
 		$("#jsstatus").val("draft");
-		$("#dynamicTabContent").submit();
+		$("#jsform").submit();
 	});
 
-	// Type selector modiefied the status
+	// Type selector modified the status hidden field
 	$("#jstype").on("change", function() {
 		var status = $("#jstype option:selected").val();
 		$("#jsstatus").val(status);
 	});
+
+	// Generate slug when the user type the title
+	$("#jstitle").keyup(function() {
+		var text = $(this).val();
+		var parent = $("#jsparent").val();
+		var currentKey = "";
+		var ajax = new bluditAjax();
+		ajax.generateSlug(text, parent, currentKey, $("#jsslug"));
+	});
+
+	// Autosave interval
+	setInterval(function() {
+			var uuid = $("#jsuuid").val();
+			var title = $("#jstitle").val();
+			var content = editorGetContent();
+			var ajax = new bluditAjax();
+			// showAlert is the function to display an alert defined in alert.php
+			ajax.autosave(uuid, title, content, showAlert);
+		},
+		10*1000
+	);
 
 	// Template autocomplete
 	$('input[name="template"]').autoComplete({

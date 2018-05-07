@@ -3,8 +3,10 @@
 $listOfFiles = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], false);
 $listOfFilesByPage = array_chunk($listOfFiles, $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
 $preLoadFiles = array();
-foreach ($listOfFilesByPage[0] as $file) {
-	array_push($preLoadFiles, basename($file));
+if (!empty($listOfFilesByPage[0])) {
+	foreach ($listOfFilesByPage[0] as $file) {
+		array_push($preLoadFiles, basename($file));
+	}
 }
 // Amount of pages for the paginator
 $amountOfPages = count($listOfFilesByPage);
@@ -42,7 +44,7 @@ $amountOfPages = count($listOfFilesByPage);
 		<h3 class="mt-4 mb-3">Manage</h3>
 
 		<!-- Table for list files -->
-		<table id="jsbluditMediaTable" class="table"></table>
+		<table id="jsbluditMediaTable" class="table">There are not images.</table>
 
 		<!-- Paginator -->
 		<nav>
@@ -90,7 +92,7 @@ function displayFiles(files) {
 				'<td class="information">'+
 					'<div>'+filename+'</div>'+
 					'<div>'+
-						'<button onClick="insertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-link p-0 mr-2">Insert</button>'+
+						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-link p-0 mr-2">Insert</button>'+
 						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-link p-0 mr-2">Delete</button>'+
 					'</div>'+
 				'</td>'+

@@ -32,12 +32,18 @@ $script = <<<EOF
 var quill;
 
 // Function required for Media Manager to insert a file on the editor
-function insertMedia(filename) {
+function editorInsertMedia(filename) {
 	var Delta = Quill.import("delta");
 	quill.updateContents(new Delta()
 		.retain(quill.getSelection().index)
 		.insert('<img alt="'+filename+'" src="'+DOMAIN_UPLOADS+filename+'" />')
 	);
+}
+
+// Function required for Autosave function
+// Returns the content of the editor
+function editorGetContent() {
+	return quill.container.firstChild.innerHTML;
 }
 
 $(document).ready(function() {

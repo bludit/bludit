@@ -277,7 +277,7 @@ class Page {
 		return $this->getValue('description');
 	}
 
-	// Returns the tags
+	// Returns the tags separated by comma
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
 	public function tags($returnsArray=false)
 	{

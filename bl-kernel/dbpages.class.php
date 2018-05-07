@@ -77,7 +77,9 @@ class dbPages extends dbJSON
 		$key = $this->generateKey($args['slug'], $args['parent']);
 
 		// Generate UUID
-		$args['uuid'] = $this->generateUUID();
+		if (empty($args['uuid'])) {
+			$args['uuid'] = $this->generateUUID();
+		}
 
 		// Validate date
 		if (!Valid::date($args['date'], DB_DATE_FORMAT)) {
@@ -535,9 +537,30 @@ class dbPages extends dbJSON
 		return $a['date']<$b['date'];
 	}
 
-	private function generateUUID() {
+	function generateUUID() {
 		return md5( uniqid().time() );
 	}
+
+	// Returns the UUID of a page, by the page key
+	function getUUID($key)
+	{
+		if ($this->exists($key)) {
+			return $this->db[$key]['uuid'];
+		}
+		return false;
+	}
+
+	// Returns the page key by the uuid
+	function getByUUID($uuid)
+	{
+		foreach ($this->db as $key=>$value) {
+			if ($value['uuid']==$uuid) {
+				return $key;
+			}
+		}
+		return false;
+	}
+
 
 	// Returns string without HTML tags and truncated
 	private function generateSlug($text, $truncateLength=60) {

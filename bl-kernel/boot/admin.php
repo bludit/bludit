@@ -23,6 +23,9 @@ if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) )
     $_COOKIE	= array_map('stripslashes', $_COOKIE);
 }
 
+// Boot plugins rules
+include(PATH_RULES.'60.plugins.php');
+
 // --- AJAX ---
 if ($layout['slug']==='ajax') {
 	if ($Login->isLogged()) {
@@ -34,12 +37,12 @@ if ($layout['slug']==='ajax') {
 			include(PATH_AJAX.$layout['parameters'].'.php');
 		}
 	}
+	exit(0);
 }
 // --- ADMIN AREA ---
 else
 {
 	// Boot rules
-	include(PATH_RULES.'60.plugins.php');
 	include(PATH_RULES.'69.pages.php');
 	include(PATH_RULES.'99.header.php');
 	include(PATH_RULES.'99.paginator.php');

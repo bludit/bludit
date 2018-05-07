@@ -4,6 +4,18 @@ html {
 }
 
 /*
+	ALERT
+*/
+#alert {
+	display: none;
+	position: absolute;
+	right: 0px;
+	padding: 16px 90px;
+	border-radius: 0px;
+	border: 0;
+}
+
+/*
 	SIDEBAR
 */
 div.sidebar .nav-item a {

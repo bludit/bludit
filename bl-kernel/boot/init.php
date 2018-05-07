@@ -31,8 +31,7 @@ define('PATH_ABSTRACT',			PATH_KERNEL.'abstract'.DS);
 define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
 define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
 define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
-define('PATH_JS',			PATH_KERNEL.'js'.DS);
-define('PATH_CSS',			PATH_KERNEL.'css'.DS);
+define('PATH_CORE_JS',			PATH_KERNEL.'js'.DS);
 
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
