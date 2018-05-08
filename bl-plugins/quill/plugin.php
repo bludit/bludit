@@ -23,6 +23,8 @@ class pluginQuill extends Plugin {
 
 	public function adminBodyEnd()
 	{
+		// Load Quill only on the selected controllers to keep perfomance
+		// For example, in the dashboard is not going to be included the Quill CSS and JS scripts.
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}

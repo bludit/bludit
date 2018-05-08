@@ -271,6 +271,11 @@ class Page {
 		return $this->getValue('username');
 	}
 
+	public function template()
+	{
+		return $this->getValue('template');
+	}
+
 	// Returns the description field
 	public function description()
 	{

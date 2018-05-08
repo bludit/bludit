@@ -44,7 +44,11 @@ $amountOfPages = count($listOfFilesByPage);
 		<h3 class="mt-4 mb-3">Manage</h3>
 
 		<!-- Table for list files -->
-		<table id="jsbluditMediaTable" class="table">There are not images.</table>
+		<table id="jsbluditMediaTable" class="table">
+			<tr>
+				<td>There are not images.</td>
+			</tr>
+		</table>
 
 		<!-- Paginator -->
 		<nav>
@@ -69,11 +73,11 @@ echo 'var preLoadFiles = '.json_encode($preLoadFiles).';';
 ?>
 
 function openMediaManager() {
-	$('#jsbluditMediaModal').modal('show')
+	$('#jsbluditMediaModal').modal('show');
 }
 
 function closeMediaManager() {
-	$('#jsbluditMediaModal').modal('hide')
+	$('#jsbluditMediaModal').modal('hide');
 }
 
 // Remove all files from the table
@@ -90,10 +94,11 @@ function displayFiles(files) {
 		tableRow = '<tr id="js'+filename+'">'+
 				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="<?php echo HTML_PATH_UPLOADS_THUMBNAILS ?>'+filename+'" style="width: 50px; height: 50px;"></td>'+
 				'<td class="information">'+
-					'<div>'+filename+'</div>'+
+					'<div class="pb-2">'+filename+'</div>'+
 					'<div>'+
-						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-link p-0 mr-2">Insert</button>'+
-						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-link p-0 mr-2">Delete</button>'+
+						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Insert</button>'+
+						'<button onClick="setCoverImage(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Set as cover image</button>'+
+						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-sm float-right">Delete</button>'+
 					'</div>'+
 				'</td>'+
 			'</tr>';
@@ -122,6 +127,11 @@ function deleteMedia(filename) {
 		function(data) {
 			getFiles(1);
 	});
+}
+
+function setCoverImage(filename) {
+	$("#jscoverImage").val(filename);
+	$("#jscoverImagePreview").attr("src", HTML_PATH_UPLOADS_THUMBNAILS+filename);
 }
 
 $(document).ready(function() {
@@ -154,7 +164,7 @@ $(document).ready(function() {
 				return xhr;
 			}
 		}).done(function() {
-			// Get the files of the first page, this include the uploaded files
+			// Get the files of the first page, this include the files uploaded
 			getFiles(1);
 		});
 	});

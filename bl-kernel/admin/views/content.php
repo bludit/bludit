@@ -145,10 +145,10 @@ function table($status) {
 		<a class="nav-link" id="sticky-tab" data-toggle="tab" href="#sticky" role="tab">Sticky</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab">Scheduled</a>
+		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab">Schedule <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab">Draft</a>
+		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab">Draft <?php if (count($drafts)>0) { echo '<span class="badge badge-danger">'.count($drafts).'</span>'; } ?></a>
 	</li>
 </ul>
 <div class="tab-content">

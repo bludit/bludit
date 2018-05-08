@@ -407,11 +407,11 @@ function createPage($args) {
 		return false;
 	}
 
-	// External Cover Image
-	if ( !empty($args['externalCoverImage']) ) {
-		$args['coverImage'] = $args['externalCoverImage'];
-		unset($args['externalCoverImage']);
-	}
+	// // External Cover Image
+	// if ( !empty($args['externalCoverImage']) ) {
+	// 	$args['coverImage'] = $args['externalCoverImage'];
+	// 	unset($args['externalCoverImage']);
+	// }
 
 	$key = $dbPages->add($args);
 	if ($key) {
@@ -465,11 +465,11 @@ function editPage($args) {
 		return false;
 	}
 
-	// External Cover Image
-	if (!empty($args['externalCoverImage'])) {
-		$args['coverImage'] = $args['externalCoverImage'];
-		unset($args['externalCoverImage']);
-	}
+	// // External Cover Image
+	// if (!empty($args['externalCoverImage'])) {
+	// 	$args['coverImage'] = $args['externalCoverImage'];
+	// 	unset($args['externalCoverImage']);
+	// }
 
 	// Title and content need to be here because from inside the dbPages is not visible
 	if (empty($args['title']) || empty($args['content'])) {

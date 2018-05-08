@@ -31,7 +31,7 @@
 		// UUID
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'uuid',
-			'value'=>$dbPages->generateUUID()
+			'value'=>$page->uuid()
 		));
 
 		// Status = published, draft, sticky, static
@@ -44,6 +44,12 @@
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'key',
 			'value'=>$page->key()
+		));
+
+		// Cover image
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'coverImage',
+			'value'=>$page->coverImage()
 		));
 	?>
 
@@ -65,8 +71,8 @@
 		</div>
 
 		<div class="form-group mt-2">
-			<button type="submit" class="btn btn-primary">Save</button>
-			<button type="button" class="btn" id="jssaveAsDraft">Save as draft</button>
+			<button id="jsbuttonSave" type="submit" class="btn btn-primary"><?php echo $page->draft()?$L->g('Publish'):$L->g('Save') ?></button>
+			<button id="jsbuttonDraft" type="button" class="btn"><?php echo $L->g('Save as draft') ?></button>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn"><?php echo $L->g('Cancel') ?></a>
 		</div>
 
@@ -200,28 +206,48 @@
 <script>
 $(document).ready(function() {
 
-	// Button Save as draft
-	$("#jssaveAsDraft").on("click", function() {
-		$("#jsstatus").val("draft");
-		$("#dynamicTabContent").submit();
+	// Button Save
+	$("#jsbuttonSave").on("click", function() {
+		$("#jsstatus").val("published");
+		$("#jsform").submit();
 	});
 
-	// Type selector modiefied the status
+	// Button Save as draft
+	$("#jsbuttonDraft").on("click", function() {
+		$("#jsstatus").val("draft");
+		$("#jsform").submit();
+	});
+
+	// External cover image
+	$("#jsexternalCoverImage").change(function() {
+		$("#jscoverImage").val( $(this).val() );
+	});
+
+	// Type selector modified the status hidden field
 	$("#jstype").on("change", function() {
 		var status = $("#jstype option:selected").val();
 		$("#jsstatus").val(status);
 	});
 
-	// Autosave
-	setInterval(
-		function() {
+	// Generate slug when the user type the title
+	$("#jstitle").keyup(function() {
+		var text = $(this).val();
+		var parent = $("#jsparent").val();
+		var currentKey = "";
+		var ajax = new bluditAjax();
+		ajax.generateSlug(text, parent, currentKey, $("#jsslug"));
+	});
+
+	// Autosave interval
+	setInterval(function() {
 			var uuid = $("#jsuuid").val();
 			var title = $("#jstitle").val();
-			var content = $("#jscontent").val();
-			var ajax = new bluditAjax()
-			ajax.autosave(uuid, title, content);
+			var content = editorGetContent();
+			var ajax = new bluditAjax();
+			// showAlert is the function to display an alert defined in alert.php
+			ajax.autosave(uuid, title, content, showAlert);
 		},
-		10*1000
+		60*1000*<?php echo $GLOBALS['AUTOSAVE_TIME'] ?>
 	);
 
 	// Template autocomplete
