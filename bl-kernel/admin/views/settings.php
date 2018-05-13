@@ -105,12 +105,12 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formTitle(array('title'=>$L->g('Predefined pages')));
 
-		echo Bootstrap::formSelect(array(
+		echo Bootstrap::formInputText(array(
 			'name'=>'homepage',
 			'label'=>$L->g('Homepage'),
-			'options'=>array(),//$homepageOptions,
-			'selected'=>$Site->homepage(),
+			'value'=>(Text::isEmpty($Site->homepage())?'':$Site->homepage()),
 			'class'=>'',
+			'placeholder'=>'Start writing the title of the page',
 			'tip'=>$L->g('Returning page for the main page')
 		));
 
@@ -334,3 +334,46 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 <?php
 	echo Bootstrap::formClose();
 ?>
+
+<script>
+$(document).ready(function() {
+
+	// Parent autocomplete
+	var homepageXHR;
+	var homepageList; // Keep the parent list returned to get the key by the title page
+	$("#jshomepage").autoComplete({
+		minChars: 1,
+		source: function(term, response) {
+			// Prevent call inmediatly another ajax request
+			try { homepageXHR.abort(); } catch(e){}
+			homepageXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
+				function(data) {
+					homepageList = data;
+					term = term.toLowerCase();
+					var matches = [];
+					for (var title in data) {
+						if (~title.toLowerCase().indexOf(term))
+							matches.push(title);
+					}
+					response(matches);
+			});
+		},
+		onSelect: function(e, term, item) {
+			// homepageList = array( pageTitle => pageKey )
+			var pageKey = homepageList[term];
+			$("#jsparent").attr("value", pageKey);
+		}
+	});
+
+	$("#jshomepage").change(function() {
+		if ($(this).val()) {
+			$("#jsuriBlog").removeAttr('disabled');
+			$("#jsuriBlog").attr('value', '/blog/');
+		} else {
+			$("#jsuriBlog").attr('value', '');
+			$("#jsuriBlog").attr('disabled', 'disabled');
+		}
+	});
+
+});
+</script>

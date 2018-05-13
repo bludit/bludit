@@ -300,6 +300,35 @@ class dbPages extends dbJSON
 		return true;
 	}
 
+	// Delete all pages from a user
+	public function deletePagesByUser($args)
+	{
+		$username = $args['username'];
+
+		foreach ($this->db as $key=>$fields) {
+			if ($fields['username']===$username) {
+				$this->delete($key);
+			}
+		}
+
+		return true;
+	}
+
+	// Link all pages to a new user
+	public function transferPages($args)
+	{
+		$oldUsername = $args['oldUsername'];
+		$newUsername = isset($args['newUsername']) ? $args['newUsername'] : 'admin';
+
+		foreach ($this->db as $key=>$fields) {
+			if ($fields['username']===$oldUsername) {
+				$this->db[$key]['username'] = $newUsername;
+			}
+		}
+
+		return $this->save();
+	}
+
 	// Change a field's value
 	public function setField($key, $field, $value)
 	{

@@ -85,18 +85,18 @@
 			echo Bootstrap::formTitle(array('title'=>'Cover image'));
 		?>
 
-		<img id="jscoverImagePreview" style="width: 300px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1627e1b2b7e%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1627e1b2b7e%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4296875%22%20y%3D%22104.65%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" />
+		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
 
 		<?php
-			echo Bootstrap::formTitle(array('title'=>'External cover image'));
+			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover Image')));
 		?>
 
 		<?php
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
-				'placeholder'=>'https://',
-				'value'=>'',
-				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicate for images.'
+				'tip'=>$L->g('Full image URL'),
+				'placeholder'=>"https://",
+				'value'=>''
 			));
 		?>
 
@@ -155,21 +155,23 @@
 			// Parent
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
-				'label'=>'Parent',
+				'label'=>$L->g('Parent'),
 				'placeholder'=>'Start writing the title of the page parent'
 			));
 
 			// Position
 			echo Bootstrap::formInputText(array(
 				'name'=>'position',
-				'label'=>'Position',
-				'placeholder'=>''
+				'label'=>$L->g('Position'),
+				'tip'=>$L->g('This field is used when you order the content by position'),
+				'value'=>$dbPages->nextPositionNumber()
 			));
 
 			// Friendly URL
 			echo Bootstrap::formInputText(array(
 				'name'=>'slug',
-				'label'=>'Friendly URL',
+				'tip'=>$L->g('URL associated with the content'),
+				'label'=>$L->g('Friendly URL'),
 				'placeholder'=>'Leave empty for automaticly complete'
 			));
 
@@ -248,10 +250,11 @@ $(document).ready(function() {
 	var parentsXHR;
 	var parentsList; // Keep the parent list returned to get the key by the title page
 	$("#jsparentTMP").autoComplete({
+		minChars: 1,
 		source: function(term, response) {
 			// Prevent call inmediatly another ajax request
 			try { parentsXHR.abort(); } catch(e){}
-			parentsXHR = $.getJSON("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/get-parents", {query: term},
+			parentsXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-parents", {query: term},
 				function(data) {
 					parentsList = data;
 					term = term.toLowerCase();
@@ -264,6 +267,7 @@ $(document).ready(function() {
 			});
 		},
 		onSelect: function(e, term, item) {
+			// parentsList = array( pageTitle => pageKey )
 			var parentKey = parentsList[term];
 			$("#jsparent").attr("value", parentKey);
 		}

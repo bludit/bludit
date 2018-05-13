@@ -532,75 +532,86 @@ function deletePage($key) {
 	return false;
 }
 
-function disableUser($username) {
-	global $dbUsers;
-	global $Login;
-	global $syslog;
-
-	// The editors can't disable users
-	if($Login->role()!=='admin') {
-		return false;
-	}
-
-	if( $dbUsers->disableUser($username) ) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'user-disabled',
-			'notes'=>$username
-		));
-
-		return true;
-	}
-
-	return false;
-}
-
 function editUser($args) {
 	global $dbUsers;
 	global $syslog;
 
-	if( $dbUsers->set($args) ) {
-		// Add to syslog
+	if ($dbUsers->set($args)) {
 		$syslog->add(array(
 			'dictionaryKey'=>'user-edited',
 			'notes'=>$args['username']
 		));
-
 		return true;
 	}
 
 	return false;
 }
 
-function deleteUser($args, $deleteContent=false) {
+function disableUser($args) {
 	global $dbUsers;
 	global $Login;
 	global $syslog;
 
+	// Arguments
+	$username = $args['username'];
+
+	// Only administrators can disable users
+	if ($Login->role()!=='admin') {
+		return false;
+	}
+
+	// Check if the username exists
+	if (!$dbUsers->exists($username)) {
+		return false;
+	}
+
+	// Disable the user
+	if ($dbUsers->disableUser($username)) {
+		$syslog->add(array(
+			'dictionaryKey'=>'user-disabled',
+			'notes'=>$username
+		));
+		return true;
+	}
+
+	return false;
+}
+
+function deleteUser($args) {
+	global $dbUsers, $dbPages;
+	global $Login;
+	global $syslog;
+
+	// Arguments
+	$username = $args['username'];
+	$deleteContent = isset($args['deleteContent']) ? $args['deleteContent'] : false;
+
+	// Only administrators can delete users
+	if ($Login->role()!=='admin') {
+		return false;
+	}
+
 	// The user admin cannot be deleted
-	if($args['username']=='admin') {
+	if ($username=='admin') {
 		return false;
 	}
 
-	// The editors can't delete users
-	if($Login->role()!=='admin') {
+	// Check if the username exists
+	if (!$dbUsers->exists($username)) {
 		return false;
 	}
 
-	if($deleteContent) {
-		//$dbPosts->deletePostsByUser($args['username']);
-	}
-	else {
-		//$dbPosts->linkPostsToUser($args['username'], 'admin');
+	if ($deleteContent) {
+		$dbPages->deletePagesByUser(array('username'=>$username));
+	} else {
+		$dbPages->transferPages(array('oldUsername'=>$username));
 	}
 
-	if( $dbUsers->delete($args['username']) ) {
-		// Add to syslog
+	if ($dbUsers->delete($username)) {
 		$syslog->add(array(
 			'dictionaryKey'=>'user-deleted',
-			'notes'=>$args['username']
+			'notes'=>$username
 		));
-
 		return true;
 	}
 

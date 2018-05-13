@@ -13,10 +13,9 @@ class User
 
 	public function getField($field)
 	{
-		if(isset($this->db[$field])) {
+		if (isset($this->db[$field])) {
 			return $this->db[$field];
 		}
-
 		return false;
 	}
 
@@ -54,7 +53,6 @@ class User
 	public function enabled()
 	{
 		$password = $this->getField('password');
-
 		return $password != '!';
 	}
 

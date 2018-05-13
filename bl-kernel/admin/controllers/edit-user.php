@@ -19,20 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		unset($_POST['role']);
 	}
 
-	if (isset($_POST['delete-user-all'])) {
-		deleteUser($_POST, $deleteContent=true);
-	}
-	elseif (isset($_POST['delete-user-associate'])) {
-		deleteUser($_POST, $deleteContent=false);
-	}
-	elseif (isset($_POST['disable-user'])) {
-		disableUser($_POST['username']);
-	}
-	else {
+	if (isset($_POST['deleteUserAndDeleteContent'])) {
+		$_POST['deleteContent'] = true;
+		deleteUser($_POST);
+	} elseif (isset($_POST['deleteUserAndKeepContent'])) {
+		$_POST['deleteContent'] = false;
+		deleteUser($_POST);
+	} elseif (isset($_POST['disableUser'])) {
+		disableUser(array('username'=>$_POST['username']));
+	} else {
 		editUser($_POST);
 	}
 
 	Alert::set($Language->g('The changes have been saved'));
+	Redirect::page('users');
 }
 
 // ============================================================================
@@ -40,16 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Prevent non-administrators to change other users
-if($Login->role()!=='admin') {
+if ($Login->role()!=='admin') {
 	$layout['parameters'] = $Login->username();
 }
 
-$User = $dbUsers->getUser($layout['parameters']);
-
-// If the user doesn't exist, redirect to the users list.
-if($User===false) {
+// Get the user to edit
+$user = $dbUsers->get($layout['parameters']);
+if ($user===false) {
 	Redirect::page('users');
 }
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Edit user');
+$layout['title'] = $Language->g('Edit user').' - '.$layout['title'];

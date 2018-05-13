@@ -7,7 +7,7 @@ echo '
 	<thead>
 		<tr>
 			<th class="border-bottom-0 w-25" scope="col">'.$L->g('Name').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Description').'</th>
+			<th class="border-bottom-0 d-none d-sm-table-cell" scope="col">'.$L->g('Description').'</th>
 			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Version').'</th>
 			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Author').'</th>
 		</tr>
@@ -32,7 +32,7 @@ foreach ($themes as $theme) {
 		</td>
 	';
 
-	echo '<td class="align-middle">';
+	echo '<td class="align-middle d-none d-sm-table-cell">';
 	echo $theme['description'];
 	echo '</td>';
 

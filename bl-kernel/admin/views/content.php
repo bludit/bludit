@@ -59,7 +59,7 @@ function table($status) {
 			<tr>
 				<th class="border-0" scope="col">'.$Language->g('Title').'</th>
 				<th class="border-0 d-none d-lg-table-cell" scope="col">'.$Language->g('URL').'</th>
-				<th class="border-0 text-center" scope="col">'.( ((ORDER_BY=='position') || ($status!='published'))?$Language->g('Position'):$Language->g('Creation date')).'</th>
+				<th class="border-0 text-center d-none d-sm-table-cell" scope="col">'.( ((ORDER_BY=='position') || ($status!='published'))?$Language->g('Position'):$Language->g('Creation date')).'</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -80,7 +80,7 @@ function table($status) {
 					$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
 					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
-					echo '<td class="text-center">'.$page->position().'</td>';
+					echo '<td class="text-center d-none d-sm-table-cell">'.$page->position().'</td>';
 
 					echo '</tr>';
 
@@ -118,7 +118,7 @@ function table($status) {
 				$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
 				echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
-				echo '<td class="text-center">'.( ((ORDER_BY=='position') || ($status!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';
+				echo '<td class="text-center d-none d-sm-table-cell">'.( ((ORDER_BY=='position') || ($status!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';
 
 				echo '</tr>';
 			}

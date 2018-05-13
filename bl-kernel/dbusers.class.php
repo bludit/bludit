@@ -29,10 +29,8 @@ class dbUsers extends dbJSON
 	// Disable the user
 	public function disableUser($username)
 	{
-		$args['username'] = $username;
-		$args['password'] = '!';
-
-		return $this->set($args);
+		$this->db[$username]['password'] = '!';
+		return $this->save();
 	}
 
 	// Return TRUE if the user exists, FALSE otherwise
@@ -85,7 +83,7 @@ class dbUsers extends dbJSON
 		}
 
 		// Set a new password
-		if (!empty($args['password']) && $args['password'] !== '!') {
+		if (!empty($args['password'])) {
 			$user['salt'] = $this->generateSalt();
 			$user['password'] = $this->generatePasswordHash($args['password'], $user['salt']);
 			$user['tokenAuth'] = $this->generateAuthToken();
@@ -103,7 +101,14 @@ class dbUsers extends dbJSON
 		return $this->save();
 	}
 
+	// DEPRECATED
 	public function getUser($username)
+	{
+		return $this->get($username);
+	}
+
+	// Returns an User Object
+	public function get($username)
 	{
 		if ($this->exists($username)) {
 			$User = new User();
