@@ -728,6 +728,39 @@ function editSettings($args) {
 	return false;
 }
 
+function changeUserPassword($args) {
+	global $dbUsers;
+	global $Language;
+	global $Syslog;
+
+	// Arguments
+	$username = $args['username'];
+	$newPassword = $args['newPassword'];
+	$confirmPassword = $args['confirmPassword'];
+
+	// Password length
+	if (Text::length($newPassword) < 6) {
+		Alert::set($Language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
+		return false;
+	}
+
+	if ($newPassword!=$confirmPassword) {
+		Alert::set($Language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
+		return false;
+	}
+
+	if ($dbUsers->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
+		$Syslog->add(array(
+			'dictionaryKey'=>'user-password-changed',
+			'notes'=>$username
+		));
+		Alert::set($Language->g('The changes have been saved'), ALERT_STATUS_OK);
+		return true;
+	}
+
+	return false;
+}
+
 // Add a new category to the system
 // Returns TRUE is successfully added, FALSE otherwise
 function createCategory($category) {

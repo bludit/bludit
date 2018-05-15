@@ -149,11 +149,10 @@ class dbUsers extends dbJSON
 		return $this->set($args);
 	}
 
-	public function setPassword($username, $password)
+	// Change user password
+	// args => array( username, password )
+	public function setPassword($args)
 	{
-		$args['username']	= $username;
-		$args['password']	= $password;
-
 		return $this->set($args);
 	}
 

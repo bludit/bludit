@@ -1,55 +1,56 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Change password'), 'icon'=>'key'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Change password'), 'icon'=>'person'));
 
-HTML::formOpen(array('id'=>'edit-user-profile-form','class'=>'uk-form-horizontal'));
+echo Bootstrap::formOpen(array());
 
-	// Security token
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$Security->getTokenCSRF()
 	));
 
-	// Hidden field username
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'username',
-		'value'=>$_user['username']
+		'value'=>$user->username()
 	));
 
-	HTML::legend(array('value'=>$L->g('New password'), 'class'=>'first-child'));
-
-	HTML::formInputText(array(
-		'name'=>'usernameDisable',
+	echo Bootstrap::formInputText(array(
+		'name'=>'usernameDisabled',
 		'label'=>$L->g('Username'),
-		'value'=>$_user['username'],
-		'class'=>'uk-width-1-2 uk-form-medium',
+		'value'=>$user->username(),
+		'class'=>'',
+		'placeholder'=>'',
 		'disabled'=>true,
 		'tip'=>''
 	));
 
-	HTML::formInputPassword(array(
-		'name'=>'new_password',
+	echo Bootstrap::formInputText(array(
+		'name'=>'newPassword',
 		'label'=>$L->g('New password'),
+		'type'=>'password',
 		'value'=>'',
-		'class'=>'uk-width-1-2 uk-form-medium',
+		'class'=>'',
+		'placeholder'=>'',
 		'tip'=>''
 	));
 
-	HTML::formInputPassword(array(
-		'name'=>'confirm_password',
-		'label'=>$L->g('Confirm password'),
+	echo Bootstrap::formInputText(array(
+		'name'=>'confirmPassword',
+		'label'=>$L->g('Confirm new password'),
+		'type'=>'password',
 		'value'=>'',
-		'class'=>'uk-width-1-2 uk-form-medium',
+		'class'=>'',
+		'placeholder'=>'',
 		'tip'=>''
 	));
 
-	echo '<div class="uk-form-row">
-		<div class="uk-form-controls">
-		<button type="submit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$_user['username'].'" class="uk-button">'.$L->g('Cancel').'</a>
-		</div>
-	</div>';
+	echo '
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'users" role="button">'.$L->g('Cancel').'</a>
+	</div>
+	';
 
-HTML::formClose();
+echo Bootstrap::formClose();
 
 ?>

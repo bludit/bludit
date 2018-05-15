@@ -44,6 +44,17 @@ echo Bootstrap::formOpen(array());
 		'tip'=>''
 	));
 
+	echo Bootstrap::formTitle(array('title'=>$L->g('Password')));
+
+	echo '
+	<div class="form-group row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-10">
+		<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$user->username().'" class="btn btn-primary mr-2">'.$L->g('Change password').'</a>
+	</div>
+	</div>
+	';
+
 	echo Bootstrap::formTitle(array('title'=>$L->g('Authentication Token')));
 
 	echo Bootstrap::formInputText(array(
