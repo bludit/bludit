@@ -16,7 +16,7 @@ class pluginAbout extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 

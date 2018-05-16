@@ -1,11 +1,10 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$plugin->name(), 'icon'=>'puzzle-piece'));
+echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'person'));
 
-HTML::formOpen(array('id'=>'jsformplugin'));
+echo Bootstrap::formOpen(array('class'=>'plugin-form'));
 
-	// Security token
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$Security->getTokenCSRF()
 	));
@@ -13,12 +12,13 @@ HTML::formOpen(array('id'=>'jsformplugin'));
 	// Print the plugin form
 	echo $plugin->form();
 
-	if($plugin->formButtons()) {
-		// Form buttons
-		echo '<div class="uk-form-row uk-margin-bottom">
-			<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
-			<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'plugins">'.$L->g('Cancel').'</a>
-		</div>';
+	if ($plugin->formButtons()) {
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'plugins" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
 	}
 
-HTML::formClose();
+echo Bootstrap::formClose();

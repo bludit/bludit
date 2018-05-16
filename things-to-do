@@ -10,7 +10,7 @@ Search and select a page
 not implementd
 
 - manage->users->edit user
-not implementd
+Change profile image
 
 - add more users roles
 
@@ -18,3 +18,7 @@ not implementd
 not implemented
 
 - if you are editing a page autosave, the autosave need to be the same
+
+- new content -> options -> Advanced
+-- date, javascript for select the date
+--
