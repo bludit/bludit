@@ -36,6 +36,7 @@ var quill;
 // Function required for Media Manager to insert a file on the editor
 function editorInsertMedia(filename) {
 	var Delta = Quill.import("delta");
+	quill.focus();
 	quill.updateContents(new Delta()
 		.retain(quill.getSelection().index)
 		.insert('<img alt="'+filename+'" src="'+DOMAIN_UPLOADS+filename+'" />')
