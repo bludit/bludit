@@ -761,6 +761,28 @@ function changeUserPassword($args) {
 	return false;
 }
 
+// Returns true if the user is allowed to procceded
+function checkRole($allowRoles, $redirect=true) {
+	global $Login;
+	global $Language;
+	global $syslog;
+
+	$userRole = $Login->role();
+	if (in_array($userRole, $allowRoles)) {
+		return true;
+	}
+
+	if ($redirect) {
+		$Syslog->add(array(
+			'dictionaryKey'=>'access-deny',
+			'notes'=>$Login->username()
+		));
+		Alert::set($Language->g('You do not have sufficient permissions'));
+		Redirect::page('dashboard');
+	}
+	return false;
+}
+
 // Add a new category to the system
 // Returns TRUE is successfully added, FALSE otherwise
 function createCategory($category) {

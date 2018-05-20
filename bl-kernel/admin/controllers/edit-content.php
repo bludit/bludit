@@ -4,6 +4,19 @@
 // Check role
 // ============================================================================
 
+if (!checkRole(array('admin','moderator'), false)) {
+	$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
+	$page = buildPage($pageKey);
+	if (!$page || $page->username()!==$Login->username()) {
+		$Syslog->add(array(
+			'dictionaryKey'=>'access-deny',
+			'notes'=>$Login->username()
+		));
+		Alert::set($Language->g('You do not have sufficient permissions'));
+		Redirect::page('dashboard');
+	}
+}
+
 // ============================================================================
 // Functions
 // ============================================================================
