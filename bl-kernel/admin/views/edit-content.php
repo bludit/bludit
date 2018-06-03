@@ -13,7 +13,7 @@
 	<?php
 		echo Bootstrap::formOpen(array(
 			'id'=>'jsform',
-			'class'=>'tab-content mt-4'
+			'class'=>'tab-content mt-1'
 		));
 
 		// Token CSRF
@@ -56,18 +56,12 @@
 	<!-- TABS CONTENT -->
 	<div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
 
-		<?php
-			// Title
-			echo Bootstrap::formInputTextBlock(array(
-				'name'=>'title',
-				'placeholder'=>'Enter title',
-				'class'=>'form-control-lg',
-				'value'=>$page->title()
-			));
-		?>
+		<div class="form-group m-0">
+			<input value="<?php echo $page->title() ?>" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="Enter title" type="text">
+		</div>
 
-		<div class="form-group mt-2">
-			<div id="jscontent" name="content"><?php echo $page->contentRaw(true) ?></div>
+		<div class="form-group mt-1">
+			<div id="jscontent" name="content"><?php echo $page->contentRaw(false) ?></div>
 		</div>
 
 		<div class="form-group mt-2">
@@ -246,9 +240,7 @@ $(document).ready(function() {
 			var ajax = new bluditAjax();
 			// showAlert is the function to display an alert defined in alert.php
 			ajax.autosave(uuid, title, content, showAlert);
-		},
-		60*1000*<?php echo $GLOBALS['AUTOSAVE_TIME'] ?>
-	);
+	},1000*60*<?php echo $GLOBALS['AUTOSAVE_TIME'] ?>);
 
 	// Template autocomplete
 	$('input[name="template"]').autoComplete({

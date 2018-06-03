@@ -36,6 +36,8 @@ class Date {
 		return self::translate($output);
 	}
 
+	// Returns the current time shifted by offset
+	// $offest could be +1 day, +1 month
 	public static function currentOffset($format, $offset)
 	{
 		$Date = new DateTime();

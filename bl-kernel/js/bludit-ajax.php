@@ -1,5 +1,7 @@
 class bluditAjax {
 
+	// Autosave works only when the content has more than 100 characters
+	// callBack function need to be showAlert() is the function to display an alert defined in alert.php
 	autosave(uuid, title, content, callBack) {
 		var ajaxRequest;
 		if (ajaxRequest) {

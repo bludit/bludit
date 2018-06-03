@@ -1,5 +1,10 @@
 <!-- Use .flex-column to set a vertical direction -->
 <ul class="nav flex-column pt-4">
+
+	<li class="nav-item mb-4">
+		<img src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" width="20" height="20"  alt=""> BLUDIT
+	</li>
+
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="oi oi-dashboard"></span><?php $L->p('Dashboard') ?></a>
 	</li>

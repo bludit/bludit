@@ -50,7 +50,7 @@
 <?php include('html/alert.php'); ?>
 
 <!-- TOPBAR -->
-<?php include('html/topbar.php'); ?>
+<?php #include('html/topbar.php'); ?>
 
 <div class="container">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->

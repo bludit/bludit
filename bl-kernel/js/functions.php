@@ -1,10 +1,13 @@
 <script>
 
+// DEPRECATED
+// ALL THIS FUNCTIONS IS DEPREACTED
+
 var ajaxRequest;
 
 function autosave(title, content) {
 	var ajaxRequest;
-	
+
     if(ajaxRequest) {
         ajaxRequest.abort();
     }

@@ -4,6 +4,81 @@ html {
 }
 
 /*
+	BOOTSTRAP Hacks
+*/
+
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1250px;
+	}
+}
+
+a {
+	color: #4a90e2;
+}
+
+a:hover {
+	color: #4a90e2;
+}
+
+.btn {
+	border-radius: 2px;
+}
+
+.btn-primary {
+	background-color: #4F93E0;
+	border-color: #4a90e2;
+}
+
+.btn-primary:hover {
+	background-color: #4585CF;
+	border-color: #4a90e2;
+}
+
+/*
+	DASHBOARD
+*/
+
+#dashboard ul.list-group.list-group-striped li {
+	border: none;
+}
+
+#dashboard ul.list-group.list-group-striped li:nth-of-type(even) {
+	background: #f1f1f1;
+
+}
+
+#dashboard div.quick-links-icons {
+	font-size: 3em;
+	width: 100%;
+}
+
+#dashboard a.quick-links {
+	color: #777;
+}
+
+#dashboard a.quick-links:hover {
+	text-decoration: none;
+	color: #4586d4;
+}
+
+.ct-series-a .ct-line {
+	/* Set the colour of this series line */
+	stroke: #4a90e2;
+	/* Control the thikness of your lines */
+	stroke-width: 2px;
+	/* Create a dashed line with a pattern */
+}
+
+/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+.ct-series-a .ct-point {
+	/* Colour of your points */
+	stroke: #4a90e2;
+	/* Size of your points */
+	stroke-width: 8px;
+}
+
+/*
 	ALERT
 */
 #alert {
