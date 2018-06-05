@@ -1,45 +1,61 @@
-<!DOCTYPE HTML>
-<html class="uk-height-1-1 uk-notouch">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="<?php echo CHARSET ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="robots" content="noindex,nofollow">
-
 	<title>Bludit</title>
+	<meta charset="<?php echo CHARSET ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="robots" content="noindex,nofollow">
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_ADMIN_THEME.'img/favicon.png?version='.BLUDIT_VERSION ?>">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/uikit/uikit.almost-flat.min.css?version='.BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_ADMIN_THEME.'css/login.css?version='.BLUDIT_VERSION ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo HTML_PATH_CORE_CSS.'font-awesome/css/font-awesome.min.css?version='.BLUDIT_VERSION ?>">
+	<?php
+		echo Bootstrap::css(array(
+			'bootstrap.min.css',
+			'jquery-auto-complete.css',
+			'open-iconic-master/font/css/open-iconic-bootstrap.min.css',
+			'bludit.css'
+		));
+	?>
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="<?php echo HTML_PATH_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION ?>"></script>
-	<script charset="utf-8" src="<?php echo HTML_PATH_ADMIN_THEME.'js/uikit/uikit.min.js?version='.BLUDIT_VERSION ?>"></script>
+	<?php
+		echo Bootstrap::js(array(
+			'jquery.min.js',
+			'jquery-auto-complete.min.js',
+			'bootstrap-bundle.min.js'
+		));
+	?>
+
+	<!-- Javascript -->
+	<?php
+		echo '<script>';
+		include(PATH_CORE_JS.'bludit-ajax.php');
+		echo '</script>';
+	?>
 
 	<!-- Plugins -->
 	<?php Theme::plugins('loginHead') ?>
 </head>
-<body class="uk-height-1-1">
+<body class="login">
 
 <!-- Plugins -->
 <?php Theme::plugins('loginBodyBegin') ?>
 
-<div class="uk-vertical-align uk-text-center uk-height-1-1">
-<div class="uk-vertical-align-middle login-box">
-<h1>BLUDIT</h1>
-<?php
-	if (Alert::defined()) {
-		echo '<div class="uk-alert uk-alert-danger">'.Alert::get().'</div>';
-	}
+<!-- Alert -->
+<?php include('html/alert.php'); ?>
 
-	if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
-		include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
-	}
-?>
-</div>
+<div class="container">
+	<div class="row justify-content-md-center pt-5">
+		<div class="col-4 pt-5">
+		<?php
+			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
+				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
+			}
+		?>
+		</div>
+	</div>
 </div>
 
 <!-- Plugins -->

@@ -59,7 +59,7 @@ class dbPages extends dbJSON
 			$args['tags'] = array();
 		}
 
-		// Slug from title or content
+		// Slug from the title or the content
 		if (empty($args['slug'])) {
 			if (!empty($args['title'])) {
 				$args['slug'] = $this->generateSlug($args['title']);

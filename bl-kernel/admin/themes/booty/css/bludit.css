@@ -1,6 +1,7 @@
 
 html {
 	font-size: 0.9em;
+	height: 100%;
 }
 
 /*
@@ -34,6 +35,16 @@ a:hover {
 	background-color: #4585CF;
 	border-color: #4a90e2;
 }
+
+/*
+	LOGIN
+*/
+body.login {
+	background: rgb(255,255,255);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
+	height: 100%;
+}
+
 
 /*
 	DASHBOARD
@@ -83,11 +94,22 @@ a:hover {
 */
 #alert {
 	display: none;
-	position: absolute;
-	right: 0px;
-	padding: 16px 90px;
+	position: fixed;
+	text-align: center;
 	border-radius: 0px;
 	border: 0;
+	z-index: 1000;
+	width: 100%;
+}
+
+.alert-success {
+	background-color: #4586d4;
+	color: #ffffff;
+}
+
+.alert-danger {
+	background-color: #d44545;
+	color: #ffffff;
 }
 
 /*

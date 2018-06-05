@@ -11,6 +11,7 @@
 	<li class="nav-item">
 		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="oi oi-external-link"></span><?php $L->p('Website') ?></a>
 	</li>
+
 	<li class="nav-item mt-3">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span class="oi oi-plus"></span><?php $L->p('New content') ?></a>
 	</li>
@@ -42,5 +43,9 @@
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
+	</li>
+
+	<li class="nav-item mt-5">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="oi oi-account-logout"></span><?php $L->p('Logout') ?></a>
 	</li>
 </ul>
