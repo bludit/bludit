@@ -28,7 +28,7 @@ if( Sanitize::pathFile(PATH_THEMES.$themeDirname) ) {
 	$Site->set(array('theme'=>$themeDirname));
 
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'new-theme-configured',
 		'notes'=>$themeDirname
 	));

@@ -67,7 +67,7 @@
 		<ul class="uk-list uk-list-line">
 		<?php
 			// Print Notifications
-			$logs = array_slice($Syslog->db, 0, NOTIFICATIONS_AMOUNT);
+			$logs = array_slice($syslog->db, 0, NOTIFICATIONS_AMOUNT);
 			foreach($logs as $log) {
 				$dict = $L->g($log['dictionaryKey']);
 				echo '<li>';

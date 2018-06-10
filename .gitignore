@@ -3,7 +3,6 @@ bl-content/*
 bl-plugins/timemachine
 bl-plugins/timemachine-x
 bl-plugins/remote-content
-bl-plugins/simple-stats
 bl-plugins/discovery
 bl-kernel/bludit.pro.php
 bl-themes/docs

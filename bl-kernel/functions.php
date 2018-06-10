@@ -731,7 +731,7 @@ function editSettings($args) {
 function changeUserPassword($args) {
 	global $dbUsers;
 	global $Language;
-	global $Syslog;
+	global $syslog;
 
 	// Arguments
 	$username = $args['username'];
@@ -750,7 +750,7 @@ function changeUserPassword($args) {
 	}
 
 	if ($dbUsers->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'user-password-changed',
 			'notes'=>$username
 		));
@@ -773,7 +773,7 @@ function checkRole($allowRoles, $redirect=true) {
 	}
 
 	if ($redirect) {
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'access-deny',
 			'notes'=>$Login->username()
 		));

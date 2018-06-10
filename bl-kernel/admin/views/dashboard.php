@@ -57,7 +57,7 @@
 			<ul class="list-group list-group-striped b-0">
 			<li class="list-group-item pt-0"><h4>Notifications</h4></li>
 			<?php
-			$logs = array_slice($Syslog->db, 0, NOTIFICATIONS_AMOUNT);
+			$logs = array_slice($syslog->db, 0, NOTIFICATIONS_AMOUNT);
 			foreach ($logs as $log) {
 				$phrase = $L->g($log['dictionaryKey']);
 				echo '<li class="list-group-item">';

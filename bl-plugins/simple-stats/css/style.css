@@ -1,0 +1,36 @@
+.simple-stats-plugin .ct-perfect-fourth {
+	height: 250px;
+}
+.simple-stats-plugin .ct-series-a .ct-line {
+	stroke: #4586d4;
+	stroke-width: 2px;
+}
+
+.simple-stats-plugin .ct-series-a .ct-point {
+	stroke: #4586d4;
+	stroke-width: 8px;
+}
+
+.simple-stats-plugin .ct-series-b .ct-line {
+	stroke: #777777;
+	stroke-width: 2px;
+}
+
+.simple-stats-plugin .ct-series-b .ct-point {
+	stroke: #777777;
+	stroke-width: 8px;
+}
+
+.simple-stats-plugin p.legends {
+	font-size: 0.8em;
+	padding: 0;
+	margin: 0;
+}
+
+.simple-stats-plugin p.visits-today {
+	color: #4586d4;
+}
+
+.simple-stats-plugin p.unique-today {
+	color: #777777;
+}

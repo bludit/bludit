@@ -8,7 +8,7 @@ if (!checkRole(array('admin','moderator'), false)) {
 	$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
 	$page = buildPage($pageKey);
 	if (!$page || $page->username()!==$Login->username()) {
-		$Syslog->add(array(
+		$syslog->add(array(
 			'dictionaryKey'=>'access-deny',
 			'notes'=>$Login->username()
 		));

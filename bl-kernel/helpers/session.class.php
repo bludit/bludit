@@ -71,10 +71,9 @@
 	{
 		$key = 's_'.$key;
 
-		if ( isset($_SESSION[$key]) ) {
+		if (isset($_SESSION[$key])) {
 			return $_SESSION[$key];
 		}
-
 		return false;
 	}
 }

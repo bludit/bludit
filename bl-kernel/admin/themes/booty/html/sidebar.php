@@ -16,6 +16,8 @@
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span class="oi oi-plus"></span><?php $L->p('New content') ?></a>
 	</li>
 
+	<?php if (checkRole(array('admin'),false)): ?>
+
 	<li class="nav-item mt-3">
 		<h4>Manage</h4>
 	</li>
@@ -44,6 +46,8 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 	</li>
+
+	<?php endif; ?>
 
 	<li class="nav-item mt-5">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="oi oi-account-logout"></span><?php $L->p('Logout') ?></a>

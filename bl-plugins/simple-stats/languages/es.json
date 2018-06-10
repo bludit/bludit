@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "Muestra el número de visitantes por día en tu panel."
+	}
+}

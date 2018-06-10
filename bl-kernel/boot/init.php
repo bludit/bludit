@@ -134,7 +134,7 @@ $site = $Site 			= new dbSite();
 $url = $Url			= new Url();
 $parsedown = $Parsedown 	= new Parsedown();
 $security = $Security		= new Security();
-$syslog = $Syslog 		= new dbSyslog();
+$syslog = $syslog 		= new dbSyslog();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.

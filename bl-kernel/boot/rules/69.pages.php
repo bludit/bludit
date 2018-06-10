@@ -93,7 +93,7 @@ if ($dbPages->scheduler()) {
         reindexCategories();
 
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'content-published-from-scheduler',
 		'notes'=>''
 	));

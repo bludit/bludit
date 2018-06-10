@@ -34,7 +34,7 @@ if (!method_exists($plugin, 'form')) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'plugin-configured',
 		'notes'=>$plugin->name()
 	));
