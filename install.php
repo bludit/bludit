@@ -422,7 +422,7 @@ function install($adminPassword, $email='', $timezone)
 		'locale'=>$Language->locale(),
 		'timezone'=>$timezone,
 		'theme'=>'alternative',
-		'adminTheme'=>'default',
+		'adminTheme'=>'booty',
 		'homepage'=>'',
 		'pageNotFound'=>'',
 		'uriPage'=>'/',
@@ -438,7 +438,11 @@ function install($adminPassword, $email='', $timezone)
 		'codepen'=>'',
 		'googlePlus'=>'https://plus.google.com/+Bluditcms',
 		'github'=> 'https://github.com/bludit',
-		'dateFormat'=>'F j, Y'
+		'instagram'=>'',
+		'gitlab'=>'',
+		'linkedin'=>'',
+		'dateFormat'=>'F j, Y',
+		'extremeFriendly'=>true
 	);
 
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);

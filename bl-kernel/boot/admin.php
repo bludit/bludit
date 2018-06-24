@@ -33,10 +33,11 @@ if ($layout['slug']==='ajax') {
 		include(PATH_RULES.'99.security.php');
 
 		// Load the ajax file
-		if( Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php') ) {
+		if (Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php')) {
 			include(PATH_AJAX.$layout['parameters'].'.php');
 		}
 	}
+	header('HTTP/1.1 401 User not logged.');
 	exit(0);
 }
 // --- ADMIN AREA ---

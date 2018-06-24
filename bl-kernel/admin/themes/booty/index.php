@@ -75,6 +75,10 @@
 	</div>
 </div>
 
+<!-- Check user logged and Internet connection -->
+<?php include('html/user-logged.php'); ?>
+
+
 <!-- Plugins -->
 <?php Theme::plugins('adminBodyEnd') ?>
 

@@ -4,6 +4,8 @@ class pluginUpdater extends Plugin {
 
 	// Define if the extension zip is loaded
 	private $zip = false;
+	private $urlLatestVersionFile = 'https://';
+	private $localLatestVersionFile = '';
 
 	public function init()
 	{
@@ -12,6 +14,15 @@ class pluginUpdater extends Plugin {
 
 		// Check for zip extension installed
 		$this->zip = extension_loaded('zip');
+		
+		// Local full path of the file of the latest version of Bludit
+		$this->localLatestVersionFile = $this->workspace().DS.'bludit-latest.zip';
+	}
+
+	// Redefine workspace
+	public function workspace()
+	{
+		return PATH_CONTENT.'updater'.DS;
 	}
 
 	// Install the plugin and create the workspace directory
@@ -30,27 +41,21 @@ class pluginUpdater extends Plugin {
 		return Filesystem::deleteRecursive($workspace);
 	}
 
-	// Redefine workspace
-	public function workspace()
-	{
-		return PATH_CONTENT.'updater'.DS;
-	}
-
 	// Check if the root directory is writable
-	private function isWritable()
+	public function isWritable()
 	{
 		return is_writable(PATH_ROOT);
 	}
 
 	// Create a copy of all the system and compress it
 	// Returns the name of the backup directory
-	private function makeFullBackup()
+	public function makeFullBackup()
 	{
 		$currentDate = Date::current(BACKUP_DATE_FORMAT);
 		$backupDirectory = $this->workspace().$currentDate;
 
-		// Copy all the files to a backup directory formed by date
-		Filesystem::copyRecursive(PATH_CONTENT, $backupDirectory, $backupDirectory);
+		// Copy all files from PATH_ROOT to $backupDirectory, also omit the directory $backupDirectory
+		Filesystem::copyRecursive(PATH_ROOT, $backupDirectory, $backupDirectory);
 
 		// Compress the backup directory
 		if (Filesystem::zip($backupDirectory, $backupDirectory.'.zip')) {
@@ -61,19 +66,37 @@ class pluginUpdater extends Plugin {
 	}
 
 	// Download the latest version of Bludit
-	private function downloadLatestVersion()
+	public function downloadLatestVersion()
 	{
-		TCP::download('https://bludit-latest.zip', $this->workspace().DS.'bludit-latest.zip');
+		return TCP::download($this->urlLatestVersionFile, $this->localLatestVersionFile);
+	}
+
+	public function validChecksum()
+	{
+		// IMPLEMENT !!!	
+		return true;
+	}
+
+	// Unzip the latest version and replace the old files
+	public function upgradeFiles()
+	{
+		return Filesystem::unzip($this->localLatestVersionFile, PATH_ROOT);
 	}
 
 	public function post()
 	{
-		if (isset($_POST['createBackup'])) {
-			return $this->createBackup();
-		} elseif (isset($_POST['restoreBackup'])) {
-			return $this->restoreBackup($_POST['restoreBackup']);
-		} elseif (isset($_POST['deleteBackup'])) {
-			return $this->deleteBackup($_POST['deleteBackup']);
+		if (isset($_POST['updateNow'])) {
+			echo 'Making a backup';
+			$this->makeFullBackup();
+			
+			echo 'Downloading the latest version of Bludit';
+			$this->downloadLatestVersion();
+			
+			echo 'Validating checksum';
+			if ($this->validChecksum()) {
+				echo 'Updating files';
+				return $this->upgradeFiles();
+			}
 		}
 
 		return false;
@@ -83,86 +106,15 @@ class pluginUpdater extends Plugin {
 	{
 		global $Language;
 
-		$backups = Filesystem::listDirectories($this->workspace(), '*', true);
-		if ($this->zip) {
-			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
+		if ($this->zip===false) {
+			//return '<div class="alert alert-success">The extension zip file is not installed, to use this plugin you need install the extension first.</div>';
 		}
 
 		$html  = '<div>';
-		$html .= '<button name="createBackup" value="true" class="left small blue" type="submit"><i class="uk-icon-plus"></i> '.$Language->get('create-backup').'</button>';
+		$html .= '<button name="updateNow" value="true" class="btn btn-primary" type="submit">'.$Language->get('Update Now').'</button>';
 		$html .= '</div>';
-		$html .= '<hr>';
 
-		foreach ($backups as $backup) {
-			$filename = pathinfo($backup,PATHINFO_FILENAME);
-			$basename = pathinfo($backup,PATHINFO_BASENAME);
-
-			$html .= '<div>';
-			$html .= '<h3>'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h3>';
-			// Allow download if a zip file
-			if ($this->zip) {
-				$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
-			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-trash-o"></i> '.$Language->get('delete-backup').'</button>';
-			$html .= '</div>';
-			$html .= '<hr>';
-		}
 		return $html;
 	}
 
-	public function createBackup()
-	{
-		// Current backup directory
-		$currentDate = Date::current(BACKUP_DATE_FORMAT);
-		$backupDir = $this->workspace().$currentDate;
-
-		// Copy directories to backup directory
-		// $directoriesToBackup is a private variable of this class
-		foreach ($this->directoriesToBackup as $dir) {
-			$destination = $backupDir.DS.basename($dir);
-			Filesystem::copyRecursive($dir, $destination);
-		}
-
-		// Compress backup directory
-		if ($this->zip) {
-			if (Filesystem::zip($backupDir, $backupDir.'.zip')) {
-				Filesystem::deleteRecursive($backupDir);
-			}
-		}
-
-		return true;
-	}
-
-	public function restoreBackup($filename)
-	{
-		// Remove current files
-		foreach ($this->directoriesToBackup as $dir) {
-			Filesystem::deleteRecursive($dir);
-		}
-
-		// Recover backuped files
-		// Zip format
-		if ($this->zip) {
-			$tmp = $this->workspace().$filename.'.zip';
-			return Filesystem::unzip($tmp, PATH_CONTENT);
-		}
-
-		// Directory format
-		$tmp = $this->workspace().$filename;
-		return Filesystem::copyRecursive($tmp, PATH_CONTENT);
-	}
-
-	public function deleteBackup($filename)
-	{
-		// Zip format
-		if ($this->zip) {
-			$tmp = $this->workspace().$filename.'.zip';
-			return Filesystem::rmfile($tmp);
-		}
-
-		// Directory format
-		$tmp = $this->workspace().$filename;
-		return Filesystem::deleteRecursive($tmp);
-	}
 }

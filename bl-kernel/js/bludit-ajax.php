@@ -1,7 +1,7 @@
 class bluditAjax {
 
 	// Autosave works only when the content has more than 100 characters
-	// callBack function need to be showAlert() is the function to display an alert defined in alert.php
+	// callBack function need to be showAlert(), this function is for display alerts to the user, defined in alert.php
 	autosave(uuid, title, content, callBack) {
 		var ajaxRequest;
 		if (ajaxRequest) {
@@ -35,6 +35,40 @@ class bluditAjax {
 
 		ajaxRequest.always(function () {
 			console.log("Bludit AJAX: autosave(): always handler");
+		});
+	}
+
+	// Alert the user when the user is not logged
+	userLogged(callBack) {
+		var ajaxRequest;
+		if (ajaxRequest) {
+			ajaxRequest.abort();
+		}
+
+		console.log("[INFO] Bludit AJAX: userLogged(): running");
+
+		ajaxRequest = $.ajax({
+			type: "POST",
+			data: {
+				tokenCSRF: tokenCSRF // token from env variables
+			},
+			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/user-logged"
+		});
+
+		ajaxRequest.done(function (response, textStatus, jqXHR) {
+			console.log("[INFO] Bludit AJAX: userLogged(): done handler");
+		});
+
+		ajaxRequest.fail(function (jqXHR, textStatus, errorThrown) {
+			// The fail is produced by admin.php when the user is not logged the ajax request is not possible and returns 401
+			console.log("[INFO] Bludit AJAX: userLogged(): fail handler");
+			if (jqXHR.status==401) {
+				callBack("Your are not more logged, Bludit can't save your settings and content.");
+			}
+		});
+
+		ajaxRequest.always(function () {
+			console.log("[INFO] Bludit AJAX: userLogged(): always handler");
 		});
 	}
 

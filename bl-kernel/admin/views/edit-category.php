@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'grid-three-up'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'tags'));
 
 echo Bootstrap::formOpen(array());
 

@@ -114,3 +114,6 @@ $GLOBALS['THUMBNAILS_QUALITY'] = 100;
 
 // Autosave
 $GLOBALS['AUTOSAVE_TIME'] = 2; // Minutes
+
+// Alert
+$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds

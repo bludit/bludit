@@ -30,6 +30,7 @@ class dbSite extends dbJSON
 		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
 		'instagram'=>		array('inFile'=>false, 'value'=>''),
 		'github'=>		array('inFile'=>false, 'value'=>''),
+		'gitlab'=>		array('inFile'=>false, 'value'=>''),
 		'linkedin'=>		array('inFile'=>false, 'value'=>''),
 		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
 		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true)
@@ -129,6 +130,11 @@ class dbSite extends dbJSON
 	public function github()
 	{
 		return $this->getField('github');
+	}
+	
+	public function gitlab()
+	{
+		return $this->getField('gitlab');
 	}
 
 	public function googlePlus()

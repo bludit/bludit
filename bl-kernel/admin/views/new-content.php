@@ -113,7 +113,7 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
 				'label'=>'Tags',
-				'placeholder'=>'Tags separeted by comma'
+				'placeholder'=>'Write the tags separeted by comma'
 			));
 
 			// Description

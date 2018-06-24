@@ -255,6 +255,15 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		));
 
 		echo Bootstrap::formInputText(array(
+			'name'=>'gitlab',
+			'label'=>'Gitlab',
+			'value'=>$Site->gitlab(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
 			'name'=>'github',
 			'label'=>'Github',
 			'value'=>$Site->github(),

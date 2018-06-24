@@ -1,8 +1,9 @@
 <!-- Alert -->
 <script>
 	function showAlert(text) {
+		console.log("[INFO] Function showAlert() called.");
 		$("#alert").html(text);
-		$("#alert").slideDown().delay(3500).slideUp();
+		$("#alert").slideDown().delay(<?php echo $GLOBALS['ALERT_DISSAPEAR_IN']*1000 ?>).slideUp();
 	}
 
 	<?php if (Alert::defined()): ?>
