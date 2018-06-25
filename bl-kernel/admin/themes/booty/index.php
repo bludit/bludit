@@ -11,20 +11,22 @@
 
 	<!-- CSS -->
 	<?php
+		echo Theme::bootstrapCSS();
+
 		echo Bootstrap::css(array(
-			'bootstrap.min.css',
 			'jquery-auto-complete.css',
-			'open-iconic-master/font/css/open-iconic-bootstrap.min.css',
+			'open-iconic-bootstrap.min.css',
 			'bludit.css'
 		));
 	?>
 
 	<!-- Javascript -->
 	<?php
+		echo Theme::jquery();
+		echo Theme::bootstrapJS();
+
 		echo Bootstrap::js(array(
-			'jquery.min.js',
-			'jquery-auto-complete.min.js',
-			'bootstrap-bundle.min.js'
+			'jquery-auto-complete.min.js'
 		));
 	?>
 
@@ -77,7 +79,6 @@
 
 <!-- Check user logged and Internet connection -->
 <?php include('html/user-logged.php'); ?>
-
 
 <!-- Plugins -->
 <?php Theme::plugins('adminBodyEnd') ?>

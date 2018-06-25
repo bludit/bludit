@@ -29,7 +29,7 @@
 	<!-- Javascript -->
 	<?php
 		echo Theme::jquery();
-		echo Theme::js('js/bootstrap.min.js');
+		echo Theme::bootstrapJS();
 	?>
 
 	<!-- Load Bludit Plugins: Site Body End -->

@@ -158,28 +158,27 @@ class Theme {
 		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
 
-	public static function fontAwesome($cdn=false)
-	{
-		if ($cdn) {
-			return '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">'.PHP_EOL;
-		}
-		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/css/font-awesome.min.css'.'">'.PHP_EOL;
-	}
-
-	public static function jquery($cdn=false)
-	{
-		if ($cdn) {
-			return '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>';
-		}
-		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
-	}
-
 	public static function keywords($keywords)
 	{
 		if (is_array($keywords)) {
 			$keywords = implode(',', $keywords);
 		}
 		return '<meta name="keywords" content="'.$keywords.'">'.PHP_EOL;
+	}
+
+	public static function jquery()
+	{
+		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function bootstrapJS()
+	{
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap-bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function bootstrapCSS()
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 }
 

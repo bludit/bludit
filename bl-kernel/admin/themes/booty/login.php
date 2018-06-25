@@ -13,8 +13,6 @@
 	<?php
 		echo Bootstrap::css(array(
 			'bootstrap.min.css',
-			'jquery-auto-complete.css',
-			'open-iconic-master/font/css/open-iconic-bootstrap.min.css',
 			'bludit.css'
 		));
 	?>
@@ -23,16 +21,8 @@
 	<?php
 		echo Bootstrap::js(array(
 			'jquery.min.js',
-			'jquery-auto-complete.min.js',
 			'bootstrap-bundle.min.js'
 		));
-	?>
-
-	<!-- Javascript -->
-	<?php
-		echo '<script>';
-		include(PATH_CORE_JS.'bludit-ajax.php');
-		echo '</script>';
 	?>
 
 	<!-- Plugins -->

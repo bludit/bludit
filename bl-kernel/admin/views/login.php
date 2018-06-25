@@ -32,6 +32,6 @@ echo Bootstrap::formOpen(array());
 	</div>
 	';
 
-echo Bootstrap::formClose();
+echo '</form>';
 
 ?>

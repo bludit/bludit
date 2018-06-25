@@ -12,7 +12,7 @@
 <?php echo Theme::favicon('img/favicon.png'); ?>
 
 <!-- CSS: Bootstrap -->
-<?php echo Theme::css('css/bootstrap.min.css'); ?>
+<?php echo Theme::bootstrapCSS(); ?>
 
 <!-- CSS: Styles for this theme -->
 <?php echo Theme::css('css/style.css'); ?>

@@ -60,8 +60,8 @@
 
 		<div class="form-group mt-2">
 			<button id="jsbuttonSave" type="submit" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
-			<button id="jsbuttonDraft" type="button" class="btn"><?php echo $L->g('Save as draft') ?></button>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn"><?php echo $L->g('Cancel') ?></a>
+			<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
 		</div>
 
 	</div>

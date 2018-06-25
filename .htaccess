@@ -6,7 +6,7 @@ AddDefaultCharset UTF-8
 RewriteEngine on
 
 # Base directory
-#RewriteBase /
+RewriteBase /
 
 # Deny direct access to .txt files
 RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]

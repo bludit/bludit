@@ -32,7 +32,13 @@ foreach ($users as $username=>$User) {
 	echo '<td class="d-none d-lg-table-cell">'.$User->lastName().'</td>';
 	echo '<td>'.$User->email().'</td>';
 	echo '<td>'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
-	echo '<td>'.($User->role()=='admin'?$L->g('Administrator'):$L->g('Editor')).'</td>';
+	if ($User->role()=='admin') {
+		echo '<td>'.$L->g('Administrator').'</td>';
+	} elseif ($User->role()=='moderator') {
+		echo '<td>'.$L->g('Moderator').'</td>';
+	} elseif ($User->role()=='editor') {
+		echo '<td>'.$L->g('Editor').'</td>';
+	}
 	echo '<td class="d-none d-lg-table-cell">'.Date::format($User->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
 	echo '</tr>';
 }

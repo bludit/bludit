@@ -1,24 +1,17 @@
 Things to do:
 
-- settings->advanced->Predefined pages->homepage
-Search and select a page published / static / sticky
-
 - settings->advanced->Predefined pages->Page not found
-Search and select a page
+-- Search and select a page
 
 - settings->plugins->settings
-not implementd
+-- Update plugins to use Bootstrap on the CSS
+
+- settings->plugins->change order of plugins
+-- not implemented
 
 - manage->users->edit user
-Change profile image
-
-- add more users roles
-
-- Dashboard
-not implemented
-
-- if you are editing a page autosave, the autosave need to be the same
+-- Change profile avatar
 
 - new content -> options -> Advanced
--- date, javascript for select the date
+-- Date, javascript for select the date
 --
