@@ -7,5 +7,6 @@
 	"create-backup": "Crear Backup",
 	"download": "Descargar",
 	"restore-backup": "Recuperar Backup",
-	"delete-backup": "Eliminar Backup"
+	"delete-backup": "Eliminar Backup",
+	"there-are-no-backups-for-the-moment": "There are no backups for the moment"
 }

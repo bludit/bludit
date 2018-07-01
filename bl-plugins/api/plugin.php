@@ -19,7 +19,11 @@ class pluginAPI extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('API Token').'</label>';
 		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
 		$html .= '<span class="tip">'.$Language->get('This token is for read only and is regenerated every time you install the plugin').'</span>';

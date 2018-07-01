@@ -2,7 +2,7 @@
 
 class pluginBackup extends Plugin {
 
-	// List of directories to backup
+	// Directories to backup
 	private $directoriesToBackup = array(
 		PATH_PAGES,
 		PATH_DATABASES,
@@ -65,8 +65,15 @@ class pluginBackup extends Plugin {
 			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
 		}
 
-		$html  = '<div>';
-		$html .= '<button name="createBackup" value="true" class="left small blue" type="submit"><i class="uk-icon-plus"></i> '.$Language->get('create-backup').'</button>';
+		$html = '';
+		if (empty($backups)) {
+			$html .= '<div class="alert alert-primary" role="alert">';
+			$html .= $Language->get('There are no backups for the moment');
+		      	$html .= '</div>';
+		}
+
+		$html .= '<div>';
+		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="oi oi-play-circle"></span> '.$Language->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -75,13 +82,13 @@ class pluginBackup extends Plugin {
 			$basename = pathinfo($backup,PATHINFO_BASENAME);
 
 			$html .= '<div>';
-			$html .= '<h3>'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h3>';
+			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
+				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$Language->get('download').'</a>';
 			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-trash-o"></i> '.$Language->get('delete-backup').'</button>';
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$Language->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$Language->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}

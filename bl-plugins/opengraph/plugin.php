@@ -17,22 +17,8 @@ class pluginOpenGraph extends Plugin {
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
+		$html .= '<span class="tip">Set a default image for the content without pictures.</span>';
 		$html .= '</div>';
-
-		/*
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Default image').'</label>';
-		$html .= '<select name="defaultImage">';
-
-		$images = Filesystem::listFiles(PATH_UPLOADS);
-		foreach ($images as $image) {
-			$base = basename($image);
-			$html .= '<option value="'.$base.'" '.(($this->getValue('defaultImage')==$base)?'selected':'').'>'.$base.'</option>';
-		}
-
-		$html .= '</select>';
-		$html .= '</div>';
-		*/
 
 		return $html;
 	}

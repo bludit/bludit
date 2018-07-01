@@ -73,7 +73,7 @@
 			echo Bootstrap::formTitle(array('title'=>'Select images or upload images'));
 		?>
 
-		<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>'Cover image'));

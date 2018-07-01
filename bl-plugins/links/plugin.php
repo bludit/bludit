@@ -71,7 +71,7 @@ class pluginLinks extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="save" class="blue" type="submit">'.$Language->get('Save').'</button>';
+		$html .= '<button name="save" class="btn btn-primary" type="submit">'.$Language->get('Save').'</button>';
 		$html .= '</div>';
 
 		// New link, when the user click on save button this call the method post()

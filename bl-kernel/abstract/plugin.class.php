@@ -156,6 +156,11 @@ class Plugin {
 		return '';
 	}
 
+	public function label()
+	{
+		return $this->getMetadata('label');
+	}
+
 	public function name()
 	{
 		return $this->getMetadata('name');

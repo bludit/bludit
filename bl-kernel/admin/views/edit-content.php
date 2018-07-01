@@ -65,9 +65,9 @@
 		</div>
 
 		<div class="form-group mt-2">
-			<button id="jsbuttonSave" type="submit" class="btn btn-primary"><?php echo $page->draft()?$L->g('Publish'):$L->g('Save') ?></button>
-			<button id="jsbuttonDraft" type="button" class="btn"><?php echo $L->g('Save as draft') ?></button>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn"><?php echo $L->g('Cancel') ?></a>
+			<button id="jsbuttonSave" type="submit" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
+			<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
 		</div>
 
 	</div>
@@ -79,7 +79,7 @@
 			echo Bootstrap::formTitle(array('title'=>'Select images'));
 		?>
 
-		<button type="button" class="btn" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>'Cover image'));
@@ -92,7 +92,7 @@
 			}
 		?>
 
-		<img class="img-thumbnail" alt="200x200" src="<?php echo $coverImage ?>" data-holder-rendered="true" style="width: 100px; height: 100px;">
+		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>'External Cover image'));
