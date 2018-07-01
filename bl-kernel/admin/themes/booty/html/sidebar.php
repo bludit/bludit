@@ -1,8 +1,12 @@
 <!-- Use .flex-column to set a vertical direction -->
 <ul class="nav flex-column pt-4">
 
-	<li class="nav-item mb-4">
+	<li class="nav-item mb-4" style="margin-left: -4px;">
+		<?php if (defined('BLUDIT_PRO')): ?>
+		<img src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" width="20" height="20"  alt=""><span class="ml-2 align-middle">BLUDIT PRO
+		<?php else: ?>
 		<img src="<?php echo HTML_PATH_ADMIN_THEME ?>img/logo.svg" width="20" height="20"  alt=""> BLUDIT
+		<?php endif; ?>
 	</li>
 
 	<li class="nav-item">
@@ -46,6 +50,17 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 	</li>
+
+		<?php
+			if (!empty($plugins['adminSidebar'])) {
+				echo '<li class="nav-item"><hr></li>';
+				foreach ($plugins['adminSidebar'] as $pluginSidebar) {
+					echo '<li class="nav-item">';
+					echo $pluginSidebar->adminSidebar();
+					echo '</li>';
+				}
+			}
+		?>
 
 	<?php endif; ?>
 

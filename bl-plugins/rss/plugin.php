@@ -15,7 +15,11 @@ class pluginRSS extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('RSS URL').'</label>';
 		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
 		$html .= '</div>';
@@ -114,7 +118,7 @@ class pluginRSS extends Plugin {
 	public function beforeAll()
 	{
 		$webhook = 'rss.xml';
-		if( $this->webhook($webhook) ) {
+		if ($this->webhook($webhook)) {
 			// Send XML header
 			header('Content-type: text/xml');
 			$doc = new DOMDocument();
@@ -127,7 +131,7 @@ class pluginRSS extends Plugin {
 			// Print the XML
 			echo $doc->saveXML();
 
-			// Stop Bludit running
+			// Stop Bludit execution
 			exit(0);
 		}
 	}

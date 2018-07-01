@@ -5,7 +5,7 @@ class pluginMaintenanceMode extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'enable'=>true,
+			'enable'=>false,
 			'message'=>'Temporarily down for maintenance.'
 		);
 	}
@@ -14,7 +14,11 @@ class pluginMaintenanceMode extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Enable maintenance mode').'</label>';
 		$html .= '<select name="enable">';
 		$html .= '<option value="true" '.($this->getValue('enable')===true?'selected':'').'>Enabled</option>';

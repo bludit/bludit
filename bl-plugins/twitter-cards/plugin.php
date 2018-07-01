@@ -14,25 +14,14 @@ class pluginTwitterCards extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
 		$html .= '</div>';
-
-		/*
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Default image').'</label>';
-		$html .= '<select name="defaultImage">';
-
-		$images = Filesystem::listFiles(PATH_UPLOADS);
-		foreach ($images as $image) {
-			$base = basename($image);
-			$html .= '<option value="'.$base.'" '.(($this->getValue('defaultImage')==$base)?'selected':'').'>'.$base.'</option>';
-		}
-
-		$html .= '</select>';
-		$html .= '</div>';
-		*/
 
 		return $html;
 	}

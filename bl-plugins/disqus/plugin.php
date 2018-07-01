@@ -15,7 +15,11 @@ class pluginDisqus extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('disqus-shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
 		$html .= '</div>';
@@ -48,11 +52,11 @@ class pluginDisqus extends Plugin {
 			return false;
 		}
 
-		if ( !$Url->notFound() && 
+		if ( !$Url->notFound() &&
 		     ( $Url->whereAmI()=='page' &&
-			(($this->getDbField('enablePosts') && $Page->status()=='published') || 
+			(($this->getDbField('enablePosts') && $Page->status()=='published') ||
 			($this->getDbField('enablePages') && $Page->status()=='static'))
-		     ) && 
+		     ) &&
 		     $page->allowComments() ) {
 			$html  = '<div id="disqus_thread"></div>';
 			$html .= '<script type="text/javascript">

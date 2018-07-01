@@ -16,7 +16,11 @@ class pluginStaticPages extends Plugin {
 	{
 		global $Language;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
@@ -27,8 +31,8 @@ class pluginStaticPages extends Plugin {
 		$html .= '<select name="homeLink">';
 		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$Language->get('Enabled').'</option>';
 		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$Language->get('Disabled').'</option>';
-		$html .= '<span class="tip">'.$Language->get('show-the-home-link-on-the-sidebar').'</span>';
 		$html .= '</select>';
+		$html .= '<span class="tip">'.$Language->get('show-the-home-link-on-the-sidebar').'</span>';
 		$html .= '</div>';
 
 		return $html;

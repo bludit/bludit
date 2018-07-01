@@ -83,10 +83,7 @@ class Login {
 	public function verifyUser($username, $password)
 	{
 		$username = Sanitize::html($username);
-		$password = Sanitize::html($password);
-
 		$username = trim($username);
-		$password = trim($password);
 
 		if (empty($username) || empty($password)) {
 			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username);

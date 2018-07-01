@@ -56,14 +56,17 @@ class pluginBackup extends Plugin {
 		return false;
 	}
 
+	public function adminSidebar()
+	{
+		$backups = $this->backupList();
+		return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backup <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
+	}
+
 	public function form()
 	{
 		global $Language;
 
-		$backups = Filesystem::listDirectories($this->workspace(), '*', true);
-		if ($this->zip) {
-			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
-		}
+		$backups = $this->backupList();
 
 		$html = '';
 		if (empty($backups)) {
@@ -93,6 +96,16 @@ class pluginBackup extends Plugin {
 			$html .= '<hr>';
 		}
 		return $html;
+	}
+
+	public function backupList()
+	{
+		if ($this->zip) {
+			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
+		} else {
+			$backups = Filesystem::listDirectories($this->workspace(), '*', true);
+		}
+		return $backups;
 	}
 
 	public function createBackup()

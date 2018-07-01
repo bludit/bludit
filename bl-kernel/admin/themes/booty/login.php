@@ -11,18 +11,17 @@
 
 	<!-- CSS -->
 	<?php
+		echo Theme::bootstrapCSS();
+
 		echo Bootstrap::css(array(
-			'bootstrap.min.css',
 			'bludit.css'
 		));
 	?>
 
 	<!-- Javascript -->
 	<?php
-		echo Bootstrap::js(array(
-			'jquery.min.js',
-			'bootstrap-bundle.min.js'
-		));
+		echo Theme::jquery();
+		echo Theme::bootstrapJS();
 	?>
 
 	<!-- Plugins -->

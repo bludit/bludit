@@ -1,8 +1,8 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'2.3.4');
-define('BLUDIT_CODENAME',	'1-Commit');
+define('BLUDIT_VERSION',	'3.0.0');
+define('BLUDIT_CODENAME',	'');
 define('BLUDIT_RELEASE_DATE',	'2018-04-02');
 define('BLUDIT_BUILD',		'20180402');
 
