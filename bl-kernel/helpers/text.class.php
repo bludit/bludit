@@ -129,9 +129,9 @@ class Text {
 		global $Language;
 
 		if (EXTREME_FRIENDLY_URL) {
-			$string = trim($string, '-');
 			$string = self::lowercase($string);
-			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
+			$string = preg_replace("/[\/_|+:!@#$%^&*(). -]+/", $separator, $string);
+			$string = trim($string, '-');
 			return $string;
 		}
 

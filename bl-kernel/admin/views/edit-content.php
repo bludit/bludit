@@ -51,6 +51,12 @@
 			'name'=>'coverImage',
 			'value'=>$page->coverImage()
 		));
+
+		// Content
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'content',
+			'value'=>$page->contentRaw(false)
+		));
 	?>
 
 	<!-- TABS CONTENT -->
@@ -61,11 +67,11 @@
 		</div>
 
 		<div class="form-group mt-1">
-			<div id="jscontent" name="content"><?php echo $page->contentRaw(false) ?></div>
+			<textarea id="jseditor"></textarea>
 		</div>
 
 		<div class="form-group mt-2">
-			<button id="jsbuttonSave" type="submit" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
+			<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
 			<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
 		</div>
@@ -203,12 +209,14 @@ $(document).ready(function() {
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		$("#jsstatus").val("published");
+		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
 
 	// Button Save as draft
 	$("#jsbuttonDraft").on("click", function() {
 		$("#jsstatus").val("draft");
+		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
 
@@ -224,13 +232,13 @@ $(document).ready(function() {
 	});
 
 	// Generate slug when the user type the title
-	$("#jstitle").keyup(function() {
-		var text = $(this).val();
-		var parent = $("#jsparent").val();
-		var currentKey = "";
-		var ajax = new bluditAjax();
-		ajax.generateSlug(text, parent, currentKey, $("#jsslug"));
-	});
+	// $("#jstitle").keyup(function() {
+	// 	var text = $(this).val();
+	// 	var parent = $("#jsparent").val();
+	// 	var currentKey = "";
+	// 	var ajax = new bluditAjax();
+	// 	ajax.generateSlug(text, parent, currentKey, $("#jsslug"));
+	// });
 
 	// Autosave interval
 	setInterval(function() {

@@ -51,7 +51,10 @@ function editorGetContent() {
 
 $(document).ready(function() {
 
-	quill = new Quill("#jscontent", {
+	var content = $("#jscontent").val();
+	$("#jseditor").replaceWith("<div id=\"jseditor\">"+content+"</div>");
+
+	quill = new Quill("#jseditor", {
 		modules: {
 			toolbar: [
 				[{ header: [1, 2, false] }],

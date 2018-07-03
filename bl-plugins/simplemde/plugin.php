@@ -99,20 +99,25 @@ class pluginsimpleMDE extends Plugin {
 				simplemde.value(text + content + "\n");
 			}'.PHP_EOL;
 
-		// This function is necesary on each Editor, it is used by Bludit Images v8.
-		$html .= 'function editorAddImage(filename) {
+		// Function required for Autosave function
+		$html .= 'function editorGetContent(content) {
+			return simplemde.value();
+		}'.PHP_EOL;
+
+		// Function required for Media Manager to insert a file on the editor
+		$html .= 'function editorInsertMedia(filename) {
 				addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
 			}'.PHP_EOL;
 
 		$html .= '$(document).ready(function() { '.PHP_EOL;
 
 		$html .= '
-		var content = $("#jscontent").html();
-		$("#jscontent").replaceWith("<textarea id=\"jscontent\" name=\"content\">"+content+"</textarea>");
+		var content = $("#jscontent").val();
 
 		simplemde = new SimpleMDE({
-				element: document.getElementById("jscontent"),
+				element: document.getElementById("jseditor"),
 				status: false,
+				initialValue: content,
 				toolbarTips: true,
 				toolbarGuideIcon: true,
 				autofocus: false,
