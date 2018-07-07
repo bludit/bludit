@@ -63,6 +63,7 @@ Become a **Sponsor** and support Bludit with a monthly contribution to help us c
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
+- <a href="https://www.patreon.com/pinguinsreisende" target="_blank">KreativMind</a>
 
 License
 -------
