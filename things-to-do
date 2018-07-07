@@ -18,3 +18,13 @@ Things to do:
 - new content -> options -> Advanced
 -- Date, javascript for select the date
 --
+
+- Fix Tinymce plugin
+
+- New / Edit content
+-- Option without category
+
+- add to settings
+-- time for autosave
+-- time for check user logged
+-- thumbnails sizes and compression

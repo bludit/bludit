@@ -33,7 +33,8 @@ class dbSite extends dbJSON
 		'gitlab'=>		array('inFile'=>false, 'value'=>''),
 		'linkedin'=>		array('inFile'=>false, 'value'=>''),
 		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
-		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true)
+		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true),
+		'autosaveInterval'=>	array('inFile'=>false, 'value'=>2)
 	);
 
 	function __construct()
@@ -102,6 +103,11 @@ class dbSite extends dbJSON
 		return DOMAIN_BASE.'sitemap.xml';
 	}
 
+	public function autosaveInterval()
+	{
+		return $this->getField('autosaveInterval');
+	}
+
 	public function extremeFriendly()
 	{
 		return $this->getField('extremeFriendly');
@@ -131,7 +137,7 @@ class dbSite extends dbJSON
 	{
 		return $this->getField('github');
 	}
-	
+
 	public function gitlab()
 	{
 		return $this->getField('gitlab');

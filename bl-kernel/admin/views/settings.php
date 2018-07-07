@@ -135,6 +135,17 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>$L->g('Emails will be sent from this address')
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('Autosave')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'autosaveInterval',
+			'label'=>$L->g('Interval'),
+			'value'=>$Site->autosaveInterval(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('Number in minutes for every execution of autosave')
+		));
+
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site URL')));
 
 		echo Bootstrap::formInputText(array(

@@ -33,14 +33,12 @@ $script = <<<EOF
 <script>
 var quill;
 
-// Function required for Media Manager to insert a file on the editor
+// Function required for Media Manager
+// Insert an image on the editor in the cursor position
 function editorInsertMedia(filename) {
-	var Delta = Quill.import("delta");
 	quill.focus();
-	quill.updateContents(new Delta()
-		.retain(quill.getSelection().index)
-		.insert('<img alt="'+filename+'" src="'+DOMAIN_UPLOADS+filename+'" />')
-	);
+	var index = quill.getSelection().index;
+	quill.insertEmbed(index, 'image', DOMAIN_UPLOADS + filename);
 }
 
 // Function required for Autosave function
@@ -51,15 +49,19 @@ function editorGetContent() {
 
 $(document).ready(function() {
 
-	var content = $("#jscontent").val();
+	var content = $("#jseditor").val();
 	$("#jseditor").replaceWith("<div id=\"jseditor\">"+content+"</div>");
 
 	quill = new Quill("#jseditor", {
 		modules: {
 			toolbar: [
-				[{ header: [1, 2, false] }],
-				['bold', 'italic', 'underline'],
-				['image', 'code-block']
+				[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+				['bold', 'italic', 'underline', 'strike'],
+				['blockquote', 'code-block'],
+				[{ 'color': [] }, { 'background': [] }],
+				[{ list: 'ordered' }, { list: 'bullet' }],
+				['image'],
+				['clean']
 			]
 		},
 		placeholder: "Content, support Markdown and HTML.",

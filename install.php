@@ -265,46 +265,25 @@ function install($adminPassword, $timezone)
 	// Create directories
 	// ============================================================================
 
-	// INITIAL PAGES
-	if (!mkdir(PATH_PAGES.$Language->get('example-page-1-slug'), DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-1-slug');
-		error_log('[ERROR] '.$errorText, 0);
-	}
-	if (!mkdir(PATH_PAGES.$Language->get('example-page-2-slug'), DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-2-slug');
-		error_log('[ERROR] '.$errorText, 0);
-	}
-	if (!mkdir(PATH_PAGES.$Language->get('example-page-3-slug'), DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-3-slug');
-		error_log('[ERROR] '.$errorText, 0);
-	}
-	if (!mkdir(PATH_PAGES.$Language->get('example-page-4-slug'), DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get('example-page-4-slug');
-		error_log('[ERROR] '.$errorText, 0);
+	// Directories for initial pages
+	$pagesToInstall = array('example-page-1-slug', 'example-page-2-slug', 'example-page-3-slug', 'example-page-4-slug');
+	foreach ($pagesToInstall as $page) {
+		if (!mkdir(PATH_PAGES.$Language->get($page), DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$Language->get($page);
+			error_log('[ERROR] '.$errorText, 0);
+		}
 	}
 
-	// PLUGINS
-	if (!mkdir(PATH_PLUGINS_DATABASES.'quill', DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'quill';
-		error_log('[ERROR] '.$errorText, 0);
+	// Directories for initial plugins
+	$pluginsToInstall = array('simplemde', 'tags', 'about', 'simple-stats');
+	foreach ($pluginsToInstall as $plugin) {
+		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
+			error_log('[ERROR] '.$errorText, 0);
+		}
 	}
 
-	if (!mkdir(PATH_PLUGINS_DATABASES.'tags', DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'tags';
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_PLUGINS_DATABASES.'about', DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'about';
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_PLUGINS_DATABASES.'simple-stats', DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.'simple-stats';
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	// UPLOADS DIRECTORIES
+	// Directories for upload files
 	if (!mkdir(PATH_UPLOADS_PROFILES, DIR_PERMISSIONS, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
 		error_log('[ERROR] '.$errorText, 0);
@@ -326,9 +305,9 @@ function install($adminPassword, $timezone)
 
 	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
 
-	// File pages.php
-	$data = array(
-		$Language->get('example-page-1-slug')=>array(
+	$data = array();
+	foreach ($pagesToInstall as $page) {
+		$data[$Language->get($page)]= array(
 			'description'=>'',
 			'username'=>'admin',
 			'tags'=>array(),
@@ -343,60 +322,9 @@ function install($adminPassword, $timezone)
 			'category'=>'',
 			'uuid'=>md5(uniqid()),
 			'parent'=>'',
-			'slug'=>$Language->get('example-page-1-slug')
-	    	),
-		$Language->get('example-page-2-slug')=>array(
-			'description'=>'',
-			'username'=>'admin',
-			'tags'=>array(),
-			'status'=>'published',
-			'type'=>'page',
-			'date'=>$currentDate,
-			'dateModified'=>'',
-			'allowComments'=>true,
-			'position'=>2,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'',
-			'uuid'=>md5(uniqid()),
-			'parent'=>'',
-			'slug'=>$Language->get('example-page-2-slug')
-		),
-		$Language->get('example-page-3-slug')=>array(
-			'description'=>'',
-			'username'=>'admin',
-			'tags'=>array(),
-			'status'=>'published',
-			'type'=>'page',
-			'date'=>$currentDate,
-			'dateModified'=>'',
-			'allowComments'=>true,
-			'position'=>3,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'',
-			'uuid'=>md5(uniqid()),
-			'parent'=>'',
-			'slug'=>$Language->get('example-page-3-slug')
-		),
-		$Language->get('example-page-4-slug')=>array(
-			'description'=>'',
-			'username'=>'admin',
-			'tags'=>array(),
-			'status'=>'static',
-			'type'=>'page',
-			'date'=>$currentDate,
-			'dateModified'=>'',
-			'allowComments'=>true,
-			'position'=>4,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'',
-			'uuid'=>md5(uniqid()),
-			'parent'=>'',
-			'slug'=>$Language->get('example-page-4-slug')
-		)
-	);
+			'slug'=>$Language->get($page)
+		);
+	}
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File site.php
@@ -439,7 +367,8 @@ function install($adminPassword, $timezone)
 		'gitlab'=>'',
 		'linkedin'=>'',
 		'dateFormat'=>'F j, Y',
-		'extremeFriendly'=>true
+		'extremeFriendly'=>true,
+		'autosaveInterval'=>2
 	);
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -543,12 +472,16 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
-	// File plugins/quill/db.php
+	// File plugins/simplemde/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'quill'.DS.'db.php',
+		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
-				'position'=>1
+				'position'=>1,
+				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;',
+				'autosave'=>false,
+				'spellChecker'=>true,
+				'tabSize'=>2
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -557,15 +490,12 @@ function install($adminPassword, $timezone)
 	// Page create-your-own-content
 	$data = 'Title: '.$Language->get('example-page-1-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-1-content');
 	file_put_contents(PATH_PAGES.$Language->get('example-page-1-slug').DS.FILENAME, $data, LOCK_EX);
-
 	// Page set-up-your-new-site
 	$data = 'Title: '.$Language->get('example-page-2-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-2-content');
 	file_put_contents(PATH_PAGES.$Language->get('example-page-2-slug').DS.FILENAME, $data, LOCK_EX);
-
 	// Page follow-bludit
 	$data = 'Title: '.$Language->get('example-page-3-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-3-content');
 	file_put_contents(PATH_PAGES.$Language->get('example-page-3-slug').DS.FILENAME, $data, LOCK_EX);
-
 	// Page about
 	$data = 'Title: '.$Language->get('example-page-4-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-4-content');
 	file_put_contents(PATH_PAGES.$Language->get('example-page-4-slug').DS.FILENAME, $data, LOCK_EX);
@@ -659,7 +589,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $Language->p('Show password') ?></div>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary mr-2 w-100 btn-lg" name="install"><?php $Language->p('Install') ?></button>
+					<button type="submit" class="btn btn-primary mr-2 w-100" name="install"><?php $Language->p('Install') ?></button>
 					</div>
 				</form>
 			<?php
@@ -679,7 +609,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</select>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary mr-2 w-100 btn-lg"><?php $Language->p('Next') ?></button>
+					<button type="submit" class="btn btn-primary mr-2 w-100"><?php $Language->p('Next') ?></button>
 					</div>
 				</form>
 			<?php

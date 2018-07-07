@@ -203,6 +203,9 @@ define('ORDER_BY', $Site->orderBy());
 // Allow unicode characters in the URL
 define('EXTREME_FRIENDLY_URL', $Site->extremeFriendly());
 
+// Minutes to execute the autosave function
+define('AUTOSAVE_INTERVAL', $Site->autosaveInterval());
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$Site->theme().DS);

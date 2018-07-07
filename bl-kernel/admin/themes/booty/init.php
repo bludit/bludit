@@ -170,6 +170,32 @@ EOF;
 		return $html;
 	}
 
+	public static function formTextareaBlock($args)
+	{
+		$id = 'js'.$args['name'];
+		if (isset($args['id'])) {
+			$id = $args['id'];
+		}
+
+		$class = 'form-control';
+		if (!empty($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$html = '<div class="form-group m-0">';
+		if (!empty($args['label'])) {
+			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+		}
+
+		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
+		if (!empty($args['tip'])) {
+			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+		$html .= '</div>';
+
+		return $html;
+	}
+
 	public static function formInputGroupText($args)
 	{
 		$label = $args['label'];
@@ -259,6 +285,40 @@ EOF;
 			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
 		}
 		$html .= '</div>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public static function formSelectBlock($args)
+	{
+		$id = 'js'.$args['name'];
+		if (isset($args['id'])) {
+			$id = $args['id'];
+		}
+
+		$class = 'custom-select';
+		if (!empty($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$html = '<div class="form-group m-0">';
+
+		if (!empty($args['label'])) {
+			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+		}
+
+		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
+		if (!empty($args['emptyOption'])) {
+			$html .= '<option value="">'.$args['emptyOption'].'</option>';
+		}
+		foreach ($args['options'] as $key=>$value) {
+			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
+		}
+		$html .= '</select>';
+		if (!empty($args['tip'])) {
+			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
 		$html .= '</div>';
 
 		return $html;

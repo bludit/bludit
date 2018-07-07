@@ -60,8 +60,14 @@
 			<input value="" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="Enter title" type="text">
 		</div>
 
+		<div class="form-group m-0 mt-1">
+			<button id="jsmediaManagerButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> Media Manager</button>
+			<button id="jscategoryButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tags"></span> Category: <span class="option">-</span></button>
+			<button id="jsdescriptionButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tags"></span> Description: <span class="option">-</span></button>
+		</div>
+
 		<div class="form-group mt-1">
-			<textarea id="jseditor"></textarea>
+			<textarea id="jseditor" style="display:none;"></textarea>
 		</div>
 
 		<div class="form-group mt-2">
@@ -74,12 +80,6 @@
 
 	<!-- TABS IMAGES -->
 	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
-
-		<?php
-			echo Bootstrap::formTitle(array('title'=>'Select images or upload images'));
-		?>
-
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jsbluditMediaModal">Media Manager</button>
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>'Cover image'));
@@ -105,15 +105,7 @@
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
 		<?php
-			echo Bootstrap::formTitle(array('title'=>'General'));
-
-			// Category
-			echo Bootstrap::formSelect(array(
-				'name'=>'category',
-				'label'=>'Category',
-				'selected'=>'',
-				'options'=>$dbCategories->getKeyNameArray()
-			));
+			echo Bootstrap::formTitle(array('title'=>'Advanced'));
 
 			// Tags
 			echo Bootstrap::formInputText(array(
@@ -121,16 +113,6 @@
 				'label'=>'Tags',
 				'placeholder'=>'Write the tags separeted by comma'
 			));
-
-			// Description
-			echo Bootstrap::formTextarea(array(
-				'name'=>'description',
-				'label'=>'Description',
-				'placeholder'=>'Small description about the content',
-				'rows'=>'4'
-			));
-
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
 
 			// Date
 			echo Bootstrap::formInputText(array(
@@ -184,6 +166,102 @@
 		?>
 
 	</div>
+
+	<!-- Modal for Categories -->
+	<div id="jscategoryModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Category</h5>
+				</div>
+				<div class="modal-body">
+					<?php
+						echo Bootstrap::formSelectBlock(array(
+							'name'=>'category',
+							'label'=>'',
+							'selected'=>'',
+							'class'=>'',
+							'emptyOption'=>'- Without category -',
+							'options'=>$dbCategories->getKeyNameArray()
+						));
+					?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			function setCategoryBox(value) {
+				var selected = $("#jscategory option:selected");
+				var value = selected.val().trim();
+				if (value) {
+					$("#jscategoryButton").find("span.option").html(selected.text());
+				} else {
+					$("#jscategoryButton").find("span.option").html("-");
+				}
+			}
+
+			// Set the current category selected
+			setCategoryBox();
+
+			// When the user select the category update the category button
+			$("#jscategory").on("change", function() {
+				setCategoryBox();
+			});
+		});
+	</script>
+
+	<!-- Modal for Description -->
+	<div id="jsdescriptionModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Description</h5>
+				</div>
+				<div class="modal-body">
+					<?php
+						echo Bootstrap::formTextareaBlock(array(
+							'name'=>'description',
+							'label'=>'',
+							'selected'=>'',
+							'class'=>'',
+							'value'=>'',
+							'rows'=>3,
+							'placeholder'=>$Language->get('this-field-can-help-describe-the-content')
+						));
+					?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			function setDescriptionBox(value) {
+				var value = $("#jsdescription").val();
+				if (!value) {
+					value = '-';
+				} else {
+					value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
+				}
+				$("#jsdescriptionButton").find("span.option").html(value);
+			}
+
+			// Set the current description
+			setDescriptionBox();
+
+			// When the user write the description update the description button
+			$("#jsdescription").on("change", function() {
+				setDescriptionBox();
+			});
+		});
+	</script>
+
 </form>
 
 <script>
@@ -232,7 +310,7 @@ $(document).ready(function() {
 			var ajax = new bluditAjax();
 			// showAlert is the function to display an alert defined in alert.php
 			ajax.autosave(uuid, title, content, showAlert);
-	},1000*60*<?php echo $GLOBALS['AUTOSAVE_TIME'] ?>);
+	},1000*60*AUTOSAVE_INTERVAL);
 
 	// Template autocomplete
 	$('input[name="template"]').autoComplete({

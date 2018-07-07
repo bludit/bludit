@@ -61,7 +61,7 @@ class pluginsimpleMDE extends Plugin {
 				.editor-toolbar { background: #f1f1f1; border-radius: 0 !important; }
 				.editor-toolbar::before { margin-bottom: 2px !important }
 				.editor-toolbar::after { margin-top: 2px !important }
-				.CodeMirror, .CodeMirror-scroll { min-height: 500px !important; border-radius: 0 !important; }
+				.CodeMirror, .CodeMirror-scroll { min-height: 450px !important; border-radius: 0 !important; }
 			</style>';
 
 		return $html;
@@ -97,14 +97,17 @@ class pluginsimpleMDE extends Plugin {
 		$html .= 'function addContentSimpleMDE(content) {
 				var text = simplemde.value();
 				simplemde.value(text + content + "\n");
+				simplemde.codemirror.refresh();
 			}'.PHP_EOL;
 
 		// Function required for Autosave function
+		// Returns the content of the editor
 		$html .= 'function editorGetContent(content) {
 			return simplemde.value();
 		}'.PHP_EOL;
 
-		// Function required for Media Manager to insert a file on the editor
+		// Function required for Media Manager
+		// Insert an image on the editor in the cursor position
 		$html .= 'function editorInsertMedia(filename) {
 				addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
 			}'.PHP_EOL;
@@ -112,18 +115,15 @@ class pluginsimpleMDE extends Plugin {
 		$html .= '$(document).ready(function() { '.PHP_EOL;
 
 		$html .= '
-		var content = $("#jscontent").val();
-
 		simplemde = new SimpleMDE({
 				element: document.getElementById("jseditor"),
 				status: false,
-				initialValue: content,
 				toolbarTips: true,
 				toolbarGuideIcon: true,
 				autofocus: false,
 				placeholder: "'.$Language->get('content-here-supports-markdown-and-html-code').'",
 				lineWrapping: true,
-				autoDownloadFontAwesome: true,
+				autoDownloadFontAwesome: false,
 				indentWithTabs: true,
 				tabSize: '.$this->getDbField('tabSize').',
 				spellChecker: '.$spellCheckerEnable.',
@@ -136,7 +136,7 @@ class pluginsimpleMDE extends Plugin {
 						output = "\n'.PAGE_BREAK.'\n";
 						cm.replaceSelection(output);
 						},
-					className: "fa fa-scissors",
+					className: "oi oi-crop",
 					title: "'.$Language->get('Pagebreak').'",
 					}]
 		});';
