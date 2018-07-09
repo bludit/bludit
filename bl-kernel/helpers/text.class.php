@@ -150,7 +150,8 @@ class Text {
 		$string = trim($string, '-');
 		$string = self::lowercase($string);
 		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
-
+        //trim separator
+        $string = trim($string, $separator);
 		return $string;
 	}
 

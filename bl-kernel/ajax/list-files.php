@@ -17,7 +17,8 @@ if ($path==false) {
 		'files'=>'Invalid path.'
 	)));
 }
-
+//absolute path
+$path = PATH_ROOT.$path;
 // Get all files from the directory $path, also split the array by numberOfItems
 $listOfFilesByPage = Filesystem::listFiles($path, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
 

@@ -110,7 +110,9 @@ class dbSite extends dbJSON
 
 	public function extremeFriendly()
 	{
-		return $this->getField('extremeFriendly');
+		//always true. value is string not bool. here i convert it to boolean
+        //return $this->getField('extremeFriendly');
+        return filter_var($this->getField('extremeFriendly'), FILTER_VALIDATE_BOOLEAN);
 	}
 
 	public function twitter()

@@ -93,7 +93,7 @@ class dbJSON
 	// Returns a JSON encoded string on success or FALSE on failure.
 	private function serialize($data)
 	{
-		return json_encode($data, JSON_PRETTY_PRINT);
+		return json_encode($data, JSON_UNESCAPED_UNICODE |  JSON_PRETTY_PRINT);
 	}
 
 	// Returns the value encoded in json in appropriate PHP type.

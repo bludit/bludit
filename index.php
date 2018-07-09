@@ -11,6 +11,8 @@
 if (!file_exists('bl-content/databases/site.php')) {
 	$base = dirname($_SERVER['SCRIPT_NAME']);
 	$base = rtrim($base, '/');
+    //fix for windows
+    $base = rtrim($base, '\\');
 	header('Location:'.$base.'/install.php');
 	exit('<a href="./install.php">Install Bludit first.</a>');
 }

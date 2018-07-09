@@ -92,7 +92,8 @@ function displayFiles(files) {
 	// Regenerate the table
 	$.each(files, function(key, filename) {
 		tableRow = '<tr id="js'+filename+'">'+
-				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="<?php echo HTML_PATH_UPLOADS_THUMBNAILS ?>'+filename+'" style="width: 50px; height: 50px;"></td>'+
+                            //do not need php here. we already have these variables declared in javascript above
+				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+ HTML_PATH_UPLOADS_THUMBNAILS + filename+'" style="width: 50px; height: 50px;"></td>'+
 				'<td class="information">'+
 					'<div class="pb-2">'+filename+'</div>'+
 					'<div>'+
@@ -108,10 +109,11 @@ function displayFiles(files) {
 
 // Get the list of files via AJAX, filter by the page number
 function getFiles(pageNumber) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/list-files",
 		{ 	tokenCSRF: tokenCSRF,
 			pageNumber: pageNumber,
-			path: "<?php echo PATH_UPLOADS_THUMBNAILS ?>"
+            //ajax/list-files is changed
+			path: HTML_PATH_UPLOADS_THUMBNAILS
 		},
 		function(data) {
 			displayFiles(data.files);
@@ -120,7 +122,7 @@ function getFiles(pageNumber) {
 
 // Delete the file and the thumbnail if exist
 function deleteMedia(filename) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/delete-file",
+	$.post(HTML_PATH_ADMIN_ROOT + "ajax/delete-file",
 		{ 	tokenCSRF: tokenCSRF,
 			filename: filename
 		},
@@ -145,7 +147,7 @@ $(document).ready(function() {
 		// Check file type/extension ?
 
 		$.ajax({
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/upload-files",
+			url: HTML_PATH_ADMIN_ROOT+"ajax/upload-files",
 			type: "POST",
 			data: new FormData($("#jsbluditFormUpload")[0]),
 			cache: false,
