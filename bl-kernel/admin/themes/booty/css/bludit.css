@@ -1,6 +1,7 @@
 
 html {
 	height: 100%;
+	font-size: 0.9rem;
 }
 
 /*
@@ -45,6 +46,14 @@ a:hover {
 	background-color: rgb(228, 228, 228);
 	border-color: #DDD;
 	color: #000;
+}
+
+code {
+	padding: 3px 5px 2px;
+	margin: 0 1px;
+	background: #eaeaea;
+	background: rgba(0,0,0,.07);
+	color: #444;
 }
 
 /*
@@ -189,11 +198,3 @@ div.sidebar .nav-item span.oi {
 	color: #6c757d !important;
 }
 
-/*
-	NEW CONTENT / EDIT CONTENT
-*/
-
-.ql-container {
-	height: 360px;
-	font-size: 14px;
-}

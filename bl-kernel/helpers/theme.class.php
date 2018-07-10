@@ -112,7 +112,7 @@ class Theme {
 		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
 	}
 
-	public static function css($files)
+	public static function css($files, $base=DOMAIN_THEME)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -120,13 +120,13 @@ class Theme {
 
 		$links = '';
 		foreach($files as $file) {
-			$links .= '<link rel="stylesheet" type="text/css" href="'.DOMAIN_THEME.$file.'">'.PHP_EOL;
+			$links .= '<link rel="stylesheet" type="text/css" href="'.$base.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 		}
 
 		return $links;
 	}
 
-	public static function javascript($files)
+	public static function javascript($files, $base=DOMAIN_THEME)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -134,15 +134,15 @@ class Theme {
 
 		$scripts = '';
 		foreach($files as $file) {
-			$scripts .= '<script src="'.DOMAIN_THEME.$file.'"></script>'.PHP_EOL;
+			$scripts .= '<script charset="utf-8" src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 		}
 
 		return $scripts;
 	}
 
-	public static function js($files)
+	public static function js($files, $base=DOMAIN_THEME)
 	{
-		return self::javascript($files);
+		return self::javascript($files, $base);
 	}
 
 	public static function plugins($type)
@@ -168,7 +168,7 @@ class Theme {
 
 	public static function jquery()
 	{
-		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function bootstrapJS()

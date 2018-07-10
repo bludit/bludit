@@ -1,7 +1,5 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo '<script>'.PHP_EOL;
-
 echo 'var HTML_PATH_ROOT = "'.HTML_PATH_ROOT.'";'.PHP_EOL;
 echo 'var HTML_PATH_ADMIN_ROOT = "'.HTML_PATH_ADMIN_ROOT.'";'.PHP_EOL;
 echo 'var HTML_PATH_ADMIN_THEME = "'.HTML_PATH_ADMIN_THEME.'";'.PHP_EOL;
@@ -19,7 +17,5 @@ echo 'var AUTOSAVE_INTERVAL = "'.AUTOSAVE_INTERVAL.'";'.PHP_EOL;
 echo 'var PAGE_BREAK = "'.PAGE_BREAK.'";'.PHP_EOL;
 
 echo 'var tokenCSRF = "'.$Security->getTokenCSRF().'";'.PHP_EOL;
-
-echo '</script>';
 
 ?>

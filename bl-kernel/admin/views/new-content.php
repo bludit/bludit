@@ -94,9 +94,9 @@
 		<?php
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
-				'tip'=>$L->g('Full image URL'),
 				'placeholder'=>"https://",
-				'value'=>''
+				'value'=>'',
+				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicate for images.'
 			));
 		?>
 
@@ -105,14 +105,53 @@
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
 		<?php
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
+			echo Bootstrap::formTitle(array('title'=>'SEO'));
 
 			// Tags
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
 				'label'=>'Tags',
-				'placeholder'=>'Write the tags separeted by comma'
+				'placeholder'=>'',
+				'tip'=>'Write the tags separeted by comma'
 			));
+
+			// Friendly URL
+			echo Bootstrap::formInputText(array(
+				'name'=>'slug',
+				'tip'=>$L->g('URL associated with the content'),
+				'label'=>$L->g('Friendly URL'),
+				'placeholder'=>'Leave empty for automaticly complete'
+			));
+
+			echo '<hr>';
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noindex',
+				'label'=>'Robots',
+				'labelForCheckbox'=>'Apply <code>noindex</code> to this page',
+				'placeholder'=>'',
+				'tip'=>'This tells search engines not to show this page in their search results.'
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'nofollow',
+				'label'=>'',
+				'labelForCheckbox'=>'Apply <code>nofollow</code> to this page',
+				'placeholder'=>'',
+				'tip'=>'This tells search engines not to follow links on this page.'
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noarchive',
+				'label'=>'',
+				'labelForCheckbox'=>'Apply <code>noarchive</code> to this page',
+				'placeholder'=>'',
+				'tip'=>'This tells search engines not to save a cached copy of this page.'
+			));
+
+			echo '<hr>';
+
+			echo Bootstrap::formTitle(array('title'=>'Advanced'));
 
 			// Date
 			echo Bootstrap::formInputText(array(
@@ -149,13 +188,7 @@
 				'value'=>$dbPages->nextPositionNumber()
 			));
 
-			// Friendly URL
-			echo Bootstrap::formInputText(array(
-				'name'=>'slug',
-				'tip'=>$L->g('URL associated with the content'),
-				'label'=>$L->g('Friendly URL'),
-				'placeholder'=>'Leave empty for automaticly complete'
-			));
+
 
 			// Template
 			echo Bootstrap::formInputText(array(
@@ -193,25 +226,25 @@
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			function setCategoryBox(value) {
-				var selected = $("#jscategory option:selected");
-				var value = selected.val().trim();
-				if (value) {
-					$("#jscategoryButton").find("span.option").html(selected.text());
-				} else {
-					$("#jscategoryButton").find("span.option").html("-");
-				}
+	$(document).ready(function() {
+		function setCategoryBox(value) {
+			var selected = $("#jscategory option:selected");
+			var value = selected.val().trim();
+			if (value) {
+				$("#jscategoryButton").find("span.option").html(selected.text());
+			} else {
+				$("#jscategoryButton").find("span.option").html("-");
 			}
+		}
 
-			// Set the current category selected
+		// Set the current category selected
+		setCategoryBox();
+
+		// When the user select the category update the category button
+		$("#jscategory").on("change", function() {
 			setCategoryBox();
-
-			// When the user select the category update the category button
-			$("#jscategory").on("change", function() {
-				setCategoryBox();
-			});
 		});
+	});
 	</script>
 
 	<!-- Modal for Description -->
@@ -241,28 +274,30 @@
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			function setDescriptionBox(value) {
-				var value = $("#jsdescription").val();
-				if (!value) {
-					value = '-';
-				} else {
-					value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
-				}
-				$("#jsdescriptionButton").find("span.option").html(value);
+	$(document).ready(function() {
+		function setDescriptionBox(value) {
+			var value = $("#jsdescription").val();
+			if (!value) {
+				value = '-';
+			} else {
+				value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
 			}
+			$("#jsdescriptionButton").find("span.option").html(value);
+		}
 
-			// Set the current description
+		// Set the current description
+		setDescriptionBox();
+
+		// When the user write the description update the description button
+		$("#jsdescription").on("change", function() {
 			setDescriptionBox();
-
-			// When the user write the description update the description button
-			$("#jsdescription").on("change", function() {
-				setDescriptionBox();
-			});
 		});
+	});
 	</script>
-
 </form>
+
+<!-- Modal for Media Manager -->
+<?php include(PATH_ADMIN_THEMES.'booty/html/media.php'); ?>
 
 <script>
 $(document).ready(function() {
@@ -354,8 +389,3 @@ $(document).ready(function() {
 
 });
 </script>
-
-<?php
-	// Include Bludit Media Manager
-	include(PATH_ADMIN_THEMES.'booty/html/media.php');
-?>

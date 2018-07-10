@@ -12,7 +12,6 @@ class pluginsimpleMDE extends Plugin {
 		$this->dbFields = array(
 			'tabSize'=>'2',
 			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen"',
-			'autosave'=>false,
 			'spellChecker'=>true
 		);
 	}
@@ -48,52 +47,29 @@ class pluginsimpleMDE extends Plugin {
 			return false;
 		}
 
-		$html = '';
-
-		// Path plugin.
-		$pluginPath = $this->htmlPath();
-
-		// SimpleMDE css
-		$html .= '<link rel="stylesheet" href="'.$pluginPath.'css/simplemde.min.css">';
-
-		// Hack for Bludit
-		$html .= '<style>
-				.editor-toolbar { background: #f1f1f1; border-radius: 0 !important; }
-				.editor-toolbar::before { margin-bottom: 2px !important }
-				.editor-toolbar::after { margin-top: 2px !important }
-				.CodeMirror, .CodeMirror-scroll { min-height: 450px !important; border-radius: 0 !important; }
-			</style>';
-
+		// Include plugin's CSS files
+		$html  = $this->includeCSS('simplemde.min.css');
+		$html .= $this->includeCSS('bludit.css');
 		return $html;
 	}
 
 	public function adminBodyEnd()
 	{
+		global $Language;
+
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
-		}
-
-		// Autosave
-		global $Page;
-		global $Language;
-		$autosaveID = $GLOBALS['ADMIN_CONTROLLER'];
-		$autosaveEnable = $this->getDbField('autosave')?'true':'false';
-		if (!empty($Page)) {
-			$autosaveID = $Page->key();
 		}
 
 		// Spell Checker
 		$spellCheckerEnable = $this->getDbField('spellChecker')?'true':'false';
 
-		$pluginPath = $this->htmlPath();
-
-		// SimpleMDE js
-		$html  = '<script src="'.$pluginPath.'js/simplemde.min.js"></script>';
-
+		// Include plugin's Javascript files
+		$html  = $this->includeJS('simplemde.min.js');
 		$html .= '<script>'.PHP_EOL;
-
 		$html .= 'var simplemde = null;'.PHP_EOL;
 
+		// Include add content to the editor
 		$html .= 'function addContentSimpleMDE(content) {
 				var text = simplemde.value();
 				simplemde.value(text + content + "\n");
@@ -113,7 +89,6 @@ class pluginsimpleMDE extends Plugin {
 			}'.PHP_EOL;
 
 		$html .= '$(document).ready(function() { '.PHP_EOL;
-
 		$html .= '
 		simplemde = new SimpleMDE({
 				element: document.getElementById("jseditor"),
@@ -140,7 +115,6 @@ class pluginsimpleMDE extends Plugin {
 					title: "'.$Language->get('Pagebreak').'",
 					}]
 		});';
-
 		$html .= '}); </script>';
 		return $html;
 	}
