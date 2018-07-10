@@ -44,6 +44,10 @@ class dbList extends dbJSON
 			return $list;
 		}
 
+        if (count($list) < $amountOfItems) {			
+			return $list;
+		}
+
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
 		$chunks = array_chunk($list, $realPageNumber);
@@ -94,9 +98,11 @@ class dbList extends dbJSON
 	// $args => 'name', 'oldkey', 'newKey', 'template'
 	public function edit($args)
 	{
-		if (isset($this->db[$args['newKey']])) {
+
+        if (isset($this->db[$args['newKey']])) {
 			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey']);
-			return false;
+            //this not allow to edit existing category
+			//return false;
 		}
 
 		$this->db[$args['newKey']]['name'] 	= $args['name'];

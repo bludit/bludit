@@ -10,7 +10,10 @@ class Category {
 
 		if (isset($dbCategories->db[$key])) {
 			$this->vars['name'] 		= $dbCategories->db[$key]['name'];
-			$this->vars['template'] 	= $dbCategories->db[$key]['template'];
+            //here i recieve error from old category structure where template is not exist. 
+            if(isset($dbCategories->db[$key]['template'])){
+			  $this->vars['template'] 	= $dbCategories->db[$key]['template'];
+            }
 			$this->vars['key'] 		= $key;
 			$this->vars['permalink'] 	= DOMAIN_CATEGORIES . $key;
 			$this->vars['list'] 		= $dbCategories->db[$key]['list'];
