@@ -93,7 +93,7 @@ class dbPages extends dbJSON
 
 		// Set type of the page
 		if ($args['status']=='static') {
-			$args['type'] = 'page';
+			$args['type'] = 'static';
 		}
 
 		// Set type to the variables
@@ -346,7 +346,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if ($fields['status']!='published') {
+			if ($fields['status']!='published' || $fields['type'] != "") {
 				unset($tmp[$key]);
 			}
 		}
@@ -362,7 +362,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if ($fields['status']!='static') {
+			if ($fields['type']!='static') {
 				unset($tmp[$key]);
 			}
 		}
@@ -408,7 +408,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if($fields['status']!='sticky') {
+			if($fields['type']!='sticky') {
 				unset($tmp[$key]);
 			}
 		}

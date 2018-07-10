@@ -399,13 +399,18 @@ class Page {
 	// (boolean) Returns TRUE if the page is static, FALSE otherwise
 	public function isStatic()
 	{
-		return ($this->getValue('status')=='static');
+		return ($this->getValue('type')=='static');
 	}
 
 	// (string) Returns status of the page
 	public function status()
 	{
 		return $this->getValue('status');
+	}
+
+    public function type()
+	{
+		return $this->getValue('type');
 	}
 
 	// Returns the title field
