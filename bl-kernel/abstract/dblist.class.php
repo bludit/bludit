@@ -94,8 +94,8 @@ class dbList extends dbJSON
 	// $args => 'name', 'oldkey', 'newKey', 'template'
 	public function edit($args)
 	{
-		if (isset($this->db[$args['newKey']])) {
-			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey']);
+		if ( isset($this->db[$args['newKey']]) && ($args['newKey']!==$args['oldKey']) ) {
+			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey'], LOG_TYPE_WARN);
 			return false;
 		}
 

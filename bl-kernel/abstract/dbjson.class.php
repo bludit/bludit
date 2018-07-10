@@ -58,7 +58,7 @@ class dbJSON
 	// Returns the value from the field.
 	public function getField($field)
 	{
-		if(isset($this->db[$field])) {
+		if (isset($this->db[$field])) {
 			return $this->db[$field];
 		}
 
