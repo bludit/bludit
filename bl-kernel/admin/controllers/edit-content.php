@@ -30,15 +30,13 @@ if (!checkRole(array('admin','moderator'), false)) {
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if( isset($_POST['delete-page']) ) {
-		if( deletePage($_POST['key']) ) {
+	if ($_POST['status']==='delete') {
+		if (deletePage($_POST['key'])) {
 			Alert::set( $Language->g('The changes have been saved') );
-			Redirect::page('content');
 		}
-	}
-	else {
+	} else {
 		$key = editPage($_POST);
-		if( $key!==false ) {
+		if ($key!==false) {
 			Alert::set( $Language->g('The changes have been saved') );
 			Redirect::page('edit-content/'.$key);
 		}

@@ -1,5 +1,4 @@
-<!-- Alert -->
-<script>
+<script charset="utf-8">
 	function showAlert(text) {
 		console.log("[INFO] Function showAlert() called.");
 		$("#alert").html(text);

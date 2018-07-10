@@ -89,6 +89,21 @@ class Plugin {
 		return $tmp->save();
 	}
 
+	public function includeCSS($filename)
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.$this->domainPath().'css/'.$filename.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+	}
+
+	public function includeJS($filename)
+	{
+		return '<script charset="utf-8" src="'.$this->domainPath().'js/'.$filename.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public function domainPath()
+	{
+		return DOMAIN_PLUGINS.$this->directoryName.'/';
+	}
+
 	public function htmlPath()
 	{
 		return HTML_PATH_PLUGINS.$this->directoryName.'/';
