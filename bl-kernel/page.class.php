@@ -408,7 +408,7 @@ class Page {
 		return $this->getValue('status');
 	}
 
-    public function type()
+        public function type()
 	{
 		return $this->getValue('type');
 	}

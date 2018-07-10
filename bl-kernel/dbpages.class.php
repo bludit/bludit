@@ -91,7 +91,8 @@ class dbPages extends dbJSON
 			$args['status'] = 'scheduled';
 		}
 
-		// Set type of the page
+		// Set type of the page 
+                //   may be not needed  
 		if ($args['status']=='static') {
 			$args['type'] = 'static';
 		}
@@ -346,7 +347,8 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if ($fields['status']!='published' || $fields['type'] != "") {
+// do not want sticky and static pages here
+			if ($fields['status']!='published' || !empty($fields['type'])) {
 				unset($tmp[$key]);
 			}
 		}

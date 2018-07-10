@@ -74,7 +74,7 @@
 
 		<div class="form-group mt-1">
 			<textarea id="jseditor" style="display:none;"><?php echo $page->contentRaw(false) ?></textarea>
-		</div>
+		</div>		
 
 	</div>
 
@@ -175,9 +175,10 @@
 			));
         ?>
 	</div>
+    <!--  buttons visible on all tabs -->
     <div class="form-group mt-2">
         <button id="jsbuttonSave" type="button" class="btn btn-primary">
-            <?php echo $L->g('Publish') ?>
+            <?php echo $L->g('Save') ?>
         </button>
         <button id="jsbuttonDraft" type="button" class="btn btn-secondary">
             <?php echo $L->g('Save as draft') ?>
@@ -185,6 +186,11 @@
         <a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary">
             <?php echo $L->g('Cancel') ?>
         </a>
+        <?php
+        if (count($page->children())===0) {
+            echo '<button id="jsbuttonDelete" type="button" class="btn btn-secondary">'.$L->g('Delete').'</button>';
+				    }
+        ?>
     </div>
 
 	<!-- Modal for Categories -->
@@ -281,8 +287,10 @@
 			});
 		});
 	</script>
-
 </form>
+
+<!-- Modal for Media Manager -->
+<?php include(PATH_ADMIN_THEMES.'booty/html/media.php'); ?>
 
 <script>
 $(document).ready(function() {
@@ -301,6 +309,13 @@ $(document).ready(function() {
 		$("#jsform").submit();
 	});
 
+	// Button Delete
+	$("#jsbuttonDelete").on("click", function() {
+		$("#jsstatus").val("delete");
+		$("#jscontent").val("");
+		$("#jsform").submit();
+	});
+
 	// External cover image
 	$("#jsexternalCoverImage").change(function() {
 		$("#jscoverImage").val( $(this).val() );
@@ -311,15 +326,6 @@ $(document).ready(function() {
 		var status = $("#jstype option:selected").val();
 		$("#jsstatus").val(status);
 	});
-
-	// Generate slug when the user type the title
-	// $("#jstitle").keyup(function() {
-	// 	var text = $(this).val();
-	// 	var parent = $("#jsparent").val();
-	// 	var currentKey = "";
-	// 	var ajax = new bluditAjax();
-	// 	ajax.generateSlug(text, parent, currentKey, $("#jsslug"));
-	// });
 
 	// Autosave interval
 	setInterval(function() {
@@ -371,8 +377,3 @@ $(document).ready(function() {
 
 });
 </script>
-
-<?php
-	// Include Bludit Media Manager
-	include(PATH_ADMIN_THEMES.'booty/html/media.php');
-?>

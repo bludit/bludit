@@ -44,7 +44,7 @@ class dbList extends dbJSON
 			return $list;
 		}
 
-        if (count($list) < $amountOfItems) {			
+        if (count($list) < $amountOfItems) {
 			return $list;
 		}
 
@@ -99,11 +99,11 @@ class dbList extends dbJSON
 	public function edit($args)
 	{
 
-        if (isset($this->db[$args['newKey']])) {
-			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey']);
-            //this not allow to edit existing category
-			//return false;
+        if ( isset($this->db[$args['newKey']]) && ($args['newKey']!==$args['oldKey']) ) {
+			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey'], LOG_TYPE_WARN);
+			return false;
 		}
+
 
 		$this->db[$args['newKey']]['name'] 	= $args['name'];
 		$this->db[$args['newKey']]['template'] 	= isset($args['template'])?$args['template']:'';

@@ -5,8 +5,11 @@
 	If you are going to change some variable from here is recommended do it before the installation
 */
 
-// Log separator
+// Log
 define('LOG_SEP', ' | ');
+define('LOG_TYPE_INFO', '[INFO]');
+define('LOG_TYPE_WARN', '[WARN]');
+define('LOG_TYPE_ERROR', '[ERROR]');
 
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);

@@ -12,10 +12,9 @@
 	<!-- CSS -->
 	<?php
 		echo Theme::bootstrapCSS();
-
-		echo Bootstrap::css(array(
+		echo Theme::css(array(
 			'bludit.css'
-		));
+		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 
 	<!-- Javascript -->

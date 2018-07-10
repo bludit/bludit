@@ -147,11 +147,10 @@ class Text {
 		}
 
 		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);
-		$string = trim($string, '-');
 		$string = self::lowercase($string);
 		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
-        //trim separator
-        $string = trim($string, $separator);
+		$string = trim($string, '-');
+
 		return $string;
 	}
 

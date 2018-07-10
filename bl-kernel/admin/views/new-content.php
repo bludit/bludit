@@ -68,13 +68,7 @@
 
 		<div class="form-group mt-1">
 			<textarea id="jseditor" style="display:none;"></textarea>
-		</div>
-
-		<div class="form-group mt-2">
-			<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
-			<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
-		</div>
+		</div>		
 
 	</div>
 
@@ -196,9 +190,21 @@
 				'label'=>'Template',
 				'placeholder'=>''
 			));
-		?>
+        ?>
 
 	</div>
+    <!--  buttons visible on all tabs -->
+    <div class="form-group mt-2">
+        <button id="jsbuttonSave" type="button" class="btn btn-primary">
+            <?php echo $L->g('Publish') ?>
+        </button>
+        <button id="jsbuttonDraft" type="button" class="btn btn-secondary">
+            <?php echo $L->g('Save as draft') ?>
+        </button>
+        <a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary">
+            <?php echo $L->g('Cancel') ?>
+        </a>
+    </div>
 
 	<!-- Modal for Categories -->
 	<div id="jscategoryModal" class="modal fade" tabindex="-1" role="dialog">
