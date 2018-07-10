@@ -92,17 +92,16 @@ function displayFiles(files) {
 	// Regenerate the table
 	$.each(files, function(key, filename) {
 		tableRow = '<tr id="js'+filename+'">'+
-                            //do not need php here. we already have these variables declared in javascript above
 				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+ HTML_PATH_UPLOADS_THUMBNAILS + filename+'" style="width: 50px; height: 50px;"></td>'+
 				'<td class="information">'+
-					'<div class="pb-2">'+filename+'</div>'+
+					'<div class="pb-2">'+filename+'<\/div>'+
 					'<div>'+
-						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Insert</button>'+
-						'<button onClick="setCoverImage(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Set as cover image</button>'+
-						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-sm float-right">Delete</button>'+
-					'</div>'+
-				'</td>'+
-			'</tr>';
+						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Insert<\/button>'+
+						'<button onClick="setCoverImage(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Set as cover image<\/button>'+
+						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-sm float-right">Delete<\/button>'+
+					'<\/div>'+
+				'<\/td>'+
+			'<\/tr>';
 		$('#jsbluditMediaTable').append(tableRow);
 	});
 }

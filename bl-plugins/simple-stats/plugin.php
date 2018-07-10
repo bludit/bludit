@@ -47,13 +47,18 @@ class pluginSimpleStats extends Plugin {
 
 	public function adminHead()
 	{
-		if (in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
-			$css  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/chartist.min.css">';
-			$css .= '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/style.css">';
-			$script = '<script src="'.$this->htmlPath().'js/chartist.min.js"></script>';
-			return $css.PHP_EOL.$script.PHP_EOL;
+		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
+			return false;
 		}
-		return false;
+
+		// Include plugin's CSS files
+		$html  = $this->includeCSS('chartist.min.css');
+		$html .= $this->includeCSS('style.css');
+
+		// Include plugin's Javascript files
+		$html .= $this->includeJS('chartist.min.js');
+
+		return $html;
 	}
 
 	public function dashboard()

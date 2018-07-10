@@ -2,30 +2,6 @@
 
 class Bootstrap {
 
-	public static function css($filename) {
-		if (is_array($filename)) {
-			$tmp = '';
-			foreach ($filename as $file) {
-				$tmp .= '<link rel="stylesheet" type="text/css" href="'.HTML_PATH_ADMIN_THEME.'css/'.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
-			}
-		} else {
-			$tmp = '<link rel="stylesheet" type="text/css" href="'.HTML_PATH_ADMIN_THEME.'css/'.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
-		}
-		return $tmp;
-	}
-
-	public static function js($filename) {
-		if (is_array($filename)) {
-			$tmp = '';
-			foreach ($filename as $file) {
-				$tmp .= '<script charset="utf-8" src="'.HTML_PATH_ADMIN_THEME.'js/'.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
-			}
-		} else {
-			$tmp = '<script charset="utf-8" src="'.HTML_PATH_ADMIN_THEME.'js/'.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
-		}
-		return $tmp;
-	}
-
 	public static function link($args)
 	{
 		$options = 'href="'.$args['href'].'"';
@@ -227,7 +203,7 @@ EOF;
 	{
 		$label = isset($args['label'])?$args['label']:'';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$tip = isset($args['tip'])?$args['tip']:'';
+		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
 		$value = isset($args['value'])?$args['value']:'';
 		$name = $args['name'];
 		$id = 'js'.$name;
@@ -252,6 +228,44 @@ return <<<EOF
 	<div class="col-sm-10">
 		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled>
 		<small class="form-text text-muted">$tip</small>
+	</div>
+</div>
+EOF;
+	}
+
+	public static function formCheckbox($args)
+	{
+		$label = isset($args['label'])?$args['label']:'';
+		$labelForCheckbox = isset($args['labelForCheckbox'])?$args['labelForCheckbox']:'';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
+		$value = isset($args['value'])?$args['value']:'';
+		$name = $args['name'];
+		$id = 'js'.$name;
+		if (isset($args['id'])) {
+			$id = $args['id'];
+		}
+		$disabled = isset($args['disabled'])?'disabled':'';
+
+		$class = 'form-control';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$type = 'text';
+		if (isset($args['type'])) {
+			$type = $args['type'];
+		}
+
+return <<<EOF
+<div class="form-group row">
+	<label for="$id" class="col-sm-2">$label</label>
+	<div class="col-sm-10">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" id="$id">
+			<label class="form-check-label" for="$id">$labelForCheckbox</label>
+			<small class="form-text text-muted">$tip</small>
+		</div>
 	</div>
 </div>
 EOF;
