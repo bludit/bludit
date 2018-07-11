@@ -20,7 +20,10 @@ class dbPages extends dbJSON
 		'md5file'=>		array('inFile'=>false,	'value'=>''),
 		'uuid'=>		array('inFile'=>false,	'value'=>''),
 		'allowComments'=>	array('inFile'=>false,	'value'=>true),
-		'template'=>		array('inFile'=>false,	'value'=>'')
+		'template'=>		array('inFile'=>false,	'value'=>''),
+		'noindex'=>		array('inFile'=>false,	'value'=>false),
+		'nofollow'=>		array('inFile'=>false,	'value'=>false),
+		'noarchive'=>		array('inFile'=>false,	'value'=>false)
 	);
 
 	function __construct()

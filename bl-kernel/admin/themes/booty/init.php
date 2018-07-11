@@ -247,7 +247,7 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'form-control';
+		$class = 'form-group row';
 		if (isset($args['class'])) {
 			$class = $class.' '.$args['class'];
 		}
@@ -258,7 +258,7 @@ EOF;
 		}
 
 return <<<EOF
-<div class="form-group row">
+<div class="$class">
 	<label for="$id" class="col-sm-2">$label</label>
 	<div class="col-sm-10">
 		<div class="form-check">

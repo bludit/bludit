@@ -89,9 +89,7 @@
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover Image')));
-		?>
 
-		<?php
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
 				'placeholder'=>"https://",
@@ -105,6 +103,55 @@
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
 		<?php
+
+			echo Bootstrap::formTitle(array('title'=>'Advanced'));
+
+			// Date
+			echo Bootstrap::formInputText(array(
+				'name'=>'date',
+				'label'=>'Date',
+				'placeholder'=>'',
+				'value'=>Date::current(DB_DATE_FORMAT),
+				'tip'=>'Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>'
+			));
+
+			// Type
+			echo Bootstrap::formSelect(array(
+				'name'=>'type',
+				'label'=>'Type',
+				'selected'=>'',
+				'options'=>array(
+					''=>'- Default -',
+					'sticky'=>'Sticky',
+					'static'=>'Static'
+				),
+				'tip'=>'???'
+			));
+
+			// Parent
+			echo Bootstrap::formInputText(array(
+				'name'=>'parentTMP',
+				'label'=>$L->g('Parent'),
+				'placeholder'=>'Start typing a page title to see a list of suggestions.',
+				'tip'=>'Select a page to arrange your content in hierarchies.'
+			));
+
+			// Position
+			echo Bootstrap::formInputText(array(
+				'name'=>'position',
+				'label'=>$L->g('Position'),
+				'tip'=>'Field used when ordering content by position',
+				'value'=>$dbPages->nextPositionNumber()
+			));
+
+			// Template
+			echo Bootstrap::formInputText(array(
+				'name'=>'template',
+				'label'=>'Template',
+				'placeholder'=>'',
+				'tip'=>'Write a template name to filter the page in the theme and change the style of the page.'
+			));
+
 			echo Bootstrap::formTitle(array('title'=>'SEO'));
 
 			// Tags
@@ -120,16 +167,15 @@
 				'name'=>'slug',
 				'tip'=>$L->g('URL associated with the content'),
 				'label'=>$L->g('Friendly URL'),
-				'placeholder'=>'Leave empty for automaticly complete'
+				'placeholder'=>'Leave empty for autocomplete by Bludit.'
 			));
-
-			echo '<hr>';
 
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'noindex',
 				'label'=>'Robots',
 				'labelForCheckbox'=>'Apply <code>noindex</code> to this page',
 				'placeholder'=>'',
+				'class'=>'mt-4',
 				'tip'=>'This tells search engines not to show this page in their search results.'
 			));
 
@@ -149,51 +195,6 @@
 				'tip'=>'This tells search engines not to save a cached copy of this page.'
 			));
 
-			echo '<hr>';
-
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
-
-			// Date
-			echo Bootstrap::formInputText(array(
-				'name'=>'date',
-				'label'=>'Date',
-				'placeholder'=>'YYYY-MM-DD hh:mm:ss',
-				'value'=>Date::current(DB_DATE_FORMAT)
-			));
-
-			// Type
-			echo Bootstrap::formSelect(array(
-				'name'=>'type',
-				'label'=>'Type',
-				'selected'=>'',
-				'options'=>array(
-					''=>'- Default -',
-					'sticky'=>'Sticky',
-					'static'=>'Static'
-				)
-			));
-
-			// Parent
-			echo Bootstrap::formInputText(array(
-				'name'=>'parentTMP',
-				'label'=>$L->g('Parent'),
-				'tip'=>'Start typing a page title to see a list of suggestions.'
-			));
-
-			// Position
-			echo Bootstrap::formInputText(array(
-				'name'=>'position',
-				'label'=>$L->g('Position'),
-				'tip'=>$L->g('This field is used when you order the content by position'),
-				'value'=>$dbPages->nextPositionNumber()
-			));
-
-			// Template
-			echo Bootstrap::formInputText(array(
-				'name'=>'template',
-				'label'=>'Template',
-				'placeholder'=>''
-			));
 		?>
 
 	</div>

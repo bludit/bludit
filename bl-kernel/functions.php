@@ -395,33 +395,25 @@ function createPage($args) {
 	global $Language;
 
 	// Check if the autosave page exists for this new page and delete it
-	$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
-	if (!empty($pageKey)) {
-		deletePage($pageKey);
+	$autosaveKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+	if (!empty($autosaveKey)) {
+		Log::set('Function createPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
+		deletePage($autosaveKey);
 	}
 
 	// The user is always the one loggued
 	$args['username'] = Session::get('username');
-	if ( empty($args['username']) ) {
-		Log::set('Function createPage()'.LOG_SEP.'Empty username.');
+	if (empty($args['username'])) {
+		Log::set('Function createPage()'.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
 		return false;
 	}
-
-	// // External Cover Image
-	// if ( !empty($args['externalCoverImage']) ) {
-	// 	$args['coverImage'] = $args['externalCoverImage'];
-	// 	unset($args['externalCoverImage']);
-	// }
 
 	$key = $dbPages->add($args);
 	if ($key) {
 		// Call the plugins after page created
 		Theme::plugins('afterPageCreate');
 
-		// Re-index categories
 		reindexCategories();
-
-		// Re-index tags
 		reindextags();
 
 		// Add to syslog
@@ -431,14 +423,13 @@ function createPage($args) {
 		));
 
 		Alert::set( $Language->g('new-content-created') );
-
 		return $key;
 	}
 
-	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page');
-	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...');
-	$dbPages->delete($key);
-	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning finished...');
+	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page', LOG_TYPE_ERROR);
+	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...', LOG_TYPE_ERROR);
+	deletePage($key);
+	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning finished...', LOG_TYPE_ERROR);
 
 	return false;
 }
@@ -450,26 +441,21 @@ function editPage($args) {
 	// Check if the autosave page exists for this new page and delete it
 	$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
 	if (!empty($pageKey)) {
+		Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
 		deletePage($pageKey);
 	}
 
-	// Check the key is not empty
+	// Check if the key is not empty
 	if (empty($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Empty key.');
+		Log::set('Function editPage()'.LOG_SEP.'Empty key.', LOG_TYPE_ERROR);
 		return false;
 	}
 
 	// Check if the page key exist
 	if (!$dbPages->exists($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Page key does not exist, '.$args['key']);
+		Log::set('Function editPage()'.LOG_SEP.'Page key does not exist, '.$args['key'], LOG_TYPE_ERROR);
 		return false;
 	}
-
-	// // External Cover Image
-	// if (!empty($args['externalCoverImage'])) {
-	// 	$args['coverImage'] = $args['externalCoverImage'];
-	// 	unset($args['externalCoverImage']);
-	// }
 
 	// Title and content need to be here because from inside the dbPages is not visible
 	if (empty($args['title']) || empty($args['content'])) {
@@ -487,10 +473,7 @@ function editPage($args) {
 		// Call the plugins after page modified
 		Theme::plugins('afterPageModify');
 
-		// Re-index categories
 		reindexCategories();
-
-		// Re-index tags
 		reindextags();
 
 		// Add to syslog
@@ -502,7 +485,7 @@ function editPage($args) {
 		return $key;
 	}
 
-	Log::set('Function editPage()'.LOG_SEP.'ERROR: Something happen when try to edit the page.');
+	Log::set('Function editPage()'.LOG_SEP.'Something happen when try to edit the page.', LOG_TYPE_ERROR);
 	return false;
 }
 

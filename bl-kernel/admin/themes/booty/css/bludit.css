@@ -2,6 +2,11 @@
 html {
 	height: 100%;
 	font-size: 0.9rem;
+	background: #fcfcfc;
+}
+
+body {
+	background: #fcfcfc;
 }
 
 /*
