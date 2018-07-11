@@ -177,7 +177,7 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
 				'label'=>$L->g('Parent'),
-				'placeholder'=>'Start writing the title of the page parent'
+				'tip'=>'Start typing a page title to see a list of suggestions.'
 			));
 
 			// Position
@@ -187,8 +187,6 @@
 				'tip'=>$L->g('This field is used when you order the content by position'),
 				'value'=>$dbPages->nextPositionNumber()
 			));
-
-
 
 			// Template
 			echo Bootstrap::formInputText(array(
@@ -301,6 +299,9 @@
 
 <script>
 $(document).ready(function() {
+
+	// Datepicker
+	$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {

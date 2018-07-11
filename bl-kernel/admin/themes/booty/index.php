@@ -15,6 +15,7 @@
 		echo Theme::css(array(
 			'jquery-auto-complete.css',
 			'open-iconic-bootstrap.min.css',
+			'jquery.datetimepicker.min.css',
 			'bludit.css'
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
@@ -24,7 +25,8 @@
 		echo Theme::jquery();
 		echo Theme::bootstrapJS();
 		echo Theme::js(array(
-			'jquery-auto-complete.min.js'
+			'jquery-auto-complete.min.js',
+			'jquery.datetimepicker.full.min.js'
 		), DOMAIN_ADMIN_THEME_JS);
 	?>
 

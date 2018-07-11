@@ -12,6 +12,8 @@ echo 'var BLUDIT_BUILD = "'.BLUDIT_BUILD.'";'.PHP_EOL;
 
 echo 'var DOMAIN_UPLOADS = "'.DOMAIN_UPLOADS.'";'.PHP_EOL;
 
+echo 'var DB_DATE_FORMAT = "'.DB_DATE_FORMAT.'";'.PHP_EOL;
+
 echo 'var AUTOSAVE_INTERVAL = "'.AUTOSAVE_INTERVAL.'";'.PHP_EOL;
 
 echo 'var PAGE_BREAK = "'.PAGE_BREAK.'";'.PHP_EOL;
