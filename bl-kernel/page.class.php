@@ -408,6 +408,12 @@ class Page {
 		return $this->getValue('status');
 	}
 
+	// (string) Returns type of the page
+	public function type()
+	{
+		return $this->status();
+	}
+
 	// Returns the title field
 	public function title()
 	{
@@ -424,6 +430,24 @@ class Page {
 	public function position()
 	{
 		return $this->getValue('position');
+	}
+
+	// Returns the page noindex
+	public function noindex()
+	{
+		return $this->getValue('noindex');
+	}
+
+	// Returns the page nofollow
+	public function nofollow()
+	{
+		return $this->getValue('nofollow');
+	}
+
+	// Returns the page noarchive
+	public function noarchive()
+	{
+		return $this->getValue('noarchive');
 	}
 
 	// Returns the page slug

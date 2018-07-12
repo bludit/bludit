@@ -21,9 +21,8 @@ Things to do:
 
 - Fix Tinymce plugin
 
-- New / Edit content
--- Option without category
--- Delete content
+- Edit content
+-- If the parent is set, the
 
 - add to settings
 -- time for autosave

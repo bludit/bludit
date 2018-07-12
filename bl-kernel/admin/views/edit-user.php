@@ -44,6 +44,26 @@ echo Bootstrap::formOpen(array());
 		'tip'=>''
 	));
 
+	echo Bootstrap::formTitle(array('title'=>$L->g('Profile')));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'firstName',
+		'label'=>$L->g('First Name'),
+		'value'=>$user->firstName(),
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'lastName',
+		'label'=>$L->g('Last Name'),
+		'value'=>$user->lastName(),
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
 	echo Bootstrap::formTitle(array('title'=>$L->g('Password')));
 
 	echo '

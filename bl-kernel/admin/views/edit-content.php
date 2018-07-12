@@ -1,3 +1,5 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
+
 <!-- TABS -->
 <ul class="nav nav-tabs" id="dynamicTab" role="tablist">
 	<li class="nav-item">
@@ -107,9 +109,7 @@
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>'External Cover image'));
-		?>
 
-		<?php
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
 				'placeholder'=>'https://',
@@ -123,58 +123,47 @@
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
 		<?php
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
 
-			// Tags
-			echo Bootstrap::formInputText(array(
-				'name'=>'tags',
-				'label'=>'Tags',
-				'value'=>$page->tags(),
-				'placeholder'=>'Tags separeted by comma'
-			));
+			echo Bootstrap::formTitle(array('title'=>'Advanced'));
 
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
 				'label'=>'Date',
-				'placeholder'=>'YYYY-MM-DD hh:mm:ss',
-				'value'=>$page->dateRaw()
+				'placeholder'=>'',
+				'value'=>$page->date(),
+				'tip'=>'Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>'
 			));
 
 			// Type
 			echo Bootstrap::formSelect(array(
 				'name'=>'type',
 				'label'=>'Type',
-				'selected'=>$page->status(),
+				'selected'=>$page->type(),
 				'options'=>array(
 					''=>'- Default -',
 					'sticky'=>'Sticky',
 					'static'=>'Static'
-				)
+				),
+				'tip'=>'???'
 			));
 
 			// Parent
+			$parentTMP = buildPage($page->parent());
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
-				'label'=>'Parent',
-				'placeholder'=>'Start writing the title of the page parent',
-				'value'=>($page->parent()?$page->parentMethod('title'):'')
+				'label'=>$L->g('Parent'),
+				'placeholder'=>'',
+				'tip'=>'Start typing a page title to see a list of suggestions.',
+				'value'=>($parentTMP?$parentTMP->title():'')
 			));
 
 			// Position
 			echo Bootstrap::formInputText(array(
 				'name'=>'position',
-				'label'=>'Position',
-				'placeholder'=>'',
+				'label'=>$L->g('Position'),
+				'tip'=>'Field used when ordering content by position',
 				'value'=>$page->position()
-			));
-
-			// Friendly URL
-			echo Bootstrap::formInputText(array(
-				'name'=>'slug',
-				'label'=>'Friendly URL',
-				'value'=>$page->slug(),
-				'placeholder'=>'Leave empty for automaticly complete'
 			));
 
 			// Template
@@ -182,8 +171,58 @@
 				'name'=>'template',
 				'label'=>'Template',
 				'placeholder'=>'',
-				'value'=>$page->template()
+				'value'=>$page->template(),
+				'tip'=>'Write a template name to filter the page in the theme and change the style of the page.'
 			));
+
+			echo Bootstrap::formTitle(array('title'=>'SEO'));
+
+			// Tags
+			echo Bootstrap::formInputText(array(
+				'name'=>'tags',
+				'label'=>'Tags',
+				'placeholder'=>'',
+				'value'=>$page->tags(),
+				'tip'=>'Write the tags separeted by comma'
+			));
+
+			// Friendly URL
+			echo Bootstrap::formInputText(array(
+				'name'=>'slug',
+				'tip'=>$L->g('URL associated with the content'),
+				'label'=>$L->g('Friendly URL'),
+				'placeholder'=>'Leave empty for autocomplete by Bludit.',
+				'value'=>$page->slug()
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noindex',
+				'label'=>'Robots',
+				'labelForCheckbox'=>'Apply <code>noindex</code> to this page',
+				'placeholder'=>'',
+				'class'=>'mt-4',
+				'checked'=>$page->noindex(),
+				'tip'=>'This tells search engines not to show this page in their search results.'
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'nofollow',
+				'label'=>'',
+				'labelForCheckbox'=>'Apply <code>nofollow</code> to this page',
+				'placeholder'=>'',
+				'checked'=>$page->nofollow(),
+				'tip'=>'This tells search engines not to follow links on this page.'
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noarchive',
+				'label'=>'',
+				'labelForCheckbox'=>'Apply <code>noarchive</code> to this page',
+				'placeholder'=>'',
+				'checked'=>$page->noarchive(),
+				'tip'=>'This tells search engines not to save a cached copy of this page.'
+			));
+
 		?>
 	</div>
 
@@ -213,25 +252,25 @@
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			function setCategoryBox(value) {
-				var selected = $("#jscategory option:selected");
-				var value = selected.val().trim();
-				if (value) {
-					$("#jscategoryButton").find("span.option").html(selected.text());
-				} else {
-					$("#jscategoryButton").find("span.option").html("-");
-				}
+	$(document).ready(function() {
+		function setCategoryBox(value) {
+			var selected = $("#jscategory option:selected");
+			var value = selected.val().trim();
+			if (value) {
+				$("#jscategoryButton").find("span.option").html(selected.text());
+			} else {
+				$("#jscategoryButton").find("span.option").html("-");
 			}
+		}
 
-			// Set the current category selected
+		// Set the current category selected
+		setCategoryBox();
+
+		// When the user select the category update the category button
+		$("#jscategory").on("change", function() {
 			setCategoryBox();
-
-			// When the user select the category update the category button
-			$("#jscategory").on("change", function() {
-				setCategoryBox();
-			});
 		});
+	});
 	</script>
 
 	<!-- Modal for Description -->
@@ -261,25 +300,25 @@
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			function setDescriptionBox(value) {
-				var value = $("#jsdescription").val();
-				if (!value) {
-					value = '-';
-				} else {
-					value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
-				}
-				$("#jsdescriptionButton").find("span.option").html(value);
+	$(document).ready(function() {
+		function setDescriptionBox(value) {
+			var value = $("#jsdescription").val();
+			if (!value) {
+				value = '-';
+			} else {
+				value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
 			}
+			$("#jsdescriptionButton").find("span.option").html(value);
+		}
 
-			// Set the current description
+		// Set the current description
+		setDescriptionBox();
+
+		// When the user write the description update the description button
+		$("#jsdescription").on("change", function() {
 			setDescriptionBox();
-
-			// When the user write the description update the description button
-			$("#jsdescription").on("change", function() {
-				setDescriptionBox();
-			});
 		});
+	});
 	</script>
 </form>
 
@@ -288,6 +327,9 @@
 
 <script>
 $(document).ready(function() {
+
+	// Datepicker
+	$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
@@ -322,6 +364,7 @@ $(document).ready(function() {
 	});
 
 	// Autosave interval
+	// Autosave works when the content of the page is bigger than 100 characters
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
 			var title = $("#jstitle").val();
@@ -348,10 +391,11 @@ $(document).ready(function() {
 	var parentsXHR;
 	var parentsList; // Keep the parent list returned to get the key by the title page
 	$("#jsparentTMP").autoComplete({
+		minChars: 1,
 		source: function(term, response) {
 			// Prevent call inmediatly another ajax request
 			try { parentsXHR.abort(); } catch(e){}
-			parentsXHR = $.getJSON("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/get-parents", {query: term},
+			parentsXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-parents", {query: term},
 				function(data) {
 					parentsList = data;
 					term = term.toLowerCase();
@@ -364,6 +408,7 @@ $(document).ready(function() {
 			});
 		},
 		onSelect: function(e, term, item) {
+			// parentsList = array( pageTitle => pageKey )
 			var parentKey = parentsList[term];
 			$("#jsparent").attr("value", parentKey);
 		}

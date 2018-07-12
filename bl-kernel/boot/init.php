@@ -59,7 +59,7 @@ define('DB_USERS', PATH_DATABASES.'users.php');
 define('DB_SECURITY', PATH_DATABASES.'security.php');
 
 // JSON pretty print
-if(!defined('JSON_PRETTY_PRINT')) {
+if (!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
 }
 
@@ -120,10 +120,10 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 }
 
 // Session
-Session::start();
-if (Session::started()===false) {
-	exit('Bludit CMS. Session initialization failure.');
-}
+// Session::start();
+// if (Session::started()===false) {
+// 	exit('Bludit CMS. Session initialization failure.');
+// }
 
 // Objects
 $dbPages 			= new dbPages();

@@ -1,5 +1,11 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// Session
+Session::start();
+if (Session::started()===false) {
+	exit('Bludit CMS. Session initialization failure.');
+}
+
 $layout = array(
 	'controller'=>null,
 	'view'=>null,

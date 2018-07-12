@@ -1,3 +1,5 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
+
 <!-- TABS -->
 <ul class="nav nav-tabs" id="dynamicTab" role="tablist">
 	<li class="nav-item">
@@ -132,8 +134,9 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
 				'label'=>$L->g('Parent'),
-				'placeholder'=>'Start typing a page title to see a list of suggestions.',
-				'tip'=>'Select a page to arrange your content in hierarchies.'
+				'placeholder'=>'',
+				'tip'=>'Start typing a page title to see a list of suggestions.',
+				'value'=>''
 			));
 
 			// Position
@@ -149,6 +152,7 @@
 				'name'=>'template',
 				'label'=>'Template',
 				'placeholder'=>'',
+				'value'=>'',
 				'tip'=>'Write a template name to filter the page in the theme and change the style of the page.'
 			));
 
@@ -176,6 +180,7 @@
 				'labelForCheckbox'=>'Apply <code>noindex</code> to this page',
 				'placeholder'=>'',
 				'class'=>'mt-4',
+				'checked'=>false,
 				'tip'=>'This tells search engines not to show this page in their search results.'
 			));
 
@@ -184,6 +189,7 @@
 				'label'=>'',
 				'labelForCheckbox'=>'Apply <code>nofollow</code> to this page',
 				'placeholder'=>'',
+				'checked'=>false,
 				'tip'=>'This tells search engines not to follow links on this page.'
 			));
 
@@ -192,11 +198,11 @@
 				'label'=>'',
 				'labelForCheckbox'=>'Apply <code>noarchive</code> to this page',
 				'placeholder'=>'',
+				'checked'=>false,
 				'tip'=>'This tells search engines not to save a cached copy of this page.'
 			));
 
 		?>
-
 	</div>
 
 	<!-- Modal for Categories -->

@@ -257,12 +257,14 @@ EOF;
 			$type = $args['type'];
 		}
 
+		$checked = $args['checked']?'checked':'';
+
 return <<<EOF
 <div class="$class">
 	<label for="$id" class="col-sm-2">$label</label>
 	<div class="col-sm-10">
 		<div class="form-check">
-			<input class="form-check-input" type="checkbox" id="$id">
+			<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
 			<label class="form-check-label" for="$id">$labelForCheckbox</label>
 			<small class="form-text text-muted">$tip</small>
 		</div>
