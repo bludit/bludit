@@ -11,7 +11,7 @@
 
 	<!-- CSS -->
 	<?php
-		echo Theme::bootstrapCSS();
+		echo Theme::cssBootstrap();
 		echo Theme::css(array(
 			'jquery-auto-complete.css',
 			'open-iconic-bootstrap.min.css',
@@ -23,7 +23,7 @@
 	<!-- Javascript -->
 	<?php
 		echo Theme::jquery();
-		echo Theme::bootstrapJS();
+		echo Theme::jsBootstrap();
 		echo Theme::js(array(
 			'jquery-auto-complete.min.js',
 			'jquery.datetimepicker.full.min.js'

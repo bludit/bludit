@@ -443,6 +443,38 @@ class dbPages extends dbJSON
 		return ++$tmp;
 	}
 
+	// Returns the next page key of the current page key
+	public function nextPageKey($currentKey)
+	{
+		if ($this->db[$currentKey]['status']=='published') {
+			$keys = array_keys($this->db);
+			$position = array_search($currentKey, $keys) - 1;
+			if (isset($keys[$position])) {
+				$nextKey = $keys[$position];
+				if ($this->db[$nextKey]['status']=='published') {
+					return $nextKey;
+				}
+			}
+		}
+		return false;
+	}
+
+	// Returns the previous page key of the current page key
+	public function previousPageKey($currentKey)
+	{
+		if ($this->db[$currentKey]['status']=='published') {
+			$keys = array_keys($this->db);
+			$position = array_search($currentKey, $keys) + 1;
+			if (isset($keys[$position])) {
+				$prevKey = $keys[$position];
+				if ($this->db[$prevKey]['status']=='published') {
+					return $prevKey;
+				}
+			}
+		}
+		return false;
+	}
+
 	// Returns an array with a list of key of pages, FALSE if out of range
 	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number

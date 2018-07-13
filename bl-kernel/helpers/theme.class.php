@@ -53,41 +53,52 @@ class Theme {
 		return DOMAIN_ADMIN;
 	}
 
-	// Return the metatag <title> with a predefine structure
-	public static function headTitle()
+	public static function metaTags($tag)
 	{
-		global $Url;
-		global $Site;
+		if ($tag=='title') {
+			return self::metaTagTitle();
+		} elseif ($tag=='description') {
+			return self::metaTagDescription();
+		}
+	}
+
+	public static function metaTagTitle()
+	{
+		global $url;
+		global $site;
 		global $dbTags;
 		global $dbCategories;
 		global $WHERE_AM_I;
 		global $page;
 
-		$title = $Site->title();
-
-		if (Text::isNotEmpty($Site->slogan())) {
-			$title = $Site->slogan().' | '.$Site->title();
-		}
-
 		if ($WHERE_AM_I=='page') {
-			$title = $page->title().' | '.$Site->title();
+			$format = $site->titleFormatPages();
+			$format = Text::replace('{{page-title}}', $page->title(), $format);
+			$format = Text::replace('{{page-description}}', $page->description(), $format);
 		}
 		elseif ($WHERE_AM_I=='tag') {
-			$tagKey = $Url->slug();
+			$tagKey = $url->slug();
 			$tagName = $dbTags->getName($tagKey);
-			$title = $tagName.' | '.$Site->title();
+			$format = $site->titleFormatTag();
+			$format = Text::replace('{{tag-name}}', $tagName, $format);
 		}
 		elseif ($WHERE_AM_I=='category') {
-			$categoryKey = $Url->slug();
+			$categoryKey = $url->slug();
 			$categoryName = $dbCategories->getName($categoryKey);
-			$title = $categoryName.' | '.$Site->title();
+			$format = $site->titleFormatCategory();
+			$format = Text::replace('{{category-name}}', $categoryName, $format);
+		} else {
+			$format = $site->titleFormatHomepage();
 		}
 
-		return '<title>'.$title.'</title>'.PHP_EOL;
+		$format = Text::replace('{{site-title}}', $site->title(), $format);
+		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
+		$format = Text::replace('{{site-description}}', $site->description(), $format);
+
+		return '<title>'.$format.'</title>'.PHP_EOL;
 	}
 
-	// Return the metatag <decription> with a predefine structure
-	public static function headDescription()
+	public static function metaTagDescription()
 	{
 		global $Site;
 		global $WHERE_AM_I;
@@ -100,6 +111,20 @@ class Theme {
 		}
 
 		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
+	}
+
+	// DEPRECATED v3.0.0
+	// Return the metatag <title> with a predefine structure
+	public static function headTitle()
+	{
+		return self::metaTagTitle();
+	}
+
+	// DEPRECATED v3.0.0
+	// Return the metatag <decription> with a predefine structure
+	public static function headDescription()
+	{
+		return self::metaTagDescription();
 	}
 
 	public static function charset($charset)
@@ -171,12 +196,12 @@ class Theme {
 		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
-	public static function bootstrapJS()
+	public static function jsBootstrap()
 	{
 		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap-bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
-	public static function bootstrapCSS()
+	public static function cssBootstrap()
 	{
 		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}

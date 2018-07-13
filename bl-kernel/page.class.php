@@ -208,6 +208,18 @@ class Page {
 		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;
 	}
 
+	// Returns the previous page key
+	public function previousKey()
+	{
+		return $this->getValue('previousKey');
+	}
+
+	// Returns the next page key
+	public function nextKey()
+	{
+		return $this->getValue('nextKey');
+	}
+
 	// Returns the category name
 	public function category()
 	{

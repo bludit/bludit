@@ -10,6 +10,7 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 
 	// Move from temporary directory to uploads folder
 	rename($_FILES['bluditInputFiles']['tmp_name'][$key], PATH_UPLOADS.$nextFilename);
+	chmod(PATH_UPLOADS.$nextFilename, 0644);
 
 	// Generate Thumbnail
 

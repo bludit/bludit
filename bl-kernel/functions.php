@@ -61,6 +61,10 @@ function buildPage($key) {
 	// Get the keys of the child
 	$page->setField('childrenKeys', $dbPages->getChildren($key));
 
+	// Set previous and next page key
+	$page->setField('previousKey', $dbPages->previousPageKey($key));
+	$page->setField('nextKey', $dbPages->nextPageKey($key));
+
 	return $page;
 }
 

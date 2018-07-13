@@ -11,7 +11,7 @@
 
 	<!-- CSS -->
 	<?php
-		echo Theme::bootstrapCSS();
+		echo Theme::cssBootstrap();
 		echo Theme::css(array(
 			'bludit.css'
 		), DOMAIN_ADMIN_THEME_CSS);
@@ -20,7 +20,7 @@
 	<!-- Javascript -->
 	<?php
 		echo Theme::jquery();
-		echo Theme::bootstrapJS();
+		echo Theme::jsBootstrap();
 	?>
 
 	<!-- Plugins -->

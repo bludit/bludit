@@ -169,6 +169,48 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>'Allow unicode characters in the URL and some part of the system.'
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('Title formats')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'titleFormatHomepage',
+			'label'=>'Homepage',
+			'value'=>$Site->titleFormatHomepage(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>'Variables allowed: <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'placeholder'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'titleFormatPages',
+			'label'=>'Pages',
+			'value'=>$Site->titleFormatPages(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>'Variables allowed: <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'placeholder'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'titleFormatCategory',
+			'label'=>'Category',
+			'value'=>$Site->titleFormatCategory(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>'Variables allowed: <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'placeholder'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'titleFormatTag',
+			'label'=>'Tag',
+			'value'=>$Site->titleFormatTag(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>'Variables allowed: <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'placeholder'=>''
+		));
+
 		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
 
 		echo Bootstrap::formInputText(array(

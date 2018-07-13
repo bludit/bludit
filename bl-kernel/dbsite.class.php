@@ -34,7 +34,11 @@ class dbSite extends dbJSON
 		'linkedin'=>		array('inFile'=>false, 'value'=>''),
 		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
 		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true),
-		'autosaveInterval'=>	array('inFile'=>false, 'value'=>2)
+		'autosaveInterval'=>	array('inFile'=>false, 'value'=>2),
+		'titleFormatHomepage'=>	array('inFile'=>false, 'value'=>'{{site-slogan}} | {{site-title}}'),
+		'titleFormatPages'=>	array('inFile'=>false, 'value'=>'{{page-title}} | {{site-title}}'),
+		'titleFormatCategory'=> array('inFile'=>false, 'value'=>'{{category-name}} | {{site-title}}'),
+		'titleFormatTag'=> 	array('inFile'=>false, 'value'=>'{{tag-name}} | {{site-title}}')
 	);
 
 	function __construct()
@@ -209,12 +213,34 @@ class dbSite extends dbJSON
 		return $this->getField('footer');
 	}
 
+	public function titleFormatPages()
+	{
+		return $this->getField('titleFormatPages');
+	}
+
+	public function titleFormatHomepage()
+	{
+		return $this->getField('titleFormatHomepage');
+	}
+
+	public function titleFormatCategory()
+	{
+		return $this->getField('titleFormatCategory');
+	}
+
+	public function titleFormatTag()
+	{
+		return $this->getField('titleFormatTag');
+	}
+
 	// Returns the full domain and base url
 	// For example, https://www.domain.com/bludit
 	public function url()
 	{
 		return $this->getField('url');
 	}
+
+
 
 	// Returns the protocol and the domain, without the base url
 	// For example, http://www.domain.com

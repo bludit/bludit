@@ -78,16 +78,9 @@
 			<textarea id="jseditor" style="display:none;"><?php echo $page->contentRaw(false) ?></textarea>
 		</div>
 
-		<div class="form-group mt-2">
-			<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo $L->g('Save') ?></button>
-			<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
-			<?php
-				if (count($page->children())===0) {
-					echo '<button id="jsbuttonDelete" type="button" class="btn btn-secondary">'.$L->g('Delete').'</button>';
-				}
-			?>
-		</div>
+		<?php if($page->draft()): ?>
+		<div class="alert alert-primary mt-2 mb-2">The content is saved as a draft. To publish it click on the button <b>Publish</b> or if you still working on it click on <b>Save as draft</b>.</div>
+		<?php endif; ?>
 
 	</div>
 
@@ -223,6 +216,18 @@
 				'tip'=>'This tells search engines not to save a cached copy of this page.'
 			));
 
+		?>
+	</div>
+
+	<hr>
+	<div class="form-group mt-2">
+		<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
+		<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
+		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
+		<?php
+			if (count($page->children())===0) {
+				echo '<button id="jsbuttonDelete" type="button" class="btn btn-secondary">'.$L->g('Delete').'</button>';
+			}
 		?>
 	</div>
 
