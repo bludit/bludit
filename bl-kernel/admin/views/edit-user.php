@@ -24,7 +24,7 @@ echo Bootstrap::formOpen(array());
 		'tip'=>''
 	));
 
-	if ($Login->role()==='admin') {
+	if ($login->role()==='admin') {
 		echo Bootstrap::formSelect(array(
 			'name'=>'role',
 			'label'=>$L->g('Role'),

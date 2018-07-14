@@ -182,8 +182,7 @@ define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
-$language = $Language 	= new dbLanguage( $Site->language() );
-$login = $Login 	= new Login( $dbUsers );
+$language = $Language = new dbLanguage( $Site->language() );
 $Url->checkFilters( $Site->uriFilters() );
 
 // --- CONSTANTS with dependency ---

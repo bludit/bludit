@@ -14,8 +14,8 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Prevent non-administrators to change other users
-	if ($Login->role()!=='admin') {
-		$_POST['username'] = $Login->username();
+	if ($login->role()!=='admin') {
+		$_POST['username'] = $login->username();
 		unset($_POST['role']);
 	}
 
@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Prevent non-administrators to change other users
-if ($Login->role()!=='admin') {
-	$layout['parameters'] = $Login->username();
+if ($login->role()!=='admin') {
+	$layout['parameters'] = $login->username();
 }
 
 // Get the user to edit

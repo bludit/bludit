@@ -4,9 +4,18 @@ class Login {
 
 	private $dbUsers;
 
-	function __construct($dbUsers)
+	function __construct()
 	{
-		$this->dbUsers = $dbUsers;
+		if (isset($GLOBALS['dbUsers'])) {
+			$this->dbUsers = $GLOBALS['dbUsers'];
+		} else {
+			$this->dbUsers = new dbUsers();
+		}
+
+		// Start the Session
+		if (!Session::started()) {
+			Session::start();
+		}
 	}
 
 	// Returns the username of the user logged

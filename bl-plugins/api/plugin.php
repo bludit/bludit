@@ -47,7 +47,7 @@ class pluginAPI extends Plugin {
 		global $Url;
 		global $dbPages;
 		global $dbUsers;
-		global $Login;
+		global $login;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -105,7 +105,7 @@ class pluginAPI extends Plugin {
 				if (($user->role()=='admin') && ($user->enabled())) {
 
 					// Loggin the user to create the session
-					$Login->setLogin($username, 'admin');
+					$login->setLogin($username, 'admin');
 					// Enable write permissions
 					$writePermissions = true;
 				}

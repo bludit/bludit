@@ -174,9 +174,9 @@ EOF;
 	public function addVisitor()
 	{
 		// Exclude administrators visits
-		global $Login;
+		global $login;
 		if ($this->getValue('excludeAdmins') && defined('BLUDIT_PRO')) {
-			if ($Login->role()=='admin') {
+			if ($login->role()=='admin') {
 				return false;
 			}
 		}

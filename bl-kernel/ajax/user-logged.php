@@ -2,13 +2,13 @@
 header('Content-Type: application/json');
 
 /*
- * 
+ *
  * This script check if the user is logged
- * 
+ *
  */
 
 // Check UUID
-if ($Login->isLogged()) {
+if ($login->isLogged()) {
 	exit (json_encode(array(
 		'status'=>1,
 		'message'=>'The user is logged.'

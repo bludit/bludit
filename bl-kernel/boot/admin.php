@@ -6,6 +6,8 @@ if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failure.');
 }
 
+$login = $Login = new Login($dbUsers);
+
 $layout = array(
 	'controller'=>null,
 	'view'=>null,
@@ -34,7 +36,7 @@ include(PATH_RULES.'60.plugins.php');
 
 // --- AJAX ---
 if ($layout['slug']==='ajax') {
-	if ($Login->isLogged()) {
+	if ($login->isLogged()) {
 		// Rules: Security check CSRF
 		include(PATH_RULES.'99.security.php');
 
@@ -60,7 +62,7 @@ else
 	// User not logged.
 	// Slug is login.
 	// Slug is login-email.
-	if($Url->notFound() || !$Login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') ) {
+	if($Url->notFound() || !$login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') ) {
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';

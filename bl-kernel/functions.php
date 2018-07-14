@@ -536,14 +536,14 @@ function editUser($args) {
 
 function disableUser($args) {
 	global $dbUsers;
-	global $Login;
+	global $login;
 	global $syslog;
 
 	// Arguments
 	$username = $args['username'];
 
 	// Only administrators can disable users
-	if ($Login->role()!=='admin') {
+	if ($login->role()!=='admin') {
 		return false;
 	}
 
@@ -566,7 +566,7 @@ function disableUser($args) {
 
 function deleteUser($args) {
 	global $dbUsers, $dbPages;
-	global $Login;
+	global $login;
 	global $syslog;
 
 	// Arguments
@@ -574,7 +574,7 @@ function deleteUser($args) {
 	$deleteContent = isset($args['deleteContent']) ? $args['deleteContent'] : false;
 
 	// Only administrators can delete users
-	if ($Login->role()!=='admin') {
+	if ($login->role()!=='admin') {
 		return false;
 	}
 
@@ -750,11 +750,11 @@ function changeUserPassword($args) {
 
 // Returns true if the user is allowed to procceded
 function checkRole($allowRoles, $redirect=true) {
-	global $Login;
+	global $login;
 	global $Language;
 	global $syslog;
 
-	$userRole = $Login->role();
+	$userRole = $login->role();
 	if (in_array($userRole, $allowRoles)) {
 		return true;
 	}
@@ -762,7 +762,7 @@ function checkRole($allowRoles, $redirect=true) {
 	if ($redirect) {
 		$syslog->add(array(
 			'dictionaryKey'=>'access-deny',
-			'notes'=>$Login->username()
+			'notes'=>$login->username()
 		));
 		Alert::set($Language->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
