@@ -35,9 +35,9 @@ class pluginRSS extends Plugin {
 
 	private function createXML()
 	{
-		global $Site;
+		global $site;
 		global $dbPages;
-		global $Url;
+		global $url;
 
 		// Amount of pages to show
 		$amountOfItems = $this->getValue('amountOfItems');
@@ -49,17 +49,17 @@ class pluginRSS extends Plugin {
 		$onlyPublished = true;
 
 		// Get the list of pages
-		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';
 		$xml .= '<channel>';
-		$xml .= '<title>'.$Site->title().'</title>';
-		$xml .= '<link>'.$Site->url().'</link>';
-		$xml .= '<description>'.$Site->description().'</description>';
+		$xml .= '<title>'.$site->title().'</title>';
+		$xml .= '<link>'.$site->url().'</link>';
+		$xml .= '<description>'.$site->description().'</description>';
 
 		// Get keys of pages
-		foreach($pages as $pageKey) {
+		foreach($list as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 			$xml .= '<item>';

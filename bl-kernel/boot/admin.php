@@ -6,7 +6,7 @@ if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failure.');
 }
 
-$login = $Login = new Login($dbUsers);
+$login = $Login = new Login();
 
 $layout = array(
 	'controller'=>null,
@@ -18,7 +18,7 @@ $layout = array(
 );
 
 // Get the view, controller, and the parameters from the URL.
-$explodeSlug = $Url->explodeSlug();
+$explodeSlug = $url->explodeSlug();
 $layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
 $layout['parameters'] = implode('/', $explodeSlug);
@@ -62,18 +62,18 @@ else
 	// User not logged.
 	// Slug is login.
 	// Slug is login-email.
-	if($Url->notFound() || !$login->isLogged() || ($Url->slug()==='login') || ($Url->slug()==='login-email') ) {
+	if($url->notFound() || !$login->isLogged() || ($url->slug()==='login') || ($url->slug()==='login-email') ) {
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';
 
-		if ($Url->slug()==='login-email') {
+		if ($url->slug()==='login-email') {
 			$layout['controller']	= 'login-email';
 			$layout['view']		= 'login-email';
 		}
 
 		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
-		$Security->generateTokenCSRF();
+		$security->generateTokenCSRF();
 	}
 
 	// Define variables
@@ -84,8 +84,8 @@ else
 	Theme::plugins('beforeAdminLoad');
 
 	// Load init.php if the theme has one.
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.'init.php') ) {
-		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.'init.php');
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php') ) {
+		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php');
 	}
 
 	// Load controller.
@@ -94,8 +94,8 @@ else
 	}
 
 	// Load view and theme.
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $Site->adminTheme().DS.$layout['template']) ) {
-		include(PATH_ADMIN_THEMES.$Site->adminTheme().DS.$layout['template']);
+	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template']) ) {
+		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template']);
 	}
 
 	// Load plugins after the admin area is loaded.

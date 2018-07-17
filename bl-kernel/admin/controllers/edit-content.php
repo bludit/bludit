@@ -53,10 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 // Main after POST
 // ============================================================================
-$pageKey = $layout['parameters'];
-$page = buildPage($pageKey);
-if ($page===false) {
-	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$pageKey);
+try {
+	$pageKey = $layout['parameters'];
+	$page = new PageX($pageKey);
+} catch (Exception $e) {
+	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$pageKey, LOG_TYPE_ERROR);
 	Redirect::page('content');
 }
 

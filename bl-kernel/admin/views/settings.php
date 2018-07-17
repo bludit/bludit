@@ -28,7 +28,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
+		'value'=>$security->getTokenCSRF()
 	));
 ?>
 
@@ -38,7 +38,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'title',
 			'label'=>$L->g('Site title'),
-			'value'=>$Site->title(),
+			'value'=>$site->title(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('use-this-field-to-name-your-site')
@@ -47,7 +47,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'slogan',
 			'label'=>$L->g('Site slogan'),
-			'value'=>$Site->slogan(),
+			'value'=>$site->slogan(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('use-this-field-to-add-a-catchy-phrase')
@@ -56,7 +56,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'description',
 			'label'=>$L->g('Site description'),
-			'value'=>$Site->description(),
+			'value'=>$site->description(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('you-can-add-a-site-description-to-provide')
@@ -65,7 +65,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'footer',
 			'label'=>$L->g('Footer text'),
-			'value'=>$Site->footer(),
+			'value'=>$site->footer(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('you-can-add-a-small-text-on-the-bottom')
@@ -89,7 +89,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'itemsPerPage',
 			'label'=>$L->g('Items per page'),
 			'options'=>array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8', '-1'=>$L->g('All content')),
-			'selected'=>$Site->itemsPerPage(),
+			'selected'=>$site->itemsPerPage(),
 			'class'=>'',
 			'tip'=>$L->g('Number of items to show per page')
 		));
@@ -98,7 +98,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'orderBy',
 			'label'=>$L->g('Order content by'),
 			'options'=>array('date'=>$L->g('Date'),'position'=>$L->g('Position')),
-			'selected'=>$Site->orderBy(),
+			'selected'=>$site->orderBy(),
 			'class'=>'',
 			'tip'=>$L->g('order-the-content-by-date-to-build-a-blog')
 		));
@@ -108,7 +108,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'homepage',
 			'label'=>$L->g('Homepage'),
-			'value'=>(Text::isEmpty($Site->homepage())?'':$Site->homepage()),
+			'value'=>(Text::isEmpty($site->homepage())?'':$site->homepage()),
 			'class'=>'',
 			'placeholder'=>'Start writing the title of the page',
 			'tip'=>$L->g('Returning page for the main page')
@@ -119,7 +119,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'pageNotFound',
 			'label'=>$L->g('Page not found'),
 			'options'=>$homepageOptions,
-			'selected'=>$Site->pageNotFound(),
+			'selected'=>$site->pageNotFound(),
 			'class'=>'',
 			'tip'=>$L->g('Returning page when the page doesnt exist')
 		));
@@ -129,7 +129,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'emailFrom',
 			'label'=>$L->g('Sender email'),
-			'value'=>$Site->emailFrom(),
+			'value'=>$site->emailFrom(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('Emails will be sent from this address')
@@ -140,7 +140,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'autosaveInterval',
 			'label'=>$L->g('Interval'),
-			'value'=>$Site->autosaveInterval(),
+			'value'=>$site->autosaveInterval(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('Number in minutes for every execution of autosave')
@@ -151,7 +151,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'url',
 			'label'=>'URL',
-			'value'=>$Site->url(),
+			'value'=>$site->url(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('full-url-of-your-site'),
@@ -164,7 +164,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'extremeFriendly',
 			'label'=>'Allow Unicode',
 			'options'=>array('true'=>'Enabled', 'false'=>'Disable'),
-			'selected'=>$Site->extremeFriendly(),
+			'selected'=>$site->extremeFriendly(),
 			'class'=>'',
 			'tip'=>'Allow unicode characters in the URL and some part of the system.'
 		));
@@ -174,7 +174,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatHomepage',
 			'label'=>'Homepage',
-			'value'=>$Site->titleFormatHomepage(),
+			'value'=>$site->titleFormatHomepage(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'Variables allowed: <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
@@ -184,7 +184,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatPages',
 			'label'=>'Pages',
-			'value'=>$Site->titleFormatPages(),
+			'value'=>$site->titleFormatPages(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'Variables allowed: <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
@@ -194,7 +194,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatCategory',
 			'label'=>'Category',
-			'value'=>$Site->titleFormatCategory(),
+			'value'=>$site->titleFormatCategory(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'Variables allowed: <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
@@ -204,7 +204,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatTag',
 			'label'=>'Tag',
-			'value'=>$Site->titleFormatTag(),
+			'value'=>$site->titleFormatTag(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'Variables allowed: <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
@@ -216,7 +216,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'uriPage',
 			'label'=>$L->g('Pages'),
-			'value'=>$Site->uriFilters('page'),
+			'value'=>$site->uriFilters('page'),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>DOMAIN_PAGES
@@ -225,7 +225,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'uriTag',
 			'label'=>$L->g('Tags'),
-			'value'=>$Site->uriFilters('tag'),
+			'value'=>$site->uriFilters('tag'),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>DOMAIN_TAGS
@@ -234,7 +234,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'uriCategory',
 			'label'=>$L->g('Category'),
-			'value'=>$Site->uriFilters('category'),
+			'value'=>$site->uriFilters('category'),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>DOMAIN_CATEGORIES
@@ -243,11 +243,11 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'uriBlog',
 			'label'=>$L->g('Blog'),
-			'value'=>$Site->uriFilters('blog'),
+			'value'=>$site->uriFilters('blog'),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>DOMAIN.$Site->uriFilters('blog'),
-			'disabled'=>!$Site->uriFilters('blog')
+			'tip'=>DOMAIN.$site->uriFilters('blog'),
+			'disabled'=>!$site->uriFilters('blog')
 		));
 
 		echo '
@@ -265,7 +265,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'twitter',
 			'label'=>'Twitter',
-			'value'=>$Site->twitter(),
+			'value'=>$site->twitter(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -274,7 +274,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'facebook',
 			'label'=>'Facebook',
-			'value'=>$Site->facebook(),
+			'value'=>$site->facebook(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -283,7 +283,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'codepen',
 			'label'=>'Codepen',
-			'value'=>$Site->codepen(),
+			'value'=>$site->codepen(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -292,7 +292,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'googlePlus',
 			'label'=>'Google+',
-			'value'=>$Site->googlePlus(),
+			'value'=>$site->googlePlus(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -301,7 +301,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'instagram',
 			'label'=>'Instagram',
-			'value'=>$Site->instagram(),
+			'value'=>$site->instagram(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -310,7 +310,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'gitlab',
 			'label'=>'Gitlab',
-			'value'=>$Site->gitlab(),
+			'value'=>$site->gitlab(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -319,7 +319,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'github',
 			'label'=>'Github',
-			'value'=>$Site->github(),
+			'value'=>$site->github(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -328,7 +328,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'linkedin',
 			'label'=>'Linkedin',
-			'value'=>$Site->linkedin(),
+			'value'=>$site->linkedin(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -351,7 +351,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'language',
 			'label'=>$L->g('Language'),
 			'options'=>$Language->getLanguageList(),
-			'selected'=>$Site->language(),
+			'selected'=>$site->language(),
 			'class'=>'',
 			'tip'=>$L->g('select-your-sites-language')
 		));
@@ -360,7 +360,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'timezone',
 			'label'=>$L->g('Timezone'),
 			'options'=>Date::timezoneList(),
-			'selected'=>$Site->timezone(),
+			'selected'=>$site->timezone(),
 			'class'=>'',
 			'tip'=>$L->g('select-a-timezone-for-a-correct')
 		));
@@ -368,7 +368,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'locale',
 			'label'=>$L->g('Locale'),
-			'value'=>$Site->locale(),
+			'value'=>$site->locale(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('with-the-locales-you-can-set-the-regional-user-interface')
@@ -379,10 +379,10 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formInputText(array(
 			'name'=>'dateFormat',
 			'label'=>$L->g('Date format'),
-			'value'=>$Site->dateFormat(),
+			'value'=>$site->dateFormat(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>$L->g('Current format').': '.Date::current($Site->dateFormat())
+			'tip'=>$L->g('Current format').': '.Date::current($site->dateFormat())
 		));
 
 		echo '

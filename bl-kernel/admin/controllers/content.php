@@ -25,11 +25,11 @@ checkRole(array('admin', 'moderator'));
 // List of published pages
 $onlyPublished = true;
 $amountOfItems = ITEMS_PER_PAGE_ADMIN;
-$pageNumber = $Url->pageNumber();
+$pageNumber = $url->pageNumber();
 $published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
-if (empty($published) && $Url->pageNumber()>1) {
+if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');
 }
 

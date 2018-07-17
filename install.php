@@ -307,12 +307,17 @@ function install($adminPassword, $timezone)
 
 	$data = array();
 	foreach ($pagesToInstall as $page) {
-		$data[$Language->get($page)]= array(
+
+		$slug = $page;
+		$title = Text::replace('slug','title', $slug);
+		$content = Text::replace('slug','content', $slug);
+
+		$data[$Language->get($slug)]= array(
+			'title'=>$Language->get($title),
 			'description'=>'',
 			'username'=>'admin',
 			'tags'=>array(),
-			'status'=>'published',
-			'type'=>'page',
+			'type'=>'published',
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
@@ -322,8 +327,13 @@ function install($adminPassword, $timezone)
 			'category'=>'',
 			'uuid'=>md5(uniqid()),
 			'parent'=>'',
-			'slug'=>$Language->get($page)
+			'template'=>'',
+			'noindex'=>false,
+			'nofollow'=>false,
+			'noarchive'=>false
 		);
+
+		file_put_contents(PATH_PAGES.$Language->get($slug).DS.FILENAME, $Language->get($content), LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -487,19 +497,6 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
-	// Page create-your-own-content
-	$data = 'Title: '.$Language->get('example-page-1-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-1-content');
-	file_put_contents(PATH_PAGES.$Language->get('example-page-1-slug').DS.FILENAME, $data, LOCK_EX);
-	// Page set-up-your-new-site
-	$data = 'Title: '.$Language->get('example-page-2-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-2-content');
-	file_put_contents(PATH_PAGES.$Language->get('example-page-2-slug').DS.FILENAME, $data, LOCK_EX);
-	// Page follow-bludit
-	$data = 'Title: '.$Language->get('example-page-3-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-3-content');
-	file_put_contents(PATH_PAGES.$Language->get('example-page-3-slug').DS.FILENAME, $data, LOCK_EX);
-	// Page about
-	$data = 'Title: '.$Language->get('example-page-4-title').PHP_EOL.'Content: '.PHP_EOL.$Language->get('example-page-4-content');
-	file_put_contents(PATH_PAGES.$Language->get('example-page-4-slug').DS.FILENAME, $data, LOCK_EX);
-
 	return true;
 }
 
@@ -552,7 +549,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="bl-kernel/js/bootstrap-bundle.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/js/bootstrap.bundle.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="bl-kernel/js/jstz.min.js?version=<?php echo time() ?>"></script>
 </head>
 <body class="login">

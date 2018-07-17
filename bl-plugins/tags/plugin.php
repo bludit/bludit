@@ -30,9 +30,9 @@ class pluginTags extends Plugin {
 	{
 		global $Language;
 		global $dbTags;
-		global $Url;
+		global $url;
 
-		$filter = $Url->filters('tag');
+		$filter = $url->filters('tag');
 
 		$html  = '<div class="plugin plugin-tags">';
 		$html .= '<h2 class="plugin-label">'.$this->getDbField('label').'</h2>';

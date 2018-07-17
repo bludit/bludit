@@ -4,18 +4,18 @@
 // Functions
 // ============================================================================
 function updateBludit() {
-	global $Site;
+	global $site;
 	// Check if Bludit need to be update.
-	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
+	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
 		// From Bludit v2.0.x to v2.1.x
-		if ($Site->currentBuild() < '20171102') {
+		if ($site->currentBuild() < '20171102') {
 			// Nothing to do
 		}
 
 		// Set the current build number
-		$Site->set(array('currentBuild'=>BLUDIT_BUILD));
+		$site->set(array('currentBuild'=>BLUDIT_BUILD));
 		Log::set('UPDATE SYSTEM - Finished.');
 	}
 }

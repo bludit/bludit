@@ -6,7 +6,7 @@ echo Bootstrap::formOpen(array());
 
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
+		'value'=>$security->getTokenCSRF()
 	));
 
 	echo '

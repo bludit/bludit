@@ -44,18 +44,18 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
-		global $pages;
-		global $Url, $Page;
+		global $content;
+		global $url, $page;
 
-		$page = $pages[0];
+		$page = $content[0];
 		if (empty($page)) {
 			return false;
 		}
 
-		if ( !$Url->notFound() &&
-		     ( $Url->whereAmI()=='page' &&
-			(($this->getDbField('enablePosts') && $Page->status()=='published') ||
-			($this->getDbField('enablePages') && $Page->status()=='static'))
+		if ( !$url->notFound() &&
+		     ( $url->whereAmI()=='page' &&
+			(($this->getDbField('enablePosts') && $page->status()=='published') ||
+			($this->getDbField('enablePages') && $page->status()=='static'))
 		     ) &&
 		     $page->allowComments() ) {
 			$html  = '<div id="disqus_thread"></div>';

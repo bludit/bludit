@@ -33,7 +33,7 @@ define('PATH_BOOT', PATH_ROOT.'bl-kernel'.DS.'boot'.DS);
 require(PATH_BOOT.'init.php');
 
 // Admin area
-if ($Url->whereAmI()==='admin') {
+if ($url->whereAmI()==='admin') {
 	require(PATH_BOOT.'admin.php');
 }
 // Site

@@ -23,7 +23,7 @@ $categories = $dbCategories->getKeyNameArray();
 foreach ($categories as $categoryKey=>$category) {
 	echo '<tr>';
 	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$categoryKey.'">'.$category.'</a></td>';
-	echo '<td><a href="'.DOMAIN_CATEGORIES.$categoryKey.'">'.$Url->filters('category', false).$categoryKey.'</a></td>';
+	echo '<td><a href="'.DOMAIN_CATEGORIES.$categoryKey.'">'.$url->filters('category', false).$categoryKey.'</a></td>';
 	echo '</tr>';
 }
 

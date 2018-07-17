@@ -87,16 +87,16 @@ class Paginator {
 	// Return the absoulte URL with the page number
 	public static function numberUrl($pageNumber)
 	{
-		global $Url;
+		global $url;
 
 		$domain = trim(DOMAIN_BASE,'/');
-		$filter = trim($Url->activeFilter(), '/');
+		$filter = trim($url->activeFilter(), '/');
 
 		if(empty($filter)) {
-			$url = $domain.'/'.$Url->slug();
+			$url = $domain.'/'.$url->slug();
 		}
 		else {
-			$url = $domain.'/'.$filter.'/'.$Url->slug();
+			$url = $domain.'/'.$filter.'/'.$url->slug();
 		}
 
 		return $url.'?page='.$pageNumber;

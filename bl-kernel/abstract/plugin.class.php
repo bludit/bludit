@@ -313,7 +313,7 @@ class Plugin {
 	// Example: https://www.mybludit.com/api/foo/bar
 	public function webhook($URI=false, $returnsAfterURI=false, $fixed=true)
 	{
-		global $Url;
+		global $url;
 
 		if (empty($URI)) {
 			return false;
@@ -321,7 +321,7 @@ class Plugin {
 
 		// Check URI start with the webhook
 		$startString = HTML_PATH_ROOT.$URI;
-		$URI = $Url->uri();
+		$URI = $url->uri();
 		$length = mb_strlen($startString, CHARSET);
 		if (mb_substr($URI, 0, $length)!=$startString) {
 			return false;

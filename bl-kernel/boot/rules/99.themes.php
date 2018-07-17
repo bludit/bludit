@@ -10,7 +10,7 @@
 
 function buildThemes()
 {
-	global $Site;
+	global $site;
 
 	$themes = array();
 	$themesPaths = Filesystem::listDirectories(PATH_THEMES);
@@ -18,7 +18,7 @@ function buildThemes()
 	foreach($themesPaths as $themePath)
 	{
 		// Check if the theme is translated.
-		$languageFilename = $themePath.DS.'languages'.DS.$Site->language().'.json';
+		$languageFilename = $themePath.DS.'languages'.DS.$site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = $themePath.DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
@@ -70,7 +70,7 @@ function buildThemes()
 // ============================================================================
 
 // Load the language file
-$languageFilename = THEME_DIR.'languages'.DS.$Site->language().'.json';
+$languageFilename = THEME_DIR.'languages'.DS.$site->language().'.json';
 if( !Sanitize::pathFile($languageFilename) ) {
 	$languageFilename = THEME_DIR.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 }

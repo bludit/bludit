@@ -25,7 +25,7 @@ $themeDirname = $layout['parameters'];
 
 if( Sanitize::pathFile(PATH_THEMES.$themeDirname) ) {
 	// Set the theme
-	$Site->set(array('theme'=>$themeDirname));
+	$site->set(array('theme'=>$themeDirname));
 
 	// Add to syslog
 	$syslog->add(array(

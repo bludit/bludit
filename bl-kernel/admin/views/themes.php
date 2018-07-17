@@ -17,13 +17,13 @@ echo '
 
 foreach ($themes as $theme) {
 	echo '
-	<tr '.($theme['dirname']==$Site->theme()?'class="bg-light"':'').'>
+	<tr '.($theme['dirname']==$site->theme()?'class="bg-light"':'').'>
 		<td class="align-middle pt-3 pb-3">
 			<div>'.$theme['name'].'</div>
 			<div class="mt-1">
 	';
 
-	if ($theme['dirname']!=$Site->theme()) {
+	if ($theme['dirname']!=$site->theme()) {
 		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
 	}
 

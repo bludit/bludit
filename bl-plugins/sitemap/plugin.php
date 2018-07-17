@@ -22,23 +22,23 @@ class pluginSitemap extends Plugin {
 
 	private function createXML()
 	{
-		global $Site;
+		global $site;
 		global $dbPages;
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 		$xml .= '<url>';
-		$xml .= '<loc>'.$Site->url().'</loc>';
+		$xml .= '<loc>'.$site->url().'</loc>';
 		$xml .= '</url>';
 
 		// Get DB
 		$pageNumber = 1;
 		$amountOfItems = -1;
 		$onlyPublished = true;
-		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
-		foreach($pages as $pageKey) {
+		foreach($list as $pageKey) {
 			// Create the page object from the page key
 			$page = buildPage($pageKey);
 

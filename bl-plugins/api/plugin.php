@@ -44,10 +44,9 @@ class pluginAPI extends Plugin {
 
 	public function beforeAll()
 	{
-		global $Url;
+		global $url;
 		global $dbPages;
 		global $dbUsers;
-		global $login;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -103,8 +102,8 @@ class pluginAPI extends Plugin {
 				// Get the object user to check the role
 				$user = $dbUsers->getUser($username);
 				if (($user->role()=='admin') && ($user->enabled())) {
-
 					// Loggin the user to create the session
+					$login = new Login();
 					$login->setLogin($username, 'admin');
 					// Enable write permissions
 					$writePermissions = true;
@@ -262,9 +261,9 @@ class pluginAPI extends Plugin {
 	private function getPage($key)
 	{
 		// Generate the object Page
-		$Page = buildPage($key);
+		$page = buildPage($key);
 
-		if (!$Page) {
+		if (!$page) {
 			return array(
 				'status'=>'1',
 				'message'=>'Page not found.'
@@ -274,7 +273,7 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'0',
 			'message'=>'Page filtered by key: '.$key,
-			'data'=>$Page->json( $returnsArray=true )
+			'data'=>$page->json( $returnsArray=true )
 		);
 	}
 
@@ -282,7 +281,7 @@ class pluginAPI extends Plugin {
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
-			$args['content'] = Text::htmlDecode($args['content']);
+			$args['content'] = Sanitize::htmlDecode($args['content']);
 		}
 
 		// This function is defined on functions.php

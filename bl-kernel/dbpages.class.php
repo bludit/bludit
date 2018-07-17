@@ -1,29 +1,26 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbPages extends dbJSON
-{
-	private $parentKeyList = array();
+class dbPages extends dbJSON {
 
+	private $parentKeyList = array();
 	private $dbFields = array(
-		'title'=>		array('inFile'=>true,	'value'=>''),
-		'content'=>		array('inFile'=>true,	'value'=>''),
-		'description'=>		array('inFile'=>false,	'value'=>''),
-		'username'=>		array('inFile'=>false,	'value'=>''),
-		'tags'=>		array('inFile'=>false,	'value'=>array()),
-		'status'=>		array('inFile'=>false,	'value'=>'published'), // published, draft, sticky, scheduled
-		'type'=>		array('inFile'=>false,	'value'=>'post'), // post, page
-		'date'=>		array('inFile'=>false,	'value'=>''),
-		'dateModified'=>	array('inFile'=>false,	'value'=>''),
-		'position'=>		array('inFile'=>false,	'value'=>0),
-		'coverImage'=>		array('inFile'=>false,	'value'=>''),
-		'category'=>		array('inFile'=>false,	'value'=>''),
-		'md5file'=>		array('inFile'=>false,	'value'=>''),
-		'uuid'=>		array('inFile'=>false,	'value'=>''),
-		'allowComments'=>	array('inFile'=>false,	'value'=>true),
-		'template'=>		array('inFile'=>false,	'value'=>''),
-		'noindex'=>		array('inFile'=>false,	'value'=>false),
-		'nofollow'=>		array('inFile'=>false,	'value'=>false),
-		'noarchive'=>		array('inFile'=>false,	'value'=>false)
+		'title'=>'',
+		'description'=>'',
+		'username'=>'',
+		'tags'=>array(),
+		'type'=>'published', // published, draft, sticky, scheduled
+		'date'=>'',
+		'dateModified'=>'',
+		'position'=>0,
+		'coverImage'=>'',
+		'category'=>'',
+		'md5file'=>'',
+		'uuid'=>'',
+		'allowComments'=>true,
+		'template'=>'',
+		'noindex'=>false,
+		'nofollow'=>false,
+		'noarchive'=>false
 	);
 
 	function __construct()
@@ -31,35 +28,35 @@ class dbPages extends dbJSON
 		parent::__construct(DB_PAGES);
 	}
 
+	public function getDefaultFields()
+	{
+		return $this->dbFields;
+	}
+
 	// Create a new page
 	// This function returns the key of the new page
 	public function add($args, $climode=false)
 	{
-		$dataForDb = array();	// This data will be saved in the database
-		$dataForFile = array(); // This data will be saved in the file
+		$row = array();
 
 		// Check values on args or set default values
-		foreach ($this->dbFields as $field=>$options) {
+		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
-				if ($options['inFile'] || is_array($args[$field])) {
-					$value = $args[$field];
-				} else {
-					// Sanitize if will be stored on database
-					$value = Sanitize::html($args[$field]);
-				}
+				// Sanitize if will be stored on database
+				$finalValue = Sanitize::html($args[$field]);
 			} else {
-				// Default value for the field
-				$value = $options['value'];
+				// Default value for the field if not defined
+				$finalValue = $value;
 			}
-
-			$args[$field] = $value;
+			settype($finalValue, gettype($value));
+			$row[$field] = $finalValue;
 		}
 
 		// Tags
 		if (!empty($args['tags'])) {
-			$args['tags'] = $this->generateTags($args['tags']);
+			$row['tags'] = $this->generateTags($args['tags']);
 		} else {
-			$args['tags'] = array();
+			$row['tags'] = array();
 		}
 
 		// Slug from the title or the content
@@ -73,7 +70,7 @@ class dbPages extends dbJSON
 
 		// Parent
 		if (!isset($args['parent'])) {
-			$args['parent'] = '';
+			$row['parent'] = '';
 		}
 
 		// Generate key
@@ -81,60 +78,38 @@ class dbPages extends dbJSON
 
 		// Generate UUID
 		if (empty($args['uuid'])) {
-			$args['uuid'] = $this->generateUUID();
+			$row['uuid'] = $this->generateUUID();
 		}
 
 		// Validate date
 		if (!Valid::date($args['date'], DB_DATE_FORMAT)) {
-			$args['date'] = Date::current(DB_DATE_FORMAT);
+			$row['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		// Schedule page
-		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published')) {
-			$args['status'] = 'scheduled';
-		}
-
-		// Set type of the page
-		if ($args['status']=='static') {
-			$args['type'] = 'page';
-		}
-
-		// Set type to the variables
-		foreach ($this->dbFields as $field=>$options) {
-			$value = $args[$field];
-
-			if ($options['inFile']) {
-				// Save on file
-				$dataForFile[$field] = $this->stylingFieldsForFile($field, $value);
-			} else {
-				// Set type
-				settype($value, gettype($options['value']));
-
-				// Save on database
-				$dataForDb[$field] = $value;
-			}
+		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['type']=='published')) {
+			$row['type'] = 'scheduled';
 		}
 
 		if ($climode===false) {
 			// Create the directory
 			if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory '.PATH_PAGES.$key);
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
 				return false;
 			}
 
-			// Make the index.txt and save the file.
-			$data = implode(PHP_EOL, $dataForFile);
-			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $data) === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+			// Create the index.txt and save the file
+			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $args['content']) === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
 				return false;
 			}
 		}
 
 		// Checksum MD5
-		$dataForDb['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
+		$row['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
 
 		// Insert in database
-		$this->db[$key] = $dataForDb;
+		$this->db[$key] = $row;
 
 		// Sort database
 		$this->sortBy();
@@ -147,78 +122,48 @@ class dbPages extends dbJSON
 
 	public function edit($args, $climode=false)
 	{
-		$dataForDb = array();
-		$dataForFile = array();
+		$row = array();
 
 		// Check values on args or set default values
-		foreach ($this->dbFields as $field=>$options) {
+		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
-				if ($options['inFile'] || is_array($args[$field])) {
-					$value = $args[$field];
-				} else {
-					// Sanitize if will be stored on database
-					$value = Sanitize::html($args[$field]);
-				}
+				// Sanitize if will be stored on database
+				$finalValue = Sanitize::html($args[$field]);
 			} else {
-				// By default is the current value
-				if (isset($this->db[$args['key']][$field])) {
-					$value = $this->db[$args['key']][$field];
-				} else {
-					$value = $options['value'];
-				}
+				// Default value for the field if not defined
+				$finalValue = $value;
 			}
-
-			$args[$field] = $value;
+			settype($finalValue, gettype($value));
+			$row[$field] = $finalValue;
 		}
 
 		// Tags
 		if (!empty($args['tags'])) {
-			$args['tags'] = $this->generateTags($args['tags']);
+			$row['tags'] = $this->generateTags($args['tags']);
 		} else {
-			$args['tags'] = array();
+			$row['tags'] = array();
 		}
 
 		// Parent
 		if (!isset($args['parent'])) {
-			$args['parent'] = '';
+			$row['parent'] = '';
 		}
 
-		$newKey = $this->generateKey($args['slug'], $args['parent'], false, $args['key']);
+		$newKey = $this->generateKey($args['slug'], $row['parent'], false, $args['key']);
 
 		// If the page is draft then the created time is the current
-		if ($this->db[$args['key']]['status']=='draft') {
-			$args['date'] = Date::current(DB_DATE_FORMAT);
+		if ($this->db[$args['key']]['type']=='draft') {
+			$row['date'] = Date::current(DB_DATE_FORMAT);
 		} elseif (!Valid::date($args['date'], DB_DATE_FORMAT)) {
-			$args['date'] = $this->db[$args['key']]['date'];
+			$row['date'] = $this->db[$args['key']]['date'];
 		}
 
 		// Modified date
-		$args['dateModified'] = Date::current(DB_DATE_FORMAT);
+		$row['dateModified'] = Date::current(DB_DATE_FORMAT);
 
 		// Schedule page
-		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['status']=='published')) {
-			$args['status'] = 'scheduled';
-		}
-
-		// Set type of the page
-		if ($args['status']=='static') {
-			$args['type'] = 'page';
-		}
-
-		// Set type to the variables
-		foreach ($this->dbFields as $field=>$options) {
-			$value = $args[$field];
-
-			if ($options['inFile']) {
-				// Save on file
-				$dataForFile[$field] = $this->stylingFieldsForFile($field, $value);
-			} else {
-				// Set type
-				settype($value, gettype($options['value']));
-
-				// Save on database
-				$dataForDb[$field] = $value;
-			}
+		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['type']=='published')) {
+			$row['type'] = 'scheduled';
 		}
 
 		if ($climode===false) {
@@ -231,8 +176,7 @@ class dbPages extends dbJSON
 			}
 
 			// Make the index.txt and save the file.
-			$data = implode("\n", $dataForFile);
-			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $data)===false) {
+			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $args['content'])===false) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 				return false;
 			}
@@ -245,10 +189,10 @@ class dbPages extends dbJSON
 		$this->reindexChildren($args['key'], $newKey);
 
 		// Checksum MD5
-		$dataForDb['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
+		$row['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
 
 		// Insert in database
-		$this->db[$newKey] = $dataForDb;
+		$this->db[$newKey] = $row;
 
 		// Sort database
 		$this->sortBy();
@@ -332,15 +276,14 @@ class dbPages extends dbJSON
 		return $this->save();
 	}
 
-	// Change a field's value
+	// Set field = value
 	public function setField($key, $field, $value)
 	{
 		if ($this->exists($key)) {
-			settype($value, gettype($this->dbFields[$field]['value']));
+			settype($value, gettype($this->dbFields[$field]));
 			$this->db[$key][$field] = $value;
 			return $this->save();
 		}
-
 		return false;
 	}
 
@@ -349,7 +292,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if ($fields['status']!='published') {
+			if ($fields['type']!='published') {
 				unset($tmp[$key]);
 			}
 		}
@@ -365,7 +308,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if ($fields['status']!='static') {
+			if ($fields['type']!='static') {
 				unset($tmp[$key]);
 			}
 		}
@@ -381,7 +324,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if($fields['status']!='draft') {
+			if($fields['type']!='draft') {
 				unset($tmp[$key]);
 			}
 		}
@@ -396,7 +339,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if($fields['status']!='scheduled') {
+			if($fields['type']!='scheduled') {
 				unset($tmp[$key]);
 			}
 		}
@@ -411,7 +354,7 @@ class dbPages extends dbJSON
 	{
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
-			if($fields['status']!='sticky') {
+			if($fields['type']!='sticky') {
 				unset($tmp[$key]);
 			}
 		}
@@ -446,12 +389,12 @@ class dbPages extends dbJSON
 	// Returns the next page key of the current page key
 	public function nextPageKey($currentKey)
 	{
-		if ($this->db[$currentKey]['status']=='published') {
+		if ($this->db[$currentKey]['type']=='published') {
 			$keys = array_keys($this->db);
 			$position = array_search($currentKey, $keys) - 1;
 			if (isset($keys[$position])) {
 				$nextKey = $keys[$position];
-				if ($this->db[$nextKey]['status']=='published') {
+				if ($this->db[$nextKey]['type']=='published') {
 					return $nextKey;
 				}
 			}
@@ -462,12 +405,12 @@ class dbPages extends dbJSON
 	// Returns the previous page key of the current page key
 	public function previousPageKey($currentKey)
 	{
-		if ($this->db[$currentKey]['status']=='published') {
+		if ($this->db[$currentKey]['type']=='published') {
 			$keys = array_keys($this->db);
 			$position = array_search($currentKey, $keys) + 1;
 			if (isset($keys[$position])) {
 				$prevKey = $keys[$position];
-				if ($this->db[$prevKey]['status']=='published') {
+				if ($this->db[$prevKey]['type']=='published') {
 					return $prevKey;
 				}
 			}
@@ -641,13 +584,13 @@ class dbPages extends dbJSON
 
 		// The database need to be sorted by date
 		foreach($this->db as $pageKey=>$fields) {
-			if($fields['status']=='scheduled') {
+			if($fields['type']=='scheduled') {
 				if($fields['date']<=$currentDate) {
-					$this->db[$pageKey]['status'] = 'published';
+					$this->db[$pageKey]['type'] = 'published';
 					$saveDatabase = true;
 				}
 			}
-			elseif( ($fields['status']=='published') && (ORDER_BY=='date') ) {
+			elseif( ($fields['type']=='published') && (ORDER_BY=='date') ) {
 				break;
 			}
 		}
@@ -780,8 +723,8 @@ class dbPages extends dbJSON
 		}
 
 		// Status
-		if( !isset($db['status']) ) {
-			$db['status'] = CLI_STATUS;
+		if( !isset($db['type']) ) {
+			$db['type'] = CLI_STATUS;
 		}
 
 		// Owner username

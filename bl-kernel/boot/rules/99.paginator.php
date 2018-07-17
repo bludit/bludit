@@ -1,25 +1,25 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Current page number
-$currentPage = $Url->pageNumber();
+$currentPage = $url->pageNumber();
 Paginator::set('currentPage', $currentPage);
 
-if($Url->whereAmI()=='admin') {
+if($url->whereAmI()=='admin') {
 	$itemsPerPage = ITEMS_PER_PAGE_ADMIN;
 	$amountOfItems = $dbPages->count(true);
 }
-elseif($Url->whereAmI()=='tag') {
-	$itemsPerPage = $Site->itemsPerPage();
-	$tagKey = $Url->slug();
+elseif($url->whereAmI()=='tag') {
+	$itemsPerPage = $site->itemsPerPage();
+	$tagKey = $url->slug();
 	$amountOfItems = $dbTags->countPagesByTag($tagKey);
 }
-elseif($Url->whereAmI()=='category') {
-	$itemsPerPage = $Site->itemsPerPage();
-	$categoryKey = $Url->slug();
+elseif($url->whereAmI()=='category') {
+	$itemsPerPage = $site->itemsPerPage();
+	$categoryKey = $url->slug();
 	$amountOfItems = $dbCategories->countPagesByCategory($categoryKey);
 }
 else {
-	$itemsPerPage = $Site->itemsPerPage();
+	$itemsPerPage = $site->itemsPerPage();
 	$amountOfItems = $dbPages->count(true);
 }
 

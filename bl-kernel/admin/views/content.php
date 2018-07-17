@@ -3,7 +3,7 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'cog'));
 
 function table($status) {
-	global $Url;
+	global $url;
 	global $Language;
 	global $published;
 	global $drafts;
@@ -77,7 +77,7 @@ function table($status) {
 						.'</a>
 					</td>';
 
-					$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+					$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
 					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 					echo '<td class="text-center d-none d-sm-table-cell">'.$page->position().'</td>';
@@ -93,7 +93,7 @@ function table($status) {
 							.'</a>
 						</td>';
 
-						$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$child->key() : '/'.$Url->filters('page').'/'.$child->key();
+						$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
 						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
 
 						echo '<td>'.$child->position().'</td>';
@@ -115,7 +115,7 @@ function table($status) {
 					.'</a>
 				</td>';
 
-				$friendlyURL = Text::isEmpty($Url->filters('page')) ? '/'.$page->key() : '/'.$Url->filters('page').'/'.$page->key();
+				$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
 				echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="text-center d-none d-sm-table-cell">'.( ((ORDER_BY=='position') || ($status!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';

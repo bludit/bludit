@@ -4,26 +4,26 @@ class Theme {
 
 	public static function title()
 	{
-		global $Site;
-		return $Site->title();
+		global $site;
+		return $site->title();
 	}
 
 	public static function description()
 	{
-		global $Site;
-		return $Site->description();
+		global $site;
+		return $site->description();
 	}
 
 	public static function slogan()
 	{
-		global $Site;
-		return $Site->slogan();
+		global $site;
+		return $site->slogan();
 	}
 
 	public static function footer()
 	{
-		global $Site;
-		return $Site->footer();
+		global $site;
+		return $site->footer();
 	}
 
 	public static function rssUrl()
@@ -44,8 +44,8 @@ class Theme {
 
 	public static function siteUrl()
 	{
-		global $Site;
-		return $Site->url();
+		global $site;
+		return $site->url();
 	}
 
 	public static function adminUrl()
@@ -100,11 +100,11 @@ class Theme {
 
 	public static function metaTagDescription()
 	{
-		global $Site;
+		global $site;
 		global $WHERE_AM_I;
 		global $page;
 
-		$description = $Site->description();
+		$description = $site->description();
 
 		if( $WHERE_AM_I=='page' ) {
 			$description = $page->description();
@@ -198,7 +198,7 @@ class Theme {
 
 	public static function jsBootstrap()
 	{
-		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap-bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function cssBootstrap()

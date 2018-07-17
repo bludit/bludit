@@ -50,8 +50,8 @@ class pluginNavigation extends Plugin {
 	public function siteSidebar()
 	{
 		global $Language;
-		global $Url;
-		global $Site;
+		global $url;
+		global $site;
 		global $dbPages;
 
 		// HTML for sidebar
@@ -69,7 +69,7 @@ class pluginNavigation extends Plugin {
 		// Show Home page link
 		if ($this->getValue('homeLink')) {
 			$html .= '<li>';
-			$html .= '<a href="' . $Site->url() . '">' . $Language->get('Home page') . '</a>';
+			$html .= '<a href="' . $site->url() . '">' . $Language->get('Home page') . '</a>';
 			$html .= '</li>';
 		}
 

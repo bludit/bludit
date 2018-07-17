@@ -29,20 +29,20 @@ class pluginOpenGraph extends Plugin {
 
 	public function siteHead()
 	{
-		global $Url;
-		global $Site;
+		global $url;
+		global $site;
 		global $WHERE_AM_I;
-		global $pages;
 		global $page;
+		global $content;
 
 		$og = array(
-			'locale'	=>$Site->locale(),
+			'locale'	=>$site->locale(),
 			'type'		=>'website',
-			'title'		=>$Site->title(),
-			'description'	=>$Site->description(),
-			'url'		=>$Site->url(),
+			'title'		=>$site->title(),
+			'description'	=>$site->description(),
+			'url'		=>$site->url(),
 			'image'		=>'',
-			'siteName'	=>$Site->title()
+			'siteName'	=>$site->title()
 		);
 
 		switch ($WHERE_AM_I) {
@@ -54,16 +54,16 @@ class pluginOpenGraph extends Plugin {
 				$og['url']		= $page->permalink($absolute=true);
 				$og['image'] 		= $page->coverImage($absolute=true);
 
-				$content = $page->content();
+				$pageContent = $page->content();
 				break;
 
 			// The user is in the homepage
 			default:
-				$content = '';
+				$pageContent = '';
 				// The image it's from the first page
-				if (isset($pages[0]) ) {
-					$og['image'] 	= $pages[0]->coverImage($absolute=true);
-					$content 	= $pages[0]->content();
+				if (isset($content[0]) ) {
+					$og['image'] 	= $content[0]->coverImage($absolute=true);
+					$pageContent 	= $content[0]->content();
 				}
 				break;
 		}
@@ -79,7 +79,7 @@ class pluginOpenGraph extends Plugin {
 		// If the page doesn't have a coverImage try to get an image from the HTML content
 		if (empty($og['image'])) {
 			// Get the image from the content
-			$src = DOM::getFirstImage($content);
+			$src = DOM::getFirstImage($pageContent);
 			if ($src!==false) {
 				$og['image'] = $src;
 			} else {

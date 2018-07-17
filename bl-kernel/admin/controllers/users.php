@@ -20,7 +20,7 @@ checkRole(array('admin'));
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$Site->set($_POST);
+	$site->set($_POST);
 }
 
 // ============================================================================

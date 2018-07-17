@@ -6,7 +6,7 @@ function buildPage($key) {
 	global $dbUsers;
 	global $dbCategories;
 	global $Parsedown;
-	global $Site;
+	global $site;
 
 	if (empty($key)) {
 		return false;
@@ -34,7 +34,8 @@ function buildPage($key) {
 	// Parse Markdown
 	$contentRaw = $page->contentRaw();
 	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
-	$content = $Parsedown->text($content); // Parse Markdown
+	$parsedown = new Parsedown();
+	$content = $parsedown->text($content); // Parse Markdown
 	$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS); // Parse img src relative to absolute (with domain)
 	$page->setField('content', $content, true);
 
@@ -47,7 +48,7 @@ function buildPage($key) {
 	$pageDate = $page->date();
 	$page->setField('dateRaw', $pageDate, true);
 
-	$pageDateFormated = $page->dateRaw( $Site->dateFormat() );
+	$pageDateFormated = $page->dateRaw( $site->dateFormat() );
 	$page->setField('date', $pageDateFormated, true);
 
 	// Generate and set the User object
@@ -82,46 +83,46 @@ function reindexTags() {
 	return $dbTags->reindex();
 }
 
-// Generate on the fly a 404 page-not-found
-// Returns a Page-Object
+// Generate the page 404 Not found
 function buildErrorPage() {
-	global $dbPages;
-	global $Language;
+	global $site;
+	global $language;
 	global $dbUsers;
 
-	$page = new Page(false);
-	$page->setField('title', 	$Language->get('page-not-found'));
-	$page->setField('content', 	$Language->get('page-not-found-content'));
-	$page->setField('user', 	$dbUsers->getUser('admin'));
+	try {
+		$pageNotFoundKey = $site->pageNotFound();
+		$pageNotFound = New PageX($pageNotFoundKey);
+	} catch (Exception $e) {
+		$pageNotFound = New PageX(false);
+		$pageNotFound->setField('title', 	$language->get('page-not-found'));
+		$pageNotFound->setField('content', 	$language->get('page-not-found-content'));
+		$pageNotFound->setField('user', 	$dbUsers->getUser('admin'));
+	}
 
-	return $page;
+	return $pageNotFound;
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 // This function generate a particular page from the current slug of the url
-// The page is stored on the global variable $page
 // If the slug has not a page associacted returns FALSE and is set not-found as true
 function buildThePage() {
-	global $Url;
-	global $page, $Page;
-	global $content, $pages;
+	global $url;
 
-	$page = $Page = buildPage( $Url->slug() );
-
-	// The page doesn't exist
-	if ($page===false) {
-		$Url->setNotFound();
-		return false;
-	}
-	// The page is NOT published
-	elseif ( $page->scheduled() || $page->draft() ) {
-		$Url->setNotFound();
+	try {
+		$pageKey = $url->slug();
+		$page = New PageX($pageKey);
+	} catch (Exception $e) {
+		$url->setNotFound();
 		return false;
 	}
 
-	// The page was generate successfully
-	$content[0] = $pages[0] = $page;
-	return true;
+	// Check if the page is NOT published
+	if ( !$page->published() ) {
+		$url->setNotFound();
+		return false;
+	}
+
+	return $page;
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
@@ -131,37 +132,36 @@ function buildPagesForHome() {
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 function buildPagesByCategory() {
-	global $Url;
+	global $url;
 
-	$categoryKey = $Url->slug();
+	$categoryKey = $url->slug();
 	return buildPagesFor('category', $categoryKey, false);
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 function buildPagesByTag() {
-	global $Url;
+	global $url;
 
-	$tagKey = $Url->slug();
+	$tagKey = $url->slug();
 	return buildPagesFor('tag', false, $tagKey);
 }
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
-// Generate the global variables $pages / $content, defined on 69.pages.php
+// Generate the global variables $content / $content, defined on 69.pages.php
 // This function is use for buildPagesForHome(), buildPagesByCategory(), buildPagesByTag()
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
 	global $dbCategories;
 	global $dbTags;
-	global $Site;
-	global $Url;
-	global $content, $pages;
+	global $site;
+	global $url;
 
 	// Get the page number from URL
-	$pageNumber = $Url->pageNumber();
+	$pageNumber = $url->pageNumber();
 
 	if ($for=='home') {
 		$onlyPublished = true;
-		$amountOfItems = $Site->itemsPerPage();
+		$amountOfItems = $site->itemsPerPage();
 		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		// Include sticky pages only in the first page
@@ -171,29 +171,30 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 		}
 	}
 	elseif ($for=='category') {
-		$amountOfItems = $Site->itemsPerPage();
+		$amountOfItems = $site->itemsPerPage();
 		$list = $dbCategories->getList($categoryKey, $pageNumber, $amountOfItems);
 	}
 	elseif ($for=='tag') {
-		$amountOfItems = $Site->itemsPerPage();
+		$amountOfItems = $site->itemsPerPage();
 		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
 
 	// There are not items, invalid tag, invalid category, out of range, etc...
 	if ($list===false) {
-		$Url->setNotFound();
+		$url->setNotFound();
 		return false;
 	}
 
-	$pages = array(); // global variable
+	$content = array();
 	foreach ($list as $pageKey) {
-		$page = buildPage($pageKey);
-		if ($page!==false) {
-			array_push($pages, $page);
+		try {
+			$page = new PageX($pageKey);
+			array_push($content, $page);
+		} catch (Exception $e) {
+			// continue
 		}
 	}
-	$content = $pages;
-	return $pages;
+	return $content;
 }
 
 // Returns an array with all the static pages as Page-Object
@@ -203,9 +204,13 @@ function buildStaticPages() {
 
 	$list = array();
 	$staticPages = $dbPages->getStaticDB();
-	foreach ($staticPages as $pageKey) {
-		$staticPage = buildPage($pageKey);
-		array_push($list, $staticPage);
+	foreach ($staticPages as $staticPageKey) {
+		try {
+			$staticPage = new PageX($staticPageKey);
+			array_push($list, $staticPage);
+		} catch (Exception $e) {
+			// continue
+		}
 	}
 
 	return $list;
@@ -399,10 +404,12 @@ function createPage($args) {
 	global $Language;
 
 	// Check if the autosave page exists for this new page and delete it
-	$autosaveKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
-	if (!empty($autosaveKey)) {
-		Log::set('Function createPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
-		deletePage($autosaveKey);
+	if (isset($args['uuid'])) {
+		$autosaveKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+		if (!empty($autosaveKey)) {
+			Log::set('Function createPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
+			deletePage($autosaveKey);
+		}
 	}
 
 	// The user is always the one loggued
@@ -443,10 +450,12 @@ function editPage($args) {
 	global $syslog;
 
 	// Check if the autosave page exists for this new page and delete it
-	$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
-	if (!empty($pageKey)) {
-		Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
-		deletePage($pageKey);
+	if (isset($args['uuid'])) {
+		$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+		if (!empty($pageKey)) {
+			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
+			deletePage($pageKey);
+		}
 	}
 
 	// Check if the key is not empty
@@ -656,13 +665,13 @@ function createUser($args) {
 }
 
 function editSettings($args) {
-	global $Site;
+	global $site;
 	global $syslog;
 	global $Language;
 	global $dbPages;
 
 	if (isset($args['language'])) {
-		if ($args['language']!=$Site->language()) {
+		if ($args['language']!=$site->language()) {
 			$tmp = new dbJSON(PATH_LANGUAGES.$args['language'].'.json', false);
 			if (isset($tmp->db['language-data']['locale'])) {
 				$args['locale'] = $tmp->db['language-data']['locale'];
@@ -690,10 +699,10 @@ function editSettings($args) {
 		$args['uriBlog'] = '';
 	}
 
-	if ($Site->set($args)) {
+	if ($site->set($args)) {
 		// Check current order-by if changed it reorder the content
-		if ($Site->orderBy()!=ORDER_BY) {
-			if ($Site->orderBy()=='date') {
+		if ($site->orderBy()!=ORDER_BY) {
+			if ($site->orderBy()=='date') {
 				$dbPages->sortByDate();
 			} else {
 				$dbPages->sortByPosition();
@@ -881,11 +890,11 @@ function getTags() {
 }
 
 function activateTheme($themeDirectory) {
-	global $Site;
+	global $site;
 	global $syslog;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
-		$Site->set(array('theme'=>$themeDirname));
+		$site->set(array('theme'=>$themeDirname));
 
 		$syslog->add(array(
 			'dictionaryKey'=>'new-theme-configured',

@@ -21,7 +21,7 @@
 		// Token CSRF
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'tokenCSRF',
-			'value'=>$Security->getTokenCSRF()
+			'value'=>$security->getTokenCSRF()
 		));
 
 		// Parent
@@ -38,8 +38,8 @@
 
 		// Status = published, draft, sticky, static
 		echo Bootstrap::formInputHidden(array(
-			'name'=>'status',
-			'value'=>$page->status()
+			'name'=>'type',
+			'value'=>$page->type()
 		));
 
 		// Page current key
@@ -82,14 +82,31 @@
 		<div class="alert alert-primary mt-2 mb-2">The content is saved as a draft. To publish it click on the button <b>Publish</b> or if you still working on it click on <b>Save as draft</b>.</div>
 		<?php endif; ?>
 
+		<div class="form-group mt-2">
+			<button type="button" class="jsbuttonSave btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
+			<button type="button" class="jsbuttonDraft btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
+			<?php
+			if (count($page->children())===0) {
+				echo '<button type="button" class="jsbuttonDelete btn btn-secondary">'.$L->g('Delete').'</button>';
+			}
+			?>
+		</div>
+
 	</div>
 
 	<!-- TABS IMAGES -->
 	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
 
-		<?php
-			echo Bootstrap::formTitle(array('title'=>'Cover image'));
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal">Cover Image</h4>
+		</div>
 
+		<?php
 			$coverImage = $page->coverImage(false);
 			$externalCoverImage = '';
 			if (filter_var($coverImage, FILTER_VALIDATE_URL)) {
@@ -115,26 +132,32 @@
 
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
+
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal">Cover Image</h4>
+		</div>
+
 		<?php
-
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
-
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
 				'label'=>'Date',
 				'placeholder'=>'',
-				'value'=>$page->date(),
+				'value'=>$page->dateRaw(),
 				'tip'=>'Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>'
 			));
 
 			// Type
 			echo Bootstrap::formSelect(array(
-				'name'=>'type',
+				'name'=>'typeTMP',
 				'label'=>'Type',
 				'selected'=>$page->type(),
 				'options'=>array(
-					''=>'- Default -',
+					'published'=>'- Default -',
 					'sticky'=>'Sticky',
 					'static'=>'Static'
 				),
@@ -216,18 +239,6 @@
 				'tip'=>'This tells search engines not to save a cached copy of this page.'
 			));
 
-		?>
-	</div>
-
-	<hr>
-	<div class="form-group mt-2">
-		<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
-		<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
-		<?php
-			if (count($page->children())===0) {
-				echo '<button id="jsbuttonDelete" type="button" class="btn btn-secondary">'.$L->g('Delete').'</button>';
-			}
 		?>
 	</div>
 
@@ -337,22 +348,23 @@ $(document).ready(function() {
 	$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
 	// Button Save
-	$("#jsbuttonSave").on("click", function() {
-		$("#jsstatus").val("published");
+	$(".jsbuttonSave").on("click", function() {
+		var type = $("#jstypeTMP option:selected").val();
+		$("#jstype").val(type);
 		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
 
 	// Button Save as draft
-	$("#jsbuttonDraft").on("click", function() {
-		$("#jsstatus").val("draft");
+	$(".jsbuttonDraft").on("click", function() {
+		$("#jstype").val("draft");
 		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
 
 	// Button Delete
-	$("#jsbuttonDelete").on("click", function() {
-		$("#jsstatus").val("delete");
+	$(".jsbuttonDelete").on("click", function() {
+		$("#jstype").val("delete");
 		$("#jscontent").val("");
 		$("#jsform").submit();
 	});
@@ -360,12 +372,6 @@ $(document).ready(function() {
 	// External cover image
 	$("#jsexternalCoverImage").change(function() {
 		$("#jscoverImage").val( $(this).val() );
-	});
-
-	// Type selector modified the status hidden field
-	$("#jstype").on("change", function() {
-		var status = $("#jstype option:selected").val();
-		$("#jsstatus").val(status);
 	});
 
 	// Autosave interval

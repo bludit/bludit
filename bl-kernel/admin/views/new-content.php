@@ -21,7 +21,7 @@
 		// Token CSRF
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'tokenCSRF',
-			'value'=>$Security->getTokenCSRF()
+			'value'=>$security->getTokenCSRF()
 		));
 
 		// Parent
@@ -38,7 +38,7 @@
 
 		// Status = published, draft, sticky, static
 		echo Bootstrap::formInputHidden(array(
-			'name'=>'status',
+			'name'=>'type',
 			'value'=>'published'
 		));
 
@@ -72,14 +72,24 @@
 			<textarea id="jseditor" style="display:none;"></textarea>
 		</div>
 
+		<div class="form-group mt-2">
+			<button type="button" class="jsbuttonSave btn btn-primary"><?php echo $L->g('Publish') ?></button>
+			<button type="button" class="jsbuttonDraft btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
+		</div>
+
 	</div>
 
 	<!-- TABS IMAGES -->
 	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
 
-		<?php
-			echo Bootstrap::formTitle(array('title'=>'Cover image'));
-		?>
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo $L->g('Publish') ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal">Cover Image</h4>
+		</div>
 
 		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
 
@@ -98,10 +108,16 @@
 
 	<!-- TABS OPTIONS -->
 	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
+
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo $L->g('Publish') ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal">Advanced</h4>
+		</div>
+
 		<?php
-
-			echo Bootstrap::formTitle(array('title'=>'Advanced'));
-
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
@@ -113,11 +129,11 @@
 
 			// Type
 			echo Bootstrap::formSelect(array(
-				'name'=>'type',
+				'name'=>'typeTMP',
 				'label'=>'Type',
 				'selected'=>'',
 				'options'=>array(
-					''=>'- Default -',
+					'published'=>'- Default -',
 					'sticky'=>'Sticky',
 					'static'=>'Static'
 				),
@@ -197,13 +213,6 @@
 			));
 
 		?>
-	</div>
-
-	<hr>
-	<div class="form-group mt-2">
-		<button id="jsbuttonSave" type="button" class="btn btn-primary"><?php echo $L->g('Publish') ?></button>
-		<button id="jsbuttonDraft" type="button" class="btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
 	</div>
 
 	<!-- Modal for Categories -->
@@ -312,15 +321,16 @@ $(document).ready(function() {
 	$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
 	// Button Save
-	$("#jsbuttonSave").on("click", function() {
-		$("#jsstatus").val("published");
+	$(".jsbuttonSave").on("click", function() {
+		var type = $("#jstypeTMP option:selected").val();
+		$("#jstype").val(type);
 		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
 
 	// Button Save as draft
-	$("#jsbuttonDraft").on("click", function() {
-		$("#jsstatus").val("draft");
+	$(".jsbuttonDraft").on("click", function() {
+		$("#jstype").val("draft");
 		$("#jscontent").val( editorGetContent() );
 		$("#jsform").submit();
 	});
@@ -328,12 +338,6 @@ $(document).ready(function() {
 	// External cover image
 	$("#jsexternalCoverImage").change(function() {
 		$("#jscoverImage").val( $(this).val() );
-	});
-
-	// Type selector modified the status hidden field
-	$("#jstype").on("change", function() {
-		var status = $("#jstype option:selected").val();
-		$("#jsstatus").val(status);
 	});
 
 	// Generate slug when the user type the title

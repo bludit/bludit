@@ -6,7 +6,7 @@ echo Bootstrap::formOpen(array('class'=>'plugin-form'));
 
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
+		'value'=>$security->getTokenCSRF()
 	));
 
 	// Print the plugin form

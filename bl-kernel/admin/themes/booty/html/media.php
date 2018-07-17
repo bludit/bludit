@@ -26,7 +26,7 @@ $amountOfPages = count($listOfFilesByPage);
 
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
-			<input type="hidden" name="tokenCSRF" value="<?php echo $Security->getTokenCSRF() ?>">
+			<input type="hidden" name="tokenCSRF" value="<?php echo $security->getTokenCSRF() ?>">
 			<div class="custom-file">
 				<input type="file" class="custom-file-input" id="jsbluditInputFiles" name="bluditInputFiles[]" multiple>
 				<label class="custom-file-label" for="jsbluditInputFiles">Choose images</label>

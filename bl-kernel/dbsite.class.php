@@ -308,13 +308,10 @@ class dbSite extends dbJSON
 		return $homepage;
 	}
 
-	// Returns the page defined for "Page not found", FALSE if not defined
+	// Returns the page key for the page not found
 	public function pageNotFound()
 	{
 		$pageNotFound = $this->getField('pageNotFound');
-		if( empty($pageNotFound) ) {
-			return false;
-		}
 		return $pageNotFound;
 	}
 

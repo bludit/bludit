@@ -8,7 +8,7 @@ echo '<form class="uk-form" method="post" action="" autocomplete="off">';
 
 HTML::formInputHidden(array(
 	'name'=>'tokenCSRF',
-	'value'=>$Security->getTokenCSRF()
+	'value'=>$security->getTokenCSRF()
 ));
 
 echo '<div class="uk-sortable" data-uk-sortable>';
