@@ -2,7 +2,7 @@
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'cog'));
 
-function table($status) {
+function table($type) {
 	global $url;
 	global $Language;
 	global $published;
@@ -11,7 +11,7 @@ function table($status) {
 	global $static;
 	global $sticky;
 
-	if ($status=='published') {
+	if ($type=='published') {
 		$list = $published;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
@@ -19,7 +19,7 @@ function table($status) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($status=='draft') {
+	} elseif ($type=='draft') {
 		$list = $drafts;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
@@ -27,7 +27,7 @@ function table($status) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($status=='scheduled') {
+	} elseif ($type=='scheduled') {
 		$list = $scheduled;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
@@ -35,7 +35,7 @@ function table($status) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($status=='static') {
+	} elseif ($type=='static') {
 		$list = $static;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
@@ -43,7 +43,7 @@ function table($status) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($status=='sticky') {
+	} elseif ($type=='sticky') {
 		$list = $sticky;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
@@ -59,7 +59,7 @@ function table($status) {
 			<tr>
 				<th class="border-0" scope="col">'.$Language->g('Title').'</th>
 				<th class="border-0 d-none d-lg-table-cell" scope="col">'.$Language->g('URL').'</th>
-				<th class="border-0 text-center d-none d-sm-table-cell" scope="col">'.( ((ORDER_BY=='position') || ($status!='published'))?$Language->g('Position'):$Language->g('Creation date')).'</th>
+				<th class="border-0 text-center d-none d-sm-table-cell" scope="col">'.( ((ORDER_BY=='position') || ($type!='published'))?$Language->g('Position'):$Language->g('Creation date')).'</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,9 +67,9 @@ function table($status) {
 
 	if (ORDER_BY=='position') {
 		foreach ($list as $pageKey) {
-			$page = buildPage($pageKey);
-			if ($page) {
-				if (!$page->isChild() || $status!='published') {
+			try {
+				$page = new PageX($pageKey);
+				if (!$page->isChild() || $type!='published') {
 					echo '<tr>
 					<td>
 						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
@@ -102,12 +102,14 @@ function table($status) {
 						}
 					}
 				}
+			} catch (Exception $e) {
+				// Continue
 			}
 		}
 	} else {
 		foreach ($list as $pageKey) {
-			$page = buildPage($pageKey);
-			if ($page) {
+			try {
+				$page = new PageX($pageKey);
 				echo '<tr>';
 				echo '<td>
 					<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
@@ -118,9 +120,11 @@ function table($status) {
 				$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
 				echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
-				echo '<td class="text-center d-none d-sm-table-cell">'.( ((ORDER_BY=='position') || ($status!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';
+				echo '<td class="text-center d-none d-sm-table-cell">'.( ((ORDER_BY=='position') || ($type!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';
 
 				echo '</tr>';
+			} catch (Exception $e) {
+				// Continue
 			}
 		}
 	}

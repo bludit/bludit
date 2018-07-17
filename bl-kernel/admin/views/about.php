@@ -31,6 +31,11 @@ echo '<td>Bludit Build Number</td>';
 echo '<td>'.BLUDIT_BUILD.'</td>';
 echo '</tr>';
 
+echo '<tr>';
+echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit Developers</a></td>';
+echo '<td></td>';
+echo '</tr>';
+
 echo '
 	</tbody>
 </table>

@@ -506,14 +506,11 @@ function deletePage($key) {
 	global $dbPages;
 	global $syslog;
 
-	if( $dbPages->delete($key) ) {
+	if ($dbPages->delete($key)) {
 		// Call the plugins after page deleted
 		Theme::plugins('afterPageDelete');
 
-		// Re-index categories
 		reindexCategories();
-
-		// Re-index tags
 		reindextags();
 
 		// Add to syslog
@@ -533,10 +530,12 @@ function editUser($args) {
 	global $syslog;
 
 	if ($dbUsers->set($args)) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-edited',
 			'notes'=>$args['username']
 		));
+
 		return true;
 	}
 
@@ -563,10 +562,12 @@ function disableUser($args) {
 
 	// Disable the user
 	if ($dbUsers->disableUser($username)) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-disabled',
 			'notes'=>$username
 		));
+
 		return true;
 	}
 
@@ -604,10 +605,12 @@ function deleteUser($args) {
 	}
 
 	if ($dbUsers->delete($username)) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-deleted',
 			'notes'=>$username
 		));
+
 		return true;
 	}
 
@@ -746,10 +749,12 @@ function changeUserPassword($args) {
 	}
 
 	if ($dbUsers->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-password-changed',
 			'notes'=>$username
 		));
+
 		Alert::set($Language->g('The changes have been saved'), ALERT_STATUS_OK);
 		return true;
 	}
@@ -769,10 +774,12 @@ function checkRole($allowRoles, $redirect=true) {
 	}
 
 	if ($redirect) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'access-deny',
 			'notes'=>$login->username()
 		));
+
 		Alert::set($Language->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
 	}
@@ -792,6 +799,7 @@ function createCategory($category) {
 	}
 
 	if ($dbCategories->add(array('name'=>$category))) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-category-created',
 			'notes'=>$category
@@ -826,6 +834,7 @@ function editCategory($args) {
 	// Change the category key in the pages database
 	$dbPages->changeCategory($args['oldKey'], $newCategoryKey);
 
+	// Add to syslog
 	$syslog->add(array(
 		'dictionaryKey'=>'category-edited',
 		'notes'=>$newCategoryKey
@@ -845,6 +854,7 @@ function deleteCategory($args) {
 
 	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
 
+	// Add to syslog
 	$syslog->add(array(
 		'dictionaryKey'=>'category-deleted',
 		'notes'=>$args['oldCategoryKey']

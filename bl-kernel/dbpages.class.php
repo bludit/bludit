@@ -39,7 +39,7 @@ class dbPages extends dbJSON {
 	{
 		$row = array();
 
-		// Check values on args or set default values
+		// Check values on args and set default values if not exists
 		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
 				// Sanitize if will be stored on database
@@ -52,42 +52,50 @@ class dbPages extends dbJSON {
 			$row[$field] = $finalValue;
 		}
 
-		// Tags
-		if (!empty($args['tags'])) {
-			$row['tags'] = $this->generateTags($args['tags']);
-		} else {
-			$row['tags'] = array();
+		// Content
+		// This variable is not belong to the database so is not defined in $row
+		$contentRaw = $args['content'];
+
+		// Parent
+		// This variable is not belong to the database so is not defined in $row
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
 		}
 
 		// Slug from the title or the content
+		// This variable is not belong to the database so is not defined in $row
 		if (empty($args['slug'])) {
-			if (!empty($args['title'])) {
-				$args['slug'] = $this->generateSlug($args['title']);
+			if (!empty($row['title'])) {
+				$slug = $this->generateSlug($row['title']);
 			} else {
-				$args['slug'] = $this->generateSlug($args['content']);
+				$slug = $this->generateSlug($contentRaw);
 			}
-		}
-
-		// Parent
-		if (!isset($args['parent'])) {
-			$row['parent'] = '';
+		} else {
+			$slug = $args['slug'];
 		}
 
 		// Generate key
-		$key = $this->generateKey($args['slug'], $args['parent']);
+		// This variable is not belong to the database so is not defined in $row
+		$key = $this->generateKey($slug, $parent);
 
 		// Generate UUID
-		if (empty($args['uuid'])) {
+		if (empty($row['uuid'])) {
 			$row['uuid'] = $this->generateUUID();
 		}
 
+		// Tags
+		if (!empty($row['tags'])) {
+			$row['tags'] = $this->generateTags($args['tags']);
+		}
+
 		// Validate date
-		if (!Valid::date($args['date'], DB_DATE_FORMAT)) {
+		if (!Valid::date($row['date'], DB_DATE_FORMAT)) {
 			$row['date'] = Date::current(DB_DATE_FORMAT);
 		}
 
 		// Schedule page
-		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['type']=='published')) {
+		if (($row['date']>Date::current(DB_DATE_FORMAT)) && ($row['type']=='published')) {
 			$row['type'] = 'scheduled';
 		}
 
@@ -99,7 +107,7 @@ class dbPages extends dbJSON {
 			}
 
 			// Create the index.txt and save the file
-			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $args['content']) === false ) {
+			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false ) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
 				return false;
 			}
@@ -137,56 +145,73 @@ class dbPages extends dbJSON {
 			$row[$field] = $finalValue;
 		}
 
-		// Tags
-		if (!empty($args['tags'])) {
-			$row['tags'] = $this->generateTags($args['tags']);
-		} else {
-			$row['tags'] = array();
-		}
+		// Content
+		// This variable is not belong to the database so is not defined in $row
+		$contentRaw = $args['content'];
 
 		// Parent
-		if (!isset($args['parent'])) {
-			$row['parent'] = '';
+		// This variable is not belong to the database so is not defined in $row
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
 		}
 
-		$newKey = $this->generateKey($args['slug'], $row['parent'], false, $args['key']);
+		// Old key
+		// This variable is not belong to the database so is not defined in $row
+		$key = $args['key'];
+
+		// Slug from the title or the content
+		// This variable is not belong to the database so is not defined in $row
+		if (empty($args['slug'])) {
+			if (!empty($row['title'])) {
+				$slug = $this->generateSlug($row['title']);
+			} else {
+				$slug = $this->generateSlug($contentRaw);
+			}
+		} else {
+			$slug = $args['slug'];
+		}
+
+		// New key
+		// This variable is not belong to the database so is not defined in $row
+		$newKey = $this->generateKey($slug, $parent, false, $key);
 
 		// If the page is draft then the created time is the current
-		if ($this->db[$args['key']]['type']=='draft') {
+		if ($this->db[$key]['type']=='draft') {
 			$row['date'] = Date::current(DB_DATE_FORMAT);
-		} elseif (!Valid::date($args['date'], DB_DATE_FORMAT)) {
-			$row['date'] = $this->db[$args['key']]['date'];
+		} elseif (!Valid::date($row['date'], DB_DATE_FORMAT)) {
+			$row['date'] = $this->db[$key]['date'];
 		}
 
 		// Modified date
 		$row['dateModified'] = Date::current(DB_DATE_FORMAT);
 
 		// Schedule page
-		if (($args['date']>Date::current(DB_DATE_FORMAT)) && ($args['type']=='published')) {
+		if (($row['date']>Date::current(DB_DATE_FORMAT)) && ($row['type']=='published')) {
 			$row['type'] = 'scheduled';
 		}
 
 		if ($climode===false) {
 			// Move the directory from old key to new key.
-			if ($newKey!==$args['key']) {
-				if( Filesystem::mv(PATH_PAGES.$args['key'], PATH_PAGES.$newKey) === false ) {
+			if ($newKey!==$key) {
+				if( Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false ) {
 					Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 					return false;
 				}
 			}
 
 			// Make the index.txt and save the file.
-			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $args['content'])===false) {
+			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $contentRaw)===false) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
 				return false;
 			}
 		}
 
 		// Remove the old key
-		unset( $this->db[$args['key']] );
+		unset( $this->db[$key] );
 
 		// Reindex Orphan Children
-		$this->reindexChildren($args['key'], $newKey);
+		$this->reindexChildren($key, $newKey);
 
 		// Checksum MD5
 		$row['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);

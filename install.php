@@ -275,7 +275,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('simplemde', 'tags', 'about', 'simple-stats');
+	$pluginsToInstall = array('simplemde', 'tags', 'about', 'simple-stats', 'robots');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
@@ -492,6 +492,17 @@ function install($adminPassword, $timezone)
 				'autosave'=>false,
 				'spellChecker'=>true,
 				'tabSize'=>2
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/robots/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'robots'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>1
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

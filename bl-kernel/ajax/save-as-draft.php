@@ -34,7 +34,7 @@ $page = array(
 	'slug'=>$autosaveUUID,
 	'title'=>$title.' [ Autosave ] ',
 	'content'=>$content,
-	'status'=>'draft'
+	'type'=>'draft'
 );
 
 // Get the page key by the UUID

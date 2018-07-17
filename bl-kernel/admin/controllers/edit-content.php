@@ -5,13 +5,21 @@
 // ============================================================================
 
 if (!checkRole(array('admin','moderator'), false)) {
-	$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
-	$page = buildPage($pageKey);
-	if (!$page || $page->username()!==$login->username()) {
+	try {
+		$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
+		$page = new PageX($pageKey);
+	} catch (Exception $e) {
+		Alert::set($Language->g('You do not have sufficient permissions'));
+		Redirect::page('dashboard');
+	}
+
+	if ($page->username()!==$login->username()) {
+		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'access-deny',
 			'notes'=>$login->username()
 		));
+
 		Alert::set($Language->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
 	}
@@ -30,7 +38,7 @@ if (!checkRole(array('admin','moderator'), false)) {
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if ($_POST['status']==='delete') {
+	if ($_POST['type']==='delete') {
 		if (deletePage($_POST['key'])) {
 			Alert::set( $Language->g('The changes have been saved') );
 		}

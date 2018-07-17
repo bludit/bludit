@@ -23,4 +23,15 @@ checkRole(array('admin'));
 // ============================================================================
 $pluginClassName = $layout['parameters'];
 activatePlugin($pluginClassName);
+
+if (isset($plugins['all'][$pluginClassName])) {
+	$plugin = $plugins['all'][$pluginClassName];
+} else {
+	Redirect::page('plugins');
+}
+
+if (method_exists($plugin, 'form')) {
+	Redirect::page('configure-plugin/'.$pluginClassName);
+}
+
 Redirect::page('plugins#'.$pluginClassName);

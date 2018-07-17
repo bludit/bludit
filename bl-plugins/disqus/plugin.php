@@ -54,8 +54,8 @@ class pluginDisqus extends Plugin {
 
 		if ( !$url->notFound() &&
 		     ( $url->whereAmI()=='page' &&
-			(($this->getDbField('enablePosts') && $page->status()=='published') ||
-			($this->getDbField('enablePages') && $page->status()=='static'))
+			(($this->getDbField('enablePosts') && $page->published()) ||
+			($this->getDbField('enablePages') && $page->static()))
 		     ) &&
 		     $page->allowComments() ) {
 			$html  = '<div id="disqus_thread"></div>';
