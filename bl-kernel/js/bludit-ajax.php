@@ -63,7 +63,7 @@ class bluditAjax {
 			// The fail is produced by admin.php when the user is not logged the ajax request is not possible and returns 401
 			console.log("[INFO] [BLUDIT AJAX] [userLogged()] The user is NOT logged.");
 			if (jqXHR.status==401) {
-				callBack("Your are not more logged, Bludit can't save your settings and content.");
+				callBack("You are not logged in anymore, so Bludit can't save your settings and content.");
 			}
 		});
 	}
