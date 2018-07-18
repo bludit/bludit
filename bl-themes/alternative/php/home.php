@@ -45,7 +45,7 @@
 
 <!-- Pagination -->
 <?php if (Paginator::amountOfPages()>1): ?>
-<nav class="paginator" aria-label="Page navigation">
+<nav class="paginator">
 	<ul class="pagination flex-wrap justify-content-center">
 
 		<!-- Previous button -->

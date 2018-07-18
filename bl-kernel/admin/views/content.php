@@ -158,7 +158,31 @@ function table($type) {
 <div class="tab-content">
 	<!-- TABS PAGES -->
 	<div class="tab-pane show active" id="pages" role="tabpanel">
-	<?php table('published'); ?>
+		<?php table('published'); ?>
+
+		<!-- Paginator -->
+		<nav class="paginator">
+			<ul class="pagination flex-wrap justify-content-center">
+
+			<!-- Previous button -->
+			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
+			</li>
+
+			<!-- List of pages -->
+			<?php for ($i = 1; $i <= Paginator::amountOfPages(); $i++): ?>
+			<li class="page-item <?php if ($i==Paginator::currentPage()) echo 'active' ?>">
+				<a class="page-link" href="<?php echo Paginator::numberUrl($i) ?>"><?php echo $i ?></a>
+			</li>
+			<?php endfor ?>
+
+			<!-- Next button -->
+			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
+				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?></a>
+			</li>
+
+			</ul>
+		</nav>
 	</div>
 
 	<!-- TABS STATIC -->
