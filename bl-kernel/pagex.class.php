@@ -427,8 +427,12 @@ class PageX {
 	{
 		$parentKey = $this->parentKey();
 		if ($parentKey) {
-			$page = buildPage($parentKey);
-			return $page->{$method}();
+			try {
+				$page = new PageX($parentKey);
+				return $page->{$method}();
+			} catch (Exception $e) {
+				// Continoue
+			}
 		}
 
 		return false;
@@ -462,8 +466,12 @@ class PageX {
 		$list = array();
 		$childrenKeys = $dbPages->getChildren($this->key());
 		foreach ($childrenKeys as $childKey) {
-			$child = buildPage($childKey);
-			array_push($list, $child);
+			try {
+				$child = new PageX($childKey);
+				array_push($list, $child);
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		return $list;

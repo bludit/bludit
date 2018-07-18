@@ -165,13 +165,20 @@
 			));
 
 			// Parent
-			$parentTMP = buildPage($page->parent());
+			try {
+				$parentKey = $page->parent();
+				$parent = new PageX($parentKey);
+				$parentOption = $parent->title();
+			} catch (Exception $e) {
+				$parentOption = '';
+			}
+
 			echo Bootstrap::formInputText(array(
 				'name'=>'parentTMP',
 				'label'=>$L->g('Parent'),
 				'placeholder'=>'',
 				'tip'=>'Start typing a page title to see a list of suggestions.',
-				'value'=>($parentTMP?$parentTMP->title():'')
+				'value'=>$parentOption
 			));
 
 			// Position

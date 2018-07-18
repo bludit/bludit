@@ -1,74 +1,5 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Returns a Page-Object, the class is page.class.php, FALSE if something fail to load the page
-function buildPage($key) {
-	global $dbPages;
-	global $dbUsers;
-	global $dbCategories;
-	global $Parsedown;
-	global $site;
-
-	if (empty($key)) {
-		return false;
-	}
-
-	// Page object, content from index.txt file
-	$page = new Page($key);
-	if (!$page->isValid()) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from file with key: '.$key);
-		return false;
-	}
-
-	// Get the database from dbPages
-	$db = $dbPages->getPageDB($key);
-	if (!$db) {
-		Log::set(__METHOD__.LOG_SEP.'Error occurred when trying build the page from database with key: '.$key);
-		return false;
-	}
-
-	// Foreach field from database set on the object
-	foreach ($db as $field=>$value) {
-		$page->setField($field, $value);
-	}
-
-	// Parse Markdown
-	$contentRaw = $page->contentRaw();
-	$content = Text::pre2htmlentities($contentRaw); // Parse pre code with htmlentities
-	$parsedown = new Parsedown();
-	$content = $parsedown->text($content); // Parse Markdown
-	$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS); // Parse img src relative to absolute (with domain)
-	$page->setField('content', $content, true);
-
-	// Pagebrake
-	$explode = explode(PAGE_BREAK, $content);
-	$page->setField('contentBreak', $explode[0], true);
-	$page->setField('readMore', !empty($explode[1]), true);
-
-	// Date format
-	$pageDate = $page->date();
-	$page->setField('dateRaw', $pageDate, true);
-
-	$pageDateFormated = $page->dateRaw( $site->dateFormat() );
-	$page->setField('date', $pageDateFormated, true);
-
-	// Generate and set the User object
-	$username = $page->username();
-	$page->setField('user', $dbUsers->getUser($username));
-
-	// Category
-	$categoryKey = $page->categoryKey();
-	$page->setField('categoryMap', $dbCategories->getMap($categoryKey));
-
-	// Get the keys of the child
-	$page->setField('childrenKeys', $dbPages->getChildren($key));
-
-	// Set previous and next page key
-	$page->setField('previousKey', $dbPages->previousPageKey($key));
-	$page->setField('nextKey', $dbPages->nextPageKey($key));
-
-	return $page;
-}
-
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
@@ -203,11 +134,11 @@ function buildStaticPages() {
 	global $dbPages;
 
 	$list = array();
-	$staticPages = $dbPages->getStaticDB();
-	foreach ($staticPages as $staticPageKey) {
+	$pagesKey = $dbPages->getStaticDB();
+	foreach ($pagesKey as $pageKey) {
 		try {
-			$staticPage = new PageX($staticPageKey);
-			array_push($list, $staticPage);
+			$page = new PageX($pageKey);
+			array_push($list, $page);
 		} catch (Exception $e) {
 			// continue
 		}
@@ -224,84 +155,15 @@ function buildParentPages() {
 	$list = array();
 	$pagesKey = $dbPages->getPublishedDB();
 	foreach ($pagesKey as $pageKey) {
-		$page = buildPage($pageKey);
-		if ($page->isParent()) {
+		try {
+			$page = new PageX($pageKey);
 			array_push($list, $page);
+		} catch (Exception $e) {
+			// continue
 		}
 	}
 
 	return $list;
-}
-
-// DEPRECATED
-// Generate the global variable $pagesByParent, defined on 69.pages.php
-function buildPagesByParent($publishedPages=true, $staticPages=true) {
-	global $dbPages;
-	global $pagesByParent;
-	global $pagesByParentByKey;
-
-	$onlyKeys = true;
-	$keys = array();
-	if ($publishedPages) {
-		$keys = array_merge($keys, $dbPages->getPublishedDB($onlyKeys));
-	}
-
-	foreach ($keys as $pageKey) {
-		$page = buildPage($pageKey);
-		if ($page!==false) {
-			$parentKey = $page->parentKey();
-			// FALSE if the page is parent
-			if ($parentKey===false) {
-				array_push($pagesByParent[PARENT], $page);
-				$pagesByParentByKey[PARENT][$page->key()] = $page;
-			} else {
-				if (!isset($pagesByParent[$parentKey])) {
-					$pagesByParent[$parentKey] = array();
-				}
-				array_push($pagesByParent[$parentKey], $page);
-				$pagesByParentByKey[$parentKey][$page->key()] = $page;
-			}
-		}
-	}
-}
-
-// DEPRECATED
-// Returns an Array with all pages existing on the system
-/*
-	array(
-		pageKey1 => Page object,
-		pageKey2 => Page object,
-		...
-		pageKeyN => Page object,
-	)
-*/
-function buildAllpages($publishedPages=true, $staticPages=true, $draftPages=true, $scheduledPages=true) {
-	global $dbPages;
-
-	// Get DB
-	$onlyKeys = true;
-	$keys = array();
-	if ($publishedPages) {
-		$keys = array_merge($keys, $dbPages->getPublishedDB($onlyKeys));
-	}
-	if ($staticPages) {
-		$keys = array_merge($keys, $dbPages->getStaticDB($onlyKeys));
-	}
-	if ($draftPages) {
-		$keys = array_merge($keys, $dbPages->getDraftDB($onlyKeys));
-	}
-	if ($scheduledPages) {
-		$keys = array_merge($keys, $dbPages->getScheduledDB($onlyKeys));
-	}
-
-	$tmp = array();
-	foreach ($keys as $pageKey) {
-		$page = buildPage($pageKey);
-		if ($page!==false) {
-			$tmp[$page->key()] = $page;
-		}
-	}
-	return $tmp;
 }
 
 // Returns the Plugin-Object if is enabled and installed, FALSE otherwise
@@ -472,12 +334,16 @@ function editPage($args) {
 
 	// Title and content need to be here because from inside the dbPages is not visible
 	if (empty($args['title']) || empty($args['content'])) {
-		$page = buildPage($args['key']);
-		if (empty($args['title'])) {
-			$args['title'] = $page->title();
-		}
-		if (empty($args['content'])) {
-			$args['content'] = $page->contentRaw();
+		try {
+			$page = new PageX($args['key']);
+			if (empty($args['title'])) {
+				$args['title'] = $page->title();
+			}
+			if (empty($args['content'])) {
+				$args['content'] = $page->contentRaw();
+			}
+		} catch (Exception $e) {
+			// continue
 		}
 	}
 

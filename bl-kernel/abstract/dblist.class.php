@@ -46,7 +46,7 @@ class dbList extends dbJSON
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
-		$chunks = array_chunk($list, $realPageNumber);
+		$chunks = array_chunk($list, $amountOfItems);
 		if (isset($chunks[$realPageNumber])) {
 			return $chunks[$realPageNumber];
 		}

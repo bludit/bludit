@@ -60,15 +60,19 @@ class pluginRSS extends Plugin {
 
 		// Get keys of pages
 		foreach($list as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-			$xml .= '<item>';
-			$xml .= '<title>'.$page->title().'</title>';
-			$xml .= '<link>'.$page->permalink().'</link>';
-			$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
-			$xml .= '<pubDate>'.$page->dateRaw('r').'</pubDate>';
-			$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
-			$xml .= '</item>';
+			try {
+				// Create the page object from the page key
+				$page = new PageX($pageKey);
+				$xml .= '<item>';
+				$xml .= '<title>'.$page->title().'</title>';
+				$xml .= '<link>'.$page->permalink().'</link>';
+				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
+				$xml .= '<pubDate>'.$page->dateRaw('r').'</pubDate>';
+				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
+				$xml .= '</item>';
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		$xml .= '</channel></rss>';

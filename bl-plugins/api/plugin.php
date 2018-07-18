@@ -250,9 +250,13 @@ class pluginAPI extends Plugin {
 
 		// Get keys of pages
 		foreach ($list as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-			array_push($tmp['data'], $page->json( $returnsArray=true ));
+			try {
+				// Create the page object from the page key
+				$page = new PageX($pageKey);
+				array_push($tmp['data'], $page->json( $returnsArray=true ));
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		return $tmp;
@@ -260,21 +264,19 @@ class pluginAPI extends Plugin {
 
 	private function getPage($key)
 	{
-		// Generate the object Page
-		$page = buildPage($key);
-
-		if (!$page) {
+		try {
+			$page = new PageX($key);
+			return array(
+				'status'=>'0',
+				'message'=>'Page filtered by key: '.$key,
+				'data'=>$page->json( $returnsArray=true )
+			);
+		} catch (Exception $e) {
 			return array(
 				'status'=>'1',
 				'message'=>'Page not found.'
 			);
 		}
-
-		return array(
-			'status'=>'0',
-			'message'=>'Page filtered by key: '.$key,
-			'data'=>$page->json( $returnsArray=true )
-		);
 	}
 
 	private function createPage($args)

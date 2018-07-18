@@ -39,14 +39,17 @@ class pluginSitemap extends Plugin {
 		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		foreach($list as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-
-			$xml .= '<url>';
-			$xml .= '<loc>'.$page->permalink().'</loc>';
-			$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';
-			$xml .= '<changefreq>daily</changefreq>';
-			$xml .= '</url>';
+			try {
+				// Create the page object from the page key
+				$page = new PageX($pageKey);
+				$xml .= '<url>';
+				$xml .= '<loc>'.$page->permalink().'</loc>';
+				$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';
+				$xml .= '<changefreq>daily</changefreq>';
+				$xml .= '</url>';
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		$xml .= '</urlset>';

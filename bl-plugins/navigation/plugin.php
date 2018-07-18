@@ -104,10 +104,14 @@ class pluginNavigation extends Plugin {
 			$publishedPages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 			foreach ($publishedPages as $pageKey) {
-				$page = buildPage($pageKey);
-				$html .= '<li>';
-				$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
-				$html .= '</li>';
+				try {
+					$page = new PageX($pageKey);
+					$html .= '<li>';
+					$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
+					$html .= '</li>';
+				} catch (Exception $e) {
+					// Continue
+				}
 			}
 		}
 

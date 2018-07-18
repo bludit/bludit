@@ -50,7 +50,7 @@
 
 		<!-- Previous button -->
 		<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::prevPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
+			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
 		</li>
 
 		<!-- List of pages -->

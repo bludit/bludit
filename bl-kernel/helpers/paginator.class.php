@@ -79,7 +79,7 @@ class Paginator {
 	}
 
 	// Returns the absolute URL for the previous page
-	public static function prevPageUrl()
+	public static function previousPageUrl()
 	{
 		return self::numberUrl( self::prevPage() );
 	}
@@ -93,13 +93,13 @@ class Paginator {
 		$filter = trim($url->activeFilter(), '/');
 
 		if(empty($filter)) {
-			$url = $domain.'/'.$url->slug();
+			$uri = $domain.'/'.$url->slug();
 		}
 		else {
-			$url = $domain.'/'.$filter.'/'.$url->slug();
+			$uri = $domain.'/'.$filter.'/'.$url->slug();
 		}
 
-		return $url.'?page='.$pageNumber;
+		return $uri.'?page='.$pageNumber;
 	}
 
 	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)
@@ -131,7 +131,7 @@ class Paginator {
 			}
 
 			$html .= '<li class="right">';
-			$html .= '<a href="'.self::prevPageUrl().'">'.$textNextPage.'</a>';
+			$html .= '<a href="'.self::previousPageUrl().'">'.$textNextPage.'</a>';
 			$html .= '</li>';
 		}
 
