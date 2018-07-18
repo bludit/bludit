@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'person'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info'));
 
 echo '
 <table class="table table-striped mt-3">

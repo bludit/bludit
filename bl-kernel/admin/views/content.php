@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'cog'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'layers'));
 
 function table($type) {
 	global $url;

@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'person'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'people'));
 
 echo Bootstrap::link(array(
 	'title'=>$L->g('add-a-new-user'),

@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'person'));
+echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'wrench'));
 
 echo Bootstrap::formOpen(array('class'=>'plugin-form'));
 
