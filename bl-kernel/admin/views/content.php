@@ -164,21 +164,24 @@ function table($type) {
 		<nav class="paginator">
 			<ul class="pagination flex-wrap justify-content-center">
 
-			<!-- Previous button -->
-			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
+			<!-- First button -->
+			<li class="page-item">
+				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $Language->get('First'); ?></a>
 			</li>
 
-			<!-- List of pages -->
-			<?php for ($i = 1; $i <= Paginator::amountOfPages(); $i++): ?>
-			<li class="page-item <?php if ($i==Paginator::currentPage()) echo 'active' ?>">
-				<a class="page-link" href="<?php echo Paginator::numberUrl($i) ?>"><?php echo $i ?></a>
+			<!-- Previous button -->
+			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $Language->get('Previous'); ?></a>
 			</li>
-			<?php endfor ?>
 
 			<!-- Next button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
 				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?></a>
+			</li>
+
+			<!-- Last button -->
+			<li class="page-item">
+				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $Language->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
 			</li>
 
 			</ul>
