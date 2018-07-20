@@ -40,3 +40,7 @@ if ($url->whereAmI()==='admin') {
 else {
 	require(PATH_BOOT.'site.php');
 }
+
+$endLoadTime = microtime(true);
+$time = $endLoadTime - $loadTime;
+var_dump($time);

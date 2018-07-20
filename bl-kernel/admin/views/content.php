@@ -165,7 +165,7 @@ function table($type) {
 			<ul class="pagination flex-wrap justify-content-center">
 
 			<!-- First button -->
-			<li class="page-item">
+			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
 				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $Language->get('First'); ?></a>
 			</li>
 
@@ -180,7 +180,7 @@ function table($type) {
 			</li>
 
 			<!-- Last button -->
-			<li class="page-item">
+			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
 				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $Language->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
 			</li>
 

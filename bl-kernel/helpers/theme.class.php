@@ -205,6 +205,12 @@ class Theme {
 	{
 		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
+
+	public static function jsSortable()
+	{
+		// https://github.com/psfpro/bootstrap-html5sortable
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
 }
 
 ?>

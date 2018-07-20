@@ -28,6 +28,7 @@
 			'jquery-auto-complete.min.js',
 			'jquery.datetimepicker.full.min.js'
 		), DOMAIN_ADMIN_THEME_JS);
+		echo Theme::jsSortable();
 	?>
 
 	<!-- Plugins -->

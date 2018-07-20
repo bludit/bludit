@@ -257,6 +257,7 @@ function changePluginsPosition($pluginClassList) {
 		'notes'=>''
 	));
 
+	Alert::set($Language->g('The changes have been saved'));
 	return true;
 }
 

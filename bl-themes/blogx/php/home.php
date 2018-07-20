@@ -41,24 +41,22 @@
 
 <!-- Pagination -->
 <?php if (Paginator::amountOfPages()>1): ?>
-<nav class="my-4" aria-label="Page navigation">
+<nav class="paginator">
 	<ul class="pagination flex-wrap">
 
 		<!-- Previous button -->
-		<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $Language->get('Previous'); ?></a>
+		<li class="page-item mr-2 <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $Language->get('Previous'); ?></a>
 		</li>
 
-		<!-- List of pages -->
-		<?php for ($i = 1; $i <= Paginator::amountOfPages(); $i++): ?>
-		<li class="page-item <?php if ($i==Paginator::currentPage()) echo 'active' ?>">
-			<a class="page-link" href="<?php echo Paginator::numberUrl($i) ?>"><?php echo $i ?></a>
+		<!-- Home button -->
+		<li class="page-item <?php if (Paginator::currentPage()==1) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo $site->url() ?>">Home</a>
 		</li>
-		<?php endfor ?>
 
 		<!-- Next button -->
-		<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?></a>
+		<li class="page-item ml-2 <?php if (!Paginator::showNext()) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?> &#9658;</a>
 		</li>
 
 	</ul>

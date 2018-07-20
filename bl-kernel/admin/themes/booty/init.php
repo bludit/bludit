@@ -344,4 +344,18 @@ EOF;
 	{
 		return '<input type="hidden" id="js'.$args['name'].'" name="'.$args['name'].'" value="'.$args['value'].'">';
 	}
+
+	public static function alert($args)
+	{
+		$class = 'alert';
+		if (!empty($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$text = $args['text'];
+
+return <<<EOF
+<div class="$class" role="alert">$text</div>
+EOF;
+	}
 }

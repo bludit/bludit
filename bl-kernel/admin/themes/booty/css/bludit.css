@@ -61,6 +61,10 @@ code {
 	color: #444;
 }
 
+.list-group-sortable {
+	cursor: pointer;
+}
+
 /*
 	LOGIN
 */
