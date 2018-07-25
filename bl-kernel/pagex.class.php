@@ -152,14 +152,14 @@ class PageX {
 	public function previousKey()
 	{
 		global $dbPages;
-		return $dbPages->previousPageKey($key);
+		return $dbPages->previousPageKey($this->key());
 	}
 
 	// Returns the next page key
 	public function nextKey()
 	{
 		global $dbPages;
-		return $dbPages->nextPageKey($key);
+		return $dbPages->nextPageKey($this->key());
 	}
 
 	// Returns the category name
