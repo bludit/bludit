@@ -104,15 +104,15 @@ class Login {
 			return false;
 		}
 
-		$user = $this->dbUsers->getDB($username);
-		if ($user==false) {
-			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
+		try {
+			$user = new User($username);
+		} catch (Exception $e) {
 			return false;
 		}
 
-		$passwordHash = $this->dbUsers->generatePasswordHash($password, $user['salt']);
-		if ($passwordHash===$user['password']) {
-			$this->setLogin($username, $user['role']);
+		$passwordHash = $this->dbUsers->generatePasswordHash($password, $user->salt());
+		if ($passwordHash===$user->password()) {
+			$this->setLogin($username, $user->role());
 			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username: '.$username);
 			return true;
 		}

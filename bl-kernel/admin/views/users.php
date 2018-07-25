@@ -24,23 +24,30 @@ echo '
 	<tbody>
 ';
 
-$users = $dbUsers->getAllUsers();
-foreach ($users as $username=>$User) {
-	echo '<tr>';
-	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-	echo '<td class="d-none d-lg-table-cell">'.$User->firstName().'</td>';
-	echo '<td class="d-none d-lg-table-cell">'.$User->lastName().'</td>';
-	echo '<td>'.$User->email().'</td>';
-	echo '<td>'.($User->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
-	if ($User->role()=='admin') {
-		echo '<td>'.$L->g('Administrator').'</td>';
-	} elseif ($User->role()=='moderator') {
-		echo '<td>'.$L->g('Moderator').'</td>';
-	} elseif ($User->role()=='editor') {
-		echo '<td>'.$L->g('Editor').'</td>';
+$list = $dbUsers->getAllUsernames();
+foreach ($list as $username) {
+	try {
+		$user = new User($username);
+		echo '<tr>';
+		echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
+		echo '<td class="d-none d-lg-table-cell">'.$user->firstName().'</td>';
+		echo '<td class="d-none d-lg-table-cell">'.$user->lastName().'</td>';
+		echo '<td>'.$user->email().'</td>';
+		echo '<td>'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
+		if ($user->role()=='admin') {
+			echo '<td>'.$L->g('Administrator').'</td>';
+		} elseif ($user->role()=='moderator') {
+			echo '<td>'.$L->g('Moderator').'</td>';
+		} elseif ($user->role()=='editor') {
+			echo '<td>'.$L->g('Editor').'</td>';
+		} else {
+			echo '<td>'.$L->g('Reader').'</td>';
+		}
+		echo '<td class="d-none d-lg-table-cell">'.Date::format($user->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
+		echo '</tr>';
+	} catch (Exception $e) {
+		// Continue
 	}
-	echo '<td class="d-none d-lg-table-cell">'.Date::format($User->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
-	echo '</tr>';
 }
 
 echo '

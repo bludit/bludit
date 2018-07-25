@@ -130,8 +130,9 @@ class Text {
 
 		if (EXTREME_FRIENDLY_URL) {
 			$string = self::lowercase($string);
+			$string = trim($string, $separator);
 			$string = preg_replace("/[\/_|+:!@#$%^&*(). -]+/", $separator, $string);
-			$string = trim($string, '-');
+			$string = trim($string, $separator);
 			return $string;
 		}
 

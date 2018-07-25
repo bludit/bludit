@@ -40,7 +40,6 @@ class PageX {
 		return false;
 	}
 
-	// Set a field with a value
 	public function setField($field, $value)
 	{
 		$this->vars[$field] = $value;
@@ -501,7 +500,7 @@ class PageX {
 	// $complete = true  : full version
 	public function relativeTime($complete = false) {
 		$current = new DateTime;
-		$past    = new DateTime($this->getValue('date'));
+		$past    = new DateTime($this->getValue('dateRaw'));
 		$elapsed = $current->diff($past);
 
 		$elapsed->w  = floor($elapsed->d / 7);

@@ -161,10 +161,12 @@ EOF;
 		if (empty($lines)) {
 			return 0;
 		}
+		$login = new Login();
 		$tmp = array();
 		foreach ($lines as $line) {
-			$key = json_decode($line);
-			$tmp[$key[0]] = true;
+			$data = json_decode($line);
+			$hashIP = $data[0];
+			$tmp[$hashIP] = true;
 		}
 		return count($tmp);
 	}
@@ -173,26 +175,18 @@ EOF;
 	// The line is a json array with the hash IP of the visitor and the time
 	public function addVisitor()
 	{
-		// Exclude administrators visits
-		global $login;
-		if ($this->getValue('excludeAdmins') && defined('BLUDIT_PRO')) {
-			if ($login->role()=='admin') {
-				return false;
-			}
+		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
+			return false;
 		}
-
                 $currentTime = Date::current('Y-m-d H:i:s');
 		$ip = TCP::getIP();
-		if (empty($ip)) {
-			$ip = session_id();
-		}
 		$hashIP = md5($ip);
 
 		$line = json_encode(array($hashIP, $currentTime));
 		$currentDate = Date::current('Y-m-d');
-		$file = $this->workspace().$currentDate.'.log';
+		$logFile = $this->workspace().$currentDate.'.log';
 
-		return file_put_contents($file, $line.PHP_EOL, FILE_APPEND | LOCK_EX)!==false;
+		return file_put_contents($logFile, $line.PHP_EOL, FILE_APPEND | LOCK_EX)!==false;
 	}
 
 }

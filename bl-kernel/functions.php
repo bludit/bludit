@@ -27,7 +27,7 @@ function buildErrorPage() {
 		$pageNotFound = New PageX(false);
 		$pageNotFound->setField('title', 	$language->get('page-not-found'));
 		$pageNotFound->setField('content', 	$language->get('page-not-found-content'));
-		$pageNotFound->setField('user', 	$dbUsers->getUser('admin'));
+		$pageNotFound->setField('username', 	'admin');
 	}
 
 	return $pageNotFound;
@@ -47,8 +47,7 @@ function buildThePage() {
 		return false;
 	}
 
-	// Check if the page is NOT published
-	if ( !$page->published() ) {
+	if ( $page->draft() || $page->scheduled() ) {
 		$url->setNotFound();
 		return false;
 	}
@@ -648,6 +647,9 @@ function checkRole($allowRoles, $redirect=true) {
 		));
 
 		Alert::set($Language->g('You do not have sufficient permissions'));
+		if ($userRole=='reader') {
+			Redirect::home();
+		}
 		Redirect::page('dashboard');
 	}
 	return false;
@@ -717,14 +719,14 @@ function deleteCategory($args) {
 	global $syslog;
 
 	// Remove the category by key
-	$dbCategories->remove($args['oldCategoryKey']);
+	$dbCategories->remove($args['oldKey']);
 
 	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
 
 	// Add to syslog
 	$syslog->add(array(
 		'dictionaryKey'=>'category-deleted',
-		'notes'=>$args['oldCategoryKey']
+		'notes'=>$args['oldKey']
 	));
 
 	Alert::set($Language->g('The changes have been saved'));

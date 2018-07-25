@@ -28,7 +28,7 @@ echo Bootstrap::formOpen(array());
 		echo Bootstrap::formSelect(array(
 			'name'=>'role',
 			'label'=>$L->g('Role'),
-			'options'=>array('editor'=>$L->g('Editor'), 'moderator'=>$L->g('Moderator'), 'admin'=>$L->g('Administrator')),
+			'options'=>array('reader'=>$L->g('Reader'), 'editor'=>$L->g('Editor'), 'moderator'=>$L->g('Moderator'), 'admin'=>$L->g('Administrator')),
 			'selected'=>$user->role(),
 			'class'=>'',
 			'tip'=>''
@@ -128,14 +128,6 @@ echo Bootstrap::formOpen(array());
 	));
 
 	echo Bootstrap::formInputText(array(
-		'name'=>'codepen',
-		'label'=>'Codepen',
-		'value'=>$user->codepen(),
-		'class'=>'',
-		'tip'=>''
-	));
-
-	echo Bootstrap::formInputText(array(
 		'name'=>'googlePlus',
 		'label'=>'Google+',
 		'value'=>$user->googlePlus(),
@@ -147,6 +139,38 @@ echo Bootstrap::formOpen(array());
 		'name'=>'instagram',
 		'label'=>'Instagram',
 		'value'=>$user->instagram(),
+		'class'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'codepen',
+		'label'=>'Codepen',
+		'value'=>$user->codepen(),
+		'class'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'linkedin',
+		'label'=>'Linkedin',
+		'value'=>$user->linkedin(),
+		'class'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'github',
+		'label'=>'Github',
+		'value'=>$user->github(),
+		'class'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'gitlab',
+		'label'=>'Gitlab',
+		'value'=>$user->gitlab(),
 		'class'=>'',
 		'tip'=>''
 	));

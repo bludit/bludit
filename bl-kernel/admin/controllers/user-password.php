@@ -33,9 +33,10 @@ if ($login->role()!=='admin') {
 	$layout['parameters'] = $login->username();
 }
 
-// Get the user to edit
-$user = $dbUsers->get($layout['parameters']);
-if ($user===false) {
+try {
+	$username = $layout['parameters'];
+	$user = new User($username);
+} catch (Exception $e) {
 	Redirect::page('users');
 }
 

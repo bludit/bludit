@@ -1,29 +1,51 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbUsers extends dbJSON
-{
+class dbUsers extends dbJSON {
+
 	public $dbFields = array(
-		'firstName'=>		array('inFile'=>false, 'value'=>''),
-		'lastName'=>		array('inFile'=>false, 'value'=>''),
-		'username'=>		array('inFile'=>false, 'value'=>''),
-		'role'=>		array('inFile'=>false, 'value'=>'editor'),
-		'password'=>		array('inFile'=>false, 'value'=>''),
-		'salt'=>		array('inFile'=>false, 'value'=>'!Pink Floyd!Welcome to the machine!'),
-		'email'=>		array('inFile'=>false, 'value'=>''),
-		'registered'=>		array('inFile'=>false, 'value'=>'1985-03-15 10:00'),
-		'tokenRemember'=>	array('inFile'=>false, 'value'=>''),
-		'tokenAuth'=>		array('inFile'=>false, 'value'=>''),
-		'tokenAuthTTL'=>	array('inFile'=>false, 'value'=>'2009-03-15 14:00'),
-		'twitter'=>		array('inFile'=>false, 'value'=>''),
-		'facebook'=>		array('inFile'=>false, 'value'=>''),
-		'codepen'=>		array('inFile'=>false, 'value'=>''),
-		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
-		'instagram'=>		array('inFile'=>false, 'value'=>'')
+		'firstName'=>'',
+		'lastName'=>'',
+		'role'=>'editor', // admin, moderator, editor, reader
+		'password'=>'',
+		'salt'=>'!Pink Floyd!Welcome to the machine!',
+		'email'=>'',
+		'registered'=>'1985-03-15 10:00',
+		'tokenRemember'=>'',
+		'tokenAuth'=>'',
+		'tokenAuthTTL'=>'2009-03-15 14:00',
+		'twitter'=>'',
+		'facebook'=>'',
+		'googlePlus'=>'',
+		'instagram'=>'',
+		'codepen'=>'',
+		'linkedin'=>'',
+		'github'=>'',
+		'gitlab'=>''
 	);
 
 	function __construct()
 	{
 		parent::__construct(DB_USERS);
+	}
+
+	public function getDefaultFields()
+	{
+		return $this->dbFields;
+	}
+
+	// Return an array with the database of the user, FALSE otherwise
+	public function getUserDB($username)
+	{
+		if ($this->exists($username)) {
+			return $this->db[$username];
+		}
+		return false;
+	}
+
+	// Return TRUE if the user exists, FALSE otherwise
+	public function exists($username)
+	{
+		return isset($this->db[$username]);
 	}
 
 	// Disable the user
@@ -33,64 +55,69 @@ class dbUsers extends dbJSON
 		return $this->save();
 	}
 
-	// Return TRUE if the user exists, FALSE otherwise
-	public function exists($username)
-	{
-		return isset($this->db[$username]);
-	}
-
-	// Create a new user
+	// Add a new user
 	public function add($args)
 	{
-		$dataForDb = array();
+		// The username is store as key and not as field
+		$username = $args['username'];
 
-		// Verify arguments with the database fields
-		foreach ($this->dbFields as $field=>$options) {
+		// The password is hashed, the password doesn't need to be sanitize in the next step
+		$password = $args['password'];
+
+		$row = array();
+		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
-				$value = Sanitize::html($args[$field]);
+				// Sanitize if will be stored on database
+				$finalValue = Sanitize::html($args[$field]);
 			} else {
-				$value = $options['value'];
+				// Default value for the field if not defined
+				$finalValue = $value;
 			}
-
-			// Set type
-			settype($value, gettype($options['value']));
-			$dataForDb[$field] = $value;
+			settype($finalValue, gettype($value));
+			$row[$field] = $finalValue;
 		}
 
-		$dataForDb['registered'] = Date::current(DB_DATE_FORMAT);
-		$dataForDb['salt'] = $this->generateSalt();
-		$dataForDb['password'] = $this->generatePasswordHash($dataForDb['password'], $dataForDb['salt']);
-		$dataForDb['tokenAuth'] = $this->generateAuthToken();
+		$row['registered'] = Date::current(DB_DATE_FORMAT);
+		$row['salt'] = $this->generateSalt();
+		$row['password'] = $this->generatePasswordHash($password, $row['salt']);
+		$row['tokenAuth'] = $this->generateAuthToken();
 
 		// Save the database
-		$this->db[$dataForDb['username']] = $dataForDb;
+		$this->db[$username] = $row;
 		return $this->save();
 	}
 
-	// Set the parameters of a user
+	// Edit an user
 	public function set($args)
 	{
-		// Current database of the user
-		$user = $this->db[$args['username']];
+		// The username is store as key and not as field
+		$username = $args['username'];
 
-		// Verify arguments with the database fields
-		foreach ($args as $field=>$value) {
-			if (isset($this->dbFields[$field])) {
-				$value = Sanitize::html($value);
-				settype($value, gettype($this->dbFields[$field]['value']));
-				$user[$field] = $value;
+		// Current database of the user
+		$row = $this->db[$username];
+		foreach ($this->dbFields as $field=>$value) {
+			if ($field!=='password') {
+				if (isset($args[$field])) {
+					// Sanitize if will be stored on database
+					$finalValue = Sanitize::html($args[$field]);
+				} else {
+					// Default value is the current one
+					$finalValue = $row[$field];
+				}
+				settype($finalValue, gettype($value));
+				$row[$field] = $finalValue;
 			}
 		}
 
 		// Set a new password
 		if (!empty($args['password'])) {
-			$user['salt'] = $this->generateSalt();
-			$user['password'] = $this->generatePasswordHash($args['password'], $user['salt']);
-			$user['tokenAuth'] = $this->generateAuthToken();
+			$row['salt'] = $this->generateSalt();
+			$row['password'] = $this->generatePasswordHash($args['password'], $row['salt']);
+			$row['tokenAuth'] = $this->generateAuthToken();
 		}
 
 		// Save the database
-		$this->db[$args['username']] = $user;
+		$this->db[$username] = $row;
 		return $this->save();
 	}
 
@@ -99,27 +126,6 @@ class dbUsers extends dbJSON
 	{
 		unset($this->db[$username]);
 		return $this->save();
-	}
-
-	// DEPRECATED
-	public function getUser($username)
-	{
-		return $this->get($username);
-	}
-
-	// Returns an User Object
-	public function get($username)
-	{
-		if ($this->exists($username)) {
-			$User = new User();
-			$User->setField('username', $username);
-
-			foreach ($this->db[$username] as $key=>$value) {
-				$User->setField($key, $value);
-			}
-			return $User;
-		}
-		return false;
 	}
 
 	public function generateAuthToken()
@@ -201,26 +207,8 @@ class dbUsers extends dbJSON
 		return $this->save();
 	}
 
-	// Returns array with the username databases filtered by username, FALSE otherwise
-	public function getDB($username)
+	public function getAllUsernames()
 	{
-		if ($this->exists($username)) {
-			return $this->db[$username];
-		}
-		return false;
-	}
-
-	public function getAll()
-	{
-		return $this->db;
-	}
-
-	public function getAllUsers()
-	{
-		$tmp = array();
-		foreach ($this->db as $username=>$fields) {
-			$tmp[$username] = $this->getUser($username);
-		}
-		return $tmp;
+		return array_keys($this->db);
 	}
 }

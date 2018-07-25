@@ -1,5 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+// // Start session if the cookie is defined
+// if (Cookie::get('BLUDIT-KEY')) {
+// 	if (!Session::started()) {
+// 		Session::start();
+// 	}
+// }
+
 // Load plugins rules
 include(PATH_RULES.'60.plugins.php');
 
@@ -32,3 +39,4 @@ Theme::plugins('afterSiteLoad');
 
 // Plugins after all
 Theme::plugins('afterAll');
+

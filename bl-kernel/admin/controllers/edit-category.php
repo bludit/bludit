@@ -19,9 +19,9 @@ checkRole(array('admin'));
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (isset($_POST['delete'])) {
+	if ($_POST['action']=='delete') {
 		deleteCategory($_POST);
-	} elseif (isset($_POST['edit'])) {
+	} elseif ($_POST['action']=='edit') {
 		editCategory($_POST);
 	}
 

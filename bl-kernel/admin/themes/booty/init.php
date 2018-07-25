@@ -2,6 +2,37 @@
 
 class Bootstrap {
 
+	public static function modal($args) {
+
+		$buttonSecondary = $args['buttonSecondary'];
+		$buttonSecondaryClass = $args['buttonSecondaryClass'];
+
+		$buttonPrimary = $args['buttonPrimary'];
+		$buttonPrimaryClass = $args['buttonPrimaryClass'];
+
+		$modalText = $args['modalText'];
+		$modalTitle = $args['modalTitle'];
+		$modalId = $args['modalId'];
+
+
+return <<<EOF
+<div id="$modalId" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<h3>$modalTitle</h3>
+				<p>$modalText</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="$buttonSecondaryClass btn btn-secondary" data-dismiss="modal">$buttonSecondary</button>
+				<button type="button" class="$buttonPrimaryClass btn btn-primary">$buttonPrimary</button>
+			</div>
+		</div>
+	</div>
+</div>
+EOF;
+	}
+
 	public static function link($args)
 	{
 		$options = 'href="'.$args['href'].'"';

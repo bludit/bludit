@@ -1,4 +1,5 @@
 .DS_Store
+dbgenerator.php
 bl-content/*
 bl-plugins/timemachine
 bl-plugins/timemachine-x

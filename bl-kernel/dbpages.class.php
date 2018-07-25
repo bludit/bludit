@@ -33,6 +33,22 @@ class dbPages extends dbJSON {
 		return $this->dbFields;
 	}
 
+	// Return an array with the database for a page, FALSE otherwise
+	public function getPageDB($key)
+	{
+		if ($this->exists($key)) {
+			return $this->db[$key];
+		}
+
+		return false;
+	}
+
+	// Return TRUE if the page exists, FALSE otherwise
+	public function exists($key)
+	{
+		return isset( $this->db[$key] );
+	}
+
 	// Create a new page
 	// This function returns the key of the new page
 	public function add($args, $climode=false)
@@ -389,16 +405,6 @@ class dbPages extends dbJSON {
 		return $tmp;
 	}
 
-	// Return an array with the database for a page, FALSE otherwise
-	public function getPageDB($key)
-	{
-		if ($this->exists($key)) {
-			return $this->db[$key];
-		}
-
-		return false;
-	}
-
 	// Returns the next number of the bigger position
 	public function nextPositionNumber()
 	{
@@ -515,11 +521,7 @@ class dbPages extends dbJSON {
 		return $list;
 	}
 
-	// Return TRUE if the page exists, FALSE otherwise
-	public function exists($key)
-	{
-		return isset( $this->db[$key] );
-	}
+
 
 	public function sortBy()
 	{
@@ -785,12 +787,6 @@ class dbPages extends dbJSON {
 			return 'Content:'.PHP_EOL.$value;
 		}
 		return Text::firstCharUp($field).': '.$value;
-	}
-
-	// Returns the database
-	public function getDB()
-	{
-		return $this->db;
 	}
 
 	// Returns an Array, array('tagSlug'=>'tagName')

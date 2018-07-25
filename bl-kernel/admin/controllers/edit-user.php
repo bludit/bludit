@@ -39,14 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Main after POST
 // ============================================================================
 
+$username = $layout['parameters'];
+
 // Prevent non-administrators to change other users
 if ($login->role()!=='admin') {
-	$layout['parameters'] = $login->username();
+	$username = $login->username();
 }
 
-// Get the user to edit
-$user = $dbUsers->get($layout['parameters']);
-if ($user===false) {
+try {
+	$user = new User($username);
+} catch (Exception $e) {
 	Redirect::page('users');
 }
 

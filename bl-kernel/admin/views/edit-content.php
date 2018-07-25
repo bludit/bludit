@@ -88,7 +88,7 @@
 			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
 			<?php
 			if (count($page->children())===0) {
-				echo '<button type="button" class="jsbuttonDelete btn btn-secondary">'.$L->g('Delete').'</button>';
+				echo '<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#jsdeletePageModal">'.$L->g('Delete').'</button>';
 			}
 			?>
 		</div>
@@ -249,6 +249,28 @@
 		?>
 	</div>
 
+	<!-- Modal for delete page -->
+	<?php echo Bootstrap::modal(array(
+		'buttonPrimary'=>'Delete',
+		'buttonPrimaryClass'=>'jsbuttonDeleteAccept',
+		'buttonSecondary'=>'Cancel',
+		'buttonSecondaryClass'=>'',
+		'modalTitle'=>'Delete content',
+		'modalText'=>'Are you sure you want to delete: <b>'.$page->title().'</b>',
+		'modalId'=>'jsdeletePageModal'
+	));
+	?>
+	<script>
+	$(document).ready(function() {
+		// Delete content
+		$(".jsbuttonDeleteAccept").on("click", function() {
+			$("#jstype").val("delete");
+			$("#jscontent").val("");
+			$("#jsform").submit();
+		});
+	});
+	</script>
+
 	<!-- Modal for Categories -->
 	<div id="jscategoryModal" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -366,13 +388,6 @@ $(document).ready(function() {
 	$(".jsbuttonDraft").on("click", function() {
 		$("#jstype").val("draft");
 		$("#jscontent").val( editorGetContent() );
-		$("#jsform").submit();
-	});
-
-	// Button Delete
-	$(".jsbuttonDelete").on("click", function() {
-		$("#jstype").val("delete");
-		$("#jscontent").val("");
 		$("#jsform").submit();
 	});
 

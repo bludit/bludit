@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-	class Session {
+class Session {
 
 	private static $started = false;
 	private static $sessionName = 'BLUDIT-KEY';

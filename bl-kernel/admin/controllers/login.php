@@ -25,6 +25,12 @@ function checkLogin($args)
 		}
 		// Renew the token. This token will be the same inside the session for multiple forms.
 		$security->generateTokenCSRF();
+
+		// Users with the role reader do not need access to dashboard
+		if ($login->role()=='reader') {
+			Redirect::home();
+		}
+
 		Redirect::page('dashboard');
 		return true;
 	}
