@@ -57,9 +57,9 @@ function table($type) {
 	<table class="table mt-3">
 		<thead>
 			<tr>
-				<th class="border-0" scope="col">'.$Language->g('Title').'</th>
-				<th class="border-0 d-none d-lg-table-cell" scope="col">'.$Language->g('URL').'</th>
-				<th class="border-0 text-center d-none d-sm-table-cell" scope="col">'.( ((ORDER_BY=='position') || ($type!='published'))?$Language->g('Position'):$Language->g('Creation date')).'</th>
+				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$Language->g('Title').'</th>
+				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$Language->g('URL').'</th>
+				<th style="font-size: 0.8em;" class="border-0 text-center d-none d-sm-table-cell text-uppercase text-muted" scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -111,16 +111,24 @@ function table($type) {
 			try {
 				$page = new PageX($pageKey);
 				echo '<tr>';
-				echo '<td>
-					<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-					.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
-					.'</a>
+				echo '<td class="pt-3">
+					<div>
+						<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
+						.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+						.'</a>
+					</div>
+					<div>
+						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->relativeTime() ).'</p>
+					</div>
 				</td>';
 
 				$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-				echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
+				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
-				echo '<td class="text-center d-none d-sm-table-cell">'.( ((ORDER_BY=='position') || ($type!='published'))?$page->position():$page->dateRaw(ADMIN_PANEL_DATE_FORMAT) ).'</td>';
+				echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
+				echo '<a type="button" class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">Edit</a>'.PHP_EOL;
+				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> Delete</button>'.PHP_EOL;
+				echo '</td>';
 
 				echo '</tr>';
 			} catch (Exception $e) {
@@ -160,6 +168,7 @@ function table($type) {
 	<div class="tab-pane show active" id="pages" role="tabpanel">
 		<?php table('published'); ?>
 
+		<?php if (Paginator::amountOfPages() > 1): ?>
 		<!-- Paginator -->
 		<nav class="paginator">
 			<ul class="pagination flex-wrap justify-content-center">
@@ -186,6 +195,7 @@ function table($type) {
 
 			</ul>
 		</nav>
+		<?php endif; ?>
 	</div>
 
 	<!-- TABS STATIC -->
@@ -208,3 +218,49 @@ function table($type) {
 	<?php table('draft'); ?>
 	</div>
 </div>
+
+<!-- Modal for delete page -->
+<?php echo Bootstrap::modal(array(
+	'modalId'=>'jsdeletePageModal',
+	'modalTitle'=>'Delete content',
+	'modalText'=>'Are you sure you ?',
+	'buttonPrimary'=>'Delete',
+	'buttonPrimaryClass'=>'deletePageModalAcceptButton',
+	'buttonSecondary'=>'Cancel',
+	'buttonSecondaryClass'=>''
+));
+?>
+<script>
+$(document).ready(function() {
+	var key = false;
+
+	// Button for delete a page in the table
+	$(".deletePageButton").on("click", function() {
+		key = $(this).data('key');
+	});
+
+	// Event from button accept from the modal
+	$(".deletePageModalAcceptButton").on("click", function() {
+
+		var form = jQuery('<form>', {
+			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
+			'method': 'post',
+			'target': '_top'
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'tokenCSRF',
+			'value': tokenCSRF
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'key',
+			'value': key
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'type',
+			'value': 'delete'
+		}))));
+
+		form.hide().appendTo("body").submit();
+	});
+});
+</script>

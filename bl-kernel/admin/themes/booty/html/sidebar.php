@@ -16,6 +16,13 @@
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span class="oi oi-plus"></span><?php $L->p('New content') ?></a>
 	</li>
 
+	<?php if (checkRole(array('editor'),false)): ?>
+
+	<li class="nav-item">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="oi oi-layers"></span><?php $L->p('Content') ?></a>
+	</li>
+	<?php endif; ?>
+
 	<?php if (checkRole(array('admin'),false)): ?>
 
 	<li class="nav-item mt-3">
@@ -24,6 +31,7 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
 	</li>
+
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
 	</li>
@@ -57,7 +65,6 @@
 				}
 			}
 		?>
-
 	<?php endif; ?>
 
 	<li class="nav-item mt-5">

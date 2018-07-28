@@ -118,15 +118,13 @@ class Url
 		return $this->uri;
 	}
 
-	// Return the filter used
+	// Return the filter filter by type
 	public function filters($type, $trim=true)
 	{
 		$filter = $this->filters[$type];
-
-		if($trim) {
+		if ($trim) {
 			$filter = trim($filter, '/');
 		}
-
 		return $filter;
 	}
 

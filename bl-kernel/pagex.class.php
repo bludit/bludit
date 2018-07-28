@@ -205,12 +205,19 @@ class PageX {
 		return false;
 	}
 
-	// Returns the user object
-	public function user()
+	// Returns the user object or passing the method returns the object User method
+	public function user($method=false)
 	{
-		global $dbUsers;
 		$username = $this->username();
-		return $dbUsers->getUser($username);
+		try {
+			$user = new User($username);
+			if ($method) {
+				return $user->{$method}();
+			}
+			return $user;
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public function template()
@@ -226,23 +233,22 @@ class PageX {
 
 	// Returns the tags separated by comma
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
+	// The tags in array format returns array( tagKey => tagName )
 	public function tags($returnsArray=false)
 	{
 		$tags = $this->getValue('tags');
-
-		if($returnsArray) {
-			if($tags==false) {
+		if ($returnsArray) {
+			if (empty($tags)) {
 				return array();
 			}
 			return $tags;
 		}
-		else {
-			if($tags==false) {
-				return false;
-			}
-			// Return string with tags separeted by comma.
-			return implode(', ', $tags);
+
+		if (empty($tags)) {
+			return '';
 		}
+		// Return string with tags separeted by comma.
+		return implode(', ', $tags);
 	}
 
 	public function json($returnsArray=false)

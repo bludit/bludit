@@ -5,7 +5,8 @@ class dbUsers extends dbJSON {
 	public $dbFields = array(
 		'firstName'=>'',
 		'lastName'=>'',
-		'role'=>'editor', // admin, moderator, editor, reader
+		'nickname'=>'',
+		'role'=>'editor', // admin, editor, reader
 		'password'=>'',
 		'salt'=>'!Pink Floyd!Welcome to the machine!',
 		'email'=>'',

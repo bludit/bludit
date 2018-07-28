@@ -4,7 +4,7 @@
 // Check role
 // ============================================================================
 
-if (!checkRole(array('admin','moderator'), false)) {
+if (!checkRole(array('admin','editor'), false)) {
 	try {
 		$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
 		$page = new PageX($pageKey);

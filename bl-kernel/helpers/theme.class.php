@@ -137,6 +137,11 @@ class Theme {
 		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
 	}
 
+	public static function src($file, $base=DOMAIN_THEME)
+	{
+		return $base.$file;
+	}
+
 	public static function css($files, $base=DOMAIN_THEME)
 	{
 		if( !is_array($files) ) {

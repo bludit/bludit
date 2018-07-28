@@ -44,7 +44,7 @@ class Login {
 			}
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. Current fingerPrint: '.Session::get('fingerPrint').' !== Current fingerPrint: '.$this->fingerPrint());
+		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. ['.Session::get('fingerPrint').'] != ['.$this->fingerPrint().']');
 		return false;
 	}
 
@@ -56,7 +56,7 @@ class Login {
 		Session::set('fingerPrint',	$this->fingerPrint());
 		Session::set('sessionTime',	time());
 
-		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint: '.$this->fingerPrint());
+		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint ['.$this->fingerPrint().']');
 	}
 
 	public function setRememberMe($username)
@@ -113,7 +113,7 @@ class Login {
 		$passwordHash = $this->dbUsers->generatePasswordHash($password, $user->salt());
 		if ($passwordHash===$user->password()) {
 			$this->setLogin($username, $user->role());
-			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username: '.$username);
+			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username ['.$username.']');
 			return true;
 		}
 

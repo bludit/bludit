@@ -31,6 +31,7 @@ function checkLogin($args)
 			Redirect::home();
 		}
 
+		// Other user without the role reader redirect to dashboard
 		Redirect::page('dashboard');
 		return true;
 	}
@@ -40,7 +41,6 @@ function checkLogin($args)
 
 	// Create alert
 	Alert::set($Language->g('Username or password incorrect'), ALERT_STATUS_FAIL);
-
 	return false;
 }
 

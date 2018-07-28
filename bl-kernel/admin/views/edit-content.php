@@ -138,10 +138,20 @@
 				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
 				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
 			</div>
-			<h4 class="mt-4 mb-4 font-weight-normal">Cover Image</h4>
+			<h4 class="mt-4 mb-4 font-weight-normal">General</h4>
 		</div>
 
 		<?php
+			// Username
+			echo Bootstrap::formInputText(array(
+				'name'=>'',
+				'label'=>'User',
+				'placeholder'=>'',
+				'value'=>$page->username(),
+				'tip'=>'',
+				'disabled'=>true
+			));
+
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',

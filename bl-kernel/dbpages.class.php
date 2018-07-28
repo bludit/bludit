@@ -57,7 +57,9 @@ class dbPages extends dbJSON {
 
 		// Check values on args and set default values if not exists
 		foreach ($this->dbFields as $field=>$value) {
-			if (isset($args[$field])) {
+			if ($field=='tags') {
+				$finalValue = $this->generateTags($args['tags']);
+			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
 			} else {
@@ -98,11 +100,6 @@ class dbPages extends dbJSON {
 		// Generate UUID
 		if (empty($row['uuid'])) {
 			$row['uuid'] = $this->generateUUID();
-		}
-
-		// Tags
-		if (!empty($row['tags'])) {
-			$row['tags'] = $this->generateTags($args['tags']);
 		}
 
 		// Validate date
@@ -150,7 +147,9 @@ class dbPages extends dbJSON {
 
 		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$value) {
-			if (isset($args[$field])) {
+			if ($field=='tags') {
+				$finalValue = $this->generateTags($args['tags']);
+			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
 			} else {
@@ -794,23 +793,17 @@ class dbPages extends dbJSON {
 	public function generateTags($tags)
 	{
 		$tmp = array();
-
 		$tags = trim($tags);
-
-		if(empty($tags)) {
+		if (empty($tags)) {
 			return $tmp;
 		}
 
-		// Make array
 		$tags = explode(',', $tags);
-
-		foreach($tags as $tag)
-		{
+		foreach ($tags as $tag) {
 			$tag = trim($tag);
 			$tagKey = Text::cleanUrl($tag);
 			$tmp[$tagKey] = $tag;
 		}
-
 		return $tmp;
 	}
 

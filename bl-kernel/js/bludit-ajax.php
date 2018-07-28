@@ -20,7 +20,7 @@ class bluditAjax {
 				title: title,
 				content: content
 			},
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/save-as-draft"
+			url: HTML_PATH_ADMIN_ROOT+"ajax/save-as-draft"
 		});
 
 		ajaxRequest.done(function (response, textStatus, jqXHR) {
@@ -52,7 +52,7 @@ class bluditAjax {
 			data: {
 				tokenCSRF: tokenCSRF // token from env variables
 			},
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/user-logged"
+			url: HTML_PATH_ADMIN_ROOT+"ajax/user-logged"
 		});
 
 		ajaxRequest.done(function (response, textStatus, jqXHR) {
@@ -82,7 +82,7 @@ class bluditAjax {
 			parentKey: parentKey,
 			currentKey: currentKey
 		    },
-		    url: "<?php echo HTML_PATH_ADMIN_ROOT.'ajax/generate-slug' ?>"
+		    url: HTML_PATH_ADMIN_ROOT+"ajax/generate-slug"
 		});
 
 		ajaxRequest.done(function (response, textStatus, jqXHR) {

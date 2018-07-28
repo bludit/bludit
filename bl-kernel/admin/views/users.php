@@ -36,8 +36,6 @@ foreach ($list as $username) {
 		echo '<td>'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
 		if ($user->role()=='admin') {
 			echo '<td>'.$L->g('Administrator').'</td>';
-		} elseif ($user->role()=='moderator') {
-			echo '<td>'.$L->g('Moderator').'</td>';
 		} elseif ($user->role()=='editor') {
 			echo '<td>'.$L->g('Editor').'</td>';
 		} else {

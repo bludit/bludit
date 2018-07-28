@@ -16,15 +16,15 @@
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$token = isset($_POST['tokenCSRF']) ? Sanitize::html($_POST['tokenCSRF']) : false;
-	if( !$security->validateTokenCSRF($token) ) {
-		Log::set(__FILE__.LOG_SEP.'Error occurred when trying to validate the tokenCSRF. Token CSRF ID: '.$token);
+	if (!$security->validateTokenCSRF($token)) {
+		Log::set(__FILE__.LOG_SEP.'Error occurred when trying to validate the tokenCSRF.', ALERT_STATUS_FAIL);
+		Log::set(__FILE__.LOG_SEP.'Token via POST ['.$token.']', ALERT_STATUS_FAIL);
+
 		Session::destroy();
 		Redirect::page('login');
-	}
-	else {
+	} else {
 		unset( $_POST['tokenCSRF'] );
 	}
 }

@@ -1,8 +1,18 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'person'));
-
 echo Bootstrap::formOpen(array());
+
+	echo '
+	<div>
+	<div class="float-right">
+		<button type="submit" class="btn btn-primary btn-sm" name="save">'.$L->g('Save').'</button>
+		<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'users" role="button">'.$L->g('Cancel').'</a>
+	</div>
+	<h2 class="mt-0 mb-3">
+		<span class="oi oi-person" style="font-size: 0.7em;"></span> Edit user
+	</h2>
+	</div>
+	';
 
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
@@ -28,7 +38,7 @@ echo Bootstrap::formOpen(array());
 		echo Bootstrap::formSelect(array(
 			'name'=>'role',
 			'label'=>$L->g('Role'),
-			'options'=>array('reader'=>$L->g('Reader'), 'editor'=>$L->g('Editor'), 'moderator'=>$L->g('Moderator'), 'admin'=>$L->g('Administrator')),
+			'options'=>array('reader'=>$L->g('Reader'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 			'selected'=>$user->role(),
 			'class'=>'',
 			'tip'=>''
@@ -45,6 +55,15 @@ echo Bootstrap::formOpen(array());
 	));
 
 	echo Bootstrap::formTitle(array('title'=>$L->g('Profile')));
+
+	echo Bootstrap::formInputText(array(
+		'name'=>'nickname',
+		'label'=>$L->g('Nickname'),
+		'value'=>$user->nickname(),
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>'The nickname is almost used in the themes to display the author of the content'
+	));
 
 	echo Bootstrap::formInputText(array(
 		'name'=>'firstName',

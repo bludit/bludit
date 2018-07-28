@@ -22,7 +22,7 @@ class Security extends dbJSON
 	{
 		$token = sha1( uniqid().time() );
 		Session::set('tokenCSRF', $token);
-		Log::set('New Token CSRF: '.$token);
+		Log::set(__METHOD__.LOG_SEP.'New Token CSRF ['.$token.']');
 	}
 
 	// Validate the token

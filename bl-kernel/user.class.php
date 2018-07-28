@@ -49,6 +49,11 @@ class User {
 		return $this->getValue('username');
 	}
 
+	public function nickname()
+	{
+		return $this->getValue('nickname');
+	}
+
 	public function firstName()
 	{
 		return $this->getValue('firstName');
