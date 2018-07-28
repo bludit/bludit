@@ -23,8 +23,7 @@ checkRole(array('admin'));
 // ============================================================================
 $themeDirname = $layout['parameters'];
 
-if( Sanitize::pathFile(PATH_THEMES.$themeDirname) ) {
-	// Set the theme
+if (Sanitize::pathFile(PATH_THEMES.$themeDirname)) {
 	$site->set(array('theme'=>$themeDirname));
 
 	// Add to syslog

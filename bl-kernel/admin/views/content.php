@@ -126,7 +126,7 @@ function table($type) {
 				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-				echo '<a type="button" class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">Edit</a>'.PHP_EOL;
+				echo '<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">Edit</a>'.PHP_EOL;
 				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> Delete</button>'.PHP_EOL;
 				echo '</td>';
 

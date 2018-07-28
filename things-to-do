@@ -6,25 +6,29 @@ Things to do:
 - settings->advanced->Predefined pages->Page not found
 -- Search and select a page
 
-- settings->plugins->settings
--- Update plugins to use Bootstrap on the CSS
-
-- settings->plugins->change order of plugins
--- not implemented
-
 - manage->users->edit user
 -- Change profile avatar
 
-- new content -> options -> Advanced
--- Date, javascript for select the date
---
-
-- Fix Tinymce plugin
-
-- Edit content
--- If the parent is set, the
-
-- add to settings
+- Add to Settings
 -- time for autosave
 -- time for check user logged
 -- thumbnails sizes and compression
+
+- Plugin Links
+-- Update CSS for Bootstrap
+
+- Plugin sitemap
+-- Update CSS for Bootstrap
+
+- Plugin remote content
+-- Refactor with the new database
+
+- Filter by tags is not working
+
+- Plugin timemachine
+-- Update CSS for Bootstrap
+
+- Plugin updater
+
+- Cover Image
+-- Check better way to select an image

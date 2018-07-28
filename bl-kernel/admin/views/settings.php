@@ -13,6 +13,9 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		<a class="nav-link " id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false">Advanced</a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link " id="seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link " id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false">Social Networks</a>
 	</li>
 	<li class="nav-item">
@@ -158,13 +161,65 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'https://'
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'uriPage',
+			'label'=>$L->g('Pages'),
+			'value'=>$site->uriFilters('page'),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>DOMAIN_PAGES
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'uriTag',
+			'label'=>$L->g('Tags'),
+			'value'=>$site->uriFilters('tag'),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>DOMAIN_TAGS
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'uriCategory',
+			'label'=>$L->g('Category'),
+			'value'=>$site->uriFilters('category'),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>DOMAIN_CATEGORIES
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'uriBlog',
+			'label'=>$L->g('Blog'),
+			'value'=>$site->uriFilters('blog'),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>DOMAIN.$site->uriFilters('blog'),
+			'disabled'=>!$site->uriFilters('blog')
+		));
+
+		echo '
+		<div class="form-group mt-4">
+			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
+			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
+		</div>
+		';
+	?>
+	</div>
+
+
+	<!-- TABS SEO -->
+	<div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
 
 		echo Bootstrap::formSelect(array(
 			'name'=>'extremeFriendly',
 			'label'=>'Allow Unicode',
 			'options'=>array('true'=>'Enabled', 'false'=>'Disable'),
-			'selected'=>$site->extremeFriendly(),
+			'selected'=>($site->extremeFriendly()?'true':'false'),
 			'class'=>'',
 			'tip'=>'Allow unicode characters in the URL and some part of the system.'
 		));
@@ -209,45 +264,6 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>'Variables allowed: <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
-		));
-
-		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'uriPage',
-			'label'=>$L->g('Pages'),
-			'value'=>$site->uriFilters('page'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_PAGES
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'uriTag',
-			'label'=>$L->g('Tags'),
-			'value'=>$site->uriFilters('tag'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_TAGS
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'uriCategory',
-			'label'=>$L->g('Category'),
-			'value'=>$site->uriFilters('category'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_CATEGORIES
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'uriBlog',
-			'label'=>$L->g('Blog'),
-			'value'=>$site->uriFilters('blog'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN.$site->uriFilters('blog'),
-			'disabled'=>!$site->uriFilters('blog')
 		));
 
 		echo '

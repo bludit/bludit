@@ -3,42 +3,42 @@
 class dbSite extends dbJSON
 {
 	public $dbFields = array(
-		'title'=>		array('inFile'=>false, 'value'=>'I am Guybrush Threepwood, mighty developer'),
-		'slogan'=>		array('inFile'=>false, 'value'=>''),
-		'description'=>		array('inFile'=>false, 'value'=>''),
-		'footer'=>		array('inFile'=>false, 'value'=>'I wanna be a pirate!'),
-		'itemsPerPage'=>	array('inFile'=>false, 'value'=>6),
-		'language'=>		array('inFile'=>false, 'value'=>'en'),
-		'locale'=>		array('inFile'=>false, 'value'=>'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ'),
-		'timezone'=>		array('inFile'=>false, 'value'=>'America/Argentina/Buenos_Aires'),
-		'theme'=>		array('inFile'=>false, 'value'=>'pure'),
-		'adminTheme'=>		array('inFile'=>false, 'value'=>'default'),
-		'homepage'=>		array('inFile'=>false, 'value'=>''),
-		'pageNotFound'=>	array('inFile'=>false, 'value'=>''),
-		'uriPage'=>		array('inFile'=>false, 'value'=>'/'),
-		'uriTag'=>		array('inFile'=>false, 'value'=>'/tag/'),
-		'uriCategory'=>		array('inFile'=>false, 'value'=>'/category/'),
-		'uriBlog'=>		array('inFile'=>false, 'value'=>'/blog/'),
-		'url'=>			array('inFile'=>false, 'value'=>''),
-		'emailFrom'=>		array('inFile'=>false, 'value'=>''),
-		'dateFormat'=>		array('inFile'=>false, 'value'=>'F j, Y'),
-		'timeFormat'=>		array('inFile'=>false, 'value'=>'g:i a'),
-		'currentBuild'=>	array('inFile'=>false, 'value'=>0),
-		'twitter'=>		array('inFile'=>false, 'value'=>''),
-		'facebook'=>		array('inFile'=>false, 'value'=>''),
-		'codepen'=>		array('inFile'=>false, 'value'=>''),
-		'googlePlus'=>		array('inFile'=>false, 'value'=>''),
-		'instagram'=>		array('inFile'=>false, 'value'=>''),
-		'github'=>		array('inFile'=>false, 'value'=>''),
-		'gitlab'=>		array('inFile'=>false, 'value'=>''),
-		'linkedin'=>		array('inFile'=>false, 'value'=>''),
-		'orderBy'=>		array('inFile'=>false, 'value'=>'date'), // date or position
-		'extremeFriendly'=>	array('inFile'=>false, 'value'=>true),
-		'autosaveInterval'=>	array('inFile'=>false, 'value'=>2),
-		'titleFormatHomepage'=>	array('inFile'=>false, 'value'=>'{{site-slogan}} | {{site-title}}'),
-		'titleFormatPages'=>	array('inFile'=>false, 'value'=>'{{page-title}} | {{site-title}}'),
-		'titleFormatCategory'=> array('inFile'=>false, 'value'=>'{{category-name}} | {{site-title}}'),
-		'titleFormatTag'=> 	array('inFile'=>false, 'value'=>'{{tag-name}} | {{site-title}}')
+		'title'=>		'I am Guybrush Threepwood, mighty developer',
+		'slogan'=>		'',
+		'description'=>		'',
+		'footer'=>		'I wanna be a pirate!',
+		'itemsPerPage'=>	6,
+		'language'=>		'en',
+		'locale'=>		'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ',
+		'timezone'=>		'America/Argentina/Buenos_Aires',
+		'theme'=>		'pure',
+		'adminTheme'=>		'default',
+		'homepage'=>		'',
+		'pageNotFound'=>	'',
+		'uriPage'=>		'/',
+		'uriTag'=>		'/tag/',
+		'uriCategory'=>		'/category/',
+		'uriBlog'=>		'/blog/',
+		'url'=>			'',
+		'emailFrom'=>		'',
+		'dateFormat'=>		'F j, Y',
+		'timeFormat'=>		'g:i a',
+		'currentBuild'=>	0,
+		'twitter'=>		'',
+		'facebook'=>		'',
+		'codepen'=>		'',
+		'googlePlus'=>		'',
+		'instagram'=>		'',
+		'github'=>		'',
+		'gitlab'=>		'',
+		'linkedin'=>		'',
+		'orderBy'=>		'date', // date or position
+		'extremeFriendly'=>	true,
+		'autosaveInterval'=>	2, // minutes
+		'titleFormatHomepage'=>	'{{site-slogan}} | {{site-title}}',
+		'titleFormatPages'=>	'{{page-title}} | {{site-title}}',
+		'titleFormatCategory'=> '{{category-name}} | {{site-title}}',
+		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}'
 	);
 
 	function __construct()
@@ -60,12 +60,15 @@ class dbSite extends dbJSON
 
 	public function set($args)
 	{
-		foreach ($args as $field=>$value) {
-			if (isset($this->dbFields[$field])) {
-				$this->db[$field] = Sanitize::html($value);
+		// Check values on args or set default values
+		foreach ($this->dbFields as $field=>$value) {
+			if (isset($args[$field])) {
+				// Sanitize if will be stored on database
+				$finalValue = Sanitize::html($args[$field]);
+				settype($finalValue, gettype($value));
+				$this->db[$field] = $finalValue;
 			}
 		}
-
 		return $this->save();
 	}
 

@@ -317,7 +317,7 @@ function install($adminPassword, $timezone)
 			'description'=>'',
 			'username'=>'admin',
 			'tags'=>array(),
-			'type'=>'published',
+			'type'=>(($slug=='example-page-4-slug')?'static':'published'),
 			'date'=>$currentDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
@@ -378,7 +378,11 @@ function install($adminPassword, $timezone)
 		'linkedin'=>'',
 		'dateFormat'=>'F j, Y',
 		'extremeFriendly'=>true,
-		'autosaveInterval'=>2
+		'autosaveInterval'=>2,
+		'titleFormatHomepage'=>'{{site-slogan}} | {{site-title}}',
+		'titleFormatPages'=>'{{page-title}} | {{site-title}}',
+		'titleFormatCategory'=>'{{category-name}} | {{site-title}}',
+		'titleFormatTag'=>'{{tag-name}} | {{site-title}}'
 	);
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -389,6 +393,7 @@ function install($adminPassword, $timezone)
 
 	$data = array(
 		'admin'=>array(
+			'nickname'=>'Admin',
 			'firstName'=>$Language->get('Administrator'),
 			'lastName'=>'',
 			'role'=>'admin',
@@ -402,7 +407,11 @@ function install($adminPassword, $timezone)
 			'twitter'=>'',
 			'facebook'=>'',
 			'googlePlus'=>'',
-			'instagram'=>''
+			'instagram'=>'',
+			'codepen'=>'',
+			'linkedin'=>'',
+			'github'=>'',
+			'gitlab'=>''
 		)
 	);
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
