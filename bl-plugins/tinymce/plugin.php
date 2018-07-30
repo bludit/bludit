@@ -7,6 +7,37 @@ class pluginTinymce extends Plugin {
 		'edit-content'
 	);
 
+	public function init()
+	{
+		$this->dbFields = array(
+			'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link pagebreak image removeformat code',
+			'toolbar2'=>'',
+			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
+		);
+	}
+
+	public function form()
+	{
+		global $Language;
+
+		$html  = '<div>';
+		$html .= '<label>'.$Language->get('Toolbar top').'</label>';
+		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getDbField('toolbar1').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Toolbar bottom').'</label>';
+		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getDbField('toolbar2').'">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$Language->get('Plugins').'</label>';
+		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getDbField('plugins').'">';
+		$html .= '</div>';
+
+		return $html;
+	}
+
 	public function adminHead()
 	{
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
@@ -23,6 +54,17 @@ class pluginTinymce extends Plugin {
 		}
 
 		global $Language;
+
+		$toolbar1 = $this->getDbField('toolbar1');
+		$toolbar2 = $this->getDbField('toolbar2');
+		$plugins = $this->getDbField('plugins');
+
+		$lang = 'en';
+		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$Language->currentLanguage().'.js')) {
+			$lang = $Language->currentLanguage();
+		} elseif (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$Language->currentLanguageShortVersion().'.js')) {
+			$lang = $Language->currentLanguageShortVersion();
+		}
 
 $script = <<<EOF
 <script>
@@ -60,17 +102,10 @@ tinymce.init({
 	relative_urls: true,
 	remove_script_host: false,
 	document_base_url: DOMAIN_UPLOADS,
-	plugins: [
-		"autosave, code",
-		"searchreplace autolink directionality",
-		"visualblocks visualchars",
-		"fullscreen image link media template",
-		"codesample table hr pagebreak",
-		"advlist lists textcolor wordcount",
-		"contextmenu colorpicker textpattern"
-	],
-	toolbar1: "restoredraft | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | outdent indent | removeformat image | pagebreak code",
-	toolbar2: "formatselect | table | numlist bullist | fullscreen"
+	plugins: ["$plugins"],
+	toolbar1: "$toolbar1",
+	toolbar2: "$toolbar2",
+	language: "$lang"
 });
 
 </script>

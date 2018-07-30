@@ -203,6 +203,26 @@ echo Bootstrap::formOpen(array());
 
 echo Bootstrap::formClose();
 
+echo Bootstrap::formTitle(array('title'=>$L->g('Profile picture')));
+
+$src = (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png':HTML_PATH_ADMIN_THEME_IMG.'default.svg');
+echo '
+<div class="form-group row">
+<div class="col-sm-2"></div>
+<div class="col-sm-10">
+	<img id="jsprofilePictureImg" style="width: 350px; height: 200px;" class="img-thumbnail mb-2" alt="Profile Picture" src="'.$src.'" />
+
+	<form id="jsprofilePictureForm" name="profilePictureForm" enctype="multipart/form-data">
+		<input type="hidden" name="tokenCSRF" value="'.$security->getTokenCSRF().'">
+		<div class="custom-file">
+			<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
+			<label class="custom-file-label" for="jsprofilePictureInputFile">Choose images</label>
+		</div>
+	</form>
+</div>
+</div>
+';
+
 ?>
 
 <script>
@@ -220,5 +240,33 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#jsprofilePictureInputFile").on("change", function() {
+
+		$.ajax({
+			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/profile-picture",
+			type: "POST",
+			data: new FormData($("#jsprofilePictureForm")[0]),
+			cache: false,
+			contentType: false,
+			processData: false,
+			xhr: function() {
+				var xhr = $.ajaxSettings.xhr();
+				if (xhr.upload) {
+					xhr.upload.addEventListener("progress", function(e) {
+						if (e.lengthComputable) {
+							var percentComplete = (e.loaded / e.total)*100;
+							console.log("Uploading profile picture: "+percentComplete);
+						}
+					}, false);
+				}
+				return xhr;
+			}
+		}).done(function(e) {
+			$("#jsprofilePictureImg").attr('src',e.absoluteURL+"?time="+Math.random());
+		});
+
+	});
+
 });
 </script>
+

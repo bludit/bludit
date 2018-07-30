@@ -25,10 +25,11 @@ Things to do:
 
 - Filter by tags is not working
 
-- Plugin timemachine
--- Update CSS for Bootstrap
-
 - Plugin updater
 
 - Cover Image
 -- Check better way to select an image
+
+- Profile picture
+-- Convert to PNG
+-- Resize image

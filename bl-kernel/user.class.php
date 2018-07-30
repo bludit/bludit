@@ -140,19 +140,13 @@ class User {
 		return $this->getValue('linkedin');
 	}
 
-	public function profilePicture($absolute=true)
+	public function profilePicture()
 	{
 		$filename = $this->getValue('username').'.png';
-
-		if( !file_exists(PATH_UPLOADS_PROFILES.$filename) ) {
-			return '#';
+		if (!file_exists(PATH_UPLOADS_PROFILES.$filename)) {
+			return false;
 		}
-
-		if($absolute) {
-			return HTML_PATH_UPLOADS_PROFILES.$filename;
-		}
-
-		return $filename;
+		return DOMAIN_PATH_UPLOADS_PROFILES.$filename;
 	}
 
 }

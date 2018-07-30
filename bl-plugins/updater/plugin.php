@@ -14,7 +14,7 @@ class pluginUpdater extends Plugin {
 
 		// Check for zip extension installed
 		$this->zip = extension_loaded('zip');
-		
+
 		// Local full path of the file of the latest version of Bludit
 		$this->localLatestVersionFile = $this->workspace().DS.'bludit-latest.zip';
 	}
@@ -73,7 +73,7 @@ class pluginUpdater extends Plugin {
 
 	public function validChecksum()
 	{
-		// IMPLEMENT !!!	
+		// IMPLEMENT !!!
 		return true;
 	}
 
@@ -88,10 +88,10 @@ class pluginUpdater extends Plugin {
 		if (isset($_POST['updateNow'])) {
 			echo 'Making a backup';
 			$this->makeFullBackup();
-			
+
 			echo 'Downloading the latest version of Bludit';
 			$this->downloadLatestVersion();
-			
+
 			echo 'Validating checksum';
 			if ($this->validChecksum()) {
 				echo 'Updating files';
@@ -106,8 +106,10 @@ class pluginUpdater extends Plugin {
 	{
 		global $Language;
 
+		return '<div class="alert alert-success">This plugin is not yet complete</div>';
+
 		if ($this->zip===false) {
-			//return '<div class="alert alert-success">The extension zip file is not installed, to use this plugin you need install the extension first.</div>';
+			return '<div class="alert alert-success">The extension zip file is not installed, to use this plugin you need install the extension first.</div>';
 		}
 
 		$html  = '<div>';

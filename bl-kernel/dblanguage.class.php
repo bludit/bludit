@@ -62,6 +62,14 @@ class dbLanguage extends dbJSON
 		return $this->currentLanguage;
 	}
 
+	public function currentLanguageShortVersion()
+	{
+		$current = $this->currentLanguage;
+		$explode = explode('_', $current);
+		return $explode[0];
+	}
+
+
 	// Return the translation, if the translation doesn't exist returns the English translation
 	public function get($string)
 	{
