@@ -146,7 +146,7 @@ class User {
 		if (!file_exists(PATH_UPLOADS_PROFILES.$filename)) {
 			return false;
 		}
-		return DOMAIN_PATH_UPLOADS_PROFILES.$filename;
+		return DOMAIN_UPLOADS_PROFILES.$filename;
 	}
 
 }
