@@ -789,7 +789,7 @@ class dbPages extends dbJSON {
 	}
 
 	// Returns an Array, array('tagSlug'=>'tagName')
-	// (string) $tags, tag list separeted by comma.
+	// (string) $tags, tag list separated by comma.
 	public function generateTags($tags)
 	{
 		$tmp = array();

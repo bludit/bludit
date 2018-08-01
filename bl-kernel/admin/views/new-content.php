@@ -100,7 +100,7 @@
 				'name'=>'externalCoverImage',
 				'placeholder'=>"https://",
 				'value'=>'',
-				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicate for images.'
+				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicated for images.'
 			));
 		?>
 
@@ -173,7 +173,7 @@
 				'name'=>'tags',
 				'label'=>'Tags',
 				'placeholder'=>'',
-				'tip'=>'Write the tags separeted by comma'
+				'tip'=>'Write the tags separated by comma'
 			));
 
 			// Friendly URL
