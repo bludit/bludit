@@ -229,7 +229,7 @@
 							'label'=>'',
 							'selected'=>'',
 							'class'=>'',
-							'emptyOption'=>'- Without category -',
+							'emptyOption'=>'- Uncategorized -',
 							'options'=>$dbCategories->getKeyNameArray()
 						));
 					?>
