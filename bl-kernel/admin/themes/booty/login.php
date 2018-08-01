@@ -36,7 +36,7 @@
 
 <div class="container">
 	<div class="row justify-content-md-center pt-5">
-		<div class="col-4 pt-5">
+		<div class="col-md-4 pt-5">
 		<?php
 			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');

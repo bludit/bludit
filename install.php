@@ -575,7 +575,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="login">
 <div class="container">
 	<div class="row justify-content-md-center pt-5">
-		<div class="col-4 pt-5">
+		<div class="col-md-4 pt-5">
 			<h1 class="text-center mb-5 mt-5 font-weight-normal text-uppercase" style="color: #555;"><?php echo $Language->get('Bludit Installer') ?></h1>
 			<?php
 			$system = checkSystem();
