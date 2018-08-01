@@ -1,6 +1,6 @@
 <div id="dashboard" class="container mt-3">
 	<div class="row">
-		<div class="col-7">
+		<div class="col-md-7">
 
 			<!-- Quick Links -->
 			<div class="container border-bottom pb-4">
@@ -51,7 +51,7 @@
 
 			<?php Theme::plugins('dashboard') ?>
 		</div>
-		<div class="col-5">
+		<div class="col-md-5">
 
 			<!-- Notifications -->
 			<ul class="list-group list-group-striped b-0">

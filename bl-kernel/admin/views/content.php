@@ -15,7 +15,7 @@ function table($type) {
 		$list = $published;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are not pages in this moment.');
+			echo $Language->g('There are no pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -23,7 +23,7 @@ function table($type) {
 		$list = $drafts;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are not draft pages in this moment.');
+			echo $Language->g('There are no draft pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -31,7 +31,7 @@ function table($type) {
 		$list = $scheduled;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are not scheduled pages in this moment.');
+			echo $Language->g('There are no scheduled pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -39,7 +39,7 @@ function table($type) {
 		$list = $static;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are not static pages in this moment.');
+			echo $Language->g('There are no static pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -47,7 +47,7 @@ function table($type) {
 		$list = $sticky;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are not sticky pages in this moment.');
+			echo $Language->g('There are no sticky pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -126,7 +126,7 @@ function table($type) {
 				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-				echo '<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">Edit</a>'.PHP_EOL;
+				echo '<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> Edit</a>'.PHP_EOL;
 				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> Delete</button>'.PHP_EOL;
 				echo '</td>';
 
@@ -222,8 +222,8 @@ function table($type) {
 <!-- Modal for delete page -->
 <?php echo Bootstrap::modal(array(
 	'modalId'=>'jsdeletePageModal',
-	'modalTitle'=>'Delete content',
-	'modalText'=>'Are you sure you ?',
+	'modalTitle'=>'<span class="oi oi-trash"></span> ' . 'Delete content',
+	'modalText'=>'Are you sure you want to delete this page?',
 	'buttonPrimary'=>'Delete',
 	'buttonPrimaryClass'=>'deletePageModalAcceptButton',
 	'buttonSecondary'=>'Cancel',

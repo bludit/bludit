@@ -232,7 +232,7 @@ class PageX {
 	}
 
 	// Returns the tags separated by comma
-	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separeted by comma
+	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separated by comma
 	// The tags in array format returns array( tagKey => tagName )
 	public function tags($returnsArray=false)
 	{
@@ -247,7 +247,7 @@ class PageX {
 		if (empty($tags)) {
 			return '';
 		}
-		// Return string with tags separeted by comma.
+		// Return string with tags separated by comma.
 		return implode(', ', $tags);
 	}
 
