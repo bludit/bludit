@@ -58,7 +58,9 @@ class dbPages extends dbJSON {
 		// Check values on args and set default values if not exists
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
-				$finalValue = $this->generateTags($args['tags']);
+				if (!empty($args['tags'])) {
+					$finalValue = $this->generateTags($args['tags']);
+				}
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);

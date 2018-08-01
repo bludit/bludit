@@ -32,7 +32,9 @@
 
 				<!-- Shows "read more" button if necessary -->
 				<?php if ($page->readMore()): ?>
+				<div class="text-right pt-3">
 				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button"><?php echo $Language->get('Read more'); ?></a>
+				</div>
 				<?php endif ?>
 
 				<!-- Load Bludit Plugins: Page End -->

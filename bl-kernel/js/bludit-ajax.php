@@ -48,10 +48,7 @@ class bluditAjax {
 		console.log("[INFO] [BLUDIT AJAX] [userLogged()] Checking if the user is logged.");
 
 		ajaxRequest = $.ajax({
-			type: "POST",
-			data: {
-				tokenCSRF: tokenCSRF // token from env variables
-			},
+			type: "GET",
 			url: HTML_PATH_ADMIN_ROOT+"ajax/user-logged"
 		});
 
