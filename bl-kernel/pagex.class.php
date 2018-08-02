@@ -190,9 +190,9 @@ class Page {
 	// categoryMap = array( 'name'=>'', 'list'=>array() )
 	public function categoryMap($field)
 	{
-		global $dbCategories;
+		global $categories;
 		$categoryKey = $this->categoryKey();
-		$map = $dbCategories->getMap($categoryKey);
+		$map = $categories->getMap($categoryKey);
 
 		if ($field=='key') {
 			return $this->categoryKey();

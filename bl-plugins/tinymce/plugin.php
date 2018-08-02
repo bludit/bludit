@@ -22,17 +22,17 @@ class pluginTinymce extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('Toolbar top').'</label>';
-		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getDbField('toolbar1').'">';
+		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Toolbar bottom').'</label>';
-		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getDbField('toolbar2').'">';
+		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Plugins').'</label>';
-		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getDbField('plugins').'">';
+		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getValue('plugins').'">';
 		$html .= '</div>';
 
 		return $html;
@@ -55,9 +55,9 @@ class pluginTinymce extends Plugin {
 
 		global $Language;
 
-		$toolbar1 = $this->getDbField('toolbar1');
-		$toolbar2 = $this->getDbField('toolbar2');
-		$plugins = $this->getDbField('plugins');
+		$toolbar1 = $this->getValue('toolbar1');
+		$toolbar2 = $this->getValue('toolbar2');
+		$plugins = $this->getValue('plugins');
 
 		$lang = 'en';
 		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$Language->currentLanguage().'.js')) {

@@ -19,11 +19,11 @@ echo '
 	<tbody>
 ';
 
-$categories = $dbCategories->getKeyNameArray();
-foreach ($categories as $categoryKey=>$category) {
+foreach ($categories->keys() as $key) {
+	$category = new Category($key);
 	echo '<tr>';
-	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$categoryKey.'">'.$category.'</a></td>';
-	echo '<td><a href="'.DOMAIN_CATEGORIES.$categoryKey.'">'.$url->filters('category', false).$categoryKey.'</a></td>';
+	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
+	echo '<td><a href="'.$category->permalink().'">'.$url->filters('category', false).$key.'</a></td>';
 	echo '</tr>';
 }
 

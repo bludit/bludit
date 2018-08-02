@@ -438,17 +438,17 @@ function install($adminPassword, $timezone)
 
 	// File categories.php
 	$data = array(
-		'general'=>array('name'=>'General', 'list'=>array()),
-		'music'=>array('name'=>'Music', 'list'=>array()),
-		'videos'=>array('name'=>'Videos', 'list'=>array())
+		'general'=>array('name'=>'General', 'description'=>'', 'template'=>'', 'list'=>array()),
+		'music'=>array('name'=>'Music', 'description'=>'', 'template'=>'', 'list'=>array()),
+		'videos'=>array('name'=>'Videos', 'description'=>'', 'template'=>'', 'list'=>array())
 	);
 	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
 	$data = array(
-		'bludit'=>array('name'=>'Bludit', 'list'=>array('welcome')),
-		'cms'=>array('name'=>'CMS', 'list'=>array('welcome')),
-		'flat-files'=>array('name'=>'Flat files', 'list'=>array('welcome'))
+		'bludit'=>array('name'=>'Bludit', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
+		'cms'=>array('name'=>'CMS', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
+		'flat-files'=>array('name'=>'Flat files', 'description'=>'', 'template'=>'', 'list'=>array('welcome'))
 	);
 	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 

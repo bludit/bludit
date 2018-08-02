@@ -65,23 +65,6 @@ class Plugin {
 		}
 	}
 
-	// DEPRECATED
-	// 2017-06-19
-	public function setDb($args)
-	{
-		foreach($this->dbFields as $key=>$value) {
-			if( isset($args[$key]) ) {
-				$value = Sanitize::html( $args[$key] );
-				if($value==='false') { $value = false; }
-				elseif($value==='true') { $value = true; }
-				settype($value, gettype($this->dbFields[$key]));
-				$this->db[$key] = $value;
-			}
-		}
-
-		$this->save();
-	}
-
 	public function save()
 	{
 		$tmp = new dbJSON($this->filenameDb);
@@ -150,25 +133,6 @@ class Plugin {
 			}
 		}
 		return false;
-	}
-
-	// DEPRECATED
-	// 2017-06-16
-	public function getDbField($key, $html=true)
-	{
-		if(isset($this->db[$key])) {
-
-			if($html) {
-				// All fields from DBField are sanitized.
-				return $this->db[$key];
-			}
-			else {
-				// Decode HTML tags, this action unsanitized the variable.
-				return Sanitize::htmlDecode($this->db[$key]);
-			}
-		}
-
-		return '';
 	}
 
 	public function label()

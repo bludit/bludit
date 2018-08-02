@@ -41,7 +41,7 @@ class pluginCategories extends Plugin {
 	public function siteSidebar()
 	{
 		global $Language;
-		global $dbCategories;
+		global $categories;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-categories">';
@@ -50,7 +50,7 @@ class pluginCategories extends Plugin {
 		$html .= '<ul>';
 
 		// By default the database of categories are alphanumeric sorted
-		foreach ($dbCategories->db as $key=>$fields) {
+		foreach ($categories->db as $key=>$fields) {
 			$count = count($fields['list']);
 			if (!$this->getValue('hideCero') || $count>0) {
 				$html .= '<li>';

@@ -33,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 $categoryKey = $layout['parameters'];
 
-if (!$dbCategories->exists($categoryKey)) {
+if (!$categories->exists($categoryKey)) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the category: '.$categoryKey);
 	Redirect::page('categories');
 }
 
-$categoryMap = $dbCategories->getMap($categoryKey);
+$categoryMap = $categories->getMap($categoryKey);
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';

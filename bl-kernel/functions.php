@@ -3,15 +3,15 @@
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
-	global $dbCategories;
-	return $dbCategories->reindex();
+	global $categories;
+	return $categories->reindex();
 }
 
 // Re-index database of tags
 // If you create/edit/remove a page is necessary regenerate the database of tags
 function reindexTags() {
-	global $dbTags;
-	return $dbTags->reindex();
+	global $tags;
+	return $tags->reindex();
 }
 
 // Generate the page 404 Not found
@@ -81,8 +81,8 @@ function buildPagesByTag() {
 // This function is use for buildPagesForHome(), buildPagesByCategory(), buildPagesByTag()
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	global $dbPages;
-	global $dbCategories;
-	global $dbTags;
+	global $categories;
+	global $tags;
 	global $site;
 	global $url;
 
@@ -102,11 +102,11 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	}
 	elseif ($for=='category') {
 		$amountOfItems = $site->itemsPerPage();
-		$list = $dbCategories->getList($categoryKey, $pageNumber, $amountOfItems);
+		$list = $categories->getList($categoryKey, $pageNumber, $amountOfItems);
 	}
 	elseif ($for=='tag') {
 		$amountOfItems = $site->itemsPerPage();
-		$list = $dbTags->getList($tagKey, $pageNumber, $amountOfItems);
+		$list = $tags->getList($tagKey, $pageNumber, $amountOfItems);
 	}
 
 	// There are not items, invalid tag, invalid category, out of range, etc...
@@ -183,12 +183,6 @@ function getPlugin($pluginClassName) {
 		return $plugins['all'][$pluginClassName];
 	}
 	return false;
-}
-
-// DEPRACTED
-// Returns TRUE if the plugin is enabled and installed, FALSE otherwise
-function pluginEnabled($pluginClassName) {
-	return pluginActivated($pluginClassName);
 }
 
 // Returns TRUE if the plugin is activaed / installed, FALSE otherwise
@@ -670,7 +664,7 @@ function checkRole($allowRoles, $redirect=true) {
 // Add a new category to the system
 // Returns TRUE is successfully added, FALSE otherwise
 function createCategory($category) {
-	global $dbCategories;
+	global $categories;
 	global $Language;
 	global $syslog;
 
@@ -679,7 +673,7 @@ function createCategory($category) {
 		return false;
 	}
 
-	if ($dbCategories->add(array('name'=>$category))) {
+	if ($categories->add(array('name'=>$category))) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-category-created',
@@ -697,7 +691,7 @@ function createCategory($category) {
 function editCategory($args) {
 	global $Language;
 	global $dbPages;
-	global $dbCategories;
+	global $categories;
 	global $syslog;
 
 	if (Text::isEmpty($args['name']) || Text::isEmpty($args['newKey']) ) {
@@ -705,7 +699,7 @@ function editCategory($args) {
 		return false;
 	}
 
-	$newCategoryKey = $dbCategories->edit($args);
+	$newCategoryKey = $categories->edit($args);
 
 	if ($newCategoryKey==false) {
 		Alert::set($Language->g('The category already exists'));
@@ -727,11 +721,11 @@ function editCategory($args) {
 
 function deleteCategory($args) {
 	global $Language;
-	global $dbCategories;
+	global $categories;
 	global $syslog;
 
 	// Remove the category by key
-	$dbCategories->remove($args['oldKey']);
+	$categories->remove($args['oldKey']);
 
 	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
 
@@ -748,10 +742,10 @@ function deleteCategory($args) {
 // Returns an array with all the categories
 // By default, the database of categories is alphanumeric sorted
 function getCategories() {
-	global $dbCategories;
+	global $categories;
 
 	$list = array();
-	foreach ($dbCategories->db as $key=>$fields) {
+	foreach ($categories->keys() as $key) {
 		$category = new Category($key);
 		array_push($list, $category);
 	}
@@ -771,10 +765,10 @@ function getCategory($key) {
 // Returns an array with all the tags
 // By default, the database of tags is alphanumeric sorted
 function getTags() {
-	global $dbTags;
+	global $tags;
 
 	$list = array();
-	foreach ($dbTags->db as $key=>$fields) {
+	foreach ($tags->db as $key=>$fields) {
 		$tag = new Tag($key);
 		array_push($list, $tag);
 	}

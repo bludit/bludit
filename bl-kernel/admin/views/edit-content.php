@@ -296,7 +296,7 @@
 							'selected'=>$page->categoryKey(),
 							'class'=>'',
 							'emptyOption'=>'- Uncategorized -',
-							'options'=>$dbCategories->getKeyNameArray()
+							'options'=>$categories->getKeyNameArray()
 						));
 					?>
 				</div>

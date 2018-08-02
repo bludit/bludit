@@ -28,7 +28,7 @@ class pluginMaintenanceMode extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('Message').'</label>';
-		$html .= '<input name="message" id="jsmessage" type="text" value="'.$this->getDbField('message').'">';
+		$html .= '<input name="message" id="jsmessage" type="text" value="'.$this->getValue('message').'">';
 		$html .= '</div>';
 
 		return $html;
@@ -36,8 +36,8 @@ class pluginMaintenanceMode extends Plugin {
 
 	public function beforeAll()
 	{
-		if ($this->getDbField('enable')) {
-			exit( $this->getDbField('message') );
+		if ($this->getValue('enable')) {
+			exit( $this->getValue('message') );
 		}
 	}
 }

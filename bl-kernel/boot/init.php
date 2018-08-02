@@ -121,9 +121,9 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 
 // Objects
 $pages = $dbPages = new dbPages(); // DEPRECATED v3.0.0 $dbPages
-$dbUsers 	= new dbUsers();
-$dbTags 	= new dbTags();
-$dbCategories 	= new dbCategories();
+$users = $dbUsers 	= new dbUsers(); // DEPRECATED v3.0.0 $dbUsers
+$tags = $dbTags 	= new dbTags(); // DEPRECATED v3.0.0 $dbTags
+$categories = $dbCategories 	= new dbCategories(); // DEPRECATED v3.0.0 $dbCategories
 $site  		= new dbSite();
 $url		= new Url();
 $security	= new Security();

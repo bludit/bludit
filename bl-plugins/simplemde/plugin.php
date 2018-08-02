@@ -22,12 +22,12 @@ class pluginsimpleMDE extends Plugin {
 
 		$html  = '<div>';
 		$html .= '<label>'.$Language->get('toolbar').'</label>';
-		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getDbField('toolbar').'">';
+		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getValue('toolbar').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>'.$Language->get('tab-size').'</label>';
-		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getDbField('tabSize').'">';
+		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getValue('tabSize').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
@@ -62,7 +62,7 @@ class pluginsimpleMDE extends Plugin {
 		}
 
 		// Spell Checker
-		$spellCheckerEnable = $this->getDbField('spellChecker')?'true':'false';
+		$spellCheckerEnable = $this->getValue('spellChecker')?'true':'false';
 
 		// Include plugin's Javascript files
 		$html  = $this->includeJS('simplemde.min.js');
@@ -100,9 +100,9 @@ class pluginsimpleMDE extends Plugin {
 				lineWrapping: true,
 				autoDownloadFontAwesome: false,
 				indentWithTabs: true,
-				tabSize: '.$this->getDbField('tabSize').',
+				tabSize: '.$this->getValue('tabSize').',
 				spellChecker: '.$spellCheckerEnable.',
-				toolbar: ['.Sanitize::htmlDecode($this->getDbField('toolbar')).',
+				toolbar: ['.Sanitize::htmlDecode($this->getValue('toolbar')).',
 					"|",
 					{
 					name: "pageBreak",

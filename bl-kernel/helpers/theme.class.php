@@ -66,8 +66,8 @@ class Theme {
 	{
 		global $url;
 		global $site;
-		global $dbTags;
-		global $dbCategories;
+		global $tags;
+		global $categories;
 		global $WHERE_AM_I;
 		global $page;
 
@@ -110,6 +110,7 @@ class Theme {
 		global $site;
 		global $WHERE_AM_I;
 		global $page;
+		global $url;
 
 		$description = $site->description();
 

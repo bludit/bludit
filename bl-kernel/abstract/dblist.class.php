@@ -28,6 +28,11 @@ class dbList extends dbJSON
 		parent::__construct($file);
 	}
 
+	public function keys()
+	{
+		return array_keys($this->db);
+	}
+
 	// Returns the list of keys filter by pageNumber
 	public function getList($key, $pageNumber, $amountOfItems)
 	{
