@@ -75,18 +75,25 @@ class Theme {
 			$format = $site->titleFormatPages();
 			$format = Text::replace('{{page-title}}', $page->title(), $format);
 			$format = Text::replace('{{page-description}}', $page->description(), $format);
-		}
-		elseif ($WHERE_AM_I=='tag') {
-			$tagKey = $url->slug();
-			$tagName = $dbTags->getName($tagKey);
-			$format = $site->titleFormatTag();
-			$format = Text::replace('{{tag-name}}', $tagName, $format);
-		}
-		elseif ($WHERE_AM_I=='category') {
-			$categoryKey = $url->slug();
-			$categoryName = $dbCategories->getName($categoryKey);
-			$format = $site->titleFormatCategory();
-			$format = Text::replace('{{category-name}}', $categoryName, $format);
+		} elseif ($WHERE_AM_I=='tag') {
+			try {
+				$tagKey = $url->slug();
+				$tag = new Tag($tagKey);
+				$format = $site->titleFormatTag();
+				$format = Text::replace('{{tag-name}}', $tag->name(), $format);
+			} catch (Exception $e) {
+				// Tag doesn't exist
+			}
+
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$format = $site->titleFormatCategory();
+				$format = Text::replace('{{category-name}}', $category->name(), $format);
+			} catch (Exception $e) {
+				// Category doesn't exist
+			}
 		} else {
 			$format = $site->titleFormatHomepage();
 		}
@@ -106,8 +113,16 @@ class Theme {
 
 		$description = $site->description();
 
-		if( $WHERE_AM_I=='page' ) {
+		if ($WHERE_AM_I=='page') {
 			$description = $page->description();
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$description = $category->description();
+			} catch (Exception $e) {
+				// description from the site
+			}
 		}
 
 		return '<meta name="description" content="'.$description.'">'.PHP_EOL;

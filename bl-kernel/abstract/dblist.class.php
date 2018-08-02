@@ -7,11 +7,13 @@ Database structure
 	"videos": {
 		"name": "Videos",
 		"template: "",
+		"description: "",
 		"list": [ "my-page", "second-page" ]
 	},
 	"pets": {
 		"name": "Pets",
 		"template: "",
+		"description: "",
 		"list": [ "cats-and-dogs" ]
 	}
 }
@@ -65,13 +67,14 @@ class dbList extends dbJSON
 	}
 
 	// Add a new item to the dblist
-	// $args => 'name', 'template', 'list'
+	// $args => 'name', 'template', 'description', list'
 	public function add($args)
 	{
 		$key = $this->generateKey($args['name']);
 
 		$this->db[$key]['name'] 	= $args['name'];
 		$this->db[$key]['template'] 	= isset($args['template'])?$args['template']:'';
+		$this->db[$key]['description'] 	= isset($args['description'])?$args['description']:'';
 		$this->db[$key]['list'] 	= isset($args['list'])?$args['list']:array();
 
 		$this->sortAlphanumeric();
@@ -91,7 +94,7 @@ class dbList extends dbJSON
 	}
 
 	// Edit an item to the dblist
-	// $args => 'name', 'oldkey', 'newKey', 'template'
+	// $args => 'name', 'oldkey', 'newKey', 'template', 'description'
 	public function edit($args)
 	{
 		if ( isset($this->db[$args['newKey']]) && ($args['newKey']!==$args['oldKey']) ) {
@@ -101,6 +104,7 @@ class dbList extends dbJSON
 
 		$this->db[$args['newKey']]['name'] 	= $args['name'];
 		$this->db[$args['newKey']]['template'] 	= isset($args['template'])?$args['template']:'';
+		$this->db[$args['newKey']]['description'] = isset($args['description'])?$args['description']:'';
 		$this->db[$args['newKey']]['list'] 	= $this->db[$args['oldKey']]['list'];
 
 		// Remove the old category
@@ -164,7 +168,7 @@ class dbList extends dbJSON
 	}
 
 	// Returns an array with a portion of the database filtered by key
-	// Returns array( 'key'=>'', 'name'=>'', 'template'=>'', 'list'=>array() )
+	// Returns array( 'key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array() )
 	public function getMap($key)
 	{
 		if (isset($this->db[$key])) {

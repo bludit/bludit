@@ -105,7 +105,7 @@ class pluginNavigation extends Plugin {
 
 			foreach ($publishedPages as $pageKey) {
 				try {
-					$page = new PageX($pageKey);
+					$page = new Page($pageKey);
 					$html .= '<li>';
 					$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
 					$html .= '</li>';

@@ -62,7 +62,7 @@ class pluginRSS extends Plugin {
 		foreach($list as $pageKey) {
 			try {
 				// Create the page object from the page key
-				$page = new PageX($pageKey);
+				$page = new Page($pageKey);
 				$xml .= '<item>';
 				$xml .= '<title>'.$page->title().'</title>';
 				$xml .= '<link>'.$page->permalink().'</link>';

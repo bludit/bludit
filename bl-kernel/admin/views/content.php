@@ -68,7 +68,7 @@ function table($type) {
 	if (ORDER_BY=='position') {
 		foreach ($list as $pageKey) {
 			try {
-				$page = new PageX($pageKey);
+				$page = new Page($pageKey);
 				if (!$page->isChild() || $type!='published') {
 					echo '<tr>
 					<td>
@@ -109,7 +109,7 @@ function table($type) {
 	} else {
 		foreach ($list as $pageKey) {
 			try {
-				$page = new PageX($pageKey);
+				$page = new Page($pageKey);
 				echo '<tr>';
 				echo '<td class="pt-3">
 					<div>

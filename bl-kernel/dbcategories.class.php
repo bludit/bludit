@@ -23,7 +23,6 @@ class dbCategories extends dbList
 
 		// Get a database with published pages
 		$db = $dbPages->getPublishedDB(false);
-
 		foreach ($db as $pageKey=>$pageFields) {
 			if (!empty($pageFields['category'])) {
 				$categoryKey = $pageFields['category'];

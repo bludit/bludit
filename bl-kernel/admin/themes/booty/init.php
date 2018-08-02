@@ -189,7 +189,7 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group m-0">';
+		$html = '<div class="form-group">';
 		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
 		}

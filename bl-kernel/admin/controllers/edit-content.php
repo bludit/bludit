@@ -7,7 +7,7 @@
 if (!checkRole(array('admin','editor'), false)) {
 	try {
 		$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
-		$page = new PageX($pageKey);
+		$page = new Page($pageKey);
 	} catch (Exception $e) {
 		Alert::set($Language->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 try {
 	$pageKey = $layout['parameters'];
-	$page = new PageX($pageKey);
+	$page = new Page($pageKey);
 } catch (Exception $e) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$pageKey, LOG_TYPE_ERROR);
 	Redirect::page('content');

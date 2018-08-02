@@ -41,7 +41,7 @@ class pluginSitemap extends Plugin {
 		foreach($list as $pageKey) {
 			try {
 				// Create the page object from the page key
-				$page = new PageX($pageKey);
+				$page = new Page($pageKey);
 				$xml .= '<url>';
 				$xml .= '<loc>'.$page->permalink().'</loc>';
 				$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';

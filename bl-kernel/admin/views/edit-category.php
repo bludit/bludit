@@ -38,6 +38,16 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		'tip'=>''
 	));
 
+	echo Bootstrap::formTextareaBlock(array(
+		'name'=>'description',
+		'label'=>$L->g('Category description'),
+		'value'=>isset($categoryMap['description'])?$categoryMap['description']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>'',
+		'rows'=>3
+	));
+
 	echo Bootstrap::formInputTextBlock(array(
 		'name'=>'template',
 		'label'=>$L->g('Category template'),

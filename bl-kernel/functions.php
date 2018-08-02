@@ -22,9 +22,9 @@ function buildErrorPage() {
 
 	try {
 		$pageNotFoundKey = $site->pageNotFound();
-		$pageNotFound = New PageX($pageNotFoundKey);
+		$pageNotFound = New Page($pageNotFoundKey);
 	} catch (Exception $e) {
-		$pageNotFound = New PageX(false);
+		$pageNotFound = New Page(false);
 		$pageNotFound->setField('title', 	$language->get('page-not-found'));
 		$pageNotFound->setField('content', 	$language->get('page-not-found-content'));
 		$pageNotFound->setField('username', 	'admin');
@@ -41,7 +41,7 @@ function buildThePage() {
 
 	try {
 		$pageKey = $url->slug();
-		$page = New PageX($pageKey);
+		$page = New Page($pageKey);
 	} catch (Exception $e) {
 		$url->setNotFound();
 		return false;
@@ -118,7 +118,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	$content = array();
 	foreach ($list as $pageKey) {
 		try {
-			$page = new PageX($pageKey);
+			$page = new Page($pageKey);
 			array_push($content, $page);
 		} catch (Exception $e) {
 			// continue
@@ -136,7 +136,7 @@ function buildStaticPages() {
 	$pagesKey = $dbPages->getStaticDB();
 	foreach ($pagesKey as $pageKey) {
 		try {
-			$page = new PageX($pageKey);
+			$page = new Page($pageKey);
 			array_push($list, $page);
 		} catch (Exception $e) {
 			// continue
@@ -144,6 +144,16 @@ function buildStaticPages() {
 	}
 
 	return $list;
+}
+
+// Returns the Page-Object if exists, FALSE otherwise
+function buildPage($pageKey) {
+	try {
+		$page = new Page($pageKey);
+		return $page;
+	} catch (Exception $e) {
+		return false;
+	}
 }
 
 // Returns an array with all the parent pages as Page-Object
@@ -155,7 +165,7 @@ function buildParentPages() {
 	$pagesKey = $dbPages->getPublishedDB();
 	foreach ($pagesKey as $pageKey) {
 		try {
-			$page = new PageX($pageKey);
+			$page = new Page($pageKey);
 			array_push($list, $page);
 		} catch (Exception $e) {
 			// continue
@@ -335,7 +345,7 @@ function editPage($args) {
 	// Title and content need to be here because from inside the dbPages is not visible
 	if (empty($args['title']) || empty($args['content'])) {
 		try {
-			$page = new PageX($args['key']);
+			$page = new Page($args['key']);
 			if (empty($args['title'])) {
 				$args['title'] = $page->title();
 			}
@@ -750,11 +760,12 @@ function getCategories() {
 
 // Returns the object category if the category exists, FALSE otherwise
 function getCategory($key) {
-	$category = new Category($key);
-	if (!$category->isValid()) {
+	try {
+		$category = new Category($key);
+		return $category;
+	} catch (Exception $e) {
 		return false;
 	}
-	return $category;
 }
 
 // Returns an array with all the tags
@@ -768,6 +779,16 @@ function getTags() {
 		array_push($list, $tag);
 	}
 	return $list;
+}
+
+// Returns the object tag if the tag exists, FALSE otherwise
+function getTag($key) {
+	try {
+		$tag = new Tag($key);
+		return $tag;
+	} catch (Exception $e) {
+		return false;
+	}
 }
 
 function activateTheme($themeDirectory) {

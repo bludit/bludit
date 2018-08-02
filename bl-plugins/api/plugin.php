@@ -252,7 +252,7 @@ class pluginAPI extends Plugin {
 		foreach ($list as $pageKey) {
 			try {
 				// Create the page object from the page key
-				$page = new PageX($pageKey);
+				$page = new Page($pageKey);
 				array_push($tmp['data'], $page->json( $returnsArray=true ));
 			} catch (Exception $e) {
 				// Continue
@@ -265,7 +265,7 @@ class pluginAPI extends Plugin {
 	private function getPage($key)
 	{
 		try {
-			$page = new PageX($key);
+			$page = new Page($key);
 			return array(
 				'status'=>'0',
 				'message'=>'Page filtered by key: '.$key,

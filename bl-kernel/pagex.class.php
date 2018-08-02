@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class PageX {
+class Page {
 
 	private $vars;
 
@@ -433,7 +433,7 @@ class PageX {
 		$parentKey = $this->parentKey();
 		if ($parentKey) {
 			try {
-				$page = new PageX($parentKey);
+				$page = new Page($parentKey);
 				return $page->{$method}();
 			} catch (Exception $e) {
 				// Continoue
@@ -472,7 +472,7 @@ class PageX {
 		$childrenKeys = $dbPages->getChildren($this->key());
 		foreach ($childrenKeys as $childKey) {
 			try {
-				$child = new PageX($childKey);
+				$child = new Page($childKey);
 				array_push($list, $child);
 			} catch (Exception $e) {
 				// Continue

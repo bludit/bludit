@@ -177,7 +177,7 @@
 			// Parent
 			try {
 				$parentKey = $page->parent();
-				$parent = new PageX($parentKey);
+				$parent = new Page($parentKey);
 				$parentOption = $parent->title();
 			} catch (Exception $e) {
 				$parentOption = '';
