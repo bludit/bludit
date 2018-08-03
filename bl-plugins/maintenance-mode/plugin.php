@@ -12,14 +12,14 @@ class pluginMaintenanceMode extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Enable maintenance mode').'</label>';
+		$html .= '<label>'.$language->get('Enable maintenance mode').'</label>';
 		$html .= '<select name="enable">';
 		$html .= '<option value="true" '.($this->getValue('enable')===true?'selected':'').'>Enabled</option>';
 		$html .= '<option value="false" '.($this->getValue('enable')===false?'selected':'').'>Disabled</option>';
@@ -27,7 +27,7 @@ class pluginMaintenanceMode extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Message').'</label>';
+		$html .= '<label>'.$language->get('Message').'</label>';
 		$html .= '<input name="message" id="jsmessage" type="text" value="'.$this->getValue('message').'">';
 		$html .= '</div>';
 

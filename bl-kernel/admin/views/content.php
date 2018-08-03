@@ -4,7 +4,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'layers'));
 
 function table($type) {
 	global $url;
-	global $Language;
+	global $language;
 	global $published;
 	global $drafts;
 	global $scheduled;
@@ -15,7 +15,7 @@ function table($type) {
 		$list = $published;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are no pages at this moment.');
+			echo $language->g('There are no pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -23,7 +23,7 @@ function table($type) {
 		$list = $drafts;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are no draft pages at this moment.');
+			echo $language->g('There are no draft pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -31,7 +31,7 @@ function table($type) {
 		$list = $scheduled;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are no scheduled pages at this moment.');
+			echo $language->g('There are no scheduled pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -39,7 +39,7 @@ function table($type) {
 		$list = $static;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are no static pages at this moment.');
+			echo $language->g('There are no static pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -47,7 +47,7 @@ function table($type) {
 		$list = $sticky;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $Language->g('There are no sticky pages at this moment.');
+			echo $language->g('There are no sticky pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -57,8 +57,8 @@ function table($type) {
 	<table class="table mt-3">
 		<thead>
 			<tr>
-				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$Language->g('Title').'</th>
-				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$Language->g('URL').'</th>
+				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$language->g('Title').'</th>
+				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$language->g('URL').'</th>
 				<th style="font-size: 0.8em;" class="border-0 text-center d-none d-sm-table-cell text-uppercase text-muted" scope="col">Actions</th>
 			</tr>
 		</thead>
@@ -73,7 +73,7 @@ function table($type) {
 					echo '<tr>
 					<td>
 						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span>'.$Language->g('Empty title').'</span> ')
+						.($page->title()?$page->title():'<span>'.$language->g('Empty title').'</span> ')
 						.'</a>
 					</td>';
 
@@ -89,7 +89,7 @@ function table($type) {
 						echo '<tr>
 						<td>
 							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
-							.($child->title()?$child->title():'<span>'.$Language->g('Empty title').'</span> ')
+							.($child->title()?$child->title():'<span>'.$language->g('Empty title').'</span> ')
 							.'</a>
 						</td>';
 
@@ -114,7 +114,7 @@ function table($type) {
 				echo '<td class="pt-3">
 					<div>
 						<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span class="label-empty-title">'.$Language->g('Empty title').'</span> ')
+						.($page->title()?$page->title():'<span class="label-empty-title">'.$language->g('Empty title').'</span> ')
 						.'</a>
 					</div>
 					<div>
@@ -175,22 +175,22 @@ function table($type) {
 
 			<!-- First button -->
 			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $Language->get('First'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $language->get('First'); ?></a>
 			</li>
 
 			<!-- Previous button -->
 			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $Language->get('Previous'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $language->get('Previous'); ?></a>
 			</li>
 
 			<!-- Next button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $language->get('Next'); ?></a>
 			</li>
 
 			<!-- Last button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $Language->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
+				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $language->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
 			</li>
 
 			</ul>

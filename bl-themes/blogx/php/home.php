@@ -18,14 +18,14 @@
 		</a>
 
 		<!-- Creation date -->
-		<h6 class="card-subtitle mb-3 text-muted"><?php echo $page->date(); ?> - <?php echo $Language->get('Reading time') . ': ' . $page->readingTime(); ?></h6>
+		<h6 class="card-subtitle mb-3 text-muted"><?php echo $page->date(); ?> - <?php echo $language->get('Reading time') . ': ' . $page->readingTime(); ?></h6>
 
 		<!-- Breaked content -->
 		<?php echo $page->contentBreak(); ?>
 
 		<!-- "Read more" button -->
 		<?php if ($page->readMore()): ?>
-		<a href="<?php echo $page->permalink(); ?>"><?php echo $Language->get('Read more'); ?></a>
+		<a href="<?php echo $page->permalink(); ?>"><?php echo $language->get('Read more'); ?></a>
 		<?php endif ?>
 
 	</div>
@@ -46,7 +46,7 @@
 
 		<!-- Previous button -->
 		<li class="page-item mr-2 <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $Language->get('Previous'); ?></a>
+			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $language->get('Previous'); ?></a>
 		</li>
 
 		<!-- Home button -->
@@ -56,7 +56,7 @@
 
 		<!-- Next button -->
 		<li class="page-item ml-2 <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?> &#9658;</a>
+			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $language->get('Next'); ?> &#9658;</a>
 		</li>
 
 	</ul>

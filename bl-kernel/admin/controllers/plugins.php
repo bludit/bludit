@@ -23,4 +23,4 @@ checkRole(array('admin'));
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Plugins');
+$layout['title'] .= ' - '.$language->g('Plugins');

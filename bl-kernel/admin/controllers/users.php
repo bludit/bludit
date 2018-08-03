@@ -28,4 +28,4 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Users');
+$layout['title'] .= ' - '.$language->g('Users');

@@ -229,13 +229,13 @@ echo '
 $(document).ready(function() {
 
 	$("#jsdeleteUserAndDeleteContent").click(function() {
-		if(confirm("<?php $Language->p('Confirm delete this action cannot be undone') ?>")==false) {
+		if(confirm("<?php $language->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});
 
 	$("#jsdeleteUserAndKeepContent").click(function() {
-		if(confirm("<?php $Language->p('Confirm delete this action cannot be undone') ?>")==false) {
+		if(confirm("<?php $language->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});

@@ -14,23 +14,23 @@ class pluginCategories extends Plugin {
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<label>'.$language->get('Label').'</label>';
 		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<span class="tip">'.$language->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Hide Categories without content').'</label>';
+		$html .= '<label>'.$language->get('Hide Categories without content').'</label>';
 		$html .= '<select name="hideCero">';
-		$html .= '<option value="true" '.($this->getValue('hideCero')===true?'selected':'').'>'.$Language->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('hideCero')===false?'selected':'').'>'.$Language->get('Disabled').'</option>';
+		$html .= '<option value="true" '.($this->getValue('hideCero')===true?'selected':'').'>'.$language->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('hideCero')===false?'selected':'').'>'.$language->get('Disabled').'</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -40,7 +40,7 @@ class pluginCategories extends Plugin {
 	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
-		global $Language;
+		global $language;
 		global $categories;
 
 		// HTML for sidebar

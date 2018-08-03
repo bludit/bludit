@@ -12,10 +12,10 @@ function checkLogin($args)
 {
 	global $security;
 	global $login;
-	global $Language;
+	global $language;
 
 	if ($security->isBlocked()) {
-		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'), ALERT_STATUS_FAIL);
+		Alert::set($language->g('IP address has been blocked').'<br>'.$language->g('Try again in a few minutes'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
@@ -40,7 +40,7 @@ function checkLogin($args)
 	$security->addToBlacklist();
 
 	// Create alert
-	Alert::set($Language->g('Username or password incorrect'), ALERT_STATUS_FAIL);
+	Alert::set($language->g('Username or password incorrect'), ALERT_STATUS_FAIL);
 	return false;
 }
 

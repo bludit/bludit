@@ -20,24 +20,24 @@ class pluginSimpleStats extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<label>'.$language->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<span class="tip">'.$language->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		if (defined('BLUDIT_PRO')) {
 			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Exclude administrators users').'</label>';
+			$html .= '<label>'.$language->get('Exclude administrators users').'</label>';
 			$html .= '<select name="excludeAdmins">';
-			$html .= '<option value="true" '.($this->getValue('excludeAdmins')===true?'selected':'').'>'.$Language->get('Enabled').'</option>';
-			$html .= '<option value="false" '.($this->getValue('excludeAdmins')===false?'selected':'').'>'.$Language->get('Disabled').'</option>';
+			$html .= '<option value="true" '.($this->getValue('excludeAdmins')===true?'selected':'').'>'.$language->get('Enabled').'</option>';
+			$html .= '<option value="false" '.($this->getValue('excludeAdmins')===false?'selected':'').'>'.$language->get('Disabled').'</option>';
 			$html .= '</select>';
 			$html .= '</div>';
 		}

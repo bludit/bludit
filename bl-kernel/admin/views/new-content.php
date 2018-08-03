@@ -278,7 +278,7 @@
 							'class'=>'',
 							'value'=>'',
 							'rows'=>3,
-							'placeholder'=>$Language->get('this-field-can-help-describe-the-content')
+							'placeholder'=>$language->get('this-field-can-help-describe-the-content')
 						));
 					?>
 				</div>

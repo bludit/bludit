@@ -41,4 +41,4 @@ try {
 }
 
 // Title of the page
-$layout['title'] = $Language->g('Change password').' - '.$layout['title'];
+$layout['title'] = $language->g('Change password').' - '.$layout['title'];

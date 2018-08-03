@@ -12,14 +12,14 @@ class pluginTwitterCards extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html .= '<label>'.$language->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
 		$html .= '</div>';
 

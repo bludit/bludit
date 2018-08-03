@@ -104,7 +104,7 @@ class pluginUpdater extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		return '<div class="alert alert-success">This plugin is not yet complete</div>';
 
@@ -113,7 +113,7 @@ class pluginUpdater extends Plugin {
 		}
 
 		$html  = '<div>';
-		$html .= '<button name="updateNow" value="true" class="btn btn-primary" type="submit">'.$Language->get('Update Now').'</button>';
+		$html .= '<button name="updateNow" value="true" class="btn btn-primary" type="submit">'.$language->get('Update Now').'</button>';
 		$html .= '</div>';
 
 		return $html;

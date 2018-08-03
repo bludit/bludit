@@ -4,9 +4,9 @@ class pluginVersion extends Plugin {
 
 	public function adminSidebar()
 	{
-		global $Language;
+		global $language;
 		$html = '<a id="current-version" class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'about'.'">Version '.(defined('BLUDIT_PRO')?'<span class="oi oi-heart" style="color: #ffc107"></span>':'').'<span class="badge badge-warning badge-pill">'.BLUDIT_VERSION.'</span></a>';
-		$html .= '<a id="new-version" style="display: none;" target="_blank" href="https://www.bludit.com">'.$Language->get('New version available').' <span class="oi oi-bell" style="color: red"></span></a>';
+		$html .= '<a id="new-version" style="display: none;" target="_blank" href="https://www.bludit.com">'.$language->get('New version available').' <span class="oi oi-bell" style="color: red"></span></a>';
 		return $html;
 	}
 

@@ -85,6 +85,6 @@ if( Sanitize::pathFile($languageFilename) )
 
 	// Load words from the theme language
 	if(!empty($database)) {
-		$Language->add($database);
+		$language->add($database);
 	}
 }

@@ -17,22 +17,22 @@ class pluginAPI extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('API Token').'</label>';
+		$html .= '<label>'.$language->get('API Token').'</label>';
 		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
-		$html .= '<span class="tip">'.$Language->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
+		$html .= '<span class="tip">'.$language->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Amount of pages').'</label>';
+		$html .= '<label>'.$language->get('Amount of pages').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
-		$html .= '<span class="tip">'.$Language->get('This is the maximum of pages to return when you call to').'</span>';
+		$html .= '<span class="tip">'.$language->get('This is the maximum of pages to return when you call to').'</span>';
 		$html .= '</div>';
 
 		return $html;

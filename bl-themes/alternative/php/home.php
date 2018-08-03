@@ -33,7 +33,7 @@
 				<!-- Shows "read more" button if necessary -->
 				<?php if ($page->readMore()): ?>
 				<div class="text-right pt-3">
-				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button"><?php echo $Language->get('Read more'); ?></a>
+				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button"><?php echo $language->get('Read more'); ?></a>
 				</div>
 				<?php endif ?>
 
@@ -52,7 +52,7 @@
 
 		<!-- Previous button -->
 		<li class="page-item mr-2 <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $Language->get('Previous'); ?></a>
+			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $language->get('Previous'); ?></a>
 		</li>
 
 		<!-- Home button -->
@@ -64,7 +64,7 @@
 
 		<!-- Next button -->
 		<li class="page-item ml-2 <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $Language->get('Next'); ?> &#9658;</a>
+			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $language->get('Next'); ?> &#9658;</a>
 		</li>
 
 	</ul>

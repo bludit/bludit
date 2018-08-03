@@ -18,20 +18,20 @@ class pluginTinymce extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Toolbar top').'</label>';
+		$html .= '<label>'.$language->get('Toolbar top').'</label>';
 		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Toolbar bottom').'</label>';
+		$html .= '<label>'.$language->get('Toolbar bottom').'</label>';
 		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Plugins').'</label>';
+		$html .= '<label>'.$language->get('Plugins').'</label>';
 		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getValue('plugins').'">';
 		$html .= '</div>';
 
@@ -53,17 +53,17 @@ class pluginTinymce extends Plugin {
 			return false;
 		}
 
-		global $Language;
+		global $language;
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
 		$plugins = $this->getValue('plugins');
 
 		$lang = 'en';
-		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$Language->currentLanguage().'.js')) {
-			$lang = $Language->currentLanguage();
-		} elseif (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$Language->currentLanguageShortVersion().'.js')) {
-			$lang = $Language->currentLanguageShortVersion();
+		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$language->currentLanguage().'.js')) {
+			$lang = $language->currentLanguage();
+		} elseif (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$language->currentLanguageShortVersion().'.js')) {
+			$lang = $language->currentLanguageShortVersion();
 		}
 
 $script = <<<EOF

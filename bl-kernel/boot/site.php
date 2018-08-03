@@ -31,7 +31,7 @@ if (Sanitize::pathFile(PATH_THEMES, $site->theme().DS.'init.php')) {
 if (Sanitize::pathFile(PATH_THEMES, $site->theme().DS.'index.php')) {
 	include(PATH_THEMES.$site->theme().DS.'index.php');
 } else {
-	$Language->p('Please check your theme configuration');
+	$language->p('Please check your theme configuration');
 }
 
 // Plugins after site loaded

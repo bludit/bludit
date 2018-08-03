@@ -12,20 +12,20 @@ class pluginAbout extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Label').'</label>';
+		$html .= '<label>'.$language->get('Label').'</label>';
 		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<span class="tip">'.$language->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('About').'</label>';
+		$html .= '<label>'.$language->get('About').'</label>';
 		$html .= '<textarea name="text" id="jstext">'.$this->getValue('text').'</textarea>';
 		$html .= '</div>';
 

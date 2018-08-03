@@ -21,4 +21,4 @@ checkRole(array('admin'));
 $themes = buildThemes();
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Themes');
+$layout['title'] .= ' - '.$language->g('Themes');

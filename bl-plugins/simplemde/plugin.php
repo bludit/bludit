@@ -18,23 +18,23 @@ class pluginsimpleMDE extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div>';
-		$html .= '<label>'.$Language->get('toolbar').'</label>';
+		$html .= '<label>'.$language->get('toolbar').'</label>';
 		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getValue('toolbar').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('tab-size').'</label>';
+		$html .= '<label>'.$language->get('tab-size').'</label>';
 		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getValue('tabSize').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('spell-checker').'</label>';
+		$html .= '<label>'.$language->get('spell-checker').'</label>';
 		$html .= '<select name="spellChecker">';
-		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
+		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$language->get('enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>'.$language->get('disabled').'</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -55,7 +55,7 @@ class pluginsimpleMDE extends Plugin {
 
 	public function adminBodyEnd()
 	{
-		global $Language;
+		global $language;
 
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
@@ -85,7 +85,7 @@ class pluginsimpleMDE extends Plugin {
 		// Function required for Media Manager
 		// Insert an image on the editor in the cursor position
 		$html .= 'function editorInsertMedia(filename) {
-				addContentSimpleMDE("!['.$Language->get('Image description').']("+filename+")");
+				addContentSimpleMDE("!['.$language->get('Image description').']("+filename+")");
 			}'.PHP_EOL;
 
 		$html .= '$(document).ready(function() { '.PHP_EOL;
@@ -96,7 +96,7 @@ class pluginsimpleMDE extends Plugin {
 				toolbarTips: true,
 				toolbarGuideIcon: true,
 				autofocus: false,
-				placeholder: "'.$Language->get('content-here-supports-markdown-and-html-code').'",
+				placeholder: "'.$language->get('content-here-supports-markdown-and-html-code').'",
 				lineWrapping: true,
 				autoDownloadFontAwesome: false,
 				indentWithTabs: true,
@@ -112,7 +112,7 @@ class pluginsimpleMDE extends Plugin {
 						cm.replaceSelection(output);
 						},
 					className: "oi oi-crop",
-					title: "'.$Language->get('Pagebreak').'",
+					title: "'.$language->get('Pagebreak').'",
 					}]
 		});';
 		$html .= '}); </script>';

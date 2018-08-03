@@ -1,4 +1,4 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Title of the page
-$layout['title'] = $Language->g('About') . ' - ' . $layout['title'];
+$layout['title'] = $language->g('About') . ' - ' . $layout['title'];

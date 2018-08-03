@@ -13,7 +13,7 @@ class pluginHTMLCode extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
@@ -22,19 +22,19 @@ class pluginHTMLCode extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>Site Head</label>';
 		$html .= '<textarea name="head" id="jshead">'.$this->getValue('head').'</textarea>';
-		$html .= '<span class="tip">'.$Language->get('insert-code-in-the-theme-inside-the-tag-head').'</span>';
+		$html .= '<span class="tip">'.$language->get('insert-code-in-the-theme-inside-the-tag-head').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>Site Header</label>';
 		$html .= '<textarea name="header" id="jsheader">'.$this->getValue('header').'</textarea>';
-		$html .= '<span class="tip">'.$Language->get('insert-code-in-the-theme-at-the-top').'</span>';
+		$html .= '<span class="tip">'.$language->get('insert-code-in-the-theme-at-the-top').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>Site Footer</label>';
 		$html .= '<textarea name="footer" id="jsfooter">'.$this->getValue('footer').'</textarea>';
-		$html .= '<span class="tip">'.$Language->get('insert-code-in-the-theme-at-the-bottom').'</span>';
+		$html .= '<span class="tip">'.$language->get('insert-code-in-the-theme-at-the-bottom').'</span>';
 		$html .= '</div>';
 
 		return $html;

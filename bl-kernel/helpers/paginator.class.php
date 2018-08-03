@@ -104,7 +104,7 @@ class Paginator {
 
 	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)
 	{
-		global $Language;
+		global $language;
 
 		$html  = '<div id="paginator">';
 		$html .= '<ul>';
@@ -112,7 +112,7 @@ class Paginator {
 		if(self::get('showNext'))
 		{
 			if($textPrevPage===false) {
-				$textPrevPage = '« '.$Language->g('Previous page');
+				$textPrevPage = '« '.$language->g('Previous page');
 			}
 
 			$html .= '<li class="left">';
@@ -127,7 +127,7 @@ class Paginator {
 		if(self::get('showPrev'))
 		{
 			if($textNextPage===false) {
-				$textNextPage = $Language->g('Next page').' »';
+				$textNextPage = $language->g('Next page').' »';
 			}
 
 			$html .= '<li class="right">';

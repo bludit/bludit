@@ -366,7 +366,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formSelect(array(
 			'name'=>'language',
 			'label'=>$L->g('Language'),
-			'options'=>$Language->getLanguageList(),
+			'options'=>$language->getLanguageList(),
 			'selected'=>$site->language(),
 			'class'=>'',
 			'tip'=>$L->g('select-your-sites-language')
