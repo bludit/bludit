@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbUsers extends dbJSON {
+class Users extends dbJSON {
 
 	public $dbFields = array(
 		'firstName'=>'',
@@ -208,7 +208,7 @@ class dbUsers extends dbJSON {
 		return $this->save();
 	}
 
-	public function getAllUsernames()
+	public function keys()
 	{
 		return array_keys($this->db);
 	}

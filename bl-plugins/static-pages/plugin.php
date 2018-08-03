@@ -44,7 +44,7 @@ class pluginStaticPages extends Plugin {
 		global $Language;
 		global $url;
 		global $site;
-		global $dbPages;
+		global $pages;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-static-pages">';

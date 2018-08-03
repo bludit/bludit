@@ -5,19 +5,19 @@ class User {
 
 	function __construct($username)
 	{
-		global $dbUsers;
+		global $users;
 
 		$this->vars['username'] = $username;
 
 		if ($username===false) {
-			$row = $dbUsers->getDefaultFields();
+			$row = $users->getDefaultFields();
 		} else {
-			if (Text::isEmpty($username) || !$dbUsers->exists($username)) {
+			if (Text::isEmpty($username) || !$users->exists($username)) {
 				$errorMessage = 'User not found in database by username ['.$username.']';
 				Log::set(__METHOD__.LOG_SEP.$errorMessage);
 				throw new Exception($errorMessage);
 			}
-			$row = $dbUsers->getUserDB($username);
+			$row = $users->getUserDB($username);
 		}
 
 		foreach ($row as $field=>$value) {

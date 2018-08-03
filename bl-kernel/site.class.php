@@ -1,7 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbSite extends dbJSON
-{
+class Site extends dbJSON {
 	public $dbFields = array(
 		'title'=>		'I am Guybrush Threepwood, mighty developer',
 		'slogan'=>		'',

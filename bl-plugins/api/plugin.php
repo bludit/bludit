@@ -45,8 +45,8 @@ class pluginAPI extends Plugin {
 	public function beforeAll()
 	{
 		global $url;
-		global $dbPages;
-		global $dbUsers;
+		global $pages;
+		global $users;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -96,11 +96,11 @@ class pluginAPI extends Plugin {
 		if ( !empty($inputs['authentication']) ) {
 
 			// Get the user with the authentication token, FALSE if doesn't exit
-			$username = $dbUsers->getByAuthToken($inputs['authentication']);
+			$username = $users->getByAuthToken($inputs['authentication']);
 			if ($username!==false) {
 
 				// Get the object user to check the role
-				$user = $dbUsers->getUser($username);
+				$user = $users->getUser($username);
 				if (($user->role()=='admin') && ($user->enabled())) {
 					// Loggin the user to create the session
 					$login = new Login();
@@ -235,12 +235,12 @@ class pluginAPI extends Plugin {
 
 	private function getPages()
 	{
-		global $dbPages;
+		global $pages;
 
 		$onlyPublished = true;
 		$amountOfItems = $this->getValue('amountOfItems');
 		$pageNumber = 1;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		$tmp = array(
 			'status'=>'0',

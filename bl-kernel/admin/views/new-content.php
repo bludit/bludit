@@ -33,7 +33,7 @@
 		// UUID
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'uuid',
-			'value'=>$dbPages->generateUUID()
+			'value'=>$pages->generateUUID()
 		));
 
 		// Status = published, draft, sticky, static
@@ -154,7 +154,7 @@
 				'name'=>'position',
 				'label'=>$L->g('Position'),
 				'tip'=>'Field used when ordering content by position',
-				'value'=>$dbPages->nextPositionNumber()
+				'value'=>$pages->nextPositionNumber()
 			));
 
 			// Template

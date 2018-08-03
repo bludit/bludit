@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbCategories extends dbList
-{
+class Categories extends dbList {
+
 	function __construct()
 	{
 		parent::__construct(DB_CATEGORIES);
@@ -14,7 +14,7 @@ class dbCategories extends dbList
 
 	public function reindex()
 	{
-		global $dbPages;
+		global $pages;
 
 		// Foreach category
 		foreach ($this->db as $key=>$value) {
@@ -22,7 +22,7 @@ class dbCategories extends dbList
 		}
 
 		// Get a database with published pages
-		$db = $dbPages->getPublishedDB(false);
+		$db = $pages->getPublishedDB(false);
 		foreach ($db as $pageKey=>$pageFields) {
 			if (!empty($pageFields['category'])) {
 				$categoryKey = $pageFields['category'];

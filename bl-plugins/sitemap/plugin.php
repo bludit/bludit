@@ -23,7 +23,7 @@ class pluginSitemap extends Plugin {
 	private function createXML()
 	{
 		global $site;
-		global $dbPages;
+		global $pages;
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -36,7 +36,7 @@ class pluginSitemap extends Plugin {
 		$pageNumber = 1;
 		$amountOfItems = -1;
 		$onlyPublished = true;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		foreach($list as $pageKey) {
 			try {

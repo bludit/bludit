@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbTags extends dbList
-{
+class Tags extends dbList {
+
 	function __construct()
 	{
 		parent::__construct(DB_TAGS);
@@ -14,10 +14,10 @@ class dbTags extends dbList
 
 	public function reindex()
 	{
-		global $dbPages;
+		global $pages;
 
 		// Get a database with published pages
-		$db = $dbPages->getPublishedDB(false);
+		$db = $pages->getPublishedDB(false);
 
 		$tagsIndex = array();
 

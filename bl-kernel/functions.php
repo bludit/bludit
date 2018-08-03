@@ -18,7 +18,7 @@ function reindexTags() {
 function buildErrorPage() {
 	global $site;
 	global $language;
-	global $dbUsers;
+	global $users;
 
 	try {
 		$pageNotFoundKey = $site->pageNotFound();
@@ -80,7 +80,7 @@ function buildPagesByTag() {
 // Generate the global variables $content / $content, defined on 69.pages.php
 // This function is use for buildPagesForHome(), buildPagesByCategory(), buildPagesByTag()
 function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
-	global $dbPages;
+	global $pages;
 	global $categories;
 	global $tags;
 	global $site;
@@ -92,11 +92,11 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	if ($for=='home') {
 		$onlyPublished = true;
 		$amountOfItems = $site->itemsPerPage();
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 		// Include sticky pages only in the first page
 		if ($pageNumber==1) {
-			$sticky = $dbPages->getStickyDB();
+			$sticky = $pages->getStickyDB();
 			$list = array_merge($sticky, $list);
 		}
 	}
@@ -130,10 +130,10 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 // Returns an array with all the static pages as Page-Object
 // The static pages are order by position all the time
 function buildStaticPages() {
-	global $dbPages;
+	global $pages;
 
 	$list = array();
-	$pagesKey = $dbPages->getStaticDB();
+	$pagesKey = $pages->getStaticDB();
 	foreach ($pagesKey as $pageKey) {
 		try {
 			$page = new Page($pageKey);
@@ -159,10 +159,10 @@ function buildPage($pageKey) {
 // Returns an array with all the parent pages as Page-Object
 // The pages are order by the settings on the system
 function buildParentPages() {
-	global $dbPages;
+	global $pages;
 
 	$list = array();
-	$pagesKey = $dbPages->getPublishedDB();
+	$pagesKey = $pages->getPublishedDB();
 	foreach ($pagesKey as $pageKey) {
 		try {
 			$page = new Page($pageKey);
@@ -265,13 +265,13 @@ function changePluginsPosition($pluginClassList) {
 }
 
 function createPage($args) {
-	global $dbPages;
+	global $pages;
 	global $syslog;
 	global $Language;
 
 	// Check if the autosave page exists for this new page and delete it
 	if (isset($args['uuid'])) {
-		$autosaveKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
 		if (!empty($autosaveKey)) {
 			Log::set('Function createPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
 			deletePage($autosaveKey);
@@ -285,7 +285,7 @@ function createPage($args) {
 		return false;
 	}
 
-	$key = $dbPages->add($args);
+	$key = $pages->add($args);
 	if ($key) {
 		// Call the plugins after page created
 		Theme::plugins('afterPageCreate');
@@ -312,12 +312,12 @@ function createPage($args) {
 }
 
 function editPage($args) {
-	global $dbPages;
+	global $pages;
 	global $syslog;
 
 	// Check if the autosave page exists for this new page and delete it
 	if (isset($args['uuid'])) {
-		$pageKey = $dbPages->getByUUID('autosave-'.$args['uuid']);
+		$pageKey = $pages->getByUUID('autosave-'.$args['uuid']);
 		if (!empty($pageKey)) {
 			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
 			deletePage($pageKey);
@@ -331,7 +331,7 @@ function editPage($args) {
 	}
 
 	// Check if the page key exist
-	if (!$dbPages->exists($args['key'])) {
+	if (!$pages->exists($args['key'])) {
 		Log::set('Function editPage()'.LOG_SEP.'Page key does not exist, '.$args['key'], LOG_TYPE_ERROR);
 		return false;
 	}
@@ -351,7 +351,7 @@ function editPage($args) {
 		}
 	}
 
-	$key = $dbPages->edit($args);
+	$key = $pages->edit($args);
 	if ($key) {
 		// Call the plugins after page modified
 		Theme::plugins('afterPageModify');
@@ -373,10 +373,10 @@ function editPage($args) {
 }
 
 function deletePage($key) {
-	global $dbPages;
+	global $pages;
 	global $syslog;
 
-	if ($dbPages->delete($key)) {
+	if ($pages->delete($key)) {
 		// Call the plugins after page deleted
 		Theme::plugins('afterPageDelete');
 
@@ -396,10 +396,10 @@ function deletePage($key) {
 }
 
 function editUser($args) {
-	global $dbUsers;
+	global $users;
 	global $syslog;
 
-	if ($dbUsers->set($args)) {
+	if ($users->set($args)) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-edited',
@@ -413,7 +413,7 @@ function editUser($args) {
 }
 
 function disableUser($args) {
-	global $dbUsers;
+	global $users;
 	global $login;
 	global $syslog;
 
@@ -426,12 +426,12 @@ function disableUser($args) {
 	}
 
 	// Check if the username exists
-	if (!$dbUsers->exists($username)) {
+	if (!$users->exists($username)) {
 		return false;
 	}
 
 	// Disable the user
-	if ($dbUsers->disableUser($username)) {
+	if ($users->disableUser($username)) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-disabled',
@@ -445,7 +445,7 @@ function disableUser($args) {
 }
 
 function deleteUser($args) {
-	global $dbUsers, $dbPages;
+	global $users, $pages;
 	global $login;
 	global $syslog;
 
@@ -464,17 +464,17 @@ function deleteUser($args) {
 	}
 
 	// Check if the username exists
-	if (!$dbUsers->exists($username)) {
+	if (!$users->exists($username)) {
 		return false;
 	}
 
 	if ($deleteContent) {
-		$dbPages->deletePagesByUser(array('username'=>$username));
+		$pages->deletePagesByUser(array('username'=>$username));
 	} else {
-		$dbPages->transferPages(array('oldUsername'=>$username));
+		$pages->transferPages(array('oldUsername'=>$username));
 	}
 
-	if ($dbUsers->delete($username)) {
+	if ($users->delete($username)) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-deleted',
@@ -488,7 +488,7 @@ function deleteUser($args) {
 }
 
 function createUser($args) {
-	global $dbUsers;
+	global $users;
 	global $Language;
 	global $syslog;
 
@@ -499,7 +499,7 @@ function createUser($args) {
 	}
 
 	// Check already exist username
-	if ($dbUsers->exists($args['new_username'])) {
+	if ($users->exists($args['new_username'])) {
 		Alert::set($Language->g('username-already-exists'), ALERT_STATUS_FAIL);
 		return false;
 	}
@@ -524,7 +524,7 @@ function createUser($args) {
 	$tmp['email']	 = $args['email'];
 
 	// Add the user to the database
-	if ($dbUsers->add($tmp)) {
+	if ($users->add($tmp)) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-user-created',
@@ -541,7 +541,7 @@ function editSettings($args) {
 	global $site;
 	global $syslog;
 	global $Language;
-	global $dbPages;
+	global $pages;
 
 	if (isset($args['language'])) {
 		if ($args['language']!=$site->language()) {
@@ -578,11 +578,11 @@ function editSettings($args) {
 		// Check current order-by if changed it reorder the content
 		if ($site->orderBy()!=ORDER_BY) {
 			if ($site->orderBy()=='date') {
-				$dbPages->sortByDate();
+				$pages->sortByDate();
 			} else {
-				$dbPages->sortByPosition();
+				$pages->sortByPosition();
 			}
-			$dbPages->save();
+			$pages->save();
 		}
 
 		// Add syslog
@@ -600,7 +600,7 @@ function editSettings($args) {
 }
 
 function changeUserPassword($args) {
-	global $dbUsers;
+	global $users;
 	global $Language;
 	global $syslog;
 
@@ -620,7 +620,7 @@ function changeUserPassword($args) {
 		return false;
 	}
 
-	if ($dbUsers->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
+	if ($users->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'user-password-changed',
@@ -690,7 +690,7 @@ function createCategory($category) {
 
 function editCategory($args) {
 	global $Language;
-	global $dbPages;
+	global $pages;
 	global $categories;
 	global $syslog;
 
@@ -707,7 +707,7 @@ function editCategory($args) {
 	}
 
 	// Change the category key in the pages database
-	$dbPages->changeCategory($args['oldKey'], $newCategoryKey);
+	$pages->changeCategory($args['oldKey'], $newCategoryKey);
 
 	// Add to syslog
 	$syslog->add(array(

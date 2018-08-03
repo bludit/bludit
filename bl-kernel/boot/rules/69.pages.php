@@ -36,7 +36,7 @@ $staticContent = $staticPages = buildStaticPages();
 // ============================================================================
 
 // Execute the scheduler
-if ($dbPages->scheduler()) {
+if ($pages->scheduler()) {
 	reindexTags();
         reindexCategories();
 
@@ -50,7 +50,7 @@ if ($dbPages->scheduler()) {
 // Set home page if the user defined them
 if ($site->homepage() && $url->whereAmI()==='home') {
 	$pageKey = $site->homepage();
-	if ($dbPages->exists($pageKey)) {
+	if ($pages->exists($pageKey)) {
 		$url->setSlug($pageKey);
 		$url->setWhereAmI('page');
 	}

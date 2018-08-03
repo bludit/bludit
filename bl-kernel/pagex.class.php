@@ -6,21 +6,21 @@ class Page {
 
 	function __construct($key)
 	{
-		global $dbPages;
+		global $pages;
 
 		$this->vars['key'] = $key;
 
 		// If key is FALSE, the page is create with default values, like an empty page
 		// Useful for Page Not Found
 		if ($key===false) {
-			$row = $dbPages->getDefaultFields();
+			$row = $pages->getDefaultFields();
 		} else {
-			if (Text::isEmpty($key) || !$dbPages->exists($key)) {
+			if (Text::isEmpty($key) || !$pages->exists($key)) {
 				$errorMessage = 'Page not found in database by key ['.$key.']';
 				Log::set(__METHOD__.LOG_SEP.$errorMessage);
 				throw new Exception($errorMessage);
 			}
-			$row = $dbPages->getPageDB($key);
+			$row = $pages->getPageDB($key);
 		}
 
 		foreach ($row as $field=>$value) {
@@ -151,15 +151,15 @@ class Page {
 	// Returns the previous page key
 	public function previousKey()
 	{
-		global $dbPages;
-		return $dbPages->previousPageKey($this->key());
+		global $pages;
+		return $pages->previousPageKey($this->key());
 	}
 
 	// Returns the next page key
 	public function nextKey()
 	{
-		global $dbPages;
-		return $dbPages->nextPageKey($this->key());
+		global $pages;
+		return $pages->nextPageKey($this->key());
 	}
 
 	// Returns the category name
@@ -459,17 +459,17 @@ class Page {
 	// Returns an array with all children's keys
 	public function childrenKeys()
 	{
-		global $dbPages;
+		global $pages;
 		$key = $this->key();
-		return $dbPages->getChildren($key);
+		return $pages->getChildren($key);
 	}
 
 	// Returns an array with all children as Page-Object
 	public function children()
 	{
-		global $dbPages;
+		global $pages;
 		$list = array();
-		$childrenKeys = $dbPages->getChildren($this->key());
+		$childrenKeys = $pages->getChildren($this->key());
 		foreach ($childrenKeys as $childKey) {
 			try {
 				$child = new Page($childKey);

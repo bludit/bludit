@@ -26,17 +26,17 @@ checkRole(array('admin', 'editor'));
 $onlyPublished = true;
 $amountOfItems = ITEMS_PER_PAGE_ADMIN;
 $pageNumber = $url->pageNumber();
-$published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+$published = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
 if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');
 }
 
-$drafts = $dbPages->getDraftDB(true);
-$scheduled = $dbPages->getScheduledDB(true);
-$static = $dbPages->getStaticDB(true);
-$sticky = $dbPages->getStickyDB(true);
+$drafts = $pages->getDraftDB(true);
+$scheduled = $pages->getScheduledDB(true);
+$static = $pages->getStaticDB(true);
+$sticky = $pages->getStickyDB(true);
 
 // Title of the page
 $layout['title'] .= ' - '.$Language->g('Manage content');

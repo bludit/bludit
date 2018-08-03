@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbPages extends dbJSON {
+class Pages extends dbJSON {
 
 	private $parentKeyList = array();
 	private $dbFields = array(

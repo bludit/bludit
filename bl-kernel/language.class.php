@@ -1,7 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbLanguage extends dbJSON
-{
+class Language extends dbJSON {
 	public $data;
 	public $db;
 	public $currentLanguage;

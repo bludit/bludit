@@ -36,7 +36,7 @@ class pluginRSS extends Plugin {
 	private function createXML()
 	{
 		global $site;
-		global $dbPages;
+		global $pages;
 		global $url;
 
 		// Amount of pages to show
@@ -49,7 +49,7 @@ class pluginRSS extends Plugin {
 		$onlyPublished = true;
 
 		// Get the list of pages
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
+		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';

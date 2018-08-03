@@ -78,13 +78,13 @@ include(PATH_ABSTRACT.'dblist.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
-include(PATH_KERNEL.'dbpages.class.php');
-include(PATH_KERNEL.'dbusers.class.php');
-include(PATH_KERNEL.'dbtags.class.php');
-include(PATH_KERNEL.'dblanguage.class.php');
-include(PATH_KERNEL.'dbsite.class.php');
-include(PATH_KERNEL.'dbcategories.class.php');
-include(PATH_KERNEL.'dbsyslog.class.php');
+include(PATH_KERNEL.'pages.class.php');
+include(PATH_KERNEL.'users.class.php');
+include(PATH_KERNEL.'tags.class.php');
+include(PATH_KERNEL.'language.class.php');
+include(PATH_KERNEL.'site.class.php');
+include(PATH_KERNEL.'categories.class.php');
+include(PATH_KERNEL.'syslog.class.php');
 include(PATH_KERNEL.'pagex.class.php');
 include(PATH_KERNEL.'category.class.php');
 include(PATH_KERNEL.'tag.class.php');
@@ -120,14 +120,14 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 }
 
 // Objects
-$pages = $dbPages = new dbPages(); // DEPRECATED v3.0.0 $dbPages
-$users = $dbUsers 	= new dbUsers(); // DEPRECATED v3.0.0 $dbUsers
-$tags = $dbTags 	= new dbTags(); // DEPRECATED v3.0.0 $dbTags
-$categories = $dbCategories 	= new dbCategories(); // DEPRECATED v3.0.0 $dbCategories
-$site  		= new dbSite();
+$pages 		= new Pages(); // DEPRECATED v3.0.0 $dbPages
+$users 		= new Users(); // DEPRECATED v3.0.0 $users
+$tags 		= new Tags(); // DEPRECATED v3.0.0 $dbTags
+$categories 	= new Categories(); // DEPRECATED v3.0.0 $dbCategories
+$site  		= new Site();
 $url		= new Url();
 $security	= new Security();
-$syslog 	= new dbSyslog();
+$syslog 	= new Syslog();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.
@@ -175,7 +175,7 @@ define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
-$language = $Language = new dbLanguage( $site->language() );
+$language = $Language = new Language( $site->language() );
 $url->checkFilters( $site->uriFilters() );
 
 // --- CONSTANTS with dependency ---

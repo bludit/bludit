@@ -24,7 +24,7 @@ echo '
 	<tbody>
 ';
 
-$list = $dbUsers->getAllUsernames();
+$list = $users->keys();
 foreach ($list as $username) {
 	try {
 		$user = new User($username);

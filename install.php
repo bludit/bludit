@@ -155,7 +155,7 @@ foreach ($languageFiles as $fname=>$native) {
 	}
 }
 
-$Language = new dbLanguage($finalLanguage);
+$Language = new Language($finalLanguage);
 
 // Set locale
 setlocale(LC_ALL, $localeFromHTTP);

@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class dbSyslog extends dbJSON
-{
+class Syslog extends dbJSON {
+
 	public $dbFields = array(
 		'date'=>		array('inFile'=>false, 'value'=>''),
 		'dictionaryKey'=>	array('inFile'=>false, 'value'=>''),

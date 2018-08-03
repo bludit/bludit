@@ -38,7 +38,7 @@ $page = array(
 );
 
 // Get the page key by the UUID
-$pageKey = $dbPages->getByUUID($autosaveUUID);
+$pageKey = $pages->getByUUID($autosaveUUID);
 
 // if pageKey is empty means the autosave page doesn't exist
 if (empty($pageKey)) {

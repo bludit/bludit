@@ -52,7 +52,7 @@ class pluginNavigation extends Plugin {
 		global $Language;
 		global $url;
 		global $site;
-		global $dbPages;
+		global $pages;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-navigation">';
@@ -101,7 +101,7 @@ class pluginNavigation extends Plugin {
 			$onlyPublished = true;
 			$pageNumber = 1;
 			$amountOfItems = $this->getValue('amountOfItems');
-			$publishedPages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+			$publishedPages = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
 
 			foreach ($publishedPages as $pageKey) {
 				try {
