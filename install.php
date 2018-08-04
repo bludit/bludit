@@ -128,7 +128,7 @@ include(PATH_HELPERS.'valid.class.php');
 include(PATH_HELPERS.'text.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
-include(PATH_KERNEL.'dblanguage.class.php');
+include(PATH_KERNEL.'language.class.php');
 
 // --- LANGUAGE and LOCALE ---
 // Try to detect the language from browser or headers
@@ -155,7 +155,7 @@ foreach ($languageFiles as $fname=>$native) {
 	}
 }
 
-$Language = new Language($finalLanguage);
+$language = new Language($finalLanguage);
 
 // Set locale
 setlocale(LC_ALL, $localeFromHTTP);
