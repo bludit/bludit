@@ -140,5 +140,59 @@ class Paginator {
 
 		return $html;
 	}
+	
+	/*
+	 * Bootstrap Pagination
+	 */
+	public static function bootstrap_html($textPrevPage=false, $textNextPage=false, $showPageNumber=false){
+		
+		global $Language;
+		
+		$total_pages = self::amountOfPages();
+		$howMany = 2;
+		$currentPage = self::currentPage();
+		$first_page = self::firstPage();
+		$last_page = self::lastPageUrl();
+		$show_next = (self::showNext())  ? "" : "disabled";
+		$show_previois = (self::showPrev()) ? "" : "disabled";
+		
+		$html = '<nav aria-label="Page navigation">';
+		$html .= '<ul class="pagination">';
+		if ($currentPage > 3 || $currentPage === $total_pages){
+			$html .= '<li class="page-item">';
+			$html .= '<a class="page-link" href="'.self::firstPageUrl().'" aria-label="First"><span aria-hidden="true">&laquo;</span> '.$Language->get('First').'</a>';
+			$html .= '</li>';			
+		}			
+		if ($currentPage > 1){
+			$html .= '<li class="page-item'.$show_previois.'">';
+			$html .= '<a class="page-link" href="'.self::prevPageUrl().'" aria-label="Previous"><span aria-hidden="true">&laquo;</span> '.$Language->get('Previous').'</a>';
+			$html .= '</li>';
+		}		
+		if ($currentPage > $howMany + 1){
+			$html .= '<li class="page-item disabled"><span>...</span></li>';
+		}
+		for ($pageIndex = $currentPage - $howMany; $pageIndex <= $currentPage + $howMany; $pageIndex++){
+			
+			$active = ($pageIndex==self::currentPage()) ? "active" : false;
+			
+			if ($pageIndex >= 1 && $pageIndex <= $total_pages){
+				$html .= '<li class ="'.$active.'"><a href="'.self::numberUrl($pageIndex).'">'.$pageIndex.'</a></li>';
+			}			
+		}
+		if ($currentPage < $total_pages){
+			$html .= '<li class="page-item disabled"><span>...</span></li>';
+		}		
+		if ($currentPage < $total_pages){
+			$html .= '<li class="page-item'.$show_next.'">';
+			$html .= '<a class="page-link" href="'.self::nextPageUrl().'" aria-label="Next">'.$Language->get('Next').' <span aria-hidden="true">&raquo;</span></a>';
+			$html .= '</li>';
+			$html .= '<li><a href="'.$last_page.'">'.$Language->get('Last').'</a></li>';
+		}
+		$html .= '</ul>';
+		$html .= '</nav>';
+
+		return $html;		
+		
+	}	
 
 }
