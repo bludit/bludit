@@ -148,10 +148,10 @@ class dbList extends dbJSON
 		return $tmp;
 	}
 
-	// Returns the amount of items for some key
+	// Returns the number of items in the list
 	public function countItems($key)
 	{
-		if( isset($this->db[$key]) ) {
+		if (isset($this->db[$key])) {
 			return count($this->db[$key]['list']);
 		}
 		return 0;

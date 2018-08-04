@@ -54,6 +54,9 @@
 <!-- Alert -->
 <?php include('html/alert.php'); ?>
 
+<!-- Navbar, only for small devices -->
+<?php include('html/navbar.php'); ?>
+
 <div class="container">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->
 	<div class="row">

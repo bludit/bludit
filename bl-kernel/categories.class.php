@@ -7,7 +7,7 @@ class Categories extends dbList {
 		parent::__construct(DB_CATEGORIES);
 	}
 
-	function countPagesByCategory($key)
+	function numberOfPages($key)
 	{
 		return $this->countItems($key);
 	}

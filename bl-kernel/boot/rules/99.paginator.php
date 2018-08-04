@@ -11,12 +11,12 @@ if($url->whereAmI()=='admin') {
 elseif($url->whereAmI()=='tag') {
 	$itemsPerPage = $site->itemsPerPage();
 	$tagKey = $url->slug();
-	$amountOfItems = $tags->countPagesByTag($tagKey);
+	$amountOfItems = $tags->numberOfPages($tagKey);
 }
 elseif($url->whereAmI()=='category') {
 	$itemsPerPage = $site->itemsPerPage();
 	$categoryKey = $url->slug();
-	$amountOfItems = $categories->countPagesByCategory($categoryKey);
+	$amountOfItems = $categories->numberOfPages($categoryKey);
 }
 else {
 	$itemsPerPage = $site->itemsPerPage();

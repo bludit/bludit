@@ -7,9 +7,9 @@ class Tags extends dbList {
 		parent::__construct(DB_TAGS);
 	}
 
-	function countPagesByTag($tagKey)
+	function numberOfPages($key)
 	{
-		return $this->countItems($tagKey);
+		return $this->countItems($key);
 	}
 
 	public function reindex()
