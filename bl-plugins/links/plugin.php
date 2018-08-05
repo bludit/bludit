@@ -62,54 +62,54 @@ class pluginLinks extends Plugin {
 	// Method called on plugin settings on the admin area
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div>';
-		$html .= '<label>'.$language->get('Label').'</label>';
+		$html .= '<label>'.$L->get('Label').'</label>';
 		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="save" class="btn btn-primary" type="submit">'.$language->get('Save').'</button>';
+		$html .= '<button name="save" class="btn btn-primary" type="submit">'.$L->get('Save').'</button>';
 		$html .= '</div>';
 
 		// New link, when the user click on save button this call the method post()
 		// and the new link is added to the database
-		$html .= '<legend>'.$language->get('Add a new link').'</legend>';
+		$html .= '<legend>'.$L->get('Add a new link').'</legend>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Name').'</label>';
+		$html .= '<label>'.$L->get('Name').'</label>';
 		$html .= '<input name="linkName" type="text" value="">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Url').'</label>';
+		$html .= '<label>'.$L->get('Url').'</label>';
 		$html .= '<input name="linkURL" type="text" value="">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="addLink" class="blue" type="submit">'.$language->get('Add').'</button>';
+		$html .= '<button name="addLink" class="blue" type="submit">'.$L->get('Add').'</button>';
 		$html .= '</div>';
 
-		$html .= '<legend>'.$language->get('Links').'</legend>';
+		$html .= '<legend>'.$L->get('Links').'</legend>';
 
 		// Get the JSON DB, getValue() with the option unsanitized HTML code
 		$jsondb = $this->getValue('jsondb', $unsanitized=false);
 		$links = json_decode($jsondb, true);
 		foreach($links as $name=>$url) {
 			$html .= '<div>';
-			$html .= '<label>'.$language->get('Name').'</label>';
+			$html .= '<label>'.$L->get('Name').'</label>';
 			$html .= '<input type="text" value="'.$name.'" disabled>';
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<label>'.$language->get('Url').'</label>';
+			$html .= '<label>'.$L->get('Url').'</label>';
 			$html .= '<input type="text" value="'.$url.'" disabled>';
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">'.$language->get('Delete').'</button>';
+			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">'.$L->get('Delete').'</button>';
 			$html .= '</div>';
 
 			$html .= '</br>';
@@ -121,7 +121,7 @@ class pluginLinks extends Plugin {
 	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
-		global $language;
+		global $L;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';

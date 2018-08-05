@@ -39,7 +39,7 @@ class Syslog extends dbJSON {
 
 	public function add($args)
 	{
-		global $language;
+		global $L;
 
 		$data = array();
 		$data['date'] = Date::current(DB_DATE_FORMAT);

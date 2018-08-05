@@ -21,18 +21,8 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 
 	echo Bootstrap::formInputTextBlock(array(
 		'name'=>'name',
-		'label'=>$L->g('Category name'),
+		'label'=>$L->g('Name'),
 		'value'=>$categoryMap['name'],
-		'class'=>'',
-		'placeholder'=>'',
-		'tip'=>''
-	));
-
-	echo Bootstrap::formInputGroupText(array(
-		'name'=>'newKey',
-		'label'=>$L->g('Category key'),
-		'labelInside'=>DOMAIN_CATEGORIES,
-		'value'=>$categoryMap['key'],
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
@@ -40,7 +30,7 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 
 	echo Bootstrap::formTextareaBlock(array(
 		'name'=>'description',
-		'label'=>$L->g('Category description'),
+		'label'=>$L->g('Description'),
 		'value'=>isset($categoryMap['description'])?$categoryMap['description']:'',
 		'class'=>'',
 		'placeholder'=>'',
@@ -50,8 +40,18 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 
 	echo Bootstrap::formInputTextBlock(array(
 		'name'=>'template',
-		'label'=>$L->g('Category template'),
+		'label'=>$L->g('Template'),
 		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputGroupText(array(
+		'name'=>'newKey',
+		'label'=>$L->g('Friendly URL'),
+		'labelInside'=>DOMAIN_CATEGORIES,
+		'value'=>$categoryMap['key'],
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
@@ -72,12 +72,12 @@ echo Bootstrap::formClose();
 <!-- Modal for delete category -->
 <?php
 	echo Bootstrap::modal(array(
-		'buttonPrimary'=>'Delete',
+		'buttonPrimary'=>$L->g('Delete'),
 		'buttonPrimaryClass'=>'jsbuttonDeleteAccept',
-		'buttonSecondary'=>'Cancel',
+		'buttonSecondary'=>$L->g('Cancel'),
 		'buttonSecondaryClass'=>'',
-		'modalTitle'=>'Delete category',
-		'modalText'=>'Are you sure you want to delete the category ?',
+		'modalTitle'=>$L->g('Delete category'),
+		'modalText'=>$L->g('Are you sure you want to delete this category?'),
 		'modalId'=>'jsdeleteModal'
 	));
 ?>

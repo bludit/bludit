@@ -33,7 +33,7 @@ if (Sanitize::pathFile(PATH_THEMES.$themeDirname)) {
 	));
 
 	// Create an alert
-	Alert::set( $language->g('The changes have been saved') );
+	Alert::set( $L->g('The changes have been saved') );
 }
 
 // Redirect

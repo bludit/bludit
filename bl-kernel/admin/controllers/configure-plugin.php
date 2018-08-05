@@ -41,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// Call the method post of the plugin
 	if ($plugin->post()) {
-		Alert::set( $language->g('The changes have been saved') );
+		Alert::set( $L->g('The changes have been saved') );
 		Redirect::page('configure-plugin/'.$plugin->className());
 	} else {
-		Alert::set( $language->g('Complete all fields') );
+		Alert::set( $L->g('Complete all fields') );
 	}
 }
 
@@ -53,4 +53,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] = $language->g('Plugin').' - '.$plugin->name().' - '.$layout['title'];
+$layout['title'] = $L->g('Plugin').' - '.$plugin->name().' - '.$layout['title'];

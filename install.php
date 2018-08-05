@@ -253,7 +253,7 @@ RewriteRule ^(.*) index.php [PT,L]
 // Install Bludit
 function install($adminPassword, $timezone)
 {
-	global $language;
+	global $L;
 
 	if (!date_default_timezone_set($timezone)) {
 		date_default_timezone_set('UTC');
@@ -268,8 +268,8 @@ function install($adminPassword, $timezone)
 	// Directories for initial pages
 	$pagesToInstall = array('example-page-1-slug', 'example-page-2-slug', 'example-page-3-slug', 'example-page-4-slug');
 	foreach ($pagesToInstall as $page) {
-		if (!mkdir(PATH_PAGES.$language->get($page), DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$language->get($page);
+		if (!mkdir(PATH_PAGES.$L->get($page), DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$L->get($page);
 			error_log('[ERROR] '.$errorText, 0);
 		}
 	}
@@ -312,8 +312,8 @@ function install($adminPassword, $timezone)
 		$title = Text::replace('slug','title', $slug);
 		$content = Text::replace('slug','content', $slug);
 
-		$data[$language->get($slug)]= array(
-			'title'=>$language->get($title),
+		$data[$L->get($slug)]= array(
+			'title'=>$L->get($title),
 			'description'=>'',
 			'username'=>'admin',
 			'tags'=>array(),
@@ -333,7 +333,7 @@ function install($adminPassword, $timezone)
 			'noarchive'=>false
 		);
 
-		file_put_contents(PATH_PAGES.$language->get($slug).DS.FILENAME, $language->get($content), LOCK_EX);
+		file_put_contents(PATH_PAGES.$L->get($slug).DS.FILENAME, $L->get($content), LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -349,12 +349,12 @@ function install($adminPassword, $timezone)
 	}
 	$data = array(
 		'title'=>'BLUDIT',
-		'slogan'=>$language->get('welcome-to-bludit'),
-		'description'=>$language->get('congratulations-you-have-successfully-installed-your-bludit'),
+		'slogan'=>$L->get('welcome-to-bludit'),
+		'description'=>$L->get('congratulations-you-have-successfully-installed-your-bludit'),
 		'footer'=>'Copyright © '.Date::current('Y'),
 		'itemsPerPage'=>6,
-		'language'=>$language->currentLanguage(),
-		'locale'=>$language->locale(),
+		'language'=>$L->currentLanguage(),
+		'locale'=>$L->locale(),
 		'timezone'=>$timezone,
 		'theme'=>'alternative',
 		'adminTheme'=>'booty',
@@ -394,7 +394,7 @@ function install($adminPassword, $timezone)
 	$data = array(
 		'admin'=>array(
 			'nickname'=>'Admin',
-			'firstName'=>$language->get('Administrator'),
+			'firstName'=>$L->get('Administrator'),
 			'lastName'=>'',
 			'role'=>'admin',
 			'password'=>$passwordHash,
@@ -458,8 +458,8 @@ function install($adminPassword, $timezone)
 		$dataHead.json_encode(
 			array(
 				'position'=>1,
-				'label'=>$language->get('About'),
-				'text'=>$language->get('this-is-a-brief-description-of-yourself-our-your-site')
+				'label'=>$L->get('About'),
+				'text'=>$L->get('this-is-a-brief-description-of-yourself-our-your-site')
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -471,7 +471,7 @@ function install($adminPassword, $timezone)
 		$dataHead.json_encode(
 			array(
 				'position'=>2,
-				'label'=>$language->get('Tags')
+				'label'=>$L->get('Tags')
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -483,7 +483,7 @@ function install($adminPassword, $timezone)
 		$dataHead.json_encode(
 			array(
 				'numberOfDays'=>7,
-				'label'=>$language->get('Visits'),
+				'label'=>$L->get('Visits'),
 				'excludeAdmins'=>false,
 				'position'=>1
 			),
@@ -555,7 +555,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $language->get('Bludit Installer') ?></title>
+	<title><?php echo $L->get('Bludit Installer') ?></title>
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="robots" content="noindex,nofollow">
@@ -576,7 +576,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container">
 	<div class="row justify-content-md-center pt-5">
 		<div class="col-md-4 pt-5">
-			<h1 class="text-center mb-5 mt-5 font-weight-normal text-uppercase" style="color: #555;"><?php echo $language->get('Bludit Installer') ?></h1>
+			<h1 class="text-center mb-5 mt-5 font-weight-normal text-uppercase" style="color: #555;"><?php echo $L->get('Bludit Installer') ?></h1>
 			<?php
 			$system = checkSystem();
 			if (!empty($system)) {
@@ -591,7 +591,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			elseif (isset($_GET['language']))
 			{
 			?>
-				<p><?php echo $language->get('Choose a password for the username admin') ?></p>
+				<p><?php echo $L->get('Choose a password for the username admin') ?></p>
 
 				<form id="jsformInstaller" method="post" action="" autocomplete="off">
 					<input type="hidden" name="timezone" id="jstimezone" value="UTC">
@@ -601,12 +601,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</div>
 
 					<div class="form-group mb-0">
-					<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $language->p('Password') ?>">
+					<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
 					</div>
-					<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $language->p('Show password') ?></div>
+					<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary mr-2 w-100" name="install"><?php $language->p('Install') ?></button>
+					<button type="submit" class="btn btn-primary mr-2 w-100" name="install"><?php $L->p('Install') ?></button>
 					</div>
 				</form>
 			<?php
@@ -615,7 +615,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			{
 			?>
 				<form id="jsformLanguage" method="get" action="" autocomplete="off">
-					<label for="jslanguage"><?php echo $language->get('Choose your language') ?></label>
+					<label for="jslanguage"><?php echo $L->get('Choose your language') ?></label>
 					<select id="jslanguage" name="language" class="form-control form-control-lg">
 					<?php
 						$htmlOptions = getLanguageList();
@@ -626,7 +626,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</select>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary mr-2 w-100"><?php $language->p('Next') ?></button>
+					<button type="submit" class="btn btn-primary mr-2 w-100"><?php $L->p('Next') ?></button>
 					</div>
 				</form>
 			<?php

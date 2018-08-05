@@ -6,15 +6,15 @@ class Date {
 	// Example: $date = 'Mon, 27th March' > 'Lun, 27th Marzo'
 	public static function translate($date)
 	{
-		global $language;
+		global $L;
 
 		// If English default language don't translate
-		if ($language->currentLanguage()=='en') {
+		if ($L->currentLanguage()=='en') {
 			return $date;
 		}
 
 		// Get the array of dates from the language file
-		$dates = $language->getDates();
+		$dates = $L->getDates();
 		foreach ($dates as $english=>$anotherLang) {
 			$date = preg_replace('/\b'.$english.'\b/u', $anotherLang, $date);
 		}

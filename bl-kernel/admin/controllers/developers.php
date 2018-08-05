@@ -48,4 +48,4 @@ function printTable($title, $array) {
 // Main after POST
 // ============================================================================
 
-$layout['title'] .= ' - '.$language->g('Developers');
+$layout['title'] .= ' - '.$L->g('Developers');

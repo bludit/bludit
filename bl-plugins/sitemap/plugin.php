@@ -10,10 +10,10 @@ class pluginSitemap extends Plugin {
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div>';
-		$html .= '<label>'.$language->get('Sitemap URL').'</label>';
+		$html .= '<label>'.$L->get('Sitemap URL').'</label>';
 		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
 		$html .= '</div>';
 

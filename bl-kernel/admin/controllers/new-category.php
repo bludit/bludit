@@ -29,4 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('New category');
+$layout['title'] .= ' - '.$L->g('New category');

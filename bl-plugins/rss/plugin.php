@@ -13,21 +13,21 @@ class pluginRSS extends Plugin {
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('RSS URL').'</label>';
+		$html .= '<label>'.$L->get('RSS URL').'</label>';
 		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Amount of items').'</label>';
+		$html .= '<label>'.$L->get('Amount of items').'</label>';
 		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
-		$html .= '<span class="tip">'.$language->get('Amount of items to show on the feed').'</span>';
+		$html .= '<span class="tip">'.$L->get('Amount of items to show on the feed').'</span>';
 		$html .= '</div>';
 
 		return $html;

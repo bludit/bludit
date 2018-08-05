@@ -13,29 +13,29 @@ class pluginDisqus extends Plugin {
 
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('disqus-shortname').'</label>';
+		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
 		$html .= '</div>';
 
                 $html .= '<div>';
-                $html .= '<label>'.$language->get('enable-disqus-on-pages').'</label>';
+                $html .= '<label>'.$L->get('enable-disqus-on-pages').'</label>';
                 $html .= '<select name="enablePages">';
-                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$language->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$language->get('disabled').'</option>';
+                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
                 $html .= '</div>';
                 $html .= '<div>';
-                $html .= '<label>'.$language->get('enable-disqus-on-posts').'</label>';
+                $html .= '<label>'.$L->get('enable-disqus-on-posts').'</label>';
                 $html .= '<select name="enablePosts">';
-                $html .= '<option value="true" '.($this->getValue('enablePosts')===true?'selected':'').'>'.$language->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePosts')===false?'selected':'').'>'.$language->get('disabled').'</option>';
+                $html .= '<option value="true" '.($this->getValue('enablePosts')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enablePosts')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
                 $html .= '</div>';
 

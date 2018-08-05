@@ -12,10 +12,10 @@ function checkLogin($args)
 {
 	global $security;
 	global $login;
-	global $language;
+	global $L;
 
 	if ($security->isBlocked()) {
-		Alert::set($language->g('IP address has been blocked').'<br>'.$language->g('Try again in a few minutes'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('IP address has been blocked').'<br>'.$L->g('Try again in a few minutes'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
@@ -26,12 +26,6 @@ function checkLogin($args)
 		// Renew the token. This token will be the same inside the session for multiple forms.
 		$security->generateTokenCSRF();
 
-		// Users with the role reader do not need access to dashboard
-		if ($login->role()=='reader') {
-			Redirect::home();
-		}
-
-		// Other user without the role reader redirect to dashboard
 		Redirect::page('dashboard');
 		return true;
 	}
@@ -40,7 +34,7 @@ function checkLogin($args)
 	$security->addToBlacklist();
 
 	// Create alert
-	Alert::set($language->g('Username or password incorrect'), ALERT_STATUS_FAIL);
+	Alert::set($L->g('Username or password incorrect'), ALERT_STATUS_FAIL);
 	return false;
 }
 

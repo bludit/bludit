@@ -29,4 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('Add a new user');
+$layout['title'] .= ' - '.$L->g('Add a new user');

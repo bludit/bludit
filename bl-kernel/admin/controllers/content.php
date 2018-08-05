@@ -39,4 +39,4 @@ $static = $pages->getStaticDB(true);
 $sticky = $pages->getStickyDB(true);
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('Manage content');
+$layout['title'] .= ' - '.$L->g('Manage content');

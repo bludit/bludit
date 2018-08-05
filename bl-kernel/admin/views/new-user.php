@@ -41,8 +41,8 @@ echo Bootstrap::formOpen(array());
 	echo Bootstrap::formSelect(array(
 		'name'=>'role',
 		'label'=>$L->g('Role'),
-		'options'=>array('reader'=>$L->g('Reader'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
-		'selected'=>'reader',
+		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+		'selected'=>'Editor',
 		'class'=>'',
 		'tip'=>''
 	));

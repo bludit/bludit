@@ -3,13 +3,13 @@
 <!-- TABS -->
 <ul class="nav nav-tabs" id="dynamicTab" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">Content</a>
+		<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true"><?php $L->p('Editor') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('Images') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false">Options</a>
+		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false"><?php $L->p('Options') ?></a>
 	</li>
 </ul>
 	<?php
@@ -65,13 +65,13 @@
 	<div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
 
 		<div class="form-group m-0">
-			<input value="<?php echo $page->title() ?>" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="Enter title" type="text">
+			<input value="<?php echo $page->title() ?>" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="<?php $L->p('Enter title') ?>" type="text">
 		</div>
 
 		<div class="form-group m-0 mt-1">
-			<button id="jsmediaManagerButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> Media Manager</button>
-			<button id="jscategoryButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> Category: <span class="option">-</span></button>
-			<button id="jsdescriptionButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> Description: <span class="option">-</span></button>
+			<button id="jsmediaManagerButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Media Manager') ?></button>
+			<button id="jscategoryButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> <?php $L->p('Category') ?>: <span class="option">-</span></button>
+			<button id="jsdescriptionButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> <?php $L->p('Description') ?>: <span class="option">-</span></button>
 		</div>
 
 		<div class="form-group mt-1">
@@ -79,13 +79,13 @@
 		</div>
 
 		<?php if($page->draft()): ?>
-		<div class="alert alert-primary mt-2 mb-2">The content is saved as a draft. To publish it click on the button <b>Publish</b> or if you still working on it click on <b>Save as draft</b>.</div>
+		<div class="alert alert-primary mt-2 mb-2"><?php $L->p('The content is saved as a draft. To publish it click on the button <b>Publish</b> or if you still working on it click on <b>Save as draft</b>.') ?></div>
 		<?php endif; ?>
 
 		<div class="form-group mt-2">
-			<button type="button" class="jsbuttonSave btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
-			<button type="button" class="jsbuttonDraft btn btn-secondary"><?php echo $L->g('Save as draft') ?></button>
-			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php echo $L->g('Cancel') ?></a>
+			<button type="button" class="jsbuttonSave btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+			<button type="button" class="jsbuttonDraft btn btn-secondary"><?php $L->p('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php $L->p('Cancel') ?></a>
 			<?php
 			if (count($page->children())===0) {
 				echo '<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#jsdeletePageModal">'.$L->g('Delete').'</button>';
@@ -100,10 +100,10 @@
 
 		<div>
 			<div class="float-right">
-				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
-				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php $L->p('Save as draft') ?></button>
 			</div>
-			<h4 class="mt-4 mb-4 font-weight-normal">Cover Image</h4>
+			<h4 class="mt-4 mb-4 font-weight-normal"><?php $L->p('Cover image') ?></h4>
 		</div>
 
 		<?php
@@ -118,13 +118,13 @@
 		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
 
 		<?php
-			echo Bootstrap::formTitle(array('title'=>'External Cover image'));
+			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover image')));
 
 			echo Bootstrap::formInputTextBlock(array(
 				'name'=>'externalCoverImage',
 				'placeholder'=>'https://',
 				'value'=>$externalCoverImage,
-				'tip'=>'Set a cover image from external URL, such as a CDN or some server dedicated for images.'
+				'tip'=>$L->g('Set a cover image from external URL, such as a CDN or some server dedicated for images.')
 			));
 		?>
 
@@ -135,17 +135,17 @@
 
 		<div>
 			<div class="float-right">
-				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Update')) ?></button>
-				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php echo $L->g('Save as draft') ?></button>
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php $L->p('Save as draft') ?></button>
 			</div>
-			<h4 class="mt-4 mb-4 font-weight-normal">General</h4>
+			<h4 class="mt-4 mb-4 font-weight-normal"><?php $L->p('General') ?></h4>
 		</div>
 
 		<?php
 			// Username
 			echo Bootstrap::formInputText(array(
 				'name'=>'',
-				'label'=>'User',
+				'label'=>$L->g('User'),
 				'placeholder'=>'',
 				'value'=>$page->username(),
 				'tip'=>'',
@@ -155,23 +155,23 @@
 			// Date
 			echo Bootstrap::formInputText(array(
 				'name'=>'date',
-				'label'=>'Date',
+				'label'=>$L->g('Date'),
 				'placeholder'=>'',
 				'value'=>$page->dateRaw(),
-				'tip'=>'Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>'
+				'tip'=>$L->g('Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>')
 			));
 
 			// Type
 			echo Bootstrap::formSelect(array(
 				'name'=>'typeTMP',
-				'label'=>'Type',
+				'label'=>$L->g('Type'),
 				'selected'=>$page->type(),
 				'options'=>array(
-					'published'=>'- Default -',
-					'sticky'=>'Sticky',
-					'static'=>'Static'
+					'published'=>'- '.$L->g('Default').' -',
+					'sticky'=>$L->g('Sticky'),
+					'static'=>$L->g('Static')
 				),
-				'tip'=>'???'
+				'tip'=>''
 			));
 
 			// Parent
@@ -187,7 +187,7 @@
 				'name'=>'parentTMP',
 				'label'=>$L->g('Parent'),
 				'placeholder'=>'',
-				'tip'=>'Start typing a page title to see a list of suggestions.',
+				'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
 				'value'=>$parentOption
 			));
 
@@ -195,17 +195,17 @@
 			echo Bootstrap::formInputText(array(
 				'name'=>'position',
 				'label'=>$L->g('Position'),
-				'tip'=>'Field used when ordering content by position',
+				'tip'=>$L->g('Field used when ordering content by position'),
 				'value'=>$page->position()
 			));
 
 			// Template
 			echo Bootstrap::formInputText(array(
 				'name'=>'template',
-				'label'=>'Template',
+				'label'=>$L->g('Template'),
 				'placeholder'=>'',
 				'value'=>$page->template(),
-				'tip'=>'Write a template name to filter the page in the theme and change the style of the page.'
+				'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
 			));
 
 			echo Bootstrap::formTitle(array('title'=>'SEO'));
@@ -213,10 +213,10 @@
 			// Tags
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
-				'label'=>'Tags',
+				'label'=>$L->g('Tags'),
 				'placeholder'=>'',
 				'value'=>$page->tags(),
-				'tip'=>'Write the tags separated by comma'
+				'tip'=>$L->g('Write the tags separated by comma')
 			));
 
 			// Friendly URL
@@ -224,36 +224,36 @@
 				'name'=>'slug',
 				'tip'=>$L->g('URL associated with the content'),
 				'label'=>$L->g('Friendly URL'),
-				'placeholder'=>'Leave empty for autocomplete by Bludit.',
+				'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.'),
 				'value'=>$page->slug()
 			));
 
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'noindex',
 				'label'=>'Robots',
-				'labelForCheckbox'=>'Apply <code>noindex</code> to this page',
+				'labelForCheckbox'=>$L->g('Apply <code>noindex</code> to this page'),
 				'placeholder'=>'',
 				'class'=>'mt-4',
 				'checked'=>$page->noindex(),
-				'tip'=>'This tells search engines not to show this page in their search results.'
+				'tip'=>$L->g('This tells search engines not to show this page in their search results.')
 			));
 
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'nofollow',
 				'label'=>'',
-				'labelForCheckbox'=>'Apply <code>nofollow</code> to this page',
+				'labelForCheckbox'=>$L->g('Apply <code>nofollow</code> to this page'),
 				'placeholder'=>'',
 				'checked'=>$page->nofollow(),
-				'tip'=>'This tells search engines not to follow links on this page.'
+				'tip'=>$L->g('This tells search engines not to follow links on this page.')
 			));
 
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'noarchive',
 				'label'=>'',
-				'labelForCheckbox'=>'Apply <code>noarchive</code> to this page',
+				'labelForCheckbox'=>$L->g('Apply <code>noarchive</code> to this page'),
 				'placeholder'=>'',
 				'checked'=>$page->noarchive(),
-				'tip'=>'This tells search engines not to save a cached copy of this page.'
+				'tip'=>$L->g('This tells search engines not to save a cached copy of this page.')
 			));
 
 		?>
@@ -261,12 +261,12 @@
 
 	<!-- Modal for delete page -->
 	<?php echo Bootstrap::modal(array(
-		'buttonPrimary'=>'Delete',
+		'buttonPrimary'=>$L->g('Delete'),
 		'buttonPrimaryClass'=>'jsbuttonDeleteAccept',
-		'buttonSecondary'=>'Cancel',
+		'buttonSecondary'=>$L->g('Cancel'),
 		'buttonSecondaryClass'=>'',
-		'modalTitle'=>'Delete content',
-		'modalText'=>'Are you sure you want to delete: <b>'.$page->title().'</b>',
+		'modalTitle'=>$L->g('Delete content'),
+		'modalText'=>$L->g('Are you sure you want to delete this page'),
 		'modalId'=>'jsdeletePageModal'
 	));
 	?>
@@ -286,7 +286,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Category</h5>
+					<h5 class="modal-title"><?php $L->p('Category') ?></h5>
 				</div>
 				<div class="modal-body">
 					<?php
@@ -295,13 +295,13 @@
 							'label'=>'',
 							'selected'=>$page->categoryKey(),
 							'class'=>'',
-							'emptyOption'=>'- Uncategorized -',
+							'emptyOption'=>'- '.$L->g('Uncategorized').' -',
 							'options'=>$categories->getKeyNameArray()
 						));
 					?>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><?php $L->p('Done') ?></button>
 				</div>
 			</div>
 		</div>
@@ -333,7 +333,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Description</h5>
+					<h5 class="modal-title"><?php $L->p('Description') ?></h5>
 				</div>
 				<div class="modal-body">
 					<?php
@@ -344,12 +344,12 @@
 							'class'=>'',
 							'value'=>$page->description(),
 							'rows'=>3,
-							'placeholder'=>$language->get('this-field-can-help-describe-the-content')
+							'placeholder'=>$L->get('this-field-can-help-describe-the-content')
 						));
 					?>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><?php $L->p('Done') ?></button>
 				</div>
 			</div>
 		</div>

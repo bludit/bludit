@@ -36,4 +36,4 @@ function updateBludit() {
 updateBludit();
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('Dashboard');
+$layout['title'] .= ' - '.$L->g('Dashboard');

@@ -38,7 +38,7 @@ echo Bootstrap::formOpen(array());
 		echo Bootstrap::formSelect(array(
 			'name'=>'role',
 			'label'=>$L->g('Role'),
-			'options'=>array('reader'=>$L->g('Reader'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+			'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 			'selected'=>$user->role(),
 			'class'=>'',
 			'tip'=>''
@@ -62,7 +62,7 @@ echo Bootstrap::formOpen(array());
 		'value'=>$user->nickname(),
 		'class'=>'',
 		'placeholder'=>'',
-		'tip'=>'The nickname is almost used in the themes to display the author of the content'
+		'tip'=>$L->g('The nickname is almost used in the themes to display the author of the content')
 	));
 
 	echo Bootstrap::formInputText(array(
@@ -122,7 +122,7 @@ echo Bootstrap::formOpen(array());
 		<div class="col-sm-10">
 			<button type="submit" class="btn btn-primary mr-2" id="jsdisableUser" name="disableUser">'.$L->g('Disable user').'</button>
 			<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">'.$L->g('Delete user and keep content').'</button>
-			<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content !!!').'</button>
+			<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content').'</button>
 		</div>
 		</div>
 		';
@@ -216,7 +216,7 @@ echo '
 		<input type="hidden" name="tokenCSRF" value="'.$security->getTokenCSRF().'">
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
-			<label class="custom-file-label" for="jsprofilePictureInputFile">Choose images</label>
+			<label class="custom-file-label" for="jsprofilePictureInputFile"></label>
 		</div>
 	</form>
 </div>
@@ -229,13 +229,13 @@ echo '
 $(document).ready(function() {
 
 	$("#jsdeleteUserAndDeleteContent").click(function() {
-		if(confirm("<?php $language->p('Confirm delete this action cannot be undone') ?>")==false) {
+		if(confirm("<?php $L->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});
 
 	$("#jsdeleteUserAndKeepContent").click(function() {
-		if(confirm("<?php $language->p('Confirm delete this action cannot be undone') ?>")==false) {
+		if(confirm("<?php $L->p('Confirm delete this action cannot be undone') ?>")==false) {
 			return false;
 		}
 	});

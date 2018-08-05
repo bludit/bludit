@@ -220,7 +220,7 @@ class Plugin {
 
 		// Create database
 		$this->dbFields['position'] = $position;
-		$this->setDb($this->dbFields);
+		$this->db = $this->dbFields;
 
 		return true;
 	}

@@ -9,7 +9,7 @@ if (!checkRole(array('admin','editor'), false)) {
 		$pageKey = isset($_POST['key']) ? $_POST['key'] : $layout['parameters'];
 		$page = new Page($pageKey);
 	} catch (Exception $e) {
-		Alert::set($language->g('You do not have sufficient permissions'));
+		Alert::set($L->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
 	}
 
@@ -20,7 +20,7 @@ if (!checkRole(array('admin','editor'), false)) {
 			'notes'=>$login->username()
 		));
 
-		Alert::set($language->g('You do not have sufficient permissions'));
+		Alert::set($L->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
 	}
 }
@@ -40,7 +40,7 @@ if (!checkRole(array('admin','editor'), false)) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['type']==='delete') {
 		if (deletePage($_POST['key'])) {
-			Alert::set( $language->g('The changes have been saved') );
+			Alert::set( $L->g('The changes have been saved') );
 		}
 	} else {
 		// If the checkbox is not selected the form doesn't send the field
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$key = editPage($_POST);
 		if ($key!==false) {
-			Alert::set( $language->g('The changes have been saved') );
+			Alert::set( $L->g('The changes have been saved') );
 			Redirect::page('edit-content/'.$key);
 		}
 	}
@@ -70,4 +70,4 @@ try {
 }
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('Edit content').' - '.$page->title();
+$layout['title'] .= ' - '.$L->g('Edit content').' - '.$page->title();

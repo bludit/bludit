@@ -126,7 +126,7 @@ class Text {
 	// This function can return an empty string
 	public static function cleanUrl($string, $separator='-')
 	{
-		global $language;
+		global $L;
 
 		if (EXTREME_FRIENDLY_URL) {
 			$string = self::lowercase($string);
@@ -137,7 +137,7 @@ class Text {
 		}
 
 		// Transliterate characters to ASCII
-		$specialCharsFromDictionary = $language->getSpecialChars();
+		$specialCharsFromDictionary = $L->getSpecialChars();
 		$string = str_replace(array_keys($specialCharsFromDictionary), $specialCharsFromDictionary, $string);
 		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
 

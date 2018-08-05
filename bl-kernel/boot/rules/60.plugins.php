@@ -50,7 +50,7 @@ function buildPlugins()
 {
 	global $plugins;
 	global $pluginsEvents;
-	global $language;
+	global $L;
 	global $site;
 
 	// List plugins directories
@@ -90,7 +90,7 @@ function buildPlugins()
 		// This function overwrite the key=>value
 		unset($database['plugin-data']);
 		if (!empty($database)) {
-			$language->add($database);
+			$L->add($database);
 		}
 
 		// $plugins['all'] Array with all plugins, installed and not installed

@@ -33,4 +33,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] = $language->g('New content').' - '.$layout['title'];
+$layout['title'] = $L->g('New content').' - '.$layout['title'];

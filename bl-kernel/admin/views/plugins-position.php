@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Plugin position'), 'icon'=>'tags'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins position'), 'icon'=>'tags'));
 
 echo Bootstrap::alert(array('class'=>'alert-primary', 'text'=>$L->g('Drag and Drop to sort the plugins')));
 

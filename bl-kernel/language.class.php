@@ -74,6 +74,7 @@ class Language extends dbJSON {
 	{
 		$key = Text::lowercase($string);
 		$key = Text::replace(' ', '-', $key);
+		$key = Text::replace('.', '', $key);
 
 		//file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
 
@@ -81,7 +82,8 @@ class Language extends dbJSON {
 			return $this->db[$key];
 		}
 
-		//file_put_contents(DEBUG_FILE, $key.PHP_EOL, FILE_APPEND);
+		$line = '"'.$key.'": "'.$string.'",';
+		file_put_contents(DEBUG_FILE, $line.PHP_EOL, FILE_APPEND);
 		return $string;
 	}
 

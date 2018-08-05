@@ -217,52 +217,52 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formSelect(array(
 			'name'=>'extremeFriendly',
-			'label'=>'Allow Unicode',
-			'options'=>array('true'=>'Enabled', 'false'=>'Disable'),
+			'label'=>$L->g('Allow Unicode'),
+			'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
 			'selected'=>($site->extremeFriendly()?'true':'false'),
 			'class'=>'',
-			'tip'=>'Allow unicode characters in the URL and some part of the system.'
+			'tip'=>$L->g('Allow unicode characters in the URL and some part of the system.')
 		));
 
 		echo Bootstrap::formTitle(array('title'=>$L->g('Title formats')));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatHomepage',
-			'label'=>'Homepage',
+			'label'=>$L->g('Homepage'),
 			'value'=>$site->titleFormatHomepage(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>'Variables allowed: <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'tip'=>$L->g('Variables allowed').' <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
 		));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatPages',
-			'label'=>'Pages',
+			'label'=>$L->g('Pages'),
 			'value'=>$site->titleFormatPages(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>'Variables allowed: <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'tip'=>$L->g('Variables allowed').' <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
 		));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatCategory',
-			'label'=>'Category',
+			'label'=>$L->g('Category'),
 			'value'=>$site->titleFormatCategory(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>'Variables allowed: <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'tip'=>$L->g('Variables allowed').' <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
 		));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'titleFormatTag',
-			'label'=>'Tag',
+			'label'=>$L->g('Tag'),
 			'value'=>$site->titleFormatTag(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>'Variables allowed: <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'tip'=>$L->g('Variables allowed').' <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
 		));
 
@@ -366,7 +366,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		echo Bootstrap::formSelect(array(
 			'name'=>'language',
 			'label'=>$L->g('Language'),
-			'options'=>$language->getLanguageList(),
+			'options'=>$L->getLanguageList(),
 			'selected'=>$site->language(),
 			'class'=>'',
 			'tip'=>$L->g('select-your-sites-language')

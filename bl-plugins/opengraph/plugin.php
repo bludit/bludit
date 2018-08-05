@@ -12,14 +12,14 @@ class pluginOpenGraph extends Plugin {
 
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Default image').'</label>';
+		$html .= '<label>'.$L->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
 		$html .= '<span class="tip">Set a default image for the content without pictures.</span>';
 		$html .= '</div>';

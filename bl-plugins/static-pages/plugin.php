@@ -14,25 +14,25 @@ class pluginStaticPages extends Plugin {
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Label').'</label>';
+		$html .= '<label>'.$L->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Home link').'</label>';
+		$html .= '<label>'.$L->get('Home link').'</label>';
 		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$language->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$language->get('Disabled').'</option>';
+		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
 		$html .= '</select>';
-		$html .= '<span class="tip">'.$language->get('show-the-home-link-on-the-sidebar').'</span>';
+		$html .= '<span class="tip">'.$L->get('show-the-home-link-on-the-sidebar').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -41,7 +41,7 @@ class pluginStaticPages extends Plugin {
 	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
-		global $language;
+		global $L;
 		global $url;
 		global $site;
 		global $pages;
@@ -61,7 +61,7 @@ class pluginStaticPages extends Plugin {
 		// Show Home page link
 		if ($this->getValue('homeLink')) {
 			$html .= '<li>';
-			$html .= '<a href="' . $site->url() . '">' . $language->get('Home page') . '</a>';
+			$html .= '<a href="' . $site->url() . '">' . $L->get('Home page') . '</a>';
 			$html .= '</li>';
 		}
 

@@ -64,19 +64,19 @@ class pluginBackup extends Plugin {
 
 	public function form()
 	{
-		global $language;
+		global $L;
 
 		$backups = $this->backupList();
 
 		$html = '';
 		if (empty($backups)) {
 			$html .= '<div class="alert alert-primary" role="alert">';
-			$html .= $language->get('There are no backups for the moment');
+			$html .= $L->get('There are no backups for the moment');
 		      	$html .= '</div>';
 		}
 
 		$html .= '<div>';
-		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="oi oi-play-circle"></span> '.$language->get('create-backup').'</button>';
+		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="oi oi-play-circle"></span> '.$L->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -88,10 +88,10 @@ class pluginBackup extends Plugin {
 			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$language->get('download').'</a>';
+				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
 			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$language->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$language->get('delete-backup').'</button>';
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$L->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$L->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}

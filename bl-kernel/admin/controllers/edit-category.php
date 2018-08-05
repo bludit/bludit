@@ -41,4 +41,4 @@ if (!$categories->exists($categoryKey)) {
 $categoryMap = $categories->getMap($categoryKey);
 
 // Title of the page
-$layout['title'] .= ' - '.$language->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';
+$layout['title'] .= ' - '.$L->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';

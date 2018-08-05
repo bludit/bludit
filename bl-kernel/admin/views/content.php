@@ -4,7 +4,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'layers'));
 
 function table($type) {
 	global $url;
-	global $language;
+	global $L;
 	global $published;
 	global $drafts;
 	global $scheduled;
@@ -15,7 +15,7 @@ function table($type) {
 		$list = $published;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $language->g('There are no pages at this moment.');
+			echo $L->g('There are no pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -23,7 +23,7 @@ function table($type) {
 		$list = $drafts;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $language->g('There are no draft pages at this moment.');
+			echo $L->g('There are no draft pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -31,7 +31,7 @@ function table($type) {
 		$list = $scheduled;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $language->g('There are no scheduled pages at this moment.');
+			echo $L->g('There are no scheduled pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -39,7 +39,7 @@ function table($type) {
 		$list = $static;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $language->g('There are no static pages at this moment.');
+			echo $L->g('There are no static pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -47,7 +47,7 @@ function table($type) {
 		$list = $sticky;
 		if (empty($list)) {
 			echo '<p class="mt-4 text-muted">';
-			echo $language->g('There are no sticky pages at this moment.');
+			echo $L->g('There are no sticky pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -57,9 +57,9 @@ function table($type) {
 	<table class="table mt-3">
 		<thead>
 			<tr>
-				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$language->g('Title').'</th>
-				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$language->g('URL').'</th>
-				<th style="font-size: 0.8em;" class="border-0 text-center d-none d-sm-table-cell text-uppercase text-muted" scope="col">Actions</th>
+				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$L->g('Title').'</th>
+				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$L->g('URL').'</th>
+				<th style="font-size: 0.8em;" class="border-0 text-center d-none d-sm-table-cell text-uppercase text-muted" scope="col">'.$L->g('Actions').'</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -73,7 +73,7 @@ function table($type) {
 					echo '<tr>
 					<td>
 						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span>'.$language->g('Empty title').'</span> ')
+						.($page->title()?$page->title():'<span>'.$L->g('Empty title').'</span> ')
 						.'</a>
 					</td>';
 
@@ -89,7 +89,7 @@ function table($type) {
 						echo '<tr>
 						<td>
 							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
-							.($child->title()?$child->title():'<span>'.$language->g('Empty title').'</span> ')
+							.($child->title()?$child->title():'<span>'.$L->g('Empty title').'</span> ')
 							.'</a>
 						</td>';
 
@@ -114,7 +114,7 @@ function table($type) {
 				echo '<td class="pt-3">
 					<div>
 						<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span class="label-empty-title">'.$language->g('Empty title').'</span> ')
+						.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
 						.'</a>
 					</div>
 					<div>
@@ -126,8 +126,8 @@ function table($type) {
 				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-				echo '<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> Edit</a>'.PHP_EOL;
-				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> Delete</button>'.PHP_EOL;
+				echo '<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
 				echo '</td>';
 
 				echo '</tr>';
@@ -148,19 +148,19 @@ function table($type) {
 <!-- TABS -->
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab">Pages</a>
+		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="static-tab" data-toggle="tab" href="#static" role="tab">Static</a>
+		<a class="nav-link" id="static-tab" data-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="sticky-tab" data-toggle="tab" href="#sticky" role="tab">Sticky</a>
+		<a class="nav-link" id="sticky-tab" data-toggle="tab" href="#sticky" role="tab"><?php $L->p('Sticky') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab">Schedule <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
+		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab">Draft <?php if (count($drafts)>0) { echo '<span class="badge badge-danger">'.count($drafts).'</span>'; } ?></a>
+		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?> <?php if (count($drafts)>0) { echo '<span class="badge badge-danger">'.count($drafts).'</span>'; } ?></a>
 	</li>
 </ul>
 <div class="tab-content">
@@ -175,22 +175,22 @@ function table($type) {
 
 			<!-- First button -->
 			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $language->get('First'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle oi oi-media-skip-backward"></span> <?php echo $L->get('First'); ?></a>
 			</li>
 
 			<!-- Previous button -->
 			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $language->get('Previous'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $L->get('Previous'); ?></a>
 			</li>
 
 			<!-- Next button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $language->get('Next'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?></a>
 			</li>
 
 			<!-- Last button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $language->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
+				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $L->get('Last'); ?> <span class="align-middle oi oi-media-skip-forward"></span></a>
 			</li>
 
 			</ul>
@@ -222,11 +222,11 @@ function table($type) {
 <!-- Modal for delete page -->
 <?php echo Bootstrap::modal(array(
 	'modalId'=>'jsdeletePageModal',
-	'modalTitle'=>'<span class="oi oi-trash"></span> ' . 'Delete content',
-	'modalText'=>'Are you sure you want to delete this page?',
-	'buttonPrimary'=>'Delete',
+	'modalTitle'=>$L->g('Delete content'),
+	'modalText'=>$L->g('Are you sure you want to delete this page'),
+	'buttonPrimary'=>$L->g('Delete'),
 	'buttonPrimaryClass'=>'deletePageModalAcceptButton',
-	'buttonSecondary'=>'Cancel',
+	'buttonSecondary'=>$L->g('Cancel'),
 	'buttonSecondaryClass'=>''
 ));
 ?>

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		editUser($_POST);
 	}
 
-	Alert::set($language->g('The changes have been saved'));
+	Alert::set($L->g('The changes have been saved'));
 	Redirect::page('users');
 }
 
@@ -53,4 +53,4 @@ try {
 }
 
 // Title of the page
-$layout['title'] = $language->g('Edit user').' - '.$layout['title'];
+$layout['title'] = $L->g('Edit user').' - '.$layout['title'];

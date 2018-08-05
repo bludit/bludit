@@ -17,15 +17,15 @@ function reindexTags() {
 // Generate the page 404 Not found
 function buildErrorPage() {
 	global $site;
-	global $language;
+	global $L;
 
 	try {
 		$pageNotFoundKey = $site->pageNotFound();
 		$pageNotFound = New Page($pageNotFoundKey);
 	} catch (Exception $e) {
 		$pageNotFound = New Page(false);
-		$pageNotFound->setField('title', 	$language->get('page-not-found'));
-		$pageNotFound->setField('content', 	$language->get('page-not-found-content'));
+		$pageNotFound->setField('title', 	$L->get('page-not-found'));
+		$pageNotFound->setField('content', 	$L->get('page-not-found-content'));
 		$pageNotFound->setField('username', 	'admin');
 	}
 
@@ -197,7 +197,7 @@ function pluginActivated($pluginClassName) {
 function activatePlugin($pluginClassName) {
 	global $plugins;
 	global $syslog;
-	global $language;
+	global $L;
 
 	// Check if the plugin exists
 	if (isset($plugins['all'][$pluginClassName])) {
@@ -210,7 +210,7 @@ function activatePlugin($pluginClassName) {
 			));
 
 			// Create an alert
-			Alert::set($language->g('plugin-activated'));
+			Alert::set($L->g('plugin-activated'));
 			return true;
 		}
 	}
@@ -220,7 +220,7 @@ function activatePlugin($pluginClassName) {
 function deactivatePlugin($pluginClassName) {
 	global $plugins;
 	global $syslog;
-	global $language;
+	global $L;
 
 	// Check if the plugin exists
 	if (isset($plugins['all'][$pluginClassName])) {
@@ -234,7 +234,7 @@ function deactivatePlugin($pluginClassName) {
 			));
 
 			// Create an alert
-			Alert::set($language->g('plugin-deactivated'));
+			Alert::set($L->g('plugin-deactivated'));
 			return true;
 		}
 	}
@@ -244,7 +244,7 @@ function deactivatePlugin($pluginClassName) {
 function changePluginsPosition($pluginClassList) {
 	global $plugins;
 	global $syslog;
-	global $language;
+	global $L;
 
 	foreach ($pluginClassList as $position=>$pluginClassName) {
 		if (isset($plugins['all'][$pluginClassName])) {
@@ -259,14 +259,14 @@ function changePluginsPosition($pluginClassList) {
 		'notes'=>''
 	));
 
-	Alert::set($language->g('The changes have been saved'));
+	Alert::set($L->g('The changes have been saved'));
 	return true;
 }
 
 function createPage($args) {
 	global $pages;
 	global $syslog;
-	global $language;
+	global $L;
 
 	// Check if the autosave page exists for this new page and delete it
 	if (isset($args['uuid'])) {
@@ -298,7 +298,7 @@ function createPage($args) {
 			'notes'=>$args['title']
 		));
 
-		Alert::set( $language->g('new-content-created') );
+		Alert::set( $L->g('new-content-created') );
 		return $key;
 	}
 
@@ -488,30 +488,30 @@ function deleteUser($args) {
 
 function createUser($args) {
 	global $users;
-	global $language;
+	global $L;
 	global $syslog;
 
 	// Check empty username
 	if (Text::isEmpty($args['new_username'])) {
-		Alert::set($language->g('username-field-is-empty'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('username-field-is-empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Check already exist username
 	if ($users->exists($args['new_username'])) {
-		Alert::set($language->g('username-already-exists'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('username-already-exists'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Password length
 	if (Text::length($args['new_password']) < PASSWORD_LENGTH) {
-		Alert::set($language->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	// Check new password and confirm password are equal
 	if ($args['new_password'] != $args['confirm_password']) {
-		Alert::set($language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
@@ -539,7 +539,7 @@ function createUser($args) {
 function editSettings($args) {
 	global $site;
 	global $syslog;
-	global $language;
+	global $L;
 	global $pages;
 
 	if (isset($args['language'])) {
@@ -591,7 +591,7 @@ function editSettings($args) {
 		));
 
 		// Create alert
-		Alert::set($language->g('The changes have been saved'));
+		Alert::set($L->g('The changes have been saved'));
 		return true;
 	}
 
@@ -600,7 +600,7 @@ function editSettings($args) {
 
 function changeUserPassword($args) {
 	global $users;
-	global $language;
+	global $L;
 	global $syslog;
 
 	// Arguments
@@ -610,12 +610,12 @@ function changeUserPassword($args) {
 
 	// Password length
 	if (Text::length($newPassword) < 6) {
-		Alert::set($language->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
 	if ($newPassword!=$confirmPassword) {
-		Alert::set($language->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
@@ -626,7 +626,7 @@ function changeUserPassword($args) {
 			'notes'=>$username
 		));
 
-		Alert::set($language->g('The changes have been saved'), ALERT_STATUS_OK);
+		Alert::set($L->g('The changes have been saved'), ALERT_STATUS_OK);
 		return true;
 	}
 
@@ -636,7 +636,7 @@ function changeUserPassword($args) {
 // Returns true if the user is allowed to procceded
 function checkRole($allowRoles, $redirect=true) {
 	global $login;
-	global $language;
+	global $L;
 	global $syslog;
 
 	$userRole = $login->role();
@@ -651,10 +651,7 @@ function checkRole($allowRoles, $redirect=true) {
 			'notes'=>$login->username()
 		));
 
-		Alert::set($language->g('You do not have sufficient permissions'));
-		if ($userRole=='reader') {
-			Redirect::home();
-		}
+		Alert::set($L->g('You do not have sufficient permissions'));
 		Redirect::page('dashboard');
 	}
 	return false;
@@ -664,11 +661,11 @@ function checkRole($allowRoles, $redirect=true) {
 // Returns TRUE is successfully added, FALSE otherwise
 function createCategory($category) {
 	global $categories;
-	global $language;
+	global $L;
 	global $syslog;
 
 	if (Text::isEmpty($category)) {
-		Alert::set($language->g('Category name is empty'), ALERT_STATUS_FAIL);
+		Alert::set($L->g('Category name is empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
@@ -679,29 +676,29 @@ function createCategory($category) {
 			'notes'=>$category
 		));
 
-		Alert::set($language->g('Category added'), ALERT_STATUS_OK);
+		Alert::set($L->g('Category added'), ALERT_STATUS_OK);
 		return true;
 	}
 
-	Alert::set($language->g('The category already exists'), ALERT_STATUS_FAIL);
+	Alert::set($L->g('The category already exists'), ALERT_STATUS_FAIL);
 	return false;
 }
 
 function editCategory($args) {
-	global $language;
+	global $L;
 	global $pages;
 	global $categories;
 	global $syslog;
 
 	if (Text::isEmpty($args['name']) || Text::isEmpty($args['newKey']) ) {
-		Alert::set($language->g('Empty fields'));
+		Alert::set($L->g('Empty fields'));
 		return false;
 	}
 
 	$newCategoryKey = $categories->edit($args);
 
 	if ($newCategoryKey==false) {
-		Alert::set($language->g('The category already exists'));
+		Alert::set($L->g('The category already exists'));
 		return false;
 	}
 
@@ -714,12 +711,12 @@ function editCategory($args) {
 		'notes'=>$newCategoryKey
 	));
 
-	Alert::set($language->g('The changes have been saved'));
+	Alert::set($L->g('The changes have been saved'));
 	return true;
 }
 
 function deleteCategory($args) {
-	global $language;
+	global $L;
 	global $categories;
 	global $syslog;
 
@@ -734,7 +731,7 @@ function deleteCategory($args) {
 		'notes'=>$args['oldKey']
 	));
 
-	Alert::set($language->g('The changes have been saved'));
+	Alert::set($L->g('The changes have been saved'));
 	return true;
 }
 
@@ -796,7 +793,7 @@ function activateTheme($themeDirectory) {
 			'notes'=>$themeDirname
 		));
 
-		Alert::set( $language->g('The changes have been saved') );
+		Alert::set( $L->g('The changes have been saved') );
 		return true;
 	}
 	return false;
