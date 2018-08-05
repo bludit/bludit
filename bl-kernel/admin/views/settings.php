@@ -33,6 +33,12 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 		'name'=>'tokenCSRF',
 		'value'=>$security->getTokenCSRF()
 	));
+
+	// Homepage
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'homepage',
+		'value'=>$site->homepage()
+	));
 ?>
 
 	<!-- TABS GENERAL -->
@@ -108,12 +114,21 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formTitle(array('title'=>$L->g('Predefined pages')));
 
+		// Homepage
+		try {
+			$homeKey = $site->homepage();
+			$home = new Page($homeKey);
+			$homeValue = $home->title();
+		} catch (Exception $e) {
+			$homeValue = '';
+		}
+
 		echo Bootstrap::formInputText(array(
-			'name'=>'homepage',
+			'name'=>'homepageTMP',
 			'label'=>$L->g('Homepage'),
-			'value'=>(Text::isEmpty($site->homepage())?'':$site->homepage()),
+			'value'=>$homeValue,
 			'class'=>'',
-			'placeholder'=>'Start writing the title of the page',
+			'placeholder'=>$L->g('Start typing a page title to see a list of suggestions.'),
 			'tip'=>$L->g('Returning page for the main page')
 		));
 
@@ -419,7 +434,7 @@ $(document).ready(function() {
 	// Parent autocomplete
 	var homepageXHR;
 	var homepageList; // Keep the parent list returned to get the key by the title page
-	$("#jshomepage").autoComplete({
+	$("#jshomepageTMP").autoComplete({
 		minChars: 1,
 		source: function(term, response) {
 			// Prevent call inmediatly another ajax request
@@ -438,18 +453,19 @@ $(document).ready(function() {
 		},
 		onSelect: function(e, term, item) {
 			// homepageList = array( pageTitle => pageKey )
-			var pageKey = homepageList[term];
-			$("#jsparent").attr("value", pageKey);
+			var key = homepageList[term];
+			$("#jshomepage").attr("value", key);
 		}
 	});
 
-	$("#jshomepage").change(function() {
+	$("#jshomepageTMP").change(function() {
 		if ($(this).val()) {
 			$("#jsuriBlog").removeAttr('disabled');
 			$("#jsuriBlog").attr('value', '/blog/');
 		} else {
 			$("#jsuriBlog").attr('value', '');
 			$("#jsuriBlog").attr('disabled', 'disabled');
+			$("#jshomepage").attr("value", '');
 		}
 	});
 
