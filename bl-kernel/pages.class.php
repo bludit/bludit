@@ -453,9 +453,9 @@ class Pages extends dbJSON {
 	// Returns an array with a list of key of pages, FALSE if out of range
 	// The database is sorted by date or by position
 	// (int) $pageNumber, the page number
-	// (int) $amountOfItems, amount of items to return, if -1 returns all the items
+	// (int) $numberOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $amountOfItems, $onlyPublished=true)
+	public function getList($pageNumber, $numberOfItems, $onlyPublished=true)
 	{
 		$db = array_keys($this->db);
 
@@ -463,7 +463,7 @@ class Pages extends dbJSON {
 			$db = $this->getPublishedDB(true);
 		}
 
-		if ($amountOfItems==-1) {
+		if ($numberOfItems==-1) {
 			return $db;
 		}
 
@@ -471,12 +471,12 @@ class Pages extends dbJSON {
 		$realPageNumber = $pageNumber - 1;
 
 		$total = count($db);
-		$init = (int) $amountOfItems * $realPageNumber;
-		$end  = (int) min( ($init + $amountOfItems - 1), $total );
+		$init = (int) $numberOfItems * $realPageNumber;
+		$end  = (int) min( ($init + $numberOfItems - 1), $total );
 		$outrange = $init<0 ? true : $init>$end;
 
 		if (!$outrange) {
-			return array_slice($db, $init, $amountOfItems, true);
+			return array_slice($db, $init, $numberOfItems, true);
 		}
 
 		return false;

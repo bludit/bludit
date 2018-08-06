@@ -8,7 +8,7 @@ class pluginNavigation extends Plugin {
 		$this->dbFields = array(
 			'label'=>'Navigation',
 			'homeLink'=>true,
-			'amountOfItems'=>5
+			'numberOfItems'=>5
 		);
 	}
 
@@ -39,7 +39,7 @@ class pluginNavigation extends Plugin {
 		if (ORDER_BY=='date') {
 			$html .= '<div>';
 			$html .= '<label>'.$L->get('Amount of items').'</label>';
-			$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
+			$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
 			$html .= '</div>';
 		}
 
@@ -100,8 +100,8 @@ class pluginNavigation extends Plugin {
 			// List of published pages
 			$onlyPublished = true;
 			$pageNumber = 1;
-			$amountOfItems = $this->getValue('amountOfItems');
-			$publishedPages = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
+			$numberOfItems = $this->getValue('numberOfItems');
+			$publishedPages = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 			foreach ($publishedPages as $pageKey) {
 				try {

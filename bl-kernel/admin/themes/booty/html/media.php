@@ -9,7 +9,7 @@ if (!empty($listOfFilesByPage[0])) {
 	}
 }
 // Amount of pages for the paginator
-$amountOfPages = count($listOfFilesByPage);
+$numberOfPages = count($listOfFilesByPage);
 ?>
 
 <div id="jsbluditMediaModal" class="modal fade" tabindex="-1" role="dialog">
@@ -53,7 +53,7 @@ $amountOfPages = count($listOfFilesByPage);
 		<!-- Paginator -->
 		<nav>
 			<ul class="pagination justify-content-center">
-				<?php for ($i=1; $i<=$amountOfPages; $i++): ?>
+				<?php for ($i=1; $i<=$numberOfPages; $i++): ?>
 				<li class="page-item"><button type="button" class="btn btn-link page-link" onClick="getFiles(<?php echo $i ?>)"><?php echo $i ?></button></li>
 				<?php endfor; ?>
 			</ul>

@@ -11,7 +11,7 @@ class pluginAPI extends Plugin {
 
 		$this->dbFields = array(
 			'token'=>$token,	// API Token
-			'amountOfItems'=>15	// Amount of items to return
+			'numberOfItems'=>15	// Amount of items to return
 		);
 	}
 
@@ -31,7 +31,7 @@ class pluginAPI extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('Amount of pages').'</label>';
-		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
+		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
 		$html .= '<span class="tip">'.$L->get('This is the maximum of pages to return when you call to').'</span>';
 		$html .= '</div>';
 
@@ -238,13 +238,13 @@ class pluginAPI extends Plugin {
 		global $pages;
 
 		$onlyPublished = true;
-		$amountOfItems = $this->getValue('amountOfItems');
+		$numberOfItems = $this->getValue('numberOfItems');
 		$pageNumber = 1;
-		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>'List of pages, amount of items: '.$amountOfItems,
+			'message'=>'List of pages, amount of items: '.$numberOfItems,
 			'data'=>array()
 		);
 

@@ -6,9 +6,6 @@ Things to do:
 - settings->advanced->Predefined pages->Page not found
 -- Search and select a page
 
-- manage->users->edit user
--- Change profile avatar
-
 - Add to Settings
 -- time for autosave
 -- time for check user logged
@@ -33,3 +30,6 @@ Things to do:
 - Profile picture
 -- Convert to PNG
 -- Resize image
+
+- pagex.class.php
+-- improve tags methods, compare with category

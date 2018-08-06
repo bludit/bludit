@@ -168,10 +168,16 @@ class Page {
 		return $this->categoryMap('name');
 	}
 
-	// Returns the category name
+	// Returns the category template
 	public function categoryTemplate()
 	{
 		return $this->categoryMap('template');
+	}
+
+	// Returns the category description
+	public function categoryDescription()
+	{
+		return $this->categoryMap('description');
 	}
 
 	// Returns the category key
@@ -196,10 +202,8 @@ class Page {
 
 		if ($field=='key') {
 			return $this->categoryKey();
-		} elseif($field=='name') {
-			return $map['name'];
-		} elseif($field=='list') {
-			return $map['list'];
+		} elseif(isset($map[$field])) {
+			return $map[$field];
 		}
 
 		return false;

@@ -47,7 +47,7 @@ class dbJSON {
 		return true;
 	}
 
-	// Returns the amount of rows in the database
+	// Returns the number of rows in the database
 	public function count()
 	{
 		return count($this->db);

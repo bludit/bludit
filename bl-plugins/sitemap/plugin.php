@@ -34,9 +34,9 @@ class pluginSitemap extends Plugin {
 
 		// Get DB
 		$pageNumber = 1;
-		$amountOfItems = -1;
+		$numberOfItems = -1;
 		$onlyPublished = true;
-		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 		foreach($list as $pageKey) {
 			try {

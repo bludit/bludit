@@ -24,9 +24,9 @@ checkRole(array('admin', 'editor'));
 
 // List of published pages
 $onlyPublished = true;
-$amountOfItems = ITEMS_PER_PAGE_ADMIN;
+$numberOfItems = ITEMS_PER_PAGE_ADMIN;
 $pageNumber = $url->pageNumber();
-$published = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
+$published = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
 if (empty($published) && $url->pageNumber()>1) {

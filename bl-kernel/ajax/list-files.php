@@ -30,7 +30,7 @@ if (isset($listOfFilesByPage[$pageNumber])) {
 		array_push($tmp, basename($file));
 	}
 
-	// Returns the amount of chunks for the paginator
+	// Returns the number of chunks for the paginator
 	// Returns the files inside the chunk
 	exit (json_encode(array(
 		'status'=>0,

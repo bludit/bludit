@@ -34,7 +34,7 @@ class dbList extends dbJSON
 	}
 
 	// Returns the list of keys filter by pageNumber
-	public function getList($key, $pageNumber, $amountOfItems)
+	public function getList($key, $pageNumber, $numberOfItems)
 	{
 		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
@@ -45,7 +45,7 @@ class dbList extends dbJSON
 		$list = $this->db[$key]['list'];
 
 		// Returns all the items from the list
-		if ($amountOfItems==-1) {
+		if ($numberOfItems==-1) {
 			// Invert keys to values, is necesary returns as key the key pages
 			$list = array_flip($list);
 			return $list;
@@ -53,7 +53,7 @@ class dbList extends dbJSON
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
-		$chunks = array_chunk($list, $amountOfItems);
+		$chunks = array_chunk($list, $numberOfItems);
 		if (isset($chunks[$realPageNumber])) {
 			return $chunks[$realPageNumber];
 		}

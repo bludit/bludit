@@ -5,7 +5,7 @@
 // ============================================================================
 
 // Array with pages, each page is a Page Object
-// Filtered by pagenumber, amount of items per page and sorted by date/position
+// Filtered by pagenumber, number of items per page and sorted by date/position
 /*
 	array(
 		0 => Page Object,

@@ -6,7 +6,7 @@ class pluginRSS extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'amountOfItems'=>5
+			'numberOfItems'=>5
 		);
 	}
 
@@ -26,7 +26,7 @@ class pluginRSS extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('Amount of items').'</label>';
-		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
+		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
 		$html .= '<span class="tip">'.$L->get('Amount of items to show on the feed').'</span>';
 		$html .= '</div>';
 
@@ -40,7 +40,7 @@ class pluginRSS extends Plugin {
 		global $url;
 
 		// Amount of pages to show
-		$amountOfItems = $this->getValue('amountOfItems');
+		$numberOfItems = $this->getValue('numberOfItems');
 
 		// Page number the first one
 		$pageNumber = 1;
@@ -49,7 +49,7 @@ class pluginRSS extends Plugin {
 		$onlyPublished = true;
 
 		// Get the list of pages
-		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished, true);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished, true);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';

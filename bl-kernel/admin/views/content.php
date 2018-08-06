@@ -168,7 +168,7 @@ function table($type) {
 	<div class="tab-pane show active" id="pages" role="tabpanel">
 		<?php table('published'); ?>
 
-		<?php if (Paginator::amountOfPages() > 1): ?>
+		<?php if (Paginator::numberOfPages() > 1): ?>
 		<!-- Paginator -->
 		<nav class="paginator">
 			<ul class="pagination flex-wrap justify-content-center">

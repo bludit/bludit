@@ -40,7 +40,7 @@
 <?php endforeach ?>
 
 <!-- Pagination -->
-<?php if (Paginator::amountOfPages()>1): ?>
+<?php if (Paginator::numberOfPages()>1): ?>
 <nav class="paginator">
 	<ul class="pagination flex-wrap">
 

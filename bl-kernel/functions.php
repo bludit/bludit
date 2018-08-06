@@ -90,8 +90,8 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 
 	if ($for=='home') {
 		$onlyPublished = true;
-		$amountOfItems = $site->itemsPerPage();
-		$list = $pages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$numberOfItems = $site->itemsPerPage();
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 		// Include sticky pages only in the first page
 		if ($pageNumber==1) {
@@ -100,12 +100,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 		}
 	}
 	elseif ($for=='category') {
-		$amountOfItems = $site->itemsPerPage();
-		$list = $categories->getList($categoryKey, $pageNumber, $amountOfItems);
+		$numberOfItems = $site->itemsPerPage();
+		$list = $categories->getList($categoryKey, $pageNumber, $numberOfItems);
 	}
 	elseif ($for=='tag') {
-		$amountOfItems = $site->itemsPerPage();
-		$list = $tags->getList($tagKey, $pageNumber, $amountOfItems);
+		$numberOfItems = $site->itemsPerPage();
+		$list = $tags->getList($tagKey, $pageNumber, $numberOfItems);
 	}
 
 	// There are not items, invalid tag, invalid category, out of range, etc...
