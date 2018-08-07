@@ -342,5 +342,12 @@
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Allow Unicode characters in the URL and some part of the system.",
     "variables-allowed": "Variables allowed",
     "tag": "Tag",
-    "drag-and-drop-to-sort-the-plugins": "Drag and Drop to sort the plugins."
+    "drag-and-drop-to-sort-the-plugins": "Drag and Drop to sort the plugins.",
+    "seo": "SEO",
+    "documentation": "Documentation",
+    "forum-support": "Forum support",
+    "chat-support": "Chat support",
+    "quick-links": "Quick links",
+    "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin</code>"
 }

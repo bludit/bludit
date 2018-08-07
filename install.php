@@ -155,7 +155,7 @@ foreach ($languageFiles as $fname=>$native) {
 	}
 }
 
-$language = new Language($finalLanguage);
+$L = $language = new Language($finalLanguage);
 
 // Set locale
 setlocale(LC_ALL, $localeFromHTTP);
@@ -591,7 +591,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			elseif (isset($_GET['language']))
 			{
 			?>
-				<p><?php echo $L->get('Choose a password for the username admin') ?></p>
+				<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
 
 				<form id="jsformInstaller" method="post" action="" autocomplete="off">
 					<input type="hidden" name="timezone" id="jstimezone" value="UTC">

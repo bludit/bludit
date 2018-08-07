@@ -307,7 +307,7 @@
     "social-networks": "Redes sociales",
     "interval": "Intervalo",
     "number-in-minutes-for-every-execution-of-autosave": "Número en minutos para cada ejecución de Autoguardar.",
-    "extreme-friendly-url": "Extreme friendly URL",
+    "extreme-friendly-url": "URL amistosas",
     "title-formats": "Formatos de los títulos",
     "delete-content": "Eliminar contenido",
     "are-you-sure-you-want-to-delete-this-page": "¿Confirma que desea eliminar esta página?",
@@ -340,5 +340,11 @@
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Permitir caracteres Unicode en la dirección URL y en alguna parte del sistema.",
     "variables-allowed": "Variables permitidas",
     "tag": "Etiqueta",
-    "drag-and-drop-to-sort-the-plugins": "Arrastrar y soltar para ordenar los plugins."
+    "drag-and-drop-to-sort-the-plugins": "Arrastrar y soltar para ordenar los plugins.",
+    "seo": "SEO",
+    "documentation": "Documentation",
+    "forum-support": "Forum support",
+    "chat-support": "Chat support",
+    "quick-links": "Enlaces rápidos",
+    "leave-empty-for-autocomplete-by-bludit": "Deje vacío para ser autocompletado por Bludit."
 }

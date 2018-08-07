@@ -3,5 +3,8 @@
 	{
 		"name": "Simple Stats",
 		"description": "Show the number of visitors per day on your dashboard."
-	}
+	},
+	"visits": "Visits",
+	"visits-today": "Visits today",
+	"unique-visitors-today": "Unique visitors today"
 }

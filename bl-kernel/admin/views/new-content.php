@@ -176,7 +176,7 @@
 				'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
 			));
 
-			echo Bootstrap::formTitle(array('title'=>'SEO'));
+			echo Bootstrap::formTitle(array('title'=>$L->g('SEO')));
 
 			// Tags
 			echo Bootstrap::formInputText(array(
@@ -191,7 +191,7 @@
 				'name'=>'slug',
 				'tip'=>$L->g('URL associated with the content'),
 				'label'=>$L->g('Friendly URL'),
-				'placeholder'=>'Leave empty for autocomplete by Bludit.'
+				'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.')
 			));
 
 			echo Bootstrap::formCheckbox(array(

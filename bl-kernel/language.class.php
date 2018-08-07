@@ -82,8 +82,8 @@ class Language extends dbJSON {
 			return $this->db[$key];
 		}
 
-		$line = '"'.$key.'": "'.$string.'",';
-		file_put_contents(DEBUG_FILE, $line.PHP_EOL, FILE_APPEND);
+		//$line = '"'.$key.'": "'.$string.'",';
+		//file_put_contents(DEBUG_FILE, $line.PHP_EOL, FILE_APPEND);
 		return $string;
 	}
 

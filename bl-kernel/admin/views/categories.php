@@ -3,7 +3,7 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('Categories'), 'icon'=>'tags'));
 
 echo Bootstrap::link(array(
-	'title'=>'Add a new category',
+	'title'=>$L->g('Add a new category'),
 	'href'=>HTML_PATH_ADMIN_ROOT.'new-category',
 	'icon'=>'plus'
 ));
@@ -12,8 +12,8 @@ echo '
 <table class="table table-striped mt-3">
 	<thead>
 		<tr>
-			<th class="border-bottom-0" scope="col">Name</th>
-			<th class="border-bottom-0" scope="col">URL</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
 		</tr>
 	</thead>
 	<tbody>

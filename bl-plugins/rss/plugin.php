@@ -49,7 +49,7 @@ class pluginRSS extends Plugin {
 		$onlyPublished = true;
 
 		// Get the list of pages
-		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished, true);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';

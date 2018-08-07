@@ -10,9 +10,11 @@ class pluginSimpleStats extends Plugin {
 
 	public function init()
 	{
+		global $L;
+
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Visits',
+			'label'=>$L->g('Visits'),
 			'numberOfDays'=>7,
 			'excludeAdmins'=>false
 		);
@@ -63,6 +65,7 @@ class pluginSimpleStats extends Plugin {
 
 	public function dashboard()
 	{
+		global $L;
 		$label = $this->getValue('label');
 		$currentDate = Date::current('Y-m-d');
 		$visitsToday = $this->visits($currentDate);
@@ -75,8 +78,8 @@ $html = <<<EOF
 		<div class="row">
 			<div class="col">
 			<div class="ct-chart ct-perfect-fourth"></div>
-			<p class="legends visits-today">Visits today: $visitsToday</p>
-			<p class="legends unique-today">Unique visitors today: $uniqueVisitors</p>
+			<p class="legends visits-today">{$L->g('Visits today')}: $visitsToday</p>
+			<p class="legends unique-today">{$L->g('Unique visitors today')}: $uniqueVisitors</p>
 			</div>
 		</div>
 	</div>
