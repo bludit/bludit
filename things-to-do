@@ -33,3 +33,11 @@ Things to do:
 
 - pagex.class.php
 -- improve tags methods, compare with category
+
+
+----
+
+curl -vvv \
+    -X GET \
+    -G "http://localhost:8000/api/pages" \
+    -d "token=80a09ba055b73f68e3c9e7c9ea12b432"

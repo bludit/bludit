@@ -59,7 +59,7 @@ class Plugin {
 		$this->metadata = json_decode($metadataString, true);
 
 		// If the plugin is installed then get the database
-		if($this->installed()) {
+		if ($this->installed()) {
 			$Tmp = new dbJSON($this->filenameDb);
 			$this->db = $Tmp->db;
 		}
@@ -124,11 +124,10 @@ class Plugin {
 	// (boolean) $html, TRUE returns the value sanitized, FALSE unsanitized
 	public function getValue($field, $html=true)
 	{
-		if( isset($this->db[$field]) ) {
-			if($html) {
+		if (isset($this->db[$field])) {
+			if ($html) {
 				return $this->db[$field];
-			}
-			else {
+			} else {
 				return Sanitize::htmlDecode($this->db[$field]);
 			}
 		}
@@ -220,9 +219,15 @@ class Plugin {
 
 		// Create database
 		$this->dbFields['position'] = $position;
-		$this->db = $this->dbFields;
 
-		return true;
+		// Sanitize default values to store in the file
+		foreach ($this->dbFields as $key=>$value) {
+			$value = Sanitize::html($value);
+			settype($value, gettype($this->dbFields[$key]));
+			$this->db[$key] = $value;
+		}
+
+		return $this->save();
 	}
 
 	public function uninstall()

@@ -22,7 +22,9 @@ checkRole(array('admin'));
 // Main after POST
 // ============================================================================
 $pluginClassName = $layout['parameters'];
-activatePlugin($pluginClassName);
+if (activatePlugin($pluginClassName)===false) {
+	Log::set('Fail when try to activate the plugin.', LOG_TYPE_ERROR);
+}
 
 if (isset($plugins['all'][$pluginClassName])) {
 	$plugin = $plugins['all'][$pluginClassName];

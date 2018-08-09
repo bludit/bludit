@@ -24,6 +24,11 @@ class pluginAPI extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
+		$html .= '<label>'.$L->get('URL').'</label>';
+		$html .= '<p class="text-muted">'.DOMAIN.'/api/{endpoint}</p>';
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$L->get('API Token').'</label>';
 		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
 		$html .= '<span class="tip">'.$L->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
