@@ -134,7 +134,7 @@
 				'label'=>$L->g('Date'),
 				'placeholder'=>'',
 				'value'=>Date::current(DB_DATE_FORMAT),
-				'tip'=>$L->g('Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>')
+				'tip'=>$L->g('date-format-format')
 			));
 
 			// Type
@@ -197,7 +197,7 @@
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'noindex',
 				'label'=>'Robots',
-				'labelForCheckbox'=>$L->g('Apply <code>noindex</code> to this page'),
+				'labelForCheckbox'=>$L->g('apply-code-noindex-code-to-this-page'),
 				'placeholder'=>'',
 				'class'=>'mt-4',
 				'checked'=>false,
@@ -207,7 +207,7 @@
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'nofollow',
 				'label'=>'',
-				'labelForCheckbox'=>$L->g('Apply <code>nofollow</code> to this page'),
+				'labelForCheckbox'=>$L->g('apply-code-nofollow-code-to-this-page'),
 				'placeholder'=>'',
 				'checked'=>false,
 				'tip'=>$L->g('This tells search engines not to follow links on this page.')
@@ -216,7 +216,7 @@
 			echo Bootstrap::formCheckbox(array(
 				'name'=>'noarchive',
 				'label'=>'',
-				'labelForCheckbox'=>$L->g('Apply <code>noarchive</code> to this page'),
+				'labelForCheckbox'=>$L->g('apply-code-noarchive-code-to-this-page'),
 				'placeholder'=>'',
 				'checked'=>false,
 				'tip'=>$L->g('This tells search engines not to save a cached copy of this page.')

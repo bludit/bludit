@@ -295,7 +295,7 @@
     "example-page-4-slug": "acerca-de",
     "example-page-4-title": "Acerca de",
     "example-page-4-content": "Su página `Acerca de` es una de las páginas más visitadas en su sitio, necesita ser simple con algunas claves, como su nombre, quién es usted, cómo puede ponerse en contacto con usted o una pequeña historia.",
-
+    "the-extension-zip-is-not-installed": "The extension zip is not installed, to use this plugin you need to install the extension.",
     "there-are-no-sticky-pages-at-this-moment": "No hay páginas sticky en este momento.",
     "there-are-no-scheduled-pages-at-this-moment": "No hay páginas programadas en este momento.",
     "update": "Actualizar",
@@ -319,16 +319,16 @@
     "media-manager": "Media Manager",
     "set-a-cover-image-from-external-url,-such-as-a-cdn-or-some-server-dedicated-for-images": "Defina una imagen de portada desde una dirección URL externa, como una CDN o algún servidor dedicado a las imágenes.",
     "user": "Usuario",
-    "date-format:-<code>yyyy-mm-dd-hours:minutes:seconds</code>": "Formato de fecha: <code>AAAA-MM-DD Horas:Minutos:Segundos</code>",
+    "date-format-format": "Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds<\/code>",
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Empiece a escribir un título de página para ver una lista de sugerencias.",
     "field-used-when-ordering-content-by-position": "Este campo es utilizado al ordenar el contenido por posición.",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Escriba un nombre de plantilla para cambiar el estilo de la página.",
     "write-the-tags-separated-by-comma": "Escribe las etiquetas separadas por coma.",
-    "apply-<code>noindex</code>-to-this-page": "Aplicar <code>noindex</code> a esta pagina.",
+    "apply-code-noindex-code-to-this-page": "Apply <code>noindex<\/code> to this page.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "Indica a los motores de búsqueda que no muestren esta página en sus resultados de búsqueda.",
-    "apply-<code>nofollow</code>-to-this-page": "Aplicar <code>nofollow</code> a esta pagina.",
+    "apply-code-nofollow-code-to-this-page": "Apply <code>nofollow<\/code> to this page.",
     "this-tells-search-engines-not-to-follow-links-on-this-page": "Indica a los motores de búsqueda que no sigan los enlaces de esta página.",
-    "apply-<code>noarchive</code>-to-this-page": "Aplicar <code>noarchive</code> a esta pagina.",
+    "apply-code-noarchive-code-to-this-page": "Apply <code>noarchive<\/code> to this page.",
     "this-tells-search-engines-not-to-save-a-cached-copy-of-this-page": "Indica a los motores de búsqueda que no guarden una copia almacenada en caché de esta página.",
     "uncategorized": "Sin categoría",
     "done": "Hecho",
@@ -346,5 +346,6 @@
     "forum-support": "Forum support",
     "chat-support": "Chat support",
     "quick-links": "Enlaces rápidos",
-    "leave-empty-for-autocomplete-by-bludit": "Deje vacío para ser autocompletado por Bludit."
+    "leave-empty-for-autocomplete-by-bludit": "Deje vacío para ser autocompletado por Bludit.",
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
 }

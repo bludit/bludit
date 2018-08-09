@@ -3,7 +3,7 @@
         "native": "English",
         "english-name": "English",
         "locale": "en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ",
-        "last-update": "2018-02-25",
+        "last-update": "2018-08-09",
         "authors": [
             "Diego @dignajar",
             "Clickwork https:\/\/clickwork.ch",
@@ -297,7 +297,6 @@
     "example-page-4-title": "About",
     "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc.",
     "the-extension-zip-is-not-installed": "The extension zip is not installed, to use this plugin you need to install the extension.",
-
     "there-are-no-sticky-pages-at-this-moment": "There are no sticky pages at this moment.",
     "there-are-no-scheduled-pages-at-this-moment": "There are no scheduled pages at this moment.",
     "update": "Update",
@@ -321,16 +320,16 @@
     "media-manager": "Media Manager",
     "set-a-cover-image-from-external-url,-such-as-a-cdn-or-some-server-dedicated-for-images": "Set a cover image from an external URL, such as a CDN or some server dedicated for images.",
     "user": "User",
-    "date-format:-<code>yyyy-mm-dd-hours:minutes:seconds</code>": "Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds</code>",
+    "date-format-format": "Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds<\/code>",
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Start typing a page title to see a list of suggestions.",
     "field-used-when-ordering-content-by-position": "Field used when ordering content by position",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Write a template name to filter the page in the theme and change the style of the page.",
     "write-the-tags-separated-by-comma": "Write the tags separated by comma.",
-    "apply-<code>noindex</code>-to-this-page": "Apply <code>noindex</code> to this page.",
+    "apply-code-noindex-code-to-this-page": "Apply <code>noindex<\/code> to this page.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "This tells search engines not to show this page in their search results.",
-    "apply-<code>nofollow</code>-to-this-page": "Apply <code>nofollow</code> to this page.",
+    "apply-code-nofollow-code-to-this-page": "Apply <code>nofollow<\/code> to this page.",
     "this-tells-search-engines-not-to-follow-links-on-this-page": "This tells search engines not to follow links on this page.",
-    "apply-<code>noarchive</code>-to-this-page": "Apply <code>noarchive</code> to this page.",
+    "apply-code-noarchive-code-to-this-page": "Apply <code>noarchive<\/code> to this page.",
     "this-tells-search-engines-not-to-save-a-cached-copy-of-this-page": "This tells search engines not to save a cached copy of this page.",
     "uncategorized": "Uncategorized",
     "done": "Done",
@@ -349,5 +348,5 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin</code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
 }
