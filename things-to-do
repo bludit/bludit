@@ -37,7 +37,18 @@ Things to do:
 
 ----
 
-curl -vvv \
-    -X GET \
+curl -X GET \
     -G "http://localhost:8000/api/pages" \
-    -d "token=80a09ba055b73f68e3c9e7c9ea12b432"
+    -d "token=58b1419d05ffb9dcfb299e515985c33a"
+
+{
+    "token": "58b1419d05ffb9dcfb299e515985c33a",
+    "authentication": "0adaa7af50d40b459cd5c4376aab0d67",
+    "title": "My dog",
+    "content": "Content of the page here, support Markdown code and HTML code."
+}
+
+curl -X PUT \
+	-H "Content-Type: application/json" \
+    	-d @data.json \
+   	"http://localhost:8000/api/pages"

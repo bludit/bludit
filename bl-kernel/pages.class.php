@@ -58,9 +58,11 @@ class Pages extends dbJSON {
 		// Check values on args and set default values if not exists
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
-				if (!empty($args['tags'])) {
-					$finalValue = $this->generateTags($args['tags']);
+				$tags = '';
+				if (isset($args['tags'])) {
+					$tags = $args['tags'];
 				}
+				$finalValue = $this->generateTags($tags);
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
@@ -150,7 +152,11 @@ class Pages extends dbJSON {
 		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
-				$finalValue = $this->generateTags($args['tags']);
+				$tags = '';
+				if (isset($args['tags'])) {
+					$tags = $args['tags'];
+				}
+				$finalValue = $this->generateTags($tags);
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);

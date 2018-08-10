@@ -111,7 +111,7 @@ function getFiles(pageNumber) {
 	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
 		{ 	tokenCSRF: tokenCSRF,
 			pageNumber: pageNumber,
-			path: "<?php echo PATH_UPLOADS_THUMBNAILS ?>"
+			path: "thumbnails" // the path are defined in the list-files
 		},
 		function(data) {
 			displayFiles(data.files);

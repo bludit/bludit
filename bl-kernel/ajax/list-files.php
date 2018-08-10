@@ -10,8 +10,9 @@ $pageNumber = $pageNumber - 1;
 // (string) $_POST['path']
 $path = isset($_POST['path']) ? $_POST['path'] : false;
 // ----------------------------------------------------------------------------
-
-if ($path==false) {
+if ($path=='thumbnails') {
+	$path = PATH_UPLOADS_THUMBNAILS;
+} else {
 	exit (json_encode(array(
 		'status'=>1,
 		'files'=>'Invalid path.'

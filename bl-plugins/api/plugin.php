@@ -98,20 +98,22 @@ class pluginAPI extends Plugin {
 		// AUTHENTICATION TOKEN
 		// ------------------------------------------------------------
 		$writePermissions = false;
-		if ( !empty($inputs['authentication']) ) {
+		if (!empty($inputs['authentication'])) {
 
 			// Get the user with the authentication token, FALSE if doesn't exit
 			$username = $users->getByAuthToken($inputs['authentication']);
 			if ($username!==false) {
-
-				// Get the object user to check the role
-				$user = $users->getUser($username);
-				if (($user->role()=='admin') && ($user->enabled())) {
-					// Loggin the user to create the session
-					$login = new Login();
-					$login->setLogin($username, 'admin');
-					// Enable write permissions
-					$writePermissions = true;
+				try {
+					$user = new User($username);
+					if (($user->role()=='admin') && ($user->enabled())) {
+						// Loggin the user to create the session
+						$login = new Login();
+						$login->setLogin($username, 'admin');
+						// Enable write permissions
+						$writePermissions = true;
+					}
+				} catch (Exception $e) {
+					// Continue without permissions
 				}
 			}
 		}
@@ -249,7 +251,7 @@ class pluginAPI extends Plugin {
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>'List of pages, amount of items: '.$numberOfItems,
+			'message'=>'List of pages, number of items: '.$numberOfItems,
 			'data'=>array()
 		);
 
@@ -293,7 +295,6 @@ class pluginAPI extends Plugin {
 
 		// This function is defined on functions.php
 		$key = createPage($args);
-
 		if ($key===false) {
 			return array(
 				'status'=>'1',
@@ -312,7 +313,7 @@ class pluginAPI extends Plugin {
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
-			$args['content'] = Text::htmlDecode($args['content']);
+			$args['content'] = Sanitize::htmlDecode($args['content']);
 		}
 
 		$args['key'] = $key;
