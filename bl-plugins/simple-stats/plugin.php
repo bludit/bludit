@@ -74,7 +74,7 @@ class pluginSimpleStats extends Plugin {
 $html = <<<EOF
 <div class="simple-stats-plugin">
 	<div class="container mt-5 pt-5 border-top">
-		<h4 class="pb-3">$label</h4>
+		<h4 class="pb-3">{$L->get('Visits')}</h4>
 		<div class="row">
 			<div class="col">
 			<div class="ct-chart ct-perfect-fourth"></div>
