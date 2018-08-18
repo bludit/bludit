@@ -2,6 +2,16 @@
 header('Content-Type: application/json');
 
 foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
+
+	if ($_FILES['bluditInputFiles']['error'][$key] != 0) {
+		$message = 'Error occurred uploading the image, max file size allowed: '.ini_get('upload_max_filesize');
+		Log::set($message, LOG_TYPE_ERROR);
+		exit (json_encode(array(
+			'status'=>1,
+			'message'=>$message
+		)));
+	}
+
 	// Get the next filename if already exist the file to not overwrite the original file
 	$nextFilename = Filesystem::nextFilename(PATH_UPLOADS, $filename);
 

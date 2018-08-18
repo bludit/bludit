@@ -208,11 +208,7 @@
     "whats-next": "Co teraz?",
     "username-or-password-incorrect": "Nazwa użytkownika lub hasło jest nieprawidłowe",
     "follow-bludit-on": "obserwuj Bludit w serwisach",
-    "visit-the-forum-for-support": "w razie potrzeb, koniecznie odwiedź [forum wsparcia](https:\/\/forum.bludit.org),",
-    "manage-your-bludit-from-the-admin-panel": "Zarządzaj stroną poprzez [kokpit]({{ADMIN_AREA_LINK}}),",
-    "chat-with-developers-and-users-on-gitter": "dołącz do dyskusji z twórcami i użytkownikami na [Gitter](https:\/\/gitter.im\/bludit\/support),",
     "this-is-a-brief-description-of-yourself-our-your-site": "To jest krótki opis strony lub Ciebie. Aby zmienić treść tej strony udaj się do kokpitu, a następnie przejdź w ustawienia, wtyczki i wybierz konfigurację na liście O mnie.",
-    "read-the-documentation-for-more-information": "sięgnij po [dokumentację](http:\/\/docs.bludit.com) by dowiedzieć się więcej informacji.",
     "new-version-available": "Nowa wersja jest już dostępna",
     "new-category-created": "Utworzono nową kategorię",
     "category-deleted": "Kategoria została usunięta",
@@ -292,7 +288,7 @@
     "example-page-2-content": "Zarządzaj ustawieniami witryny bezpośrednio z [kokpitu](.\/admin). To właśnie tam możesz edytować nazwę strony, opis oraz zarządzać odnośnikami do społeczności z lokalizacji [Ustawienia > Ogólne](.\/admin\/settings-general).",
     "example-page-3-slug": "obserwuj-bludit",
     "example-page-3-title": "Obserwuj Bludit",
-    "example-page-3-content": "Otrzymuj bieżące informacje o nowościach, aktualizacjach, nowych motywach i funkcjach za pośrednictwem naszych sieci społecznościowych [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) oraz [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) lub odwiedź nasz [blog](https:\/\/blog.bludit.com).",
+    "example-page-3-content": "Otrzymuj bieżące informacje o nowościach, aktualizacjach, nowych motywach i funkcjach za pośrednictwem naszych sieci społecznościowych <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> oraz <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a> lub odwiedź nasz <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
     "example-page-4-slug": "o-mnie",
     "example-page-4-title": "O mnie",
     "example-page-4-content": "Podstrona *o mnie* to typowa i zwykle najpopularniejsza część każdej witryny. To właśnie tutaj w kilku prostych słowach możesz opisać to, kim jesteś, co robisz i jak się z Tobą skontaktować.",
@@ -348,5 +344,6 @@
     "chat-support": "Czat z twórcami",
     "quick-links": "Na skróty",
     "leave-empty-for-autocomplete-by-bludit": "Bludit automatycznie uzupełni to pole, jeśli pozostawisz je puste.",
-    "choose-a-password-for-the-user-admin": "Wybierz hasło dla użytkownika <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Wybierz hasło dla użytkownika <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

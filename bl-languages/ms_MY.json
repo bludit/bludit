@@ -207,11 +207,7 @@
     "whats-next": "Apa yang anda boleh lakukan seterusnya?",
     "username-or-password-incorrect": "Nama pengguna atau kata laluan tidak betul",
     "follow-bludit-on": "Ikut Bludit di",
-    "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
-    "manage-your-bludit-from-the-admin-panel": "Uruskan Bludit anda di [panel pentadbir]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Sembang dengan pembangun dan pengguna di [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Ini ialah perihal ringkas anda atau laman web anda. Untuk mengubahnya, pergi ke Panel Pentadbir -> Tetapan -> Pemalam dan tetapkan tatarajah pemalam \"About\".",
-    "read-the-documentation-for-more-information": "Baca [documentasi](https:\/\/docs.bludit.com) untuk maklumat lanjut",
     "new-version-available": "New version available",
     "new-category-created": "New category created",
     "category-deleted": "Category deleted",
@@ -288,10 +284,10 @@
     "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the [admin panel](.\/admin) with the username `admin` and the password you set on the installation process.",
     "example-page-2-slug": "set-up-your-new-site",
     "example-page-2-title": "Set up your new site",
-    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from [Settings > General](.\/admin\/settings-general).",
+    "example-page-2-content": "Update the settings of your site from the [admin panel](.\/admin), you can change the title, description and the social networks from <a href=\".\/admin\/settings\" target=\"_blank\">Settings > General<\/a>.",
     "example-page-3-slug": "follow-bludit",
     "example-page-3-title": "Follow Bludit",
-    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) and [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) or visit our [Blog](https:\/\/blog.bludit.com).",
+    "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> and <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a> or visit our <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
     "example-page-4-slug": "about",
     "example-page-4-title": "About",
     "example-page-4-content": "Your About page is typically one of the most visited pages on your site, need to be simple with a few key things, such as your name, who are you, how can contact you, a small story, etc.",
@@ -347,5 +343,6 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

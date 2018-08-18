@@ -208,11 +208,7 @@
     "whats-next": "この次は",
     "username-or-password-incorrect": "ユーザー名またはパスワードが不正です",
     "follow-bludit-on": "Bluditをフォローする",
-    "visit-the-forum-for-support": "サポートを受けるために[フォーラム](https:\/\/forum.bludit.org)にアクセスする",
-    "manage-your-bludit-from-the-admin-panel": "[管理パネル]({{ADMIN_AREA_LINK}})からBluditを管理する",
-    "chat-with-developers-and-users-on-gitter": "[Gitter](https:\/\/gitter.im\/bludit\/support)で開発者やユーザーとチャットする",
     "this-is-a-brief-description-of-yourself-our-your-site": "ここには、あなた自身やサイトについての説明文を書きます。文章を変更するには、管理パネルから設定→プラグインと進み、aboutプラグインの設定から変更します。",
-    "read-the-documentation-for-more-information": "詳細について[文書](https:\/\/docs.bludit.com)を読む",
     "new-version-available": "新しいバージョンが使用可能です",
     "new-category-created": "新規カテゴリーを作成",
     "category-deleted": "カテゴリーを削除",
@@ -292,7 +288,7 @@
     "example-page-2-content": "[管理パネル](.\/admin) からサイトの設定を変更しましょう。[設定 > 全般](.\/admin\/settings-general) からタイトルや説明、SNSの設定が変更できます。",
     "example-page-3-slug": "follow-bludit",
     "example-page-3-title": "Bluditをフォローする",
-    "example-page-3-content": "ニュースやリリース、テーマ、プラグインについての情報を入手するには、SNSの[Facebook](https:\/\/www.facebook.com\/bluditcms\/)や[Twitter](https:\/\/twitter.com\/bludit)、[Google Plus](https:\/\/plus.google.com\/+Bluditcms)をフォローをするか、[ブログ](https:\/\/blog.bludit.com)にアクセスしてください。",
+    "example-page-3-content": "ニュースやリリース、テーマ、プラグインについての情報を入手するには、SNSの<a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>や<a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a>、[Google Plus](https:\/\/plus.google.com\/+Bluditcms)をフォローをするか、[ブログ](https:\/\/blog.bludit.com)にアクセスしてください。",
     "example-page-4-slug": "about",
     "example-page-4-title": "About",
     "example-page-4-content": "Aboutページは、サイトでよく見られるページの一つです。あなたの名前や自己紹介、連絡方法、ちょっとしたお話など、いくつかの重要な事柄を簡潔に記述します。",
@@ -348,5 +344,6 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

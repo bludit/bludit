@@ -98,7 +98,7 @@
     "save-as-draft": "Guardar como borrador",
     "cancel": "Cancelar",
     "description": "Descripción",
-    "this-field-can-help-describe-the-content": "Este campo puede ayudar a describir el contenido en pocas palabras. No mas de 150 caracteres.",
+    "this-field-can-help-describe-the-content": "Este campo puede ayudar a describir el contenido en pocas palabras.",
     "images": "Imagenes",
     "error": "Error",
     "supported-image-file-types": "Tipo de imagen soportados",
@@ -207,11 +207,7 @@
     "whats-next": "Siguientes pasos",
     "username-or-password-incorrect": "Nombre de usuario o contraseña incorrectos",
     "follow-bludit-on": "Siga Bludit en",
-    "visit-the-forum-for-support": "Visit the [forum](https:\/\/forum.bludit.org) for support",
-    "manage-your-bludit-from-the-admin-panel": "Administre su Bludit desde el [panel de administración]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Charla con los desarrolladores y usuarios en [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Breve descripción de ti o de tu sitio, para cambiar este texto, vaya al panel de administración, ajustes, complementos, y configurar el complemento Acerca de",
-    "read-the-documentation-for-more-information": "Lea la [documentación](https:\/\/docs.bludit.com) para mas información",
     "new-version-available": "Nueva versión disponible",
     "new-category-created": "Nueva categoría creada",
     "category-deleted": "Categoría eliminada",
@@ -291,7 +287,7 @@
     "example-page-2-content": "Actualice la configuración de su sitio desde el [panel de administración](\/admin), puede cambiar el título, la descripción y las redes sociales desde [Configuracion > General](\/admin\/settings-general).",
     "example-page-3-slug": "follow-bludit",
     "example-page-3-title": "Sigue Bludit",
-    "example-page-3-content": "Seguinos en las redes sociales [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/www.twitter.com\/bludit) y [GooglePlus](https:\/\/plus.google.com\/+bluditcms) para estar informado de las ultimas noticias, nuevos plugins, nuevos temas, y las ultimas versiones. También podes seguir nuestro [blog](https:\/\/blog.bludit.com).",
+    "example-page-3-content": "Seguinos en las redes sociales <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, [Twitter](https:\/\/www.twitter.com\/bludit) y <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a> para estar informado de las ultimas noticias, nuevos plugins, nuevos temas, y las ultimas versiones. También podes seguir nuestro <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
     "example-page-4-slug": "acerca-de",
     "example-page-4-title": "Acerca de",
     "example-page-4-content": "Su página `Acerca de` es una de las páginas más visitadas en su sitio, necesita ser simple con algunas claves, como su nombre, quién es usted, cómo puede ponerse en contacto con usted o una pequeña historia.",
@@ -347,5 +343,6 @@
     "chat-support": "Chat support",
     "quick-links": "Enlaces rápidos",
     "leave-empty-for-autocomplete-by-bludit": "Deje vacío para ser autocompletado por Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

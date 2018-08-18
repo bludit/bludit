@@ -647,7 +647,7 @@ function checkRole($allowRoles, $redirect=true) {
 	if ($redirect) {
 		// Add to syslog
 		$syslog->add(array(
-			'dictionaryKey'=>'access-deny',
+			'dictionaryKey'=>'access-denied',
 			'notes'=>$login->username()
 		));
 

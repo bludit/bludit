@@ -208,11 +208,7 @@
     "whats-next": "Pour la prochaine étape",
     "username-or-password-incorrect": "Nom d’utilisateur ou mot de passe incorrect.",
     "follow-bludit-on": "Suivez Bludit sur",
-    "visit-the-forum-for-support": "Visitez le [forum](https:\/\/forum.bludit.org) de support",
-    "manage-your-bludit-from-the-admin-panel": "Gérez votre Bludit depuis [l’interface d’administration]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Chattez avec les développeurs et les utilisateurs sur [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Ceci est une brève description de vous-même ou de votre site, pour modifier ce texte aller dans le panneau d’administration, paramètres -> plugins et configurer le plugin « à propos ».",
-    "read-the-documentation-for-more-information": "Lisez la [documentation](https:\/\/docs.bludit.com) pour plus d’information",
     "new-version-available": "Nouvelle version disponible",
     "new-category-created": "Nouvelle catégorie créée",
     "category-deleted": "Catégorie supprimée",
@@ -292,7 +288,7 @@
     "example-page-2-content": "Mettez à jour les paramètres de votre site à partir du [panneau d’administration](.\/admin), vous pouvez modifier le titre, la description et les réseaux sociaux dans les [Paramètres généraux](.\/admin\/settings-general).",
     "example-page-3-slug": "suivez-bludit",
     "example-page-3-title": "Suivez Bludit",
-    "example-page-3-content": "Restez informé sur l’actualité, les nouvelles versions, les nouveaux thèmes ou les nouveaux plugins sur nos réseaux sociaux [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) et [GooglePlus](https:\/\/plus.google.com\/+Bluditcms) ou visitez notre [Blog](https:\/\/blog.bludit.com).",
+    "example-page-3-content": "Restez informé sur l’actualité, les nouvelles versions, les nouveaux thèmes ou les nouveaux plugins sur nos réseaux sociaux <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> et <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a> ou visitez notre <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
     "example-page-4-slug": "a-propos",
     "example-page-4-title": "À propos",
     "example-page-4-content": "Votre page « À propos » est généralement l’une des pages les plus visitées sur votre site, elle doit être simple avec quelques éléments clés, tels que votre nom, qui vous êtes, comment vous contacter, une petite histoire, etc.",
@@ -348,5 +344,6 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

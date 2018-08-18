@@ -275,7 +275,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('simplemde', 'tags', 'about', 'simple-stats', 'robots');
+	$pluginsToInstall = array('tinymce', 'tags', 'about', 'simple-stats', 'robots');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
@@ -491,16 +491,15 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
-	// File plugins/simplemde/db.php
+	// File plugins/tinymce/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'simplemde'.DS.'db.php',
+		PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
 				'position'=>1,
-				'toolbar'=>'&quot;bold&quot;, &quot;italic&quot;, &quot;heading&quot;, &quot;|&quot;, &quot;quote&quot;, &quot;unordered-list&quot;, &quot;|&quot;, &quot;link&quot;, &quot;image&quot;, &quot;code&quot;, &quot;horizontal-rule&quot;, &quot;|&quot;, &quot;preview&quot;, &quot;side-by-side&quot;, &quot;fullscreen&quot;',
-				'autosave'=>false,
-				'spellChecker'=>true,
-				'tabSize'=>2
+				'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link pagebreak image removeformat code',
+				'toolbar2'=>'',
+				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

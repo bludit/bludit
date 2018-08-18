@@ -208,11 +208,7 @@
     "whats-next": "O que se segue",
     "username-or-password-incorrect": "Utilizador incorrecto ou então senha incorrecta",
     "follow-bludit-on": "Seguir Bludit em",
-    "visit-the-forum-for-support": "Para obter suporte oficial, acesse [forum](https:\/\/forum.bludit.org)",
-    "manage-your-bludit-from-the-admin-panel": "Para gerir teu Bludit, vá ao [Painel de Controlo]({{ADMIN_AREA_LINK}})",
-    "chat-with-developers-and-users-on-gitter": "Conversar com os desenvolvedores e utilizadores pelo [Gitter](https:\/\/gitter.im\/bludit\/support)",
     "this-is-a-brief-description-of-yourself-our-your-site": "Neste espaço é exibida uma breve descrição do teu site ou então de ti mesmo. Para alterar este texto, vá ao Painel de Controlo, ajustes, plugins, e altere o plugin About.",
-    "read-the-documentation-for-more-information": "Leia a [documentação oficial] em (https:\/\/docs.bludit.com) para obter mais informações",
     "new-version-available": "Nova versão disponível",
     "new-category-created": "Nova categoria criada",
     "category-deleted": "Categoria apagada",
@@ -292,7 +288,7 @@
     "example-page-2-content": "Actualize os ajustes do site através [Painel de Controlo](.\/admin). Por lá é possível alterar o título, descrição e redes sociais que desejares expor no site. Para tal, proceda em [Ajustes > Geral](.\/admin\/settings-general).",
     "example-page-3-slug": "siga-os-meios-de-comunicacao-oficiais-do-bludit",
     "example-page-3-title": "Siga os meios de comunicação oficiais do Bludit",
-    "example-page-3-content": "Receberás notícias, avisos sobre actualizações, novos temas e plugins através das redes sociais do Bludit: [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) e [GooglePlus](https:\/\/plus.google.com\/+Bluditcms). Veja também o [Blog](https:\/\/blog.bludit.com) oficial.",
+    "example-page-3-content": "Receberás notícias, avisos sobre actualizações, novos temas e plugins através das redes sociais do Bludit: <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> e <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a>. Veja também o <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a> oficial.",
     "example-page-4-slug": "sobre",
     "example-page-4-title": "Sobre",
     "example-page-4-content": "A página Sobre habitualmente é uma das páginas mais visitadas dos sites. Sugere-se inserir informações de bastante interesse do público. Assuntos como: quem é o autor do projeto, qual a equipa que compõe o site, motivações para o projeto existir, meios para contactar a equipa do site, etc.",
@@ -348,5 +344,6 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }

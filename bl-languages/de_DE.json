@@ -214,11 +214,7 @@
     "whats-next": "Und so geht es weiter:",
     "username-or-password-incorrect": "Falscher Benutzername und\/oder falsches Passwort",
     "follow-bludit-on": "Den [deutschsprachigen Newsletter](https:\/\/clickwork.ch\/bludit-newsletter\/) abonnieren und Bludit folgen bei",
-    "visit-the-forum-for-support": "Bei Fragen und Problemen das [Support-Forum](https:\/\/forum.bludit.org) mit deutschsprachigem Forum besuchen",
-    "manage-your-bludit-from-the-admin-panel": "Bludit im [Administrationsbereich]({{ADMIN_AREA_LINK}}) verwalten",
-    "chat-with-developers-and-users-on-gitter": "Mit Entwicklern und Benutzern bei [Gitter](https:\/\/gitter.im\/budit\/support) chatten",
     "this-is-a-brief-description-of-yourself-our-your-site": "Hier kann beispielsweise eine kurze Beschreibung der Person, die den Blog oder die Website betreibt, oder der Website stehen. Der Text kann im Administrationsbereich in den Einstellungen des Plugins \"Über\" geändert werden.",
-    "read-the-documentation-for-more-information": "Für Anleitungen und Hinweise die [Dokumentation](https:\/\/docs.bludit.com) verwenden",
     "new-version-available": "Eine neue Version ist verfügbar",
     "new-category-created": "Kategorie hinzugefügt",
     "category-deleted": "Kategorie gelöscht",
@@ -298,7 +294,7 @@
     "example-page-2-content": "Passe die Einstellungen deiner Website im [Administrationsbereich](.\/admin) an. Unter [Einstellungen > Allgemein](.\/admin\/settings-general) kannst Du beispielsweise den Titel und die Beschreibung der Website ändern oder Links zu sozialen Netzwerken eingeben.",
     "example-page-3-slug": "folge-bludit",
     "example-page-3-title": "Folge Bludit",
-    "example-page-3-content": "Halte dich auf dem Laufenden über neue Versionen, neue Themes und neue Plugins in den sozialen Netzwerken [Facebook](https:\/\/www.facebook.com\/bluditcms\/), [Twitter](https:\/\/twitter.com\/bludit) und [GooglePlus](https:\/\/plus.google.com\/+Bluditcms), über den [Blog](https:\/\/blog.bludit.com) oder indem du den [deutschsprachigen Newsletter](https:\/\/planet-bludit.ch\/newsletter) abonnierst.",
+    "example-page-3-content": "Halte dich auf dem Laufenden über neue Versionen, neue Themes und neue Plugins in den sozialen Netzwerken <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> und <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a>, über den <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a> oder indem du den [deutschsprachigen Newsletter](https:\/\/planet-bludit.ch\/newsletter) abonnierst.",
     "example-page-4-slug": "ueber",
     "example-page-4-title": "Über",
     "example-page-4-content": "Die Seite \"Über\" ist eine vielbeachtete Seite. Denn viele wollen wissen, wer einen Blog oder eine Website betreibt, welche Idee dahinter steht, wie du erreichbar bist usw.",
@@ -354,5 +350,6 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>"
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "access-denied": "Access denied"
 }
