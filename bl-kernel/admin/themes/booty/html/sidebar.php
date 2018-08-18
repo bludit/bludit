@@ -26,7 +26,7 @@
 	<?php if (checkRole(array('admin'),false)): ?>
 
 	<li class="nav-item mt-3">
-		<h4>Manage</h4>
+		<h4><?php $L->p('Manage') ?></h4>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
@@ -40,7 +40,7 @@
 	</li>
 
 	<li class="nav-item mt-3">
-		<h4>Settings</h4>
+		<h4><?php $L->p('Settings') ?></h4>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'settings' ?>"><?php $L->p('General') ?></a>
