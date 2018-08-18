@@ -496,7 +496,7 @@ class Page {
 		$average = $words / 200;
 		$minutes = round($average);
 
-		if ($minutes>0) {
+		if ($minutes>1) {
 			return $minutes.' '.$L->get('minutes');
 		}
 

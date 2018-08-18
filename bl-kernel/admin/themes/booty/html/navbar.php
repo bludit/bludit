@@ -12,7 +12,7 @@
       <a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><?php $L->p('New content') ?></a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"></span><?php $L->p('Content') ?></a>
+      <a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
       </li>
       <li class="nav-item">
       <a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
