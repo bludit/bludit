@@ -19,6 +19,16 @@ body {
 	}
 }
 
+/* for small devices */
+@media (max-width: 575.98px) {
+	#jsmediaManagerButton,
+	#jscategoryButton,
+	#jsdescriptionButton {
+		width: 100%;
+		text-align: left;
+	}
+}
+
 a {
 	color: #4a90e2;
 }

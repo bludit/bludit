@@ -338,11 +338,13 @@
     "tag": "Etiqueta",
     "drag-and-drop-to-sort-the-plugins": "Arrastrar y soltar para ordenar los plugins.",
     "seo": "SEO",
-    "documentation": "Documentation",
-    "forum-support": "Forum support",
-    "chat-support": "Chat support",
+    "documentation": "Documentación",
+    "forum-support": "Foro",
+    "chat-support": "Chat",
     "quick-links": "Enlaces rápidos",
     "leave-empty-for-autocomplete-by-bludit": "Deje vacío para ser autocompletado por Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
-    "access-denied": "Access denied"
+    "choose-a-password-for-the-user-admin": "Elija una contraseña para el usuario <code>admin<\/code>",
+    "access-denied": "Acceso denegado",
+    "choose-images-to-upload": "Elige imágenes para subir",
+    "insert": "Insertar"
 }

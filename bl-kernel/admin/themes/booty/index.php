@@ -67,7 +67,7 @@
 		</div>
 
 		<!-- RIGHT MAIN -->
-		<div class="col-lg-10 pt-4">
+		<div class="col-lg-10 pt-3">
 		<?php
 			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');

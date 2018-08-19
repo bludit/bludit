@@ -345,5 +345,7 @@
     "quick-links": "Na skróty",
     "leave-empty-for-autocomplete-by-bludit": "Bludit automatycznie uzupełni to pole, jeśli pozostawisz je puste.",
     "choose-a-password-for-the-user-admin": "Wybierz hasło dla użytkownika <code>admin<\/code>",
-    "access-denied": "Access denied"
+    "access-denied": "Access denied",
+    "choose-images-to-upload": "Choose images to upload",
+    "insert": "Insert"
 }

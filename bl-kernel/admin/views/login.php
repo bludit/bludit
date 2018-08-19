@@ -28,7 +28,7 @@ echo Bootstrap::formOpen(array());
 	</div>
 
 	<div class="form-group mt-4">
-		<button type="submit" class="btn btn-primary mr-2 w-100 text-" name="save">'.$L->g('Login').'</button>
+		<button type="submit" class="btn btn-primary btn-lg mr-2 w-100" name="save">'.$L->g('Login').'</button>
 	</div>
 	';
 

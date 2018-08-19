@@ -62,10 +62,10 @@
 			<input value="" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="<?php $L->p('Enter title') ?>" type="text">
 		</div>
 
-		<div class="form-group m-0 mt-1">
-			<button id="jsmediaManagerButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Media Manager') ?></button>
-			<button id="jscategoryButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> <?php $L->p('Category') ?>: <span class="option">-</span></button>
-			<button id="jsdescriptionButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> <?php $L->p('Description') ?>: <span class="option">-</span></button>
+		<div class="form-group m-0">
+			<button id="jsmediaManagerButton" type="button" class="mt-1 btn btn-form btn-sm d-block d-sm-inline d-sm-none" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Media Manager') ?></button>
+			<button id="jscategoryButton" type="button" class="mt-1 btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> <?php $L->p('Category') ?>: <span class="option">-</span></button>
+			<button id="jsdescriptionButton" type="button" class="mt-1 btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> <?php $L->p('Description') ?>: <span class="option">-</span></button>
 		</div>
 
 		<div class="form-group mt-1">
@@ -176,8 +176,6 @@
 				'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
 			));
 
-			echo Bootstrap::formTitle(array('title'=>$L->g('SEO')));
-
 			// Tags
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
@@ -185,6 +183,8 @@
 				'placeholder'=>'',
 				'tip'=>$L->g('Write the tags separated by comma')
 			));
+
+			echo Bootstrap::formTitle(array('title'=>$L->g('SEO')));
 
 			// Friendly URL
 			echo Bootstrap::formInputText(array(

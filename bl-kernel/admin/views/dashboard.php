@@ -1,6 +1,6 @@
-<div id="dashboard" class="container mt-3">
+<div id="dashboard" class="container">
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-md-7 d-none d-sm-block">
 
 			<!-- Quick Links -->
 			<div class="container border-bottom pb-4">

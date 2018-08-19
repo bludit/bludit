@@ -7,7 +7,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 <!-- TABS -->
 <ul class="nav nav-tabs" id="dynamicTab" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php $L->p('General') ?></a>
+		<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php $L->p('Site') ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link " id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>

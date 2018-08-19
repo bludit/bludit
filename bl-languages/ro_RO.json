@@ -341,5 +341,7 @@
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
     "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
-    "access-denied": "Access denied"
+    "access-denied": "Access denied",
+    "choose-images-to-upload": "Choose images to upload",
+    "insert": "Insert"
 }

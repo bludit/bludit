@@ -22,14 +22,14 @@ $numberOfPages = count($listOfFilesByPage);
 	<!--
 		UPLOAD INPUT
 	-->
-		<h3 class="mt-2 mb-3">Upload</h3>
+		<h3 class="mt-2 mb-3"><?php $L->p('Upload'); ?></h3>
 
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
 			<input type="hidden" name="tokenCSRF" value="<?php echo $security->getTokenCSRF() ?>">
 			<div class="custom-file">
 				<input type="file" class="custom-file-input" id="jsbluditInputFiles" name="bluditInputFiles[]" multiple>
-				<label class="custom-file-label" for="jsbluditInputFiles">Choose images</label>
+				<label class="custom-file-label" for="jsbluditInputFiles"><?php $L->p('Choose images to upload'); ?></label>
 			</div>
 		</form>
 
@@ -41,12 +41,12 @@ $numberOfPages = count($listOfFilesByPage);
 	<!--
 		MANAGER
 	-->
-		<h3 class="mt-4 mb-3">Manage</h3>
+		<h3 class="mt-4 mb-3"><?php $L->p('Manage'); ?></h3>
 
 		<!-- Table for list files -->
 		<table id="jsbluditMediaTable" class="table">
 			<tr>
-				<td>There are not images.</td>
+				<td><?php $L->p('There are no images'); ?></td>
 			</tr>
 		</table>
 
@@ -96,9 +96,9 @@ function displayFiles(files) {
 				'<td class="information">'+
 					'<div class="pb-2">'+filename+'<\/div>'+
 					'<div>'+
-						'<button onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Insert<\/button>'+
-						'<button onClick="setCoverImage(\''+filename+'\'); closeMediaManager();" type="button" class="btn btn-primary btn-sm mr-2">Set as cover image<\/button>'+
-						'<button onClick="deleteMedia(\''+filename+'\')" type="button" class="btn btn-sm float-right">Delete<\/button>'+
+						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
+						'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
+						'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
 					'<\/div>'+
 				'<\/td>'+
 			'<\/tr>';

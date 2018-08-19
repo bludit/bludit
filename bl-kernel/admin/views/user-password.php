@@ -47,7 +47,7 @@ echo Bootstrap::formOpen(array());
 	echo '
 	<div class="form-group mt-4">
 		<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'users" role="button">'.$L->g('Cancel').'</a>
+		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$user->username().'" role="button">'.$L->g('Cancel').'</a>
 	</div>
 	';
 

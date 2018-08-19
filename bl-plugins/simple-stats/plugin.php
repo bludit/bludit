@@ -164,7 +164,7 @@ EOF;
 		if (empty($lines)) {
 			return 0;
 		}
-		$login = new Login();
+
 		$tmp = array();
 		foreach ($lines as $line) {
 			$data = json_decode($line);
