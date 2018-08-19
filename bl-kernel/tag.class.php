@@ -9,13 +9,11 @@ class Tag {
 		global $tags;
 		if (isset($tags->db[$key])) {
 			$this->vars['name'] 		= $tags->db[$key]['name'];
-			$this->vars['template'] 	= $tags->db[$key]['template'];
-			$this->vars['description'] 	= $tags->db[$key]['description'];
 			$this->vars['key'] 		= $key;
 			$this->vars['permalink'] 	= DOMAIN_TAGS . $key;
 			$this->vars['list'] 		= $tags->db[$key]['list'];
 		} else {
-			$errorMessage = 'Category not found in database by key ['.$key.']';
+			$errorMessage = 'Tag not found in database by key ['.$key.']';
 			Log::set(__METHOD__.LOG_SEP.$errorMessage);
 			throw new Exception($errorMessage);
 		}
@@ -42,16 +40,6 @@ class Tag {
 	public function permalink()
 	{
 		return $this->getValue('permalink');
-	}
-
-	public function template()
-	{
-		return $this->getValue('template');
-	}
-
-	public function description()
-	{
-		return $this->getValue('description');
 	}
 
 	// Returns an array with the keys of pages linked to the tag
