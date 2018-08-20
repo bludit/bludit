@@ -66,7 +66,7 @@ elseif ($url->whereAmI()==='tag') {
 }
 // Build content by category
 elseif ($url->whereAmI()==='category') {
-        $content = buildPagesByCategory();
+	$content = buildPagesByCategory();
 }
 // Build content for the homepage
 elseif ( ($url->whereAmI()==='home') || ($url->whereAmI()==='blog') ) {

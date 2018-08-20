@@ -118,7 +118,7 @@ function table($type) {
 						.'</a>
 					</div>
 					<div>
-						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->relativeTime() ).'</p>
+						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
 					</div>
 				</td>';
 

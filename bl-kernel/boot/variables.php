@@ -80,6 +80,9 @@ define('SCHEDULED_DATE_FORMAT', 'D, j M Y, H:i');
 // Notifications date format
 define('NOTIFICATIONS_DATE_FORMAT', 'D, j M Y, H:i');
 
+// Manage content date format
+define('MANAGE_CONTENT_DATE_FORMAT', 'D, j M Y, H:i');
+
 // Amount of items to show on notification panel
 define('NOTIFICATIONS_AMOUNT', 10);
 

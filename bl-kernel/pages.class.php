@@ -645,6 +645,8 @@ class Pages extends dbJSON {
 	// Generate a valid Key/Slug
 	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
 	{
+		global $L;
+
 		if (Text::isEmpty($text)) {
 			$text = 'empty';
 		}
@@ -657,7 +659,7 @@ class Pages extends dbJSON {
 
 		// cleanURL can return empty string
 		if (Text::isEmpty($newKey)) {
-			$newKey = 'empty';
+			$key = $L->g('empty');
 		}
 
 		if ($newKey!==$oldKey) {

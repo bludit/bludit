@@ -64,7 +64,12 @@ class dbList extends dbJSON
 
 	public function generateKey($name)
 	{
+		global $L;
+
 		$key = Text::cleanUrl($name);
+		if (Text::isEmpty($key)) {
+			$key = $L->g('empty');
+		}
 		while (isset($this->db[$key])) {
 			$key++;
 		}
