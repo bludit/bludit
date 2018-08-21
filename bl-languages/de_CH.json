@@ -72,7 +72,7 @@
     "welcome": "Willkommen",
     "logout": "Abmelden",
     "website": "Website",
-    "publish": "Erstellen",
+    "publish": "Veröffentlichen",
     "manage": "Verwalten",
     "content": "Inhalte",
     "category": "Kategorie",
@@ -293,7 +293,7 @@
     "example-page-2-content": "Passe die Einstellungen deiner Website im [Administrationsbereich](.\/admin) an. Unter [Einstellungen > Allgemein](.\/admin\/settings-general) kannst Du beispielsweise den Titel und die Beschreibung der Website ändern oder Links zu sozialen Netzwerken eingeben.",
     "example-page-3-slug": "folge-bludit",
     "example-page-3-title": "Folge Bludit",
-    "example-page-3-content": "Halte dich auf dem Laufenden über neue Versionen, neue Themes und neue Plugins in den sozialen Netzwerken <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> und <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a>, über den <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a> oder indem du den <a href=\"https:\/\/clickwork.ch\/bludit-newsletter\" target=\"_blank\">deutschsprachigen Newsletter<\/<a> abonnierst.",
+    "example-page-3-content": "Halte dich auf dem Laufenden über neue Versionen, neue Themes und neue Plugins in den sozialen Netzwerken <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> und <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a>, über den <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a> oder indem du den <a href=\"https:\/\/clickwork.ch\/bludit-newsletter\" target=\"_blank\">deutschsprachigen Newsletter<\/a> abonnierst.",
     "example-page-4-slug": "ueber",
     "example-page-4-title": "Über",
     "example-page-4-content": "Die Seite \"Über\" ist eine vielbeachtete Seite. Denn viele wollen wissen, wer einen Blog oder eine Website betreibt, welche Idee dahinter steht, wie du erreichbar bist usw.",
@@ -335,7 +335,7 @@
     "uncategorized": "Nicht kategorisiert",
     "done": "Bestätigen",
     "delete-category": "Kategorie löschen",
-    "are-you-sure-you-want-to-delete-this-category?": "Are you sure you want to delete this category?",
+    "are-you-sure-you-want-to-delete-this-category?": "Bist du sicher, dass Du diese Kategorie löschen möchtest?",
     "confirm-new-password": "Bestätige das neue Passwort",
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "Der Nickname ist der Name, der bei Beiträgen angezeigt wird.",
     "allow-unicode": "Unicode",
@@ -354,6 +354,7 @@
     "choose-images-to-upload": "Bilder auswählen und auf den Server laden",
     "insert": "Einfügen",
     "upload": "Upload",
-    "autosave": "Autosave",
-    "the-content-is-saved-as-a-draft-to-publish-it": "The content is saved as a draft. To publish it click on the button <b>Publish<\/b> or if you still working on it click on <b>Save as draft<\/b>."
+    "autosave": "Automatische Speicherung",
+    "the-content-is-saved-as-a-draft-to-publish-it": "Der Inhalt ist als Entwurf gespeichert. Um ihn zu veröffentlichen, klicke <b>Veröffentlichen<\/b>, wenn du ihn du weiter daran arbeiten möchtest, klicke <b>Als Entwurf speichern<\/b>.",
+    "site": "Website"
 }
