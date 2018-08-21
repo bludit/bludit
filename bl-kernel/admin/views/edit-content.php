@@ -6,7 +6,7 @@
 		<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true"><?php $L->p('Editor') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('Cover images') ?></a>
+		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('Cover image') ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false"><?php $L->p('Options') ?></a>
