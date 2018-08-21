@@ -517,7 +517,7 @@ function createUser($args) {
 
 	// Filter form fields
 	$tmp = array();
-	$tmp['username'] = $args['new_username'];
+	$tmp['username'] = Text::removeSpecialCharacters($args['new_username']);
 	$tmp['password'] = $args['new_password'];
 	$tmp['role']	 = $args['role'];
 	$tmp['email']	 = $args['email'];

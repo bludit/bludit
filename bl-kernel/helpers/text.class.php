@@ -2,7 +2,7 @@
 
 class Text {
 
-	private static $specialChars = array(
+	private static $unicodeChars = array(
 		// Latin
 		'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'AE', 'Ç'=>'C',
 		'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I',
@@ -121,6 +121,11 @@ class Text {
 		return str_replace(array_keys($replace), array_values($replace), $text);
 	}
 
+	public static function removeSpecialCharacters($string, $replace='')
+	{
+		return preg_replace("/[\/_|+:!@#$%^&*()'\"<>\\\`}{;=,?\[\]~. -]+/", $replace, $string);
+	}
+
 	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
@@ -131,15 +136,15 @@ class Text {
 		if (EXTREME_FRIENDLY_URL) {
 			$string = self::lowercase($string);
 			$string = trim($string, $separator);
-			$string = preg_replace("/[\/_|+:!@#$%^&*()';=,?\[\]~. -]+/", $separator, $string);
+			$string = self::removeSpecialCharacters($string, $separator);
 			$string = trim($string, $separator);
 			return $string;
 		}
 
 		// Transliterate characters to ASCII
-		$specialCharsFromDictionary = $L->getSpecialChars();
-		$string = str_replace(array_keys($specialCharsFromDictionary), $specialCharsFromDictionary, $string);
-		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
+		$unicodeCharsFromDictionary = $L->getunicodeChars();
+		$string = str_replace(array_keys($unicodeCharsFromDictionary), $unicodeCharsFromDictionary, $string);
+		$string = str_replace(array_keys(self::$unicodeChars), self::$unicodeChars, $string);
 
 		if (function_exists('iconv')) {
 			if (@iconv(CHARSET, 'ASCII//TRANSLIT//IGNORE', $string)!==false) {

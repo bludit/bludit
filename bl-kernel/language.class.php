@@ -5,7 +5,7 @@ class Language extends dbJSON {
 	public $db;
 	public $currentLanguage;
 	public $dates;
-	public $specialChars;
+	public $unicodeChars;
 
 	function __construct($currentLanguage)
 	{
@@ -13,7 +13,7 @@ class Language extends dbJSON {
 		$this->db = array();
 		$this->currentLanguage = $currentLanguage;
 		$this->dates = array();
-		$this->specialChars = array();
+		$this->unicodeChars = array();
 
 		// Load default language
 		$filename = PATH_LANGUAGES.DEFAULT_LANGUAGE_FILE;
@@ -40,10 +40,10 @@ class Language extends dbJSON {
 			unset($this->db['dates']);
 		}
 
-		// Special chars
-		if (isset($this->db['special-chars'])) {
-			$this->specialChars = $this->db['special-chars'];
-			unset($this->db['special-chars']);
+		// Unicode chars
+		if (isset($this->db['unicode-chars'])) {
+			$this->unicodeChars = $this->db['unicode-chars'];
+			unset($this->db['unicode-chars']);
 		}
 	}
 
@@ -67,7 +67,6 @@ class Language extends dbJSON {
 		$explode = explode('_', $current);
 		return $explode[0];
 	}
-
 
 	// Return the translation, if the translation doesn't exist returns the English translation
 	public function get($string)
@@ -147,8 +146,8 @@ class Language extends dbJSON {
 	}
 
 	// Returns array with all the special characters from this language
-	public function getSpecialChars()
+	public function getunicodeChars()
 	{
-		return $this->specialChars;
+		return $this->unicodeChars;
 	}
 }

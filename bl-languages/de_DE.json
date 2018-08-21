@@ -50,7 +50,7 @@
         "November": "November",
         "December": "Dezember"
     },
-    "special-chars": {
+    "unicode-chars": {
         "ä": "ae",
         "ö": "oe",
         "ü": "ue",

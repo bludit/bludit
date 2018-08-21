@@ -648,7 +648,7 @@ class Pages extends dbJSON {
 		global $L;
 
 		if (Text::isEmpty($text)) {
-			$text = 'empty';
+			$text = $L->g('empty');
 		}
 
 		if (Text::isEmpty($parent)) {
@@ -659,7 +659,7 @@ class Pages extends dbJSON {
 
 		// cleanURL can return empty string
 		if (Text::isEmpty($newKey)) {
-			$key = $L->g('empty');
+			$newKey = $L->g('empty');
 		}
 
 		if ($newKey!==$oldKey) {
