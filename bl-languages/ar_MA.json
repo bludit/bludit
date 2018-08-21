@@ -346,5 +346,8 @@
     "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
     "access-denied": "Access denied",
     "choose-images-to-upload": "Choose images to upload",
-    "insert": "Insert"
+    "insert": "Insert",
+    "upload": "Upload",
+    "autosave": "Autosave",
+    "the-content-is-saved-as-a-draft-to-publish-it": "The content is saved as a draft. To publish it click on the button <b>Publish<\/b> or if you still working on it click on <b>Save as draft<\/b>."
 }
