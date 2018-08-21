@@ -677,11 +677,9 @@ class Pages extends dbJSON {
 
 		if ($returnSlug) {
 			$explode = explode('/', $newKey);
-
-			if(isset($explode[1])) {
+			if (isset($explode[1])) {
 				return $explode[1];
 			}
-
 			return $explode[0];
 		}
 
