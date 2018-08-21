@@ -79,7 +79,7 @@
 		</div>
 
 		<?php if($page->draft()): ?>
-		<div class="alert alert-primary mt-2 mb-2"><?php $L->p('The content is saved as a draft. To publish it click on the button <b>Publish</b> or if you still working on it click on <b>Save as draft</b>.') ?></div>
+		<div class="alert alert-primary mt-2 mb-2"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>
 		<?php endif; ?>
 
 		<div class="form-group mt-2">
