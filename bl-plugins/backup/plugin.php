@@ -59,7 +59,7 @@ class pluginBackup extends Plugin {
 	public function adminSidebar()
 	{
 		$backups = $this->backupList();
-		return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backup <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
+		return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backups <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
 	}
 
 	public function form()
