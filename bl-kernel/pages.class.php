@@ -606,6 +606,8 @@ class Pages extends dbJSON {
 	// Returns string without HTML tags and truncated
 	private function generateSlug($text, $truncateLength=60) {
 		$tmpslug = Text::removeHTMLTags($text);
+		// Remove break lines
+		$tmpslug = str_replace(array("\r", "\n"), '', $tmpslug);
 		return Text::truncate($tmpslug, $truncateLength, '');
 	}
 
