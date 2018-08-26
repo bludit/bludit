@@ -126,6 +126,11 @@ class Text {
 		return preg_replace("/[\/_|+:!@#$%^&*()'\"<>\\\`}{;=,?\[\]~. -]+/", $replace, $string);
 	}
 
+	public static function removeLineBreaks($string)
+	{
+		return str_replace(array("\r", "\n"), '', $string);
+	}
+
 	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
@@ -137,6 +142,7 @@ class Text {
 			$string = self::lowercase($string);
 			$string = trim($string, $separator);
 			$string = self::removeSpecialCharacters($string, $separator);
+			$string = self::removeLineBreaks($string);
 			$string = trim($string, $separator);
 			return $string;
 		}
