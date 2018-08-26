@@ -351,5 +351,7 @@
     "upload": "Upload",
     "autosave": "Autosave",
     "the-content-is-saved-as-a-draft-to-publish-it": "The content is saved as a draft. To publish it click on the button <b>Publish<\/b> or if you still working on it click on <b>Save as draft<\/b>.",
-    "site": "Site"
+    "site": "Site",
+    "first": "First",
+    "last": "Last"
 }

@@ -7,7 +7,7 @@
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
-            "cblte https://github.com/cblte",
+            "cblte https:\/\/github.com\/cblte",
             ""
         ]
     },
@@ -49,12 +49,6 @@
         "October": "Oktober",
         "November": "November",
         "December": "Dezember"
-    },
-    "unicode-chars": {
-        "ä": "ae",
-        "ö": "oe",
-        "ü": "ue",
-        "ß": "ss"
     },
     "dashboard": "Dashboard",
     "manage-users": "Benutzer verwalten",
@@ -357,5 +351,7 @@
     "upload": "Upload",
     "autosave": "Automatische Speicherung",
     "the-content-is-saved-as-a-draft-to-publish-it": "Der Inhalt ist als Entwurf gespeichert. Um ihn zu veröffentlichen, klicke <b>Veröffentlichen<\/b>, wenn du ihn du weiter daran arbeiten möchtest, klicke <b>Als Entwurf speichern<\/b>.",
-    "site": "Website"
+    "site": "Website",
+    "first": "First",
+    "last": "Last"
 }
