@@ -212,7 +212,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>DOMAIN.$site->uriFilters('blog'),
-			'disabled'=>!$site->uriFilters('blog')
+			'disabled'=>Text::isEmpty($site->uriFilters('blog'))
 		));
 
 		echo '

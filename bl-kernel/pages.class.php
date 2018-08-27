@@ -647,6 +647,7 @@ class Pages extends dbJSON {
 	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
 	{
 		global $L;
+		global $site;
 
 		if (Text::isEmpty($text)) {
 			$text = $L->g('empty');

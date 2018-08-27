@@ -306,6 +306,7 @@ function install($adminPassword, $timezone)
 	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
 
 	$data = array();
+	$slugs = array();
 	foreach ($pagesToInstall as $page) {
 
 		$slug = $page;
@@ -324,7 +325,7 @@ function install($adminPassword, $timezone)
 			'position'=>1,
 			'coverImage'=>'',
 			'md5file'=>'',
-			'category'=>'',
+			'category'=>'general',
 			'uuid'=>md5(uniqid()),
 			'parent'=>'',
 			'template'=>'',
@@ -332,6 +333,8 @@ function install($adminPassword, $timezone)
 			'nofollow'=>false,
 			'noarchive'=>false
 		);
+
+		array_push($slugs, $slug);
 
 		file_put_contents(PATH_PAGES.$L->get($slug).DS.FILENAME, $L->get($content), LOCK_EX);
 	}
@@ -438,7 +441,7 @@ function install($adminPassword, $timezone)
 
 	// File categories.php
 	$data = array(
-		'general'=>array('name'=>'General', 'description'=>'', 'template'=>'', 'list'=>array()),
+		'general'=>array('name'=>'General', 'description'=>'', 'template'=>'', 'list'=>$slugs),
 		'music'=>array('name'=>'Music', 'description'=>'', 'template'=>'', 'list'=>array()),
 		'videos'=>array('name'=>'Videos', 'description'=>'', 'template'=>'', 'list'=>array())
 	);

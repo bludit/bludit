@@ -208,8 +208,6 @@
 				'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
 			));
 
-			echo Bootstrap::formTitle(array('title'=>'SEO'));
-
 			// Tags
 			echo Bootstrap::formInputText(array(
 				'name'=>'tags',
@@ -218,6 +216,8 @@
 				'value'=>$page->tags(),
 				'tip'=>$L->g('Write the tags separated by comma')
 			));
+
+			echo Bootstrap::formTitle(array('title'=>'SEO'));
 
 			// Friendly URL
 			echo Bootstrap::formInputText(array(

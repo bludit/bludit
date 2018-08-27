@@ -96,9 +96,8 @@ class Text {
 
 	public static function endsWith($string, $endsString)
 	{
-		$length = (-1)*self::length($endsString);
-
-		return( mb_substr($string, $length)===$endsString );
+		//$length = (-1)*self::length($endsString);
+		return (mb_substr($string, -1)===$endsString);
 	}
 
 	public static function endsWithNumeric($string)

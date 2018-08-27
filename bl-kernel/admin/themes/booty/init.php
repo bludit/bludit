@@ -241,7 +241,7 @@ EOF;
 		if (isset($args['id'])) {
 			$id = $args['id'];
 		}
-		$disabled = isset($args['disabled'])?'disabled':'';
+		$disabled = empty($args['disabled'])?'':'disabled';
 
 		$class = 'form-control';
 		if (isset($args['class'])) {

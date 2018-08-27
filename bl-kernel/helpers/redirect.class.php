@@ -2,14 +2,14 @@
 
 class Redirect {
 
-	public static function url($url)
+	public static function url($url, $httpCode=301)
 	{
-		if(!headers_sent()) {
-			header("Location:".$url, TRUE, 302);
+		if (!headers_sent()) {
+			header("Location:".$url, TRUE, $httpCode);
 			exit;
 		}
 
-		exit('<meta http-equiv="refresh" content="0; url='.$url.'"/>');
+		exit ('<meta http-equiv="refresh" content="0; url='.$url.'"/>');
 	}
 
 	public static function page($page)
