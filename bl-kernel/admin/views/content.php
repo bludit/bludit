@@ -78,7 +78,7 @@ function table($type) {
 							.'</a>
 						</div>
 						<div>
-							<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+							<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
 						</div>
 					</td>';
 
@@ -102,7 +102,7 @@ function table($type) {
 								.'</a>
 							</div>
 							<div>
-								<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+								<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
 							</div>
 						</td>';
 
@@ -134,7 +134,7 @@ function table($type) {
 						.'</a>
 					</div>
 					<div>
-						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
 					</div>
 				</td>';
 
