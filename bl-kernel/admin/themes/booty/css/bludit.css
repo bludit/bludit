@@ -217,3 +217,10 @@ div.sidebar .nav-item span.oi {
 	color: #6c757d !important;
 }
 
+/*
+	Manage > Content
+*/
+
+td.child {
+	padding-left: 30px;
+}

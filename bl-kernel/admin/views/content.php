@@ -72,31 +72,47 @@ function table($type) {
 				if (!$page->isChild() || $type!='published') {
 					echo '<tr>
 					<td>
-						<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span>'.$L->g('Empty title').'</span> ')
-						.'</a>
+						<div>
+							<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
+							.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
+							.'</a>
+						</div>
+						<div>
+							<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+						</div>
 					</td>';
 
 					$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
 					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
-					echo '<td class="text-center d-none d-sm-table-cell">'.$page->position().'</td>';
+					echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
+					echo '<a class="btn btn-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+					echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+					echo '</td>';
 
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
 						if ($child->published()) {
 						echo '<tr>
-						<td>
-							<a href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
-							.($child->title()?$child->title():'<span>'.$L->g('Empty title').'</span> ')
-							.'</a>
+						<td class="child">
+							<div>
+								<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
+								.($child->title()?$child->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
+								.'</a>
+							</div>
+							<div>
+								<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?'Position: '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+							</div>
 						</td>';
 
 						$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
 						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
 
-						echo '<td>'.$child->position().'</td>';
+						echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
+						echo '<a class="btn btn-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+						echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+						echo '</td>';
 
 						echo '</tr>';
 						}
