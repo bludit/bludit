@@ -147,8 +147,11 @@ class Pages extends dbJSON {
 
 	public function edit($args, $climode=false)
 	{
-		$row = array();
+		// Old key
+		// This variable is not belong to the database so is not defined in $row
+		$key = $args['key'];
 
+		$row = array();
 		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
@@ -161,8 +164,8 @@ class Pages extends dbJSON {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
 			} else {
-				// Default value for the field if not defined
-				$finalValue = $value;
+				// Default value from the current
+				$finalValue = $this->db[$key][$field];
 			}
 			settype($finalValue, gettype($value));
 			$row[$field] = $finalValue;
@@ -178,10 +181,6 @@ class Pages extends dbJSON {
 		if (!empty($args['parent'])) {
 			$parent = $args['parent'];
 		}
-
-		// Old key
-		// This variable is not belong to the database so is not defined in $row
-		$key = $args['key'];
 
 		// Slug from the title or the content
 		// This variable is not belong to the database so is not defined in $row
