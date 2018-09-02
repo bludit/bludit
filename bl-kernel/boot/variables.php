@@ -2,7 +2,7 @@
 
 /*
 	Environment variables
-	If you are going to change some variable from here is recommended do it before the installation
+	If you are going to do some changes in the variable, is recommended do it before the installation
 */
 
 // Log
