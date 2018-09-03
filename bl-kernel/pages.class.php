@@ -603,10 +603,12 @@ class Pages extends dbJSON {
 
 
 	// Returns string without HTML tags and truncated
-	private function generateSlug($text, $truncateLength=60) {
+	private function generateSlug($text, $truncateLength=60)
+	{
 		$tmpslug = Text::removeHTMLTags($text);
 		$tmpslug = Text::removeLineBreaks($tmpslug);
-		return Text::truncate($tmpslug, $truncateLength, '');
+		$tmpslug = Text::truncate($tmpslug, $truncateLength, '');
+		return $tmpslug;
 	}
 
 	// Returns TRUE if there are new pages published, FALSE otherwise
