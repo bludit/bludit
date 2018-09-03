@@ -178,7 +178,7 @@ function buildParentPages() {
 function getPlugin($pluginClassName) {
 	global $plugins;
 
-	if (pluginEnabled($pluginClassName)) {
+	if (pluginActivated($pluginClassName)) {
 		return $plugins['all'][$pluginClassName];
 	}
 	return false;
