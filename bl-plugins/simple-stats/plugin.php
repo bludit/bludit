@@ -1,6 +1,6 @@
 <?php
 /*
-	This plugin use the javascript library https://github.com/gionkunz/chartist-js
+	This plugin uses the javascript library https://github.com/gionkunz/chartist-js
 */
 class pluginSimpleStats extends Plugin {
 
@@ -16,7 +16,8 @@ class pluginSimpleStats extends Plugin {
 		$this->dbFields = array(
 			'label'=>$L->g('Visits'),
 			'numberOfDays'=>7,
-			'excludeAdmins'=>false
+			'excludeAdmins'=>false,
+			'showContentStats'=>false
 		);
 	}
 
@@ -32,6 +33,14 @@ class pluginSimpleStats extends Plugin {
 		$html .= '<label>'.$L->get('Label').'</label>';
 		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Show Content Stats').'</label>';
+		$html .= '<select name="showContentStats">';
+		$html .= '<option value="true" '.($this->getValue('showContentStats')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('showContentStats')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '</select>';
 		$html .= '</div>';
 
 		if (defined('BLUDIT_PRO')) {
@@ -73,18 +82,15 @@ class pluginSimpleStats extends Plugin {
 
 $html = <<<EOF
 <div class="simple-stats-plugin">
-	<div class="container mt-5 pt-5 border-top">
+	<div class="my-5 pt-4 border-top">
 		<h4 class="pb-3">{$L->get('Visits')}</h4>
-		<div class="row">
-			<div class="col">
-			<div class="ct-chart ct-perfect-fourth"></div>
-			<p class="legends visits-today">{$L->g('Visits today')}: $visitsToday</p>
-			<p class="legends unique-today">{$L->g('Unique visitors today')}: $uniqueVisitors</p>
-			</div>
-		</div>
+		<div class="ct-chart ct-perfect-fourth"></div>
+		<p class="legends visits-today">{$L->g('Visits today')}: $visitsToday</p>
+		<p class="legends unique-today">{$L->g('Unique visitors today')}: $uniqueVisitors</p>
 	</div>
 </div>
 EOF;
+
 		$numberOfDays = $this->getValue('numberOfDays');
 		$numberOfDays = $numberOfDays - 1;
 		for ($i=$numberOfDays; $i >= 0 ; $i--) {
@@ -118,6 +124,26 @@ $script = <<<EOF
 EOF;
 
 		$this->deleteOldLogs();
+
+		/**
+		 * Optional Content Stats Feature
+		 */
+		if ($this->getValue('showContentStats'))  {
+
+			global $pages, $categories, $tags;
+
+			$data['title'] = $L->get('Statistics');
+			$data['tabTitleChart'] = $L->get('Chart');
+			$data['tabTitleTable'] = $L->get('Table');
+			$data['data'][$L->get('published')] = count($pages->getPublishedDB());
+			$data['data'][$L->get('static')] 	= count($pages->getStaticDB());
+			$data['data'][$L->get('drafts')]	= count($pages->getDraftDB());
+			$data['data'][$L->get('scheduled')] = count($pages->getScheduledDB());
+			$data['data'][$L->get('sticky')] 	= count($pages->getStickyDB());
+			$data['data'][$L->get('categories')]= count($categories->keys());
+			$data['data'][$L->get('tags')] 		= count($tags->keys());
+			$html .= $this->renderContentStatistics($data);
+		}
 
 		return $html.PHP_EOL.$script.PHP_EOL;
 	}
@@ -190,6 +216,54 @@ EOF;
 		$logFile = $this->workspace().$currentDate.'.log';
 
 		return file_put_contents($logFile, $line.PHP_EOL, FILE_APPEND | LOCK_EX)!==false;
+	}
+
+	public function renderContentStatistics($data)
+	{
+		$html = '<div class="my-5 pt-4 border-top">';
+		$html .= "<h4 class='pb-2'>{$data['title']}</h4>";
+		$html .= '
+		<nav>
+		  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+		    <a class="nav-item nav-link active" id="nav-stats-chart-tab" data-toggle="tab" href="#nav-stats-chart" role="tab" aria-controls="nav-stats-chart" aria-selected="true">' . $data['tabTitleChart'] .'</a>
+		    <a class="nav-item nav-link" id="nav-stats-table-tab" data-toggle="tab" href="#nav-stats-table" role="tab" aria-controls="nav-stats-table" aria-selected="false">' . $data['tabTitleTable'] .'</a>
+		  </div>
+		</nav>
+		<div class="tab-content my-2" id="nav-tabContent">
+		  <div class="tab-pane fade show active" id="nav-stats-chart" role="tabpanel" aria-labelledby="nav-stats-chart-tab">
+		  	<div class="ct-chart-content pt-2"></div>
+		  </div>
+		  <div class="tab-pane fade" id="nav-stats-table" role="tabpanel" aria-labelledby="nav-stats-table-tab">
+			<table class="table table-borderless table-sm table-striped mt-3">
+			  <tbody>';
+
+		foreach ($data['data'] as $th => $td) {
+			$html .= "
+				<tr>
+					<th>$th</th>
+					<td>$td</td>
+				</tr>
+			";
+		}
+
+		$html .= '
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+
+		</div>
+
+		<script>
+		new Chartist.Bar(".ct-chart-content", {
+		  labels: ' . json_encode(array_keys($data['data'])) . ',
+		  series: ' . json_encode(array_values($data['data'])) . '
+		}, {
+		  distributeSeries: true
+		});
+		</script>';
+
+		return $html;
 	}
 
 }
