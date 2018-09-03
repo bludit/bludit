@@ -116,7 +116,9 @@ $script = <<<EOF
 
 	var options = {
 		height: 250,
-		onlyInteger: true
+		axisY: {
+			onlyInteger: true,
+		}
 	};
 
 	new Chartist.Line('.ct-chart', data, options);
