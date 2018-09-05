@@ -49,6 +49,7 @@ define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
 define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
 define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
 define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
+define('PATH_WORKSPACES',	PATH_CONTENT.'workspaces'.DS);
 define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
@@ -208,8 +209,8 @@ RewriteEngine on
 # Base directory
 RewriteBase '.HTML_PATH_ROOT.'
 
-# Deny direct access to .txt files
-RewriteRule ^bl-content/(.*)\.txt$ - [R=404,L]
+# Deny direct access to the next directories
+RewriteRule ^bl-content/(databases|workspaces|pages|tmp|)/.*$ - [R=404,L]
 
 # All URL process by index.php
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -296,6 +297,11 @@ function install($adminPassword, $timezone)
 
 	if (!mkdir(PATH_TMP, DIR_PERMISSIONS, true)) {
 		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
+		error_log('[ERROR] '.$errorText, 0);
+	}
+
+	if (!mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_WORKSPACES;
 		error_log('[ERROR] '.$errorText, 0);
 	}
 
@@ -493,6 +499,7 @@ function install($adminPassword, $timezone)
 		JSON_PRETTY_PRINT),
 		LOCK_EX
 	);
+	mkdir(PATH_WORKSPACES.'simple-stats', DIR_PERMISSIONS, true);
 
 	// File plugins/tinymce/db.php
 	file_put_contents(

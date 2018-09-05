@@ -59,7 +59,7 @@ class pluginRSS extends Plugin {
 		$xml .= '<description>'.$site->description().'</description>';
 
 		// Get keys of pages
-		foreach($list as $pageKey) {
+		foreach ($list as $pageKey) {
 			try {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
@@ -81,13 +81,13 @@ class pluginRSS extends Plugin {
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->loadXML($xml);
-		$doc->save($this->workspace().'rss.xml');
+		return $doc->save($this->workspace().'rss.xml');
 	}
 
 	public function install($position=0)
 	{
 		parent::install($position);
-		$this->createXML();
+		return $this->createXML();
 	}
 
 	public function post()

@@ -62,13 +62,13 @@ class pluginSitemap extends Plugin {
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->loadXML($xml);
-		$doc->save($this->workspace().'sitemap.xml');
+		return $doc->save($this->workspace().'sitemap.xml');
 	}
 
 	public function install($position=0)
 	{
 		parent::install($position);
-		$this->createXML();
+		return $this->createXML();
 	}
 
 	public function post()

@@ -68,8 +68,9 @@ class Page {
 	public function content($sanitize=false)
 	{
 		// If already set the content, return it
-		if (!empty($this->getValue('content'))) {
-			return $this->getValue('content');
+		$content = $this->getValue('content');
+		if (!empty($content)) {
+			return $content;
 		}
 
 		$contentRaw = $this->contentRaw();

@@ -21,28 +21,6 @@ class pluginBackup extends Plugin {
 		$this->zip = extension_loaded('zip');
 	}
 
-	// Install the plugin and create the workspace directory
-	public function install($position=0)
-	{
-		parent::install($position);
-		$workspace = $this->workspace();
-		return mkdir($workspace, 0755, true);
-	}
-
-	// Uninstall the plugin and delete the workspace directory
-	public function uninstall()
-	{
-		parent::uninstall();
-		$workspace = $this->workspace();
-		return Filesystem::deleteRecursive($workspace);
-	}
-
-	// Redefine workspace
-	public function workspace()
-	{
-		return PATH_CONTENT.'backup'.DS;
-	}
-
 	public function post()
 	{
 		if (isset($_POST['createBackup'])) {

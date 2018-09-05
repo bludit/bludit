@@ -214,12 +214,14 @@ class Plugin {
 			return false;
 		}
 
-		// Create plugin directory for databases and other files
+		// Create workspace
+		$workspace = $this->workspace();
+		mkdir($workspace, 0755, true);
+
+		// Create plugin directory for the database
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
-		// Create database
 		$this->dbFields['position'] = $position;
-
 		// Sanitize default values to store in the file
 		foreach ($this->dbFields as $key=>$value) {
 			$value = Sanitize::html($value);
@@ -227,13 +229,21 @@ class Plugin {
 			$this->db[$key] = $value;
 		}
 
+		// Create the database
 		return $this->save();
 	}
 
 	public function uninstall()
 	{
+		// Delete database
 		$path = PATH_PLUGINS_DATABASES.$this->directoryName;
-		return Filesystem::deleteRecursive($path);
+		Filesystem::deleteRecursive($path);
+
+		// Delete workspace
+		$workspace = $this->workspace();
+		Filesystem::deleteRecursive($workspace);
+
+		return true;
 	}
 
 	public function installed()
@@ -243,7 +253,7 @@ class Plugin {
 
 	public function workspace()
 	{
-		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
+		return PATH_WORKSPACES.$this->directoryName.DS;
 	}
 
 	public function init()
