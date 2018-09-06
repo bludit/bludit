@@ -48,7 +48,7 @@ class pluginSitemap extends Plugin {
 				$page = new Page($pageKey);
 				$xml .= '<url>';
 				$xml .= '<loc>'.$page->permalink().'</loc>';
-				$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';
+				$xml .= '<lastmod>'.$page->date(SITEMAP_DATE_FORMAT).'</lastmod>';
 				$xml .= '<changefreq>daily</changefreq>';
 				$xml .= '</url>';
 			} catch (Exception $e) {
