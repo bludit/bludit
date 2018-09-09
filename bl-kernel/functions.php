@@ -165,7 +165,9 @@ function buildParentPages() {
 	foreach ($pagesKey as $pageKey) {
 		try {
 			$page = new Page($pageKey);
-			array_push($list, $page);
+			if ($page->isParent()) {
+				array_push($list, $page);
+			}
 		} catch (Exception $e) {
 			// continue
 		}

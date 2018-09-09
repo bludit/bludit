@@ -334,7 +334,9 @@ class Pages extends dbJSON {
 		return false;
 	}
 
-	// Returns a database with published pages keys
+	// Returns a database with published pages
+	// $onlyKeys = true; Returns only the pages keys
+	// $onlyKeys = false; Returns part of the database, I do not recommend use this
 	public function getPublishedDB($onlyKeys=true)
 	{
 		$tmp = $this->db;
