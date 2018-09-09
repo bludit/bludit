@@ -6,5 +6,7 @@
 	},
 	"visits": "Seitenaufrufe",
 	"visits-today": "Seitenaufrufe heute",
-	"unique-visitors-today": "Besucher heute"
+	"unique-visitors-today": "Besucher heute",
+    "chart": "Chart",
+    "table": "Table"
 }

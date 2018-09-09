@@ -6,5 +6,7 @@
 	},
 	"visits": "Посещения",
 	"visits-today": "Посещений сегодня",
-	"unique-visitors-today": "Уникальных посетителей сегодня"
+	"unique-visitors-today": "Уникальных посетителей сегодня",
+	"chart": "Chart",
+	"table": "Table"
 }
