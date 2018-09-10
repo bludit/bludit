@@ -31,6 +31,7 @@ class Site extends dbJSON {
 		'github'=>		'',
 		'gitlab'=>		'',
 		'linkedin'=>		'',
+		'mastodon'=>		'',
 		'orderBy'=>		'date', // date or position
 		'extremeFriendly'=>	true,
 		'autosaveInterval'=>	2, // minutes
@@ -157,6 +158,11 @@ class Site extends dbJSON {
 	public function linkedin()
 	{
 		return $this->getField('linkedin');
+	}
+
+	public function mastodon()
+	{
+		return $this->getField('mastodon');
 	}
 
 	public function orderBy()

@@ -9,6 +9,8 @@ function updateBludit() {
 	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
+		@mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true);
+
 		$plugins = array('pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
 		foreach ($plugins as $plugin) {
 			if (pluginActivated($plugin)) {

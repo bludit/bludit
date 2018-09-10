@@ -59,7 +59,7 @@ class dbJSON {
 		if (isset($this->db[$field])) {
 			return $this->db[$field];
 		}
-		return $this->dbFields[$field]['value'];
+		return $this->dbFields[$field];
 	}
 
 	// Save the JSON file

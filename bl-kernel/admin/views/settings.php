@@ -365,6 +365,15 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>''
 		));
 
+		echo Bootstrap::formInputText(array(
+			'name'=>'mastodon',
+			'label'=>'Mastodon',
+			'value'=>$site->mastodon(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
 		echo '
 		<div class="form-group mt-4">
 			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
