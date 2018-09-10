@@ -75,7 +75,7 @@ class Site extends dbJSON {
 	// Also, you can get the a particular filter
 	public function uriFilters($filter='')
 	{
-		$filters['admin'] = '/'.ADMIN_URI_FILTER;
+		$filters['admin'] = '/' . ADMIN_URI_FILTER . '/';
 		$filters['page'] = $this->getField('uriPage');
 		$filters['tag'] = $this->getField('uriTag');
 		$filters['category'] = $this->getField('uriCategory');
