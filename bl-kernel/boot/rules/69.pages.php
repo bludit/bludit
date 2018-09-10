@@ -58,7 +58,7 @@ if ($site->homepage() && $url->whereAmI()==='home') {
 
 // Build specific page
 if ($url->whereAmI()==='page') {
-	// Check if the URL has trailing slash
+	// If the page ends with slash redirect to the correct url
 	$pageKey = $url->slug();
 	if (Text::endsWith($pageKey, '/')) {
 		$pageKey = rtrim($pageKey, '/');

@@ -9,9 +9,13 @@ function updateBludit() {
 	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
-		// From Bludit v2.0.x to v2.1.x
-		if ($site->currentBuild() < '20171102') {
-			// Nothing to do
+		$plugins = array('pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
+		foreach ($plugins as $plugin) {
+			if (pluginActivated($plugin)) {
+				Log::set('UPDATE SYSTEM - Re-enable plugin: '.$plugin);
+				deactivatePlugin($plugin);
+				activatePlugin($plugin);
+			}
 		}
 
 		// Set the current build number
