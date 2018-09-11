@@ -6,7 +6,7 @@ if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failure.');
 }
 
-$login = $Login = new Login();
+$login = new Login();
 
 $layout = array(
 	'controller'=>null,
@@ -52,6 +52,7 @@ if ($layout['slug']==='ajax') {
 else
 {
 	// Boot rules
+	include(PATH_RULES.'60.router.php');
 	include(PATH_RULES.'69.pages.php');
 	include(PATH_RULES.'99.header.php');
 	include(PATH_RULES.'99.paginator.php');
@@ -62,15 +63,10 @@ else
 	// User not logged.
 	// Slug is login.
 	// Slug is login-email.
-	if($url->notFound() || !$login->isLogged() || ($url->slug()==='login') || ($url->slug()==='login-email') ) {
+	if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
 		$layout['template']	= 'login.php';
-
-		if ($url->slug()==='login-email') {
-			$layout['controller']	= 'login-email';
-			$layout['view']		= 'login-email';
-		}
 
 		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
 		$security->generateTokenCSRF();
@@ -84,17 +80,17 @@ else
 	Theme::plugins('beforeAdminLoad');
 
 	// Load init.php if the theme has one.
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php') ) {
+	if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php')) {
 		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php');
 	}
 
 	// Load controller.
-	if( Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php') ) {
+	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
 	}
 
 	// Load view and theme.
-	if( Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template']) ) {
+	if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template'])) {
 		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template']);
 	}
 

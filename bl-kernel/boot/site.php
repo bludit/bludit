@@ -1,12 +1,5 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// // Start session if the cookie is defined
-// if (Cookie::get('BLUDIT-KEY')) {
-// 	if (!Session::started()) {
-// 		Session::start();
-// 	}
-// }
-
 // Load plugins rules
 include(PATH_RULES.'60.plugins.php');
 
@@ -14,6 +7,7 @@ include(PATH_RULES.'60.plugins.php');
 Theme::plugins('beforeAll');
 
 // Load rules
+include(PATH_RULES.'60.router.php');
 include(PATH_RULES.'69.pages.php');
 include(PATH_RULES.'99.header.php');
 include(PATH_RULES.'99.paginator.php');

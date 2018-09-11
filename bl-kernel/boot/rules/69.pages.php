@@ -58,13 +58,6 @@ if ($site->homepage() && $url->whereAmI()==='home') {
 
 // Build specific page
 if ($url->whereAmI()==='page') {
-	// If the page ends with slash redirect to the correct url
-	$pageKey = $url->slug();
-	if (Text::endsWith($pageKey, '/')) {
-		$pageKey = rtrim($pageKey, '/');
-		Redirect::url(DOMAIN_PAGES.$pageKey);
-	}
-
 	$content[0] = $page = buildThePage();
 }
 // Build content by tag

@@ -6,15 +6,15 @@ class Redirect {
 	{
 		if (!headers_sent()) {
 			header("Location:".$url, TRUE, $httpCode);
-			exit;
+			exit(0);
 		}
 
-		exit ('<meta http-equiv="refresh" content="0; url='.$url.'"/>');
+		exit('<meta http-equiv="refresh" content="0; url='.$url.'"/>');
 	}
 
 	public static function page($page)
 	{
-		self::url(HTML_PATH_ROOT.ADMIN_URI_FILTER.'/'.$page);
+		self::url(HTML_PATH_ADMIN_ROOT.$page);
 	}
 
 	public static function home()
