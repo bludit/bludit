@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Redirect admin, from /admin to /admin/
-if ($url->uri()=='/'.ADMIN_URI_FILTER) {
+if ($url->uri()==HTML_PATH_ROOT.ADMIN_URI_FILTER) {
 	Redirect::url(DOMAIN_ADMIN);
 }
 
