@@ -265,6 +265,12 @@ function changePluginsPosition($pluginClassList) {
 	return true;
 }
 
+/*
+	Create a new page
+
+	The array $args support all the keys from variable $dbFields of the class pages.class.php
+	If you don't pass all the keys, the default values are used, the default values are from $dbFields in the class pages.class.php
+*/
 function createPage($args) {
 	global $pages;
 	global $syslog;

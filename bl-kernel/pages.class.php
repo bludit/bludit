@@ -51,7 +51,7 @@ class Pages extends dbJSON {
 
 	// Create a new page
 	// This function returns the key of the new page
-	public function add($args, $climode=false)
+	public function add($args)
 	{
 		$row = array();
 
@@ -116,18 +116,16 @@ class Pages extends dbJSON {
 			$row['type'] = 'scheduled';
 		}
 
-		if ($climode===false) {
-			// Create the directory
-			if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
-				return false;
-			}
+		// Create the directory
+		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
+			return false;
+		}
 
-			// Create the index.txt and save the file
-			if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
-				return false;
-			}
+		// Create the index.txt and save the file
+		if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false ) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
+			return false;
 		}
 
 		// Checksum MD5
@@ -145,7 +143,7 @@ class Pages extends dbJSON {
 		return $key;
 	}
 
-	public function edit($args, $climode=false)
+	public function edit($args)
 	{
 		// Old key
 		// This variable is not belong to the database so is not defined in $row
@@ -213,20 +211,18 @@ class Pages extends dbJSON {
 			$row['type'] = 'scheduled';
 		}
 
-		if ($climode===false) {
-			// Move the directory from old key to new key.
-			if ($newKey!==$key) {
-				if( Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false ) {
-					Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
-					return false;
-				}
-			}
-
-			// Make the index.txt and save the file.
-			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $contentRaw)===false) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+		// Move the directory from old key to new key.
+		if ($newKey!==$key) {
+			if( Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false ) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
 			}
+		}
+
+		// Make the index.txt and save the file.
+		if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $contentRaw)===false) {
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+			return false;
 		}
 
 		// Remove the old key

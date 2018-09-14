@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Contenido remoto",
+		"description": ""
+	},
+	"webhook": "Webhook",
+	"source": "Source",
+	"keep-content": "Keep content",
+	"complete-url-of-the-zip-file": "Complete URL of the zip file.",
+	"if-you-want-to-keep-the-content-generate-via-the-user-interface-enable-this-field": "If you want to keep the content generate via the user interface enable this field."
+}
