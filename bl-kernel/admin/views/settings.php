@@ -313,7 +313,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'codepen',
-			'label'=>'Codepen',
+			'label'=>'CodePen',
 			'value'=>$site->codepen(),
 			'class'=>'',
 			'placeholder'=>'',
@@ -340,7 +340,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'gitlab',
-			'label'=>'Gitlab',
+			'label'=>'GitLab',
 			'value'=>$site->gitlab(),
 			'class'=>'',
 			'placeholder'=>'',
@@ -349,7 +349,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'github',
-			'label'=>'Github',
+			'label'=>'GitHub',
 			'value'=>$site->github(),
 			'class'=>'',
 			'placeholder'=>'',
@@ -358,7 +358,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'linkedin',
-			'label'=>'Linkedin',
+			'label'=>'LinkedIn',
 			'value'=>$site->linkedin(),
 			'class'=>'',
 			'placeholder'=>'',
