@@ -353,5 +353,8 @@
     "the-content-is-saved-as-a-draft-to-publish-it": "Контент збережено як чернетку. Для публікації натисніть на кнопку <b>Опублікувати<\/b> або якщо ви все ще працюєте над ним, натисніть на <b>Зберегти як чернетку<\/b>.",
     "site": "Сайт",
     "first": "Перший",
-    "last": "Останній"
+    "last": "Останній",
+    "there-are-no-pages-at-this-moment": "There are no pages at this moment.",
+    "there-are-no-static-pages-at-this-moment": "There are no static pages at this moment.",
+    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment."
 }
