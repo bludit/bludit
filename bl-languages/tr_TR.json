@@ -6,8 +6,7 @@
         "last-update": "2018-09-16",
         "authors": [
             "Ali Demirtas",
-            "guleycd",
-            ""
+			""
         ]
     },
     "dates": {
@@ -200,7 +199,7 @@
     "complete-the-form-choose-a-password-for-the-username-admin": "Bu formu doldurarak, « admin » kullanıcısı için bir şifre belirleyin",
     "show-password": "Şifreyi göster",
     "install": "Yükle",
-    "login": "Giriş",
+    "login": "Giriş yap",
     "back-to-login-form": "Giriş formuna geri dön",
     "get-login-access-code": "Giriş kodu al",
     "email-access-code": "E-posta erişim kodu",
@@ -216,8 +215,8 @@
     "user-edited": "Kullanıcı düzenlendi",
     "user-deleted": "Kullanıcı silindi",
     "recommended-for-recovery-password-and-notifications": "Kurtarma şifresi ve bildirimleri için önerilir.",
-    "authentication-token": "Kimlik doğrulama token",
-    "token": "Token",
+    "authentication-token": "Kimlik doğrulama jetonu",
+    "token": "Jeton",
     "current-status": "Mevcut durum",
     "upload-image": "Resim yükle",
     "the-changes-have-been-saved": "Değişiklikler kaydedildi",
@@ -230,7 +229,7 @@
     "content-published-from-scheduler": "Zamanlayıcı tarafından yayınlanan içerik",
     "blog": "Blog",
     "complete-all-fields": "Tüm alanları doldurun",
-    "static": "Statik",
+    "static": "Sabit",
     "about-your-site-or-yourself": "Siteniz veya kendiniz hakkında",
     "homepage": "Ana sayfa",
     "disabled": "Devre dışı",
@@ -281,7 +280,7 @@
     "minute": "dakika",
     "example-page-1-slug": "iceriginizi-olusturun",
     "example-page-1-title": "İçeriğinizi oluşturun",
-    "example-page-1-content": "Kendi içeriğinizi yazmaya başlayın veya gereksinimlerinize uyacak şekilde bunu düzenleyin. İçeriği oluşturmak, düzenlemek veya kaldırmak için <a href=\".\/admin\/\dashboard\">yönetim paneline<\/a> kullanıcı adı 'admin' ve yükleme işleminde belirlediğiniz şifre ile giriş yapmanız gerekir.",
+    "example-page-1-content": "Kendi içeriğinizi yazmaya başlayın veya gereksinimlerinize uyacak şekilde bunu düzenleyin. İçeriği oluşturmak, düzenlemek veya kaldırmak için <a href=\".\/admin\/\">yönetim paneline<\/a> kullanıcı adı 'admin' ve yükleme işleminde belirlediğiniz şifre ile giriş yapmanız gerekir.",
     "example-page-2-slug": "yeni-sitenizi-kurun",
     "example-page-2-title": "Yeni sitenizi kurun",
     "example-page-2-content": "Sitenizin ayarlarını <a href=\".\/admin\/\">yönetim panelinden<\/a> güncelleyin. Başlığı, açıklamayı ve sosyal ağları <a href=\".\/admin\/settings\" target=\"_blank\">Ayarlar > Genel</a> adresinden değiştirebilirsiniz.",
