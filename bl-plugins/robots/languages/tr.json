@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robotlar",
+		"description": "Robotların bir sayfanın içeriğini dizine eklememelerini veya takip edilecek bağlantılar için taramamasını sağlamak için özel bir HTML meta etiketi kullanabilirsiniz."
+	}
+}
