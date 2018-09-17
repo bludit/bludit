@@ -351,5 +351,8 @@
     "the-content-is-saved-as-a-draft-to-publish-it": "İçerik taslak olarak kaydedilir. Yayınlamak için <b>Yayınla<\/b> seçeneğine tıklayın ya da hala üzerinde çalışıyorsanız <b>Taslak olarak kaydet<\/b> seçeneğini seçin.",
     "site": "Site",
     "first": "İlk",
-    "last": "Son"
+    "last": "Son",
+    "there-are-no-pages-at-this-moment": "Şu anda hiç sayfa yok.",
+    "there-are-no-static-pages-at-this-moment": "Şu anda hiç sabit sayfa yok.",
+    "there-are-no-draft-pages-at-this-moment": "Şu anda taslak sayfa yok."
 }

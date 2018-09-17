@@ -521,7 +521,8 @@ function install($adminPassword, $timezone)
 		PATH_PLUGINS_DATABASES.'robots'.DS.'db.php',
 		$dataHead.json_encode(
 			array(
-				'position'=>1
+				'position'=>1,
+				'robotstxt'=>'User-agent: *'.PHP_EOL.'Allow: /'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

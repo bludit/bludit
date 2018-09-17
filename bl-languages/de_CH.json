@@ -353,5 +353,8 @@
     "the-content-is-saved-as-a-draft-to-publish-it": "Der Inhalt ist als Entwurf gespeichert. Um ihn zu veröffentlichen, klicke <b>Veröffentlichen<\/b>, wenn du ihn du weiter daran arbeiten möchtest, klicke <b>Als Entwurf speichern<\/b>.",
     "site": "Website",
     "first": "First",
-    "last": "Last"
+    "last": "Last",
+    "there-are-no-pages-at-this-moment": "Es gibt keine Seiten.",
+    "there-are-no-static-pages-at-this-moment": "Es gibt keine statischen Inhalte.",
+    "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe."
 }

@@ -10,7 +10,7 @@ class pluginRemoteContent extends Plugin {
 		// Key and value for the database of the plugin
 		$this->dbFields = array(
 			'webhook'=>$randomWebhook,
-			'source'=>'https://github.com/bludit/remote-content-example/archive/master.zip'
+			'source'=>''
 		);
 	}
 
@@ -48,7 +48,7 @@ class pluginRemoteContent extends Plugin {
 		$webhook = $this->getValue('webhook');
 		if ($this->webhook($webhook)) {
 			// Download files
-			//$this->downloadFiles();
+			$this->downloadFiles();
 
 			// Delete the current content
 			$this->deleteContent();

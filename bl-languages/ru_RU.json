@@ -353,5 +353,8 @@
     "the-content-is-saved-as-a-draft-to-publish-it": "Содержимое сохранено как черновик. Для публикации нажимте на кнопку <b>Опубликовать<\/b> или вы можете продолжить редактирование нажав на <b>Сохранить как черновик<\/b>.",
     "site": "Сайт",
     "first": "Первый",
-    "last": "Последний"
+    "last": "Последний",
+    "there-are-no-pages-at-this-moment": "There are no pages at this moment.",
+    "there-are-no-static-pages-at-this-moment": "There are no static pages at this moment.",
+    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment."
 }
