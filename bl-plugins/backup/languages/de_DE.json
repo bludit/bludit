@@ -2,11 +2,11 @@
 	"plugin-data":
 	{
 		"name": "Backup",
-		"description": "Einfach Backups erstellen und wiederherstellen."
+		"description": "Einfach Backups erstellen und wieder einspielen."
 	},
 	"create-backup": "Backup erstellen",
 	"download": "Backup herunterladen",
 	"restore-backup": "Backup wiederherstellen",
 	"delete-backup": "Backup löschen",
-	"there-are-no-backups-for-the-moment": "Derzeit gibt es keine Backups."
+	"there-are-no-backups-for-the-moment": "Es gibt keine Backups."
 }
