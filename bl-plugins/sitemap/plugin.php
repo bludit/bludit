@@ -4,7 +4,10 @@ class pluginSitemap extends Plugin {
 
 	public function init()
 	{
-		$this->formButtons = false;
+		$this->dbFields = array(
+			'pingGoogle'=>false,
+			'pingBing'=>false
+		);
 	}
 
 	// Method called on the settings of the plugin on the admin area
@@ -19,6 +22,24 @@ class pluginSitemap extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('Sitemap URL').'</label>';
 		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>Ping Google</label>';
+		$html .= '<select name="pingGoogle">';
+		$html .= '<option value="true" '.($this->getValue('pingGoogle')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('pingGoogle')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$L->get('notifies-google-when-you-created').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>Ping Bing</label>';
+		$html .= '<select name="pingBing">';
+		$html .= '<option value="true" '.($this->getValue('pingBing')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('pingBing')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$L->get('notifies-bing-when-you-created').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -42,7 +63,7 @@ class pluginSitemap extends Plugin {
 		$onlyPublished = true;
 		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
-		foreach($list as $pageKey) {
+		foreach ($list as $pageKey) {
 			try {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
@@ -65,6 +86,19 @@ class pluginSitemap extends Plugin {
 		return $doc->save($this->workspace().'sitemap.xml');
 	}
 
+	private function ping()
+	{
+		if ($this->getValue('pingGoogle')) {
+			$url = 'https://www.google.com/webmasters/sitemaps/ping?sitemap='.Theme::sitemapUrl();
+			TCP::http($url, 'GET', true, 3);
+		}
+
+		if ($this->getValue('pingBing')) {
+			$url = 'https://www.bing.com/webmaster/ping.aspx?sitemap='.Theme::sitemapUrl();
+			TCP::http($url, 'GET', true, 3);
+		}
+	}
+
 	public function install($position=0)
 	{
 		parent::install($position);
@@ -83,16 +117,19 @@ class pluginSitemap extends Plugin {
 	public function afterPageCreate()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function afterPageModify()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function afterPageDelete()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function beforeAll()

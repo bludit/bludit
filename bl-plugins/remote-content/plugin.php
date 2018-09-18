@@ -108,23 +108,30 @@ class pluginRemoteContent extends Plugin {
 		// For each page inside the pages directory
 		// Parse the page and add to the database
 		if (Filesystem::directoryExists($root.DS.'pages')) {
-			$pageList = Filesystem::listDirectories($root.DS.'pages'.DS);
-			foreach ($pageList as $directory) {
-				if (Filesystem::fileExists($directory.DS.'index.md')) {
-					// Parse the page from the file
-					$row = $this->parsePage($directory.DS.'index.md');
-
-					// Add the page to the database
+			$parentList = Filesystem::listDirectories($root.DS.'pages'.DS);
+			foreach ($parentList as $parentDirectory) {
+				$parentKey = basename($parentDirectory);
+				if (Filesystem::fileExists($parentDirectory.DS.'index.md')) {
+					$row = $this->parsePage($parentDirectory.DS.'index.md');
+					$row['slug'] = $parentKey;
 					$pages->add($row);
+				}
 
-					// Call the plugins after page created
-					Theme::plugins('afterPageCreate');
-
-					// Reindex databases
-					reindexCategories();
-					reindextags();
+				$childList = Filesystem::listDirectories($parentDirectory.DS);
+				foreach ($childList as $childDirectory) {
+					$childKey = basename($childDirectory);
+					if (Filesystem::fileExists($childDirectory.DS.'index.md')) {
+						$row = $this->parsePage($childDirectory.DS.'index.md');
+						$row['slug'] = $childKey;
+						$row['parent'] = $parentKey;
+						$pages->add($row);
+					}
 				}
 			}
+
+			Theme::plugins('afterPageCreate');
+			reindexCategories();
+			reindextags();
 		}
 
 		return true;

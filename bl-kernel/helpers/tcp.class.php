@@ -4,7 +4,7 @@ class TCP {
 
 	public static function http($url, $method='GET', $verifySSL=true, $timeOut=10, $followRedirections=true, $binary=true, $headers=false)
 	{
-		if( function_exists('curl_version') ) {
+		if (function_exists('curl_version')) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_HEADER, $headers);
@@ -14,16 +14,15 @@ class TCP {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $verifySSL);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeOut);
 			curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);
-			if($method=='POST') {
+			if ($method=='POST') {
 				curl_setopt($ch, CURLOPT_POST, true);
 			}
 			$output = curl_exec($ch);
-			if($output===false) {
+			if ($output===false) {
 				Log::set('Curl error: '.curl_error($ch));
 			}
 			curl_close($ch);
-		}
-		else {
+		} else {
 			$options = array(
 				'http'=>array(
 					'method'=>$method,
