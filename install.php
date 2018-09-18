@@ -210,7 +210,7 @@ RewriteEngine on
 RewriteBase '.HTML_PATH_ROOT.'
 
 # Deny direct access to the next directories
-RewriteRule ^bl-content/(databases|workspaces|pages|tmp|)/.*$ - [R=404,L]
+RewriteRule ^bl-content/(databases|workspaces|pages|tmp)/.*$ - [R=404,L]
 
 # All URL process by index.php
 RewriteCond %{REQUEST_FILENAME} !-f
