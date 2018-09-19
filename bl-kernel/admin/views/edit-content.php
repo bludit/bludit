@@ -51,7 +51,7 @@
 		// Cover image
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'coverImage',
-			'value'=>$page->coverImage()
+			'value'=>$page->coverImage(false)
 		));
 
 		// Content
@@ -115,7 +115,7 @@
 			}
 		?>
 
-		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
+		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo (empty($coverImage) ? HTML_PATH_ADMIN_THEME_IMG.'default.svg' : $page->coverImage() ) ?>" />
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover image')));

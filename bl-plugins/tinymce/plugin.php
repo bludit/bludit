@@ -103,6 +103,8 @@ tinymce.init({
 	theme: "modern",
 	skin: "bludit",
 	min_height: $min_height,
+	autoresize_min_height: $min_height,
+	autoresize_bottom_margin: 10,
 	max_height: 1000,
 	element_format : "html",
 	entity_encoding : "raw",
