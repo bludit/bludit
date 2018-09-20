@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-09-16",
+        "last-update": "2018-09-20",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -352,8 +352,8 @@
     "autosave": "Automatische Speicherung",
     "the-content-is-saved-as-a-draft-to-publish-it": "Der Inhalt ist als Entwurf gespeichert. Um ihn zu veröffentlichen, klicke <b>Veröffentlichen<\/b>, wenn du ihn du weiter daran arbeiten möchtest, klicke <b>Als Entwurf speichern<\/b>.",
     "site": "Website",
-    "first": "First",
-    "last": "Last",
+    "first": "Anfang",
+    "last": "Ende",
     "there-are-no-pages-at-this-moment": "Es gibt keine Seiten.",
     "there-are-no-static-pages-at-this-moment": "Es gibt keine statischen Inhalte.",
     "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe."
