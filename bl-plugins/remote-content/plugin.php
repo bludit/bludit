@@ -104,6 +104,7 @@ class pluginRemoteContent extends Plugin {
 	{
 		$workspace = $this->workspace();
 		Filesystem::deleteRecursive($workspace.DS);
+		mkdir($workspace, 0755, true);
 		return true;
 	}
 
