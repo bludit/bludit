@@ -47,6 +47,8 @@ class pluginRemoteContent extends Plugin {
 		// Check Webhook
 		$webhook = $this->getValue('webhook');
 		if ($this->webhook($webhook)) {
+			$this->cleanUp();
+
 			// Download files
 			$this->downloadFiles();
 
@@ -95,6 +97,13 @@ class pluginRemoteContent extends Plugin {
 		mkdir(PATH_PAGES, 0755, true);
 		mkdir(PATH_UPLOADS, 0755, true);
 
+		return true;
+	}
+
+	private function cleanUp()
+	{
+		$workspace = $this->workspace();
+		Filesystem::deleteRecursive($workspace.DS);
 		return true;
 	}
 
