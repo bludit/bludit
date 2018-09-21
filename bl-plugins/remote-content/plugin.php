@@ -164,6 +164,7 @@ class pluginRemoteContent extends Plugin {
 				$explode = $explode = explode(':', $line, 2);
 
 				//$field = Text::lowercase($explode[0]);
+				$field = $explode[0];
 				$field = trim($field);
 				unset($explode[0]);
 				$row[$field] = trim($explode[1]);
