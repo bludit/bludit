@@ -66,7 +66,7 @@ class pluginBackup extends Plugin {
 			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
+				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'workspaces/backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
 			}
 			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$L->get('restore-backup').'</button>';
 			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$L->get('delete-backup').'</button>';
