@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Uzak İçerik",
+		"description": ""
+	},
+	"webhook": "Webhook",
+	"source": "Kaynak",
+	"keep-content": "İçeriği sakla",
+	"complete-url-of-the-zip-file": "zip dosyasının tam URL'si.",
+	"if-you-want-to-keep-the-content-generate-via-the-user-interface-enable-this-field": "İçeriği kullanıcı arayüzü üzerinden tutmak istiyorsanız bu alanı etkinleştirin."
+}
