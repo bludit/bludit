@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -22,8 +19,9 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	createCategory($_POST['category']);
-	Redirect::page('categories');
+	if (createCategory($_POST['category'])) {
+		Redirect::page('categories');
+	}
 }
 
 // ============================================================================
@@ -31,4 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('New category');
+$layout['title'] .= ' - '.$L->g('New category');

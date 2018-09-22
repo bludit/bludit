@@ -59,27 +59,10 @@ class Plugin {
 		$this->metadata = json_decode($metadataString, true);
 
 		// If the plugin is installed then get the database
-		if($this->installed()) {
+		if ($this->installed()) {
 			$Tmp = new dbJSON($this->filenameDb);
 			$this->db = $Tmp->db;
 		}
-	}
-
-	// DEPRECATED
-	// 2017-06-19
-	public function setDb($args)
-	{
-		foreach($this->dbFields as $key=>$value) {
-			if( isset($args[$key]) ) {
-				$value = Sanitize::html( $args[$key] );
-				if($value==='false') { $value = false; }
-				elseif($value==='true') { $value = true; }
-				settype($value, gettype($this->dbFields[$key]));
-				$this->db[$key] = $value;
-			}
-		}
-
-		$this->save();
 	}
 
 	public function save()
@@ -87,6 +70,21 @@ class Plugin {
 		$tmp = new dbJSON($this->filenameDb);
 		$tmp->db = $this->db;
 		return $tmp->save();
+	}
+
+	public function includeCSS($filename)
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.$this->domainPath().'css/'.$filename.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+	}
+
+	public function includeJS($filename)
+	{
+		return '<script charset="utf-8" src="'.$this->domainPath().'js/'.$filename.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public function domainPath()
+	{
+		return DOMAIN_PLUGINS.$this->directoryName.'/';
 	}
 
 	public function htmlPath()
@@ -126,34 +124,19 @@ class Plugin {
 	// (boolean) $html, TRUE returns the value sanitized, FALSE unsanitized
 	public function getValue($field, $html=true)
 	{
-		if( isset($this->db[$field]) ) {
-			if($html) {
+		if (isset($this->db[$field])) {
+			if ($html) {
 				return $this->db[$field];
-			}
-			else {
+			} else {
 				return Sanitize::htmlDecode($this->db[$field]);
 			}
 		}
 		return false;
 	}
 
-	// DEPRECATED
-	// 2017-06-16
-	public function getDbField($key, $html=true)
+	public function label()
 	{
-		if(isset($this->db[$key])) {
-
-			if($html) {
-				// All fields from DBField are sanitized.
-				return $this->db[$key];
-			}
-			else {
-				// Decode HTML tags, this action unsanitized the variable.
-				return Sanitize::htmlDecode($this->db[$key]);
-			}
-		}
-
-		return '';
+		return $this->getMetadata('label');
 	}
 
 	public function name()
@@ -231,20 +214,36 @@ class Plugin {
 			return false;
 		}
 
-		// Create plugin directory for databases and other files
+		// Create workspace
+		$workspace = $this->workspace();
+		mkdir($workspace, 0755, true);
+
+		// Create plugin directory for the database
 		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
 
-		// Create database
 		$this->dbFields['position'] = $position;
-		$this->setDb($this->dbFields);
+		// Sanitize default values to store in the file
+		foreach ($this->dbFields as $key=>$value) {
+			$value = Sanitize::html($value);
+			settype($value, gettype($this->dbFields[$key]));
+			$this->db[$key] = $value;
+		}
 
-		return true;
+		// Create the database
+		return $this->save();
 	}
 
 	public function uninstall()
 	{
+		// Delete database
 		$path = PATH_PLUGINS_DATABASES.$this->directoryName;
-		return Filesystem::deleteRecursive($path);
+		Filesystem::deleteRecursive($path);
+
+		// Delete workspace
+		$workspace = $this->workspace();
+		Filesystem::deleteRecursive($workspace);
+
+		return true;
 	}
 
 	public function installed()
@@ -254,7 +253,7 @@ class Plugin {
 
 	public function workspace()
 	{
-		return PATH_PLUGINS_DATABASES.$this->directoryName.DS;
+		return PATH_WORKSPACES.$this->directoryName.DS;
 	}
 
 	public function init()
@@ -293,7 +292,7 @@ class Plugin {
 	// Example: https://www.mybludit.com/api/foo/bar
 	public function webhook($URI=false, $returnsAfterURI=false, $fixed=true)
 	{
-		global $Url;
+		global $url;
 
 		if (empty($URI)) {
 			return false;
@@ -301,7 +300,7 @@ class Plugin {
 
 		// Check URI start with the webhook
 		$startString = HTML_PATH_ROOT.$URI;
-		$URI = $Url->uri();
+		$URI = $url->uri();
 		$length = mb_strlen($startString, CHARSET);
 		if (mb_substr($URI, 0, $length)!=$startString) {
 			return false;

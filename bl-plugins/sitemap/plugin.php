@@ -4,17 +4,42 @@ class pluginSitemap extends Plugin {
 
 	public function init()
 	{
-		$this->formButtons = false;
+		$this->dbFields = array(
+			'pingGoogle'=>false,
+			'pingBing'=>false
+		);
 	}
 
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Sitemap URL').'</label>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Sitemap URL').'</label>';
 		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>Ping Google</label>';
+		$html .= '<select name="pingGoogle">';
+		$html .= '<option value="true" '.($this->getValue('pingGoogle')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('pingGoogle')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$L->get('notifies-google-when-you-created').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>Ping Bing</label>';
+		$html .= '<select name="pingBing">';
+		$html .= '<option value="true" '.($this->getValue('pingBing')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('pingBing')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '</select>';
+		$html .= '<span class="tip">'.$L->get('notifies-bing-when-you-created').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -22,31 +47,34 @@ class pluginSitemap extends Plugin {
 
 	private function createXML()
 	{
-		global $Site;
-		global $dbPages;
+		global $site;
+		global $pages;
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 		$xml .= '<url>';
-		$xml .= '<loc>'.$Site->url().'</loc>';
+		$xml .= '<loc>'.$site->url().'</loc>';
 		$xml .= '</url>';
 
 		// Get DB
 		$pageNumber = 1;
-		$amountOfItems = -1;
+		$numberOfItems = -1;
 		$onlyPublished = true;
-		$pages = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
-		foreach($pages as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-
-			$xml .= '<url>';
-			$xml .= '<loc>'.$page->permalink().'</loc>';
-			$xml .= '<lastmod>'.$page->dateRaw(SITEMAP_DATE_FORMAT).'</lastmod>';
-			$xml .= '<changefreq>daily</changefreq>';
-			$xml .= '</url>';
+		foreach ($list as $pageKey) {
+			try {
+				// Create the page object from the page key
+				$page = new Page($pageKey);
+				$xml .= '<url>';
+				$xml .= '<loc>'.$page->permalink().'</loc>';
+				$xml .= '<lastmod>'.$page->date(SITEMAP_DATE_FORMAT).'</lastmod>';
+				$xml .= '<changefreq>daily</changefreq>';
+				$xml .= '</url>';
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		$xml .= '</urlset>';
@@ -55,13 +83,26 @@ class pluginSitemap extends Plugin {
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->loadXML($xml);
-		$doc->save($this->workspace().'sitemap.xml');
+		return $doc->save($this->workspace().'sitemap.xml');
+	}
+
+	private function ping()
+	{
+		if ($this->getValue('pingGoogle')) {
+			$url = 'https://www.google.com/webmasters/sitemaps/ping?sitemap='.Theme::sitemapUrl();
+			TCP::http($url, 'GET', true, 3);
+		}
+
+		if ($this->getValue('pingBing')) {
+			$url = 'https://www.bing.com/webmaster/ping.aspx?sitemap='.Theme::sitemapUrl();
+			TCP::http($url, 'GET', true, 3);
+		}
 	}
 
 	public function install($position=0)
 	{
 		parent::install($position);
-		$this->createXML();
+		return $this->createXML();
 	}
 
 	public function post()
@@ -76,16 +117,19 @@ class pluginSitemap extends Plugin {
 	public function afterPageCreate()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function afterPageModify()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function afterPageDelete()
 	{
 		$this->createXML();
+		$this->ping();
 	}
 
 	public function beforeAll()

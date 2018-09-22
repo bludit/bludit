@@ -62,57 +62,60 @@ class pluginLinks extends Plugin {
 	// Method called on plugin settings on the admin area
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="save" class="blue" type="submit">'.$Language->get('Save').'</button>';
+		$html .= '<label>'.$L->get('Label').'</label>';
+		$html .= '<input name="label" class="form-control" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<button name="save" class="btn btn-primary my-2" type="submit">'.$L->get('Save').'</button>';
 		$html .= '</div>';
 
 		// New link, when the user click on save button this call the method post()
 		// and the new link is added to the database
-		$html .= '<legend>'.$Language->get('Add a new link').'</legend>';
+		$html .= '<h4 class="mt-3">'.$L->get('Add a new link').'</h4>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Name').'</label>';
-		$html .= '<input name="linkName" type="text" value="">';
+		$html .= '<label>'.$L->get('Name').'</label>';
+		$html .= '<input name="linkName" type="text" class="form-control" value="" placeholder="Bludit">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Url').'</label>';
-		$html .= '<input name="linkURL" type="text" value="">';
+		$html .= '<label>'.$L->get('Url').'</label>';
+		$html .= '<input name="linkURL" type="text" class="form-control" value="" placeholder="https://www.bludit.com/">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<button name="addLink" class="blue" type="submit">'.$Language->get('Add').'</button>';
+		$html .= '<button name="addLink" class="btn btn-primary my-2" type="submit">'.$L->get('Add').'</button>';
 		$html .= '</div>';
-
-		$html .= '<legend>'.$Language->get('Links').'</legend>';
 
 		// Get the JSON DB, getValue() with the option unsanitized HTML code
 		$jsondb = $this->getValue('jsondb', $unsanitized=false);
 		$links = json_decode($jsondb, true);
+
+		$html .= !empty($links) ? '<h4 class="mt-3">'.$L->get('Links').'</h4>' : '';
+
 		foreach($links as $name=>$url) {
-			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Name').'</label>';
-			$html .= '<input type="text" value="'.$name.'" disabled>';
+			$html .= '<div class="my-2">';
+			$html .= '<label>'.$L->get('Name').'</label>';
+			$html .= '<input type="text" class="form-control" value="'.$name.'" disabled>';
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<label>'.$Language->get('Url').'</label>';
-			$html .= '<input type="text" value="'.$url.'" disabled>';
+			$html .= '<label>'.$L->get('Url').'</label>';
+			$html .= '<input type="text" class="form-control" value="'.$url.'" disabled>';
 			$html .= '</div>';
 
 			$html .= '<div>';
-			$html .= '<button name="deleteLink" type="submit" value="'.$name.'">'.$Language->get('Delete').'</button>';
+			$html .= '<button name="deleteLink" class="btn btn-secondary my-2" type="submit" value="'.$name.'">'.$L->get('Delete').'</button>';
 			$html .= '</div>';
-
-			$html .= '</br>';
 		}
 
 		return $html;
@@ -121,7 +124,7 @@ class pluginLinks extends Plugin {
 	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
-		global $Language;
+		global $L;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-pages">';

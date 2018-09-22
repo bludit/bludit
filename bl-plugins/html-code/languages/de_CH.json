@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "HTML Code",
+		"name": "HTML-Code",
 		"description": "HTML-, JavaScript- oder CSS-Code in den Header-Bereich des Themes oder über oder unter den Inhaltsbereich des Themes einfügen."
 	},
 	"insert-code-in-the-theme-inside-the-tag-head": "Code in den Bereich &#60;head&#62; &#60;/head&#62; des Themes einfügen.",

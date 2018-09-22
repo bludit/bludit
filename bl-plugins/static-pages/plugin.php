@@ -14,21 +14,25 @@ class pluginStaticPages extends Plugin {
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$Language->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Home link').'</label>';
+		$html .= '<label>'.$L->get('Label').'</label>';
+		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Home link').'</label>';
 		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$Language->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$Language->get('Disabled').'</option>';
-		$html .= '<span class="tip">'.$Language->get('show-the-home-link-on-the-sidebar').'</span>';
+		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
 		$html .= '</select>';
+		$html .= '<span class="tip">'.$L->get('show-the-home-link-on-the-sidebar').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -37,10 +41,10 @@ class pluginStaticPages extends Plugin {
 	// Method called on the sidebar of the website
 	public function siteSidebar()
 	{
-		global $Language;
-		global $Url;
-		global $Site;
-		global $dbPages;
+		global $L;
+		global $url;
+		global $site;
+		global $pages;
 
 		// HTML for sidebar
 		$html  = '<div class="plugin plugin-static-pages">';
@@ -57,7 +61,7 @@ class pluginStaticPages extends Plugin {
 		// Show Home page link
 		if ($this->getValue('homeLink')) {
 			$html .= '<li>';
-			$html .= '<a href="' . $Site->url() . '">' . $Language->get('Home page') . '</a>';
+			$html .= '<a href="' . $site->url() . '">' . $L->get('Home page') . '</a>';
 			$html .= '</li>';
 		}
 

@@ -1,302 +1,461 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-HTML::title(array('title'=>$L->g('Edit content'), 'icon'=>'file-text-o'));
-
-HTML::formOpen(array('class'=>'uk-form-stacked'));
-
-	// Security token
-	HTML::formInputHidden(array(
-		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
-	));
-
-	// Key input
-	HTML::formInputHidden(array(
-		'name'=>'key',
-		'value'=>$page->key()
-	));
-
-// LEFT SIDE
-// --------------------------------------------------------------------
-echo '<div class="uk-grid uk-grid-medium">';
-echo '<div class="bl-publish-view uk-width-8-10">';
-
-	// Title input
-	HTML::formInputText(array(
-		'name'=>'title',
-		'value'=>$page->title(),
-		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>$L->g('Title')
-	));
-
-	// Content input
-	HTML::formTextarea(array(
-		'name'=>'content',
-		'value'=>$page->contentRaw(false),
-		'class'=>'uk-width-1-1 uk-form-large',
-		'placeholder'=>''
-	));
-
-	// Form buttons
-	echo '<div class="uk-form-row uk-margin-bottom">';
-	echo '
-		<button class="uk-button uk-button-primary" type="submit">'.$L->g('Save').'</button>
-		<button class="uk-button uk-button-primary" type="button" id="jsSaveDraft">'.$L->g('Save as draft').'</button>
-	';
-
-if(count($page->children())===0)
-{
-	echo '	<button id="jsdelete" name="delete-page" class="uk-button" type="submit">'.$L->g('Delete').'</button>';
-	echo '	<a class="uk-button" href="'.HTML_PATH_ADMIN_ROOT.'content">'.$L->g('Cancel').'</a>';
-}
-
-	echo '</div>';
-
-echo '</div>';
-
-// RIGHT SIDE
-// --------------------------------------------------------------------
-echo '<div class="bl-publish-sidebar uk-width-2-10">';
-
-	echo '<ul>';
-
-	// GENERAL TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-general-view"><i class="uk-icon-angle-down"></i> '.$L->g('General').'</h2></li>';
-	echo '<li id="sidebar-general-view" class="sidebar-view">';
-
-	// Category
-	HTML::formSelect(array(
-		'name'=>'category',
-		'label'=>$L->g('Category'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>$dbCategories->getKeyNameArray(),
-		'selected'=>$page->categoryKey(),
-		'tip'=>'',
-		'addEmptySpace'=>true
-	));
-
-	// Description input
-	HTML::formTextarea(array(
-		'name'=>'description',
-		'label'=>$L->g('description'),
-		'value'=>$page->description(),
-		'rows'=>'4',
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('this-field-can-help-describe-the-content')
-	));
-
-	echo '</li>';
-
-	// IMAGES TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-images-view"><i class="uk-icon-angle-down"></i> '.$L->g('Images').'</h2></li>';
-	echo '<li id="sidebar-images-view" class="sidebar-view">';
-
-	// --- BLUDIT COVER IMAGE ---
-	$coverImage = $page->coverImage(false);
-	$externalCoverImage = '';
-	if (filter_var($coverImage, FILTER_VALIDATE_URL)) {
-		$coverImage = '';
-		$externalCoverImage = $page->coverImage(false);
-	}
-
-	HTML::bluditCoverImage($coverImage);
-
-	// --- BLUDIT QUICK IMAGES ---
-	HTML::bluditQuickImages();
-
-	// --- BLUDIT IMAGES V8 ---
-	HTML::bluditImagesV8();
-
-	// --- BLUDIT MENU V8 ---
-	HTML::bluditMenuV8();
-
-	echo '</li>';
-
-
-	// TAGS
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-tags-view"><i class="uk-icon-angle-down"></i> '.$L->g('Tags').'</h2></li>';
-	echo '<li id="sidebar-tags-view" class="sidebar-view">';
-
-	// Tags input
-	HTML::tags(array(
-		'name'=>'tags',
-		'label'=>$L->g('Tags'),
-		'allTags'=>$dbTags->getKeyNameArray(),
-		'selectedTags'=>$page->tags(true)
-	));
-
-	echo '</li>';
-
-	// ADVANCED TAB
-	// --------------------------------------------------------------------
-	echo '<li><h2 class="sidebar-button" data-view="sidebar-advanced-view"><i class="uk-icon-angle-down"></i> '.$L->g('Advanced').'</h2></li>';
-	echo '<li id="sidebar-advanced-view" class="sidebar-view">';
-
-	// Status input
-	HTML::formSelect(array(
-		'name'=>'status',
-		'label'=>$L->g('Status'),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'options'=>array(
-			'published'=>$L->g('Published'),
-			'static'=>$L->g('Static'),
-			'draft'=>$L->g('Draft')
-		),
-		'selected'=>$page->status(),
-		'tip'=>''
-	));
-
-	// Date input
-	HTML::formInputText(array(
-		'name'=>'date',
-		'value'=>$page->dateRaw(),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('To schedule the content select the date and time'),
-		'label'=>$L->g('Date')
-	));
-
-	echo '<hr>';
-
-	// Parent input
-	// Check if the page has children
-	if (count($page->children())==0) {
-		$options = array(' '=>'- '.$L->g('No parent').' -');
-		$parentsList = $dbPages->getParents();
-		foreach ($parentsList as $pageKey) {
-			$parent = buildPage($pageKey);
-			$options[$pageKey] = $parent->title();
-		}
-		unset($options[$page->key()]);
-
-		HTML::formSelect(array(
-			'name'=>'parent',
-			'label'=>$L->g('Parent'),
-			'class'=>'uk-width-1-1 uk-form-medium',
-			'options'=>$options,
-			'selected'=>$page->parentKey(),
-			'tip'=>'',
-			'disabled'=>$page->status()=='static'
+<!-- TABS -->
+<ul class="nav nav-tabs" id="dynamicTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true"><?php $L->p('Editor') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('Cover image') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link " id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false"><?php $L->p('Options') ?></a>
+	</li>
+</ul>
+	<?php
+		echo Bootstrap::formOpen(array(
+			'id'=>'jsform',
+			'class'=>'tab-content mt-1'
 		));
 
-		echo '<hr>';
-	}
+		// Token CSRF
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'tokenCSRF',
+			'value'=>$security->getTokenCSRF()
+		));
 
-	// Position input
-	HTML::formInputText(array(
-		'name'=>'position',
-		'value'=>$page->position(),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'label'=>$L->g('Position'),
-		'tip'=>$L->g('This field is used when you order the content by position')
+		// Parent
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'parent',
+			'value'=>$page->parent()
+		));
+
+		// UUID
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'uuid',
+			'value'=>$page->uuid()
+		));
+
+		// Status = published, draft, sticky, static
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'type',
+			'value'=>$page->type()
+		));
+
+		// Page current key
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'key',
+			'value'=>$page->key()
+		));
+
+		// Cover image
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'coverImage',
+			'value'=>$page->coverImage(false)
+		));
+
+		// Content
+		echo Bootstrap::formInputHidden(array(
+			'name'=>'content',
+			'value'=>''
+		));
+	?>
+
+	<!-- TABS CONTENT -->
+	<div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+
+		<div class="form-group m-0">
+			<input value="<?php echo $page->title() ?>" class="form-control form-control-lg rounded-0 " id="jstitle" name="title" placeholder="<?php $L->p('Enter title') ?>" type="text">
+		</div>
+
+		<div class="form-group m-0 mt-1">
+			<button id="jsmediaManagerButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Media Manager') ?></button>
+			<button id="jscategoryButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> <?php $L->p('Category') ?>: <span class="option">-</span></button>
+			<button id="jsdescriptionButton" type="button" class="btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> <?php $L->p('Description') ?>: <span class="option">-</span></button>
+		</div>
+
+		<div class="form-group mt-1">
+			<textarea id="jseditor" style="display:none;"><?php echo $page->contentRaw(false) ?></textarea>
+		</div>
+
+		<?php if($page->draft()): ?>
+		<div class="alert alert-primary mt-2 mb-2"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>
+		<?php endif; ?>
+
+		<div class="form-group mt-2">
+			<button type="button" class="jsbuttonSave btn btn-primary"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+			<button type="button" class="jsbuttonDraft btn btn-secondary"><?php $L->p('Save as draft') ?></button>
+			<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php $L->p('Cancel') ?></a>
+			<?php
+			if (count($page->children())===0) {
+				echo '<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#jsdeletePageModal">'.$L->g('Delete').'</button>';
+			}
+			?>
+		</div>
+
+	</div>
+
+	<!-- TABS IMAGES -->
+	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php $L->p('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal"><?php $L->p('Cover image') ?></h4>
+		</div>
+
+		<?php
+			$coverImage = $page->coverImage(false);
+			$externalCoverImage = '';
+			if (filter_var($coverImage, FILTER_VALIDATE_URL)) {
+				$coverImage = '';
+				$externalCoverImage = $page->coverImage(false);
+			}
+		?>
+
+		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo (empty($coverImage) ? HTML_PATH_ADMIN_THEME_IMG.'default.svg' : $page->coverImage() ) ?>" />
+
+		<?php
+			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover image')));
+
+			echo Bootstrap::formInputTextBlock(array(
+				'name'=>'externalCoverImage',
+				'placeholder'=>'https://',
+				'value'=>$externalCoverImage,
+				'tip'=>$L->g('Set a cover image from external URL, such as a CDN or some server dedicated for images.')
+			));
+		?>
+
+	</div>
+
+	<!-- TABS OPTIONS -->
+	<div class="tab-pane" id="options" role="tabpanel" aria-labelledby="options-tab">
+
+		<div>
+			<div class="float-right">
+				<button type="button" class="jsbuttonSave btn btn-primary btn-sm"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+				<button type="button" class="jsbuttonDraft btn btn-secondary btn-sm"><?php $L->p('Save as draft') ?></button>
+			</div>
+			<h4 class="mt-4 mb-4 font-weight-normal"><?php $L->p('General') ?></h4>
+		</div>
+
+		<?php
+			// Username
+			echo Bootstrap::formInputText(array(
+				'name'=>'',
+				'label'=>$L->g('User'),
+				'placeholder'=>'',
+				'value'=>$page->username(),
+				'tip'=>'',
+				'disabled'=>true
+			));
+
+			// Date
+			echo Bootstrap::formInputText(array(
+				'name'=>'date',
+				'label'=>$L->g('Date'),
+				'placeholder'=>'',
+				'value'=>$page->dateRaw(),
+				'tip'=>$L->g('date-format-format')
+			));
+
+			// Type
+			echo Bootstrap::formSelect(array(
+				'name'=>'typeTMP',
+				'label'=>$L->g('Type'),
+				'selected'=>$page->type(),
+				'options'=>array(
+					'published'=>'- '.$L->g('Default').' -',
+					'sticky'=>$L->g('Sticky'),
+					'static'=>$L->g('Static')
+				),
+				'tip'=>''
+			));
+
+			// Parent
+			try {
+				$parentKey = $page->parent();
+				$parent = new Page($parentKey);
+				$parentOption = $parent->title();
+			} catch (Exception $e) {
+				$parentOption = '';
+			}
+
+			echo Bootstrap::formInputText(array(
+				'name'=>'parentTMP',
+				'label'=>$L->g('Parent'),
+				'placeholder'=>'',
+				'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
+				'value'=>$parentOption
+			));
+
+			// Position
+			echo Bootstrap::formInputText(array(
+				'name'=>'position',
+				'label'=>$L->g('Position'),
+				'tip'=>$L->g('Field used when ordering content by position'),
+				'value'=>$page->position()
+			));
+
+			// Template
+			echo Bootstrap::formInputText(array(
+				'name'=>'template',
+				'label'=>$L->g('Template'),
+				'placeholder'=>'',
+				'value'=>$page->template(),
+				'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
+			));
+
+			// Tags
+			echo Bootstrap::formInputText(array(
+				'name'=>'tags',
+				'label'=>$L->g('Tags'),
+				'placeholder'=>'',
+				'value'=>$page->tags(),
+				'tip'=>$L->g('Write the tags separated by comma')
+			));
+
+			echo Bootstrap::formTitle(array('title'=>'SEO'));
+
+			// Friendly URL
+			echo Bootstrap::formInputText(array(
+				'name'=>'slug',
+				'tip'=>$L->g('URL associated with the content'),
+				'label'=>$L->g('Friendly URL'),
+				'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.'),
+				'value'=>$page->slug()
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noindex',
+				'label'=>'Robots',
+				'labelForCheckbox'=>$L->g('apply-code-noindex-code-to-this-page'),
+				'placeholder'=>'',
+				'class'=>'mt-4',
+				'checked'=>$page->noindex(),
+				'tip'=>$L->g('This tells search engines not to show this page in their search results.')
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'nofollow',
+				'label'=>'',
+				'labelForCheckbox'=>$L->g('apply-code-nofollow-code-to-this-page'),
+				'placeholder'=>'',
+				'checked'=>$page->nofollow(),
+				'tip'=>$L->g('This tells search engines not to follow links on this page.')
+			));
+
+			echo Bootstrap::formCheckbox(array(
+				'name'=>'noarchive',
+				'label'=>'',
+				'labelForCheckbox'=>$L->g('apply-code-noarchive-code-to-this-page'),
+				'placeholder'=>'',
+				'checked'=>$page->noarchive(),
+				'tip'=>$L->g('This tells search engines not to save a cached copy of this page.')
+			));
+
+		?>
+	</div>
+
+	<!-- Modal for delete page -->
+	<?php echo Bootstrap::modal(array(
+		'buttonPrimary'=>$L->g('Delete'),
+		'buttonPrimaryClass'=>'jsbuttonDeleteAccept',
+		'buttonSecondary'=>$L->g('Cancel'),
+		'buttonSecondaryClass'=>'',
+		'modalTitle'=>$L->g('Delete content'),
+		'modalText'=>$L->g('Are you sure you want to delete this page'),
+		'modalId'=>'jsdeletePageModal'
 	));
+	?>
+	<script>
+	$(document).ready(function() {
+		// Delete content
+		$(".jsbuttonDeleteAccept").on("click", function() {
+			$("#jstype").val("delete");
+			$("#jscontent").val("");
+			$("#jsform").submit();
+		});
+	});
+	</script>
 
-	echo '<hr>';
+	<!-- Modal for Categories -->
+	<div id="jscategoryModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><?php $L->p('Category') ?></h5>
+				</div>
+				<div class="modal-body">
+					<?php
+						echo Bootstrap::formSelectBlock(array(
+							'name'=>'category',
+							'label'=>'',
+							'selected'=>$page->categoryKey(),
+							'class'=>'',
+							'emptyOption'=>'- '.$L->g('Uncategorized').' -',
+							'options'=>$categories->getKeyNameArray()
+						));
+					?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><?php $L->p('Done') ?></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function() {
+		function setCategoryBox(value) {
+			var selected = $("#jscategory option:selected");
+			var value = selected.val().trim();
+			if (value) {
+				$("#jscategoryButton").find("span.option").html(selected.text());
+			} else {
+				$("#jscategoryButton").find("span.option").html("-");
+			}
+		}
 
-	// External Coverimage
-	HTML::formInputText(array(
-		'name'=>'externalCoverImage',
-		'value'=>$externalCoverImage,
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'label'=>$L->g('External Cover Image'),
-		'tip'=>$L->g('Full image URL')
-	));
+		// Set the current category selected
+		setCategoryBox();
 
-	echo '<hr>';
+		// When the user select the category update the category button
+		$("#jscategory").on("change", function() {
+			setCategoryBox();
+		});
+	});
+	</script>
 
-	// Slug input
-	HTML::formInputText(array(
-		'name'=>'slug',
-		'value'=>$page->slug(),
-		'class'=>'uk-width-1-1 uk-form-medium',
-		'tip'=>$L->g('URL associated with the content'),
-		'label'=>$L->g('Friendly URL')
-	));
+	<!-- Modal for Description -->
+	<div id="jsdescriptionModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><?php $L->p('Description') ?></h5>
+				</div>
+				<div class="modal-body">
+					<?php
+						echo Bootstrap::formTextareaBlock(array(
+							'name'=>'description',
+							'label'=>'',
+							'selected'=>'',
+							'class'=>'',
+							'value'=>$page->description(),
+							'rows'=>3,
+							'placeholder'=>$L->get('this-field-can-help-describe-the-content')
+						));
+					?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><?php $L->p('Done') ?></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function() {
+		function setDescriptionBox(value) {
+			var value = $("#jsdescription").val();
+			if (!value) {
+				value = '-';
+			} else {
+				value = jQuery.trim(value).substring(0, 60).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			$("#jsdescriptionButton").find("span.option").html(value);
+		}
 
-	echo '</li>';
-	echo '</ul>';
+		// Set the current description
+		setDescriptionBox();
 
-	Theme::plugins('adminContentSidebar');
+		// When the user write the description update the description button
+		$("#jsdescription").on("change", function() {
+			setDescriptionBox();
+		});
+	});
+	</script>
+</form>
 
-echo '</div>';
-echo '</div>';
-
-HTML::formClose();
-
-?>
+<!-- Modal for Media Manager -->
+<?php include(PATH_ADMIN_THEMES.'booty/html/media.php'); ?>
 
 <script>
+$(document).ready(function() {
 
-$(document).ready(function()
-{
-	var key = $("#jskey").val();
+	// Datepicker
+	$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
-	$("#jsdate").datetimepicker({format:"<?php echo DB_DATE_FORMAT ?>"});
-
-	$("#jsslug").keyup(function() {
-		var text = $(this).val();
-		var parent = $("#jsparent").val();
-
-		generateSlug(text, parent, key, $("#jsslug"));
-	});
-
-	$("#jstitle").keyup(function() {
-		var text = $(this).val();
-		var parent = $("#jsparent").val();
-
-		generateSlug(text, parent, key, $("#jsslug"));
-	});
-
-	$("#jsparent").change(function() {
-		var parent = $(this).val();
-		var text = $("#jsslug").val();
-
-		if (parent=="") {
-			$("#jsparentExample").text("");
-		}
-		else {
-			$("#jsparentExample").text(parent+"/");
-		}
-
-		generateSlug(text, parent, key, $("#jsslug"));
-	});
-
-	$("#jsdelete").click(function() {
-		if(confirm("<?php $Language->p('confirm-delete-this-action-cannot-be-undone') ?>")==false) {
-			return false;
-		}
+	// Button Save
+	$(".jsbuttonSave").on("click", function() {
+		var type = $("#jstypeTMP option:selected").val();
+		$("#jstype").val(type);
+		$("#jscontent").val( editorGetContent() );
+		$("#jsform").submit();
 	});
 
 	// Button Save as draft
-	$("#jsSaveDraft").on("click", function() {
-		$("#jsstatus").val("draft");
-		$(".uk-form").submit();
+	$(".jsbuttonDraft").on("click", function() {
+		$("#jstype").val("draft");
+		$("#jscontent").val( editorGetContent() );
+		$("#jsform").submit();
 	});
 
-	// Right sidebar
-	$(".sidebar-button").click(function() {
-		var view = "#" + $(this).data("view");
+	// External cover image
+	$("#jsexternalCoverImage").change(function() {
+		$("#jscoverImage").val( $(this).val() );
+	});
 
-		if( $(view).is(":visible") ) {
-			$(view).hide();
-		}
-		else {
-			$(".sidebar-view").hide();
-			$(view).show();
+	// Autosave interval
+	// Autosave works when the content of the page is bigger than 100 characters
+	setInterval(function() {
+			var uuid = $("#jsuuid").val();
+			var title = $("#jstitle").val();
+			var content = editorGetContent();
+			var ajax = new bluditAjax();
+			// showAlert is the function to display an alert defined in alert.php
+			ajax.autosave(uuid, title, content, showAlert);
+	},1000*60*AUTOSAVE_INTERVAL);
+
+	// Template autocomplete
+	$('input[name="template"]').autoComplete({
+		minChars: 2,
+		source: function(term, suggest){
+			term = term.toLowerCase();
+			var choices = ['ActionScript', 'Acti', 'Asp'];
+			var matches = [];
+			for (i=0; i<choices.length; i++)
+				if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+			suggest(matches);
 		}
 	});
 
-	$("#jsstatus").change(function() {
-		if ($(this).val()=='static') {
-			$("#jsparent").val(' ');
-			$("#jsparent").attr('disabled','disabled');
-		} else {
-			$("#jsparent").removeAttr('disabled');
+	// Parent autocomplete
+	var parentsXHR;
+	var parentsList; // Keep the parent list returned to get the key by the title page
+	$("#jsparentTMP").autoComplete({
+		minChars: 1,
+		source: function(term, response) {
+			// Prevent call inmediatly another ajax request
+			try { parentsXHR.abort(); } catch(e){}
+			parentsXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-parents", {query: term},
+				function(data) {
+					parentsList = data;
+					term = term.toLowerCase();
+					var matches = [];
+					for (var title in data) {
+						if (~title.toLowerCase().indexOf(term))
+							matches.push(title);
+					}
+					response(matches);
+			});
+		},
+		onSelect: function(e, term, item) {
+			// parentsList = array( pageTitle => pageKey )
+			var parentKey = parentsList[term];
+			$("#jsparent").attr("value", parentKey);
 		}
 	});
 
 });
-
 </script>

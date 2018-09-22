@@ -11,24 +11,33 @@ class pluginAPI extends Plugin {
 
 		$this->dbFields = array(
 			'token'=>$token,	// API Token
-			'amountOfItems'=>15	// Amount of items to return
+			'numberOfItems'=>15	// Amount of items to return
 		);
 	}
 
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('API Token').'</label>';
-		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
-		$html .= '<span class="tip">'.$Language->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Amount of pages').'</label>';
-		$html .= '<input id="jsamountOfItems" name="amountOfItems" type="text" value="'.$this->getValue('amountOfItems').'">';
-		$html .= '<span class="tip">'.$Language->get('This is the maximum of pages to return when you call to').'</span>';
+		$html .= '<label>'.$L->get('URL').'</label>';
+		$html .= '<p class="text-muted">'.DOMAIN.'/api/{endpoint}</p>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('API Token').'</label>';
+		$html .= '<input name="token" type="text" value="'.$this->getValue('token').'">';
+		$html .= '<span class="tip">'.$L->get('This token is for read only and is regenerated every time you install the plugin').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Amount of pages').'</label>';
+		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
+		$html .= '<span class="tip">'.$L->get('This is the maximum of pages to return when you call to').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -40,10 +49,9 @@ class pluginAPI extends Plugin {
 
 	public function beforeAll()
 	{
-		global $Url;
-		global $dbPages;
-		global $dbUsers;
-		global $Login;
+		global $url;
+		global $pages;
+		global $users;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -90,20 +98,22 @@ class pluginAPI extends Plugin {
 		// AUTHENTICATION TOKEN
 		// ------------------------------------------------------------
 		$writePermissions = false;
-		if ( !empty($inputs['authentication']) ) {
+		if (!empty($inputs['authentication'])) {
 
 			// Get the user with the authentication token, FALSE if doesn't exit
-			$username = $dbUsers->getByAuthToken($inputs['authentication']);
+			$username = $users->getByAuthToken($inputs['authentication']);
 			if ($username!==false) {
-
-				// Get the object user to check the role
-				$user = $dbUsers->getUser($username);
-				if (($user->role()=='admin') && ($user->enabled())) {
-
-					// Loggin the user to create the session
-					$Login->setLogin($username, 'admin');
-					// Enable write permissions
-					$writePermissions = true;
+				try {
+					$user = new User($username);
+					if (($user->role()=='admin') && ($user->enabled())) {
+						// Loggin the user to create the session
+						$login = new Login();
+						$login->setLogin($username, 'admin');
+						// Enable write permissions
+						$writePermissions = true;
+					}
+				} catch (Exception $e) {
+					// Continue without permissions
 				}
 			}
 		}
@@ -232,24 +242,28 @@ class pluginAPI extends Plugin {
 
 	private function getPages()
 	{
-		global $dbPages;
+		global $pages;
 
 		$onlyPublished = true;
-		$amountOfItems = $this->getValue('amountOfItems');
+		$numberOfItems = $this->getValue('numberOfItems');
 		$pageNumber = 1;
-		$list = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>'List of pages, amount of items: '.$amountOfItems,
+			'message'=>'List of pages, number of items: '.$numberOfItems,
 			'data'=>array()
 		);
 
 		// Get keys of pages
 		foreach ($list as $pageKey) {
-			// Create the page object from the page key
-			$page = buildPage($pageKey);
-			array_push($tmp['data'], $page->json( $returnsArray=true ));
+			try {
+				// Create the page object from the page key
+				$page = new Page($pageKey);
+				array_push($tmp['data'], $page->json( $returnsArray=true ));
+			} catch (Exception $e) {
+				// Continue
+			}
 		}
 
 		return $tmp;
@@ -257,33 +271,30 @@ class pluginAPI extends Plugin {
 
 	private function getPage($key)
 	{
-		// Generate the object Page
-		$Page = buildPage($key);
-
-		if (!$Page) {
+		try {
+			$page = new Page($key);
+			return array(
+				'status'=>'0',
+				'message'=>'Page filtered by key: '.$key,
+				'data'=>$page->json( $returnsArray=true )
+			);
+		} catch (Exception $e) {
 			return array(
 				'status'=>'1',
 				'message'=>'Page not found.'
 			);
 		}
-
-		return array(
-			'status'=>'0',
-			'message'=>'Page filtered by key: '.$key,
-			'data'=>$Page->json( $returnsArray=true )
-		);
 	}
 
 	private function createPage($args)
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
-			$args['content'] = Text::htmlDecode($args['content']);
+			$args['content'] = Sanitize::htmlDecode($args['content']);
 		}
 
 		// This function is defined on functions.php
 		$key = createPage($args);
-
 		if ($key===false) {
 			return array(
 				'status'=>'1',
@@ -302,7 +313,7 @@ class pluginAPI extends Plugin {
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
-			$args['content'] = Text::htmlDecode($args['content']);
+			$args['content'] = Sanitize::htmlDecode($args['content']);
 		}
 
 		$args['key'] = $key;

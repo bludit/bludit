@@ -6,10 +6,14 @@ Database structure
 {
 	"videos": {
 		"name": "Videos",
+		"template: "",
+		"description: "",
 		"list": [ "my-page", "second-page" ]
 	},
 	"pets": {
 		"name": "Pets",
+		"template: "",
+		"description: "",
 		"list": [ "cats-and-dogs" ]
 	}
 }
@@ -24,77 +28,73 @@ class dbList extends dbJSON
 		parent::__construct($file);
 	}
 
-	// Returns an array with a list of key of pages, FALSE if out of range
-	public function getList($key, $pageNumber, $amountOfItems)
+	public function keys()
 	{
-		if (empty($key)) {
-			return false;
-		}
+		return array_keys($this->db);
+	}
 
+	// Returns the list of keys filter by pageNumber
+	public function getList($key, $pageNumber, $numberOfItems)
+	{
 		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'Error key does not exist '.$key);
 			return false;
 		}
 
+		// List of keys
 		$list = $this->db[$key]['list'];
 
-		if ($amountOfItems==-1) {
+		// Returns all the items from the list
+		if ($numberOfItems==-1) {
 			// Invert keys to values, is necesary returns as key the key pages
-			//$list = array_flip($list);
+			$list = array_flip($list);
 			return $list;
 		}
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
-
-		$total = count($list);
-		$init = (int) $amountOfItems * $realPageNumber;
-		$end  = (int) min( ($init + $amountOfItems - 1), $total );
-		$outrange = $init<0 ? true : $init>$end;
-
-		if($outrange) {
-			Log::set(__METHOD__.LOG_SEP.'Error out of range');
-			return false;
+		$chunks = array_chunk($list, $numberOfItems);
+		if (isset($chunks[$realPageNumber])) {
+			return $chunks[$realPageNumber];
 		}
 
-		//$list = array_flip($list);
-		return array_slice($list, $init, $amountOfItems, true);
+		// Out of index,returns FALSE
+		return false;
 	}
 
 	public function generateKey($name)
 	{
+		global $L;
+
 		$key = Text::cleanUrl($name);
-		if (empty($key)) {
-			return false;
+		if (Text::isEmpty($key)) {
+			$key = $L->g('empty');
+		}
+		while (isset($this->db[$key])) {
+			$key++;
 		}
 		return $key;
 	}
 
-	public function add($name)
+	// Add a new item to the dblist
+	// $args => 'name', 'template', 'description', list'
+	public function add($args)
 	{
-		$key = $this->generateKey($name);
-		if ($key===false) {
-			Log::set(__METHOD__.LOG_SEP.'Error when try to generate the key');
-			return false;
-		}
+		$key = $this->generateKey($args['name']);
 
-		if (isset($this->db[$key])) {
-			Log::set(__METHOD__.LOG_SEP.'Error key already exist: '.$key);
-			return false;
-		}
-
-		$this->db[$key]['name'] = Sanitize::html($name);
-		$this->db[$key]['list'] = array();
+		$this->db[$key]['name'] 	= $args['name'];
+		$this->db[$key]['template'] 	= isset($args['template'])?$args['template']:'';
+		$this->db[$key]['description'] 	= isset($args['description'])?$args['description']:'';
+		$this->db[$key]['list'] 	= isset($args['list'])?$args['list']:array();
 
 		$this->sortAlphanumeric();
 		$this->save();
-
 		return $key;
 	}
 
 	public function remove($key)
 	{
-		if( !isset($this->db[$key]) ) {
+		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'The key does not exist, key: '.$key);
 			return false;
 		}
@@ -103,21 +103,28 @@ class dbList extends dbJSON
 		return $this->save();
 	}
 
-	public function edit($oldKey, $newName)
+	// Edit an item to the dblist
+	// $args => 'name', 'oldkey', 'newKey', 'template', 'description'
+	public function edit($args)
 	{
-		$newKey = $this->generateKey($newName);
+		if ( isset($this->db[$args['newKey']]) && ($args['newKey']!==$args['oldKey']) ) {
+			Log::set(__METHOD__.LOG_SEP.'The new key already exists. Key: '.$args['newKey'], LOG_TYPE_WARN);
+			return false;
+		}
 
-		$this->db[$newKey]['name'] = Sanitize::html($newName);
-		$this->db[$newKey]['list'] = $this->db[$oldKey]['list'];
+		$this->db[$args['newKey']]['name'] 	= $args['name'];
+		$this->db[$args['newKey']]['template'] 	= isset($args['template'])?$args['template']:'';
+		$this->db[$args['newKey']]['description'] = isset($args['description'])?$args['description']:'';
+		$this->db[$args['newKey']]['list'] 	= $this->db[$args['oldKey']]['list'];
 
-		// Remove the old key
-		if( $oldKey != $newKey ) {
-			unset( $this->db[$oldKey] );
+		// Remove the old category
+		if ($args['oldKey'] !== $args['newKey']) {
+			unset( $this->db[$args['oldKey']] );
 		}
 
 		$this->sortAlphanumeric();
 		$this->save();
-		return $newKey;
+		return $args['newKey'];
 	}
 
 	// Sort the categories by "Natural order"
@@ -130,10 +137,9 @@ class dbList extends dbJSON
 	// Returns the name associated to the key, FALSE if the key doesn't exist
 	public function getName($key)
 	{
-		if( isset($this->db[$key]) ) {
+		if (isset($this->db[$key])) {
 			return $this->db[$key]['name'];
 		}
-
 		return false;
 	}
 
@@ -144,17 +150,15 @@ class dbList extends dbJSON
 		foreach($this->db as $key=>$fields) {
 			$tmp[$key] = $fields['name'];
 		}
-
 		return $tmp;
 	}
 
-	// Returns the amount of items for some key
+	// Returns the number of items in the list
 	public function countItems($key)
 	{
-		if( isset($this->db[$key]) ) {
+		if (isset($this->db[$key])) {
 			return count($this->db[$key]['list']);
 		}
-
 		return 0;
 	}
 
@@ -163,14 +167,25 @@ class dbList extends dbJSON
 		return isset( $this->db[$key] );
 	}
 
+	public function existsName($name)
+	{
+		foreach ($this->db as $key=>$fields) {
+			if ($name==$fields['name']) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// Returns an array with a portion of the database filtered by key
-	// Returns array( 'name'=>'', 'list'=>array() )
+	// Returns array( 'key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array() )
 	public function getMap($key)
 	{
-		if( isset($this->db[$key]) ) {
-			return $this->db[$key];
+		if (isset($this->db[$key])) {
+			$tmp = $this->db[$key];
+			$tmp['key'] = $key;
+			return $tmp;
 		}
-
 		return false;
 	}
 

@@ -1,38 +1,53 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$L->g('Plugins Position'), 'icon'=>'puzzle-piece'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins position'), 'icon'=>'tags'));
 
-echo '<div class="hint">'.$L->g('drag-and-drop-to-set-the-position-of-the-plugin').'</div>';
+echo Bootstrap::alert(array('class'=>'alert-primary', 'text'=>$L->g('Drag and Drop to sort the plugins')));
 
-echo '<form class="uk-form" method="post" action="" autocomplete="off">';
+echo Bootstrap::formOpen(array('id'=>'jsform'));
 
-HTML::formInputHidden(array(
-	'name'=>'tokenCSRF',
-	'value'=>$Security->getTokenCSRF()
-));
+	// Token CSRF
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$security->getTokenCSRF()
+	));
 
-echo '<div class="uk-sortable" data-uk-sortable>';
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'plugin-list',
+		'value'=>''
+	));
 
-foreach ($plugins['siteSidebar'] as $Plugin) {
-	echo '<div class="plugin-position" data-plugin="'.$Plugin->className().'"><i class="uk-icon-bars"></i> '.$Plugin->name().'</div>';
-}
+	echo '<ul class="list-group list-group-sortable">';
+	foreach ($plugins['siteSidebar'] as $Plugin) {
+		echo '<li class="list-group-item" data-plugin="'.$Plugin->className().'"><span class="oi oi-move"></span> '.$Plugin->name().'</li>';
+	}
+	echo '</ul>';
 
-echo '</div>';
-echo '<input id="plugin-list" name="plugin-list" type="text" value="" hidden/>';
-echo '<button class="uk-button uk-button-primary" type="button" id="jsSave">'.$L->g('Save').'</button>';
-echo '</form>';
+	echo '
+	<div class="form-group mt-3">
+		<button type="button" class="jsbuttonSave btn btn-primary">'.$L->g('Save').'</button>
+		<a href="'.HTML_PATH_ADMIN_ROOT.'plugins" class="btn btn-secondary">'.$L->g('Cancel').'</a>
+	</div>
+	';
+
+echo Bootstrap::formClose();
+
 ?>
 
 <script>
-$( document ).ready(function() {
-	$("#jsSave").on("click", function() {
+$(document).ready(function() {
+
+	$('.list-group-sortable').sortable({
+		placeholderClass: 'list-group-item'
+	});
+
+	$(".jsbuttonSave").on("click", function() {
 		var tmp = [];
-		$( "div.plugin-position" ).each(function() {
+		$("li.list-group-item").each(function() {
 			tmp.push( $(this).attr("data-plugin") );
 		});
-		console.log( tmp.join(",") );
-		$("#plugin-list").attr("value", tmp.join(",") );
-		$(".uk-form").submit();
+		$("#jsplugin-list").attr("value", tmp.join(",") );
+		$("#jsform").submit();
 	});
 });
 </script>

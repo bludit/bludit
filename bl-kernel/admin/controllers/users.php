@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -23,7 +20,7 @@ if ($Login->role()!=='admin') {
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 {
-	$Site->set($_POST);
+	$site->set($_POST);
 }
 
 // ============================================================================
@@ -31,4 +28,4 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Users');
+$layout['title'] .= ' - '.$L->g('Users');

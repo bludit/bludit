@@ -13,25 +13,29 @@ class pluginDisqus extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('disqus-shortname').'</label>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
 		$html .= '</div>';
 
                 $html .= '<div>';
-                $html .= '<label>'.$Language->get('enable-disqus-on-pages').'</label>';
+                $html .= '<label>'.$L->get('enable-disqus-on-pages').'</label>';
                 $html .= '<select name="enablePages">';
-                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
+                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
                 $html .= '</div>';
                 $html .= '<div>';
-                $html .= '<label>'.$Language->get('enable-disqus-on-posts').'</label>';
+                $html .= '<label>'.$L->get('enable-disqus-on-posts').'</label>';
                 $html .= '<select name="enablePosts">';
-                $html .= '<option value="true" '.($this->getValue('enablePosts')===true?'selected':'').'>'.$Language->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePosts')===false?'selected':'').'>'.$Language->get('disabled').'</option>';
+                $html .= '<option value="true" '.($this->getValue('enablePosts')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enablePosts')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
                 $html .= '</div>';
 
@@ -40,19 +44,19 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
-		global $pages;
-		global $Url, $Page;
+		global $content;
+		global $url, $page;
 
-		$page = $pages[0];
+		$page = $content[0];
 		if (empty($page)) {
 			return false;
 		}
 
-		if ( !$Url->notFound() && 
-		     ( $Url->whereAmI()=='page' &&
-			(($this->getDbField('enablePosts') && $Page->status()=='published') || 
-			($this->getDbField('enablePages') && $Page->status()=='static'))
-		     ) && 
+		if ( !$url->notFound() &&
+		     ( $url->whereAmI()=='page' &&
+			(($this->getValue('enablePosts') && $page->published()) ||
+			($this->getValue('enablePages') && $page->static()))
+		     ) &&
 		     $page->allowComments() ) {
 			$html  = '<div id="disqus_thread"></div>';
 			$html .= '<script type="text/javascript">

@@ -1,10 +1,11 @@
 .DS_Store
+dbgenerator.php
 bl-content/*
 bl-plugins/timemachine
 bl-plugins/timemachine-x
-bl-plugins/remote-content
-bl-plugins/simple-stats
 bl-plugins/discovery
+bl-plugins/updater
 bl-kernel/bludit.pro.php
 bl-themes/docs
 bl-themes/docsx
+bl-themes/mediumish

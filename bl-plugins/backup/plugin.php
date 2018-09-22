@@ -2,7 +2,7 @@
 
 class pluginBackup extends Plugin {
 
-	// List of directories to backup
+	// Directories to backup
 	private $directoriesToBackup = array(
 		PATH_PAGES,
 		PATH_DATABASES,
@@ -21,28 +21,6 @@ class pluginBackup extends Plugin {
 		$this->zip = extension_loaded('zip');
 	}
 
-	// Install the plugin and create the workspace directory
-	public function install($position=0)
-	{
-		parent::install($position);
-		$workspace = $this->workspace();
-		return mkdir($workspace, 0755, true);
-	}
-
-	// Uninstall the plugin and delete the workspace directory
-	public function uninstall()
-	{
-		parent::uninstall();
-		$workspace = $this->workspace();
-		return Filesystem::deleteRecursive($workspace);
-	}
-
-	// Redefine workspace
-	public function workspace()
-	{
-		return PATH_CONTENT.'backup'.DS;
-	}
-
 	public function post()
 	{
 		if (isset($_POST['createBackup'])) {
@@ -56,17 +34,27 @@ class pluginBackup extends Plugin {
 		return false;
 	}
 
+	public function adminSidebar()
+	{
+		$backups = $this->backupList();
+		return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backups <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
+	}
+
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$backups = Filesystem::listDirectories($this->workspace(), '*', true);
-		if ($this->zip) {
-			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
+		$backups = $this->backupList();
+
+		$html = '';
+		if (empty($backups)) {
+			$html .= '<div class="alert alert-primary" role="alert">';
+			$html .= $L->get('There are no backups for the moment');
+		      	$html .= '</div>';
 		}
 
-		$html  = '<div>';
-		$html .= '<button name="createBackup" value="true" class="left small blue" type="submit"><i class="uk-icon-plus"></i> '.$Language->get('create-backup').'</button>';
+		$html .= '<div>';
+		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="oi oi-play-circle"></span> '.$L->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -75,17 +63,27 @@ class pluginBackup extends Plugin {
 			$basename = pathinfo($backup,PATHINFO_BASENAME);
 
 			$html .= '<div>';
-			$html .= '<h3>'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h3>';
+			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="uk-button small left blue" href="'.DOMAIN_CONTENT.'backup/'.$filename.'.zip"><i class="uk-icon-download"></i> '.$Language->get('download').'</a>';
+				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'workspaces/backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
 			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-clock-o"></i> '.$Language->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="uk-button small left" type="submit"><i class="uk-icon-trash-o"></i> '.$Language->get('delete-backup').'</button>';
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$L->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$L->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
 		return $html;
+	}
+
+	public function backupList()
+	{
+		if ($this->zip) {
+			$backups = Filesystem::listFiles($this->workspace(), '*', 'zip', true);
+		} else {
+			$backups = Filesystem::listDirectories($this->workspace(), '*', true);
+		}
+		return $backups;
 	}
 
 	public function createBackup()

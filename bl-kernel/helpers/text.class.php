@@ -2,7 +2,7 @@
 
 class Text {
 
-	private static $specialChars = array(
+	private static $unicodeChars = array(
 		// Latin
 		'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'AE', 'Ç'=>'C',
 		'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I',
@@ -96,11 +96,9 @@ class Text {
 
 	public static function endsWith($string, $endsString)
 	{
-		$length = (-1)*self::length($endsString);
-
-		return( mb_substr($string, $length)===$endsString );
+		//$length = (-1)*self::length($endsString);
+		return (mb_substr($string, -1)===$endsString);
 	}
-
 
 	public static function endsWithNumeric($string)
 	{
@@ -122,22 +120,36 @@ class Text {
 		return str_replace(array_keys($replace), array_values($replace), $text);
 	}
 
-	// Convert invalid characters to valid characters for a URL
+	public static function removeSpecialCharacters($string, $replace='')
+	{
+		return preg_replace("/[\/_|+:!@#$%^&*()'\"<>\\\`}{;=,?\[\]~. -]+/", $replace, $string);
+	}
+
+	public static function removeLineBreaks($string)
+	{
+		return str_replace(array("\r", "\n"), '', $string);
+	}
+
+	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
 	public static function cleanUrl($string, $separator='-')
 	{
-		global $Language;
+		global $L;
 
 		if (EXTREME_FRIENDLY_URL) {
-			$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
+			$string = self::lowercase($string);
+			$string = trim($string, $separator);
+			$string = self::removeSpecialCharacters($string, $separator);
+			$string = self::removeLineBreaks($string);
+			$string = trim($string, $separator);
 			return $string;
 		}
 
 		// Transliterate characters to ASCII
-		$specialCharsFromDictionary = $Language->getSpecialChars();
-		$string = str_replace(array_keys($specialCharsFromDictionary), $specialCharsFromDictionary, $string);
-		$string = str_replace(array_keys(self::$specialChars), self::$specialChars, $string);
+		$unicodeCharsFromDictionary = $L->getunicodeChars();
+		$string = str_replace(array_keys($unicodeCharsFromDictionary), $unicodeCharsFromDictionary, $string);
+		$string = str_replace(array_keys(self::$unicodeChars), self::$unicodeChars, $string);
 
 		if (function_exists('iconv')) {
 			if (@iconv(CHARSET, 'ASCII//TRANSLIT//IGNORE', $string)!==false) {
@@ -146,9 +158,9 @@ class Text {
 		}
 
 		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);
-		$string = trim($string, '-');
 		$string = self::lowercase($string);
 		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
+		$string = trim($string, '-');
 
 		return $string;
 	}
@@ -244,29 +256,22 @@ class Text {
 			$string);
 	}
 
-	// Truncates the string under the limit specified by the limit parameter.
-	public static function truncate($string, $limit, $end = '...')
+	// Truncates the string under the limit specified by the limit parameter
+	public static function truncate($string, $limit, $end='...')
 	{
 		// Check if over $limit
-		if(mb_strlen($string) > $limit) {
-
-			// Check if string is only one word
-			if(preg_match('/\s/', $string)) {
-
-				// Append the string specified by the end parameter to the end of the string as it is over the limit.
-				$truncate = trim(mb_substr($string, 0, mb_strpos($string, ' ', $limit, CHARSET), CHARSET));
-			} else {
-				$truncate = trim(mb_substr($string, 0, $limit, CHARSET));
-			}
+		if (mb_strlen($string) > $limit) {
+			$truncate = trim(mb_substr($string, 0, $limit, CHARSET));
 			$truncate = $truncate.$end;
 		} else {
 			$truncate = $string;
 		}
 
-		if(empty($truncate)) {
+		if (empty($truncate)) {
 			return '';
 		}
 
 		return $truncate;
 	}
+
 }

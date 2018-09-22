@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -22,11 +19,10 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (isset($_POST['delete'])) {
-		deleteCategory($_POST['categoryKey']);
-	}
-	elseif (isset($_POST['edit'])) {
-		editCategory($_POST['categoryKey'], $_POST['category']);
+	if ($_POST['action']=='delete') {
+		deleteCategory($_POST);
+	} elseif ($_POST['action']=='edit') {
+		editCategory($_POST);
 	}
 
 	Redirect::page('categories');
@@ -37,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // ============================================================================
 $categoryKey = $layout['parameters'];
 
-if (!$dbCategories->exists($categoryKey)) {
+if (!$categories->exists($categoryKey)) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the category: '.$categoryKey);
 	Redirect::page('categories');
 }
 
-$category = $dbCategories->getName($layout['parameters']);
+$categoryMap = $categories->getMap($categoryKey);
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Edit Category').' - '.$category;
+$layout['title'] .= ' - '.$L->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';

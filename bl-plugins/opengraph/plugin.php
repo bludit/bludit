@@ -12,47 +12,37 @@ class pluginOpenGraph extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Default image').'</label>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
+		$html .= '<span class="tip">Set a default image for the content without pictures.</span>';
 		$html .= '</div>';
-
-		/*
-		$html  = '<div>';
-		$html .= '<label>'.$Language->get('Default image').'</label>';
-		$html .= '<select name="defaultImage">';
-
-		$images = Filesystem::listFiles(PATH_UPLOADS);
-		foreach ($images as $image) {
-			$base = basename($image);
-			$html .= '<option value="'.$base.'" '.(($this->getValue('defaultImage')==$base)?'selected':'').'>'.$base.'</option>';
-		}
-
-		$html .= '</select>';
-		$html .= '</div>';
-		*/
 
 		return $html;
 	}
 
 	public function siteHead()
 	{
-		global $Url;
-		global $Site;
+		global $url;
+		global $site;
 		global $WHERE_AM_I;
-		global $pages;
 		global $page;
+		global $content;
 
 		$og = array(
-			'locale'	=>$Site->locale(),
+			'locale'	=>$site->locale(),
 			'type'		=>'website',
-			'title'		=>$Site->title(),
-			'description'	=>$Site->description(),
-			'url'		=>$Site->url(),
+			'title'		=>$site->title(),
+			'description'	=>$site->description(),
+			'url'		=>$site->url(),
 			'image'		=>'',
-			'siteName'	=>$Site->title()
+			'siteName'	=>$site->title()
 		);
 
 		switch ($WHERE_AM_I) {
@@ -64,16 +54,16 @@ class pluginOpenGraph extends Plugin {
 				$og['url']		= $page->permalink($absolute=true);
 				$og['image'] 		= $page->coverImage($absolute=true);
 
-				$content = $page->content();
+				$pageContent = $page->content();
 				break;
 
 			// The user is in the homepage
 			default:
-				$content = '';
+				$pageContent = '';
 				// The image it's from the first page
-				if (isset($pages[0]) ) {
-					$og['image'] 	= $pages[0]->coverImage($absolute=true);
-					$content 	= $pages[0]->content();
+				if (isset($content[0]) ) {
+					$og['image'] 	= $content[0]->coverImage($absolute=true);
+					$pageContent 	= $content[0]->content();
 				}
 				break;
 		}
@@ -89,7 +79,7 @@ class pluginOpenGraph extends Plugin {
 		// If the page doesn't have a coverImage try to get an image from the HTML content
 		if (empty($og['image'])) {
 			// Get the image from the content
-			$src = DOM::getFirstImage($content);
+			$src = DOM::getFirstImage($pageContent);
 			if ($src!==false) {
 				$og['image'] = $src;
 			} else {

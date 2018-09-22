@@ -1,40 +1,40 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Current page number
-$currentPage = $Url->pageNumber();
+$currentPage = $url->pageNumber();
 Paginator::set('currentPage', $currentPage);
 
-if($Url->whereAmI()=='admin') {
+if($url->whereAmI()=='admin') {
 	$itemsPerPage = ITEMS_PER_PAGE_ADMIN;
-	$amountOfItems = $dbPages->count(true);
+	$numberOfItems = $pages->count(true);
 }
-elseif($Url->whereAmI()=='tag') {
-	$itemsPerPage = $Site->itemsPerPage();
-	$tagKey = $Url->slug();
-	$amountOfItems = $dbTags->countPagesByTag($tagKey);
+elseif($url->whereAmI()=='tag') {
+	$itemsPerPage = $site->itemsPerPage();
+	$tagKey = $url->slug();
+	$numberOfItems = $tags->numberOfPages($tagKey);
 }
-elseif($Url->whereAmI()=='category') {
-	$itemsPerPage = $Site->itemsPerPage();
-	$categoryKey = $Url->slug();
-	$amountOfItems = $dbCategories->countPagesByCategory($categoryKey);
+elseif($url->whereAmI()=='category') {
+	$itemsPerPage = $site->itemsPerPage();
+	$categoryKey = $url->slug();
+	$numberOfItems = $categories->numberOfPages($categoryKey);
 }
 else {
-	$itemsPerPage = $Site->itemsPerPage();
-	$amountOfItems = $dbPages->count(true);
+	$itemsPerPage = $site->itemsPerPage();
+	$numberOfItems = $pages->count(true);
 }
 
 // Items per page
 Paginator::set('itemsPerPage', $itemsPerPage);
 
 // Amount of items
-Paginator::set('amountOfItems', $amountOfItems);
+Paginator::set('numberOfItems', $numberOfItems);
 
 // Amount of pages
-$amountOfPages = (int) max(ceil($amountOfItems / $itemsPerPage), 1);
-Paginator::set('amountOfPages', $amountOfPages);
+$numberOfPages = (int) max(ceil($numberOfItems / $itemsPerPage), 1);
+Paginator::set('numberOfPages', $numberOfPages);
 
 // TRUE if exists a next page to show
-$showNext = $amountOfPages > $currentPage;
+$showNext = $numberOfPages > $currentPage;
 Paginator::set('showNext', $showNext);
 
 // TRUE if exists a previous page to show
@@ -50,5 +50,5 @@ $nextPage = max(0, $currentPage+1);
 Paginator::set('nextPage', $nextPage);
 
 // Integer with the previous page
-$prevPage = min($amountOfPages, $currentPage-1);
+$prevPage = min($numberOfPages, $currentPage-1);
 Paginator::set('prevPage', $prevPage);

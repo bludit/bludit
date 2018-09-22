@@ -2,11 +2,11 @@
 
 class Redirect {
 
-	public static function url($url)
+	public static function url($url, $httpCode=301)
 	{
-		if(!headers_sent()) {
-			header("Location:".$url, TRUE, 302);
-			exit;
+		if (!headers_sent()) {
+			header("Location:".$url, TRUE, $httpCode);
+			exit(0);
 		}
 
 		exit('<meta http-equiv="refresh" content="0; url='.$url.'"/>');
@@ -14,7 +14,7 @@ class Redirect {
 
 	public static function page($page)
 	{
-		self::url(HTML_PATH_ROOT.ADMIN_URI_FILTER.'/'.$page);
+		self::url(HTML_PATH_ADMIN_ROOT.$page);
 	}
 
 	public static function home()

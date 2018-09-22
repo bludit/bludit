@@ -1,0 +1,226 @@
+
+html {
+	height: 100%;
+	font-size: 0.9rem;
+	background: #fcfcfc;
+}
+
+body {
+	background: #fcfcfc;
+}
+
+/*
+	BOOTSTRAP Hacks
+*/
+
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1250px;
+	}
+}
+
+/* for small devices */
+@media (max-width: 575.98px) {
+	#jsmediaManagerButton,
+	#jscategoryButton,
+	#jsdescriptionButton {
+		width: 100%;
+		text-align: left;
+	}
+}
+
+a {
+	color: #4a90e2;
+}
+
+a:hover {
+	color: #4a90e2;
+}
+
+.btn {
+	border-radius: 2px;
+}
+
+.btn-primary {
+	background-color: #4F93E0;
+	border-color: #4a90e2;
+}
+
+.btn-primary:hover {
+	background-color: #4585CF;
+	border-color: #4a90e2;
+}
+
+.btn-form {
+	background-color: #F3F3F3;
+	border-color: #DDD;
+	color: #000;
+}
+
+.btn-form:hover {
+	background-color: rgb(228, 228, 228);
+	border-color: #DDD;
+	color: #000;
+}
+
+code {
+	padding: 3px 5px 2px;
+	margin: 0 1px;
+	background: #eaeaea;
+	background: rgba(0,0,0,.07);
+	color: #444;
+}
+
+.list-group-sortable {
+	cursor: pointer;
+}
+
+/*
+	LOGIN
+*/
+body.login {
+	background: rgb(255,255,255);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
+	height: 100%;
+}
+
+
+/*
+	DASHBOARD
+*/
+
+#dashboard ul.list-group.list-group-striped li {
+	border: none;
+}
+
+#dashboard ul.list-group.list-group-striped li:nth-of-type(even) {
+	background: #f1f1f1;
+
+}
+
+#dashboard div.quick-links-icons {
+	font-size: 3em;
+	width: 100%;
+}
+
+#dashboard a.quick-links {
+	color: #777;
+}
+
+#dashboard a.quick-links:hover {
+	text-decoration: none;
+	color: #4586d4;
+}
+
+.ct-series-a .ct-line {
+	/* Set the colour of this series line */
+	stroke: #4a90e2;
+	/* Control the thikness of your lines */
+	stroke-width: 2px;
+	/* Create a dashed line with a pattern */
+}
+
+/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+.ct-series-a .ct-point {
+	/* Colour of your points */
+	stroke: #4a90e2;
+	/* Size of your points */
+	stroke-width: 8px;
+}
+
+/*
+	ALERT
+*/
+#alert {
+	display: none;
+	position: fixed;
+	text-align: center;
+	border-radius: 0px;
+	border: 0;
+	z-index: 1000;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+}
+
+.alert-success {
+	background-color: #4586d4;
+	color: #ffffff;
+}
+
+.alert-danger {
+	background-color: #d44545;
+	color: #ffffff;
+}
+
+/*
+	SIDEBAR
+*/
+div.sidebar .nav-item a {
+	padding-left:0;
+	padding-right:0;
+	color: #777;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div.sidebar .nav-item a:hover {
+	text-decoration: underline;
+}
+
+div.sidebar .nav-item h4 {
+	font-size: 1.3em;
+	text-transform: uppercase;
+	font-weight: 400;
+	margin-top: 10px;
+}
+
+div.sidebar .nav-item span.oi {
+	color: #000;
+	font-size: 0.8em;
+	padding-right: 5px;
+}
+
+/*
+	PLUGINS
+*/
+.plugin-form label {
+	display: block;
+	margin-top: 1rem !important;
+}
+
+.plugin-form input[type="text"],
+.plugin-form textarea,
+.plugin-form select {
+	display: block;
+	width: 100%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.plugin-form textarea {
+	min-height: 120px;
+}
+
+.plugin-form span.tip {
+	display: block;
+	font-size: 80%;
+	font-weight: 400;
+	margin-top: .25rem;
+	color: #6c757d !important;
+}
+
+/*
+	Manage > Content
+*/
+
+td.child {
+	padding-left: 30px;
+}

@@ -2,10 +2,11 @@
 	"plugin-data":
 	{
 		"name": "Yedekleme",
-		"description": "Yedek almak için en kolay yol."
+		"description": "Yedek oluşturmak için en kolay yol."
 	},
-	"create-backup": "Yedek Al",
+	"create-backup": "Yedek oluştur",
 	"download": "İndir",
-	"restore-backup": "Geri Yükle",
-	"delete-backup": "Delete Backup"
+	"restore-backup": "Geri yükle",
+	"delete-backup": "Yedeklemeyi sil",
+	"there-are-no-backups-for-the-moment": "Şu an için yedek yok"
 }

@@ -2,11 +2,20 @@
 
 class Login {
 
-	private $dbUsers;
+	private $users;
 
-	function __construct($dbUsers)
+	function __construct()
 	{
-		$this->dbUsers = $dbUsers;
+		if (isset($GLOBALS['users'])) {
+			$this->users = $GLOBALS['users'];
+		} else {
+			$this->users = new users();
+		}
+
+		// Start the Session
+		if (!Session::started()) {
+			Session::start();
+		}
 	}
 
 	// Returns the username of the user logged
@@ -35,7 +44,7 @@ class Login {
 			}
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. Current fingerPrint: '.Session::get('fingerPrint').' !== Current fingerPrint: '.$this->fingerPrint());
+		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. ['.Session::get('fingerPrint').'] != ['.$this->fingerPrint().']');
 		return false;
 	}
 
@@ -47,7 +56,7 @@ class Login {
 		Session::set('fingerPrint',	$this->fingerPrint());
 		Session::set('sessionTime',	time());
 
-		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint: '.$this->fingerPrint());
+		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint ['.$this->fingerPrint().']');
 	}
 
 	public function setRememberMe($username)
@@ -55,8 +64,8 @@ class Login {
 		$username = Sanitize::html($username);
 
 		// Set the token on the users database
-		$token = $this->dbUsers->generateRememberToken();
-		$this->dbUsers->setRememberToken($username, $token);
+		$token = $this->users->generateRememberToken();
+		$this->users->setRememberToken($username, $token);
 
 		// Set the token on the cookies
 		Cookie::set(REMEMBER_COOKIE_USERNAME, $username, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
@@ -68,7 +77,7 @@ class Login {
 	public function invalidateRememberMe()
 	{
 		// Invalidate all tokens on the user databases
-		$this->dbUsers->invalidateAllRememberTokens();
+		$this->users->invalidateAllRememberTokens();
 
 		// Destroy the cookies
 		Cookie::set(REMEMBER_COOKIE_USERNAME, '', -1);
@@ -83,10 +92,7 @@ class Login {
 	public function verifyUser($username, $password)
 	{
 		$username = Sanitize::html($username);
-		$password = Sanitize::html($password);
-
 		$username = trim($username);
-		$password = trim($password);
 
 		if (empty($username) || empty($password)) {
 			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username);
@@ -98,16 +104,16 @@ class Login {
 			return false;
 		}
 
-		$user = $this->dbUsers->getDB($username);
-		if ($user==false) {
-			Log::set(__METHOD__.LOG_SEP.'Username does not exist: '.$username);
+		try {
+			$user = new User($username);
+		} catch (Exception $e) {
 			return false;
 		}
 
-		$passwordHash = $this->dbUsers->generatePasswordHash($password, $user['salt']);
-		if ($passwordHash===$user['password']) {
-			$this->setLogin($username, $user['role']);
-			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username: '.$username);
+		$passwordHash = $this->users->generatePasswordHash($password, $user->salt());
+		if ($passwordHash===$user->password()) {
+			$this->setLogin($username, $user->role());
+			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username ['.$username.']');
 			return true;
 		}
 
@@ -137,14 +143,14 @@ class Login {
 			return false;
 		}
 
-		if ($username !== $this->dbUsers->getByRememberToken($token)) {
+		if ($username !== $this->users->getByRememberToken($token)) {
 			$this->invalidateRememberMe();
 			Log::set(__METHOD__.LOG_SEP.'The user has different token or the token doesn\'t exist.');
 			return false;
 		}
 
 		// Validate user and login
-		$user = $this->dbUsers->getDb($username);
+		$user = $this->users->getDb($username);
 		$this->setLogin($username, $user['role']);
 		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
 		return true;

@@ -59,11 +59,14 @@ Become a **Backer** and support Bludit with a monthly contribution to help us co
 Sponsors
 --------
 Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development.
-- [Become a Sponsor](https://www.patreon.com/bePatron?c=921115&rid=2458860)
+
+[![Become a Sponsor](https://img.shields.io/badge/Become%20a%20Sponsor--green.svg)](https://www.patreon.com/bePatron?c=921115&rid=2458860)
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
-- <a href="https://www.patreon.com/user/creators?u=10313233" target="_blank">Garriet Selent</a>
+- <a href="https://www.patreon.com/pinguinsreisende" target="_blank">Gerriet Selent</a>
+- <a href="https://www.patreon.com/user/creators?u=12261033" target="_blank">Jan Rippl</a>
+- <a href="https://www.patreon.com/user/creators?u=9828204" target="_blank">Wesleigh Walker</a>
 
 License
 -------

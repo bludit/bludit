@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "Anzeige der täglichen Anzahl Seitenaufrufe und Besucher."
+	},
+	"visits": "Seitenaufrufe",
+	"visits-today": "Seitenaufrufe heute",
+	"unique-visitors-today": "Besucher heute",
+	"chart": "Chart",
+	"table": "Table"
+}

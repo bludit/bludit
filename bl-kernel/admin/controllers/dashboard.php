@@ -4,18 +4,26 @@
 // Functions
 // ============================================================================
 function updateBludit() {
-	global $Site;
+	global $site;
 	// Check if Bludit need to be update.
-	if( ($Site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
+	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
-		// From Bludit v2.0.x to v2.1.x
-		if ($Site->currentBuild() < '20171102') {
-			// Nothing to do
+		// Updates only for version less than Bludit v3.0 rc-3
+		if ($site->currentBuild()<'20180910') {
+			@mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true);
+			$plugins = array('simple-stats', 'pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
+			foreach ($plugins as $plugin) {
+				if (pluginActivated($plugin)) {
+					Log::set('UPDATE SYSTEM - Re-enable plugin: '.$plugin);
+					deactivatePlugin($plugin);
+					activatePlugin($plugin);
+				}
+			}
 		}
 
 		// Set the current build number
-		$Site->set(array('currentBuild'=>BLUDIT_BUILD));
+		$site->set(array('currentBuild'=>BLUDIT_BUILD));
 		Log::set('UPDATE SYSTEM - Finished.');
 	}
 }
@@ -36,4 +44,4 @@ function updateBludit() {
 updateBludit();
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Dashboard');
+$layout['title'] .= ' - '.$L->g('Dashboard');

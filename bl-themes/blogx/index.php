@@ -46,8 +46,11 @@
 
 	<!-- Javascript -->
 	<?php
+		// Include Jquery file from Bludit Core
 		echo Theme::jquery();
-		echo Theme::js('js/bootstrap.min.js');
+
+		// Include javascript Bootstrap file from Bludit Core
+		echo Theme::jsBootstrap();
 	?>
 
 	<!-- Load Bludit Plugins: Site Body End -->

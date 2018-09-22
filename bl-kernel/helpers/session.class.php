@@ -1,17 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-	class Session {
+class Session {
 
 	private static $started = false;
+	private static $sessionName = 'BLUDIT-KEY';
 
 	public static function start()
 	{
-		//if(self::$started)
-		//	return true;
-
-		// DEBUG: Ver un nombre con alguna llave random al momentode instalar.
-		$session_name = 'BLUDIT-KEY';
-
 		// Try to set the session timeout on server side, 1 hour of timeout
 		ini_set('session.gc_maxlifetime', SESSION_GC_MAXLIFETIME);
 
@@ -33,7 +28,7 @@
 		);
 
 		// Sets the session name to the one set above.
-		session_name($session_name);
+		session_name(self::$sessionName);
 
 		// Start session.
 		self::$started = session_start();
@@ -55,6 +50,8 @@
 	{
 		session_destroy();
 		unset($_SESSION);
+		unset($_COOKIE[self::$sessionName]);
+		Cookie::set(self::$sessionName, '', -1);
 		self::$started = false;
 		Log::set(__METHOD__.LOG_SEP.'Session destroyed.');
 		return !isset($_SESSION);
@@ -71,10 +68,9 @@
 	{
 		$key = 's_'.$key;
 
-		if ( isset($_SESSION[$key]) ) {
+		if (isset($_SESSION[$key])) {
 			return $_SESSION[$key];
 		}
-
 		return false;
 	}
 }

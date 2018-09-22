@@ -1,25 +1,37 @@
-<div class="login-form">
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-<form method="post" action="" class="uk-form" autocomplete="off">
+echo '<h1 class="text-center mb-5 mt-5 font-weight-normal" style="color: #555;">BLUDIT</h1>';
 
-	<input type="hidden" id="jstoken" name="tokenCSRF" value="<?php echo $Security->getTokenCSRF() ?>">
+echo Bootstrap::formOpen(array());
 
-	<div class="uk-form-row">
-	<input name="username" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Username') ?>" type="text">
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'tokenCSRF',
+		'value'=>$security->getTokenCSRF()
+	));
+
+	echo '
+	<div class="form-group">
+		<input type="text" value="'.(isset($_POST['username'])?$_POST['username']:'').'" class="form-control form-control-lg" id="jsusername" name="username" placeholder="'.$L->g('Username').'">
+	</div>
+	';
+
+	echo '
+	<div class="form-group">
+		<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="'.$L->g('Password').'">
+	</div>
+	';
+
+	echo '
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" value="true" id="jsremember" name="remember">
+		<label class="form-check-label" for="jsremember">'.$L->g('Remember me').'</label>
 	</div>
 
-	<div class="uk-form-row">
-	<input name="password" class="uk-width-1-1 uk-form-large" placeholder="<?php $L->p('Password') ?>" type="password">
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary btn-lg mr-2 w-100" name="save">'.$L->g('Login').'</button>
 	</div>
+	';
 
-	<div class="uk-form-row">
-	<label><input type="checkbox" name="remember"> <?php $L->p('Remember me') ?></label>
-	</div>
+echo '</form>';
 
-	<div class="uk-form-row">
-	<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><?php $Language->p('Login') ?></button>
-	</div>
-
-</form>
-
-</div>
+?>

@@ -4,6 +4,8 @@
 // Check role
 // ============================================================================
 
+checkRole(array('admin', 'editor'));
+
 // ============================================================================
 // Functions
 // ============================================================================
@@ -22,18 +24,19 @@
 
 // List of published pages
 $onlyPublished = true;
-$amountOfItems = ITEMS_PER_PAGE_ADMIN;
-$pageNumber = $Url->pageNumber();
-$published = $dbPages->getList($pageNumber, $amountOfItems, $onlyPublished);
+$numberOfItems = ITEMS_PER_PAGE_ADMIN;
+$pageNumber = $url->pageNumber();
+$published = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
 
 // Check if out of range the pageNumber
-if (empty($published) && $Url->pageNumber()>1) {
+if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');
 }
 
-$drafts = $dbPages->getDraftDB(true);
-$scheduled = $dbPages->getScheduledDB(true);
-$static = $dbPages->getStaticDB(true);
+$drafts = $pages->getDraftDB(true);
+$scheduled = $pages->getScheduledDB(true);
+$static = $pages->getStaticDB(true);
+$sticky = $pages->getStickyDB(true);
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Manage content');
+$layout['title'] .= ' - '.$L->g('Manage content');

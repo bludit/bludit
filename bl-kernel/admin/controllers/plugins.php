@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -26,4 +23,4 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Plugins');
+$layout['title'] .= ' - '.$L->g('Plugins');

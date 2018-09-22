@@ -6,15 +6,15 @@ class Date {
 	// Example: $date = 'Mon, 27th March' > 'Lun, 27th Marzo'
 	public static function translate($date)
 	{
-		global $Language;
+		global $L;
 
 		// If English default language don't translate
-		if ($Language->currentLanguage()=='en') {
+		if ($L->currentLanguage()=='en') {
 			return $date;
 		}
 
 		// Get the array of dates from the language file
-		$dates = $Language->getDates();
+		$dates = $L->getDates();
 		foreach ($dates as $english=>$anotherLang) {
 			$date = preg_replace('/\b'.$english.'\b/u', $anotherLang, $date);
 		}
@@ -36,6 +36,8 @@ class Date {
 		return self::translate($output);
 	}
 
+	// Returns the current time shifted by offset
+	// $offest could be +1 day, +1 month
 	public static function currentOffset($format, $offset)
 	{
 		$Date = new DateTime();

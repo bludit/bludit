@@ -1,30 +1,33 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$L->g('Categories'), 'icon'=>'tag'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Categories'), 'icon'=>'tags'));
 
-echo '<a href="'.HTML_PATH_ADMIN_ROOT.'new-category"><i class="uk-icon-plus"></i> '.$L->g('Add a new category').'</a>';
+echo Bootstrap::link(array(
+	'title'=>$L->g('Add a new category'),
+	'href'=>HTML_PATH_ADMIN_ROOT.'new-category',
+	'icon'=>'plus'
+));
 
 echo '
-<table class="uk-table uk-table-striped">
-<thead>
-	<tr>
-	<th>'.$L->g('Name').'</th>
-	<th>'.$L->g('URL').'</th>
-	</tr>
-</thead>
-<tbody>
+<table class="table table-striped mt-3">
+	<thead>
+		<tr>
+			<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
+		</tr>
+	</thead>
+	<tbody>
 ';
 
-$categories = $dbCategories->getKeyNameArray();
-foreach($categories as $categoryKey=>$category)
-{
+foreach ($categories->keys() as $key) {
+	$category = new Category($key);
 	echo '<tr>';
-	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$categoryKey.'">'.$category.'</a></td>';
-	echo '<td><a href="'.DOMAIN_CATEGORIES.$categoryKey.'">'.$Url->filters('category', false).$categoryKey.'</a></td>';
+	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
+	echo '<td><a href="'.$category->permalink().'">'.$url->filters('category', false).$key.'</a></td>';
 	echo '</tr>';
 }
 
 echo '
-</tbody>
+	</tbody>
 </table>
 ';

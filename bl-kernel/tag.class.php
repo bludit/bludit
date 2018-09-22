@@ -6,23 +6,17 @@ class Tag {
 
 	function __construct($key)
 	{
-		global $dbTags;
-
-		if (isset($dbTags->db[$key])) {
-			$this->vars['name'] 		= $dbTags->db[$key]['name'];
+		global $tags;
+		if (isset($tags->db[$key])) {
+			$this->vars['name'] 		= $tags->db[$key]['name'];
 			$this->vars['key'] 		= $key;
 			$this->vars['permalink'] 	= DOMAIN_TAGS . $key;
-			$this->vars['list'] 		= $dbTags->db[$key]['list'];
+			$this->vars['list'] 		= $tags->db[$key]['list'];
+		} else {
+			$errorMessage = 'Tag not found in database by key ['.$key.']';
+			Log::set(__METHOD__.LOG_SEP.$errorMessage);
+			throw new Exception($errorMessage);
 		}
-		else {
-			$this->vars = false;
-		}
-	}
-
-	// Returns TRUE if the tag is valid/exists, FALSE otherwise
-	public function isValid()
-	{
-		return $this->vars!==false;
 	}
 
 	public function getValue($field)

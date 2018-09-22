@@ -4,31 +4,31 @@ class Theme {
 
 	public static function title()
 	{
-		global $Site;
-		return $Site->title();
+		global $site;
+		return $site->title();
 	}
 
 	public static function description()
 	{
-		global $Site;
-		return $Site->description();
+		global $site;
+		return $site->description();
 	}
 
 	public static function slogan()
 	{
-		global $Site;
-		return $Site->slogan();
+		global $site;
+		return $site->slogan();
 	}
 
 	public static function footer()
 	{
-		global $Site;
-		return $Site->footer();
+		global $site;
+		return $site->footer();
 	}
 
 	public static function rssUrl()
 	{
-		if (pluginEnabled('pluginRSS')) {
+		if (pluginActivated('pluginRSS')) {
 			return DOMAIN_BASE.'rss.xml';
 		}
 		return false;
@@ -36,7 +36,7 @@ class Theme {
 
 	public static function sitemapUrl()
 	{
-		if (pluginEnabled('pluginSitemap')) {
+		if (pluginActivated('pluginSitemap')) {
 			return DOMAIN_BASE.'sitemap.xml';
 		}
 		return false;
@@ -44,8 +44,8 @@ class Theme {
 
 	public static function siteUrl()
 	{
-		global $Site;
-		return $Site->url();
+		global $site;
+		return $site->url();
 	}
 
 	public static function adminUrl()
@@ -53,53 +53,94 @@ class Theme {
 		return DOMAIN_ADMIN;
 	}
 
-	// Return the metatag <title> with a predefine structure
-	public static function headTitle()
+	public static function metaTags($tag)
 	{
-		global $Url;
-		global $Site;
-		global $dbTags;
-		global $dbCategories;
-		global $WHERE_AM_I;
-		global $page;
-
-		$title = $Site->title();
-
-		if (Text::isNotEmpty($Site->slogan())) {
-			$title = $Site->slogan().' | '.$Site->title();
+		if ($tag=='title') {
+			return self::metaTagTitle();
+		} elseif ($tag=='description') {
+			return self::metaTagDescription();
 		}
-
-		if ($WHERE_AM_I=='page') {
-			$title = $page->title().' | '.$Site->title();
-		}
-		elseif ($WHERE_AM_I=='tag') {
-			$tagKey = $Url->slug();
-			$tagName = $dbTags->getName($tagKey);
-			$title = $tagName.' | '.$Site->title();
-		}
-		elseif ($WHERE_AM_I=='category') {
-			$categoryKey = $Url->slug();
-			$categoryName = $dbCategories->getName($categoryKey);
-			$title = $categoryName.' | '.$Site->title();
-		}
-
-		return '<title>'.$title.'</title>'.PHP_EOL;
 	}
 
-	// Return the metatag <decription> with a predefine structure
-	public static function headDescription()
+	public static function metaTagTitle()
 	{
-		global $Site;
+		global $url;
+		global $site;
+		global $tags;
+		global $categories;
 		global $WHERE_AM_I;
 		global $page;
 
-		$description = $Site->description();
+		if ($WHERE_AM_I=='page') {
+			$format = $site->titleFormatPages();
+			$format = Text::replace('{{page-title}}', $page->title(), $format);
+			$format = Text::replace('{{page-description}}', $page->description(), $format);
+		} elseif ($WHERE_AM_I=='tag') {
+			try {
+				$tagKey = $url->slug();
+				$tag = new Tag($tagKey);
+				$format = $site->titleFormatTag();
+				$format = Text::replace('{{tag-name}}', $tag->name(), $format);
+			} catch (Exception $e) {
+				// Tag doesn't exist
+			}
 
-		if( $WHERE_AM_I=='page' ) {
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$format = $site->titleFormatCategory();
+				$format = Text::replace('{{category-name}}', $category->name(), $format);
+			} catch (Exception $e) {
+				// Category doesn't exist
+			}
+		} else {
+			$format = $site->titleFormatHomepage();
+		}
+
+		$format = Text::replace('{{site-title}}', $site->title(), $format);
+		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
+		$format = Text::replace('{{site-description}}', $site->description(), $format);
+
+		return '<title>'.$format.'</title>'.PHP_EOL;
+	}
+
+	public static function metaTagDescription()
+	{
+		global $site;
+		global $WHERE_AM_I;
+		global $page;
+		global $url;
+
+		$description = $site->description();
+
+		if ($WHERE_AM_I=='page') {
 			$description = $page->description();
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$description = $category->description();
+			} catch (Exception $e) {
+				// description from the site
+			}
 		}
 
 		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
+	}
+
+	// DEPRECATED v3.0.0
+	// Return the metatag <title> with a predefine structure
+	public static function headTitle()
+	{
+		return self::metaTagTitle();
+	}
+
+	// DEPRECATED v3.0.0
+	// Return the metatag <decription> with a predefine structure
+	public static function headDescription()
+	{
+		return self::metaTagDescription();
 	}
 
 	public static function charset($charset)
@@ -112,7 +153,12 @@ class Theme {
 		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
 	}
 
-	public static function css($files)
+	public static function src($file, $base=DOMAIN_THEME)
+	{
+		return $base.$file;
+	}
+
+	public static function css($files, $base=DOMAIN_THEME)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -120,13 +166,13 @@ class Theme {
 
 		$links = '';
 		foreach($files as $file) {
-			$links .= '<link rel="stylesheet" type="text/css" href="'.DOMAIN_THEME.$file.'">'.PHP_EOL;
+			$links .= '<link rel="stylesheet" type="text/css" href="'.$base.$file.'?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 		}
 
 		return $links;
 	}
 
-	public static function javascript($files)
+	public static function javascript($files, $base=DOMAIN_THEME)
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -134,15 +180,15 @@ class Theme {
 
 		$scripts = '';
 		foreach($files as $file) {
-			$scripts .= '<script src="'.DOMAIN_THEME.$file.'"></script>'.PHP_EOL;
+			$scripts .= '<script charset="utf-8" src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 		}
 
 		return $scripts;
 	}
 
-	public static function js($files)
+	public static function js($files, $base=DOMAIN_THEME)
 	{
-		return self::javascript($files);
+		return self::javascript($files, $base);
 	}
 
 	public static function plugins($type)
@@ -158,28 +204,33 @@ class Theme {
 		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
 
-	public static function fontAwesome($cdn=false)
-	{
-		if ($cdn) {
-			return '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">'.PHP_EOL;
-		}
-		return '<link rel="stylesheet" href="'.DOMAIN_CORE_CSS.'font-awesome/css/font-awesome.min.css'.'">'.PHP_EOL;
-	}
-
-	public static function jquery($cdn=false)
-	{
-		if ($cdn) {
-			return '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>';
-		}
-		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js'.'"></script>'.PHP_EOL;
-	}
-
 	public static function keywords($keywords)
 	{
 		if (is_array($keywords)) {
 			$keywords = implode(',', $keywords);
 		}
 		return '<meta name="keywords" content="'.$keywords.'">'.PHP_EOL;
+	}
+
+	public static function jquery()
+	{
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function jsBootstrap()
+	{
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function cssBootstrap()
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+	}
+
+	public static function jsSortable()
+	{
+		// https://github.com/psfpro/bootstrap-html5sortable
+		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 }
 

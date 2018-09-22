@@ -52,7 +52,7 @@ class Url
 			// $filterFull = '/base_url/category/'
 			$filterFull = ltrim($filterURI, '/');
 			$filterFull = HTML_PATH_ROOT.$filterFull;
-			$filterFullLenght = mb_strlen($filterFull, CHARSET);
+			$filterFullLenght = Text::length($filterFull);
 
 			// $filterFullwoSlash = '/base_url/category'
 			$filterFullwoSlash = ltrim($filterURIwoSlash, '/');
@@ -61,7 +61,7 @@ class Url
 			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
 
 			// Check coincidence without the last slash at the end, this case is notfound
-			if (($subString==$filterURIwoSlash) && ($filterName!='admin')) {
+			if ($subString==$filterURIwoSlash) {
 				$this->setNotFound();
 				return false;
 			}
@@ -118,15 +118,13 @@ class Url
 		return $this->uri;
 	}
 
-	// Return the filter used
+	// Return the filter filter by type
 	public function filters($type, $trim=true)
 	{
 		$filter = $this->filters[$type];
-
-		if($trim) {
+		if ($trim) {
 			$filter = trim($filter, '/');
 		}
-
 		return $filter;
 	}
 

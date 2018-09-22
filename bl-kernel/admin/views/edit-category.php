@@ -1,32 +1,92 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
-HTML::title(array('title'=>$L->g('Edit Category'), 'icon'=>'globe'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'tags'));
 
-HTML::formOpen(array('class'=>'uk-form-horizontal'));
+echo Bootstrap::formOpen(array('id'=>'jsform'));
 
-	HTML::formInputHidden(array(
+	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
-		'value'=>$Security->getTokenCSRF()
+		'value'=>$security->getTokenCSRF()
 	));
 
-	HTML::formInputHidden(array(
-		'name'=>'categoryKey',
-		'value'=>$categoryKey
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'action',
+		'value'=>'edit'
 	));
 
-	HTML::formInputText(array(
-		'name'=>'category',
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'oldKey',
+		'value'=>$categoryMap['key']
+	));
+
+	echo Bootstrap::formInputTextBlock(array(
+		'name'=>'name',
 		'label'=>$L->g('Name'),
-		'value'=>$category,
-		'class'=>'uk-width-1-2 uk-form-medium'
+		'value'=>$categoryMap['name'],
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
 	));
 
-	echo '<div class="uk-form-row">
-		<div class="uk-form-controls">
-		<button type="submit" name="edit" class="uk-button uk-button-primary">'.$L->g('Save').'</button>
-		<button type="submit" name="delete" class="uk-button uk-button-primary">'.$L->g('Delete').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'categories" class="uk-button">'.$L->g('Cancel').'</a>
-		</div>
-	</div>';
+	echo Bootstrap::formTextareaBlock(array(
+		'name'=>'description',
+		'label'=>$L->g('Description'),
+		'value'=>isset($categoryMap['description'])?$categoryMap['description']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>'',
+		'rows'=>3
+	));
 
-HTML::formClose();
+	echo Bootstrap::formInputTextBlock(array(
+		'name'=>'template',
+		'label'=>$L->g('Template'),
+		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
+	echo Bootstrap::formInputGroupText(array(
+		'name'=>'newKey',
+		'label'=>$L->g('Friendly URL'),
+		'labelInside'=>DOMAIN_CATEGORIES,
+		'value'=>$categoryMap['key'],
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>''
+	));
+
+	echo '
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary">'.$L->g('Save').'</button>
+		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'categories" role="button">'.$L->g('Cancel').'</a>
+		<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#jsdeleteModal">'.$L->g('Delete').'</button>
+	</div>
+	';
+
+echo Bootstrap::formClose();
+
+?>
+
+<!-- Modal for delete category -->
+<?php
+	echo Bootstrap::modal(array(
+		'buttonPrimary'=>$L->g('Delete'),
+		'buttonPrimaryClass'=>'jsbuttonDeleteAccept',
+		'buttonSecondary'=>$L->g('Cancel'),
+		'buttonSecondaryClass'=>'',
+		'modalTitle'=>$L->g('Delete category'),
+		'modalText'=>$L->g('Are you sure you want to delete this category?'),
+		'modalId'=>'jsdeleteModal'
+	));
+?>
+<script>
+$(document).ready(function() {
+	// Delete content
+	$(".jsbuttonDeleteAccept").on("click", function() {
+		$("#jsaction").val("delete");
+		$("#jsform").submit();
+	});
+});
+</script>

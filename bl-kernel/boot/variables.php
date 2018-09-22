@@ -2,11 +2,14 @@
 
 /*
 	Environment variables
-	If you are going to change some variable from here is recommended do it before the installation
+	If you are going to do some changes in the variable, is recommended do it before the installation
 */
 
-// Log separator
+// Log
 define('LOG_SEP', ' | ');
+define('LOG_TYPE_INFO', '[INFO]');
+define('LOG_TYPE_WARN', '[WARN]');
+define('LOG_TYPE_ERROR', '[ERROR]');
 
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', TRUE);
@@ -77,6 +80,9 @@ define('SCHEDULED_DATE_FORMAT', 'D, j M Y, H:i');
 // Notifications date format
 define('NOTIFICATIONS_DATE_FORMAT', 'D, j M Y, H:i');
 
+// Manage content date format
+define('MANAGE_CONTENT_DATE_FORMAT', 'D, j M Y, H:i');
+
 // Amount of items to show on notification panel
 define('NOTIFICATIONS_AMOUNT', 10);
 
@@ -85,9 +91,6 @@ define('TOKEN_EMAIL_TTL', '+15 minutes');
 
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
-
-// EXTREME FRIENDLY URL, TRUE for dissmiss internet standard. Experimental!
-define('EXTREME_FRIENDLY_URL', FALSE);
 
 // Permissions for new directories
 define('DIR_PERMISSIONS', 0755);
@@ -105,3 +108,16 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // Session lifetime of the cookie in seconds which is sent to the browser
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
+
+// New Global Variables
+$GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES'] = 5;
+$GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'] = true;
+
+// Thubmnails size
+$GLOBALS['THUMBNAILS_WIDTH'] = 400;
+$GLOBALS['THUMBNAILS_HEIGHT'] = 400;
+$GLOBALS['THUMBNAILS_QUALITY'] = 100;
+
+// Alert
+$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
+

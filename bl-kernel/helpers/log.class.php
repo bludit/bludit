@@ -2,18 +2,23 @@
 
 class Log {
 
-	public static function set($text, $type=0)
+	public static function set($text, $type=LOG_TYPE_INFO)
 	{
-		if (is_array($text) ) {
-			error_log('------------------------', $type);
-			error_log('Array', $type);
-			error_log('------------------------', $type);
-			foreach ($text as $key=>$value) {
-				error_log($key.'=>'.$value, $type);
-			}
-			error_log('------------------------', $type);
+		if (!DEBUG_MODE) {
+			return false;
 		}
-		error_log('('.BLUDIT_VERSION.') ('.$_SERVER['REQUEST_URI'].') '.$text, $type);
+
+		$messageType = 0;
+		if (is_array($text) ) {
+			error_log('------------------------', $messageType);
+			error_log('Array', $messageType);
+			error_log('------------------------', $messageType);
+			foreach ($text as $key=>$value) {
+				error_log($key.'=>'.$value, $messageType);
+			}
+			error_log('------------------------', $messageType);
+		}
+		error_log($type.' ['.BLUDIT_VERSION.'] ['.$_SERVER['REQUEST_URI'].'] '.$text, $messageType);
 	}
 
 }

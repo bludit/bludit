@@ -10,45 +10,45 @@
 
 function checkLogin($args)
 {
-	global $Security;
-	global $Login;
-	global $Language;
+	global $security;
+	global $login;
+	global $L;
 
-	if ($Security->isBlocked()) {
-		Alert::set($Language->g('IP address has been blocked').'<br>'.$Language->g('Try again in a few minutes'));
+	if ($security->isBlocked()) {
+		Alert::set($L->g('IP address has been blocked').'<br>'.$L->g('Try again in a few minutes'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	if ($Login->verifyUser($_POST['username'], $_POST['password'])) {
+	if ($login->verifyUser($_POST['username'], $_POST['password'])) {
 		if (isset($_POST['remember'])) {
-			$Login->setRememberMe($_POST['username']);
+			$login->setRememberMe($_POST['username']);
 		}
 		// Renew the token. This token will be the same inside the session for multiple forms.
-		$Security->generateTokenCSRF();
+		$security->generateTokenCSRF();
+
 		Redirect::page('dashboard');
 		return true;
 	}
 
 	// Bruteforce protection, add IP to the blacklist
-	$Security->addToBlacklist();
+	$security->addToBlacklist();
 
 	// Create alert
-	Alert::set($Language->g('Username or password incorrect'));
-
+	Alert::set($L->g('Username or password incorrect'), ALERT_STATUS_FAIL);
 	return false;
 }
 
 function checkRememberMe()
 {
-	global $Security;
-	global $Login;
+	global $security;
+	global $login;
 
-	if ($Security->isBlocked()) {
+	if ($security->isBlocked()) {
 		return false;
 	}
 
-	if ($Login->verifyUserByRemember()) {
-		$Security->generateTokenCSRF();
+	if ($login->verifyUserByRemember()) {
+		$security->generateTokenCSRF();
 		Redirect::page('dashboard');
 		return true;
 	}

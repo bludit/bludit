@@ -1,8 +1,8 @@
 <?php
 
-HTML::title(array('title'=>$L->g('Developers'), 'icon'=>'support'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Developers'), 'icon'=>'beaker'));
 
-echo '<h2>PHP version: '.phpversion().'</h2>';
+echo '<h2 class="mb-4 mt-4"><b>PHP version: '.phpversion().'</b></h2>';
 
 // PHP Ini
 $uploadOptions = array(
@@ -34,5 +34,5 @@ $constants = get_defined_constants(true);
 printTable('Bludit Constants', $constants['user']);
 
 // Site object
-printTable('$Site object database',$Site->db);
+printTable('$Site object database',$site->db);
 

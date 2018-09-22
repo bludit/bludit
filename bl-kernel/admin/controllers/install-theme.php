@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -26,18 +23,17 @@ if ($Login->role()!=='admin') {
 // ============================================================================
 $themeDirname = $layout['parameters'];
 
-if( Sanitize::pathFile(PATH_THEMES.$themeDirname) ) {
-	// Set the theme
-	$Site->set(array('theme'=>$themeDirname));
+if (Sanitize::pathFile(PATH_THEMES.$themeDirname)) {
+	$site->set(array('theme'=>$themeDirname));
 
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'new-theme-configured',
 		'notes'=>$themeDirname
 	));
 
 	// Create an alert
-	Alert::set( $Language->g('The changes have been saved') );
+	Alert::set( $L->g('The changes have been saved') );
 }
 
 // Redirect

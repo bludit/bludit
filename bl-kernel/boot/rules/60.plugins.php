@@ -22,6 +22,7 @@ $plugins = array(
 	'adminBodyEnd'=>array(),
 	'adminSidebar'=>array(),
 	'adminContentSidebar'=>array(),
+	'dashboard'=>array(),
 
 	'beforeRulesLoad'=>array(),
 	'beforeAll'=>array(),
@@ -49,8 +50,8 @@ function buildPlugins()
 {
 	global $plugins;
 	global $pluginsEvents;
-	global $Language;
-	global $Site;
+	global $L;
+	global $site;
 
 	// List plugins directories
 	$list = Filesystem::listDirectories(PATH_PLUGINS);
@@ -73,7 +74,7 @@ function buildPlugins()
 		$Plugin = new $pluginClass;
 
 		// Check if the plugin is translated
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$Site->language().'.json';
+		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
@@ -89,7 +90,7 @@ function buildPlugins()
 		// This function overwrite the key=>value
 		unset($database['plugin-data']);
 		if (!empty($database)) {
-			$Language->add($database);
+			$L->add($database);
 		}
 
 		// $plugins['all'] Array with all plugins, installed and not installed

@@ -5,7 +5,7 @@
 // ============================================================================
 
 // Array with pages, each page is a Page Object
-// Filtered by pagenumber, amount of items per page and sorted by date/position
+// Filtered by pagenumber, number of items per page and sorted by date/position
 /*
 	array(
 		0 => Page Object,
@@ -14,59 +14,10 @@
 		N => Page Object
 	)
 */
-$content = $pages = array();
+$content = array();
 
 // Page filtered by the user, is a Page Object
-$page = $Page = false;
-
-// Array with pages order by parent
-// Sorted by position or date
-/*
-	array(
-		PARENT => array(
-			0 => Page Object,
-			...,
-			N => Page Object),
-		"parentKey1" => array(
-			0 => Page Object,
-			...,
-			N => Page Object),
-		"parentKey2" => array(
-			0 => Page Object,
-			...,
-			N => Page Object),
-		...
-		"parentKeyN" => array(
-			0 => Page Object,
-			...,
-			N => Page Object),
-	)
-*/
-//$pagesByParent = array(PARENT=>array()); // DEPREACTED
-
-// Array with pages order by parent and by key
-/*
-	array(
-		PARENT => array(
-			"parentKey1" => Page Object,
-			...,
-			"parentKeyN" => Page Object),
-		"parentKey1" => array(
-			"childKeyA" => Page Object,
-			...,
-			"childKeyB" => Page Object),
-		"parentKey2" => array(
-			"childKeyJ" => Page Object,
-			...,
-			"childKeyO" => Page Object),
-		...
-		"parentKeyN" => array(
-			"childKeyW" => Page Object,
-			...,
-			"childKeyZ" => Page Object),
-	)
-*/
-//$pagesByParentByKey = array(PARENT=>array()); // DEPREACTED
+$page = false;
 
 // Array with static content, each item is a Page Object
 // Order by position
@@ -85,59 +36,48 @@ $staticContent = $staticPages = buildStaticPages();
 // ============================================================================
 
 // Execute the scheduler
-if ($dbPages->scheduler()) {
-	// Reindex tags
+if ($pages->scheduler()) {
 	reindexTags();
-
-        // Reindex categories
         reindexCategories();
 
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'content-published-from-scheduler',
 		'notes'=>''
 	));
 }
 
-// Generate pages parent tree, only published pages
-//buildPagesByParent(true, true);
-
-// Set home page is the user defined one
-if ($Site->homepage() && $Url->whereAmI()==='home') {
-	$pageKey = $Site->homepage();
-	if( $dbPages->exists($pageKey) ) {
-		$Url->setSlug($pageKey);
-		$Url->setWhereAmI('page');
+// Set home page if the user defined them
+if ($site->homepage() && $url->whereAmI()==='home') {
+	$pageKey = $site->homepage();
+	if ($pages->exists($pageKey)) {
+		$url->setSlug($pageKey);
+		$url->setWhereAmI('page');
 	}
 }
 
 // Build specific page
-if ($Url->whereAmI()==='page') {
-	buildThePage();
+if ($url->whereAmI()==='page') {
+	$content[0] = $page = buildThePage();
 }
 // Build content by tag
-elseif ($Url->whereAmI()==='tag') {
-	buildPagesByTag();
+elseif ($url->whereAmI()==='tag') {
+	$content = buildPagesByTag();
 }
 // Build content by category
-elseif ($Url->whereAmI()==='category') {
-        buildPagesByCategory();
+elseif ($url->whereAmI()==='category') {
+	$content = buildPagesByCategory();
 }
 // Build content for the homepage
-elseif ( ($Url->whereAmI()==='home') || ($Url->whereAmI()==='blog') ) {
-        buildPagesForHome();
+elseif ( ($url->whereAmI()==='home') || ($url->whereAmI()==='blog') ) {
+        $content = buildPagesForHome();
 }
 
-if (isset($pages[0])) {
-	$page = $Page = $pages[0];
+if (isset($content[0])) {
+	$page = $content[0];
 }
 
-// Set page 404 not found
-if ($Url->notFound()) {
-	$pageNotFoundKey = $Site->pageNotFound();
-	$page = buildPage( $pageNotFoundKey );
-	if ($page===false) {
-		$page = buildErrorPage();
-	}
-	$content[0] = $pages[0] = $Page = $page;
+// If set notFound, create the page 404
+if ($url->notFound()) {
+	$content[0] = $page = buildErrorPage();
 }

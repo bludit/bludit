@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -20,15 +17,14 @@ $plugin = false;
 $pluginClassName = $layout['parameters'];
 
 // Check if the plugin exists
-if( isset($plugins['all'][$pluginClassName]) ) {
+if (isset($plugins['all'][$pluginClassName])) {
 	$plugin = $plugins['all'][$pluginClassName];
-}
-else {
+} else {
 	Redirect::page('plugins');
 }
 
 // Check if the plugin has the method form()
-if( !method_exists($plugin, 'form') ) {
+if (!method_exists($plugin, 'form')) {
 	Redirect::page('plugins');
 }
 
@@ -36,23 +32,19 @@ if( !method_exists($plugin, 'form') ) {
 // POST Method
 // ============================================================================
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST' )
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Add to syslog
-	$Syslog->add(array(
+	$syslog->add(array(
 		'dictionaryKey'=>'plugin-configured',
 		'notes'=>$plugin->name()
 	));
 
 	// Call the method post of the plugin
-	if( $plugin->post() ) {
-		// Create an alert
-		Alert::set( $Language->g('The changes have been saved') );
+	if ($plugin->post()) {
+		Alert::set( $L->g('The changes have been saved') );
 		Redirect::page('configure-plugin/'.$plugin->className());
-	}
-	else {
-		// Create an alert
-		Alert::set( $Language->g('Complete all fields') );
+	} else {
+		Alert::set( $L->g('Complete all fields') );
 	}
 }
 
@@ -61,4 +53,4 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' )
 // ============================================================================
 
 // Title of the page
-$layout['title'] .= ' - '.$Language->g('Plugin').' - '.$plugin->name();
+$layout['title'] = $L->g('Plugin').' - '.$plugin->name().' - '.$layout['title'];

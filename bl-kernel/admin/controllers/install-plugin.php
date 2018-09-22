@@ -4,10 +4,7 @@
 // Check role
 // ============================================================================
 
-if ($Login->role()!=='admin') {
-	Alert::set($Language->g('You do not have sufficient permissions'));
-	Redirect::page('dashboard');
-}
+checkRole(array('admin'));
 
 // ============================================================================
 // Functions
@@ -25,5 +22,18 @@ if ($Login->role()!=='admin') {
 // Main after POST
 // ============================================================================
 $pluginClassName = $layout['parameters'];
-activatePlugin($pluginClassName);
+if (!activatePlugin($pluginClassName)) {
+	Log::set('Fail when try to activate the plugin.', LOG_TYPE_ERROR);
+}
+
+if (isset($plugins['all'][$pluginClassName])) {
+	$plugin = $plugins['all'][$pluginClassName];
+} else {
+	Redirect::page('plugins');
+}
+
+if (method_exists($plugin, 'form')) {
+	Redirect::page('configure-plugin/'.$pluginClassName);
+}
+
 Redirect::page('plugins#'.$pluginClassName);
