@@ -56,7 +56,7 @@
 					</a>
 				</li>
 				<?php endif ?>
-				
+
 				<?php if ($site->codepen()): ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo $site->codepen() ?>" target="_blank">

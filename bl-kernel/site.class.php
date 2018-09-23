@@ -300,6 +300,14 @@ class Site extends dbJSON {
 		return $this->getField('language');
 	}
 
+	// Returns the sort version of the site's language
+	public function languageShortVersion()
+	{
+		$current = $this->language();
+		$explode = explode('_', $current);
+		return $explode[0];
+	}
+
 	// Returns the current locale.
 	public function locale()
 	{

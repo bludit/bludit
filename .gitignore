@@ -8,4 +8,5 @@ bl-plugins/updater
 bl-kernel/bludit.pro.php
 bl-themes/docs
 bl-themes/docsx
+bl-themes/editorial
 bl-themes/mediumish

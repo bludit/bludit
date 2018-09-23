@@ -10,7 +10,7 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link pagebreak image removeformat code',
+			'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link unlink pagebreak image removeformat code',
 			'toolbar2'=>'',
 			'mobileToolbar'=>'bold italic bullist formatselect',
 			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
