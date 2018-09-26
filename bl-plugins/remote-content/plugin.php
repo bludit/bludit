@@ -96,6 +96,8 @@ class pluginRemoteContent extends Plugin {
 		Filesystem::deleteRecursive(PATH_UPLOADS);
 		mkdir(PATH_PAGES, 0755, true);
 		mkdir(PATH_UPLOADS, 0755, true);
+		mkdir(PATH_UPLOADS_PROFILES, 0755, true);
+		mkdir(PATH_UPLOADS_THUMBNAILS, 0755, true);
 
 		return true;
 	}

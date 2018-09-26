@@ -591,12 +591,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<?php
 			$system = checkSystem();
 			if (!empty($system)) {
-				foreach ($system as $values) {
-					echo '<div class="uk-panel">';
-					echo '<div class="uk-panel-badge uk-badge uk-badge-danger">FAIL</div>';
-					echo '<h3 class="uk-panel-title">'.$values['title'].'</h3>';
-					echo $values['errorText'];
-					echo '</div>';
+				foreach ($system as $error) {
+					echo '
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>'.$error.'</th>
+							</tr>
+						</tbody>
+					</table>
+					';
 				}
 			}
 			elseif (isset($_GET['language']))
