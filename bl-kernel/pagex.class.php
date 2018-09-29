@@ -286,7 +286,7 @@ class Page {
 			return false;
 		}
 
-		// Check if external cover image, is a valid URL
+		// Check is external cover image
 		if (filter_var($fileName, FILTER_VALIDATE_URL)) {
 			return $fileName;
 		}
@@ -305,6 +305,12 @@ class Page {
 		if ($coverImageFilename==false) {
 			return false;
 		}
+
+		// Check is external cover image
+		if (filter_var($coverImageFilename, FILTER_VALIDATE_URL)) {
+			return $coverImageFilename;
+		}
+
 		return DOMAIN_UPLOADS_THUMBNAILS.$coverImageFilename;
 	}
 
