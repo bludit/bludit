@@ -9,7 +9,8 @@ class pluginSearch extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'search'
+			'label'=>'search',
+			'wordsToCachePerPage'=>300
 		);
 	}
 
@@ -36,8 +37,8 @@ class pluginSearch extends Plugin {
 		$html  = '<div class="plugin plugin-search">';
 		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<input type="text" id="plugin-search-input" />';
-		$html .= '<input type="button" value="Submit" onClick="javascript: window.open(\'http://localhost:8000/search/\' + document.getElementById(\'plugin-search-input\').value);" />';
+		$html .= '<input type="text" id="plugin-search-input" /> ';
+		$html .= '<input type="button" value="Search" onClick="javascript: window.open(\'http://localhost:8000/search/\' + document.getElementById(\'plugin-search-input\').value, \'_self\');" />';
  		$html .= '</div>';
  		$html .= '</div>';
 
@@ -138,36 +139,26 @@ class pluginSearch extends Plugin {
 	}
 
 	// Generate the cache file
+	// This function is necessary to call it when you create, edit or remove content
 	private function createCache()
 	{
-		// Include Pages-Object to manage the database of pages
+		// Get all pages published
 		global $pages;
-
-		// Number of items to retrive from the database
-		// -1 means all of them
-		$numberOfItems = -1;
-
-		// Page number is not take in count because we retrive all the pages
-		$pageNumber = 1;
-
-		// Only published pages
-		$onlyPublished = true;
-
-		// Get the list of pages
-		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber = 1, $numberOfItems = -1, $onlyPublished = true);
 
 		$cache = array();
 		foreach ($list as $pageKey) {
 			$page = buildPage($pageKey);
 
 			// Process content
+			$words = $this->getValue('wordsToCachePerPage') * 5; // Asumming avg of characters per word is 5
 			$content = $page->content();
 			$content = Text::removeHTMLTags($content);
-			$content = Text::truncate($content, 1200, '');
+			$content = Text::truncate($content, $words, '');
 
-			// Include page to the cache
+			// Include the page to the cache
 			$cache[$pageKey]['title'] = $page->title();
-			$cache[$pageKey]['permalink'] = $page->permalink();
+			$cache[$pageKey]['description'] = $page->description();
 			$cache[$pageKey]['content'] = $content;
 			$cache[$pageKey]['key'] = $pageKey;
 		}
@@ -177,17 +168,18 @@ class pluginSearch extends Plugin {
 		return file_put_contents($this->cacheFile(), $json, LOCK_EX);
 	}
 
-	// Returns the absolute path where is the cache file stored
+	// Returns the absolute path of the cache file
 	private function cacheFile()
 	{
 		return $this->workspace().'cache.json';
 	}
 
 	// Search text inside the cache
-	// Returns an array with the pages related to the text
-	// The array is order by score
+	// Returns an array with the pages keys related to the text
+	// The array is sorted by score
 	private function search($text)
 	{
+		// Read the cache file
 		$json = file_get_contents($this->cacheFile());
 		$cache = json_decode($json, true);
 
@@ -197,15 +189,21 @@ class pluginSearch extends Plugin {
 			if (Text::stringContains($page['title'], $text, false)) {
 				$score += 10;
 			}
+			if (Text::stringContains($page['description'], $text, false)) {
+				$score += 7;
+			}
 			if (Text::stringContains($page['content'], $text, false)) {
-				$score += rand(1,5);
+				$score += 5;
 			}
 			if ($score>0) {
-				$found[$score] = $page['key'];
+				$found[$page['key']] = $score;
 			}
 		}
-		//arsort($found);
-		return $found;
+
+		// Sort array by the score, from max to min
+		arsort($found);
+		// Returns only the keys of the array contained the page key
+		return array_keys($found);
 	}
 
 }

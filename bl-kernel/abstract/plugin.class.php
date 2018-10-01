@@ -131,7 +131,7 @@ class Plugin {
 				return Sanitize::htmlDecode($this->db[$field]);
 			}
 		}
-		return false;
+		return $this->dbFields[$field];
 	}
 
 	public function label()
