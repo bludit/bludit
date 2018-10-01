@@ -1,0 +1,27 @@
+body {
+	padding: 10px 80px;
+	font-size: 16px;
+}
+
+
+.mce-content-body img {
+	max-width: 100%;
+	height: auto;
+}
+
+.mce-content-body a {
+	color: #4a90e2;
+	text-decoration: none;
+}
+
+.mce-content-body p,
+.mce-content-body div,
+.mce-content-body h1,
+.mce-content-body h2,
+.mce-content-body h3,
+.mce-content-body h4,
+.mce-content-body h5,
+.mce-content-body h6,
+.mce-content-body ul {
+	line-height: 1.5em;
+}

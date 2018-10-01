@@ -66,10 +66,12 @@ class pluginTinymce extends Plugin {
 			$toolbar1 = $this->getValue('mobileToolbar');
 			$toolbar2 = '';
 			$min_height = '320';
+			$content_css = $this->htmlPath().'css/bludit.css';
 		} else {
 			$toolbar1 = $this->getValue('toolbar1');
 			$toolbar2 = $this->getValue('toolbar2');
 			$min_height = '500';
+			$content_css = $this->htmlPath().'css/bludit.css';
 		}
 
 		$plugins = $this->getValue('plugins');
@@ -122,7 +124,8 @@ tinymce.init({
 	plugins: ["$plugins"],
 	toolbar1: "$toolbar1",
 	toolbar2: "$toolbar2",
-	language: "$lang"
+	language: "$lang",
+	content_css : "$content_css"
 });
 
 </script>
