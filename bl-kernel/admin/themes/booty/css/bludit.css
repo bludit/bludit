@@ -116,14 +116,14 @@ body.login {
 	color: #4586d4;
 }
 
-#good-message {
+#hello-message {
 	padding: 10px 0;
 	color: #777;
 	margin-bottom: 20px;
 }
 
-#good-message span.oi {
-	top: 5px;
+#hello-message span.oi {
+	top: 3px;
 }
 
 .ct-series-a .ct-line {
