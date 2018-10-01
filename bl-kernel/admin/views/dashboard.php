@@ -4,7 +4,7 @@
 
 			<!-- Good message -->
 			<div>
-			<h2 id="good-message"><span class="oi oi-heart"></span> Hello!</h2>
+			<h2 id="good-message"><span class="oi oi-target"></span> Hello!</h2>
 			<script>
 			$( document ).ready(function() {
 				$("#good-message").fadeOut(1000, function() {
