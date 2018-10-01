@@ -4,19 +4,20 @@
 
 			<!-- Good message -->
 			<div>
-			<h2 id="good-message">Hello!</h2>
+			<h2 id="good-message"><span class="oi oi-heart"></span> Hello!</h2>
 			<script>
 			$( document ).ready(function() {
-				var date = new Date()
-				var hours = date.getHours()
-
-				if (hours < 12) {
-					$("#good-message").html("<?php echo $L->g('good-morning') ?>");
-				} else if (hours < 18) {
-					$("#good-message").html("<?php echo $L->g('good-afternoon') ?>");
-				} else {
-					$("#good-message").html("<?php echo $L->g('good-evening') ?>");
-				}
+				$("#good-message").fadeOut(1000, function() {
+					var date = new Date()
+					var hours = date.getHours()
+					if (hours < 12) {
+						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-morning') ?>');
+					} else if (hours < 18) {
+						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-afternoon') ?>');
+					} else {
+						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-evening') ?>');
+					}
+				}).fadeIn(1000);
 			});
 			</script>
 			</div>

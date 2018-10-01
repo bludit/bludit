@@ -117,10 +117,13 @@ body.login {
 }
 
 #good-message {
-	margin-bottom: 20px;
-	border: 1px solid #f1f1f1;
-	padding: 20px;
+	padding: 10px 0;
 	color: #777;
+	margin-bottom: 20px;
+}
+
+#good-message span.oi {
+	top: 5px;
 }
 
 .ct-series-a .ct-line {
