@@ -190,14 +190,18 @@ class Text {
 	}
 
 	// Find position of first occurrence of substring in a string otherwise returns FALSE.
-	public static function stringPosition($string, $substring)
+	public static function stringPosition($string, $substring, $caseSensitive=true)
 	{
-		return mb_strpos($string, $substring, 0, CHARSET);
+		if ($caseSensitive) {
+			return mb_strpos($string, $substring, 0, CHARSET);
+		}
+
+		return mb_stripos($string, $substring, 0, CHARSET);
 	}
 
-	public static function stringContains($string, $substring)
+	public static function stringContains($string, $substring, $caseSensitive=true)
 	{
-		return (self::stringPosition($string, $substring) !== false);
+		return (self::stringPosition($string, $substring, $caseSensitive) !== false);
 	}
 
 	// Returns the portion of string specified by the start and length parameters.

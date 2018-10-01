@@ -24,9 +24,10 @@ $plugins = array(
 	'adminContentSidebar'=>array(),
 	'dashboard'=>array(),
 
-	'beforeRulesLoad'=>array(),
 	'beforeAll'=>array(),
 	'afterAll'=>array(),
+
+	'paginator'=>array(),
 
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),

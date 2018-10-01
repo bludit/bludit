@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Flux RSS",
+		"description": "Ce plugin génère un flux RSS de votre site.<br/>Le flux est accessible a l'URL de ce genre : https://example.com/rss.xml"
+	},
+	"amount-of-items-to-show-on-the-feed": "Nombre d'éléments à afficher sur le flux.",
+	"rss-url": "URL RSS"
+}

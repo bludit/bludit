@@ -91,6 +91,10 @@ body.login {
 
 #dashboard ul.list-group.list-group-striped li {
 	border: none;
+	word-break: break-word;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 #dashboard ul.list-group.list-group-striped li:nth-of-type(even) {
@@ -110,6 +114,13 @@ body.login {
 #dashboard a.quick-links:hover {
 	text-decoration: none;
 	color: #4586d4;
+}
+
+#good-message {
+	margin-bottom: 20px;
+	border: 1px solid #f1f1f1;
+	padding: 20px;
+	color: #777;
 }
 
 .ct-series-a .ct-line {

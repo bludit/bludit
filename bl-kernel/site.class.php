@@ -248,8 +248,6 @@ class Site extends dbJSON {
 		return $this->getField('url');
 	}
 
-
-
 	// Returns the protocol and the domain, without the base url
 	// For example, http://www.domain.com
 	public function domain()

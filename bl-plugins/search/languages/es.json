@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "Este plugin genera contenido dinamico en formato RSS de tu sitio.<br>El plugin genera la URL https://example.com/rss.xml"
+	},
+	"amount-of-items-to-show-on-the-feed": "Cantidad de artículos para mostrar.",
+	"rss-url": "URL del RSS"
+}

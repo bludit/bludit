@@ -2,6 +2,25 @@
 	<div class="row">
 		<div class="col-md-7 d-none d-sm-block">
 
+			<!-- Good message -->
+			<div>
+			<h2 id="good-message">Hello!</h2>
+			<script>
+			$( document ).ready(function() {
+				var date = new Date()
+				var hours = date.getHours()
+
+				if (hours < 12) {
+					$("#good-message").html("<?php echo $L->g('good-morning') ?>");
+				} else if (hours < 18) {
+					$("#good-message").html("<?php echo $L->g('good-afternoon') ?>");
+				} else {
+					$("#good-message").html("<?php echo $L->g('good-evening') ?>");
+				}
+			});
+			</script>
+			</div>
+
 			<!-- Quick Links -->
 			<div class="container border-bottom pb-4">
 				<h4 class="pb-3"><?php $L->p('Quick links') ?></h4>
