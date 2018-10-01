@@ -1,9 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "RSS трансляция",
-		"description": "Этот плагин создаёт RSS канал для вашего сайта<br>Трансляция доступна по URL https://example.com/rss.xml"
-	},
-	"amount-of-items-to-show-on-the-feed": "Количество позиций в трансляции.",
-	"rss-url": "RSS URL"
-}

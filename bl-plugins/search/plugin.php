@@ -9,12 +9,10 @@ class pluginSearch extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'search',
-			'numberOfItems'=>5
+			'label'=>'search'
 		);
 	}
 
-	// Method called for settings
 	public function form()
 	{
 		global $L;
@@ -24,14 +22,9 @@ class pluginSearch extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('RSS URL').'</label>';
-		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Amount of items').'</label>';
-		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
-		$html .= '<span class="tip">'.$L->get('Amount of items to show on the feed').'</span>';
+		$html .= '<label>'.$L->get('Label').'</label>';
+		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -57,12 +50,10 @@ class pluginSearch extends Plugin {
 		return $this->createCache();
 	}
 
+	// Method called when the user click on button save in the settings of the plugin
 	public function post()
 	{
-		// Call the method
 		parent::post();
-
-		// After POST request
 		$this->createCache();
 	}
 
