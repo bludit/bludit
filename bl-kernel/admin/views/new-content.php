@@ -63,7 +63,7 @@
 		</div>
 
 		<div class="form-group m-0">
-			<button id="jsmediaManagerButton" type="button" class="mt-1 btn btn-form btn-sm d-block d-sm-inline d-sm-none" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Media Manager') ?></button>
+			<button id="jsmediaManagerButton" type="button" class="mt-1 btn btn-form btn-sm d-block d-sm-inline d-sm-none" data-toggle="modal" data-target="#jsbluditMediaModal"><span class="oi oi-image"></span> <?php $L->p('Images') ?></button>
 			<button id="jscategoryButton" type="button" class="mt-1 btn btn-form btn-sm" data-toggle="modal" data-target="#jscategoryModal"><span class="oi oi-tag"></span> <?php $L->p('Category') ?>: <span class="option">-</span></button>
 			<button id="jsdescriptionButton" type="button" class="mt-1 btn btn-form btn-sm" data-toggle="modal" data-target="#jsdescriptionModal"><span class="oi oi-tag"></span> <?php $L->p('Description') ?>: <span class="option">-</span></button>
 		</div>
@@ -92,6 +92,9 @@
 		</div>
 
 		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
+		<div class="mt-2">
+			<button type="button" id="jsbuttonRemoveCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Remove cover image') ?></button>
+		</div>
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover Image')));
@@ -348,6 +351,11 @@ $(document).ready(function() {
 	// External cover image
 	$("#jsexternalCoverImage").change(function() {
 		$("#jscoverImage").val( $(this).val() );
+	});
+
+	$("#jsbuttonRemoveCoverImage").on("click", function() {
+		$("#jscoverImage").val('');
+		$("#jscoverImagePreview").attr('src', HTML_PATH_ADMIN_THEME_IMG+'default.svg');
 	});
 
 	// Generate slug when the user type the title

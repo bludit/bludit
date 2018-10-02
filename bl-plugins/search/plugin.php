@@ -38,8 +38,8 @@ class pluginSearch extends Plugin {
 		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
 		$html .= '<input type="text" id="plugin-search-input" /> ';
-		$html .= '<input type="button" value="Search" onClick="javascript: window.open(\'http://localhost:8000/search/\' + document.getElementById(\'plugin-search-input\').value, \'_self\');" />';
- 		$html .= '</div>';
+		$html .= '<input type="button" value="Search" onClick="javascript: window.open(\''.DOMAIN_BASE.'search/\' + document.getElementById(\'plugin-search-input\').value, \'_self\');" />';
+		$html .= '</div>';
  		$html .= '</div>';
 
 		return $html;

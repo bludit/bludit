@@ -42,12 +42,17 @@ class Theme {
 		return false;
 	}
 
+	// Returns the absolute URL of the site
+	// Ex. https://example.com the method returns https://example.com/
+	// Ex. https://example.com/bludit/ the method returns https://example.com/bludit/
 	public static function siteUrl()
 	{
-		global $site;
-		return $site->url();
+		return DOMAIN_BASE;
 	}
 
+	// Returns the absolute URL of admin panel
+	// Ex. https://example.com/admin/ the method returns https://example.com/admin/
+	// Ex. https://example.com/bludit/admin/ the method returns https://example.com/bludit/admin/
 	public static function adminUrl()
 	{
 		return DOMAIN_ADMIN;
@@ -180,7 +185,7 @@ class Theme {
 
 		$scripts = '';
 		foreach($files as $file) {
-			$scripts .= '<script charset="utf-8" src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+			$scripts .= '<script src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 		}
 
 		return $scripts;
@@ -214,12 +219,12 @@ class Theme {
 
 	public static function jquery()
 	{
-		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function jsBootstrap()
 	{
-		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script src="'.DOMAIN_CORE_JS.'bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function cssBootstrap()
@@ -230,7 +235,7 @@ class Theme {
 	public static function jsSortable()
 	{
 		// https://github.com/psfpro/bootstrap-html5sortable
-		return '<script charset="utf-8" src="'.DOMAIN_CORE_JS.'jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script src="'.DOMAIN_CORE_JS.'jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 }
 

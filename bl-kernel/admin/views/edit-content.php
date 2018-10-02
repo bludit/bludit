@@ -116,6 +116,9 @@
 		?>
 
 		<img id="jscoverImagePreview" style="width: 350px; height: 200px;" class="img-thumbnail" alt="coverImagePreview" src="<?php echo (empty($coverImage) ? HTML_PATH_ADMIN_THEME_IMG.'default.svg' : $page->coverImage() ) ?>" />
+		<div class="mt-2">
+			<button type="button" id="jsbuttonRemoveCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Remove cover image') ?></button>
+		</div>
 
 		<?php
 			echo Bootstrap::formTitle(array('title'=>$L->g('External Cover image')));
@@ -404,6 +407,11 @@ $(document).ready(function() {
 	// External cover image
 	$("#jsexternalCoverImage").change(function() {
 		$("#jscoverImage").val( $(this).val() );
+	});
+
+	$("#jsbuttonRemoveCoverImage").on("click", function() {
+		$("#jscoverImage").val('');
+		$("#jscoverImagePreview").attr('src', HTML_PATH_ADMIN_THEME_IMG+'default.svg');
 	});
 
 	// Autosave interval

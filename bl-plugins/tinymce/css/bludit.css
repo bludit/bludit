@@ -1,5 +1,5 @@
 body {
-	padding: 10px 10%;
+	padding: 10px 5%;
 	font-size: 16px;
 }
 
@@ -23,4 +23,11 @@ body {
 .mce-content-body h6,
 .mce-content-body ul {
 	line-height: 1.5em;
+}
+
+.mce-content-body blockquote p {
+	padding: 10px 20px;
+	margin: 0 0 20px;
+	border-left: 5px solid #eee;
+	font-style: italic;
 }

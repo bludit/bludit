@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-uppercase">
 	<div class="container">
-		<a class="navbar-brand" href="<?php echo $site->url() ?>">
+		<a class="navbar-brand" href="<?php echo Theme::siteUrl() ?>">
 			<span class="text-white"><?php echo $site->title() ?></span>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

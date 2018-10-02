@@ -51,7 +51,7 @@
 
 		<!-- Home button -->
 		<li class="page-item <?php if (Paginator::currentPage()==1) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo $site->url() ?>">Home</a>
+			<a class="page-link" href="<?php echo Theme::siteUrl() ?>">Home</a>
 		</li>
 
 		<!-- Next button -->
