@@ -40,6 +40,7 @@ define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_WORKSPACES',		PATH_CONTENT.'workspaces'.DS);
 
+define('PATH_UPLOADS_PAGES',		PATH_UPLOADS.'pages'.DS);
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
 
@@ -171,6 +172,7 @@ define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
 define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
 define('HTML_PATH_CONTENT',		HTML_PATH_ROOT.'bl-content/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
+define('HTML_PATH_UPLOADS_PAGES',	HTML_PATH_UPLOADS.'pages/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
@@ -199,6 +201,12 @@ define('EXTREME_FRIENDLY_URL', $site->extremeFriendly());
 // Minutes to execute the autosave function
 define('AUTOSAVE_INTERVAL', $site->autosaveInterval());
 
+// TRUE for upload images restric to a pages, FALSE to upload images in common
+define('IMAGE_RESTRICT', $site->imageRestrict());
+
+// TRUE to convert relatives images to absoultes, FALSE No changes apply
+define('IMAGE_RELATIVE_TO_ABSOLUTE', $site->imageRelativeToAbsolute());
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$site->theme().DS);
@@ -222,6 +230,7 @@ define('DOMAIN_ADMIN_THEME',		DOMAIN.HTML_PATH_ADMIN_THEME);
 define('DOMAIN_ADMIN_THEME_CSS',	DOMAIN.HTML_PATH_ADMIN_THEME_CSS);
 define('DOMAIN_ADMIN_THEME_JS',		DOMAIN.HTML_PATH_ADMIN_THEME_JS);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
+define('DOMAIN_UPLOADS_PAGES',		DOMAIN.HTML_PATH_UPLOADS_PAGES);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 define('DOMAIN_PLUGINS',		DOMAIN.HTML_PATH_PLUGINS);

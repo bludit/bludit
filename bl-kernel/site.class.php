@@ -38,7 +38,9 @@ class Site extends dbJSON {
 		'titleFormatHomepage'=>	'{{site-slogan}} | {{site-title}}',
 		'titleFormatPages'=>	'{{page-title}} | {{site-title}}',
 		'titleFormatCategory'=> '{{category-name}} | {{site-title}}',
-		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}'
+		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}',
+		'imageRestrict'=>	true,
+		'imageRelativeToAbsolute'=> false
 	);
 
 	function __construct()
@@ -166,6 +168,16 @@ class Site extends dbJSON {
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
+	}
+
+	public function imageRestrict()
+	{
+		return $this->getField('imageRestrict');
+	}
+
+	public function imageRelativeToAbsolute()
+	{
+		return $this->getField('imageRelativeToAbsolute');
 	}
 
 	// Returns the site title

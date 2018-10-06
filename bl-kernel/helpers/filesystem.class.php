@@ -52,8 +52,7 @@ class Filesystem {
 
 	public static function mkdir($pathname, $recursive=false)
 	{
-		// DEBUG: Ver permisos si son correctos
-		return mkdir($pathname, 0755, $recursive);
+		return mkdir($pathname, DIR_PERMISSIONS, $recursive);
 	}
 
 	public static function rmdir($pathname)
@@ -98,7 +97,7 @@ class Filesystem {
 		// Check $destionation directory if exists
 		if (!self::directoryExists($destination)) {
 			// Create the $destination directory
-			if (!mkdir($destination, 0755, true)) {
+			if (!mkdir($destination, DIR_PERMISSIONS, true)) {
 				return false;
 			}
 		}

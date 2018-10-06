@@ -305,6 +305,11 @@ function install($adminPassword, $timezone)
 		error_log('[ERROR] '.$errorText, 0);
 	}
 
+	if (!mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PAGES;
+		error_log('[ERROR] '.$errorText, 0);
+	}
+
 	// ============================================================================
 	// Create files
 	// ============================================================================
@@ -391,7 +396,9 @@ function install($adminPassword, $timezone)
 		'titleFormatHomepage'=>'{{site-slogan}} | {{site-title}}',
 		'titleFormatPages'=>'{{page-title}} | {{site-title}}',
 		'titleFormatCategory'=>'{{category-name}} | {{site-title}}',
-		'titleFormatTag'=>'{{tag-name}} | {{site-title}}'
+		'titleFormatTag'=>'{{tag-name}} | {{site-title}}',
+		'imageRestrict'=>true,
+		'imageRelativeToAbsolute'=>false
 	);
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 

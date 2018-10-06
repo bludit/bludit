@@ -94,10 +94,10 @@ class pluginRemoteContent extends Plugin {
 
 		Filesystem::deleteRecursive(PATH_PAGES);
 		Filesystem::deleteRecursive(PATH_UPLOADS);
-		mkdir(PATH_PAGES, 0755, true);
-		mkdir(PATH_UPLOADS, 0755, true);
-		mkdir(PATH_UPLOADS_PROFILES, 0755, true);
-		mkdir(PATH_UPLOADS_THUMBNAILS, 0755, true);
+		mkdir(PATH_PAGES, DIR_PERMISSIONS, true);
+		mkdir(PATH_UPLOADS, DIR_PERMISSIONS, true);
+		mkdir(PATH_UPLOADS_PROFILES, DIR_PERMISSIONS, true);
+		mkdir(PATH_UPLOADS_THUMBNAILS, DIR_PERMISSIONS, true);
 
 		return true;
 	}
@@ -106,7 +106,7 @@ class pluginRemoteContent extends Plugin {
 	{
 		$workspace = $this->workspace();
 		Filesystem::deleteRecursive($workspace.DS);
-		mkdir($workspace, 0755, true);
+		mkdir($workspace, DIR_PERMISSIONS, true);
 		return true;
 	}
 

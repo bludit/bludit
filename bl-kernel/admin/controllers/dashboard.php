@@ -22,6 +22,12 @@ function updateBludit() {
 			}
 		}
 
+		// Updates only for version less than Bludit v3.1
+		if ($site->currentBuild()<'20180921') {
+			@mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true);
+			$site->set(array('imageRelativeToAbsolute'=>true, 'imageRestrict'=>false));
+		}
+
 		// Set the current build number
 		$site->set(array('currentBuild'=>BLUDIT_BUILD));
 		Log::set('UPDATE SYSTEM - Finished.');

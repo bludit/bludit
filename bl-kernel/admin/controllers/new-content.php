@@ -32,5 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Main after POST
 // ============================================================================
 
+// UUID of the page is need it for autosave and media manager
+$uuid = $pages->generateUUID();
+
 // Title of the page
 $layout['title'] = $L->g('New content').' - '.$layout['title'];

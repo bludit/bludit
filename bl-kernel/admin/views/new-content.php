@@ -33,7 +33,7 @@
 		// UUID
 		echo Bootstrap::formInputHidden(array(
 			'name'=>'uuid',
-			'value'=>$pages->generateUUID()
+			'value'=>$uuid
 		));
 
 		// Status = published, draft, sticky, static

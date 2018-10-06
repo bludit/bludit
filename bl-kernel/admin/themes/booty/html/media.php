@@ -1,11 +1,20 @@
 <?php
 // Preload the first 10 files to not call via AJAX when the user open the first time the media manager
-$listOfFiles = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], false);
-$listOfFilesByPage = array_chunk($listOfFiles, $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
+if (IMAGE_RESTRICT) {
+	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS_PAGES.$uuid.DS);
+	$thumbnailDirectory = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
+	$thumbnailHTML = HTML_PATH_UPLOADS_PAGES.$uuid.'/thumbnails/';
+} else {
+	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS);
+	$thumbnailDirectory = PATH_UPLOADS_THUMBNAILS;
+	$thumbnailHTML = HTML_PATH_UPLOADS_THUMBNAILS;
+}
+$listOfFilesByPage = Filesystem::listFiles($thumbnailDirectory, '*', '*', $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES']);
 $preLoadFiles = array();
 if (!empty($listOfFilesByPage[0])) {
 	foreach ($listOfFilesByPage[0] as $file) {
-		array_push($preLoadFiles, basename($file));
+		$filename = basename($file);
+		array_push($preLoadFiles, $filename);
 	}
 }
 // Amount of pages for the paginator
@@ -26,7 +35,6 @@ $numberOfPages = count($listOfFilesByPage);
 
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
-			<input type="hidden" name="tokenCSRF" value="<?php echo $security->getTokenCSRF() ?>">
 			<div class="custom-file">
 				<input type="file" class="custom-file-input" id="jsbluditInputFiles" name="bluditInputFiles[]" multiple>
 				<label class="custom-file-label" for="jsbluditInputFiles"><?php $L->p('Choose images to upload'); ?></label>
@@ -91,12 +99,15 @@ function displayFiles(files) {
 	cleanFiles();
 	// Regenerate the table
 	$.each(files, function(key, filename) {
+		var thumbnail = "<?php echo $thumbnailHTML; ?>"+filename;
+		var path = "<?php echo $imagesDirectory; ?>";
+
 		tableRow = '<tr id="js'+filename+'">'+
-				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="<?php echo HTML_PATH_UPLOADS_THUMBNAILS ?>'+filename+'" style="width: 50px; height: 50px;"><\/td>'+
+				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
 				'<td class="information">'+
 					'<div class="pb-2">'+filename+'<\/div>'+
 					'<div>'+
-						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
+						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+path+filename+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
 						'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
 						'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
 					'<\/div>'+
@@ -108,25 +119,28 @@ function displayFiles(files) {
 
 // Get the list of files via AJAX, filter by the page number
 function getFiles(pageNumber) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/list-images",
 		{ 	tokenCSRF: tokenCSRF,
 			pageNumber: pageNumber,
-			path: "thumbnails" // the path are defined in the list-files
+			uuid: "<?php echo $uuid; ?>",
+			path: "thumbnails" // the paths are defined in the list-images.php
 		},
 		function(data) {
 			displayFiles(data.files);
-	});
+		}
+	);
 }
 
 // Delete the file and the thumbnail if exist
 function deleteMedia(filename) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/delete-file",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/delete-file",
 		{ 	tokenCSRF: tokenCSRF,
 			filename: filename
 		},
 		function(data) {
 			getFiles(1);
-	});
+		}
+	);
 }
 
 function setCoverImage(filename) {
@@ -144,10 +158,18 @@ $(document).ready(function() {
 		// Check file size ?
 		// Check file type/extension ?
 
+		$("#jsbluditProgressBar").width("1%");
+
+		// Data to send via AJAX
+		var uuid = $("#jsuuid").val();
+		var formData = new FormData($("#jsbluditFormUpload")[0]);
+		formData.append('uuid', uuid);
+		formData.append('tokenCSRF', tokenCSRF);
+
 		$.ajax({
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/upload-files",
+			url: HTML_PATH_ADMIN_ROOT+"ajax/upload-images",
 			type: "POST",
-			data: new FormData($("#jsbluditFormUpload")[0]),
+			data: formData,
 			cache: false,
 			contentType: false,
 			processData: false,

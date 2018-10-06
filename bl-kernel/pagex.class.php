@@ -83,7 +83,10 @@ class Page {
 		$content = $parsedown->text($content);
 
 		// Parse img src relative to absolute (with domain)
-		$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS);
+		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
+			$domain = IMAGE_RESTRICT?DOMAIN_UPLOADS_PAGES.$this->uuid().'/':DOMAIN_UPLOADS;
+			$content = Text::imgRel2Abs($content, $domain);
+		}
 
 		if ($sanitize) {
 			return Sanitize::html($content);

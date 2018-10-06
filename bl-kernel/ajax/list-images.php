@@ -4,14 +4,23 @@ header('Content-Type: application/json');
 // $_POST
 // ----------------------------------------------------------------------------
 // (integer) $_POST['pageNumber'] > 0
-$pageNumber = !empty($_POST['pageNumber']) ? (int)$_POST['pageNumber'] : 1;
+$pageNumber = empty($_POST['pageNumber']) ? 1 : (int)$_POST['pageNumber'];
 $pageNumber = $pageNumber - 1;
 
 // (string) $_POST['path']
-$path = isset($_POST['path']) ? $_POST['path'] : false;
+$path = empty($_POST['path']) ? false : $_POST['path'];
+
+// (string) $_POST['uuid']
+$uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
+
+// Set the path to get the file list
 if ($path=='thumbnails') {
-	$path = PATH_UPLOADS_THUMBNAILS;
+	if ($uuid && IMAGE_RESTRICT) {
+		$path = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
+	} else {
+		$path = PATH_UPLOADS_THUMBNAILS;
+	}
 } else {
 	exit (json_encode(array(
 		'status'=>1,
@@ -20,15 +29,17 @@ if ($path=='thumbnails') {
 }
 
 // Get all files from the directory $path, also split the array by numberOfItems
-$listOfFilesByPage = Filesystem::listFiles($path, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
+// The function listFiles split in chunks
+$listOfFilesByPage = Filesystem::listFiles($path, '*', '*', $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES']);
 
 // Check if the page number exists in the chunks
 if (isset($listOfFilesByPage[$pageNumber])) {
 
 	// Get only the filename from the chunk
-	$tmp = array();
+	$files = array();
 	foreach ($listOfFilesByPage[$pageNumber] as $file) {
-		array_push($tmp, basename($file));
+		$filename = basename($file);
+		array_push($files, $filename);
 	}
 
 	// Returns the number of chunks for the paginator
@@ -36,7 +47,7 @@ if (isset($listOfFilesByPage[$pageNumber])) {
 	exit (json_encode(array(
 		'status'=>0,
 		'numberOfPages'=>count($listOfFilesByPage),
-		'files'=>$tmp
+		'files'=>$files
 	)));
 }
 
