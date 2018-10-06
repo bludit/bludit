@@ -10,7 +10,7 @@ function updateBludit() {
 		Log::set('UPDATE SYSTEM - Starting.');
 
 		// Updates only for version less than Bludit v3.0 rc-3
-		if ($site->currentBuild()<'20180910') {
+		if ($site->currentBuild()<='20180910') {
 			@mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true);
 			$plugins = array('simple-stats', 'pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
 			foreach ($plugins as $plugin) {
@@ -23,7 +23,7 @@ function updateBludit() {
 		}
 
 		// Updates only for version less than Bludit v3.1
-		if ($site->currentBuild()<'20180921') {
+		if ($site->currentBuild()<='20180921') {
 			@mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true);
 			$site->set(array('imageRelativeToAbsolute'=>true, 'imageRestrict'=>false));
 		}

@@ -120,6 +120,7 @@ tinymce.init({
 	paste_as_text: true,
 	relative_urls: true,
 	remove_script_host: false,
+	document_base_url: DOMAIN_UPLOADS,
 	plugins: ["$plugins"],
 	toolbar1: "$toolbar1",
 	toolbar2: "$toolbar2",
@@ -129,8 +130,6 @@ tinymce.init({
 
 </script>
 EOF;
-// document_base_url: DOMAIN_UPLOADS,
-
 		return $script;
 	}
 
