@@ -356,5 +356,9 @@
     "last": "Ende",
     "there-are-no-pages-at-this-moment": "Es gibt keine Seiten.",
     "there-are-no-static-pages-at-this-moment": "Es gibt keine statischen Inhalte.",
-    "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe."
+    "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe.",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "hello": "Hello"
 }

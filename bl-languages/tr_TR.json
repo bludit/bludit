@@ -286,7 +286,7 @@
     "example-page-1-content": "Kendi içeriğinizi yazmaya başlayın veya gereksinimlerinize uyacak şekilde bunu düzenleyin. İçeriği oluşturmak, düzenlemek veya kaldırmak için <a href=\".\/admin\/\">yönetim paneline<\/a> kullanıcı adı 'admin' ve yükleme işleminde belirlediğiniz şifre ile giriş yapmanız gerekir.",
     "example-page-2-slug": "yeni-sitenizi-kurun",
     "example-page-2-title": "Yeni sitenizi kurun",
-    "example-page-2-content": "Sitenizin ayarlarını <a href=\".\/admin\/\">yönetim panelinden<\/a> güncelleyin. Başlığı, açıklamayı ve sosyal ağları <a href=\".\/admin\/settings\" target=\"_blank\">Ayarlar > Genel</a> adresinden değiştirebilirsiniz.",
+    "example-page-2-content": "Sitenizin ayarlarını <a href=\".\/admin\/\">yönetim panelinden<\/a> güncelleyin. Başlığı, açıklamayı ve sosyal ağları <a href=\".\/admin\/settings\" target=\"_blank\">Ayarlar > Genel<\/a> adresinden değiştirebilirsiniz.",
     "example-page-3-slug": "bludit-takip-et",
     "example-page-3-title": "Bludit'i takip edin",
     "example-page-3-content": "Haberler, yeni sürümler, yeni temalar veya yeni eklentiler hakkında sosyal ağlarımızı <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a>, <a href=\"https:\/\/plus.google.com\/+Bluditcms\" target=\"_blank\">Google Plus<\/a> takip edin ya da <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog'muzu<\/a> ziyaret edin.",
@@ -357,5 +357,9 @@
     "last": "Son",
     "there-are-no-pages-at-this-moment": "Şu anda hiç sayfa yok.",
     "there-are-no-static-pages-at-this-moment": "Şu anda hiç sabit sayfa yok.",
-    "there-are-no-draft-pages-at-this-moment": "Şu anda taslak sayfa yok."
+    "there-are-no-draft-pages-at-this-moment": "Şu anda taslak sayfa yok.",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "hello": "Hello"
 }

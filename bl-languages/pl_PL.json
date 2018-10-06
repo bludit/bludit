@@ -7,7 +7,7 @@
         "authors": [
             "Dawid Stawicki",
             "kontakt: dawid.stawicki@windowslive.com",
-            "strona: http://stawicki.at",
+            "strona: http:\/\/stawicki.at",
             ""
         ]
     },
@@ -356,5 +356,9 @@
     "last": "Ostatnia",
     "there-are-no-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych stron.",
     "there-are-no-static-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych stron statycznych.",
-    "there-are-no-draft-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych szkiców."
+    "there-are-no-draft-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych szkiców.",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "hello": "Hello"
 }

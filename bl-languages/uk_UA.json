@@ -356,5 +356,9 @@
     "last": "Останній",
     "there-are-no-pages-at-this-moment": "There are no pages at this moment.",
     "there-are-no-static-pages-at-this-moment": "There are no static pages at this moment.",
-    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment."
+    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment.",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "hello": "Hello"
 }
