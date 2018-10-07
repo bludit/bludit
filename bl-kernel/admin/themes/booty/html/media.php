@@ -1,7 +1,7 @@
 <?php
 // Preload the first 10 files to not call via AJAX when the user open the first time the media manager
 if (IMAGE_RESTRICT) {
-	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS_PAGES.$uuid.DS);
+	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS_PAGES.$uuid.'/');
 	$thumbnailDirectory = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
 	$thumbnailHTML = HTML_PATH_UPLOADS_PAGES.$uuid.'/thumbnails/';
 } else {
