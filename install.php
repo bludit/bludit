@@ -54,6 +54,7 @@ define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
+define('PATH_UPLOADS_PAGES',	PATH_UPLOADS.'pages'.DS);
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 

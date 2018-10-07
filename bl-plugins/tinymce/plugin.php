@@ -83,6 +83,12 @@ class pluginTinymce extends Plugin {
 			$lang = $L->currentLanguageShortVersion();
 		}
 
+		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
+			$document_base_url = 'document_base_url: "'.DOMAIN_UPLOADS.'",';
+		} else {
+			$document_base_url = '';
+		}
+
 $script = <<<EOF
 <script>
 
@@ -120,7 +126,7 @@ tinymce.init({
 	paste_as_text: true,
 	relative_urls: true,
 	remove_script_host: false,
-	document_base_url: DOMAIN_UPLOADS,
+	$document_base_url
 	plugins: ["$plugins"],
 	toolbar1: "$toolbar1",
 	toolbar2: "$toolbar2",

@@ -144,8 +144,9 @@ function deleteMedia(filename) {
 }
 
 function setCoverImage(filename) {
+	var thumbnail = "<?php echo $thumbnailHTML; ?>"+filename;
 	$("#jscoverImage").val(filename);
-	$("#jscoverImagePreview").attr("src", HTML_PATH_UPLOADS_THUMBNAILS+filename);
+	$("#jscoverImagePreview").attr("src", thumbnail);
 }
 
 $(document).ready(function() {

@@ -5,8 +5,13 @@
 // ============================================================================
 function updateBludit() {
 	global $site;
-	// Check if Bludit need to be update.
-	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
+	// New installation
+	if ($site->currentBuild()==0) {
+		$site->set(array('currentBuild'=>BLUDIT_BUILD));
+	}
+
+	// Check if Bludit need to be update
+	if ( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
 		// Updates only for version less than Bludit v3.0 rc-3
