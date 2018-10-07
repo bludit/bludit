@@ -2,9 +2,9 @@
 
 // Bludit version
 define('BLUDIT_VERSION',	'3.1');
-define('BLUDIT_CODENAME',	'Hops');
-define('BLUDIT_RELEASE_DATE',	'2018-10-06');
-define('BLUDIT_BUILD',		'20181006');
+define('BLUDIT_CODENAME',	'Malt');
+define('BLUDIT_RELEASE_DATE',	'2018-10-07');
+define('BLUDIT_BUILD',		'20181007');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -122,10 +122,10 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 }
 
 // Objects
-$pages 		= new Pages(); // DEPRECATED v3.0.0 $dbPages
-$users 		= new Users(); // DEPRECATED v3.0.0 $users
-$tags 		= new Tags(); // DEPRECATED v3.0.0 $dbTags
-$categories 	= new Categories(); // DEPRECATED v3.0.0 $dbCategories
+$pages 		= new Pages();
+$users 		= new Users();
+$tags 		= new Tags();
+$categories 	= new Categories();
 $site  		= new Site();
 $url		= new Url();
 $security	= new Security();

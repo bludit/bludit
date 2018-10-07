@@ -61,7 +61,6 @@ else
 	// Page not found.
 	// User not logged.
 	// Slug is login.
-	// Slug is login-email.
 	if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
 		$layout['controller']	= 'login';
 		$layout['view']		= 'login';
