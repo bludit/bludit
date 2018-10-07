@@ -9,8 +9,8 @@ class pluginSearch extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'search',
-			'wordsToCachePerPage'=>300
+			'label'=>'Search',
+			'wordsToCachePerPage'=>800
 		);
 	}
 

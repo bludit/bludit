@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Search",
-		"description": ""
+		"description": "Provide a search box to your users to search through the content of your site."
 	}
 }

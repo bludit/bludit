@@ -2,12 +2,16 @@
 // Preload the first 10 files to not call via AJAX when the user open the first time the media manager
 if (IMAGE_RESTRICT) {
 	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS_PAGES.$uuid.'/');
+	$imagesURL = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : DOMAIN_UPLOADS_PAGES.$uuid.'/');
 	$thumbnailDirectory = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
 	$thumbnailHTML = HTML_PATH_UPLOADS_PAGES.$uuid.'/thumbnails/';
+	$thumbnailURL = DOMAIN_UPLOADS_PAGES.$uuid.'/thumbnails/';
 } else {
 	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS);
+	$imagesURL = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : DOMAIN_UPLOADS);
 	$thumbnailDirectory = PATH_UPLOADS_THUMBNAILS;
 	$thumbnailHTML = HTML_PATH_UPLOADS_THUMBNAILS;
+	$thumbnailURL = DOMAIN_UPLOADS_THUMBNAILS;
 }
 $listOfFilesByPage = Filesystem::listFiles($thumbnailDirectory, '*', '*', $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES']);
 $preLoadFiles = array();
@@ -99,15 +103,15 @@ function displayFiles(files) {
 	cleanFiles();
 	// Regenerate the table
 	$.each(files, function(key, filename) {
-		var thumbnail = "<?php echo $thumbnailHTML; ?>"+filename;
-		var path = "<?php echo $imagesDirectory; ?>";
+		var thumbnail = "<?php echo $thumbnailURL; ?>"+filename;
+		var image = "<?php echo $imagesURL; ?>"+filename;
 
 		tableRow = '<tr id="js'+filename+'">'+
 				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
 				'<td class="information">'+
 					'<div class="pb-2">'+filename+'<\/div>'+
 					'<div>'+
-						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+path+filename+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
+						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
 						'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
 						'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
 					'<\/div>'+
@@ -133,9 +137,10 @@ function getFiles(pageNumber) {
 
 // Delete the file and the thumbnail if exist
 function deleteMedia(filename) {
-	$.post(HTML_PATH_ADMIN_ROOT+"ajax/delete-file",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/delete-image",
 		{ 	tokenCSRF: tokenCSRF,
-			filename: filename
+			filename: filename,
+			uuid: "<?php echo $uuid; ?>"
 		},
 		function(data) {
 			getFiles(1);
@@ -144,9 +149,9 @@ function deleteMedia(filename) {
 }
 
 function setCoverImage(filename) {
-	var thumbnail = "<?php echo $thumbnailHTML; ?>"+filename;
+	var image = "<?php echo $imagesURL; ?>"+filename;
 	$("#jscoverImage").val(filename);
-	$("#jscoverImagePreview").attr("src", thumbnail);
+	$("#jscoverImagePreview").attr("src", image);
 }
 
 $(document).ready(function() {
