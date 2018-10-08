@@ -3,8 +3,8 @@
 // Bludit version
 define('BLUDIT_VERSION',	'3.1');
 define('BLUDIT_CODENAME',	'Malt');
-define('BLUDIT_RELEASE_DATE',	'2018-10-07');
-define('BLUDIT_BUILD',		'20181007');
+define('BLUDIT_RELEASE_DATE',	'2018-10-08');
+define('BLUDIT_BUILD',		'20181008');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
