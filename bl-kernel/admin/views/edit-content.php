@@ -416,13 +416,16 @@ $(document).ready(function() {
 
 	// Autosave interval
 	// Autosave works when the content of the page is bigger than 100 characters
+	var currentContent = editorGetContent();
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
 			var title = $("#jstitle").val();
 			var content = editorGetContent();
 			var ajax = new bluditAjax();
-			// showAlert is the function to display an alert defined in alert.php
-			ajax.autosave(uuid, title, content, showAlert);
+			if (currentContent!=content) {
+				// showAlert is the function to display an alert defined in alert.php
+				ajax.autosave(uuid, title, content, showAlert);
+			}
 	},1000*60*AUTOSAVE_INTERVAL);
 
 	// Template autocomplete
