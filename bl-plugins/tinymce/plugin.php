@@ -10,9 +10,8 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link unlink pagebreak image removeformat code',
+			'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
 			'toolbar2'=>'',
-			'mobileToolbar'=>'bold italic bullist formatselect',
 			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
 		);
 	}
@@ -29,11 +28,6 @@ class pluginTinymce extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('Toolbar bottom').'</label>';
 		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Mobile toolbar').'</label>';
-		$html .= '<input name="mobileToolbar" id="jsmobileToolbar" type="text" value="'.$this->getValue('mobileToolbar').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
@@ -61,19 +55,10 @@ class pluginTinymce extends Plugin {
 			return false;
 		}
 
-		// Detect if the user is browsing in a mobile
-		if ($this->isMobile()) {
-			$toolbar1 = $this->getValue('mobileToolbar');
-			$toolbar2 = '';
-			$min_height = '320';
-			$content_css = $this->htmlPath().'css/bludit.css';
-		} else {
-			$toolbar1 = $this->getValue('toolbar1');
-			$toolbar2 = $this->getValue('toolbar2');
-			$min_height = '500';
-			$content_css = $this->htmlPath().'css/bludit.css';
-		}
-
+		$toolbar1 = $this->getValue('toolbar1');
+		$toolbar2 = $this->getValue('toolbar2');
+		$min_height = '500';
+		$content_css = $this->htmlPath().'css/bludit.css';
 		$plugins = $this->getValue('plugins');
 
 		$lang = 'en';
@@ -139,7 +124,4 @@ EOF;
 		return $script;
 	}
 
-	private function isMobile() {
-		return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
-	}
 }

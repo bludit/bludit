@@ -8,6 +8,10 @@ body {
 	height: auto;
 }
 
+.mce-content-body .mce-pagebreak {
+	height: 5px !important;
+}
+
 .mce-content-body a {
 	color: #4a90e2;
 	text-decoration: none;
