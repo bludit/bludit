@@ -86,8 +86,8 @@ function table($type) {
 					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 					echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-					echo '<a class="btn btn-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-					echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+					echo '<a class="btn btn-secondary btn-sm mb-1 btn-block" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+					echo '<button type="button" class="btn btn-danger btn-sm deletePageButton mb-1 btn-block" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
 					echo '</td>';
 
 					echo '</tr>';
@@ -110,8 +110,8 @@ function table($type) {
 						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
 
 						echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-						echo '<a class="btn btn-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+						echo '<a class="btn btn-secondary btn-sm mb-1 btn-block" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+						echo '<button type="button" class="btn btn-danger btn-sm deletePageButton mb-1 btn-block" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
 						echo '</td>';
 
 						echo '</tr>';
@@ -142,8 +142,8 @@ function table($type) {
 				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="pt-3 text-center d-none d-sm-table-cell">'.PHP_EOL;
-				echo '<a class="btn btn-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-				echo '<button type="button" class="btn btn-secondary btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+				echo '<a class="btn btn-secondary btn-sm btn-block mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+				echo '<button type="button" class="btn btn-danger btn-block btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
 				echo '</td>';
 
 				echo '</tr>';
