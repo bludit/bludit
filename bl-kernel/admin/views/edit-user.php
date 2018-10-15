@@ -9,7 +9,7 @@ echo Bootstrap::formOpen(array());
 		<a class="btn btn-secondary btn-sm" href="'.HTML_PATH_ADMIN_ROOT.'users" role="button">'.$L->g('Cancel').'</a>
 	</div>
 	<h2 class="mt-0 mb-3">
-		<span class="oi oi-person" style="font-size: 0.7em;"></span> Edit user
+		<span class="oi oi-person" style="font-size: 0.7em;"></span> '.$L->g('Edit user').'
 	</h2>
 	</div>
 	';
@@ -269,4 +269,3 @@ $(document).ready(function() {
 
 });
 </script>
-
