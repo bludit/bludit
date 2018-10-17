@@ -25,7 +25,7 @@ if (!empty($listOfFilesByPage[0])) {
 $numberOfPages = count($listOfFilesByPage);
 ?>
 
-<div id="jsbluditMediaModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="jsmediaManagerModal" class="modal" tabindex="-1" role="dialog">
 <div class="modal-dialog modal-lg">
 <div class="modal-content">
 <div class="container-fluid">
@@ -85,40 +85,47 @@ echo 'var preLoadFiles = '.json_encode($preLoadFiles).';';
 ?>
 
 function openMediaManager() {
-	$('#jsbluditMediaModal').modal('show');
+	$('#jsmediaManagerModal').modal('show');
 }
 
 function closeMediaManager() {
-	$('#jsbluditMediaModal').modal('hide');
+	$('#jsmediaManagerModal').modal('hide');
 }
 
 // Remove all files from the table
-function cleanFiles() {
+function cleanTable() {
 	$('#jsbluditMediaTable').empty();
 }
 
 // Show the files in the table
 function displayFiles(files) {
 	// Clean table
-	cleanFiles();
-	// Regenerate the table
-	$.each(files, function(key, filename) {
-		var thumbnail = "<?php echo $thumbnailURL; ?>"+filename;
-		var image = "<?php echo $imagesURL; ?>"+filename;
+	cleanTable();
 
-		tableRow = '<tr id="js'+filename+'">'+
-				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
-				'<td class="information">'+
-					'<div class="pb-2">'+filename+'<\/div>'+
-					'<div>'+
-						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
-						'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
-						'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
-					'<\/div>'+
-				'<\/td>'+
-			'<\/tr>';
-		$('#jsbluditMediaTable').append(tableRow);
-	});
+	// Regenerate the table
+	if (files.length > 0) {
+		$.each(files, function(key, filename) {
+			var thumbnail = "<?php echo $thumbnailURL; ?>"+filename;
+			var image = "<?php echo $imagesURL; ?>"+filename;
+
+			tableRow = '<tr id="js'+filename+'">'+
+					'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
+					'<td class="information">'+
+						'<div class="pb-2">'+filename+'<\/div>'+
+						'<div>'+
+							'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
+							'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
+							'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
+						'<\/div>'+
+					'<\/td>'+
+				'<\/tr>';
+			$('#jsbluditMediaTable').append(tableRow);
+		});
+	}
+
+	if (files.length == 0) {
+		$('#jsbluditMediaTable').html("<p><?php (IMAGE_RESTRICT ? $L->p('There are no images for the page') : $L->p('There are no images')) ?></p>");
+	}
 }
 
 // Get the list of files via AJAX, filter by the page number

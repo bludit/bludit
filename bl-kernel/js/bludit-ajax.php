@@ -95,4 +95,5 @@ class bluditAjax {
 			console.log("Bludit AJAX: generateSlug(): always handler");
 		});
 	    }
+
 }

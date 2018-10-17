@@ -26,6 +26,12 @@ class Theme {
 		return $site->footer();
 	}
 
+	public static function lang()
+	{
+		global $language;
+		return $language->currentLanguageShortVersion();
+	}
+
 	public static function rssUrl()
 	{
 		if (pluginActivated('pluginRSS')) {

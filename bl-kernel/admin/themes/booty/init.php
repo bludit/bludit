@@ -68,9 +68,10 @@ EOF;
 		$enctype = empty($args['enctype'])?'':'enctype="'.$args['enctype'].'"';
 		$action = empty($args['action'])?'action=""':'action="'.$args['action'].'"';
 		$method = empty($args['method'])?'method="post"':'method="'.$args['method'].'"';
+		$style = empty($args['style'])?'':'style="'.$args['style'].'"';
 
 return <<<EOF
-<form $class $enctype $id $method $action autocomplete="off">
+<form $class $enctype $id $method $action $style autocomplete="off">
 EOF;
 	}
 

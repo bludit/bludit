@@ -12,7 +12,7 @@ class pluginTinymce extends Plugin {
 		$this->dbFields = array(
 			'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
 			'toolbar2'=>'',
-			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
+			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
 		);
 	}
 
@@ -57,7 +57,7 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$min_height = '500';
+		$min_height = '760';
 		$content_css = $this->htmlPath().'css/bludit.css';
 		$plugins = $this->getValue('plugins');
 
@@ -89,16 +89,16 @@ function editorGetContent() {
 	return tinymce.get('jseditor').getContent();
 }
 
-$("#jseditor").show();
+function resizeEditor() {
+	var editor = tinymce.activeEditor;
+	editor.theme.resizeTo("100%", "500px");
+}
 
 tinymce.init({
 	selector: "#jseditor",
+	auto_focus: "jseditor",
 	theme: "modern",
 	skin: "bludit",
-	min_height: $min_height,
-	autoresize_min_height: $min_height,
-	autoresize_bottom_margin: 10,
-	max_height: 1000,
 	element_format : "html",
 	entity_encoding : "raw",
 	schema: "html5",
@@ -116,7 +116,8 @@ tinymce.init({
 	toolbar1: "$toolbar1",
 	toolbar2: "$toolbar2",
 	language: "$lang",
-	content_css : "$content_css"
+	content_css : "$content_css",
+	height: 200
 });
 
 </script>

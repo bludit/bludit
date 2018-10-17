@@ -51,6 +51,12 @@ a:hover {
 	border-color: #4a90e2;
 }
 
+.btn-light {
+	color: #212529;
+	background-color: #f3f3f3;
+	border-color: #ced4d9;
+}
+
 .btn-form {
 	background-color: #F3F3F3;
 	border-color: #DDD;
@@ -237,4 +243,16 @@ div.sidebar .nav-item span.oi {
 
 td.child {
 	padding-left: 30px;
+}
+
+/*
+	Manage > New Content
+*/
+
+#jseditor {
+	background: #fff;
+	border: 1px solid #ced4da;
+	padding: 10px 5% !important;
+	font-size: 16px;
+	line-height: 1.5em;
 }

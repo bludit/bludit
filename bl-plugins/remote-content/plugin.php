@@ -16,11 +16,11 @@ class pluginRemoteContent extends Plugin {
 
 	public function form()
 	{
-		global $Language;
+		global $language;
 
 		if (extension_loaded('zip')===false) {
 			$this->formButtons = false;
-			return '<div class="alert alert-success">'.$Language->get('the-extension-zip-is-not-installed').'</div>';
+			return '<div class="alert alert-success">'.$language->get('the-extension-zip-is-not-installed').'</div>';
 		}
 
 		$html  = '<div class="alert alert-primary" role="alert">';
@@ -28,15 +28,15 @@ class pluginRemoteContent extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Webhook').'</label>';
+		$html .= '<label>'.$language->get('Webhook').'</label>';
 		$html .= '<input id="jswebhook" name="webhook" type="text" value="'.$this->getValue('webhook').'">';
 		$html .= '<span class="tip">'.DOMAIN_BASE.$this->getValue('webhook').'</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$Language->get('Source').'</label>';
+		$html .= '<label>'.$language->get('Source').'</label>';
 		$html .= '<input id="jssource" name="source" type="text" value="'.$this->getValue('source').'" placeholder="https://">';
-		$html .= '<span class="tip">'.$Language->get('Complete URL of the zip file').'</span>';
+		$html .= '<span class="tip">'.$language->get('Complete URL of the zip file').'</span>';
 		$html .= '</div>';
 
 		return $html;
