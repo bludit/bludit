@@ -123,6 +123,7 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 			// continue
 		}
 	}
+
 	return $content;
 }
 

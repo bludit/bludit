@@ -47,7 +47,6 @@ class dbList extends dbJSON
 		// Returns all the items from the list
 		if ($numberOfItems==-1) {
 			// Invert keys to values, is necesary returns as key the key pages
-			$list = array_flip($list);
 			return $list;
 		}
 
