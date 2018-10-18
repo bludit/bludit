@@ -76,14 +76,14 @@ class pluginsimpleMDE extends Plugin {
 				simplemde.codemirror.refresh();
 			}'.PHP_EOL;
 
-		// Function required for Autosave function
 		// Returns the content of the editor
+		// Function required for Bludit
 		$html .= 'function editorGetContent(content) {
 			return simplemde.value();
 		}'.PHP_EOL;
 
-		// Function required for Media Manager
-		// Insert an image on the editor in the cursor position
+		// Insert an image in the editor in the cursor position
+		// Function required for Bludit
 		$html .= 'function editorInsertMedia(filename) {
 				addContentSimpleMDE("!['.$L->get('Image description').']("+filename+")");
 			}'.PHP_EOL;

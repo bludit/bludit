@@ -52,13 +52,12 @@ class pluginTinymce extends Plugin {
 
 	public function adminBodyEnd()
 	{
+		global $L;
+
 		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
-
-		// Load object $language
-		global $L;
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
