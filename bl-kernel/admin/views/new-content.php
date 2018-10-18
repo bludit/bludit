@@ -69,7 +69,7 @@ echo Bootstrap::formOpen(array(
 </div>
 
 <!-- Editor -->
-<div id="jseditor" class="editable h-100" style=""></div>
+<div id="jseditor" class="editable h-100 mb-1"></div>
 
 <!-- Modal for Cover Image -->
 <div id="jscoverImageModal" class="modal" tabindex="-1" role="dialog">

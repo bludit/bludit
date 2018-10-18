@@ -40,25 +40,29 @@ class pluginTinymce extends Plugin {
 
 	public function adminHead()
 	{
+		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
 
-		return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
+		$html  = '<link rel="stylesheet" href="'.$this->htmlPath().'css/bludit.css">'.PHP_EOL;
+		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
+		return $html;
 	}
 
 	public function adminBodyEnd()
 	{
-		global $L;
-
+		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
 
+		// Load object $language
+		global $L;
+
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$min_height = '760';
-		$content_css = $this->htmlPath().'css/bludit.css';
+		$content_css = $this->htmlPath().'css/tinymce.css';
 		$plugins = $this->getValue('plugins');
 
 		$lang = 'en';
@@ -74,55 +78,50 @@ class pluginTinymce extends Plugin {
 			$document_base_url = '';
 		}
 
-$script = <<<EOF
+$html = <<<EOF
 <script>
 
-// Function required for Media Manager
-// Insert an image on the editor in the cursor position
-function editorInsertMedia(filename) {
-	tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");
-}
+	// Insert an image in the editor in the cursor position
+	// Function required for Bludit
+	function editorInsertMedia(filename) {
+		tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");
+	}
 
-// Function required for Autosave function
-// Returns the content of the editor
-function editorGetContent() {
-	return tinymce.get('jseditor').getContent();
-}
+	// Returns the content of the editor
+	// Function required for Bludit
+	function editorGetContent() {
+		return tinymce.get('jseditor').getContent();
+	}
 
-function resizeEditor() {
-	var editor = tinymce.activeEditor;
-	editor.theme.resizeTo("100%", "500px");
-}
-
-tinymce.init({
-	selector: "#jseditor",
-	auto_focus: "jseditor",
-	theme: "modern",
-	skin: "bludit",
-	element_format : "html",
-	entity_encoding : "raw",
-	schema: "html5",
-	statusbar: false,
-	menubar:false,
-	branding: false,
-	browser_spellcheck: true,
-	pagebreak_separator: PAGE_BREAK,
-	paste_as_text: true,
-	remove_script_host: false,
-	convert_urls: true,
-	relative_urls: false,
-	$document_base_url
-	plugins: ["$plugins"],
-	toolbar1: "$toolbar1",
-	toolbar2: "$toolbar2",
-	language: "$lang",
-	content_css : "$content_css",
-	height: 200
-});
+	tinymce.init({
+		selector: "#jseditor",
+		auto_focus: "jseditor",
+		theme: "modern",
+		skin: "bludit",
+		element_format : "html",
+		entity_encoding : "raw",
+		schema: "html5",
+		statusbar: false,
+		menubar:false,
+		branding: false,
+		browser_spellcheck: true,
+		pagebreak_separator: PAGE_BREAK,
+		paste_as_text: true,
+		remove_script_host: false,
+		convert_urls: true,
+		relative_urls: false,
+		$document_base_url
+		plugins: ["$plugins"],
+		toolbar1: "$toolbar1",
+		toolbar2: "$toolbar2",
+		language: "$lang",
+		content_css : "$content_css",
+		height: "200px"
+	});
 
 </script>
 EOF;
-		return $script;
+		return $html;
 	}
 
 }
