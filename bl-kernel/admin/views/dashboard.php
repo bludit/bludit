@@ -4,18 +4,20 @@
 
 			<!-- Good message -->
 			<div>
-			<h2 id="hello-message"><span class="oi oi-target"></span> <?php echo $L->g('hello') ?></h2>
+			<h2 id="hello-message"><?php echo $L->g('hello') ?></h2>
 			<script>
 			$( document ).ready(function() {
 				$("#hello-message").fadeOut(1000, function() {
 					var date = new Date()
 					var hours = date.getHours()
-					if (hours < 12) {
+					if (hours > 6 && hours < 12) {
 						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-morning') ?>');
-					} else if (hours < 18) {
+					} else if (hours > 12 && hours < 18) {
 						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-afternoon') ?>');
-					} else {
+					} else if (hours > 18 && hours < 22) {
 						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-evening') ?>');
+					} else {
+						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-night') ?>');
 					}
 				}).fadeIn(1000);
 			});
