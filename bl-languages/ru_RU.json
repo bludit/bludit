@@ -360,5 +360,8 @@
     "good-morning": "Доброе утро",
     "good-afternoon": "Добрый день",
     "good-evening": "Добрый вечер",
-    "hello": "Привет"
+    "good-night": "Good night",
+    "hello": "Привет",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image"
 }

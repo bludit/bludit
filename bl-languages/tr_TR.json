@@ -361,5 +361,8 @@
     "good-morning": "Günaydın",
     "good-afternoon": "İyi günler",
     "good-evening": "İyi akşamlar",
-    "hello": "Merhaba"
+    "good-night": "Good night",
+    "hello": "Merhaba",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image"
 }

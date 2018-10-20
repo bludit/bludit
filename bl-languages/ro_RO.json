@@ -356,5 +356,8 @@
     "good-morning": "Good morning",
     "good-afternoon": "Good afternoon",
     "good-evening": "Good evening",
-    "hello": "Hello"
+    "good-night": "Good night",
+    "hello": "Hello",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image"
 }
