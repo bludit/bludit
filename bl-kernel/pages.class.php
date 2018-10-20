@@ -20,7 +20,8 @@ class Pages extends dbJSON {
 		'template'=>'',
 		'noindex'=>false,
 		'nofollow'=>false,
-		'noarchive'=>false
+		'noarchive'=>false,
+		'custom'=>array()
 	);
 
 	function __construct()
@@ -55,7 +56,7 @@ class Pages extends dbJSON {
 	{
 		$row = array();
 
-		// Check values on args and set default values if not exists
+		// Predefined values
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
 				$tags = '';
