@@ -418,7 +418,7 @@ $(document).ready(function() {
 		$("#jsform").submit();
 	});
 
-	// Autosave interval
+	// Autosave
 	// Autosave works when the content of the page is bigger than 100 characters
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();

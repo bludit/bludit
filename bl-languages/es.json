@@ -359,9 +359,9 @@
     "good-morning": "Buenos días",
     "good-afternoon": "Buenas tardes",
     "good-evening": "Buenas noches",
-    "good-night": "Good night",
+    "good-night": "Buenas noches",
     "hello": "Hola",
-    "there-are-no-images-for-the-page": "There are no images for the page.",
-    "select-cover-image": "Select cover image",
-    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins."
+    "there-are-no-images-for-the-page": "No hay imágenes para la página.",
+    "select-cover-image": "Seleccionar imagen de portada",
+    "this-plugin-depends-on-the-following-plugins": "Este plugin depende de los siguientes plugins."
 }

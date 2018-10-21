@@ -474,15 +474,20 @@ $(document).ready(function() {
 		$("#jsform").submit();
 	});
 
-	// Autosave interval
+	// Autosave
 	// Autosave works when the content of the page is bigger than 100 characters
+	var currentContent = editorGetContent();
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
 			var title = $("#jstitle").val();
 			var content = editorGetContent();
-			var ajax = new bluditAjax();
-			// showAlert is the function to display an alert defined in alert.php
-			ajax.autosave(uuid, title, content, showAlert);
+			// Call autosave only when the user change the content
+			if (currentContent!=content) {
+				currentContent = content;
+				var ajax = new bluditAjax();
+				// showAlert is the function to display an alert defined in alert.php
+				ajax.autosave(uuid, title, content, showAlert);
+			}
 	},1000*60*AUTOSAVE_INTERVAL);
 
 });

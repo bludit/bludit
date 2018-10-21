@@ -96,7 +96,7 @@ define('SESSION_COOKIE_LIFE_TIME', 0);
 $GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
 
 // Number of images to show in the media manager per page
-$GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 5;
+$GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 2;
 
 // Sort the image by date
 $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'] = true;

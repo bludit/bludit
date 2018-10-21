@@ -47,7 +47,7 @@ $numberOfPages = count($listOfFilesByPage);
 
 		<!-- Progress bar -->
 		<div class="progress mt-2">
-			<div id="jsbluditProgressBar" class="progress-bar bg-info" role="progressbar" style="width:0%"></div>
+			<div id="jsbluditProgressBar" class="progress-bar bg-primary" role="progressbar" style="width:0%"></div>
 		</div>
 
 	<!--
@@ -115,7 +115,7 @@ function displayFiles(files) {
 						'<div>'+
 							'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
 							'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
-							'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
+							'<button type="button" class="btn btn-danger btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
 						'<\/div>'+
 					'<\/td>'+
 				'<\/tr>';
