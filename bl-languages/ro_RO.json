@@ -359,5 +359,6 @@
     "good-night": "Good night",
     "hello": "Hello",
     "there-are-no-images-for-the-page": "There are no images for the page.",
-    "select-cover-image": "Select cover image"
+    "select-cover-image": "Select cover image",
+    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins."
 }

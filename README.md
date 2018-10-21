@@ -20,7 +20,6 @@ Social Networks
 
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
-- [Google+](https://plus.google.com/+Bluditcms)
 - [Youtube](https://www.youtube.com/channel/UCuLu0Z_CHBsTiYTDz129x9Q?view_as=subscriber)
 
 Requirements
