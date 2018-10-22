@@ -335,7 +335,7 @@
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "Псевдоним, в основном, используется в темах для отображения авторства содержимого",
     "allow-unicode": "Разрешить Unicode",
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Разрешить символы Unicode в URL и других частях системы.",
-    "variables-allowed": "Переменные разрешены",
+    "variables-allowed": "Разрешённые переменные",
     "tag": "Тег",
     "drag-and-drop-to-sort-the-plugins": "Отсортируйте плагин перетаскиванием.",
     "seo": "SEO",
