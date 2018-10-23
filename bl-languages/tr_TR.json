@@ -144,7 +144,7 @@
     "use-this-field-to-add-a-catchy-phrase": "Bu alanı sitenize akılda kalıcı bir cümle seçmek için kullanın.",
     "site-description": "Site tanımı",
     "you-can-add-a-site-description-to-provide": "Bir site tanımı ekleyebilirsiniz.",
-    "footer-text": "Footer metni",
+    "footer-text": "Alt bilgi metni",
     "you-can-add-a-small-text-on-the-bottom": "Sitenizdeki her sayfanın sonuna kısa bir yazı ekleyebilirsiniz. Örn: Copyright, sahibi, tarih, vs.",
     "social-networks-links": "Sosyal ağ bağlantıları",
     "site-url": "Site URL'si",
@@ -361,10 +361,10 @@
     "good-morning": "Günaydın",
     "good-afternoon": "İyi günler",
     "good-evening": "İyi akşamlar",
-    "good-night": "Good night",
+    "good-night": "İyi geceler",
     "hello": "Merhaba",
-    "there-are-no-images-for-the-page": "There are no images for the page.",
-    "select-cover-image": "Select cover image",
-    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
+    "there-are-no-images-for-the-page": "Sayfa için resim yok.",
+    "select-cover-image": "Kapak resmini seç",
+    "this-plugin-depends-on-the-following-plugins": "Bu eklenti aşağıdaki eklentilere bağlıdır.",
     "no-pages-found": "No pages found"
 }
