@@ -35,7 +35,7 @@ class pluginSearch extends Plugin {
 	public function siteSidebar()
 	{
 		global $L;
-		
+
 		$html  = '<div class="plugin plugin-search">';
 		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
@@ -124,6 +124,8 @@ class pluginSearch extends Plugin {
 		if ($this->webhook($webhook, false, false)) {
 
 			global $url;
+			global $WHERE_AM_I;
+			$WHERE_AM_I = 'search';
 
 			// Get the pre-defined variable from the rule 69.pages.php
 			// We change the content to show in the website

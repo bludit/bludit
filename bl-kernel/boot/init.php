@@ -179,7 +179,7 @@ define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
-$language = $language = new Language( $site->language() );
+$language = new Language( $site->language() );
 $url->checkFilters( $site->uriFilters() );
 
 // --- CONSTANTS with dependency ---

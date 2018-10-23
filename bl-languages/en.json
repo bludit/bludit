@@ -364,5 +364,6 @@
     "hello": "Hello",
     "there-are-no-images-for-the-page": "There are no images for the page.",
     "select-cover-image": "Select cover image",
-    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins."
+    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
+    "no-pages-found": "No pages found"
 }
