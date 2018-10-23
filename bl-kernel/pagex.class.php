@@ -73,10 +73,7 @@ class Page {
 			return $content;
 		}
 
-		$contentRaw = $this->contentRaw();
-
-		// Parse pre code with htmlentities
-		$content = Text::pre2htmlentities($contentRaw);
+		$content = $this->contentRaw();
 
 		// Parse Markdown
 		$parsedown = new Parsedown();
