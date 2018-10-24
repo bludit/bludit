@@ -3,7 +3,7 @@
         "native": "Français (France)",
         "english-name": "French",
         "locale": "fr, fr_FR",
-        "last-update": "2018-09-23",
+        "last-update": "2018-10-24",
         "authors": [
             "Frédéric K. http:\/\/flatboard.free.fr",
             "Clickwork https:\/\/clickwork.ch",
@@ -360,10 +360,9 @@
     "good-morning": "Bonjour",
     "good-afternoon": "Bonne après-midi",
     "good-evening": "Bonsoir",
-    "good-night": "Good night",
+    "good-night": "Bonne nuit",
     "hello": "Salut",
-    "there-are-no-images-for-the-page": "There are no images for the page.",
-    "select-cover-image": "Select cover image",
-    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
-    "no-pages-found": "No pages found"
+    "there-are-no-images-for-the-page": "Il n’y a aucune images pour cette page.",
+    "select-cover-image": "Sélectionnez une image d’accroche.",
+    "this-plugin-depends-on-the-following-plugins": "Ce plugin dépend des plugins suivants."
 }
