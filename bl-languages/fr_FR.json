@@ -364,5 +364,6 @@
     "hello": "Salut",
     "there-are-no-images-for-the-page": "Il n’y a aucune images pour cette page.",
     "select-cover-image": "Sélectionnez une image d’accroche.",
-    "this-plugin-depends-on-the-following-plugins": "Ce plugin dépend des plugins suivants."
+    "this-plugin-depends-on-the-following-plugins": "Ce plugin dépend des plugins suivants.",
+	"no-pages-found": "Aucune page trouvée"
 }
