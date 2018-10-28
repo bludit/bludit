@@ -54,6 +54,7 @@ define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
 define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
+define('PATH_UPLOADS_PAGES',	PATH_UPLOADS.'pages'.DS);
 define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
 define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
 
@@ -305,6 +306,11 @@ function install($adminPassword, $timezone)
 		error_log('[ERROR] '.$errorText, 0);
 	}
 
+	if (!mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true)) {
+		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PAGES;
+		error_log('[ERROR] '.$errorText, 0);
+	}
+
 	// ============================================================================
 	// Create files
 	// ============================================================================
@@ -391,7 +397,9 @@ function install($adminPassword, $timezone)
 		'titleFormatHomepage'=>'{{site-slogan}} | {{site-title}}',
 		'titleFormatPages'=>'{{page-title}} | {{site-title}}',
 		'titleFormatCategory'=>'{{category-name}} | {{site-title}}',
-		'titleFormatTag'=>'{{tag-name}} | {{site-title}}'
+		'titleFormatTag'=>'{{tag-name}} | {{site-title}}',
+		'imageRestrict'=>true,
+		'imageRelativeToAbsolute'=>false
 	);
 	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -507,10 +515,9 @@ function install($adminPassword, $timezone)
 		$dataHead.json_encode(
 			array(
 				'position'=>1,
-				'toolbar1'=>'formatselect bold italic bullist numlist blockquote alignleft aligncenter alignright link pagebreak image removeformat code',
+				'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
 				'toolbar2'=>'',
-				'mobileToolbar'=>'bold italic bullist formatselect',
-				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoresize'
+				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -591,12 +598,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<?php
 			$system = checkSystem();
 			if (!empty($system)) {
-				foreach ($system as $values) {
-					echo '<div class="uk-panel">';
-					echo '<div class="uk-panel-badge uk-badge uk-badge-danger">FAIL</div>';
-					echo '<h3 class="uk-panel-title">'.$values['title'].'</h3>';
-					echo $values['errorText'];
-					echo '</div>';
+				foreach ($system as $error) {
+					echo '
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>'.$error.'</th>
+							</tr>
+						</tbody>
+					</table>
+					';
 				}
 			}
 			elseif (isset($_GET['language']))

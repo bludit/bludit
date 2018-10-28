@@ -20,18 +20,13 @@ define('ALERT_STATUS_OK', 0);
 // Alert status fail
 define('ALERT_STATUS_FAIL', 1);
 
-// Amount of thumbnails shown on Bludit Quick images
-define('THUMBNAILS_AMOUNT', 6);
-
-// Thubmnails size
-define('THUMBNAILS_WIDTH', 400);
-define('THUMBNAILS_HEIGHT', 400);
-define('THUMBNAILS_QUALITY', 100); // 100%
-
 // Profile image size
 define('PROFILE_IMG_WIDTH', 400);
 define('PROFILE_IMG_HEIGHT', 400);
 define('PROFILE_IMG_QUALITY', 100); // 100%
+
+// Items per page for admin area
+define('ITEMS_PER_PAGE_ADMIN', 20);
 
 // Password length
 define('PASSWORD_LENGTH', 6);
@@ -41,18 +36,6 @@ define('SALT_LENGTH', 8);
 
 // Page brake string
 define('PAGE_BREAK', '<!-- pagebreak -->');
-
-// Parent key for the array $pagesByParents
-define('PARENT', 'BLUDIT3849abb4cb7abd24c2d8dac17b216f17');
-
-// Items per page for admin area
-define('ITEMS_PER_PAGE_ADMIN', 20);
-
-// Cli mode, status for new pages
-define('CLI_STATUS', 'published');
-
-// Cli mode, username for new pages
-define('CLI_USERNAME', 'admin');
 
 // Remember me
 define('REMEMBER_COOKIE_USERNAME', 'BLUDITREMEMBERUSERNAME');
@@ -109,15 +92,17 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
 
-// New Global Variables
-$GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES'] = 5;
-$GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'] = true;
+// Alert notification dissappear in X seconds
+$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
+
+// Number of images to show in the media manager per page
+$GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 5;
+
+// Sort the image by date
+$GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'] = true;
 
 // Thubmnails size
 $GLOBALS['THUMBNAILS_WIDTH'] = 400;
 $GLOBALS['THUMBNAILS_HEIGHT'] = 400;
 $GLOBALS['THUMBNAILS_QUALITY'] = 100;
-
-// Alert
-$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
 

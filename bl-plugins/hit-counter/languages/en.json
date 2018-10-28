@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Hit Counter",
+		"description": "Show the number of visits or unique visitors in the sidebar of your site."
+	}
+}

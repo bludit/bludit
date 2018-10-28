@@ -131,7 +131,7 @@ class Plugin {
 				return Sanitize::htmlDecode($this->db[$field]);
 			}
 		}
-		return false;
+		return $this->dbFields[$field];
 	}
 
 	public function label()
@@ -216,10 +216,10 @@ class Plugin {
 
 		// Create workspace
 		$workspace = $this->workspace();
-		mkdir($workspace, 0755, true);
+		mkdir($workspace, DIR_PERMISSIONS, true);
 
 		// Create plugin directory for the database
-		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, 0755, true);
+		mkdir(PATH_PLUGINS_DATABASES.$this->directoryName, DIR_PERMISSIONS, true);
 
 		$this->dbFields['position'] = $position;
 		// Sanitize default values to store in the file

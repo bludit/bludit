@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'3.0.0');
-define('BLUDIT_CODENAME',	'Hops');
-define('BLUDIT_RELEASE_DATE',	'2018-09-21');
-define('BLUDIT_BUILD',		'20180921');
+define('BLUDIT_VERSION',	'3.2');
+define('BLUDIT_CODENAME',	'Yeast');
+define('BLUDIT_RELEASE_DATE',	'2018-10-20');
+define('BLUDIT_BUILD',		'20181020');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -12,10 +12,11 @@ define('DEBUG_MODE', TRUE);
 error_reporting(0); // Turn off all error reporting
 if (DEBUG_MODE) {
 	// Turn on all error reporting
-	ini_set("display_errors", 1);
-	ini_set('display_startup_errors',1);
+	ini_set("display_errors", 0);
+	ini_set('display_startup_errors',0);
 	ini_set("track_errors", 1);
 	ini_set("html_errors", 1);
+	ini_set('log_errors', 1);
 	error_reporting(E_ALL | E_STRICT | E_NOTICE);
 }
 
@@ -40,6 +41,7 @@ define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_WORKSPACES',		PATH_CONTENT.'workspaces'.DS);
 
+define('PATH_UPLOADS_PAGES',		PATH_UPLOADS.'pages'.DS);
 define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
 define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
 
@@ -121,10 +123,10 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 }
 
 // Objects
-$pages 		= new Pages(); // DEPRECATED v3.0.0 $dbPages
-$users 		= new Users(); // DEPRECATED v3.0.0 $users
-$tags 		= new Tags(); // DEPRECATED v3.0.0 $dbTags
-$categories 	= new Categories(); // DEPRECATED v3.0.0 $dbCategories
+$pages 		= new Pages();
+$users 		= new Users();
+$tags 		= new Tags();
+$categories 	= new Categories();
 $site  		= new Site();
 $url		= new Url();
 $security	= new Security();
@@ -171,12 +173,13 @@ define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
 define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
 define('HTML_PATH_CONTENT',		HTML_PATH_ROOT.'bl-content/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
+define('HTML_PATH_UPLOADS_PAGES',	HTML_PATH_UPLOADS.'pages/');
 define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
 define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
 define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
-$language = $Language = new Language( $site->language() );
+$language = new Language( $site->language() );
 $url->checkFilters( $site->uriFilters() );
 
 // --- CONSTANTS with dependency ---
@@ -198,6 +201,12 @@ define('EXTREME_FRIENDLY_URL', $site->extremeFriendly());
 
 // Minutes to execute the autosave function
 define('AUTOSAVE_INTERVAL', $site->autosaveInterval());
+
+// TRUE for upload images restric to a pages, FALSE to upload images in common
+define('IMAGE_RESTRICT', $site->imageRestrict());
+
+// TRUE to convert relatives images to absoultes, FALSE No changes apply
+define('IMAGE_RELATIVE_TO_ABSOLUTE', $site->imageRelativeToAbsolute());
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
@@ -222,6 +231,7 @@ define('DOMAIN_ADMIN_THEME',		DOMAIN.HTML_PATH_ADMIN_THEME);
 define('DOMAIN_ADMIN_THEME_CSS',	DOMAIN.HTML_PATH_ADMIN_THEME_CSS);
 define('DOMAIN_ADMIN_THEME_JS',		DOMAIN.HTML_PATH_ADMIN_THEME_JS);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
+define('DOMAIN_UPLOADS_PAGES',		DOMAIN.HTML_PATH_UPLOADS_PAGES);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
 define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 define('DOMAIN_PLUGINS',		DOMAIN.HTML_PATH_PLUGINS);

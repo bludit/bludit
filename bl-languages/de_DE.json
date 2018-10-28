@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-09-20",
+        "last-update": "2018-10-08",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -301,7 +301,7 @@
     "disable-user": "Benutzer deaktivieren",
     "delete-user-and-keep-content": "Benutzer löschen und Inhalte behalten",
     "delete-user-and-delete-content": "Benutzer und Inhalte löschen (Vorsicht!)",
-    "social-networks": "Sozial Netzwerke",
+    "social-networks": "Soziale Netzwerke",
     "interval": "Abstände",
     "number-in-minutes-for-every-execution-of-autosave": "Anzahl Minuten zwischen automatischen Speicherungen.",
     "extreme-friendly-url": "Besonders benutzerfreundlicher URL",
@@ -356,5 +356,14 @@
     "last": "Ende",
     "there-are-no-pages-at-this-moment": "Es gibt keine Seiten.",
     "there-are-no-static-pages-at-this-moment": "Es gibt keine statischen Inhalte.",
-    "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe."
+    "there-are-no-draft-pages-at-this-moment": "Es gibt keine Entwürfe.",
+    "good-morning": "Guten Morgen",
+    "good-afternoon": "Guten Nachmittag",
+    "good-evening": "Guten Abend",
+    "good-night": "Gute Nacht",
+    "hello": "Hallo",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image",
+    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
+    "no-pages-found": "No pages found"
 }

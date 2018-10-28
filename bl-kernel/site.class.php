@@ -38,7 +38,9 @@ class Site extends dbJSON {
 		'titleFormatHomepage'=>	'{{site-slogan}} | {{site-title}}',
 		'titleFormatPages'=>	'{{page-title}} | {{site-title}}',
 		'titleFormatCategory'=> '{{category-name}} | {{site-title}}',
-		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}'
+		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}',
+		'imageRestrict'=>	true,
+		'imageRelativeToAbsolute'=> false
 	);
 
 	function __construct()
@@ -96,15 +98,13 @@ class Site extends dbJSON {
 		return false;
 	}
 
-	// Returns the URL of the rss.xml file
-	// You need to have enabled the plugin RSS
+	// DEPRECATED in v3.0, use Theme::rssUrl()
 	public function rss()
 	{
 		return DOMAIN_BASE.'rss.xml';
 	}
 
-	// Returns the URL of the sitemap.xml file
-	// You need to have enabled the plugin Sitemap
+	// DEPRECATED in v3.0, use Theme::sitemapUrl()
 	public function sitemap()
 	{
 		return DOMAIN_BASE.'sitemap.xml';
@@ -168,6 +168,16 @@ class Site extends dbJSON {
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
+	}
+
+	public function imageRestrict()
+	{
+		return $this->getField('imageRestrict');
+	}
+
+	public function imageRelativeToAbsolute()
+	{
+		return $this->getField('imageRelativeToAbsolute');
 	}
 
 	// Returns the site title
@@ -248,8 +258,6 @@ class Site extends dbJSON {
 		return $this->getField('url');
 	}
 
-
-
 	// Returns the protocol and the domain, without the base url
 	// For example, http://www.domain.com
 	public function domain()
@@ -298,6 +306,14 @@ class Site extends dbJSON {
 	public function language()
 	{
 		return $this->getField('language');
+	}
+
+	// Returns the sort version of the site's language
+	public function languageShortVersion()
+	{
+		$current = $this->language();
+		$explode = explode('_', $current);
+		return $explode[0];
 	}
 
 	// Returns the current locale.

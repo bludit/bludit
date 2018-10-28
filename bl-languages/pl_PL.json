@@ -7,7 +7,7 @@
         "authors": [
             "Dawid Stawicki",
             "kontakt: dawid.stawicki@windowslive.com",
-            "strona: http://stawicki.at",
+            "strona: http:\/\/stawicki.at",
             ""
         ]
     },
@@ -356,5 +356,14 @@
     "last": "Ostatnia",
     "there-are-no-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych stron.",
     "there-are-no-static-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych stron statycznych.",
-    "there-are-no-draft-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych szkiców."
+    "there-are-no-draft-pages-at-this-moment": "Na tę chwilę nie posiadasz żadnych szkiców.",
+    "good-morning": "Dzień dobry",
+    "good-afternoon": "Dzień dobry",
+    "good-evening": "Dobry wieczór",
+    "good-night": "Good night",
+    "hello": "Cześć",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image",
+    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
+    "no-pages-found": "No pages found"
 }

@@ -22,4 +22,8 @@ class Redirect {
 		self::url(HTML_PATH_ROOT);
 	}
 
+	public static function admin()
+	{
+		self::url(HTML_PATH_ADMIN_ROOT);
+	}
 }

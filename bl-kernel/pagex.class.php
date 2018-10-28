@@ -73,17 +73,17 @@ class Page {
 			return $content;
 		}
 
-		$contentRaw = $this->contentRaw();
-
-		// Parse pre code with htmlentities
-		$content = Text::pre2htmlentities($contentRaw);
+		$content = $this->contentRaw();
 
 		// Parse Markdown
 		$parsedown = new Parsedown();
 		$content = $parsedown->text($content);
 
 		// Parse img src relative to absolute (with domain)
-		$content = Text::imgRel2Abs($content, DOMAIN_UPLOADS);
+		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
+			$domain = IMAGE_RESTRICT?DOMAIN_UPLOADS_PAGES.$this->uuid().'/':DOMAIN_UPLOADS;
+			$content = Text::imgRel2Abs($content, $domain);
+		}
 
 		if ($sanitize) {
 			return Sanitize::html($content);
@@ -276,34 +276,46 @@ class Page {
 		return json_encode($tmp);
 	}
 
-	// Returns the file name, FALSE there isn't a cover image setted
-	// If the user defined an External Cover Image the complete URL is going to be returned
-	// (boolean) $absolute, TRUE returns the absolute path and file name, FALSE just the file name
+	// Returns the endpoint of the coverimage, FALSE if the page doesn't have a cover image
+	// (boolean) $absolute, TRUE returns the complete URL, FALSE returns the filename
+	// If the user defined an external cover image the function returns it
 	public function coverImage($absolute=true)
 	{
-		$fileName = $this->getValue('coverImage');
-		if (empty($fileName)) {
+		$filename = $this->getValue('coverImage');
+		if (empty($filename)) {
 			return false;
 		}
 
-		// Check if external cover image, is a valid URL
-		if (filter_var($fileName, FILTER_VALIDATE_URL)) {
-			return $fileName;
+		// Check is external cover image
+		if (filter_var($filename, FILTER_VALIDATE_URL)) {
+			return $filename;
 		}
 
 		if ($absolute) {
-			return DOMAIN_UPLOADS.$fileName;
+			if (IMAGE_RESTRICT) {
+				return DOMAIN_UPLOADS_PAGES.$this->uuid().'/'.$filename;
+			}
+			return DOMAIN_UPLOADS.$filename;
 		}
 
-		return $fileName;
+		return $filename;
 	}
 
-	// Returns the absolute URL of the thumbnail of the cover image, FALSE if the page doen't have cover image
+	// Returns the endpoint of the thumbnail cover image, FALSE if the page doesn't have a cover image
 	public function thumbCoverImage()
 	{
 		$coverImageFilename = $this->coverImage(false);
 		if ($coverImageFilename==false) {
 			return false;
+		}
+
+		// Check is external cover image
+		if (filter_var($coverImageFilename, FILTER_VALIDATE_URL)) {
+			return $coverImageFilename;
+		}
+
+		if (IMAGE_RESTRICT) {
+			return DOMAIN_UPLOADS_PAGES.$this->uuid().'/thumbnails/'.$filename;
 		}
 		return DOMAIN_UPLOADS_THUMBNAILS.$coverImageFilename;
 	}

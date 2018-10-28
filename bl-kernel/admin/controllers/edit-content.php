@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 try {
 	$pageKey = $layout['parameters'];
 	$page = new Page($pageKey);
+	$uuid = $page->uuid();
 } catch (Exception $e) {
 	Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to get the page: '.$pageKey, LOG_TYPE_ERROR);
 	Redirect::page('content');

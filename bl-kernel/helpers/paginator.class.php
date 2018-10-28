@@ -146,7 +146,7 @@ class Paginator {
 	 */
 	public static function bootstrap_html($textPrevPage=false, $textNextPage=false, $showPageNumber=false){
 
-		global $Language;
+		global $language;
 
 		$total_pages = self::numberOfPages();
 		$howMany = 2;
@@ -160,12 +160,12 @@ class Paginator {
 		$html .= '<ul class="pagination">';
 		if ($currentPage > 3 || $currentPage === $total_pages){
 			$html .= '<li class="page-item">';
-			$html .= '<a class="page-link" href="'.self::firstPageUrl().'" aria-label="First"><span aria-hidden="true">&laquo;</span> '.$Language->get('First').'</a>';
+			$html .= '<a class="page-link" href="'.self::firstPageUrl().'" aria-label="First"><span aria-hidden="true">&laquo;</span> '.$language->get('First').'</a>';
 			$html .= '</li>';
 		}
 		if ($currentPage > 1){
 			$html .= '<li class="page-item'.$show_previois.'">';
-			$html .= '<a class="page-link" href="'.self::prevPageUrl().'" aria-label="Previous"><span aria-hidden="true">&laquo;</span> '.$Language->get('Previous').'</a>';
+			$html .= '<a class="page-link" href="'.self::prevPageUrl().'" aria-label="Previous"><span aria-hidden="true">&laquo;</span> '.$language->get('Previous').'</a>';
 			$html .= '</li>';
 		}
 		if ($currentPage > $howMany + 1){
@@ -184,9 +184,9 @@ class Paginator {
 		}
 		if ($currentPage < $total_pages){
 			$html .= '<li class="page-item'.$show_next.'">';
-			$html .= '<a class="page-link" href="'.self::nextPageUrl().'" aria-label="Next">'.$Language->get('Next').' <span aria-hidden="true">&raquo;</span></a>';
+			$html .= '<a class="page-link" href="'.self::nextPageUrl().'" aria-label="Next">'.$language->get('Next').' <span aria-hidden="true">&raquo;</span></a>';
 			$html .= '</li>';
-			$html .= '<li><a href="'.$last_page.'">'.$Language->get('Last').'</a></li>';
+			$html .= '<li><a href="'.$last_page.'">'.$language->get('Last').'</a></li>';
 		}
 		$html .= '</ul>';
 		$html .= '</nav>';

@@ -356,5 +356,14 @@
     "last": "Last",
     "there-are-no-pages-at-this-moment": "There are no pages at this moment.",
     "there-are-no-static-pages-at-this-moment": "There are no static pages at this moment.",
-    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment."
+    "there-are-no-draft-pages-at-this-moment": "There are no draft pages at this moment.",
+    "good-morning": "Good morning",
+    "good-afternoon": "Good afternoon",
+    "good-evening": "Good evening",
+    "good-night": "Good night",
+    "hello": "Hello",
+    "there-are-no-images-for-the-page": "There are no images for the page.",
+    "select-cover-image": "Select cover image",
+    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
+    "no-pages-found": "No pages found"
 }

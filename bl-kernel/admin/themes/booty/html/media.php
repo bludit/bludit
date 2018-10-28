@@ -1,18 +1,31 @@
 <?php
 // Preload the first 10 files to not call via AJAX when the user open the first time the media manager
-$listOfFiles = Filesystem::listFiles(PATH_UPLOADS_THUMBNAILS, '*', '*', $GLOBALS['BLUDIT_MEDIA_MANAGER_SORT_BY_DATE'], false);
-$listOfFilesByPage = array_chunk($listOfFiles, $GLOBALS['BLUDIT_MEDIA_MANAGER_AMOUNT_OF_FILES']);
+if (IMAGE_RESTRICT) {
+	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS_PAGES.$uuid.'/');
+	$imagesURL = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : DOMAIN_UPLOADS_PAGES.$uuid.'/');
+	$thumbnailDirectory = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
+	$thumbnailHTML = HTML_PATH_UPLOADS_PAGES.$uuid.'/thumbnails/';
+	$thumbnailURL = DOMAIN_UPLOADS_PAGES.$uuid.'/thumbnails/';
+} else {
+	$imagesDirectory = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : HTML_PATH_UPLOADS);
+	$imagesURL = (IMAGE_RELATIVE_TO_ABSOLUTE? '' : DOMAIN_UPLOADS);
+	$thumbnailDirectory = PATH_UPLOADS_THUMBNAILS;
+	$thumbnailHTML = HTML_PATH_UPLOADS_THUMBNAILS;
+	$thumbnailURL = DOMAIN_UPLOADS_THUMBNAILS;
+}
+$listOfFilesByPage = Filesystem::listFiles($thumbnailDirectory, '*', '*', $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES']);
 $preLoadFiles = array();
 if (!empty($listOfFilesByPage[0])) {
 	foreach ($listOfFilesByPage[0] as $file) {
-		array_push($preLoadFiles, basename($file));
+		$filename = basename($file);
+		array_push($preLoadFiles, $filename);
 	}
 }
 // Amount of pages for the paginator
 $numberOfPages = count($listOfFilesByPage);
 ?>
 
-<div id="jsbluditMediaModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="jsmediaManagerModal" class="modal" tabindex="-1" role="dialog">
 <div class="modal-dialog modal-lg">
 <div class="modal-content">
 <div class="container-fluid">
@@ -26,7 +39,6 @@ $numberOfPages = count($listOfFilesByPage);
 
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
-			<input type="hidden" name="tokenCSRF" value="<?php echo $security->getTokenCSRF() ?>">
 			<div class="custom-file">
 				<input type="file" class="custom-file-input" id="jsbluditInputFiles" name="bluditInputFiles[]" multiple>
 				<label class="custom-file-label" for="jsbluditInputFiles"><?php $L->p('Choose images to upload'); ?></label>
@@ -35,7 +47,7 @@ $numberOfPages = count($listOfFilesByPage);
 
 		<!-- Progress bar -->
 		<div class="progress mt-2">
-			<div id="jsbluditProgressBar" class="progress-bar bg-info" role="progressbar" style="width:0%"></div>
+			<div id="jsbluditProgressBar" class="progress-bar bg-primary" role="progressbar" style="width:0%"></div>
 		</div>
 
 	<!--
@@ -73,65 +85,80 @@ echo 'var preLoadFiles = '.json_encode($preLoadFiles).';';
 ?>
 
 function openMediaManager() {
-	$('#jsbluditMediaModal').modal('show');
+	$('#jsmediaManagerModal').modal('show');
 }
 
 function closeMediaManager() {
-	$('#jsbluditMediaModal').modal('hide');
+	$('#jsmediaManagerModal').modal('hide');
 }
 
 // Remove all files from the table
-function cleanFiles() {
+function cleanTable() {
 	$('#jsbluditMediaTable').empty();
 }
 
 // Show the files in the table
 function displayFiles(files) {
 	// Clean table
-	cleanFiles();
+	cleanTable();
+
 	// Regenerate the table
-	$.each(files, function(key, filename) {
-		tableRow = '<tr id="js'+filename+'">'+
-				'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="<?php echo HTML_PATH_UPLOADS_THUMBNAILS ?>'+filename+'" style="width: 50px; height: 50px;"><\/td>'+
-				'<td class="information">'+
-					'<div class="pb-2">'+filename+'<\/div>'+
-					'<div>'+
-						'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+filename+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
-						'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
-						'<button type="button" class="btn btn-secondary btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
-					'<\/div>'+
-				'<\/td>'+
-			'<\/tr>';
-		$('#jsbluditMediaTable').append(tableRow);
-	});
+	if (files.length > 0) {
+		$.each(files, function(key, filename) {
+			var thumbnail = "<?php echo $thumbnailURL; ?>"+filename;
+			var image = "<?php echo $imagesURL; ?>"+filename;
+
+			tableRow = '<tr id="js'+filename+'">'+
+					'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
+					'<td class="information">'+
+						'<div class="pb-2">'+filename+'<\/div>'+
+						'<div>'+
+							'<button type="button" class="btn btn-primary btn-sm mr-2" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><?php $L->p('Insert') ?><\/button>'+
+							'<button type="button" class="btn btn-primary btn-sm" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><?php $L->p('Set as cover image') ?><\/button>'+
+							'<button type="button" class="btn btn-danger btn-sm float-right" onClick="deleteMedia(\''+filename+'\')"><?php $L->p('Delete') ?><\/button>'+
+						'<\/div>'+
+					'<\/td>'+
+				'<\/tr>';
+			$('#jsbluditMediaTable').append(tableRow);
+		});
+	}
+
+	if (files.length == 0) {
+		$('#jsbluditMediaTable').html("<p><?php (IMAGE_RESTRICT ? $L->p('There are no images for the page') : $L->p('There are no images')) ?></p>");
+	}
 }
 
 // Get the list of files via AJAX, filter by the page number
 function getFiles(pageNumber) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/list-files",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/list-images",
 		{ 	tokenCSRF: tokenCSRF,
 			pageNumber: pageNumber,
-			path: "thumbnails" // the path are defined in the list-files
+			uuid: "<?php echo $uuid; ?>",
+			path: "thumbnails" // the paths are defined in the list-images.php
 		},
 		function(data) {
 			displayFiles(data.files);
-	});
+		}
+	);
 }
 
 // Delete the file and the thumbnail if exist
 function deleteMedia(filename) {
-	$.post("<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/delete-file",
+	$.post(HTML_PATH_ADMIN_ROOT+"ajax/delete-image",
 		{ 	tokenCSRF: tokenCSRF,
-			filename: filename
+			filename: filename,
+			uuid: "<?php echo $uuid; ?>"
 		},
 		function(data) {
 			getFiles(1);
-	});
+		}
+	);
 }
 
 function setCoverImage(filename) {
+	var image = "<?php echo $imagesURL; ?>"+filename;
 	$("#jscoverImage").val(filename);
-	$("#jscoverImagePreview").attr("src", HTML_PATH_UPLOADS_THUMBNAILS+filename);
+	$("#jscoverImagePreview").attr("src", image);
 }
 
 $(document).ready(function() {
@@ -144,10 +171,18 @@ $(document).ready(function() {
 		// Check file size ?
 		// Check file type/extension ?
 
+		$("#jsbluditProgressBar").width("1%");
+
+		// Data to send via AJAX
+		var uuid = $("#jsuuid").val();
+		var formData = new FormData($("#jsbluditFormUpload")[0]);
+		formData.append('uuid', uuid);
+		formData.append('tokenCSRF', tokenCSRF);
+
 		$.ajax({
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/upload-files",
+			url: HTML_PATH_ADMIN_ROOT+"ajax/upload-images",
 			type: "POST",
-			data: new FormData($("#jsbluditFormUpload")[0]),
+			data: formData,
 			cache: false,
 			contentType: false,
 			processData: false,

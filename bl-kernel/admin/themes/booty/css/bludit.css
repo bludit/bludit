@@ -51,6 +51,12 @@ a:hover {
 	border-color: #4a90e2;
 }
 
+.btn-light {
+	color: #212529;
+	background-color: #f3f3f3;
+	border-color: #ced4d9;
+}
+
 .btn-form {
 	background-color: #F3F3F3;
 	border-color: #DDD;
@@ -91,6 +97,10 @@ body.login {
 
 #dashboard ul.list-group.list-group-striped li {
 	border: none;
+	word-break: break-word;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 #dashboard ul.list-group.list-group-striped li:nth-of-type(even) {
@@ -110,6 +120,16 @@ body.login {
 #dashboard a.quick-links:hover {
 	text-decoration: none;
 	color: #4586d4;
+}
+
+#hello-message {
+	padding: 10px 0;
+	color: #777;
+	margin-bottom: 20px;
+}
+
+#hello-message span.oi {
+	top: 3px;
 }
 
 .ct-series-a .ct-line {
@@ -223,4 +243,16 @@ div.sidebar .nav-item span.oi {
 
 td.child {
 	padding-left: 30px;
+}
+
+/*
+	Manage > New Content
+*/
+
+#jseditor {
+	background: #fff;
+	padding: 10px 5% !important;
+	font-size: 16px;
+	line-height: 1.5em;
+
 }

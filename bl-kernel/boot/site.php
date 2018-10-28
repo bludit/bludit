@@ -33,4 +33,3 @@ Theme::plugins('afterSiteLoad');
 
 // Plugins after all
 Theme::plugins('afterAll');
-

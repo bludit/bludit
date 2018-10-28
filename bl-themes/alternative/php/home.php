@@ -8,6 +8,20 @@
 		<?php if ($site->description()): ?>
 		<p class="lead"><?php echo $site->description(); ?></p>
 		<?php endif ?>
+
+		<!-- Custom search form if the plugin "search" is enabled -->
+		<?php if (pluginActivated('pluginSearch')): ?>
+		<div class="form-inline d-block">
+			<input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="button" onClick="searchNow()">Search</button>
+			<script>
+				function searchNow() {
+					var searchURL = "<?php echo Theme::siteUrl(); ?>search/";
+					window.open(searchURL + document.getElementById("search-input").value, "_self");
+				}
+			</script>
+		</div>
+		<?php endif ?>
 	</div>
 </header>
 
@@ -58,7 +72,7 @@
 		<!-- Home button -->
 		<?php if (Paginator::currentPage() > 1): ?>
 		<li class="page-item">
-			<a class="page-link" href="<?php echo $site->url() ?>">Home</a>
+			<a class="page-link" href="<?php echo Theme::siteUrl() ?>">Home</a>
 		</li>
 		<?php endif ?>
 

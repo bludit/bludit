@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Buscador",
+		"description": "Este plugin provee un buscador para tus usuarios para buscar a través del contenido de su sitio."
+	},
+	"search": "Buscador"
+}

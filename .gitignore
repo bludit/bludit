@@ -5,7 +5,12 @@ bl-plugins/timemachine
 bl-plugins/timemachine-x
 bl-plugins/discovery
 bl-plugins/updater
+bl-plugins/medium-editor
+bl-plugins/quill
 bl-kernel/bludit.pro.php
 bl-themes/docs
 bl-themes/docsx
+bl-themes/editorial
 bl-themes/mediumish
+bl-themes/clean-blog
+bl-themes/grayscale

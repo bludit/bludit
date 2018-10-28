@@ -5,12 +5,17 @@
 // ============================================================================
 function updateBludit() {
 	global $site;
-	// Check if Bludit need to be update.
-	if( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
+	// New installation
+	if ($site->currentBuild()==0) {
+		$site->set(array('currentBuild'=>BLUDIT_BUILD));
+	}
+
+	// Check if Bludit need to be update
+	if ( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 
 		// Updates only for version less than Bludit v3.0 rc-3
-		if ($site->currentBuild()<'20180910') {
+		if ($site->currentBuild()<='20180910') {
 			@mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true);
 			$plugins = array('simple-stats', 'pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
 			foreach ($plugins as $plugin) {
@@ -20,6 +25,12 @@ function updateBludit() {
 					activatePlugin($plugin);
 				}
 			}
+		}
+
+		// Updates only for version less than Bludit v3.1
+		if ($site->currentBuild()<='20180921') {
+			@mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true);
+			$site->set(array('imageRelativeToAbsolute'=>true, 'imageRestrict'=>false));
 		}
 
 		// Set the current build number

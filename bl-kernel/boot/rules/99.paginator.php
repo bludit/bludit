@@ -4,24 +4,24 @@
 $currentPage = $url->pageNumber();
 Paginator::set('currentPage', $currentPage);
 
-if($url->whereAmI()=='admin') {
+if ($url->whereAmI()=='admin') {
 	$itemsPerPage = ITEMS_PER_PAGE_ADMIN;
 	$numberOfItems = $pages->count(true);
-}
-elseif($url->whereAmI()=='tag') {
+} elseif ($url->whereAmI()=='tag') {
 	$itemsPerPage = $site->itemsPerPage();
 	$tagKey = $url->slug();
 	$numberOfItems = $tags->numberOfPages($tagKey);
-}
-elseif($url->whereAmI()=='category') {
+} elseif ($url->whereAmI()=='category') {
 	$itemsPerPage = $site->itemsPerPage();
 	$categoryKey = $url->slug();
 	$numberOfItems = $categories->numberOfPages($categoryKey);
-}
-else {
+} else {
 	$itemsPerPage = $site->itemsPerPage();
 	$numberOfItems = $pages->count(true);
 }
+
+// Execute hook from plugins
+Theme::plugins('paginator');
 
 // Items per page
 Paginator::set('itemsPerPage', $itemsPerPage);

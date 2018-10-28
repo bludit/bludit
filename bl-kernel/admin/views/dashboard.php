@@ -2,6 +2,28 @@
 	<div class="row">
 		<div class="col-md-7 d-none d-sm-block">
 
+			<!-- Good message -->
+			<div>
+			<h2 id="hello-message"><?php echo $L->g('hello') ?></h2>
+			<script>
+			$( document ).ready(function() {
+				$("#hello-message").fadeOut(1000, function() {
+					var date = new Date()
+					var hours = date.getHours()
+					if (hours > 6 && hours < 12) {
+						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-morning') ?>');
+					} else if (hours > 12 && hours < 18) {
+						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-afternoon') ?>');
+					} else if (hours > 18 && hours < 22) {
+						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-evening') ?>');
+					} else {
+						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-night') ?>');
+					}
+				}).fadeIn(1000);
+			});
+			</script>
+			</div>
+
 			<!-- Quick Links -->
 			<div class="container border-bottom pb-4">
 				<h4 class="pb-3"><?php $L->p('Quick links') ?></h4>

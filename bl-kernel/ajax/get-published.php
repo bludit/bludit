@@ -13,12 +13,21 @@ if ($query===false) {
 	)));
 }
 
-$tmp = array();
-$parents = buildParentPages();
-foreach ($parents as $parent) {
-	$lowerTitle = Text::lowercase($parent->title());
-	if (Text::stringContains($lowerTitle, $query)) {
-		$tmp[$parent->title()] = $parent->key();
+$list = array();
+$published = $pages->getPublishedDB();
+$statics = $pages->getStaticDB();
+$pagesKey = array_merge($published, $statics);
+foreach ($pagesKey as $pageKey) {
+	try {
+		$page = new Page($pageKey);
+		if ($page->isParent()) {
+			$lowerTitle = Text::lowercase($page->title());
+			if (Text::stringContains($lowerTitle, $query)) {
+				$tmp[$page->title()] = $page->key();
+			}
+		}
+	} catch (Exception $e) {
+		// continue
 	}
 }
 

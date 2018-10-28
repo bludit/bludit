@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Gezinti menüsü",
+		"description": "Kenar çubuğu için üst ve alt sayfaları içeren gezinme menüsü."
+	},
+	"home-link": "Ana sayfa bağlantısı",
+	"show-the-home-link-on-the-sidebar": "Kenar çubuğundaki ev bağlantısını göster.",
+	"amount-of-items": "Öge sayısı"
+}

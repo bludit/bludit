@@ -52,8 +52,7 @@ class Filesystem {
 
 	public static function mkdir($pathname, $recursive=false)
 	{
-		// DEBUG: Ver permisos si son correctos
-		return mkdir($pathname, 0755, $recursive);
+		return mkdir($pathname, DIR_PERMISSIONS, $recursive);
 	}
 
 	public static function rmdir($pathname)
@@ -98,7 +97,7 @@ class Filesystem {
 		// Check $destionation directory if exists
 		if (!self::directoryExists($destination)) {
 			// Create the $destination directory
-			if (!mkdir($destination, 0755, true)) {
+			if (!mkdir($destination, DIR_PERMISSIONS, true)) {
 				return false;
 			}
 		}
@@ -122,23 +121,26 @@ class Filesystem {
 
 	// Delete a file or directory recursive
 	// The directory is delete
-	public static function deleteRecursive($source)
+	public static function deleteRecursive($source, $deleteDirectory=true)
 	{
 		if (!self::directoryExists($source)) {
 			return false;
 		}
 
-		foreach(new RecursiveIteratorIterator(
+		foreach (new RecursiveIteratorIterator(
 			new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
 			RecursiveIteratorIterator::CHILD_FIRST) as $item) {
-				if($item->isFile()) {
+				if ($item->isFile()) {
 					unlink($item);
 				} else {
 					rmdir($item);
 				}
 		}
 
-		return rmdir($source);
+		if ($deleteDirectory) {
+			return rmdir($source);
+		}
+		return true;
 	}
 
 	// Compress a file or directory
@@ -216,7 +218,7 @@ class Filesystem {
 			$number = 0;
 			$tmpName = $filename.'_'.$number.'.'.$fileExtension;
 			while (Sanitize::pathFile($path.$tmpName)) {
-				$number++;
+				$number = $number + 1;
 				$tmpName = $filename.'_'.$number.'.'.$fileExtension;
 			}
 		}
