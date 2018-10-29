@@ -242,10 +242,16 @@ $(document).ready(function() {
 
 	$("#jsprofilePictureInputFile").on("change", function() {
 
+		// Data to send via AJAX
+		var username = $("#jsusername").val();
+		var formData = new FormData($("#jsprofilePictureForm")[0]);
+		formData.append('username', username);
+		formData.append('tokenCSRF', tokenCSRF);
+
 		$.ajax({
-			url: "<?php echo HTML_PATH_ADMIN_ROOT ?>ajax/profile-picture",
+			url: HTML_PATH_ADMIN_ROOT+"ajax/profile-picture",
 			type: "POST",
-			data: new FormData($("#jsprofilePictureForm")[0]),
+			data: formData,
 			cache: false,
 			contentType: false,
 			processData: false,

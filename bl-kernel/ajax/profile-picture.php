@@ -1,6 +1,19 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+// $_POST
+// ----------------------------------------------------------------------------
+// (string) $_POST['username']
+$username = empty($_POST['username']) ? false : $_POST['username'];
+// ----------------------------------------------------------------------------
+
+if ($username===false) {
+	exit (json_encode(array(
+		'status'=>1,
+		'message'=>'Error in username.'
+	)));
+}
+
 if (!isset($_FILES['profilePictureInputFile'])) {
 	exit (json_encode(array(
 		'status'=>1,
@@ -10,8 +23,6 @@ if (!isset($_FILES['profilePictureInputFile'])) {
 
 // File extension
 $fileExtension 	= pathinfo($_FILES['profilePictureInputFile']['name'], PATHINFO_EXTENSION);
-// Username who is uploading the image
-$username = $login->username();
 // Tmp filename
 $tmpFilename = $username.'.'.$fileExtension;
 // Final filename
