@@ -83,7 +83,7 @@ echo Bootstrap::formOpen(array(
 		</div>
 	</nav>
 
-	<div class="tab-content pr-3 pl-3">
+	<div class="tab-content pr-3 pl-3 pb-3">
 		<div id="nav-general" class="tab-pane fade show active" role="tabpanel" aria-labelledby="general-tab">
 			<?php
 				// Category
