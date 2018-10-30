@@ -57,11 +57,9 @@ class pluginSitemap extends Plugin {
 		$xml .= '<loc>'.$site->url().'</loc>';
 		$xml .= '</url>';
 
-		// Get DB
-		$pageNumber = 1;
-		$numberOfItems = -1;
-		$onlyPublished = true;
-		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
+		$published = $pages->getPublishedDB();
+		$statics = $pages->getStaticDB();
+		$list = array_merge($published, $statics);
 
 		foreach ($list as $pageKey) {
 			try {
