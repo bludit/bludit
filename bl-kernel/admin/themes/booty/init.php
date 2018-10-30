@@ -96,7 +96,7 @@ EOF;
 	{
 		$title = $args['title'];
 return <<<EOF
-<h4 class="mt-4 mb-3 font-weight-normal">$title</h4>
+<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">$title</h6>
 EOF;
 	}
 
@@ -112,13 +112,15 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group">';
+		$disabled = empty($args['disabled'])?'':'disabled';
+
+		$html = '<div class="form-group m-0">';
 
 		if (isset($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"  for="'.$id.'">'.$args['label'].'</label>';
 		}
 
-		$html .= '<input type="text" value="'.$args['value'].'" class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" placeholder="'.$args['placeholder'].'">';
+		$html .= '<input type="text" value="'.$args['value'].'" class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" placeholder="'.$args['placeholder'].'" '.$disabled.'>';
 
 		if (isset($args['tip'])) {
 			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
@@ -190,9 +192,9 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group">';
+		$html = '<div class="form-group m-0">';
 		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
@@ -267,7 +269,6 @@ EOF;
 
 	public static function formCheckbox($args)
 	{
-		$label = isset($args['label'])?$args['label']:'';
 		$labelForCheckbox = isset($args['labelForCheckbox'])?$args['labelForCheckbox']:'';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
@@ -279,7 +280,7 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'form-group row';
+		$class = 'form-group';
 		if (isset($args['class'])) {
 			$class = $class.' '.$args['class'];
 		}
@@ -289,17 +290,20 @@ EOF;
 			$type = $args['type'];
 		}
 
+		$label = '';
+		if (!empty($args['label'])) {
+			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100">'.$args['label'].'</label>';
+		}
+
 		$checked = $args['checked']?'checked':'';
 
 return <<<EOF
 <div class="$class">
-	<label for="$id" class="col-sm-2">$label</label>
-	<div class="col-sm-10">
-		<div class="form-check">
-			<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
-			<label class="form-check-label" for="$id">$labelForCheckbox</label>
-			<small class="form-text text-muted">$tip</small>
-		</div>
+	$label
+	<div class="form-check">
+		<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
+		<label class="form-check-label" for="$id">$labelForCheckbox</label>
+		<small class="form-text text-muted">$tip</small>
 	</div>
 </div>
 EOF;
@@ -353,7 +357,7 @@ EOF;
 		$html = '<div class="form-group m-0">';
 
 		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
