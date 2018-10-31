@@ -102,9 +102,24 @@ EOF;
 
 	public static function formInputTextBlock($args)
 	{
-		$id = 'js'.$args['name'];
+		$name = $args['name'];
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+		
+		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
+		}
+
+		$tip = '';
+		if (isset($args['tip'])) {
+			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+
+		$label = '';
+		if (isset($args['label'])) {
+			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"  for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$class = 'form-control';
@@ -112,23 +127,18 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$disabled = empty($args['disabled'])?'':'disabled';
-
-		$html = '<div class="form-group m-0">';
-
-		if (isset($args['label'])) {
-			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"  for="'.$id.'">'.$args['label'].'</label>';
+		$type = 'text';
+		if (isset($args['type'])) {
+			$type = $args['type'];
 		}
 
-		$html .= '<input type="text" value="'.$args['value'].'" class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" placeholder="'.$args['placeholder'].'" '.$disabled.'>';
-
-		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
-		}
-
-		$html .= '</div>';
-
-		return $html;
+return <<<EOF
+<div class="form-group m-0">
+	$label
+	<input type="text" value="$value" class="$class" id="$id" name="$name" placeholder="$placeholder" $disabled>
+	$tip
+</div>
+EOF;
 	}
 
 	public static function formInputFile($args)
@@ -235,16 +245,25 @@ EOF;
 
 	public static function formInputText($args)
 	{
-		$label = isset($args['label'])?$args['label']:'';
-		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
-		$value = isset($args['value'])?$args['value']:'';
 		$name = $args['name'];
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+
 		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
 		}
-		$disabled = empty($args['disabled'])?'':'disabled';
+
+		$tip = '';
+		if (isset($args['tip'])) {
+			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+
+		$label = '';
+		if (isset($args['label'])) {
+			$label = '<label for="$id" class="col-sm-2 col-form-label">$label</label>';
+		}
 
 		$class = 'form-control';
 		if (isset($args['class'])) {
@@ -258,10 +277,10 @@ EOF;
 
 return <<<EOF
 <div class="form-group row">
-	<label for="$id" class="col-sm-2 col-form-label">$label</label>
+	$label
 	<div class="col-sm-10">
 		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled>
-		<small class="form-text text-muted">$tip</small>
+		$tip
 	</div>
 </div>
 EOF;
