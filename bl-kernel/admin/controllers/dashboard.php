@@ -5,6 +5,8 @@
 // ============================================================================
 function updateBludit() {
 	global $site;
+	global $syslog;
+
 	// New installation
 	if ($site->currentBuild()==0) {
 		$site->set(array('currentBuild'=>BLUDIT_BUILD));
@@ -36,6 +38,12 @@ function updateBludit() {
 		// Set the current build number
 		$site->set(array('currentBuild'=>BLUDIT_BUILD));
 		Log::set('UPDATE SYSTEM - Finished.');
+
+		// Add to syslog
+		$syslog->add(array(
+			'dictionaryKey'=>'system-updated',
+			'notes'=>'Bludit v'.BLUDIT_VERSION
+		));
 	}
 }
 
