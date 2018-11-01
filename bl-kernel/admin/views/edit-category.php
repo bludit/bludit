@@ -19,7 +19,7 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		'value'=>$categoryMap['key']
 	));
 
-	echo Bootstrap::formInputTextBlock(array(
+	echo Bootstrap::formInputText(array(
 		'name'=>'name',
 		'label'=>$L->g('Name'),
 		'value'=>$categoryMap['name'],
@@ -28,7 +28,7 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		'tip'=>''
 	));
 
-	echo Bootstrap::formTextareaBlock(array(
+	echo Bootstrap::formTextarea(array(
 		'name'=>'description',
 		'label'=>$L->g('Description'),
 		'value'=>isset($categoryMap['description'])?$categoryMap['description']:'',
@@ -38,7 +38,7 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		'rows'=>3
 	));
 
-	echo Bootstrap::formInputTextBlock(array(
+	echo Bootstrap::formInputText(array(
 		'name'=>'template',
 		'label'=>$L->g('Template'),
 		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
@@ -47,21 +47,20 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		'tip'=>''
 	));
 
-	echo Bootstrap::formInputGroupText(array(
+	echo Bootstrap::formInputText(array(
 		'name'=>'newKey',
 		'label'=>$L->g('Friendly URL'),
-		'labelInside'=>DOMAIN_CATEGORIES,
 		'value'=>$categoryMap['key'],
 		'class'=>'',
 		'placeholder'=>'',
-		'tip'=>''
+		'tip'=>DOMAIN_CATEGORIES.$categoryMap['key']
 	));
 
 	echo '
 	<div class="form-group mt-4">
 		<button type="submit" class="btn btn-primary">'.$L->g('Save').'</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#jsdeleteModal">'.$L->g('Delete').'</button>
 		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'categories" role="button">'.$L->g('Cancel').'</a>
-		<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#jsdeleteModal">'.$L->g('Delete').'</button>
 	</div>
 	';
 
