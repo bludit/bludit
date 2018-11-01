@@ -61,15 +61,18 @@ echo Bootstrap::formOpen(array(
 
 	<div id="jseditorToolbarLeft" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 		<button type="button" class="btn btn-primary" id="jsbuttonSave"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
-		<?php if(!$page->draft()): ?>
+
+		<?php if($page->draft()): ?>
 		<button type="button" class="btn btn-secondary" id="jsbuttonDraft"><?php $L->p('Save as draft') ?></button>
 		<?php endif; ?>
-		<?php if (count($page->children())===0): ?>
+
+		<?php if (count($page->children())==0): ?>
 		<button type="button" class="btn btn-danger" id="jsbuttonDelete" data-toggle="modal" data-target="#jsdeletePageModal"><?php $L->p('Delete') ?></button>
 		<?php endif; ?>
+
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php $L->p('Cancel') ?></a>
 	</div>
-
+	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>
 </div>
 <script>
 	$(document).ready(function() {
