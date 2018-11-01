@@ -106,7 +106,7 @@ EOF;
 		$disabled = empty($args['disabled'])?'':'disabled';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$value = isset($args['value'])?$args['value']:'';
-		
+
 		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
@@ -216,33 +216,6 @@ EOF;
 		return $html;
 	}
 
-	public static function formInputGroupText($args)
-	{
-		$label = $args['label'];
-		$labelInside = $args['labelInside'];
-		$tip = $args['tip'];
-		$value = $args['value'];
-		$name = $args['name'];
-		$id = 'js'.$name;
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
-		$disabled = isset($args['disabled'])?'disabled':'';
-
-return <<<EOF
-<div class="form-group">
-	<label for="$id">$label</label>
-	<div class="input-group">
-		<div class="input-group-prepend">
-			<span class="input-group-text" id="$id">$labelInside</span>
-		</div>
-		<input id="$id" name="$name" value="$value" type="text" class="form-control" $disabled>
-	</div>
-	<small class="form-text text-muted">$tip</small>
-</div>
-EOF;
-	}
-
 	public static function formInputText($args)
 	{
 		$name = $args['name'];
@@ -262,7 +235,7 @@ EOF;
 
 		$label = '';
 		if (isset($args['label'])) {
-			$label = '<label for="$id" class="col-sm-2 col-form-label">$label</label>';
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 
 		$class = 'form-control';
