@@ -3,7 +3,7 @@
         "native": "Polski (Polska)",
         "english-name": "Polish",
         "locale": "pl, pl_PL",
-        "last-update": "2018-09-21",
+        "last-update": "2018-10-28",
         "authors": [
             "Dawid Stawicki",
             "kontakt: dawid.stawicki@windowslive.com",
@@ -360,10 +360,9 @@
     "good-morning": "Dzień dobry",
     "good-afternoon": "Dzień dobry",
     "good-evening": "Dobry wieczór",
-    "good-night": "Good night",
+    "good-night": "Dobry wieczór",
     "hello": "Cześć",
-    "there-are-no-images-for-the-page": "There are no images for the page.",
-    "select-cover-image": "Select cover image",
-    "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
-    "no-pages-found": "No pages found"
+    "there-are-no-images-for-the-page": "Dla tej strony nie ma żadnych obrazków.",
+    "select-cover-image": "Wybierz okładkę wpisu",
+    "this-plugin-depends-on-the-following-plugins": "Ta wtyczka zależna jest od innych rozszerzeń"
 }
