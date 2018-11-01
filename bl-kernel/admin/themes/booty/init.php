@@ -262,7 +262,7 @@ EOF;
 
 		$label = '';
 		if (isset($args['label'])) {
-			$label = '<label for="$id" class="col-sm-2 col-form-label">$label</label>';
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 
 		$class = 'form-control';
