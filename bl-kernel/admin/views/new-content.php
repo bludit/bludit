@@ -2,7 +2,7 @@
 
 <?php
 
-// FORM START
+// Start form
 echo Bootstrap::formOpen(array(
 	'id'=>'jsform',
 	'class'=>'d-flex flex-column h-100'
