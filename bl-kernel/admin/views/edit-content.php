@@ -258,14 +258,17 @@ echo Bootstrap::formOpen(array(
 					}
 				});
 
-				// Generate slug when the user type the title
+				// Generate slug when the user type the title and the slug field is empty
+				var currentSlug = $("#jsslug").val();
 				$("#jstitle").keyup(function() {
 					var text = $(this).val();
 					var parent = $("#jsparent").val();
 					var currentKey = "";
 					var ajax = new bluditAjax();
 					var callBack = $("#jsslug");
-					ajax.generateSlug(text, parent, currentKey, callBack);
+					if (currentSlug.length === 0) {
+						ajax.generateSlug(text, parent, currentKey, callBack);
+					}
 				});
 
 				// Datepicker
