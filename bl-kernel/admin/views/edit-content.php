@@ -72,7 +72,9 @@ echo Bootstrap::formOpen(array(
 
 		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php $L->p('Cancel') ?></a>
 	</div>
+	<?php if($page->draft()): ?>
 	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>
+	<?php endif; ?>
 </div>
 <script>
 	$(document).ready(function() {
