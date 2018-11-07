@@ -1,9 +1,16 @@
-<?php defined('BLUDIT') or die('Bludit CMS.');
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Add a new user'), 'icon'=>'person'));
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-echo Bootstrap::formOpen(array());
+<div class="align-middle">
+	<div class="float-right mt-1">
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Add a new user'), 'icon'=>'person')); ?>
+</div>
 
+<?php
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$security->getTokenCSRF()
@@ -55,12 +62,6 @@ echo Bootstrap::formOpen(array());
 		'placeholder'=>'',
 		'tip'=>''
 	));
+?>
 
-	echo '
-	<div class="form-group mt-4">
-		<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'users" role="button">'.$L->g('Cancel').'</a>
-	</div>
-	';
-
-echo Bootstrap::formClose();
+<?php echo Bootstrap::formClose(); ?>

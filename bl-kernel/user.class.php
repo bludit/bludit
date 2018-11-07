@@ -140,6 +140,11 @@ class User {
 		return $this->getValue('linkedin');
 	}
 
+	public function mastodon()
+	{
+		return $this->getValue('mastodon');
+	}
+
 	public function profilePicture()
 	{
 		$filename = $this->getValue('username').'.png';

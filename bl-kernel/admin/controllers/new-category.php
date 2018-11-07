@@ -19,7 +19,7 @@ checkRole(array('admin'));
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (createCategory($_POST['category'])) {
+	if (createCategory($_POST)) {
 		Redirect::page('categories');
 	}
 }

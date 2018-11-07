@@ -54,23 +54,23 @@ echo Bootstrap::formOpen(array(
 
 <!-- TOOLBAR -->
 <div id="jseditorToolbar">
-	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Basic example">
+	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="oi oi-image"></span> <?php $L->p('Images') ?></button>
 		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="oi oi-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
 
-	<div id="jseditorToolbarLeft" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-		<button type="button" class="btn btn-primary" id="jsbuttonSave"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+	<div id="jseditorToolbarLeft">
+		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
 
 		<?php if($page->draft()): ?>
-		<button type="button" class="btn btn-secondary" id="jsbuttonDraft"><?php $L->p('Save as draft') ?></button>
+		<button type="button" class="btn btn-sm btn-secondary" id="jsbuttonDraft"><?php $L->p('Save as draft') ?></button>
 		<?php endif; ?>
 
 		<?php if (count($page->children())==0): ?>
-		<button type="button" class="btn btn-danger" id="jsbuttonDelete" data-toggle="modal" data-target="#jsdeletePageModal"><?php $L->p('Delete') ?></button>
+		<button type="button" class="btn btn-sm btn-danger" id="jsbuttonDelete" data-toggle="modal" data-target="#jsdeletePageModal"><?php $L->p('Delete') ?></button>
 		<?php endif; ?>
 
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-secondary"><?php $L->p('Cancel') ?></a>
+		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-sm btn-secondary"><?php $L->p('Cancel') ?></a>
 	</div>
 	<?php if($page->draft()): ?>
 	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>

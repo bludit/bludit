@@ -24,8 +24,8 @@ return <<<EOF
 				<p>$modalText</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="$buttonSecondaryClass btn btn-secondary" data-dismiss="modal">$buttonSecondary</button>
-				<button type="button" class="$buttonPrimaryClass btn btn-primary">$buttonPrimary</button>
+				<button type="button" class="btn $buttonSecondaryClass" data-dismiss="modal">$buttonSecondary</button>
+				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
 			</div>
 		</div>
 	</div>
@@ -180,7 +180,7 @@ EOF;
 		}
 
 		$html .= '<div class="col-sm-10">';
-		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'"></textarea>';
+		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
 		if (isset($args['tip'])) {
 			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
 		}

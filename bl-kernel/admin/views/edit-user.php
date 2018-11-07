@@ -1,23 +1,26 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'person')); ?>
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-<nav class="mb-3">
-<div class="nav nav-tabs" id="nav-tab" role="tablist">
-	<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-	<a class="nav-item nav-link" id="nav-picture-tab" data-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false">Profile picture</a>
-	<a class="nav-item nav-link" id="nav-security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false">Security</a>
-	<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false">Social Networks</a>
+<div class="align-middle">
+	<div class="float-right mt-1">
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'person')); ?>
 </div>
+
+<!-- TABS -->
+<nav class="mb-3">
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+		<a class="nav-item nav-link" id="nav-picture-tab" data-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false">Profile picture</a>
+		<a class="nav-item nav-link" id="nav-security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false">Security</a>
+		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false">Social Networks</a>
+	</div>
 </nav>
 
 <?php
-	// Start form
-	echo Bootstrap::formOpen(array(
-		'id'=>'jsform',
-		'class'=>''
-	));
-
 	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
@@ -92,40 +95,36 @@
 			'placeholder'=>'',
 			'tip'=>''
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
 
 	<!-- Profile picture tab -->
 	<div class="tab-pane fade" id="picture" role="tabpanel" aria-labelledby="nav-picture-tab">
-		<div>
-			<img id="jscoverImagePreview" class="d-block w-50" alt="Profile picture preview" src="<?php echo HTML_PATH_ADMIN_THEME_IMG ?>default.svg" />
+		<div class="custom-file mb-2">
+			<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
+			<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Choose images to upload'); ?></label>
 		</div>
-		<div class="mt-2">
-			<button type="button" id="jsbuttonSelectCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Select cover image') ?></button>
-			<button type="button" id="jsbuttonRemoveCoverImage" class="btn btn-secondary btn-sm"><?php echo $L->g('Remove cover image') ?></button>
+		<div>
+			<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png':HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
 		</div>
 		<script>
-			$(document).ready(function() {
-				$("#jscoverImagePreview").on("click", function() {
-					openMediaManager();
-				});
-
-				$("#jsbuttonSelectCoverImage").on("click", function() {
-					openMediaManager();
-				});
-
-				$("#jsbuttonRemoveCoverImage").on("click", function() {
-					$("#jscoverImage").val('');
-					$("#jscoverImagePreview").attr('src', HTML_PATH_ADMIN_THEME_IMG+'default.svg');
-				});
+		$("#jsprofilePictureInputFile").on("change", function() {
+			var formData = new FormData();
+			formData.append('tokenCSRF', tokenCSRF);
+			formData.append('profilePictureInputFile', $(this)[0].files[0]);
+			formData.append('username', $("#jsusername").val());
+			$.ajax({
+				url: HTML_PATH_ADMIN_ROOT+"ajax/profile-picture",
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false
+			}).done(function(json) {
+				console.log(json);
+				$("#jsprofilePicturePreview").attr('src',json.absoluteURL+"?time="+Math.random());
 			});
+		});
 		</script>
 	</div>
 
@@ -184,6 +183,7 @@
 			'label'=>'Twitter',
 			'value'=>$user->twitter(),
 			'class'=>'',
+			'placeholder'=>'',
 			'tip'=>''
 		));
 
@@ -192,6 +192,16 @@
 			'label'=>'Facebook',
 			'value'=>$user->facebook(),
 			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'codepen',
+			'label'=>'CodePen',
+			'value'=>$user->codepen(),
+			'class'=>'',
+			'placeholder'=>'',
 			'tip'=>''
 		));
 
@@ -200,47 +210,47 @@
 			'label'=>'Instagram',
 			'value'=>$user->instagram(),
 			'class'=>'',
-			'tip'=>''
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'codepen',
-			'label'=>'Codepen',
-			'value'=>$user->codepen(),
-			'class'=>'',
-			'tip'=>''
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'linkedin',
-			'label'=>'Linkedin',
-			'value'=>$user->linkedin(),
-			'class'=>'',
-			'tip'=>''
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'github',
-			'label'=>'Github',
-			'value'=>$user->github(),
-			'class'=>'',
+			'placeholder'=>'',
 			'tip'=>''
 		));
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'gitlab',
-			'label'=>'Gitlab',
+			'label'=>'GitLab',
 			'value'=>$user->gitlab(),
 			'class'=>'',
+			'placeholder'=>'',
 			'tip'=>''
 		));
 
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
+		echo Bootstrap::formInputText(array(
+			'name'=>'github',
+			'label'=>'GitHub',
+			'value'=>$user->github(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'linkedin',
+			'label'=>'LinkedIn',
+			'value'=>$user->linkedin(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'mastodon',
+			'label'=>'Mastodon',
+			'value'=>$user->mastodon(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
 	?>
 	</div>
 </div>
+
+<?php echo Bootstrap::formClose(); ?>

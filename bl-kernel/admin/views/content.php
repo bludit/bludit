@@ -236,15 +236,16 @@ function table($type) {
 </div>
 
 <!-- Modal for delete page -->
-<?php echo Bootstrap::modal(array(
-	'modalId'=>'jsdeletePageModal',
-	'modalTitle'=>$L->g('Delete content'),
-	'modalText'=>$L->g('Are you sure you want to delete this page'),
-	'buttonPrimary'=>$L->g('Delete'),
-	'buttonPrimaryClass'=>'deletePageModalAcceptButton',
-	'buttonSecondary'=>$L->g('Cancel'),
-	'buttonSecondaryClass'=>''
-));
+<?php
+	echo Bootstrap::modal(array(
+		'buttonPrimary'=>$L->g('Delete'),
+		'buttonPrimaryClass'=>'btn-danger jsbuttonDeleteAccept',
+		'buttonSecondary'=>$L->g('Cancel'),
+		'buttonSecondaryClass'=>'btn-secondary',
+		'modalTitle'=>$L->g('Delete content'),
+		'modalText'=>$L->g('Are you sure you want to delete this page'),
+		'modalId'=>'jsdeletePageModal'
+	));
 ?>
 <script>
 $(document).ready(function() {

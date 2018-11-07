@@ -1,3 +1,5 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
+
 <?php
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'people'));

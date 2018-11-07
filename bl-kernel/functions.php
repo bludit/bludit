@@ -668,21 +668,21 @@ function checkRole($allowRoles, $redirect=true) {
 
 // Add a new category to the system
 // Returns TRUE is successfully added, FALSE otherwise
-function createCategory($category) {
+function createCategory($args) {
 	global $categories;
 	global $L;
 	global $syslog;
 
-	if (Text::isEmpty($category)) {
+	if (Text::isEmpty($args['name'])) {
 		Alert::set($L->g('Category name is empty'), ALERT_STATUS_FAIL);
 		return false;
 	}
 
-	if ($categories->add(array('name'=>$category))) {
+	if ($categories->add(array('name'=>$args['name'], 'description'=>$args['description']))) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-category-created',
-			'notes'=>$category
+			'notes'=>$args['name']
 		));
 
 		Alert::set($L->g('Category added'), ALERT_STATUS_OK);
