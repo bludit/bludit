@@ -364,5 +364,6 @@
     "there-are-no-images-for-the-page": "No hay imágenes para la página.",
     "select-cover-image": "Seleccionar imagen de portada",
     "this-plugin-depends-on-the-following-plugins": "Este plugin depende de los siguientes plugins.",
-    "no-pages-found": "No pages found"
+    "no-pages-found": "No se han encontrado páginas.",
+    "system-updated": "Sistema actualizado."
 }

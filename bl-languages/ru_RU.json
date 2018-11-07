@@ -365,5 +365,6 @@
     "there-are-no-images-for-the-page": "На вашей странице нет изображений.",
     "select-cover-image": "Выбрать изображение обложки",
     "this-plugin-depends-on-the-following-plugins": "Этот плагин зависит от следующих плагинов.",
-    "no-pages-found": "Страниц не найдено"
+    "no-pages-found": "Страниц не найдено",
+    "system-updated": "System updated"
 }

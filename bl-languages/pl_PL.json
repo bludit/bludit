@@ -364,5 +364,7 @@
     "hello": "Cześć",
     "there-are-no-images-for-the-page": "Dla tej strony nie ma żadnych obrazków.",
     "select-cover-image": "Wybierz okładkę wpisu",
-    "this-plugin-depends-on-the-following-plugins": "Ta wtyczka zależna jest od innych rozszerzeń"
+    "this-plugin-depends-on-the-following-plugins": "Ta wtyczka zależna jest od innych rozszerzeń",
+    "no-pages-found": "No pages found",
+    "system-updated": "System updated"
 }
