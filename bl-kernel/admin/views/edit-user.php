@@ -13,10 +13,10 @@
 <!-- TABS -->
 <nav class="mb-3">
 	<div class="nav nav-tabs" id="nav-tab" role="tablist">
-		<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-		<a class="nav-item nav-link" id="nav-picture-tab" data-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false">Profile picture</a>
-		<a class="nav-item nav-link" id="nav-security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false">Security</a>
-		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false">Social Networks</a>
+		<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><?php $L->p('Profile') ?></a>
+		<a class="nav-item nav-link" id="nav-picture-tab" data-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false"><?php $L->p('Profile picture') ?></a>
+		<a class="nav-item nav-link" id="nav-security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false"><?php $L->p('Security') ?></a>
+		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
 	</div>
 </nav>
 
@@ -149,28 +149,30 @@
 			'tip'=>$L->g('this-token-is-similar-to-a-password-it-should-not-be-shared')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Status')));
+		if (checkRole(array('admin'),false)) {
+			echo Bootstrap::formTitle(array('title'=>$L->g('Status')));
 
-		echo Bootstrap::formInputText(array(
-			'name'=>'status',
-			'label'=>$L->g('Current status'),
-			'value'=>$user->enabled()?$L->g('Enabled'):$L->g('Disabled'),
-			'class'=>'',
-			'disabled'=>true,
-			'tip'=>$user->enabled()?'':$L->g('To enable the user you must set a new password')
-		));
+			echo Bootstrap::formInputText(array(
+				'name'=>'status',
+				'label'=>$L->g('Current status'),
+				'value'=>$user->enabled()?$L->g('Enabled'):$L->g('Disabled'),
+				'class'=>'',
+				'disabled'=>true,
+				'tip'=>$user->enabled()?'':$L->g('To enable the user you must set a new password')
+			));
 
-		if ($user->enabled()) {
-			echo '
-			<div class="form-group row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-10">
-				<button type="submit" class="btn btn-warning mr-2" id="jsdisableUser" name="disableUser">'.$L->g('Disable user').'</button>
-				<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">'.$L->g('Delete user and keep content').'</button>
-				<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content').'</button>
-			</div>
-			</div>
-			';
+			if ($user->enabled()) {
+				echo '
+				<div class="form-group row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-warning mr-2" id="jsdisableUser" name="disableUser">'.$L->g('Disable user').'</button>
+					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">'.$L->g('Delete user and keep content').'</button>
+					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content').'</button>
+				</div>
+				</div>
+				';
+			}
 		}
 	?>
 	</div>

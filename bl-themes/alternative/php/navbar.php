@@ -18,28 +18,13 @@
 				<?php endforeach ?>
 
 				<!-- Social Networks -->
-				<?php
-					$socialNetworks = array(
-						// Key => Label
-						'github'=>'Github',
-						'twitter'=>'Twitter',
-						'facebook'=>'Facebook',
-						'googleplus'=>'Google Plus',
-						'instagram'=>'Instagram',
-						'codepen'=>'Codepen',
-						'linkedin'=>'Linkedin'
-					);
-				?>
-
-				<?php foreach ($socialNetworks as $key=>$label): ?>
-					<?php if ($site->{$key}()): ?>
-					<li class="nav-item">
-						<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
-							<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="icon" />
-							<span class="d-inline d-sm-none"><?php echo $label; ?></span>
-						</a>
-					</li>
-					<?php endif; ?>
+				<?php foreach (Theme::socialNetworks() as $key=>$label): ?>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
+						<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="<?php echo $label ?>" />
+						<span class="d-inline d-sm-none"><?php echo $label; ?></span>
+					</a>
+				</li>
 				<?php endforeach; ?>
 
 			</ul>

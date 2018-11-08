@@ -366,5 +366,6 @@
     "select-cover-image": "Sélectionnez une image d’accroche.",
     "this-plugin-depends-on-the-following-plugins": "Ce plugin dépend des plugins suivants.",
     "no-pages-found": "Aucune page trouvée",
-    "system-updated": "System updated"
+    "system-updated": "System updated",
+    "security": "Security"
 }

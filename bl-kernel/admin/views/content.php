@@ -239,7 +239,7 @@ function table($type) {
 <?php
 	echo Bootstrap::modal(array(
 		'buttonPrimary'=>$L->g('Delete'),
-		'buttonPrimaryClass'=>'btn-danger jsbuttonDeleteAccept',
+		'buttonPrimaryClass'=>'btn-danger deletePageModalAcceptButton',
 		'buttonSecondary'=>$L->g('Cancel'),
 		'buttonSecondaryClass'=>'btn-secondary',
 		'modalTitle'=>$L->g('Delete content'),

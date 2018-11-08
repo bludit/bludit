@@ -15,8 +15,7 @@ echo '
 	<thead>
 		<tr>
 			<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('First name').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Last name').'</th>
+			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Nickname').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
@@ -31,9 +30,8 @@ foreach ($list as $username) {
 	try {
 		$user = new User($username);
 		echo '<tr>';
-		echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-		echo '<td class="d-none d-lg-table-cell">'.$user->firstName().'</td>';
-		echo '<td class="d-none d-lg-table-cell">'.$user->lastName().'</td>';
+		echo '<td><img class="profilePicture mr-1" alt="" src="'.(Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png':HTML_PATH_ADMIN_THEME_IMG.'default.svg').'" /><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
+		echo '<td class="d-none d-lg-table-cell">'.$user->nickname().'</td>';
 		echo '<td>'.$user->email().'</td>';
 		echo '<td>'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
 		if ($user->role()=='admin') {

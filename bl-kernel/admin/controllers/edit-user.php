@@ -19,20 +19,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		unset($_POST['role']);
 	}
 
-	if (isset($_POST['deleteUserAndDeleteContent'])) {
+	if (isset($_POST['deleteUserAndDeleteContent']) && ($login->role()==='admin')) {
 		$_POST['deleteContent'] = true;
 		deleteUser($_POST);
-	} elseif (isset($_POST['deleteUserAndKeepContent'])) {
+	} elseif (isset($_POST['deleteUserAndKeepContent']) && ($login->role()==='admin')) {
 		$_POST['deleteContent'] = false;
 		deleteUser($_POST);
-	} elseif (isset($_POST['disableUser'])) {
+	} elseif (isset($_POST['disableUser']) && ($login->role()==='admin')) {
 		disableUser(array('username'=>$_POST['username']));
 	} else {
 		editUser($_POST);
 	}
 
 	Alert::set($L->g('The changes have been saved'));
-	Redirect::page('users');
+
+	if ($login->role()==='admin') {
+		Redirect::page('users');
+	}
+	Redirect::page('edit-user/'.$login->username());
 }
 
 // ============================================================================

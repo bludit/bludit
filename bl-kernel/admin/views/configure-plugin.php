@@ -1,9 +1,19 @@
-<?php defined('BLUDIT') or die('Bludit CMS.');
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'wrench'));
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'plugin-form')); ?>
 
-echo Bootstrap::formOpen(array('class'=>'plugin-form'));
+<div class="align-middle">
+	<?php if ($plugin->formButtons()): ?>
+	<div class="float-right mt-1">
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php endif; ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'cog')); ?>
+</div>
 
+<?php
+	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$security->getTokenCSRF()
@@ -11,14 +21,6 @@ echo Bootstrap::formOpen(array('class'=>'plugin-form'));
 
 	// Print the plugin form
 	echo $plugin->form();
+?>
 
-	if ($plugin->formButtons()) {
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'plugins" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
-	}
-
-echo Bootstrap::formClose();
+<?php echo Bootstrap::formClose(); ?>

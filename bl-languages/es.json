@@ -365,5 +365,6 @@
     "select-cover-image": "Seleccionar imagen de portada",
     "this-plugin-depends-on-the-following-plugins": "Este plugin depende de los siguientes plugins.",
     "no-pages-found": "No se han encontrado páginas.",
-    "system-updated": "Sistema actualizado."
+    "system-updated": "Sistema actualizado.",
+    "security": "Seguridad"
 }

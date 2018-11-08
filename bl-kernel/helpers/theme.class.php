@@ -2,6 +2,26 @@
 
 class Theme {
 
+	public static function socialNetworks()
+	{
+		global $site;
+		$socialNetworks = array(
+			'github'=>'Github',
+			'twitter'=>'Twitter',
+			'facebook'=>'Facebook',
+			'instagram'=>'Instagram',
+			'codepen'=>'Codepen',
+			'linkedin'=>'Linkedin'
+		);
+
+		foreach ($socialNetworks as $key=>$label) {
+			if (!$site->{$key}()) {
+				unset($socialNetworks[$key]);
+			}
+		}
+		return $socialNetworks;
+	}
+
 	public static function title()
 	{
 		global $site;

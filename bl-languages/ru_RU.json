@@ -366,5 +366,6 @@
     "select-cover-image": "Выбрать изображение обложки",
     "this-plugin-depends-on-the-following-plugins": "Этот плагин зависит от следующих плагинов.",
     "no-pages-found": "Страниц не найдено",
-    "system-updated": "System updated"
+    "system-updated": "System updated",
+    "security": "Security"
 }

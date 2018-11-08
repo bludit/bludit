@@ -1,5 +1,4 @@
 <?php foreach ($content as $page): ?>
-
 <!-- Post -->
 <div class="card my-5 border-0">
 
@@ -34,9 +33,7 @@
 	<?php Theme::plugins('pageEnd'); ?>
 
 </div>
-
 <hr>
-
 <?php endforeach ?>
 
 <!-- Pagination -->

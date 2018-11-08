@@ -366,5 +366,6 @@
     "select-cover-image": "Select cover image",
     "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
     "no-pages-found": "No pages found.",
-    "system-updated": "System updated."
+    "system-updated": "System updated.",
+    "security": "Security"
 }

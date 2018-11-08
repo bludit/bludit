@@ -319,3 +319,9 @@ td.child {
 	z-index: 10;
 	display: none;
 }
+
+img.profilePicture {
+	width: 30px;
+	border-radius: 30px;
+	border: 1px solid #ccc;
+}

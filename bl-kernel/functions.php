@@ -790,16 +790,18 @@ function getTag($key) {
 	}
 }
 
+// Activate a theme
 function activateTheme($themeDirectory) {
 	global $site;
 	global $syslog;
+	global $L;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
-		$site->set(array('theme'=>$themeDirname));
+		$site->set(array('theme'=>$themeDirectory));
 
 		$syslog->add(array(
 			'dictionaryKey'=>'new-theme-configured',
-			'notes'=>$themeDirname
+			'notes'=>$themeDirectory
 		));
 
 		Alert::set( $L->g('The changes have been saved') );

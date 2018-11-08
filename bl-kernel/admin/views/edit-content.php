@@ -238,7 +238,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'',
 					'label'=>$L->g('Author'),
 					'placeholder'=>'',
-					'value'=>$login->username(),
+					'value'=>$page->username(),
 					'tip'=>'',
 					'disabled'=>true
 				));

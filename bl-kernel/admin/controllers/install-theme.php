@@ -21,20 +21,10 @@ checkRole(array('admin'));
 // ============================================================================
 // Main after POST
 // ============================================================================
-$themeDirname = $layout['parameters'];
+$themeDirectory = $layout['parameters'];
 
-if (Sanitize::pathFile(PATH_THEMES.$themeDirname)) {
-	$site->set(array('theme'=>$themeDirname));
-
-	// Add to syslog
-	$syslog->add(array(
-		'dictionaryKey'=>'new-theme-configured',
-		'notes'=>$themeDirname
-	));
-
-	// Create an alert
-	Alert::set( $L->g('The changes have been saved') );
-}
+// Activate theme
+activateTheme($themeDirectory);
 
 // Redirect
 Redirect::page('themes');
