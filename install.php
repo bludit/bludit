@@ -463,9 +463,9 @@ function install($adminPassword, $timezone)
 
 	// File tags.php
 	$data = array(
-		'bludit'=>array('name'=>'Bludit', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
-		'cms'=>array('name'=>'CMS', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
-		'flat-files'=>array('name'=>'Flat files', 'description'=>'', 'template'=>'', 'list'=>array('welcome'))
+		'bludit'=>array('name'=>'Bludit', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit')),
+		'cms'=>array('name'=>'CMS', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit')),
+		'flat-files'=>array('name'=>'Flat files', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit'))
 	);
 	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
