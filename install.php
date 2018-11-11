@@ -423,7 +423,6 @@ function install($adminPassword, $timezone)
 			'tokenAuthTTL'=>'2009-03-15 14:00',
 			'twitter'=>'',
 			'facebook'=>'',
-			'googlePlus'=>'',
 			'instagram'=>'',
 			'codepen'=>'',
 			'linkedin'=>'',
@@ -565,8 +564,13 @@ if (isset($_GET['demo'])) {
 
 // Install by POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	install($_POST['password'], $_POST['timezone']);
-	redirect(HTML_PATH_ROOT);
+	if (Text::length($_POST['password'])<6) {
+		$errorText = $L->g('password-must-be-at-least-6-characters-long');
+		error_log('[ERROR] '.$errorText, 0);
+	} else {
+		install($_POST['password'], $_POST['timezone']);
+		redirect(HTML_PATH_ROOT);
+	}
 }
 
 ?>
@@ -614,6 +618,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			{
 			?>
 				<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
+
+				<?php if (!empty($errorText)): ?>
+				<div class="alert alert-danger"><?php echo $errorText ?></div>
+				<?php endif ?>
 
 				<form id="jsformInstaller" method="post" action="" autocomplete="off">
 					<input type="hidden" name="timezone" id="jstimezone" value="UTC">
