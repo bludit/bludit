@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Hit Counter",
+		"description": "Anzeige der Anzahl der Seitenaufrufe oder der Besuche in der Seitenleiste."
+	}
+}
