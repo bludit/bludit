@@ -367,5 +367,6 @@
     "this-plugin-depends-on-the-following-plugins": "Этот плагин зависит от следующих плагинов.",
     "no-pages-found": "Страниц не найдено",
     "system-updated": "Система обновлена",
-    "security": "Безопасность"
+    "security": "Безопасность",
+    "remove-cover-image": "Remove cover image"
 }

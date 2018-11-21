@@ -367,5 +367,6 @@
     "this-plugin-depends-on-the-following-plugins": "Um dieses Plugin zu verwenden braucht es auch folgendes Plugin:",
     "no-pages-found": "Es wurden keine Seiten gefunden",
     "system-updated": "Das system wurde aufdatiert",
-    "security": "Sicherheit"
+    "security": "Sicherheit",
+    "remove-cover-image": "Remove cover image"
 }

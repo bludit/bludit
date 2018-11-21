@@ -368,5 +368,6 @@
     "this-plugin-depends-on-the-following-plugins": "Bu eklenti aşağıdaki eklentilere bağlıdır.",
     "no-pages-found": "No pages found",
     "system-updated": "System updated",
-    "security": "Security"
+    "security": "Security",
+    "remove-cover-image": "Remove cover image"
 }

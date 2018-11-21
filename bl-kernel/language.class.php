@@ -111,18 +111,6 @@ class Language extends dbJSON {
 		$this->db = array_merge($array, $this->db);
 	}
 
-	/*
-	// Returns the item from language-data
-	public function getData($key)
-	{
-		if (isset($this->data[$key])) {
-			return $this->data[$key];
-		}
-
-		return false;
-	}
-	*/
-
 	// Returns an array with all dictionaries
 	public function getLanguageList()
 	{
