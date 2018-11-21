@@ -206,8 +206,8 @@ class Filesystem {
 	// Returns the next filename if the filename already exist
 	public static function nextFilename($path=PATH_UPLOADS, $filename) {
 		// Clean filename and get extension
-		$filename 	= Text::lowercase($filename);
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
+		$fileExtension 	= Text::lowercase($fileExtension);
 		$filename 	= pathinfo($filename, PATHINFO_FILENAME);
 		$filename 	= Text::replace(' ', '', $filename);
 		$filename 	= Text::replace('_', '', $filename);

@@ -44,6 +44,7 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 
 	// Check file extension
 	$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+	$fileExtension = Text::lowercase($fileExtension);
 	if (!in_array($fileExtension, $allowedExtensions) ) {
 		$message = 'Extension file not supported.';
 		Log::set($message, LOG_TYPE_ERROR);
@@ -53,7 +54,7 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 		)));
 	}
 
-	// Get the next filename to not overwrite the original file
+	// Generate the next filename to not overwrite the original file
 	$nextFilename = Filesystem::nextFilename($uploadDirectory, $filename);
 
 	// Move from temporary directory to uploads folder
