@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2018-11-19",
+        "last-update": "2018-11-21",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -368,5 +368,5 @@
     "no-pages-found": "Es wurden keine Seiten gefunden",
     "system-updated": "Das system wurde aufdatiert",
     "security": "Sicherheit",
-    "remove-cover-image": "Remove cover image"
+    "remove-cover-image": "Hauptbild entfernen"
 }
