@@ -53,7 +53,7 @@
 			echo Bootstrap::formSelect(array(
 				'name'=>'role',
 				'label'=>$L->g('Role'),
-				'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+				'options'=>array('writer'=>$L->g('Writer'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 				'selected'=>$user->role(),
 				'class'=>'',
 				'tip'=>''
