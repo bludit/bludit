@@ -1,3 +1,9 @@
+<?php if (empty($content)): ?>
+	<div class="mt-4">
+	<?php $language->p('No pages found') ?>
+	</div>
+<?php endif ?>
+
 <?php foreach ($content as $page): ?>
 <!-- Post -->
 <div class="card my-5 border-0">
