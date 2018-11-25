@@ -67,8 +67,8 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 		symlink($uploadDirectory.$nextFilename, $thumbnailDirectory.$nextFilename);
 	} else {
 		$Image = new Image();
-		$Image->setImage($uploadDirectory.$nextFilename, $GLOBALS['THUMBNAILS_WIDTH'], $GLOBALS['THUMBNAILS_HEIGHT'], 'crop');
-		$Image->saveImage($thumbnailDirectory.$nextFilename, $GLOBALS['THUMBNAILS_QUALITY'], true);
+		$Image->setImage($uploadDirectory.$nextFilename, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
+		$Image->saveImage($thumbnailDirectory.$nextFilename, $site->thumbnailQuality(), true);
 	}
 }
 

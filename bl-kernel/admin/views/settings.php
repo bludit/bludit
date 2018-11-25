@@ -17,6 +17,7 @@
 		<a class="nav-item nav-link" id="nav-advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
 		<a class="nav-item nav-link" id="nav-seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
 		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
+		<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
 		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
 	</div>
 </nav>
@@ -377,6 +378,40 @@
 			'name'=>'mastodon',
 			'label'=>'Mastodon',
 			'value'=>$site->mastodon(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+	?>
+	</div>
+
+	<!-- Images tab -->
+	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailWidth',
+			'label'=>$L->g('Width'),
+			'value'=>$site->thumbnailWidth(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailHeight',
+			'label'=>$L->g('Height'),
+			'value'=>$site->thumbnailHeight(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailQuality',
+			'label'=>$L->g('Quality'),
+			'value'=>$site->thumbnailQuality(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
