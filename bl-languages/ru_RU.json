@@ -5,7 +5,7 @@
         "locale": "ru, ru_RU",
         "last-update": "2018-08-27",
         "authors": [
-            "Сергей Ворон",
+            "Сергей Ворон https:\/\/voron.pw",
             "Макс Костиков https:\/\/kostikov.co",
             "Paul https:\/\/r-e-d.red",
             ""
@@ -368,8 +368,8 @@
     "no-pages-found": "Страниц не найдено",
     "system-updated": "Система обновлена",
     "security": "Безопасность",
-    "remove-cover-image": "Remove cover image",
-    "width": "Width",
-    "height": "Height",
-    "quality": "Quality"
+    "remove-cover-image": "Удалить изображение обложки",
+    "width": "Ширина",
+    "height": "Высота",
+    "quality": "Качество"
 }
