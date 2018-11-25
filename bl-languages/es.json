@@ -367,5 +367,8 @@
     "no-pages-found": "No se han encontrado páginas.",
     "system-updated": "Sistema actualizado.",
     "security": "Seguridad",
-    "remove-cover-image": "Eliminar portada"
+    "remove-cover-image": "Eliminar portada",
+    "width": "Ancho",
+    "height": "Alto",
+    "quality": "Calidad"
 }

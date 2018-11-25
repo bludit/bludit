@@ -368,5 +368,8 @@
     "no-pages-found": "Страниц не найдено",
     "system-updated": "Система обновлена",
     "security": "Безопасность",
-    "remove-cover-image": "Remove cover image"
+    "remove-cover-image": "Remove cover image",
+    "width": "Width",
+    "height": "Height",
+    "quality": "Quality"
 }

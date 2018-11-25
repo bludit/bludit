@@ -369,5 +369,8 @@
     "no-pages-found": "Sayfa bulunamadı",
     "system-updated": "Sistem güncellendi",
     "security": "Güvenlik",
-    "remove-cover-image": "Kapak resmini kaldır"
+    "remove-cover-image": "Kapak resmini kaldır",
+    "width": "Width",
+    "height": "Height",
+    "quality": "Quality"
 }

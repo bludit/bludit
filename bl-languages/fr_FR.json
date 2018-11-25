@@ -368,5 +368,8 @@
     "no-pages-found": "Aucune page trouvée",
     "system-updated": "System updated",
     "security": "Security",
-    "remove-cover-image": "Remove cover image"
+    "remove-cover-image": "Remove cover image",
+    "width": "Width",
+    "height": "Height",
+    "quality": "Quality"
 }

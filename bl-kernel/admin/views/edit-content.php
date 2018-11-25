@@ -357,8 +357,8 @@ echo Bootstrap::formOpen(array(
 				<?php $L->p('Are you sure you want to delete this page') ?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal" id="jsbuttonDeleteAccept"><?php $L->p('Delete') ?></button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
 			</div>
 		</div>
 	</div>
