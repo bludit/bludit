@@ -370,5 +370,10 @@
     "remove-cover-image": "Eliminar portada",
     "width": "Ancho",
     "height": "Alto",
-    "quality": "Calidad"
+    "quality": "Calidad",
+    "thumbnails": "Miniaturas",
+    "thumbnail": "Miniatura",
+    "thumbnail-width-in-pixels": "Ancho de miniatura en píxeles (px).",
+    "thumbnail-height-in-pixels": "Altura de miniaturas en píxeles (px).",
+    "thumbnail-quality-in-percentage": "Calidad de la miniatura en porcentaje (%)."
 }

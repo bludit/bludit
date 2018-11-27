@@ -372,5 +372,10 @@
     "remove-cover-image": "Kapak resmini kaldır",
     "width": "Width",
     "height": "Height",
-    "quality": "Quality"
+    "quality": "Quality",
+    "thumbnails": "Thumbnails",
+    "thumbnail": "Thumbnail",
+    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
+    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
+    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
 }

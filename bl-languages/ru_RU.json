@@ -371,5 +371,10 @@
     "remove-cover-image": "Удалить изображение обложки",
     "width": "Ширина",
     "height": "Высота",
-    "quality": "Качество"
+    "quality": "Качество",
+    "thumbnails": "Thumbnails",
+    "thumbnail": "Thumbnail",
+    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
+    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
+    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
 }

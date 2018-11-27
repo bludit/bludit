@@ -396,7 +396,7 @@
 			'value'=>$site->thumbnailWidth(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>''
+			'tip'=>$L->g('Thumbnail width in pixels')
 		));
 
 		echo Bootstrap::formInputText(array(
@@ -405,7 +405,7 @@
 			'value'=>$site->thumbnailHeight(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>''
+			'tip'=>$L->g('Thumbnail height in pixels')
 		));
 
 		echo Bootstrap::formInputText(array(
@@ -414,7 +414,7 @@
 			'value'=>$site->thumbnailQuality(),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>''
+			'tip'=>$L->g('Thumbnail quality in percentage')
 		));
 	?>
 	</div>
