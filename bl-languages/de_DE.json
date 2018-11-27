@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-11-21",
+        "last-update": "2018-11-27",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -369,7 +369,7 @@
     "system-updated": "Das System wurde aufdatiert",
     "security": "Sicherheit",
     "remove-cover-image": "Hauptbild entfernen",
-    "width": "Width",
-    "height": "Height",
-    "quality": "Quality"
+    "width": "Breite",
+    "height": "Höhe",
+    "quality": "Qualität"
 }
