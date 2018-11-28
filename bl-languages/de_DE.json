@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-11-27",
+        "last-update": "2018-11-28",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -372,9 +372,9 @@
     "width": "Breite",
     "height": "Höhe",
     "quality": "Qualität",
-    "thumbnails": "Thumbnails",
-    "thumbnail": "Thumbnail",
-    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
-    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
-    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
+    "thumbnails": "Vorschaubilder",
+    "thumbnail": "Vorschaubild",
+    "thumbnail-width-in-pixels": "Breite der Vorschaubilder in Pixel (px).",
+    "thumbnail-height-in-pixels": "Höhe der Vorschaubilder in Pixel (px).",
+    "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%)."
 }
