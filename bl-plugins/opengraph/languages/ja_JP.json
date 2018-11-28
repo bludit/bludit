@@ -3,5 +3,7 @@
 	{
 		"name": "Open Graph",
 		"description": "Open Graph protocol(OGP)を有効にすると、Webページがソーシャルグラフ上のリッチなオブジェクトになります。"
-	}
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
 }

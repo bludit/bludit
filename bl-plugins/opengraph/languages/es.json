@@ -4,5 +4,6 @@
 		"name": "Open Graph",
 		"description": "Este complemento mejora las publicaciones en las redes sociales con este plugin."
 	},
-	"default-image": "Imagen predeterminada"
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
 }
