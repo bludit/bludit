@@ -178,13 +178,13 @@ body.login {
 
 .alert-success {
 	background-color: #4586d4;
-	border-left: 6px solid #abd1ff;
+	border-left: 6px solid #abd1ff !important;
 	color: #ffffff;
 }
 
 .alert-danger {
 	background-color: #d44545;
-	border-left: 6px solid #ff9c9c;
+	border-left: 6px solid #ff9c9c !important;
 	color: #ffffff;
 }
 
