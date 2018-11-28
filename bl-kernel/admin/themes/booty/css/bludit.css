@@ -81,6 +81,18 @@ code {
 	cursor: pointer;
 }
 
+.modal-body {
+	padding: 2rem;
+}
+
+.modal-footer {
+	background-color: rgb(247, 247, 247);
+}
+
+.modal-dialog .btn-link {
+	color: #000;
+}
+
 /*
 	LOGIN
 */
@@ -166,11 +178,13 @@ body.login {
 
 .alert-success {
 	background-color: #4586d4;
+	border-left: 6px solid #abd1ff;
 	color: #ffffff;
 }
 
 .alert-danger {
 	background-color: #d44545;
+	border-left: 6px solid #ff9c9c;
 	color: #ffffff;
 }
 
@@ -325,3 +339,4 @@ img.profilePicture {
 	border-radius: 30px;
 	border: 1px solid #ccc;
 }
+

@@ -75,7 +75,7 @@ echo Bootstrap::formClose();
 		'buttonPrimary'=>$L->g('Delete'),
 		'buttonPrimaryClass'=>'btn-danger jsbuttonDeleteAccept',
 		'buttonSecondary'=>$L->g('Cancel'),
-		'buttonSecondaryClass'=>'btn-secondary',
+		'buttonSecondaryClass'=>'btn-link',
 		'modalTitle'=>$L->g('Delete category'),
 		'modalText'=>$L->g('Are you sure you want to delete this category?'),
 		'modalId'=>'jsdeleteModal'

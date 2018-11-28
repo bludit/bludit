@@ -241,7 +241,7 @@ function table($type) {
 		'buttonPrimary'=>$L->g('Delete'),
 		'buttonPrimaryClass'=>'btn-danger deletePageModalAcceptButton',
 		'buttonSecondary'=>$L->g('Cancel'),
-		'buttonSecondaryClass'=>'btn-secondary',
+		'buttonSecondaryClass'=>'btn-link',
 		'modalTitle'=>$L->g('Delete content'),
 		'modalText'=>$L->g('Are you sure you want to delete this page'),
 		'modalId'=>'jsdeletePageModal'

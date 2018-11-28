@@ -350,15 +350,13 @@ echo Bootstrap::formOpen(array(
 <div id="jsdeletePageModal" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title"><?php $L->p('Delete content') ?></h5>
-			</div>
 			<div class="modal-body">
-				<?php $L->p('Are you sure you want to delete this page') ?>
+				<h3><?php $L->p('Delete content') ?></h3>
+				<p><?php $L->p('Are you sure you want to delete this page') ?></p>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal" id="jsbuttonDeleteAccept"><?php $L->p('Delete') ?></button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
 			</div>
 		</div>
 	</div>

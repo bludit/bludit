@@ -24,8 +24,8 @@ return <<<EOF
 				<p>$modalText</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
 				<button type="button" class="btn $buttonSecondaryClass" data-dismiss="modal">$buttonSecondary</button>
+				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
 			</div>
 		</div>
 	</div>
