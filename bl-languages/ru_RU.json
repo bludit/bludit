@@ -372,9 +372,9 @@
     "width": "Ширина",
     "height": "Высота",
     "quality": "Качество",
-    "thumbnails": "Thumbnails",
-    "thumbnail": "Thumbnail",
-    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
-    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
-    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
+    "thumbnails": "Миниатюры",
+    "thumbnail": "Миниатюра изображения",
+    "thumbnail-width-in-pixels": "Ширина миниатюры изображения в пикселях (px).",
+    "thumbnail-height-in-pixels": "Высота миниатюры изображения в пикселях (px).",
+    "thumbnail-quality-in-percentage": "Качество миниатюры изображения в процентах (%)."
 }
