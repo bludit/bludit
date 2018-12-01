@@ -3,8 +3,8 @@
 // Bludit version
 define('BLUDIT_VERSION',	'3.5');
 define('BLUDIT_CODENAME',	'IPA');
-define('BLUDIT_RELEASE_DATE',	'2018-11-29');
-define('BLUDIT_BUILD',		'20181129');
+define('BLUDIT_RELEASE_DATE',	'2018-12-01');
+define('BLUDIT_BUILD',		'201811201');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
