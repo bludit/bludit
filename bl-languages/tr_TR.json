@@ -3,7 +3,7 @@
         "native": "Türkçe",
         "english-name": "Turkish",
         "locale": "tr, tr_TR",
-        "last-update": "2018-11-24",
+        "last-update": "2018-12-02",
         "authors": [
             "Ali Demirtas",
             "guleyc",
@@ -370,12 +370,12 @@
     "system-updated": "Sistem güncellendi",
     "security": "Güvenlik",
     "remove-cover-image": "Kapak resmini kaldır",
-    "width": "Width",
-    "height": "Height",
-    "quality": "Quality",
-    "thumbnails": "Thumbnails",
-    "thumbnail": "Thumbnail",
-    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
-    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
-    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
+    "width": "Genişlik",
+    "height": "Yükseklik",
+    "quality": "Kalite",
+    "thumbnails": "Küçük resimler",
+    "thumbnail": "Küçük resim",
+    "thumbnail-width-in-pixels": "Piksel olarak küçük resim genişliği (px).",
+    "thumbnail-height-in-pixels": "Piksel olarak küçük resim yüksekliği (px).",
+    "thumbnail-quality-in-percentage": "Yüzde olarak küçük resim kalitesi (%)."
 }
