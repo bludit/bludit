@@ -304,20 +304,20 @@ class Page {
 	// Returns the endpoint of the thumbnail cover image, FALSE if the page doesn't have a cover image
 	public function thumbCoverImage()
 	{
-		$coverImageFilename = $this->coverImage(false);
-		if ($coverImageFilename==false) {
+		$filename = $this->coverImage(false);
+		if ($filename==false) {
 			return false;
 		}
 
 		// Check is external cover image
-		if (filter_var($coverImageFilename, FILTER_VALIDATE_URL)) {
-			return $coverImageFilename;
+		if (filter_var($filename, FILTER_VALIDATE_URL)) {
+			return $filename;
 		}
 
 		if (IMAGE_RESTRICT) {
 			return DOMAIN_UPLOADS_PAGES.$this->uuid().'/thumbnails/'.$filename;
 		}
-		return DOMAIN_UPLOADS_THUMBNAILS.$coverImageFilename;
+		return DOMAIN_UPLOADS_THUMBNAILS.$filename;
 	}
 
 	// Returns TRUE if the content has the text splited

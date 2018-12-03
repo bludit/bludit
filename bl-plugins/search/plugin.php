@@ -122,7 +122,6 @@ class pluginSearch extends Plugin {
 	{
 		$webhook = 'search';
 		if ($this->webhook($webhook, false, false)) {
-
 			global $url;
 			global $WHERE_AM_I;
 			$WHERE_AM_I = 'search';
@@ -164,7 +163,6 @@ class pluginSearch extends Plugin {
 			$cache[$pageKey]['title'] = $page->title();
 			$cache[$pageKey]['description'] = $page->description();
 			$cache[$pageKey]['content'] = $content;
-			$cache[$pageKey]['key'] = $pageKey;
 		}
 
 		// Generate JSON file with the cache
@@ -187,27 +185,12 @@ class pluginSearch extends Plugin {
 		$json = file_get_contents($this->cacheFile());
 		$cache = json_decode($json, true);
 
-		$found = array();
-		foreach ($cache as $page) {
-			$score = 0;
-			if (Text::stringContains($page['title'], $text, false)) {
-				$score += 10;
-			}
-			if (Text::stringContains($page['description'], $text, false)) {
-				$score += 7;
-			}
-			if (Text::stringContains($page['content'], $text, false)) {
-				$score += 5;
-			}
-			if ($score>0) {
-				$found[$page['key']] = $score;
-			}
-		}
+		// Inlcude Fuzz algorithm
+		require_once($this->phpPath().'vendors/fuzz.php');
+		$fuzz = new Fuzz($cache, 10, 1, true);
+		$results = $fuzz->search($text, 3);
 
-		// Sort array by the score, from max to min
-		arsort($found);
-		// Returns only the keys of the array contained the page key
-		return array_keys($found);
+		return(array_keys($results));
 	}
 
 }

@@ -1,5 +1,10 @@
-<?php foreach ($content as $page): ?>
+<?php if (empty($content)): ?>
+	<div class="mt-4">
+	<?php $language->p('No pages found') ?>
+	</div>
+<?php endif ?>
 
+<?php foreach ($content as $page): ?>
 <!-- Post -->
 <div class="card my-5 border-0">
 
@@ -34,9 +39,7 @@
 	<?php Theme::plugins('pageEnd'); ?>
 
 </div>
-
 <hr>
-
 <?php endforeach ?>
 
 <!-- Pagination -->

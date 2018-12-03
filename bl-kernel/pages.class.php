@@ -280,6 +280,9 @@ class Pages extends dbJSON {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
 		}
 
+		// Delete page images directory; The function already check if exists the directory
+		Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$this->db[$key]['uuid']);
+
 		// Remove from database
 		unset($this->db[$key]);
 

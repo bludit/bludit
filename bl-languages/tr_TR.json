@@ -3,7 +3,7 @@
         "native": "Türkçe",
         "english-name": "Turkish",
         "locale": "tr, tr_TR",
-        "last-update": "2018-09-18",
+        "last-update": "2018-11-24",
         "authors": [
             "Ali Demirtas",
             "guleyc",
@@ -366,5 +366,16 @@
     "there-are-no-images-for-the-page": "Sayfa için resim yok.",
     "select-cover-image": "Kapak resmini seç",
     "this-plugin-depends-on-the-following-plugins": "Bu eklenti aşağıdaki eklentilere bağlıdır.",
-    "no-pages-found": "No pages found"
+    "no-pages-found": "Sayfa bulunamadı",
+    "system-updated": "Sistem güncellendi",
+    "security": "Güvenlik",
+    "remove-cover-image": "Kapak resmini kaldır",
+    "width": "Width",
+    "height": "Height",
+    "quality": "Quality",
+    "thumbnails": "Thumbnails",
+    "thumbnail": "Thumbnail",
+    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
+    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
+    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
 }

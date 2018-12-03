@@ -1,16 +1,23 @@
-<?php defined('BLUDIT') or die('Bludit CMS.');
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('New Category'), 'icon'=>'grid-three-up'));
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-echo Bootstrap::formOpen(array());
+<div class="align-middle">
+	<div class="float-right mt-1">
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('New category'), 'icon'=>'tag')); ?>
+</div>
 
+<?php
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
 		'value'=>$security->getTokenCSRF()
 	));
 
-	echo Bootstrap::formInputTextBlock(array(
-		'name'=>'category',
+	echo Bootstrap::formInputText(array(
+		'name'=>'name',
 		'label'=>$L->g('Name'),
 		'value'=>isset($_POST['category'])?$_POST['category']:'',
 		'class'=>'',
@@ -18,11 +25,15 @@ echo Bootstrap::formOpen(array());
 		'tip'=>''
 	));
 
-	echo '
-	<div class="form-group mt-4">
-		<button type="submit" class="btn btn-primary mr-2">'.$L->g('Save').'</button>
-		<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'categories" role="button">'.$L->g('Cancel').'</a>
-	</div>
-	';
+	echo Bootstrap::formTextarea(array(
+		'name'=>'description',
+		'label'=>$L->g('Description'),
+		'value'=>isset($_POST['description'])?$_POST['description']:'',
+		'class'=>'',
+		'placeholder'=>'',
+		'tip'=>'',
+		'rows'=>3
+	));
+?>
 
-echo Bootstrap::formClose();
+<?php echo Bootstrap::formClose(); ?>

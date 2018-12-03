@@ -318,7 +318,7 @@
     "user": "User",
     "date-format-format": "Date format: <code>YYYY-MM-DD Hours:Minutes:Seconds<\/code>",
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Start typing a page title to see a list of suggestions.",
-    "field-used-when-ordering-content-by-position": "Field used when ordering content by position",
+    "field-used-when-ordering-content-by-position": "Field used when ordering content by position.",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Write a template name to filter the page in the theme and change the style of the page.",
     "write-the-tags-separated-by-comma": "Write the tags separated by comma.",
     "apply-code-noindex-code-to-this-page": "Apply <code>noindex<\/code> to this page.",
@@ -365,5 +365,16 @@
     "there-are-no-images-for-the-page": "There are no images for the page.",
     "select-cover-image": "Select cover image",
     "this-plugin-depends-on-the-following-plugins": "This plugin depends on the following plugins.",
-    "no-pages-found": "No pages found"
+    "no-pages-found": "No pages found.",
+    "system-updated": "System updated.",
+    "security": "Security",
+    "remove-cover-image": "Remove cover image",
+    "width": "Width",
+    "height": "Height",
+    "quality": "Quality",
+    "thumbnails": "Thumbnails",
+    "thumbnail": "Thumbnail",
+    "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
+    "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
+    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
 }

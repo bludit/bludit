@@ -28,15 +28,13 @@ class Image {
 
 		$path_complete = $filename.'.'.$extension;
 
-		if($forcePNG) {
+		if ($forcePNG) {
 			$extension = 'png';
-		}
-		elseif($forceJPG) {
+		} elseif ($forceJPG) {
 			$extension = 'jpg';
 		}
 
-		switch($extension)
-		{
+		switch ($extension) {
 			case 'jpg':
 			case 'jpeg':
 				// Checking for JPG support

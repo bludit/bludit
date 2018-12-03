@@ -10,8 +10,8 @@ class Site extends dbJSON {
 		'language'=>		'en',
 		'locale'=>		'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ',
 		'timezone'=>		'America/Argentina/Buenos_Aires',
-		'theme'=>		'pure',
-		'adminTheme'=>		'default',
+		'theme'=>		'alternative',
+		'adminTheme'=>		'booty',
 		'homepage'=>		'',
 		'pageNotFound'=>	'',
 		'uriPage'=>		'/',
@@ -26,7 +26,6 @@ class Site extends dbJSON {
 		'twitter'=>		'',
 		'facebook'=>		'',
 		'codepen'=>		'',
-		'googlePlus'=>		'',
 		'instagram'=>		'',
 		'github'=>		'',
 		'gitlab'=>		'',
@@ -40,7 +39,10 @@ class Site extends dbJSON {
 		'titleFormatCategory'=> '{{category-name}} | {{site-title}}',
 		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}',
 		'imageRestrict'=>	true,
-		'imageRelativeToAbsolute'=> false
+		'imageRelativeToAbsolute'=> false,
+		'thumbnailWidth' => 	400, // px
+		'thumbnailHeight' => 	400, // px
+		'thumbnailQuality' => 	100
 	);
 
 	function __construct()
@@ -108,6 +110,21 @@ class Site extends dbJSON {
 	public function sitemap()
 	{
 		return DOMAIN_BASE.'sitemap.xml';
+	}
+
+	public function thumbnailWidth()
+	{
+		return $this->getField('thumbnailWidth');
+	}
+
+	public function thumbnailHeight()
+	{
+		return $this->getField('thumbnailHeight');
+	}
+
+	public function thumbnailQuality()
+	{
+		return $this->getField('thumbnailQuality');
 	}
 
 	public function autosaveInterval()

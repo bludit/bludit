@@ -4,5 +4,6 @@
 		"name": "Open Graph",
 		"description": "The Open Graph protocol enables any web page to become a rich object in a social graph."
 	},
-	"default-image": "Default image"
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
 }

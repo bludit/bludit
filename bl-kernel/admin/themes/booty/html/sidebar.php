@@ -17,9 +17,12 @@
 	</li>
 
 	<?php if (checkRole(array('editor'),false)): ?>
-
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="oi oi-layers"></span><?php $L->p('Content') ?></a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="oi oi-person"></span><?php $L->p('Profile') ?></a>
 	</li>
 	<?php endif; ?>
 

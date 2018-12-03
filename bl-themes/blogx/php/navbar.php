@@ -17,61 +17,14 @@
 				<?php endforeach ?>
 
 				<!-- Social Networks -->
-				<?php if ($site->github()): ?>
+				<?php foreach (Theme::socialNetworks() as $key=>$label): ?>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->github() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/github.svg' ?>" alt="github icon" />
+					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
+						<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="<?php echo $label ?>" />
+						<span class="d-inline d-sm-none"><?php echo $label; ?></span>
 					</a>
 				</li>
-				<?php endif ?>
-
-				<?php if ($site->twitter()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->twitter() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/twitter.svg' ?>" alt="twitter icon" />
-					</a>
-				</li>
-				<?php endif ?>
-
-				<?php if ($site->facebook()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->facebook() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/facebook.svg' ?>" alt="facebook icon" />
-					</a>
-				</li>
-				<?php endif ?>
-
-				<?php if ($site->googleplus()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->googleplus() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/googleplus.svg' ?>" alt="googleplus icon" />
-					</a>
-				</li>
-				<?php endif ?>
-
-				<?php if ($site->instagram()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->instagram(); ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/instagram.svg' ?>" alt="instgram icon" />
-					</a>
-				</li>
-				<?php endif ?>
-
-				<?php if ($site->codepen()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->codepen() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/codepen.svg' ?>" alt="codepen icon" />
-					</a>
-				</li>
-				<?php endif ?>
-
-				<?php if ($site->linkedin()): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->linkedin() ?>" target="_blank">
-						<img class="nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/linkedin.svg' ?>" alt="linkedin icon" />
-					</a>
-				</li>
-				<?php endif ?>
+				<?php endforeach; ?>
 
 			</ul>
 		</div>

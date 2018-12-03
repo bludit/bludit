@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Contador de visitas",
-		"description": "Muestre el número de visitas o visitantes únicos en la barra lateral de su sitio."
+		"description": "Muestra el número de visitas o visitantes únicos en la barra lateral de su sitio."
 	}
 }

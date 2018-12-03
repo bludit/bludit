@@ -3,5 +3,7 @@
 	{
 		"name": "Open Graph",
 		"description": "De Open Graph protocol kan van elke webpagina een rich object in een sociale grafiek maken."
-	}
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
 }

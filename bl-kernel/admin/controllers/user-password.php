@@ -20,7 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		'newPassword'=>$_POST['newPassword'],
 		'confirmPassword'=>$_POST['confirmPassword']
 	))) {
-		Redirect::page('users');
+		if ($login->role()==='admin') {
+			Redirect::page('users');
+		}
+		Redirect::page('edit-user/'.$login->username());
 	}
 }
 

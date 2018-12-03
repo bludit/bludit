@@ -4,5 +4,6 @@
 		"name": "Open Graph",
 		"description": "Il protocollo Open Graph permette a qualsiasi pagina web di diventare un rich object in un social graph."
 	},
-	"default-image": "Immagine predefinita"
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
 }

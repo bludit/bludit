@@ -1,11 +1,18 @@
-<?php defined('BLUDIT') or die('Bludit CMS.');
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins position'), 'icon'=>'tags'));
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-echo Bootstrap::alert(array('class'=>'alert-primary', 'text'=>$L->g('Drag and Drop to sort the plugins')));
+<div class="align-middle">
+	<div class="float-right mt-1">
+		<button type="button" class="btn btn-primary btn-sm jsbuttonSave" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins position'), 'icon'=>'tags')); ?>
+</div>
 
-echo Bootstrap::formOpen(array('id'=>'jsform'));
+<div class="alert alert-primary"><?php $L->p('Drag and Drop to sort the plugins') ?></div>
 
+<?php
 	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
@@ -22,21 +29,12 @@ echo Bootstrap::formOpen(array('id'=>'jsform'));
 		echo '<li class="list-group-item" data-plugin="'.$Plugin->className().'"><span class="oi oi-move"></span> '.$Plugin->name().'</li>';
 	}
 	echo '</ul>';
-
-	echo '
-	<div class="form-group mt-3">
-		<button type="button" class="jsbuttonSave btn btn-primary">'.$L->g('Save').'</button>
-		<a href="'.HTML_PATH_ADMIN_ROOT.'plugins" class="btn btn-secondary">'.$L->g('Cancel').'</a>
-	</div>
-	';
-
-echo Bootstrap::formClose();
-
 ?>
+
+<?php echo Bootstrap::formClose(); ?>
 
 <script>
 $(document).ready(function() {
-
 	$('.list-group-sortable').sortable({
 		placeholderClass: 'list-group-item'
 	});

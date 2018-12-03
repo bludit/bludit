@@ -51,6 +51,9 @@
 	echo '</script>'.PHP_EOL;
 ?>
 
+<!-- Overlay background -->
+<div id="jsshadow"></div>
+
 <!-- Alert -->
 <?php include('html/alert.php'); ?>
 

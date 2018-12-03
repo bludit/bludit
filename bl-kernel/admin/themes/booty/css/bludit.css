@@ -81,9 +81,22 @@ code {
 	cursor: pointer;
 }
 
+.modal-body {
+	padding: 2rem;
+}
+
+.modal-footer {
+	background-color: rgb(247, 247, 247);
+}
+
+.modal-dialog .btn-link {
+	color: #000;
+}
+
 /*
 	LOGIN
 */
+
 body.login {
 	background: rgb(255,255,255);
 	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
@@ -140,7 +153,6 @@ body.login {
 	/* Create a dashed line with a pattern */
 }
 
-/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
 .ct-series-a .ct-point {
 	/* Colour of your points */
 	stroke: #4a90e2;
@@ -151,6 +163,7 @@ body.login {
 /*
 	ALERT
 */
+
 #alert {
 	display: none;
 	position: fixed;
@@ -165,17 +178,20 @@ body.login {
 
 .alert-success {
 	background-color: #4586d4;
+	border-left: 6px solid #abd1ff !important;
 	color: #ffffff;
 }
 
 .alert-danger {
 	background-color: #d44545;
+	border-left: 6px solid #ff9c9c !important;
 	color: #ffffff;
 }
 
 /*
 	SIDEBAR
 */
+
 div.sidebar .nav-item a {
 	padding-left:0;
 	padding-right:0;
@@ -204,6 +220,7 @@ div.sidebar .nav-item span.oi {
 /*
 	PLUGINS
 */
+
 .plugin-form label {
 	display: block;
 	margin-top: 1rem !important;
@@ -256,3 +273,70 @@ td.child {
 	line-height: 1.5em;
 
 }
+
+#jseditorSidebar {
+	display: none;
+	height: calc(100% - 45px);
+	width: 50%;
+	max-width: 350px;
+	position: absolute;
+	z-index: 50;
+	top: 45px;
+	right: 15px;
+	background-color: #fff;
+	overflow-x: hidden;
+	transition: 0.5s;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+}
+
+@media (max-width: 575.98px) {
+	#jseditorSidebar {
+		width: 100%;
+		max-width: 100%;
+		right: 0;
+	}
+	#jseditorToolbarRight button {
+		font-size: 0px !important;
+	}
+	#jseditorToolbarRight button span {
+		font-size: 16px !important;
+	}
+}
+
+#jseditorSidebar nav {
+	background: #f3f3f3;
+}
+
+#jseditorSidebar nav a {
+	color: #000;
+}
+
+#jseditorSidebar .nav-tabs .nav-link {
+	border: none;
+}
+
+#jseditorSidebar .nav-link.active {
+	background: none;
+	border: none;
+	border-bottom: 3px solid #ccc;
+}
+
+#jsshadow {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(255,255,255,0.7);
+	z-index: 10;
+	display: none;
+}
+
+img.profilePicture {
+	width: 30px;
+	border-radius: 30px;
+	border: 1px solid #ccc;
+}
+

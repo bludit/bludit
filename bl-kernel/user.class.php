@@ -13,7 +13,7 @@ class User {
 			$row = $users->getDefaultFields();
 		} else {
 			if (Text::isEmpty($username) || !$users->exists($username)) {
-				$errorMessage = 'User not found in database by username ['.$username.']';
+				$errorMessage = 'User not found in the database by username ['.$username.']';
 				Log::set(__METHOD__.LOG_SEP.$errorMessage);
 				throw new Exception($errorMessage);
 			}
@@ -138,6 +138,11 @@ class User {
 	public function linkedin()
 	{
 		return $this->getValue('linkedin');
+	}
+
+	public function mastodon()
+	{
+		return $this->getValue('mastodon');
 	}
 
 	public function profilePicture()

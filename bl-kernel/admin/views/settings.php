@@ -1,33 +1,28 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-?>
+<div class="align-middle">
+	<div class="float-right mt-1">
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
+	</div>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog')); ?>
+</div>
 
 <!-- TABS -->
-<ul class="nav nav-tabs" id="dynamicTab" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php $L->p('Site') ?></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link " id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link " id="seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false"><?php $L->p('SEO') ?></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link " id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="language" aria-selected="false"><?php $L->p('Language') ?></a>
-	</li>
-</ul>
-<?php
-	echo Bootstrap::formOpen(array(
-		'id'=>'dynamicTabContent',
-		'class'=>'tab-content mt-4'
-	));
+<nav class="mb-3">
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="nav-general" aria-selected="false"><?php $L->p('General') ?></a>
+		<a class="nav-item nav-link" id="nav-advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
+		<a class="nav-item nav-link" id="nav-seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
+		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
+		<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
+		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
+	</div>
+</nav>
 
+<?php
 	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',
@@ -41,9 +36,11 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 	));
 ?>
 
-	<!-- TABS GENERAL -->
+	<!-- General tab -->
 	<div class="tab-pane show active" id="general" role="tabpanel" aria-labelledby="general-tab">
 	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
+
 		echo Bootstrap::formInputText(array(
 			'name'=>'title',
 			'label'=>$L->g('Site title'),
@@ -79,17 +76,10 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>$L->g('you-can-add-a-small-text-on-the-bottom')
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
 
-	<!-- TABS ADVANCED -->
+	<!-- Advanced tab -->
 	<div class="tab-pane" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Content')));
@@ -214,18 +204,10 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>DOMAIN.$site->uriFilters('blog'),
 			'disabled'=>Text::isEmpty($site->uriFilters('blog'))
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
 
-
-	<!-- TABS SEO -->
+	<!-- SEO tab -->
 	<div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="seo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
@@ -280,17 +262,53 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'tip'=>$L->g('Variables allowed').' <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
 			'placeholder'=>''
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
+	<script>
+	$(document).ready(function() {
 
-	<!-- TABS SOCIAL NETWORKS -->
+		// Parent autocomplete
+		var homepageXHR;
+		var homepageList; // Keep the parent list returned to get the key by the title page
+		$("#jshomepageTMP").autoComplete({
+			minChars: 1,
+			source: function(term, response) {
+				// Prevent call inmediatly another ajax request
+				try { homepageXHR.abort(); } catch(e){}
+				homepageXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
+					function(data) {
+						homepageList = data;
+						term = term.toLowerCase();
+						var matches = [];
+						for (var title in data) {
+							if (~title.toLowerCase().indexOf(term))
+								matches.push(title);
+						}
+						response(matches);
+				});
+			},
+			onSelect: function(e, term, item) {
+				// homepageList = array( pageTitle => pageKey )
+				var key = homepageList[term];
+				$("#jshomepage").attr("value", key);
+			}
+		});
+
+		$("#jshomepageTMP").change(function() {
+			if ($(this).val()) {
+				$("#jsuriBlog").removeAttr('disabled');
+				$("#jsuriBlog").attr('value', '/blog/');
+			} else {
+				$("#jsuriBlog").attr('value', '');
+				$("#jsuriBlog").attr('disabled', 'disabled');
+				$("#jshomepage").attr("value", '');
+			}
+		});
+
+	});
+	</script>
+
+	<!-- Social Network tab -->
 	<div class="tab-pane" id="social" role="tabpanel" aria-labelledby="social-tab">
 	<?php
 		echo Bootstrap::formInputText(array(
@@ -315,15 +333,6 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'name'=>'codepen',
 			'label'=>'CodePen',
 			'value'=>$site->codepen(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
-		));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'googlePlus',
-			'label'=>'Google+',
-			'value'=>$site->googlePlus(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -373,19 +382,47 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>''
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
 
-	<!-- TABS TIMEZONE AND LANGUAGES -->
+	<!-- Images tab -->
+	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailWidth',
+			'label'=>$L->g('Width'),
+			'value'=>$site->thumbnailWidth(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('Thumbnail width in pixels')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailHeight',
+			'label'=>$L->g('Height'),
+			'value'=>$site->thumbnailHeight(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('Thumbnail height in pixels')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'thumbnailQuality',
+			'label'=>$L->g('Quality'),
+			'value'=>$site->thumbnailQuality(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>$L->g('Thumbnail quality in percentage')
+		));
+	?>
+	</div>
+
+	<!-- Timezone and language tab -->
 	<div class="tab-pane" id="language" role="tabpanel" aria-labelledby="language-tab">
 	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Language and timezone')));
 
 		echo Bootstrap::formSelect(array(
 			'name'=>'language',
@@ -424,59 +461,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog'));
 			'placeholder'=>'',
 			'tip'=>$L->g('Current format').': '.Date::current($site->dateFormat())
 		));
-
-		echo '
-		<div class="form-group mt-4">
-			<button type="submit" class="btn btn-primary mr-2" name="save">'.$L->g('Save').'</button>
-			<a class="btn btn-secondary" href="'.HTML_PATH_ADMIN_ROOT.'dashboard" role="button">'.$L->g('Cancel').'</a>
-		</div>
-		';
 	?>
 	</div>
-<?php
-	echo Bootstrap::formClose();
-?>
 
-<script>
-$(document).ready(function() {
-
-	// Parent autocomplete
-	var homepageXHR;
-	var homepageList; // Keep the parent list returned to get the key by the title page
-	$("#jshomepageTMP").autoComplete({
-		minChars: 1,
-		source: function(term, response) {
-			// Prevent call inmediatly another ajax request
-			try { homepageXHR.abort(); } catch(e){}
-			homepageXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
-				function(data) {
-					homepageList = data;
-					term = term.toLowerCase();
-					var matches = [];
-					for (var title in data) {
-						if (~title.toLowerCase().indexOf(term))
-							matches.push(title);
-					}
-					response(matches);
-			});
-		},
-		onSelect: function(e, term, item) {
-			// homepageList = array( pageTitle => pageKey )
-			var key = homepageList[term];
-			$("#jshomepage").attr("value", key);
-		}
-	});
-
-	$("#jshomepageTMP").change(function() {
-		if ($(this).val()) {
-			$("#jsuriBlog").removeAttr('disabled');
-			$("#jsuriBlog").attr('value', '/blog/');
-		} else {
-			$("#jsuriBlog").attr('value', '');
-			$("#jsuriBlog").attr('disabled', 'disabled');
-			$("#jshomepage").attr("value", '');
-		}
-	});
-
-});
-</script>
+<?php echo Bootstrap::formClose(); ?>

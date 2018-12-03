@@ -423,7 +423,6 @@ function install($adminPassword, $timezone)
 			'tokenAuthTTL'=>'2009-03-15 14:00',
 			'twitter'=>'',
 			'facebook'=>'',
-			'googlePlus'=>'',
 			'instagram'=>'',
 			'codepen'=>'',
 			'linkedin'=>'',
@@ -463,9 +462,9 @@ function install($adminPassword, $timezone)
 
 	// File tags.php
 	$data = array(
-		'bludit'=>array('name'=>'Bludit', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
-		'cms'=>array('name'=>'CMS', 'description'=>'', 'template'=>'', 'list'=>array('welcome')),
-		'flat-files'=>array('name'=>'Flat files', 'description'=>'', 'template'=>'', 'list'=>array('welcome'))
+		'bludit'=>array('name'=>'Bludit', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit')),
+		'cms'=>array('name'=>'CMS', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit')),
+		'flat-files'=>array('name'=>'Flat files', 'description'=>'', 'template'=>'', 'list'=>array('follow-bludit'))
 	);
 	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -517,7 +516,7 @@ function install($adminPassword, $timezone)
 				'position'=>1,
 				'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
 				'toolbar2'=>'',
-				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern'
+				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
@@ -565,8 +564,13 @@ if (isset($_GET['demo'])) {
 
 // Install by POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	install($_POST['password'], $_POST['timezone']);
-	redirect(HTML_PATH_ROOT);
+	if (Text::length($_POST['password'])<6) {
+		$errorText = $L->g('password-must-be-at-least-6-characters-long');
+		error_log('[ERROR] '.$errorText, 0);
+	} else {
+		install($_POST['password'], $_POST['timezone']);
+		redirect(HTML_PATH_ROOT);
+	}
 }
 
 ?>
@@ -614,6 +618,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			{
 			?>
 				<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
+
+				<?php if (!empty($errorText)): ?>
+				<div class="alert alert-danger"><?php echo $errorText ?></div>
+				<?php endif ?>
 
 				<form id="jsformInstaller" method="post" action="" autocomplete="off">
 					<input type="hidden" name="timezone" id="jstimezone" value="UTC">

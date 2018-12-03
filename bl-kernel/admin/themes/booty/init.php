@@ -24,8 +24,8 @@ return <<<EOF
 				<p>$modalText</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="$buttonSecondaryClass btn btn-secondary" data-dismiss="modal">$buttonSecondary</button>
-				<button type="button" class="$buttonPrimaryClass btn btn-primary">$buttonPrimary</button>
+				<button type="button" class="btn $buttonSecondaryClass" data-dismiss="modal">$buttonSecondary</button>
+				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
 			</div>
 		</div>
 	</div>
@@ -96,15 +96,30 @@ EOF;
 	{
 		$title = $args['title'];
 return <<<EOF
-<h4 class="mt-4 mb-3 font-weight-normal">$title</h4>
+<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">$title</h6>
 EOF;
 	}
 
 	public static function formInputTextBlock($args)
 	{
-		$id = 'js'.$args['name'];
+		$name = $args['name'];
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+
+		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
+		}
+
+		$tip = '';
+		if (isset($args['tip'])) {
+			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+
+		$label = '';
+		if (isset($args['label'])) {
+			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"  for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$class = 'form-control';
@@ -112,21 +127,18 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group">';
-
-		if (isset($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+		$type = 'text';
+		if (isset($args['type'])) {
+			$type = $args['type'];
 		}
 
-		$html .= '<input type="text" value="'.$args['value'].'" class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" placeholder="'.$args['placeholder'].'">';
-
-		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
-		}
-
-		$html .= '</div>';
-
-		return $html;
+return <<<EOF
+<div class="form-group m-0">
+	$label
+	<input type="text" value="$value" class="$class" id="$id" name="$name" placeholder="$placeholder" $disabled>
+	$tip
+</div>
+EOF;
 	}
 
 	public static function formInputFile($args)
@@ -168,7 +180,7 @@ EOF;
 		}
 
 		$html .= '<div class="col-sm-10">';
-		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'"></textarea>';
+		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
 		if (isset($args['tip'])) {
 			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
 		}
@@ -190,9 +202,9 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group">';
+		$html = '<div class="form-group m-0">';
 		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
@@ -204,45 +216,27 @@ EOF;
 		return $html;
 	}
 
-	public static function formInputGroupText($args)
-	{
-		$label = $args['label'];
-		$labelInside = $args['labelInside'];
-		$tip = $args['tip'];
-		$value = $args['value'];
-		$name = $args['name'];
-		$id = 'js'.$name;
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
-		$disabled = isset($args['disabled'])?'disabled':'';
-
-return <<<EOF
-<div class="form-group">
-	<label for="$id">$label</label>
-	<div class="input-group">
-		<div class="input-group-prepend">
-			<span class="input-group-text" id="$id">$labelInside</span>
-		</div>
-		<input id="$id" name="$name" value="$value" type="text" class="form-control" $disabled>
-	</div>
-	<small class="form-text text-muted">$tip</small>
-</div>
-EOF;
-	}
-
 	public static function formInputText($args)
 	{
-		$label = isset($args['label'])?$args['label']:'';
-		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
-		$value = isset($args['value'])?$args['value']:'';
 		$name = $args['name'];
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+
 		$id = 'js'.$name;
 		if (isset($args['id'])) {
 			$id = $args['id'];
 		}
-		$disabled = empty($args['disabled'])?'':'disabled';
+
+		$tip = '';
+		if (isset($args['tip'])) {
+			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+
+		$label = '';
+		if (isset($args['label'])) {
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		}
 
 		$class = 'form-control';
 		if (isset($args['class'])) {
@@ -256,10 +250,10 @@ EOF;
 
 return <<<EOF
 <div class="form-group row">
-	<label for="$id" class="col-sm-2 col-form-label">$label</label>
+	$label
 	<div class="col-sm-10">
 		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled>
-		<small class="form-text text-muted">$tip</small>
+		$tip
 	</div>
 </div>
 EOF;
@@ -267,7 +261,6 @@ EOF;
 
 	public static function formCheckbox($args)
 	{
-		$label = isset($args['label'])?$args['label']:'';
 		$labelForCheckbox = isset($args['labelForCheckbox'])?$args['labelForCheckbox']:'';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
@@ -279,7 +272,7 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'form-group row';
+		$class = 'form-group';
 		if (isset($args['class'])) {
 			$class = $class.' '.$args['class'];
 		}
@@ -289,17 +282,20 @@ EOF;
 			$type = $args['type'];
 		}
 
+		$label = '';
+		if (!empty($args['label'])) {
+			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100">'.$args['label'].'</label>';
+		}
+
 		$checked = $args['checked']?'checked':'';
 
 return <<<EOF
 <div class="$class">
-	<label for="$id" class="col-sm-2">$label</label>
-	<div class="col-sm-10">
-		<div class="form-check">
-			<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
-			<label class="form-check-label" for="$id">$labelForCheckbox</label>
-			<small class="form-text text-muted">$tip</small>
-		</div>
+	$label
+	<div class="form-check">
+		<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
+		<label class="form-check-label" for="$id">$labelForCheckbox</label>
+		<small class="form-text text-muted">$tip</small>
 	</div>
 </div>
 EOF;
@@ -353,7 +349,7 @@ EOF;
 		$html = '<div class="form-group m-0">';
 
 		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
