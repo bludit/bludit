@@ -9,7 +9,7 @@ class Login {
 		if (isset($GLOBALS['users'])) {
 			$this->users = $GLOBALS['users'];
 		} else {
-			$this->users = new users();
+			$this->users = new Users();
 		}
 
 		// Start the Session
@@ -149,8 +149,8 @@ class Login {
 			return false;
 		}
 
-		// Validate user and login
-		$user = $this->users->getDb($username);
+		// Get user from database and login
+		$user = $this->users->getUserDB($username);
 		$this->setLogin($username, $user['role']);
 		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
 		return true;

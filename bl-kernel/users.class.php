@@ -16,7 +16,6 @@ class Users extends dbJSON {
 		'tokenAuthTTL'=>'2009-03-15 14:00',
 		'twitter'=>'',
 		'facebook'=>'',
-		'googlePlus'=>'',
 		'instagram'=>'',
 		'codepen'=>'',
 		'linkedin'=>'',
