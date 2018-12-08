@@ -3,11 +3,12 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-11-28",
+        "last-update": "2018-12-08",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
             "cblte https:\/\/github.com\/cblte",
+            "Momel15 https:\/\/github.com\/Momel15",
             ""
         ]
     },
@@ -60,7 +61,7 @@
     "language": "Sprache\/Zeitzone",
     "plugin": "Plugin",
     "plugins": "Plugins",
-    "developers": "Enwickler",
+    "developers": "Entwickler",
     "themes": "Themes",
     "about": "Über",
     "url": "URL",
