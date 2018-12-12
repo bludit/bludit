@@ -2,6 +2,12 @@
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Themes'), 'icon'=>'eye'));
 
+echo Bootstrap::link(array(
+	'title'=>$L->g('Configure Blocks'),
+	'href'=>HTML_PATH_ADMIN_ROOT.'blocks',
+	'icon'=>'box'
+));
+
 echo '
 <table class="table  mt-3">
 	<thead>

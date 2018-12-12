@@ -60,6 +60,7 @@ define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 define('DB_USERS', PATH_DATABASES.'users.php');
 define('DB_SECURITY', PATH_DATABASES.'security.php');
+define('DB_BLOCKS', PATH_DATABASES.'blocks.php');
 
 // JSON pretty print
 if (!defined('JSON_PRETTY_PRINT')) {
@@ -81,6 +82,7 @@ include(PATH_ABSTRACT.'dblist.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
+include(PATH_KERNEL.'blocks.class.php');
 include(PATH_KERNEL.'pages.class.php');
 include(PATH_KERNEL.'users.class.php');
 include(PATH_KERNEL.'tags.class.php');
@@ -131,6 +133,7 @@ $site  		= new Site();
 $url		= new Url();
 $security	= new Security();
 $syslog 	= new Syslog();
+$blocks 	= new Blocks();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.

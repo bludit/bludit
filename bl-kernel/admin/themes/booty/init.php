@@ -220,6 +220,7 @@ EOF;
 	{
 		$name = $args['name'];
 		$disabled = empty($args['disabled'])?'':'disabled';
+		$readonly = empty($args['readonly'])?'':'readonly';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$value = isset($args['value'])?$args['value']:'';
 
@@ -252,7 +253,7 @@ return <<<EOF
 <div class="form-group row">
 	$label
 	<div class="col-sm-10">
-		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled>
+		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
 		$tip
 	</div>
 </div>

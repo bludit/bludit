@@ -34,6 +34,7 @@ class dbJSON {
 			if (empty($array)) {
 				$this->db = array();
 				$this->dbBackup = array();
+				Log::set(__METHOD__.LOG_SEP.'Error trying to read the JSON file: '.$file, LOG_TYPE_ERROR);
 			} else {
 				$this->db = $array;
 				$this->dbBackup = $array;
@@ -108,6 +109,13 @@ class dbJSON {
 	public function getDB()
 	{
 		return $this->db;
+	}
+
+	// Truncate all the rows
+	public function truncate()
+	{
+		$this->db = array();
+		return $this->save();
 	}
 
 }
