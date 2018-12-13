@@ -13,7 +13,7 @@ class Blocks extends dbJSON
 		parent::__construct(DB_BLOCKS);
 	}
 
-	public function get()
+	public function get($key)
 	{
 		return $this->db[$key];
 	}
