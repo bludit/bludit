@@ -13,6 +13,11 @@ class Blocks extends dbJSON
 		parent::__construct(DB_BLOCKS);
 	}
 
+	public function get()
+	{
+		return $this->db[$key];
+	}
+
 	// Add a row to the database
 	public function add($args)
 	{
