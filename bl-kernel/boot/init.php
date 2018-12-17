@@ -83,6 +83,7 @@ include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
 include(PATH_KERNEL.'blocks.class.php');
+include(PATH_KERNEL.'block.class.php');
 include(PATH_KERNEL.'pages.class.php');
 include(PATH_KERNEL.'users.class.php');
 include(PATH_KERNEL.'tags.class.php');

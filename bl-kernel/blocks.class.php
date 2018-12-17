@@ -5,7 +5,8 @@ class Blocks extends dbJSON
 	// Fields allowed for a row in the database
 	private $dbFields = array(
 		'title'=>'',
-		'value'=>''
+		'value'=>'',
+		'description'=>''
 	);
 
 	function __construct()
@@ -13,9 +14,20 @@ class Blocks extends dbJSON
 		parent::__construct(DB_BLOCKS);
 	}
 
+	// Get a particular Block-Object by his key
 	public function get($key)
 	{
-		return $this->db[$key];
+		return new Block($key);
+	}
+
+	// Get an array with all the Block-Object
+	public function getAll()
+	{
+		$all = array();
+		foreach ($this->db as $key=>$fields) {
+			$all[$key] = new Block($key);
+		}
+		return $all;
 	}
 
 	// Add a row to the database

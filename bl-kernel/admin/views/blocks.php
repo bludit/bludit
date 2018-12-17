@@ -17,14 +17,17 @@
 		'value'=>$security->getTokenCSRF()
 	));
 
-	$list = $blocks->getDB();
-	foreach ($list as $blockKey => $blockData) {
-		echo Bootstrap::formTitle(array('title'=>$blockData['title']));
+	foreach ($blocks->getAll() as $block) {
+		echo Bootstrap::formTitle(array('title'=>$block->title()));
+
+		if (Text::isNotEmpty( $block->description() )) {
+			echo Bootstrap::alert(array('class'=>'alert-primary', 'text'=>$block->description()));
+		}
 
 		echo Bootstrap::formInputText(array(
 			'name'=>'key[]',
 			'label'=>$L->g('Key'),
-			'value'=>$blockKey,
+			'value'=>$block->key(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'',
@@ -34,7 +37,7 @@
 		echo Bootstrap::formInputText(array(
 			'name'=>'title[]',
 			'label'=>$L->g('title'),
-			'value'=>$blockData['title'],
+			'value'=>$block->title(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>''
@@ -43,7 +46,7 @@
 		echo Bootstrap::formTextarea(array(
 			'name'=>'value[]',
 			'label'=>$L->g('Value'),
-			'value'=>$blockData['value'],
+			'value'=>$block->value(),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'',
