@@ -274,7 +274,7 @@ class Site extends dbJSON {
 	public function logo($absolute=true)
 	{
 		$logo = $this->getField('logo');
-		if ($absolute) {
+		if ($absolute && $logo) {
 			return DOMAIN_UPLOADS.$logo;
 		}
 		return $logo;

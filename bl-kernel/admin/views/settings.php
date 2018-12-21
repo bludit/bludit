@@ -475,7 +475,7 @@
 			<label class="custom-file-label" for="jssiteLogoInputFile"><?php $L->p('Choose images to upload'); ?></label>
 		</div>
 		<div>
-			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS.$site->logo(false))?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
+			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
 		</div>
 		<script>
 		$("#jssiteLogoInputFile").on("change", function() {
