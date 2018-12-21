@@ -467,6 +467,9 @@
 
 	<!-- Site logo tab -->
 	<div class="tab-pane" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
+	?>
 		<div class="custom-file mb-2">
 			<input type="file" class="custom-file-input" id="jssiteLogoInputFile" name="inputFile">
 			<label class="custom-file-label" for="jssiteLogoInputFile"><?php $L->p('Choose images to upload'); ?></label>
