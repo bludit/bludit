@@ -42,7 +42,8 @@ class Site extends dbJSON {
 		'imageRelativeToAbsolute'=> false,
 		'thumbnailWidth' => 	400, // px
 		'thumbnailHeight' => 	400, // px
-		'thumbnailQuality' => 	100
+		'thumbnailQuality' => 	100,
+		'logo'=>		''
 	);
 
 	function __construct()
@@ -266,6 +267,17 @@ class Site extends dbJSON {
 	public function titleFormatTag()
 	{
 		return $this->getField('titleFormatTag');
+	}
+
+	// Returns the absolute URL of the site logo
+	// If you set $absolute=false returns only the filename
+	public function logo($absolute=true)
+	{
+		$logo = $this->getField('logo');
+		if ($absolute) {
+			return DOMAIN_UPLOADS.$logo;
+		}
+		return $logo;
 	}
 
 	// Returns the full domain and base url

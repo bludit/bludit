@@ -19,6 +19,7 @@
 		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
 		<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
 		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
+		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
 	</div>
 </nav>
 
@@ -462,6 +463,35 @@
 			'tip'=>$L->g('Current format').': '.Date::current($site->dateFormat())
 		));
 	?>
+	</div>
+
+	<!-- Site logo tab -->
+	<div class="tab-pane" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+		<div class="custom-file mb-2">
+			<input type="file" class="custom-file-input" id="jssiteLogoInputFile" name="inputFile">
+			<label class="custom-file-label" for="jssiteLogoInputFile"><?php $L->p('Choose images to upload'); ?></label>
+		</div>
+		<div>
+			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS.$site->logo(false))?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
+		</div>
+		<script>
+		$("#jssiteLogoInputFile").on("change", function() {
+			var formData = new FormData();
+			formData.append('tokenCSRF', tokenCSRF);
+			formData.append('inputFile', $(this)[0].files[0]);
+			$.ajax({
+				url: HTML_PATH_ADMIN_ROOT+"ajax/upload-logo",
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false
+			}).done(function(json) {
+				console.log(json);
+				$("#jssiteLogoPreview").attr('src',json.absoluteURL+"?time="+Math.random());
+			});
+		});
+		</script>
 	</div>
 
 <?php echo Bootstrap::formClose(); ?>
