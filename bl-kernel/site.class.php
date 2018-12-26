@@ -355,7 +355,7 @@ class Site extends dbJSON {
 	public function homepage()
 	{
 		$homepage = $this->getField('homepage');
-		if( empty($homepage) ) {
+		if (empty($homepage)) {
 			return false;
 		}
 		return $homepage;
