@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  * This script was modified to fit in Bludit
@@ -32,7 +32,7 @@ class Fuzz
      * @param int     $searchMode 0 = Levenshtein, 1 = Jaro-Winkler
      * @param boolean $useLCS     Factor in Longest Common Substring in search results
      */
-    public function __construct(array $source, int $maxResults, int $searchMode, bool $useLCS)
+    public function __construct($source, $maxResults, $searchMode, $useLCS)
     {
         $this->_source = $source;
         $this->_sourceLen = count($source);
@@ -56,7 +56,7 @@ class Fuzz
      *
      * @return array $results     Array of associative arrays containing search matches
      */
-    public function search(string $search, int $minLCS = null, int $maxDistance = null)
+    public function search($search, $minLCS = null, $maxDistance = null)
     {
         $results = [];
         $scores = [];
@@ -121,7 +121,7 @@ class Fuzz
      *
      * @return int   $result LCS Score
      */
-    public function getLCS(string $source, string $target)
+    public function getLCS($source, $target)
     {
         $suffix = [];
         $result = 0;
@@ -152,7 +152,7 @@ class Fuzz
      *
      * @return int   Levenshtein Distance
      */
-    public function getLevenshtein(string $source, string $target)
+    public function getLevenshtein($source, $target)
     {
         $matrix = [];
         $n = strlen($source);
@@ -203,7 +203,7 @@ class Fuzz
      *
      * @return double $jaroWinkler Jaro-Winkler score between 0.0 and 1.0
      */
-    public function getJaroWinkler(string $first, string $second)
+    public function getJaroWinkler($first, $second)
     {
         $shorter;
         $longer;
@@ -251,7 +251,7 @@ class Fuzz
      *
      * @return string $common Common substring
      */
-    private function _getCharMatch(string $first, string $second, int $limit)
+    private function _getCharMatch($first, $second, $limit)
     {
         $common = '';
         $copy = $second;
@@ -282,7 +282,7 @@ class Fuzz
      *
      * @return int $trans Number of transpositions between strings
      */
-    private function _getTranspositions(string $first, string $second)
+    private function _getTranspositions($first, $second)
     {
         $trans = 0;
         $firstLen = strlen($first);
@@ -305,7 +305,7 @@ class Fuzz
      *
      * @return string Returns substring representing the longest prefix
      */
-    private function _getPrefix(string $first, string $second)
+    private function _getPrefix($first, $second)
     {
         if (strlen($first) == 0 || strlen($second) == 0) {
             return '';
@@ -329,7 +329,7 @@ class Fuzz
      *
      * @return Return index of first difference
      */
-    private function _getDiffIndex(string $first, string $second)
+    private function _getDiffIndex($first, $second)
     {
         if ($first == $second) {
             return -1;
@@ -353,7 +353,7 @@ class Fuzz
      *
      * @return void
      */
-    private function _printMatrix(array $arr)
+    private function _printMatrix($arr)
     {
         $str = '';
         $width = count($arr[0]);
