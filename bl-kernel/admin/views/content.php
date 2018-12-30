@@ -134,7 +134,7 @@ function table($type) {
 						.'</a>
 					</div>
 					<div>
-						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ($type=='scheduled')?$L->g('Scheduled').': '.$page->date(SCHEDULED_DATE_FORMAT):$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
 					</div>
 				</td>';
 
