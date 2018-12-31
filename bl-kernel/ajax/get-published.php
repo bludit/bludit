@@ -13,7 +13,7 @@ if ($query===false) {
 	)));
 }
 
-$list = array();
+$tmp = array();
 $published = $pages->getPublishedDB();
 $statics = $pages->getStaticDB();
 $pagesKey = array_merge($published, $statics);
