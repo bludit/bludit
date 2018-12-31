@@ -78,6 +78,9 @@ function buildPlugins()
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
+			if( !Sanitize::pathFile($languageFilename) ) {
+				continue;
+			}
 		}
 
 		$database = file_get_contents($languageFilename);

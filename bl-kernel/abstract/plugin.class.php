@@ -55,13 +55,16 @@ class Plugin {
 
 		// --- Metadata ---
 		$this->filenameMetadata = PATH_PLUGINS.$this->directoryName().DS.'metadata.json';
-		$metadataString = file_get_contents($this->filenameMetadata);
-		$this->metadata = json_decode($metadataString, true);
 
-		// If the plugin is installed then get the database
-		if ($this->installed()) {
-			$Tmp = new dbJSON($this->filenameDb);
-			$this->db = $Tmp->db;
+		if( Sanitize::pathFile($this->filenameMetadata) ) {
+			$metadataString = file_get_contents($this->filenameMetadata);
+			$this->metadata = json_decode($metadataString, true);
+
+			// If the plugin is installed then get the database
+			if ($this->installed()) {
+				$Tmp = new dbJSON($this->filenameDb);
+				$this->db = $Tmp->db;
+			}
 		}
 	}
 
