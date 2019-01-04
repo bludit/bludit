@@ -794,7 +794,7 @@ function getTag($key) {
 function activateTheme($themeDirectory) {
 	global $site;
 	global $syslog;
-	global $L;
+	global $L, $language;
 	global $blocks;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
