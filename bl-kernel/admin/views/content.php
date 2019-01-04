@@ -87,7 +87,9 @@ function table($type) {
 
 					echo '<td class="pt-3 text-center d-none d-sm-table-cell w-25">'.PHP_EOL;
 					echo '<a class="btn btn-outline-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-					echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+					if (count($page->children())==0) {
+						echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+					}
 					echo '</td>';
 
 					echo '</tr>';
@@ -143,7 +145,9 @@ function table($type) {
 
 				echo '<td class="pt-3 text-center d-none d-sm-table-cell w-25">'.PHP_EOL;
 				echo '<a class="btn btn-outline-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-				echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+				if (count($page->children())==0) {
+					echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+				}
 				echo '</td>';
 
 				echo '</tr>';

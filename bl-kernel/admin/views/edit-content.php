@@ -60,22 +60,22 @@ echo Bootstrap::formOpen(array(
 	</div>
 
 	<div id="jseditorToolbarLeft">
-		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo ($page->draft()?$L->g('Publish'):$L->g('Save')) ?></button>
+		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
 
-		<?php if($page->draft()): ?>
-		<button type="button" class="btn btn-sm btn-secondary" id="jsbuttonDraft"><?php $L->p('Save as draft') ?></button>
-		<?php endif; ?>
-
-		<?php if (count($page->children())==0): ?>
+		<!-- <?php if (count($page->children())==0): ?>
 		<button type="button" class="btn btn-sm btn-danger" id="jsbuttonDelete" data-toggle="modal" data-target="#jsdeletePageModal"><?php $L->p('Delete') ?></button>
-		<?php endif; ?>
+		<?php endif; ?> -->
 
-		<a href="<?php echo HTML_PATH_ADMIN_ROOT ?>dashboard" class="btn btn-sm btn-secondary"><?php $L->p('Cancel') ?></a>
+		<span class="d-inline-block align-middle ml-1">
+			<div class="switch">
+			<input type="radio" class="switch-input" name="switch" value="" id="jsPublishSwitch" <?php echo (!$page->draft()?'checked':'') ?>>
+			<label for="jsPublishSwitch" class="switch-label switch-label-off">Publish</label>
+			<input type="radio" class="switch-input" name="switch" value="" id="jsDraftSwitch" <?php echo ($page->draft()?'checked':'') ?>>
+			<label for="jsDraftSwitch" class="switch-label switch-label-on">Draft</label>
+			<span class="switch-selection"></span>
+			</div>
+		</span>
 	</div>
-
-	<?php if($page->draft()): ?>
-	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('the-content-is-saved-as-a-draft-to-publish-it') ?></div>
-	<?php endif; ?>
 
 	<?php if($page->scheduled()): ?>
 	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('scheduled') ?>: <?php echo $page->date(SCHEDULED_DATE_FORMAT) ?></div>
@@ -83,6 +83,14 @@ echo Bootstrap::formOpen(array(
 </div>
 <script>
 	$(document).ready(function() {
+		$("#jsPublishSwitch").on("click", function() {
+			$("#jstype").val("published");
+		});
+
+		$("#jsDraftSwitch").on("click", function() {
+			$("#jstype").val("draft");
+		});
+
 		$("#jsoptionsSidebar").on("click", function() {
 			$("#jseditorSidebar").toggle();
 			$("#jsshadow").toggle();
@@ -177,11 +185,11 @@ echo Bootstrap::formOpen(array(
 
 				// Type
 				echo Bootstrap::formSelectBlock(array(
-					'name'=>'typeTMP',
+					'name'=>'typeSelector',
 					'label'=>$L->g('Type'),
 					'selected'=>$page->type(),
 					'options'=>array(
-						'published'=>'- '.$L->g('Default').' -',
+						'default'=>'- '.$L->g('Default').' -',
 						'sticky'=>$L->g('Sticky'),
 						'static'=>$L->g('Static')
 					),
@@ -382,11 +390,16 @@ echo Bootstrap::formOpen(array(
 <script>
 $(document).ready(function() {
 
-	// Button Publish or Save
+	// Button Save
 	$("#jsbuttonSave").on("click", function() {
-		// Get the type
-		var type = $("#jstypeTMP option:selected").val();
-		$("#jstype").val(type);
+		// Get the type from the selector
+		var typeSelector = $("#jstypeSelector option:selected").val();
+		// Get the type from the switch
+		var typeSwitch = $("#jstype").val();
+		// Set the type from the selector if the switch is publish
+		if ((typeSelector!='default') && (typeSwitch=='published')) {
+			$("#jstype").val(typeSelector);
+		}
 
 		// Get the content
 		$("#jscontent").val( editorGetContent() );

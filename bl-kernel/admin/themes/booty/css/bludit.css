@@ -340,3 +340,62 @@ img.profilePicture {
 	border: 1px solid #ccc;
 }
 
+/* Switch button */
+.switch {
+	position: relative;
+	height: 26px;
+	width: 120px;
+	background: #f3f3f3;
+	border: 1px solid #ced4d9;
+	border-radius: 2px;
+}
+
+.switch-label {
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 58px;
+	line-height: 25px;
+	font-size: 11px;
+	text-align: center;
+	cursor: pointer;
+	margin: 0 !important;
+}
+.switch-label:active {
+	font-weight: bold;
+}
+
+.switch-label-off {
+	padding-left: 2px;
+}
+
+.switch-label-on {
+	padding-right: 2px;
+}
+
+.switch-input {
+	display: none;
+}
+
+.switch-input:checked + .switch-label {
+	font-weight: bold;
+	color: #fff;
+	transition: 0.15s ease-out;
+	transition-property: color, text-shadow;
+}
+.switch-input:checked + .switch-label-on ~ .switch-selection {
+	left: 50%;
+}
+
+.switch-selection {
+	position: absolute;
+	z-index: 1;
+	top: 2px;
+	left: 2px;
+	display: block;
+	width: 58px;
+	height: 21px;
+	border-radius: 2px;
+	background-color: #6c757d;
+	transition: left 0.15s ease-out;
+}
