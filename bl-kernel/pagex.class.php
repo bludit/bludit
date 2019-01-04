@@ -61,10 +61,9 @@ class Page {
 		return $contentRaw;
 	}
 
-	// Returns the content
+	// Returns the full content
 	// This content is markdown parser
-	// (boolean) $fullContent, TRUE returns all content, if FALSE returns the first part of the content
-	// (boolean) $noSanitize, TRUE returns the content without sanitized
+	// (boolean) $sanitize, TRUE returns the content sanitized
 	public function content($sanitize=false)
 	{
 		// If already set the content, return it
@@ -73,6 +72,7 @@ class Page {
 			return $content;
 		}
 
+		// Get the raw content
 		$content = $this->contentRaw();
 
 		// Parse Markdown
@@ -92,9 +92,11 @@ class Page {
 	}
 
 	// Returns the first part of the content if the content is splited, otherwise is returned the full content
-	public function contentBreak()
+	// This content is markdown parser
+	// (boolean) $sanitize, TRUE returns the content sanitized
+	public function contentBreak($sanitize=false)
 	{
-		$content = $this->content();
+		$content = $this->content($sanitize);
 		$explode = explode(PAGE_BREAK, $content);
 		return $explode[0];
 	}
