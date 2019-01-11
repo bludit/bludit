@@ -42,6 +42,9 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 		)));
 	}
 
+	// Convert URL characters such as spaces or quotes to characters
+	$filename = urldecode($filename);
+
 	// Check file extension
 	$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
 	$fileExtension = Text::lowercase($fileExtension);

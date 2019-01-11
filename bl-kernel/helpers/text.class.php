@@ -87,6 +87,12 @@ class Text {
 		return $string;
 	}
 
+	// Escape quotes and backslash
+	public static function escapeQuotes($string)
+	{
+		return addslashes($string);
+	}
+
 	public static function startsWith($string, $startString)
 	{
 		$length = self::length($startString);
@@ -125,9 +131,22 @@ class Text {
 		return preg_replace("/[\/_|+:!@#$%^&*()'\"<>\\\`}{;=,?\[\]~. -]+/", $replace, $string);
 	}
 
+	public static function removeQuotes($string, $replace='')
+	{
+		$remove = array('\''=>$replace, '"'=>$replace);
+		return self::replaceAssoc($remove, $string);
+	}
+
 	public static function removeLineBreaks($string)
 	{
-		return str_replace(array("\r", "\n"), '', $string);
+		$remove = array("\r"=>'', "\n"=>'');
+		return self::replaceAssoc($remove, $string);
+	}
+
+	public static function removeSpaces($string, $replace='')
+	{
+		$remove = array(' '=>$replace);
+		return self::replaceAssoc($remove, $string);
 	}
 
 	// Convert unicode characters to utf-8 characters
