@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'3.5');
-define('BLUDIT_CODENAME',	'IPA');
-define('BLUDIT_RELEASE_DATE',	'2018-12-01');
-define('BLUDIT_BUILD',		'201811201');
+define('BLUDIT_VERSION',	'3.6');
+define('BLUDIT_CODENAME',	'Pilsner');
+define('BLUDIT_RELEASE_DATE',	'2019-01-15');
+define('BLUDIT_BUILD',		'20190115');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -60,7 +60,6 @@ define('DB_TAGS', PATH_DATABASES.'tags.php');
 define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 define('DB_USERS', PATH_DATABASES.'users.php');
 define('DB_SECURITY', PATH_DATABASES.'security.php');
-define('DB_BLOCKS', PATH_DATABASES.'blocks.php');
 
 // JSON pretty print
 if (!defined('JSON_PRETTY_PRINT')) {
@@ -82,8 +81,6 @@ include(PATH_ABSTRACT.'dblist.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
 
 // Inclde Classes
-include(PATH_KERNEL.'blocks.class.php');
-include(PATH_KERNEL.'block.class.php');
 include(PATH_KERNEL.'pages.class.php');
 include(PATH_KERNEL.'users.class.php');
 include(PATH_KERNEL.'tags.class.php');
@@ -134,7 +131,6 @@ $site  		= new Site();
 $url		= new Url();
 $security	= new Security();
 $syslog 	= new Syslog();
-$blocks 	= new Blocks();
 
 // --- Relative paths ---
 // This paths are relative for the user / web browsing.

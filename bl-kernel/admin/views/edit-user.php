@@ -114,7 +114,7 @@
 			formData.append('profilePictureInputFile', $(this)[0].files[0]);
 			formData.append('username', $("#jsusername").val());
 			$.ajax({
-				url: HTML_PATH_ADMIN_ROOT+"ajax/profile-picture",
+				url: HTML_PATH_ADMIN_ROOT+"ajax/upload-profile-picture",
 				type: "POST",
 				data: formData,
 				cache: false,

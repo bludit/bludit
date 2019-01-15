@@ -25,10 +25,6 @@ foreach ($themes as $theme) {
 
 	if ($theme['dirname']!=$site->theme()) {
 		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
-	} else {
-		if (Sanitize::pathFile(PATH_THEMES.$theme['dirname'].DS.'blocks.php')) {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'blocks'.'">'.$L->g('Configure Blocks').'</a>';
-		}
 	}
 
 	echo '

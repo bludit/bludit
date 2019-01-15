@@ -3,7 +3,7 @@ $blocks->add(array(
 	'key'=>'google-analitycs',
 	'title'=>'Google Analytics',
 	'value'=>'',
-	'description'=>'Insert the code for Google Analytics'
+	'description'=>$language->get('Insert the code for Google Analytics')
 ));
 
 $blocks->add(array(

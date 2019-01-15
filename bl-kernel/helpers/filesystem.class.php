@@ -209,8 +209,8 @@ class Filesystem {
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
 		$fileExtension 	= Text::lowercase($fileExtension);
 		$filename 	= pathinfo($filename, PATHINFO_FILENAME);
-		$filename 	= Text::replace(' ', '', $filename);
-		$filename 	= Text::replace('_', '', $filename);
+		$filename 	= Text::removeSpaces($filename);
+		$filename 	= Text::removeQuotes($filename);
 
 		// Search for the next filename
 		$tmpName = $filename.'.'.$fileExtension;
