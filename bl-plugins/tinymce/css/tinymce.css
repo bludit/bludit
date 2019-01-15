@@ -29,9 +29,9 @@ body.mce-content-body {
 	line-height: 1.5em;
 }
 
-.mce-content-body blockquote p {
+.mce-content-body blockquote {
 	padding: 10px 20px;
-	margin: 0 0 20px;
+	margin: 0 0 20px 20px;
 	border-left: 5px solid #eee;
 	font-style: italic;
 }
