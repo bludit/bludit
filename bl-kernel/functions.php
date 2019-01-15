@@ -795,18 +795,9 @@ function activateTheme($themeDirectory) {
 	global $site;
 	global $syslog;
 	global $L, $language;
-	global $blocks;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
 		$site->set(array('theme'=>$themeDirectory));
-
-		// Remove all blocks
-		$blocks->truncate();
-
-		// Include Blocks for the theme
-		if (Sanitize::pathFile(PATH_THEMES.$themeDirectory.DS.'blocks.php')) {
-			include(PATH_THEMES.$themeDirectory.DS.'blocks.php');
-		}
 
 		$syslog->add(array(
 			'dictionaryKey'=>'new-theme-configured',
@@ -817,8 +808,4 @@ function activateTheme($themeDirectory) {
 		return true;
 	}
 	return false;
-}
-
-function deleteAllBlocks() {
-	global $blocks;
 }

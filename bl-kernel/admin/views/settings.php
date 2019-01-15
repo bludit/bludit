@@ -35,6 +35,12 @@
 		'name'=>'homepage',
 		'value'=>$site->homepage()
 	));
+
+	// Page not found
+	echo Bootstrap::formInputHidden(array(
+		'name'=>'pageNotFound',
+		'value'=>$site->pageNotFound()
+	));
 ?>
 
 	<!-- General tab -->
@@ -113,7 +119,6 @@
 		} catch (Exception $e) {
 			$homeValue = '';
 		}
-
 		echo Bootstrap::formInputText(array(
 			'name'=>'homepageTMP',
 			'label'=>$L->g('Homepage'),
@@ -123,13 +128,20 @@
 			'tip'=>$L->g('Returning page for the main page')
 		));
 
-		$homepageOptions[' '] = '- '.$L->g('Default message').' -';
-		echo Bootstrap::formSelect(array(
-			'name'=>'pageNotFound',
+		// Page not found 404
+		try {
+			$pageNotFoundKey = $site->pageNotFound();
+			$pageNotFound = new Page($pageNotFoundKey);
+			$pageNotFoundValue = $pageNotFound->title();
+		} catch (Exception $e) {
+			$pageNotFoundValue = '';
+		}
+		echo Bootstrap::formInputText(array(
+			'name'=>'pageNotFoundTMP',
 			'label'=>$L->g('Page not found'),
-			'options'=>$homepageOptions,
-			'selected'=>$site->pageNotFound(),
+			'value'=>$pageNotFoundValue,
 			'class'=>'',
+			'placeholder'=>$L->g('Start typing a page title to see a list of suggestions.'),
 			'tip'=>$L->g('Returning page when the page doesnt exist')
 		));
 
@@ -268,7 +280,7 @@
 	<script>
 	$(document).ready(function() {
 
-		// Parent autocomplete
+		// Homepage autocomplete
 		var homepageXHR;
 		var homepageList; // Keep the parent list returned to get the key by the title page
 		$("#jshomepageTMP").autoComplete({
@@ -303,6 +315,33 @@
 				$("#jsuriBlog").attr('value', '');
 				$("#jsuriBlog").attr('disabled', 'disabled');
 				$("#jshomepage").attr("value", '');
+			}
+		});
+
+		// pageNotFound autocomplete
+		var pageNotFoundXHR;
+		var pageNotFoundList; // Keep the parent list returned to get the key by the title page
+		$("#jspageNotFoundTMP").autoComplete({
+			minChars: 1,
+			source: function(term, response) {
+				// Prevent call inmediatly another ajax request
+				try { pageNotFoundXHR.abort(); } catch(e){}
+					pageNotFoundXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
+					function(data) {
+						pageNotFoundList = data;
+						term = term.toLowerCase();
+						var matches = [];
+						for (var title in data) {
+							if (~title.toLowerCase().indexOf(term))
+								matches.push(title);
+						}
+						response(matches);
+				});
+			},
+			onSelect: function(e, term, item) {
+				// pageNotFoundList = array( pageTitle => pageKey )
+				var key = pageNotFoundList[term];
+				$("#jspageNotFound").attr("value", key);
 			}
 		});
 
@@ -498,3 +537,9 @@
 	</div>
 
 <?php echo Bootstrap::formClose(); ?>
+
+<script>
+	// Open the tab defined in the URL
+	const anchor = window.location.hash;
+	$(`a[href="${anchor}"]`).tab('show');
+</script>
