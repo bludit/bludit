@@ -13,6 +13,9 @@ $fileExtension = pathinfo($_FILES['inputFile']['name'], PATHINFO_EXTENSION);
 
 // Final filename
 $filename = 'logo.'.$fileExtension;
+if (Text::isNotEmpty( $site->title() )) {
+	$filename = $site->title().'.'.$fileExtension;
+}
 
 // Delete old image
 $oldFilename = $site->logo(false);
