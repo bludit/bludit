@@ -168,6 +168,7 @@ class Site extends dbJSON {
 		return $this->getField('gitlab');
 	}
 
+	// DEPRECATED since v3.5
 	public function googlePlus()
 	{
 		return $this->getField('googlePlus');

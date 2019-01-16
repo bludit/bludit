@@ -386,7 +386,6 @@ function install($adminPassword, $timezone)
 		'twitter'=>'https://twitter.com/bludit',
 		'facebook'=>'https://www.facebook.com/bluditcms',
 		'codepen'=>'',
-		'googlePlus'=>'https://plus.google.com/+Bluditcms',
 		'github'=> 'https://github.com/bludit',
 		'instagram'=>'',
 		'gitlab'=>'',

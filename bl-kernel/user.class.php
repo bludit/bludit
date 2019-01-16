@@ -115,6 +115,7 @@ class User {
 		return $this->getValue('codepen');
 	}
 
+	// DEPRECATED since v3.5
 	public function googlePlus()
 	{
 		return $this->getValue('googlePlus');
