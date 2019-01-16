@@ -67,11 +67,11 @@ echo Bootstrap::formOpen(array(
 		<?php endif; ?> -->
 
 		<span class="d-inline-block align-middle ml-1">
-			<div class="switch">
+			<div class="switch" style="width:<?php echo (Text::length($L->g('Publish')) * 15 ) ?>px">
 			<input type="radio" class="switch-input" name="switch" value="" id="jsPublishSwitch" <?php echo (!$page->draft()?'checked':'') ?>>
-			<label for="jsPublishSwitch" class="switch-label switch-label-off">Publish</label>
+			<label for="jsPublishSwitch" class="switch-label switch-label-off"><?php $L->p('Publish') ?></label>
 			<input type="radio" class="switch-input" name="switch" value="" id="jsDraftSwitch" <?php echo ($page->draft()?'checked':'') ?>>
-			<label for="jsDraftSwitch" class="switch-label switch-label-on">Draft</label>
+			<label for="jsDraftSwitch" class="switch-label switch-label-on"><?php $L->p('Draft') ?></label>
 			<span class="switch-selection"></span>
 			</div>
 		</span>

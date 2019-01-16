@@ -336,6 +336,7 @@ td.child {
 
 img.profilePicture {
 	width: 30px;
+	height: 30px;
 	border-radius: 30px;
 	border: 1px solid #ccc;
 }
@@ -344,7 +345,7 @@ img.profilePicture {
 .switch {
 	position: relative;
 	height: 26px;
-	width: 120px;
+	width: 140px;
 	background: #f3f3f3;
 	border: 1px solid #ced4d9;
 	border-radius: 2px;
@@ -354,7 +355,7 @@ img.profilePicture {
 	position: relative;
 	z-index: 2;
 	float: left;
-	width: 58px;
+	width: 50%;
 	line-height: 25px;
 	font-size: 11px;
 	text-align: center;
@@ -393,7 +394,7 @@ img.profilePicture {
 	top: 2px;
 	left: 2px;
 	display: block;
-	width: 58px;
+	width: 50%;
 	height: 21px;
 	border-radius: 2px;
 	background-color: #6c757d;
