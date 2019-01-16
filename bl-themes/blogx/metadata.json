@@ -2,9 +2,9 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://themes.bludit.com",
-	"version": "3.6",
-	"releaseDate": "2019-01-15",
+	"version": "3.6.1",
+	"releaseDate": "2019-01-16",
 	"license": "MIT",
-	"compatible": "3.6",
+	"compatible": "3.6.1",
 	"notes": ""
 }
