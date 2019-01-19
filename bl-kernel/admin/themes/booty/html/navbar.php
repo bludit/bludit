@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark text-uppercase d-block d-md-none">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-uppercase d-block d-lg-none">
 	<div class="container">
 		<span class="navbar-brand">
 			<?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
