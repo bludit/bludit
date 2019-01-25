@@ -6,8 +6,9 @@ class pluginDisqus extends Plugin {
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
-                        'enablePages'=>false,
-                        'enablePosts'=>true
+                        'enablePages'=>true,
+			'enableStatic'=>true,
+			'enableSticky'=>true
 		);
 	}
 
@@ -22,6 +23,7 @@ class pluginDisqus extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
+		$html .= '<span class="tip">'.$L->get('Get the shortname from the Disqus general settings').'</span>';
 		$html .= '</div>';
 
                 $html .= '<div>';
@@ -30,12 +32,21 @@ class pluginDisqus extends Plugin {
                 $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$L->get('enabled').'</option>';
                 $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
-                $html .= '</div>';
+		$html .= '</div>';
+
                 $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-posts').'</label>';
-                $html .= '<select name="enablePosts">';
-                $html .= '<option value="true" '.($this->getValue('enablePosts')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePosts')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+                $html .= '<label>'.$L->get('enable-disqus-on-static-pages').'</label>';
+                $html .= '<select name="enableStatic">';
+                $html .= '<option value="true" '.($this->getValue('enableStatic')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enableStatic')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+                $html .= '</select>';
+		$html .= '</div>';
+
+                $html .= '<div>';
+                $html .= '<label>'.$L->get('enable-disqus-on-sticky-pages').'</label>';
+                $html .= '<select name="enableSticky">';
+                $html .= '<option value="true" '.($this->getValue('enableSticky')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('enableSticky')===false?'selected':'').'>'.$L->get('disabled').'</option>';
                 $html .= '</select>';
                 $html .= '</div>';
 
@@ -44,39 +55,52 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
-		global $content;
-		global $url, $page;
+		global $WHERE_AM_I;
 
-		$page = $content[0];
-		if (empty($page)) {
-			return false;
-		}
-
-		if ( !$url->notFound() &&
-		     ( $url->whereAmI()=='page' &&
-			(($this->getValue('enablePosts') && $page->published()) ||
-			($this->getValue('enablePages') && $page->isStatic()))
-		     ) &&
-		     $page->allowComments() ) {
-			$html  = '<div id="disqus_thread"></div>';
-			$html .= '<script type="text/javascript">
-					var disqus_config = function () {
-						this.page.url = "'.$page->permalink().'";
-						this.page.identifier = "'.$page->uuid().'";
-					};
-
-					(function() {
-						var d = document, s = d.createElement("script");
-						s.src = "https://'.$this->getValue('shortname').'.disqus.com/embed.js";
-						s.setAttribute("data-timestamp", +new Date());
-						(d.head || d.body).appendChild(s);
-					})();
-				</script>
-			';
-			return $html;
+		if ($WHERE_AM_I==='page') {
+			global $page;
+			if ($page->published() && $this->getValue('enablePages')) {
+				return $this->javascript();
+			}
+			if ($page->isStatic() && $this->getValue('enableStatic')) {
+				return $this->javascript();
+			}
+			if ($page->sticky() && $this->getValue('enableSticky')) {
+				return $this->javascript();
+			}
 		}
 
 		return false;
+	}
+
+	private function javascript()
+	{
+		global $page;
+		$pageURL = $page->permalink();
+		$pageID = $page->uuid();
+		$shortname = $this->getValue('shortname');
+
+$code = <<<EOF
+<!-- Disqus plugin -->
+<div id="disqus_thread"></div>
+<script>
+
+	var disqus_config = function () {
+		this.page.url = '$pageURL';
+		this.page.identifier = '$pageID';
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = 'https://$shortname.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<!-- /Disqus plugin -->
+EOF;
+		return $code;
 	}
 
 }
