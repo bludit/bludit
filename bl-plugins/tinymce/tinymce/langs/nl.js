@@ -6,7 +6,7 @@ tinymce.addI18n('nl',{
 "Paste": "Plakken",
 "Select all": "Alles selecteren",
 "New document": "Nieuw document",
-"Ok": "Ok\u00e9",
+"Ok": "OK",
 "Cancel": "Annuleren",
 "Visual aids": "Hulpmiddelen",
 "Bold": "Vet",
