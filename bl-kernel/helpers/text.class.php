@@ -72,15 +72,15 @@ class Text {
 
 	public static function addSlashes($string, $begin=true, $end=true)
 	{
-		if($begin) {
-			$string = '/' . ltrim($string, '/');
+		if ($begin) {
+			$string = '/'.ltrim($string, '/');
 		}
 
-		if($end) {
-			$string = rtrim($string, '/') . '/';
+		if ($end) {
+			$string = rtrim($string, '/').'/';
 		}
 
-		if($string=='//') {
+		if ($string=='//') {
 			return '/';
 		}
 
