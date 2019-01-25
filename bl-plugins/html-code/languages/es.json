@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "HTML Code",
+		"description": "Añada código HTML, CSS o JavaScript en los metadatos de cabecera, encabezado o pie de página de su sitio."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "Inserte código en el tema dentro de la etiqueta &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-theme-at-the-top": "Inserte código en el tema en el encabezado.",
+	"insert-code-in-the-theme-at-the-bottom": "Inserte código en el tema en el pie de página.",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "Inserte código en el area de administración dentro de la etiqueta &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-admin-area-at-the-top": "Inserte código en el area de administración en el encabezado.",
+	"insert-code-in-the-admin-area-at-the-bottom": "Inserte código en el area de administración en el pie de página."
+}
