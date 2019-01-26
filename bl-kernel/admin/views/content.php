@@ -285,3 +285,9 @@ $(document).ready(function() {
 	});
 });
 </script>
+
+<script>
+	// Open the tab defined in the URL
+	const anchor = window.location.hash;
+	$(`a[href="${anchor}"]`).tab('show');
+</script>

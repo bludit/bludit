@@ -3,7 +3,7 @@
 class Blocks extends dbJSON
 {
 	// Fields allowed for a row in the database
-	private $dbFields = array(
+	protected $dbFields = array(
 		'title'=>'',
 		'value'=>'',
 		'description'=>''

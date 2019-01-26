@@ -2,16 +2,16 @@
 
 class Url
 {
-	private $uri;
-	private $uriStrlen;
-	private $whereAmI;
-	private $slug;
-	private $filters; // Filters for the URI
-	private $notFound;
-	private $parameters;
-	private $activeFilter;
-	private $httpCode;
-	private $httpMessage;
+	protected $uri;
+	protected $uriStrlen;
+	protected $whereAmI;
+	protected $slug;
+	protected $filters; // Filters for the URI
+	protected $notFound;
+	protected $parameters;
+	protected $activeFilter;
+	protected $httpCode;
+	protected $httpMessage;
 
 	function __construct()
 	{

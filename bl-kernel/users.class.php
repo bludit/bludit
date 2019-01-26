@@ -2,7 +2,7 @@
 
 class Users extends dbJSON {
 
-	public $dbFields = array(
+	protected $dbFields = array(
 		'firstName'=>'',
 		'lastName'=>'',
 		'nickname'=>'',

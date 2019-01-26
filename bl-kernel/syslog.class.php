@@ -2,7 +2,7 @@
 
 class Syslog extends dbJSON {
 
-	public $dbFields = array(
+	protected $dbFields = array(
 		'date'=>		array('inFile'=>false, 'value'=>''),
 		'dictionaryKey'=>	array('inFile'=>false, 'value'=>''),
 		'notes'=>		array('inFile'=>false, 'value'=>''),

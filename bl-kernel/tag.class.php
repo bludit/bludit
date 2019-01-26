@@ -2,7 +2,7 @@
 
 class Tag {
 
-	private $vars;
+	protected $vars;
 
 	function __construct($key)
 	{

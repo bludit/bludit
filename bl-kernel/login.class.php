@@ -2,7 +2,7 @@
 
 class Login {
 
-	private $users;
+	protected $users;
 
 	function __construct()
 	{

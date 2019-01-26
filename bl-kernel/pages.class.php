@@ -2,8 +2,8 @@
 
 class Pages extends dbJSON {
 
-	private $parentKeyList = array();
-	private $dbFields = array(
+	protected $parentKeyList = array();
+	protected $dbFields = array(
 		'title'=>'',
 		'description'=>'',
 		'username'=>'',
