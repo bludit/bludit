@@ -252,9 +252,9 @@ function table($type) {
 	));
 ?>
 <script>
+var hash = '#pages';
 $(document).ready(function() {
 	var key = false;
-	var hash = '#pages';
 
 	// Button for delete a page in the table
 	$(".deletePageButton").on("click", function() {
@@ -290,6 +290,6 @@ $(document).ready(function() {
 	});
 
 	// Open the tab defined in the URL
-	$('a[href="'+ $(location).attr('hash').slice(0,-1) +'"]').tab('show');
+	$('a[href="'+ $(location).attr('hash').slice(0,-1) +'"]').click();
 });
 </script>
