@@ -183,7 +183,7 @@ class pluginRemoteContent extends Plugin {
 
 				unset($lines[$key]);
 			} else {
-				break;
+				continue;
 			}
 		}
 
