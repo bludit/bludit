@@ -12,7 +12,7 @@
 
 <!-- TABS -->
 <nav class="mb-3">
-	<div class="nav nav-tabs" id="nav-tab" role="tablist" onclick="document.getElementById('jshash').value=event.target.hash">
+	<div class="nav nav-tabs" id="nav-tab" role="tablist" onclick="$('#jshash').attr('value', event.target.hash)">
 		<a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="nav-general" aria-selected="false"><?php $L->p('General') ?></a>
 		<a class="nav-item nav-link" id="nav-advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
 		<a class="nav-item nav-link" id="nav-seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
