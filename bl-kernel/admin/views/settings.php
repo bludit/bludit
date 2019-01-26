@@ -345,6 +345,9 @@
 			}
 		});
 
+		// Open the tab defined in the URL
+		$('a[href="'+ window.location.hash +'"]').tab('show');
+		window.scrollTo(0);
 	});
 	</script>
 
@@ -537,9 +540,3 @@
 	</div>
 
 <?php echo Bootstrap::formClose(); ?>
-
-<script>
-	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
-</script>
