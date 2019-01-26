@@ -254,6 +254,7 @@ function table($type) {
 <script>
 $(document).ready(function() {
 	var key = false;
+	var hash = '#pages';
 
 	// Button for delete a page in the table
 	$(".deletePageButton").on("click", function() {
