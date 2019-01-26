@@ -44,10 +44,7 @@ class pluginTinymce extends Plugin {
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
-
-		$html  = '<link rel="stylesheet" href="'.$this->htmlPath().'css/bludit.css">'.PHP_EOL;
-		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
-		return $html;
+		return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
 	}
 
 	public function adminBodyEnd()

@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 	}
 
-	Redirect::page('content');
+	Redirect::page('content'.(isset($_POST['hash'])?$_POST['hash']:''));
 }
 
 // ============================================================================

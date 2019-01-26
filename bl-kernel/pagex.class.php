@@ -2,7 +2,7 @@
 
 class Page {
 
-	private $vars;
+	protected $vars;
 
 	function __construct($key)
 	{

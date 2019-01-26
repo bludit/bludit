@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robots",
+		"description": "Puedes usar una metaetiqueta HTML especial para decirle a los robots que no indexen el contenido de una página."
+	}
+}

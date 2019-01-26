@@ -2,7 +2,7 @@
 
 class Block {
 
-	private $vars;
+	protected $vars;
 
 	function __construct($key)
 	{

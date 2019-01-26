@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 class User {
-	private $vars;
+	protected $vars;
 
 	function __construct($username)
 	{
