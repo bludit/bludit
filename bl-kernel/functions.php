@@ -744,6 +744,84 @@ function deleteCategory($args) {
 	return true;
 }
 
+// Add a new tag to the system
+// Returns TRUE is successfully added, FALSE otherwise
+function createTag($args) {
+	global $tags;
+	global $L;
+	global $syslog;
+
+	if (Text::isEmpty($args['name'])) {
+		Alert::set($L->g('Tag name is empty'), ALERT_STATUS_FAIL);
+		return false;
+	}
+
+	if ($tags->add(array('name'=>$args['name'], 'description'=>$args['description']))) {
+		// Add to syslog
+		$syslog->add(array(
+			'dictionaryKey'=>'new-tag-created',
+			'notes'=>$args['name']
+		));
+
+		Alert::set($L->g('Tag added'), ALERT_STATUS_OK);
+		return true;
+	}
+
+	Alert::set($L->g('The tag already exists'), ALERT_STATUS_FAIL);
+	return false;
+}
+
+function editTag($args) {
+	global $L;
+	global $pages;
+	global $tags;
+	global $syslog;
+
+	if (Text::isEmpty($args['name']) || Text::isEmpty($args['newKey']) ) {
+		Alert::set($L->g('Empty fields'));
+		return false;
+	}
+
+	$newTagKey = $tags->edit($args);
+
+	if ($newTagKey==false) {
+		Alert::set($L->g('The category already exists'));
+		return false;
+	}
+
+	// Change the tag key in the pages database
+	$pages->changeTag($args['oldKey'], $newTagKey);
+
+	// Add to syslog
+	$syslog->add(array(
+		'dictionaryKey'=>'tag-edited',
+		'notes'=>$newTagKey
+	));
+
+	Alert::set($L->g('The changes have been saved'));
+	return true;
+}
+
+function deleteTag($args) {
+	global $L;
+	global $tags;
+	global $syslog;
+
+	// Remove the category by key
+	$tags->remove($args['oldKey']);
+
+	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
+
+	// Add to syslog
+	$syslog->add(array(
+		'dictionaryKey'=>'tag-deleted',
+		'notes'=>$args['oldKey']
+	));
+
+	Alert::set($L->g('The changes have been saved'));
+	return true;
+}
+
 // Returns an array with all the categories
 // By default, the database of categories is alphanumeric sorted
 function getCategories() {

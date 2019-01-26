@@ -127,6 +127,7 @@ $pages 		= new Pages();
 $users 		= new Users();
 $tags 		= new Tags();
 $categories 	= new Categories();
+$tags		= new Tags();
 $site  		= new Site();
 $url		= new Url();
 $security	= new Security();

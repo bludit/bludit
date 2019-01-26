@@ -387,4 +387,30 @@ return <<<EOF
 <div class="$class" role="alert">$text</div>
 EOF;
 	}
+
+	public static function linkedPagesTable($pagesArray){
+		global $pages;
+		global $L;
+
+		$rows = array();
+		$headingTemplate = '<tr><th>%s</th><th>%s</th><th>%s</th></tr>';
+		$heading = sprintf($headingTemplate, $L->g('Page'), $L->g('Url'), $L->g('Type'));
+		$elemTemplate = '<tr><td><a href="%s" title="%s" target="_blank">%s</a></td><td><a href="%s" title="%s" target="_blank">%s</a></td><td>%s</td></tr>';
+
+		foreach($pagesArray as $pageKey){
+			$tmpPage = new Page($pageKey);
+			if($tmpPage){
+				$rows[] = sprintf($elemTemplate, $tmpPage->slug(), $tmpPage->title(), $tmpPage->title(), $tmpPage->slug(), $tmpPage->slug(), $tmpPage->slug(), $tmpPage->type());
+			}
+		}
+
+		$rows = implode('', $rows);
+
+return <<<EOF
+<table class="table table-striped mt-3">
+	$heading
+	$rows
+</table>
+EOF;
+	}
 }
