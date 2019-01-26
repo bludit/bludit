@@ -20,7 +20,7 @@ checkRole(array('admin'));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	editSettings($_POST);
-	Redirect::page('settings'.$_POST['hash']);
+	Redirect::page('settings'.(isset($_POST['hash'])?$_POST['hash']:''));
 }
 
 // ============================================================================
