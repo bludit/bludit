@@ -166,7 +166,7 @@ function table($type) {
 ?>
 
 <!-- TABS -->
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs" role="tablist" onclick="hash=event.target.hash">
 	<li class="nav-item">
 		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
@@ -279,15 +279,17 @@ $(document).ready(function() {
 			'type': 'hidden',
 			'name': 'type',
 			'value': 'delete'
-		}))));
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'hash',
+			'value': hash
+		})))));
 
 		form.hide().appendTo("body").submit();
 	});
-});
-</script>
 
-<script>
 	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
+	$('a[href="'+ window.location.hash +'"]').tab('show');
+	window.scrollTo(0);
+});
 </script>
