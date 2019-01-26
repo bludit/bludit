@@ -352,7 +352,7 @@
 		});
 
 		// Open the tab defined in the URL
-		$('a[href="'+ $(location).attr('hash').slice(0,-1) +'"]').tab('show');
+		$('a[href="'+ $(location).attr('hash').slice(0,-1) +'"]').click();
 	});
 	</script>
 
