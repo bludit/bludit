@@ -283,11 +283,9 @@ $(document).ready(function() {
 
 		form.hide().appendTo("body").submit();
 	});
-});
-</script>
 
-<script>
 	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
+	$('a[href="'+ window.location.hash +'"]').tab('show');
+	window.scrollTo(0);
+});
 </script>
