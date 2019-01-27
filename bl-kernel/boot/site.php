@@ -25,7 +25,7 @@ if (Sanitize::pathFile(PATH_THEMES, $site->theme().DS.'init.php')) {
 if (Sanitize::pathFile(PATH_THEMES, $site->theme().DS.'index.php')) {
 	include(PATH_THEMES.$site->theme().DS.'index.php');
 } else {
-	$L->p('Please check your theme configuration');
+	$L->p('Please check your theme configuration in the admin panel. Check for an active theme.');
 }
 
 // Plugins after site loaded

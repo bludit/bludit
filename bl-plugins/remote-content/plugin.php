@@ -39,6 +39,19 @@ class pluginRemoteContent extends Plugin {
 		$html .= '<span class="tip">'.$language->get('Complete URL of the zip file').'</span>';
 		$html .= '</div>';
 
+		$html .= '<hr>';
+		$html .= '<div>';
+		$html .= '<button type="button" id="jstryWebhook" class="btn btn-primary" onclick="tryWebhook()">'.$language->get('Try webhook').'</button>';
+$html .= <<<EOF
+<script>
+	function tryWebhook() {
+		var webhook = document.getElementById("jswebhook").value;
+		window.open(DOMAIN_BASE+webhook, '_blank');
+	}
+</script>
+EOF;
+		$html .= '</div>';
+
 		return $html;
 	}
 
