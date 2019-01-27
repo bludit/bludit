@@ -4,5 +4,6 @@
 		"name": "Search",
 		"description": "Provide a search box to your users to search through the content of your site."
 	},
-	"search": "Search"
+	"search": "Search",
+	"show-button-search": "Show button search"
 }

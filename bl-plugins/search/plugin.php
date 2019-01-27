@@ -10,7 +10,8 @@ class pluginSearch extends Plugin {
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
 			'label'=>'Search',
-			'wordsToCachePerPage'=>800
+			'wordsToCachePerPage'=>800,
+			'showButtonSearch'=>false
 		);
 	}
 
@@ -28,6 +29,15 @@ class pluginSearch extends Plugin {
 		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
 		$html .= '</div>';
 
+                $html .= '<div>';
+                $html .= '<label>'.$L->get('Show button search').'</label>';
+                $html .= '<select name="showButtonSearch">';
+                $html .= '<option value="true" '.($this->getValue('showButtonSearch')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+                $html .= '<option value="false" '.($this->getValue('showButtonSearch')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+		$html .= '</select>';
+                $html .= '</div>';
+		$html .= '<div>';
+
 		return $html;
 	}
 
@@ -39,10 +49,32 @@ class pluginSearch extends Plugin {
 		$html  = '<div class="plugin plugin-search">';
 		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<input type="text" id="plugin-search-input" /> ';
-		$html .= '<input type="button" value="'.$L->get('Search').'" onClick="javascript: window.open(\''.DOMAIN_BASE.'search/\' + document.getElementById(\'plugin-search-input\').value, \'_self\');" />';
+		$html .= '<input type="text" id="jspluginSearchText" /> ';
+		if ($this->getValue('showButtonSearch')) {
+			$html .= '<input type="button" value="'.$L->get('Search').'" onClick="pluginSearch()" />';
+		}
 		$html .= '</div>';
- 		$html .= '</div>';
+		$html .= '</div>';
+
+		$DOMAIN_BASE = DOMAIN_BASE;
+$html .= <<<EOF
+<script>
+	function pluginSearch() {
+		var text = document.getElementById("jspluginSearchText").value;
+		window.open('$DOMAIN_BASE'+'search/'+text, '_self');
+		return false;
+	}
+
+	document.getElementById("jspluginSearchText").onkeypress = function(e) {
+		if (!e) e = window.event;
+		var keyCode = e.keyCode || e.which;
+		if (keyCode == '13'){
+			pluginSearch();
+			return false;
+		}
+	}
+</script>
+EOF;
 
 		return $html;
 	}
