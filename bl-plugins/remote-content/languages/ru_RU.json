@@ -6,7 +6,6 @@
 	},
 	"webhook": "Вебхук",
 	"source": "Источник",
-	"keep-content": "Сохранять записи",
-	"complete-url-of-the-zip-file": "Полный URL-адрес zip-файла.",
-	"if-you-want-to-keep-the-content-generate-via-the-user-interface-enable-this-field": "Если вы хотите, чтобы записи генерировались через пользовательский интерфейс, включите это поле."
+	"try-webhook": "Try webhook",
+	"complete-url-of-the-zip-file": "Полный URL-адрес zip-файла."
 }
