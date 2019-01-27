@@ -166,7 +166,7 @@ function table($type) {
 ?>
 
 <!-- TABS -->
-<ul class="nav nav-tabs" role="tablist" onclick="hash=event.target.hash">
+<ul class="nav nav-tabs" role="tablist" onclick="tabHash=event.target.hash">
 	<li class="nav-item">
 		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
@@ -252,7 +252,7 @@ function table($type) {
 	));
 ?>
 <script>
-var hash = '#pages';
+var tabHash = '#pages';
 $(document).ready(function() {
 	var key = false;
 
@@ -282,8 +282,8 @@ $(document).ready(function() {
 			'value': 'delete'
 		}).append(jQuery('<input>', {
 			'type': 'hidden',
-			'name': 'hash',
-			'value': hash
+			'name': 'tabHash',
+			'value': tabHash
 		})))));
 
 		form.hide().appendTo("body").submit();
