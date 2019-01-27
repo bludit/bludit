@@ -34,7 +34,7 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'settings' ?>">
-						<?php $L->p('Site') ?></a>
+						<?php $L->p('Settings') ?></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>">
