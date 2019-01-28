@@ -265,11 +265,11 @@ class Plugin {
 	public function post()
 	{
 		$args = $_POST;
-		foreach($this->dbFields as $key=>$value) {
-			if( isset($args[$key]) ) {
+		foreach ($this->dbFields as $key=>$value) {
+			if (isset($args[$key])) {
 				$value = Sanitize::html( $args[$key] );
-				if($value==='false') { $value = false; }
-				elseif($value==='true') { $value = true; }
+				if ($value==='false') { $value = false; }
+				elseif ($value==='true') { $value = true; }
 				settype($value, gettype($this->dbFields[$key]));
 				$this->db[$key] = $value;
 			}

@@ -89,7 +89,7 @@ EOF;
 	public function post()
 	{
 		parent::post();
-		$this->createCache();
+		return $this->createCache();
 	}
 
 	public function afterPageCreate()

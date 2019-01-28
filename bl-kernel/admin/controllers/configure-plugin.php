@@ -40,12 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	));
 
 	// Call the method post of the plugin
-	if ($plugin->post()) {
-		Alert::set( $L->g('The changes have been saved') );
-		Redirect::page('configure-plugin/'.$plugin->className());
-	} else {
-		Alert::set( $L->g('Complete all fields') );
-	}
+	$plugin->post();
+	Alert::set( $L->g('The changes have been saved') );
+	Redirect::page('configure-plugin/'.$plugin->className());
 }
 
 // ============================================================================

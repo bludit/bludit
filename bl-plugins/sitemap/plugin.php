@@ -105,11 +105,8 @@ class pluginSitemap extends Plugin {
 
 	public function post()
 	{
-		// Call the method
 		parent::post();
-
-		// After POST request
-		$this->createXML();
+		return $this->createXML();
 	}
 
 	public function afterPageCreate()

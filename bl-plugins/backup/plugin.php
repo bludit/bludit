@@ -31,7 +31,7 @@ class pluginBackup extends Plugin {
 			return $this->deleteBackup($_POST['deleteBackup']);
 		}
 
-		return false;
+		return true;
 	}
 
 	public function adminSidebar()
