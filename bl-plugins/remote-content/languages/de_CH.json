@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Remote Content",
+		"description": "Das Plugin snychronisiert die Inhalte eines Repository wie GitHub mit einer Bludit-Installation."
+	},
+	"webhook": "Webhook",
+	"source": "Quelle",
+	"try-webhook": "Webhook testen",
+	"complete-url-of-the-zip-file": "Vollständiger URL des ZIP-Archivs."}
