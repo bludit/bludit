@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Canonical",
+		"description": "Kennzeichnung von Seiten mit kanonischen Links, um Dublicate Content bei der Erfassung durch Suchmaschinen zu verhindern."
+	}
+}
