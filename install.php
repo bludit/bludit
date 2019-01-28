@@ -277,7 +277,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'tags', 'about', 'simple-stats', 'robots');
+	$pluginsToInstall = array('tinymce', 'about', 'simple-stats', 'robots', 'canonical');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
@@ -480,18 +480,6 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
-	// File plugins/tags/db.php
-	file_put_contents(
-		PATH_PLUGINS_DATABASES.'tags'.DS.'db.php',
-		$dataHead.json_encode(
-			array(
-				'position'=>2,
-				'label'=>$L->get('Tags')
-			),
-		JSON_PRETTY_PRINT),
-		LOCK_EX
-	);
-
 	// File plugins/simple-stats/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES.'simple-stats'.DS.'db.php',
@@ -516,6 +504,17 @@ function install($adminPassword, $timezone)
 				'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
 				'toolbar2'=>'',
 				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
+			),
+		JSON_PRETTY_PRINT),
+		LOCK_EX
+	);
+
+	// File plugins/canonical/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES.'canonical'.DS.'db.php',
+		$dataHead.json_encode(
+			array(
+				'position'=>1
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX
