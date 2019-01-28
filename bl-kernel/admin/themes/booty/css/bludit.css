@@ -303,11 +303,11 @@ td.child {
 	#jseditorToolbarRight button span {
 		font-size: 16px !important;
 	}
-	#jscontentTools .btn {
+	.contentTools .btn {
 		font-size: 0px !important;
 		margin-right: 5px;
 	}
-	#jscontentTools .btn span {
+	.contentTools .btn span {
 		font-size: 16px !important;
 	}
 }
