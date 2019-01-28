@@ -83,14 +83,6 @@ echo Bootstrap::formOpen(array(
 </div>
 <script>
 	$(document).ready(function() {
-		$("#jsPublishSwitch").on("click", function() {
-			$("#jstype").val("published");
-		});
-
-		$("#jsDraftSwitch").on("click", function() {
-			$("#jstype").val("draft");
-		});
-
 		$("#jsoptionsSidebar").on("click", function() {
 			$("#jseditorSidebar").toggle();
 			$("#jsshadow").toggle();
@@ -189,7 +181,7 @@ echo Bootstrap::formOpen(array(
 					'label'=>$L->g('Type'),
 					'selected'=>$page->type(),
 					'options'=>array(
-						'default'=>'- '.$L->g('Default').' -',
+						'published'=>'- '.$L->g('Default').' -',
 						'sticky'=>$L->g('Sticky'),
 						'static'=>$L->g('Static')
 					),
@@ -392,13 +384,12 @@ $(document).ready(function() {
 
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
-		// Get the type from the selector
-		var typeSelector = $("#jstypeSelector option:selected").val();
-		// Get the type from the switch
-		var typeSwitch = $("#jstype").val();
-		// Set the type from the selector if the switch is publish
-		if ((typeSelector!='default') && (typeSwitch=='published')) {
-			$("#jstype").val(typeSelector);
+		// If the switch is setted to "published", get the value from the selector
+		if ($("#jsPublishSwitch").is(':checked')) {
+			var value = $("#jstypeSelector option:selected").val();
+			$("#jstype").val(value);
+		} else {
+			$("#jstype").val("draft");
 		}
 
 		// Get the content

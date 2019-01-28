@@ -197,8 +197,8 @@ class Pages extends dbJSON {
 		// This variable is not belong to the database so is not defined in $row
 		$newKey = $this->generateKey($slug, $parent, false, $key);
 
-		// If the page is draft then the created time is the current
-		if ($this->db[$key]['type']=='draft') {
+		// If the page is draft then the created date is the current
+		if ($row['type']=='draft') {
 			$row['date'] = Date::current(DB_DATE_FORMAT);
 		} elseif (!Valid::date($row['date'], DB_DATE_FORMAT)) {
 			$row['date'] = $this->db[$key]['date'];
@@ -227,7 +227,7 @@ class Pages extends dbJSON {
 		}
 
 		// Remove the old key
-		unset( $this->db[$key] );
+		unset ($this->db[$key]);
 
 		// Reindex Orphan Children
 		$this->reindexChildren($key, $newKey);

@@ -344,21 +344,6 @@ function editPage($args) {
 		return false;
 	}
 
-	// Title and content need to be here because from inside the dbPages is not visible
-	if (empty($args['title']) || empty($args['content'])) {
-		try {
-			$page = new Page($args['key']);
-			if (empty($args['title'])) {
-				$args['title'] = $page->title();
-			}
-			if (empty($args['content'])) {
-				$args['content'] = $page->contentRaw();
-			}
-		} catch (Exception $e) {
-			// continue
-		}
-	}
-
 	$key = $pages->edit($args);
 	if ($key) {
 		// Call the plugins after page modified
