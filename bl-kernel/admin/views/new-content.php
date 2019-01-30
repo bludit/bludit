@@ -318,7 +318,7 @@ echo Bootstrap::formOpen(array(
 </div>
 
 <!-- Editor -->
-<div id="jseditor" class="editable h-100 mb-1"></div>
+<textarea id="jseditor" class="editable h-100 mb-1"></textarea>
 
 </form>
 

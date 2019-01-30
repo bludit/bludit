@@ -89,10 +89,7 @@ class pluginsimpleMDE extends Plugin {
 			}'.PHP_EOL;
 
 		$html .= '$(document).ready(function() { '.PHP_EOL;
-		$html .= '
-		var currentContent = $( "#jseditor" ).html();
-		$( "#jseditor" ).replaceWith( "<textarea id=\"jseditor\">"+currentContent+"</textarea>" );
-		simplemde = new SimpleMDE({
+		$html .= 'simplemde = new SimpleMDE({
 				element: document.getElementById("jseditor"),
 				status: false,
 				toolbarTips: true,
