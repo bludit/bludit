@@ -47,6 +47,9 @@ if (isset($listOfFilesByPage[$pageNumber])) {
 	));
 }
 
-ajaxResponse(1, 'Chunks out of index');
+ajaxResponse(0, 'List of files and number of chunks.', array(
+	'numberOfPages'=>0,
+	'files'=>array()
+));
 
 ?>
