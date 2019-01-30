@@ -794,3 +794,9 @@ function activateTheme($themeDirectory) {
 	}
 	return false;
 }
+
+function ajaxResponse($status=0, $message="", $data=array()) {
+	$default = array('status'=>$status, 'message'=>$message);
+	$output = array_merge($default, $data);
+	exit (json_encode($output));
+}

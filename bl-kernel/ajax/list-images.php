@@ -22,10 +22,7 @@ if ($path=='thumbnails') {
 		$path = PATH_UPLOADS_THUMBNAILS;
 	}
 } else {
-	exit (json_encode(array(
-		'status'=>1,
-		'files'=>'Invalid path.'
-	)));
+	ajaxResponse(1, 'Invalid path.');
 }
 
 // Get all files from the directory $path, also split the array by numberOfItems
@@ -44,16 +41,12 @@ if (isset($listOfFilesByPage[$pageNumber])) {
 
 	// Returns the number of chunks for the paginator
 	// Returns the files inside the chunk
-	exit (json_encode(array(
-		'status'=>0,
+	ajaxResponse(0, 'List of files and number of chunks.', array(
 		'numberOfPages'=>count($listOfFilesByPage),
 		'files'=>$files
-	)));
+	));
 }
 
-exit (json_encode(array(
-	'status'=>1,
-	'files'=>'Out of index.'
-)));
+ajaxResponse(1, 'Chunks out of index');
 
 ?>

@@ -99,6 +99,10 @@ function cleanTable() {
 
 // Show the files in the table
 function displayFiles(files) {
+	if (!Array.isArray(files)) {
+		return false;
+	}
+
 	// Clean table
 	cleanTable();
 
@@ -134,10 +138,12 @@ function getFiles(pageNumber) {
 		{ 	tokenCSRF: tokenCSRF,
 			pageNumber: pageNumber,
 			uuid: "<?php echo $uuid; ?>",
-			path: "thumbnails" // the paths are defined in the list-images.php
+			path: "thumbnails" // the paths are defined in ajax/list-images
 		},
-		function(data) {
-			displayFiles(data.files);
+		function(data) { // success function
+			if (data.status==0) {
+				displayFiles(data.files);
+			}
 		}
 	);
 }
@@ -149,8 +155,10 @@ function deleteMedia(filename) {
 			filename: filename,
 			uuid: "<?php echo $uuid; ?>"
 		},
-		function(data) {
-			getFiles(1);
+		function(data) { // success function
+			if (data.status==0) {
+				getFiles(1);
+			}
 		}
 	);
 }
@@ -171,7 +179,7 @@ $(document).ready(function() {
 		// Check file size ?
 		// Check file type/extension ?
 
-		$("#jsbluditProgressBar").width("1%");
+		$("#jsbluditProgressBar").width("0");
 
 		// Data to send via AJAX
 		var uuid = $("#jsuuid").val();
@@ -198,9 +206,12 @@ $(document).ready(function() {
 				}
 				return xhr;
 			}
-		}).done(function() {
-			// Get the files of the first page, this include the files uploaded
-			getFiles(1);
+		}).done(function(data) {
+			if (data.status==0) {
+				$("#jsbluditProgressBar").width("0");
+				// Get the files for the first page, this include the files uploaded
+				getFiles(1);
+			}
 		});
 	});
 });

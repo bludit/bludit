@@ -11,10 +11,7 @@ $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
 if ($filename==false) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'The filename is empty.'
-	)));
+	ajaxResponse(1, 'The filename is empty.');
 }
 
 if ($uuid && IMAGE_RESTRICT) {
@@ -35,9 +32,6 @@ if (Sanitize::pathFile($thumbnailPath.$filename)) {
 	Filesystem::rmfile($thumbnailPath.$filename);
 }
 
-exit (json_encode(array(
-	'status'=>0,
-	'message'=>'Image deleted.'
-)));
+ajaxResponse(0, 'Image deleted.');
 
 ?>
