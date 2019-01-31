@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Zoeken",
+		"description": "Toont een zoekveld om alle inhoud van de website te doorzoeken."
+	},
+	"search": "Zoeken",
+	"show-button-search": "Knop Zoeken tonen"
+}

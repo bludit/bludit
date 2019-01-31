@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "Interface om met Bludit te communiceren via het HTTP-protocol. <br>Lees meer over deze plugin op <a href=\"https://docs.bludit.com/en/api/introduction\">API Introduction</a>."
+	},
+	"api-token": "API-token",
+	"amount-of-pages": "Aantal pagina's",
+	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "Het maximum aantal door te sturen pagina's via een call naar /api/pages",
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "Dit token is niet aan te passen en wordt automatisch ververst wanneer de plugin opnieuw wordt ge&iuml;nstalleerd"
+}

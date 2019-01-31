@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "HTML-editor voor het opmaken van de inhoud. Aanbevolen voor gebruikers die niet met de Markdown-opmaaktaal bekend zijn."
+	}
+}

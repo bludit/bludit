@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigatiemenu",
+		"description": "Toont een navigatiemenu met twee niveau's in de zijbalk."
+	},
+	"home-link": "Link naar startpagina",
+	"show-the-home-link-on-the-sidebar": "Toon een link naar de startpagina.",
+	"amount-of-items": "Aantal items"
+}
