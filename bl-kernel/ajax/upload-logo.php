@@ -2,10 +2,7 @@
 header('Content-Type: application/json');
 
 if (!isset($_FILES['inputFile'])) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'Error trying to upload the site logo.'
-	)));
+	ajaxResponse(1, 'Error trying to upload the site logo.');
 }
 
 // File extension
@@ -32,12 +29,10 @@ chmod(PATH_UPLOADS.$filename, 0644);
 // Store the filename in the database
 $site->set(array('logo'=>$filename));
 
-exit (json_encode(array(
-	'status'=>0,
-	'message'=>'Image uploaded success.',
+ajaxResponse(0, 'Image uploaded.', array(
 	'filename'=>$filename,
 	'absoluteURL'=>DOMAIN_UPLOADS.$filename,
 	'absolutePath'=>PATH_UPLOADS.$filename
-)));
+));
 
 ?>

@@ -7,9 +7,8 @@ $oldKey = isset($_POST['currentKey']) ? $_POST['currentKey'] : '';
 
 $slug = $pages->generateKey($text, $parent, $returnSlug=true, $oldKey);
 
-exit (json_encode(array(
-	'status'=>0,
+ajaxResponse(0, 'Slug generated.', array(
 	'slug'=>$slug
-)));
+));
 
 ?>

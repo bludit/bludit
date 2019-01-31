@@ -13,18 +13,12 @@ $uuid = isset($_POST['uuid']) ? $_POST['uuid'] : false;
 
 // Check UUID
 if (empty($uuid)) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'Autosave fail. UUID not defined.'
-	)));
+	ajaxResponse(1, 'Autosave fail. UUID not defined.');
 }
 
 // Check content length to create the autosave page
 if (Text::length($content)<100) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'Autosave not completed. The content length is less than 100 characters.'
-	)));
+	ajaxResponse(1, 'Autosave not completed. The content length is less than 100 characters.');
 }
 
 $autosaveUUID = 'autosave-'.$uuid;
@@ -47,10 +41,8 @@ if (empty($pageKey)) {
 	editPage($page);
 }
 
-exit (json_encode(array(
-	'status'=>0,
-	'message'=>'Autosave successfully.',
+ajaxResponse(0, 'Autosave successfully.', array(
 	'uuid'=>$autosaveUUID
-)));
+));
 
 ?>

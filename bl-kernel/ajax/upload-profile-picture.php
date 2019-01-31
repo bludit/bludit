@@ -8,17 +8,11 @@ $username = empty($_POST['username']) ? false : $_POST['username'];
 // ----------------------------------------------------------------------------
 
 if ($username===false) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'Error in username.'
-	)));
+	ajaxResponse(1, 'Error in username.');
 }
 
 if (!isset($_FILES['profilePictureInputFile'])) {
-	exit (json_encode(array(
-		'status'=>1,
-		'message'=>'Error trying to upload the profile picture.'
-	)));
+	ajaxResponse(1, 'Error trying to upload the profile picture.');
 }
 
 // File extension
@@ -42,12 +36,10 @@ unlink(PATH_TMP.$tmpFilename);
 // Permissions
 chmod(PATH_UPLOADS_PROFILES.$filename, 0644);
 
-exit (json_encode(array(
-	'status'=>0,
-	'message'=>'Image uploaded success.',
+ajaxResponse(0, 'Image uploaded.', array(
 	'filename'=>$filename,
 	'absoluteURL'=>DOMAIN_UPLOADS_PROFILES.$filename,
 	'absolutePath'=>PATH_UPLOADS_PROFILES.$filename
-)));
+));
 
 ?>

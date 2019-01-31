@@ -7,10 +7,7 @@ header('Content-Type: application/json');
 $query = isset($_GET['query']) ? Text::lowercase($_GET['query']) : false;
 // ----------------------------------------------------------------------------
 if ($query===false) {
-	exit (json_encode(array(
-		'status'=>1,
-		'files'=>'Invalid query.'
-	)));
+	ajaxResponse(1, 'Invalid query.');
 }
 
 $tmp = array();
