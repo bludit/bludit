@@ -13,7 +13,7 @@
 	</li>
 
 	<li class="nav-item mt-3">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span class="oi oi-plus"></span><?php $L->p('New content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #007bff;" class="oi oi-plus"></span><?php $L->p('New content') ?></a>
 	</li>
 
 	<?php if (checkRole(array('editor'),false)): ?>
