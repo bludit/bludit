@@ -377,5 +377,7 @@
     "thumbnail": "Vorschaubild",
     "thumbnail-width-in-pixels": "Breite der Vorschaubilder in Pixel (px).",
     "thumbnail-height-in-pixels": "Höhe der Vorschaubilder in Pixel (px).",
-    "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%)."
+    "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%).",
+    "maximum-load-file-size-allowed:": "Maximal erlaubte Dateigröße:",
+    "file-type-is-not-supported": "Dateiformat wird nicht unterstützt. Erlaubte Dateiformate:"
 }
