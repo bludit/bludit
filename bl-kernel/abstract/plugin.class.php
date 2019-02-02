@@ -82,16 +82,22 @@ class Plugin {
 		return '<script charset="utf-8" src="'.$this->domainPath().'js/'.$filename.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
+	// Returns absolute URL and path of the plugin directory
+	// This function helps to include CSS or Javascript files with absolute URL
 	public function domainPath()
 	{
 		return DOMAIN_PLUGINS.$this->directoryName.'/';
 	}
 
+	// Returns relative path of the plugin directory
+	// This function helps to include CSS or Javascript files with relative URL
 	public function htmlPath()
 	{
 		return HTML_PATH_PLUGINS.$this->directoryName.'/';
 	}
 
+	// Returns absolute path of the plugin directory
+	// This function helps to include PHP libraries or some file at server level
 	public function phpPath()
 	{
 		return PATH_PLUGINS.$this->directoryName.DS;
