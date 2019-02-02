@@ -1,12 +1,12 @@
 {
 	"plugin-data":
 	{
-		"name": "Disqus commentaar systeem",
-		"description": "Disqus is een blog commentaar hosting service voor web sites. Het is wel nodig om jezelf te registreren op Disqus.com voordat je deze plugin kan gebruiken."
+		"name": "Disqus",
+		"description": "Disqus is hosting service om reacties in websites te implementeren.<br>Registratie op Disqus.com is nodig voordat deze plugin gebruikt kan gebruiken."
 	},
 	"disqus-shortname": "Disqus shortname",
-	"enable-disqus-on-pages": "Disqus on pages",
-	"enable-disqus-on-static-pages": "Disqus on static pages",
-	"enable-disqus-on-sticky-pages": "Disqus on sticky pages",
-	"get-the-shortname-from-the-disqus-general-settings": "Get the shortname from the Disqus general settings"
+	"enable-disqus-on-pages": "Disqus op pagina's tonen",
+	"enable-disqus-on-static-pages": "Disqus on statische pagina's tonen",
+	"enable-disqus-on-sticky-pages": "Disqus on vastgezette pagina's tonen",
+	"get-the-shortname-from-the-disqus-general-settings": "De shortname is te verkrijgen via de algemene instellingen van Disqus"
 }

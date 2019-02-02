@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robots",
+		"description": "Mogelijkheid om via een speciale HTML meta-tag robots/crawlers op te dragen om de inhoud van een pagina niet te indexeren, niet te archiveren en/of niet te scannen op links."
+	}
+}

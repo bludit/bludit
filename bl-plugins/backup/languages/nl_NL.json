@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Backup",
+		"description": "Eenvoudige manier om backups van Bludit-gegevens te maken."
+	},
+	"create-backup": "Backup maken",
+	"download": "Downloaden",
+	"restore-backup": "Herstellen",
+	"delete-backup": "Verwijderen",
+	"there-are-no-backups-for-the-moment": "Er zijn geen backups."
+}

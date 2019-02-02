@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "Met Twitter Cards kunnen foto's, video's and media-ervaringen worden gekoppeld aan tweets om zo bezoekers naar deze website te trekken."
+	},
+	"default-image": "Standaardafbeelding"
+}

@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Versie",
+		"description": "Toont de huidige versie in de zijbalk van het beheergedeelte en controleert periodiek op nieuwe Bludit-versies."
+	}
+}

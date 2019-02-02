@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Statische Pagina's",
+		"description": "Toont navigatiemenu met statische pagina's."
+	},
+	"home-link": "Link naar startpagina",
+	"show-the-home-link-on-the-sidebar": "Toon een link naar de startpagina."
+}
