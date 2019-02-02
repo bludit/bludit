@@ -37,6 +37,8 @@ $numberOfPages = count($listOfFilesByPage);
 	-->
 		<h3 class="mt-2 mb-3"><?php $L->p('Upload'); ?></h3>
 
+		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
+
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
 			<div class="custom-file">
@@ -97,6 +99,14 @@ function cleanTable() {
 	$('#jsbluditMediaTable').empty();
 }
 
+function showMediaAlert(message) {
+	$("#jsalertMedia").html(message).removeClass('d-none');
+}
+
+function hideMediaAlert() {
+	$("#jsalertMedia").addClass('d-none');
+}
+
 // Show the files in the table
 function displayFiles(files) {
 	if (!Array.isArray(files)) {
@@ -143,6 +153,8 @@ function getFiles(pageNumber) {
 		function(data) { // success function
 			if (data.status==0) {
 				displayFiles(data.files);
+			} else {
+				console.log(data.message);
 			}
 		}
 	);
@@ -158,6 +170,8 @@ function deleteMedia(filename) {
 		function(data) { // success function
 			if (data.status==0) {
 				getFiles(1);
+			} else {
+				console.log(data.message);
 			}
 		}
 	);
@@ -211,6 +225,9 @@ $(document).ready(function() {
 				$("#jsbluditProgressBar").width("0");
 				// Get the files for the first page, this include the files uploaded
 				getFiles(1);
+			} else {
+				$("#jsbluditProgressBar").width("0");
+				showMediaAlert(data.message);
 			}
 		});
 	});

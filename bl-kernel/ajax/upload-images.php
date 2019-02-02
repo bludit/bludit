@@ -34,7 +34,7 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 
 	// Check for errors
 	if ($_FILES['bluditInputFiles']['error'][$key] != 0) {
-		$message = 'Error occurred uploading the image, max file size allowed: '.ini_get('upload_max_filesize');
+		$message = $L->g('Maximum load file size allowed:').' '.ini_get('upload_max_filesize');
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}
@@ -46,7 +46,7 @@ foreach ($_FILES['bluditInputFiles']['name'] as $key=>$filename) {
 	$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
 	$fileExtension = Text::lowercase($fileExtension);
 	if (!in_array($fileExtension, $allowedExtensions) ) {
-		$message = 'Extension file not supported.';
+		$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$allowedExtensions);
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}
