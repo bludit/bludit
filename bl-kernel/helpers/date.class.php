@@ -47,6 +47,15 @@ class Date {
 		return self::translate($output);
 	}
 
+	public static function offset($date, $format, $offset)
+	{
+		$Date = new DateTime($date);
+		$Date->modify($offset);
+		$output = $Date->format($format);
+
+		return self::translate($output);
+	}
+
 	// Format a local time/date according to locale settings.
 	public static function format($date, $currentFormat, $outputFormat)
 	{

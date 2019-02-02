@@ -319,11 +319,13 @@ function install($adminPassword, $timezone)
 
 	$data = array();
 	$slugs = array();
+	$nextDate = $currentDate;
 	foreach ($pagesToInstall as $page) {
 
 		$slug = $page;
 		$title = Text::replace('slug','title', $slug);
 		$content = Text::replace('slug','content', $slug);
+		$nextDate = Date::offset($nextDate, DB_DATE_FORMAT, '-1 minute');
 
 		$data[$L->get($slug)]= array(
 			'title'=>$L->get($title),
@@ -331,7 +333,7 @@ function install($adminPassword, $timezone)
 			'username'=>'admin',
 			'tags'=>array(),
 			'type'=>(($slug=='example-page-4-slug')?'static':'published'),
-			'date'=>$currentDate,
+			'date'=>$nextDate,
 			'dateModified'=>'',
 			'allowComments'=>true,
 			'position'=>1,
