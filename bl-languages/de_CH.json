@@ -8,7 +8,7 @@
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
             "cblte https:\/\/github.com\/cblte",
-            "Momel15 https:\/\/github.com\/Momel15",
+            "MoritzBrueckner https:\/\/github.com\/MoritzBrueckner",
             ""
         ]
     },
@@ -103,7 +103,7 @@
     "this-field-can-help-describe-the-content": "Kurze Inhaltsbeschreibung. Möglich sind bis zu 150 Zeichen.",
     "images": "Bilder",
     "error": "Fehler",
-    "supported-image-file-types": "Unterstützte Datei-Formate",
+    "supported-image-file-types": "Unterstützte Dateiformate",
     "cover-image": "Hauptbild",
     "drag-and-drop-or-click-here": "Drag and Drop oder hier klicken",
     "there-are-no-images": "Keine Bilder vorhanden",
@@ -250,7 +250,7 @@
     "undefined": "Nicht definiert",
     "create-new-content-for-your-site": "Einen neuen Inhalt erstellen.",
     "there-are-no-draft-content": "Es gibt keine Entwürfe.",
-    "order-items-by": "Order items by",
+    "order-items-by": "Inhalte sortieren nach",
     "all-content": "Alle Inhalte",
     "dynamic": "Dynamisch",
     "type": "Art",
@@ -306,7 +306,7 @@
     "interval": "Abstände",
     "number-in-minutes-for-every-execution-of-autosave": "Anzahl Minuten zwischen automatischen Speicherungen.",
     "extreme-friendly-url": "Besonders benutzerfreundlicher URL",
-    "title-formats": "Title formats",
+    "title-formats": "Titelformate",
     "delete-content": "Inhalt löschen",
     "are-you-sure-you-want-to-delete-this-page": "Bist Du sicher, dass Du diesen Inhalt löschen möchtest?",
     "sticky": "Fixiert",
@@ -327,7 +327,7 @@
     "apply-code-nofollow-code-to-this-page": "Die Anweisung <code>nofollow<\/code> für dieses Seite verwenden.",
     "this-tells-search-engines-not-to-follow-links-on-this-page": "Anweisung an Suchmaschinen, Links auf der Seite nicht zu folgen.",
     "apply-code-noarchive-code-to-this-page": "Die Anweisung <code>noarchive<\/code> für diese Seite anwenden.",
-    "this-tells-search-engines-not-to-save-a-cached-copy-of-this-page": "Anweisung an Suchmaschinen keine Kopie der Seite im Cache zu speichern.",
+    "this-tells-search-engines-not-to-save-a-cached-copy-of-this-page": "Anweisung an Suchmaschinen, keine Kopie der Seite im Cache zu speichern.",
     "uncategorized": "Nicht kategorisiert",
     "done": "Bestätigen",
     "delete-category": "Kategorie löschen",
@@ -377,5 +377,7 @@
     "thumbnail": "Vorschaubild",
     "thumbnail-width-in-pixels": "Breite der Vorschaubilder in Pixel (px).",
     "thumbnail-height-in-pixels": "Höhe der Vorschaubilder in Pixel (px).",
-    "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%)."
+    "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%).",
+    "maximum-load-file-size-allowed:": "Maximal erlaubte Dateigröße:",
+    "file-type-is-not-supported": "Dateiformat wird nicht unterstützt. Erlaubte Dateiformate:"
 }
