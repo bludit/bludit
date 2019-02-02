@@ -18,9 +18,21 @@ img {
 	max-width: 100%;
 }
 
+pre, code {
+	background: #f8f8f8;
+	color: #333;
+}
+
 pre {
-	background: #eee;
+	border-left: 2px solid #ccc;
 	padding: 10px;
+}
+
+code {
+	display: inline-block;
+	padding: 0 0.5em;
+	line-height: 1.4em;
+	border-radius: 3px;
 }
 
 table {
@@ -59,6 +71,7 @@ blockquote {
         border-left: 5px solid #eee;
         font-style: italic;
 }
+
 
 /* Paginator */
 .paginator {
