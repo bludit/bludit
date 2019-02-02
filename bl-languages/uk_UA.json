@@ -376,5 +376,7 @@
     "thumbnail": "Мініатюра",
     "thumbnail-width-in-pixels": "Ширина мініатюри в пікселях (px).",
     "thumbnail-height-in-pixels": "Висота мініатюри в пікселях (px).",
-    "thumbnail-quality-in-percentage": "Якість мініатюри у відсотках (%)."
+    "thumbnail-quality-in-percentage": "Якість мініатюри у відсотках (%).",
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:"
 }

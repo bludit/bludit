@@ -377,5 +377,7 @@
     "thumbnail": "Küçük resim",
     "thumbnail-width-in-pixels": "Piksel olarak küçük resim genişliği (px).",
     "thumbnail-height-in-pixels": "Piksel olarak küçük resim yüksekliği (px).",
-    "thumbnail-quality-in-percentage": "Yüzde olarak küçük resim kalitesi (%)."
+    "thumbnail-quality-in-percentage": "Yüzde olarak küçük resim kalitesi (%).",
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:"
 }

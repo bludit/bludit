@@ -375,5 +375,7 @@
     "thumbnail": "Thumbnail",
     "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
     "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
-    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%)."
+    "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%).",
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:"
 }

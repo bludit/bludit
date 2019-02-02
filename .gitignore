@@ -10,6 +10,7 @@ bl-plugins/medium-editor
 bl-plugins/quill
 bl-plugins/yandex-metrica/
 bl-plugins/domain-migrator/
+bl-plugins/tail-writer/
 bl-kernel/bludit.pro.php
 bl-themes/docs
 bl-themes/docsx

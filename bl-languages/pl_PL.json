@@ -376,5 +376,7 @@
     "thumbnail": "Miniatura",
     "thumbnail-width-in-pixels": "Ustaw szerokość miniatur wyrażaną w pikselach (px).",
     "thumbnail-height-in-pixels": "Ustaw wysokość miniatur wyrażaną w pikselach (px).",
-    "thumbnail-quality-in-percentage": "Ustaw jakość miniatur wyrażaną w procentach (%)."
+    "thumbnail-quality-in-percentage": "Ustaw jakość miniatur wyrażaną w procentach (%).",
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:"
 }

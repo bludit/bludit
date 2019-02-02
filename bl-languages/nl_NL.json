@@ -375,5 +375,7 @@
     "thumbnail": "Voorbeeld",
     "thumbnail-width-in-pixels": "Breedte voorbeelden in pixels (px).",
     "thumbnail-height-in-pixels": "Hoogte voorbeelden in pixels (px).",
-    "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%)."
+    "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:"
 }
