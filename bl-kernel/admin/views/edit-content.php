@@ -382,6 +382,19 @@ echo Bootstrap::formOpen(array(
 <script>
 $(document).ready(function() {
 
+	// Define function if they doesn't exist
+	// This helps if the user doesn't activate any plugin as editor
+	if (typeof editorGetContent != "function") {
+		window.editorGetContent = function(){
+			return $("#jseditor").val();
+		};
+	}
+	if (typeof editorInsertMedia != "function") {
+		window.editorInsertMedia = function(filename){
+			$("#jseditor").val($('#jseditor').val()+'<img src="'+filename+'" alt="">');
+		};
+	}
+
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		// If the switch is setted to "published", get the value from the selector
