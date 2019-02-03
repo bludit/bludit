@@ -106,6 +106,7 @@ $html = <<<EOF
 		remove_script_host: false,
 		convert_urls: true,
 		relative_urls: false,
+		valid_elements: "*[*]",
 		$document_base_url
 		plugins: ["$plugins"],
 		toolbar1: "$toolbar1",
