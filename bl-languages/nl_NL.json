@@ -2,12 +2,10 @@
     "language-data": {
         "native": "Nederlands",
         "english-name": "Dutch",
-        "last-update": "25-01-2019",
+        "last-update": "04-02-2019",
         "authors": [
             "Ray",
-            "ltGuillaume",
-            "",
-            ""
+            "ltGuillaume"
         ]
     },
     "dates": {
@@ -376,6 +374,6 @@
     "thumbnail-width-in-pixels": "Breedte voorbeelden in pixels (px).",
     "thumbnail-height-in-pixels": "Hoogte voorbeelden in pixels (px).",
     "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
-    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
-    "file-type-is-not-supported": "File type is not supported. Allowed types:"
+    "maximum-load-file-size-allowed:": "Maximale bestandsgrootte voor uploads:",
+    "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:"
 }
