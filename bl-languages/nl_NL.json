@@ -332,7 +332,7 @@
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "De roepnaam wordt gebruikt door thema's om de auteur van de inhoud weer te geven",
     "allow-unicode": "Unicode toestaan",
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Sta Unicode-tekens toe in de URL en enkele andere onderdelen van het systeem.",
-    "variables-allowed": "Variabelen toegestaan",
+    "variables-allowed": "Ondersteunde variabelen",
     "tag": "Tag",
     "drag-and-drop-to-sort-the-plugins": "Plugins sorten met slepen.",
     "seo": "SEO",
