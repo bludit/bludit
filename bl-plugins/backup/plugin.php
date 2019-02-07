@@ -54,7 +54,7 @@ class pluginBackup extends Plugin {
 		}
 
 		$html .= '<div>';
-		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="oi oi-play-circle"></span> '.$L->get('create-backup').'</button>';
+		$html .= '<button name="createBackup" value="true" class="btn btn-primary btn-sm" type="submit"><span class="oi oi-play-circle"></span> '.$L->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -66,10 +66,10 @@ class pluginBackup extends Plugin {
 			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="btn btn-secondary mr-3" href="'.DOMAIN_CONTENT.'workspaces/backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
+				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_CONTENT.'workspaces/backup/'.$filename.'.zip"><span class="oi oi-data-transfer-download"></span> '.$L->get('download').'</a>';
 			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-timer"></span> '.$L->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-secondary mr-3" type="submit"><span class="oi oi-delete"></span> '.$L->get('delete-backup').'</button>';
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-outline-secondary btn-sm mr-1 mt-1" type="submit"><span class="oi oi-timer"></span> '.$L->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-outline-danger btn-sm mr-1 mt-1" type="submit"><span class="oi oi-trash"></span> '.$L->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
