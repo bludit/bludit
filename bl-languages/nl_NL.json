@@ -2,12 +2,10 @@
     "language-data": {
         "native": "Nederlands",
         "english-name": "Dutch",
-        "last-update": "25-01-2019",
+        "last-update": "04-02-2019",
         "authors": [
             "Ray",
-            "ltGuillaume",
-            "",
-            ""
+            "ltGuillaume"
         ]
     },
     "dates": {
@@ -334,7 +332,7 @@
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "De roepnaam wordt gebruikt door thema's om de auteur van de inhoud weer te geven",
     "allow-unicode": "Unicode toestaan",
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Sta Unicode-tekens toe in de URL en enkele andere onderdelen van het systeem.",
-    "variables-allowed": "Variabelen toegestaan",
+    "variables-allowed": "Ondersteunde variabelen",
     "tag": "Tag",
     "drag-and-drop-to-sort-the-plugins": "Plugins sorten met slepen.",
     "seo": "SEO",
@@ -376,6 +374,6 @@
     "thumbnail-width-in-pixels": "Breedte voorbeelden in pixels (px).",
     "thumbnail-height-in-pixels": "Hoogte voorbeelden in pixels (px).",
     "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
-    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
-    "file-type-is-not-supported": "File type is not supported. Allowed types:"
+    "maximum-load-file-size-allowed:": "Maximale bestandsgrootte voor uploads:",
+    "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:"
 }
