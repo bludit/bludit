@@ -1,0 +1,55 @@
+/*
+	BOOTSTRAP Hacks
+*/
+
+a {
+	color: #4a90e2;
+}
+
+a:hover {
+	color: #4a90e2;
+}
+
+.btn {
+	border-radius: 2px;
+}
+
+.btn-primary {
+	background-color: #4F93E0;
+	border-color: #4a90e2;
+}
+
+.btn-primary:hover {
+	background-color: #4585CF;
+	border-color: #4a90e2;
+}
+
+.btn-light {
+	color: #212529;
+	background-color: #f3f3f3;
+	border-color: #ced4d9;
+}
+
+.btn-form {
+	background-color: #F3F3F3;
+	border-color: #DDD;
+	color: #000;
+}
+
+.btn-form:hover {
+	background-color: rgb(228, 228, 228);
+	border-color: #DDD;
+	color: #000;
+}
+
+.alert-success {
+	background-color: #4586d4;
+	border-left: 6px solid #abd1ff !important;
+	color: #ffffff;
+}
+
+.alert-danger {
+	background-color: #d44545;
+	border-left: 6px solid #ff9c9c !important;
+	color: #ffffff;
+}
