@@ -3,10 +3,9 @@
         "native": "Türkçe",
         "english-name": "Turkish",
         "locale": "tr, tr_TR",
-        "last-update": "2018-12-02",
+        "last-update": "2018-02-06",
         "authors": [
             "Ali Demirtas",
-            "guleyc",
             "",
             "",
             ""
@@ -378,6 +377,6 @@
     "thumbnail-width-in-pixels": "Piksel olarak küçük resim genişliği (px).",
     "thumbnail-height-in-pixels": "Piksel olarak küçük resim yüksekliği (px).",
     "thumbnail-quality-in-percentage": "Yüzde olarak küçük resim kalitesi (%).",
-    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
-    "file-type-is-not-supported": "File type is not supported. Allowed types:"
+    "maximum-load-file-size-allowed:": "İzin verilen en yüksek dosya yükleme boyutu:",
+    "file-type-is-not-supported": "Dosya türü desteklenmiyor. İzin verilen türler:"
 }
