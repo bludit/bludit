@@ -77,14 +77,11 @@ class Pages extends dbJSON {
 
 		// Content
 		// This variable is not belong to the database so is not defined in $row
-		$contentRaw = $args['content'];
+		$contentRaw = (empty($args['content'])?'':$args['content']);
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = '';
-		if (!empty($args['parent'])) {
-			$parent = $args['parent'];
-		}
+		$parent = (empty($args['parent'])?'':$args['parent']);
 
 		// Slug from the title or the content
 		// This variable is not belong to the database so is not defined in $row
@@ -118,13 +115,13 @@ class Pages extends dbJSON {
 		}
 
 		// Create the directory
-		if( Filesystem::mkdir(PATH_PAGES.$key, true) === false ) {
+		if (Filesystem::mkdir(PATH_PAGES.$key, true) === false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Create the index.txt and save the file
-		if( file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false ) {
+		if (file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
 			return false;
 		}
@@ -149,7 +146,6 @@ class Pages extends dbJSON {
 		// Old key
 		// This variable is not belong to the database so is not defined in $row
 		$key = $args['key'];
-
 		$row = array();
 		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$value) {
@@ -172,23 +168,19 @@ class Pages extends dbJSON {
 
 		// Content
 		// This variable is not belong to the database so is not defined in $row
-		$contentRaw = $args['content'];
+		$contentRaw = (empty($args['content'])?'':$args['content']);
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = '';
-		if (!empty($args['parent'])) {
-			$parent = $args['parent'];
-		}
+		$parent = (empty($args['parent'])?'':$args['parent']);
 
-		// Slug from the title or the content
+		// Slug
+		// If the user change the slug the page key changes
+		// If the user send an empty slug the page key doesn't need to change
 		// This variable is not belong to the database so is not defined in $row
 		if (empty($args['slug'])) {
-			if (!empty($row['title'])) {
-				$slug = $this->generateSlug($row['title']);
-			} else {
-				$slug = $this->generateSlug($contentRaw);
-			}
+			$explode = explode('/', $key);
+			$slug = end($explode);
 		} else {
 			$slug = $args['slug'];
 		}
@@ -214,7 +206,7 @@ class Pages extends dbJSON {
 
 		// Move the directory from old key to new key.
 		if ($newKey!==$key) {
-			if( Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false ) {
+			if (Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
 			}
@@ -227,7 +219,7 @@ class Pages extends dbJSON {
 		}
 
 		// Remove the old key
-		unset ($this->db[$key]);
+		unset($this->db[$key]);
 
 		// Reindex Orphan Children
 		$this->reindexChildren($key, $newKey);
@@ -669,14 +661,12 @@ class Pages extends dbJSON {
 
 		if ($newKey!==$oldKey) {
 			// Verify if the key is already been used
-			if( isset($this->db[$newKey]) ) {
-				if( !Text::endsWithNumeric($newKey) ) {
-					$newKey = $newKey.'-0';
+			if (isset($this->db[$newKey])) {
+				$i = 0;
+				while (isset($this->db[$newKey.'-'.$i])) {
+					$i++;
 				}
-
-				while( isset($this->db[$newKey]) ) {
-					$newKey++;
-				}
+				$newKey = $newKey.'-'.$i;
 			}
 		}
 

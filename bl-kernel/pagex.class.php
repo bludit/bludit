@@ -416,12 +416,7 @@ class Page {
 	public function slug()
 	{
 		$explode = explode('/', $this->key());
-
-		// Remove the parent
-		if (!empty($explode[1])) {
-			return $explode[1];
-		}
-		return $explode[0];
+		return end($explode);
 	}
 
 	// Returns the parent key, if the page doesn't have a parent returns FALSE

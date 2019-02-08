@@ -69,7 +69,7 @@ class pluginAPI extends Plugin {
 		$inputs = $this->getMethodInputs();
 
 		if ( empty($inputs) ) {
-			$this->response(404, 'Not Found', array('message'=>'Missing method inputs.'));
+			$this->response(400, 'Bad Request', array('message'=>'Missing method inputs.'));
 		}
 
 		// ENDPOINT PARAMETERS
@@ -77,7 +77,7 @@ class pluginAPI extends Plugin {
 		$parameters = $this->getEndpointParameters($URI);
 
 		if ( empty($parameters) ) {
-			$this->response(404, 'Not Found', array('message'=>'Missing endpoint parameters.'));
+			$this->response(400, 'Bad Request', array('message'=>'Missing endpoint parameters.'));
 		}
 
 		// API TOKEN
@@ -87,7 +87,7 @@ class pluginAPI extends Plugin {
 
 		// Check empty token
 		if (empty($inputs['token'])) {
-			$this->response(404, 'Not Found', array('message'=>'Missing API token.'));
+			$this->response(400, 'Bad Request', array('message'=>'Missing API token.'));
 		}
 
 		// Check if the token is valid
