@@ -77,7 +77,7 @@ class pluginTinymce extends Plugin {
 $html = <<<EOF
 <script>
 
-	// Insert an image in the editor in the cursor position
+	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertMedia(filename) {
 		tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");

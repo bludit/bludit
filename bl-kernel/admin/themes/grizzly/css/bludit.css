@@ -1,11 +1,13 @@
 html {
 	height: 100%;
-	font-size: 0.9rem;
-	background: #fcfcfc;
 }
 
 body {
-	background: #fcfcfc;
+	height: 100%;
+	overflow: hidden;
+	margin: 0px;
+	display: flex;
+	background: #fdfdfd;
 }
 
 /* LOGIN */
@@ -15,7 +17,70 @@ body.login {
 	height: 100%;
 }
 
-#editor {
-	background: #fcfcfc;
+/* TOOLBAR */
+#toolbar {
+	font-size: 14px;
+	border-bottom: 1px solid #f0f0f0;
+	text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+	cursor: pointer;
+}
+
+#message {
+	color: rgba(36, 122, 43, 0.77);
+}
+
+/* EDITOR */
+div.editor-container {
+	margin: 0 auto;
+	background: #fdfdfd;
+}
+
+/* TAGS */
+div.tags-list {
+	background: #333;
+	font-size: 0.9em;
+}
+
+#currentTags li.list-group-item {
+	background: none;
+	color: #ccc;
 	border: none;
+	cursor: pointer;
+	padding: 5px 15px;
+}
+
+#currentTags li.list-group-item:hover {
+	color: #fff;
+}
+
+#currentTags li.tagSelected {
+	background: #334E6A;
+	color: #fff;
+}
+
+/* PAGES */
+div.pages-list {
+	background: #f7f7f7;
+}
+
+#currentPages li.list-group-item {
+	background: none;
+	color: #333;
+	border-right: 3px solid #f7f7f7;
+	cursor: pointer;
+}
+
+#currentPages li.list-group-item:hover {
+	color: #000;
+	border-right: 3px solid #ccc;
+}
+
+#currentPages li.pageSelected {
+	color: #000;
+	border-right: 3px solid #ccc;
+}
+
+div.pageItemContent {
+	color: #828282;
+	font-size: 0.8em;
 }

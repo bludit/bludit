@@ -326,6 +326,18 @@ class Pages extends dbJSON {
 		return false;
 	}
 
+	// Returns a database with all pages
+	// $onlyKeys = true; Returns only the pages keys
+	// $onlyKeys = false; Returns part of the database, I do not recommend use this
+	public function getDB($onlyKeys=true)
+	{
+		$tmp = $this->db;
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
+		return $tmp;
+	}
+
 	// Returns a database with published pages
 	// $onlyKeys = true; Returns only the pages keys
 	// $onlyKeys = false; Returns part of the database, I do not recommend use this
@@ -454,34 +466,46 @@ class Pages extends dbJSON {
 	// (int) $pageNumber, the page number
 	// (int) $numberOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $numberOfItems, $onlyPublished=true)
+	public function getList($pageNumber, $numberOfItems, $published=true, $static=false, $sticky=false, $draft=false, $scheduled=false)
 	{
-		$db = array_keys($this->db);
+		$list = array();
+		if ($published) {
+			$list += $this->getPublishedDB();
+		}
 
-		if ($onlyPublished) {
-			$db = $this->getPublishedDB(true);
+		if ($static) {
+			$list += $pages->getStaticDB();
+		}
+
+		if ($sticky) {
+			$list += $pages->getStickyDB();
+		}
+
+		if ($draft) {
+			$list += $pages->getDraftDB();
+		}
+
+		if ($scheduled) {
+			$list += $pages->getScheduledDB();
 		}
 
 		if ($numberOfItems==-1) {
-			return $db;
+			return $list;
 		}
 
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
 
-		$total = count($db);
+		$total = count($list);
 		$init = (int) $numberOfItems * $realPageNumber;
 		$end  = (int) min( ($init + $numberOfItems - 1), $total );
 		$outrange = $init<0 ? true : $init>$end;
-
 		if (!$outrange) {
-			return array_slice($db, $init, $numberOfItems, true);
+			return array_slice($list, $init, $numberOfItems, true);
 		}
 
 		return false;
 	}
-
-
 
 	// Returns the amount of pages
 	// (boolean) $total, TRUE returns the total of pages

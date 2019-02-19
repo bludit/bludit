@@ -19,7 +19,8 @@
 			'bludit-bootstrap.css',
 			'easymde.min.css',
 			'editor.css',
-			'bludit.css'
+			'bludit.css',
+			'line-awesome/css/line-awesome-font-awesome.min.css'
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 
@@ -36,7 +37,9 @@
 	echo Theme::jquery();
 	echo Theme::jsBootstrap();
 	echo Theme::js(array(
-		'easymde.min.js'
+		'easymde.min.js',
+		'ajax.js',
+		'parser.js'
 	), DOMAIN_ADMIN_THEME_JS);
 ?>
 
@@ -45,22 +48,30 @@
 	echo '<script charset="utf-8">'.PHP_EOL;
 	include(PATH_CORE_JS.'variables.php');
 	echo '</script>'.PHP_EOL;
-
-	echo '<script charset="utf-8">'.PHP_EOL;
-	include(PATH_CORE_JS.'bludit-ajax.php');
-	echo '</script>'.PHP_EOL;
 ?>
 
-<div class="container h-100">
+<script>
+var ajax = new Ajax();
+var parser = new Parser();
+var DEBUG = true;
+
+var log = function(name, variable){
+	if (DEBUG) {
+		console.log(name);
+		console.log(variable);
+	}
+	return true;
+}
+</script>
+
+<div class="container-fluid h-100">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->
-	<div class="row h-100">
+	<div class="row h-100 d-flex">
 		<!-- LEFT SIDEBAR - Display only on large devices -->
-		<div class="sidebar col-lg-2">
-		<?php include('html/sidebar.php'); ?>
-		</div>
+		<?php include('html/tags.php'); ?>
 
 		<!-- RIGHT MAIN -->
-		<div class="main col-lg-10 mt-2 h-100">
+		<div class="editor-container col-lg-6 h-100" style="max-width: 600px;">
 		<?php include('html/main.php'); ?>
 		</div>
 	</div>

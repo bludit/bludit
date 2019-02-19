@@ -67,16 +67,14 @@ class pluginAPI extends Plugin {
 		// METHOD INPUTS
 		// ------------------------------------------------------------
 		$inputs = $this->getMethodInputs();
-
-		if ( empty($inputs) ) {
+		if (empty($inputs)) {
 			$this->response(400, 'Bad Request', array('message'=>'Missing method inputs.'));
 		}
 
 		// ENDPOINT PARAMETERS
 		// ------------------------------------------------------------
 		$parameters = $this->getEndpointParameters($URI);
-
-		if ( empty($parameters) ) {
+		if (empty($parameters)) {
 			$this->response(400, 'Bad Request', array('message'=>'Missing endpoint parameters.'));
 		}
 
@@ -123,7 +121,7 @@ class pluginAPI extends Plugin {
 
 		// (GET) /api/pages
 		if ( ($method==='GET') && ($parameters[0]==='pages') && empty($parameters[1]) ) {
-			$data = $this->getPages();
+			$data = $this->getPages($inputs);
 		}
 		// (GET) /api/pages/<key>
 		elseif ( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
@@ -143,6 +141,15 @@ class pluginAPI extends Plugin {
 		// (POST) /api/pages
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createPage($inputs);
+		}
+		// (GET) /api/tags
+		elseif ( ($method==='GET') && ($parameters[0]==='tags') && empty($parameters[1]) ) {
+			$data = $this->getTags();
+		}
+		// (GET) /api/tags/<key>
+		elseif ( ($method==='GET') && ($parameters[0]==='tags') && !empty($parameters[1]) ) {
+			$tagKey = $parameters[1];
+			$data = $this->getTag($tagKey);
 		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
@@ -193,7 +200,7 @@ class pluginAPI extends Plugin {
 		return $this->cleanInputs($inputs);
 	}
 
-	// Returns an array with key=>value
+	// Returns an array with key=>value with the inputs
 	// If the content is JSON is parsed to array
 	private function cleanInputs($inputs)
 	{
@@ -240,14 +247,63 @@ class pluginAPI extends Plugin {
 		exit($json);
 	}
 
-	private function getPages()
+	private function getTags()
+	{
+		global $tags;
+		$tmp = array(
+			'status'=>'0',
+			'message'=>'List of tags.',
+			'data'=>array()
+		);
+		foreach ($tags->keys() as $key) {
+			$tag = $tags->getMap($key);
+			array_push($tmp['data'], $tag);
+		}
+		return $tmp;
+	}
+
+	// Returns the tag information and the pages releated to the tag
+	// The array with the pages has the complete information of each page
+	private function getTag($key)
+	{
+		try {
+			$tag = new Tag($key);
+		} catch (Exception $e) {
+			return array(
+				'status'=>'1',
+				'message'=>'Tag not found by the tag key: '.$key
+			);
+		}
+
+		$list = array();
+		foreach ($tag->pages() as $pageKey) {
+			try {
+				$page = new Page($pageKey);
+				array_push($list, $page->json($returnsArray=true));
+			} catch (Exception $e){}
+		}
+
+		$data = $tag->json($returnsArray=true);
+		$data['pages'] = $list;
+
+		return array(
+			'status'=>'0',
+			'message'=>'Tag data and pages related to the tag.',
+			'data'=>$data
+		);
+	}
+
+	private function getPages($args)
 	{
 		global $pages;
-
-		$onlyPublished = true;
+		$published = $args['published'];
+		$static = $args['static'];
+		$draft = $args['draft'];
+		$sticky = $args['sticky'];
+		$scheduled = $args['scheduled'];
 		$numberOfItems = $this->getValue('numberOfItems');
 		$pageNumber = 1;
-		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
+		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
 
 		$tmp = array(
 			'status'=>'0',
@@ -255,12 +311,16 @@ class pluginAPI extends Plugin {
 			'data'=>array()
 		);
 
-		// Get keys of pages
 		foreach ($list as $pageKey) {
 			try {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
-				array_push($tmp['data'], $page->json( $returnsArray=true ));
+				if ($args['untagged'] && (empty($page->tags()))) {
+					// Push the page to the data array for the response
+					array_push($tmp['data'], $page->json($returnsArray=true));
+				} else {
+					array_push($tmp['data'], $page->json($returnsArray=true));
+				}
 			} catch (Exception $e) {
 				// Continue
 			}

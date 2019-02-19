@@ -265,6 +265,7 @@ class Page {
 		$tmp['content'] 	= $this->content(); // Markdown parsed
 		$tmp['contentRaw'] 	= $this->contentRaw(true); // No Markdown parsed
 		$tmp['description'] 	= $this->description();
+		$tmp['type'] 		= $this->type();
 		$tmp['date'] 		= $this->dateRaw();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
