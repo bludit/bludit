@@ -36,6 +36,10 @@ function editorInitialize(content) {
 		initialValue: content
 	});
 
+	// Get the tags from the content
+	// When the content is setted the tags need to be setted
+	_tags = parser.tags(content);
+
 	// Editor event change
 	_editor.codemirror.on("change", function(){
 		// If the content doesn't changed is not need to autosave
@@ -69,28 +73,21 @@ function editorInitialize(content) {
 	});
 }
 
-function editorSetContent(text) {
-	// Get the tags from the content
-	// When the content is setted the tags need to be setted
-	_tags = parser.tags(text);
-
-	// Set the current content to the variable
-	// This variable helps to know when the content was changed
-	_content = text;
-
-	// Set the new content into the editor
-	_editor.value(text);
-}
-
 function editorGetContent() {
 	return _editor.value();
 }
 
+function createPage() {
+	let response = ajax.createPage();
+	response.then(function(key) {
+		// Log
+		log('createPage() => ajax.createPage => key',key);
+		_key = key;
+		editorInitialize('# Title \n');
+	});
+}
+
 // MAIN
-
-// Init editor area
-editorInitialize("# Title \n");
-
 $(document).ready(function() {
 	showAlert("Welcome to Bludit");
 });

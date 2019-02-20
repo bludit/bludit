@@ -296,11 +296,15 @@ class pluginAPI extends Plugin {
 	private function getPages($args)
 	{
 		global $pages;
-		$published = $args['published'];
-		$static = $args['static'];
-		$draft = $args['draft'];
-		$sticky = $args['sticky'];
-		$scheduled = $args['scheduled'];
+
+		// Parameters and the default values
+		$published = (isset($args['published'])?$args['published']:true);
+		$static = (isset($args['static'])?$args['static']:false);
+		$draft = (isset($args['draft'])?$args['draft']:false);
+		$sticky = (isset($args['sticky'])?$args['sticky']:false);
+		$scheduled = (isset($args['scheduled'])?$args['scheduled']:false);
+		$untagged = (isset($args['untagged'])?$args['untagged']:false);
+
 		$numberOfItems = $this->getValue('numberOfItems');
 		$pageNumber = 1;
 		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
@@ -315,10 +319,12 @@ class pluginAPI extends Plugin {
 			try {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
-				if ($args['untagged'] && (empty($page->tags()))) {
-					// Push the page to the data array for the response
-					array_push($tmp['data'], $page->json($returnsArray=true));
-				} else {
+				if ($untagged) {
+				 	if (empty($page->tags())) {
+						// Push the page to the data array for the response
+						array_push($tmp['data'], $page->json($returnsArray=true));
+					}
+				} else{
 					array_push($tmp['data'], $page->json($returnsArray=true));
 				}
 			} catch (Exception $e) {

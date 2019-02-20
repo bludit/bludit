@@ -21,29 +21,27 @@ class Ajax {
 		}
 	}
 
-	createPage() {
+	async createPage() {
 		var url = this.apiURL+"pages";
-		return fetch(url, {
-			credentials: 'same-origin',
-			method: "POST",
-			body: JSON.stringify({
-				token: this.token,
-				authentication: this.authentication
-			}),
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			}),
-		})
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(json) {
+		try {
+			const response = await fetch(url, {
+				credentials: 'same-origin',
+				method: "POST",
+				body: JSON.stringify({
+					token: this.token,
+					authentication: this.authentication
+				}),
+				headers: new Headers({
+					'Content-Type': 'application/json'
+				}),
+			});
+			const json = await response.json();
 			return json.data.key;
-		})
-		.catch(err => {
+		}
+		catch (err) {
 			console.log(err);
-			return false;
-		});
+			return true;
+		}
 	}
 
 	updatePage(key, title, content, tags) {
@@ -102,6 +100,27 @@ class Ajax {
 		catch (err) {
 			console.log(err);
 			return false;
+		}
+	}
+
+	async getPagesUntagged() {
+		let parameters = {
+			token: this.token,
+			untagged: true,
+			published: true,
+			draft: true
+		}
+		let url = this.apiURL+"pages?"+$.param(parameters);
+		try {
+			const response = await fetch(url, {
+				method: "GET"
+			});
+			const json = await response.json();
+			return json.data;
+		}
+		catch (err) {
+			console.log(err);
+			return true;
 		}
 	}
 }

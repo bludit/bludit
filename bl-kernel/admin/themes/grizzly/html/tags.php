@@ -18,14 +18,14 @@ function displayTags() {
 		// Init array for current tags
 		_currentTags = [];
 		// Remove all tags from the <ul>
-		$("#currentTags").html('<li class="tagItem list-group-item tagSelected"><i class="fa fa-star-o"></i> Untagged</li>');
+		$("#currentTags").html('<li class="tagItem list-group-item tagSelected" data-action="untagged"><i class="fa fa-star-o"></i> Untagged</li>');
 		// Add all tags to the <ul>
 		tags.forEach(function(tag) {
 			_currentTags[tag.key] = tag.list;
 			if (tagSelected == tag.key) {
-				$("#currentTags").append('<li class="tagItem list-group-item tagSelected" data-key="'+tag.key+'"># '+tag.name+'</li>');
+				$("#currentTags").append('<li class="tagItem list-group-item tagSelected" data-action="tag" data-key="'+tag.key+'"># '+tag.name+'</li>');
 			} else {
-				$("#currentTags").append('<li class="tagItem list-group-item" data-key="'+tag.key+'"># '+tag.name+'</li>');
+				$("#currentTags").append('<li class="tagItem list-group-item" data-action="tag" data-key="'+tag.key+'"># '+tag.name+'</li>');
 			}
 		});
 	});
@@ -39,10 +39,18 @@ $(document).ready(function() {
 		$(this).addClass("tagSelected");
 		// Get the tag key clicked
 		let tagKey = $(this).data("key");
+		let action = $(this).data("action");
+
 		// Log
+		log('click li.tagItem => action',action);
 		log('click li.tagItem => tagKey',tagKey);
-		// Display pages by the tag
-		displayPagesByTag(tagKey);
+
+		if (action=="untagged") {
+			displayPagesUntagged();
+		} else {
+			// Display pages by the tag
+			displayPagesByTag(tagKey);
+		}
 	});
 
 	// Retrive and show the tags
@@ -78,6 +86,23 @@ function displayPagesByTag(tagKey) {
 	});
 }
 
+function displayPagesUntagged() {
+	let response = ajax.getPagesUntagged();
+	response.then(function(pages) {
+		// Log
+		log('displayPagesUntagged() => ajax.getPagesUntagged => pages',pages);
+		// Init array for current pages by tag
+		_currentPages = [];
+		// Remove all pages from the <ul>
+		$("#currentPages").html("");
+		pages.forEach(function(page) {
+			_currentPages[page.key] = page;
+			// Add all pages to the <ul>
+			$("#currentPages").append('<li class="pageItem list-group-item" data-key="'+page.key+'"><div class="pageItemTitle">'+page.title+'</div><div class="pageItemContent">'+page.contentRaw.substring(0, 50)+'</div></li>');
+		});
+	});
+}
+
 // Set the page selected
 function loadPage(pageKey) {
 	// Check the current key if the same as the page is editing
@@ -98,7 +123,7 @@ function loadPage(pageKey) {
 			content += "# "+page.title.trim()+"\n";
 		}
 		content += page.contentRaw;
-		editorSetContent(content);
+		editorInitialize(content);
 	});
 }
 

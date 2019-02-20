@@ -474,19 +474,19 @@ class Pages extends dbJSON {
 		}
 
 		if ($static) {
-			$list += $pages->getStaticDB();
+			$list += $this->getStaticDB();
 		}
 
 		if ($sticky) {
-			$list += $pages->getStickyDB();
+			$list += $this->getStickyDB();
 		}
 
 		if ($draft) {
-			$list += $pages->getDraftDB();
+			$list += $this->getDraftDB();
 		}
 
 		if ($scheduled) {
-			$list += $pages->getScheduledDB();
+			$list += $this->getScheduledDB();
 		}
 
 		if ($numberOfItems==-1) {
