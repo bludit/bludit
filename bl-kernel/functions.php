@@ -304,7 +304,7 @@ function createPage($args) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-content-created',
-			'notes'=>$args['title']
+			'notes'=>(empty($args['title'])?$key:$args['title'])
 		));
 
 		Alert::set( $L->g('new-content-created') );

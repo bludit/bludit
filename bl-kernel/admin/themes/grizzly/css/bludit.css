@@ -22,6 +22,14 @@ body.login {
 	font-size: 14px;
 	border-bottom: 1px solid #f0f0f0;
 	text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+
+#toolbar .selected {
+	color: rgba(36, 122, 43, 0.77);
+}
+
+#draft-button,
+#delete-button {
 	cursor: pointer;
 }
 
@@ -35,13 +43,13 @@ div.editor-container {
 	background: #fdfdfd;
 }
 
-/* TAGS */
-div.tags-list {
+/* SIDEBAR */
+div.sidebar {
 	background: #333;
 	font-size: 0.9em;
 }
 
-#currentTags li.list-group-item {
+div.sidebar li.list-group-item {
 	background: none;
 	color: #ccc;
 	border: none;
@@ -49,11 +57,11 @@ div.tags-list {
 	padding: 5px 15px;
 }
 
-#currentTags li.list-group-item:hover {
+div.sidebar li.list-group-item:hover {
 	color: #fff;
 }
 
-#currentTags li.tagSelected {
+div.sidebar li.tagSelected {
 	background: #334E6A;
 	color: #fff;
 }

@@ -1,5 +1,8 @@
-<div class="tags-list col-lg-2 p-0 pt-4">
-	<ul id="currentTags" class="list-group list-group-flush">
+<div class="sidebar col-lg-2 p-0 pt-4">
+	<ul id="menu" class="list-group list-group-flush">
+		<li id="newPage" class="list-group-item" data-action="untagged"><i class="fa fa-edit"></i> New page</li>
+	</ul>
+	<ul id="currentTags" class="list-group list-group-flush pt-4">
 	</ul>
 </div>
 <script>
@@ -51,6 +54,11 @@ $(document).ready(function() {
 			// Display pages by the tag
 			displayPagesByTag(tagKey);
 		}
+	});
+
+	// Click on new page
+	$(document).on("click", "#newPage", function() {
+		createPage();
 	});
 
 	// Retrive and show the tags

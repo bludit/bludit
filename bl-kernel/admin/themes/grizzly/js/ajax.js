@@ -22,14 +22,15 @@ class Ajax {
 	}
 
 	async createPage() {
-		var url = this.apiURL+"pages";
+		let url = this.apiURL+"pages";
 		try {
 			const response = await fetch(url, {
 				credentials: 'same-origin',
 				method: "POST",
 				body: JSON.stringify({
 					token: this.token,
-					authentication: this.authentication
+					authentication: this.authentication,
+					type: "draft"
 				}),
 				headers: new Headers({
 					'Content-Type': 'application/json'
@@ -44,9 +45,16 @@ class Ajax {
 		}
 	}
 
-	updatePage(key, title, content, tags) {
+	updatePage(key, title, content, tags, draft) {
 		log('this.updatePage()', key);
-		var url = this.apiURL+"pages/"+key;
+
+		// Type
+		let type = "published";
+		if (draft) {
+			type = "draft";
+		}
+
+		let url = this.apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',
 			method: "PUT",
@@ -55,7 +63,8 @@ class Ajax {
 				authentication: this.authentication,
 				title: title,
 				content: content,
-				tags: tags
+				tags: tags,
+				type: type
 			}),
 			headers: new Headers({
 				'Content-Type': 'application/json'
@@ -69,7 +78,7 @@ class Ajax {
 		})
 		.catch(err => {
 			console.log(err);
-			return false;
+			return true;
 		});
 	}
 
