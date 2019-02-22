@@ -2,9 +2,9 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://plugins.bludit.com",
-	"version": "3.7.1",
-	"releaseDate": "2019-01-29",
+	"version": "3.8.0",
+	"releaseDate": "2019-02-22",
 	"license": "MIT",
-	"compatible": "3.7.1",
+	"compatible": "3.8.0",
 	"notes": ""
 }
