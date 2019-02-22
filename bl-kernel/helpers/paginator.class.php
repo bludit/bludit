@@ -165,7 +165,7 @@ class Paginator {
 		}
 		if ($currentPage > 1){
 			$html .= '<li class="page-item'.$show_previois.'">';
-			$html .= '<a class="page-link" href="'.self::prevPageUrl().'" aria-label="Previous"><span aria-hidden="true">&laquo;</span> '.$language->get('Previous').'</a>';
+			$html .= '<a class="page-link" href="'.self::previousPageUrl().'" aria-label="Previous"><span aria-hidden="true">&laquo;</span> '.$language->get('Previous').'</a>';
 			$html .= '</li>';
 		}
 		if ($currentPage > $howMany + 1){
