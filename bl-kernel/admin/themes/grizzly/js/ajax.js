@@ -82,6 +82,32 @@ class Ajax {
 		});
 	}
 
+	deletePage(key) {
+		log('this.deletePage()', key);
+		let url = this.apiURL+"pages/"+key
+		return fetch(url, {
+			credentials: 'same-origin',
+			method: "DELETE",
+			body: JSON.stringify({
+				token: this.token,
+				authentication: this.authentication
+			}),
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			return true;
+		})
+		.catch(err => {
+			console.log(err);
+			return true;
+		});
+	}
+
 	async getTags() {
 		let url = this.apiURL+"tags?token="+this.token;
 		try {

@@ -20,6 +20,7 @@ body.login {
 /* TOOLBAR */
 #toolbar {
 	font-size: 14px;
+	height: 30px;
 	border-bottom: 1px solid #f0f0f0;
 	text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
 }
@@ -33,6 +34,10 @@ body.login {
 	cursor: pointer;
 }
 
+#toolbar .editor-button {
+	display: none;
+}
+
 #message {
 	color: rgba(36, 122, 43, 0.77);
 }
@@ -41,6 +46,10 @@ body.login {
 div.editor-container {
 	margin: 0 auto;
 	background: #fdfdfd;
+}
+
+#editor {
+	display: none;
 }
 
 /* SIDEBAR */

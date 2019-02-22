@@ -1,8 +1,8 @@
 <div id="toolbar" class="d-flex p-1">
 	<i class="align-self-center fa fa-terminal pr-1"></i>
-	<div id="message" class="mr-auto"></div>
-	<div id="draft-button" class="pr-2 selected">Draft</div>
-	<div id="delete-button" class="pr-2">Delete</div>
+	<div id="message" class="mr-auto">Welcome to Bludit</div>
+	<div id="draft-button" class="editor-button pr-2 selected">Draft</div>
+	<div id="delete-button" class="editor-button pr-2">Delete</div>
 </div>
 <script>
 var _options = {
@@ -34,8 +34,12 @@ function editorInitialize(content) {
 		spellChecker: false,
 		status: false,
 		tabSize: 4,
-		initialValue: content
+		initialValue: content,
+		autoDownloadFontAwesome: false
 	});
+
+	// Display editor buttons
+	$(".editor-button").show();
 
 	// Get the tags from the content
 	// When the content is setted the tags need to be setted
@@ -82,7 +86,9 @@ function updatePage(alertMessage) {
 
 function createPage() {
 	// New pages is draft by default
-	setDraft(true);
+	_draft = true;
+	$("#draft-button").addClass("selected");
+
 	let response = ajax.createPage();
 	response.then(function(key) {
 		// Log
@@ -90,6 +96,22 @@ function createPage() {
 		_key = key;
 		editorInitialize('# Title \n');
 	});
+
+	showAlert("New page created");
+}
+
+function deletePage() {
+	ajax.deletePage(_key);
+	_key = null;
+
+	_editor.toTextArea();
+	_editor = null;
+
+	// Hide editor buttons
+	$(".editor-button").hide();
+	$("#editor").hide();
+
+	showAlert("Page deleted");
 }
 
 function setDraft(value) {
@@ -118,7 +140,15 @@ $(document).ready(function() {
 		}
 	});
 
-	showAlert("Welcome to Bludit");
+	// Click on delete button
+	$(document).on("click", "#delete-button", function() {
+		if (confirm("Are you sure delete the current page ?")) {
+			// Delete the current page
+			deletePage();
+			// Retrive and show the tags
+			displayTags();
+		}
+	});
 });
 
 </script>
