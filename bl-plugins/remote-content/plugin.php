@@ -156,7 +156,7 @@ EOF;
 
 			Theme::plugins('afterPageCreate');
 			reindexCategories();
-			reindextags();
+			reindexTags();
 		}
 
 		return true;
