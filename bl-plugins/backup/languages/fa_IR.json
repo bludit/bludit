@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "پشتیبان گیری",
+		"description": "روش ساده برای پشتیبانی گیری از بلودیت خود."
+	},
+	"create-backup": "پشتیبانگیری",
+	"download": "دانلود",
+	"restore-backup": "بازگرداندن پشتیبان",
+	"delete-backup": "حذف پشتیبان",
+	"there-are-no-backups-for-the-moment": "در این لحظه هیچ نسخه پشتیبانی وجود ندارد"
+}
