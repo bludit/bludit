@@ -141,13 +141,21 @@ class Pages extends dbJSON {
 		return $key;
 	}
 
+	// Edit a page
+	// This function do not edit the current row from the table -
+	// - instead of that the function creates a new row and is completed by the current -
+	// - values of the page and then the old row is deleted and the new row is inserted.
 	public function edit($args)
 	{
-		// Old key
+		// This is the new row for the table and is going to replace the old row
+		$row = array();
+
+		// Current key
 		// This variable is not belong to the database so is not defined in $row
 		$key = $args['key'];
-		$row = array();
-		// Check values on args or set default values
+
+		// Check values from the arguments ($args)
+		// If some field is missing the current value is taken
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field=='tags') {
 				$tags = '';
@@ -159,16 +167,12 @@ class Pages extends dbJSON {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
 			} else {
-				// Default value from the current
+				// Default value from the current row
 				$finalValue = $this->db[$key][$field];
 			}
 			settype($finalValue, gettype($value));
 			$row[$field] = $finalValue;
 		}
-
-		// Content
-		// This variable is not belong to the database so is not defined in $row
-		$contentRaw = (empty($args['content'])?'':$args['content']);
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
@@ -176,7 +180,7 @@ class Pages extends dbJSON {
 
 		// Slug
 		// If the user change the slug the page key changes
-		// If the user send an empty slug the page key doesn't need to change
+		// If the user send an empty slug the page key doesn't change
 		// This variable is not belong to the database so is not defined in $row
 		if (empty($args['slug'])) {
 			$explode = explode('/', $key);
@@ -186,6 +190,9 @@ class Pages extends dbJSON {
 		}
 
 		// New key
+		// The key of the page can change if the user change the slug or the parent, -
+		// - if the user doesn't change the slug or the parent the key is going to be the same -
+		// - as the current key.
 		// This variable is not belong to the database so is not defined in $row
 		$newKey = $this->generateKey($slug, $parent, false, $key);
 
@@ -193,6 +200,7 @@ class Pages extends dbJSON {
 		if ($row['type']=='draft') {
 			$row['date'] = Date::current(DB_DATE_FORMAT);
 		} elseif (!Valid::date($row['date'], DB_DATE_FORMAT)) {
+			// if the date in the arguments is not valid, take the value from the old row
 			$row['date'] = $this->db[$key]['date'];
 		}
 
@@ -204,7 +212,7 @@ class Pages extends dbJSON {
 			$row['type'] = 'scheduled';
 		}
 
-		// Move the directory from old key to new key.
+		// Move the directory from old key to new key only if the keys are different
 		if ($newKey!==$key) {
 			if (Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false) {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
@@ -212,13 +220,16 @@ class Pages extends dbJSON {
 			}
 		}
 
-		// Make the index.txt and save the file.
-		if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $contentRaw)===false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
-			return false;
+		// If the content was passed via arguments replace the content
+		if (isset($args['content'])) {
+			// Make the index.txt and save the file.
+			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $args['content'])===false) {
+				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+				return false;
+			}
 		}
 
-		// Remove the old key
+		// Remove the old row
 		unset($this->db[$key]);
 
 		// Reindex Orphan Children
@@ -227,7 +238,7 @@ class Pages extends dbJSON {
 		// Checksum MD5
 		$row['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
 
-		// Insert in database
+		// Insert in database the new row
 		$this->db[$newKey] = $row;
 
 		// Sort database
@@ -469,24 +480,18 @@ class Pages extends dbJSON {
 	public function getList($pageNumber, $numberOfItems, $published=true, $static=false, $sticky=false, $draft=false, $scheduled=false)
 	{
 		$list = array();
-		if ($published) {
-			$list += $this->getPublishedDB();
-		}
-
-		if ($static) {
-			$list += $this->getStaticDB();
-		}
-
-		if ($sticky) {
-			$list += $this->getStickyDB();
-		}
-
-		if ($draft) {
-			$list += $this->getDraftDB();
-		}
-
-		if ($scheduled) {
-			$list += $this->getScheduledDB();
+		foreach ($this->db as $key=>$fields) {
+			if ($published && $fields['type']=='published') {
+				array_push($list, $key);
+			} elseif ($static && $fields['type']=='static') {
+				array_push($list, $key);
+			} elseif ($sticky && $fields['type']=='sticky') {
+				array_push($list, $key);
+			} elseif ($draft && $fields['type']=='draft') {
+				array_push($list, $key);
+			} elseif ($scheduled && $fields['type']=='scheduled') {
+				array_push($list, $key);
+			}
 		}
 
 		if ($numberOfItems==-1) {
@@ -609,6 +614,7 @@ class Pages extends dbJSON {
 	}
 
 	// Returns the page key by the uuid
+	// if the UUID doesn't exits returns FALSE
 	function getByUUID($uuid)
 	{
 		foreach ($this->db as $key=>$value) {
