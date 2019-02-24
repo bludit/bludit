@@ -42,9 +42,24 @@ class Tag {
 		return $this->getValue('permalink');
 	}
 
-	// Returns an array with the keys of pages linked to the tag
+	// Returns an array with the pages keys linked to the tag
 	public function pages()
 	{
 		return $this->getValue('list');
+	}
+
+	// Returns an array in json format with all the data of the tag
+	public function json($returnsArray=false)
+	{
+		$tmp['key'] 		= $this->key();
+		$tmp['name'] 		= $this->name();
+		$tmp['permalink'] 	= $this->permalink();
+		$tmp['pages'] 		= $this->pages();
+
+		if ($returnsArray) {
+			return $tmp;
+		}
+
+		return json_encode($tmp);
 	}
 }

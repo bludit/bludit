@@ -45,7 +45,7 @@ class pluginRobots extends Plugin {
 			}
 
 			if (!empty($robots)) {
-				$robots = implode(' ', $robots);
+				$robots = implode(',', $robots);
 				$html .= '<meta name="robots" content="'.$robots.'">'.PHP_EOL;
 			}
 		}

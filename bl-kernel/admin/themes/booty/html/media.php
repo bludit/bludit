@@ -192,7 +192,7 @@ $(document).ready(function() {
 
 		// Check file size ?
 		// Check file type/extension ?
-
+		$("#jsbluditProgressBar").removeClass().addClass("progress-bar bg-primary");
 		$("#jsbluditProgressBar").width("0");
 
 		// Data to send via AJAX
@@ -222,11 +222,11 @@ $(document).ready(function() {
 			}
 		}).done(function(data) {
 			if (data.status==0) {
-				$("#jsbluditProgressBar").width("0");
+				$("#jsbluditProgressBar").removeClass("bg-primary").addClass("bg-success");
 				// Get the files for the first page, this include the files uploaded
 				getFiles(1);
 			} else {
-				$("#jsbluditProgressBar").width("0");
+				$("#jsbluditProgressBar").removeClass("bg-primary").addClass("bg-danger");
 				showMediaAlert(data.message);
 			}
 		});

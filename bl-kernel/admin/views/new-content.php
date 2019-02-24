@@ -55,9 +55,8 @@ echo Bootstrap::formOpen(array(
 
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php $L->p('Save') ?></button>
-
 		<span class="d-inline-block align-middle ml-1">
-			<div class="switch" style="width:<?php echo (Text::length($L->g('Publish')) * 15 ) ?>px">
+			<div class="switch" style="width:<?php echo max(100,Text::length($L->g('Publish'))* 15) ?>px">
 			<input type="radio" class="switch-input" name="switch" value="" id="jsPublishSwitch" checked>
 			<label for="jsPublishSwitch" class="switch-label switch-label-off"><?php $L->p('Publish') ?></label>
 			<input type="radio" class="switch-input" name="switch" value="" id="jsDraftSwitch">

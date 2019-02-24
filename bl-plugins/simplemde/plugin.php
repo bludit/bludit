@@ -82,7 +82,7 @@ class pluginsimpleMDE extends Plugin {
 			return simplemde.value();
 		}'.PHP_EOL;
 
-		// Insert an image in the editor in the cursor position
+		// Insert an image in the editor at the cursor position
 		// Function required for Bludit
 		$html .= 'function editorInsertMedia(filename) {
 				addContentSimpleMDE("!['.$L->get('Image description').']("+filename+")");

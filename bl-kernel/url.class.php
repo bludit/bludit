@@ -54,10 +54,6 @@ class Url
 			$filterFull = HTML_PATH_ROOT.$filterFull;
 			$filterFullLenght = Text::length($filterFull);
 
-			// $filterFullwoSlash = '/base_url/category'
-			$filterFullwoSlash = ltrim($filterURIwoSlash, '/');
-			$filterFullwoSlash = HTML_PATH_ROOT.$filterURIwoSlash;
-
 			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
 
 			// Check coincidence without the last slash at the end, this case is notfound

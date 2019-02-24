@@ -63,7 +63,7 @@ Become a **Sponsor** and support Bludit with a monthly contribution to help us c
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
-- <a href="https://www.patreon.com/pinguinsreisende" target="_blank">Gerriet Selent</a>
+- <a href="https://www.patreon.com/user/creators?u=3969453" target="_blank">Martin Cajzer</a>
 - <a href="https://www.patreon.com/user/creators?u=12261033" target="_blank">Jan Rippl</a>
 - <a href="https://www.patreon.com/user/creators?u=9828204" target="_blank">Wesleigh Walker</a>
 

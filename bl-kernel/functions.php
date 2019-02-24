@@ -299,12 +299,12 @@ function createPage($args) {
 		Theme::plugins('afterPageCreate');
 
 		reindexCategories();
-		reindextags();
+		reindexTags();
 
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'new-content-created',
-			'notes'=>$args['title']
+			'notes'=>(empty($args['title'])?$key:$args['title'])
 		));
 
 		Alert::set( $L->g('new-content-created') );
@@ -350,7 +350,7 @@ function editPage($args) {
 		Theme::plugins('afterPageModify');
 
 		reindexCategories();
-		reindextags();
+		reindexTags();
 
 		// Add to syslog
 		$syslog->add(array(
@@ -374,7 +374,7 @@ function deletePage($key) {
 		Theme::plugins('afterPageDelete');
 
 		reindexCategories();
-		reindextags();
+		reindexTags();
 
 		// Add to syslog
 		$syslog->add(array(

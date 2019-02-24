@@ -16,11 +16,12 @@ class Users extends dbJSON {
 		'tokenAuthTTL'=>'2009-03-15 14:00',
 		'twitter'=>'',
 		'facebook'=>'',
-		'instagram'=>'',
 		'codepen'=>'',
-		'linkedin'=>'',
+		'instagram'=>'',
 		'github'=>'',
-		'gitlab'=>''
+		'gitlab'=>'',
+		'linkedin'=>'',
+		'mastodon'=>''
 	);
 
 	function __construct()

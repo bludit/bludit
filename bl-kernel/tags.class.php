@@ -17,23 +17,22 @@ class Tags extends dbList {
 		global $pages;
 
 		// Get a database with published pages
-		$db = $pages->getPublishedDB(false);
-
+		$db = $pages->getDB(false);
 		$tagsIndex = array();
-
-		foreach($db as $pageKey=>$pageFields) {
+		foreach ($db as $pageKey=>$pageFields) {
 			$tags = $pageFields['tags'];
-			foreach($tags as $tagKey=>$tagName) {
-				if( isset($tagsIndex[$tagKey]) ) {
+			foreach ($tags as $tagKey=>$tagName) {
+				if (isset($tagsIndex[$tagKey])) {
 					array_push($tagsIndex[$tagKey]['list'], $pageKey);
-				}
-				else {
+				} else {
 					$tagsIndex[$tagKey]['name'] = $tagName;
 					$tagsIndex[$tagKey]['list'] = array($pageKey);
 				}
 			}
 		}
 
+		// Sort database by alphabet
+		ksort($tagsIndex);
 		$this->db = $tagsIndex;
 		return $this->save();
 	}
