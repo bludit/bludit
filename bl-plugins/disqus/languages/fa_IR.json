@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "دیسکاس",
+		"description": "دیسکاس یک سرویس اینترنتی ارسال دیدگاه برای وبسایت ها می‌باشد.<br>برای استفاده از این سرویس لازم است که در <a href=\"https://disqus.com\">Disqus</a> ثبت نام کنید."
+	},
+	"disqus-shortname": "نام کوتاه دیسکاس",
+	"enable-disqus-on-pages": "دیسکاس در صفحات",
+	"enable-disqus-on-static-pages": "دیسکاس در صفحات استاتیک",
+	"enable-disqus-on-sticky-pages": "دیسکاس در صفحات چسبنده",
+	"get-the-shortname-from-the-disqus-general-settings": "دریافت نام کوتاه از تنظیمات عمومی دیسکاس"
+}
