@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "رابطی برای ارتباط با بلودیت با استفاده از پروتکل HTTP.<br>اطلاعات بیشتر را درمورد این پلاگین از  <a href=\"https://docs.bludit.com/en/api/introduction\">API Introduction</a> مطالعه کنید."
+	},
+	"api-token": "رمز توکن API",
+	"amount-of-pages": "تعداد صفحات",
+	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "این حداکثر صفحاتی بازگشتی است هنگامی که /api/pages را بازخوانی می‌کنید",
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "این توکن تنها خواندی است و هر زمانی که پلاگین را نصب می کنید بازسازی می شود"
+}
