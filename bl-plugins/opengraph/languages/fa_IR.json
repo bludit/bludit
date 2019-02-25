@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "پروتکل Open Graph یک صفحه وب را به یک شیء غنی در یک نمودار اجتماعی تبدیل می کند ."
+	},
+	"set-a-default-image-for-content": "قراردادن یک تصویر پیش‌فرض برای محتوایی که تصویر ندارد.",	
+	"set-your-facebook-app-id": "قراردادن شناسه Facebook App."
+}

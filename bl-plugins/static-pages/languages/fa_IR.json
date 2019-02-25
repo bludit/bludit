@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "صفحات استاتیک",
+		"description": "منوی ناوبری به همراه صفحات استاتیک."
+	},
+	"home-link": "لینک فهرست",
+	"show-the-home-link-on-the-sidebar": "نمایش لینک فهرست در نوار کناری."
+}
