@@ -12,7 +12,7 @@ bl-plugins/yandex-metrica/
 bl-plugins/domain-migrator/
 bl-plugins/tail-writer/
 bl-kernel/bludit.pro.php
-bl-kernel/admin/themes/grizzly/*
+bl-kernel/admin/themes/gris/*
 bl-themes/docs
 bl-themes/docsx
 bl-themes/editorial
@@ -24,3 +24,4 @@ bl-themes/hyperspace
 bl-themes/striped
 bl-themes/log
 bl-themes/micro
+bl-themes/tagg
