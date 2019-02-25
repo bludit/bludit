@@ -13,6 +13,7 @@ bl-plugins/domain-migrator/
 bl-plugins/tail-writer/
 bl-kernel/bludit.pro.php
 bl-kernel/admin/themes/gris/*
+bl-kernel/admin/themes/gris
 bl-themes/docs
 bl-themes/docsx
 bl-themes/editorial
