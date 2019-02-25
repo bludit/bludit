@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "خوراک RSS",
+		"description": "این پلاگین برای وبسایت شما یک خوراک RSS تولید میکند.<br>خوراک آدرس وب https://example.com/rss.xml دارد"
+	},
+	"amount-of-items-to-show-on-the-feed": "تعداد مطالب جهت نمایش در خوراک.",
+	"rss-url": "آدرس وب RSS"
+}
