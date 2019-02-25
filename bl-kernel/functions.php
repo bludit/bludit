@@ -325,10 +325,10 @@ function editPage($args) {
 
 	// Check if the autosave page exists for this new page and delete it
 	if (isset($args['uuid'])) {
-		$pageKey = $pages->getByUUID('autosave-'.$args['uuid']);
-		if (!empty($pageKey)) {
-			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
-			deletePage($pageKey);
+		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
+		if ($autosaveKey) {
+			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$autosaveKey, LOG_TYPE_INFO);
+			deletePage($autosaveKey);
 		}
 	}
 
@@ -355,7 +355,7 @@ function editPage($args) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'content-edited',
-			'notes'=>$args['title']
+			'notes'=>empty($args['title'])?$key:$args['title']
 		));
 
 		return $key;
