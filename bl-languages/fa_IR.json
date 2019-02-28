@@ -1,4 +1,4 @@
-
+{
     "language-data": {
         "native": "فارسی",
         "english-name": "Persian",
@@ -7,8 +7,7 @@
         "authors": [
             "abdulhalim.po@gmail.com",
             "Dorsawi http:\/\/dorsawi.com",
-            "xm74",
-            ""
+            "xm74"
         ]
     },
     "dates": {
@@ -18,14 +17,14 @@
         "Tue": "سه شنبه",
         "Wed": "چهارشنبه",
         "Thu": "پنجشنبه",
-        "Fri": "جمعه",  
+        "Fri": "جمعه",
 		"Saturday": "شنبه",
         "Sunday": "یکشنبه",
         "Monday": "دوشنبه",
         "Tuesday": "سه شنبه",
         "Wednesday": "چهارشنبه",
         "Thursday": "پنجشنبه",
-        "Friday": "جمعه",        
+        "Friday": "جمعه",
         "Jan": "ژانویه",
         "Feb": "فوریه",
         "Mar": "مارس",
