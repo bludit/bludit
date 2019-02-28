@@ -9,7 +9,7 @@ define('BLUDIT_BUILD',		'20190228');
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
 define('DEBUG_MODE', TRUE);
-define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
+define('DEBUG_TYPE', 'TRACE'); // INFO, TRACE
 error_reporting(0); // Turn off all error reporting
 if (DEBUG_MODE) {
 	// Turn on all error reporting

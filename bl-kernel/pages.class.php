@@ -8,7 +8,7 @@ class Pages extends dbJSON {
 		'description'=>'',
 		'username'=>'',
 		'tags'=>array(),
-		'type'=>'published', // published, draft, sticky, scheduled
+		'type'=>'published', // published, static, draft, sticky, scheduled
 		'date'=>'',
 		'dateModified'=>'',
 		'position'=>0,

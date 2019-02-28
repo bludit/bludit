@@ -31,9 +31,8 @@ class Tags extends dbList {
 			}
 		}
 
-		// Sort database by alphabet
-		ksort($tagsIndex);
 		$this->db = $tagsIndex;
+		$this->sortAlphanumeric();
 		return $this->save();
 	}
 

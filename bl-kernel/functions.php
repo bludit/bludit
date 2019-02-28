@@ -118,7 +118,12 @@ function buildPagesFor($for, $categoryKey=false, $tagKey=false) {
 	foreach ($list as $pageKey) {
 		try {
 			$page = new Page($pageKey);
-			array_push($content, $page);
+			if ( 	($page->type()=='published') ||
+				($page->type()=='sticky') ||
+				($page->type()=='static')
+			) {
+				array_push($content, $page);
+			}
 		} catch (Exception $e) {
 			// continue
 		}

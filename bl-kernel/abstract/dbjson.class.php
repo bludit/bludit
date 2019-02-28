@@ -30,11 +30,9 @@ class dbJSON {
 
 			// Unserialize, JSON to Array
 			$array = $this->unserialize($implode);
-
 			if (empty($array)) {
 				$this->db = array();
 				$this->dbBackup = array();
-				Log::set(__METHOD__.LOG_SEP.'Error trying to read the JSON file: '.$file, LOG_TYPE_ERROR);
 			} else {
 				$this->db = $array;
 				$this->dbBackup = $array;
@@ -100,7 +98,8 @@ class dbJSON {
 	{
 		// NULL is returned if the json cannot be decoded
 		$decode = json_decode($data, true);
-		if (empty($decode)) {
+		if ($decode===NULL) {
+			Log::set(__METHOD__.LOG_SEP.'Error trying to read the JSON file: '.$this->file, LOG_TYPE_ERROR);
 			return false;
 		}
 		return $decode;
