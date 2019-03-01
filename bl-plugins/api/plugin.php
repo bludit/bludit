@@ -15,6 +15,11 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	public function getToken()
+	{
+		return $this->getValue('token');
+	}
+
 	public function form()
 	{
 		global $L;
@@ -298,12 +303,12 @@ class pluginAPI extends Plugin {
 		global $pages;
 
 		// Parameters and the default values
-		$published = (isset($args['published'])?$args['published']:true);
-		$static = (isset($args['static'])?$args['static']:false);
-		$draft = (isset($args['draft'])?$args['draft']:false);
-		$sticky = (isset($args['sticky'])?$args['sticky']:false);
-		$scheduled = (isset($args['scheduled'])?$args['scheduled']:false);
-		$untagged = (isset($args['untagged'])?$args['untagged']:false);
+		$published 	= (isset($args['published'])?$args['published']=='true':true);
+		$static 	= (isset($args['static'])?$args['static']=='true':false);
+		$draft 		= (isset($args['draft'])?$args['draft']=='true':false);
+		$sticky 	= (isset($args['sticky'])?$args['sticky']=='true':false);
+		$scheduled 	= (isset($args['scheduled'])?$args['scheduled']=='true':false);
+		$untagged 	= (isset($args['untagged'])?$args['untagged']=='true':false);
 
 		$numberOfItems = $this->getValue('numberOfItems');
 		$pageNumber = 1;

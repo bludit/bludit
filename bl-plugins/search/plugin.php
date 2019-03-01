@@ -179,7 +179,7 @@ EOF;
 	{
 		// Get all pages published
 		global $pages;
-		$list = $pages->getList($pageNumber = 1, $numberOfItems = -1, $onlyPublished = true);
+		$list = $pages->getList($pageNumber=1, $numberOfItems=-1, $published=true, $static=true, $sticky=true, $draft=false, $scheduled=false);
 
 		$cache = array();
 		foreach ($list as $pageKey) {

@@ -21,13 +21,19 @@ class Categories extends dbList {
 			$this->db[$key]['list'] = array();
 		}
 
-		// Get a database with published pages
-		$db = $pages->getPublishedDB(false);
+		// Get pages database
+		$db = $pages->getDB(false);
 		foreach ($db as $pageKey=>$pageFields) {
 			if (!empty($pageFields['category'])) {
 				$categoryKey = $pageFields['category'];
 				if (isset($this->db[$categoryKey]['list'])) {
-					array_push($this->db[$categoryKey]['list'], $pageKey);
+					if (
+						($db[$pageKey]['type']=='published') ||
+						($db[$pageKey]['type']=='sticky') ||
+						($db[$pageKey]['type']=='static')
+					) {
+						array_push($this->db[$categoryKey]['list'], $pageKey);
+					}
 				}
 			}
 		}

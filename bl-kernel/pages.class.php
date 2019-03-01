@@ -8,7 +8,7 @@ class Pages extends dbJSON {
 		'description'=>'',
 		'username'=>'',
 		'tags'=>array(),
-		'type'=>'published', // published, draft, sticky, scheduled
+		'type'=>'published', // published, static, draft, sticky, scheduled
 		'date'=>'',
 		'dateModified'=>'',
 		'position'=>0,
@@ -157,12 +157,8 @@ class Pages extends dbJSON {
 		// Check values from the arguments ($args)
 		// If some field is missing the current value is taken
 		foreach ($this->dbFields as $field=>$value) {
-			if ($field=='tags') {
-				$tags = '';
-				if (isset($args['tags'])) {
-					$tags = $args['tags'];
-				}
-				$finalValue = $this->generateTags($tags);
+			if ( ($field=='tags') && isset($args['tags'])) {
+				$finalValue = $this->generateTags($args['tags']);
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);

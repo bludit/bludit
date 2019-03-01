@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "ناوبری",
+		"description": "منوی ناوبری به همراه والد و صفحات پایین تر برای نوار کناری."		
+	},
+	"home-link": "لینک فهرست",
+	"show-the-home-link-on-the-sidebar": "نمایش لینک فهرست در نوار کناری.",
+	"amount-of-items": "تعداد آیتم ها"
+}

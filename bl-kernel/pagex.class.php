@@ -255,7 +255,7 @@ class Page {
 			return '';
 		}
 		// Return string with tags separated by comma.
-		return implode(', ', $tags);
+		return implode(',', $tags);
 	}
 
 	public function json($returnsArray=false)
@@ -266,7 +266,9 @@ class Page {
 		$tmp['contentRaw'] 	= $this->contentRaw(true); // No Markdown parsed
 		$tmp['description'] 	= $this->description();
 		$tmp['type'] 		= $this->type();
+		$tmp['slug'] 		= $this->slug();
 		$tmp['date'] 		= $this->dateRaw();
+		$tmp['tags'] 		= $this->tags(false);
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);

@@ -126,7 +126,7 @@ class dbList extends dbJSON
 	}
 
 	// Sort the categories by "Natural order"
-	private function sortAlphanumeric()
+	public function sortAlphanumeric()
 	{
 		// Sort key alphanumeric strings, a01, a10, b10, c02
 		return ksort($this->db);

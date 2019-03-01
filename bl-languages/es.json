@@ -3,11 +3,9 @@
         "native": "Español",
         "english-name": "Spanish",
         "locale": "es, es_ES, es_AR, es_MX",
-        "last-update": "2018-02-24",
+        "last-update": "2019-02-28",
         "authors": [
-            "Diego @dignajar",
-            "",
-            ""
+            "Diego @dignajar"
         ]
     },
     "dates": {
@@ -376,6 +374,6 @@
     "thumbnail-width-in-pixels": "Ancho de miniatura en píxeles (px).",
     "thumbnail-height-in-pixels": "Altura de miniaturas en píxeles (px).",
     "thumbnail-quality-in-percentage": "Calidad de la miniatura en porcentaje (%).",
-    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
-    "file-type-is-not-supported": "File type is not supported. Allowed types:"
+    "maximum-load-file-size-allowed:": "Tamaño máximo del archivo permitido:",
+    "file-type-is-not-supported": "No se admite el tipo de archivo. Tipos permitidos:"
 }

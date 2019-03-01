@@ -1,15 +1,15 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'3.8.0');
+define('BLUDIT_VERSION',	'3.8.1');
 define('BLUDIT_CODENAME',	'APA');
-define('BLUDIT_RELEASE_DATE',	'2019-02-22');
-define('BLUDIT_BUILD',		'20190222');
+define('BLUDIT_RELEASE_DATE',	'2019-02-28');
+define('BLUDIT_BUILD',		'20190228');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
 define('DEBUG_MODE', TRUE);
-define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
+define('DEBUG_TYPE', 'TRACE'); // INFO, TRACE
 error_reporting(0); // Turn off all error reporting
 if (DEBUG_MODE) {
 	// Turn on all error reporting
