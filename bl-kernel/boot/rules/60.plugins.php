@@ -104,6 +104,20 @@ function buildPlugins()
 					array_push($plugins[$event], $Plugin);
 				}
 			}
+			
+			/* THIS PART IS FOR CUSTOM HOOKS */
+			if(method_exists($Plugin, "registerHooks"))
+			{
+				foreach (call_user_func("{$Plugin->className()}::registerHooks") as $customEvent)
+				{
+					if (method_exists($Plugin, $customEvent)) 
+					{
+						$plugins[$customEvent] = array();
+						array_push($plugins[$customEvent], $Plugin);
+					}
+				}
+			}
+			/* THIS PART IS FOR CUSTOM HOOKS */
 		}
 
 		uasort($plugins['siteSidebar'], function ($a, $b) {
