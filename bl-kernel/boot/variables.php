@@ -92,6 +92,9 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
 
+// Tags, type of pages included in the tag database
+define('DB_TAGS_TYPES', array('published','static','sticky'));
+
 // Alert notification dissappear in X seconds
 $GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
 
@@ -100,4 +103,3 @@ $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 5;
 
 // Sort the image by date
 $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'] = true;
-
