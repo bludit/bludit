@@ -103,6 +103,10 @@ function buildPlugins()
 				if (method_exists($Plugin, $event)) {
 					array_push($plugins[$event], $Plugin);
 				}
+
+				if (method_exists($Plugin, "requests")) {
+					call_user_func(array($Plugin, "requests"));
+				}
 			}
 		}
 
