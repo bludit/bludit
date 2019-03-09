@@ -40,10 +40,11 @@ class Site extends dbJSON {
 		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}',
 		'imageRestrict'=>	true,
 		'imageRelativeToAbsolute'=> false,
-		'thumbnailWidth' => 	400, // px
-		'thumbnailHeight' => 	400, // px
-		'thumbnailQuality' => 	100,
-		'logo'=>		''
+		'thumbnailWidth'=> 	400, // px
+		'thumbnailHeight'=> 	400, // px
+		'thumbnailQuality'=> 	100,
+		'logo'=>		'',
+		'markdownParser'=>	true
 	);
 
 	function __construct()
@@ -68,8 +69,9 @@ class Site extends dbJSON {
 		// Check values on args or set default values
 		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
-				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
+				if ($finalValue==='false') { $finalValue = false; }
+				elseif ($finalValue==='true') { $finalValue = true; }
 				settype($finalValue, gettype($value));
 				$this->db[$field] = $finalValue;
 			}
@@ -138,6 +140,11 @@ class Site extends dbJSON {
 		return $this->getField('extremeFriendly');
 	}
 
+	public function markdownParser()
+	{
+		return $this->getField('markdownParser');
+	}
+
 	public function twitter()
 	{
 		return $this->getField('twitter');
@@ -166,12 +173,6 @@ class Site extends dbJSON {
 	public function gitlab()
 	{
 		return $this->getField('gitlab');
-	}
-
-	// DEPRECATED since v3.5
-	public function googlePlus()
-	{
-		return $this->getField('googlePlus');
 	}
 
 	public function linkedin()

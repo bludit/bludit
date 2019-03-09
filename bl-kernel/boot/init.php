@@ -208,6 +208,9 @@ define('IMAGE_RESTRICT', $site->imageRestrict());
 // TRUE to convert relatives images to absoultes, FALSE No changes apply
 define('IMAGE_RELATIVE_TO_ABSOLUTE', $site->imageRelativeToAbsolute());
 
+// TRUE if the markdown parser is enabled
+define('MARKDOWN_PARSER', $site->markdownParser());
+
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
 define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$site->theme().DS);

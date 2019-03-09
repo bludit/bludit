@@ -179,6 +179,17 @@
 			'placeholder'=>'https://'
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('Page content')));
+
+		echo Bootstrap::formSelect(array(
+			'name'=>'markdownParser',
+			'label'=>$L->g('Markdown parser'),
+			'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
+			'selected'=>($site->markdownParser()?'true':'false'),
+			'class'=>'',
+			'tip'=>$L->g('Enable the markdown parser for the content of the page.')
+		));
+
 		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
 
 		echo Bootstrap::formInputText(array(
