@@ -31,7 +31,7 @@ $tmpFilename = $username.'.'.$fileExtension;
 $filename = $username.'.png';
 
 // Check path traversal
-if (Text::stringContains($username, '/', false)) {
+if (Text::stringContains($username, DS, false)) {
 	$message = 'Path traversal detected.';
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
