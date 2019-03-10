@@ -583,7 +583,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<meta name="robots" content="noindex,nofollow">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/admin/themes/booty/img/favicon.png?version=<?php echo time() ?>">
+	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/img/favicon.png?version=<?php echo time() ?>">
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="bl-kernel/css/bootstrap.min.css?version=<?php echo time() ?>">

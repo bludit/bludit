@@ -54,17 +54,16 @@ function buildPlugins()
 	global $L;
 	global $site;
 
-	// List plugins directories
-	$list = Filesystem::listDirectories(PATH_PLUGINS);
-
 	// Get declared clasess BEFORE load plugins clasess
 	$currentDeclaredClasess = get_declared_classes();
 
+	// List plugins directories
+	$list = Filesystem::listDirectories(PATH_PLUGINS);
 	// Load each plugin clasess
 	foreach ($list as $pluginPath) {
 		// Check if the directory has the plugin.php
 		if (file_exists($pluginPath.DS.'plugin.php')) {
-			include($pluginPath.DS.'plugin.php');
+			include_once($pluginPath.DS.'plugin.php');
 		}
 	}
 
@@ -76,7 +75,7 @@ function buildPlugins()
 
 		// Check if the plugin is translated
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$site->language().'.json';
-		if( !Sanitize::pathFile($languageFilename) ) {
+		if (!Sanitize::pathFile($languageFilename)) {
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
 
@@ -106,6 +105,7 @@ function buildPlugins()
 			}
 		}
 
+		// Sort the plugins by the position for the site sidebar
 		uasort($plugins['siteSidebar'], function ($a, $b) {
             		return $a->position()>$b->position();
         		}

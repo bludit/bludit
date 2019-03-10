@@ -61,11 +61,6 @@ define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 define('DB_USERS', PATH_DATABASES.'users.php');
 define('DB_SECURITY', PATH_DATABASES.'security.php');
 
-// JSON pretty print
-if (!defined('JSON_PRETTY_PRINT')) {
-	define('JSON_PRETTY_PRINT', 128);
-}
-
 // User environment variables
 include(PATH_KERNEL.'boot'.DS.'variables.php');
 
