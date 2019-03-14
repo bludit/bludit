@@ -105,7 +105,7 @@
 			<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Choose images to upload'); ?></label>
 		</div>
 		<div>
-			<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png?version='.time():HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
+			<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
 		</div>
 		<script>
 		$("#jsprofilePictureInputFile").on("change", function() {

@@ -10,7 +10,7 @@ $filename = isset($_POST['filename']) ? $_POST['filename'] : false;
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
-if ($filename==false) {
+if ($filename===false) {
 	ajaxResponse(1, 'The filename is empty.');
 }
 

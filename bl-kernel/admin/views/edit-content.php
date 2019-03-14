@@ -141,7 +141,7 @@ echo Bootstrap::formOpen(array(
 			?>
 			<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"><?php $L->p('Cover Image') ?></label>
 			<div>
-			<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (empty($coverImage) ? HTML_PATH_ADMIN_THEME_IMG.'default.svg' : $page->coverImage() ) ?>" />
+			<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (empty($coverImage) ? HTML_PATH_CORE_IMG.'default.svg' : $page->coverImage() ) ?>" />
 			</div>
 			<div class="mt-2 text-center">
 				<button type="button" id="jsbuttonSelectCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Select cover image') ?></button>
@@ -159,7 +159,7 @@ echo Bootstrap::formOpen(array(
 
 					$("#jsbuttonRemoveCoverImage").on("click", function() {
 						$("#jscoverImage").val('');
-						$("#jscoverImagePreview").attr('src', HTML_PATH_ADMIN_THEME_IMG+'default.svg');
+						$("#jscoverImagePreview").attr('src', HTML_PATH_CORE_IMG+'default.svg');
 					});
 				});
 			</script>

@@ -88,7 +88,7 @@ class pluginsimpleMDE extends Plugin {
 				addContentSimpleMDE("!['.$L->get('Image description').']("+filename+")");
 			}'.PHP_EOL;
 
-		$html .= '$(document).ready(function() { '.PHP_EOL;
+		//$html .= '$(document).ready(function() { '.PHP_EOL;
 		$html .= 'simplemde = new SimpleMDE({
 				element: document.getElementById("jseditor"),
 				status: false,
@@ -114,7 +114,7 @@ class pluginsimpleMDE extends Plugin {
 					title: "'.$L->get('Pagebreak').'",
 					}]
 		});';
-		$html .= '}); </script>';
+		$html .= '</script>';
 		return $html;
 	}
 }
