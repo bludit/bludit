@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "Simple Stats",
-		"description": "Show the number of visitors per day on your dashboard."
+		"description": "Show the number of visitors per period on your dashboard."
 	},
-	"visits": "Visits",
-	"visits-today": "Visits today",
-	"unique-visitors-today": "Unique visitors today",
-	"chart": "Chart",
-	"table": "Table"
+
+	"ongoing-counter-label": "Ongoing Counter:",
+	"ongoing-counter-tip": "When enabled, an ongoing running total is collected.",
+	"enable-section": "Enabled",
+	"disable-section": "Disabled",
+
+	"reset-counter-label": "Set the on-going counter value:",
+	"reset-counter-tip-one": "REMEMBER TO KEEP AS -1, which means it won't reset; 0 or positive number will set value.",
+	"reset-counter-tip-two": "To set - save as zero or positive number, go to website (new session) to trigger, change this back to -1.",
+
+	"chart-type-label": "Chart Type:",
+	"daily-chart": "Daily",
+	"weekly-chart": "Weekly",
+	"monthly-chart": "Monthly",
+	"chart-type-tip": "This option changes what the chart displays by default.",
+
+	"number-of-days-label": "Keep for how many days?",
+	"number-of-days-tip": "Set to zero to disable or set number of daily logs to keep.",
+	"number-of-weeks-label": "Keep for how many weeks?",
+	"number-of-weeks-tip": "Set to zero to disable or set number of weekly logs to keep.",
+	"number-of-months-label": "Keep for how many months?",
+	"number-of-months-tip": "Set to zero to disable or set number of monthly logs to keep.",
+
+	"show-content-stats-label": "Show Content Stats:",
+	"show-content-stats-tip": "When enabled, a chart and table of different page types is displayed in the Admin Dashboard.",
+
+	"page-session-active-minutes": "Page session active minutes:",
+	"page-session-active-minutes-tip": "A session is kept for each page to prevent F5 refreshing to increase counts falsely.",
+
+	"stats-title-label": "Page Views & Unique Visitors",
+
+	"page-view-today-label": "Pages viewed today",
+	"unique-visitors-today-label": "Unique visitors today",
+	"page-view-this-week-label": "Pages viewed this week",
+	"unique-visitors-this-week-label": "Unique visitors this week",
+	"page-view-this-month-label": "Pages viewed this month",
+	"unique-visitors-this-month-label": "Unique visitors this month",
+
+	"content-statistics-label": "Content Statistics",
+	"tab-chart-label": "Chart",
+	"tab-table-label": "Table",
+	"published-label": "Published",
+	"static-label": "Static",
+	"drafts-label": "Drafts",
+	"scheduled-label": "Scheduled",
+	"sticky-label": "Sticky",
+	"categories-label": "Categories",
+	"tags-label": "Tags",
+
+	"end-of-json": "not used, just a comment"
+
 }

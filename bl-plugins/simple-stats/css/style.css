@@ -34,3 +34,33 @@
 .simple-stats-plugin p.unique-today {
 	color: #777777;
 }
+
+.simple-stats-plugin .divTable{
+	display: table;
+	width: 100%;
+}
+.simple-stats-plugin .divTableRow {
+	display: table-row;
+}
+.simple-stats-plugin .divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.simple-stats-plugin .divTableCell, .divTableHead {
+	border: 0px solid #999999;
+	display: table-cell;
+	padding: 3px 10px;
+}
+.simple-stats-plugin .divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.simple-stats-plugin .divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.simple-stats-plugin .divTableBody {
+	display: table-row-group;
+}

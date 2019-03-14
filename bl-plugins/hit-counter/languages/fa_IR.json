@@ -3,5 +3,20 @@
 	{
 		"name": "شمارشگر بازدیدها",
 		"description": "تعداد بازدیدکنندگان یا بازدیدکنندگان منحصر به فرد در نوار کناری سایت خود را نمایش دهید."
-	}
+	},
+	
+	"plugin-depends-on-warning": "شمارشگر بازدیدها وابسته است - تعداد بازدید های صفحه یا بازدید کنندگان منحصر به فرد در هر روز را در نوار کناری نشان می دهد.",
+	"sidebar-label": "برچسب چسب",
+	"sidebar-label-tip": "این عنوان تقریبا همیشه در نوار کناری سایت استفاده می شود.",
+
+	"show-running-total-lable": "در حال اجرا مجموع",
+	"show-daily-value-label": "صفحه بازدید امروز",
+	"show-daily-unique-value-label": "امروزه ویستورها",
+	"show-weekly-value-label": "این صفحه بازدید این هفته است",
+	"show-weekly-unique-value-label": "این ویستورهای هفته",
+	"show-monthly-value-label": "بازدید این ماه در صفحه",
+	"show-monthly-unique-value-label": "این ماهها بازدیدکنندگان",
+
+	"Enabled": "فعال شده است",
+	"Disabled": "معلول"
 }

@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "Statistiques",
-		"description": "Afficher le nombre de visiteurs par jour sur votre tableau de bord."
+		"description": "Affiche le nombre de visiteurs par période sur votre tableau de bord."
 	},
-	"visits": "Visites",
-	"visits-today": "Visites du jour",
-	"unique-visitors-today": "Visiteurs uniques du jour",
-	"chart": "Graphique",
-	"table": "Tableau"
+
+	"ongoing-counter-label": "Compteur en cours",
+	"ongoing-counter-tip": "Lorsque cette option est activée, un total courant est collecté.",
+	"enable-section": "Enabled",
+	"disable-section": "Disabled",
+
+	"reset-counter-label": "Définir la valeur du compteur en cours",
+	"reset-counter-tip-one": "N'OUBLIEZ PAS DE CONSERVER AS -1, ce qui signifie qu'elle ne sera pas réinitialisée; 0 ou le nombre positif définira la valeur.",
+	"reset-counter-tip-two": "Pour définir, enregistrer en tant que nombre zéro ou positif, accédez au site Web à déclencher, remettez-le à -1.",
+
+	"chart-type-label": "Type de graphique",
+	"daily-chart": "Daily",
+	"weekly-chart": "hebdomadaire",
+	"monthly-chart": "mensuelle",
+	"chart-type-tip": "Cette option modifie ce que le graphique affiche par défaut.",
+
+	"number-of-days-label": "Conserver pendant combien de jours?",
+	"number-of-days-tip": "Définissez à zéro pour désactiver ou définir le nombre de journaux quotidiens à conserver.",
+	"number-of-weeks-label": "Garder pendant combien de semaines?",
+	"number-of-weeks-tip": "Définissez à zéro pour désactiver ou définir le nombre de journaux hebdomadaires à conserver.",
+	"number-of-months-label": "Gardez pendant combien de mois?",
+	"number-of-months-tip": "Définissez à zéro pour désactiver ou définir le nombre de journaux mensuels à conserver.",
+
+	"show-content-stats-label": "Afficher les statistiques du contenu",
+	"show-content-stats-tip": "Lorsque cette option est activée, un tableau et un tableau présentant différents types de page sont affichés dans le tableau de bord de l'administrateur.",
+
+	"page-session-active-minutes": "Minutes de session actives:",
+	"page-session-active-minutes-tip": "Une session est conservée pour chaque page afin d’empêcher l’actualisation «F5» afin d’augmenter le nombre de fois.",
+
+	"stats-title-label": "Pages vues & visiteurs uniques",
+
+	"page-view-today-label": "Pages vues aujourd'hui",
+	"unique-visitors-today-label": "Visiteurs uniques aujourd'hui",
+	"page-view-this-week-label": "Pages vues cette semaine",
+	"unique-visitors-this-week-label": "Visiteurs uniques cette semaine",
+	"page-view-this-month-label": "Pages vues ce mois-ci",
+	"unique-visitors-this-month-label": "Visiteurs uniques ce mois-ci",
+
+	"content-statistics-label": "Statistiques du contenu",
+	"tab-chart-label": "Graphique",
+	"tab-table-label": "Tableau",
+	"published-label": "publié",
+	"static-label": "statique",
+	"drafts-label": "drafts",
+	"scheduled-label": "programmé",
+	"sticky-label": "collant",
+	"categories-label": "catégories",
+	"tags-label": "tags",
+
+	"end-of-json": "non utilisé, juste un commentaire"
+
 }

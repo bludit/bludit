@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "Basit İstatistikler",
-		"description": "Yönetici panelinde günlük ziyaretçi sayısını gösterir."
+		"description": "Panonuzda dönem başına ziyaretçi sayısını göster."
 	},
-	"visits": "Ziyaretler",
-	"visits-today": "Bugün yapılan ziyaretler",
-	"unique-visitors-today": "Bugün yapılan benzersiz ziyaretler",
-	"chart": "Grafik",
-	"table": "Tablo"
+
+	"ongoing-counter-label": "Devam eden sayaç",
+	"ongoing-counter-tip": "Etkinleştirildiğinde, devam eden bir toplam çalışma toplanır.",
+	"enable-section": "Etkin",
+	"disable-section": "Devre dışı",
+
+	"reset-counter-label": "Devam eden sayaç değerini ayarlayın",
+	"reset-counter-tip-one": "-1'DEN KEEP UNUTMAYIN, yani sıfırlanmayacak demektir; 0 veya pozitif sayı değeri ayarlayacaktır.",
+	"reset-counter-tip-two": "Ayarlamak, sıfır veya pozitif sayı olarak kaydetmek için, tetiklemek için web sitesine gidin, bunu -1 olarak değiştirin.",
+
+	"chart-type-label": "Grafik Türü",
+	"daily-chart": "Günlük",
+	"weekly-chart": "Haftalık",
+	"monthly-chart": "Aylık",
+	"chart-type-tip": "Bu seçenek, grafiğin varsayılan olarak gösterme şeklini değiştirir.",
+
+	"number-of-days-label": "Kaç günlüğüne saklayın?",
+	"number-of-days-tip": "Saklamak için sıfıra ayarlayın veya saklanacak günlük kayıt sayısını ayarlayın.",
+	"number-of-weeks-label": "Kaç hafta saklayın?",
+	"number-of-weeks-tip": "Devre dışı bırakmak için sıfıra ayarlayın veya saklanacak haftalık günlük sayısını ayarlayın.",
+	"number-of-months-label": "Kaç ay saklayın?",
+	"number-of-months-tip": "Saklamak için sıfıra ayarlayın veya saklanacak aylık günlük sayısını ayarlayın.",
+
+	"show-content-stats-label": "İçerik İstatistiklerini Göster",
+	"show-content-stats-tip": "Etkinleştirildiğinde, Yönetici Kontrol Paneli'nde farklı sayfa türlerinde bir grafik ve tablo görüntülenir.",
+
+	"page-session-active-minutes": "Sayfa oturumu aktif dakikaları:",
+	"page-session-active-minutes-tip": "Sayıları artırmak için 'F5' yenilemesini önlemek için her sayfa için bir oturum düzenlenir.",
+
+	"stats-title-label": "Sayfa Görünümleri ve Benzersiz Ziyaretçiler",
+
+	"page-view-today-label": "Bugün görüntülenen sayfalar",
+	"unique-visitors-today-label": "Bugün benzersiz ziyaretçiler",
+	"page-view-this-week-label": "Bu hafta görüntülenen sayfalar",
+	"unique-visitors-this-week-label": "Bu hafta benzersiz ziyaretçiler",
+	"page-view-this-month-label": "Bu ay görüntülenen sayfalar",
+	"unique-visitors-this-month-label": "Bu ay benzersiz ziyaretçiler",
+
+	"content-statistics-label": "İçerik İstatistikleri",
+	"tab-chart-label": "Grafik",
+	"tab-table-label": "Tablo",
+	"published-label": "Yayınlandı",
+	"static-label": "statik",
+	"drafts-label": "taslaklar",
+	"scheduled-label": "Planlanmış",
+	"sticky-label": "yapışkan",
+	"categories-label": "Kategoriler",
+	"tags-label": "etiketler",
+
+	"end-of-json": "kullanılmamış, sadece yorum"
+
 }

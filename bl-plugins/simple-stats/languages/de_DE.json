@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "Simple Stats",
-		"description": "Anzeige der täglichen Anzahl Seitenaufrufe und Besucher."
+		"description": "Zeigt die Anzahl der Besucher pro Zeitraum in Ihrem Dashboard an."
 	},
-	"visits": "Seitenaufrufe",
-	"visits-today": "Seitenaufrufe heute",
-	"unique-visitors-today": "Besucher heute",
-    "chart": "Chart",
-    "table": "Table"
+
+	"ongoing-counter-label": "Kontinuierlicher Zähler",
+	"ongoing-counter-tip": "Wenn aktiviert, wird eine laufende laufende Summe erfasst.",
+	"enable-section": "aktiviert",
+	"disable-section": "Deaktiviert",
+
+	"reset-counter-label": "Legt den aktuellen Zählerwert fest",
+	"reset-counter-tip-one": "Denken Sie daran, wie -1 zu bleiben, was bedeutet, dass es nicht zurückgesetzt wird; 0 oder eine positiv Zahl setzen den Wert.",
+	"reset-counter-tip-two": "Um eine Null oder Positiv-Nummer zu speichern, rufen Sie die Website auf, um sie auszulösen. Ändern Sie diese Einstellung wieder in -1.",
+
+	"chart-type-label": "Diagrammtyp",
+	"daily-chart": "Täglich",
+	"weekly-chart": "Wöchentlich",
+	"monthly-chart": "Monatlich",
+	"chart-type-tip": "Diese Option ändert die Anzeige des Diagramms standardmäßig.",
+
+	"number-of-days-label": "Wie viele Tage aufbewahren?",
+	"number-of-days-tip": "Setzen Sie den Wert auf Null, um die Anzahl der täglichen Protokolle zu deaktivieren oder festzulegen.",
+	"number-of-weeks-label": "Wie viele Wochen aufbewahren?",
+	"number-of-weeks-tip": "Setzen Sie den Wert auf Null, um die Anzahl der wöchentlichen Protokolle zu deaktivieren oder festzulegen.",
+	"number-of-months-label": "Wie viele Monate aufbewahren?",
+	"number-of-months-tip": "Setzen Sie den Wert auf Null, um die Anzahl der monatlichen Protokolle zu deaktivieren oder zu speichern.",
+
+	"show-content-stats-label": "Inhaltsstatistiken anzeigen",
+	"show-content-stats-tip": "Wenn diese Option aktiviert ist, werden ein Diagramm und eine Tabelle mit verschiedenen Seitentypen im Admin-Dashboard angezeigt.",
+
+	"page-session-active-minutes": "Aktive Minuten der Sitzungssitzung:",
+	"page-session-active-minutes-tip": "Für jede Seite wird eine Sitzung gehalten, um die Aktualisierung von 'F5' zu verhindern, um die Anzahl falsch zu erhöhen.",
+
+	"stats-title-label": "Seitenaufrufe und eindeutige Besucher",
+
+	"page-view-today-label": "Heute aufgerufene Seiten",
+	"unique-visitors-today-label": "Einzigartige Besucher heute",
+	"page-view-this-week-label": "Diese Woche angesehene Seiten",
+	"unique-visitors-this-week-label": "Unique Visitors in dieser Woche",
+	"page-view-this-month-label": "Seit diesem Monat angesehene Seiten",
+	"unique-visitors-this-month-label": "Unique Visitors in diesem Monat",
+
+	"content-statistics-label": "Inhaltsstatistik",
+	"tab-chart-label": "Diagramm",
+	"tab-table-label": "Tabelle",
+	"published-label": "Veröffentlicht",
+	"static-label": "statisch",
+	"drafts-label": "Entwurf",
+	"scheduled-label": "Geplant",
+	"sticky-label": "klebrig",
+	"categories-label": "Kategorien",
+	"tags-label": "Stichworte",
+
+	"end-of-json": "Nicht verwendet, nur ein Kommentar"
+
 }

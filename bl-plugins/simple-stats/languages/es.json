@@ -1,12 +1,58 @@
 {
 	"plugin-data":
 	{
-		"name": "Simple Stats",
-		"description": "Muestra el número de visitantes por día en tu panel."
+		"name": "Estadísticas simples",
+		"description": "Muestra el número de visitantes por período en tu panel"
 	},
-	"visits": "Visitas",
-	"visits-today": "Visitas de hoy",
-	"unique-visitors-today": "Visitantes únicos de hoy",
-	"chart": "Gráfico",
-	"table": "Tabla"
+
+	"ongoing-counter-label": "Contador continuo",
+	"ongoing-counter-tip": "Cuando está habilitado, se recopila un total acumulado en curso",
+	"enable-section": "Habilitado",
+	"disable-section": "Discapacitado",
+
+	"reset-counter-label": "Establezca el valor del contador actual",
+	"reset-counter-tip-one": "RECUERDE MANTENER COMO -1, lo que significa que no se reiniciará; 0 o el número posativo establecerá un valor",
+	"reset-counter-tip-two": "Para establecer, guardar como cero o número posativo, vaya al sitio web para activar, vuelva a cambiar esto a -1.",
+
+	"chart-type-label": "Tipo de gráfico",
+	"daily-chart": "Diario",
+	"weekly-chart": "Semanal",
+	"monthly-chart": "Mensual",
+	"chart-type-tip": "Esta opción cambia lo que el gráfico muestra de forma predeterminada",
+
+	"number-of-days-label": "¿Guardar por cuántos días?",
+	"number-of-days-tip": "Establecido en cero para deshabilitar o establecer el número de registros diarios para mantener.",
+	"number-of-weeks-label": "¿Mantener durante cuántas semanas?",
+	"number-of-weeks-tip": "Establecido en cero para deshabilitar o establecer el número de registros semanales para mantener.",
+	"number-of-months-label": "¿Guardar por cuántos meses?",
+	"number-of-months-tip": "Establecido en cero para deshabilitar o establecer el número de registros mensuales para mantener.",
+
+	"show-content-stats-label": "Mostrar estadísticas de contenido",
+	"show-content-stats-tip-tip": "Cuando está habilitado, se muestra un gráfico y una tabla de diferentes tipos de páginas en el Panel de administración.",
+
+	"page-session-active-minutes": "Página sesión minutos activos:",
+	"page-session-active-minutes-tip": "Se mantiene una sesión para cada página para evitar la actualización de 'F5' para aumentar los conteos falsamente.",
+
+	"stats-title-label": "Vistas de página y visitantes únicos",
+
+	"page-view-today-label": "Páginas vistas hoy",
+	"unique-visitors-today-label": "Visitantes únicos de hoy",
+	"page-view-this-week-label": "Páginas vistas esta semana",
+	"unique-visitors-this-week-label": "Visitantes únicos esta semana",
+	"page-view-this-month-label": "Páginas vistas este mes",
+	"unique-visitors-this-month-label": "Visitantes únicos este mes",
+
+	"content-statistics-label": "Estadísticas de contenido",
+	"tab-chart-label": "Gráfico",
+	"tab-table-label": "Tabla",
+	"published-label": "Publicado",
+	"static-label": "Estático",
+	"drafts-label": "Eorrador",
+	"scheduled-label": "Programado",
+	"sticky-label": "Pegajosa",
+	"categories-label": "Categories",
+	"tags-label": "Etiquetas",
+
+	"end-of-json": "No se usa, solo un comentario"
+
 }

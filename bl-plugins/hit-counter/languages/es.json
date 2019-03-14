@@ -2,6 +2,21 @@
 	"plugin-data":
 	{
 		"name": "Contador de visitas",
-		"description": "Muestra el número de visitas o visitantes únicos en la barra lateral de su sitio."
-	}
+		"description": "Depende de las estadísticas de Simplet: muestra el número de visitas a la página o visitantes únicos por día en la barra lateral."
+	},
+	
+	"plugin-depends-on-warning": "Este complemento depende de los siguientes complementos.",
+	"sidebar-label": "Etiqueta de la barra lateral",
+	"sidebar-label-tip": "Este título casi siempre se usa en la barra lateral del sitio.",
+
+	"show-running-total-lable": "Total Corriente",
+	"show-daily-value-label": "Página golpeó hoy",
+	"show-daily-unique-value-label": "Visitantes de hoy",
+	"show-weekly-value-label": "La página llega esta semana",
+	"show-weekly-unique-value-label": "Esta semana los visitantes",
+	"show-monthly-value-label": "La página llega este mes",
+	"show-monthly-unique-value-label": "Los visitantes de este mes.",
+
+	"Enabled": "Habilitado",
+	"Disabled": "Discapacitado"
 }

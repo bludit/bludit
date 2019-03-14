@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "آمار ساده",
-		"description": "نمایش روزانه بازدیدکنندگان در پیش خوان شما."
+		"description": "نمایش تعداد بازدیدکنندگان در هر دوره در داشبورد خود."
 	},
-	"visits": "بازدیدها",
-	"visits-today": "بازدیدهای امروز",
-	"unique-visitors-today": "بازدید کنندگان منحصر به فرد امروز",
-	"chart": "چارت",
-	"table": "جدول"
+
+	"ongoing-counter-label": "شمارنده در حال اجرا",
+	"ongoing-counter-tip": "هنگامی که فعال شده است، مجموع در حال انجام در حال اجرا است",
+	"enable-section": "فعال",
+	"disable-section": "غیر فعال",
+
+	"reset-counter-label": "تنظیم مقادیر فعلی تنظیم شده",
+	"reset-counter-tip-one": "یادآوری AS-1 را نگه دارید، بدین معناست که تنظیم مجدد تنظیم نمی شود؛ 0 یا عدد مثبت مقدار را تعیین می کند.",
+	"reset-counter-tip-two": "برای تنظیم، صرفه جویی در مقدار صفر یا مثبت، به وب سایت بروید تا باعث شود، این را به -1 تغییر دهید.",
+
+	"chart-type-label": "نوع نمودار",
+	"daily-chart": "روزانه",
+	"weekly-chart": "هفتگی",
+	"monthly-chart": "ماهانه",
+	"chart-type-tip": "این گزینه تغییراتی را که نمودار به طور پیش فرض نمایش می دهد.",
+
+	"number-of-days-label": "برای چند روز نگه دارید؟",
+	"number-of-days-tip": "مقدار صفر برای غیرفعال کردن یا تنظیم تعداد روزنامه ها برای نگهداری تنظیم شده است.",
+	"number-of-weeks-label": "برای چند هفته نگه دارید؟",
+	"number-of-weeks-tip": "برای غیرفعال کردن یا تنظیم تعداد روزنامههای هفتگی برای نگهداری، روی صفر تنظیم کنید.",
+	"number-of-months-label": "چند ماه نگه دارید؟",
+	"number-of-months-tip": "برای غیرفعال کردن یا تنظیم تعدادی از سیاهههای مربوط به ماهانه برای نگهداری، روی صفر تنظیم کنید.",
+
+	"show-content-stats-label": "نمایش آمار محتوا",
+	"show-content-stats-tip": "هنگامی که فعال شد، یک نمودار و جدول انواع صفحه های مختلف در هیئت مدیره داش نمایش داده می شود.",
+
+	"page-session-active-minutes": "دقیقه فعالانه صفحه",
+	"page-session-active-minutes-tip": "یک جلسه برای هر صفحه نگهداری می شود تا از فرمت F5 برای افزایش شمارش غلط جلوگیری شود.",
+	
+	"stats-title-label": "بازدید صفحات و بازدید کنندگان منحصر به فرد",
+
+	"page-view-today-label": "صفحات مشاهده شده امروز",
+	"unique-visitors-today-label": "بازدید کنندگان منحصر به فرد امروز",
+	"page-view-this-week-label": "صفحات مشاهده شده در این هفته",
+	"unique-visitors-this-week-label": "بازدید کنندگان منحصر به فرد در این هفته",
+	"page-view-this-month-label": "صفحات مشاهده شده در این ماه",
+	"unique-visitors-this-month-label": "بازدید کنندگان منحصر به فرد در این ماه",
+
+	"content-statistics-label": "آمار محتوا",
+	"tab-chart-label": "نمودار",
+	"tab-table-label": "جدول",
+	"published-label": "منتشر شده",
+	"static-label": "static",
+	"drafts-label": "پیش نویس",
+	"scheduled-label": "برنامه ریزی شده",
+	"sticky-label": "چسبنده",
+	"categories-label": "دسته ها",
+	"tags-label": "برچسب ها",
+
+	"end-of-json": "استفاده نشده است، فقط یک نظر"
+
 }

@@ -2,6 +2,21 @@
 	"plugin-data":
 	{
 		"name": "Hit Counter",
-		"description": "Show the number of visits or unique visitors in the sidebar of your site."
-	}
+		"description": "Depends on SimpletStats - Shows the number of Page Hits or Unique Visitors per day in the sidebar."
+	},
+	
+	"plugin-depends-on-warning": "This plugin depends on the following plugins.",
+	"sidebar-label": "Sidebar Label",
+	"sidebar-label-tip": "This title is almost always used in the sidebar of the site.",
+
+	"show-running-total-lable": "Running Total:",
+	"show-daily-value-label": "Page Hits Today:",
+	"show-daily-unique-value-label": "Todays Vistors:",
+	"show-weekly-value-label": "Page Hits This Week:",
+	"show-weekly-unique-value-label": "This Weeks Vistors:",
+	"show-monthly-value-label": "Page Hits This Month:",
+	"show-monthly-unique-value-label": "This Months Visitors:",
+
+	"Enabled": "Enabled",
+	"Disabled": "Disabled"
 }

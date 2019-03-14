@@ -2,11 +2,57 @@
 	"plugin-data":
 	{
 		"name": "Statistieken",
-		"description": "Toont het aantal bezoeken per dag op het dashboard."
+		"description": "Toont het aantal bezoeken per periode op het dashboard."
 	},
-	"visits": "Aantal bezoeken",
-	"visits-today": "Aantal bezoeken vandaag",
-	"unique-visitors-today": "Unieke bezoekers vandaag",
-	"chart": "Grafiek",
-	"table": "Tabel"
+
+	"ongoing-counter-label": "Lopende teller",
+	"ongoing-counter-tip": "Indien ingeschakeld, wordt een lopend lopend totaal verzameld.",
+	"enable-section": "Ingeschakeld",
+	"disable-section": "Uitgeschakeld",
+
+	"reset-counter-label": "Stel de lopende tellerwaarde in",
+	"reset-counter-tip-one": "ONTHOUD OM ALS -1 TE BLIJVEN, wat betekent dat het niet zal resetten; 0 of positief getal zal de waarde instellen.",
+	"reset-counter-tip-two": "Om in te stellen, opslaan als nul of positief getal, ga naar website om te activeren, verander dit terug naar -1.",
+
+	"chart-type-label": "Diagramtype",
+	"daily-chart": "Daily",
+	"weekly-chart": "Weekly",
+	"monthly-chart": "Maandelijks",
+	"chart-type-tip": "Deze optie verandert wat het diagram standaard weergeeft.",
+
+	"number-of-days-label": "Houd voor hoeveel dagen?",
+	"number-of-days-tip": "Stel in op nul om het aantal te bewaren dagelijkse logs uit te schakelen of in te stellen.",
+	"number-of-weeks-label": "Hoeveel weken bewaren?",
+	"number-of-weeks-tip": "Stel in op nul om het aantal wekelijkse logboeken in te schakelen of in te stellen om te houden.",
+	"number-of-months-label": "Houd voor hoeveel maanden?",
+	"number-of-months-tip": "Stel in op nul om het aantal maandelijkse logboeken dat u wilt behouden uit te schakelen of in te stellen.",
+
+	"show-content-stats-label": "Inhoudsstatistieken weergeven",
+	"show-content-stats-tip": "Indien ingeschakeld, worden een grafiek en een tabel met verschillende paginatypes weergegeven in het Admin Dashboard.",
+
+	"page-session-active-minutes": "Actieve minuten van de sessie:",
+	"page-session-active-minutes-tip": "Voor elke pagina wordt een sessie gehouden om te voorkomen dat 'F5' wordt vernieuwd om het aantal vals te verhogen.",
+
+	"stats-title-label": "Paginaweergaven en unieke bezoekers",
+
+	"page-view-today-label": "Aantal bezoeken vandaag",
+	"unique-visitors-today-label": "Unieke bezoekers vandaag",
+	"page-view-this-week-label": "Pagina's die deze week zijn bekeken",
+	"unique-visitors-this-week-label": "Unieke bezoekers deze week",
+	"page-view-this-month-label": "Pagina's bekeken deze maand",
+	"unique-visitors-this-month-label": "Unieke bezoekers deze maand",
+
+	"content-statistics-label": "Contentstatistieken",
+	"tab-chart-label": "Grafiek",
+	"tab-table-label": "Tabel",
+	"published-label": "gepubliceerd",
+	"static-label": "statisch",
+	"drafts-label": "dammen",
+	"scheduled-label": "scheduled",
+	"sticky-label": "plakkerig",
+	"categories-label": "categorieën",
+	"tags-label": "tags",
+
+	"end-of-json": "niet gebruikt, alleen een opmerking"
+
 }

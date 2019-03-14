@@ -1,8 +1,22 @@
 {
 	"plugin-data":
 	{
-		"name": "Hit Counter",
-		"description": "Anzeige der Anzahl der Seitenaufrufe oder der Besuche der Website in der Seitenleiste."
+		"name": "Zähler schlagen",
+		"description": "Abhängig von einfachen Statistiken - Zeigt die Anzahl der Seitenzugriffe oder eindeutigen Besucher pro Tag in der Seitenleiste an."
 	},
-	"show-unique-visitors": "Anzahl der Besuche"
+	
+	"plugin-depends-on-warning": "Dieses Plugin hängt von den folgenden Plugins ab.",
+	"sidebar-label": "Seitenleiste Etikette",
+	"sidebar-label-tip": "Dieser Titel wird fast immer in der Seitenleiste der Site verwendet.",
+
+	"show-running-total-lable": "Gesamtlaufzeit",
+	"show-daily-value-label": "Seite Schlagen Heute",
+	"show-daily-unique-value-label": "Heutige Besucher",
+	"show-weekly-value-label": "Seitenaufrufe Diese Woche",
+	"show-weekly-unique-value-label": "Diese Wochen Besucher",
+	"show-monthly-value-label": "Seitenzugriffe diesen Monat",
+	"show-monthly-unique-value-label": "Besucher dieses Monats",
+
+	"Enabled": "aktiviert",
+	"Disabled": "Deaktiviert"
 }

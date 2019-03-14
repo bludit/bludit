@@ -1,7 +1,22 @@
 {
 	"plugin-data":
 	{
-		"name": "Hit Counter",
-		"description": "Toont het aantal bezoeken of unieke bezoekers in de zijbalk."
-	}
+		"name": "Hit teller",
+		"description": "Afhankelijk van Simplet-statistieken: geeft het aantal paginaramingen of unieke bezoekers per dag in de zijbalk weer."
+	},
+	
+	"plugin-depends-on-warning": "Deze plug-in is afhankelijk van de volgende plug-ins.",
+	"sidebar-label": "Zijbalklabel",
+	"sidebar-label-tip": "Deze titel wordt bijna altijd gebruikt in de zijbalk van de site.",
+
+	"show-running-total-lable": "Lopend totaal",
+	"show-daily-value-label": "Pagina hit vandaag",
+	"show-daily-unique-value-label": "De vistors van vandaag",
+	"show-weekly-value-label": "Pagina hits deze week",
+	"show-weekly-unique-value-label": "Deze weken bezoeken",
+	"show-monthly-value-label": "Pagina hits deze maand",
+	"show-monthly-unique-value-label": "De bezoekers van deze maand",
+
+	"Enabled": "Ingeschakeld",
+	"Disabled": "invalide"
 }
