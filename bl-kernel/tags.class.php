@@ -15,18 +15,18 @@ class Tags extends dbList {
 	public function reindex()
 	{
 		global $pages;
-
-		// Get a database with published pages
-		$db = $pages->getDB(false);
+		$db = $pages->getDB($onlyKeys=false);
 		$tagsIndex = array();
 		foreach ($db as $pageKey=>$pageFields) {
-			$tags = $pageFields['tags'];
-			foreach ($tags as $tagKey=>$tagName) {
-				if (isset($tagsIndex[$tagKey])) {
-					array_push($tagsIndex[$tagKey]['list'], $pageKey);
-				} else {
-					$tagsIndex[$tagKey]['name'] = $tagName;
-					$tagsIndex[$tagKey]['list'] = array($pageKey);
+			if (in_array($pageFields['type'], DB_TAGS_TYPES)) {
+				$tags = $pageFields['tags'];
+				foreach ($tags as $tagKey=>$tagName) {
+					if (isset($tagsIndex[$tagKey])) {
+						array_push($tagsIndex[$tagKey]['list'], $pageKey);
+					} else {
+						$tagsIndex[$tagKey]['name'] = $tagName;
+						$tagsIndex[$tagKey]['list'] = array($pageKey);
+					}
 				}
 			}
 		}

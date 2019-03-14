@@ -61,11 +61,6 @@ define('DB_SYSLOG', PATH_DATABASES.'syslog.php');
 define('DB_USERS', PATH_DATABASES.'users.php');
 define('DB_SECURITY', PATH_DATABASES.'security.php');
 
-// JSON pretty print
-if (!defined('JSON_PRETTY_PRINT')) {
-	define('JSON_PRETTY_PRINT', 128);
-}
-
 // User environment variables
 include(PATH_KERNEL.'boot'.DS.'variables.php');
 
@@ -168,9 +163,9 @@ define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.ADMIN_URI_FILTER.'/');
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
-define('HTML_PATH_ADMIN_THEME_IMG',	HTML_PATH_ADMIN_THEME.'img/');
 define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
 define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
+define('HTML_PATH_CORE_IMG',		HTML_PATH_ROOT.'bl-kernel/img/');
 define('HTML_PATH_CONTENT',		HTML_PATH_ROOT.'bl-content/');
 define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
 define('HTML_PATH_UPLOADS_PAGES',	HTML_PATH_UPLOADS.'pages/');
@@ -207,6 +202,9 @@ define('IMAGE_RESTRICT', $site->imageRestrict());
 
 // TRUE to convert relatives images to absoultes, FALSE No changes apply
 define('IMAGE_RELATIVE_TO_ABSOLUTE', $site->imageRelativeToAbsolute());
+
+// TRUE if the markdown parser is enabled
+define('MARKDOWN_PARSER', $site->markdownParser());
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS

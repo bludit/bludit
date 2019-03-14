@@ -76,8 +76,10 @@ class Page {
 		$content = $this->contentRaw();
 
 		// Parse Markdown
-		$parsedown = new Parsedown();
-		$content = $parsedown->text($content);
+		if (MARKDOWN_PARSER) {
+			$parsedown = new Parsedown();
+			$content = $parsedown->text($content);
+		}
 
 		// Parse img src relative to absolute (with domain)
 		if (IMAGE_RELATIVE_TO_ABSOLUTE) {

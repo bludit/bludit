@@ -179,6 +179,17 @@
 			'placeholder'=>'https://'
 		));
 
+		echo Bootstrap::formTitle(array('title'=>$L->g('Page content')));
+
+		echo Bootstrap::formSelect(array(
+			'name'=>'markdownParser',
+			'label'=>$L->g('Markdown parser'),
+			'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
+			'selected'=>($site->markdownParser()?'true':'false'),
+			'class'=>'',
+			'tip'=>$L->g('Enable the markdown parser for the content of the page.')
+		));
+
 		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
 
 		echo Bootstrap::formInputText(array(
@@ -514,7 +525,7 @@
 			<label class="custom-file-label" for="jssiteLogoInputFile"><?php $L->p('Choose images to upload'); ?></label>
 		</div>
 		<div>
-			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_ADMIN_THEME_IMG.'default.svg') ?>" />
+			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
 		</div>
 		<script>
 		$("#jssiteLogoInputFile").on("change", function() {

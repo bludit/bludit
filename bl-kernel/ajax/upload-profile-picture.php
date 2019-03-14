@@ -16,11 +16,26 @@ if (!isset($_FILES['profilePictureInputFile'])) {
 }
 
 // File extension
-$fileExtension 	= pathinfo($_FILES['profilePictureInputFile']['name'], PATHINFO_EXTENSION);
+$allowedExtensions = array('gif', 'png', 'jpg', 'jpeg', 'svg');
+$fileExtension = pathinfo($_FILES['profilePictureInputFile']['name'], PATHINFO_EXTENSION);
+if (!in_array($fileExtension, $allowedExtensions) ) {
+	$message = 'File type is not supported. Allowed types: '.implode(', ',$allowedExtensions);
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
+
 // Tmp filename
 $tmpFilename = $username.'.'.$fileExtension;
+
 // Final filename
 $filename = $username.'.png';
+
+// Check path traversal
+if (Text::stringContains($username, DS, false)) {
+	$message = 'Path traversal detected.';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
 
 // Move from temporary directory to uploads folder
 rename($_FILES['profilePictureInputFile']['tmp_name'], PATH_TMP.$tmpFilename);

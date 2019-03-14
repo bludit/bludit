@@ -252,6 +252,8 @@ class Plugin {
 		return true;
 	}
 
+	// Returns TRUE if the plugin is installed
+	// This function just check if the database of the plugin is created
 	public function installed()
 	{
 		return file_exists($this->filenameDb);
@@ -271,13 +273,13 @@ class Plugin {
 	public function post()
 	{
 		$args = $_POST;
-		foreach ($this->dbFields as $key=>$value) {
-			if (isset($args[$key])) {
-				$value = Sanitize::html( $args[$key] );
-				if ($value==='false') { $value = false; }
-				elseif ($value==='true') { $value = true; }
-				settype($value, gettype($this->dbFields[$key]));
-				$this->db[$key] = $value;
+		foreach ($this->dbFields as $field=>$value) {
+			if (isset($args[$field])) {
+				$finalValue = Sanitize::html( $args[$field] );
+				if ($finalValue==='false') { $finalValue = false; }
+				elseif ($finalValue==='true') { $finalValue = true; }
+				settype($finalValue, gettype($value));
+				$this->db[$field] = $finalValue;
 			}
 		}
 		return $this->save();

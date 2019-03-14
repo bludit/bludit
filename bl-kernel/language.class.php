@@ -105,10 +105,10 @@ class Language extends dbJSON {
 	}
 
 	// Add keys=>values to the current dicionary
-	// This method overwrite the key=>value
+	// This method don't overwrite the current value
 	public function add($array)
 	{
-		$this->db = array_merge($array, $this->db);
+		$this->db = array_merge($this->db, $array);
 	}
 
 	// Returns an array with all dictionaries
