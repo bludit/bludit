@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robot",
+		"description": "Puoi usare uno speciale meta tag HTML per direi ai robot di non indicizzare il contenuto di una pagina, e/o di non scansionarla per i link."
+	}
+}
