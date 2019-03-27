@@ -147,6 +147,10 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createPage($inputs);
 		}
+		// (POST) /api/images
+		elseif ( ($method==='POST') && ($parameters[0]==='images') && $writePermissions ) {
+			$data = $this->uploadImage($inputs);
+		}
 		// (GET) /api/tags
 		elseif ( ($method==='GET') && ($parameters[0]==='tags') && empty($parameters[1]) ) {
 			$data = $this->getTags();
@@ -416,6 +420,66 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'Error trying to delete the page.'
+		);
+	}
+
+	private function uploadImage($inputs)
+	{
+		global $site;
+
+		// Where save the image
+		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
+			$imageDirectory = PATH_UPLOADS_PAGES.$inputs['uuid'].DS;
+			$thumbnailDirectory = $imageDirectory.'thumbnails'.DS;
+			$imageEndpoint = DOMAIN_UPLOADS_PAGES.$inputs['uuid'].'/';
+			$thumbnailEndpoint = $imageEndpoint.'thumbnails'.'/';
+		} else {
+			$imageDirectory = PATH_UPLOADS;
+			$thumbnailDirectory = PATH_UPLOADS_THUMBNAILS;
+			$imageEndpoint = DOMAIN_UPLOADS;
+			$thumbnailEndpoint = DOMAIN_UPLOADS_THUMBNAILS;
+		}
+
+		// Check for errors
+		if ($_FILES['image']['error'] != 0) {
+			return array(
+				'status'=>'1',
+				'message'=>'Maximum load file size allowed: '.ini_get('upload_max_filesize')
+			);
+		}
+
+		$filename = $_FILES['image']['name'];
+		$allowedExtensions = array('gif', 'png', 'jpg', 'jpeg', 'svg');
+
+		// File extension
+		$fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
+		$fileExtension = Text::lowercase($fileExtension);
+		if (!in_array($fileExtension, $allowedExtensions) ) {
+			return array(
+				'status'=>'1',
+				'message'=>'File type is not supported. Allowed types: '.implode(', ',$allowedExtensions)
+			);
+		}
+
+		// Filename and move from temporary directory to upload directory
+		$nextFilename = Filesystem::nextFilename($imageDirectory, $filename);
+		rename($_FILES['image']['tmp_name'], $imageDirectory.$nextFilename);
+		chmod($imageDirectory.$nextFilename, 0644);
+
+		// Thumbnail
+		if ($fileExtension == 'svg') {
+			symlink($imageDirectory.$nextFilename, $thumbnailDirectory.$nextFilename);
+		} else {
+			$Image = new Image();
+			$Image->setImage($imageDirectory.$nextFilename, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
+			$Image->saveImage($thumbnailDirectory.$nextFilename, $site->thumbnailQuality(), true);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Image uploaded.',
+			'image'=>$imageEndpoint.$nextFilename,
+			'thumbnail'=>$thumbnailEndpoint.$nextFilename
 		);
 	}
 
