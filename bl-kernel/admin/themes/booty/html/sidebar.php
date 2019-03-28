@@ -57,7 +57,11 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 	</li>
+	
+	<?php endif; ?>
 
+	<?php if (checkRole(array('admin', 'editor'),false)): ?>
+	
 		<?php
 			if (!empty($plugins['adminSidebar'])) {
 				echo '<li class="nav-item"><hr></li>';
@@ -68,6 +72,7 @@
 				}
 			}
 		?>
+	
 	<?php endif; ?>
 
 	<li class="nav-item mt-5">
