@@ -95,6 +95,9 @@ define('SESSION_COOKIE_LIFE_TIME', 0);
 // Tags, type of pages included in the tag database
 define('DB_TAGS_TYPES', array('published','static','sticky'));
 
+// Allowed image extensions
+define('ALLOWED_IMG_EXTENSION', array('gif', 'png', 'jpg', 'jpeg', 'svg'));
+
 // Alert notification dissappear in X seconds
 $GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
 

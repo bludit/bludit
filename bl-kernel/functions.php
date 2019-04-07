@@ -805,3 +805,36 @@ function ajaxResponse($status=0, $message="", $data=array()) {
 	$output = array_merge($default, $data);
 	exit (json_encode($output));
 }
+
+function uploadImage($file, $imageDir, $thumbnailDir) {
+	global $site;
+
+	// Check image extension
+	$fileExtension = Filesystem::extension($file);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
+		return false;
+	}
+
+	// Generate a filename to not overwrite current image if exists
+	$filename = Filesystem::filename($file);
+	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
+
+	// Move the image to a proper place and name
+	$image = $imageDir.$nextFilename;
+	Filesystem::mv($file, $image);
+	chmod($image, 0644);
+
+	// Generate Thumbnail
+	if (!empty($thumbnailDir)) {
+		if ($fileExtension == 'svg') {
+			symlink($image, $thumbnailDir.$nextFilename);
+		} else {
+			$Image = new Image();
+			$Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
+			$Image->saveImage($thumbnailDir.$nextFilename, $site->thumbnailQuality(), true);
+		}
+	}
+
+	return $image;
+}

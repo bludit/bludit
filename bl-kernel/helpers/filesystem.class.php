@@ -203,7 +203,14 @@ class Filesystem {
 		return $zip->close();
 	}
 
-	// Returns the next filename if the filename already exist
+	/*
+	 | Returns the next filename if the filename already exist otherwise returns the original filename
+         |
+         | @path	string	Path
+         | @filename	string	Filename
+         |
+         | @return	string
+         */
 	public static function nextFilename($path=PATH_UPLOADS, $filename) {
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
@@ -223,5 +230,33 @@ class Filesystem {
 			}
 		}
 		return $tmpName;
+	}
+
+	/*
+	 | Returns the filename
+	 | Example:
+	 |	@file	/home/diego/dog.jpg
+	 |	@return dog.jpg
+         |
+         | @file	string	Full path of the file
+         |
+         | @return	string
+         */
+	public static function filename($file) {
+		return basename($file);
+	}
+
+	/*
+	 | Returns the file extension
+	 | Example:
+	 |	@file	/home/diego/dog.jpg
+	 |	@return jpg
+         |
+         | @file	string	Full path of the file
+         |
+         | @return	string
+         */
+	public static function extension($file) {
+		return pathinfo($file, PATHINFO_EXTENSION);
 	}
 }
