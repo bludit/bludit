@@ -7,11 +7,13 @@ class Theme {
 		global $site;
 		$socialNetworks = array(
 			'github'=>'Github',
+			'gitlab'=>'GitLab',
 			'twitter'=>'Twitter',
 			'facebook'=>'Facebook',
 			'instagram'=>'Instagram',
 			'codepen'=>'Codepen',
-			'linkedin'=>'Linkedin'
+			'linkedin'=>'Linkedin',
+			'mastodon'=>'Mastodon'
 		);
 
 		foreach ($socialNetworks as $key=>$label) {
