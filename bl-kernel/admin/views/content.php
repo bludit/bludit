@@ -86,9 +86,9 @@ function table($type) {
 					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 					echo '<td class="contentTools pt-3 text-center d-sm-table-cell w-25">'.PHP_EOL;
-					echo '<a class="btn btn-outline-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+					echo '<a class="text-secondary" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 					if (count($page->children())==0) {
-						echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+						echo '<a href="#" class="ml-2 text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 					}
 					echo '</td>';
 
@@ -112,8 +112,8 @@ function table($type) {
 						echo '<td><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
 
 						echo '<td class="contentTools pt-3 text-center d-sm-table-cell w-25">'.PHP_EOL;
-						echo '<a class="btn btn-outline-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+						echo '<a class="text-secondary" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+						echo '<a href="#" class="ml-2 text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 						echo '</td>';
 
 						echo '</tr>';
@@ -144,9 +144,9 @@ function table($type) {
 				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
 
 				echo '<td class="contentTools pt-3 text-center d-sm-table-cell w-25">'.PHP_EOL;
-				echo '<a class="btn btn-outline-secondary btn-sm mb-1" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><span class="oi oi-pencil"></span> '.$L->g('Edit').'</a>'.PHP_EOL;
+				echo '<a class="text-secondary" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 				if (count($page->children())==0) {
-					echo '<button type="button" class="btn btn-outline-danger btn-sm deletePageButton mb-1" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><span class="oi oi-trash"></span> '.$L->g('Delete').'</button>'.PHP_EOL;
+					echo '<a href="#" class="ml-2 text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 				}
 				echo '</td>';
 
