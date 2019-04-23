@@ -1,0 +1,47 @@
+a {
+	color: #0078D4;
+}
+
+a:hover {
+	color: #0078D4;
+}
+
+.bg-success {
+	background-color: #8BC34A!important;
+}
+
+.text-primary {
+	color: #0078D4!important;
+}
+
+.text-danger {
+	color: #D40000!important;
+}
+
+/* Buttons */
+.btn {
+	border-radius: 2px;
+}
+
+.btn-primary {
+	background-color: #0078D4;
+	border-color: #0078D4;
+}
+
+.btn-primary:hover {
+	background-color: #4585CF;
+	border-color: #4a90e2;
+}
+
+.btn-light.focus, .btn-light:focus {
+	box-shadow: none;
+}
+
+.btn.focus, .btn:focus {
+	box-shadow: none;
+}
+
+/* Form */
+.form-control:focus {
+	box-shadow: none;
+}
