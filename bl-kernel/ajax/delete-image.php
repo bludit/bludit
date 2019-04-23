@@ -1,12 +1,18 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Delete an image from a particular page
+|
+| @_POST['filename']	string	Name of the file to delete
+| @_POST['uuid']	string	Page uuid
+|
+| @return	array
+*/
+
 // $_POST
 // ----------------------------------------------------------------------------
-// (string) $_POST['path'] Name of file to delete, just the filename
 $filename = isset($_POST['filename']) ? $_POST['filename'] : false;
-
-// (string) $_POST['uuid']
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
