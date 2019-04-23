@@ -24,7 +24,7 @@ echo Bootstrap::formOpen(array(
 	// The UUID is generated in the controller
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'uuid',
-		'value'=>$uuid
+		'value'=>$page->uuid()
 	));
 
 	// Type = published, draft, sticky, static
@@ -61,20 +61,8 @@ echo Bootstrap::formOpen(array(
 
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
-
-		<!-- <?php if (count($page->children())==0): ?>
-		<button type="button" class="btn btn-sm btn-danger" id="jsbuttonDelete" data-toggle="modal" data-target="#jsdeletePageModal"><?php $L->p('Delete') ?></button>
-		<?php endif; ?> -->
-
-		<span class="d-inline-block align-middle ml-1">
-			<div class="switch" style="width:<?php echo max(100,Text::length($L->g('Publish'))* 15) ?>px">
-			<input type="radio" class="switch-input" name="switch" value="" id="jsPublishSwitch" <?php echo (!$page->draft()?'checked':'') ?>>
-			<label for="jsPublishSwitch" class="switch-label switch-label-off"><?php $L->p('Publish') ?></label>
-			<input type="radio" class="switch-input" name="switch" value="" id="jsDraftSwitch" <?php echo ($page->draft()?'checked':'') ?>>
-			<label for="jsDraftSwitch" class="switch-label switch-label-on"><?php $L->p('Draft') ?></label>
-			<span class="switch-selection"></span>
-			</div>
-		</span>
+		<button type="button" class="btn btn-sm btn-secondary" id="jsbuttonSave"><?php $L->p('Discard') ?></button>
+		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
 	</div>
 
 	<?php if($page->scheduled()): ?>
@@ -125,7 +113,7 @@ echo Bootstrap::formOpen(array(
 					'selected'=>'',
 					'class'=>'',
 					'value'=>$page->description(),
-					'rows'=>3,
+					'rows'=>5,
 					'placeholder'=>$L->get('this-field-can-help-describe-the-content')
 				));
 			?>
@@ -395,10 +383,21 @@ $(document).ready(function() {
 		};
 	}
 
+	// Button switch
+	$("#jsswitchButton").on("click", function() {
+		if ($(this).data("switch")=="publish") {
+			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+			$(this).data("switch", "draft");
+		} else {
+			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
+			$(this).data("switch", "publish");
+		}
+	});
+
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		// If the switch is setted to "published", get the value from the selector
-		if ($("#jsPublishSwitch").is(':checked')) {
+		if ($("#jsswitchButton").data("switch")=="publish") {
 			var value = $("#jstypeSelector option:selected").val();
 			$("#jstype").val(value);
 		} else {
