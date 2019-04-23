@@ -12,12 +12,14 @@
 
 	<!-- CSS -->
 	<?php
-		echo Theme::cssBootstrap();
+		echo Theme::cssBootstrap(); // Bootstrap
+		echo Theme::cssLineAwesome(); // Icons
 		echo Theme::css(array(
 			'jquery-auto-complete.css',
 			'open-iconic-bootstrap.min.css',
 			'jquery.datetimepicker.min.css',
-			'bludit.css'
+			'bludit.css',
+			'bludit.bootstrap.css'
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 
