@@ -138,6 +138,11 @@ class Pages extends dbJSON {
 		// Save database
 		$this->save();
 
+		// Create symlink for images directory
+		if (Filesystem::directoryExists(PATH_UPLOADS_PAGES.$row['uuid'])) {
+			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
+		}
+
 		return $key;
 	}
 
@@ -214,6 +219,10 @@ class Pages extends dbJSON {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
 			}
+
+			// Regenerate the symlink to a proper directory
+			unlink(PATH_UPLOADS_PAGES.$key);
+			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
 		}
 
 		// If the content was passed via arguments replace the content
@@ -280,7 +289,7 @@ class Pages extends dbJSON {
 		}
 
 		// Delete page images directory; The function already check if exists the directory
-		Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$this->db[$key]['uuid']);
+		Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key);
 
 		// Remove from database
 		unset($this->db[$key]);
