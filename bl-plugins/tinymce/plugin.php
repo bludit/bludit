@@ -10,9 +10,9 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
+			'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 			'toolbar2'=>'',
-			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
+			'plugins'=>'code autolink image link pagebreak advlist lists textpattern table'
 		);
 	}
 
@@ -92,8 +92,6 @@ $html = <<<EOF
 	tinymce.init({
 		selector: "#jseditor",
 		auto_focus: "jseditor",
-		theme: "modern",
-		skin: "bludit",
 		element_format : "html",
 		entity_encoding : "raw",
 		schema: "html5",
@@ -112,8 +110,7 @@ $html = <<<EOF
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
 		language: "$lang",
-		content_css : "$content_css",
-		height: "200px"
+		content_css : "$content_css"
 	});
 
 </script>

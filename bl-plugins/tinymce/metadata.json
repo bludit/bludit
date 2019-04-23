@@ -1,8 +1,8 @@
 {
-	"author": "TinyMCE",
+	"author": "TinyMCE5",
 	"email": "",
 	"website": "https://www.tinymce.com",
-	"version": "4.9.2",
+	"version": "5.0.3",
 	"releaseDate": "2018-12-17",
 	"license": "GPL v2",
 	"compatible": "3.8.1",
