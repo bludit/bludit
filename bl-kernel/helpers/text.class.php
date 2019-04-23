@@ -297,4 +297,10 @@ class Text {
 		return $truncate;
 	}
 
+	public static function toBytes($value) {
+		$value = trim($value);
+		$s = [ 'g'=> 1<<30, 'm' => 1<<20, 'k' => 1<<10 ];
+		return intval($value) * ($s[strtolower(substr($value,-1))] ?: 1);
+	}
+
 }
