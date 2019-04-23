@@ -435,7 +435,7 @@ class pluginAPI extends Plugin {
          */
 	private function uploadImage($inputs)
 	{
-		// Where store the image
+		// Set upload directory
 		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
 			$imageDirectory 	= PATH_UPLOADS_PAGES.$inputs['uuid'].DS;
 			$thumbnailDirectory 	= $imageDirectory.'thumbnails'.DS;
@@ -462,11 +462,11 @@ class pluginAPI extends Plugin {
 			);
 		}
 
-		// Move from php tmp file to Bludit tmp directory
-		$tmp = PATH_TMP.$_FILES['image']['name'];
-		Filesystem::mv($_FILES['image']['tmp_name'], $tmp);
+		// Move from PHP tmp file to Bludit tmp directory
+		Filesystem::mv($_FILES['image']['tmp_name'], PATH_TMP.$_FILES['image']['name']);
 
-		$image = uploadImage($tmp, $imageDirectory, $thumbnailDirectory);
+		// Transform image and create thumbnails
+		$image = transformImage(PATH_TMP.$_FILES['image']['name'], $imageDirectory, $thumbnailDirectory);
 		if ($image) {
 			$filename = Filesystem::filename($image);
 			return array(
