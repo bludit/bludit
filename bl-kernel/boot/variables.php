@@ -2,7 +2,7 @@
 
 /*
 	Environment variables
-	If you are going to do some changes in the variable, is recommended do it before the installation
+	If you are going to do some changes is recommended do it before the installation
 */
 
 // Log
@@ -99,10 +99,11 @@ define('DB_TAGS_TYPES', array('published','static','sticky'));
 define('ALLOWED_IMG_EXTENSION', array('gif', 'png', 'jpg', 'jpeg', 'svg'));
 
 // Alert notification dissappear in X seconds
-$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
+define('ALERT_DISSAPEAR_IN', 3);
 
 // Number of images to show in the media manager per page
-$GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 5;
+define('MEDIA_MANAGER_NUMBER_OF_FILES', 5);
 
 // Sort the image by date
-$GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'] = true;
+define('MEDIA_MANAGER_SORT_BY_DATE', true);
+
