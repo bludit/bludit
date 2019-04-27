@@ -18,6 +18,9 @@ $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 if ($uuid && IMAGE_RESTRICT) {
 	$imageDirectory = PATH_UPLOADS_PAGES.$uuid.DS;
 	$thumbnailDirectory = $imageDirectory.'thumbnails'.DS;
+	if (!Filesystem::directoryExists($thumbnailDirectory)) {
+		Filesystem::mkdir($thumbnailDirectory, true);
+	}
 } else {
 	$imageDirectory = PATH_UPLOADS;
 	$thumbnailDirectory = PATH_UPLOADS_THUMBNAILS;

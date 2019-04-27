@@ -50,7 +50,7 @@ if ($pages->scheduler()) {
 	));
 }
 
-// Set home page if the user defined them
+// Set home page if the user defined one
 if ($site->homepage() && $url->whereAmI()==='home') {
 	$pageKey = $site->homepage();
 	if ($pages->exists($pageKey)) {

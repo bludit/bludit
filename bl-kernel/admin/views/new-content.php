@@ -54,9 +54,9 @@ echo Bootstrap::formOpen(array(
 	</div>
 
 	<div id="jseditorToolbarLeft">
-		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php $L->p('Save') ?></button>
-		<button type="button" class="btn btn-sm btn-secondary" id="jsbuttonSave"><?php $L->p('Discard') ?></button>
-		<span id="jsswitchButton" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
+		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
+		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
+		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
 	</div>
 </div>
 <script>
@@ -334,7 +334,7 @@ $(document).ready(function() {
 	}
 
 	// Button switch
-	$("#jsswitchButton").on("click", function() {
+	$("#jsbuttonSwitch").on("click", function() {
 		if ($(this).data("switch")=="publish") {
 			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
 			$(this).data("switch", "draft");
@@ -344,10 +344,20 @@ $(document).ready(function() {
 		}
 	});
 
+	// Button preview
+	$("#jsbuttonPreview").on("click", function() {
+		var uuid = $("#jsuuid").val();
+		var title = $("#jstitle").val();
+		var content = editorGetContent();
+		var ajax = new bluditAjax();
+		ajax.autosave(uuid, title, content, false);
+		window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
+	});
+
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		// If the switch is setted to "published", get the value from the selector
-		if ($("#jsswitchButton").data("switch")=="publish") {
+		if ($("#jsbuttonSwitch").data("switch")=="publish") {
 			var value = $("#jstypeSelector option:selected").val();
 			$("#jstype").val(value);
 		} else {

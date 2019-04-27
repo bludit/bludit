@@ -16,11 +16,6 @@ if (empty($uuid)) {
 	ajaxResponse(1, 'Autosave fail. UUID not defined.');
 }
 
-// Check content length to create the autosave page
-if (Text::length($content)<100) {
-	ajaxResponse(1, 'Autosave not completed. The content length is less than 100 characters.');
-}
-
 $autosaveUUID = 'autosave-'.$uuid;
 $page = array(
 	'uuid'=>$autosaveUUID,

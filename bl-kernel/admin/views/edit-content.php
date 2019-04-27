@@ -61,7 +61,7 @@ echo Bootstrap::formOpen(array(
 
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
-		<button type="button" class="btn btn-sm btn-secondary" id="jsbuttonSave"><?php $L->p('Discard') ?></button>
+		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
 		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
 	</div>
 
@@ -392,6 +392,16 @@ $(document).ready(function() {
 			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
 			$(this).data("switch", "publish");
 		}
+	});
+
+	// Button preview
+	$("#jsbuttonPreview").on("click", function() {
+		var uuid = $("#jsuuid").val();
+		var title = $("#jstitle").val();
+		var content = editorGetContent();
+		var ajax = new bluditAjax();
+		ajax.autosave(uuid, title, content, false);
+		window.open("<?php echo DOMAIN_PAGES.'autosave-'.$page->uuid().'?preview='.md5('autosave-'.$page->uuid()) ?>", "_blank");
 	});
 
 	// Button Save
