@@ -1,33 +1,40 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Create/Edit a page and save as draft
+| If the UUID already exists the page is updated
+|
+| @_POST['title']	string	Page title
+| @_POST['content']	string	Page content
+| @_POST['uuid']	string	Page uuid
+|
+| @return	array
+*/
+
 // $_POST
 // ----------------------------------------------------------------------------
-// (string) $_POST['title']
 $title = isset($_POST['title']) ? $_POST['title'] : false;
-// (string) $_POST['content']
 $content = isset($_POST['content']) ? $_POST['content'] : false;
-// (string) $_POST['uuid']
 $uuid = isset($_POST['uuid']) ? $_POST['uuid'] : false;
 // ----------------------------------------------------------------------------
 
 // Check UUID
 if (empty($uuid)) {
-	ajaxResponse(1, 'Autosave fail. UUID not defined.');
+	ajaxResponse(1, 'Save as draft fail. UUID not defined.');
 }
 
-$autosaveUUID = 'autosave-'.$uuid;
 $page = array(
-	'uuid'=>$autosaveUUID,
-	'key'=>$autosaveUUID,
-	'slug'=>$autosaveUUID,
-	'title'=>$title.' [ Autosave ] ',
+	'uuid'=>$uuid,
+	'key'=>$uuid,
+	'slug'=>$uuid,
+	'title'=>$title,
 	'content'=>$content,
 	'type'=>'draft'
 );
 
 // Get the page key by the UUID
-$pageKey = $pages->getByUUID($autosaveUUID);
+$pageKey = $pages->getByUUID($uuid);
 
 // if pageKey is empty means the autosave page doesn't exist
 if (empty($pageKey)) {
@@ -36,8 +43,8 @@ if (empty($pageKey)) {
 	editPage($page);
 }
 
-ajaxResponse(0, 'Autosave successfully.', array(
-	'uuid'=>$autosaveUUID
+ajaxResponse(0, 'Save as draft successfully.', array(
+	'uuid'=>$uuid
 ));
 
 ?>

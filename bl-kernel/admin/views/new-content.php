@@ -349,9 +349,9 @@ $(document).ready(function() {
 		var uuid = $("#jsuuid").val();
 		var title = $("#jstitle").val();
 		var content = editorGetContent();
-		var ajax = new bluditAjax();
-		ajax.autosave(uuid, title, content, false);
-		window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
+		bluditAjax.preview(uuid, title, content).then(function(data) {
+			window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
+		});
 	});
 
 	// Button Save
@@ -373,13 +373,20 @@ $(document).ready(function() {
 
 	// Autosave
 	// Autosave works when the content of the page is bigger than 100 characters
+	var currentContent = editorGetContent();
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
 			var title = $("#jstitle").val();
 			var content = editorGetContent();
-			var ajax = new bluditAjax();
-			// showAlert is the function to display an alert defined in alert.php
-			ajax.autosave(uuid, title, content, showAlert);
+			// Call autosave only when the user change the content
+			if (currentContent!=content) {
+				currentContent = content;
+				bluditAjax.autosave(uuid, title, content).then(function(data) {
+					if (data.status==0) {
+						showAlert("Autosave success");
+					}
+				});
+			}
 	},1000*60*AUTOSAVE_INTERVAL);
 
 });
