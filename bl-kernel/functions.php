@@ -34,7 +34,7 @@ function buildErrorPage() {
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 // This function generate a particular page from the current slug of the url
-// If the slug has not a page associacted returns FALSE and is set not-found as true
+// If the slug has not a page associacted returns FALSE and set not-found as true
 function buildThePage() {
 	global $url;
 
@@ -46,9 +46,11 @@ function buildThePage() {
 		return false;
 	}
 
-	if ( $page->draft() || $page->scheduled() ) {
-		$url->setNotFound();
-		return false;
+	if ($page->draft() || $page->scheduled()) {
+		if ($url->parameter('preview')!==md5($page->uuid())) {
+			$url->setNotFound();
+			return false;
+		}
 	}
 
 	return $page;
@@ -806,7 +808,19 @@ function ajaxResponse($status=0, $message="", $data=array()) {
 	exit (json_encode($output));
 }
 
-function uploadImage($file, $imageDir, $thumbnailDir) {
+/*
+| This function checks the image extension,
+| generate a new filename to not overwrite the exists,
+| generate the thumbnail,
+| and move the image to a proper place
+|
+| @file		string	Path and filename of the image
+| @imageDir	string	Path where the image is going to be stored
+| @thumbnailDir	string	Path where the thumbnail is going to be stored, if you don't set the variable is not going to create the thumbnail
+|
+| @return	string/boolean	Path and filename of the new image or FALSE if there were some error
+*/
+function transformImage($file, $imageDir, $thumbnailDir=false) {
 	global $site;
 
 	// Check image extension
