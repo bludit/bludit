@@ -43,6 +43,8 @@ $plugins = array(
 $pluginsEvents = $plugins;
 unset($pluginsEvents['all']);
 
+$pluginsInstalled = array();
+
 // ============================================================================
 // Functions
 // ============================================================================
@@ -51,6 +53,7 @@ function buildPlugins()
 {
 	global $plugins;
 	global $pluginsEvents;
+	global $pluginsInstalled;
 	global $L;
 	global $site;
 
@@ -98,6 +101,7 @@ function buildPlugins()
 
 		// If the plugin is installed insert on the hooks
 		if ($Plugin->installed()) {
+			$pluginsInstalled[$pluginClass] = $Plugin;
 			foreach ($pluginsEvents as $event=>$value) {
 				if (method_exists($Plugin, $event)) {
 					array_push($plugins[$event], $Plugin);
