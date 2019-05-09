@@ -8,7 +8,7 @@ class bluditAjax {
 			ajaxRequest.abort();
 		}
 
-		if (content.length<100) {
+		if ((content.length<100) && callBack) {
 			return false;
 		}
 
@@ -25,12 +25,16 @@ class bluditAjax {
 
 		ajaxRequest.done(function (response, textStatus, jqXHR) {
 			console.log("Bludit AJAX: autosave(): done handler");
-			callBack("Autosave success");
+			if (callBack) {
+				callBack("Autosave success");
+			}
 		});
 
 		ajaxRequest.fail(function (jqXHR, textStatus, errorThrown) {
 			console.log("Bludit AJAX: autosave(): fail handler");
-			callBack("Autosave failure");
+			if (callBack) {
+				callBack("Autosave failure");
+			}
 		});
 
 		ajaxRequest.always(function () {
