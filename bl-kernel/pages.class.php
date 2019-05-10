@@ -81,7 +81,11 @@ class Pages extends dbJSON {
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = (empty($args['parent'])?'':$args['parent']);
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
+			$row['type'] = $this->db[$parent]['type']; // get the parent type
+		}
 
 		// Slug from the title or the content
 		// This variable is not belong to the database so is not defined in $row
@@ -177,7 +181,11 @@ class Pages extends dbJSON {
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = (empty($args['parent'])?'':$args['parent']);
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
+			$row['type'] = $this->db[$parent]['type']; // get the parent type
+		}
 
 		// Slug
 		// If the user change the slug the page key changes
