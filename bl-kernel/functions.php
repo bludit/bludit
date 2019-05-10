@@ -314,7 +314,6 @@ function createPage($args) {
 			'notes'=>(empty($args['title'])?$key:$args['title'])
 		));
 
-		Alert::set( $L->g('new-content-created') );
 		return $key;
 	}
 

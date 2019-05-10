@@ -349,7 +349,7 @@ $(document).ready(function() {
 		var uuid = $("#jsuuid").val();
 		var title = $("#jstitle").val();
 		var content = editorGetContent();
-		bluditAjax.preview(uuid, title, content).then(function(data) {
+		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
 			window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
 		});
 	});
@@ -372,18 +372,21 @@ $(document).ready(function() {
 	});
 
 	// Autosave
-	// Autosave works when the content of the page is bigger than 100 characters
 	var currentContent = editorGetContent();
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
-			var title = $("#jstitle").val();
+			var title = $("#jstitle").val() + "[<?php $L->p('Autosave') ?>]";
 			var content = editorGetContent();
-			// Call autosave only when the user change the content
+			// Autosave when content has at least 100 characters
+			if (content.length<100) {
+				return false;
+			}
+			// Autosave only when the user change the content
 			if (currentContent!=content) {
 				currentContent = content;
-				bluditAjax.autosave(uuid, title, content).then(function(data) {
+				bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
 					if (data.status==0) {
-						showAlert("Autosave success");
+						showAlert("<?php $L->p('Autosave') ?>");
 					}
 				});
 			}

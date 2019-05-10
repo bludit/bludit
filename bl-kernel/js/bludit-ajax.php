@@ -1,6 +1,6 @@
 class bluditAjax {
 
-	static async preview(uuid, title, content) {
+	static async saveAsDraft(uuid, title, content) {
 		let url = HTML_PATH_ADMIN_ROOT+"ajax/save-as-draft"
 		try {
 			const response = await fetch(url, {
@@ -25,13 +25,8 @@ class bluditAjax {
 		}
 	}
 
-	// Autosave works only when the content has more than 100 characters
-	static async autosave(uuid, title, content) {
-		if ((content.length<100)) {
-			return false;
-		}
-
-		let url = HTML_PATH_ADMIN_ROOT+"ajax/save-as-draft"
+	static async removeLogo() {
+		let url = HTML_PATH_ADMIN_ROOT+"ajax/remove-logo"
 		try {
 			const response = await fetch(url, {
 				credentials: 'same-origin',
@@ -40,10 +35,7 @@ class bluditAjax {
 					'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
 				}),
 				body: new URLSearchParams({
-					'tokenCSRF': tokenCSRF,
-					'uuid': "autosave-" + uuid,
-					'title': title+" [Autosave]",
-					'content': content
+					'tokenCSRF': tokenCSRF
 				}),
 			});
 			const json = await response.json();

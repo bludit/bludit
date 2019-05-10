@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 /*
-| Create/Edit a page and save as draft
+| Create/edit a page and save as draft
 | If the UUID already exists the page is updated
 |
 | @_POST['title']	string	Page title
@@ -36,7 +36,7 @@ $page = array(
 // Get the page key by the UUID
 $pageKey = $pages->getByUUID($uuid);
 
-// if pageKey is empty means the autosave page doesn't exist
+// if pageKey is empty means the page doesn't exist
 if (empty($pageKey)) {
 	createPage($page);
 } else {
