@@ -546,7 +546,7 @@
 			formData.append('tokenCSRF', tokenCSRF);
 			formData.append('inputFile', $(this)[0].files[0]);
 			$.ajax({
-				url: HTML_PATH_ADMIN_ROOT+"ajax/upload-logo",
+				url: HTML_PATH_ADMIN_ROOT+"ajax/logo-upload",
 				type: "POST",
 				data: formData,
 				cache: false,

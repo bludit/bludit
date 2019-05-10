@@ -26,7 +26,7 @@ class bluditAjax {
 	}
 
 	static async removeLogo() {
-		let url = HTML_PATH_ADMIN_ROOT+"ajax/remove-logo"
+		let url = HTML_PATH_ADMIN_ROOT+"ajax/logo-remove"
 		try {
 			const response = await fetch(url, {
 				credentials: 'same-origin',

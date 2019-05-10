@@ -1,7 +1,14 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
-// Delete logo image
+/*
+| Delete the site logo
+| This script delete the file and set and empty string in the database
+|
+| @return	array
+*/
+
+// Delete the file
 $logoFilename = $site->logo(false);
 if ($logoFilename) {
 	Filesystem::rmfile(PATH_UPLOADS.$logoFilename);
