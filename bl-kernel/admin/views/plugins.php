@@ -8,39 +8,92 @@ echo Bootstrap::link(array(
 	'icon'=>'elevator'
 ));
 
+echo Bootstrap::formTitle(array('title'=>$L->g('Search plugins')));
+
+?>
+
+<input type="text" class="form-control" id="search" placeholder="Search">
+<script>
+$(document).ready(function() {
+	$("#search").on("keyup", function() {
+		var textToSearch = $(this).val().toLowerCase();
+		$(".searchItem").each( function() {
+			var item = $(this);
+			item.hide();
+			item.children(".searchText").each( function() {
+				var element = $(this).text().toLowerCase();
+				if (element.indexOf(textToSearch)!=-1) {
+					item.show();
+				}
+			});
+		});
+	});
+});
+</script>
+
+<?php
+
+echo Bootstrap::formTitle(array('title'=>$L->g('Enabled plugins')));
+
 echo '
-<table class="table  mt-3">
-	<thead>
-		<tr>
-			<th class="border-bottom-0 w-25" scope="col">'.$L->g('Name').'</th>
-			<th class="border-bottom-0 d-none d-sm-table-cell" scope="col">'.$L->g('Description').'</th>
-			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Version').'</th>
-			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Author').'</th>
-		</tr>
-	</thead>
+<table class="table">
 	<tbody>
 ';
 
-foreach ($plugins['all'] as $plugin) {
-	echo '<tr id="'.$plugin->className().'" '.($plugin->installed()?'class="bg-light"':'').'>
+// Show installed plugins
+foreach ($pluginsInstalled as $plugin) {
+	echo '<tr id="'.$plugin->className().'" class="bg-light searchItem">';
 
-	<td class="align-middle pt-3 pb-3">
-		<div>'.$plugin->name().'</div>
+	echo '<td class="align-middle pt-3 pb-3 w-25">
+		<div class="searchText">'.$plugin->name().'</div>
 		<div class="mt-1">';
-
-		if ($plugin->installed()) {
 			if (method_exists($plugin, 'form')) {
 				echo '<a class="mr-3" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$plugin->className().'">'.$L->g('Settings').'</a>';
 			}
 			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'uninstall-plugin/'.$plugin->className().'">'.$L->g('Deactivate').'</a>';
-		} else {
-			echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$plugin->className().'">'.$L->g('Activate').'</a>';
-		}
-
 		echo '</div>';
 	echo '</td>';
 
-	echo '<td class="align-middle d-none d-sm-table-cell">';
+	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
+		echo $plugin->description();
+	echo '</td>';
+
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
+		echo '<span>'.$plugin->version().'</span>';
+	echo '</td>';
+
+	echo '<td class="text-center align-middle d-none d-lg-table-cell">
+		<a target="_blank" href="'.$plugin->website().'">'.$plugin->author().'</a>
+	</td>';
+
+	echo '</tr>';
+}
+
+echo '
+	</tbody>
+</table>
+';
+
+echo Bootstrap::formTitle(array('title'=>$L->g('Disabled plugins')));
+
+echo '
+<table class="table">
+	<tbody>
+';
+
+// Plugins not installed
+$pluginsNotInstalled = array_diff_key($plugins['all'], $pluginsInstalled);
+foreach ($pluginsNotInstalled as $plugin) {
+	echo '<tr id="'.$plugin->className().'" class="searchItem">';
+
+	echo '<td class="align-middle pt-3 pb-3 w-25">
+		<div class="searchText">'.$plugin->name().'</div>
+		<div class="mt-1">
+			<a href="'.HTML_PATH_ADMIN_ROOT.'install-plugin/'.$plugin->className().'">'.$L->g('Activate').'</a>
+		</div>
+	</td>';
+
+	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
 		echo $plugin->description();
 	echo '</td>';
 
