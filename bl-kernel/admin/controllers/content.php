@@ -42,7 +42,7 @@ $static = $pages->getStaticDB(true);
 $sticky = $pages->getStickyDB(true);
 
 // If the user is an Editor filter the content he/she can edit
-if (checkRole(array('editor'))) {
+if (checkRole(array('editor'), false)) {
 	$published 	= filterContentOwner($published);
 	$drafts 	= filterContentOwner($drafts);
 	$scheduled 	= filterContentOwner($scheduled);
