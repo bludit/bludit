@@ -128,8 +128,13 @@ class pluginSitemap extends Plugin {
 	{
 		$webhook = 'sitemap.xml';
 		if( $this->webhook($webhook) ) {
+			$sitemapFile = $this->workspace().'sitemap.xml';
+			$sitemapSize = filesize($sitemapFile);
+
 			// Send XML header
 			header('Content-type: text/xml');
+			header('Content-length: '.$sitemapSize);
+
 			$doc = new DOMDocument();
 
 			// Workaround for a bug https://bugs.php.net/bug.php?id=62577
