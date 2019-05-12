@@ -138,6 +138,10 @@ class pluginAPI extends Plugin {
 			$pageKey = $parameters[1];
 			$data = $this->editPage($pageKey, $inputs);
 		}
+		// (PUT) /api/settings
+		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->editSettings($inputs);
+		}
 		// (DELETE) /api/pages/<key>
 		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
 			$pageKey = $parameters[1];
@@ -480,6 +484,28 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'Image extension not allowed.'
+		);
+	}
+
+	/*
+	 | Edit the settings
+	 | You can edit any field defined in the class site.class.php variable $dbFields
+         |
+         | @args		array
+	 |
+	 | @return		array
+         */
+	private function editSettings($args)
+	{
+		if (editSettings($args)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Settings edited.'
+			);
+		}
+		return array(
+			'status'=>'1',
+			'message'=>'Error trying to edit the settings.'
 		);
 	}
 
