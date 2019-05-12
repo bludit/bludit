@@ -164,6 +164,15 @@ class pluginAPI extends Plugin {
 			$tagKey = $parameters[1];
 			$data = $this->getTag($tagKey);
 		}
+		// (GET) /api/categories
+		elseif ( ($method==='GET') && ($parameters[0]==='categories') && empty($parameters[1]) ) {
+			$data = $this->getCategories();
+		}
+		// (GET) /api/categories/<key>
+		elseif ( ($method==='GET') && ($parameters[0]==='categories') && !empty($parameters[1]) ) {
+			$categoryKey = $parameters[1];
+			$data = $this->getCategory($categoryKey);
+		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
 		}
@@ -284,7 +293,7 @@ class pluginAPI extends Plugin {
 		} catch (Exception $e) {
 			return array(
 				'status'=>'1',
-				'message'=>'Tag not found by the tag key: '.$key
+				'message'=>'Tag not found by the key: '.$key
 			);
 		}
 
@@ -301,7 +310,7 @@ class pluginAPI extends Plugin {
 
 		return array(
 			'status'=>'0',
-			'message'=>'Tag data and pages related to the tag.',
+			'message'=>'Information about the tag and pages related.',
 			'data'=>$data
 		);
 	}
@@ -491,9 +500,9 @@ class pluginAPI extends Plugin {
 	 | Edit the settings
 	 | You can edit any field defined in the class site.class.php variable $dbFields
          |
-         | @args		array
+         | @args	array
 	 |
-	 | @return		array
+	 | @return	array
          */
 	private function editSettings($args)
 	{
@@ -509,4 +518,63 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	/*
+	 | Returns the categories in the system
+	 | Included the category name, key, description and the list of pages
+	 | The list of pages are the page's key
+	 |
+	 | @return	array
+         */
+	private function getCategories()
+	{
+		global $categories;
+		$tmp = array(
+			'status'=>'0',
+			'message'=>'List of categories.',
+			'data'=>array()
+		);
+		foreach ($categories->keys() as $key) {
+			$category = $categories->getMap($key);
+			array_push($tmp['data'], $category);
+		}
+		return $tmp;
+	}
+
+	/*
+	 | Returns information about the category and pages related
+	 | The pages are expanded which mean the title, content and more fields are returned in the query
+	 | This can degrade the performance
+	 |
+	 | @key		string	Category key
+	 |
+	 | @return	array
+         */
+	private function getCategory($key)
+	{
+		try {
+			$category = new Category($key);
+		} catch (Exception $e) {
+			return array(
+				'status'=>'1',
+				'message'=>'Category not found by the key: '.$key
+			);
+		}
+
+		$list = array();
+		foreach ($category->pages() as $pageKey) {
+			try {
+				$page = new Page($pageKey);
+				array_push($list, $page->json($returnsArray=true));
+			} catch (Exception $e){}
+		}
+
+		$data = $category->json($returnsArray=true);
+		$data['pages'] = $list;
+
+		return array(
+			'status'=>'0',
+			'message'=>'Information about the category and pages related.',
+			'data'=>$data
+		);
+	}
 }

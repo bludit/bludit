@@ -59,4 +59,20 @@ class Category {
 	{
 		return $this->getValue('list');
 	}
+
+	// Returns an array in json format with all the data of the tag
+	public function json($returnsArray=false)
+	{
+		$tmp['key'] 		= $this->key();
+		$tmp['name'] 		= $this->name();
+		$tmp['description'] 	= $this->description();
+		$tmp['permalink'] 	= $this->permalink();
+		$tmp['pages'] 		= $this->pages();
+
+		if ($returnsArray) {
+			return $tmp;
+		}
+
+		return json_encode($tmp);
+	}
 }

@@ -571,7 +571,9 @@ function editSettings($args) {
 		$args['uriBlog'] = '';
 	}
 
-	$args['extremeFriendly'] = (($args['extremeFriendly']=='true')?true:false);
+	if (isset($args['extremeFriendly'])) {
+		$args['extremeFriendly'] = (($args['extremeFriendly']=='true')?true:false);
+	}
 
 	if ($site->set($args)) {
 		// Check current order-by if changed it reorder the content
