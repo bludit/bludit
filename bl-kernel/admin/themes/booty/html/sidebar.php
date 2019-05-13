@@ -6,25 +6,23 @@
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="oi oi-dashboard"></span><?php $L->p('Dashboard') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="fa fa-dashboard"></span><?php $L->p('Dashboard') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="oi oi-external-link"></span><?php $L->p('Website') ?></a>
+		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="fa fa-external-link"></span><?php $L->p('Website') ?></a>
 	</li>
 
 	<li class="nav-item mt-3">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #0078D4;" class="oi oi-plus"></span><?php $L->p('New content') ?></a>
-	</li>
-
-	<?php if (checkRole(array('editor'),false)): ?>
-	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="oi oi-layers"></span><?php $L->p('Content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #0078D4;" class="fa fa-plus"></span><?php $L->p('New content') ?></a>
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="oi oi-person"></span><?php $L->p('Profile') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="fa fa-layers"></span><?php $L->p('Content') ?></a>
 	</li>
-	<?php endif; ?>
+
+	<li class="nav-item">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="fa fa-person"></span><?php $L->p('Profile') ?></a>
+	</li>
 
 	<?php if (checkRole(array('admin'),false)): ?>
 
@@ -76,6 +74,6 @@
 	<?php endif; ?>
 
 	<li class="nav-item mt-5">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="oi oi-account-logout"></span><?php $L->p('Logout') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="fa fa-account-logout"></span><?php $L->p('Logout') ?></a>
 	</li>
 </ul>
