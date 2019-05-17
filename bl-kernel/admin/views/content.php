@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'layers'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'archive'));
 
 function table($type) {
 	global $url;
@@ -57,9 +57,9 @@ function table($type) {
 	<table class="table mt-3">
 		<thead>
 			<tr>
-				<th style="font-size: 0.8em;" class="border-0 text-uppercase text-muted" scope="col">'.$L->g('Title').'</th>
-				<th style="font-size: 0.8em;" class="border-0 d-none d-lg-table-cell text-uppercase text-muted" scope="col">'.$L->g('URL').'</th>
-				<th style="font-size: 0.8em;" class="border-0 text-center d-none d-sm-table-cell text-uppercase text-muted" scope="col">'.$L->g('Actions').'</th>
+				<th class="border-0" scope="col">'.$L->g('Title').'</th>
+				<th class="border-0 d-none d-lg-table-cell" scope="col">'.$L->g('URL').'</th>
+				<th class="border-0 text-center d-none d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -186,6 +186,8 @@ function table($type) {
 <div class="tab-content">
 	<!-- TABS PAGES -->
 	<div class="tab-pane show active" id="pages" role="tabpanel">
+		<input type="text" class="form-control mt-3" id="search" placeholder="Search">
+
 		<?php table('published'); ?>
 
 		<?php if (Paginator::numberOfPages() > 1): ?>
@@ -217,6 +219,41 @@ function table($type) {
 		</nav>
 		<?php endif; ?>
 	</div>
+	<script>
+	$(document).ready(function() {
+		var searchXHR;
+		var searchList;
+		$("#search").autoComplete({
+			minChars: 3,
+			source: function(term, response) {
+				console.log(term);
+				// Prevent call inmediatly another ajax request
+				try { searchXHR.abort(); } catch(e){}
+				searchXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/content-list",
+					{
+						published: true,
+						static: true,
+						sticky: true,
+						scheduled: true,
+						draft: true,
+						query: term
+					},
+					function(data) {
+						searchList = data;
+						var matches = [];
+						for (var title in data) {
+							matches.push(title);
+						}
+						response(matches);
+				});
+			},
+			onSelect: function(e, term, item) {
+				var key = searchList[term];
+				window.open("<?php echo DOMAIN_ADMIN ?>edit-content/"+key,"_self");
+			}
+		});
+	});
+	</script>
 
 	<!-- TABS STATIC -->
 	<div class="tab-pane" id="static" role="tabpanel">
