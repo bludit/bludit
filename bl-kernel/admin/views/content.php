@@ -226,8 +226,6 @@ function table($type) {
 		$("#search").autoComplete({
 			minChars: 3,
 			source: function(term, response) {
-				console.log(term);
-				// Prevent call inmediatly another ajax request
 				try { searchXHR.abort(); } catch(e){}
 				searchXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/content-list",
 					{
@@ -247,9 +245,13 @@ function table($type) {
 						response(matches);
 				});
 			},
-			onSelect: function(e, term, item) {
-				var key = searchList[term];
-				window.open("<?php echo DOMAIN_ADMIN ?>edit-content/"+key,"_self");
+			renderItem: function (item, search) {
+				var key = searchList[item];
+				html = '<div class="search-suggestion">';
+				html += '<div class="search-suggestion-item">'+item+'</div>';
+				html += '<div class="search-suggestion-options"><a href="<?php echo DOMAIN_ADMIN ?>edit-content/'+key+'">Edit</a> <a target="_blank" class="ml-2" href="<?php echo DOMAIN_PAGES ?>'+key+'"">Visit</a></div>';
+				html += '</div>';
+				return html;
 			}
 		});
 	});
