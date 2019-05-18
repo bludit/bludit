@@ -16,7 +16,6 @@
 		echo Theme::cssLineAwesome(); // Icons
 		echo Theme::css(array(
 			'jquery-auto-complete.css',
-			'open-iconic-bootstrap.min.css',
 			'jquery.datetimepicker.min.css',
 			'bludit.css',
 			'bludit.bootstrap.css'

@@ -4,20 +4,22 @@
 
 			<!-- Good message -->
 			<div>
-			<h2 id="hello-message"><?php echo $L->g('hello') ?></h2>
+			<h2 id="hello-message" class="pt-0">
+				<span class="fa fa-hand-spock-o"></span><span><?php echo $L->g('hello') ?></span>
+			</h2>
 			<script>
 			$( document ).ready(function() {
 				$("#hello-message").fadeOut(1000, function() {
 					var date = new Date()
 					var hours = date.getHours()
 					if (hours > 6 && hours < 12) {
-						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-morning') ?>');
+						$(this).html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-morning') ?>');
 					} else if (hours > 12 && hours < 18) {
-						$(this).html('<span class="oi oi-sun"></span> <?php echo $L->g('good-afternoon') ?>');
+						$(this).html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-afternoon') ?>');
 					} else if (hours > 18 && hours < 22) {
-						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-evening') ?>');
+						$(this).html('<span class="fa fa-moon-o"></span><?php echo $L->g('good-evening') ?>');
 					} else {
-						$(this).html('<span class="oi oi-moon"></span> <?php echo $L->g('good-night') ?>');
+						$(this).html('<span class="fa fa-moon-o"></span><span><?php echo $L->g('good-night') ?></span>');
 					}
 				}).fadeIn(1000);
 			});
@@ -30,19 +32,19 @@
 				<div class="row">
 					<div class="col">
 						<a class="quick-links text-center" style="color: #4586d4" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
-							<div class="oi oi-justify-left quick-links-icons"></div>
+							<div class="fa fa-edit quick-links-icons"></div>
 							<div><?php $L->p('New content') ?></div>
 						</a>
 					</div>
 					<div class="col border-left border-right">
 						<a class="quick-links text-center" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
-							<div class="oi oi-tags quick-links-icons"></div>
+							<div class="fa fa-tags quick-links-icons"></div>
 							<div><?php $L->p('Categories') ?></div>
 						</a>
 					</div>
 					<div class="col">
 						<a class="quick-links text-center" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>">
-							<div class="oi oi-people quick-links-icons"></div>
+							<div class="fa fa-users quick-links-icons"></div>
 							<div><?php $L->p('Users') ?></div>
 						</a>
 					</div>
@@ -52,19 +54,19 @@
 				<div class="row">
 					<div class="col">
 						<a class="quick-links text-center" target="_blank" href="https://docs.bludit.com">
-							<div class="oi oi-compass quick-links-icons"></div>
+							<div class="fa fa-compass quick-links-icons"></div>
 							<div><?php $L->p('Documentation') ?></div>
 						</a>
 					</div>
 					<div class="col border-left border-right">
 						<a class="quick-links text-center" target="_blank" href="https://forum.bludit.org">
-							<div class="oi oi-loop-square quick-links-icons"></div>
+							<div class="fa fa-support quick-links-icons"></div>
 							<div><?php $L->p('Forum support') ?></div>
 						</a>
 					</div>
 					<div class="col">
 						<a class="quick-links text-center" target="_blank" href="https://gitter.im/bludit/support">
-							<div class="oi oi-chat quick-links-icons"></div>
+							<div class="fa fa-comments quick-links-icons"></div>
 							<div><?php $L->p('Chat support') ?></div>
 						</a>
 					</div>

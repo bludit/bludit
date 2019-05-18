@@ -110,7 +110,7 @@ class pluginsimpleMDE extends Plugin {
 						output = "\n'.PAGE_BREAK.'\n";
 						cm.replaceSelection(output);
 						},
-					className: "oi oi-crop",
+					className: "fa fa-crop",
 					title: "'.$L->get('Pagebreak').'",
 					}]
 		});';

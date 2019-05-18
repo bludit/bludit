@@ -15,6 +15,51 @@ body {
 } */
 
 /*
+	ICONS
+*/
+.fa {
+	padding-right: 2px;
+	line-height: inherit;
+}
+
+/*
+	SIDEBAR
+*/
+
+div.sidebar .nav-item a {
+	padding-left:0;
+	padding-right:0;
+	color: #555;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div.sidebar .nav-item a:hover {
+	color: #0078D4;
+}
+
+div.sidebar .nav-item h4 {
+	font-size: 1.2em;
+	text-transform: uppercase;
+	font-weight: 400;
+	margin-top: 10px;
+}
+
+/*
+	AUTOCOMPLETE SEARCH
+*/
+.search-suggestion {
+	padding: 5px;
+}
+
+.search-suggestion-options {
+	font-size: 0.9em;
+	padding-top: 2px;
+}
+
+
+
+/*
 	BOOTSTRAP Hacks
 */
 
@@ -176,34 +221,7 @@ body.login {
 	color: #ffffff;
 }
 
-/*
-	SIDEBAR
-*/
 
-div.sidebar .nav-item a {
-	padding-left:0;
-	padding-right:0;
-	color: #777;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-
-div.sidebar .nav-item a:hover {
-	text-decoration: underline;
-}
-
-div.sidebar .nav-item h4 {
-	font-size: 1.3em;
-	text-transform: uppercase;
-	font-weight: 400;
-	margin-top: 10px;
-}
-
-div.sidebar .nav-item span.oi {
-	color: #000;
-	font-size: 0.8em;
-	padding-right: 5px;
-}
 
 /*
 	PLUGINS

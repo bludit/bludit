@@ -37,4 +37,4 @@ fa-arrows-alt
 oi-fullscreen-enter
 
 fa fa-
-oi oi-
+fa fa-

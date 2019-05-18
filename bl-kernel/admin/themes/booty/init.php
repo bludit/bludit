@@ -44,7 +44,7 @@ EOF;
 		}
 
 		if (isset($args['icon'])) {
-			return '<a '.$options.'><span class="oi oi-'.$args['icon'].'" style="font-size: 0.7em;"></span> '.$args['title'].'</a>';
+			return '<a '.$options.'><span class="fa fa-'.$args['icon'].'" style="font-size: 0.7em;"></span> '.$args['title'].'</a>';
 		}
 
 		return '<a '.$options.'>'.$args['title'].'</a>';
@@ -56,7 +56,7 @@ EOF;
 		$title = $args['title'];
 return <<<EOF
 <h2 class="mt-0 mb-3">
-	<span class="fa fa-$icon" style="font-size: 0.7em;"></span> $title
+	<span class="fa fa-$icon" style="font-size: 0.9em;"></span><span>$title</span>
 </h2>
 EOF;
 	}

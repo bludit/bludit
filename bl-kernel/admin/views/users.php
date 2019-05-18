@@ -2,7 +2,7 @@
 
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'people'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'users'));
 
 echo Bootstrap::link(array(
 	'title'=>$L->g('add-a-new-user'),
@@ -38,6 +38,8 @@ foreach ($list as $username) {
 			echo '<td>'.$L->g('Administrator').'</td>';
 		} elseif ($user->role()=='editor') {
 			echo '<td>'.$L->g('Editor').'</td>';
+		} elseif ($user->role()=='author') {
+			echo '<td>'.$L->g('Author').'</td>';
 		} else {
 			echo '<td>'.$L->g('Reader').'</td>';
 		}

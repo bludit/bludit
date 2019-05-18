@@ -3,7 +3,8 @@ a {
 }
 
 a:hover {
-	color: #0078D4;
+	color: #003f6f;
+	text-decoration: none;
 }
 
 .bg-success {
@@ -16,6 +17,10 @@ a:hover {
 
 .text-danger {
 	color: #D40000!important;
+}
+a.text-danger:focus,
+a.text-danger:hover {
+	color: #790000!important;
 }
 
 /* Buttons */
@@ -46,4 +51,12 @@ a:hover {
 	box-shadow: none;
 }
 
-/* */
+/* Tables */
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table thead th {
+	font-size: 0.8em;
+	text-transform: uppercase!important;
+}

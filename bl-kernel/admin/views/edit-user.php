@@ -7,7 +7,7 @@
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'person')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'user')); ?>
 </div>
 
 <!-- TABS -->
@@ -56,7 +56,7 @@
 				'options'=>array('author'=>$L->g('Author'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 				'selected'=>$user->role(),
 				'class'=>'',
-				'tip'=>''
+				'tip'=>'Author: Can write and edit his own content. Editor: Can write and edit the content of others.'
 			));
 		}
 

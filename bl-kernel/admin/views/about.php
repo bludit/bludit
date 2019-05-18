@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info-circle'));
 
 echo '
 <table class="table table-striped mt-3">
@@ -10,7 +10,7 @@ echo '
 echo '<tr>';
 echo '<td>Bludit Edition</td>';
 if (defined('BLUDIT_PRO')) {
-	echo '<td>PRO - '.$L->g('Thanks for support Bludit').'</td>';
+	echo '<td>PRO - '.$L->g('Thanks for support Bludit').' <span class="fa fa-heart" style="color: #ffc107"></span></td>';
 } else {
 	echo '<td>Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
 }
