@@ -8,8 +8,8 @@
 */
 
 // Check PHP version
-if (version_compare(phpversion(), '5.3', '<')) {
-	$errorText = 'Current PHP version '.phpversion().', you need > 5.3.';
+if (version_compare(phpversion(), '5.6', '<')) {
+	$errorText = 'Current PHP version '.phpversion().', you need > 5.6.';
 	error_log('[ERROR] '.$errorText, 0);
 	exit($errorText);
 }
