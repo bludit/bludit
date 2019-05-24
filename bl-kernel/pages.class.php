@@ -8,7 +8,7 @@ class Pages extends dbJSON {
 		'description'=>'',
 		'username'=>'',
 		'tags'=>array(),
-		'type'=>'published', // published, static, draft, sticky, scheduled
+		'type'=>'published', // published, static, draft, sticky, scheduled, autosave
 		'date'=>'',
 		'dateModified'=>'',
 		'position'=>0,
@@ -402,6 +402,21 @@ class Pages extends dbJSON {
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if($fields['type']!='draft') {
+				unset($tmp[$key]);
+			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
+		return $tmp;
+	}
+
+	// Returns an array with a list of keys/database of autosave pages
+	public function getAutosaveDB($onlyKeys=true)
+	{
+		$tmp = $this->db;
+		foreach ($tmp as $key=>$fields) {
+			if($fields['type']!='autosave') {
 				unset($tmp[$key]);
 			}
 		}

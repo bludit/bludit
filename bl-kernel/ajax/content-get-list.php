@@ -1,6 +1,19 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Search for pages that have in the title the string $query and returns the array of pages
+|
+| @_GET['published']	boolean	True to search in published database
+| @_GET['static']	boolean True to search in static database
+| @_GET['sticky']	boolean True to search in sticky database
+| @_GET['scheduled']	boolean True to search in scheduled database
+| @_GET['draft']	boolean True to search in draft database
+| @_GET['query']	string	Text to search in the title
+|
+| @return		array
+*/
+
 // $_GET
 // ----------------------------------------------------------------------------
 $published = empty($_GET['published']) ? false:true;
@@ -24,7 +37,7 @@ foreach ($pagesKey as $pageKey) {
 		$page = new Page($pageKey);
 		$lowerTitle = Text::lowercase($page->title());
 		if (Text::stringContains($lowerTitle, $query)) {
-			$tmp[$page->title()] = $page->key();
+			$tmp[$page->key()] = $page->json(true);
 		}
 	} catch (Exception $e) {
 		// continue

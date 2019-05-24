@@ -13,7 +13,8 @@ class bluditAjax {
 					'tokenCSRF': tokenCSRF,
 					'uuid': "autosave-" + uuid,
 					'title': title,
-					'content': content
+					'content': content,
+					'type': 'autosave'
 				}),
 			});
 			const json = await response.json();

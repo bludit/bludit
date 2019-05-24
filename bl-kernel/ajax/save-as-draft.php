@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 | @_POST['title']	string	Page title
 | @_POST['content']	string	Page content
 | @_POST['uuid']	string	Page uuid
+| @_POST['uuid']	string	Page type, by default is draft
 |
 | @return	array
 */
@@ -17,6 +18,7 @@ header('Content-Type: application/json');
 $title = isset($_POST['title']) ? $_POST['title'] : false;
 $content = isset($_POST['content']) ? $_POST['content'] : false;
 $uuid = isset($_POST['uuid']) ? $_POST['uuid'] : false;
+$type = isset($_POST['type']) ? $_POST['type'] : 'draft';
 // ----------------------------------------------------------------------------
 
 // Check UUID
@@ -30,7 +32,7 @@ $page = array(
 	'slug'=>$uuid,
 	'title'=>$title,
 	'content'=>$content,
-	'type'=>'draft'
+	'type'=>$type
 );
 
 // Get the page key by the UUID

@@ -40,6 +40,7 @@ $drafts = $pages->getDraftDB(true);
 $scheduled = $pages->getScheduledDB(true);
 $static = $pages->getStaticDB(true);
 $sticky = $pages->getStickyDB(true);
+$autosave = $pages->getAutosaveDB(true);
 
 // If the user is an Author filter the content he/she can edit
 if (checkRole(array('author'), false)) {

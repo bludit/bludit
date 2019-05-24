@@ -10,6 +10,7 @@ function table($type) {
 	global $scheduled;
 	global $static;
 	global $sticky;
+	global $autosave;
 
 	if ($type=='published') {
 		$list = $published;
@@ -51,6 +52,8 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
+	} elseif ($type=='autosave') {
+		$list = $autosave;
 	}
 
 	echo '
@@ -180,8 +183,13 @@ function table($type) {
 		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?> <?php if (count($drafts)>0) { echo '<span class="badge badge-danger">'.count($drafts).'</span>'; } ?></a>
+		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>
 	</li>
+	<?php if (!empty($autosave)): ?>
+	<li class="nav-item">
+		<a class="nav-link" id="autosave-tab" data-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?></a>
+	</li>
+	<?php endif; ?>
 </ul>
 <div class="tab-content">
 	<!-- TABS PAGES -->
@@ -222,12 +230,11 @@ function table($type) {
 	<script>
 	$(document).ready(function() {
 		var searchXHR;
-		var searchList;
+		var searchArray;
 		$("#search").autoComplete({
 			minChars: 3,
 			source: function(term, response) {
-				try { searchXHR.abort(); } catch(e){}
-				searchXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/content-list",
+				searchXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/content-get-list",
 					{
 						published: true,
 						static: true,
@@ -237,19 +244,19 @@ function table($type) {
 						query: term
 					},
 					function(data) {
-						searchList = data;
+						searchArray = data;
 						var matches = [];
-						for (var title in data) {
-							matches.push(title);
+						for (var key in data) {
+							matches.push(key);
 						}
 						response(matches);
 				});
 			},
 			renderItem: function (item, search) {
-				var key = searchList[item];
+				var title = searchArray[item]['title'];
 				html = '<div class="search-suggestion">';
-				html += '<div class="search-suggestion-item">'+item+'</div>';
-				html += '<div class="search-suggestion-options"><a href="<?php echo DOMAIN_ADMIN ?>edit-content/'+key+'">Edit</a> <a target="_blank" class="ml-2" href="<?php echo DOMAIN_PAGES ?>'+key+'"">Visit</a></div>';
+				html += '<div class="search-suggestion-item">'+title+'</div>';
+				html += '<div class="search-suggestion-options"><a href="<?php echo DOMAIN_ADMIN ?>edit-content/'+item+'">Edit</a> <a target="_blank" class="ml-2" href="<?php echo DOMAIN_PAGES ?>'+item+'"">Visit</a></div>';
 				html += '</div>';
 				return html;
 			}
@@ -276,6 +283,13 @@ function table($type) {
 	<div class="tab-pane" id="draft" role="tabpanel">
 	<?php table('draft'); ?>
 	</div>
+
+	<!-- TABS AUTOSAVE -->
+	<?php if (!empty($autosave)): ?>
+	<div class="tab-pane" id="autosave" role="tabpanel">
+	<?php table('autosave'); ?>
+	</div>
+	<?php endif; ?>
 </div>
 
 <!-- Modal for delete page -->
