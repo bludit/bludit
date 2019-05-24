@@ -382,5 +382,6 @@
     "search": "Buscar",
     "search-plugins": "Buscar plugins",
     "enabled-plugins": "Plugins activados",
-    "disabled-plugins": "Plugins descativados"
+    "disabled-plugins": "Plugins descativados",
+    "remove-logo": "Remover logo"
 }
