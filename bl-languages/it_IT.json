@@ -377,5 +377,12 @@
     "thumbnail-height-in-pixels": "Altezza anteprima in pixel (px).",
     "thumbnail-quality-in-percentage": "Qualità anteprima in percentuale (%).",
     "maximum-load-file-size-allowed:": "Grandezza massima da caricare permessa:",
-    "file-type-is-not-supported": "TIpo di file non supportato. Tipi permessi:"
+    "file-type-is-not-supported": "TIpo di file non supportato. Tipi permessi:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

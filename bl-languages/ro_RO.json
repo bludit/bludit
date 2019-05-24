@@ -377,5 +377,12 @@
     "thumbnail-height-in-pixels": "Înălțime miniatură în pixels (px).",
     "thumbnail-quality-in-percentage": "Calitate miniatură în procent (%).",
     "maximum-load-file-size-allowed:": "Mărime fișier maxim admisă:",
-    "file-type-is-not-supported": "Format fișier nesuportat. Se permite:"
+    "file-type-is-not-supported": "Format fișier nesuportat. Se permite:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

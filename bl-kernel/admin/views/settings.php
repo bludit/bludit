@@ -528,7 +528,7 @@
 						<input id="jssiteLogoInputFile"  class="custom-file-input" type="file" name="inputFile">
 						<label for="jssiteLogoInputFile" class="custom-file-label"><?php $L->p('Upload image'); ?></label>
 					</div>
-					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i> Remove logo</button>
+					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i><?php $L->p('Remove logo') ?></button>
 				</div>
 				<div class="col-lg-8 col-sm-12 p-0 text-center">
 					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />

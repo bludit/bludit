@@ -194,7 +194,7 @@ function table($type) {
 <div class="tab-content">
 	<!-- TABS PAGES -->
 	<div class="tab-pane show active" id="pages" role="tabpanel">
-		<input type="text" class="form-control mt-3" id="search" placeholder="Search">
+		<input type="text" class="form-control mt-3" id="search" placeholder="<?php $L->p('Search') ?>">
 
 		<?php table('published'); ?>
 

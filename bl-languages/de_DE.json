@@ -379,5 +379,12 @@
     "thumbnail-height-in-pixels": "Höhe der Vorschaubilder in Pixel (px).",
     "thumbnail-quality-in-percentage": "Qualität der Vorschaubilder in Prozent (%).",
     "maximum-load-file-size-allowed:": "Maximal erlaubte Dateigröße:",
-    "file-type-is-not-supported": "Dateiformat wird nicht unterstützt. Erlaubte Dateiformate:"
+    "file-type-is-not-supported": "Dateiformat wird nicht unterstützt. Erlaubte Dateiformate:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

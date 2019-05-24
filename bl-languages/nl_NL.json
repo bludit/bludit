@@ -375,5 +375,12 @@
     "thumbnail-height-in-pixels": "Hoogte voorbeelden in pixels (px).",
     "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
     "maximum-load-file-size-allowed:": "Maximale bestandsgrootte voor uploads:",
-    "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:"
+    "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

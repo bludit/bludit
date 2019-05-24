@@ -375,5 +375,12 @@
     "thumbnail-height-in-pixels": "Altura de miniaturas en píxeles (px).",
     "thumbnail-quality-in-percentage": "Calidad de la miniatura en porcentaje (%).",
     "maximum-load-file-size-allowed:": "Tamaño máximo del archivo permitido:",
-    "file-type-is-not-supported": "No se admite el tipo de archivo. Tipos permitidos:"
+    "file-type-is-not-supported": "No se admite el tipo de archivo. Tipos permitidos:",
+    "page-content": "Contenido de las paginas",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Logo del sitio",
+    "search": "Buscar",
+    "search-plugins": "Buscar plugins",
+    "enabled-plugins": "Plugins activados",
+    "disabled-plugins": "Plugins descativados"
 }

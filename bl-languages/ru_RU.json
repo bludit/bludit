@@ -378,5 +378,12 @@
     "thumbnail-height-in-pixels": "Высота миниатюры изображения в пикселях (px).",
     "thumbnail-quality-in-percentage": "Качество миниатюры изображения в процентах (%).",
     "maximum-load-file-size-allowed:": "Максимально допустимый размер загружаемого файла:",
-    "file-type-is-not-supported": "Тип файла не поддерживается. Разрешенные типы:"
+    "file-type-is-not-supported": "Тип файла не поддерживается. Разрешенные типы:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

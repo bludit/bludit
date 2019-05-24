@@ -377,5 +377,12 @@
     "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
     "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%).",
     "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
-    "file-type-is-not-supported": "File type is not supported. Allowed types:"
+    "file-type-is-not-supported": "File type is not supported. Allowed types:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }

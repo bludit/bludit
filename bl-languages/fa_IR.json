@@ -11,14 +11,14 @@
         ]
     },
     "dates": {
-		"Sat": "شنبه",
+        "Sat": "شنبه",
         "Sun": "یکشنبه",
         "Mon": "دوشنبه",
         "Tue": "سه شنبه",
         "Wed": "چهارشنبه",
         "Thu": "پنجشنبه",
         "Fri": "جمعه",
-		"Saturday": "شنبه",
+        "Saturday": "شنبه",
         "Sunday": "یکشنبه",
         "Monday": "دوشنبه",
         "Tuesday": "سه شنبه",
@@ -349,7 +349,7 @@
     "insert": "درج",
     "upload": "آپلود",
     "autosave": "ذخیره خودکار",
-    "the-content-is-saved-as-a-draft-to-publish-it": "محتوا بصورت پیش نویس ذخیره شد. برای انتشار آن بر روی دکمه <b>انتشار</b> کلیک کرده و یا همچنان در حال کار کردن بر روی آن هستید می‌توانید بر روی دکمه <b>ذخیره پیش نویس</b> کلیک کنید.",
+    "the-content-is-saved-as-a-draft-to-publish-it": "محتوا بصورت پیش نویس ذخیره شد. برای انتشار آن بر روی دکمه <b>انتشار<\/b> کلیک کرده و یا همچنان در حال کار کردن بر روی آن هستید می‌توانید بر روی دکمه <b>ذخیره پیش نویس<\/b> کلیک کنید.",
     "site": "سایت",
     "first": "ابتدا",
     "last": "انتها",
@@ -376,5 +376,13 @@
     "thumbnail-width-in-pixels": "عرض بندانگشتی به پیکسل (px).",
     "thumbnail-height-in-pixels": "ارتفاع بندانگشتی به پیکسل (px).",
     "thumbnail-quality-in-percentage": "کیفیت بندانگشتی به درصد (%).",
-	"logo": "لوگو"
+    "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
+    "file-type-is-not-supported": "File type is not supported. Allowed types:",
+    "page-content": "Page content",
+    "markdown-parser": "Markdown parser",
+    "site-logo": "Site logo",
+    "search": "Search",
+    "search-plugins": "Search plugins",
+    "enabled-plugins": "Enabled plugins",
+    "disabled-plugins": "Disabled plugins"
 }
