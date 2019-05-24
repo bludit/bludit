@@ -5,7 +5,7 @@ echo Bootstrap::pageTitle(array('title'=>$L->g('Plugins'), 'icon'=>'puzzle-piece
 echo Bootstrap::link(array(
 	'title'=>$L->g('Change the position of the plugins'),
 	'href'=>HTML_PATH_ADMIN_ROOT.'plugins-position',
-	'icon'=>'elevator'
+	'icon'=>'arrows'
 ));
 
 echo Bootstrap::formTitle(array('title'=>$L->g('Search plugins')));
