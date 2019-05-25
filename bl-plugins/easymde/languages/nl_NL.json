@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Markdown-editor om inhoud te verwerken in de Markdown opmaaktaal."
 	},
 	"toolbar": "Werkbalk",

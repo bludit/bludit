@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Редактор с простым интерфейсом для создания markup разметки."
 	},
 	"toolbar": "Панель инструментов",

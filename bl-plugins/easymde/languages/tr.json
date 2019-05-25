@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Markdown editörü, işaretleme dili oluşturmak için temizlenmiş bir arayüz."
 	},
 	"toolbar": "Araç çubuğu",

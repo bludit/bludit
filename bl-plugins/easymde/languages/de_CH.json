@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Einfacher Editor auf der Grundlage der Auszeichnungssprache Markdown."
 	},
 	"toolbar": "Werkzeugleiste",

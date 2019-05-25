@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "ویرایشگر Markdown، رابط ساده برای ایجاد زبان markup."
 	},
 	"toolbar": "نوار ابزار",

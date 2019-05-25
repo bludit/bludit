@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Editor Markdown, interfaz limpia para crear lenguaje de marcado."
 	},
 	"toolbar": "Barra de herramientas",

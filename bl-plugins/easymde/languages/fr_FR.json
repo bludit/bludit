@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "SimpleMDE",
+		"name": "EasyMDE",
 		"description": "Éditeur Markdown avec une interface d’écriture épurée, pour créer le langage de balisage sémantique."
 	},
 	"toolbar": "Barre d’outils",
