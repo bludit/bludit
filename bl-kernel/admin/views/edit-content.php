@@ -335,7 +335,7 @@ echo Bootstrap::formOpen(array(
 </div>
 
 <!-- Editor -->
-<textarea id="jseditor" class="editable h-100" style=""><?php echo $page->contentRaw(false) ?></textarea>
+<textarea id="jseditor" class="editable h-100" style=""><?php echo $page->contentRaw(true) ?></textarea>
 
 </form>
 
