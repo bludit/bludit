@@ -46,7 +46,7 @@ function buildThePage() {
 		return false;
 	}
 
-	if ($page->draft() || $page->scheduled()) {
+	if ($page->draft() || $page->scheduled() || $page->autosave()) {
 		if ($url->parameter('preview')!==md5($page->uuid())) {
 			$url->setNotFound();
 			return false;
@@ -329,11 +329,11 @@ function editPage($args) {
 	global $pages;
 	global $syslog;
 
-	// Check if the autosave page exists for this new page and delete it
+	// Check if the autosave/preview page exists for this new page and delete it
 	if (isset($args['uuid'])) {
 		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
 		if ($autosaveKey) {
-			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$autosaveKey, LOG_TYPE_INFO);
+			Log::set('Function editPage()'.LOG_SEP.'Autosave/Preview deleted for '.$autosaveKey, LOG_TYPE_INFO);
 			deletePage($autosaveKey);
 		}
 	}
