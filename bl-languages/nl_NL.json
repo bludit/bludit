@@ -2,7 +2,7 @@
     "language-data": {
         "native": "Nederlands",
         "english-name": "Dutch",
-        "last-update": "04-02-2019",
+        "last-update": "2019-05-24",
         "authors": [
             "Ray",
             "ltGuillaume"
@@ -359,7 +359,7 @@
     "good-evening": "Goedenavond",
     "good-night": "Goedenavond",
     "hello": "Hallo",
-    "there-are-no-images-for-the-page": "Er zijn geen afbeeeldingen voor de pagina.",
+    "there-are-no-images-for-the-page": "Er zijn geen afbeeldingen voor de pagina.",
     "select-cover-image": "Kies omslagfoto",
     "this-plugin-depends-on-the-following-plugins": "De plugin heeft de volgende afhankelijkheden:",
     "no-pages-found": "Geen pagina's gevonden.",
@@ -376,12 +376,12 @@
     "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
     "maximum-load-file-size-allowed:": "Maximale bestandsgrootte voor uploads:",
     "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:",
-    "page-content": "Page content",
+    "page-content": "Inhoud pagina",
     "markdown-parser": "Markdown parser",
-    "site-logo": "Site logo",
-    "search": "Search",
-    "search-plugins": "Search plugins",
-    "enabled-plugins": "Enabled plugins",
-    "disabled-plugins": "Disabled plugins",
-    "remove-logo": "Remove logo"
+    "site-logo": "Logo website",
+    "search": "Zoeken",
+    "search-plugins": "Plugins zoeken",
+    "enabled-plugins": "Ingeschakelde plugins",
+    "disabled-plugins": "Uitgeschakelde plugins",
+    "remove-logo": "Logo verwijderen"
 }
