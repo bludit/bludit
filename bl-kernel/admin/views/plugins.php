@@ -20,7 +20,7 @@ $(document).ready(function() {
 		$(".searchItem").each( function() {
 			var item = $(this);
 			item.hide();
-			item.children(".searchText").each( function() {
+			item.find(".searchText").each( function() {
 				var element = $(this).text().toLowerCase();
 				if (element.indexOf(textToSearch)!=-1) {
 					item.show();
