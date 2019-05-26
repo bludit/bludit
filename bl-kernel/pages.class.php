@@ -289,20 +289,23 @@ class Pages extends dbJSON {
 		// Page doesn't exist in database
 		if (!$this->exists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
+			return false;
 		}
 
 		// Delete directory and files
 		if (Filesystem::deleteRecursive(PATH_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key, LOG_TYPE_ERROR);
 		}
 
 		// Delete page images directory; The function already check if exists the directory
-		Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key);
+		if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
+			Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$key);
+		}
 
 		// Remove from database
 		unset($this->db[$key]);
 
-		// Save the database.
+		// Save the database
 		if ($this->save()===false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 		}

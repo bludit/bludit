@@ -363,6 +363,12 @@ class Page {
 		return ($this->getValue('type')=='draft');
 	}
 
+	// (boolean) Returns TRUE if the page is autosave, FALSE otherwise
+	public function autosave()
+	{
+		return ($this->getValue('type')=='autosave');
+	}
+
 	// (boolean) Returns TRUE if the page is sticky, FALSE otherwise
 	public function sticky()
 	{
