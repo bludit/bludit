@@ -6,7 +6,11 @@ if (!isset($_FILES['inputFile'])) {
 }
 
 // File extension
-$fileExtension = pathinfo($_FILES['inputFile']['name'], PATHINFO_EXTENSION);
+$fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
+$fileExtension = Text::lowercase($fileExtension);
+if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
+	return false;
+}
 
 // Final filename
 $filename = 'logo.'.$fileExtension;
@@ -21,7 +25,7 @@ if ($oldFilename) {
 }
 
 // Move from temporary directory to uploads
-rename($_FILES['inputFile']['tmp_name'], PATH_UPLOADS.$filename);
+Filesystem::mv($_FILES['inputFile']['tmp_name'], PATH_UPLOADS.$filename);
 
 // Permissions
 chmod(PATH_UPLOADS.$filename, 0644);
