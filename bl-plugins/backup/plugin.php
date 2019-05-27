@@ -54,7 +54,7 @@ class pluginBackup extends Plugin {
 		}
 
 		$html .= '<div>';
-		$html .= '<button name="createBackup" value="true" class="btn btn-primary btn-sm" type="submit"><span class="fa fa-play-circle"></span> '.$L->get('create-backup').'</button>';
+		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="fa fa-play-circle"></span> '.$L->get('create-backup').'</button>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
