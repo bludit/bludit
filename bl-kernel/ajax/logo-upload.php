@@ -1,6 +1,15 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Upload site logo
+| The final filename is the site's name and the extension is the same as the file uploaded
+|
+| @_FILES['inputFile']	multipart/form-data	File from form
+|
+| @return	array
+*/
+
 if (!isset($_FILES['inputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the site logo.');
 }
@@ -9,7 +18,9 @@ if (!isset($_FILES['inputFile'])) {
 $fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
 if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
-	return false;
+	$message = 'File type is not supported. Allowed types: '.implode(', ',ALLOWED_IMG_EXTENSION);
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
 }
 
 // Final filename

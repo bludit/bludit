@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 | Delete an image from a particular page
 |
 | @_POST['filename']	string	Name of the file to delete
-| @_POST['uuid']	string	Page uuid
+| @_POST['uuid']	string	Page UUID
 |
 | @return	array
 */

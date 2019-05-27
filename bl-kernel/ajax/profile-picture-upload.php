@@ -16,10 +16,10 @@ if (!isset($_FILES['profilePictureInputFile'])) {
 }
 
 // File extension
-$allowedExtensions = array('gif', 'png', 'jpg', 'jpeg', 'svg');
-$fileExtension = pathinfo($_FILES['profilePictureInputFile']['name'], PATHINFO_EXTENSION);
-if (!in_array($fileExtension, $allowedExtensions) ) {
-	$message = 'File type is not supported. Allowed types: '.implode(', ',$allowedExtensions);
+$fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
+$fileExtension = Text::lowercase($fileExtension);
+if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
+	$message = 'File type is not supported. Allowed types: '.implode(', ',ALLOWED_IMG_EXTENSION);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }

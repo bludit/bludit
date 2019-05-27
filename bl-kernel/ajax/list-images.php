@@ -2,11 +2,11 @@
 header('Content-Type: application/json');
 
 /*
-| List filename of image from a particular page
+| Returns a list of images from a particular page
 |
 | @_POST['pageNumber']	int	Page number for the paginator
 | @_POST['path']	string	Pre-defined name for the directory to read, its pre-defined to avoid security issues
-| @_POST['uuid']	string	Page uuid
+| @_POST['uuid']	string	Page UUID
 |
 | @return	array
 */
