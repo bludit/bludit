@@ -58,8 +58,9 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$content_css = $this->htmlPath().'css/tinymce.css?version='.$this->version();
+		$content_css = $this->htmlPath().'css/tinymce.css';
 		$plugins = $this->getValue('plugins');
+		$version = $this->version();
 
 		$lang = 'en';
 		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$L->currentLanguage().'.js')) {
@@ -105,12 +106,13 @@ $html = <<<EOF
 		convert_urls: true,
 		relative_urls: false,
 		valid_elements: "*[*]",
+		cache_suffix: "?version=$version",
 		$document_base_url
 		plugins: ["$plugins"],
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
 		language: "$lang",
-		content_css : "$content_css"
+		content_css: "$content_css"
 	});
 
 </script>
