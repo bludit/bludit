@@ -55,7 +55,13 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
+		global $url;
 		global $WHERE_AM_I;
+
+		// Do not shows
+		if ($url->notFound()) {
+			return false;
+		}
 
 		if ($WHERE_AM_I==='page') {
 			global $page;
