@@ -3,7 +3,7 @@
         "native": "Deutsch (Österreich)",
         "english-name": "German (Austria)",
         "locale": "de, de_AT",
-        "last-update": "2019-03-22",
+        "last-update": "2019-05-28",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -383,10 +383,11 @@
     "file-type-is-not-supported": "Dateiformat wird nicht unterstützt. Erlaubte Dateiformate:",
     "page-content": "Seiteninhalt",
     "markdown-parser": "Markdown-Parser",
-    "site-logo": "Webseiten-Logo",
-    "search": "Suchen",
-    "search-plugins": "Plug-ins suchen",
-    "enabled-plugins": "Aktivierte Plug-ins",
-    "disabled-plugins": "Deaktivierte Plug-ins",
+    "site-logo": "Website-Logo",
+    "search": "Suche",
+    "search-plugins": "Plugins suchen",
+    "enabled-plugins": "Aktivierte Plugins",
+    "disabled-plugins": "Deaktivierte Plugins",
     "remove-logo": "Logo entfernen"
+}
 }
