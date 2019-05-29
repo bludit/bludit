@@ -15,20 +15,14 @@ if (!isset($_FILES['profilePictureInputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the profile picture.');
 }
 
-// File extension
+// Check file extension
 $fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
-if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
-	$message = 'File type is not supported. Allowed types: '.implode(', ',ALLOWED_IMG_EXTENSION);
+if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+	$message = 'File type is not supported. Allowed types: '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
-
-// Tmp filename
-$tmpFilename = $username.'.'.$fileExtension;
-
-// Final filename
-$filename = $username.'.png';
 
 // Check path traversal
 if (Text::stringContains($username, DS, false)) {
@@ -36,6 +30,9 @@ if (Text::stringContains($username, DS, false)) {
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
+
+// Tmp filename
+$tmpFilename = $username.'.'.$fileExtension;
 
 // Move from temporary directory to uploads folder
 rename($_FILES['profilePictureInputFile']['tmp_name'], PATH_TMP.$tmpFilename);
@@ -47,6 +44,9 @@ $image->saveImage(PATH_UPLOADS_PROFILES.$filename, PROFILE_IMG_QUALITY, false, t
 
 // Remove the tmp file
 unlink(PATH_TMP.$tmpFilename);
+
+// Final filename
+$filename = $username.'.png';
 
 // Permissions
 chmod(PATH_UPLOADS_PROFILES.$filename, 0644);

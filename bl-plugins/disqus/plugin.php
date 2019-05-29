@@ -58,7 +58,7 @@ class pluginDisqus extends Plugin {
 		global $url;
 		global $WHERE_AM_I;
 
-		// Do not shows
+		// Do not shows disqus on page not found
 		if ($url->notFound()) {
 			return false;
 		}

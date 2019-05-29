@@ -827,7 +827,7 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 	// Check image extension
 	$fileExtension = Filesystem::extension($file);
 	$fileExtension = Text::lowercase($fileExtension);
-	if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
 		return false;
 	}
 

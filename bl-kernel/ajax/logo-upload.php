@@ -17,8 +17,8 @@ if (!isset($_FILES['inputFile'])) {
 // File extension
 $fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
-if (!in_array($fileExtension, ALLOWED_IMG_EXTENSION) ) {
-	$message = 'File type is not supported. Allowed types: '.implode(', ',ALLOWED_IMG_EXTENSION);
+if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+	$message = 'File type is not supported. Allowed types: '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }

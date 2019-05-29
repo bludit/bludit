@@ -92,12 +92,6 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
 
-// Tags, type of pages included in the tag database
-define('DB_TAGS_TYPES', array('published','static','sticky'));
-
-// Allowed image extensions
-define('ALLOWED_IMG_EXTENSION', array('gif', 'png', 'jpg', 'jpeg', 'svg'));
-
 // Alert notification dissappear in X seconds
 define('ALERT_DISSAPEAR_IN', 3);
 
@@ -107,3 +101,10 @@ define('MEDIA_MANAGER_NUMBER_OF_FILES', 5);
 // Sort the image by date
 define('MEDIA_MANAGER_SORT_BY_DATE', true);
 
+// Constant arrays using define are not allowed in PHP 5.6 or earlier
+
+// Type of pages included in the tag database
+$GLOBALS['DB_TAGS_TYPES'] = array('published','static','sticky');
+
+// Allowed image extensions
+$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');
