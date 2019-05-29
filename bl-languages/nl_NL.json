@@ -383,5 +383,6 @@
     "search-plugins": "Plugins zoeken",
     "enabled-plugins": "Ingeschakelde plugins",
     "disabled-plugins": "Uitgeschakelde plugins",
-    "remove-logo": "Logo verwijderen"
+    "remove-logo": "Logo verwijderen",
+    "preview": "Preview"
 }

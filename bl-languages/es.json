@@ -383,5 +383,6 @@
     "search-plugins": "Buscar plugins",
     "enabled-plugins": "Plugins activados",
     "disabled-plugins": "Plugins descativados",
-    "remove-logo": "Remover logo"
+    "remove-logo": "Remover logo",
+    "preview": "Preview"
 }

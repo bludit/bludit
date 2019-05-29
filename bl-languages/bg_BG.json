@@ -385,5 +385,6 @@
     "search-plugins": "Search plugins",
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
-    "remove-logo": "Remove logo"
+    "remove-logo": "Remove logo",
+    "preview": "Preview"
 }
