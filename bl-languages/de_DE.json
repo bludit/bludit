@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-05-28",
+        "last-update": "2018-05-30",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -388,5 +388,5 @@
     "enabled-plugins": "Aktivierte Plugins",
     "disabled-plugins": "Deaktivierte Plugins",
     "remove-logo": "Logo entfernen",
-    "preview": "Preview"
+    "preview": "Vorschau
 }
