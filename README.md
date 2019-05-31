@@ -1,6 +1,6 @@
 [Bludit](https://www.bludit.com/)
 ================================
-**Simple**, **Fast** and **Flexible** CMS
+**Simple**, **Fast** and **Flexible** CMS.
 
 Bludit is a web application to build your own **website** or **blog** in seconds, it's completely **free and open source**. Bludit uses files in JSON format to store the content, you don't need to install or configure a database. You only need a web server with PHP support.
 
@@ -13,14 +13,13 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - [Documentation](https://docs.bludit.com)
 - Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
 
-[![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
-
-Social Networks
+Follow Bludit
 ---------------
 
+- [Blog](https://blog.bludit.com)
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
-- [Youtube](https://www.youtube.com/channel/UCuLu0Z_CHBsTiYTDz129x9Q?view_as=subscriber)
+- [Youtube](https://www.youtube.com/c/Bluditcms)
 
 Requirements
 ------------
@@ -47,25 +46,24 @@ Installation Guide
 
 Docker Image
 ------------
-Bludit provides an official Docker image.
+Official Docker image on Docker Hub.
 - https://hub.docker.com/r/bludit/docker/
 
-Backers
+Also we provide Kubernetes deployments yaml files.
+- https://github.com/bludit/docker/tree/master/kubernetes
+
+Support Bludit!
 -------
-Become a **Backer** and support Bludit with a monthly contribution to help us continue development.
-- [Become a Backer](https://www.patreon.com/bePatron?c=921115&rid=2458859)
+Bludit is open soruce and free, but if you really like the project and is useful for your you can contribute in [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO.
 
-Sponsors
---------
-Become a **Sponsor** and support Bludit with a monthly contribution to help us continue development.
+[![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 
-[![Become a Sponsor](https://img.shields.io/badge/Become%20a%20Sponsor--green.svg)](https://www.patreon.com/bePatron?c=921115&rid=2458860)
+### Golden sponsors in Patreon!
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
 - <a href="https://www.patreon.com/user/creators?u=3969453" target="_blank">Martin Cajzer</a>
 - <a href="https://www.patreon.com/user/creators?u=12261033" target="_blank">Jan Rippl</a>
-- <a href="https://www.patreon.com/user/creators?u=9828204" target="_blank">Wesleigh Walker</a>
 
 License
 -------
