@@ -120,6 +120,11 @@ section.home-page:nth-child(even) { /* Alternate the background color */
 	background-position: center;
 }
 
+.page-description {
+	color: #b5b5b5;
+	font-style: italic;
+}
+
 /* VIDEO EMBED RESPONSIVE */
 .video-embed {
 	overflow:hidden;

@@ -45,6 +45,11 @@
 					<h2 class="title"><?php echo $page->title(); ?></h2>
 				</a>
 
+				<!-- Page description -->
+				<?php if ($page->description()): ?>
+				<p class="page-description"><?php echo $page->description(); ?></p>
+				<?php endif ?>
+
 				<!-- Page content until the pagebreak -->
 				<div>
 				<?php echo $page->contentBreak(); ?>
