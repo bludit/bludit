@@ -34,6 +34,9 @@ if (Text::stringContains($username, DS, false)) {
 // Tmp filename
 $tmpFilename = $username.'.'.$fileExtension;
 
+// Final filename
+$filename = $username.'.png';
+
 // Move from temporary directory to uploads folder
 rename($_FILES['profilePictureInputFile']['tmp_name'], PATH_TMP.$tmpFilename);
 
@@ -44,9 +47,6 @@ $image->saveImage(PATH_UPLOADS_PROFILES.$filename, PROFILE_IMG_QUALITY, false, t
 
 // Remove the tmp file
 unlink(PATH_TMP.$tmpFilename);
-
-// Final filename
-$filename = $username.'.png';
 
 // Permissions
 chmod(PATH_UPLOADS_PROFILES.$filename, 0644);
