@@ -55,7 +55,7 @@
     "manage-categories": "カテゴリー管理",
     "general-settings": "全般設定",
     "advanced-settings": "詳細設定",
-    "thanks-for-support-bludit": "Bluditの支援をありがとうございます",
+    "thanks-for-supporting-bludit": "Bluditの支援をありがとうございます",
     "upgrade-to-bludit-pro": "Bludit PROへアップグレード",
     "language": "言語",
     "plugin": "プラグイン",
@@ -89,7 +89,7 @@
     "plugin-activated": "プラグインを有効化",
     "plugin-deactivated": "プラグインを無効化",
     "new-theme-configured": "新しいテーマを設定",
-    "changes-on-settings": "設定を変更",
+    "settings-changes": "設定を変更",
     "plugin-configured": "プラグインを設定",
     "welcome-to-bludit": "Bluditへようこそ",
     "statistics": "統計",
@@ -248,7 +248,6 @@
     "content-deleted": "コンテンツを削除",
     "undefined": "未定義",
     "create-new-content-for-your-site": "コンテンツを作成します",
-    "there-are-no-draft-content": "下書きコンテンツはありません。",
     "order-items-by": "Order items by",
     "all-content": "すべてのコンテンツ",
     "dynamic": "動的",
@@ -320,7 +319,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Start typing a page title to see a list of suggestions.",
     "field-used-when-ordering-content-by-position": "Field used when ordering content by position",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Write a template name to filter the page in the theme and change the style of the page.",
-    "write-the-tags-separated-by-comma": "Write the tags separated by comma.",
+    "write-the-tags-separated-by-commas": "Write the tags separated by comma.",
     "apply-code-noindex-code-to-this-page": "Apply <code>noindex<\/code> to this page.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "This tells search engines not to show this page in their search results.",
     "apply-code-nofollow-code-to-this-page": "Apply <code>nofollow<\/code> to this page.",
@@ -387,5 +386,6 @@
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
     "remove-logo": "Remove logo",
-    "preview": "Preview"
+    "preview": "Preview",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }

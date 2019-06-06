@@ -52,7 +52,7 @@
     "manage-categories": "Categorieën beheren",
     "general-settings": "Algemene instellingen",
     "advanced-settings": "Geavanceerde instellingen",
-    "thanks-for-support-bludit": "Bedankt voor de ondersteuning van Bludit",
+    "thanks-for-supporting-bludit": "Bedankt voor de ondersteuning van Bludit",
     "upgrade-to-bludit-pro": "Upgraden naar Bludit PRO",
     "language": "Taal",
     "plugin": "Plugin",
@@ -86,7 +86,7 @@
     "plugin-activated": "Plugin ingeschakeld",
     "plugin-deactivated": "Plugin uitgeschakeld",
     "new-theme-configured": "Nieuw thema geconfigureerd",
-    "changes-on-settings": "Instellingen aangepast",
+    "settings-changes": "Instellingen aangepast",
     "plugin-configured": "Plugin geconfigureerd",
     "welcome-to-bludit": "Welkom bij Bludit",
     "statistics": "Statistieken",
@@ -245,7 +245,6 @@
     "content-deleted": "Inhoud verwijderd",
     "undefined": "Niet opgegeven",
     "create-new-content-for-your-site": "Maak nieuwe inhoud voor de site",
-    "there-are-no-draft-content": "Er zijn geen concepten.",
     "order-items-by": "Items sorteren op",
     "all-content": "Alle inhoud",
     "dynamic": "Dynamisch",
@@ -317,7 +316,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Voer de beginletters van een paginatitel in om een lijst met suggesties op te roepen.",
     "field-used-when-ordering-content-by-position": "Gebruikt wanneer de inhoud op positie is gesorteerd",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Voer de naam van een sjabloon in indien het thema toestaat dat verschillende sjablonen worden toegewezen aan individuele pagina's.",
-    "write-the-tags-separated-by-comma": "Voer tags in, gescheiden door een komma.",
+    "write-the-tags-separated-by-commas": "Voer tags in, gescheiden door een komma.",
     "apply-code-noindex-code-to-this-page": "<code>noindex<\/code> op deze pagina toepassen.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "Dit geeft aan voor zoekmachines dat deze pagina niet mag worden opgenomen in hun zoekresultaten.",
     "apply-code-nofollow-code-to-this-page": "<code>nofollow<\/code> op deze pagina toepassen.",
@@ -384,5 +383,6 @@
     "enabled-plugins": "Ingeschakelde plugins",
     "disabled-plugins": "Uitgeschakelde plugins",
     "remove-logo": "Logo verwijderen",
-    "preview": "Voorbeeld"
+    "preview": "Voorbeeld",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }

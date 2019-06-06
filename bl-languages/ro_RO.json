@@ -54,7 +54,7 @@
     "manage-categories": "Administrează categorii",
     "general-settings": "Setări generale",
     "advanced-settings": "Setări avansate",
-    "thanks-for-support-bludit": "Mulțumim că susții Bludit",
+    "thanks-for-supporting-bludit": "Mulțumim că susții Bludit",
     "upgrade-to-bludit-pro": "Upgrade la Bludit PRO",
     "language": "Limbă",
     "plugin": "Plugin",
@@ -88,7 +88,7 @@
     "plugin-activated": "Plugin activat",
     "plugin-deactivated": "Plugin dezactivat",
     "new-theme-configured": "Temă nouă configurată",
-    "changes-on-settings": "Schimbări setări",
+    "settings-changes": "Schimbări setări",
     "plugin-configured": "Plugin configurat",
     "welcome-to-bludit": "Bine ați venit la Bludit",
     "statistics": "Statistici",
@@ -247,7 +247,6 @@
     "content-deleted": "Conținut șters",
     "undefined": "Nedefinit",
     "create-new-content-for-your-site": "Creează conținut nou pentru sit-ul tău",
-    "there-are-no-draft-content": "Nu există conținut ciornă.",
     "order-items-by": "Sortează după",
     "all-content": "Tot conținutul",
     "dynamic": "Dinamic",
@@ -319,7 +318,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Începe a scrie un titlu de pagină pentru a vedea o listă de sugestii.",
     "field-used-when-ordering-content-by-position": "Câmp folosit atunci când conținutul se sortează după poziție",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Scrie un nume de temă pentru a filtra pagina din temă și schimba stilul paginii.",
-    "write-the-tags-separated-by-comma": "Scrie etichetele separate prin virgulă.",
+    "write-the-tags-separated-by-commas": "Scrie etichetele separate prin virgulă.",
     "apply-code-noindex-code-to-this-page": "Aplică <code>noindex<\/code> pentru această pagină.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "Asta va spune motoarelor de căutare să nu includă această pagină în rezultate.",
     "apply-code-nofollow-code-to-this-page": "Aplică <code>nofollow<\/code> pentru această pagină.",
@@ -386,5 +385,6 @@
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
     "remove-logo": "Remove logo",
-    "preview": "Preview"
+    "preview": "Preview",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }

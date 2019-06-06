@@ -55,7 +55,7 @@
     "manage-categories": "Gestion des catégories",
     "general-settings": "Paramètres généraux",
     "advanced-settings": "Paramètres avancés",
-    "thanks-for-support-bludit": "Merci de supporter Bludit",
+    "thanks-for-supporting-bludit": "Merci de supporter Bludit",
     "upgrade-to-bludit-pro": "Mettre à niveau vers Bludit PRO",
     "language": "Langue",
     "plugin": "Plugin",
@@ -89,7 +89,7 @@
     "plugin-activated": "Plugin activé",
     "plugin-deactivated": "Plugin desactivé",
     "new-theme-configured": "Nouveau thème configuré",
-    "changes-on-settings": "Enregistrement des paramètres effectué avec succès",
+    "settings-changes": "Enregistrement des paramètres effectué avec succès",
     "plugin-configured": "Plugin configuré",
     "welcome-to-bludit": "Bienvenue sur Bludit",
     "statistics": "Statistiques",
@@ -248,7 +248,6 @@
     "content-deleted": "Contenu supprimé",
     "undefined": "Indéfini",
     "create-new-content-for-your-site": "Créer un nouveau contenu pour votre site.",
-    "there-are-no-draft-content": "Il n’y a pas de contenu enregistré en tant que brouillon.",
     "order-items-by": "Trier les articles par",
     "all-content": "Tout le contenu",
     "dynamic": "Dynamique",
@@ -320,7 +319,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Commencez à taper le titre d’une page, pour voir s’afficher une liste de suggestions.",
     "field-used-when-ordering-content-by-position": "Champ utilisé lorsque le paramètre «contenu par position» est sélectionné.",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Écrivez un nom de modèle pour filtrer la page dans le thème et changer le style de la page.",
-    "write-the-tags-separated-by-comma": "Écrivez les balises séparées par des virgules.",
+    "write-the-tags-separated-by-commas": "Écrivez les balises séparées par des virgules.",
     "apply-code-noindex-code-to-this-page": "Bloquer l’indexation à cette page <code>noindex<\/code>.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "Cela indique aux moteurs de recherche de ne pas afficher cette page dans leurs résultats de recherche.",
     "apply-code-nofollow-code-to-this-page": "Bloquer le suivi des liens à cette page <code>nofollow<\/code>.",
@@ -387,5 +386,6 @@
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
     "remove-logo": "Remove logo",
-    "preview": "Preview"
+    "preview": "Preview",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }

@@ -54,7 +54,7 @@
     "manage-categories": "Gestisci categorie",
     "general-settings": "Impostazioni generali",
     "advanced-settings": "Impostazioni avanzate",
-    "thanks-for-support-bludit": "Grazie di supportare Bludit",
+    "thanks-for-supporting-bludit": "Grazie di supportare Bludit",
     "upgrade-to-bludit-pro": "Aggiorna a Bludit PRO",
     "language": "Lingua",
     "plugin": "Plugin",
@@ -88,7 +88,7 @@
     "plugin-activated": "Plugin attivato",
     "plugin-deactivated": "Plugin disattivato",
     "new-theme-configured": "Nuovo tema configurato",
-    "changes-on-settings": "Cambiamenti su impostazioni",
+    "settings-changes": "Cambiamenti su impostazioni",
     "plugin-configured": "Plugin configurato",
     "welcome-to-bludit": "Benvenuti su Bludit",
     "statistics": "Statistiche",
@@ -247,7 +247,6 @@
     "content-deleted": "Contenuto eliminato",
     "undefined": "Non definito",
     "create-new-content-for-your-site": "Crea nuovo contenuto per il tuo sito",
-    "there-are-no-draft-content": "Non c'è nessuna bozza.",
     "order-items-by": "Ordina oggetti per",
     "all-content": "Tutto il contenuto",
     "dynamic": "Dinamico",
@@ -319,7 +318,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Inizia a digitare il titolo di una pagina per vedere un elenco di suggerimenti.",
     "field-used-when-ordering-content-by-position": "Campi utilizzati quando si ordina il contenuto per posizione",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Scrivi il nome di un template per filtrare la pagina nel tema e cambiare lo stile della pagina.",
-    "write-the-tags-separated-by-comma": "Scrivi i tag separati da una virgola.",
+    "write-the-tags-separated-by-commas": "Scrivi i tag separati da una virgola.",
     "apply-code-noindex-code-to-this-page": "Applica <code>noindex<\/code> a questa pagina.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "Questo dice ai motori di ricerca di non visualizzare questa pagina nei risultati di ricerca.",
     "apply-code-nofollow-code-to-this-page": "Applica <code>nofollow<\/code> a questa pagina.",
@@ -386,5 +385,6 @@
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
     "remove-logo": "Remove logo",
-    "preview": "Preview"
+    "preview": "Preview",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }

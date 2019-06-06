@@ -55,7 +55,7 @@
     "manage-categories": "Spravovat kategorie",
     "general-settings": "Obecné nastavení",
     "advanced-settings": "Pokročilé nastavení",
-    "thanks-for-support-bludit": "Díky za podporu Bludit",
+    "thanks-for-supporting-bludit": "Díky za podporu Bludit",
     "upgrade-to-bludit-pro": "Upgrade na Bludit PRO",
     "language": "Jazyk",
     "plugin": "Plugin",
@@ -89,7 +89,7 @@
     "plugin-activated": "Plugin aktivován",
     "plugin-deactivated": "Plugin deaktivován",
     "new-theme-configured": "Nová šablona nakonfigurována",
-    "changes-on-settings": "Změny v nastavení",
+    "settings-changes": "Změny v nastavení",
     "plugin-configured": "Plugin nakonfigurován",
     "welcome-to-bludit": "Vítejte v Bludit",
     "statistics": "Statistiky",
@@ -248,7 +248,6 @@
     "content-deleted": "Obsah smazán",
     "undefined": "Není nadefinováno",
     "create-new-content-for-your-site": "Vytvořte nový obsah pro váš web",
-    "there-are-no-draft-content": "Nemáte žádné koncepty obsahu.",
     "order-items-by": "Řadit položky dle",
     "all-content": "Veškerý obsah",
     "dynamic": "Dynamický",
@@ -320,7 +319,7 @@
     "start-typing-a-page-title-to-see-a-list-of-suggestions": "Start typing a page title to see a list of suggestions.",
     "field-used-when-ordering-content-by-position": "Field used when ordering content by position",
     "write-a-template-name-to-filter-the-page-in-the-theme-and-change-the-style-of-the-page": "Write a template name to filter the page in the theme and change the style of the page.",
-    "write-the-tags-separated-by-comma": "Write the tags separated by comma.",
+    "write-the-tags-separated-by-commas": "Write the tags separated by comma.",
     "apply-code-noindex-code-to-this-page": "Apply <code>noindex<\/code> to this page.",
     "this-tells-search-engines-not-to-show-this-page-in-their-search-results": "This tells search engines not to show this page in their search results.",
     "apply-code-nofollow-code-to-this-page": "Apply <code>nofollow<\/code> to this page.",
@@ -387,5 +386,6 @@
     "enabled-plugins": "Enabled plugins",
     "disabled-plugins": "Disabled plugins",
     "remove-logo": "Remove logo",
-    "preview": "Preview"
+    "preview": "Preview",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
 }
