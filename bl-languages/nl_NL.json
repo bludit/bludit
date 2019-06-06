@@ -2,7 +2,7 @@
     "language-data": {
         "native": "Nederlands",
         "english-name": "Dutch",
-        "last-update": "2019-05-24",
+        "last-update": "2019-06-06",
         "authors": [
             "Ray",
             "ltGuillaume"
@@ -384,5 +384,5 @@
     "disabled-plugins": "Uitgeschakelde plugins",
     "remove-logo": "Logo verwijderen",
     "preview": "Voorbeeld",
-    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
+    "author-can-write-and-edit-their-own-content": "Auteur: Kan eigen inhoud creëren en bewerken. Editor: Kan ook de inhoud van andere gebruikers bewerken."
 }
