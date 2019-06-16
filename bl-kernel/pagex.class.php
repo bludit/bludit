@@ -269,8 +269,10 @@ class Page {
 		$tmp['description'] 	= $this->description();
 		$tmp['type'] 		= $this->type();
 		$tmp['slug'] 		= $this->slug();
-		$tmp['date'] 		= $this->dateRaw();
+		$tmp['date'] 		= $this->date();
+		$tmp['dateRaw'] 	= $this->dateRaw();
 		$tmp['tags'] 		= $this->tags(false);
+		$tmp['username'] 	= $this->username();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);

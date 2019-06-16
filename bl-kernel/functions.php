@@ -588,7 +588,7 @@ function editSettings($args) {
 
 		// Add syslog
 		$syslog->add(array(
-			'dictionaryKey'=>'changes-on-settings',
+			'dictionaryKey'=>'settings-changes',
 			'notes'=>''
 		));
 
@@ -790,6 +790,10 @@ function activateTheme($themeDirectory) {
 	global $L, $language;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
+		if (Sanitize::pathFile(PATH_THEMES.$themeDirectory, 'install.php')) {
+			include_once(PATH_THEMES.$themeDirectory.'install.php');
+		}
+
 		$site->set(array('theme'=>$themeDirectory));
 
 		$syslog->add(array(

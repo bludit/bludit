@@ -51,7 +51,7 @@
 		'options'=>array('author'=>$L->g('Author'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 		'selected'=>'Author',
 		'class'=>'',
-		'tip'=>'Author: Can write and edit his own content. Editor: Can write and edit the content of others.'
+		'tip'=>$L->g('author-can-write-and-edit-their-own-content')
 	));
 
 	echo Bootstrap::formInputText(array(
