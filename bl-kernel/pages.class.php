@@ -544,8 +544,8 @@ class Pages extends dbJSON {
 	}
 
 	// Returns the amount of pages
-	// (boolean) $total, TRUE returns the total of pages
-	// (boolean) $total, FALSE returns the total of published pages (without draft and scheduled)
+	// (boolean) $onlyPublished, TRUE returns the total of published pages (without draft and scheduled)
+	// (boolean) $onlyPublished, FALSE returns the total of pages
 	public function count($onlyPublished=true)
 	{
 		if ($onlyPublished) {
