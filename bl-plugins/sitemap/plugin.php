@@ -62,11 +62,13 @@ class pluginSitemap extends Plugin {
 			try {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
-				$xml .= '<url>';
-				$xml .= '<loc>'.$page->permalink().'</loc>';
-				$xml .= '<lastmod>'.$page->date(SITEMAP_DATE_FORMAT).'</lastmod>';
-				$xml .= '<changefreq>daily</changefreq>';
-				$xml .= '</url>';
+				if (!$page->noindex() && !$page->noarchive()) {
+					$xml .= '<url>';
+					$xml .= '<loc>'.$page->permalink().'</loc>';
+					$xml .= '<lastmod>'.$page->date(SITEMAP_DATE_FORMAT).'</lastmod>';
+					$xml .= '<changefreq>daily</changefreq>';
+					$xml .= '</url>';
+				}
 			} catch (Exception $e) {
 				// Continue
 			}
