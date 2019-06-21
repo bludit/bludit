@@ -2,9 +2,9 @@
 	"author": "TinyMCE",
 	"email": "",
 	"website": "https://www.tinymce.com",
-	"version": "5.0.6",
-	"releaseDate": "2019-05-22",
+	"version": "5.0.8",
+	"releaseDate": "2019-06-10",
 	"license": "LGPL 2.1",
-	"compatible": "3.9.1",
+	"compatible": "3.9.2",
 	"notes": ""
 }

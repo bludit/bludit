@@ -44,7 +44,9 @@ class pluginTinymce extends Plugin {
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
-		return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
+		$html  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/tinymce_toolbar.css">'.PHP_EOL;
+		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
+		return $html;
 	}
 
 	public function adminBodyEnd()
@@ -58,7 +60,7 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$content_css = $this->htmlPath().'css/tinymce.css';
+		$content_css = $this->htmlPath().'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
 
@@ -95,6 +97,7 @@ $html = <<<EOF
 		auto_focus: "jseditor",
 		element_format : "html",
 		entity_encoding : "raw",
+		skin: "oxide",
 		schema: "html5",
 		statusbar: false,
 		menubar:false,
