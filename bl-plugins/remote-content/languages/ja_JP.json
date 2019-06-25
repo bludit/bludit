@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Remote Content",
+		"description": "サイトのコンテンツを簡単にGithubやそれに似たサービスと同期できます。"
+	},
+	"webhook": "Webフック",
+	"source": "ソース",
+	"try-webhook": "Webフックをテスト",
+	"complete-url-of-the-zip-file": "ZIPファイルの完全なURL"
+}

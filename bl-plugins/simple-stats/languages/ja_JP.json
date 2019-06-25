@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "ダッシュボードに1日の訪問者数を表示します。"
+	},
+	"visits": "訪問者数",
+	"visits-today": "本日の訪問者数",
+	"unique-visitors-today": "本日のユニーク訪問者数",
+	"chart": "グラフ",
+	"table": "テーブル"
+}

@@ -2,6 +2,9 @@
 	"plugin-data":
 	{
 		"name": "Sitemap",
-		"description": "Webページをリスト化し、検索エンジンにサイトコンテンツの構造を伝えるためのsitemap.xmlファイルを生成します。"
-	}
+		"description": "Webサイトのページリストからsitemap.xmlファイルを生成します。これは検索エンジンが、Webサイトのコンテンツを整理、フィルタリングをするのに役立ちます。"
+	},
+	"sitemap-url": "サイトマップURL",
+	"notifies-google-when-you-created": "サイトがコンテンツを作成、変更、削除したときにGoogleに通知します。",
+	"notifies-bing-when-you-created": "サイトがコンテンツを作成、変更、削除したときにBingに通知します。"
 }

@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "Twitter Cardsは、ツイートに写真や動画などのメディア体験を添付してWebサイトへのトラフィックを増やします。"
+	},
+	"default-image": "規定の画像"
+}
