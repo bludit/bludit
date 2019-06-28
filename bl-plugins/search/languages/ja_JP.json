@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Search",
+		"description": "コンテンツを検索するための検索ボックスを設置します。"
+	},
+	"search": "検索",
+	"show-button-search": "検索ボタンを表示"
+}

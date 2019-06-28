@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Markdownエディター。スッキリとしたインターフェースからマークアップ言語が書けます。"
+	},
+	"toolbar": "ツールバー",
+	"tab-size": "タブ幅",
+	"autosave": "自動保存",
+	"spell-checker": "スペルチェッカー",
+	"content-here-supports-markdown-and-html-code": "このコンテンツはMarkdownとHTMLコードをサポートしています"
+}
