@@ -790,8 +790,8 @@ function activateTheme($themeDirectory) {
 	global $L, $language;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
-		if (Sanitize::pathFile(PATH_THEMES.$themeDirectory, 'install.php')) {
-			include_once(PATH_THEMES.$themeDirectory.'install.php');
+		if (Filesystem::fileExists(PATH_THEMES.$themeDirectory.DS.'install.php')) {
+			include_once(PATH_THEMES.$themeDirectory.DS.'install.php');
 		}
 
 		$site->set(array('theme'=>$themeDirectory));
@@ -839,7 +839,7 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 	$filename = Filesystem::filename($file);
 	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
 
-	// Move the image to a proper place and name
+	// Move the image to a proper place and rename
 	$image = $imageDir.$nextFilename;
 	Filesystem::mv($file, $image);
 	chmod($image, 0644);

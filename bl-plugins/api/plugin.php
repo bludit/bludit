@@ -454,6 +454,9 @@ class pluginAPI extends Plugin {
 			$thumbnailDirectory 	= $imageDirectory.'thumbnails'.DS;
 			$imageEndpoint 		= DOMAIN_UPLOADS_PAGES.$inputs['uuid'].'/';
 			$thumbnailEndpoint 	= $imageEndpoint.'thumbnails'.'/';
+			if (!Filesystem::directoryExists($thumbnailDirectory)) {
+				Filesystem::mkdir($thumbnailDirectory, true);
+			}
 		} else {
 			$imageDirectory 	= PATH_UPLOADS;
 			$thumbnailDirectory 	= PATH_UPLOADS_THUMBNAILS;

@@ -19,6 +19,9 @@
 <!-- Include CSS Styles from this theme -->
 <?php echo Theme::css('css/style.css'); ?>
 
+<?php echo Theme::css('vendors/lightgallery/css/lightgallery.css'); ?>
+
 <!-- Load Bludit Plugins: Site head -->
 <?php Theme::plugins('siteHead'); ?>
+
 

@@ -80,6 +80,17 @@ blockquote {
 	background: #EAF4FB;
 }
 
+#jspreviewImages img {
+	width: 64px;
+	height: 64px;
+}
+
+/* Image Gallery */
+.image-gallery img {
+	width: 120px;
+	margin: 0px 3px;
+}
+
 /* Navbar */
 img.nav-svg-icon {
 	width: 1rem;

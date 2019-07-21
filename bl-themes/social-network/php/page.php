@@ -1,5 +1,5 @@
 <!-- Post -->
-<div class="card my-5 border-0">
+<div class="card my-2 p-2">
 
 	<!-- Load Bludit Plugins: Page Begin -->
 	<?php Theme::plugins('pageBegin'); ?>
@@ -12,7 +12,7 @@
 	<div class="card-body p-0">
 		<!-- Title -->
 		<a class="text-dark" href="<?php echo $page->permalink(); ?>">
-			<h1 class="title"><?php echo $page->title(); ?></h1>
+			<h3 class="title"><?php echo $page->title(); ?></h3>
 		</a>
 
 		<?php if (!$page->isStatic() && !$url->notFound()): ?>

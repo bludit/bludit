@@ -34,9 +34,6 @@
 		</div>
 	</div>
 
-	<!-- Footer -->
-	<?php include(THEME_DIR_PHP.'footer.php'); ?>
-
 	<!-- Javascript -->
 	<?php
 		// Include Jquery file from Bludit Core
@@ -44,7 +41,23 @@
 
 		// Include javascript Bootstrap file from Bludit Core
 		echo Theme::jsBootstrap();
+
+		echo Theme::javascript('vendors/lightgallery/js/lightgallery.js');
+		echo Theme::javascript('vendors/lightgallery/js/lg-thumbnail.js');
+		echo Theme::javascript('vendors/lightgallery/js/lg-fullscreen.js');
 	?>
+
+	<script>
+		// Apply to all galleries
+		var galleries = document.getElementsByClassName("image-gallery");
+		for(let i = 0 ; i < galleries.length; i++){
+			lightGallery(galleries[i],{
+				thumbnail:true,
+				share: false,
+				download: true
+			})
+		}
+	</script>
 
 	<!-- Load Bludit Plugins: Site Body End -->
 	<?php Theme::plugins('siteBodyEnd'); ?>
