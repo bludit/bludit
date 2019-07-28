@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "検索",
+		"description": "Provide a search box to your users to search through the content of your site."
+	},
+	"search": "検索",
+	"show-button-search": "検索ボタンを表示"
+}

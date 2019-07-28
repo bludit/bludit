@@ -1,6 +1,14 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Returns a list of pages are parent and match with the string in them titles
+|
+| @_POST['query']	string 	The string to search in the title of the pages
+|
+| @return	array
+*/
+
 // $_GET
 // ----------------------------------------------------------------------------
 // (string) $_GET['query']

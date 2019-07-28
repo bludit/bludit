@@ -1,0 +1,3 @@
+.tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary {
+	border-top: none !important;
+}

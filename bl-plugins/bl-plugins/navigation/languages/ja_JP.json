@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigation",
+		"description": "サイドバーに親ページと子ページを表示するナビゲーションメニューです。"
+	},
+	"home-link": "ホームリンク",
+	"show-the-home-link-on-the-sidebar": "サイドバーにホームリンクを表示する",
+	"amount-of-items": "アイテム数"
+}

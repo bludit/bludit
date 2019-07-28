@@ -7,7 +7,7 @@
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$user->username() ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Change password'), 'icon'=>'person')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Change password'), 'icon'=>'user')); ?>
 </div>
 
 <?php

@@ -48,6 +48,10 @@
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>">
 						<?php $L->p('About') ?></a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>">
+						<?php $L->p('Logout') ?></a>
+				</li>
 			</ul>
 		</div>
 	</div>

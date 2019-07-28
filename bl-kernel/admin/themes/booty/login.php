@@ -13,7 +13,8 @@
 	<?php
 		echo Theme::cssBootstrap();
 		echo Theme::css(array(
-			'bludit.css'
+			'bludit.css',
+			'bludit.bootstrap.css'
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 

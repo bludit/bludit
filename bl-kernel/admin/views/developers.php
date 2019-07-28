@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Developers'), 'icon'=>'beaker'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Developers'), 'icon'=>'gears'));
 
 echo '<h2 class="mb-4 mt-4"><b>PHP version: '.phpversion().'</b></h2>';
 

@@ -30,7 +30,7 @@ class pluginAPI extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('URL').'</label>';
-		$html .= '<p class="text-muted">'.DOMAIN.'/api/{endpoint}</p>';
+		$html .= '<p class="text-muted">'.DOMAIN_BASE.'api/{endpoint}</p>';
 		$html .= '</div>';
 
 		$html .= '<div>';
@@ -138,6 +138,10 @@ class pluginAPI extends Plugin {
 			$pageKey = $parameters[1];
 			$data = $this->editPage($pageKey, $inputs);
 		}
+		// (PUT) /api/settings
+		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->editSettings($inputs);
+		}
 		// (DELETE) /api/pages/<key>
 		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
 			$pageKey = $parameters[1];
@@ -147,6 +151,10 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createPage($inputs);
 		}
+		// (POST) /api/images
+		elseif ( ($method==='POST') && ($parameters[0]==='images') && $writePermissions ) {
+			$data = $this->uploadImage($inputs);
+		}
 		// (GET) /api/tags
 		elseif ( ($method==='GET') && ($parameters[0]==='tags') && empty($parameters[1]) ) {
 			$data = $this->getTags();
@@ -155,6 +163,15 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='GET') && ($parameters[0]==='tags') && !empty($parameters[1]) ) {
 			$tagKey = $parameters[1];
 			$data = $this->getTag($tagKey);
+		}
+		// (GET) /api/categories
+		elseif ( ($method==='GET') && ($parameters[0]==='categories') && empty($parameters[1]) ) {
+			$data = $this->getCategories();
+		}
+		// (GET) /api/categories/<key>
+		elseif ( ($method==='GET') && ($parameters[0]==='categories') && !empty($parameters[1]) ) {
+			$categoryKey = $parameters[1];
+			$data = $this->getCategory($categoryKey);
 		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
@@ -276,7 +293,7 @@ class pluginAPI extends Plugin {
 		} catch (Exception $e) {
 			return array(
 				'status'=>'1',
-				'message'=>'Tag not found by the tag key: '.$key
+				'message'=>'Tag not found by the key: '.$key
 			);
 		}
 
@@ -293,7 +310,7 @@ class pluginAPI extends Plugin {
 
 		return array(
 			'status'=>'0',
-			'message'=>'Tag data and pages related to the tag.',
+			'message'=>'Information about the tag and pages related.',
 			'data'=>$data
 		);
 	}
@@ -419,4 +436,148 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	/*
+	 | Upload an image and generate the thumbnails
+	 | Returns the image and thumbnail URL
+         |
+         | @inputs		array
+	 | @inputs['uuid']	string	Page UUID
+	 | @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+	 |
+	 | @return		array
+         */
+	private function uploadImage($inputs)
+	{
+		// Set upload directory
+		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
+			$imageDirectory 	= PATH_UPLOADS_PAGES.$inputs['uuid'].DS;
+			$thumbnailDirectory 	= $imageDirectory.'thumbnails'.DS;
+			$imageEndpoint 		= DOMAIN_UPLOADS_PAGES.$inputs['uuid'].'/';
+			$thumbnailEndpoint 	= $imageEndpoint.'thumbnails'.'/';
+			if (!Filesystem::directoryExists($thumbnailDirectory)) {
+				Filesystem::mkdir($thumbnailDirectory, true);
+			}
+		} else {
+			$imageDirectory 	= PATH_UPLOADS;
+			$thumbnailDirectory 	= PATH_UPLOADS_THUMBNAILS;
+			$imageEndpoint 		= DOMAIN_UPLOADS;
+			$thumbnailEndpoint 	= DOMAIN_UPLOADS_THUMBNAILS;
+		}
+
+		if (!isset($_FILES['image'])) {
+			return array(
+				'status'=>'1',
+				'message'=>'No image sent.'
+			);
+		}
+
+		if ($_FILES['image']['error'] != 0) {
+			return array(
+				'status'=>'1',
+				'message'=>'Error uploading the image, maximum load file size allowed: '.ini_get('upload_max_filesize')
+			);
+		}
+
+		// Move from PHP tmp file to Bludit tmp directory
+		Filesystem::mv($_FILES['image']['tmp_name'], PATH_TMP.$_FILES['image']['name']);
+
+		// Transform image and create thumbnails
+		$image = transformImage(PATH_TMP.$_FILES['image']['name'], $imageDirectory, $thumbnailDirectory);
+		if ($image) {
+			$filename = Filesystem::filename($image);
+			return array(
+				'status'=>'0',
+				'message'=>'Image uploaded.',
+				'image'=>$imageEndpoint.$filename,
+				'thumbnail'=>$thumbnailEndpoint.$filename
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'Image extension not allowed.'
+		);
+	}
+
+	/*
+	 | Edit the settings
+	 | You can edit any field defined in the class site.class.php variable $dbFields
+         |
+         | @args	array
+	 |
+	 | @return	array
+         */
+	private function editSettings($args)
+	{
+		if (editSettings($args)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Settings edited.'
+			);
+		}
+		return array(
+			'status'=>'1',
+			'message'=>'Error trying to edit the settings.'
+		);
+	}
+
+	/*
+	 | Returns the categories in the system
+	 | Included the category name, key, description and the list of pages
+	 | The list of pages are the page's key
+	 |
+	 | @return	array
+         */
+	private function getCategories()
+	{
+		global $categories;
+		$tmp = array(
+			'status'=>'0',
+			'message'=>'List of categories.',
+			'data'=>array()
+		);
+		foreach ($categories->keys() as $key) {
+			$category = $categories->getMap($key);
+			array_push($tmp['data'], $category);
+		}
+		return $tmp;
+	}
+
+	/*
+	 | Returns information about the category and pages related
+	 | The pages are expanded which mean the title, content and more fields are returned in the query
+	 | This can degrade the performance
+	 |
+	 | @key		string	Category key
+	 |
+	 | @return	array
+         */
+	private function getCategory($key)
+	{
+		try {
+			$category = new Category($key);
+		} catch (Exception $e) {
+			return array(
+				'status'=>'1',
+				'message'=>'Category not found by the key: '.$key
+			);
+		}
+
+		$list = array();
+		foreach ($category->pages() as $pageKey) {
+			try {
+				$page = new Page($pageKey);
+				array_push($list, $page->json($returnsArray=true));
+			} catch (Exception $e){}
+		}
+
+		$data = $category->json($returnsArray=true);
+		$data['pages'] = $list;
+
+		return array(
+			'status'=>'0',
+			'message'=>'Information about the category and pages related.',
+			'data'=>$data
+		);
+	}
 }

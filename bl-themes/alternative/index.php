@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 <html lang="<?php echo Theme::lang() ?>">
 <head>
-<?php include(THEME_DIR_PHP.'head.php'); ?>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Bludit">
+
+	<!-- Dynamic title tag -->
+	<?php echo Theme::metaTagTitle(); ?>
+
+	<!-- Dynamic description tag -->
+	<?php echo Theme::metaTagDescription(); ?>
+
+	<!-- Include Favicon -->
+	<?php echo Theme::favicon('img/favicon.png'); ?>
+
+	<!-- Include CSS Bootstrap file from Bludit Core -->
+	<?php echo Theme::cssBootstrap(); ?>
+
+	<!-- Include CSS Styles from this theme -->
+	<?php echo Theme::css('css/style.css'); ?>
+
+	<!-- Load Bludit Plugins: Site head -->
+	<?php Theme::plugins('siteHead'); ?>
 </head>
 <body>
 
@@ -26,14 +46,11 @@
 	<!-- Footer -->
 	<?php include(THEME_DIR_PHP.'footer.php'); ?>
 
-	<!-- Javascript -->
-	<?php
-		// Include Jquery file from Bludit Core
-		echo Theme::jquery();
+	<!-- Include Jquery file from Bludit Core -->
+	<?php echo Theme::jquery(); ?>
 
-		// Include javascript Bootstrap file from Bludit Core
-		echo Theme::jsBootstrap();
-	?>
+	<!-- Include javascript Bootstrap file from Bludit Core -->
+	<?php echo Theme::jsBootstrap(); ?>
 
 	<!-- Load Bludit Plugins: Site Body End -->
 	<?php Theme::plugins('siteBodyEnd'); ?>

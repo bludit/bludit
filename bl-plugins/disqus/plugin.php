@@ -55,7 +55,13 @@ class pluginDisqus extends Plugin {
 
 	public function pageEnd()
 	{
+		global $url;
 		global $WHERE_AM_I;
+
+		// Do not shows disqus on page not found
+		if ($url->notFound()) {
+			return false;
+		}
 
 		if ($WHERE_AM_I==='page') {
 			global $page;

@@ -7,7 +7,7 @@
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'person')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit user'), 'icon'=>'user')); ?>
 </div>
 
 <!-- TABS -->
@@ -53,10 +53,10 @@
 			echo Bootstrap::formSelect(array(
 				'name'=>'role',
 				'label'=>$L->g('Role'),
-				'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+				'options'=>array('author'=>$L->g('Author'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
 				'selected'=>$user->role(),
 				'class'=>'',
-				'tip'=>''
+				'tip'=>$L->g('author-can-write-and-edit-their-own-content')
 			));
 		}
 
@@ -100,21 +100,34 @@
 
 	<!-- Profile picture tab -->
 	<div class="tab-pane fade" id="picture" role="tabpanel" aria-labelledby="nav-picture-tab">
-		<div class="custom-file mb-2">
-			<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
-			<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Choose images to upload'); ?></label>
-		</div>
-		<div>
-			<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-sm-12 p-0 pr-2">
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
+						<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Upload image'); ?></label>
+					</div>
+					<!-- <button id="jsbuttonRemovePicture" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i> Remove picture</button> -->
+				</div>
+				<div class="col-lg-8 col-sm-12 p-0 text-center">
+					<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
+				</div>
+			</div>
 		</div>
 		<script>
+		// $("#jsbuttonRemovePicture").on("click", function() {
+		// 	var username = $("#jsusername").val();
+		// 	bluditAjax.removeProfilePicture(username);
+		// 	$("#jsprofilePicturePreview").attr("src", "<?php echo HTML_PATH_CORE_IMG.'default.svg' ?>");
+		// });
+
 		$("#jsprofilePictureInputFile").on("change", function() {
 			var formData = new FormData();
 			formData.append('tokenCSRF', tokenCSRF);
 			formData.append('profilePictureInputFile', $(this)[0].files[0]);
 			formData.append('username', $("#jsusername").val());
 			$.ajax({
-				url: HTML_PATH_ADMIN_ROOT+"ajax/upload-profile-picture",
+				url: HTML_PATH_ADMIN_ROOT+"ajax/profile-picture-upload",
 				type: "POST",
 				data: formData,
 				cache: false,

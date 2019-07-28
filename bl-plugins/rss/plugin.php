@@ -42,14 +42,16 @@ class pluginRSS extends Plugin {
 		// Amount of pages to show
 		$numberOfItems = $this->getValue('numberOfItems');
 
-		// Page number the first one
-		$pageNumber = 1;
-
-		// Only published pages
-		$onlyPublished = true;
-
-		// Get the list of pages
-		$list = $pages->getList($pageNumber, $numberOfItems, $onlyPublished);
+		// Get the list of public pages (sticky and static included)
+		$list = $pages->getList(
+			$pageNumber=1,
+			$numberOfItems,
+			$published=true,
+			$static=true,
+			$sticky=true,
+			$draft=false,
+			$scheduled=false
+		);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0">';

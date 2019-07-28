@@ -34,7 +34,7 @@ function buildErrorPage() {
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 // This function generate a particular page from the current slug of the url
-// If the slug has not a page associacted returns FALSE and is set not-found as true
+// If the slug has not a page associacted returns FALSE and set not-found as true
 function buildThePage() {
 	global $url;
 
@@ -46,9 +46,11 @@ function buildThePage() {
 		return false;
 	}
 
-	if ( $page->draft() || $page->scheduled() ) {
-		$url->setNotFound();
-		return false;
+	if ($page->draft() || $page->scheduled() || $page->autosave()) {
+		if ($url->parameter('preview')!==md5($page->uuid())) {
+			$url->setNotFound();
+			return false;
+		}
 	}
 
 	return $page;
@@ -312,7 +314,6 @@ function createPage($args) {
 			'notes'=>(empty($args['title'])?$key:$args['title'])
 		));
 
-		Alert::set( $L->g('new-content-created') );
 		return $key;
 	}
 
@@ -328,11 +329,11 @@ function editPage($args) {
 	global $pages;
 	global $syslog;
 
-	// Check if the autosave page exists for this new page and delete it
+	// Check if the autosave/preview page exists for this new page and delete it
 	if (isset($args['uuid'])) {
 		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
 		if ($autosaveKey) {
-			Log::set('Function editPage()'.LOG_SEP.'Autosave deleted for '.$autosaveKey, LOG_TYPE_INFO);
+			Log::set('Function editPage()'.LOG_SEP.'Autosave/Preview deleted for '.$autosaveKey, LOG_TYPE_INFO);
 			deletePage($autosaveKey);
 		}
 	}
@@ -570,7 +571,9 @@ function editSettings($args) {
 		$args['uriBlog'] = '';
 	}
 
-	$args['extremeFriendly'] = (($args['extremeFriendly']=='true')?true:false);
+	if (isset($args['extremeFriendly'])) {
+		$args['extremeFriendly'] = (($args['extremeFriendly']=='true')?true:false);
+	}
 
 	if ($site->set($args)) {
 		// Check current order-by if changed it reorder the content
@@ -585,7 +588,7 @@ function editSettings($args) {
 
 		// Add syslog
 		$syslog->add(array(
-			'dictionaryKey'=>'changes-on-settings',
+			'dictionaryKey'=>'settings-changes',
 			'notes'=>''
 		));
 
@@ -787,6 +790,10 @@ function activateTheme($themeDirectory) {
 	global $L, $language;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
+		if (Filesystem::fileExists(PATH_THEMES.$themeDirectory.DS.'install.php')) {
+			include_once(PATH_THEMES.$themeDirectory.DS.'install.php');
+		}
+
 		$site->set(array('theme'=>$themeDirectory));
 
 		$syslog->add(array(
@@ -804,4 +811,49 @@ function ajaxResponse($status=0, $message="", $data=array()) {
 	$default = array('status'=>$status, 'message'=>$message);
 	$output = array_merge($default, $data);
 	exit (json_encode($output));
+}
+
+/*
+| This function checks the image extension,
+| generate a new filename to not overwrite the exists,
+| generate the thumbnail,
+| and move the image to a proper place
+|
+| @file		string	Path and filename of the image
+| @imageDir	string	Path where the image is going to be stored
+| @thumbnailDir	string	Path where the thumbnail is going to be stored, if you don't set the variable is not going to create the thumbnail
+|
+| @return	string/boolean	Path and filename of the new image or FALSE if there were some error
+*/
+function transformImage($file, $imageDir, $thumbnailDir=false) {
+	global $site;
+
+	// Check image extension
+	$fileExtension = Filesystem::extension($file);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+		return false;
+	}
+
+	// Generate a filename to not overwrite current image if exists
+	$filename = Filesystem::filename($file);
+	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
+
+	// Move the image to a proper place and rename
+	$image = $imageDir.$nextFilename;
+	Filesystem::mv($file, $image);
+	chmod($image, 0644);
+
+	// Generate Thumbnail
+	if (!empty($thumbnailDir)) {
+		if ($fileExtension == 'svg') {
+			symlink($image, $thumbnailDir.$nextFilename);
+		} else {
+			$Image = new Image();
+			$Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
+			$Image->saveImage($thumbnailDir.$nextFilename, $site->thumbnailQuality(), true);
+		}
+	}
+
+	return $image;
 }

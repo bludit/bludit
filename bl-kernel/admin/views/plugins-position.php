@@ -26,7 +26,7 @@
 
 	echo '<ul class="list-group list-group-sortable">';
 	foreach ($plugins['siteSidebar'] as $Plugin) {
-		echo '<li class="list-group-item" data-plugin="'.$Plugin->className().'"><span class="oi oi-move"></span> '.$Plugin->name().'</li>';
+		echo '<li class="list-group-item" data-plugin="'.$Plugin->className().'"><span class="fa fa-arrows-v"></span> '.$Plugin->name().'</li>';
 	}
 	echo '</ul>';
 ?>

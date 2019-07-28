@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "About",
-		"description": "サイトやあなた自身についての概要を表示します。"
+		"description": "サイトや自己紹介などの簡単な説明を表示します。"
 	}
 }

@@ -18,7 +18,7 @@ class Tags extends dbList {
 		$db = $pages->getDB($onlyKeys=false);
 		$tagsIndex = array();
 		foreach ($db as $pageKey=>$pageFields) {
-			if (in_array($pageFields['type'], DB_TAGS_TYPES)) {
+			if (in_array($pageFields['type'], $GLOBALS['DB_TAGS_TYPES'])) {
 				$tags = $pageFields['tags'];
 				foreach ($tags as $tagKey=>$tagName) {
 					if (isset($tagsIndex[$tagKey])) {

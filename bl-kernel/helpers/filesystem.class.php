@@ -57,16 +57,19 @@ class Filesystem {
 
 	public static function rmdir($pathname)
 	{
+		Log::set('rmdir = '.$pathname, LOG_TYPE_INFO);
 		return rmdir($pathname);
 	}
 
 	public static function mv($oldname, $newname)
 	{
+		Log::set('mv '.$oldname.' '.$newname, LOG_TYPE_INFO);
 		return rename($oldname, $newname);
 	}
 
 	public static function rmfile($filename)
 	{
+		Log::set('rmfile = '.$filename, LOG_TYPE_INFO);
 		return unlink($filename);
 	}
 
@@ -123,6 +126,8 @@ class Filesystem {
 	// The directory is delete
 	public static function deleteRecursive($source, $deleteDirectory=true)
 	{
+		Log::set('deleteRecursive = '.$source, LOG_TYPE_INFO);
+
 		if (!self::directoryExists($source)) {
 			return false;
 		}
@@ -130,7 +135,7 @@ class Filesystem {
 		foreach (new RecursiveIteratorIterator(
 			new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
 			RecursiveIteratorIterator::CHILD_FIRST) as $item) {
-				if ($item->isFile()) {
+				if ($item->isFile() || $item->isLink()) {
 					unlink($item);
 				} else {
 					rmdir($item);
@@ -203,7 +208,14 @@ class Filesystem {
 		return $zip->close();
 	}
 
-	// Returns the next filename if the filename already exist
+	/*
+	 | Returns the next filename if the filename already exist otherwise returns the original filename
+         |
+         | @path	string	Path
+         | @filename	string	Filename
+         |
+         | @return	string
+         */
 	public static function nextFilename($path=PATH_UPLOADS, $filename) {
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
@@ -223,5 +235,33 @@ class Filesystem {
 			}
 		}
 		return $tmpName;
+	}
+
+	/*
+	 | Returns the filename
+	 | Example:
+	 |	@file	/home/diego/dog.jpg
+	 |	@return dog.jpg
+         |
+         | @file	string	Full path of the file
+         |
+         | @return	string
+         */
+	public static function filename($file) {
+		return basename($file);
+	}
+
+	/*
+	 | Returns the file extension
+	 | Example:
+	 |	@file	/home/diego/dog.jpg
+	 |	@return jpg
+         |
+         | @file	string	Full path of the file
+         |
+         | @return	string
+         */
+	public static function extension($file) {
+		return pathinfo($file, PATHINFO_EXTENSION);
 	}
 }

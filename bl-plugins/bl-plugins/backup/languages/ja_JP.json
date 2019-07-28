@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Backup",
+		"description": "Bluditを簡単にバックアップします。"
+	},
+	"create-backup": "バックアップを作成",
+	"download": "ダウンロード",
+	"restore-backup": "バックアップをリストア",
+	"delete-backup": "バックアップを削除",
+	"there-are-no-backups-for-the-moment": "現在、バックアップはありません"
+}

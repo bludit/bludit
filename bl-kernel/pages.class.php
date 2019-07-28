@@ -8,7 +8,7 @@ class Pages extends dbJSON {
 		'description'=>'',
 		'username'=>'',
 		'tags'=>array(),
-		'type'=>'published', // published, static, draft, sticky, scheduled
+		'type'=>'published', // published, static, draft, sticky, scheduled, autosave
 		'date'=>'',
 		'dateModified'=>'',
 		'position'=>0,
@@ -81,7 +81,11 @@ class Pages extends dbJSON {
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = (empty($args['parent'])?'':$args['parent']);
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
+			$row['type'] = $this->db[$parent]['type']; // get the parent type
+		}
 
 		// Slug from the title or the content
 		// This variable is not belong to the database so is not defined in $row
@@ -138,6 +142,11 @@ class Pages extends dbJSON {
 		// Save database
 		$this->save();
 
+		// Create symlink for images directory
+		if (Filesystem::directoryExists(PATH_UPLOADS_PAGES.$row['uuid'])) {
+			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
+		}
+
 		return $key;
 	}
 
@@ -172,7 +181,11 @@ class Pages extends dbJSON {
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
-		$parent = (empty($args['parent'])?'':$args['parent']);
+		$parent = '';
+		if (!empty($args['parent'])) {
+			$parent = $args['parent'];
+			$row['type'] = $this->db[$parent]['type']; // get the parent type
+		}
 
 		// Slug
 		// If the user change the slug the page key changes
@@ -214,6 +227,10 @@ class Pages extends dbJSON {
 				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
 				return false;
 			}
+
+			// Regenerate the symlink to a proper directory
+			unlink(PATH_UPLOADS_PAGES.$key);
+			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
 		}
 
 		// If the content was passed via arguments replace the content
@@ -272,20 +289,23 @@ class Pages extends dbJSON {
 		// Page doesn't exist in database
 		if (!$this->exists($key)) {
 			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
+			return false;
 		}
 
 		// Delete directory and files
 		if (Filesystem::deleteRecursive(PATH_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key);
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key, LOG_TYPE_ERROR);
 		}
 
 		// Delete page images directory; The function already check if exists the directory
-		Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$this->db[$key]['uuid']);
+		if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
+			Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$key);
+		}
 
 		// Remove from database
 		unset($this->db[$key]);
 
-		// Save the database.
+		// Save the database
 		if ($this->save()===false) {
 			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
 		}
@@ -385,6 +405,21 @@ class Pages extends dbJSON {
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if($fields['type']!='draft') {
+				unset($tmp[$key]);
+			}
+		}
+		if ($onlyKeys) {
+			return array_keys($tmp);
+		}
+		return $tmp;
+	}
+
+	// Returns an array with a list of keys/database of autosave pages
+	public function getAutosaveDB($onlyKeys=true)
+	{
+		$tmp = $this->db;
+		foreach ($tmp as $key=>$fields) {
+			if($fields['type']!='autosave') {
 				unset($tmp[$key]);
 			}
 		}
@@ -509,8 +544,8 @@ class Pages extends dbJSON {
 	}
 
 	// Returns the amount of pages
-	// (boolean) $total, TRUE returns the total of pages
-	// (boolean) $total, FALSE returns the total of published pages (without draft and scheduled)
+	// (boolean) $onlyPublished, TRUE returns the total of published pages (without draft and scheduled)
+	// (boolean) $onlyPublished, FALSE returns the total of pages
 	public function count($onlyPublished=true)
 	{
 		if ($onlyPublished) {

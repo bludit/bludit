@@ -8,11 +8,10 @@
 				<!-- Page title -->
 				<h1 class="title"><?php echo $page->title(); ?></h1>
 
-				<!-- Page description
+				<!-- Page description -->
 				<?php if ($page->description()): ?>
 				<p class="page-description"><?php echo $page->description(); ?></p>
 				<?php endif ?>
-				-->
 
 				<!-- Page cover image -->
 				<?php if ($page->coverImage()): ?>

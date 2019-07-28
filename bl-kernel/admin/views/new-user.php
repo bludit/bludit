@@ -7,7 +7,7 @@
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Add a new user'), 'icon'=>'person')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Add a new user'), 'icon'=>'user')); ?>
 </div>
 
 <?php
@@ -48,10 +48,10 @@
 	echo Bootstrap::formSelect(array(
 		'name'=>'role',
 		'label'=>$L->g('Role'),
-		'options'=>array('editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
-		'selected'=>'Editor',
+		'options'=>array('author'=>$L->g('Author'), 'editor'=>$L->g('Editor'), 'admin'=>$L->g('Administrator')),
+		'selected'=>'Author',
 		'class'=>'',
-		'tip'=>''
+		'tip'=>$L->g('author-can-write-and-edit-their-own-content')
 	));
 
 	echo Bootstrap::formInputText(array(

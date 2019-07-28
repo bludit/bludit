@@ -27,6 +27,16 @@
 				</li>
 				<?php endforeach; ?>
 
+				<!-- RSS -->
+				<?php if (Theme::rssUrl()): ?>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo Theme::rssUrl() ?>" target="_blank">
+						<img class="d-none d-sm-block nav-svg-icon text-primary" src="<?php echo DOMAIN_THEME.'img/rss.svg' ?>" alt="RSS" />
+						<span class="d-inline d-sm-none">RSS</span>
+					</a>
+				</li>
+				<?php endif; ?>
+
 			</ul>
 
 		</div>

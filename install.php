@@ -8,8 +8,8 @@
 */
 
 // Check PHP version
-if (version_compare(phpversion(), '5.3', '<')) {
-	$errorText = 'Current PHP version '.phpversion().', you need > 5.3.';
+if (version_compare(phpversion(), '5.6', '<')) {
+	$errorText = 'Current PHP version '.phpversion().', you need > 5.6.';
 	error_log('[ERROR] '.$errorText, 0);
 	exit($errorText);
 }
@@ -215,6 +215,7 @@ RewriteRule ^bl-content/(databases|workspaces|pages|tmp)/.*$ - [R=404,L]
 
 # All URL process by index.php
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*) index.php [PT,L]
 
 </IfModule>';
@@ -503,9 +504,9 @@ function install($adminPassword, $timezone)
 		$dataHead.json_encode(
 			array(
 				'position'=>1,
-				'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
+				'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 				'toolbar2'=>'',
-				'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
+				'plugins'=>'code autolink image link pagebreak advlist lists textpattern table'
 			),
 		JSON_PRETTY_PRINT),
 		LOCK_EX

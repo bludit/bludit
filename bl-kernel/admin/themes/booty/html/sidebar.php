@@ -6,23 +6,22 @@
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="oi oi-dashboard"></span><?php $L->p('Dashboard') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="fa fa-dashboard"></span><?php $L->p('Dashboard') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="oi oi-external-link"></span><?php $L->p('Website') ?></a>
+		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="fa fa-home"></span><?php $L->p('Website') ?></a>
 	</li>
 
 	<li class="nav-item mt-3">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #007bff;" class="oi oi-plus"></span><?php $L->p('New content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #0078D4;" class="fa fa-plus-circle"></span><?php $L->p('New content') ?></a>
 	</li>
 
-	<?php if (checkRole(array('editor'),false)): ?>
+	<?php if (!checkRole(array('admin'),false)): ?>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="oi oi-layers"></span><?php $L->p('Content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="fa fa-archive"></span><?php $L->p('Content') ?></a>
 	</li>
-
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="oi oi-person"></span><?php $L->p('Profile') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="fa fa-user"></span><?php $L->p('Profile') ?></a>
 	</li>
 	<?php endif; ?>
 
@@ -58,6 +57,10 @@
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>"><?php $L->p('About') ?></a>
 	</li>
 
+	<?php endif; ?>
+
+	<?php if (checkRole(array('admin', 'editor'),false)): ?>
+
 		<?php
 			if (!empty($plugins['adminSidebar'])) {
 				echo '<li class="nav-item"><hr></li>';
@@ -68,9 +71,10 @@
 				}
 			}
 		?>
+
 	<?php endif; ?>
 
 	<li class="nav-item mt-5">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="oi oi-account-logout"></span><?php $L->p('Logout') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="fa fa-arrow-circle-right"></span><?php $L->p('Logout') ?></a>
 	</li>
 </ul>

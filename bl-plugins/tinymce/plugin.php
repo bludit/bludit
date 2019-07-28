@@ -10,9 +10,9 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1'=>'formatselect bold italic bullist numlist | blockquote alignleft aligncenter alignright | link unlink pagebreak image removeformat code',
+			'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 			'toolbar2'=>'',
-			'plugins'=>'code autolink image link pagebreak advlist lists textcolor colorpicker textpattern autoheight'
+			'plugins'=>'code autolink image link pagebreak advlist lists textpattern table'
 		);
 	}
 
@@ -44,7 +44,9 @@ class pluginTinymce extends Plugin {
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
-		return '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js"></script>';
+		$html  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/tinymce_toolbar.css">'.PHP_EOL;
+		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
+		return $html;
 	}
 
 	public function adminBodyEnd()
@@ -58,8 +60,9 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$content_css = $this->htmlPath().'css/tinymce.css';
+		$content_css = $this->htmlPath().'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
+		$version = $this->version();
 
 		$lang = 'en';
 		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$L->currentLanguage().'.js')) {
@@ -92,10 +95,9 @@ $html = <<<EOF
 	tinymce.init({
 		selector: "#jseditor",
 		auto_focus: "jseditor",
-		theme: "modern",
-		skin: "bludit",
 		element_format : "html",
 		entity_encoding : "raw",
+		skin: "oxide",
 		schema: "html5",
 		statusbar: false,
 		menubar:false,
@@ -107,13 +109,13 @@ $html = <<<EOF
 		convert_urls: true,
 		relative_urls: false,
 		valid_elements: "*[*]",
+		cache_suffix: "?version=$version",
 		$document_base_url
 		plugins: ["$plugins"],
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
 		language: "$lang",
-		content_css : "$content_css",
-		height: "200px"
+		content_css: "$content_css"
 	});
 
 </script>

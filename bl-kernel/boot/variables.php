@@ -2,7 +2,7 @@
 
 /*
 	Environment variables
-	If you are going to do some changes in the variable, is recommended do it before the installation
+	If you are going to do some changes is recommended do it before the installation
 */
 
 // Log
@@ -92,14 +92,19 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
 
-// Tags, type of pages included in the tag database
-define('DB_TAGS_TYPES', array('published','static','sticky'));
-
 // Alert notification dissappear in X seconds
-$GLOBALS['ALERT_DISSAPEAR_IN'] = 3; // Seconds
+define('ALERT_DISSAPEAR_IN', 3);
 
 // Number of images to show in the media manager per page
-$GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES'] = 5;
+define('MEDIA_MANAGER_NUMBER_OF_FILES', 5);
 
 // Sort the image by date
-$GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'] = true;
+define('MEDIA_MANAGER_SORT_BY_DATE', true);
+
+// Constant arrays using define are not allowed in PHP 5.6 or earlier
+
+// Type of pages included in the tag database
+$GLOBALS['DB_TAGS_TYPES'] = array('published','static','sticky');
+
+// Allowed image extensions
+$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');

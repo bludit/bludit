@@ -520,20 +520,33 @@
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
 	?>
-		<div class="custom-file mb-2">
-			<input type="file" class="custom-file-input" id="jssiteLogoInputFile" name="inputFile">
-			<label class="custom-file-label" for="jssiteLogoInputFile"><?php $L->p('Choose images to upload'); ?></label>
-		</div>
-		<div>
-			<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-sm-12 p-0 pr-2">
+					<div class="custom-file">
+						<input id="jssiteLogoInputFile"  class="custom-file-input" type="file" name="inputFile">
+						<label for="jssiteLogoInputFile" class="custom-file-label"><?php $L->p('Upload image'); ?></label>
+					</div>
+					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i><?php $L->p('Remove logo') ?></button>
+				</div>
+				<div class="col-lg-8 col-sm-12 p-0 text-center">
+					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
+				</div>
+			</div>
 		</div>
 		<script>
+		$("#jsbuttonRemoveLogo").on("click", function() {
+			bluditAjax.removeLogo();
+			$("#jssiteLogoPreview").attr("src", "<?php echo HTML_PATH_CORE_IMG.'default.svg' ?>");
+		});
+
 		$("#jssiteLogoInputFile").on("change", function() {
 			var formData = new FormData();
 			formData.append('tokenCSRF', tokenCSRF);
 			formData.append('inputFile', $(this)[0].files[0]);
 			$.ajax({
-				url: HTML_PATH_ADMIN_ROOT+"ajax/upload-logo",
+				url: HTML_PATH_ADMIN_ROOT+"ajax/logo-upload",
 				type: "POST",
 				data: formData,
 				cache: false,

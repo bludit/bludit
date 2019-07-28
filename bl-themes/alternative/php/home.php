@@ -12,12 +12,20 @@
 		<!-- Custom search form if the plugin "search" is enabled -->
 		<?php if (pluginActivated('pluginSearch')): ?>
 		<div class="form-inline d-block">
-			<input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="button" onClick="searchNow()">Search</button>
+			<input id="search-input" class="form-control mr-sm-2" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="Search">
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="button" onClick="searchNow()"><?php $language->p('Search') ?></button>
 			<script>
 				function searchNow() {
 					var searchURL = "<?php echo Theme::siteUrl(); ?>search/";
 					window.open(searchURL + document.getElementById("search-input").value, "_self");
+				}
+				document.getElementById("search-input").onkeypress = function(e) {
+					if (!e) e = window.event;
+					var keyCode = e.keyCode || e.which;
+					if (keyCode == '13') {
+						searchNow();
+						return false;
+					}
 				}
 			</script>
 		</div>
@@ -45,6 +53,11 @@
 					<h2 class="title"><?php echo $page->title(); ?></h2>
 				</a>
 
+				<!-- Page description -->
+				<?php if ($page->description()): ?>
+				<p class="page-description"><?php echo $page->description(); ?></p>
+				<?php endif ?>
+
 				<!-- Page content until the pagebreak -->
 				<div>
 				<?php echo $page->contentBreak(); ?>
@@ -71,22 +84,23 @@
 	<ul class="pagination flex-wrap justify-content-center">
 
 		<!-- Previous button -->
-		<li class="page-item mr-2 <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+		<?php if (Paginator::showPrev()): ?>
+		<li class="page-item mr-2">
 			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $L->get('Previous'); ?></a>
 		</li>
+		<?php endif; ?>
 
 		<!-- Home button -->
-		<?php if (Paginator::currentPage() > 1): ?>
-		<li class="page-item">
-			<a class="page-link" href="<?php echo Theme::siteUrl() ?>">Home</a>
+		<li class="page-item <?php if (Paginator::currentPage()==1) echo 'disabled' ?>">
+			<a class="page-link" href="<?php echo Theme::siteUrl() ?>"><?php echo $L->get('Home'); ?></a>
 		</li>
-		<?php endif ?>
 
 		<!-- Next button -->
-		<li class="page-item ml-2 <?php if (!Paginator::showNext()) echo 'disabled' ?>">
+		<?php if (Paginator::showNext()): ?>
+		<li class="page-item ml-2">
 			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?> &#9658;</a>
 		</li>
-
+		<?php endif; ?>
 	</ul>
 </nav>
 <?php endif ?>

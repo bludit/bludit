@@ -1,16 +1,23 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 header('Content-Type: application/json');
 
+/*
+| Returns a list of images from a particular page
+|
+| @_POST['pageNumber']	int	Page number for the paginator
+| @_POST['path']	string	Pre-defined name for the directory to read, its pre-defined to avoid security issues
+| @_POST['uuid']	string	Page UUID
+|
+| @return	array
+*/
+
 // $_POST
 // ----------------------------------------------------------------------------
-// (integer) $_POST['pageNumber'] > 0
+// $_POST['pageNumber'] > 0
 $pageNumber = empty($_POST['pageNumber']) ? 1 : (int)$_POST['pageNumber'];
 $pageNumber = $pageNumber - 1;
 
-// (string) $_POST['path']
 $path = empty($_POST['path']) ? false : $_POST['path'];
-
-// (string) $_POST['uuid']
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
@@ -27,7 +34,7 @@ if ($path=='thumbnails') {
 
 // Get all files from the directory $path, also split the array by numberOfItems
 // The function listFiles split in chunks
-$listOfFilesByPage = Filesystem::listFiles($path, '*', '*', $GLOBALS['MEDIA_MANAGER_SORT_BY_DATE'], $GLOBALS['MEDIA_MANAGER_NUMBER_OF_FILES']);
+$listOfFilesByPage = Filesystem::listFiles($path, '*', '*', MEDIA_MANAGER_SORT_BY_DATE, MEDIA_MANAGER_NUMBER_OF_FILES);
 
 // Check if the page number exists in the chunks
 if (isset($listOfFilesByPage[$pageNumber])) {

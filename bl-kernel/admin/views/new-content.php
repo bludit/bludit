@@ -49,21 +49,14 @@ echo Bootstrap::formOpen(array(
 <!-- TOOLBAR -->
 <div id="jseditorToolbar">
 	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="oi oi-image"></span> <?php $L->p('Images') ?></button>
-		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="oi oi-cog"></span> <?php $L->p('Options') ?></button>
+		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
+		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
 
 	<div id="jseditorToolbarLeft">
-		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php $L->p('Save') ?></button>
-		<span class="d-inline-block align-middle ml-1">
-			<div class="switch" style="width:<?php echo max(100,Text::length($L->g('Publish'))* 15) ?>px">
-			<input type="radio" class="switch-input" name="switch" value="" id="jsPublishSwitch" checked>
-			<label for="jsPublishSwitch" class="switch-label switch-label-off"><?php $L->p('Publish') ?></label>
-			<input type="radio" class="switch-input" name="switch" value="" id="jsDraftSwitch">
-			<label for="jsDraftSwitch" class="switch-label switch-label-on"><?php $L->p('Draft') ?></label>
-			<span class="switch-selection"></span>
-			</div>
-		</span>
+		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
+		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
+		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
 	</div>
 </div>
 <script>
@@ -110,7 +103,7 @@ echo Bootstrap::formOpen(array(
 					'selected'=>'',
 					'class'=>'',
 					'value'=>'',
-					'rows'=>3,
+					'rows'=>5,
 					'placeholder'=>$L->get('this-field-can-help-describe-the-content')
 				));
 			?>
@@ -340,10 +333,31 @@ $(document).ready(function() {
 		};
 	}
 
+	// Button switch
+	$("#jsbuttonSwitch").on("click", function() {
+		if ($(this).data("switch")=="publish") {
+			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+			$(this).data("switch", "draft");
+		} else {
+			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
+			$(this).data("switch", "publish");
+		}
+	});
+
+	// Button preview
+	$("#jsbuttonPreview").on("click", function() {
+		var uuid = $("#jsuuid").val();
+		var title = $("#jstitle").val();
+		var content = editorGetContent();
+		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
+			window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
+		});
+	});
+
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		// If the switch is setted to "published", get the value from the selector
-		if ($("#jsPublishSwitch").is(':checked')) {
+		if ($("#jsbuttonSwitch").data("switch")=="publish") {
 			var value = $("#jstypeSelector option:selected").val();
 			$("#jstype").val(value);
 		} else {
@@ -358,14 +372,24 @@ $(document).ready(function() {
 	});
 
 	// Autosave
-	// Autosave works when the content of the page is bigger than 100 characters
+	var currentContent = editorGetContent();
 	setInterval(function() {
 			var uuid = $("#jsuuid").val();
-			var title = $("#jstitle").val();
+			var title = $("#jstitle").val() + "[<?php $L->p('Autosave') ?>]";
 			var content = editorGetContent();
-			var ajax = new bluditAjax();
-			// showAlert is the function to display an alert defined in alert.php
-			ajax.autosave(uuid, title, content, showAlert);
+			// Autosave when content has at least 100 characters
+			if (content.length<100) {
+				return false;
+			}
+			// Autosave only when the user change the content
+			if (currentContent!=content) {
+				currentContent = content;
+				bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
+					if (data.status==0) {
+						showAlert("<?php $L->p('Autosave') ?>");
+					}
+				});
+			}
 	},1000*60*AUTOSAVE_INTERVAL);
 
 });
