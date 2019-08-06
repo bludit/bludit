@@ -86,12 +86,12 @@ class pluginSitemap extends Plugin {
 	private function ping()
 	{
 		if ($this->getValue('pingGoogle')) {
-			$url = 'https://www.google.com/webmasters/sitemaps/ping?sitemap='.Theme::sitemapUrl();
+			$url = 'http://www.google.com/ping?sitemap='.Theme::sitemapUrl();
 			TCP::http($url, 'GET', true, 3);
 		}
 
 		if ($this->getValue('pingBing')) {
-			$url = 'https://www.bing.com/webmaster/ping.aspx?sitemap='.Theme::sitemapUrl();
+			$url = 'https://www.bing.com/ping?sitemap='.Theme::sitemapUrl();
 			TCP::http($url, 'GET', true, 3);
 		}
 	}
