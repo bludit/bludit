@@ -71,10 +71,10 @@ class Url
 					$this->setWhereAmI('home');
 				} elseif (!empty($this->slug) && ($filterURI=='/')) {
 					$this->setWhereAmI('page');
-				} elseif (empty($this->slug) && ($filterName==$this->filters('tag'))) {
+				} elseif (empty($this->slug) && ($filterName=='tag')) {
 					$this->slug = $this->filters('tag');
 					$this->setWhereAmI('page');
-				} elseif (empty($this->slug) && ($filterName==$this->filters('category'))) {
+				} elseif (empty($this->slug) && ($filterName=='category')) {
 					$this->slug = $this->filters('category');
 					$this->setWhereAmI('page');
 				} elseif ($filterName=='admin') {
