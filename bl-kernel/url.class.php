@@ -74,6 +74,9 @@ class Url
 				} elseif (empty($this->slug) && ($filterName==TAG_URI_FILTER)) {
 					$this->slug = TAG_URI_FILTER;
 					$this->setWhereAmI('page');
+				} elseif (empty($this->slug) && ($filterName==CATEGORY_URI_FILTER)) {
+					$this->slug = CATEGORY_URI_FILTER;
+					$this->setWhereAmI('page');
 				} elseif ($filterName=='admin') {
 					$this->slug = ltrim($this->slug, '/');
 				}
