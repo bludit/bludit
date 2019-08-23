@@ -56,12 +56,6 @@ class Url
 
 			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
 
-			// Check coincidence without the last slash at the end, this case is notfound
-			if ($subString==$filterURIwoSlash) {
-				$this->setNotFound();
-				return false;
-			}
-
 			// Check coincidence with complete filterURI
 			if ($subString==$filterFull) {
 				$this->slug = mb_substr($this->uri, $filterFullLenght);
@@ -76,6 +70,9 @@ class Url
 				} elseif (empty($this->slug) && ($filterURI=='/')) {
 					$this->setWhereAmI('home');
 				} elseif (!empty($this->slug) && ($filterURI=='/')) {
+					$this->setWhereAmI('page');
+				} elseif (empty($this->slug) && ($filterName=='tag')) {
+          $this->slug = 'tag';
 					$this->setWhereAmI('page');
 				} elseif ($filterName=='admin') {
 					$this->slug = ltrim($this->slug, '/');
