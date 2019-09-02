@@ -563,4 +563,17 @@ class Page {
 
 		return $string ? implode(', ', $string) . ' ago' : 'Just now';
 	}
+
+	// Returns the value from the field, false if the fields doesn't exists
+	// If you set the $option as TRUE, the function returns an array with all the values of the field
+	public function custom($field, $options=false)
+	{
+		if (isset($this->vars['custom'][$field])) {
+			if ($options) {
+				return $this->vars['custom'][$field];
+			}
+			return $this->vars['custom'][$field]['value'];
+		}
+		return false;
+	}
 }

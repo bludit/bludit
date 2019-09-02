@@ -64,6 +64,14 @@ class Pages extends dbJSON {
 					$tags = $args['tags'];
 				}
 				$finalValue = $this->generateTags($tags);
+			} elseif ($field=='custom') {
+				if (isset($args['custom'])) {
+					foreach ($args['custom'] as $customField=>$customValue) {
+						$row['custom'][$customField]['value'] = Sanitize::html($customValue);
+					}
+					unset($args['custom']);
+					continue;
+				}
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
@@ -168,6 +176,14 @@ class Pages extends dbJSON {
 		foreach ($this->dbFields as $field=>$value) {
 			if ( ($field=='tags') && isset($args['tags'])) {
 				$finalValue = $this->generateTags($args['tags']);
+			} elseif ($field=='custom') {
+				if (isset($args['custom'])) {
+					foreach ($args['custom'] as $customField=>$customValue) {
+						$row['custom'][$customField]['value'] = Sanitize::html($customValue);
+					}
+					unset($args['custom']);
+					continue;
+				}
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
@@ -581,8 +597,6 @@ class Pages extends dbJSON {
 		return $list;
 	}
 
-
-
 	public function sortBy()
 	{
 		if (ORDER_BY=='date') {
@@ -771,5 +785,31 @@ class Pages extends dbJSON {
 		}
 		return $this->save();
 	}
+
+	// Insert custom fields to all the pages in the database
+	// The structure for the custom fields need to be a valid JSON format
+	// The custom fields are incremental, this means the custom fields are never deleted
+	// The pages only store the value of the custom field, the structure of the custom fields are in the database site.php
+	public function setCustomFields($fields)
+	{
+		$customFields = json_decode($fields, true);
+		if (json_last_error() != JSON_ERROR_NONE) {
+			return false;
+		}
+		foreach ($this->db as $pageKey=>$pageFields) {
+			foreach ($customFields as $customField=>$customValues) {
+				if (!isset($pageFields['custom'][$customField])) {
+					$defaultValue = '';
+					if (isset($customValues['default'])) {
+						$defaultValue = $customValues['default'];
+					}
+					$this->db[$pageKey]['custom'][$customField]['value'] = $defaultValue;
+				}
+			}
+		}
+
+		return $this->save();
+	}
+
 
 }

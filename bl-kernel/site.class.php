@@ -31,6 +31,7 @@ class Site extends dbJSON {
 		'gitlab'=>		'',
 		'linkedin'=>		'',
 		'mastodon'=>		'',
+		'dribbble'=>		'',
 		'orderBy'=>		'date', // date or position
 		'extremeFriendly'=>	true,
 		'autosaveInterval'=>	2, // minutes
@@ -44,7 +45,8 @@ class Site extends dbJSON {
 		'thumbnailHeight'=> 	400, // px
 		'thumbnailQuality'=> 	100,
 		'logo'=>		'',
-		'markdownParser'=>	true
+		'markdownParser'=>	true,
+		'customFields'=>	'{}'
 	);
 
 	function __construct()
@@ -183,6 +185,11 @@ class Site extends dbJSON {
 	public function mastodon()
 	{
 		return $this->getField('mastodon');
+	}
+
+	public function dribbble()
+	{
+		return $this->getField('dribbble');
 	}
 
 	public function orderBy()
@@ -392,6 +399,12 @@ class Site extends dbJSON {
 	public function setTimezone($timezone)
 	{
 		return date_default_timezone_set($timezone);
+	}
+
+	// Returns the custom fields
+	public function customFields()
+	{
+		return Sanitize::htmlDecode($this->getField('customFields'));
 	}
 
 }

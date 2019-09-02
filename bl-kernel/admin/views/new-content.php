@@ -79,6 +79,9 @@ echo Bootstrap::formOpen(array(
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<a class="nav-link active show" id="nav-general-tab"  data-toggle="tab" href="#nav-general"  role="tab" aria-controls="general"><?php $L->p('General') ?></a>
 			<a class="nav-link" id="nav-advanced-tab" data-toggle="tab" href="#nav-advanced" role="tab" aria-controls="advanced"><?php $L->p('Advanced') ?></a>
+			<?php if ($site->customFields()!="{}"): ?>
+			<a class="nav-link" id="nav-custom-tab" data-toggle="tab" href="#nav-custom" role="tab" aria-controls="custom"><?php $L->p('Custom') ?></a>
+			<?php endif ?>
 			<a class="nav-link" id="nav-seo-tab" data-toggle="tab" href="#nav-seo" role="tab" aria-controls="seo"><?php $L->p('SEO') ?></a>
 		</div>
 	</nav>
@@ -260,6 +263,24 @@ echo Bootstrap::formOpen(array(
 			});
 			</script>
 		</div>
+		<?php if ($site->customFields()!="{}"): ?>
+		<div id="nav-custom" class="tab-pane fade" role="tabpanel" aria-labelledby="custom-tab">
+		<?php
+			$customFields = json_decode($site->customFields(), true);
+			foreach($customFields as $field=>$options) {
+				if ($options['type']=="string") {
+					echo Bootstrap::formInputTextBlock(array(
+						'name'=>'custom['.$field.']',
+						'value'=>(isset($options['default'])?$options['default']:''),
+						'tip'=>(isset($options['tip'])?$options['tip']:''),
+						'label'=>(isset($options['label'])?$options['label']:''),
+						'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:'')
+					));
+				}
+			}
+		?>
+		</div>
+		<?php endif ?>
 		<div id="nav-seo" class="tab-pane fade" role="tabpanel" aria-labelledby="seo-tab">
 			<?php
 				// Friendly URL

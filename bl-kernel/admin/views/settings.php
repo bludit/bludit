@@ -19,7 +19,8 @@
 		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
 		<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
 		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
-		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
+		<a class="nav-item nav-link" id="nav-custom-fields-tab" data-toggle="tab" href="#custom-fields" role="tab" aria-controls="nav-custom-fields" aria-selected="false"><?php $L->p('Custom fields') ?></a>
+		<a class="nav-item nav-link" id="nav-logo-tab" data-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
 	</div>
 </nav>
 
@@ -433,6 +434,15 @@
 			'placeholder'=>'',
 			'tip'=>''
 		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'dribbble',
+			'label'=>'Dribbble',
+			'value'=>$site->dribbble(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
 	?>
 	</div>
 
@@ -511,6 +521,23 @@
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>$L->g('Current format').': '.Date::current($site->dateFormat())
+		));
+	?>
+	</div>
+
+	<!-- Custom fields -->
+	<div class="tab-pane" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+	<?php
+		echo Bootstrap::formTitle(array('title'=>$L->g('Custom fields')));
+
+		echo Bootstrap::formTextarea(array(
+			'name'=>'customFields',
+			'label'=>$L->g('Custom'),
+			'value'=>$site->customFields(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>'',
+			'rows'=>15
 		));
 	?>
 	</div>

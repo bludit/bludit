@@ -575,6 +575,15 @@ function editSettings($args) {
 		$args['extremeFriendly'] = (($args['extremeFriendly']=='true')?true:false);
 	}
 
+	if (isset($args['customFields'])) {
+		// Custom fields need to be JSON format valid, also the empty JSON need to be "{}"
+		json_decode($args['customFields']);
+		if (json_last_error() != JSON_ERROR_NONE) {
+			return false;
+		}
+		$pages->setCustomFields($args['customFields']);
+	}
+
 	if ($site->set($args)) {
 		// Check current order-by if changed it reorder the content
 		if ($site->orderBy()!=ORDER_BY) {

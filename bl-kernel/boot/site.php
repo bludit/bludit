@@ -28,6 +28,8 @@ if (Sanitize::pathFile(PATH_THEMES, $site->theme().DS.'index.php')) {
 	$L->p('Please check your theme configuration in the admin panel. Check for an active theme.');
 }
 
+var_dump($page->custom('field3'));
+
 // Plugins after site loaded
 Theme::plugins('afterSiteLoad');
 
