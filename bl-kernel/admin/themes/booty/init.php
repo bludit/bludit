@@ -264,7 +264,7 @@ EOF;
 	{
 		$labelForCheckbox = isset($args['labelForCheckbox'])?$args['labelForCheckbox']:'';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$tip = isset($args['tip'])?$args['tip']:'&nbsp;';
+		$tip = isset($args['tip'])?'<small class="form-text text-muted">'.$args['tip'].'</small>':'';
 		$value = isset($args['value'])?$args['value']:'';
 		$name = $args['name'];
 		$id = 'js'.$name;
@@ -273,7 +273,7 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'form-group';
+		$class = 'form-group m-0';
 		if (isset($args['class'])) {
 			$class = $class.' '.$args['class'];
 		}
@@ -289,14 +289,15 @@ EOF;
 		}
 
 		$checked = $args['checked']?'checked':'';
+		$value = $checked?'1':'0';
 
 return <<<EOF
 <div class="$class">
 	$label
 	<div class="form-check">
-		<input name="$name" class="form-check-input" type="checkbox" id="$id" $checked>
+		<input type="hidden" name="$name" value="$value"><input id="$id" type="checkbox" class="form-check-input" onclick="this.previousSibling.value=1-this.previousSibling.value" $checked>
 		<label class="form-check-label" for="$id">$labelForCheckbox</label>
-		<small class="form-text text-muted">$tip</small>
+		$tip
 	</div>
 </div>
 EOF;

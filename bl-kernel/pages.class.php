@@ -66,8 +66,13 @@ class Pages extends dbJSON {
 				$finalValue = $this->generateTags($tags);
 			} elseif ($field=='custom') {
 				if (isset($args['custom'])) {
+					global $site;
+					$customFields = $site->customFields();
 					foreach ($args['custom'] as $customField=>$customValue) {
-						$row['custom'][$customField]['value'] = Sanitize::html($customValue);
+						$html = Sanitize::html($customValue);
+						// Store the custom field as defined type
+						settype($html, $customFields[$customField]['type']);
+						$row['custom'][$customField]['value'] = $html;
 					}
 					unset($args['custom']);
 					continue;
@@ -79,6 +84,7 @@ class Pages extends dbJSON {
 				// Default value for the field if not defined
 				$finalValue = $value;
 			}
+			// Store the value as defined type
 			settype($finalValue, gettype($value));
 			$row[$field] = $finalValue;
 		}
@@ -178,8 +184,13 @@ class Pages extends dbJSON {
 				$finalValue = $this->generateTags($args['tags']);
 			} elseif ($field=='custom') {
 				if (isset($args['custom'])) {
+					global $site;
+					$customFields = $site->customFields();
 					foreach ($args['custom'] as $customField=>$customValue) {
-						$row['custom'][$customField]['value'] = Sanitize::html($customValue);
+						$html = Sanitize::html($customValue);
+						// Store the custom field as defined type
+						settype($html, $customFields[$customField]['type']);
+						$row['custom'][$customField]['value'] = $html;
 					}
 					unset($args['custom']);
 					continue;

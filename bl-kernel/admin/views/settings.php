@@ -533,7 +533,7 @@
 		echo Bootstrap::formTextarea(array(
 			'name'=>'customFields',
 			'label'=>$L->g('Custom'),
-			'value'=>$site->customFields(),
+			'value'=>json_encode($site->customFields(), JSON_PRETTY_PRINT),
 			'class'=>'',
 			'placeholder'=>'',
 			'tip'=>'',

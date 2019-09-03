@@ -401,10 +401,11 @@ class Site extends dbJSON {
 		return date_default_timezone_set($timezone);
 	}
 
-	// Returns the custom fields
+	// Returns the custom fields as array
 	public function customFields()
 	{
-		return Sanitize::htmlDecode($this->getField('customFields'));
+		$customFields = Sanitize::htmlDecode($this->getField('customFields'));
+		return json_decode($customFields, true);
 	}
 
 }
