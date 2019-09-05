@@ -38,11 +38,22 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	// Convert URL characters such as spaces or quotes to characters
 	$filename = urldecode($filename);
 
+	// Check path traversal
+	if (Text::stringContains($filename, DS, false)) {
+		$message = 'Path traversal detected.';
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+
 	// Move from PHP tmp file to Bludit tmp directory
 	Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP.$filename);
 
 	// Transform the image and generate the thumbnail
 	$image = transformImage(PATH_TMP.$filename, $imageDirectory, $thumbnailDirectory);
+
+	// Delete temporary file
+	Filesystem::rmfile(PATH_TMP.$filename);
+
 	if ($image) {
 		$filename = Filesystem::filename($image);
 		array_push($images, $filename);
