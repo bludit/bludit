@@ -1,11 +1,16 @@
 ### Describe your problem
+Complete here.
 
 ### Steps to reproduce the problem
-
-### PHP version
-If you don't know delete this line.
-
-### PHP logs
-If you have access to the logs could be really helpful for troubleshoot, if you don't have access delete this line.
+Complete here.
 
 ### Bludit version
+Complete here.
+
+### PHP version
+If you do not know delete this line.
+
+### PHP logs
+If you do not know delete this line.
+
+The default settings of the PHP Error Log file varies from OS to OS. The location of the error log file itself can be set manually in the php.ini file. On a Windows server, in IIS, it may be something like `error_log = C:\log_files\php_errors.log` in Linux it may be a value of `/var/log/php_errors.log`.
