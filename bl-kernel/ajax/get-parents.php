@@ -2,7 +2,8 @@
 header('Content-Type: application/json');
 
 /*
-| Returns a list of pages are parent and match with the string in them titles
+| Returns a list of parent pages and the title contains the query string
+| The returned list have published, sticky and statics pages
 |
 | @_POST['query']	string 	The string to search in the title of the pages
 |
@@ -19,11 +20,23 @@ if ($query===false) {
 }
 
 $tmp = array();
-$parents = buildParentPages();
-foreach ($parents as $parent) {
-	$lowerTitle = Text::lowercase($parent->title());
-	if (Text::stringContains($lowerTitle, $query)) {
-		$tmp[$parent->title()] = $parent->key();
+$pagesKey = $pages->getDB();
+foreach ($pagesKey as $pageKey) {
+	try {
+		$page = new Page($pageKey);
+		// Check if the page is available to be parent
+		if ($page->isParent()) {
+			// Check page status
+			if ($page->published() || $page->sticky() || $page->isStatic()) {
+				// Check if the query contains in the title
+				$lowerTitle = Text::lowercase($page->title());
+				if (Text::stringContains($lowerTitle, $query)) {
+					$tmp[$page->title()] = $page->key();
+				}
+			}
+		}
+	} catch (Exception $e) {
+		// continue
 	}
 }
 

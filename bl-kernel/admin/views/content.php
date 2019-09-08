@@ -77,7 +77,7 @@ function table($type) {
 		foreach ($list as $pageKey) {
 			try {
 				$page = new Page($pageKey);
-				if (!$page->isChild() || $type!='published') {
+				if (!$page->isChild()) {
 					echo '<tr>
 					<td>
 						<div>
@@ -106,7 +106,7 @@ function table($type) {
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
-						if ($child->published()) {
+						//if ($child->published()) {
 						echo '<tr>
 						<td class="child">
 							<div>
@@ -133,7 +133,7 @@ function table($type) {
 						echo '</td>';
 
 						echo '</tr>';
-						}
+						//}
 					}
 				}
 			} catch (Exception $e) {
