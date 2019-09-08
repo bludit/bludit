@@ -256,7 +256,7 @@ echo Bootstrap::formOpen(array(
 					},
 					onSelect: function(event, term, item) {
 						// parentsList = array( pageTitle => pageKey )
-						var parentKey = parentsList[term];
+						var parentKey = parentsList[sanitizeHTML(term)];
 						$("#jsparent").attr("value", parentKey);
 					}
 				});
