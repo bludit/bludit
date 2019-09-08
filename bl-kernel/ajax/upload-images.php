@@ -14,6 +14,15 @@ header('Content-Type: application/json');
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
+// Check path traversal on $uuid
+if ($uuid) {
+	if (Text::stringContains($uuid, DS, false)) {
+		$message = 'Path traversal detected.';
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+}
+
 // Set upload directory
 if ($uuid && IMAGE_RESTRICT) {
 	$imageDirectory = PATH_UPLOADS_PAGES.$uuid.DS;
@@ -38,7 +47,7 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	// Convert URL characters such as spaces or quotes to characters
 	$filename = urldecode($filename);
 
-	// Check path traversal
+	// Check path traversal on $filename
 	if (Text::stringContains($filename, DS, false)) {
 		$message = 'Path traversal detected.';
 		Log::set($message, LOG_TYPE_ERROR);
