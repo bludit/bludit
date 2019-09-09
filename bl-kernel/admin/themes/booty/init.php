@@ -113,18 +113,23 @@ EOF;
 		}
 
 		$tip = '';
-		if (isset($args['tip'])) {
+		if (!empty($args['tip'])) {
 			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
 		}
 
-		$label = '';
-		if (isset($args['label'])) {
-			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"  for="'.$id.'">'.$args['label'].'</label>';
+		$class = 'form-group m-0';
+		if (isset($args['class'])) {
+			$class = $args['class'];
 		}
 
-		$class = 'form-control';
-		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
+		$labelClass = 'mt-4 mb-2 pb-2 border-bottom text-uppercase w-100';
+		if (isset($args['labelClass'])) {
+			$labelClass = $args['labelClass'];
+		}
+
+		$label = '';
+		if (!empty($args['label'])) {
+			$label = '<label class="'.$labelClass.'" for="'.$id.'">'.$args['label'].'</label>';
 		}
 
 		$type = 'text';
@@ -133,9 +138,9 @@ EOF;
 		}
 
 return <<<EOF
-<div class="form-group m-0">
+<div class="$class">
 	$label
-	<input type="text" value="$value" class="$class" id="$id" name="$name" placeholder="$placeholder" $disabled>
+	<input type="text" value="$value" class="form-control" id="$id" name="$name" placeholder="$placeholder" $disabled>
 	$tip
 </div>
 EOF;
@@ -275,7 +280,12 @@ EOF;
 
 		$class = 'form-group m-0';
 		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
+			$class = $args['class'];
+		}
+
+		$labelClass = 'mt-4 mb-2 pb-2 border-bottom text-uppercase w-100';
+		if (isset($args['labelClass'])) {
+			$labelClass = $args['labelClass'];
 		}
 
 		$type = 'text';
@@ -285,7 +295,7 @@ EOF;
 
 		$label = '';
 		if (!empty($args['label'])) {
-			$label = '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100">'.$args['label'].'</label>';
+			$label = '<label class="'.$labelClass.'">'.$args['label'].'</label>';
 		}
 
 		$checked = $args['checked']?'checked':'';

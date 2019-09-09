@@ -47,7 +47,7 @@ echo Bootstrap::formOpen(array(
 ?>
 
 <!-- TOOLBAR -->
-<div id="jseditorToolbar">
+<div id="jseditorToolbar" class="mb-1">
 	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
@@ -267,23 +267,25 @@ echo Bootstrap::formOpen(array(
 		<div id="nav-custom" class="tab-pane fade" role="tabpanel" aria-labelledby="custom-tab">
 		<?php
 			$customFields = $site->customFields();
-			foreach($customFields as $field=>$options) {
-				if ($options['type']=="string") {
-					echo Bootstrap::formInputTextBlock(array(
-						'name'=>'custom['.$field.']',
-						'label'=>(isset($options['label'])?$options['label']:''),
-						'value'=>(isset($options['default'])?$options['default']:''),
-						'tip'=>(isset($options['tip'])?$options['tip']:''),
-						'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:'')
-					));
-				} elseif ($options['type']=="bool") {
-					echo Bootstrap::formCheckbox(array(
-						'name'=>'custom['.$field.']',
-						'label'=>(isset($options['label'])?$options['label']:''),
-						'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-						'checked'=>(isset($options['checked'])?true:false),
-						'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:'')
-					));
+			foreach ($customFields as $field=>$options) {
+				if ( !isset($options['position']) ) {
+					if ($options['type']=="string") {
+						echo Bootstrap::formInputTextBlock(array(
+							'name'=>'custom['.$field.']',
+							'label'=>(isset($options['label'])?$options['label']:''),
+							'value'=>(isset($options['default'])?$options['default']:''),
+							'tip'=>(isset($options['tip'])?$options['tip']:''),
+							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:'')
+						));
+					} elseif ($options['type']=="bool") {
+						echo Bootstrap::formCheckbox(array(
+							'name'=>'custom['.$field.']',
+							'label'=>(isset($options['label'])?$options['label']:''),
+							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+							'checked'=>(isset($options['checked'])?true:false),
+							'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:'')
+						));
+					}
 				}
 			}
 		?>
@@ -333,13 +335,75 @@ echo Bootstrap::formOpen(array(
 	</div>
 </div>
 
+<!-- Custom fields: TOP -->
+<?php
+	$customFields = $site->customFields();
+	foreach ($customFields as $field=>$options) {
+		if ( isset($options['position']) && ($options['position']=='top') ) {
+			if ($options['type']=="string") {
+				echo Bootstrap::formInputTextBlock(array(
+					'name'=>'custom['.$field.']',
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'value'=>(isset($options['default'])?$options['default']:''),
+					'tip'=>(isset($options['tip'])?$options['tip']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'class'=>'mb-2',
+					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+
+				));
+			} elseif ($options['type']=="bool") {
+				echo Bootstrap::formCheckbox(array(
+					'name'=>'custom['.$field.']',
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'checked'=>(isset($options['checked'])?true:false),
+					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+					'class'=>'mb-2',
+					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+				));
+			}
+		}
+	}
+?>
+
 <!-- Title -->
-<div id="jseditorTitle" class="form-group mt-1 mb-1">
+<div id="jseditorTitle" class="form-group mb-1">
 	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="" placeholder="<?php $L->p('Enter title') ?>">
 </div>
 
 <!-- Editor -->
 <textarea id="jseditor" class="editable h-100 mb-1"></textarea>
+
+<!-- Custom fields: BOTTOM -->
+<?php
+	$customFields = $site->customFields();
+	foreach ($customFields as $field=>$options) {
+		if ( isset($options['position']) && ($options['position']=='bottom') ) {
+			if ($options['type']=="string") {
+				echo Bootstrap::formInputTextBlock(array(
+					'name'=>'custom['.$field.']',
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'value'=>(isset($options['default'])?$options['default']:''),
+					'tip'=>(isset($options['tip'])?$options['tip']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'class'=>'mt-2',
+					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+
+				));
+			} elseif ($options['type']=="bool") {
+				echo Bootstrap::formCheckbox(array(
+					'name'=>'custom['.$field.']',
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'checked'=>(isset($options['checked'])?true:false),
+					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+					'class'=>'mt-2',
+					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+				));
+			}
+		}
+	}
+?>
 
 </form>
 
