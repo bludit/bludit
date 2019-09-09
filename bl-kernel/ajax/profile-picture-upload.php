@@ -15,18 +15,18 @@ if (!isset($_FILES['profilePictureInputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the profile picture.');
 }
 
-// Check file extension
-$fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
-$fileExtension = Text::lowercase($fileExtension);
-if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
-	$message = 'File type is not supported. Allowed types: '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+// Check path traversal
+if (Text::stringContains($username, DS, false)) {
+	$message = 'Path traversal detected.';
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
 
-// Check path traversal
-if (Text::stringContains($username, DS, false)) {
-	$message = 'Path traversal detected.';
+// Check file extension
+$fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
+$fileExtension = Text::lowercase($fileExtension);
+if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+	$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
@@ -45,8 +45,8 @@ $image = new Image();
 $image->setImage(PATH_TMP.$tmpFilename, PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'crop');
 $image->saveImage(PATH_UPLOADS_PROFILES.$filename, PROFILE_IMG_QUALITY, false, true);
 
-// Remove the tmp file
-unlink(PATH_TMP.$tmpFilename);
+// Delete temporary file
+Filesystem::rmfile(PATH_TMP.$tmpFilename);
 
 // Permissions
 chmod(PATH_UPLOADS_PROFILES.$filename, 0644);

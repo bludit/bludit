@@ -54,6 +54,15 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 		ajaxResponse(1, $message);
 	}
 
+	// Check file extension
+	$fileExtension = Filesystem::extension($filename);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+		$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+
 	// Move from PHP tmp file to Bludit tmp directory
 	Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP.$filename);
 
@@ -64,10 +73,11 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	Filesystem::rmfile(PATH_TMP.$filename);
 
 	if ($image) {
+		chmod($image, 0644);
 		$filename = Filesystem::filename($image);
 		array_push($images, $filename);
 	} else {
-		$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+		$message = 'Error after transformImage() function.';
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}

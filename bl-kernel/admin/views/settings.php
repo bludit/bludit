@@ -579,9 +579,13 @@
 				cache: false,
 				contentType: false,
 				processData: false
-			}).done(function(json) {
-				console.log(json);
-				$("#jssiteLogoPreview").attr('src',json.absoluteURL+"?time="+Math.random());
+			}).done(function(data) {
+				console.log(data);
+				if (data.status==0) {
+					$("#jssiteLogoPreview").attr('src',data.absoluteURL+"?time="+Math.random());
+				} else {
+					showAlert(data.message);
+				}
 			});
 		});
 		</script>

@@ -14,11 +14,18 @@ if (!isset($_FILES['inputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the site logo.');
 }
 
+// Check path traversal on $filename
+if (Text::stringContains($_FILES['inputFile']['name'], DS, false)) {
+	$message = 'Path traversal detected.';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
+
 // File extension
 $fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
 if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
-	$message = 'File type is not supported. Allowed types: '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+	$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
