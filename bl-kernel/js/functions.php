@@ -1,13 +1,4 @@
-<script>
-
-function copyToClipboard(elementId) {
-	var aux = document.createElement("input");
-	aux.setAttribute("value", document.getElementById(elementId).innerHTML);
-	document.body.appendChild(aux);
-	aux.select();
-	document.execCommand("copy");
-	document.body.removeChild(aux);
-}
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
 function sanitizeHTML(text) {
 	var map = {
@@ -45,5 +36,3 @@ function getCookie(name) {
 function deleteCookie(name) {
 	document.cookie = name+'=; Max-Age=-999;';
 }
-
-</script>
