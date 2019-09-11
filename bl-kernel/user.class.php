@@ -49,6 +49,11 @@ class User {
 		return $this->getValue('username');
 	}
 
+	public function description()
+	{
+		return $this->getValue('description');
+	}
+
 	public function nickname()
 	{
 		return $this->getValue('nickname');
@@ -147,6 +152,30 @@ class User {
 			return false;
 		}
 		return DOMAIN_UPLOADS_PROFILES.$filename;
+	}
+
+	public function json($returnsArray=false)
+	{
+		$tmp['username'] 	= $this->username();
+		$tmp['firstName'] 	= $this->firstName();
+		$tmp['lastName'] 	= $this->lastName();
+		$tmp['nickname'] 	= $this->nickname();
+		$tmp['description'] 	= $this->description();
+		$tmp['twitter'] 	= $this->twitter();
+		$tmp['facebook'] 	= $this->facebook();
+		$tmp['codepen'] 	= $this->codepen();
+		$tmp['instagram'] 	= $this->instagram();
+		$tmp['github'] 		= $this->github();
+		$tmp['gitlab'] 		= $this->gitlab();
+		$tmp['linkedin'] 	= $this->linkedin();
+		$tmp['mastodon']	= $this->mastodon();
+		$tmp['profilePicture']	= $this->profilePicture();
+
+		if ($returnsArray) {
+			return $tmp;
+		}
+
+		return json_encode($tmp);
 	}
 
 }
