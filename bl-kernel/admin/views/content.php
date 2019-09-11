@@ -73,7 +73,7 @@ function table($type) {
 		<tbody>
 	';
 
-	if (ORDER_BY=='position') {
+	if ( (ORDER_BY=='position') || $type=='static' ) {
 		foreach ($list as $pageKey) {
 			try {
 				$page = new Page($pageKey);
