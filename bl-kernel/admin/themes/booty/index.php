@@ -49,6 +49,10 @@
 	echo '</script>'.PHP_EOL;
 
 	echo '<script charset="utf-8">'.PHP_EOL;
+	include(PATH_CORE_JS.'functions.php');
+	echo '</script>'.PHP_EOL;
+
+	echo '<script charset="utf-8">'.PHP_EOL;
 	include(PATH_CORE_JS.'bludit-ajax.php');
 	echo '</script>'.PHP_EOL;
 ?>
