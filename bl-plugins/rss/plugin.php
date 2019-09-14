@@ -59,7 +59,7 @@ class pluginRSS extends Plugin {
 		$xml .= '<title>'.$site->title().'</title>';
 		$xml .= '<link>'.$site->url().'</link>';
 		$xml .= '<description>'.$site->description().'</description>';
-		$xml .= '<lastBuildDate>'.date(DATE_RSS).'</lastBuildDate>';
+		$xml .= '<lastBuildDate>'.date('r',strtotime($page->getValue('dateRaw'))).'</lastBuildDate>';
 
 		// Get keys of pages
 		foreach ($list as $pageKey) {
