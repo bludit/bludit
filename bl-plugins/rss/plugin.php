@@ -59,7 +59,7 @@ class pluginRSS extends Plugin {
 		$xml .= '<title>'.$site->title().'</title>';
 		$xml .= '<link>'.$site->url().'</link>';
 		$xml .= '<description>'.$site->description().'</description>';
-		$xml .= '<lastBuildDate>'.date('r',strtotime($page->getValue('dateRaw'))).'</lastBuildDate>';
+		$xml .= '<lastBuildDate>'.date(DATE_RSS).'</lastBuildDate>';
 
 		// Get keys of pages
 		foreach ($list as $pageKey) {
@@ -70,7 +70,7 @@ class pluginRSS extends Plugin {
 				$xml .= '<title>'.$page->title().'</title>';
 				$xml .= '<link>'.$page->permalink().'</link>';
 				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
-				$xml .= '<pubDate>'.$page->date(DATE_RSS).'</pubDate>';
+				$xml .= '<pubDate>'.date('r',strtotime($page->getValue('dateRaw'))).'</pubDate>';
 				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
 				$xml .= '</item>';
 			} catch (Exception $e) {
