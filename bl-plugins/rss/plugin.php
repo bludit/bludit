@@ -76,7 +76,7 @@ class pluginRSS extends Plugin {
 				$xml .= '<title>'.$page->title().'</title>';
 				$xml .= '<link>'.$this->urlRSS($page->permalink()).'</link>';
 				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
-				$xml .= '<pubDate>'.$page->date(DATE_RSS).'</pubDate>';
+				$xml .= '<pubDate>'.date('r',strtotime($page->getValue('dateRaw'))).'</pubDate>';
 				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
 				$xml .= '</item>';
 			} catch (Exception $e) {
