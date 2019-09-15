@@ -69,7 +69,7 @@ class pluginRSS extends Plugin {
                                 $page = new Page($pageKey);
                                 $xml .= '<item>';
                                 $xml .= '<title>'.$page->title().'</title>';
-                                $xml .= "<link>".preg_replace_callback('/[^\x20-\x7f]/',function($match){return urlencode($match[0]);},$page->permalink())."</link>";
+                                $xml .= '<link>'.preg_replace_callback('/[^\x20-\x7f]/',function($match){return urlencode($match[0]);},$page->permalink()).'</link>';
                                 $xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
                                 $xml .= '<pubDate>'.date('r',strtotime($page->getValue('dateRaw'))).'</pubDate>';
                                 $xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
