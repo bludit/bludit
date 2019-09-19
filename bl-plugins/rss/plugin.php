@@ -33,7 +33,7 @@ class pluginRSS extends Plugin {
 		return $html;
 	}
 	
-        private function urlRSS($url)
+        private function encodeURL($url)
         {
                return preg_replace_callback('/[^\x20-\x7f]/', function($match) { return urlencode($match[0]); }, $url);
         }
@@ -63,7 +63,7 @@ class pluginRSS extends Plugin {
 		$xml .= '<channel>';
 		$xml .= '<atom:link href="'.DOMAIN_BASE.'rss.xml" rel="self" type="application/rss+xml" />';
 		$xml .= '<title>'.$site->title().'</title>';
-		$xml .= '<link>'.$this->urlRSS($site->url()).'</link>';
+		$xml .= '<link>'.$this->encodeURL($site->url()).'</link>';
 		$xml .= '<description>'.$site->description().'</description>';
 		$xml .= '<lastBuildDate>'.date(DATE_RSS).'</lastBuildDate>';
 
@@ -74,7 +74,7 @@ class pluginRSS extends Plugin {
 				$page = new Page($pageKey);
 				$xml .= '<item>';
 				$xml .= '<title>'.$page->title().'</title>';
-				$xml .= '<link>'.$this->urlRSS($page->permalink()).'</link>';
+				$xml .= '<link>'.$this->encodeURL($page->permalink()).'</link>';
 				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
 				$xml .= '<pubDate>'.date(DATE_RSS,strtotime($page->getValue('dateRaw'))).'</pubDate>';
 				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
