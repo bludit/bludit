@@ -31,12 +31,6 @@
 		'value'=>$security->getTokenCSRF()
 	));
 
-	// Homepage
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'homepage',
-		'value'=>$site->homepage()
-	));
-
 	// Page not found
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'pageNotFound',
@@ -46,6 +40,7 @@
 
 	<!-- General tab -->
 	<div class="tab-pane show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
 
@@ -120,10 +115,12 @@
 		} catch (Exception $e) {
 			$homeValue = '';
 		}
-		echo Bootstrap::formInputText(array(
-			'name'=>'homepageTMP',
+
+		echo Bootstrap::formSelect(array(
+			'name'=>'homepage',
 			'label'=>$L->g('Homepage'),
-			'value'=>$homeValue,
+			'options'=>array(''=>''),
+			'selected'=>false,
 			'class'=>'',
 			'placeholder'=>$L->g('Start typing a page title to see a list of suggestions.'),
 			'tip'=>$L->g('Returning page for the main page')
@@ -289,76 +286,6 @@
 		));
 	?>
 	</div>
-	<script>
-	$(document).ready(function() {
-
-		// Homepage autocomplete
-		var homepageXHR;
-		var homepageList; // Keep the parent list returned to get the key by the title page
-		$("#jshomepageTMP").autoComplete({
-			minChars: 1,
-			source: function(term, response) {
-				// Prevent call inmediatly another ajax request
-				try { homepageXHR.abort(); } catch(e){}
-				homepageXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
-					function(data) {
-						homepageList = data;
-						term = term.toLowerCase();
-						var matches = [];
-						for (var title in data) {
-							if (~title.toLowerCase().indexOf(term))
-								matches.push(title);
-						}
-						response(matches);
-				});
-			},
-			onSelect: function(e, term, item) {
-				// homepageList = array( pageTitle => pageKey )
-				var key = homepageList[term];
-				$("#jshomepage").attr("value", key);
-			}
-		});
-
-		$("#jshomepageTMP").change(function() {
-			if ($(this).val()) {
-				$("#jsuriBlog").removeAttr('disabled');
-				$("#jsuriBlog").attr('value', '/blog/');
-			} else {
-				$("#jsuriBlog").attr('value', '');
-				$("#jsuriBlog").attr('disabled', 'disabled');
-				$("#jshomepage").attr("value", '');
-			}
-		});
-
-		// pageNotFound autocomplete
-		var pageNotFoundXHR;
-		var pageNotFoundList; // Keep the parent list returned to get the key by the title page
-		$("#jspageNotFoundTMP").autoComplete({
-			minChars: 1,
-			source: function(term, response) {
-				// Prevent call inmediatly another ajax request
-				try { pageNotFoundXHR.abort(); } catch(e){}
-					pageNotFoundXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-published", {query: term},
-					function(data) {
-						pageNotFoundList = data;
-						term = term.toLowerCase();
-						var matches = [];
-						for (var title in data) {
-							if (~title.toLowerCase().indexOf(term))
-								matches.push(title);
-						}
-						response(matches);
-				});
-			},
-			onSelect: function(e, term, item) {
-				// pageNotFoundList = array( pageTitle => pageKey )
-				var key = pageNotFoundList[term];
-				$("#jspageNotFound").attr("value", key);
-			}
-		});
-
-	});
-	</script>
 
 	<!-- Social Network tab -->
 	<div class="tab-pane" id="social" role="tabpanel" aria-labelledby="social-tab">
@@ -532,11 +459,11 @@
 
 		echo Bootstrap::formTextarea(array(
 			'name'=>'customFields',
-			'label'=>$L->g('Custom'),
+			'label'=>'JSON Format',
 			'value'=>json_encode($site->customFields(), JSON_PRETTY_PRINT),
 			'class'=>'',
 			'placeholder'=>'',
-			'tip'=>'',
+			'tip'=>$L->g('define-custom-fields-for-the-content'),
 			'rows'=>15
 		));
 	?>
@@ -594,7 +521,16 @@
 <?php echo Bootstrap::formClose(); ?>
 
 <script>
-	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
+	// Open current tab after refresh page
+	$(function() {
+		$('a[data-toggle="tab"]').on('click', function(e) {
+			window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+			console.log($(e.target).attr('href'));
+		});
+		var activeTab = window.localStorage.getItem('activeTab');
+		if (activeTab) {
+			$('#nav-tab a[href="' + activeTab + '"]').tab('show');
+			window.localStorage.removeItem("activeTab");
+		}
+	});
 </script>
