@@ -85,6 +85,10 @@ blockquote {
 	height: 64px;
 }
 
+#jsloadMorePosts {
+	cursor: pointer;
+}
+
 /* Image Gallery */
 .image-gallery img {
 	width: 120px;

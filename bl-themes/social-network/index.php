@@ -34,6 +34,11 @@
 		</div>
 	</div>
 
+	<footer class="container">
+	<p class="float-right"><a href="#">Back to top</a></p>
+	<p>© 2017-2018 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+	</footer>
+
 	<!-- Javascript -->
 	<?php
 		// Include Jquery file from Bludit Core
@@ -48,15 +53,25 @@
 	?>
 
 	<script>
-		// Apply to all galleries
-		var galleries = document.getElementsByClassName("image-gallery");
-		for(let i = 0 ; i < galleries.length; i++){
-			lightGallery(galleries[i],{
-				thumbnail:true,
-				share: false,
-				download: true
-			})
+		// Load Light Gallery to all .image-gallery
+		function loadGallery() {
+			var galleries = document.getElementsByClassName("image-gallery");
+			for(let i = 0 ; i < galleries.length; i++){
+				lightGallery(galleries[i],{
+					thumbnail:true,
+					share: false,
+					download: true
+				})
+			}
 		}
+
+		// After page is loaded
+		window.onload = function() {
+			// Get all users
+			getUsers();
+			// Load Light Gallery
+			loadGallery()
+		};
 	</script>
 
 	<!-- Load Bludit Plugins: Site Body End -->

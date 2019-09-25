@@ -30,27 +30,72 @@
 <script>
 
 // Global variables
-var _apiToken = "<?php echo $apiToken ?>"
-var _userToken = "<?php echo $user->tokenAuth() ?>"
+var _apiToken = "<?php echo $apiToken ?>";
+var _userToken = "<?php echo $user->tokenAuth() ?>";
 var _pageUUID = Date.now().toString(36) + Math.random().toString(36).substr(2, 15);
+var _pageNumber = 1;
+var _itemsPerPage = <?php echo $site->itemsPerPage() ?>;
+var _users = {}
 
-function insertPostInTimeline(args) {
+function getUsers() {
+	console.log("Getting users.");
+	fetch("http://localhost:8000/api/users?token="+_apiToken, {
+		method: "GET"
+	}).then(function(response) {
+		return response.json();
+	}).then(function(data) {
+		console.log("Getting user. Response >");
+		console.log(data);
+		if (data.status=="0") {
+			_users = data.data;
+		}
+	});
+}
+
+function getPosts() {
+	console.log("Getting posts.");
+	_pageNumber = _pageNumber + 1;
+	fetch("http://localhost:8000/api/pages?token="+_apiToken+"&pageNumber="+_pageNumber+"&numberOfItems="+_itemsPerPage, {
+		method: "GET"
+	}).then(function(response) {
+		return response.json();
+	}).then(function(data) {
+		console.log("Getting posts. Response >");
+		console.log(data);
+		if (data.status=="0") {
+			var posts = data.data;
+			if (posts.length > 0) {
+				for (var i = 0; i < posts.length; i++) {
+					insertPostInTimeline(posts[i], false);
+				}
+			}
+		}
+	}).then(function() {
+		loadGallery();
+	});
+}
+
+function insertPostInTimeline(args, beginning=true) {
+	console.log("Insert post in timeline.");
 	const postTemplate = `
 	<div class="card my-2 p-2">
 		<div class="card-body">
-			<img class="float-left rounded-circle" style="width: 48px" src="${args.srcProfilePicture}" />
+			<img class="float-left rounded-circle" style="width: 48px" src="${_users[args.username].profilePicture}" />
 			<div style="padding-left: 56px">
 				<p class="mb-2 text-muted">
-					@${args.nickname} - ${args.date}
+					@${_users[args.username].nickname} - ${args.date}
 				</p>
 				${args.content}
 			</div>
 		</div>
 	</div>
 	`;
-	console.log(postTemplate);
 	var listOfPosts = document.getElementById("jslistOfPosts");
-	listOfPosts.innerHTML = postTemplate + listOfPosts.innerHTML;
+	if (beginning) {
+		listOfPosts.innerHTML = postTemplate + listOfPosts.innerHTML;
+	} else {
+		listOfPosts.innerHTML = listOfPosts.innerHTML + postTemplate;
+	}
 }
 
 function getPost(key) {
@@ -63,8 +108,6 @@ function getPost(key) {
 		console.log("Getting post. Response >");
 		console.log(data);
 		if (data.status=="0") {
-			data.data.nickname = "<?php echo $user->nickname() ?>";
-			data.data.srcProfilePicture = "<?php echo $user->profilePicture() ?>";
 			insertPostInTimeline(data.data);
 		}
 	});
@@ -139,7 +182,6 @@ document.getElementById("jspostButton").onclick = function(event) {
 	document.getElementById("jspreviewImages").innerHTML = "";
 }
 
-
 </script>
 <?php endif; ?>
 
@@ -186,4 +228,10 @@ document.getElementById("jspostButton").onclick = function(event) {
 
 	</div>
 	<?php endforeach ?>
+</div>
+
+<div id="jsloadMorePosts" onclick="getPosts()" class="card my-2 p-2">
+	<div class="card-body text-center">
+	<p class="m-0">Load more posts</p>
+	</div>
 </div>
