@@ -283,7 +283,7 @@
     "example-page-1-content": "Inzia a scrivere il tuo contenuto o modifica il contentuo corrente secondo le tue esigenze. Per creare, modificare o rimuovere il contenutodevi effettuare il login al  [pannelo di amministrazione](.\/admin) con il nome utente `admin` e la password che hai impostato durante il processo di installazione.",
     "example-page-2-slug": "imposta-il-tuo-nuovo-sito",
     "example-page-2-title": "Imposta il tuo nuovo sito",
-    "example-page-2-content": "Aggiorna le impostazioni del tuo sito dal [pannello di amministazione](.\/admin),puoi cambiare il titolo, la descrizione e i social network da [Impostazioni > Generale](.\/admin\/settings-general).",
+    "example-page-2-content": "Aggiorna le impostazioni del tuo sito dal [pannello di amministazione](.\/admin),puoi cambiare il titolo, la descrizione e i social network da [Impostazioni > Generale](.\/admin\/settings).",
     "example-page-3-slug": "segui-bludit",
     "example-page-3-title": "Segui Bludit",
     "example-page-3-content": "Rimani informato sulle notizie, nuovi rilasci, nuovi temi o nuovi plugin sui nostri social network <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> e <a href=\"https:\/\/www.youtube.com\/c\/Bluditcms\" target=\"_blank\">YouTube<\/a> o visita il nostro <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",

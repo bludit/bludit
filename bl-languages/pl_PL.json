@@ -284,7 +284,7 @@
     "example-page-1-content": "Zacznij tworzyć własną treść lub edytuj tą, którą dostarczono z instalatorem jako przykład do Twoich potrzeb. Aby utworzyć, edytować lub usuwać treści, zaloguj się do [kokpitu](.\/admin) podając jako nazwę użytkownika login `admin` oraz hasło, które wprowadziłeś podczas instalacji.",
     "example-page-2-slug": "skonfiguruj-nowa-witryne",
     "example-page-2-title": "Skonfiguruj nową witrynę",
-    "example-page-2-content": "Zarządzaj ustawieniami witryny bezpośrednio z [kokpitu](.\/admin). To właśnie tam możesz edytować nazwę strony, opis oraz zarządzać odnośnikami do społeczności z lokalizacji [Ustawienia > Ogólne](.\/admin\/settings-general).",
+    "example-page-2-content": "Zarządzaj ustawieniami witryny bezpośrednio z [kokpitu](.\/admin). To właśnie tam możesz edytować nazwę strony, opis oraz zarządzać odnośnikami do społeczności z lokalizacji [Ustawienia > Ogólne](.\/admin\/settings).",
     "example-page-3-slug": "obserwuj-bludit",
     "example-page-3-title": "Obserwuj Bludit",
     "example-page-3-content": "Otrzymuj bieżące informacje o nowościach, aktualizacjach, nowych motywach i funkcjach za pośrednictwem naszych sieci społecznościowych <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> oraz <a href=\"https:\/\/www.youtube.com\/c\/Bluditcms\" target=\"_blank\">YouTube<\/a> lub odwiedź nasz <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
