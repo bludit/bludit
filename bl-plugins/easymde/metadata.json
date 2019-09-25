@@ -5,6 +5,6 @@
 	"version": "2.8.0",
 	"releaseDate": "2019-08-20",
 	"license": "MIT",
-	"compatible": "3.9.2",
+	"compatible": "3.10.0",
 	"notes": ""
 }
