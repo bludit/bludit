@@ -180,7 +180,7 @@ EOF;
 
 		$html = '<div class="form-group row">';
 
-		if (isset($args['label'])) {
+		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 

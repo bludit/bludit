@@ -213,8 +213,10 @@ echo Bootstrap::formOpen(array(
 					'disabled'=>true
 				));
 			?>
+
 			<script>
 			$(document).ready(function() {
+
 				// Changes in External cover image input
 				$("#jsexternalCoverImage").change(function() {
 					$("#jscoverImage").val( $(this).val() );
@@ -365,6 +367,7 @@ echo Bootstrap::formOpen(array(
 		}
 	}
 ?>
+
 
 <!-- Title -->
 <div id="jseditorTitle" class="form-group mb-1">

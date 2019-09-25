@@ -12,25 +12,29 @@
 
 	<!-- CSS -->
 	<?php
-		echo Theme::cssBootstrap(); // Bootstrap
-		echo Theme::cssLineAwesome(); // Icons
+		echo Theme::cssBootstrap();
+		echo Theme::cssLineAwesome();
 		echo Theme::css(array(
-			'jquery-auto-complete.css',
-			'jquery.datetimepicker.min.css',
 			'bludit.css',
 			'bludit.bootstrap.css'
 		), DOMAIN_ADMIN_THEME_CSS);
+		echo Theme::css(array(
+			'jquery.datetimepicker.min.css',
+			'select2.min.css',
+			'select2-bootstrap4.min.css'
+		), DOMAIN_CORE_CSS);
 	?>
 
 	<!-- Javascript -->
 	<?php
 		echo Theme::jquery();
 		echo Theme::jsBootstrap();
-		echo Theme::js(array(
-			'jquery-auto-complete.min.js',
-			'jquery.datetimepicker.full.min.js'
-		), DOMAIN_ADMIN_THEME_JS);
 		echo Theme::jsSortable();
+		echo Theme::js(array(
+			'jquery.datetimepicker.full.min.js',
+			'select2.full.min.js',
+			'functions.js'
+		), DOMAIN_CORE_JS);
 	?>
 
 	<!-- Plugins -->
@@ -46,10 +50,6 @@
 <?php
 	echo '<script charset="utf-8">'.PHP_EOL;
 	include(PATH_CORE_JS.'variables.php');
-	echo '</script>'.PHP_EOL;
-
-	echo '<script charset="utf-8">'.PHP_EOL;
-	include(PATH_CORE_JS.'functions.php');
 	echo '</script>'.PHP_EOL;
 
 	echo '<script charset="utf-8">'.PHP_EOL;
@@ -88,9 +88,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- Check user logged and Internet connection -->
-<?php include('html/user-logged.php'); ?>
 
 <!-- Plugins -->
 <?php Theme::plugins('adminBodyEnd') ?>
