@@ -138,10 +138,6 @@ class pluginAPI extends Plugin {
 			$pageKey = $parameters[1];
 			$data = $this->editPage($pageKey, $inputs);
 		}
-		// (PUT) /api/settings
-		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
-			$data = $this->editSettings($inputs);
-		}
 		// (DELETE) /api/pages/<key>
 		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
 			$pageKey = $parameters[1];
@@ -150,6 +146,10 @@ class pluginAPI extends Plugin {
 		// (POST) /api/pages
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createPage($inputs);
+		}
+		// (PUT) /api/settings
+		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->editSettings($inputs);
 		}
 		// (POST) /api/images
 		elseif ( ($method==='POST') && ($parameters[0]==='images') && $writePermissions ) {
@@ -172,6 +172,15 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='GET') && ($parameters[0]==='categories') && !empty($parameters[1]) ) {
 			$categoryKey = $parameters[1];
 			$data = $this->getCategory($categoryKey);
+		}
+		// (GET) /api/users
+		elseif ( ($method==='GET') && ($parameters[0]==='users') && empty($parameters[1]) ) {
+			$data = $this->getUsers();
+		}
+		// (GET) /api/users/<username>
+		elseif ( ($method==='GET') && ($parameters[0]==='users') && !empty($parameters[1]) ) {
+			$username = $parameters[1];
+			$data = $this->getUser($username);
 		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
@@ -327,13 +336,14 @@ class pluginAPI extends Plugin {
 		$scheduled 	= (isset($args['scheduled'])?$args['scheduled']=='true':false);
 		$untagged 	= (isset($args['untagged'])?$args['untagged']=='true':false);
 
-		$numberOfItems = $this->getValue('numberOfItems');
-		$pageNumber = 1;
+		$numberOfItems = (isset($args['numberOfItems'])?$args['numberOfItems']:10);
+		$pageNumber = (isset($args['pageNumber'])?$args['pageNumber']:1);
 		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
 
 		$tmp = array(
 			'status'=>'0',
-			'message'=>'List of pages, number of items: '.$numberOfItems,
+			'message'=>'List of pages',
+			'numberOfItems'=>$numberOfItems,
 			'data'=>array()
 		);
 
@@ -577,6 +587,57 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'0',
 			'message'=>'Information about the category and pages related.',
+			'data'=>$data
+		);
+	}
+
+	/*
+	 | Returns the user profile
+	 |
+	 | @username	string	Username
+	 |
+	 | @return	array
+         */
+	private function getUser($username)
+	{
+		try {
+			$user = new User($username);
+		} catch (Exception $e) {
+			return array(
+				'status'=>'1',
+				'message'=>'User not found by username: '.$username
+			);
+		}
+
+		$data = $user->json($returnsArray=true);
+		return array(
+			'status'=>'0',
+			'message'=>'User profile.',
+			'data'=>$data
+		);
+	}
+
+	/*
+	 | Returns all the users
+	 |
+	 | @return	array
+         */
+	private function getUsers()
+	{
+		global $users;
+		$data = array();
+		foreach ($users->db as $username=>$profile) {
+			try {
+				$user = new User($username);
+				$data[$username] = $user->json($returnsArray=true);
+			} catch (Exception $e) {
+				continue;
+			}
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Users profiles.',
 			'data'=>$data
 		);
 	}
