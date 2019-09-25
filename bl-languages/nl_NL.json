@@ -384,5 +384,7 @@
     "disabled-plugins": "Uitgeschakelde plugins",
     "remove-logo": "Logo verwijderen",
     "preview": "Voorbeeld",
-    "author-can-write-and-edit-their-own-content": "Auteur: Kan eigen inhoud creëren en bewerken. Editor: Kan ook de inhoud van andere gebruikers bewerken."
+    "author-can-write-and-edit-their-own-content": "Auteur: Kan eigen inhoud creëren en bewerken. Editor: Kan ook de inhoud van andere gebruikers bewerken.",
+    "custom-fields": "Eigen velden",
+    "define-custom-fields-for-the-content": "Definieer eigen inhoudsvelden. Lees meer over eigen velden in de <a href='https://docs.bludit.com/en/content/custom-fields'>documentatie</a>."
 }
