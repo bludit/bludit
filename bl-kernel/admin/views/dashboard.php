@@ -27,28 +27,64 @@
 			</div>
 
 			<!-- Quick Links -->
-			<div class="container border-bottom pb-4">
-				<h4 class="pb-3"><?php $L->p('Quick links') ?></h4>
+			<div class="container border-bottom pb-5">
+
 				<div class="row">
 					<div class="col">
-						<a class="quick-links text-center" style="color: #4586d4" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
-							<div class="fa fa-edit quick-links-icons"></div>
-							<div><?php $L->p('New content') ?></div>
-						</a>
-					</div>
-					<div class="col border-left border-right">
-						<a class="quick-links text-center" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
-							<div class="fa fa-tags quick-links-icons"></div>
-							<div><?php $L->p('Categories') ?></div>
-						</a>
-					</div>
-					<div class="col">
-						<a class="quick-links text-center" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>">
-							<div class="fa fa-users quick-links-icons"></div>
-							<div><?php $L->p('Users') ?></div>
-						</a>
+						<div class="form-group">
+						<select id="jsclippy" class="clippy" name="state"></select>
+						</div>
 					</div>
 				</div>
+
+			<script>
+			$(document).ready(function() {
+
+				var clippy = $("#jsclippy").select2({
+					placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+					allowClear: true,
+					width: "100%",
+					theme: "bootstrap4",
+					minimumInputLength: 2,
+					ajax: {
+						url: HTML_PATH_ADMIN_ROOT+"ajax/clippy",
+						data: function (params) {
+							var query = { query: params.term }
+							return query;
+						},
+						processResults: function (data) {
+							return data;
+						}
+					},
+					templateResult: function(data) {
+						console.log(data);
+						var html = '';
+						if (data.type=='menu') {
+							html += '<a href="'+data.url+'"><div class="search-suggestion">';
+							html += '<span class="fa fa-'+data.icon+'"></span>'+data.text+'</div></a>';
+						} else {
+							html += '<div class="search-suggestion">';
+							html += '<div class="search-suggestion-item">'+data.text+'</div>';
+							html += '<div class="search-suggestion-options">';
+							html += '<a target="_blank" href="http://localhost:8000/testt">View</a>';
+							html += '<a class="ml-2" href="http://localhost:8000/admin/edit-content/testt">Edit</a>';
+							html += '</div></div>';
+						}
+
+						return html;
+					},
+					escapeMarkup: function(markup) {
+						return markup;
+					}
+				}).on("select2:closing", function(e) {
+					e.preventDefault();
+				}).on("select2:closed", function(e) {
+					clippy.select2("open");
+				});
+				clippy.select2("open");
+
+			});
+			</script>
 			</div>
 			<div class="container mt-4">
 				<div class="row">

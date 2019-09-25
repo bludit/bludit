@@ -212,7 +212,6 @@ function table($type) {
 <div class="tab-content">
 	<!-- TABS PAGES -->
 	<div class="tab-pane show active" id="pages" role="tabpanel">
-		<input type="text" class="form-control mt-3" id="search" placeholder="<?php $L->p('Search') ?>">
 
 		<?php table('published'); ?>
 
@@ -245,42 +244,6 @@ function table($type) {
 		</nav>
 		<?php endif; ?>
 	</div>
-	<script>
-	$(document).ready(function() {
-		var searchXHR;
-		var searchArray;
-		$("#search").autoComplete({
-			minChars: 3,
-			source: function(term, response) {
-				searchXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/content-get-list",
-					{
-						published: true,
-						static: true,
-						sticky: true,
-						scheduled: true,
-						draft: true,
-						query: term
-					},
-					function(data) {
-						searchArray = data;
-						var matches = [];
-						for (var key in data) {
-							matches.push(key);
-						}
-						response(matches);
-				});
-			},
-			renderItem: function (item, search) {
-				var title = searchArray[item]['title'];
-				html = '<div class="search-suggestion">';
-				html += '<div class="search-suggestion-item">'+title+'</div>';
-				html += '<div class="search-suggestion-options"><a target="_blank" href="<?php echo DOMAIN_PAGES ?>'+item+'""><?php $L->p('View') ?></a><a class="ml-2" href="<?php echo DOMAIN_ADMIN ?>edit-content/'+item+'"><?php $L->p('Edit') ?></a></div>';
-				html += '</div>';
-				return html;
-			}
-		});
-	});
-	</script>
 
 	<!-- TABS STATIC -->
 	<div class="tab-pane" id="static" role="tabpanel">

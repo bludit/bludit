@@ -1,5 +1,3 @@
-<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
-
 function sanitizeHTML(text) {
 	var map = {
 		'&': '&amp;',

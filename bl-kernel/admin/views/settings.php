@@ -30,12 +30,6 @@
 		'name'=>'tokenCSRF',
 		'value'=>$security->getTokenCSRF()
 	));
-
-	// Page not found
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'pageNotFound',
-		'value'=>$site->pageNotFound()
-	));
 ?>
 
 	<!-- General tab -->
@@ -109,40 +103,95 @@
 
 		// Homepage
 		try {
+			$options = array();
 			$homeKey = $site->homepage();
-			$home = new Page($homeKey);
-			$homeValue = $home->title();
+			if (!empty($homeKey)) {
+				$home = new Page($homeKey);
+				$options = array($homeKey=>$home->title());
+			}
 		} catch (Exception $e) {
-			$homeValue = '';
+			// continue
 		}
-
 		echo Bootstrap::formSelect(array(
 			'name'=>'homepage',
 			'label'=>$L->g('Homepage'),
-			'options'=>array(''=>''),
+			'options'=>$options,
 			'selected'=>false,
 			'class'=>'',
-			'placeholder'=>$L->g('Start typing a page title to see a list of suggestions.'),
 			'tip'=>$L->g('Returning page for the main page')
 		));
+	?>
+		<script>
+		$(document).ready(function() {
+			var homepage = $("#jshomepage").select2({
+				placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+				allowClear: true,
+				theme: "bootstrap4",
+				minimumInputLength: 2,
+				ajax: {
+					url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+					data: function (params) {
+						var query = { query: params.term }
+						return query;
+					},
+					processResults: function (data) {
+						return data;
+					}
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			});
+		});
+		</script>
 
+	<?php
 		// Page not found 404
 		try {
+			$options = array();
 			$pageNotFoundKey = $site->pageNotFound();
-			$pageNotFound = new Page($pageNotFoundKey);
-			$pageNotFoundValue = $pageNotFound->title();
+			if (!empty($pageNotFoundKey)) {
+				$pageNotFound = new Page($pageNotFoundKey);
+				$options = array($pageNotFoundKey=>$pageNotFound->title());
+			}
 		} catch (Exception $e) {
-			$pageNotFoundValue = '';
+			// continue
 		}
-		echo Bootstrap::formInputText(array(
-			'name'=>'pageNotFoundTMP',
+		echo Bootstrap::formSelect(array(
+			'name'=>'pageNotFound',
 			'label'=>$L->g('Page not found'),
-			'value'=>$pageNotFoundValue,
+			'options'=>$options,
+			'selected'=>false,
 			'class'=>'',
-			'placeholder'=>$L->g('Start typing a page title to see a list of suggestions.'),
 			'tip'=>$L->g('Returning page when the page doesnt exist')
 		));
+	?>
 
+		<script>
+		$(document).ready(function() {
+			var homepage = $("#jspageNotFound").select2({
+				placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+				allowClear: true,
+				theme: "bootstrap4",
+				minimumInputLength: 2,
+				ajax: {
+					url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+					data: function (params) {
+						var query = { query: params.term }
+						return query;
+					},
+					processResults: function (data) {
+						return data;
+					}
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			});
+		});
+		</script>
+
+	<?
 		echo Bootstrap::formTitle(array('title'=>$L->g('Email account settings')));
 
 		echo Bootstrap::formInputText(array(
@@ -507,7 +556,6 @@
 				contentType: false,
 				processData: false
 			}).done(function(data) {
-				console.log(data);
 				if (data.status==0) {
 					$("#jssiteLogoPreview").attr('src',data.absoluteURL+"?time="+Math.random());
 				} else {
@@ -525,7 +573,6 @@
 	$(function() {
 		$('a[data-toggle="tab"]').on('click', function(e) {
 			window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-			console.log($(e.target).attr('href'));
 		});
 		var activeTab = window.localStorage.getItem('activeTab');
 		if (activeTab) {

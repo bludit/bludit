@@ -82,8 +82,7 @@ class pluginSimpleStats extends Plugin {
 
 $html = <<<EOF
 <div class="simple-stats-plugin">
-	<div class="my-5 pt-4 border-top">
-		<h4 class="pb-3">{$L->get('Visits')}</h4>
+	<div class="my-4 pt-4 border-top">
 		<div class="ct-chart ct-perfect-fourth"></div>
 		<p class="legends visits-today">{$L->g('Visits today')}: $visitsToday</p>
 		<p class="legends unique-today">{$L->g('Unique visitors today')}: $uniqueVisitors</p>
@@ -125,27 +124,26 @@ $script = <<<EOF
 </script>
 EOF;
 
-		$this->deleteOldLogs();
-
 		/**
 		 * Optional Content Stats Feature
 		 */
 		if ($this->getValue('showContentStats'))  {
-
 			global $pages, $categories, $tags;
 
 			$data['title'] = $L->get('Statistics');
 			$data['tabTitleChart'] = $L->get('Chart');
 			$data['tabTitleTable'] = $L->get('Table');
-			$data['data'][$L->get('published')] = count($pages->getPublishedDB());
+			$data['data'][$L->get('published')] 	= count($pages->getPublishedDB());
 			$data['data'][$L->get('static')] 	= count($pages->getStaticDB());
 			$data['data'][$L->get('drafts')]	= count($pages->getDraftDB());
-			$data['data'][$L->get('scheduled')] = count($pages->getScheduledDB());
+			$data['data'][$L->get('scheduled')] 	= count($pages->getScheduledDB());
 			$data['data'][$L->get('sticky')] 	= count($pages->getStickyDB());
-			$data['data'][$L->get('categories')]= count($categories->keys());
+			$data['data'][$L->get('categories')]	= count($categories->keys());
 			$data['data'][$L->get('tags')] 		= count($tags->keys());
 			$html .= $this->renderContentStatistics($data);
 		}
+
+		$this->deleteOldLogs();
 
 		return $html.PHP_EOL.$script.PHP_EOL;
 	}
@@ -155,7 +153,7 @@ EOF;
 		$this->addVisitor();
 	}
 
-	// Keep only 7 days of logs, remove the old ones
+	// Keep only 7 days of logs
 	public function deleteOldLogs()
 	{
 		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', true);

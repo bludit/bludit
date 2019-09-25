@@ -553,6 +553,13 @@ function editSettings($args) {
 		}
 	}
 
+	if (empty($args['homepage'])) {
+		$args['homepage'] = '';
+	}
+	if (empty($args['pageNotFound'])) {
+		$args['pageNotFound'] = '';
+	}
+
 	if (isset($args['uriPage'])) {
 		$args['uriPage'] = Text::addSlashes($args['uriPage']);
 	}
