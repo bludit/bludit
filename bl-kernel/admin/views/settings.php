@@ -191,7 +191,7 @@
 		});
 		</script>
 
-	<?
+	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Email account settings')));
 
 		echo Bootstrap::formInputText(array(
