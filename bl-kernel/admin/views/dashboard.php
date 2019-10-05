@@ -41,7 +41,7 @@
 			$(document).ready(function() {
 
 				var clippy = $("#jsclippy").select2({
-					placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+					placeholder: "<?php $L->p('Start typing to see a list of suggestions') ?>",
 					allowClear: true,
 					width: "100%",
 					theme: "bootstrap4",
@@ -64,7 +64,7 @@
 							html += '<span class="fa fa-'+data.icon+'"></span>'+data.text+'</div></a>';
 						} else {
 							html += '<div class="search-suggestion">';
-							html += '<div class="search-suggestion-item">'+data.text+'</div>';
+							html += '<div class="search-suggestion-item">'+data.text+' <span class="badge badge-pill badge-light">'+data.type+'</span></div>';
 							html += '<div class="search-suggestion-options">';
 							html += '<a target="_blank" href="http://localhost:8000/testt">View</a>';
 							html += '<a class="ml-2" href="http://localhost:8000/admin/edit-content/testt">Edit</a>';

@@ -207,9 +207,9 @@ echo Bootstrap::formOpen(array(
 						return markup;
 					},
 					templateResult: function(data) {
-						var html = data.text
+						var html = data.text;
 						if (data.type=="static") {
-							html += " [" + data.type + "]"
+							html += '<span class="badge badge-pill badge-light">'+data.type+'</span>';
 						}
 						return html;
 					}
