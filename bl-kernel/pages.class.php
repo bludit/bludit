@@ -232,11 +232,8 @@ class Pages extends dbJSON {
 		// This variable is not belong to the database so is not defined in $row
 		$newKey = $this->generateKey($slug, $parent, false, $key);
 
-		// If the page is draft then the created date is the current
-		if ($row['type']=='draft') {
-			$row['date'] = Date::current(DB_DATE_FORMAT);
-		} elseif (!Valid::date($row['date'], DB_DATE_FORMAT)) {
-			// if the date in the arguments is not valid, take the value from the old row
+		// if the date in the arguments is not valid, take the value from the old row
+		if (!Valid::date($row['date'], DB_DATE_FORMAT)) {
 			$row['date'] = $this->db[$key]['date'];
 		}
 
