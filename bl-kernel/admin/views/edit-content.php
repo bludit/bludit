@@ -14,12 +14,6 @@ echo Bootstrap::formOpen(array(
 		'value'=>$security->getTokenCSRF()
 	));
 
-	// Parent
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'parent',
-		'value'=>$page->parent()
-	));
-
 	// UUID
 	// The UUID is generated in the controller
 	echo Bootstrap::formInputHidden(array(
@@ -198,19 +192,61 @@ echo Bootstrap::formOpen(array(
 
 				// Parent
 				try {
+					$options = array();
 					$parentKey = $page->parent();
-					$parent = new Page($parentKey);
-					$parentValue = $parent->title();
+					if (!empty($parentKey)) {
+						$parent = new Page($parentKey);
+						$options = array($parentKey=>$parent->title());
+					}
 				} catch (Exception $e) {
-					$parentValue = '';
+					// continue
 				}
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'parentTMP',
+				echo Bootstrap::formSelectBlock(array(
+					'name'=>'parent',
 					'label'=>$L->g('Parent'),
-					'placeholder'=>'',
+					'options'=>$options,
+					'selected'=>false,
+					'class'=>'',
 					'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
-					'value'=>$parentValue
 				));
+
+			?>
+
+			<script>
+			$(document).ready(function() {
+				var parent = $("#jsparent").select2({
+					placeholder: "",
+					allowClear: true,
+					theme: "bootstrap4",
+					minimumInputLength: 2,
+					ajax: {
+						url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+						data: function (params) {
+							var query = {
+								checkIsParent: true,
+								query: params.term
+							}
+							return query;
+						},
+						processResults: function (data) {
+							return data;
+						}
+					},
+					escapeMarkup: function(markup) {
+						return markup;
+					},
+					templateResult: function(data) {
+						var html = data.text
+						if (data.type=="static") {
+							html += " [" + data.type + "]"
+						}
+						return html;
+					}
+				});
+			});
+			</script>
+
+			<?php
 
 				// Template
 				echo Bootstrap::formInputTextBlock(array(

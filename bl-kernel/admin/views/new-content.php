@@ -14,12 +14,6 @@ echo Bootstrap::formOpen(array(
 		'value'=>$security->getTokenCSRF()
 	));
 
-	// Parent
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'parent',
-		'value'=>''
-	));
-
 	// UUID
 	// The UUID is generated in the controller
 	echo Bootstrap::formInputHidden(array(
@@ -178,14 +172,52 @@ echo Bootstrap::formOpen(array(
 				));
 
 				// Parent
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'parentTMP',
+				echo Bootstrap::formSelectBlock(array(
+					'name'=>'parent',
 					'label'=>$L->g('Parent'),
-					'placeholder'=>'',
+					'options'=>array(),
+					'selected'=>false,
+					'class'=>'',
 					'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
-					'value'=>''
 				));
 
+			?>
+
+			<script>
+			$(document).ready(function() {
+				var parent = $("#jsparent").select2({
+					placeholder: "",
+					allowClear: true,
+					theme: "bootstrap4",
+					minimumInputLength: 2,
+					ajax: {
+						url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+						data: function (params) {
+							var query = {
+								checkIsParent: true,
+								query: params.term
+							}
+							return query;
+						},
+						processResults: function (data) {
+							return data;
+						}
+					},
+					escapeMarkup: function(markup) {
+						return markup;
+					},
+					templateResult: function(data) {
+						var html = data.text
+						if (data.type=="static") {
+							html += " [" + data.type + "]"
+						}
+						return html;
+					}
+				});
+			});
+			</script>
+
+			<?php
 				// Template
 				echo Bootstrap::formInputTextBlock(array(
 					'name'=>'template',
@@ -235,33 +267,7 @@ echo Bootstrap::formOpen(array(
 				// Datepicker
 				$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
 
-				// Parent autocomplete
-				var parentsXHR;
-				var parentsList; // Keep the parent list returned to get the key by the title page
-				$("#jsparentTMP").autoComplete({
-					minChars: 1,
-					source: function(term, response) {
-						// Prevent call inmediatly another ajax request
-						try { parentsXHR.abort(); } catch(e){}
-						// Get the list of parent pages by title (term)
-						parentsXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-parents", {query: term},
-							function(data) {
-								parentsList = data;
-								term = term.toLowerCase();
-								var matches = [];
-								for (var title in data) {
-									if (~title.toLowerCase().indexOf(term))
-										matches.push(title);
-								}
-								response(matches);
-						});
-					},
-					onSelect: function(event, term, item) {
-						// parentsList = array( pageTitle => pageKey )
-						var parentKey = parentsList[sanitizeHTML(term)];
-						$("#jsparent").attr("value", parentKey);
-					}
-				});
+
 			});
 			</script>
 		</div>
