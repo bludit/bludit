@@ -107,13 +107,6 @@ class Security extends dbJSON
 
 	public function getUserIp()
 	{
-		if (getenv('HTTP_X_FORWARDED_FOR')) {
-			$ip = getenv('HTTP_X_FORWARDED_FOR');
-		} elseif (getenv('HTTP_CLIENT_IP')) {
-			$ip = getenv('HTTP_CLIENT_IP');
-		} else {
-			$ip = getenv('REMOTE_ADDR');
-		}
-		return $ip;
+		return getenv('REMOTE_ADDR');
 	}
 }
