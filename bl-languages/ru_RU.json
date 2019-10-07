@@ -387,5 +387,9 @@
     "disabled-plugins": "Отключенные плагины",
     "remove-logo": "Удалить логотип",
     "preview": "Предпросмотр",
-    "author-can-write-and-edit-their-own-content": "Автор: Может писать и редактировать собственные записи. Редактор: может писать и редактировать как свои записи, так и других пользователей."
+    "author-can-write-and-edit-their-own-content": "Автор: Может писать и редактировать собственные записи. Редактор: может писать и редактировать как свои записи, так и других пользователей.",
+    "custom-fields": "Custom fields",
+    "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
+    "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
+    "view": "View"
 }

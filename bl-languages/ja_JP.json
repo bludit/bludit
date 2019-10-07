@@ -387,5 +387,9 @@
     "disabled-plugins": "停止中のプラグイン",
     "remove-logo": "ロゴを削除",
     "preview": "プレビュー",
-    "author-can-write-and-edit-their-own-content": "投稿者: コンテンツを書いたり編集できます。編集者: 自分以外のコンテンツも書いたり編集できます。"
+    "author-can-write-and-edit-their-own-content": "投稿者: コンテンツを書いたり編集できます。編集者: 自分以外のコンテンツも書いたり編集できます。",
+    "custom-fields": "Custom fields",
+    "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
+    "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
+    "view": "View"
 }

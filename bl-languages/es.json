@@ -3,7 +3,7 @@
         "native": "Español",
         "english-name": "Spanish",
         "locale": "es, es_ES, es_AR, es_MX",
-        "last-update": "2019-02-28",
+        "last-update": "2019-10-07",
         "authors": [
             "Diego @dignajar"
         ]
@@ -384,5 +384,9 @@
     "disabled-plugins": "Plugins descativados",
     "remove-logo": "Remover logo",
     "preview": "Vista previa",
-    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others."
+    "author-can-write-and-edit-their-own-content": "Autor: Puede escribir y editar su propio contenido. Editor: Puede escribir y editar el contenido de otros.",
+    "custom-fields": "Campos personalizados",
+    "define-custom-fields-for-the-content": "Defina campos personalizados para el contenido. Obtenga más información acerca de los campos personalizados en la <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentación<\/a>.",
+    "start-typing-to-see-a-list-of-suggestions": "Comience a escribir para ver una lista de sugerencias.",
+    "view": "Ver"
 }

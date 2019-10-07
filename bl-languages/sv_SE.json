@@ -1,7 +1,7 @@
 {
     "language-data": {
-		"native": "Svenska (Sverige)",
-		"english-name": "Swedish",
+        "native": "Svenska (Sverige)",
+        "english-name": "Swedish",
         "locale": "sv, sv_SE",
         "last-update": "2019-07-05",
         "authors": [
@@ -139,8 +139,8 @@
     "site-information": "Webbplatsinformation",
     "site-title": "Sidans titel",
     "use-this-field-to-name-your-site": "Använd det här fältet för att namnge din webbplats.",
-    "site-slogan": "Sidans slogan/slagord",
-    "use-this-field-to-add-a-catchy-phrase": "Använd det här fältet för att lägga till en slogan/slagord för din webbplats.",
+    "site-slogan": "Sidans slogan\/slagord",
+    "use-this-field-to-add-a-catchy-phrase": "Använd det här fältet för att lägga till en slogan\/slagord för din webbplats.",
     "site-description": "Webbplatsbeskrivning",
     "you-can-add-a-site-description-to-provide": "Du kan lägga till en webbplatsbeskrivning för att ge en kort biografi eller beskrivning av din webbplats.",
     "footer-text": "Sidfot",
@@ -287,7 +287,7 @@
     "example-page-2-content": "Uppdatera inställningarna för din sajt via <a href=\".\/admin\/\">Administrationspanelen<\/a>. Du kan ändra titel, beskrivning och länka olika sociala nätverk från <a href=\".\/admin\/settings\">Inställningar > Allmänna<\/a>.",
     "example-page-3-slug": "folj-bludit",
     "example-page-3-title": "Följ Bludit",
-    "example-page-3-content": "Få information gällande nyheter, nya versioner, nya teman och/eller insticksprogram på våra sociala nätverk <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> och <a href=\"https:\/\/www.youtube.com\/c\/Bluditcms\" target=\"_blank\">YouTube<\/a> eller besök vår egen <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blogg<\/a>.",
+    "example-page-3-content": "Få information gällande nyheter, nya versioner, nya teman och\/eller insticksprogram på våra sociala nätverk <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> och <a href=\"https:\/\/www.youtube.com\/c\/Bluditcms\" target=\"_blank\">YouTube<\/a> eller besök vår egen <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blogg<\/a>.",
     "example-page-4-slug": "om",
     "example-page-4-title": "Om",
     "example-page-4-content": "Din Om-sida är vanligtvis en av de mest besökta sidorna en förstagångsbesökare kikar in på, så se till att den är enkel, kort och koncis, med namn, vem du är, hur man kommer i kontakt md dig samt ev. en liten story etc.",
@@ -387,5 +387,9 @@
     "disabled-plugins": "Inaktiverade insticksprogram",
     "remove-logo": "Ta bort logotyp",
     "preview": "Förhandsvisning",
-    "author-can-write-and-edit-their-own-content": "Upphovsperson: Kan skriva och redigera sitt eget innehåll. Redaktör: Kan skriva och redigera andras innehåll."
+    "author-can-write-and-edit-their-own-content": "Upphovsperson: Kan skriva och redigera sitt eget innehåll. Redaktör: Kan skriva och redigera andras innehåll.",
+    "custom-fields": "Custom fields",
+    "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
+    "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
+    "view": "View"
 }
