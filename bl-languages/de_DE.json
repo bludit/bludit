@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2018-05-30",
+        "last-update": "2018-10-06",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -388,5 +388,7 @@
     "disabled-plugins": "Deaktivierte Plugins",
     "remove-logo": "Logo entfernen",
     "preview": "Vorschau",
-    "author-can-write-and-edit-their-own-content": "Autor: Kann Inhalte erstellen und bearbeiten. Editor: Kann Inhalte erstellen und eigene sowie fremde Inhalte bearbeiten."
+    "author-can-write-and-edit-their-own-content": "Autor: Kann Inhalte erstellen und bearbeiten. Editor: Kann Inhalte erstellen und eigene sowie fremde Inhalte bearbeiten.",
+    "start-typing-to-see-a-list-of-suggestions": "Beginne mit dem Tippen für eine Liste mit Vorschlägen.",
+    "view": "Anschauen"    
 }
