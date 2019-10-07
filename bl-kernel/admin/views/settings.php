@@ -33,7 +33,7 @@
 ?>
 
 	<!-- General tab -->
-	<div class="tab-pane show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+	<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
 
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
@@ -77,7 +77,7 @@
 	</div>
 
 	<!-- Advanced tab -->
-	<div class="tab-pane" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+	<div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Content')));
 
@@ -279,7 +279,7 @@
 	</div>
 
 	<!-- SEO tab -->
-	<div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+	<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
 
@@ -337,7 +337,7 @@
 	</div>
 
 	<!-- Social Network tab -->
-	<div class="tab-pane" id="social" role="tabpanel" aria-labelledby="social-tab">
+	<div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
 	<?php
 		echo Bootstrap::formInputText(array(
 			'name'=>'twitter',
@@ -423,7 +423,7 @@
 	</div>
 
 	<!-- Images tab -->
-	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+	<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
 
@@ -457,7 +457,7 @@
 	</div>
 
 	<!-- Timezone and language tab -->
-	<div class="tab-pane" id="language" role="tabpanel" aria-labelledby="language-tab">
+	<div class="tab-pane fade" id="language" role="tabpanel" aria-labelledby="language-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Language and timezone')));
 
@@ -502,7 +502,7 @@
 	</div>
 
 	<!-- Custom fields -->
-	<div class="tab-pane" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+	<div class="tab-pane fade" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Custom fields')));
 
@@ -519,7 +519,7 @@
 	</div>
 
 	<!-- Site logo tab -->
-	<div class="tab-pane" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+	<div class="tab-pane fade" id="logo" role="tabpanel" aria-labelledby="logo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
 	?>
@@ -577,7 +577,7 @@
 		var activeTab = window.localStorage.getItem('activeTab');
 		if (activeTab) {
 			$('#nav-tab a[href="' + activeTab + '"]').tab('show');
-			window.localStorage.removeItem("activeTab");
+			//window.localStorage.removeItem("activeTab");
 		}
 	});
 </script>
