@@ -2,7 +2,9 @@
 
 class Sanitize {
 
-	// new
+	public static function removeTags($text) {
+		return strip_tags($text);
+	}
 
 	// Convert special characters to HTML entities
 	public static function html($text)

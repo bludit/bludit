@@ -69,8 +69,11 @@ class Users extends dbJSON {
 		$row = array();
 		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
+				$finalValue = $args[$field];
+				// Remove HTML and PHP tags
+				$finalValue = Sanitize::removeTags($finalValue);
 				// Sanitize if will be stored on database
-				$finalValue = Sanitize::html($args[$field]);
+				$finalValue = Sanitize::html($finalValue);
 			} else {
 				// Default value for the field if not defined
 				$finalValue = $value;
@@ -100,8 +103,11 @@ class Users extends dbJSON {
 		foreach ($this->dbFields as $field=>$value) {
 			if ($field!=='password') {
 				if (isset($args[$field])) {
+					$finalValue = $args[$field];
+					// Remove HTML and PHP tags
+					$finalValue = Sanitize::removeTags($finalValue);
 					// Sanitize if will be stored on database
-					$finalValue = Sanitize::html($args[$field]);
+					$finalValue = Sanitize::html($finalValue);
 				} else {
 					// Default value is the current one
 					$finalValue = $row[$field];

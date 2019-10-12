@@ -80,9 +80,9 @@ class dbList extends dbJSON
 	{
 		$key = $this->generateKey($args['name']);
 
-		$this->db[$key]['name'] 	= $args['name'];
-		$this->db[$key]['template'] 	= isset($args['template'])?$args['template']:'';
-		$this->db[$key]['description'] 	= isset($args['description'])?$args['description']:'';
+		$this->db[$key]['name'] 	= Sanitize::removeTags($args['name']);
+		$this->db[$key]['template'] 	= isset($args['template'])?Sanitize::removeTags($args['template']):'';
+		$this->db[$key]['description'] 	= isset($args['description'])?Sanitize::removeTags($args['description']):'';
 		$this->db[$key]['list'] 	= isset($args['list'])?$args['list']:array();
 
 		$this->sortAlphanumeric();
@@ -110,9 +110,9 @@ class dbList extends dbJSON
 			return false;
 		}
 
-		$this->db[$args['newKey']]['name'] 	= $args['name'];
-		$this->db[$args['newKey']]['template'] 	= isset($args['template'])?$args['template']:'';
-		$this->db[$args['newKey']]['description'] = isset($args['description'])?$args['description']:'';
+		$this->db[$args['newKey']]['name'] 	= Sanitize::removeTags($args['name']);
+		$this->db[$args['newKey']]['template'] 	= isset($args['template'])?Sanitize::removeTags($args['template']):'';
+		$this->db[$args['newKey']]['description'] = isset($args['description'])?Sanitize::removeTags($args['description']):'';
 		$this->db[$args['newKey']]['list'] 	= $this->db[$args['oldKey']]['list'];
 
 		// Remove the old category
