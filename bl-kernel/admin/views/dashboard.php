@@ -66,8 +66,8 @@
 							html += '<div class="search-suggestion">';
 							html += '<div class="search-suggestion-item">'+data.text+' <span class="badge badge-pill badge-light">'+data.type+'</span></div>';
 							html += '<div class="search-suggestion-options">';
-							html += '<a target="_blank" href="http://localhost:8000/testt">View</a>';
-							html += '<a class="ml-2" href="http://localhost:8000/admin/edit-content/testt">Edit</a>';
+							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'">View</a>';
+							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'">Edit</a>';
 							html += '</div></div>';
 						}
 
