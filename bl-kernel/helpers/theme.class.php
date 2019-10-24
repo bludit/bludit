@@ -234,7 +234,7 @@ class Theme {
 
 	public static function favicon($file='favicon.png', $typeIcon='image/png')
 	{
-		return '<link rel="shortcut icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
+		return '<link rel="icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
 
 	public static function keywords($keywords)
