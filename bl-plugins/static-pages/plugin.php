@@ -68,7 +68,11 @@ class pluginStaticPages extends Plugin {
 		// Show static pages
 		$staticPages = buildStaticPages();
 		foreach ($staticPages as $page) {
-			$html .= '<li>';
+			if ($page->isParent()) {
+				$html .= '<li class="parent">';
+			} else {
+				$html .= '<li class="subpage" style="margin-left: 10px">';
+			}
 			$html .= '<a href="' . $page->permalink() . '">' . $page->title() . '</a>';
 			$html .= '</li>';
 		}
