@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "TinyMCE",
-		"description": "HTML形式のコンテンツエディターです。Markdownを使用したくないユーザーに推奨します。"
+		"description": "HTML Editor for formatting content. Recommended for the users who don't want to work with Markdown code."
 	}
 }

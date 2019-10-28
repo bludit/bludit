@@ -2,10 +2,10 @@
 	"plugin-data":
 	{
 		"name": "Remote Content",
-		"description": "サイトのコンテンツを簡単にGithubやそれに似たサービスと同期できます。"
+		"description": "This plugin provides an easy way to have the content of your site on Github or similar and in turn is synchronized with your Bludit."
 	},
-	"webhook": "Webフック",
+	"webhook": "Webhook",
 	"source": "ソース",
-	"try-webhook": "Webフックをテスト",
-	"complete-url-of-the-zip-file": "ZIPファイルの完全なURL"
+	"try-webhook": "Try webhook",
+	"complete-url-of-the-zip-file": "Complete URL of the zip file."
 }

@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Canonical",
-		"description": "カノニカル(正規化)URLは、検索エンジンにURLが同じコンテンツであることを通知できます。"
+		"description": "カノニカル（正規化）URLを使用すると、検索エンジンに、どのURLのコンテンツが同一コンテンツであるかを通知できます。"
 	}
 }

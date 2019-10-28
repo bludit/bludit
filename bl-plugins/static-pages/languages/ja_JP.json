@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Static Pages",
-		"description": "固定ページのナビゲーションメニューを表示します。"
+		"description": "Navigation menu with static pages."
 	},
 	"home-link": "ホームリンク",
 	"show-the-home-link-on-the-sidebar": "サイドバーにホームリンクを表示する"

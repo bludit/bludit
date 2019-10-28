@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Categories",
-		"description": "サイドバーにすべてのカテゴリーを表示します。"
+		"description": "サイドバーにすべてのカテゴリを表示します。"
 	},
-	"hide-categories-without-content": "コンテンツのないカテゴリーを非表示にする"
+	"hide-categories-without-content": "コンテンツのないカテゴリを非表示にする"
 }

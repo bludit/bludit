@@ -2,11 +2,11 @@
 	"plugin-data":
 	{
 		"name": "Simple Stats",
-		"description": "ダッシュボードに1日の訪問者数を表示します。"
+		"description": "Show the number of visitors per day on your dashboard."
 	},
-	"visits": "訪問者数",
-	"visits-today": "本日の訪問者数",
-	"unique-visitors-today": "本日のユニーク訪問者数",
-	"chart": "グラフ",
+	"visits": "Visits",
+	"visits-today": "Visits today",
+	"unique-visitors-today": "Unique visitors today",
+	"chart": "Chart",
 	"table": "テーブル"
 }

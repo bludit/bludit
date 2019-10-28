@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Version",
-		"description": "管理パネルのサイドバーに現在のバージョンを表示し、定期的にBluditの新しいリリースをチェックします。"
+		"name": "バージョン",
+		"description": "Show the current version on the sidebar of the admin panel, and check periodically for new Bludit releases."
 	}
 }

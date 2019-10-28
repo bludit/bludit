@@ -1,7 +1,7 @@
 {
 	"plugin-data":
 	{
-		"name": "Tags list",
-		"description": "サイドバーにすべてのタグを表示します。"
+		"name": "タグリスト",
+		"description": "Shows all tags on the sidebar."
 	}
 }

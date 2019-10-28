@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "EasyMDE",
-		"description": "Markdownエディター。スッキリとしたインターフェースからマークアップ言語が書けます。"
+		"description": "Markdownエディター。マークアップ言語がスッキリとしたインターフェースで書けます。"
 	},
 	"toolbar": "ツールバー",
 	"tab-size": "タブ幅",

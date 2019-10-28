@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Backup",
-		"description": "手軽にBluditのバックアップを取ります。"
+		"description": "Bluditを簡単にバックアップします。"
 	},
 	"create-backup": "バックアップを作成",
 	"download": "ダウンロード",
