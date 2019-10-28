@@ -1,7 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "バージョン",
-		"description": "Show the current version on the sidebar of the admin panel, and check periodically for new Bludit releases."
-	}
-}

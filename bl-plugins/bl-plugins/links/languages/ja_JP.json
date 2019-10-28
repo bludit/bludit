@@ -1,8 +1,0 @@
-{
-	"plugin-data":
-	{
-		"name": "Links",
-		"description": "サイドバーにリンクを表示します。これらのリンクは設定から変更できます。"
-	},
-	"add-a-new-link": "新規リンクを追加"
-}
