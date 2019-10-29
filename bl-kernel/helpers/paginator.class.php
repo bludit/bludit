@@ -109,14 +109,14 @@ class Paginator {
 		$html  = '<div id="paginator">';
 		$html .= '<ul>';
 
-		if(self::get('showNext'))
+		if(self::get('showPrev'))
 		{
 			if($textPrevPage===false) {
 				$textPrevPage = '« '.$L->g('Previous page');
 			}
 
 			$html .= '<li class="left">';
-			$html .= '<a href="'.self::nextPageUrl().'">'.$textPrevPage.'</a>';
+			$html .= '<a href="'.self::previousPrevUrl().'">'.$textPrevPage.'</a>';
 			$html .= '</li>';
 		}
 
@@ -124,14 +124,14 @@ class Paginator {
 			$html .= '<li class="list">'.(self::get('currentPage')+1).' / '.(self::get('numberOfPages')+1).'</li>';
 		}
 
-		if(self::get('showPrev'))
+		if(self::get('showNext'))
 		{
 			if($textNextPage===false) {
 				$textNextPage = $L->g('Next page').' »';
 			}
 
 			$html .= '<li class="right">';
-			$html .= '<a href="'.self::previousPageUrl().'">'.$textNextPage.'</a>';
+			$html .= '<a href="'.self::nextPageUrl().'">'.$textNextPage.'</a>';
 			$html .= '</li>';
 		}
 
