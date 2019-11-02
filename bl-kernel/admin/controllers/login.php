@@ -26,6 +26,9 @@ function checkLogin($args)
 		// Renew the token. This token will be the same inside the session for multiple forms.
 		$security->generateTokenCSRF();
 
+		if (isset($_GET['enableAPI'])) {
+			Redirect::page('api');
+		}
 		Redirect::page('dashboard');
 		return true;
 	}
