@@ -10,7 +10,7 @@ function getLatestVersion() {
 		success: function(json) {
 			// Constant BLUDIT_BUILD is defined on variables.js
 			if (json.stable.build > BLUDIT_BUILD) {
-				$("#current-version").hide();
+				//$("#current-version").hide(); //Uncomment if you want to hide the current version when a new version is available, but this is unhelpful.
 				$("#new-version").show();
 			}
 		},
