@@ -399,6 +399,11 @@ echo Bootstrap::formOpen(array(
 	</div>
 </div>
 
+<!-- Title -->
+<div class="form-group mb-1">
+	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="<?php echo $page->title() ?>" placeholder="<?php $L->p('Enter title') ?>">
+</div>
+
 <!-- Custom fields: TOP -->
 <?php
 	$customFields = $site->customFields();
@@ -429,11 +434,6 @@ echo Bootstrap::formOpen(array(
 		}
 	}
 ?>
-
-<!-- Title -->
-<div class="form-group mb-1">
-	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="<?php echo $page->title() ?>" placeholder="<?php $L->p('Enter title') ?>">
-</div>
 
 <!-- Editor -->
 <textarea id="jseditor" class="editable h-100" style=""><?php echo $page->contentRaw(true) ?></textarea>
