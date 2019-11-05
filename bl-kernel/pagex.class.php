@@ -273,6 +273,7 @@ class Page {
 		$tmp['dateRaw'] 	= $this->dateRaw();
 		$tmp['tags'] 		= $this->tags(false);
 		$tmp['username'] 	= $this->username();
+		$tmp['category'] 	= $this->category();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);
