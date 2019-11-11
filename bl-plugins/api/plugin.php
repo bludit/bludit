@@ -121,6 +121,11 @@ class pluginAPI extends Plugin {
 			}
 		}
 
+		// Clean inputs
+		// ------------------------------------------------------------
+		unset($inputs['token']);
+		unset($inputs['authentication']);
+
 		// ENDPOINTS
 		// ------------------------------------------------------------
 
@@ -146,6 +151,10 @@ class pluginAPI extends Plugin {
 		// (POST) /api/pages
 		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createPage($inputs);
+		}
+		// (GET) /api/settings
+		elseif ( ($method==='GET') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->getSettings();
 		}
 		// (PUT) /api/settings
 		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
@@ -506,6 +515,23 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'Image extension not allowed.'
+		);
+	}
+
+	/*
+	 | Get the settings
+	 |
+	 | @args	array
+	 |
+	 | @return	array
+         */
+	private function getSettings()
+	{
+		global $site;
+		return array(
+			'status'=>'0',
+			'message'=>'Settings.',
+			'data'=>$site->get()
 		);
 	}
 
