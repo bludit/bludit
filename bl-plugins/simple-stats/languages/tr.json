@@ -8,5 +8,6 @@
 	"visits-today": "Bugün yapılan ziyaretler",
 	"unique-visitors-today": "Bugün yapılan benzersiz ziyaretler",
 	"chart": "Grafik",
-	"table": "Tablo"
+	"table": "Tablo",
+	"disk-usage" : "Disk Usage"
 }

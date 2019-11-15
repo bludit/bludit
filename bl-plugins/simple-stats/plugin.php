@@ -220,6 +220,11 @@ EOF;
 
 	public function renderContentStatistics($data)
 	{
+		global $L;
+		$diskUsage = Filesystem::bytesToHumanFileSize(
+			Filesystem::getSize(PATH_ROOT)
+		);
+
 		$html = '<div class="my-5 pt-4 border-top">';
 		$html .= "<h4 class='pb-2'>{$data['title']}</h4>";
 		$html .= '
@@ -237,6 +242,7 @@ EOF;
 			<table class="table table-borderless table-sm table-striped mt-3">
 			  <tbody>';
 
+		$html .= "<tr><th>{$L->get('disk-usage')}</th><td>$diskUsage</td></tr>";
 		foreach ($data['data'] as $th => $td) {
 			$html .= "
 				<tr>
