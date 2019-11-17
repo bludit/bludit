@@ -8,5 +8,6 @@
 	"visits-today": "Visite oggi",
 	"unique-visitors-today": "Visitatori unici oggi",
 	"chart": "Grafico",
-	"table": "Tabella"
+	"table": "Tabella",
+	"disk-usage" : "Disk Usage"
 }

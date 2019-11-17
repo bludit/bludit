@@ -8,5 +8,6 @@
 	"visits-today": "Aantal bezoeken vandaag",
 	"unique-visitors-today": "Unieke bezoekers vandaag",
 	"chart": "Grafiek",
-	"table": "Tabel"
+	"table": "Tabel",
+	"disk-usage" : "Disk Usage"
 }

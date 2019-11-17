@@ -8,5 +8,6 @@
 	"visits-today": "Visits today",
 	"unique-visitors-today": "Unique visitors today",
 	"chart": "Chart",
-	"table": "テーブル"
+	"table": "テーブル",
+	"disk-usage" : "Disk Usage"
 }
