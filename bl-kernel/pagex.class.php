@@ -122,9 +122,14 @@ class Page {
 	}
 
 	// Returns the date according to locale settings and format settings
-	public function dateModified()
+	public function dateModified($format=false)
 	{
-		return $this->getValue('dateModified');
+		$dateRaw = $this->getValue('dateModified');
+		if ($format===false) {
+			global $site;
+			$format = $site->dateFormat();
+		}
+		return Date::format($dateRaw, DB_DATE_FORMAT, $format);
 	}
 
 	// Returns the username who created the page
