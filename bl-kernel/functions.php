@@ -251,6 +251,24 @@ function deactivatePlugin($pluginClassName) {
 	return false;
 }
 
+function deactivateAllPlugin() {
+	global $plugins;
+	global $syslog;
+	global $L;
+
+	// Check if the plugin exists
+	foreach ($plugins['all'] as $plugin) {
+		if ($plugin->uninstall()) {
+			// Add to syslog
+			$syslog->add(array(
+				'dictionaryKey'=>'plugin-deactivated',
+				'notes'=>$plugin->name()
+			));
+		}
+	}
+	return false;
+}
+
 function changePluginsPosition($pluginClassList) {
 	global $plugins;
 	global $syslog;
