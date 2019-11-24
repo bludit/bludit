@@ -333,7 +333,7 @@
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "暱稱通常會被佈景主題用來顯示文章的作者",
     "allow-unicode": "允許Unicode",
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "允許在網址和系統的某些部份使用Unicode字符",
-    "variables-allowed": "Variables allowed",
+    "variables-allowed": "可用的變數",
     "tag": "標籤",
     "drag-and-drop-to-sort-the-plugins": "拖放來排序延伸模組",
     "seo": "SEO",
