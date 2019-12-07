@@ -66,8 +66,8 @@
 							html += '<div class="search-suggestion">';
 							html += '<div class="search-suggestion-item">'+data.text+' <span class="badge badge-pill badge-light">'+data.type+'</span></div>';
 							html += '<div class="search-suggestion-options">';
-							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'">View</a>';
-							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'">Edit</a>';
+							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'"><?php $L->p('view') ?></a>';
+							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'"><?php $L->p('edit') ?></a>';
 							html += '</div></div>';
 						}
 
