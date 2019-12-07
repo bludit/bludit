@@ -268,6 +268,15 @@
 			'placeholder'=>'',
 			'tip'=>''
 		));
+
+		echo Bootstrap::formInputText(array(
+			'name'=>'vk',
+			'label'=>'VK',
+			'value'=>$user->vk(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
 	?>
 	</div>
 </div>
