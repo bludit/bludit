@@ -13,7 +13,8 @@ class Theme {
 			'instagram'=>'Instagram',
 			'codepen'=>'Codepen',
 			'linkedin'=>'Linkedin',
-			'mastodon'=>'Mastodon'
+			'mastodon'=>'Mastodon',
+			'vk'=>'VK'
 		);
 
 		foreach ($socialNetworks as $key=>$label) {

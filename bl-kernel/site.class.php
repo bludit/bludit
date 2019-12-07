@@ -32,6 +32,7 @@ class Site extends dbJSON {
 		'linkedin'=>		'',
 		'mastodon'=>		'',
 		'dribbble'=>		'',
+		'vk'=>			'',
 		'orderBy'=>		'date', // date or position
 		'extremeFriendly'=>	true,
 		'autosaveInterval'=>	2, // minutes
@@ -190,6 +191,11 @@ class Site extends dbJSON {
 	public function dribbble()
 	{
 		return $this->getField('dribbble');
+	}
+
+	public function vk()
+	{
+		return $this->getField('vk');
 	}
 
 	public function orderBy()
