@@ -116,7 +116,7 @@ EOF;
 			global $url;
 
 			// Change the whereAmI to avoid load pages in the rule 69.pages
-			// This is only for performance propose
+			// This is only for performance purpose
 			$url->setWhereAmI('search');
 
 			// Get the string to search from the URL
@@ -125,7 +125,6 @@ EOF;
 
 			// Search the string in the cache and get all pages with matches
 			$list = $this->search($stringToSearch);
-
 			$this->numberOfItems = count($list);
 
 			// Split the content in pages
@@ -220,7 +219,7 @@ EOF;
 		// Inlcude Fuzz algorithm
 		require_once($this->phpPath().'vendors/fuzz.php');
 		$fuzz = new Fuzz($cache, 10, 1, true);
-		$results = $fuzz->search($text, 3);
+		$results = $fuzz->search($text, 5);
 
 		return(array_keys($results));
 	}
