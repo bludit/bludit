@@ -62,8 +62,8 @@ Bludit is open soruce and free, but if you really like the project and is useful
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
-- <a href="https://www.patreon.com/user/creators?u=3969453" target="_blank">Martin Cajzer</a>
 - <a href="https://www.patreon.com/user/creators?u=12261033" target="_blank">Jan Rippl</a>
+- <a href="https://www.patreon.com/user/creators?u=28428918" target="_blank">Curious Activity</a>
 
 License
 -------
