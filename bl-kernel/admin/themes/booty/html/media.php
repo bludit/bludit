@@ -51,13 +51,7 @@ $numberOfPages = count($listOfFilesByPage);
 		</table>
 
 		<!-- Paginator -->
-		<nav>
-			<ul class="pagination justify-content-center flex-wrap">
-				<?php for ($i=1; $i<=$numberOfPages; $i++): ?>
-				<li class="page-item"><button type="button" class="btn btn-link page-link" onClick="getFiles(<?php echo $i ?>)"><?php echo $i ?></button></li>
-				<?php endfor; ?>
-			</ul>
-		</nav>
+		<nav id="jsbluditMediaTablePagination"></nav>
 
 	</div>
 </div>
@@ -94,7 +88,7 @@ function hideMediaAlert() {
 }
 
 // Show the files in the table
-function displayFiles(files) {
+function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 	if (!Array.isArray(files)) {
 		return false;
 	}
@@ -121,10 +115,19 @@ function displayFiles(files) {
 				'<\/tr>';
 			$('#jsbluditMediaTable').append(tableRow);
 		});
+
+		mediaPagination = '<ul class="pagination justify-content-center flex-wrap">';
+		for (var i = 1; i <= numberOfPages; i++) {
+			mediaPagination += '<li class="page-item"><button type="button" class="btn btn-link page-link" onClick="getFiles('+i+')">'+i+'</button></li>';
+		}
+		mediaPagination += '</ul>';
+		$('#jsbluditMediaTablePagination').html(mediaPagination);
+
 	}
 
 	if (files.length == 0) {
 		$('#jsbluditMediaTable').html("<p><?php (IMAGE_RESTRICT ? $L->p('There are no images for the page') : $L->p('There are no images')) ?></p>");
+		$('#jsbluditMediaTablePagination').html('');
 	}
 }
 
@@ -138,7 +141,7 @@ function getFiles(pageNumber) {
 		},
 		function(data) { // success function
 			if (data.status==0) {
-				displayFiles(data.files);
+				displayFiles(data.files, data.numberOfPages);
 			} else {
 				console.log(data.message);
 			}
