@@ -509,6 +509,8 @@ function createUser($args) {
 	global $L;
 	global $syslog;
 
+	$args['new_username'] = Text::removeSpecialCharacters($args['new_username']);
+
 	// Check empty username
 	if (Text::isEmpty($args['new_username'])) {
 		Alert::set($L->g('username-field-is-empty'), ALERT_STATUS_FAIL);
@@ -535,7 +537,7 @@ function createUser($args) {
 
 	// Filter form fields
 	$tmp = array();
-	$tmp['username'] = Text::removeSpecialCharacters($args['new_username']);
+	$tmp['username'] = $args['new_username'];
 	$tmp['password'] = $args['new_password'];
 	$tmp['role']	 = $args['role'];
 	$tmp['email']	 = $args['email'];
