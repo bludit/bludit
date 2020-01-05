@@ -122,9 +122,14 @@ class Page {
 	}
 
 	// Returns the date according to locale settings and format settings
-	public function dateModified()
+	public function dateModified($format=false)
 	{
-		return $this->getValue('dateModified');
+		$dateRaw = $this->getValue('dateModified');
+		if ($format===false) {
+			global $site;
+			$format = $site->dateFormat();
+		}
+		return Date::format($dateRaw, DB_DATE_FORMAT, $format);
 	}
 
 	// Returns the username who created the page
@@ -273,6 +278,7 @@ class Page {
 		$tmp['dateRaw'] 	= $this->dateRaw();
 		$tmp['tags'] 		= $this->tags(false);
 		$tmp['username'] 	= $this->username();
+		$tmp['category'] 	= $this->category();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);

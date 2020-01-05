@@ -125,8 +125,8 @@ class Fuzz
     {
         $suffix = [];
         $result = 0;
-        $n = strlen($source);
-        $m = strlen($target);
+        $n = mb_strlen($source, CHARSET);
+        $m = mb_strlen($target, CHARSET);
 
         for ($i = 0; $i <= $n; $i++) {
             for ($j = 0; $j <= $m; $j++) {
@@ -155,8 +155,8 @@ class Fuzz
     public function getLevenshtein($source, $target)
     {
         $matrix = [];
-        $n = strlen($source);
-        $m = strlen($target);
+        $n = mb_strlen($source, CHARSET);
+        $m = mb_strlen($target, CHARSET);
 
         if ($n === 0) {
             return $m;
@@ -208,35 +208,35 @@ class Fuzz
         $shorter;
         $longer;
 
-        if (strlen($first) > strlen($second)) {
-            $longer = strtolower($first);
-            $shorter = strtolower($second);
+        if (mb_strlen($first, CHARSET) > mb_strlen($second, CHARSET)) {
+            $longer = mb_strtolower($first, CHARSET);
+            $shorter = mb_strtolower($second, CHARSET);
         } else {
-            $longer = strtolower($second);
-            $shorter = strtolower($first);
+            $longer = mb_strtolower($second, CHARSET);
+            $shorter = mb_strtolower($first, CHARSET);
         }
 
         // Get half the length distance of shorter string
-        $halfLen = intval((strlen($shorter) / 2) + 1);
+        $halfLen = intval((mb_strlen($shorter,CHARSET) / 2) + 1);
 
         $match1 = $this->_getCharMatch($shorter, $longer, $halfLen);
         $match2 = $this->_getCharMatch($longer, $shorter, $halfLen);
 
-        if ((strlen($match1) == 0 || strlen($match2) == 0)
-            || (strlen($match1) != strlen($match2))
+        if ((mb_strlen($match1, CHARSET) == 0 || mb_strlen($match2, CHARSET) == 0)
+            || (mb_strlen($match1, CHARSET) != mb_strlen($match2, CHARSET))
         ) {
             return 0.0;
         }
 
         $trans = $this->_getTranspositions($match1, $match2);
 
-        $distance = (strlen($match1) / strlen($shorter)
-            + strlen($match2) / strlen($longer)
-            + (strlen($match1) - $trans)
-            / strlen($match1)) / 3.0;
+        $distance = (mb_strlen($match1, CHARSET) / mb_strlen($shorter, CHARSET)
+            + mb_strlen($match2, CHARSET) / mb_strlen($longer, CHARSET)
+            + (mb_strlen($match1, CHARSET) - $trans)
+            / mb_strlen($match1, CHARSET)) / 3.0;
 
         // Apply Winkler Adjustment
-        $prefixLen = min(strlen($this->_getPrefix($first, $second)), 4);
+        $prefixLen = min(mb_strlen($this->_getPrefix($first, $second),CHARSET), 4);
         $jaroWinkler = round(($distance + (0.1 * $prefixLen * (1.0 - $distance))) * 100.0) / 100.0;
 
         return $jaroWinkler;
@@ -255,8 +255,8 @@ class Fuzz
     {
         $common = '';
         $copy = $second;
-        $firstLen = strlen($first);
-        $secondLen = strlen($second);
+        $firstLen = mb_strlen($first, CHARSET);
+        $secondLen = mb_strlen($second, CHARSET);
 
         for ($i = 0; $i < $firstLen; $i++) {
             $char = $first[$i];
@@ -285,7 +285,7 @@ class Fuzz
     private function _getTranspositions($first, $second)
     {
         $trans = 0;
-        $firstLen = strlen($first);
+        $firstLen = mb_strlen($first, CHARSET);
 
         for ($i = 0; $i < $firstLen; $i++) {
             if ($first[$i] != $second[$i]) {
@@ -307,7 +307,7 @@ class Fuzz
      */
     private function _getPrefix($first, $second)
     {
-        if (strlen($first) == 0 || strlen($second) == 0) {
+        if (mb_strlen($first, CHARSET) == 0 || mb_strlen($second, CHARSET) == 0) {
             return '';
         }
 
@@ -317,7 +317,7 @@ class Fuzz
         } elseif ($index == 0) {
             return '';
         } else {
-            return substr($first, 0, $index);
+            return mb_substr($first, 0, $index, CHARSET);
         }
     }
 
@@ -335,7 +335,7 @@ class Fuzz
             return -1;
         }
 
-        $maxLen = min(strlen($first), strlen($second));
+        $maxLen = min(mb_strlen($first, CHARSET), mb_strlen($second, CHARSET));
         for ($i = 0; $i < $maxLen; $i++) {
             if ($first[$i] != $second[$i]) {
                 return $i;

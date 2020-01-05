@@ -145,6 +145,11 @@ class User {
 		return $this->getValue('mastodon');
 	}
 
+	public function vk()
+	{
+		return $this->getValue('vk');
+	}
+
 	public function profilePicture()
 	{
 		$filename = $this->getValue('username').'.png';
@@ -169,6 +174,7 @@ class User {
 		$tmp['gitlab'] 		= $this->gitlab();
 		$tmp['linkedin'] 	= $this->linkedin();
 		$tmp['mastodon']	= $this->mastodon();
+		$tmp['vk']		= $this->vk();
 		$tmp['profilePicture']	= $this->profilePicture();
 
 		if ($returnsArray) {

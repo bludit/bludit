@@ -36,8 +36,13 @@ class pluginBackup extends Plugin {
 
 	public function adminSidebar()
 	{
-		$backups = $this->backupList();
-		return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backups <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
+		global $login;
+		if ($login->role() === 'admin') {
+			$backups = $this->backupList();
+			return '<a class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'configure-plugin/'.$this->className().'">Backups <span class="badge badge-primary badge-pill">'.count($backups).'</span></a>';
+		} else {
+			return '';
+		}
 	}
 
 	public function form()
@@ -66,7 +71,7 @@ class pluginBackup extends Plugin {
 			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_CONTENT.'workspaces/backup/'.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
+				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
 			}
 			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-outline-secondary btn-sm mr-1 mt-1" type="submit"><span class="fa fa-rotate-left"></span> '.$L->get('restore-backup').'</button>';
 			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-outline-danger btn-sm mr-1 mt-1" type="submit"><span class="fa fa-trash"></span> '.$L->get('delete-backup').'</button>';
@@ -74,6 +79,29 @@ class pluginBackup extends Plugin {
 			$html .= '<hr>';
 		}
 		return $html;
+	}
+
+	/**
+	 * Downloading Backups is not allowed by default server config
+	 * This webhook is to allow downloads for admins
+	 * Webhook: plugin-backup-download?file={backup-name.zip}
+	 */
+	public function beforeAll()
+	{
+		global $L;
+		$webhook = 'plugin-backup-download';
+		if ($this->webhook($webhook)) {
+			if (!empty($_GET['file'])) {
+				$login = new Login();
+				if ($login->role() === 'admin') {
+					downloadRestrictedFile(PATH_WORKSPACES.'backup/'.$_GET['file']);
+				} else {
+					Alert::set($L->g('You do not have sufficient permissions'));
+					Redirect::page('dashboard');
+				}
+			}
+			exit(0);
+		}
 	}
 
 	public function backupList()

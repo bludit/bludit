@@ -251,6 +251,24 @@ function deactivatePlugin($pluginClassName) {
 	return false;
 }
 
+function deactivateAllPlugin() {
+	global $plugins;
+	global $syslog;
+	global $L;
+
+	// Check if the plugin exists
+	foreach ($plugins['all'] as $plugin) {
+		if ($plugin->uninstall()) {
+			// Add to syslog
+			$syslog->add(array(
+				'dictionaryKey'=>'plugin-deactivated',
+				'notes'=>$plugin->name()
+			));
+		}
+	}
+	return false;
+}
+
 function changePluginsPosition($pluginClassList) {
 	global $plugins;
 	global $syslog;
@@ -491,6 +509,8 @@ function createUser($args) {
 	global $L;
 	global $syslog;
 
+	$args['new_username'] = Text::removeSpecialCharacters($args['new_username']);
+
 	// Check empty username
 	if (Text::isEmpty($args['new_username'])) {
 		Alert::set($L->g('username-field-is-empty'), ALERT_STATUS_FAIL);
@@ -517,7 +537,7 @@ function createUser($args) {
 
 	// Filter form fields
 	$tmp = array();
-	$tmp['username'] = Text::removeSpecialCharacters($args['new_username']);
+	$tmp['username'] = $args['new_username'];
 	$tmp['password'] = $args['new_password'];
 	$tmp['role']	 = $args['role'];
 	$tmp['email']	 = $args['email'];
@@ -872,4 +892,18 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 	}
 
 	return $image;
+}
+
+function downloadRestrictedFile($file) {
+	if (is_file($file)) {
+	    header('Content-Description: File Transfer');
+	    header('Content-Type: application/octet-stream');
+	    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+	    header('Expires: 0');
+	    header('Cache-Control: must-revalidate');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($file));
+	    readfile($file);
+	    exit(0);
+	}
 }
