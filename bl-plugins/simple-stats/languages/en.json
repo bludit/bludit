@@ -11,5 +11,5 @@
 	"table": "Table",
 	"disk-usage" : "Disk Usage",
 	"show-content-stats" : "Show Content Stats",
-	"exclude-administrators-users" : "Exclude administrators users"
+	"exclude-administrators-users" : "Exclude administrators and users"
 }
