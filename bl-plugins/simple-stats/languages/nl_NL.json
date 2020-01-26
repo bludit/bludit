@@ -11,5 +11,5 @@
 	"table": "Tabel",
 	"disk-usage" : "Schijfgebruik",
 	"show-content-stats" : "Statistieken over inhoud weergeven",
-	"exclude-administrators-users" : "Beheerders en gebruikers niet opnemen in statistieken"
+	"exclude-administrators-users" : "Gebruikers met de rol 'Beheerder' niet opnemen in statistieken"
 }
