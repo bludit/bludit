@@ -1,6 +1,6 @@
 <div id="dashboard" class="container">
 	<div class="row">
-		<div class="col-md-7 d-none d-sm-block">
+		<div class="col-md-7">
 
 			<!-- Good message -->
 			<div>
