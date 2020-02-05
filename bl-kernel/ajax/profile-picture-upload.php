@@ -11,6 +11,10 @@ if ($username===false) {
 	ajaxResponse(1, 'Error in username.');
 }
 
+if ( ($login->role()!='admin') && ($login->username()!=$username) ) {
+	ajaxResponse(1, 'Error in username.');
+}
+
 if (!isset($_FILES['profilePictureInputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the profile picture.');
 }
