@@ -5,6 +5,6 @@
 	"version": "5.1.3",
 	"releaseDate": "2019-12-01",
 	"license": "LGPL 2.1",
-	"compatible": "3.10.0",
+	"compatible": "3.11.0",
 	"notes": ""
 }
