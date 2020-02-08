@@ -9,5 +9,7 @@
 	"unique-visitors-today": "Unique visitors today",
 	"chart": "Chart",
 	"table": "Table",
-	"disk-usage" : "Disk Usage"
+	"disk-usage" : "Disk Usage",
+	"show-content-stats" : "Show Content Stats",
+	"exclude-administrators-users" : "Exclude users with role 'Administrator'"
 }

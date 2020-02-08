@@ -9,5 +9,7 @@
 	"unique-visitors-today": "Unieke bezoekers vandaag",
 	"chart": "Grafiek",
 	"table": "Tabel",
-	"disk-usage" : "Disk Usage"
+	"disk-usage" : "Schijfgebruik",
+	"show-content-stats" : "Statistieken over inhoud weergeven",
+	"exclude-administrators-users" : "Gebruikers met de rol 'Beheerder' niet opnemen in statistieken"
 }
