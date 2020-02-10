@@ -58,6 +58,10 @@ class pluginRobots extends Plugin {
 		$webhook = 'robots.txt';
 		if ($this->webhook($webhook)) {
 			header('Content-type: text/plain');
+			// Include link to sitemap in robots.txt if the plugin is enabled
+			if (pluginActivated('pluginSitemap')) {
+				echo 'Sitemap: '.DOMAIN_BASE.'sitemap.xml';
+			}
 			echo $this->getValue('robotstxt');
 			exit(0);
 		}
