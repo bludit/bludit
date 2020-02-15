@@ -27,7 +27,7 @@
 			</div>
 
 			<!-- Quick Links -->
-			<div class="container border-bottom pb-5">
+			<div class="container border-bottom pb-5" id="jsclippyContainer">
 
 				<div class="row">
 					<div class="col">
@@ -46,6 +46,7 @@
 					width: "100%",
 					theme: "bootstrap4",
 					minimumInputLength: 2,
+					dropdownParent: "#jsclippyContainer",
 					ajax: {
 						url: HTML_PATH_ADMIN_ROOT+"ajax/clippy",
 						data: function (params) {
