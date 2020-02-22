@@ -34,5 +34,5 @@ $constants = get_defined_constants(true);
 printTable('Bludit Constants', $constants['user']);
 
 // Site object
-printTable('$Site object database',$site->db);
+printTable('$site object database',$site->db);
 
