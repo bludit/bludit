@@ -268,7 +268,7 @@ class Filesystem {
 	/**
 	 * Get Size of file or directory in bytes
 	 * @param  [string] $fileOrDirectory
-	 * @return [int|bool                  [bytes or false on error]
+	 * @return [int|bool]                  [bytes or false on error]
 	 */
 	public static function getSize($fileOrDirectory) {
 		// Files
@@ -278,8 +278,10 @@ class Filesystem {
 		// Directories
 		if (file_exists($fileOrDirectory)) {
 		    $size = 0;
-		    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileOrDirectory)) as $file){
-		        $size += $file->getSize();
+		    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileOrDirectory, FilesystemIterator::SKIP_DOTS)) as $file){
+		    	if (file_exists($file)) {
+			        $size += $file->getSize();
+		    	}
 		    }
 		    return $size;
 		}
