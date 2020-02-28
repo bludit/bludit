@@ -279,9 +279,11 @@ class Filesystem {
 		if (file_exists($fileOrDirectory)) {
 		    $size = 0;
 		    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileOrDirectory, FilesystemIterator::SKIP_DOTS)) as $file){
-		    	if (file_exists($file)) {
-			        $size += $file->getSize();
-		    	}
+				try {
+					$size += $file->getSize();
+				} catch (Exception $e) {
+					// SplFileInfo::getSize RuntimeException will be thrown on broken symlinks/errors
+				}
 		    }
 		    return $size;
 		}
