@@ -2,12 +2,14 @@
 	"plugin-data":
 	{
 		"name": "Simple Stats",
-		"description": "Anzeige der täglichen Anzahl Seitenaufrufe und Besucher."
+		"description": "Anzeige der täglichen Anzahl Besuche und Seitenaufrufe und Statistiken der Inhalte."
 	},
 	"visits": "Seitenaufrufe",
 	"visits-today": "Seitenaufrufe heute",
-	"unique-visitors-today": "Besucher heute",
-    "chart": "Chart",
-    "table": "Table",
-    "disk-usage" : "Disk Usage"
+	"unique-visitors-today": "Besuche heute",
+	"chart": "Diagramm",
+	"table": "Tabelle",
+	"disk-usage" : "Belegter Speicherplatz",
+	"show-content-stats" : "Zeige Statistiken der Inhalte.",
+	"exclude-administrators-users" : "Benutzer mit der Rolle 'Administrator' ausschließen."	
 }

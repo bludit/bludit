@@ -116,7 +116,7 @@ class Text {
 		 $characteres = "1234567890abcdefghijklmnopqrstuvwxyz!@#%^&*";
 		 $text = '';
 		 for($i=0; $i<$length; $i++) {
-			$text .= $characteres{rand(0,41)};
+			$text .= $characteres[rand(0,41)];
 		 }
 		 return $text;
 	}
