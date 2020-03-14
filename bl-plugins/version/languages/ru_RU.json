@@ -3,5 +3,7 @@
 	{
 		"name": "Версия",
 		"description": "Показывает текущую версию в левой нижней части административной панели; периодически проверяет новые выпуски Bludit."
-	}
+	},
+	"show-current-version-in-the-sidebar": "Show current version in the sidebar",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Show alert when there is a new version in the sidebar"
 }
