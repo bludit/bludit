@@ -157,7 +157,7 @@ class Pages extends dbJSON {
 		$this->save();
 
 		// Create symlink for images directory
-		if (Filesystem::directoryExists(PATH_UPLOADS_PAGES.$row['uuid'])) {
+		if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$row['uuid'])) {
 			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
 		}
 
