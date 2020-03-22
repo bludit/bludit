@@ -6,6 +6,6 @@
 	},
 	"webhook": "Вебхук",
 	"source": "Источник",
-	"try-webhook": "Try webhook",
+	"try-webhook": "Попробовать этот вебхук",
 	"complete-url-of-the-zip-file": "Полный URL-адрес zip-файла."
 }
