@@ -3,7 +3,7 @@
         "native": "Deutsch (Österreich)",
         "english-name": "German (Austria)",
         "locale": "de, de_AT",
-        "last-update": "2019-10-07",
+        "last-update": "2020-03-24",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -389,8 +389,8 @@
     "remove-logo": "Logo entfernen",
     "preview": "Vorschau",
     "author-can-write-and-edit-their-own-content": "Autor: Kann Inhalte erstellen und seine eigenen bearbeiten. Mitatbeiter: Kann Inhalte erstellen und seine eigenen und die anderer bearbeiten.",
-    "custom-fields": "Eigene Felder",
-    "define-custom-fields-for-the-content": "Eigene Felder für Inhalte anlegen. Informationen darüber sind in der <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>Dokumentation<\/a> zu finden.",
+    "custom-fields": "Benutzerdefinierte Felder",
+    "define-custom-fields-for-the-content": "Benutzerdefinierte Felder für Inhalte anlegen. Informationen darüber sind in der <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>Dokumentation<\/a> zu finden.",
     "start-typing-to-see-a-list-of-suggestions": "Beginne mit dem Tippen für eine Liste mit Vorschlägen.",
     "view": "Anschauen"
 }
