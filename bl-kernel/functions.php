@@ -575,7 +575,9 @@ function editSettings($args) {
 
 	if (empty($args['homepage'])) {
 		$args['homepage'] = '';
+		$args['uriBlog'] = '';
 	}
+
 	if (empty($args['pageNotFound'])) {
 		$args['pageNotFound'] = '';
 	}
@@ -592,10 +594,14 @@ function editSettings($args) {
 		$args['uriCategory'] = Text::addSlashes($args['uriCategory']);
 	}
 
-	if (isset($args['uriBlog'])) {
+	if (!empty($args['uriBlog'])) {
 		$args['uriBlog'] = Text::addSlashes($args['uriBlog']);
 	} else {
-		$args['uriBlog'] = '';
+		if (!empty($args['homepage']) && empty($args['uriBlog'])) {
+			$args['uriBlog'] = '/blog/';
+		} else {
+			$args['uriBlog'] = '';
+		}
 	}
 
 	if (isset($args['extremeFriendly'])) {
