@@ -206,7 +206,7 @@ class Theme {
 		return $links;
 	}
 
-	public static function javascript($files, $base=DOMAIN_THEME)
+	public static function javascript($files, $base=DOMAIN_THEME, $attributes="async")
 	{
 		if( !is_array($files) ) {
 			$files = array($files);
@@ -214,15 +214,15 @@ class Theme {
 
 		$scripts = '';
 		foreach($files as $file) {
-			$scripts .= '<script async src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+			$scripts .= '<script '.$attributes.' src="'.$base.$file.'?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 		}
 
 		return $scripts;
 	}
 
-	public static function js($files, $base=DOMAIN_THEME)
+	public static function js($files, $base=DOMAIN_THEME, $attributes="async")
 	{
-		return self::javascript($files, $base);
+		return self::javascript($files, $base, $attributes);
 	}
 
 	public static function plugins($type)
