@@ -13,6 +13,7 @@ class Theme {
 			'instagram'=>'Instagram',
 			'codepen'=>'Codepen',
 			'linkedin'=>'Linkedin',
+			'xing'=>'Xing',
 			'mastodon'=>'Mastodon',
 			'vk'=>'VK'
 		);
