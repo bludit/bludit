@@ -541,7 +541,7 @@ class Pages extends dbJSON {
 			} elseif ($static && $fields['type']=='static') {
 				array_push($list, $key);
 			} elseif ($sticky && $fields['type']=='sticky') {
-				array_push($list, $key);
+				array_unshift($list, $key);
 			} elseif ($draft && $fields['type']=='draft') {
 				array_push($list, $key);
 			} elseif ($scheduled && $fields['type']=='scheduled') {
