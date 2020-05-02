@@ -1,0 +1,8 @@
+{
+	"home-link": "Hjemmelink",
+	"plugin-data": {
+		"description": "Navigationsmenu med statiske sider.",
+		"name": "Static Pages"
+	},
+	"show-the-home-link-on-the-sidebar": "Vis hjemmelinket på dit sidepanel."
+}

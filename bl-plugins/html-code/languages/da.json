@@ -1,0 +1,12 @@
+{
+	"insert-code-in-the-admin-area-at-the-bottom": "Indsæt kode i admin området nederst.",
+	"insert-code-in-the-admin-area-at-the-top": "Indsæt kode i admin området øverst.",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "Indsæt kode i admin området inden for tag &#60;head&#62; &#60;/ head&#62;",
+	"insert-code-in-the-theme-at-the-bottom": "Indsæt kode i temaet nederst.",
+	"insert-code-in-the-theme-at-the-top": "Indsæt kode i temaet øverst.",
+	"insert-code-in-the-theme-inside-the-tag-head": "Indsæt kode i temaet mellem tag &#60;head&#62; &#60;/ head&#62;",
+	"plugin-data": {
+		"description": "Tilføj HTML, CSS, JavaScript kode, til head metadata sektionen, eller i sidehoved, sidefod på dit websted.",
+		"name": "HTML Code"
+	}
+}

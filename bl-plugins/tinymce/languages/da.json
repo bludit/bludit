@@ -1,0 +1,6 @@
+{
+	"plugin-data": {
+		"description": "HTML Editor til formatering af indhold. Anbefales til de brugere, der ikke ønsker at arbejde med Markdown kode.",
+		"name": "TinyMCE"
+	}
+}

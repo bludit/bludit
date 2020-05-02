@@ -1,0 +1,11 @@
+{
+	"disqus-shortname": "Disqus kortnavn",
+	"enable-disqus-on-pages": "Disqus på sider",
+	"enable-disqus-on-static-pages": "Disqus på statiske sider",
+	"enable-disqus-on-sticky-pages": "Disqus på fastgjorde sider",
+	"get-the-shortname-from-the-disqus-general-settings": "Hent det korte navn fra Disqus generelle indstillinger",
+	"plugin-data": {
+		"description": "Disqus er en kommentar hostingstjeneste til websteder.<br>Det er nødvendigt at være registreret på <a href=\"https://disqus.com\">Disqus</a> for at bruge denne service.",
+		"name": "Disqus"
+	}
+}

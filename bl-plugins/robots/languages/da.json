@@ -1,0 +1,6 @@
+{
+	"plugin-data": {
+		"description": "Du kan bruge et specielt HTML metatag til at fortælle søgerobotter, om at de ikke skal indeksere indholdet på en side og / eller ikke scanne det for links, der kan følges.<br>Læs mere om søgerobotter her: <a href=\"https://www.robotstxt.org/robotstxt.html\">https://www.robotstxt.org/</a>",
+		"name": "Robots"
+	}
+}
