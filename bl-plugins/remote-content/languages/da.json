@@ -1,0 +1,10 @@
+{
+	"complete-url-of-the-zip-file": "Den komplette URL sti, til der hvor zip filen befinder sig.",
+	"plugin-data": {
+		"description": "Denne udvidelse giver en nem måde at få indholdet fra dit websted uploadet til Github eller lignende service, og være fuld synkroniseret med din Bludit installation.",
+		"name": "Remote Content"
+	},
+	"source": "Kilde",
+	"try-webhook": "Prøv webhook'et",
+	"webhook": "Webhook"
+}

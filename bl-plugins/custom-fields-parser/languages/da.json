@@ -1,0 +1,6 @@
+{
+	"plugin-data": {
+		"description": "Definer kode for de brugerdefinerede felter, og fortolk indholdet af siderne.",
+		"name": "Custom fields parser"
+	}
+}

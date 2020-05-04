@@ -1,0 +1,7 @@
+{
+	"default-image": "Standardbillede",
+	"plugin-data": {
+		"description": "Med Twitter kort kan du vedhæfte vigtige billeder, videoer og medieoplevelser til tweets, hvilket hjælper med at få trafik på din hjemmeside.",
+		"name": "Twitter Cards"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"description": "Vis den aktuelle version på sidepanelet på kontrolpanelet, og kontroller regelmæssigt for nye Bludit udgivelser.",
+		"name": "Version"
+	},
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Vis notifikation, når der er en ny version i sidepanelet",
+	"show-current-version-in-the-sidebar": "Vis den aktuelle version i sidepanelet"
+}

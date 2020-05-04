@@ -1,0 +1,11 @@
+{
+	"create-backup": "Opret sikkerhedskopi",
+	"delete-backup": "Slet sikkerhedskopi",
+	"download": "Download",
+	"plugin-data": {
+		"description": "Den enkle måde at tage backup af din Bludit installation på.",
+		"name": "Backup"
+	},
+	"restore-backup": "Gendan sikkerhedskopi",
+	"there-are-no-backups-for-the-moment": "Der er ingen sikkerhedskopier i øjeblikket"
+}

@@ -1,0 +1,8 @@
+{
+	"enable-maintenance-mode": "Aktiver vedligeholdelsestilstand",
+	"message": "Besked",
+	"plugin-data": {
+		"description": "Sæt dit websted i vedligeholdelsestilstand. Du kan stadig tilgå admin områet.",
+		"name": "Maintenance mode"
+	}
+}

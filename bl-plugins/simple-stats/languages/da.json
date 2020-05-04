@@ -1,0 +1,14 @@
+{
+	"chart": "Diagram",
+	"disk-usage": "Disk forbrug",
+	"exclude-administrators-users": "Vis ikke brugere med rollen 'Administrator'",
+	"plugin-data": {
+		"description": "Vis antallet af besøg samt sidevisninger pr. dag på dit kontrolpanel, og se også andet indholdsstatistik.",
+		"name": "Simple Stats"
+	},
+	"show-content-stats": "Vis indholdsstatistikker",
+	"table": "Tabel",
+	"unique-visitors-today": "Unikke besøgende i dag",
+	"visits": "Besøg",
+	"visits-today": "Besøg i dag"
+}
