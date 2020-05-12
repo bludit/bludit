@@ -452,7 +452,8 @@ $(document).ready(function() {
 		var title = $("#jstitle").val();
 		var content = editorGetContent();
 		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
-			window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "_blank");
+			var preview = window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "bludit-preview");
+			preview.focus();
 		});
 	});
 

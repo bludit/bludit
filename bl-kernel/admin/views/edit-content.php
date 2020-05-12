@@ -533,7 +533,8 @@ $(document).ready(function() {
 		var content = editorGetContent();
 		var ajax = new bluditAjax();
 		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
-			window.open("<?php echo DOMAIN_PAGES.'autosave-'.$page->uuid().'?preview='.md5('autosave-'.$page->uuid()) ?>", "_blank");
+			var preview = window.open("<?php echo DOMAIN_PAGES.'autosave-'.$page->uuid().'?preview='.md5('autosave-'.$page->uuid()) ?>", "bludit-preview");
+			preview.focus();
 		});
 	});
 
