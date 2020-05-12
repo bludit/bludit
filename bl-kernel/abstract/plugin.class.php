@@ -31,9 +31,13 @@ class Plugin {
 	// (boolean) Enable or disable default Save and Cancel button on plugin settings
 	public $formButtons;
 
+	// (array) List of custom hooks
+	public $customHooks;
+
 	function __construct()
 	{
 		$this->dbFields = array();
+		$this->customHooks = array();
 
 		$reflector = new ReflectionClass(get_class($this));
 

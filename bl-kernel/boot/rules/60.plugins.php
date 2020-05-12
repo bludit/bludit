@@ -101,6 +101,16 @@ function buildPlugins()
 
 		// If the plugin is installed insert on the hooks
 		if ($Plugin->installed()) {
+			// Include custom hooks
+			if (!empty($Plugin->customHooks)) {
+				foreach ($Plugin->customHooks as $customHook) {
+					if (!isset($plugins[$customHook])) {
+						$plugins[$customHook] = array();
+						$pluginsEvents[$customHook] = array();
+					}
+				}
+			}
+
 			$pluginsInstalled[$pluginClass] = $Plugin;
 			foreach ($pluginsEvents as $event=>$value) {
 				if (method_exists($Plugin, $event)) {
@@ -111,9 +121,9 @@ function buildPlugins()
 
 		// Sort the plugins by the position for the site sidebar
 		uasort($plugins['siteSidebar'], function ($a, $b) {
-            		return $a->position()>$b->position();
-        		}
-    		);
+				return $a->position()>$b->position();
+			}
+		);
 	}
 }
 
