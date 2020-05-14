@@ -1,6 +1,9 @@
 jQuery(document).ready(function($) {
 	$('#backupFile').change(function() {
 		var file = this.files.length >= 1? this.files[0]: null;
+		if (file === null) {
+			return false;
+		}
 
 		// Build Form Data
 		var url = $('#jsform').attr("action") || window.location.href;
@@ -17,14 +20,14 @@ jQuery(document).ready(function($) {
 			mimeType: "multipart/form-data",
 			contentType: false,
 			processData: false,
-			error: function(jqXHR, status, error) {
+			error: function (jqXHR, status, error) {
 				var data = jqXHR.responseJSON;
 				var alert = $("<div></div>").addClass("alert alert-danger").text(data.message);
 
 				$("#jsform .alert:not(.alert-primary)").remove();
 				$("#jstokenCSRF").after(alert);
 			},
-			success: function(data, status, jqXHR) {
+			success: function (data, status, jqXHR) {
 				window.location.reload();
 			}
 		});
