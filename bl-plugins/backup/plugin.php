@@ -135,10 +135,14 @@ class pluginBackup extends Plugin {
 			$filename = pathinfo($backup,PATHINFO_FILENAME);
 			$basename = pathinfo($backup,PATHINFO_BASENAME);
 
+			// Format Title
 			list($name, $count) = array_pad(explode(".", $filename, 2), 2, 0);
+			if (($temp = Date::format($name, BACKUP_DATE_FORMAT, 'F j, Y, g:i a')) !== false) {
+				$name = $temp;
+			}
 
 			$html .= '<div>';
-			$html .= '<h4 class="font-weight-normal">'.Date::format($name, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').($count > 0? " ($count)": "").'</h4>';
+			$html .= '<h4 class="font-weight-normal">'.$name.($count > 0? " ($count)": "").'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
 				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
