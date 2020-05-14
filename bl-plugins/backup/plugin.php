@@ -12,6 +12,12 @@ class pluginBackup extends Plugin {
 	// This variable define if the extension zip is loaded
 	private $zip = false;
 
+	// The last request status
+	private $last_status = null;
+
+	// The last request message
+	private $last_message = null;
+
 	public function init()
 	{
 		// Disable default form buttons (Save and Cancel)
@@ -19,6 +25,37 @@ class pluginBackup extends Plugin {
 
 		// Check for zip extension installed
 		$this->zip = extension_loaded('zip');
+
+		// Get Last Message
+		if (empty($_POST) && !empty(Session::get("BACKUP-MESSAGE"))) {
+			$this->last_status = Session::get("BACKUP-STATUS");
+			$this->last_message = Session::get("BACKUP-MESSAGE");
+			unset($_SESSION["s_BACKUP-STATUS"]);
+			unset($_SESSION["s_BACKUP-MESSAGE"]);
+		}
+	}
+
+	protected function response($status, $message)
+	{
+		// Return JSON object for AJAX requests
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strcasecmp($_SERVER['HTTP_X_REQUESTED_WITH'], "xmlhttprequest") === 0) {
+			$http = array(
+				200 => "200 OK",
+				400	=> "400 Bad Request",
+				415 => "415 Unsupported Media Type"
+			);
+			header("HTTP/1.1 " . $http[$status]);
+			print(json_encode(array(
+				"status" => $status < 400,
+				"message" => $message
+			)));
+			die();
+		}
+
+		// Store in Session
+		Session::set("BACKUP-STATUS", $status < 400);
+		Session::set("BACKUP-MESSAGE", $message);
+		return $status < 400;
 	}
 
 	public function post()
@@ -31,7 +68,24 @@ class pluginBackup extends Plugin {
 			return $this->deleteBackup($_POST['deleteBackup']);
 		}
 
-		return true;
+		if (isset($_FILES['backupFile'])) {
+			return $this->uploadBackup($_FILES['backupFile']);
+		}
+
+		return false;
+	}
+
+	public function adminHead()
+	{
+		global $url;
+
+		if ($url->slug() !== "configure-plugin/pluginBackup") {
+			return false;
+		}
+
+		$html = $this->includeJS('backup.js');
+
+		return $html;
 	}
 
 	public function adminSidebar()
@@ -55,11 +109,25 @@ class pluginBackup extends Plugin {
 		if (empty($backups)) {
 			$html .= '<div class="alert alert-primary" role="alert">';
 			$html .= $L->get('There are no backups for the moment');
-		      	$html .= '</div>';
+			$html .= '</div>';
 		}
 
-		$html .= '<div>';
+		if($this->last_status !== null) {
+			$html .= '<div class="alert alert-' . ($this->last_status? "success": "danger") . '" role="alert">';
+			$html .= $this->last_message;
+			$html .= '</div>';
+		}
+
+		$html .= '<div class="row">';
+		$html .= '<div class="col text-left">';
 		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="fa fa-play-circle"></span> '.$L->get('create-backup').'</button>';
+		$html .= '</div>';
+		$html .= '<div class="col-5 text-right">';
+		if ($this->zip) {
+			$html .= '<input id="backupFile" type="file" name="backupFile" value="" style="position:absolute;top:-500em;" />';
+			$html .= '<label for="backupFile" value="true" class="btn btn-light d-inline-block" type="submit" style="margin-top:0 !important;"><span class="fa fa-upload"></span> '.$L->get('upload-backup').'</label>';
+		}
+		$html .= '</div>';
 		$html .= '</div>';
 		$html .= '<hr>';
 
@@ -67,14 +135,16 @@ class pluginBackup extends Plugin {
 			$filename = pathinfo($backup,PATHINFO_FILENAME);
 			$basename = pathinfo($backup,PATHINFO_BASENAME);
 
+			list($name, $count) = array_pad(explode(".", $filename, 2), 2, 0);
+
 			$html .= '<div>';
-			$html .= '<h4 class="font-weight-normal">'.Date::format($filename, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').'</h4>';
+			$html .= '<h4 class="font-weight-normal">'.Date::format($name, BACKUP_DATE_FORMAT, 'F j, Y, g:i a').($count > 0? " ($count)": "").'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
 				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
 			}
 			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-outline-secondary btn-sm mr-1 mt-1" type="submit"><span class="fa fa-rotate-left"></span> '.$L->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup"  value="'.$filename.'" class="btn btn-outline-danger btn-sm mr-1 mt-1" type="submit"><span class="fa fa-trash"></span> '.$L->get('delete-backup').'</button>';
+			$html .= '<button name="deleteBackup" value="'.$filename.'" class="btn btn-outline-danger btn-sm mr-1 mt-1" type="submit"><span class="fa fa-trash"></span> '.$L->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
@@ -116,6 +186,8 @@ class pluginBackup extends Plugin {
 
 	public function createBackup()
 	{
+		global $L;
+
 		// Current backup directory
 		$currentDate = Date::current(BACKUP_DATE_FORMAT);
 		$backupDir = $this->workspace().$currentDate;
@@ -134,38 +206,96 @@ class pluginBackup extends Plugin {
 			}
 		}
 
-		return true;
+		if (file_exists($backupDir.'.zip')) {
+			return $this->response(200, $L->get("The Backup was created successfully."));
+		}
+
+		return $this->response(400, $L->get("The Backup file could not be created."));
 	}
 
 	public function restoreBackup($filename)
 	{
+		global $L;
+
 		// Remove current files
 		foreach ($this->directoriesToBackup as $dir) {
 			Filesystem::deleteRecursive($dir);
 		}
 
 		// Recover backuped files
-		// Zip format
 		if ($this->zip) {
+			// Zip format
 			$tmp = $this->workspace().$filename.'.zip';
-			return Filesystem::unzip($tmp, PATH_CONTENT);
+			$status = Filesystem::unzip($tmp, PATH_CONTENT);
+		} else {
+			// Directory format
+			$tmp = $this->workspace().$filename;
+			$status = Filesystem::copyRecursive($tmp, PATH_CONTENT);
 		}
 
-		// Directory format
-		$tmp = $this->workspace().$filename;
-		return Filesystem::copyRecursive($tmp, PATH_CONTENT);
+		if ($status) {
+			return $this->response(200, sprintf($L->get("The Backup '%s' could be restored successfully."), $filename));
+		}
+		return $this->response(400, sprintf($L->get("The Backup '%s' could not be restored."), $filename));
 	}
 
 	public function deleteBackup($filename)
 	{
-		// Zip format
+		global $L;
+
 		if ($this->zip) {
+			// Zip format
 			$tmp = $this->workspace().$filename.'.zip';
-			return Filesystem::rmfile($tmp);
+			$status = Filesystem::rmfile($tmp);
+		} else {
+			// Directory format
+			$tmp = $this->workspace().$filename;
+			$status = Filesystem::deleteRecursive($tmp);
 		}
 
-		// Directory format
-		$tmp = $this->workspace().$filename;
-		return Filesystem::deleteRecursive($tmp);
+		if ($status) {
+			return $this->response(200, sprintf($L->get("The Backup '%s' could be deleted successfully."), $filename));
+		}
+		return $this->response(400, sprintf($L->get("The Backup '%s' could not be deleted."), $filename));
+	}
+
+	public function uploadBackup($backup)
+	{
+		global $L;
+
+		// Check File Type
+		if ($backup["type"] !== "application/zip" && $backup["type"] !== "application/x-zip-compressed") {
+			return $this->response(415, $L->get("The passed file is not a valid ZIP Archive."));
+		}
+
+		// Check File Extension
+		if (stripos($backup["name"], ".zip") !== (strlen($backup["name"]) - 4)) {
+			return $this->response(415, $L->get("The passed file does not end with .zip."));
+		}
+
+		// Check ZIP extension
+		if(!$this->zip) {
+			return $this->response(400, $L->get("The passed file could not be validated."));
+		}
+
+		// Validate ZIP File
+		$zip = new ZipArchive();
+		$zip->open($backup["tmp_name"]);
+		if($zip->addEmptyDir("databases") || $zip->addEmptyDir("pages") || $zip->addEmptyDir("uploads")) {
+			$zip->close();
+			return $this->response(415, $L->get("The passed file is not a valid backup archive."));
+		}
+		$zip->close();
+
+		// File Name
+		$name = $backup["name"];
+		$count = 0;
+		while (file_exists($this->workspace() . $name)) {
+			$name = substr($backup["name"], 0, -4) . "." . ++$count . ".zip";
+		}
+
+		// Move File to Backup Directory
+		Filesystem::mv($backup["tmp_name"], $this->workspace() . $name);
+		return $this->response(200, $L->get("The backup file could be uploaded successfully."));
 	}
 }
