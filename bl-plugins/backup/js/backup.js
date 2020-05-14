@@ -19,7 +19,6 @@ jQuery(document).ready(function($) {
 			processData: false,
 			error: function(jqXHR, status, error) {
 				var data = jqXHR.responseJSON;
-				console.log(error);
 				var alert = $("<div></div>").addClass("alert alert-danger").text(data.message);
 
 				$("#jsform .alert:not(.alert-primary)").remove();
