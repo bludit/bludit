@@ -175,9 +175,9 @@ class Filesystem {
 			foreach ($files as $file) {
 				$file = realpath($file);
 				if (is_dir($file)) {
-					$zip->addEmptyDir(str_replace($source, '', $file));
+					$zip->addEmptyDir(ltrim(str_replace($source, '', $file), "/\\"));
 				} elseif (is_file($file)) {
-					$zip->addFromString(str_replace($source, '', $file), file_get_contents($file));
+					$zip->addFromString(ltrim(str_replace($source, '', $file), "/\\"), file_get_contents($file));
 				}
 			}
 		} elseif (is_file($source)) {
