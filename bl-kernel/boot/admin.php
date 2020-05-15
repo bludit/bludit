@@ -63,8 +63,8 @@ else
 	}
 
 	// Define variables
-	$ADMIN_CONTROLLER 	= $layout['controller'];
-	$ADMIN_VIEW 		= $layout['view'];
+	$ADMIN_CONTROLLER	= $layout['controller'];
+	$ADMIN_VIEW			= $layout['view'];
 
 	// Load plugins before the admin area will be load.
 	Theme::plugins('beforeAdminLoad');
@@ -77,6 +77,10 @@ else
 	// Load controller.
 	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
+	} else if (($plugin = getPlugin($layout['controller'])) !== false) {
+		if (method_exists($plugin, "adminController") && method_exists($plugin, "adminView")) {
+			$plugin->adminController();
+		}
 	}
 
 	// Load view and theme.
