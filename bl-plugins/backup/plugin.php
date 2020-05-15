@@ -13,10 +13,10 @@ class pluginBackup extends Plugin {
 	private $zip = false;
 
 	// The last request status
-	private $last_status = null;
+	private $lastStatus = null;
 
 	// The last request message
-	private $last_message = null;
+	private $lastMessage = null;
 
 	public function init()
 	{
@@ -28,8 +28,8 @@ class pluginBackup extends Plugin {
 
 		// Get Last Message
 		if (empty($_POST) && !empty(Session::get("BACKUP-MESSAGE"))) {
-			$this->last_status = Session::get("BACKUP-STATUS");
-			$this->last_message = Session::get("BACKUP-MESSAGE");
+			$this->lastStatus = Session::get("BACKUP-STATUS");
+			$this->lastMessage = Session::get("BACKUP-MESSAGE");
 			unset($_SESSION["s_BACKUP-STATUS"]);
 			unset($_SESSION["s_BACKUP-MESSAGE"]);
 		}
@@ -112,9 +112,9 @@ class pluginBackup extends Plugin {
 			$html .= '</div>';
 		}
 
-		if($this->last_status !== null) {
-			$html .= '<div class="alert alert-' . ($this->last_status? "success": "danger") . '" role="alert">';
-			$html .= $this->last_message;
+		if($this->lastStatus !== null) {
+			$html .= '<div class="alert alert-' . ($this->lastStatus? "success": "danger") . '" role="alert">';
+			$html .= $this->lastMessage;
 			$html .= '</div>';
 		}
 
