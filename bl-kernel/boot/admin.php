@@ -69,8 +69,8 @@ else
 	}
 
 	// Define variables
-	$ADMIN_CONTROLLER	= $layout['controller'];
-	$ADMIN_VIEW			= $layout['view'];
+	$ADMIN_CONTROLLER 	= $layout['controller'];
+	$ADMIN_VIEW 		= $layout['view'];
 
 	// Load plugins before the admin area will be load.
 	Theme::plugins('beforeAdminLoad');
