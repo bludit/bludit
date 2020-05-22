@@ -70,7 +70,9 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	$image = transformImage(PATH_TMP.$filename, $imageDirectory, $thumbnailDirectory);
 
 	// Delete temporary file
-	Filesystem::rmfile(PATH_TMP.$filename);
+	if (file_exists(PATH_TMP.$filename)) {
+		Filesystem::rmfile(PATH_TMP.$filename);
+	}
 
 	if ($image) {
 		chmod($image, 0644);
