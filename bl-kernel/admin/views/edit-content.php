@@ -282,44 +282,8 @@ echo Bootstrap::formOpen(array(
 					$("#jscoverImage").val( $(this).val() );
 				});
 
-				// Parent
-				$("#jsparentTMP").change(function() {
-					var parent = $("#jsparentTMP").val();
-					if (parent.length===0) {
-						$("#jsparent").val("");
-					}
-				});
-
 				// Datepicker
 				$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
-
-				// Parent autocomplete
-				var parentsXHR;
-				var parentsList; // Keep the parent list returned to get the key by the title page
-				$("#jsparentTMP").autoComplete({
-					minChars: 1,
-					source: function(term, response) {
-						// Prevent call inmediatly another ajax request
-						try { parentsXHR.abort(); } catch(e){}
-						// Get the list of parent pages by title (term)
-						parentsXHR = $.getJSON(HTML_PATH_ADMIN_ROOT+"ajax/get-parents", {query: term},
-							function(data) {
-								parentsList = data;
-								term = term.toLowerCase();
-								var matches = [];
-								for (var title in data) {
-									if (~title.toLowerCase().indexOf(term))
-										matches.push(title);
-								}
-								response(matches);
-						});
-					},
-					onSelect: function(event, term, item) {
-						// parentsList = array( pageTitle => pageKey )
-						var parentKey = parentsList[sanitizeHTML(term)];
-						$("#jsparent").attr("value", parentKey);
-					}
-				});
 			});
 			</script>
 		</div>
