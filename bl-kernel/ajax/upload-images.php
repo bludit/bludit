@@ -69,11 +69,6 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	// Transform the image and generate the thumbnail
 	$image = transformImage(PATH_TMP.$filename, $imageDirectory, $thumbnailDirectory);
 
-	// Delete temporary file
-	if (file_exists(PATH_TMP.$filename)) {
-		Filesystem::rmfile(PATH_TMP.$filename);
-	}
-
 	if ($image) {
 		chmod($image, 0644);
 		$filename = Filesystem::filename($image);
