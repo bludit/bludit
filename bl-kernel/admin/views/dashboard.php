@@ -47,6 +47,9 @@
 					theme: "bootstrap4",
 					minimumInputLength: 2,
 					dropdownParent: "#jsclippyContainer",
+					language: {
+						inputTooShort: function () { return ''; }
+					},
 					ajax: {
 						url: HTML_PATH_ADMIN_ROOT+"ajax/clippy",
 						data: function (params) {
@@ -58,7 +61,10 @@
 						}
 					},
 					templateResult: function(data) {
-						console.log(data);
+						// console.log(data);
+						if (typeof data.id === 'undefined') {
+							return '';
+						}
 						var html = '';
 						if (data.type=='menu') {
 							html += '<a href="'+data.url+'"><div class="search-suggestion">';
