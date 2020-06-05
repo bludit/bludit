@@ -52,11 +52,11 @@ class Url
 			// $filterFull = '/base_url/category/'
 			$filterFull = ltrim($filterURI, '/');
 			$filterFull = HTML_PATH_ROOT.$filterFull;
-			$filterFullLenght = Text::length($filterFull);
+			$filterFullLength = Text::length($filterFull);
 
-			$subString = mb_substr($this->uri, 0, $filterFullLenght, CHARSET);
+			$subString = mb_substr($this->uri, 0, $filterFullLength, CHARSET);
 
-			// Check coincidence without the last slash at the end, this case is notfound
+			// Check coincidence without the last slash at the end, this case is not found
 			if ($subString==$filterURIwoSlash) {
 				$this->setNotFound();
 				return false;
@@ -64,7 +64,7 @@ class Url
 
 			// Check coincidence with complete filterURI
 			if ($subString==$filterFull) {
-				$this->slug = mb_substr($this->uri, $filterFullLenght);
+				$this->slug = mb_substr($this->uri, $filterFullLength);
 				$this->setWhereAmI($filterName);
 				$this->activeFilter = $filterURI;
 

@@ -92,8 +92,8 @@ define('SESSION_GC_MAXLIFETIME', 3600);
 // The value 0 means until the browser is closed
 define('SESSION_COOKIE_LIFE_TIME', 0);
 
-// Alert notification dissappear in X seconds
-define('ALERT_DISSAPEAR_IN', 3);
+// Alert notification disappear in X seconds
+define('ALERT_DISAPPEAR_IN', 3);
 
 // Number of images to show in the media manager per page
 define('MEDIA_MANAGER_NUMBER_OF_FILES', 5);
