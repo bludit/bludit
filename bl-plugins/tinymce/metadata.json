@@ -2,8 +2,8 @@
 	"author": "TinyMCE",
 	"email": "",
 	"website": "https://www.tinymce.com",
-	"version": "5.3.0",
-	"releaseDate": "2020-05-26",
+	"version": "5.3.1",
+	"releaseDate": "2020-06-07",
 	"license": "LGPL 2.1",
 	"compatible": "3.12.0",
 	"notes": ""
