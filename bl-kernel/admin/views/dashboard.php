@@ -47,6 +47,9 @@
 					theme: "bootstrap4",
 					minimumInputLength: 2,
 					dropdownParent: "#jsclippyContainer",
+					language: {
+						inputTooShort: function () { return ''; }
+					},
 					ajax: {
 						url: HTML_PATH_ADMIN_ROOT+"ajax/clippy",
 						data: function (params) {
@@ -58,12 +61,15 @@
 						}
 					},
 					templateResult: function(data) {
-						console.log(data);
+						// console.log(data);
 						var html = '';
 						if (data.type=='menu') {
 							html += '<a href="'+data.url+'"><div class="search-suggestion">';
 							html += '<span class="fa fa-'+data.icon+'"></span>'+data.text+'</div></a>';
 						} else {
+							if (typeof data.id === 'undefined') {
+								return '';
+							}
 							html += '<div class="search-suggestion">';
 							html += '<div class="search-suggestion-item">'+data.text+' <span class="badge badge-pill badge-light">'+data.type+'</span></div>';
 							html += '<div class="search-suggestion-options">';
