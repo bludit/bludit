@@ -34,7 +34,7 @@
 			'jquery.datetimepicker.full.min.js',
 			'select2.full.min.js',
 			'functions.js'
-		), DOMAIN_CORE_JS);
+		), DOMAIN_CORE_JS, null);
 	?>
 
 	<!-- Plugins -->
