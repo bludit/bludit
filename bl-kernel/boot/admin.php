@@ -1,9 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Session
+// Start the session
+// If the session is not possible to start the admin area is not available
 Session::start();
 if (Session::started()===false) {
-	exit('Bludit CMS. Session initialization failure.');
+	exit('Bludit CMS. Session initialization failed.');
 }
 
 $login = new Login();
@@ -61,8 +62,8 @@ else
 	// Slug is login.
 	if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
 		$layout['controller']	= 'login';
-		$layout['view']		= 'login';
-		$layout['template']	= 'login.php';
+		$layout['view']			= 'login';
+		$layout['template']		= 'login.php';
 
 		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
 		$security->generateTokenCSRF();
@@ -83,7 +84,7 @@ else
 	// Load controller.
 	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
-	} else if(!empty($layout['plugin']) && method_exists($layout['plugin'], 'adminController')) {
+	} elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminController')) {
 		$layout['plugin']->adminController();
 	}
 

@@ -121,7 +121,7 @@ if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 $pages 		= new Pages();
 $users 		= new Users();
 $tags 		= new Tags();
-$categories 	= new Categories();
+$categories = new Categories();
 $site  		= new Site();
 $url		= new Url();
 $security	= new Security();
