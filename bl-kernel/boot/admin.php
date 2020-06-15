@@ -13,18 +13,24 @@ $layout = array(
 	'view'=>null,
 	'template'=>'index.php',
 	'slug'=>null,
+	'plugin'=>false,
 	'parameters'=>null,
 	'title'=>'Bludit'
 );
 
-// Get the view, controller, and the parameters from the URL.
+// Get the Controller
 $explodeSlug = $url->explodeSlug();
 $layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
-$layout['parameters'] = implode('/', $explodeSlug);
 
-// Boot plugins rules
+// Get the Plugin
 include(PATH_RULES.'60.plugins.php');
+if ($layout['controller'] === 'plugin' && !empty($explodeSlug)) {
+	$layout['plugin'] = getPlugin(array_shift($explodeSlug));
+}
+
+// Get the URL parameters
+$layout['parameters'] = implode('/', $explodeSlug);
 
 // --- AJAX ---
 if ($layout['slug']==='ajax') {
@@ -77,6 +83,8 @@ else
 	// Load controller.
 	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
+	} else if(!empty($layout['plugin']) && method_exists($layout['plugin'], 'adminController')) {
+		$layout['plugin']->adminController();
 	}
 
 	// Load view and theme.
