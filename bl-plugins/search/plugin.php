@@ -131,9 +131,15 @@ EOF;
 			// The first page number is 1, so the real is 0
 			$realPageNumber = $url->pageNumber() - 1;
 			$itemsPerPage = $site->itemsPerPage();
-			$chunks = array_chunk($list, $itemsPerPage);
-			if (isset($chunks[$realPageNumber])) {
-				$this->pagesFound = $chunks[$realPageNumber];
+			if($itemsPerPage <= 0) {
+				if($realPageNumber === 0) {
+					$this->pagesFound = $list;
+				}
+			} else {
+				$chunks = array_chunk($list, $itemsPerPage);
+				if (isset($chunks[$realPageNumber])) {
+					$this->pagesFound = $chunks[$realPageNumber];
+				}
 			}
 		}
 	}
