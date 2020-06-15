@@ -20,10 +20,15 @@ class Cookie {
 		$expire = time()+60*60*24*$daysToExpire;
 		setcookie($key, $value, $expire);
 	}
+	
+	public static function remove($key)
+	{
+		unset($_COOKIE[$key]);
+		setcookie($key, null, time()-3600);
+	}
 
 	public static function isEmpty($key)
 	{
 		return empty($_COOKIE[$key]);
 	}
-
 }
