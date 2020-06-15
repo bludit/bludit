@@ -24,10 +24,16 @@ $explodeSlug = $url->explodeSlug();
 $layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
 
-// Get the Plugin
+// Get the Plugins
 include(PATH_RULES.'60.plugins.php');
+// Check if the user want to access to an admin controller or view from a plugin
 if ($layout['controller'] === 'plugin' && !empty($explodeSlug)) {
-	$layout['plugin'] = getPlugin(array_shift($explodeSlug));
+	// Lowercase plugins class name to search by case-insensitive
+	$pluginsLowerCases = array_change_key_case($pluginsInstalled);
+	$pluginName = Text::lowercase(array_shift($explodeSlug));
+	if (isset($pluginsLowerCases[$pluginName])) {
+		$layout['plugin'] = $pluginsLowerCases[$pluginName];
+	}
 }
 
 // Get the URL parameters
