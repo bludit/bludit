@@ -94,7 +94,10 @@ class pluginBackup extends Plugin {
 			if (!empty($_GET['file'])) {
 				$login = new Login();
 				if ($login->role() === 'admin') {
-					downloadRestrictedFile(PATH_WORKSPACES.'backup/'.$_GET['file']);
+					$existingBackups = array_map('basename', glob(PATH_WORKSPACES.'backup/*.zip'));
+					if (in_array($_GET['file'], $existingBackups)) {
+						downloadRestrictedFile(PATH_WORKSPACES.'backup/'.$_GET['file']);
+					}
 				} else {
 					Alert::set($L->g('You do not have sufficient permissions'));
 					Redirect::page('dashboard');
