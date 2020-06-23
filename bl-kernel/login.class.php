@@ -104,6 +104,13 @@ class Login {
 			return false;
 		}
 
+        try {
+            Theme::plugins('beforeVerifyUser');
+        } catch (Exception $e) {
+            Log::set($e->getFile().LOG_SEP.$e->getLine().LOG_SEP.$e->getMessage());
+            return false;
+        }
+
 		try {
 			$user = new User($username);
 		} catch (Exception $e) {
@@ -117,7 +124,17 @@ class Login {
 			return true;
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
+        try {
+            Theme::plugins('afterVerifyUser');
+        } catch (Exception $e) {
+            Log::set($e->getFile().LOG_SEP.$e->getLine().LOG_SEP.$e->getMessage());
+            return false;
+        }
+		if ($this->isLogged()) {
+		    return true;
+        }
+
+        Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
 		return false;
 	}
 

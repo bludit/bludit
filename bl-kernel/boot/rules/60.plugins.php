@@ -37,6 +37,9 @@ $plugins = array(
 	'loginBodyBegin'=>array(),
 	'loginBodyEnd'=>array(),
 
+	'beforeVerifyUser'=>array(),
+	'afterVerifyUser'=>array(),
+
 	'all'=>array()
 );
 
