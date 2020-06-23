@@ -73,4 +73,11 @@ class Session {
 		}
 		return false;
 	}
+	
+	public static function remove($key)
+	{
+		$key = 's_'.$key;
+		
+		unset($_SESSION[$key]);
+	}
 }
