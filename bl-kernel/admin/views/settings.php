@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
+<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content', 'action'=>'settings.php')); ?>
 
 <div class="align-middle">
 	<div class="float-right mt-1">

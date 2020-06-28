@@ -78,6 +78,10 @@ class Url
 				} elseif (!empty($this->slug) && ($filterURI=='/')) {
 					$this->setWhereAmI('page');
 				} elseif ($filterName=='admin') {
+					if (Text::endsWith($this->uri, '.php')) {
+						$this->uri = mb_substr($this->uri, 0, -4);
+						$this->slug = mb_substr($this->slug, 0, -4);
+					}
 					$this->slug = ltrim($this->slug, '/');
 				}
 
