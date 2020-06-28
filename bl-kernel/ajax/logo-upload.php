@@ -24,8 +24,16 @@ if (Text::stringContains($_FILES['inputFile']['name'], DS, false)) {
 // File extension
 $fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
-if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
+if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
 	$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
+
+// File MIME Type
+$fileMimeType = Filesystem::mimeType($_FILES['inputFile']['tmp_name']);
+if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+	$message = $L->g('File mime type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_MIMETYPES']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }
