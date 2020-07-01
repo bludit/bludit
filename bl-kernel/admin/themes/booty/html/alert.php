@@ -2,7 +2,7 @@
 	function showAlert(text) {
 		console.log("[INFO] Function showAlert() called.");
 		$("#alert").html(text);
-		$("#alert").slideDown().delay(<?php echo ALERT_DISSAPEAR_IN*1000 ?>).slideUp();
+		$("#alert").slideDown().delay(<?php echo ALERT_DISAPPEAR_IN*1000 ?>).slideUp();
 	}
 
 	<?php if (Alert::defined()): ?>

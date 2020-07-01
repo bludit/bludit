@@ -55,7 +55,7 @@ class Syslog extends dbJSON {
 			return false;
 		}
 
-		// Insert at beggining of the database
+		// Insert at beginning of the database
 		array_unshift($this->db, $data);
 
 		// Keep just NOTIFICATIONS_AMOUNT notifications

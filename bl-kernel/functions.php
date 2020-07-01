@@ -34,7 +34,7 @@ function buildErrorPage() {
 
 // This function is only used from the rule 69.pages.php, DO NOT use this function!
 // This function generate a particular page from the current slug of the url
-// If the slug has not a page associacted returns FALSE and set not-found as true
+// If the slug has not a page associated returns FALSE and set not-found as true
 function buildThePage() {
 	global $url;
 
@@ -311,7 +311,7 @@ function createPage($args) {
 		}
 	}
 
-	// The user is always the one loggued
+	// The user is always the one logged
 	$args['username'] = Session::get('username');
 	if (empty($args['username'])) {
 		Log::set('Function createPage()'.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
@@ -677,7 +677,7 @@ function changeUserPassword($args) {
 	return false;
 }
 
-// Returns true if the user is allowed to procceded
+// Returns true if the user is allowed to proceed
 function checkRole($allowRoles, $redirect=true) {
 	global $login;
 	global $L;

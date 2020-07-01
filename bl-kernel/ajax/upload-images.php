@@ -63,14 +63,19 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 		ajaxResponse(1, $message);
 	}
 
+	// Check file MIME Type
+	$fileMimeType = Filesystem::mimeType($_FILES['images']['tmp_name'][$uuid]);
+	if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+		$message = $L->g('File mime type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_MIMETYPES']);
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+
 	// Move from PHP tmp file to Bludit tmp directory
 	Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP.$filename);
 
 	// Transform the image and generate the thumbnail
 	$image = transformImage(PATH_TMP.$filename, $imageDirectory, $thumbnailDirectory);
-
-	// Delete temporary file
-	Filesystem::rmfile(PATH_TMP.$filename);
 
 	if ($image) {
 		chmod($image, 0644);

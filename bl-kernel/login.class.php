@@ -44,7 +44,7 @@ class Login {
 			}
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'FingerPrint are differents. ['.Session::get('fingerPrint').'] != ['.$this->fingerPrint().']');
+		Log::set(__METHOD__.LOG_SEP.'FingerPrints are different. ['.Session::get('fingerPrint').'] != ['.$this->fingerPrint().']');
 		return false;
 	}
 
@@ -71,7 +71,7 @@ class Login {
 		Cookie::set(REMEMBER_COOKIE_USERNAME, $username, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
 		Cookie::set(REMEMBER_COOKIE_TOKEN, $token, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
 
-		Log::set(__METHOD__.LOG_SEP.'Cookies seted for Remember Me.');
+		Log::set(__METHOD__.LOG_SEP.'Cookies set for Remember Me.');
 	}
 
 	public function invalidateRememberMe()
@@ -100,7 +100,7 @@ class Login {
 		}
 
 		if (Text::length($password)<PASSWORD_LENGTH) {
-			Log::set(__METHOD__.LOG_SEP.'Password lenght less than required.');
+			Log::set(__METHOD__.LOG_SEP.'Password length is shorter than required.');
 			return false;
 		}
 
@@ -113,7 +113,7 @@ class Login {
 		$passwordHash = $this->users->generatePasswordHash($password, $user->salt());
 		if ($passwordHash===$user->password()) {
 			$this->setLogin($username, $user->role());
-			Log::set(__METHOD__.LOG_SEP.'User logged succeeded by username and password - Username ['.$username.']');
+			Log::set(__METHOD__.LOG_SEP.'Successful user login by username and password - Username ['.$username.']');
 			return true;
 		}
 

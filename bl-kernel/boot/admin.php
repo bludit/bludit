@@ -1,9 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-// Session
+// Start the session
+// If the session is not possible to start the admin area is not available
 Session::start();
 if (Session::started()===false) {
-	exit('Bludit CMS. Session initialization failure.');
+	exit('Bludit CMS. Session initialization failed.');
 }
 
 $login = new Login();
@@ -13,18 +14,30 @@ $layout = array(
 	'view'=>null,
 	'template'=>'index.php',
 	'slug'=>null,
+	'plugin'=>false,
 	'parameters'=>null,
 	'title'=>'Bludit'
 );
 
-// Get the view, controller, and the parameters from the URL.
+// Get the Controller
 $explodeSlug = $url->explodeSlug();
 $layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
-$layout['parameters'] = implode('/', $explodeSlug);
 
-// Boot plugins rules
+// Get the Plugins
 include(PATH_RULES.'60.plugins.php');
+// Check if the user want to access to an admin controller or view from a plugin
+if ($layout['controller'] === 'plugin' && !empty($explodeSlug)) {
+	// Lowercase plugins class name to search by case-insensitive
+	$pluginsLowerCases = array_change_key_case($pluginsInstalled);
+	$pluginName = Text::lowercase(array_shift($explodeSlug));
+	if (isset($pluginsLowerCases[$pluginName])) {
+		$layout['plugin'] = $pluginsLowerCases[$pluginName];
+	}
+}
+
+// Get the URL parameters
+$layout['parameters'] = implode('/', $explodeSlug);
 
 // --- AJAX ---
 if ($layout['slug']==='ajax') {
@@ -55,8 +68,8 @@ else
 	// Slug is login.
 	if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
 		$layout['controller']	= 'login';
-		$layout['view']		= 'login';
-		$layout['template']	= 'login.php';
+		$layout['view']			= 'login';
+		$layout['template']		= 'login.php';
 
 		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
 		$security->generateTokenCSRF();
@@ -77,6 +90,8 @@ else
 	// Load controller.
 	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
 		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
+	} elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminController')) {
+		$layout['plugin']->adminController();
 	}
 
 	// Load view and theme.
