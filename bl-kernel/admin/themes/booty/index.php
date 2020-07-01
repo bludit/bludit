@@ -80,7 +80,7 @@
 		<?php
 			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');
-			} else if (!empty($layout['plugin']) && method_exists($layout['plugin'], 'adminView')) {
+			} elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminView')) {
 				echo $layout['plugin']->adminView();
 			} else {
 				echo '<h1 class="text-center">'.$L->g('Page not found').'</h1>';
