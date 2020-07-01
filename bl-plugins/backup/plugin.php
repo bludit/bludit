@@ -211,6 +211,12 @@ class pluginBackup extends Plugin {
 			if (Filesystem::zip($backupDir, $backupDir.'.zip')) {
 				Filesystem::deleteRecursive($backupDir);
 			}
+
+			// Add validation file
+			$zip = new ZipArchive();
+			$zip->open($backupDir.'.zip');
+			$zip->addFromString('.BLUDIT_BACKUP', md5_file($backupDir.'.zip'));
+			$zip->close();
 		}
 
 		if (file_exists($backupDir.'.zip')) {
@@ -218,6 +224,40 @@ class pluginBackup extends Plugin {
 		}
 
 		return $this->response(400, $L->get("The Backup file could not be created."));
+	}
+
+	public function validateBackup($filename)
+	{
+		$tmp = PATH_TMP.'backup-'.time().'.zip';
+		copy($filename, $tmp);
+
+		// Check Archive
+		$zip = new ZipArchive();
+		if($zip->open($tmp) !== true) {
+			unlink($tmp);
+			return false;
+		}
+
+		// Check Basic Folders
+		if ($zip->addEmptyDir("databases") || $zip->addEmptyDir("pages") || $zip->addEmptyDir("uploads")) {
+			$zip->close();
+			unlink($tmp);
+			return false;
+		}
+
+		// Check Checksum
+		if (($checksum = $zip->getFromName(".BLUDIT_BACKUP")) === false) {
+			$zip->close();
+			unlink($tmp);
+			return false;
+		}
+		$zip->deleteName(".BLUDIT_BACKUP");
+		$zip->close();
+		$check = $checksum === md5_file($tmp);
+
+		// Return
+		unlink($tmp);
+		return $check;
 	}
 
 	public function restoreBackup($filename)
@@ -285,14 +325,10 @@ class pluginBackup extends Plugin {
 			return $this->response(400, $L->get("The passed file could not be validated."));
 		}
 
-		// Validate ZIP File
-		$zip = new ZipArchive();
-		$zip->open($backup["tmp_name"]);
-		if($zip->addEmptyDir("databases") || $zip->addEmptyDir("pages") || $zip->addEmptyDir("uploads")) {
-			$zip->close();
+		// Validate Backup ZIP
+		if (!$this->validateBackup($backup["tmp_name"])) {
 			return $this->response(415, $L->get("The passed file is not a valid backup archive."));
 		}
-		$zip->close();
 
 		// File Name
 		$name = $backup["name"];

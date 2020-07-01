@@ -66,6 +66,7 @@ class Plugin {
 		if ($this->installed()) {
 			$Tmp = new dbJSON($this->filenameDb);
 			$this->db = $Tmp->db;
+			$this->prepare();
 		}
 	}
 
@@ -270,8 +271,14 @@ class Plugin {
 
 	public function init()
 	{
-		// This method is used on children classes.
+		// This method is used on children classes
 		// The user can define his own field of the database
+	}
+
+	public function prepare()
+	{
+		// This method is used on children classes
+		// The user can prepare the plugin, when it is installed
 	}
 
 	public function post()
