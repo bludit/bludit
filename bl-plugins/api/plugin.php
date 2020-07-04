@@ -464,15 +464,15 @@ class pluginAPI extends Plugin {
 	}
 
 	/*
-	 | Upload an image and generate the thumbnails
-	 | Returns the image and thumbnail URL
-         |
-         | @inputs		array
-	 | @inputs['uuid']	string	Page UUID
-	 | @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
-	 |
-	 | @return		array
-         */
+	| Upload an image and generate the thumbnails
+	| Returns the image and thumbnail URL
+	|
+	| @inputs		array
+	| @inputs['uuid']	string	Page UUID
+	| @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+	|
+	| @return		array
+	*/
 	private function uploadImage($inputs)
 	{
 		// Set upload directory
