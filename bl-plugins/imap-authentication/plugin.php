@@ -87,7 +87,7 @@ class pluginImapAuthentication extends Plugin {
             $username = str_replace("%40","@",$username);
         }
 
-        $imapConnection = @imap_open("{{$mailbox}/imap/ssl}INBOX", $username, $password, OP_HALFOPEN, 1);
+        $imapConnection = @imap_open("{{$mailbox}/imap/tls}INBOX", $username, $password, OP_HALFOPEN, 1);
         $imapErrors = imap_errors();
         $imapAlerts = imap_alerts();
         if (!empty($imapErrors)) {
