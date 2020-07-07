@@ -321,7 +321,7 @@ function createPage($args) {
 	$key = $pages->add($args);
 	if ($key) {
 		// Call the plugins after page created
-		Theme::plugins('afterPageCreate');
+		Theme::plugins('afterPageCreate', array($key));
 
 		reindexCategories();
 		reindexTags();
@@ -371,7 +371,7 @@ function editPage($args) {
 	$key = $pages->edit($args);
 	if ($key) {
 		// Call the plugins after page modified
-		Theme::plugins('afterPageModify');
+		Theme::plugins('afterPageModify', array($key));
 
 		reindexCategories();
 		reindexTags();
@@ -392,10 +392,10 @@ function editPage($args) {
 function deletePage($key) {
 	global $pages;
 	global $syslog;
-
+	 
 	if ($pages->delete($key)) {
 		// Call the plugins after page deleted
-		Theme::plugins('afterPageDelete');
+		Theme::plugins('afterPageDelete', array($key));
 
 		reindexCategories();
 		reindexTags();
