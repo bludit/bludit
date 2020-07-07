@@ -176,7 +176,7 @@ class Text {
 			}
 		}
 
-		$string = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $string);
+		$string = preg_replace("/[^a-zA-Z0-9\/_|+. -]/", '', $string);
 		$string = self::lowercase($string);
 		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);
 		$string = trim($string, '-');
