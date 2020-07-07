@@ -225,11 +225,11 @@ class Theme {
 		return self::javascript($files, $base, $attributes);
 	}
 
-	public static function plugins($type)
+	public static function plugins($type, $args = array())
 	{
 		global $plugins;
 		foreach ($plugins[$type] as $plugin) {
-			echo call_user_func(array($plugin, $type));
+			echo call_user_func_array(array($plugin, $type), $args);
 		}
 	}
 
