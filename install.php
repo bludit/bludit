@@ -28,7 +28,7 @@ if (version_compare(phpversion(), '5.6', '<')) {
 }
 
 $isCLI = (php_sapi_name() == "cli");
-if($isCLI && $argc > 1) {
+if($isCLI) {
 	// Get parameters from cli, and insert them into $_GET
 	// this allows us to call the script like this:
 	// `php install.php language=es` -> $_GET['language'] = 'es'
@@ -592,7 +592,7 @@ if (isset($_GET['demo'])) {
 
 
 // Install by POST method
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($isCLI || $_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (Text::length($_POST['password'])<6) {
 		printError($L->g('password-must-be-at-least-6-characters-long'));
 	} else {
@@ -600,11 +600,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Succesfull install
 			if($isCLI) {
 				echo 'Bludit installed succesfully!';
-				exit(0);
+				exit(0); // exit with success
 			} else {
 				redirect(HTML_PATH_ROOT);
 			}
-		};
+		}
 	}
 }
 ?>
