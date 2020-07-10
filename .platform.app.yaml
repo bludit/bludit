@@ -1,0 +1,51 @@
+name: bludit
+type: "php:7.4"
+disk: 256
+
+# Configure the web server to serve our static site.
+web:
+    locations:
+        '/':
+            root: ''
+            passthru: '/index.php'
+            scripts: true 
+            allow: true
+            index: 
+                - index.php
+            rules:
+                '\.(jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
+                    allow: true
+                    expires: 300s
+                '\.(php)$':
+                    allow: false
+
+        '/bl-content/uploads/pages/':
+            root: 'bl-content/uploads/pages'
+            passthru: false
+            scripts: false
+            allow: true
+        '/bl-content/databases/':
+            root: 'bl-content/databases/'
+            scripts: false
+            allow: false
+            passthru: false
+        '/bl-content/workspaces/':
+            root: 'bl-content/workspaces/'
+            scripts: false
+            allow: false
+            passthru: false
+        '/bl-content/tmp/':
+            root: 'bl-content/tmp/'
+            scripts: false
+            allow: false
+            passthru: false                
+                
+mounts:
+    'bl-content':
+        source: local
+        source_path: 'bl-content'
+
+hooks:
+    deploy: |
+        PRIMARY_DOMAIN=$(echo $PLATFORM_ROUTES | base64 -d | jq -r 'to_entries[] | select(.value.primary==true) | .key')
+        php install.php language=en password=$BLUDIT_PASSWORD domain=$PRIMARY_DOMAIN timezone=UTC

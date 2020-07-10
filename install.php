@@ -6,33 +6,65 @@
  * Author Diego Najar
  * Bludit is opensource software licensed under the MIT license.
 */
+function printErrorAndExit($strMessage, $intErrorCode) {
+	printError($strMessage);
+	exit($intErrorCode); // A response code other than 0 is a failure
+}
+
+function printError($strMessage) {
+	if(php_sapi_name() == "cli") {
+		// In CLI mode, we want to output the error to STDERR
+		fwrite(STDERR, $strMessage.PHP_EOL);
+	} else {
+		// In web mode, output to screen and error_log
+		error_log('[ERROR] '. $strMessage, 0); //0 = syslog
+		echo $strMessage . '<br/>';
+	}
+}
 
 // Check PHP version
 if (version_compare(phpversion(), '5.6', '<')) {
-	$errorText = 'Current PHP version '.phpversion().', you need > 5.6.';
-	error_log('[ERROR] '.$errorText, 0);
-	exit($errorText);
+	printErrorAndExit('Current PHP version '.phpversion().', you need > 5.6.', 1);
+}
+
+$isCLI = (php_sapi_name() == "cli");
+if($isCLI && $argc > 1) {
+	// Get parameters from cli, and insert them into $_GET
+	// this allows us to call the script like this:
+	// `php install.php language=es` -> $_GET['language'] = 'es'
+	parse_str(implode('&',array_slice($argv, 1)), $_GET);
+
+	$requiredParams = array('password', 'domain', 'timezone');
+	foreach($requiredParams as $param) {
+		if(!isset($_GET[$param])) {
+			printErrorAndExit('Required parameter missing: ' . $param, 2);
+		}
+	}
+	if (strlen($_GET['password']) < 6) {
+		printErrorAndExit('Password should be 6 chars minimum.', 3);
+	}
+	// Move _GET to _POST so we can reuse existing install method
+	$_POST = $_GET;
+	$_SERVER['REQUEST_METHOD'] = 'POST';// fool PHP a bit
 }
 
 // Check PHP modules
 $modulesRequired = array('mbstring', 'json', 'gd', 'dom');
 $modulesRequiredExit = false;
-$modulesRequiredMissing = '';
+$modulesMissing = array();
 foreach ($modulesRequired as $module) {
 	if (!extension_loaded($module)) {
-		$errorText = 'PHP module <b>'.$module.'</b> is not installed.';
-		error_log('[ERROR] '.$errorText, 0);
-
-		$modulesRequiredExit = true;
-		$modulesRequiredMissing .= $errorText.PHP_EOL;
+		$modulesMissing[] = $module;
 	}
 }
-if ($modulesRequiredExit) {
-	echo 'PHP modules missing:';
-	echo $modulesRequiredMissing;
-	echo '';
-	echo '<a href="https://docs.bludit.com/en/getting-started/requirements">Please read Bludit requirements</a>.';
-	exit(0);
+
+if ($modulesMissing) {
+	$errorText='Not all required PHP modules installed, missing: ' . implode($isCLI ? ',' : '<br/>', $modulesMissing);
+
+	if(!$isCLI) {
+		echo '<a href="https://docs.bludit.com/en/getting-started/requirements">Please read Bludit requirements</a>.';
+	}
+	printErrorAndExit($errorText, 4);
 }
 
 // Security constant
@@ -65,13 +97,17 @@ define('CHECK_SYMBOLIC_LINKS', TRUE);
 define('FILENAME', 'index.txt');
 
 // Domain and protocol
-define('DOMAIN', $_SERVER['HTTP_HOST']);
+$domain 	= isset($_GET['domain']) ? $_GET['domain'] : $_SERVER['HTTP_HOST']; //allow setting the domain via $_GET (or CLI)
+$protocol = !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
 
-if (!empty($_SERVER['HTTPS'])) {
-	define('PROTOCOL', 'https://');
-} else {
-	define('PROTOCOL', 'http://');
+if(strlen($domain) > 5 && substr($domain,0,4)=='http'){
+	$url = parse_url($domain);
+	$domain = $url['host'];
+	$protocol = $url['scheme'].'://';	
 }
+
+define('DOMAIN', $domain);
+define('PROTOCOL', $protocol);
 
 // Base URL
 // Change the base URL or leave it empty if you want to Bludit try to detect the base URL.
@@ -85,9 +121,9 @@ if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empt
 	$base = dirname($base);
 }
 
-if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
+if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], $base)!==0) {
 	$base = '/';
-} elseif ($base!=DS) {
+} elseif ($base!=DS && $base!='.') {
 	$base = trim($base, '/');
 	$base = '/'.$base.'/';
 } else {
@@ -95,7 +131,7 @@ if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
 	$base = '/';
 }
 
-define('HTML_PATH_ROOT', $base);
+define('HTML_PATH_ROOT', isset($_GET['html_path_root']) ? $_GET['html_path_root'] : $base);
 
 // Log separator
 define('LOG_SEP', ' | ');
@@ -272,8 +308,7 @@ function install($adminPassword, $timezone)
 	$pagesToInstall = array('example-page-1-slug', 'example-page-2-slug', 'example-page-3-slug', 'example-page-4-slug');
 	foreach ($pagesToInstall as $page) {
 		if (!mkdir(PATH_PAGES.$L->get($page), DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$L->get($page);
-			error_log('[ERROR] '.$errorText, 0);
+			printError('Error when trying to created the directory=>'.PATH_PAGES.$L->get($page));
 		}
 	}
 
@@ -281,36 +316,30 @@ function install($adminPassword, $timezone)
 	$pluginsToInstall = array('tinymce', 'about', 'simple-stats', 'robots', 'canonical');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
-			error_log('[ERROR] '.$errorText, 0);
+			printError('Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin);
 		}
 	}
 
 	// Directories for upload files
 	if (!mkdir(PATH_UPLOADS_PROFILES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
-		error_log('[ERROR] '.$errorText, 0);
+		printError('Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES);
 	}
 
 	if (!mkdir(PATH_UPLOADS_THUMBNAILS, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
-		error_log('[ERROR] '.$errorText, 0);
+		printError('Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS);
 	}
 
 	if (!mkdir(PATH_TMP, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
-		error_log('[ERROR] '.$errorText, 0);
+		printError('Error when trying to created the directory=>'.PATH_TMP);
 	}
 
 	if (!mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_WORKSPACES;
-		error_log('[ERROR] '.$errorText, 0);
+		printError('Error when trying to created the directory=>'.PATH_WORKSPACES);
 	}
 
 	if (!mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PAGES;
-		error_log('[ERROR] '.$errorText, 0);
-	}
+		printError('Error when trying to created the directory=>'.PATH_UPLOADS_PAGES);
+    }
 
 	// ============================================================================
 	// Create files
@@ -552,9 +581,7 @@ function redirect($url) {
 // ============================================================================
 
 if (alreadyInstalled()) {
-	$errorText = 'Bludit is already installed ;)';
-	error_log('[ERROR] '.$errorText, 0);
-	exit($errorText);
+	printErrorAndExit('Bludit is already installed ;-)', 199);
 }
 
 // Install a demo, just call the install.php?demo=true
@@ -563,17 +590,23 @@ if (isset($_GET['demo'])) {
 	redirect(HTML_PATH_ROOT);
 }
 
+
 // Install by POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (Text::length($_POST['password'])<6) {
-		$errorText = $L->g('password-must-be-at-least-6-characters-long');
-		error_log('[ERROR] '.$errorText, 0);
+		printError($L->g('password-must-be-at-least-6-characters-long'));
 	} else {
-		install($_POST['password'], $_POST['timezone']);
-		redirect(HTML_PATH_ROOT);
+		if(install($_POST['password'], $_POST['timezone'])) {
+			// Succesfull install
+			if($isCLI) {
+				echo 'Bludit installed succesfully!';
+				exit(0);
+			} else {
+				redirect(HTML_PATH_ROOT);
+			}
+		};
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html>
