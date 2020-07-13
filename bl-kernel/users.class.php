@@ -63,6 +63,7 @@ class Users extends dbJSON {
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
+		$username = Text::lowercase($username);
 
 		// The password is hashed, the password doesn't need to be sanitize in the next step
 		$password = $args['password'];
@@ -98,6 +99,7 @@ class Users extends dbJSON {
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
+		$username = Text::lowercase($username);
 
 		// Current database of the user
 		$row = $this->db[$username];
@@ -133,6 +135,7 @@ class Users extends dbJSON {
 	// Delete an user
 	public function delete($username)
 	{
+		$username = Text::lowercase($username);
 		unset($this->db[$username]);
 		return $this->save();
 	}
@@ -159,7 +162,7 @@ class Users extends dbJSON {
 
 	public function setRememberToken($username, $token)
 	{
-		$args['username']	= $username;
+		$args['username']	= Text::lowercase($username);
 		$args['tokenRemember']	= $token;
 		return $this->set($args);
 	}
