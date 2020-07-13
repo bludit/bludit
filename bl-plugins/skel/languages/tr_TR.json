@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Sürüm",
+		"description": "Geçerli sürümünü yönetici panelinin kenar çubuğunda gösterin ve yeni Bludit sürümleri için düzenli olarak kontrol edin."
+	},
+	"show-current-version-in-the-sidebar": "Show current version in the sidebar",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Show alert when there is a new version in the sidebar"
+}
