@@ -39,6 +39,7 @@ class Users extends dbJSON {
 	// Return an array with the database of the user, FALSE otherwise
 	public function getUserDB($username)
 	{
+		$username = Text::lowercase($username);
 		if ($this->exists($username)) {
 			return $this->db[$username];
 		}
@@ -48,12 +49,14 @@ class Users extends dbJSON {
 	// Return TRUE if the user exists, FALSE otherwise
 	public function exists($username)
 	{
+		$username = Text::lowercase($username);
 		return isset($this->db[$username]);
 	}
 
 	// Disable the user
 	public function disableUser($username)
 	{
+		$username = Text::lowercase($username);
 		$this->db[$username]['password'] = '!';
 		return $this->save();
 	}
