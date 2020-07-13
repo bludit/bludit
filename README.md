@@ -58,12 +58,18 @@ Bludit is open soruce and free, but if you really like the project and is useful
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 
-### Golden sponsors in Patreon!
+### Platinum sponsors in Patreon!
 
 - <a href="https://www.patreon.com/clickwork" target="_blank">Clickwork</a>
 - <a href="https://www.patreon.com/user/creators?u=10331784" target="_blank">KreativMind</a>
-- <a href="https://www.patreon.com/user/creators?u=12261033" target="_blank">Jan Rippl</a>
 - <a href="https://www.patreon.com/user/creators?u=28428918" target="_blank">Curious Activity</a>
+- <a href="https://www.patreon.com/user/creators?u=27476624" target="_blank">Matěj Adámek</a>
+- <a href="https://www.patreon.com/pytesNET/creators" target="_blank">pytesNET</a>
+
+### Golden sponsors in Patreon!
+
+- <a href="https://www.patreon.com/user/creators?u=30876037" target="_blank">Thomas Kreth</a>
+- <a href="https://www.patreon.com/user/creators?u=14629621" target="_blank">Christian</a>
 
 License
 -------
