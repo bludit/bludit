@@ -392,7 +392,7 @@ function editPage($args) {
 function deletePage($key) {
 	global $pages;
 	global $syslog;
-	 
+
 	if ($pages->delete($key)) {
 		// Call the plugins after page deleted
 		Theme::plugins('afterPageDelete', array($key));

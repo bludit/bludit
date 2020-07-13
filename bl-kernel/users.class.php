@@ -39,7 +39,6 @@ class Users extends dbJSON {
 	// Return an array with the database of the user, FALSE otherwise
 	public function getUserDB($username)
 	{
-		$username = Text::lowercase($username);
 		if ($this->exists($username)) {
 			return $this->db[$username];
 		}
@@ -49,14 +48,12 @@ class Users extends dbJSON {
 	// Return TRUE if the user exists, FALSE otherwise
 	public function exists($username)
 	{
-		$username = Text::lowercase($username);
 		return isset($this->db[$username]);
 	}
 
 	// Disable the user
 	public function disableUser($username)
 	{
-		$username = Text::lowercase($username);
 		$this->db[$username]['password'] = '!';
 		return $this->save();
 	}
@@ -66,7 +63,6 @@ class Users extends dbJSON {
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
-		$username = Text::lowercase($username);
 
 		// The password is hashed, the password doesn't need to be sanitize in the next step
 		$password = $args['password'];
@@ -102,7 +98,6 @@ class Users extends dbJSON {
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
-		$username = Text::lowercase($username);
 
 		// Current database of the user
 		$row = $this->db[$username];
@@ -138,7 +133,6 @@ class Users extends dbJSON {
 	// Delete an user
 	public function delete($username)
 	{
-		$username = Text::lowercase($username);
 		unset($this->db[$username]);
 		return $this->save();
 	}
@@ -165,7 +159,7 @@ class Users extends dbJSON {
 
 	public function setRememberToken($username, $token)
 	{
-		$args['username']	= Text::lowercase($username);
+		$args['username']	= $username;
 		$args['tokenRemember']	= $token;
 		return $this->set($args);
 	}
