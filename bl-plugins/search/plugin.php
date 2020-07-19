@@ -225,7 +225,7 @@ EOF;
 		// Inlcude Fuzz algorithm
 		require_once($this->phpPath().'vendors/fuzz.php');
 		$fuzz = new Fuzz($cache, 10, 1, true);
-		$results = $fuzz->search($text, 5);
+		$results = $fuzz->search($text, 3);
 
 		return(array_keys($results));
 	}
