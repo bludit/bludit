@@ -10,6 +10,7 @@ class pluginSearch extends Plugin {
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
 			'label'=>'Search',
+			'minChars'=>3,
 			'wordsToCachePerPage'=>800,
 			'showButtonSearch'=>false
 		);
@@ -27,6 +28,11 @@ class pluginSearch extends Plugin {
 		$html .= '<label>'.$L->get('Label').'</label>';
 		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
 		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>'.$L->get('Minimum number of characters when searching').'</label>';
+		$html .= '<input name="minChars" type="text" value="'.$this->getValue('minChars').'">';
 		$html .= '</div>';
 
                 $html .= '<div>';
@@ -225,7 +231,7 @@ EOF;
 		// Inlcude Fuzz algorithm
 		require_once($this->phpPath().'vendors/fuzz.php');
 		$fuzz = new Fuzz($cache, 10, 1, true);
-		$results = $fuzz->search($text, 3);
+		$results = $fuzz->search($text, $this->getValue('minChars'));
 
 		return(array_keys($results));
 	}
