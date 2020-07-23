@@ -34,6 +34,7 @@ class dbList extends dbJSON
 	}
 
 	// Returns the list of keys filter by pageNumber
+	// $pageNumber start in 1
 	public function getList($key, $pageNumber, $numberOfItems)
 	{
 		if (!isset($this->db[$key])) {
