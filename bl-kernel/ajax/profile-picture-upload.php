@@ -37,10 +37,12 @@ if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
 
 // Check file MIME Type
 $fileMimeType = Filesystem::mimeType($_FILES['profilePictureInputFile']['tmp_name']);
-if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
-	$message = $L->g('File mime type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_MIMETYPES']);
-	Log::set($message, LOG_TYPE_ERROR);
-	ajaxResponse(1, $message);
+if ($fileMimeType!==false) {
+	if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+		$message = $L->g('File mime type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_MIMETYPES']);
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
 }
 
 // Tmp filename

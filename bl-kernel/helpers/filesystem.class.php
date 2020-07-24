@@ -303,12 +303,23 @@ class Filesystem {
 	 |	@file	/home/diego/dog.jpg
 	 |	@return image/jpeg
          |
-         | @file	string	Full path of the file
+         | @file	[string]	Full path of the file
          |
-         | @return	string
+         | @return	[string|bool]	Mime type as string or FALSE if not possible to get the mime type
          */
 	public static function mimeType($file) {
-		return mime_content_type($file);
+		if (function_exists('mime_content_type')) {
+			return mime_content_type($file);
+		}
+
+		if (function_exists('finfo_file')) {
+			$fileinfo = finfo_open(FILEINFO_MIME_TYPE);
+			$mimeType = finfo_file($fileinfo, $file);
+			finfo_close($fileinfo);
+			return $mimeType;
+		}
+
+		return false;
 	}
 
 }
