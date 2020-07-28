@@ -3,11 +3,10 @@
         "native": "فارسی",
         "english-name": "Persian",
         "locale": "fa,fa_IR",
-        "last-update": "2019-09-26",
+        "last-update": "2020-07-14",
         "authors": [
             "abdulhalim.po@gmail.com",
-            "Dorsawi http:\/\/dorsawi.com",
-            "xm74"
+            "Bludit http:\/\/bludit.ir"
         ]
     },
     "dates": {
@@ -90,7 +89,7 @@
     "new-theme-configured": "قالب جدید پیکربندی شد",
     "changes-on-settings": "تغییرات بر روی تنظیمات",
     "plugin-configured": "پلاگین پیکربندی شد",
-    "welcome-to-bludit": "به بلودیت  نسخه نگین خوش آمدید",
+    "welcome-to-bludit": "به بلودیت خوش آمدید",
     "statistics": "آمار",
     "drafts": "پیش نویس",
     "title": "عنوان",
@@ -388,8 +387,8 @@
     "disabled-plugins": "پلاگین های غیرفعال",
     "remove-logo": "برداشتن لوگو",
     "preview": "پیش نمایش",
-	"view":"نمایش",
-	"author-can-write-and-edit-their-own-content": "نویسنده: می‌تواند محتوایی نوشته و آن را ویرایش کند. ویرایشگر: می‌تواند محتوایی نوشته و محتوای دیگران را نیز ویرایش کند.",
-	"custom-fields": "کادرهای سفارشی",
-    "define-custom-fields-for-the-content": " تعریف کادرهای سفارشی برای محتوا. برای کسب اطلاعات بیشتر در مورد کادرهای سفارشی به <a href='https://docs.bludit.com/en/content/custom-fields'>مستندات</a> مراجعه کنید."	
+	"author-can-write-and-edit-their-own-content": "نویسنده: می‌تواند محتوایی نوشته و آن را ویرایش کند. ویرایشگر: می‌تواند محتوایی نوشته و محتوای دیگران را نیز ویرایش کند.",	"custom-fields": "کادرهای سفارشی",
+    "define-custom-fields-for-the-content": " تعریف کادرهای سفارشی برای محتوا. برای کسب اطلاعات بیشتر در مورد کادرهای سفارشی به <a href='https://docs.bludit.com/en/content/custom-fields'>مستندات</a> مراجعه کنید."	,
+	"start-typing-to-see-a-list-of-suggestions": "برای مشاهده لیستی از پیشنهادات شروع به تایپ کنید.",	
+	"view":"نمایش"
 }
