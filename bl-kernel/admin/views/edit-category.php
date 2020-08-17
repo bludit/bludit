@@ -31,7 +31,7 @@
 	echo Bootstrap::formInputText(array(
 		'name'=>'name',
 		'label'=>$L->g('Name'),
-		'value'=>$categoryMap['name'],
+		'value'=>htmlentities($categoryMap['name'], ENT_QUOTES, 'UTF-8'),
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
@@ -50,7 +50,7 @@
 	echo Bootstrap::formInputText(array(
 		'name'=>'template',
 		'label'=>$L->g('Template'),
-		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
+		'value'=>isset($categoryMap['template'])?htmlentities($categoryMap['template'], ENT_QUOTES, 'UTF-8'):'',
 		'class'=>'',
 		'placeholder'=>'',
 		'tip'=>''
