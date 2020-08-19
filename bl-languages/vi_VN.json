@@ -4,7 +4,7 @@
         "english-name": "Vietnamese",
         "last-update": "2020-08-18",
         "authors": [
-            "Glossyweb",
+            "huuptag",
             "",
             "",
             ""
@@ -36,8 +36,8 @@
         "Oct": "Tháng 10",
         "Nov": "Tháng 11",
         "Dec": "Tháng 12",
-        "January": "Tháng một",
-        "February": "Tháng một",
+        "January": "Tháng 01",
+        "February": "Tháng 02",
         "March": "Tháng 03",
         "April": "Tháng 04",
         "May": "Tháng 05",
@@ -389,6 +389,6 @@
     "author-can-write-and-edit-their-own-content": "Tác giả: Có thể viết và chỉnh sửa nội dung của riêng họ. Biên tập viên: Có thể viết và chỉnh sửa nội dung của người khác.",
     "custom-fields": "Trường tùy biến",
     "define-custom-fields-for-the-content": "Xác định các trường tùy chỉnh cho nội dung. Tìm hiểu thêm về các trường tùy chỉnh trong <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>tài liệu<\/a>.",
-    "start-typing-to-see-a-list-of-suggestions": "Hãy nhập để xem danh sách gợi ý.",
+    "start-typing-to-see-a-list-of-suggestions": "Hãy nhập gì đó để xem danh sách gợi ý.",
     "view": "Xem"
 }
