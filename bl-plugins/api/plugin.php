@@ -199,6 +199,11 @@ class pluginAPI extends Plugin {
 			$pageKey = $parameters[1];
 			$data = $this->getFiles($pageKey);
 		}
+		// (POST) /api/files/<page-key>
+		elseif ( ($method==='POST') && ($parameters[0]==='files') && !empty($parameters[1]) ) {
+			$pageKey = $parameters[1];
+			$data = $this->uploadFile($pageKey);
+		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
 		}
@@ -709,6 +714,51 @@ class pluginAPI extends Plugin {
 			'status'=>'0',
 			'message'=>'Files for the page key: '.$pageKey,
 			'data'=>$files
+		);
+	}
+
+	/*
+	| Upload a file to a particular page
+	| Returns the file URL
+	|
+	| @inputs		array
+	| @inputs['uuid']	string	Page UUID
+	| @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+	|
+	| @return		array
+	*/
+	private function uploadFile($pageKey)
+	{
+		if (!isset($_FILES['file'])) {
+			return array(
+				'status'=>'1',
+				'message'=>'File not sent.'
+			);
+		}
+
+		if ($_FILES['file']['error'] != 0) {
+			return array(
+				'status'=>'1',
+				'message'=>'Error uploading the file.'
+			);
+		}
+
+		$filename = $_FILES['file']['name'];
+		$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename;
+		$absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename;
+		if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
+			return array(
+				'status'=>'0',
+				'message'=>'File uploaded.',
+				'filename'=>$filename,
+				'absolutePath'=>$absolutePath,
+				'absoluteURL'=>$absoluteURL
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'Error moving the file to the final path.'
 		);
 	}
 }
