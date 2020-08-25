@@ -24,7 +24,7 @@ foreach ($themes as $theme) {
 	';
 
 	if ($theme['dirname']!=$site->theme()) {
-		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
+		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'/'.$security->getTokenCSRF().'">'.$L->g('Activate').'</a>';
 	}
 
 	echo '
