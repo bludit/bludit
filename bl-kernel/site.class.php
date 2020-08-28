@@ -49,6 +49,18 @@ class Site extends dbJSON {
 		'markdownParser'=>	true,
 		'customFields'=>	'{}'
 	);
+	private $linkKeys = array(
+		'twitter',
+		'facebook',
+		'codepen',
+		'instagram',
+		'github',
+		'gitlab',
+		'linkedin',
+		'mastodon',
+		'dribbble',
+		'vk'
+	);
 
 	function __construct()
 	{
@@ -74,6 +86,11 @@ class Site extends dbJSON {
 			if (isset($args[$field])) {
 				$finalValue = Sanitize::html($args[$field]);
 				$finalValue = Sanitize::noJSLink($finalValue);
+				if (in_array($field,$this->linkKeys)){
+					if (!filter_var($finalValue, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED)) {
+						$finalValue = "";
+					}
+				}
 				if ($finalValue==='false') { $finalValue = false; }
 				elseif ($finalValue==='true') { $finalValue = true; }
 				settype($finalValue, gettype($value));
