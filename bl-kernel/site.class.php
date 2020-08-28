@@ -73,7 +73,7 @@ class Site extends dbJSON {
 		foreach ($this->dbFields as $field=>$value) {
 			if (isset($args[$field])) {
 				$finalValue = Sanitize::html($args[$field]);
-				$finalValue = Sanitize::noJSLink($args[$field]);
+				$finalValue = Sanitize::noJSLink($finalValue);
 				if ($finalValue==='false') { $finalValue = false; }
 				elseif ($finalValue==='true') { $finalValue = true; }
 				settype($finalValue, gettype($value));
