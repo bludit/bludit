@@ -107,12 +107,17 @@
 						<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
 						<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Upload image'); ?></label>
 					</div>
-					<!-- <button id="jsbuttonRemovePicture" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i> Remove picture</button> -->
+					<button id="jsbuttonRemovePicture" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i> Remove picture</button> 
 				</div>
 				<div class="col-lg-8 col-sm-12 p-0 text-center">
 					<img id="jsprofilePicturePreview" class="img-fluid img-thumbnail" alt="Profile picture preview" src="<?php echo (Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
 				</div>
 			</div>
+			<!--This Deletes The Profile Picture-->
+			<?php
+			if(isset($_GET['deleteID']))
+				echo unlink(PATH_UPLOADS_PROFILES.$user->username().'.png'); 
+			?>
 		</div>
 		<script>
 		// $("#jsbuttonRemovePicture").on("click", function() {
@@ -120,6 +125,15 @@
 		// 	bluditAjax.removeProfilePicture(username);
 		// 	$("#jsprofilePicturePreview").attr("src", "<?php echo HTML_PATH_CORE_IMG.'default.svg' ?>");
 		// });
+
+		//Ajax to Remove the file
+		$("#jsbuttonRemovePicture").on("click", function() {
+			$.ajax({
+				type:"GET",
+				data:{"deleteID":'<?php echo $user->username(); ?>' }
+			})
+			$("#jsprofilePicturePreview").attr("src", "<?php echo HTML_PATH_CORE_IMG.'default.svg' ?>");
+		})
 
 		$("#jsprofilePictureInputFile").on("change", function() {
 			var formData = new FormData();
