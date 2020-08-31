@@ -75,7 +75,13 @@
 							html += '<div class="search-suggestion-options">';
 							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'"><?php $L->p('view') ?></a>';
 							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'"><?php $L->p('edit') ?></a>';
+
+<!--							html += '<script> $(document).ready(function() {var key = false;(".deletePageButton").on("click", function() {   console.log("TESTSTEST");   key = $(this).data("key");	});   });</script>';
+-->
+							html += '<a href="#" onclick="setKey()" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'+data.id+'"><i class="fa fa-trash"></i><?php $L->p('Delete') ?></a>';
+
 							html += '</div></div>';
+
 						}
 
 						return html;
@@ -144,3 +150,68 @@
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal for delete page -->
+<?php
+	echo Bootstrap::modal(array(
+		'buttonPrimary'=>$L->g('Delete'),
+		'buttonPrimaryClass'=>'btn-danger deletePageModalAcceptButton',
+		'buttonSecondary'=>$L->g('Cancel'),
+		'buttonSecondaryClass'=>'btn-link',
+		'modalTitle'=>$L->g('Delete content'),
+		'modalText'=>$L->g('Are you sure you want to delete this page'),
+		'modalId'=>'jsdeletePageModal'
+	));
+?>
+
+
+<script>
+var key = false;
+
+function setKey() {
+	 key = $(".deletePageButton").data('key');
+	 console.log(key);
+}
+
+$(document).ready(function() {
+
+
+	// Button for delete a page in the table
+
+
+	// Event from button accept from the modal
+	$(".deletePageModalAcceptButton").on("click", function() {
+		console.log(key);
+		console.log(HTML_PATH_ADMIN_ROOT);
+
+
+		var form = jQuery('<form>', {
+			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
+			'method': 'post',
+			'target': '_top'
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'tokenCSRF',
+			'value': tokenCSRF
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'key',
+			'value': key
+		}).append(jQuery('<input>', {
+			'type': 'hidden',
+			'name': 'type',
+			'value': 'delete'
+		}))));
+
+		form.hide().appendTo("body").submit();
+	});
+});
+</script>
+
+
+<script>
+	// Open the tab defined in the URL
+	const anchor = window.location.hash;
+	$(`a[href="${anchor}"]`).tab('show');
+</script>
