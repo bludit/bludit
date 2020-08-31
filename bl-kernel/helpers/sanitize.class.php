@@ -30,10 +30,14 @@ class Sanitize {
 		return htmlspecialchars_decode($text, $flags);
 	}
 
-	// Remove javacript from links
+	// Remove javascript from links
 	public static function noJSLink($text)
 	{
-		return preg_replace("/javascript\s*:\s*/", "", $text);
+		$text = trim($text);
+		while(strpos($text, 'javascript')===0){
+			$text = preg_replace("/javascript\s*:\s*/", "", $text);
+		}
+		return $text;
 	}
 
 	public static function pathFile($path, $file=false)
