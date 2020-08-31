@@ -33,8 +33,8 @@ class Sanitize {
 	// Remove javascript from links
 	public static function noJSLink($text)
 	{
-		$text = trim($text);
-		while(strpos($text, 'javascript')===0){
+		$text = preg_replace("/\s+/", "", $text);
+		while(strpos($text, 'javascript:')===0){
 			$text = preg_replace("/javascript\s*:\s*/", "", $text);
 		}
 		return $text;
