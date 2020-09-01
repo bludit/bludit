@@ -171,7 +171,6 @@ var key = false;
 
 function setKey() {
 	 key = $(".deletePageButton").data('key');
-	 console.log(key);
 }
 
 $(document).ready(function() {
@@ -210,11 +209,4 @@ $(document).ready(function() {
 		$('.select2-search__field').trigger("input");
 	});
 });
-</script>
-
-
-<script>
-	// Open the tab defined in the URL
-//	const anchor = window.location.hash;
-//	$(`a[href="${anchor}"]`).tab('show');
 </script>
