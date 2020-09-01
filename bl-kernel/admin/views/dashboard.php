@@ -171,21 +171,15 @@ var key = false;
 
 function setKey() {
 	 key = $(".deletePageButton").data('key');
-	 console.log(key);
 }
 
 $(document).ready(function() {
-
-
 	// Button for delete a page in the table
+	$(".select2-dropdown").css("z-index","1040");
 
 
 	// Event from button accept from the modal
 	$(".deletePageModalAcceptButton").on("click", function() {
-		console.log(key);
-		console.log(HTML_PATH_ADMIN_ROOT);
-
-
 		var form = jQuery('<form>', {
 			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
 			'method': 'post',
@@ -207,11 +201,4 @@ $(document).ready(function() {
 		form.hide().appendTo("body").submit();
 	});
 });
-</script>
-
-
-<script>
-	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
 </script>
