@@ -61,7 +61,6 @@
 						}
 					},
 					templateResult: function(data) {
-						// console.log(data);
 						var html = '';
 						if (data.type=='menu') {
 							html += '<a href="'+data.url+'"><div class="search-suggestion">';
@@ -76,8 +75,6 @@
 							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'"><?php $L->p('view') ?></a>';
 							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'"><?php $L->p('edit') ?></a>';
 
-<!--							html += '<script> $(document).ready(function() {var key = false;(".deletePageButton").on("click", function() {   console.log("TESTSTEST");   key = $(this).data("key");	});   });</script>';
--->
 							html += '<a href="#" onclick="setKey()" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'+data.id+'"><i class="fa fa-trash"></i><?php $L->p('Delete') ?></a>';
 
 							html += '</div></div>';
@@ -204,7 +201,6 @@ $(document).ready(function() {
 		form.hide().appendTo("body").submit();
 		
 		$("#jsdeletePageModal").modal('hide');
-
 
 		$('.select2-search__field').trigger("input");
 	});
