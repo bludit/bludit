@@ -176,20 +176,18 @@ function setKey() {
 
 $(document).ready(function() {
 
-
 	// Button for delete a page in the table
-
+	$(".select2-dropdown").css("z-index","1040");
 
 	// Event from button accept from the modal
 	$(".deletePageModalAcceptButton").on("click", function() {
-		console.log(key);
-		console.log(HTML_PATH_ADMIN_ROOT);
 
+		$( "body" ).append("<iframe name='formSending'></iframe>");
 
 		var form = jQuery('<form>', {
 			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
 			'method': 'post',
-			'target': '_top'
+			'target': 'formSending'
 		}).append(jQuery('<input>', {
 			'type': 'hidden',
 			'name': 'tokenCSRF',
@@ -205,6 +203,11 @@ $(document).ready(function() {
 		}))));
 
 		form.hide().appendTo("body").submit();
+		
+		$("#jsdeletePageModal").modal('hide');
+
+
+		$('.select2-search__field').trigger("input");
 	});
 });
 </script>
@@ -212,6 +215,6 @@ $(document).ready(function() {
 
 <script>
 	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
+//	const anchor = window.location.hash;
+//	$(`a[href="${anchor}"]`).tab('show');
 </script>
