@@ -174,12 +174,13 @@ $(document).ready(function() {
 	// Event from button accept from the modal
 	$(".deletePageModalAcceptButton").on("click", function() {
 
-		$( "body" ).append("<iframe id='formSendingIframe' name='formSending'></iframe>");
+		$( "body" ).append("<iframe id='formSendingIframe' name='formSending' style='display:none;'></iframe>");
 
 		var form = jQuery('<form>', {
 			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
 			'method': 'post',
-			'target': 'formSending'
+			'target': 'formSending',
+			'id': 'requestForm'
 		}).append(jQuery('<input>', {
 			'type': 'hidden',
 			'name': 'tokenCSRF',
@@ -201,8 +202,9 @@ $(document).ready(function() {
 		// Wait for request to finish before updating search results
 		$('#formSendingIframe').on( 'load', function() {
 		   $('.select2-search__field').trigger("input");
-		} );
-
+		   $('#requestForm').remove();
+		   $('#formSendingIframe').remove();
+		});
 	});
 });
 </script>
