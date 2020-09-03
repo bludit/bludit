@@ -74,11 +74,8 @@
 							html += '<div class="search-suggestion-options">';
 							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'"><?php $L->p('view') ?></a>';
 							html += '<a class="ml-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'"><?php $L->p('edit') ?></a>';
-
 							html += '<a href="#" onclick="setKey()" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'+data.id+'"><i class="fa fa-trash"></i><?php $L->p('Delete') ?></a>';
-
 							html += '</div></div>';
-
 						}
 
 						return html;
@@ -172,13 +169,12 @@ function setKey() {
 
 $(document).ready(function() {
 
-	// Button for delete a page in the table
 	$(".select2-dropdown").css("z-index","1040");
 
 	// Event from button accept from the modal
 	$(".deletePageModalAcceptButton").on("click", function() {
 
-		$( "body" ).append("<iframe name='formSending'></iframe>");
+		$( "body" ).append("<iframe id='formSendingIframe' name='formSending'></iframe>");
 
 		var form = jQuery('<form>', {
 			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
@@ -199,10 +195,14 @@ $(document).ready(function() {
 		}))));
 
 		form.hide().appendTo("body").submit();
-		
+
 		$("#jsdeletePageModal").modal('hide');
 
-		$('.select2-search__field').trigger("input");
+		// Wait for request to finish before updating search results
+		$('#formSendingIframe').on( 'load', function() {
+		   $('.select2-search__field').trigger("input");
+		} );
+
 	});
 });
 </script>
