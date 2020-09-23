@@ -24,30 +24,49 @@
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>">
 						<?php $L->p('Content') ?></a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
-						<?php $L->p('Categories') ?></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>">
-						<?php $L->p('Users') ?></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'settings' ?>">
-						<?php $L->p('Settings') ?></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>">
-						<?php $L->p('Plugins') ?></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>">
-						<?php $L->p('Themes') ?></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>">
-						<?php $L->p('About') ?></a>
-				</li>
+				<?php if (!checkRole(array('admin'),false)): ?>
+				    <li class="nav-item">
+					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>">
+					    <?php $L->p('Profile') ?></a>
+				    </li>
+				<?php endif; ?>
+				<?php if (checkRole(array('admin'),false)): ?>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
+								<?php $L->p('Categories') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>">
+								<?php $L->p('Users') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'settings' ?>">
+								<?php $L->p('Settings') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>">
+								<?php $L->p('Plugins') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>">
+								<?php $L->p('Themes') ?></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>">
+								<?php $L->p('About') ?></a>
+						</li>
+				<?php endif; ?>
+				<?php if (checkRole(array('admin'),false)): ?>
+				    <?php
+				    if (!empty($plugins['adminSidebar'])) {
+					foreach ($plugins['adminSidebar'] as $pluginSidebar) {
+					    echo '<li class="nav-item">';
+					    echo $pluginSidebar->adminSidebar();
+					    echo '</li>';
+					}
+				    }
+				    ?>
+				<?php endif; ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>">
 						<?php $L->p('Logout') ?></a>
