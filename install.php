@@ -393,6 +393,7 @@ function install($adminPassword, $timezone)
 		'instagram'=>'',
 		'gitlab'=>'',
 		'linkedin'=>'',
+		'xing'=>'',
 		'dateFormat'=>'F j, Y',
 		'extremeFriendly'=>true,
 		'autosaveInterval'=>2,
@@ -428,6 +429,7 @@ function install($adminPassword, $timezone)
 			'instagram'=>'',
 			'codepen'=>'',
 			'linkedin'=>'',
+			'xing'=>'',
 			'github'=>'',
 			'gitlab'=>''
 		)

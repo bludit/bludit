@@ -140,6 +140,11 @@ class User {
 		return $this->getValue('linkedin');
 	}
 
+	public function xing()
+	{
+		return $this->getValue('xing');
+	}
+
 	public function mastodon()
 	{
 		return $this->getValue('mastodon');
@@ -173,6 +178,7 @@ class User {
 		$tmp['github'] 		= $this->github();
 		$tmp['gitlab'] 		= $this->gitlab();
 		$tmp['linkedin'] 	= $this->linkedin();
+		$tmp['xing'] 		= $this->xing();
 		$tmp['mastodon']	= $this->mastodon();
 		$tmp['vk']		= $this->vk();
 		$tmp['profilePicture']	= $this->profilePicture();

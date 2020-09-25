@@ -260,6 +260,15 @@
 		));
 
 		echo Bootstrap::formInputText(array(
+			'name'=>'xing',
+			'label'=>'Xing',
+			'value'=>$user->xing(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+
+		echo Bootstrap::formInputText(array(
 			'name'=>'mastodon',
 			'label'=>'Mastodon',
 			'value'=>$user->mastodon(),
