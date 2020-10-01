@@ -290,6 +290,14 @@ class pluginBackup extends Plugin {
 	{
 		global $L;
 
+		// Prevent arbitrary deletion. Check if directory/zip backup exists
+		if (! in_array(
+			$this->zip ? "$filename.zip" : $filename,
+			array_map('basename', glob($this->workspace().'*')))
+		) {
+			return $this->response(400, sprintf($L->get("Invalid Backup '%s'"), $filename));
+		}
+
 		if ($this->zip) {
 			// Zip format
 			$tmp = $this->workspace().$filename.'.zip';
