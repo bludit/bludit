@@ -3,11 +3,13 @@
 class pluginImapAuthentication extends Plugin {
 
     const IMAP_SERVER_DB_FIELD = 'imapServer';
+    const IMAP_ENCRYPTION_DB_FIELD = 'imapEncryption';
 
     public function init()
     {
         $this->dbFields = array(
             self::IMAP_SERVER_DB_FIELD=>'',
+            self::IMAP_ENCRYPTION_DB_FIELD=>'ssl',
         );
     }
 
@@ -22,6 +24,14 @@ class pluginImapAuthentication extends Plugin {
         $html .= '<div>';
         $html .= '<label>'.$L->get('IMAP Server').'</label>';
         $html .= '<input name="imapServer" id="imapServer" type="text" value="'.$this->getValue(self::IMAP_SERVER_DB_FIELD).'">';
+        $html .= '</div>';
+
+        $html .= '<div>';
+        $html .= '<label>'.$L->get('Encryption').'</label>';
+        $html .= '<select name="imapEncryption" id="imapEncryption">';
+        $html .= '<option value="ssl" '.('ssl' === $this->getValue(self::IMAP_ENCRYPTION_DB_FIELD) ? 'selected' : ''). '>SSL</option>';
+        $html .= '<option value="tls" '.('tls' === $this->getValue(self::IMAP_ENCRYPTION_DB_FIELD) ? 'selected' : ''). '>TLS</option>';
+        $html .= '</select>';
         $html .= '</div>';
 
         return $html;
@@ -58,7 +68,7 @@ class pluginImapAuthentication extends Plugin {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        if (!$this->authenticateUser($this->getValue(self::IMAP_SERVER_DB_FIELD), $username, $password)) {
+        if (!$this->authenticateUser($this->getValue(self::IMAP_SERVER_DB_FIELD), $this->getValue(self::IMAP_ENCRYPTION_DB_FIELD), $username, $password)) {
             return;
         }
 
@@ -71,11 +81,12 @@ class pluginImapAuthentication extends Plugin {
 
     /**
      * @param $mailbox
+     * @param $encryption
      * @param $username User's mail address
      * @param $password
      * @return bool
      */
-    private function authenticateUser($mailbox, $username, $password)
+    private function authenticateUser($mailbox, $encryption, $username, $password)
     {
         if (!function_exists('imap_open')) {
             Log::set(__METHOD__.LOG_SEP.'ERROR: PHP imap extension is not installed');
@@ -87,7 +98,7 @@ class pluginImapAuthentication extends Plugin {
             $username = str_replace("%40","@",$username);
         }
 
-        $imapConnection = @imap_open("{{$mailbox}/imap/tls}INBOX", $username, $password, OP_HALFOPEN, 1);
+        $imapConnection = @imap_open("{{$mailbox}/imap/{$encryption}}INBOX", $username, $password, OP_HALFOPEN, 1);
         $imapErrors = imap_errors();
         $imapAlerts = imap_alerts();
         if (!empty($imapErrors)) {
@@ -114,7 +125,7 @@ class pluginImapAuthentication extends Plugin {
     {
         global $users;
 
-        if (!$this->authenticateUser($this->getValue(self::IMAP_SERVER_DB_FIELD), $username, $password)) {
+        if (!$this->authenticateUser($this->getValue(self::IMAP_SERVER_DB_FIELD), $this->getValue(self::IMAP_ENCRYPTION_DB_FIELD), $username, $password)) {
             return;
         }
 

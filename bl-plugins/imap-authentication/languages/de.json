@@ -3,6 +3,7 @@
   {
     "name": "IMAP-Authentifizierung",
     "description": "Dieses Plugin ermöglicht die Authentifizierung von Benutzern mit Hilfe eines IMAP-Servers.",
-    "imap-server": "IMAP Server"
+    "imap-server": "IMAP Server",
+    "encryption": "Verschlüsselung"
   }
 }
