@@ -1,0 +1,9 @@
+{
+  "plugin-data":
+  {
+    "name": "IMAP Authentication",
+    "description": "This plugin enables the authentication of users, using an IMAP server.",
+    "imap-server": "IMAP Server",
+    "encryption": "Encryption"
+  }
+}
