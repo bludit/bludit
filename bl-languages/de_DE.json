@@ -392,5 +392,7 @@
     "custom-fields": "Benutzerdefinierte Felder",
     "define-custom-fields-for-the-content": "Benutzerdefinierte Felder für Inhalte anlegen. Informationen darüber sind in der <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>Dokumentation<\/a> zu finden.",
     "start-typing-to-see-a-list-of-suggestions": "Beginne mit dem Tippen für eine Liste mit Vorschlägen.",
-    "view": "Anschauen"
+    "view": "Anschauen",
+    "insert-thumbnail": "Vorschau einfügen",
+    "insert-linked-thumbnail": "Verlinkte Vorschau einfügen"
 }
