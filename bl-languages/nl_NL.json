@@ -2,7 +2,7 @@
     "language-data": {
         "native": "Nederlands",
         "english-name": "Dutch",
-        "last-update": "2019-06-06",
+        "last-update": "2020-11-01",
         "authors": [
             "Ray",
             "ltGuillaume"
@@ -278,10 +278,10 @@
     "minute": "minuut",
     "example-page-1-slug": "create-your-own-content",
     "example-page-1-title": "Create your own content",
-    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the <a href=\".\/admin\/\">admin panel<\/a> with the username `admin` and the password you set on the installation process.",
+    "example-page-1-content": "Start writing your own content or edit the current to fit your needs. To create, edit or remove content you need to login to the <a href=\".\/admin\/\">admin panel<\/a> with the username `admin` and the password you set in the installation process.",
     "example-page-2-slug": "set-up-your-new-site",
     "example-page-2-title": "Set up your new site",
-    "example-page-2-content": "Update the settings of your site from the <a href=\".\/admin\/\">admin panel<\/a>, you can change the title, description and the social networks from <a href=\".\/admin\/settings\" target=\"_blank\">Settings > General<\/a>.",
+    "example-page-2-content": "Update the settings of your site from the <a href=\".\/admin\/\">admin panel<\/a>, you can change the title, description and the social networks from <a href=\".\/admin\/settings\">Settings > General<\/a>.",
     "example-page-3-slug": "follow-bludit",
     "example-page-3-title": "Follow Bludit",
     "example-page-3-content": "Get information about news, new releases, new themes or new plugins on our social networks <a href=\"https:\/\/www.facebook.com\/bluditcms\/\" target=\"_blank\">Facebook<\/a>, <a href=\"https:\/\/www.twitter.com\/bludit\/\" target=\"_blank\">Twitter<\/a> and <a href=\"https:\/\/www.youtube.com\/c\/Bluditcms\" target=\"_blank\">YouTube<\/a> or visit our <a href=\"https:\/\/blog.bludit.com\" target=\"_blank\">Blog<\/a>.",
@@ -368,11 +368,11 @@
     "width": "Breedte",
     "height": "Hoogte",
     "quality": "Kwaliteit",
-    "thumbnails": "Voorbeeldafbeeldingen",
-    "thumbnail": "Voorbeeld",
-    "thumbnail-width-in-pixels": "Breedte voorbeelden in pixels (px).",
-    "thumbnail-height-in-pixels": "Hoogte voorbeelden in pixels (px).",
-    "thumbnail-quality-in-percentage": "Kwaliteit voorbeelden in procenten (%).",
+    "thumbnails": "Thumbnails",
+    "thumbnail": "Thumbnail",
+    "thumbnail-width-in-pixels": "Breedte thumbnails in pixels (px).",
+    "thumbnail-height-in-pixels": "Hoogte thumbnails in pixels (px).",
+    "thumbnail-quality-in-percentage": "Kwaliteit thumbnails in procenten (%).",
     "maximum-load-file-size-allowed:": "Maximale bestandsgrootte voor uploads:",
     "file-type-is-not-supported": "Dit bestandstype is niet toegestaan. Wel toegestaan zijn:",
     "page-content": "Inhoud pagina",
@@ -389,4 +389,6 @@
     "define-custom-fields-for-the-content": "Definieer eigen inhoudsvelden. Lees meer over eigen velden in de <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentatie<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "Voer de beginletters in om een lijst met suggesties op te roepen.",
     "view": "Bekijken"
+    "insert-thumbnail": "Thumbnail invoegen",
+    "insert-linked-thumbnail": "Thumbnail met link invoegen"
 }
