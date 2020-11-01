@@ -143,8 +143,8 @@ class pluginAPI extends Plugin {
 		}
 		// (PUT) /api/pages/<key>
 		elseif ( ($method==='PUT') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
-			$pageKey = $parameters[1];
-			$data = $this->editPage($pageKey, $inputs);
+			$inputs['key'] = $parameters[1];
+			$data = $this->editPage($inputs);
 		}
 		// (DELETE) /api/pages/<key>
 		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
@@ -203,6 +203,13 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='POST') && ($parameters[0]==='files') && !empty($parameters[1]) ) {
 			$pageKey = $parameters[1];
 			$data = $this->uploadFile($pageKey);
+		}
+		// (GET) /api/helper/<helper-name>
+		elseif ( ($method==='GET') && ($parameters[0]==='helper') && !empty($parameters[1]) ) {
+			$helperName = $parameters[1];
+			if ($helperName=='friendly-url') {
+				$data = $this->getFriendlyURL($inputs);
+			}
 		}
 		else {
 			$this->response(401, 'Unauthorized', array('message'=>'Access denied or invalid endpoint.'));
@@ -429,14 +436,13 @@ class pluginAPI extends Plugin {
 		);
 	}
 
-	private function editPage($key, $args)
+	private function editPage($args)
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
 			$args['content'] = Sanitize::htmlDecode($args['content']);
 		}
 
-		$args['key'] = $key;
 		$newKey = editPage($args);
 
 		if ($newKey===false) {
@@ -759,6 +765,27 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'Error moving the file to the final path.'
+		);
+	}
+
+	/*
+		Generates unique slug text for the a page
+
+		$args['text']		string
+		$args['parentKey']	string
+		$args['pageKey']	string
+
+		returns['data']		string
+	*/
+	private function getFriendlyURL($args)
+	{
+		global $pages;
+		$slug = $pages->generateKey($args['text'], $args['parentKey'], true, $args['pageKey']);
+
+		return array(
+			'status'=>'0',
+			'message'=>'Friendly URL generated.',
+			'data'=>$slug
 		);
 	}
 }

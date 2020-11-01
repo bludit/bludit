@@ -91,6 +91,18 @@ return <<<EOF
 		return easymde.value();
 	}
 
+	// Insert HTML content at the cursor position
+	// Function required for Bludit
+	function editorInsertContent(html, type='') {
+		var text = easymde.value();
+		if (type == 'image') {
+			easymde.value(text + "![$langImage]("+filename+")" + "\\n");
+		} else {
+			easymde.value(html + "\\n");
+		}
+		easymde.codemirror.refresh();
+	}
+
 	easymde = new EasyMDE({
 		element: document.getElementById("jseditor"),
 		status: false,

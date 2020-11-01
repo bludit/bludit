@@ -92,6 +92,12 @@ $html = <<<EOF
 		return tinymce.get('jseditor').getContent();
 	}
 
+	// Insert HTML content at the cursor position
+	// Function required for Bludit
+	function editorInsertContent(html, type='') {
+		tinymce.activeEditor.insertContent(html);
+	}
+
 	tinymce.init({
 		selector: "#jseditor",
 		auto_focus: "jseditor",
@@ -115,7 +121,12 @@ $html = <<<EOF
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
 		language: "$lang",
-		content_css: "$content_css"
+		content_css: "$content_css",
+		init_instance_callback: function(editor) {
+			editor.on("keydown", function(event) {
+				keypress(event);
+			});
+		}
 	});
 
 </script>

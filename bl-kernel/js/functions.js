@@ -34,3 +34,9 @@ function getCookie(name) {
 function deleteCookie(name) {
 	document.cookie = name+'=; Max-Age=-999;';
 }
+
+function logs(message) {
+	if (DEBUG_MODE) {
+		console.log(message);
+	}
+}

@@ -1,454 +1,121 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-<?php
-
-// Start form
-echo Bootstrap::formOpen(array(
-	'id'=>'jsform',
-	'class'=>'d-flex flex-column h-100'
-));
-
-	// Token CSRF
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'tokenCSRF',
-		'value'=>$security->getTokenCSRF()
-	));
-
-	// UUID
-	// The UUID is generated in the controller
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'uuid',
-		'value'=>$uuid
-	));
-
-	// Type = published, draft, sticky, static
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'type',
-		'value'=>'published'
-	));
-
-	// Cover image
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'coverImage',
-		'value'=>''
-	));
-
-	// Content
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'content',
-		'value'=>''
-	));
-?>
-
-<!-- TOOLBAR -->
-<div id="jseditorToolbar" class="mb-1">
-	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
-		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
-	</div>
-
-	<div id="jseditorToolbarLeft">
-		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
-		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
-	</div>
-</div>
 <script>
-	$(document).ready(function() {
-		$("#jsoptionsSidebar").on("click", function() {
-			$("#jseditorSidebar").toggle();
-			$("#jsshadow").toggle();
+// ----------------------------------------------------------------------------
+// Variables for the view
+// ----------------------------------------------------------------------------
+var _pageKey = null; // The page key is generated the first time the user click on the button "Save"
+var _uuid = '<?php echo $uuid ?>'; // The UUID is generated at the begining if the user uploaded files to the page
+
+// ----------------------------------------------------------------------------
+// Functions for the view
+// ----------------------------------------------------------------------------
+// Default function for the editor area (textarea)
+// This helps if the user doesn't activate any plugin as editor
+if (typeof editorGetContent != 'function') {
+	window.editorGetContent = function(){
+		return $('#editor').val();
+	};
+}
+if (typeof editorInsertMedia != 'function') {
+	window.editorInsertMedia = function(filename){
+		$('#editor').val($('#editor').val()+'<img src="'+filename+'" alt="">');
+	};
+}
+
+// Creates or save the page
+// This function set the global variable "_pageKey"
+function save(args) {
+	args['uuid'] = _uuid;
+	// If the "page key" doesn't exists means the page not was created
+	// Create the page to generate a "page key"
+	if (_pageKey == null) {
+		logs('Creating page');
+		api.createPage(args).then(function(key) {
+			logs('Page created. Key: '+key);
+			// Set the global variable with the page key
+			_pageKey = key;
+			// Disable the button save and change text
+			//$("#btnSave").attr("disabled", true).html("Saved");
 		});
-
-		$("#jsshadow").on("click", function() {
-			$("#jseditorSidebar").toggle();
-			$("#jsshadow").toggle();
+	} else {
+		logs('Saving page');
+		args['pageKey'] = _pageKey;
+		api.savePage(args).then(function(key) {
+			logs('Page saved. Old key: '+_pageKey+' / New key: '+key);
+			// Set the global variable with the page key
+			// The page key can change after save the page so you need to set again the variable
+			_pageKey = key;
+			// Disable the button save and change text
+			//$("#btnSave").attr("disabled", true).html("Saved");
 		});
-	});
-</script>
-
-<!-- SIDEBAR OPTIONS -->
-<div id="jseditorSidebar">
-	<nav>
-		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<a class="nav-link active show" id="nav-general-tab"  data-toggle="tab" href="#nav-general"  role="tab" aria-controls="general"><?php $L->p('General') ?></a>
-			<a class="nav-link" id="nav-advanced-tab" data-toggle="tab" href="#nav-advanced" role="tab" aria-controls="advanced"><?php $L->p('Advanced') ?></a>
-			<?php if (!empty($site->customFields())): ?>
-			<a class="nav-link" id="nav-custom-tab" data-toggle="tab" href="#nav-custom" role="tab" aria-controls="custom"><?php $L->p('Custom') ?></a>
-			<?php endif ?>
-			<a class="nav-link" id="nav-seo-tab" data-toggle="tab" href="#nav-seo" role="tab" aria-controls="seo"><?php $L->p('SEO') ?></a>
-		</div>
-	</nav>
-
-	<div class="tab-content pr-3 pl-3 pb-3">
-		<div id="nav-general" class="tab-pane fade show active" role="tabpanel" aria-labelledby="general-tab">
-			<?php
-				// Category
-				echo Bootstrap::formSelectBlock(array(
-					'name'=>'category',
-					'label'=>$L->g('Category'),
-					'selected'=>'',
-					'class'=>'',
-					'emptyOption'=>'- '.$L->g('Uncategorized').' -',
-					'options'=>$categories->getKeyNameArray()
-				));
-
-				// Description
-				echo Bootstrap::formTextareaBlock(array(
-					'name'=>'description',
-					'label'=>$L->g('Description'),
-					'selected'=>'',
-					'class'=>'',
-					'value'=>'',
-					'rows'=>5,
-					'placeholder'=>$L->get('this-field-can-help-describe-the-content')
-				));
-			?>
-
-			<!-- Cover Image -->
-			<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"><?php $L->p('Cover Image') ?></label>
-			<div>
-				<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
-			</div>
-			<div class="mt-2 text-center">
-				<button type="button" id="jsbuttonSelectCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Select cover image') ?></button>
-				<button type="button" id="jsbuttonRemoveCoverImage" class="btn btn-secondary btn-sm"><?php echo $L->g('Remove cover image') ?></button>
-			</div>
-			<script>
-				$(document).ready(function() {
-					$("#jscoverImagePreview").on("click", function() {
-						openMediaManager();
-					});
-
-					$("#jsbuttonSelectCoverImage").on("click", function() {
-						openMediaManager();
-					});
-
-					$("#jsbuttonRemoveCoverImage").on("click", function() {
-						$("#jscoverImage").val('');
-						$("#jscoverImagePreview").attr('src', HTML_PATH_CORE_IMG+'default.svg');
-					});
-				});
-			</script>
-		</div>
-		<div id="nav-advanced" class="tab-pane fade" role="tabpanel" aria-labelledby="advanced-tab">
-			<?php
-				// Date
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'date',
-					'label'=>$L->g('Date'),
-					'placeholder'=>'',
-					'value'=>Date::current(DB_DATE_FORMAT),
-					'tip'=>$L->g('date-format-format')
-				));
-
-				// Type
-				echo Bootstrap::formSelectBlock(array(
-					'name'=>'typeSelector',
-					'label'=>$L->g('Type'),
-					'selected'=>'',
-					'options'=>array(
-						'published'=>'- '.$L->g('Default').' -',
-						'sticky'=>$L->g('Sticky'),
-						'static'=>$L->g('Static')
-					),
-					'tip'=>''
-				));
-
-				// Position
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'position',
-					'label'=>$L->g('Position'),
-					'tip'=>$L->g('Field used when ordering content by position'),
-					'value'=>$pages->nextPositionNumber()
-				));
-
-				// Tags
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'tags',
-					'label'=>$L->g('Tags'),
-					'placeholder'=>'',
-					'tip'=>$L->g('Write the tags separated by comma')
-				));
-
-				// Parent
-				echo Bootstrap::formSelectBlock(array(
-					'name'=>'parent',
-					'label'=>$L->g('Parent'),
-					'options'=>array(),
-					'selected'=>false,
-					'class'=>'',
-					'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
-				));
-
-			?>
-
-			<script>
-			$(document).ready(function() {
-				var parent = $("#jsparent").select2({
-					placeholder: "",
-					allowClear: true,
-					theme: "bootstrap4",
-					minimumInputLength: 2,
-					ajax: {
-						url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
-						data: function (params) {
-							var query = {
-								checkIsParent: true,
-								query: params.term
-							}
-							return query;
-						},
-						processResults: function (data) {
-							return data;
-						}
-					},
-					escapeMarkup: function(markup) {
-						return markup;
-					},
-					templateResult: function(data) {
-						var html = data.text;
-						if (data.type=="static") {
-							html += '<span class="badge badge-pill badge-light">'+data.type+'</span>';
-						}
-						return html;
-					}
-				});
-			});
-			</script>
-
-			<?php
-				// Template
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'template',
-					'label'=>$L->g('Template'),
-					'placeholder'=>'',
-					'value'=>'',
-					'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
-				));
-
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'externalCoverImage',
-					'label'=>$L->g('External cover image'),
-					'placeholder'=>"https://",
-					'value'=>'',
-					'tip'=>$L->g('Set a cover image from external URL, such as a CDN or some server dedicated for images.')
-				));
-
-				// Username
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'',
-					'label'=>$L->g('Author'),
-					'placeholder'=>'',
-					'value'=>$login->username(),
-					'tip'=>'',
-					'disabled'=>true
-				));
-			?>
-
-			<script>
-			$(document).ready(function() {
-
-				// Changes in External cover image input
-				$("#jsexternalCoverImage").change(function() {
-					$("#jscoverImage").val( $(this).val() );
-				});
-
-				// Generate slug when the user type the title
-				$("#jstitle").keyup(function() {
-					var text = $(this).val();
-					var parent = $("#jsparent").val();
-					var currentKey = "";
-					var ajax = new bluditAjax();
-					var callBack = $("#jsslug");
-					ajax.generateSlug(text, parent, currentKey, callBack);
-				});
-
-				// Datepicker
-				$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
-
-
-			});
-			</script>
-		</div>
-		<?php if (!empty($site->customFields())): ?>
-		<div id="nav-custom" class="tab-pane fade" role="tabpanel" aria-labelledby="custom-tab">
-		<?php
-			$customFields = $site->customFields();
-			foreach ($customFields as $field=>$options) {
-				if ( !isset($options['position']) ) {
-					if ($options['type']=="string") {
-						echo Bootstrap::formInputTextBlock(array(
-							'name'=>'custom['.$field.']',
-							'label'=>(isset($options['label'])?$options['label']:''),
-							'value'=>(isset($options['default'])?$options['default']:''),
-							'tip'=>(isset($options['tip'])?$options['tip']:''),
-							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:'')
-						));
-					} elseif ($options['type']=="bool") {
-						echo Bootstrap::formCheckbox(array(
-							'name'=>'custom['.$field.']',
-							'label'=>(isset($options['label'])?$options['label']:''),
-							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-							'checked'=>(isset($options['checked'])?true:false),
-							'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:'')
-						));
-					}
-				}
-			}
-		?>
-		</div>
-		<?php endif ?>
-		<div id="nav-seo" class="tab-pane fade" role="tabpanel" aria-labelledby="seo-tab">
-			<?php
-				// Friendly URL
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'slug',
-					'tip'=>$L->g('URL associated with the content'),
-					'label'=>$L->g('Friendly URL'),
-					'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.')
-				));
-
-				// Robots
-				echo Bootstrap::formCheckbox(array(
-					'name'=>'noindex',
-					'label'=>'Robots',
-					'labelForCheckbox'=>$L->g('apply-code-noindex-code-to-this-page'),
-					'placeholder'=>'',
-					'checked'=>false,
-					'tip'=>$L->g('This tells search engines not to show this page in their search results.')
-				));
-
-				// Robots
-				echo Bootstrap::formCheckbox(array(
-					'name'=>'nofollow',
-					'label'=>'',
-					'labelForCheckbox'=>$L->g('apply-code-nofollow-code-to-this-page'),
-					'placeholder'=>'',
-					'checked'=>false,
-					'tip'=>$L->g('This tells search engines not to follow links on this page.')
-				));
-
-				// Robots
-				echo Bootstrap::formCheckbox(array(
-					'name'=>'noarchive',
-					'label'=>'',
-					'labelForCheckbox'=>$L->g('apply-code-noarchive-code-to-this-page'),
-					'placeholder'=>'',
-					'checked'=>false,
-					'tip'=>$L->g('This tells search engines not to save a cached copy of this page.')
-				));
-			?>
-		</div>
-	</div>
-</div>
-
-<!-- Custom fields: TOP -->
-<?php
-	$customFields = $site->customFields();
-	foreach ($customFields as $field=>$options) {
-		if ( isset($options['position']) && ($options['position']=='top') ) {
-			if ($options['type']=="string") {
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'custom['.$field.']',
-					'label'=>(isset($options['label'])?$options['label']:''),
-					'value'=>(isset($options['default'])?$options['default']:''),
-					'tip'=>(isset($options['tip'])?$options['tip']:''),
-					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'class'=>'mb-2',
-					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
-
-				));
-			} elseif ($options['type']=="bool") {
-				echo Bootstrap::formCheckbox(array(
-					'name'=>'custom['.$field.']',
-					'label'=>(isset($options['label'])?$options['label']:''),
-					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'checked'=>(isset($options['checked'])?true:false),
-					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
-					'class'=>'mb-2',
-					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
-				));
-			}
-		}
 	}
-?>
 
+	// Close all modals
+	$('.modal').modal('hide');
+	return true;
+}
 
-<!-- Title -->
-<div id="jseditorTitle" class="form-group mb-1">
-	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="" placeholder="<?php $L->p('Enter title') ?>">
-</div>
+// Open the modal and store the current value
+// The current value is store to recover it if the user click in the button "Cancel"
+function openModal(fieldName) {
+	var value = $('#'+fieldName).val();
+	localStorage.setItem(fieldName, value);
+	$('#modal-'+fieldName).modal('show');
+}
 
-<!-- Editor -->
-<textarea id="jseditor" class="editable h-100 mb-1"></textarea>
+// Close the modal when the user click in the button "Cancel"
+// The function also recover the old value
+function closeModal(fieldName) {
+	var value = localStorage.getItem(fieldName);
+	$('#'+fieldName).val(value);
+	$('#modal-'+fieldName).modal('hide');
+}
 
-<!-- Custom fields: BOTTOM -->
-<?php
-	$customFields = $site->customFields();
-	foreach ($customFields as $field=>$options) {
-		if ( isset($options['position']) && ($options['position']=='bottom') ) {
-			if ($options['type']=="string") {
-				echo Bootstrap::formInputTextBlock(array(
-					'name'=>'custom['.$field.']',
-					'label'=>(isset($options['label'])?$options['label']:''),
-					'value'=>(isset($options['default'])?$options['default']:''),
-					'tip'=>(isset($options['tip'])?$options['tip']:''),
-					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'class'=>'mt-2',
-					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+// This function is to catch all key press
+// Provides Shortcuts
+// The editor plugin need to call this function for the event "keydown"
+function keypress(event) {
+	console.log(event);
 
-				));
-			} elseif ($options['type']=="bool") {
-				echo Bootstrap::formCheckbox(array(
-					'name'=>'custom['.$field.']',
-					'label'=>(isset($options['label'])?$options['label']:''),
-					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'checked'=>(isset($options['checked'])?true:false),
-					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
-					'class'=>'mt-2',
-					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
-				));
-			}
+	// Shortcuts
+	// ------------------------------------------------------------------------
+	// Ctrl+S or Command+S
+	if ((event.ctrlKey || event.metaKey) && event.which == 83) {
+		var args = {
+			title: $('#title').val(),
+			content: editorGetContent()
 		}
+		save(args);
+		$('#btnSave').addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
+		event.preventDefault();
+		return false;
 	}
-?>
 
-</form>
+	$('#btnSave').removeClass('btn-primary-disabled').html('<?php $L->p('Save') ?>');
+}
 
-<!-- Modal for Media Manager -->
-<?php include(PATH_ADMIN_THEMES.'booty/html/media.php'); ?>
-
-<script>
+// ----------------------------------------------------------------------------
+// Events for the view
+// ----------------------------------------------------------------------------
 $(document).ready(function() {
 
-	// Define function if they doesn't exist
-	// This helps if the user doesn't activate any plugin as editor
-	if (typeof editorGetContent != "function") {
-		window.editorGetContent = function(){
-			return $("#jseditor").val();
-		};
-	}
-	if (typeof editorInsertMedia != "function") {
-		window.editorInsertMedia = function(filename){
-			$("#jseditor").val($('#jseditor').val()+'<img src="'+filename+'" alt="">');
-		};
-	}
-
-	// Button switch
-	$("#jsbuttonSwitch").on("click", function() {
-		if ($(this).data("switch")=="publish") {
-			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
-			$(this).data("switch", "draft");
-		} else {
-			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
-			$(this).data("switch", "publish");
-		}
+	// Main interface events
+	// ------------------------------------------------------------------------
+	$(this).keydown(function(event){
+		keypress(event);
 	});
 
-	// Button preview
-	$("#jsbuttonPreview").on("click", function() {
-		var uuid = $("#jsuuid").val();
+	$('#btnSave').on('click', function() {
+		var args = {
+			title: $('#title').val(),
+			content: editorGetContent()
+		}
+		save(args);
+		$(this).addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
+	});
+
+	$("#btnPreview").on("click", function() {
 		var title = $("#jstitle").val();
 		var content = editorGetContent();
 		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
@@ -457,22 +124,430 @@ $(document).ready(function() {
 		});
 	});
 
-	// Button Save
-	$("#jsbuttonSave").on("click", function() {
-		// If the switch is setted to "published", get the value from the selector
-		if ($("#jsbuttonSwitch").data("switch")=="publish") {
-			var value = $("#jstypeSelector option:selected").val();
-			$("#jstype").val(value);
-		} else {
-			$("#jstype").val("draft");
-		}
-
-		// Get the content
-		$("#jscontent").val( editorGetContent() );
-
-		// Submit the form
-		$("#jsform").submit();
+	$('#btnCurrenStatus').on('click', function() {
+		openModal('status');
 	});
+
+	$('#category').on("change", function() {
+		$('#btnSave').html('<?php $L->p('Save') ?>');
+	});
+
+	// Modal description events
+	// ------------------------------------------------------------------------
+	$('#btnSaveDescription').on('click', function() {
+		var args = {
+			description: $('#description').val()
+		};
+		save(args);
+	});
+
+	$('#btnCancelDescription').on('click', function() {
+		closeModal('description');
+	});
+
+	// Modal date events
+	// ------------------------------------------------------------------------
+	$('#btnSaveDate').on('click', function() {
+		var args = {
+			date: $('#date').val()
+		};
+		save(args);
+	});
+
+	$('#btnCancelDate').on('click', function() {
+		closeModal('date');
+	});
+
+	// Modal friendly-url events
+	// ------------------------------------------------------------------------
+	$('#btnSaveFriendlyURL').on('click', function() {
+		var args = {
+			slug: $('#friendlyURL').val()
+		};
+		save(args);
+	});
+
+	$('#btnCancelFriendlyURL').on('click', function() {
+		closeModal('FriendlyURL');
+	});
+
+	$('#btnGenURLFromTitle').on('click', function() {
+		var args = {
+			text: $('#title').val(),
+			parentKey: $('#parent').val(),
+			pageKey: _pageKey
+		}
+		api.friendlyURL(args).then(function(slug) {
+			$('#friendlyURL').val(slug);
+		});
+	});
+
+	// Modal status events
+	// ------------------------------------------------------------------------
+	$('#btnSaveStatus').on('click', function() {
+		var args = {
+			type: $('input[name="status"]:checked').val()
+		};
+		save(args);
+
+		if (args['type']=='draft') {
+			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+		} else if (args['type']=='published') {
+			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-published"></i> <?php $L->p('Published') ?>');
+		} else if (args['type']=='unlisted') {
+			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-unlisted"></i> <?php $L->p('Unlisted') ?>');
+		} else if (args['type']=='sticky') {
+			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-sticky"></i> <?php $L->p('Sticky') ?>');
+		} else if (args['type']=='static') {
+			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-static"></i> <?php $L->p('Static') ?>');
+		}
+	});
+
+	$('#btnCancelStatus').on('click', function() {
+		closeModal('status');
+	});
+
+	// Modal parent events
+	// ------------------------------------------------------------------------
+	$('#btnSaveParent').on('click', function() {
+		var args = {
+			parent: $('#parent').val()
+		};
+		save(args);
+	});
+
+	$('#btnCancelParent').on('click', function() {
+		closeModal('parent');
+	});
+
+});
+
+// ----------------------------------------------------------------------------
+// Initlization for the view
+// ----------------------------------------------------------------------------
+$(document).ready(function() {
+	// nothing here yet
+	// how do you hang your toilet paper ? over or under ?
+});
+</script>
+
+<div class="container-fluid h-100">
+<div class="row h-100">
+<div class="col-sm-9 h-100">
+
+<!-- Toolbar > Save, Preview, Status and Options -->
+<div id="editorToolbar" class="mb-2">
+	<div id="editorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
+		<div class="dropdown">
+			<button type="button" class="btn switch-button btn-sm dropdown-toggle" type="button" id="dropdownMenuOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuOptions">
+				<a onclick="openModal('description')" 	class="dropdown-item" href="#"><i class="fa fa-comment"></i> Description</a>
+				<a onclick="openModal('date')" 			class="dropdown-item" href="#"><i class="fa fa-calendar"></i> Publish date</a>
+				<a onclick="openModal('friendlyURL')" 	class="dropdown-item" href="#"><i class="fa fa-link"></i> Change URL</a>
+				<a onclick="openModal('status')" 		class="dropdown-item" href="#"><i class="fa fa-eye"></i> Status</a>
+				<a onclick="openModal('seo')" 			class="dropdown-item" href="#"><i class="fa fa-compass"></i> SEO features</a>
+				<a onclick="openModal('parent')" 		class="dropdown-item" href="#"><i class="fa fa-sitemap"></i> Parent page</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="editorToolbarLeft">
+		<button id="btnSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
+		<button id="btnPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
+		<span   id="btnCurrenStatus" class="ml-2 switch-button"><i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?></span>
+	</div>
+</div>
+<!-- End Toolbar > Save, Preview, Status and Options -->
+
+<!-- Modal Description -->
+<div class="modal" id="modal-description" tabindex="-1" aria-labelledby="modal-description" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<label for="parent" class="font-weight-bold">Page description</label>
+					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
+					<small class="form-text text-muted"><?php echo $L->get('this-field-can-help-describe-the-content') ?></small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelDescription" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveDescription" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Description -->
+
+<!-- Modal Date -->
+<div class="modal" id="modal-date" aria-labelledby="modal-date" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<label for="date" class="font-weight-bold">Publish date</label>
+					<input id="date" name="date" type="text" class="form-control" value="<?php echo Date::current(DB_DATE_FORMAT) ?>">
+					<small class="form-text text-muted"><?php echo $L->g('date-format-format') ?></small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelDate" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveDate" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	$("#date").datetimepicker({format:DB_DATE_FORMAT});
+});
+</script>
+<!-- End Modal Date -->
+
+<!-- Modal friendly URL -->
+<div class="modal" id="modal-friendlyURL" tabindex="-1" aria-labelledby="modal-friendlyURL" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<div class="d-flex mb-2">
+						<label for="friendlyURL" class="p-0 m-0 mr-auto font-weight-bold">Page URL</label>
+						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0"><i class="fa fa-magic"></i> Generate from page title</button>
+					</div>
+					<input id="friendlyURL" name="friendlyURL" type="text" class="form-control" value="">
+					<small class="form-text text-muted">https://www.varlogdiego.com/my-page-about-k8s</small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelfriendlyURL" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSavefriendlyURL" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal friendly URL -->
+
+<!-- Modal Parent -->
+<div class="modal" id="modal-parent" aria-labelledby="modal-parent" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<label for="parent" class="font-weight-bold">Parent page</label>
+					<select id="parent" name="parent" class="custom-select"></select>
+					<small class="form-text text-muted"><?php echo $L->g('Start typing a page title to see a list of suggestions.') ?></small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelParent" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveParent" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	var parent = $("#parent").select2({
+		placeholder: "",
+		allowClear: true,
+		theme: "bootstrap4",
+		minimumInputLength: 2,
+		ajax: {
+			url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+			data: function (params) {
+				var query = {
+					checkIsParent: true,
+					query: params.term
+				}
+				return query;
+			},
+			processResults: function (data) {
+				return data;
+			}
+		},
+		escapeMarkup: function(markup) {
+			return markup;
+		},
+		templateResult: function(data) {
+			var html = data.text;
+			if (data.type=="static") {
+				html += '<span class="badge badge-pill badge-light">'+data.type+'</span>';
+			}
+			return html;
+		}
+	});
+});
+</script>
+<!-- End Modal Parent -->
+
+<!-- Modal Status -->
+<div class="modal" id="modal-status" tabindex="-1" aria-labelledby="modal-status" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<label class="font-weight-bold">Page status</label>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusDraft" name="status" class="form-check-input" type="radio" value="draft" checked>
+					<label class="form-check-label" for="statusDraft">Draft</label>
+					<small class="form-text text-muted">Page as draft, is not visible for visitors.</small>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusPublish" name="status" class="form-check-input" type="radio" value="published">
+					<label class="form-check-label" for="statusPublish">Publish</label>
+					<small class="form-text text-muted">Publish the page, everyone can see it.</small>
+				</div>
+				<hr>
+				<div class="form-check mb-2">
+					<input id="statusSticky" name="status" class="form-check-input" type="radio" value="sticky">
+					<label class="form-check-label" for="statusSticky">Publish as sticky</label>
+					<small class="form-text text-muted">The page can be seen by everyone in the top of the main page.</small>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusStatic" name="status" class="form-check-input" type="radio" value="static">
+					<label class="form-check-label" for="statusStatic">Publish as static</label>
+					<small class="form-text text-muted">The page can be seen by everyone as static page.</small>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusUnlisted" name="status" class="form-check-input" type="radio" value="unlisted">
+					<label class="form-check-label" for="statusUnlisted">Publish as unlisted</label>
+					<small class="form-text text-muted">The page can be seen and shared by anyone with the link.</small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelStatus" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveStatus" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Status -->
+
+<!-- Modal SEO -->
+<div class="modal" id="modal-seo" tabindex="-1" aria-labelledby="modal-seo" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group m-0">
+					<label class="font-weight-bold">SEO features</label>
+				</div>
+				<div class="form-check mb-2">
+					<input id="noindex" name="noindex" class="form-check-input" type="checkbox" value="noindex">
+					<label class="form-check-label" for="noindex"><?php echo $L->g('apply-code-noindex-code-to-this-page') ?></label>
+					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to show this page in their search results.') ?></small>
+				</div>
+				<div class="form-check mb-2">
+					<input id="nofollow" name="nofollow" class="form-check-input" type="checkbox" value="nofollow">
+					<label class="form-check-label" for="nofollow"><?php echo $L->g('apply-code-nofollow-code-to-this-page') ?></label>
+					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to follow links on this page.') ?></small>
+				</div>
+				<div class="form-check mb-2">
+					<input id="noarchive" name="noarchive" class="form-check-input" type="checkbox" value="noarchive">
+					<label class="form-check-label" for="noarchive"><?php echo $L->g('apply-code-noarchive-code-to-this-page') ?></label>
+					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to save a cached copy of this page.') ?></small>
+				</div>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+				<button type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal SEO -->
+
+<form class="d-flex flex-column h-100" id="jsform" method="post" action="" autocomplete="off">
+	<!-- Title -->
+	<div id="jseditorTitle" class="form-group mb-2">
+		<input id="title" name="title" type="text" class="form-control form-control-lg rounded-0" value="" placeholder="<?php $L->p('Enter title') ?>">
+	</div>
+	<!-- End Title -->
+
+	<!-- Editor -->
+	<textarea id="jseditor" class="editable h-100 mb-2"></textarea>
+	<!-- End Editor -->
+</form>
+
+</div> <!-- End <div class="col-sm-9 h-100"> -->
+
+<div class="col-sm-3 h-100">
+
+	<!-- Cover Image -->
+	<h6 class="mt-1 mb-2 pb-2 text-uppercase"><?php $L->p('Cover Image') ?></h6>
+	<div>
+		<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
+	</div>
+	<!-- End Cover Image -->
+
+	<!-- Images -->
+	<h6 class="mt-4 mb-2 pb-2 text-uppercase"><?php $L->p('Images') ?></h6>
+
+    <div class="media text-muted pt-3">
+      <svg class="align-self-center mr-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body">
+        <div class="mt-0">
+			photo1.jpg
+        </div>
+      </div>
+    </div>
+
+    <div class="media text-muted pt-3">
+      <svg class="align-self-center mr-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="media-body">
+        <div class="mt-0">
+			photo2.jpg
+        </div>
+      </div>
+    </div>
+
+    <small class="d-block text-right mt-3">
+      <a href="#">All images</a>
+    </small>
+  <!-- End Images -->
+
+	<!-- Category -->
+	<div class="form-group m-0">
+		<h6 class="mt-4 mb-2 pb-2 text-uppercase">Category</h6>
+		<select id="category" name="category" class="custom-select">
+			<option value="">- Uncategorized -</option>
+			<?php foreach ($categories->db as $key=>$fields): ?>
+			<option value="<?php echo $key ?>"><?php echo $fields['name']?></option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	<!-- End Category -->
+
+	<!-- Tags -->
+	<h6 class="mt-4 mb-2 pb-2 text-uppercase">Tags</h6>
+	<div id="tags"></div>
+	<script>
+	$(document).ready(function() {
+		let tokenAutocomplete = new TokenAutocomplete({
+		name: 'tags',
+		selector: '#tags',
+		noMatchesText: 'No matching results...',
+		minCharactersForSuggestion: 2,
+		initialSuggestions: [
+			<?php
+				foreach ($tags->db as $key=>$fields) {
+					echo '{value: "'.$key.'", text: "'.$fields['name'].'"},';
+				}
+			?>
+		]
+		});
+		tokenAutocomplete.debug(true);
+	});
+		</script>
+	<!-- End Tags -->
+
+</div> <!-- End <div class="col-sm-3 h-100"> -->
+</div> <!-- End <div class="row h-100"> -->
+</div> <!-- End <div class="container-fluid h-100"> -->
+
+<script>
+$(document).ready(function() {
+
 
 	// Autosave
 	var currentContent = editorGetContent();

@@ -25,10 +25,10 @@
 						<?php $L->p('Content') ?></a>
 				</li>
 				<?php if (!checkRole(array('admin'),false)): ?>
-				    <li class="nav-item">
+					<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>">
-					    <?php $L->p('Profile') ?></a>
-				    </li>
+						<?php $L->p('Profile') ?></a>
+					</li>
 				<?php endif; ?>
 				<?php if (checkRole(array('admin'),false)): ?>
 						<li class="nav-item">
@@ -57,15 +57,15 @@
 						</li>
 				<?php endif; ?>
 				<?php if (checkRole(array('admin'),false)): ?>
-				    <?php
-				    if (!empty($plugins['adminSidebar'])) {
-					foreach ($plugins['adminSidebar'] as $pluginSidebar) {
-					    echo '<li class="nav-item">';
-					    echo $pluginSidebar->adminSidebar();
-					    echo '</li>';
+					<?php
+					if (!empty($plugins['adminSidebar'])) {
+						foreach ($plugins['adminSidebar'] as $pluginSidebar) {
+							echo '<li class="nav-item">';
+							echo $pluginSidebar->adminSidebar();
+							echo '</li>';
+						}
 					}
-				    }
-				    ?>
+					?>
 				<?php endif; ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>">

@@ -1,18 +1,12 @@
-
 html {
-	height: 100%;
 	font-size: 0.9rem;
-	background: #fcfcfc;
+	background: #EFEFEF;
 }
 
 body {
-	background: #fcfcfc;
+	background: #EFEFEF;
+	color: #1b1b1b;
 }
-
-/* Prevent events in iframes */
-/* iframe{
-	pointer-events: none;
-} */
 
 /*
 	ICONS
@@ -25,7 +19,6 @@ body {
 /*
 	SIDEBAR
 */
-
 div.sidebar .nav-item a {
 	padding-left:0;
 	padding-right:0;
@@ -61,9 +54,9 @@ div.sidebar .nav-item h4 {
 	BOOTSTRAP Hacks
 */
 
-@media (min-width: 1200px) {
+@media (min-width: 1300px) {
 	.container {
-		max-width: 1250px;
+		max-width: 1350px;
 	}
 }
 
@@ -78,28 +71,6 @@ div.sidebar .nav-item h4 {
 }
 
 
-
-
-.btn-light {
-	color: #212529;
-	background-color: #f3f3f3;
-	border-color: #ced4d9;
-}
-
-.btn-form {
-	background-color: #F3F3F3;
-	border-color: #DDD;
-	color: #000;
-}
-
-.btn-form:hover {
-	background-color: rgb(228, 228, 228);
-	border-color: #DDD;
-	color: #000;
-}
-
-
-
 code {
 	padding: 3px 5px 2px;
 	margin: 0 1px;
@@ -110,28 +81,6 @@ code {
 
 .list-group-sortable {
 	cursor: pointer;
-}
-
-.modal-body {
-	padding: 2rem;
-}
-
-.modal-footer {
-	background-color: rgb(247, 247, 247);
-}
-
-.modal-dialog .btn-link {
-	color: #000;
-}
-
-/*
-	LOGIN
-*/
-
-body.login {
-	background: rgb(255,255,255);
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
-	height: 100%;
 }
 
 
@@ -301,10 +250,10 @@ td.child {
 		max-width: 100%;
 		right: 0;
 	}
-	#jseditorToolbarRight button {
+	#editorToolbarRight button {
 		font-size: 0px !important;
 	}
-	#jseditorToolbarRight button span {
+	#editorToolbarRight button span {
 		font-size: 16px !important;
 	}
 	.contentTools .btn {
@@ -359,6 +308,16 @@ img.profilePicture {
 	cursor: pointer;
 }
 
-.switch-icon-publish {
+.switch-icon-published {
 	color: #1cb11c;
+}
+
+.switch-icon-draft {
+	color: #b11c1c;
+}
+
+.switch-icon-unlisted,
+.switch-icon-static,
+.switch-icon-sticky {
+	color: #1c81b1;
 }

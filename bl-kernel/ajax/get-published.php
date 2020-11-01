@@ -2,12 +2,14 @@
 header('Content-Type: application/json');
 
 /*
-| Returns a list of pages and the title contains the query string
-| The returned list have published, sticky and statics pages
+| Returns a list of pages that the title contains the query string.
+| The returned list have published, sticky and statics pages.
+| It's possible to filter the pages are parents by the flag "checkIsParent".
 |
-| @_POST['query']	string 	The string to search in the title of the pages
+| @_POST['query']			string 	The string to search in the title of the pages.
+| @_POST['checkIsParent']	boolean	TRUE returns only parent pages, FALSE returns all pages.
 |
-| @return	array
+| @return					json 	Ex. {"results":[{"disabled":false,"id":"follow-bludit","text":"Follow Bludit","type":"published"}]}
 */
 
 // $_GET

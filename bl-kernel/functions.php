@@ -194,9 +194,10 @@ function getPlugin($pluginClassName) {
 	return false;
 }
 
-// Returns TRUE if the plugin is activaed / installed, FALSE otherwise
+// Check if the plugin is activated / installed
+// Returns TRUE if the plugin is activated / installed, FALSE otherwise
 function pluginActivated($pluginClassName) {
-        global $plugins;
+		global $plugins;
 
         if (isset($plugins['all'][$pluginClassName])) {
                 return $plugins['all'][$pluginClassName]->installed();
@@ -204,6 +205,8 @@ function pluginActivated($pluginClassName) {
         return false;
 }
 
+// Activate / install the plugin
+// Returns TRUE if the plugin is successfully activated, FALSE otherwise
 function activatePlugin($pluginClassName) {
 	global $plugins;
 	global $syslog;
@@ -227,6 +230,8 @@ function activatePlugin($pluginClassName) {
 	return false;
 }
 
+// Deactivate / uninstall the plugin
+// Returns TRUE if the plugin is successfully deactivated, FALSE otherwise
 function deactivatePlugin($pluginClassName) {
 	global $plugins;
 	global $syslog;
@@ -289,6 +294,14 @@ function changePluginsPosition($pluginClassList) {
 
 	Alert::set($L->g('The changes have been saved'));
 	return true;
+}
+
+// Execute the plugins by hook
+function execPluginsByHook($hook, $args = array()) {
+	global $plugins;
+	foreach ($plugins[$hook] as $plugin) {
+		echo call_user_func_array(array($plugin, $hook), $args);
+	}
 }
 
 /*

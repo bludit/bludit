@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
-// Variables
+// Global Variables
 // ============================================================================
 
 $plugins = array(
@@ -37,12 +37,12 @@ $plugins = array(
 	'loginBodyBegin'=>array(),
 	'loginBodyEnd'=>array(),
 
-	'all'=>array()
+	'all'=>array() // $plugins['all'] keep installed and not installed plugins
 );
 
-$pluginsEvents = $plugins;
-unset($pluginsEvents['all']);
-
+// This array has only the installed plugins
+// The array key is the "plugin class name" and the value is the object
+// pluginsInstalled[pluginClass] = $Plugin
 $pluginsInstalled = array();
 
 // ============================================================================
@@ -52,19 +52,20 @@ $pluginsInstalled = array();
 function buildPlugins()
 {
 	global $plugins;
-	global $pluginsEvents;
 	global $pluginsInstalled;
 	global $L;
 	global $site;
 
+	// This array is only to get the hooks names
+	$pluginsHooks = $plugins;
+	unset($pluginsHooks['all']); // remove "all" because is not a valid hook
+
 	// Get declared clasess BEFORE load plugins clasess
 	$currentDeclaredClasess = get_declared_classes();
 
-	// List plugins directories
+	// Load plugins clasess
 	$list = Filesystem::listDirectories(PATH_PLUGINS);
-	// Load each plugin clasess
 	foreach ($list as $pluginPath) {
-		// Check if the directory has the plugin.php
 		if (file_exists($pluginPath.DS.'plugin.php')) {
 			include_once($pluginPath.DS.'plugin.php');
 		}
@@ -89,8 +90,7 @@ function buildPlugins()
 		$Plugin->setMetadata('name',$database['plugin-data']['name']);
 		$Plugin->setMetadata('description',$database['plugin-data']['description']);
 
-		// Remove name and description from the language file loaded and add new words if there are
-		// This function overwrite the key=>value
+		// Remove name and description from the language and includes new words to the global language dictionary
 		unset($database['plugin-data']);
 		if (!empty($database)) {
 			$L->add($database);
@@ -99,22 +99,24 @@ function buildPlugins()
 		// $plugins['all'] Array with all plugins, installed and not installed
 		$plugins['all'][$pluginClass] = $Plugin;
 
-		// If the plugin is installed insert on the hooks
 		if ($Plugin->installed()) {
-			// Include custom hooks
+			// Include the plugin installed in the global array
+			$pluginsInstalled[$pluginClass] = $Plugin;
+
+			// Define new hooks from custom hooks
 			if (!empty($Plugin->customHooks)) {
-				foreach ($Plugin->customHooks as $customHook) {
-					if (!isset($plugins[$customHook])) {
-						$plugins[$customHook] = array();
-						$pluginsEvents[$customHook] = array();
+				foreach ($Plugin->customHooks as $hook) {
+					if (!isset($plugins[$hook])) {
+						$plugins[$hook] = array();
+						$pluginsHooks[$hook] = array();
 					}
 				}
 			}
 
-			$pluginsInstalled[$pluginClass] = $Plugin;
-			foreach ($pluginsEvents as $event=>$value) {
-				if (method_exists($Plugin, $event)) {
-					array_push($plugins[$event], $Plugin);
+			// Insert the plugin into the hooks
+			foreach ($pluginsHooks as $hook=>$value) {
+				if (method_exists($Plugin, $hook)) {
+					array_push($plugins[$hook], $Plugin);
 				}
 			}
 		}

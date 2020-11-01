@@ -209,7 +209,7 @@ EOF;
 
 		$html = '<div class="form-group m-0">';
 		if (!empty($args['label'])) {
-			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<h6 class="mt-4 mb-2 pb-2 text-uppercase">'.$args['label'].'</h6>';
 		}
 
 		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
@@ -361,7 +361,7 @@ EOF;
 		$html = '<div class="form-group m-0">';
 
 		if (!empty($args['label'])) {
-			$html .= '<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100" for="'.$id.'">'.$args['label'].'</label>';
+			$html .= '<h6 class="mt-4 mb-2 pb-2 text-uppercase">'.$args['label'].'</h6>';
 		}
 
 		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
@@ -382,7 +382,7 @@ EOF;
 
 	public static function formInputHidden($args)
 	{
-		return '<input type="hidden" id="js'.$args['name'].'" name="'.$args['name'].'" value="'.$args['value'].'">';
+		return '<input type="hidden" id="'.$args['name'].'" name="'.$args['name'].'" value="'.$args['value'].'">';
 	}
 
 	public static function alert($args)

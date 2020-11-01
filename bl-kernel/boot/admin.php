@@ -1,14 +1,20 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Start the session
-// If the session is not possible to start the admin area is not available
+// If the session is not started the admin area is not available
 Session::start();
 if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failed.');
 }
 
+// The login object contains the authentication system and/or the current user logged
 $login = new Login();
 
+// Initialize plugins
+include(PATH_RULES.'60.plugins.php');
+
+// Parameters for the controller and view
+// For example "title" keeps the HTML tag <title>
 $layout = array(
 	'controller'=>null,
 	'view'=>null,
@@ -19,14 +25,14 @@ $layout = array(
 	'title'=>'Bludit'
 );
 
-// Get the Controller
+// Get from the URL the controller and view
 $explodeSlug = $url->explodeSlug();
 $layout['controller'] = $layout['view'] = $layout['slug'] = empty($explodeSlug[0])?'dashboard':$explodeSlug[0];
 unset($explodeSlug[0]);
 
-// Get the Plugins
-include(PATH_RULES.'60.plugins.php');
-// Check if the user want to access to an admin controller or view from a plugin
+// Check if the user want to get access to an admin controller or view from a plugin
+// To get access to a plugin controller or view the URL should be: http://localhost/admin/plugin/<PLUGIN NAME>
+// $explodeSlug = [0=>'<PLUGIN NAME>']
 if ($layout['controller'] === 'plugin' && !empty($explodeSlug)) {
 	// Lowercase plugins class name to search by case-insensitive
 	$pluginsLowerCases = array_change_key_case($pluginsInstalled);
@@ -53,52 +59,50 @@ if ($layout['slug']==='ajax') {
 	header('HTTP/1.1 401 User not logged.');
 	exit(0);
 }
-// --- ADMIN AREA ---
-else
-{
-	// Boot rules
-	include(PATH_RULES.'69.pages.php');
-	include(PATH_RULES.'99.header.php');
-	include(PATH_RULES.'99.paginator.php');
-	include(PATH_RULES.'99.themes.php');
-	include(PATH_RULES.'99.security.php');
 
-	// Page not found.
-	// User not logged.
-	// Slug is login.
-	if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
-		$layout['controller']	= 'login';
-		$layout['view']			= 'login';
-		$layout['template']		= 'login.php';
+// Boot rules
+include(PATH_RULES.'69.pages.php');
+include(PATH_RULES.'99.header.php');
+include(PATH_RULES.'99.paginator.php');
+include(PATH_RULES.'99.themes.php');
+include(PATH_RULES.'99.security.php');
 
-		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
-		$security->generateTokenCSRF();
-	}
+// Define layout login-form for:
+// 	- User not logged
+// 	- Page not found
+// 	- Slug is login. http://localhost/admin/login
+if ($url->notFound() || !$login->isLogged() || ($url->slug()==='login') ) {
+	$layout['controller']	= 'login';
+	$layout['view']			= 'login';
+	$layout['template']		= 'login.php';
 
-	// Define variables
-	$ADMIN_CONTROLLER 	= $layout['controller'];
-	$ADMIN_VIEW 		= $layout['view'];
-
-	// Load plugins before the admin area will be load.
-	Theme::plugins('beforeAdminLoad');
-
-	// Load init.php if the theme has one.
-	if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php')) {
-		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php');
-	}
-
-	// Load controller.
-	if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
-		include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
-	} elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminController')) {
-		$layout['plugin']->adminController();
-	}
-
-	// Load view and theme.
-	if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template'])) {
-		include(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template']);
-	}
-
-	// Load plugins after the admin area is loaded.
-	Theme::plugins('afterAdminLoad');
+	// Generate the tokenCSRF for the user not logged, when the user log-in the token will change
+	$security->generateTokenCSRF();
 }
+
+// Define global variables
+$ADMIN_CONTROLLER 	= $layout['controller'];
+$ADMIN_VIEW 		= $layout['view'];
+
+// Execute plugins before load the admin area
+execPluginsByHook('beforeAdminLoad');
+
+// Load init.php if the theme has one
+if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php')) {
+	include(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php');
+}
+
+// Load controller
+if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
+	include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
+} elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminController')) {
+	$layout['plugin']->adminController();
+}
+
+// Load view and theme
+if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template'])) {
+	include(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template']);
+}
+
+// Execute plugins after the admin area is loaded
+execPluginsByHook('afterAdminLoad');

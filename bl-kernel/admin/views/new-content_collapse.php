@@ -1,8 +1,12 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<div class="container-fluid h-100">
+<div class="row h-100">
+<div class="col-sm-9 h-100">
+
 <?php
 
-// FORM START
+// Start form
 echo Bootstrap::formOpen(array(
 	'id'=>'jsform',
 	'class'=>'d-flex flex-column h-100'
@@ -18,31 +22,25 @@ echo Bootstrap::formOpen(array(
 	// The UUID is generated in the controller
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'uuid',
-		'value'=>$page->uuid()
+		'value'=>$uuid
 	));
 
 	// Type = published, draft, sticky, static
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'type',
-		'value'=>$page->type()
+		'value'=>'published'
 	));
 
 	// Cover image
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'coverImage',
-		'value'=>$page->coverImage(false)
+		'value'=>''
 	));
 
 	// Content
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'content',
 		'value'=>''
-	));
-
-	// Current page key
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'key',
-		'value'=>$page->key()
 	));
 ?>
 
@@ -54,14 +52,10 @@ echo Bootstrap::formOpen(array(
 	</div>
 
 	<div id="jseditorToolbarLeft">
-		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
+		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
+		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
 	</div>
-
-	<?php if($page->scheduled()): ?>
-	<div class="alert alert-warning p-1 mt-1 mb-0"><?php $L->p('scheduled') ?>: <?php echo $page->date(SCHEDULED_DATE_FORMAT) ?></div>
-	<?php endif; ?>
 </div>
 <script>
 	$(document).ready(function() {
@@ -97,7 +91,7 @@ echo Bootstrap::formOpen(array(
 				echo Bootstrap::formSelectBlock(array(
 					'name'=>'category',
 					'label'=>$L->g('Category'),
-					'selected'=>$page->categoryKey(),
+					'selected'=>'',
 					'class'=>'',
 					'emptyOption'=>'- '.$L->g('Uncategorized').' -',
 					'options'=>$categories->getKeyNameArray()
@@ -109,24 +103,16 @@ echo Bootstrap::formOpen(array(
 					'label'=>$L->g('Description'),
 					'selected'=>'',
 					'class'=>'',
-					'value'=>$page->description(),
+					'value'=>'',
 					'rows'=>5,
 					'placeholder'=>$L->get('this-field-can-help-describe-the-content')
 				));
 			?>
 
 			<!-- Cover Image -->
-			<?php
-				$coverImage = $page->coverImage(false);
-				$externalCoverImage = '';
-				if (filter_var($coverImage, FILTER_VALIDATE_URL)) {
-					$coverImage = '';
-					$externalCoverImage = $page->coverImage(false);
-				}
-			?>
 			<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"><?php $L->p('Cover Image') ?></label>
 			<div>
-			<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (empty($coverImage) ? HTML_PATH_CORE_IMG.'default.svg' : $page->coverImage() ) ?>" />
+				<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
 			</div>
 			<div class="mt-2 text-center">
 				<button type="button" id="jsbuttonSelectCoverImage" class="btn btn-primary btn-sm"><?php echo $L->g('Select cover image') ?></button>
@@ -156,7 +142,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'date',
 					'label'=>$L->g('Date'),
 					'placeholder'=>'',
-					'value'=>$page->dateRaw(),
+					'value'=>Date::current(DB_DATE_FORMAT),
 					'tip'=>$L->g('date-format-format')
 				));
 
@@ -164,7 +150,7 @@ echo Bootstrap::formOpen(array(
 				echo Bootstrap::formSelectBlock(array(
 					'name'=>'typeSelector',
 					'label'=>$L->g('Type'),
-					'selected'=>$page->type(),
+					'selected'=>'',
 					'options'=>array(
 						'published'=>'- '.$L->g('Default').' -',
 						'sticky'=>$L->g('Sticky'),
@@ -178,7 +164,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'position',
 					'label'=>$L->g('Position'),
 					'tip'=>$L->g('Field used when ordering content by position'),
-					'value'=>$page->position()
+					'value'=>$pages->nextPositionNumber()
 				));
 
 				// Tags
@@ -186,25 +172,14 @@ echo Bootstrap::formOpen(array(
 					'name'=>'tags',
 					'label'=>$L->g('Tags'),
 					'placeholder'=>'',
-					'tip'=>$L->g('Write the tags separated by comma'),
-					'value'=>$page->tags()
+					'tip'=>$L->g('Write the tags separated by comma')
 				));
 
 				// Parent
-				try {
-					$options = array();
-					$parentKey = $page->parent();
-					if (!empty($parentKey)) {
-						$parent = new Page($parentKey);
-						$options = array($parentKey=>$parent->title());
-					}
-				} catch (Exception $e) {
-					// continue
-				}
 				echo Bootstrap::formSelectBlock(array(
 					'name'=>'parent',
 					'label'=>$L->g('Parent'),
-					'options'=>$options,
+					'options'=>array(),
 					'selected'=>false,
 					'class'=>'',
 					'tip'=>$L->g('Start typing a page title to see a list of suggestions.'),
@@ -236,7 +211,7 @@ echo Bootstrap::formOpen(array(
 						return markup;
 					},
 					templateResult: function(data) {
-						var html = data.text
+						var html = data.text;
 						if (data.type=="static") {
 							html += '<span class="badge badge-pill badge-light">'+data.type+'</span>';
 						}
@@ -247,13 +222,12 @@ echo Bootstrap::formOpen(array(
 			</script>
 
 			<?php
-
 				// Template
 				echo Bootstrap::formInputTextBlock(array(
 					'name'=>'template',
 					'label'=>$L->g('Template'),
 					'placeholder'=>'',
-					'value'=>$page->template(),
+					'value'=>'',
 					'tip'=>$L->g('Write a template name to filter the page in the theme and change the style of the page.')
 				));
 
@@ -261,7 +235,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'externalCoverImage',
 					'label'=>$L->g('External cover image'),
 					'placeholder'=>"https://",
-					'value'=>$externalCoverImage,
+					'value'=>'',
 					'tip'=>$L->g('Set a cover image from external URL, such as a CDN or some server dedicated for images.')
 				));
 
@@ -270,24 +244,37 @@ echo Bootstrap::formOpen(array(
 					'name'=>'',
 					'label'=>$L->g('Author'),
 					'placeholder'=>'',
-					'value'=>$page->username(),
+					'value'=>$login->username(),
 					'tip'=>'',
 					'disabled'=>true
 				));
 			?>
+
 			<script>
 			$(document).ready(function() {
+
 				// Changes in External cover image input
 				$("#jsexternalCoverImage").change(function() {
 					$("#jscoverImage").val( $(this).val() );
 				});
 
+				// Generate slug when the user type the title
+				$("#jstitle").keyup(function() {
+					var text = $(this).val();
+					var parent = $("#jsparent").val();
+					var currentKey = "";
+					var ajax = new bluditAjax();
+					var callBack = $("#jsslug");
+					ajax.generateSlug(text, parent, currentKey, callBack);
+				});
+
 				// Datepicker
 				$("#jsdate").datetimepicker({format:DB_DATE_FORMAT});
+
+
 			});
 			</script>
 		</div>
-
 		<?php if (!empty($site->customFields())): ?>
 		<div id="nav-custom" class="tab-pane fade" role="tabpanel" aria-labelledby="custom-tab">
 		<?php
@@ -297,18 +284,17 @@ echo Bootstrap::formOpen(array(
 					if ($options['type']=="string") {
 						echo Bootstrap::formInputTextBlock(array(
 							'name'=>'custom['.$field.']',
+							'label'=>(isset($options['label'])?$options['label']:''),
 							'value'=>(isset($options['default'])?$options['default']:''),
 							'tip'=>(isset($options['tip'])?$options['tip']:''),
-							'label'=>(isset($options['label'])?$options['label']:''),
-							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-							'value'=>$page->custom($field)
+							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:'')
 						));
 					} elseif ($options['type']=="bool") {
 						echo Bootstrap::formCheckbox(array(
 							'name'=>'custom['.$field.']',
 							'label'=>(isset($options['label'])?$options['label']:''),
 							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-							'checked'=>$page->custom($field),
+							'checked'=>(isset($options['checked'])?true:false),
 							'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:'')
 						));
 					}
@@ -317,7 +303,6 @@ echo Bootstrap::formOpen(array(
 		?>
 		</div>
 		<?php endif ?>
-
 		<div id="nav-seo" class="tab-pane fade" role="tabpanel" aria-labelledby="seo-tab">
 			<?php
 				// Friendly URL
@@ -325,8 +310,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'slug',
 					'tip'=>$L->g('URL associated with the content'),
 					'label'=>$L->g('Friendly URL'),
-					'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.'),
-					'value'=>$page->slug()
+					'placeholder'=>$L->g('Leave empty for autocomplete by Bludit.')
 				));
 
 				// Robots
@@ -335,7 +319,7 @@ echo Bootstrap::formOpen(array(
 					'label'=>'Robots',
 					'labelForCheckbox'=>$L->g('apply-code-noindex-code-to-this-page'),
 					'placeholder'=>'',
-					'checked'=>$page->noindex(),
+					'checked'=>false,
 					'tip'=>$L->g('This tells search engines not to show this page in their search results.')
 				));
 
@@ -345,7 +329,7 @@ echo Bootstrap::formOpen(array(
 					'label'=>'',
 					'labelForCheckbox'=>$L->g('apply-code-nofollow-code-to-this-page'),
 					'placeholder'=>'',
-					'checked'=>$page->nofollow(),
+					'checked'=>false,
 					'tip'=>$L->g('This tells search engines not to follow links on this page.')
 				));
 
@@ -355,7 +339,7 @@ echo Bootstrap::formOpen(array(
 					'label'=>'',
 					'labelForCheckbox'=>$L->g('apply-code-noarchive-code-to-this-page'),
 					'placeholder'=>'',
-					'checked'=>$page->noarchive(),
+					'checked'=>false,
 					'tip'=>$L->g('This tells search engines not to save a cached copy of this page.')
 				));
 			?>
@@ -372,7 +356,7 @@ echo Bootstrap::formOpen(array(
 				echo Bootstrap::formInputTextBlock(array(
 					'name'=>'custom['.$field.']',
 					'label'=>(isset($options['label'])?$options['label']:''),
-					'value'=>$page->custom($field),
+					'value'=>(isset($options['default'])?$options['default']:''),
 					'tip'=>(isset($options['tip'])?$options['tip']:''),
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
 					'class'=>'mb-2',
@@ -384,7 +368,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'custom['.$field.']',
 					'label'=>(isset($options['label'])?$options['label']:''),
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'checked'=>$page->custom($field),
+					'checked'=>(isset($options['checked'])?true:false),
 					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
 					'class'=>'mb-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
@@ -394,13 +378,14 @@ echo Bootstrap::formOpen(array(
 	}
 ?>
 
+
 <!-- Title -->
-<div class="form-group mb-1">
-	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="<?php echo $page->title() ?>" placeholder="<?php $L->p('Enter title') ?>">
+<div id="jseditorTitle" class="form-group mb-1">
+	<input id="jstitle" name="title" type="text" class="form-control form-control-lg rounded-0" value="" placeholder="<?php $L->p('Enter title') ?>">
 </div>
 
 <!-- Editor -->
-<textarea id="jseditor" class="editable h-100" style=""><?php echo $page->contentRaw(true) ?></textarea>
+<textarea id="jseditor" class="editable h-100 mb-1"></textarea>
 
 <!-- Custom fields: BOTTOM -->
 <?php
@@ -411,7 +396,7 @@ echo Bootstrap::formOpen(array(
 				echo Bootstrap::formInputTextBlock(array(
 					'name'=>'custom['.$field.']',
 					'label'=>(isset($options['label'])?$options['label']:''),
-					'value'=>$page->custom($field),
+					'value'=>(isset($options['default'])?$options['default']:''),
 					'tip'=>(isset($options['tip'])?$options['tip']:''),
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
 					'class'=>'mt-2',
@@ -423,7 +408,7 @@ echo Bootstrap::formOpen(array(
 					'name'=>'custom['.$field.']',
 					'label'=>(isset($options['label'])?$options['label']:''),
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-					'checked'=>$page->custom($field),
+					'checked'=>(isset($options['checked'])?true:false),
 					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
 					'class'=>'mt-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
@@ -434,30 +419,146 @@ echo Bootstrap::formOpen(array(
 ?>
 
 </form>
+</div>
 
-<!-- Modal for Delete page -->
-<div id="jsdeletePageModal" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<h3><?php $L->p('Delete content') ?></h3>
-				<p><?php $L->p('Are you sure you want to delete this page') ?></p>
+<div class="col-sm-3 h-100 p-0">
+
+	<!-- Options -->
+	<div class="accordion" id="sidebarOptions">
+
+		<!-- Options > General -->
+		<div class="general card">
+			<div class="card-header m-0 p-2" id="headingOne">
+				<a href="#optionsGeneral" class="w-100 text-left text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsGeneral" aria-expanded="true" aria-controls="optionsGeneral">
+					General <span class="float-right fa fa-angle-down"></span>
+				</a>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-link" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal" id="jsbuttonDeleteAccept"><?php $L->p('Delete') ?></button>
+
+			<div id="optionsGeneral" class="collapse" aria-labelledby="headingOne" data-parent="#sidebarOptions">
+				<div class="card-body m-0 p-0">
+
+					<!-- Options > General > Cover Image -->
+					<label class="mt-4 mb-2 pb-2 text-uppercase w-100 font-weight-bold"><?php $L->p('Cover Image') ?></label>
+					<div>
+						<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
+					</div>
+					<script>
+						$(document).ready(function() {
+							$("#jscoverImagePreview").on("click", function() {
+								openMediaManager();
+							});
+
+							$("#jsbuttonSelectCoverImage").on("click", function() {
+								openMediaManager();
+							});
+
+							$("#jsbuttonRemoveCoverImage").on("click", function() {
+								$("#jscoverImage").val('');
+								$("#jscoverImagePreview").attr('src', HTML_PATH_CORE_IMG+'default.svg');
+							});
+						});
+					</script>
+					<!-- End Options > General > Cover Image -->
+
+					<!-- Options > General > Category and Description -->
+					<?php
+						// Category
+						echo Bootstrap::formSelectBlock(array(
+							'name'=>'category',
+							'label'=>$L->g('Category'),
+							'selected'=>'',
+							'class'=>'',
+							'emptyOption'=>'- '.$L->g('Uncategorized').' -',
+							'options'=>$categories->getKeyNameArray()
+						));
+
+						// Description
+						echo Bootstrap::formTextareaBlock(array(
+							'name'=>'description',
+							'label'=>$L->g('Description'),
+							'selected'=>'',
+							'class'=>'',
+							'value'=>'',
+							'rows'=>5,
+							'placeholder'=>$L->get('this-field-can-help-describe-the-content')
+						));
+					?>
+					<!-- End Options > General > Category and Description -->
+
+				</div>
 			</div>
 		</div>
+		<!-- End Options > General -->
+
+		<!-- Options > Advanced -->
+		<div class="advanced card">
+			<div class="card-header m-0 p-2" id="headingOne">
+				<a href="#optionsAdvanced" class="w-100 text-left text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsAdvanced" aria-expanded="true" aria-controls="optionsAdvanced">
+					Advanced <span class="float-right fa fa-angle-down"></span>
+				</a>
+			</div>
+
+			<div id="optionsAdvanced" class="collapse" aria-labelledby="headingOne" data-parent="#sidebarOptions">
+				<div class="card-body m-0 p-0">
+
+					<!-- Options > General > Cover Image -->
+					<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"><?php $L->p('Cover Image') ?></label>
+					<div>
+						<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
+					</div>
+					<script>
+						$(document).ready(function() {
+							$("#jscoverImagePreview").on("click", function() {
+								openMediaManager();
+							});
+
+							$("#jsbuttonSelectCoverImage").on("click", function() {
+								openMediaManager();
+							});
+
+							$("#jsbuttonRemoveCoverImage").on("click", function() {
+								$("#jscoverImage").val('');
+								$("#jscoverImagePreview").attr('src', HTML_PATH_CORE_IMG+'default.svg');
+							});
+						});
+					</script>
+					<!-- End Options > General > Cover Image -->
+
+					<!-- Options > General > Category and Description -->
+					<?php
+						// Category
+						echo Bootstrap::formSelectBlock(array(
+							'name'=>'category',
+							'label'=>$L->g('Category'),
+							'selected'=>'',
+							'class'=>'',
+							'emptyOption'=>'- '.$L->g('Uncategorized').' -',
+							'options'=>$categories->getKeyNameArray()
+						));
+
+						// Description
+						echo Bootstrap::formTextareaBlock(array(
+							'name'=>'description',
+							'label'=>$L->g('Description'),
+							'selected'=>'',
+							'class'=>'',
+							'value'=>'',
+							'rows'=>5,
+							'placeholder'=>$L->get('this-field-can-help-describe-the-content')
+						));
+					?>
+					<!-- End Options > General > Category and Description -->
+
+				</div>
+			</div>
+		</div>
+		<!-- End Options > General -->
+
 	</div>
-	<script>
-	$(document).ready(function() {
-		$("#jsbuttonDeleteAccept").on("click", function() {
-			$("#jstype").val("delete");
-			$("#jscontent").val("");
-			$("#jsform").submit();
-		});
-	});
-	</script>
+	<!-- End Options -->
+
+
+</div>
 </div>
 
 <!-- Modal for Media Manager -->
@@ -480,7 +581,7 @@ $(document).ready(function() {
 	}
 
 	// Button switch
-	$("#jsswitchButton").on("click", function() {
+	$("#jsbuttonSwitch").on("click", function() {
 		if ($(this).data("switch")=="publish") {
 			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
 			$(this).data("switch", "draft");
@@ -495,9 +596,8 @@ $(document).ready(function() {
 		var uuid = $("#jsuuid").val();
 		var title = $("#jstitle").val();
 		var content = editorGetContent();
-		var ajax = new bluditAjax();
 		bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
-			var preview = window.open("<?php echo DOMAIN_PAGES.'autosave-'.$page->uuid().'?preview='.md5('autosave-'.$page->uuid()) ?>", "bludit-preview");
+			var preview = window.open("<?php echo DOMAIN_PAGES.'autosave-'.$uuid.'?preview='.md5('autosave-'.$uuid) ?>", "bludit-preview");
 			preview.focus();
 		});
 	});
@@ -505,24 +605,12 @@ $(document).ready(function() {
 	// Button Save
 	$("#jsbuttonSave").on("click", function() {
 		// If the switch is setted to "published", get the value from the selector
-		if ($("#jsswitchButton").data("switch")=="publish") {
+		if ($("#jsbuttonSwitch").data("switch")=="publish") {
 			var value = $("#jstypeSelector option:selected").val();
 			$("#jstype").val(value);
 		} else {
 			$("#jstype").val("draft");
 		}
-
-		// Get the content
-		$("#jscontent").val( editorGetContent() );
-
-		// Submit the form
-		$("#jsform").submit();
-	});
-
-	// Button Save as draft
-	$("#jsbuttonDraft").on("click", function() {
-		// Set the type as draft
-		$("#jstype").val("draft");
 
 		// Get the content
 		$("#jscontent").val( editorGetContent() );

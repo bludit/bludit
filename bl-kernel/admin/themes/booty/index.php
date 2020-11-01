@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html class="h-100">
+<hea>
 	<title><?php echo $layout['title'] ?></title>
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +21,8 @@
 		echo Theme::css(array(
 			'jquery.datetimepicker.min.css',
 			'select2.min.css',
-			'select2-bootstrap4.min.css'
+			'select2-bootstrap4.min.css',
+			'token-autocomplete.css'
 		), DOMAIN_CORE_CSS);
 	?>
 
@@ -33,7 +34,9 @@
 		echo Theme::js(array(
 			'jquery.datetimepicker.full.min.js',
 			'select2.full.min.js',
-			'functions.js'
+			'token-autocomplete.js',
+			'functions.js',
+			'api.js'
 		), DOMAIN_CORE_JS, null);
 	?>
 

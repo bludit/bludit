@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo '<h1 class="text-center mb-5 mt-5 font-weight-normal" style="color: #555;">BLUDIT</h1>';
+echo '<h1 class="text-center font-weight-normal mb-5" style="color: #555;">'.$site->title().'</h1>';
 
 echo Bootstrap::formOpen(array());
 
@@ -11,7 +11,7 @@ echo Bootstrap::formOpen(array());
 
 	echo '
 	<div class="form-group">
-		<input type="text" value="'.(isset($_POST['username'])?htmlspecialchars($_POST['username']):'').'" class="form-control form-control-lg" id="jsusername" name="username" placeholder="'.$L->g('Username').'" autofocus>
+		<input type="text" value="'.(isset($_POST['username'])?Sanitize::html($_POST['username']):'').'" class="form-control form-control-lg" id="jsusername" name="username" placeholder="'.$L->g('Username').'" autofocus>
 	</div>
 	';
 
@@ -33,5 +33,7 @@ echo Bootstrap::formOpen(array());
 	';
 
 echo '</form>';
+
+echo '<p class="mt-5 text-right">Powered by <a href="https://www.bludit.com">Bludit</a></p>'
 
 ?>

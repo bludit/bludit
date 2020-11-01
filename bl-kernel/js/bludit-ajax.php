@@ -1,5 +1,39 @@
 class bluditAjax {
 
+	constructor(apiURL, apiToken, apiAuth, tokenCSRF) {
+		this.apiURL = "http://localhost:9000/api/";
+		this.apiToken = '45643a4071fad6a12261bb0763550feb';
+		this.apiAuth = '18a8410f0043d004c2e87f404170e112';
+		this.tokenCSRF = tokenCSRF;
+	}
+
+	static async savePage(uuid, title, content) {
+		let url = this.apiURL+"pages";
+		try {
+			const response = await fetch(url, {
+				credentials: "same-origin",
+				method: "POST",
+				body: JSON.stringify({
+					tokenCSRF: this.tokenCSRF,
+					token: this.apiToken,
+					authentication: this.apiAuth,
+					uuid: uuid,
+					title: title,
+					content: content
+				}),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				}),
+			});
+			const json = await response.json();
+			return json.data.key;
+		}
+		catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
 	static async saveAsDraft(uuid, title, content) {
 		let url = HTML_PATH_ADMIN_ROOT+"ajax/save-as-draft"
 		try {

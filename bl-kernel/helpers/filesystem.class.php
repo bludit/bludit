@@ -27,7 +27,7 @@ class Filesystem {
 	// $chunk = amount of chunks, FALSE if you don't want to chunk
 	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false, $chunk=false)
 	{
-		error_log($path.$regex.'.'.$extension);
+		Log::set('list files = '.$path.$regex.'.'.$extension, LOG_TYPE_INFO);
 		$files = glob($path.$regex.'.'.$extension);
 
 		if (empty($files)) {

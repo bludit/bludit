@@ -1,9 +1,9 @@
 a {
-	color: #0078D4;
+	color: #1A66A6;
 }
 
 a:hover {
-	color: #003f6f;
+	color: #1A66A6;
 	text-decoration: none;
 }
 
@@ -12,7 +12,7 @@ a:hover {
 }
 
 .text-primary {
-	color: #0078D4!important;
+	color: #06A8C5!important;
 }
 
 .text-danger {
@@ -28,22 +28,61 @@ a.text-danger:hover {
 	border-radius: 2px;
 }
 
+.btn-sm {
+	padding: .25rem .75rem;
+}
+
+.btn-save {
+	color: #5b8e09;
+}
+
+.btn-save:hover {
+	color: #466d07;
+}
+
+.btn-cancel:hover {
+	color: #000;
+}
+
 .btn-primary {
-	background-color: #0078D4;
-	border-color: #0078D4;
+	background-color: #0378D3;
+	border-color: #0378D3;
 }
 
 .btn-primary:hover {
-	background-color: #4585CF;
-	border-color: #4a90e2;
+	background-color: #0270c4;
+	border-color: #0270c4;
 }
 
-.btn-light.focus, .btn-light:focus {
-	box-shadow: none;
+.btn-primary-disabled {
+	background-color: #71b6ff !important;
+	border-color: #71b6ff !important;
 }
 
-.btn.focus, .btn:focus {
-	box-shadow: none;
+.btn-secondary {
+	background-color: #6c757d;
+	border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+	background-color: #5a6268;
+	border-color: #5a6268;
+}
+
+.btn-light {
+	color: #212529;
+	background-color: #f3f3f3;
+	border-color: #ced4d9;
+}
+
+.btn-light.focus,
+.btn-light:focus {
+	box-shadow: none !important;
+}
+
+.btn.focus,
+.btn:focus {
+	box-shadow: none !important;
 }
 
 /* Form */
@@ -59,4 +98,14 @@ a.text-danger:hover {
 .table thead th {
 	font-size: 0.8em;
 	text-transform: uppercase!important;
+}
+
+/* Right sidebar Options */
+#sidebarOptions .card {
+	background: none;
+	border: none;
+}
+
+#sidebarOptions a {
+	color: #212529;
 }

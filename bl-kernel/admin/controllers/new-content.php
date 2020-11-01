@@ -19,8 +19,8 @@ checkRole(array('admin', 'editor', 'author'));
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	createPage($_POST);
-	Redirect::page('content');
+	$pageKey = createPage($_POST);
+	Redirect::page('edit-content/'.$pageKey);
 }
 
 // ============================================================================
