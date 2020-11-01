@@ -86,6 +86,12 @@ $html = <<<EOF
 		tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");
 	}
 
+	// Insert a linked image in the editor at the cursor position
+	// Function required for Bludit
+	function editorInsertLinkedMedia(filename, link) {
+		tinymce.activeEditor.insertContent("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"\"></a>");
+	}
+
 	// Returns the content of the editor
 	// Function required for Bludit
 	function editorGetContent() {

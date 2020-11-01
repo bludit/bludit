@@ -391,5 +391,7 @@
     "custom-fields": "Custom fields",
     "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
-    "view": "View"
+    "view": "View",
+    "insert-thumbnail": "Insert thumbnail",
+    "insert-linked-thumbnail": "Insert linked thumbnail"
 }
