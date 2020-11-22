@@ -411,8 +411,8 @@ declare class AstNode {
     prev?: AstNode;
     constructor(name: string, type: number);
     replace(node: AstNode): AstNode;
-    attr(name: string, value: string): string | AstNode;
-    attr(name: Record<string, string>): AstNode;
+    attr(name: string, value: string | null): string | AstNode;
+    attr(name: Record<string, string | null>): AstNode;
     attr(name: string): string;
     clone(): AstNode;
     wrap(wrapper: AstNode): AstNode;
@@ -441,7 +441,7 @@ interface SetContentArgs {
     no_events?: boolean;
 }
 interface BlobCache {
-    create: (o: string | BlobInfoData, blob?: Blob, base64?: string, filename?: string) => BlobInfo;
+    create: (o: string | BlobInfoData, blob?: Blob, base64?: string, name?: string, filename?: string) => BlobInfo;
     add: (blobInfo: BlobInfo) => void;
     get: (id: string) => BlobInfo | undefined;
     getByUri: (blobUri: string) => BlobInfo | undefined;
@@ -453,6 +453,7 @@ interface BlobCache {
 interface BlobInfoData {
     id?: string;
     name?: string;
+    filename?: string;
     blob: Blob;
     base64: string;
     blobUri?: string;
@@ -465,7 +466,7 @@ interface BlobInfo {
     blob: () => Blob;
     base64: () => string;
     blobUri: () => string;
-    uri: () => string;
+    uri: () => string | undefined;
 }
 interface UploadFailureOptions {
     remove?: boolean;
@@ -535,6 +536,19 @@ interface RemoveInlineFormat extends CommonRemoveFormat<RemoveInlineFormat> {
 interface RemoveSelectorFormat extends CommonRemoveFormat<RemoveSelectorFormat> {
     selector: string;
 }
+type Format_d_Formats = Formats;
+type Format_d_Format = Format;
+type Format_d_ApplyFormat = ApplyFormat;
+type Format_d_BlockFormat = BlockFormat;
+type Format_d_InlineFormat = InlineFormat;
+type Format_d_SelectorFormat = SelectorFormat;
+type Format_d_RemoveFormat = RemoveFormat;
+type Format_d_RemoveBlockFormat = RemoveBlockFormat;
+type Format_d_RemoveInlineFormat = RemoveInlineFormat;
+type Format_d_RemoveSelectorFormat = RemoveSelectorFormat;
+declare namespace Format_d {
+    export { Format_d_Formats as Formats, Format_d_Format as Format, Format_d_ApplyFormat as ApplyFormat, Format_d_BlockFormat as BlockFormat, Format_d_InlineFormat as InlineFormat, Format_d_SelectorFormat as SelectorFormat, Format_d_RemoveFormat as RemoveFormat, Format_d_RemoveBlockFormat as RemoveBlockFormat, Format_d_RemoveInlineFormat as RemoveInlineFormat, Format_d_RemoveSelectorFormat as RemoveSelectorFormat, };
+}
 declare type StyleFormat = BlockStyleFormat | InlineStyleFormat | SelectorStyleFormat;
 declare type AllowedFormat = Separator | FormatReference | StyleFormat | NestedFormatting;
 interface Separator {
@@ -550,6 +564,7 @@ interface NestedFormatting {
     items: Array<FormatReference | StyleFormat>;
 }
 interface CommonStyleFormat {
+    name?: string;
     title: string;
     icon?: string;
 }
@@ -597,6 +612,25 @@ interface ColorInputSpec extends FormComponentWithLabelSpec {
 interface ColorPickerSpec extends FormComponentWithLabelSpec {
     type: 'colorpicker';
 }
+interface CustomEditorInit {
+    setValue: (value: string) => void;
+    getValue: () => string;
+    destroy: () => void;
+}
+declare type CustomEditorInitFn = (elm: HTMLElement, settings: any) => Promise<CustomEditorInit>;
+interface CustomEditorOldSpec extends FormComponentSpec {
+    type: 'customeditor';
+    tag?: string;
+    init: (e: HTMLElement) => Promise<CustomEditorInit>;
+}
+interface CustomEditorNewSpec extends FormComponentSpec {
+    type: 'customeditor';
+    tag?: string;
+    scriptId: string;
+    scriptUrl: string;
+    settings?: any;
+}
+declare type CustomEditorSpec = CustomEditorOldSpec | CustomEditorNewSpec;
 interface DropZoneSpec extends FormComponentWithLabelSpec {
     type: 'dropzone';
 }
@@ -604,6 +638,11 @@ interface GridSpec {
     type: 'grid';
     columns: number;
     items: BodyComponentSpec[];
+}
+interface HtmlPanelSpec {
+    type: 'htmlpanel';
+    html: string;
+    presets?: 'presentation' | 'document';
 }
 interface IframeSpec extends FormComponentWithLabelSpec {
     type: 'iframe';
@@ -643,6 +682,11 @@ interface ListBoxSpec extends FormComponentWithLabelSpec {
     items: ListBoxItemSpec[];
     disabled?: boolean;
 }
+interface PanelSpec {
+    type: 'panel';
+    classes?: string[];
+    items: BodyComponentSpec[];
+}
 interface SelectBoxItemSpec {
     text: string;
     value: string;
@@ -674,40 +718,11 @@ interface UrlInputSpec extends FormComponentWithLabelSpec {
     filetype?: 'image' | 'media' | 'file';
     disabled?: boolean;
 }
-interface HtmlPanelSpec {
-    type: 'htmlpanel';
-    html: string;
-    presets?: 'presentation' | 'document';
-}
-interface PanelSpec {
-    type: 'panel';
-    classes?: string[];
-    items: BodyComponentSpec[];
-}
-declare type BodyComponentSpec = BarSpec | ButtonSpec | CheckboxSpec | TextAreaSpec | InputSpec | ListBoxSpec | SelectBoxSpec | SizeInputSpec | IframeSpec | HtmlPanelSpec | UrlInputSpec | DropZoneSpec | ColorInputSpec | GridSpec | ColorPickerSpec | ImageToolsSpec | AlertBannerSpec | CollectionSpec | LabelSpec | TableSpec | PanelSpec;
+declare type BodyComponentSpec = BarSpec | ButtonSpec | CheckboxSpec | TextAreaSpec | InputSpec | ListBoxSpec | SelectBoxSpec | SizeInputSpec | IframeSpec | HtmlPanelSpec | UrlInputSpec | DropZoneSpec | ColorInputSpec | GridSpec | ColorPickerSpec | ImageToolsSpec | AlertBannerSpec | CollectionSpec | LabelSpec | TableSpec | PanelSpec | CustomEditorSpec;
 interface BarSpec {
     type: 'bar';
     items: BodyComponentSpec[];
 }
-interface CustomEditorInit {
-    setValue: (value: string) => void;
-    getValue: () => string;
-    destroy: () => void;
-}
-declare type CustomEditorInitFn = (elm: Element, settings: any) => Promise<CustomEditorInit>;
-interface CustomEditorOldSpec extends FormComponentSpec {
-    type: 'customeditor';
-    tag?: string;
-    init: (e: Element) => Promise<CustomEditorInit>;
-}
-interface CustomEditorNewSpec extends FormComponentSpec {
-    type: 'customeditor';
-    tag?: string;
-    scriptId: string;
-    scriptUrl: string;
-    settings?: any;
-}
-declare type CustomEditorSpec = CustomEditorOldSpec | CustomEditorNewSpec;
 interface CommonMenuItemSpec {
     disabled?: boolean;
     text?: string;
@@ -829,6 +844,38 @@ interface UrlDialogSpec {
     onCancel?: UrlDialogCancelHandler;
     onMessage?: UrlDialogMessageHandler;
 }
+declare type CardContainerDirection = 'vertical' | 'horizontal';
+declare type CardContainerAlign = 'left' | 'right';
+declare type CardContainerValign = 'top' | 'middle' | 'bottom';
+interface CardContainerSpec {
+    type: 'cardcontainer';
+    items: CardItemSpec[];
+    direction?: CardContainerDirection;
+    align?: CardContainerAlign;
+    valign?: CardContainerValign;
+}
+interface CardImageSpec {
+    type: 'cardimage';
+    src: string;
+    alt?: string;
+    classes?: string[];
+}
+interface CardTextSpec {
+    type: 'cardtext';
+    text: string;
+    name?: string;
+    classes?: string[];
+}
+declare type CardItemSpec = CardContainerSpec | CardImageSpec | CardTextSpec;
+interface CardMenuItemInstanceApi extends CommonMenuItemInstanceApi {
+}
+interface CardMenuItemSpec extends Omit<CommonMenuItemSpec, 'text' | 'shortcut'> {
+    type: 'cardmenuitem';
+    label?: string;
+    items: CardItemSpec[];
+    onSetup?: (api: CardMenuItemInstanceApi) => (api: CardMenuItemInstanceApi) => void;
+    onAction?: (api: CardMenuItemInstanceApi) => void;
+}
 interface SeparatorMenuItemSpec {
     type?: 'separator';
     text?: string;
@@ -842,7 +889,7 @@ interface AutocompleterItemSpec {
     icon?: string;
     meta?: Record<string, any>;
 }
-declare type AutocompleterContents = SeparatorItemSpec | AutocompleterItemSpec;
+declare type AutocompleterContents = SeparatorItemSpec | AutocompleterItemSpec | CardMenuItemSpec;
 interface AutocompleterSpec {
     type?: 'autocompleter';
     ch: string;
@@ -852,6 +899,7 @@ interface AutocompleterSpec {
     fetch: (pattern: string, maxResults: number, fetchOptions: Record<string, any>) => Promise<AutocompleterContents[]>;
     onAction: (autocompleterApi: AutocompleterInstanceApi, rng: any, value: string, meta: Record<string, any>) => void;
     maxResults?: number;
+    highlightOn?: string[];
 }
 interface AutocompleterInstanceApi {
     hide: () => void;
@@ -1065,8 +1113,14 @@ type PublicMenu_d_ContextMenuApi = ContextMenuApi;
 type PublicMenu_d_ContextMenuContents = ContextMenuContents;
 type PublicMenu_d_ContextMenuItem = ContextMenuItem;
 type PublicMenu_d_ContextSubMenu = ContextSubMenu;
+type PublicMenu_d_CardMenuItemSpec = CardMenuItemSpec;
+type PublicMenu_d_CardMenuItemInstanceApi = CardMenuItemInstanceApi;
+type PublicMenu_d_CardItemSpec = CardItemSpec;
+type PublicMenu_d_CardContainerSpec = CardContainerSpec;
+type PublicMenu_d_CardImageSpec = CardImageSpec;
+type PublicMenu_d_CardTextSpec = CardTextSpec;
 declare namespace PublicMenu_d {
-    export { PublicMenu_d_MenuItemSpec as MenuItemSpec, PublicMenu_d_MenuItemInstanceApi as MenuItemInstanceApi, PublicMenu_d_NestedMenuItemContents as NestedMenuItemContents, PublicMenu_d_NestedMenuItemSpec as NestedMenuItemSpec, PublicMenu_d_NestedMenuItemInstanceApi as NestedMenuItemInstanceApi, PublicMenu_d_FancyMenuItemSpec as FancyMenuItemSpec, PublicMenu_d_ToggleMenuItemSpec as ToggleMenuItemSpec, PublicMenu_d_ToggleMenuItemInstanceApi as ToggleMenuItemInstanceApi, PublicMenu_d_ChoiceMenuItemSpec as ChoiceMenuItemSpec, PublicMenu_d_ChoiceMenuItemInstanceApi as ChoiceMenuItemInstanceApi, PublicMenu_d_SeparatorMenuItemSpec as SeparatorMenuItemSpec, PublicMenu_d_ContextMenuApi as ContextMenuApi, PublicMenu_d_ContextMenuContents as ContextMenuContents, PublicMenu_d_ContextMenuItem as ContextMenuItem, PublicMenu_d_ContextSubMenu as ContextSubMenu, };
+    export { PublicMenu_d_MenuItemSpec as MenuItemSpec, PublicMenu_d_MenuItemInstanceApi as MenuItemInstanceApi, PublicMenu_d_NestedMenuItemContents as NestedMenuItemContents, PublicMenu_d_NestedMenuItemSpec as NestedMenuItemSpec, PublicMenu_d_NestedMenuItemInstanceApi as NestedMenuItemInstanceApi, PublicMenu_d_FancyMenuItemSpec as FancyMenuItemSpec, PublicMenu_d_ToggleMenuItemSpec as ToggleMenuItemSpec, PublicMenu_d_ToggleMenuItemInstanceApi as ToggleMenuItemInstanceApi, PublicMenu_d_ChoiceMenuItemSpec as ChoiceMenuItemSpec, PublicMenu_d_ChoiceMenuItemInstanceApi as ChoiceMenuItemInstanceApi, PublicMenu_d_SeparatorMenuItemSpec as SeparatorMenuItemSpec, PublicMenu_d_ContextMenuApi as ContextMenuApi, PublicMenu_d_ContextMenuContents as ContextMenuContents, PublicMenu_d_ContextMenuItem as ContextMenuItem, PublicMenu_d_ContextSubMenu as ContextSubMenu, PublicMenu_d_CardMenuItemSpec as CardMenuItemSpec, PublicMenu_d_CardMenuItemInstanceApi as CardMenuItemInstanceApi, PublicMenu_d_CardItemSpec as CardItemSpec, PublicMenu_d_CardContainerSpec as CardContainerSpec, PublicMenu_d_CardImageSpec as CardImageSpec, PublicMenu_d_CardTextSpec as CardTextSpec, };
 }
 interface SidebarInstanceApi {
     element: () => HTMLElement;
@@ -1195,6 +1249,9 @@ declare type Registry$1 = Registry;
 interface EditorUiApi {
     show: () => void;
     hide: () => void;
+    enable: () => void;
+    disable: () => void;
+    isDisabled: () => boolean;
 }
 interface EditorUi extends EditorUiApi {
     registry: Registry$1;
@@ -1205,7 +1262,7 @@ type Ui_d_EditorUi = EditorUi;
 declare namespace Ui_d {
     export { Ui_d_EditorUiApi as EditorUiApi, Ui_d_EditorUi as EditorUi, Registry$1 as Registry, PublicDialog_d as Dialog, PublicInlineContent_d as InlineContent, PublicMenu_d as Menu, PublicSidebar_d as Sidebar, PublicToolbar_d as Toolbar, };
 }
-declare type EntityEncoding = 'named' | 'numeric' | 'raw';
+declare type EntityEncoding = 'named' | 'numeric' | 'raw' | 'named,numeric' | 'named+numeric' | 'numeric,named' | 'numeric+named';
 declare type ThemeInitFunc = (editor: Editor, elm: HTMLElement) => {
     editorContainer: HTMLElement;
     iframeContainer: HTMLElement;
@@ -1237,6 +1294,7 @@ interface BaseEditorSettings {
     allow_html_data_urls?: boolean;
     allow_html_in_named_anchor?: boolean;
     allow_script_urls?: boolean;
+    allow_svg_data_urls?: boolean;
     allow_unsafe_link_target?: boolean;
     anchor_bottom?: false | string;
     anchor_top?: false | string;
@@ -1497,9 +1555,8 @@ interface Styles {
 interface DOMUtilsSettings {
     schema: Schema;
     url_converter: URLConverter;
-    url_converter_scope: {};
+    url_converter_scope: any;
     ownEvents: boolean;
-    proxy: any;
     keep_values: boolean;
     hex_colors: boolean;
     update_styles: boolean;
@@ -1511,7 +1568,12 @@ interface DOMUtilsSettings {
 }
 declare type Target = Node | Window;
 declare type RunArguments<T extends Node = Node> = string | T | Array<string | T>;
-declare type BoundEvent = [Target, string, EventUtilsCallback<any>, any];
+declare type BoundEvent = [
+    Target,
+    string,
+    EventUtilsCallback<any>,
+    any
+];
 declare type Callback<K extends string> = EventUtilsCallback<MappedEvent<HTMLElementEventMap, K>>;
 interface DOMUtils {
     doc: Document;
@@ -1555,13 +1617,13 @@ interface DOMUtils {
     createHTML(name: string, attrs?: Record<string, string>, html?: string): string;
     createFragment(html?: string): DocumentFragment;
     remove<T extends Node>(node: string | T | T[] | DomQuery<T>, keepChildren?: boolean): T | T[];
-    setStyle(elm: string | Node, name: string, value: string | number | null): void;
-    setStyle(elm: string | Node, styles: StyleMap): void;
+    setStyle(elm: string | Node | Node[], name: string, value: string | number | null): void;
+    setStyle(elm: string | Node | Node[], styles: StyleMap): void;
     getStyle(elm: string | Node, name: string, computed?: boolean): string;
-    setStyles(elm: string | Node, stylesArg: StyleMap): void;
+    setStyles(elm: string | Node | Node[], stylesArg: StyleMap): void;
     removeAllAttribs(e: RunArguments<Element>): void;
-    setAttrib(elm: string | Node, name: string, value: string | boolean | number | null): void;
-    setAttribs(elm: string | Node, attrs: Record<string, string | boolean | number | null>): void;
+    setAttrib(elm: string | Node | Node[], name: string, value: string | boolean | number | null): void;
+    setAttribs(elm: string | Node | Node[], attrs: Record<string, string | boolean | number | null>): void;
     getAttrib(elm: string | Node, name: string, defaultVal?: string): string;
     getPos(elm: string | Node, rootElm?: Node): {
         x: number;
@@ -1575,13 +1637,13 @@ interface DOMUtils {
     removeClass(elm: string | Node | Node[], cls: string): void;
     hasClass(elm: string | Node, cls: string): boolean;
     toggleClass(elm: string | Node | Node[], cls: string, state?: boolean): void;
-    show(elm: string | Node): void;
-    hide(elm: string | Node): void;
+    show(elm: string | Node | Node[]): void;
+    hide(elm: string | Node | Node[]): void;
     isHidden(elm: string | Node): boolean;
     uniqueId(prefix?: string): string;
-    setHTML(elm: string | Node, html: string): void;
+    setHTML(elm: string | Node | Node[], html: string): void;
     getOuterHTML(elm: string | Node): string;
-    setOuterHTML(elm: string | Node, html: string): void;
+    setOuterHTML(elm: string | Node | Node[], html: string): void;
     decode(text: string): string;
     encode(text: string): string;
     insertAfter<T extends Node>(node: T | T[], reference: string | Node): T;
@@ -1651,6 +1713,7 @@ interface ParserFilter {
 }
 interface DomParserSettings {
     allow_html_data_urls?: boolean;
+    allow_svg_data_urls?: boolean;
     allow_conditional_comments?: boolean;
     allow_html_in_named_anchor?: boolean;
     allow_script_urls?: boolean;
@@ -1681,7 +1744,7 @@ interface DomParser {
 interface WriterSettings {
     element_format?: 'xhtml' | 'html';
     entities?: string;
-    entity_encoding?: string;
+    entity_encoding?: EntityEncoding;
     indent?: boolean;
     indent_after?: string;
     indent_before?: string;
@@ -1807,8 +1870,12 @@ declare class EditorCommands {
     private restoreSelection;
     private setupCommands;
 }
+interface WindowParams {
+    readonly inline?: 'cursor' | 'toolbar';
+    readonly ariaAttrs?: boolean;
+}
 interface WindowManager {
-    open: <T>(config: DialogSpec<T>, params?: any) => DialogInstanceApi<T>;
+    open: <T>(config: DialogSpec<T>, params?: WindowParams) => DialogInstanceApi<T>;
     openUrl: (config: UrlDialogSpec) => UrlDialogInstanceApi;
     alert: (message: string, callback?: () => void, scope?: any) => void;
     confirm: (message: string, callback?: (state: boolean) => void, scope?: any) => void;
@@ -1816,7 +1883,7 @@ interface WindowManager {
 }
 declare type InstanceApi<T> = UrlDialogInstanceApi | DialogInstanceApi<T>;
 interface WindowManagerImpl {
-    open: <T>(config: DialogSpec<T>, params: any, closeWindow: (dialog: DialogInstanceApi<T>) => void) => DialogInstanceApi<T>;
+    open: <T>(config: DialogSpec<T>, params: WindowParams, closeWindow: (dialog: DialogInstanceApi<T>) => void) => DialogInstanceApi<T>;
     openUrl: (config: UrlDialogSpec, closeWindow: (dialog: UrlDialogInstanceApi) => void) => UrlDialogInstanceApi;
     alert: (message: string, callback: () => void) => void;
     confirm: (message: string, callback: (state: boolean) => void) => void;
@@ -1996,7 +2063,10 @@ interface RawString {
     raw: string;
 }
 declare type Primitive = string | number | boolean | Record<string | number, any> | Function;
-declare type TokenisedString = [string, ...Primitive[]];
+declare type TokenisedString = [
+    string,
+    ...Primitive[]
+];
 declare type Untranslated = Primitive | TokenisedString | RawString;
 declare type TranslatedString = string;
 interface I18n {
@@ -2094,7 +2164,7 @@ interface EditorManager extends Observable<EditorManagerEventMap> {
     remove(selector: string | Editor): Editor | void;
     setActive(editor: Editor): void;
     setup(): void;
-    translate(text: string): string;
+    translate(text: Untranslated): TranslatedString;
     triggerSave(): void;
     _setBaseUrl(baseUrl: string): void;
 }
@@ -2124,7 +2194,8 @@ declare type FormatChangeCallback = (state: boolean, data: {
     parents: any;
 }) => void;
 interface FormatRegistry {
-    get(name?: string): Format[] | Record<string, Format[]>;
+    get(name: string): Format[];
+    get(): Record<string, Format[]>;
     has(name: string): boolean;
     register(name: string | Formats, format?: Format[] | Format): void;
     unregister(name: string): Formats;
@@ -2134,6 +2205,7 @@ interface Formatter extends FormatRegistry {
     remove(name: string, vars?: FormatVars, node?: Node | Range, similar?: boolean): void;
     toggle(name: string, vars?: FormatVars, node?: Node): void;
     match(name: string, vars?: FormatVars, node?: Node): boolean;
+    closest(names: any): string | null;
     matchAll(names: string[], vars?: FormatVars): string[];
     matchNode(node: Node, name: string, vars?: FormatVars, similar?: boolean): boolean;
     canApply(name: string): boolean;
@@ -2195,7 +2267,11 @@ interface ShortcutsConstructor {
     readonly prototype: Shortcuts;
     new (editor: Editor): Shortcuts;
 }
-declare type CommandFunc = string | [string, boolean, any] | (() => void);
+declare type CommandFunc = string | [
+    string,
+    boolean,
+    any
+] | (() => void);
 declare class Shortcuts {
     private readonly editor;
     private readonly shortcuts;
@@ -2220,7 +2296,7 @@ declare type Theme = {
     renderUI?(): {
         iframeContainer?: HTMLIFrameElement;
         editorContainer: HTMLElement;
-        api?: EditorUiApi;
+        api?: Partial<EditorUiApi>;
     };
     getNotificationManagerImpl?(): NotificationManagerImpl;
     getWindowManagerImpl?(): WindowManagerImpl;
@@ -2320,7 +2396,11 @@ declare class Editor implements EditorObservable {
     addCommand(name: string, callback: EditorCommandCallback, scope?: object): void;
     addQueryStateHandler(name: string, callback: () => boolean, scope?: any): void;
     addQueryValueHandler(name: string, callback: () => string, scope?: any): void;
-    addShortcut(pattern: string, desc: string, cmdFunc: string | [string, boolean, any] | (() => void), scope?: any): void;
+    addShortcut(pattern: string, desc: string, cmdFunc: string | [
+        string,
+        boolean,
+        any
+    ] | (() => void), scope?: any): void;
     execCommand(cmd: string, ui?: boolean, value?: any, args?: any): boolean;
     queryCommandState(cmd: string): boolean;
     queryCommandValue(cmd: string): string;
@@ -2616,8 +2696,8 @@ interface Delay {
     setEditorTimeout(editor: Editor, callback: () => void, time?: number): number;
     setInterval(callback: () => void, time?: number): number;
     setTimeout(callback: () => void, time?: number): number;
-    clearInterval(id: number): void;
-    clearTimeout(id: number): void;
+    clearInterval(id?: number): void;
+    clearTimeout(id?: number): void;
     debounce<T extends (...args: any[]) => any>(callback: T, time?: number): DebounceFunc<T>;
     throttle<T extends (...args: any[]) => any>(callback: T, time?: number): DebounceFunc<T>;
 }
@@ -2715,6 +2795,34 @@ interface XHREventMap {
 interface XHR extends Observable<XHREventMap> {
     send(settings: XHRSettings): void;
 }
+interface DOMUtilsNamespace {
+    new (doc: Document, settings: Partial<DOMUtilsSettings>): DOMUtils;
+    DOM: DOMUtils;
+    nodeIndex: (node: Node, normalized?: boolean) => number;
+}
+interface RangeUtilsNamespace {
+    new (dom: DOMUtils): RangeUtils;
+    compareRanges: (rng1: RangeLikeObject, rng2: RangeLikeObject) => boolean;
+    getCaretRangeFromPoint: (clientX: number, clientY: number, doc: Document) => Range;
+    getSelectedNode: (range: Range) => Node;
+    getNode: (container: Node, offset: number) => Node;
+}
+interface AddOnManagerNamespace {
+    new <T>(): AddOnManager<T>;
+    language: string;
+    languageLoad: boolean;
+    baseURL: string;
+    PluginManager: PluginManager;
+    ThemeManager: ThemeManager;
+}
+interface BookmarkManagerNamespace {
+    (selection: EditorSelection): BookmarkManager;
+    isBookmarkNode: (node: Node) => boolean;
+}
+interface SaxParserNamespace {
+    new (settings?: SaxParserSettings, schema?: Schema): SaxParser;
+    findEndTag: (schema: Schema, html: string, startIndex: number) => number;
+}
 interface TinyMCE extends EditorManager {
     geom: {
         Rect: Rect;
@@ -2742,12 +2850,12 @@ interface TinyMCE extends EditorManager {
         DomQuery: DomQueryConstructor;
         TreeWalker: DomTreeWalkerConstructor;
         TextSeeker: new (dom: DOMUtils, isBlockBoundary?: (node: Node) => boolean) => TextSeeker;
-        DOMUtils: new (doc: Document, settings: Partial<DOMUtilsSettings>) => DOMUtils;
+        DOMUtils: DOMUtilsNamespace;
         ScriptLoader: ScriptLoaderConstructor;
-        RangeUtils: new (dom: DOMUtils) => RangeUtils;
+        RangeUtils: RangeUtilsNamespace;
         Serializer: new (settings: DomSerializerSettings, editor?: Editor) => DomSerializer;
         ControlSelection: (selection: EditorSelection, editor: Editor) => ControlSelection;
-        BookmarkManager: (selection: EditorSelection) => BookmarkManager;
+        BookmarkManager: BookmarkManagerNamespace;
         Selection: new (dom: DOMUtils, win: Window, serializer: DomSerializer, editor: Editor) => EditorSelection;
         StyleSheetLoader: new (documentOrShadowRoot: Document | ShadowRoot, settings: StyleSheetLoaderSettings) => StyleSheetLoader;
         Event: EventUtils;
@@ -2757,12 +2865,12 @@ interface TinyMCE extends EditorManager {
         Entities: Entities;
         Node: AstNodeConstructor;
         Schema: new (settings?: SchemaSettings) => Schema;
-        SaxParser: new (settings?: SaxParserSettings, schema?: Schema) => SaxParser;
+        SaxParser: SaxParserNamespace;
         DomParser: new (settings?: DomParserSettings, schema?: Schema) => DomParser;
         Writer: new (settings?: WriterSettings) => Writer;
         Serializer: new (settings?: HtmlSerializerSettings, schema?: Schema) => HtmlSerializer;
     };
-    AddOnManager: new <T>() => AddOnManager<T>;
+    AddOnManager: AddOnManagerNamespace;
     Annotator: new (editor: Editor) => Annotator;
     Editor: EditorConstructor;
     EditorCommands: EditorCommandsConstructor;
@@ -2804,17 +2912,5 @@ interface TinyMCE extends EditorManager {
     isMac: boolean;
 }
 declare const tinymce: TinyMCE;
-declare type Formats$1 = {
-    Formats: Formats;
-    Format: Format;
-    ApplyFormat: ApplyFormat;
-    BlockFormat: BlockFormat;
-    InlineFormat: InlineFormat;
-    SelectorFormat: SelectorFormat;
-    RemoveFormat: RemoveFormat;
-    RemoveBlockFormat: RemoveBlockFormat;
-    RemoveInlineFormat: RemoveInlineFormat;
-    RemoveSelectorFormat: RemoveSelectorFormat;
-};
 export default tinymce;
-export { AddOnManager, Annotator, AstNode, Bookmark, BookmarkManager, Class, Color, ControlSelection, DOMUtils, Delay, DomParser, DomParserSettings, DomQuery, DomSerializer, DomSerializerSettings, DomTreeWalker, Editor, EditorCommands, EditorEvent, EditorManager, EditorModeApi, EditorObservable, EditorSelection, EditorSettings, Entities, Env, EventDispatcher, EventUtils, EventTypes_d as Events, FocusManager, Formats$1 as Formats, Formatter, GeomRect, HtmlSerializer, HtmlSerializerSettings, I18n, IconManager, JSONUtils as JSON, JSONP, JSONRequest, JSONRequestArgs, JSONRequestSettings, NotificationApi, NotificationManager, NotificationSpec, Observable, Plugin, PluginManager, RangeUtils, RawEditorSettings, Rect, Resource, SaxParser, SaxParserSettings, Schema, SchemaSettings, ScriptLoader, Shortcuts, StyleSheetLoader, Styles, TextSeeker, Theme, ThemeManager, TinyMCE, Tools, URI, Ui_d as Ui, UndoManager, VK, WindowManager, Writer, WriterSettings, XHR, XHRSettings };
+export { AddOnManager, Annotator, AstNode, Bookmark, BookmarkManager, Class, Color, ControlSelection, DOMUtils, Delay, DomParser, DomParserSettings, DomQuery, DomSerializer, DomSerializerSettings, DomTreeWalker, Editor, EditorCommands, EditorEvent, EditorManager, EditorModeApi, EditorObservable, EditorSelection, EditorSettings, Entities, Env, EventDispatcher, EventUtils, EventTypes_d as Events, FocusManager, Format_d as Formats, Formatter, GeomRect, HtmlSerializer, HtmlSerializerSettings, I18n, IconManager, JSONUtils as JSON, JSONP, JSONRequest, JSONRequestArgs, JSONRequestSettings, NotificationApi, NotificationManager, NotificationSpec, Observable, Plugin, PluginManager, RangeUtils, RawEditorSettings, Rect, Resource, SaxParser, SaxParserSettings, Schema, SchemaSettings, ScriptLoader, Shortcuts, StyleSheetLoader, Styles, TextSeeker, Theme, ThemeManager, TinyMCE, Tools, URI, Ui_d as Ui, UndoManager, VK, WindowManager, Writer, WriterSettings, XHR, XHRSettings };

@@ -4,6 +4,6 @@
  * For LGPL see License.txt in the project root for license information.
  * For commercial licenses see https://www.tiny.cloud/
  *
- * Version: 5.5.1 (2020-10-01)
+ * Version: 5.6.0 (2020-11-18)
  */
 !function(){"use strict";var n=tinymce.util.Tools.resolve("tinymce.PluginManager");n.add("hr",function(n){var o,t;(o=n).addCommand("InsertHorizontalRule",function(){o.execCommand("mceInsertContent",!1,"<hr />")}),(t=n).ui.registry.addButton("hr",{icon:"horizontal-rule",tooltip:"Horizontal line",onAction:function(){return t.execCommand("InsertHorizontalRule")}}),t.ui.registry.addMenuItem("hr",{icon:"horizontal-rule",text:"Horizontal line",onAction:function(){return t.execCommand("InsertHorizontalRule")}})})}();
