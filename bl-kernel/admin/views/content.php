@@ -15,7 +15,7 @@ function table($type) {
 	if ($type=='published') {
 		$list = $published;
 		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
+			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no pages at this moment.');
 			echo '</p>';
 			return false;
@@ -23,7 +23,7 @@ function table($type) {
 	} elseif ($type=='draft') {
 		$list = $drafts;
 		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
+			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no draft pages at this moment.');
 			echo '</p>';
 			return false;
@@ -31,7 +31,7 @@ function table($type) {
 	} elseif ($type=='scheduled') {
 		$list = $scheduled;
 		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
+			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no scheduled pages at this moment.');
 			echo '</p>';
 			return false;
@@ -39,7 +39,7 @@ function table($type) {
 	} elseif ($type=='static') {
 		$list = $static;
 		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
+			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no static pages at this moment.');
 			echo '</p>';
 			return false;
@@ -47,7 +47,7 @@ function table($type) {
 	} elseif ($type=='sticky') {
 		$list = $sticky;
 		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
+			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no sticky pages at this moment.');
 			echo '</p>';
 			return false;
@@ -56,22 +56,7 @@ function table($type) {
 		$list = $autosave;
 	}
 
-	echo '
-	<table class="table mt-3">
-		<thead>
-			<tr>
-				<th class="border-0" scope="col">'.$L->g('Title').'</th>
-	';
-
-	if ($type=='published' || $type=='static' || $type=='sticky') {
-		echo '<th class="border-0 d-none d-lg-table-cell" scope="col">'.$L->g('URL').'</th>';
-	}
-
-	echo '			<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>
-			</tr>
-		</thead>
-		<tbody>
-	';
+	echo '<table class="table table-striped m-0"><tbody><tr></tr>';
 
 	if ( (ORDER_BY=='position') || $type=='static' ) {
 		foreach ($list as $pageKey) {
@@ -156,10 +141,7 @@ function table($type) {
 					</div>
 				</td>';
 
-				if ($type=='published' || $type=='static' || $type=='sticky') {
-				$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-				}
+				echo '<td class="pt-3 d-none d-lg-table-cell">'.$L->get('Category').': '.($page->category()?$page->category():$L->get('uncategorized')).'</td>';
 
 				echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
 				if ($type=='published' || $type=='static' || $type=='sticky') {
@@ -187,7 +169,7 @@ function table($type) {
 ?>
 
 <!-- TABS -->
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs pl-3" role="tablist">
 	<li class="nav-item">
 		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
@@ -217,7 +199,7 @@ function table($type) {
 
 		<?php if (Paginator::numberOfPages() > 1): ?>
 		<!-- Paginator -->
-		<nav class="paginator">
+		<nav class="paginator pt-3">
 			<ul class="pagination flex-wrap justify-content-center">
 
 			<!-- First button -->

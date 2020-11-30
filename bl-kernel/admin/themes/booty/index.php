@@ -20,9 +20,10 @@
 		), DOMAIN_ADMIN_THEME_CSS);
 		echo Theme::css(array(
 			'jquery.datetimepicker.min.css',
+			'jquery-ui.min.css',
 			'select2.min.css',
 			'select2-bootstrap4.min.css',
-			'token-autocomplete.css'
+			'tagsinput-revisited.min.css'
 		), DOMAIN_CORE_CSS);
 	?>
 
@@ -33,8 +34,9 @@
 		echo Theme::jsSortable();
 		echo Theme::js(array(
 			'jquery.datetimepicker.full.min.js',
+			'jquery-ui.min.js',
 			'select2.full.min.js',
-			'token-autocomplete.js',
+			'tagsinput-revisited.min.js',
 			'functions.js',
 			'api.js'
 		), DOMAIN_CORE_JS, null);

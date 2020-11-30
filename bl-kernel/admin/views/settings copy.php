@@ -1,88 +1,8 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-<script>
-// ============================================================================
-// Variables for the view
-// ============================================================================
-
-// ============================================================================
-// Functions for the view
-// ============================================================================
-
-// This function catch all key press
-// Provide shortcuts for the view
-function keypress(event) {
-	logs(event);
-
-	// Shortcuts
-	// ------------------------------------------------------------------------
-	// Ctrl+S or Command+S
-	if ((event.ctrlKey || event.metaKey) && event.which == 83) {
-		save();
-		$('#btnSave').addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
-		event.preventDefault();
-		return false;
-	}
-
-	$('#btnSave').removeClass('btn-primary-disabled').html('<?php $L->p('Save') ?>');
-	return true;
-}
-
-function save() {
-	var args = {}
-
-	// Get values from all inputs['text']
-	$('input[type=text]').each(function(){
-		var key = $(this).attr('name');
-		var value = $(this).val();
-		args[key] = value;
-	});
-
-	// Get values from all selects
-	$('select').each(function() {
-		var key = $(this).attr('name');
-		var value = $(this).val();
-		args[key] = value;
-	});
-
-	logs('Saving settings');
-	api.saveSettings(args).then(function() {
-		logs('Settings saved');
-	});
-
-	return true;
-}
-
-// ============================================================================
-// Events for the view
-// ============================================================================
-$(document).ready(function() {
-
-	// Main interface events
-	// ------------------------------------------------------------------------
-	$(this).keydown(function(event){
-		keypress(event);
-	});
-
-	$('#btnSave').on('click', function() {
-		save();
-		$(this).addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
-	});
-
-});
-
-// ============================================================================
-// Initlization for the view
-// ============================================================================
-$(document).ready(function() {
-	// nothing here yet
-	// how do you hang your toilet paper ? over or under ?
-});
-</script>
-
 <div class="align-middle">
 	<div class="float-right mt-1">
-		<button type="button" class="btn btn-primary btn-sm btn-primary-disabled" id="btnSave"><?php $L->p('Saved') ?></button>
+		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
 	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog')); ?>
@@ -106,7 +26,7 @@ $(document).ready(function() {
 <div class="tab-content" id="myTabContent">
 
 	<!-- General tab -->
-	<div class="tab-pane show active pt-1 pb-1 pl-3 pr-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+	<div class="tab-pane fade show active pt-1 pb-1 pl-3 pr-3" id="general" role="tabpanel" aria-labelledby="general-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
 
@@ -160,7 +80,7 @@ $(document).ready(function() {
 	<!-- End General tab -->
 
 	<!-- Advanced tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+	<div class="tab-pane fade pt-1 pb-1 pl-3 pr-3" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Page content')));
 
@@ -174,6 +94,17 @@ $(document).ready(function() {
 
 		echo Bootstrap::formTitle(array('title'=>$L->g('Predefined pages')));
 
+		// Homepage
+		try {
+			$options = array();
+			$homeKey = $site->homepage();
+			if (!empty($homeKey)) {
+				$home = new Page($homeKey);
+				$options = array($homeKey=>$home->title());
+			}
+		} catch (Exception $e) {
+			// continue
+		}
 		echo Bootstrap::formSelect(array(
 			'name'=>'homepage',
 			'label'=>$L->g('Homepage'),
@@ -182,7 +113,43 @@ $(document).ready(function() {
 			'class'=>'',
 			'tip'=>$L->g('Returning page for the main page')
 		));
+	?>
+		<script>
+		$(document).ready(function() {
+			var homepage = $("#jshomepage").select2({
+				placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+				allowClear: true,
+				theme: "bootstrap4",
+				minimumInputLength: 2,
+				ajax: {
+					url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+					data: function (params) {
+						var query = { query: params.term }
+						return query;
+					},
+					processResults: function (data) {
+						return data;
+					}
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			});
+		});
+		</script>
 
+	<?php
+		// Page not found 404
+		try {
+			$options = array();
+			$pageNotFoundKey = $site->pageNotFound();
+			if (!empty($pageNotFoundKey)) {
+				$pageNotFound = new Page($pageNotFoundKey);
+				$options = array($pageNotFoundKey=>$pageNotFound->title());
+			}
+		} catch (Exception $e) {
+			// continue
+		}
 		echo Bootstrap::formSelect(array(
 			'name'=>'pageNotFound',
 			'label'=>$L->g('Page not found'),
@@ -191,7 +158,33 @@ $(document).ready(function() {
 			'class'=>'',
 			'tip'=>$L->g('Returning page when the page doesnt exist')
 		));
+	?>
 
+		<script>
+		$(document).ready(function() {
+			var homepage = $("#jspageNotFound").select2({
+				placeholder: "<?php $L->p('Start typing to see a list of suggestions.') ?>",
+				allowClear: true,
+				theme: "bootstrap4",
+				minimumInputLength: 2,
+				ajax: {
+					url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+					data: function (params) {
+						var query = { query: params.term }
+						return query;
+					},
+					processResults: function (data) {
+						return data;
+					}
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			});
+		});
+		</script>
+
+	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Email account settings')));
 
 		echo Bootstrap::formInputText(array(
@@ -268,7 +261,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- SEO tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+	<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
 
@@ -326,10 +319,8 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Social Network tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="social" role="tabpanel" aria-labelledby="social-tab">
+	<div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
 	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Social Networks')));
-
 		echo Bootstrap::formInputText(array(
 			'name'=>'twitter',
 			'label'=>'Twitter',
@@ -432,7 +423,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Images tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="images" role="tabpanel" aria-labelledby="images-tab">
+	<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
 
@@ -466,7 +457,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Timezone and language tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="language" role="tabpanel" aria-labelledby="language-tab">
+	<div class="tab-pane fade" id="language" role="tabpanel" aria-labelledby="language-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Language and timezone')));
 
@@ -511,7 +502,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Custom fields -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+	<div class="tab-pane fade" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Custom fields')));
 
@@ -528,7 +519,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Site logo tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+	<div class="tab-pane fade" id="logo" role="tabpanel" aria-labelledby="logo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
 	?>

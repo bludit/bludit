@@ -17,9 +17,9 @@ if (typeof editorGetContent != 'function') {
 		return $('#editor').val();
 	};
 }
-if (typeof editorInsertMedia != 'function') {
-	window.editorInsertMedia = function(filename){
-		$('#editor').val($('#editor').val()+'<img src="'+filename+'" alt="">');
+if (typeof editorInsertContent != 'function') {
+	window.editorInsertContent = function(html){
+		$('#editor').val($('#editor').val()+html);
 	};
 }
 
@@ -57,7 +57,7 @@ function save(args) {
 }
 
 // Open the modal and store the current value
-// The current value is store to recover it if the user click in the button "Cancel"
+// The current value is store to recover it if the user click on the button "Cancel"
 function openModal(fieldName) {
 	var value = $('#'+fieldName).val();
 	localStorage.setItem(fieldName, value);
@@ -76,7 +76,7 @@ function closeModal(fieldName) {
 // Provides Shortcuts
 // The editor plugin need to call this function for the event "keydown"
 function keypress(event) {
-	console.log(event);
+	logs(event);
 
 	// Shortcuts
 	// ------------------------------------------------------------------------
@@ -84,7 +84,9 @@ function keypress(event) {
 	if ((event.ctrlKey || event.metaKey) && event.which == 83) {
 		var args = {
 			title: $('#title').val(),
-			content: editorGetContent()
+			content: editorGetContent(),
+			category: $('#category option:selected').val(),
+			tags: $('#tags').val()
 		}
 		save(args);
 		$('#btnSave').addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
@@ -109,7 +111,9 @@ $(document).ready(function() {
 	$('#btnSave').on('click', function() {
 		var args = {
 			title: $('#title').val(),
-			content: editorGetContent()
+			content: editorGetContent(),
+			category: $('#category option:selected').val(),
+			tags: $('#tags').val()
 		}
 		save(args);
 		$(this).addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
@@ -168,7 +172,7 @@ $(document).ready(function() {
 	});
 
 	$('#btnCancelFriendlyURL').on('click', function() {
-		closeModal('FriendlyURL');
+		closeModal('friendlyURL');
 	});
 
 	$('#btnGenURLFromTitle').on('click', function() {
@@ -205,6 +209,19 @@ $(document).ready(function() {
 
 	$('#btnCancelStatus').on('click', function() {
 		closeModal('status');
+	});
+
+	// Modal SEO events
+	// ------------------------------------------------------------------------
+	$('#btnSaveSeo').on('click', function() {
+		var args = {
+			parent: $('#parent').val()
+		};
+		save(args);
+	});
+
+	$('#btnCancelSeo').on('click', function() {
+		closeModal('parent');
 	});
 
 	// Modal parent events
@@ -319,8 +336,8 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelfriendlyURL" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSavefriendlyURL" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+				<button id="btnCancelFriendlyURL" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveFriendlyURL" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
 			</div>
 		</div>
 	</div>
@@ -449,8 +466,8 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-				<button type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+				<button id="btnCancelSeo" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveSeo" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
 			</div>
 		</div>
 	</div>
@@ -520,23 +537,23 @@ $(document).ready(function() {
 
 	<!-- Tags -->
 	<h6 class="mt-4 mb-2 pb-2 text-uppercase">Tags</h6>
-	<div id="tags"></div>
+	<input id="tags" name="tags" type="text" value="">
 	<script>
 	$(document).ready(function() {
-		let tokenAutocomplete = new TokenAutocomplete({
-		name: 'tags',
-		selector: '#tags',
-		noMatchesText: 'No matching results...',
-		minCharactersForSuggestion: 2,
-		initialSuggestions: [
-			<?php
-				foreach ($tags->db as $key=>$fields) {
-					echo '{value: "'.$key.'", text: "'.$fields['name'].'"},';
-				}
-			?>
-		]
+		$('#tags').tagsInput({
+			placeholder:'Add a tag',
+			delimiter:',',
+			removeWithBackspace:true,
+			'autocomplete': {
+				source: [
+				<?php
+					foreach ($tags->db as $key=>$fields) {
+						echo '"'.$fields['name'].'",';
+					}
+				?>
+				]
+			}
 		});
-		tokenAutocomplete.debug(true);
 	});
 		</script>
 	<!-- End Tags -->

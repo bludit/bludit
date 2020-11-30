@@ -112,6 +112,7 @@ include(PATH_HELPERS.'image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
 include(PATH_HELPERS.'dom.class.php');
 include(PATH_HELPERS.'cookie.class.php');
+include(PATH_HELPERS.'bootstrap.class.php');
 
 if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
 	include(PATH_KERNEL.'bludit.pro.php');

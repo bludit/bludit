@@ -2,6 +2,74 @@
 
 class Bootstrap {
 
+	public static function formInputText($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$readonly = empty($args['readonly'])?'':'readonly';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+		$type = isset($args['type'])?$args['type']:'text';
+
+		$tip = '';
+		if (isset($args['tip'])) {
+			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+
+		$label = '';
+		if (isset($args['label'])) {
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		}
+
+		$class = 'form-control';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+return <<<EOF
+<div class="form-group row">
+	$label
+	<div class="col-sm-10">
+		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
+		$tip
+	</div>
+</div>
+EOF;
+	}
+
+	public static function formSelect($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+		$value = isset($args['value'])?$args['value']:'';
+
+		$class = 'custom-select';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$html = '<div class="form-group row">';
+		if (isset($args['label'])) {
+			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		}
+		$html .= '<div class="col-sm-10">';
+		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
+		foreach ($args['options'] as $key=>$value) {
+			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
+		}
+		$html .= '</select>';
+		if (isset($args['tip'])) {
+			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+		}
+		$html .= '</div>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+
+	// -- OLD --------
 	public static function modal($args) {
 
 		$buttonSecondary = $args['buttonSecondary'];
@@ -221,49 +289,7 @@ EOF;
 		return $html;
 	}
 
-	public static function formInputText($args)
-	{
-		$name = $args['name'];
-		$disabled = empty($args['disabled'])?'':'disabled';
-		$readonly = empty($args['readonly'])?'':'readonly';
-		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$value = isset($args['value'])?$args['value']:'';
 
-		$id = 'js'.$name;
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
-
-		$tip = '';
-		if (isset($args['tip'])) {
-			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
-		}
-
-		$label = '';
-		if (isset($args['label'])) {
-			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
-		}
-
-		$class = 'form-control';
-		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
-		}
-
-		$type = 'text';
-		if (isset($args['type'])) {
-			$type = $args['type'];
-		}
-
-return <<<EOF
-<div class="form-group row">
-	$label
-	<div class="col-sm-10">
-		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
-		$tip
-	</div>
-</div>
-EOF;
-	}
 
 	public static function formCheckbox($args)
 	{
@@ -313,38 +339,7 @@ return <<<EOF
 EOF;
 	}
 
-	public static function formSelect($args)
-	{
-		$id = 'js'.$args['name'];
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
 
-		$class = 'custom-select';
-		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
-		}
-
-		$html = '<div class="form-group row">';
-
-		if (isset($args['label'])) {
-			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
-		}
-
-		$html .= '<div class="col-sm-10">';
-		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
-		foreach ($args['options'] as $key=>$value) {
-			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
-		}
-		$html .= '</select>';
-		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
-		}
-		$html .= '</div>';
-		$html .= '</div>';
-
-		return $html;
-	}
 
 	public static function formSelectBlock($args)
 	{

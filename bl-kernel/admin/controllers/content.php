@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
-// Check role
+// Authorization
 // ============================================================================
 
 checkRole(array('admin', 'editor', 'author'));
@@ -10,7 +10,7 @@ checkRole(array('admin', 'editor', 'author'));
 // Functions
 // ============================================================================
 
-// Returns the content belongs to the current user if the user has the role Editor
+// Returns the content belongs to the current logged user
 function filterContentOwner($list) {
 	global $login;
 	global $pages;
@@ -24,15 +24,7 @@ function filterContentOwner($list) {
 }
 
 // ============================================================================
-// Main before POST
-// ============================================================================
-
-// ============================================================================
-// POST Method
-// ============================================================================
-
-// ============================================================================
-// Main after POST
+// Main
 // ============================================================================
 
 $published = $pages->getList($url->pageNumber(), ITEMS_PER_PAGE_ADMIN);
@@ -42,7 +34,7 @@ $static = $pages->getStaticDB(true);
 $sticky = $pages->getStickyDB(true);
 $autosave = $pages->getAutosaveDB(true);
 
-// If the user is an Author filter the content he/she can edit
+// If the user has the role "Author" filter the content so he/she can edit
 if (checkRole(array('author'), false)) {
 	$published 	= filterContentOwner($published);
 	$drafts 	= filterContentOwner($drafts);
@@ -51,10 +43,10 @@ if (checkRole(array('author'), false)) {
 	$sticky 	= filterContentOwner($sticky);
 }
 
-// Check if out of range the pageNumber
+// Check if the page number is out of range
 if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');
 }
 
-// Title of the page
-$layout['title'] .= ' - '.$L->g('Manage content');
+// View HTML <title>
+$layout['title'] = $L->g('Manage content') . ' - ' . $layout['title'];

@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
-// Check role
+// Authorization
 // ============================================================================
 
 checkRole(array('admin', 'editor', 'author'));
@@ -11,20 +11,7 @@ checkRole(array('admin', 'editor', 'author'));
 // ============================================================================
 
 // ============================================================================
-// Main before POST
-// ============================================================================
-
-// ============================================================================
-// POST Method
-// ============================================================================
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$pageKey = createPage($_POST);
-	Redirect::page('edit-content/'.$pageKey);
-}
-
-// ============================================================================
-// Main after POST
+// Main
 // ============================================================================
 
 // UUID of the page is need it for autosave and media manager
@@ -48,5 +35,5 @@ if (IMAGE_RESTRICT) {
 	define('PAGE_THUMBNAILS_URL', DOMAIN_UPLOADS_THUMBNAILS);
 }
 
-// Title of the page
-$layout['title'] = $L->g('New content').' - '.$layout['title'];
+// View HTML <title>
+$layout['title'] = $L->g('New content') . ' - ' . $layout['title'];

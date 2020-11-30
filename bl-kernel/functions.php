@@ -647,8 +647,6 @@ function editSettings($args) {
 			'notes'=>''
 		));
 
-		// Create alert
-		Alert::set($L->g('The changes have been saved'));
 		return true;
 	}
 
