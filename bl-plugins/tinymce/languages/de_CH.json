@@ -6,5 +6,6 @@
 	},
 	"toolbar-top": "Obere Werkzeugleiste",
 	"toolbar-bottom": "Untere Werkzeugleiste",
-	"codesample-languages": "Codesample Programmiersprachen"
+	"codesample-languages": "Codesample Programmiersprachen",
+	"codesample-supported-laguages": "Pragrammiersprachen die von Prism unterstützt werden."
 }

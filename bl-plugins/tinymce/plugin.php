@@ -22,12 +22,12 @@ class pluginTinymce extends Plugin {
 		global $L;
 
 		$html  = '<div>';
-		$html .= '<label>'.$L->get('Toolbar top').'</label>';
+		$html .= '<label>'.$L->get('toolbar-top').'</label>';
 		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Toolbar bottom').'</label>';
+		$html .= '<label>'.$L->get('toolbar-bottom').'</label>';
 		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
 		$html .= '</div>';
 
@@ -38,8 +38,9 @@ class pluginTinymce extends Plugin {
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
 			$html .= '<div>';
-			$html .= '<label>'.$L->get('Codesample languages').'</label>';
+			$html .= '<label>'.$L->get('codesample-languages').'</label>';
 			$html .= '<input name="codesampleLanguages" id="jsCodesampleLanguages" type="text" value="'.$this->getValue('codesampleLanguages').'">';
+			$html .= '<span class="tip">'.$L->get('codesample-supported-laguages').'</span>';
 			$html .= '</div>';
 		}
 

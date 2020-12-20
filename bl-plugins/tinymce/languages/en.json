@@ -6,5 +6,6 @@
 	},
 	"toolbar-top": "Toolbar top",
 	"toolbar-bottom": "Toolbar bottom",
-	"codesample-languages": "Codesample languages"
+	"codesample-languages": "Codesample languages",
+	"codesample-supported-laguages": "Programming languages supported by Prism."
 }
