@@ -21,7 +21,11 @@ class pluginTinymce extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div>';
+		$html  = '<div class="alert alert-primary" role="alert">';
+		$html .= $this->description();
+		$html .= '</div>';
+
+		$html .= '<div>';
 		$html .= '<label>'.$L->get('toolbar-top').'</label>';
 		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
 		$html .= '</div>';
