@@ -12,7 +12,8 @@ class pluginTinymce extends Plugin {
 		$this->dbFields = array(
 			'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 			'toolbar2'=>'',
-			'plugins'=>'code autolink image link pagebreak advlist lists textpattern table'
+			'plugins'=>'code autolink image link pagebreak advlist lists textpattern table',
+			'codesampleLanguages'=>'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp' 
 		);
 	}
 
@@ -34,6 +35,13 @@ class pluginTinymce extends Plugin {
 		$html .= '<label>'.$L->get('Plugins').'</label>';
 		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getValue('plugins').'">';
 		$html .= '</div>';
+
+		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
+			$html .= '<div>';
+			$html .= '<label>'.$L->get('Codesample Languages').'</label>';
+			$html .= '<input name="codesampleLanguages" id="jsCodesampleLanguages" type="text" value="'.$this->getValue('codesampleLanguages').'">';
+			$html .= '</div>';
+		}
 
 		return $html;
 	}
@@ -63,6 +71,14 @@ class pluginTinymce extends Plugin {
 		$content_css = $this->htmlPath().'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
+
+		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
+			$codesampleLanguages = explode("|", $this->getValue('codesampleLanguages'));
+			foreach($codesampleLanguages AS $codesampleLang) {
+				$values = explode(" ", $codesampleLang);
+				$codesampleConfig .= "{ text: '" . $values[0] . "', value: '" . $values[1] . "' },";
+			}
+		}
 
 		$lang = 'en';
 		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$L->currentLanguage().'.js')) {
@@ -121,7 +137,8 @@ $html = <<<EOF
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
 		language: "$lang",
-		content_css: "$content_css"
+		content_css: "$content_css",
+		codesample_languages: [$codesampleConfig],
 	});
 
 </script>
