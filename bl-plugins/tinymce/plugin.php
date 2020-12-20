@@ -38,7 +38,7 @@ class pluginTinymce extends Plugin {
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
 			$html .= '<div>';
-			$html .= '<label>'.$L->get('Codesample Languages').'</label>';
+			$html .= '<label>'.$L->get('Codesample languages').'</label>';
 			$html .= '<input name="codesampleLanguages" id="jsCodesampleLanguages" type="text" value="'.$this->getValue('codesampleLanguages').'">';
 			$html .= '</div>';
 		}
