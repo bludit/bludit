@@ -4,7 +4,8 @@
 		"name": "TinyMCE",
 		"description": "WYSIWYG HTML Editor, mit dem Inhalte einfach formatiert werden können."
 	},
-	"Toolbar top": "Obere Werkzeugleiste",
-        "Toolbar bottom": "Untere Werkzeugleiste",
-        "Mobile toolbar": "Werkzeugleiste auf Mobiles"	
+	"toolbar-top": "Obere Werkzeugleiste",
+	"toolbar-bottom": "Untere Werkzeugleiste",
+	"codesample-languages": "Codesample Programmiersprachen",
+	"codesample-supported-laguages": "Pragrammiersprachen die von Prism unterstützt werden."
 }
