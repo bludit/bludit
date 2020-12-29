@@ -635,7 +635,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary btn-lg mr-2 w-100" name="install"><?php $L->p('Install') ?></button>
+					<button type="submit" class="btn btn-primary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
 					</div>
 				</form>
 			<?php
@@ -655,7 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</select>
 
 					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary btn-lg mr-2 w-100"><?php $L->p('Next') ?></button>
+					<button type="submit" class="btn btn-primary btn-lg me-2 w-100"><?php $L->p('Next') ?></button>
 					</div>
 				</form>
 			<?php

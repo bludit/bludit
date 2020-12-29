@@ -30,16 +30,17 @@ class Sanitize {
 		return htmlspecialchars_decode($text, $flags);
 	}
 
-	public static function pathFile($path, $file=false)
-	{
-		if ($file!==false){
-			$fullPath = $path.$file;
-		} else {
-			$fullPath = $path;
-		}
+	/*
+		Check if the path exists, also check for path traversal.
 
+		@path		string	The path to check, could be a path with a file
+
+		@returns	boolean	Returns TRUE if the path exists and is not path traversal, FALSE otherwise
+	*/
+	public static function pathFile($path)
+	{
 		// Fix for Windows on paths. eg: $path = c:\diego/page/subpage convert to c:\diego\page\subpages
-		$fullPath = str_replace('/', DS, $fullPath);
+		$fullPath = str_replace('/', DS, $path);
 
 		if (CHECK_SYMBOLIC_LINKS) {
 			$real = realpath($fullPath);
@@ -47,12 +48,12 @@ class Sanitize {
 			$real = file_exists($fullPath)?$fullPath:false;
 		}
 
-		// If $real is FALSE the file does not exist.
+		// If $real is FALSE the path doesn't exist
 		if ($real===false) {
 			return false;
 		}
 
-		// If the $real path does not start with the systemPath then this is Path Traversal.
+		// If the $real path doesn't start with the systemPath then this is Path Traversal
 		if (strpos($fullPath, $real)!==0) {
 			return false;
 		}

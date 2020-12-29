@@ -1,3 +1,7 @@
+/*
+    Javascript global functions
+*/
+
 function sanitizeHTML(text) {
 	var map = {
 		'&': '&amp;',

@@ -52,7 +52,7 @@ if ($layout['slug']==='ajax') {
 		include(PATH_RULES.'99.security.php');
 
 		// Load the ajax file
-		if (Sanitize::pathFile(PATH_AJAX, $layout['parameters'].'.php')) {
+		if (Sanitize::pathFile(PATH_AJAX.$layout['parameters'].'.php')) {
 			include(PATH_AJAX.$layout['parameters'].'.php');
 		}
 	}
@@ -88,19 +88,19 @@ $ADMIN_VIEW 		= $layout['view'];
 execPluginsByHook('beforeAdminLoad');
 
 // Load init.php if the theme has one
-if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.'init.php')) {
+if (Sanitize::pathFile(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php')) {
 	include(PATH_ADMIN_THEMES.$site->adminTheme().DS.'init.php');
 }
 
 // Load controller
-if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS, $layout['controller'].'.php')) {
+if (Sanitize::pathFile(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php')) {
 	include(PATH_ADMIN_CONTROLLERS.$layout['controller'].'.php');
 } elseif ($layout['plugin'] && method_exists($layout['plugin'], 'adminController')) {
 	$layout['plugin']->adminController();
 }
 
 // Load view and theme
-if (Sanitize::pathFile(PATH_ADMIN_THEMES, $site->adminTheme().DS.$layout['template'])) {
+if (Sanitize::pathFile(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template'])) {
 	include(PATH_ADMIN_THEMES.$site->adminTheme().DS.$layout['template']);
 }
 

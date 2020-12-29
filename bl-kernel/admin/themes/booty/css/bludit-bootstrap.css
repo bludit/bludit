@@ -1,0 +1,11 @@
+/* Commons */
+a {
+  color: #555;
+}
+
+/* Remove Focus glow */
+.btn:focus,
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+}

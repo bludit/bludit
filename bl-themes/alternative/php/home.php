@@ -65,7 +65,7 @@
 
 				<!-- Shows "read more" button if necessary -->
 				<?php if ($page->readMore()): ?>
-				<div class="text-right pt-3">
+				<div class="text-end pt-3">
 				<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button"><?php echo $L->get('Read more'); ?></a>
 				</div>
 				<?php endif ?>
@@ -85,7 +85,7 @@
 
 		<!-- Previous button -->
 		<?php if (Paginator::showPrev()): ?>
-		<li class="page-item mr-2">
+		<li class="page-item me-2">
 			<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $L->get('Previous'); ?></a>
 		</li>
 		<?php endif; ?>
@@ -97,7 +97,7 @@
 
 		<!-- Next button -->
 		<?php if (Paginator::showNext()): ?>
-		<li class="page-item ml-2">
+		<li class="page-item ms-2">
 			<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?> &#9658;</a>
 		</li>
 		<?php endif; ?>

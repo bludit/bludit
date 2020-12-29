@@ -46,7 +46,7 @@ echo Bootstrap::formOpen(array(
 
 <!-- TOOLBAR -->
 <div id="editorToolbar" class="mb-1">
-	<div id="editorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
+	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
@@ -54,7 +54,7 @@ echo Bootstrap::formOpen(array(
 	<div id="jseditorToolbarLeft">
 		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
+		<span id="jsbuttonSwitch" data-switch="publish" class="ms-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
 	</div>
 </div>
 <script>
@@ -429,8 +429,8 @@ echo Bootstrap::formOpen(array(
 		<!-- Options > General -->
 		<div class="general card">
 			<div class="card-header m-0 p-2" id="headingOne">
-				<a href="#optionsGeneral" class="w-100 text-left text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsGeneral" aria-expanded="true" aria-controls="optionsGeneral">
-					General <span class="float-right fa fa-angle-down"></span>
+				<a href="#optionsGeneral" class="w-100 text-start text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsGeneral" aria-expanded="true" aria-controls="optionsGeneral">
+					General <span class="float-end fa fa-angle-down"></span>
 				</a>
 			</div>
 
@@ -493,8 +493,8 @@ echo Bootstrap::formOpen(array(
 		<!-- Options > Advanced -->
 		<div class="advanced card">
 			<div class="card-header m-0 p-2" id="headingOne">
-				<a href="#optionsAdvanced" class="w-100 text-left text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsAdvanced" aria-expanded="true" aria-controls="optionsAdvanced">
-					Advanced <span class="float-right fa fa-angle-down"></span>
+				<a href="#optionsAdvanced" class="w-100 text-start text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsAdvanced" aria-expanded="true" aria-controls="optionsAdvanced">
+					Advanced <span class="float-end fa fa-angle-down"></span>
 				</a>
 			</div>
 

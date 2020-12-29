@@ -48,7 +48,7 @@ echo Bootstrap::formOpen(array(
 
 <!-- TOOLBAR -->
 <div id="editorToolbar" class="mb-1">
-	<div id="editorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
+	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
@@ -56,7 +56,7 @@ echo Bootstrap::formOpen(array(
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
+		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ms-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
 	</div>
 
 	<?php if($page->scheduled()): ?>

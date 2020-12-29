@@ -1,5 +1,7 @@
 <?php
 
+// DEPRECATED CLASS
+// WILL BE REMOVED IN BLUDIT V4
 class Theme {
 
 	public static function socialNetworks()
@@ -262,9 +264,9 @@ class Theme {
 		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
-	public static function cssLineAwesome()
+	public static function cssBootstrapIcons()
 	{
-		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'line-awesome/css/line-awesome-font-awesome.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'/bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function jsSortable($attributes='')

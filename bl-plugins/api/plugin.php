@@ -688,42 +688,6 @@ class pluginAPI extends Plugin {
 	}
 
 	/*
-	 | Returns all files uploaded for a specific page, includes any type of file.
-	 |
-	 | @return	array
-         */
-	private function getFiles($pageKey)
-	{
-		$chunk = false;
-		$sortByDate = true;
-		$path = PATH_UPLOADS_PAGES.$pageKey.DS;
-		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
-
-		$files = array();
-		foreach ($listFiles as $file) {
-			$info = array('thumbnail'=>'');
-			$info['file'] = $file;
-			$info['filename'] = basename($file);
-			$info['mime'] = Filesystem::mimeType($file);
-			$info['size'] = Filesystem::getSize($file);
-
-			// Check if thumbnail exists for the file
-			$thumbnail = $path.'thumbnails'.DS.$info['filename'];
-			if (Filesystem::fileExists($thumbnail)) {
-				$info['thumbnail'] = $thumbnail;
-			}
-
-			array_push($files, $info);
-		}
-
-		return array(
-			'status'=>'0',
-			'message'=>'Files for the page key: '.$pageKey,
-			'data'=>$files
-		);
-	}
-
-	/*
 	| Upload a file to a particular page
 	| Returns the file URL
 	|
@@ -771,11 +735,11 @@ class pluginAPI extends Plugin {
 	/*
 		Generates unique slug text for the a page
 
-		$args['text']		string
-		$args['parentKey']	string
-		$args['pageKey']	string
+		@args['text']		string
+		@args['parentKey']	string
+		@args['pageKey']	string
 
-		returns['data']		string
+		@returns['data']	string	The slug string
 	*/
 	private function getFriendlyURL($args)
 	{
@@ -786,6 +750,45 @@ class pluginAPI extends Plugin {
 			'status'=>'0',
 			'message'=>'Friendly URL generated.',
 			'data'=>$slug
+		);
+	}
+
+	/*
+		Returns all files uploaded for a specific page.
+		Includes all files types.
+
+		@pageKey			string	The page's key
+
+		@returns['data']	array	The list of files
+    */
+	private function getFiles($pageKey)
+	{
+		$chunk = false;
+		$sortByDate = true;
+		$path = PATH_UPLOADS_PAGES.$pageKey.DS;
+		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
+
+		$files = array();
+		foreach ($listFiles as $file) {
+			$info = array('thumbnail'=>'');
+			$info['file'] = $file;
+			$info['filename'] = basename($file);
+			$info['mime'] = Filesystem::mimeType($file);
+			$info['size'] = Filesystem::getSize($file);
+
+			// Check if thumbnail exists for the file
+			$thumbnail = $path.'thumbnails'.DS.$info['filename'];
+			if (Filesystem::fileExists($thumbnail)) {
+				$info['thumbnail'] = $thumbnail;
+			}
+
+			array_push($files, $info);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Files for the page key: '.$pageKey,
+			'data'=>$files
 		);
 	}
 }

@@ -3,7 +3,7 @@
 <?php echo Bootstrap::formOpen(array('id'=>'jsform')); ?>
 
 <div class="align-middle">
-	<div class="float-right mt-1">
+	<div class="float-end mt-1">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#jsdeleteModal"><?php $L->p('Delete') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>

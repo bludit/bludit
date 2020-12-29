@@ -107,9 +107,9 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 					'<td class="information">'+
 						'<div class="text-primary pb-2">'+filename+'<\/div>'+
 						'<div>'+
-							'<a href="#" class="mr-3 text-secondary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus"></i><?php $L->p('Insert') ?><\/a>'+
+							'<a href="#" class="me-3 text-secondary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus"></i><?php $L->p('Insert') ?><\/a>'+
 							'<a href="#" class="text-secondary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-square-o"></i><?php $L->p('Set as cover image') ?><\/button>'+
-							'<a href="#" class="float-right text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
+							'<a href="#" class="float-end text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
 						'<\/div>'+
 					'<\/td>'+
 				'<\/tr>';

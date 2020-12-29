@@ -1,0 +1,338 @@
+html {
+    font-size: 0.9rem;
+    background: #EFEFEF;
+}
+
+body {
+    background: #EFEFEF;
+    color: #1b1b1b;
+}
+
+nav.paginator {
+    background: #EFEFEF;
+}
+
+
+/*
+	ICONS
+*/
+
+.fa {
+    padding-right: 2px;
+    line-height: inherit;
+}
+
+
+/*
+	SIDEBAR
+*/
+
+div.sidebar .nav-item a {
+    padding-left: 0;
+    padding-right: 0;
+    color: #555;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+div.sidebar .nav-item a:hover {
+    color: #0078D4;
+}
+
+div.sidebar .nav-item h4 {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+
+/*
+	AUTOCOMPLETE SEARCH
+*/
+
+.search-suggestion {
+    padding: 5px;
+}
+
+.search-suggestion-options {
+    font-size: 0.9em;
+    padding-top: 2px;
+}
+
+
+/*
+	BOOTSTRAP Hacks
+*/
+
+@media (min-width: 1300px) {
+    .container {
+        max-width: 1350px;
+    }
+}
+
+
+/* for small devices */
+
+@media (max-width: 575.98px) {
+    #jsmediaManagerButton,
+    #jscategoryButton,
+    #jsdescriptionButton {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+code {
+    padding: 3px 5px 2px;
+    margin: 0 1px;
+    background: #eaeaea;
+    background: rgba(0, 0, 0, .07);
+    color: #444;
+}
+
+.list-group-sortable {
+    cursor: pointer;
+}
+
+
+/*
+	DASHBOARD
+*/
+
+#dashboard ul.list-group.list-group-striped li {
+    border: none;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#dashboard ul.list-group.list-group-striped li:nth-of-type(even) {
+    background: #f1f1f1;
+}
+
+#dashboard div.quick-links-icons {
+    font-size: 3em;
+    width: 100%;
+}
+
+#dashboard a.quick-links {
+    color: #777;
+}
+
+#dashboard a.quick-links:hover {
+    text-decoration: none;
+    color: #4586d4;
+}
+
+#hello-message {
+    padding: 10px 0;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+#hello-message span.oi {
+    top: 3px;
+}
+
+.ct-series-a .ct-line {
+    /* Set the colour of this series line */
+    stroke: #4a90e2;
+    /* Control the thikness of your lines */
+    stroke-width: 2px;
+    /* Create a dashed line with a pattern */
+}
+
+.ct-series-a .ct-point {
+    /* Colour of your points */
+    stroke: #4a90e2;
+    /* Size of your points */
+    stroke-width: 8px;
+}
+
+
+/*
+	ALERT
+*/
+
+#alert {
+    display: none;
+    position: fixed;
+    text-align: center;
+    border-radius: 0px;
+    border: 0;
+    z-index: 1000;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+}
+
+.alert-success {
+    background-color: #4586d4;
+    border-left: 6px solid #abd1ff !important;
+    color: #ffffff;
+}
+
+.alert-danger {
+    background-color: #d44545;
+    border-left: 6px solid #ff9c9c !important;
+    color: #ffffff;
+}
+
+
+/*
+	PLUGINS
+*/
+
+.plugin-form label {
+    display: block;
+    margin-top: 1rem !important;
+}
+
+.plugin-form input[type="text"],
+.plugin-form textarea,
+.plugin-form select {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.plugin-form textarea {
+    min-height: 120px;
+}
+
+.plugin-form span.tip {
+    display: block;
+    font-size: 80%;
+    font-weight: 400;
+    margin-top: .25rem;
+    color: #6c757d !important;
+}
+
+
+/*
+	Manage > Content
+*/
+
+td.child {
+    padding-left: 30px;
+}
+
+
+/*
+	Manage > New Content
+*/
+
+#jseditor {
+    background: #fff;
+    padding: 10px 5% !important;
+    font-size: 16px;
+    line-height: 1.5em;
+    border: 1px solid #ced4da;
+}
+
+#jseditorSidebar {
+    display: none;
+    height: calc(100% - 45px);
+    width: 50%;
+    max-width: 350px;
+    position: absolute;
+    z-index: 50;
+    top: 45px;
+    right: 15px;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+@media (max-width: 575.98px) {
+    #jseditorSidebar {
+        width: 100%;
+        max-width: 100%;
+        right: 0;
+    }
+    #editorToolbarRight button {
+        font-size: 0px !important;
+    }
+    #editorToolbarRight button span {
+        font-size: 16px !important;
+    }
+    .contentTools .btn {
+        font-size: 0px !important;
+        margin-right: 5px;
+    }
+    .contentTools .btn span {
+        font-size: 16px !important;
+    }
+}
+
+#jseditorSidebar nav {
+    background: #f3f3f3;
+}
+
+#jseditorSidebar nav a {
+    color: #000;
+}
+
+#jseditorSidebar .nav-tabs .nav-link {
+    border: none;
+}
+
+#jseditorSidebar .nav-link.active {
+    background: none;
+    border: none;
+    border-bottom: 3px solid #ccc;
+}
+
+#jsshadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(72, 72, 72, 0.7);
+    z-index: 10;
+    display: none;
+}
+
+img.profilePicture {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+}
+
+
+/* Switch button */
+
+.switch-button {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.switch-icon-published {
+    color: #1cb11c;
+}
+
+.switch-icon-draft {
+    color: #b11c1c;
+}
+
+.switch-icon-unlisted,
+.switch-icon-static,
+.switch-icon-sticky {
+    color: #1c81b1;
+}

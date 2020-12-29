@@ -82,9 +82,9 @@ function table($type) {
 
 					echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
 					echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+					echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 					if (count($page->children())==0) {
-						echo '<a href="#" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+						echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 					}
 					echo '</td>';
 
@@ -113,8 +113,8 @@ function table($type) {
 						if ($type=='published' || $type=='static' || $type=='sticky') {
 						echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
 						}
-						echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<a class="ml-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+						echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+						echo '<a class="ms-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 						echo '</td>';
 
 						echo '</tr>';
@@ -147,9 +147,9 @@ function table($type) {
 				if ($type=='published' || $type=='static' || $type=='sticky') {
 				echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
 				}
-				echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+				echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 				if (count($page->children())==0) {
-					echo '<a href="#" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+					echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 				}
 				echo '</td>';
 

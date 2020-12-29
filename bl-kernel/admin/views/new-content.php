@@ -195,15 +195,15 @@ $(document).ready(function() {
 		save(args);
 
 		if (args['type']=='draft') {
-			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+			$('#btnCurrenStatus').html('<i class="bi-square-fill"></i> <?php $L->p('Draft') ?>');
 		} else if (args['type']=='published') {
-			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-published"></i> <?php $L->p('Published') ?>');
+			$('#btnCurrenStatus').html('<i class="bi-check-square-fill"></i> <?php $L->p('Published') ?>');
 		} else if (args['type']=='unlisted') {
-			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-unlisted"></i> <?php $L->p('Unlisted') ?>');
+			$('#btnCurrenStatus').html('<i class="bi-check-square-fill"></i> <?php $L->p('Unlisted') ?>');
 		} else if (args['type']=='sticky') {
-			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-sticky"></i> <?php $L->p('Sticky') ?>');
+			$('#btnCurrenStatus').html('<i class="bi-check-square-fill"></i> <?php $L->p('Sticky') ?>');
 		} else if (args['type']=='static') {
-			$('#btnCurrenStatus').html('<i class="fa fa-square switch-icon-static"></i> <?php $L->p('Static') ?>');
+			$('#btnCurrenStatus').html('<i class="bi-check-square-fill"></i> <?php $L->p('Static') ?>');
 		}
 	});
 
@@ -248,40 +248,12 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="container-fluid h-100">
-<div class="row h-100">
-<div class="col-sm-9 h-100">
-
-<!-- Toolbar > Save, Preview, Status and Options -->
-<div id="editorToolbar" class="mb-2">
-	<div id="editorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
-		<div class="dropdown">
-			<button type="button" class="btn switch-button btn-sm dropdown-toggle" type="button" id="dropdownMenuOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuOptions">
-				<a onclick="openModal('description')" 	class="dropdown-item" href="#"><i class="fa fa-comment"></i> Description</a>
-				<a onclick="openModal('date')" 			class="dropdown-item" href="#"><i class="fa fa-calendar"></i> Publish date</a>
-				<a onclick="openModal('friendlyURL')" 	class="dropdown-item" href="#"><i class="fa fa-link"></i> Change URL</a>
-				<a onclick="openModal('status')" 		class="dropdown-item" href="#"><i class="fa fa-eye"></i> Status</a>
-				<a onclick="openModal('seo')" 			class="dropdown-item" href="#"><i class="fa fa-compass"></i> SEO features</a>
-				<a onclick="openModal('parent')" 		class="dropdown-item" href="#"><i class="fa fa-sitemap"></i> Parent page</a>
-			</div>
-		</div>
-	</div>
-
-	<div id="editorToolbarLeft">
-		<button id="btnSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
-		<button id="btnPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span   id="btnCurrenStatus" class="ml-2 switch-button"><i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?></span>
-	</div>
-</div>
-<!-- End Toolbar > Save, Preview, Status and Options -->
-
 <!-- Modal Description -->
 <div class="modal" id="modal-description" tabindex="-1" aria-labelledby="modal-description" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<label for="parent" class="font-weight-bold">Page description</label>
 					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
 					<small class="form-text text-muted"><?php echo $L->get('this-field-can-help-describe-the-content') ?></small>
@@ -301,7 +273,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<label for="date" class="font-weight-bold">Publish date</label>
 					<input id="date" name="date" type="text" class="form-control" value="<?php echo Date::current(DB_DATE_FORMAT) ?>">
 					<small class="form-text text-muted"><?php echo $L->g('date-format-format') ?></small>
@@ -326,7 +298,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<div class="d-flex mb-2">
 						<label for="friendlyURL" class="p-0 m-0 mr-auto font-weight-bold">Page URL</label>
 						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0"><i class="fa fa-magic"></i> Generate from page title</button>
@@ -349,7 +321,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<label for="parent" class="font-weight-bold">Parent page</label>
 					<select id="parent" name="parent" class="custom-select"></select>
 					<small class="form-text text-muted"><?php echo $L->g('Start typing a page title to see a list of suggestions.') ?></small>
@@ -402,7 +374,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<label class="font-weight-bold">Page status</label>
 				</div>
 				<div class="form-check mb-2">
@@ -446,7 +418,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="form-group m-0">
+				<div class="m-0">
 					<label class="font-weight-bold">SEO features</label>
 				</div>
 				<div class="form-check mb-2">
@@ -474,17 +446,64 @@ $(document).ready(function() {
 </div>
 <!-- End Modal SEO -->
 
-<form class="d-flex flex-column h-100" id="jsform" method="post" action="" autocomplete="off">
-	<!-- Title -->
-	<div id="jseditorTitle" class="form-group mb-2">
-		<input id="title" name="title" type="text" class="form-control form-control-lg rounded-0" value="" placeholder="<?php $L->p('Enter title') ?>">
-	</div>
-	<!-- End Title -->
+<!-- Modal Files / Images -->
+<div class="modal" id="modal-files" tabindex="-1" aria-labelledby="modal-files" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="m-0">
+					<label class="font-weight-bold">Files</label>
+				</div>
 
-	<!-- Editor -->
-	<textarea id="jseditor" class="editable h-100 mb-2"></textarea>
-	<!-- End Editor -->
-</form>
+			</div>
+			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
+				<button id="btnCancelSeo" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+				<button id="btnSaveSeo" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal SEO -->
+
+<div class="container-fluid h-100">
+<div class="row h-100">
+<div class="col-sm-9 d-flex flex-column h-100">
+
+<!-- Toolbar > Save, Preview, Status and Options -->
+<div id="editorToolbar">
+	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
+		<div class="dropdown">
+			<button type="button" class="btn dropdown-toggle" type="button" id="dropdownMenuOptions" data-bs-toggle="dropdown" aria-expanded="false">
+				<span class="fa fa-cog"></span><?php $L->p('Options') ?>
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuOptions">
+				<a onclick="openModal('description')" 	class="dropdown-item" href="#"><i class="fa fa-comment"></i> Description</a>
+				<a onclick="openModal('date')" 			class="dropdown-item" href="#"><i class="fa fa-calendar"></i> Publish date</a>
+				<a onclick="openModal('friendlyURL')" 	class="dropdown-item" href="#"><i class="fa fa-link"></i> Change URL</a>
+				<a onclick="openModal('status')" 		class="dropdown-item" href="#"><i class="fa fa-eye"></i> Status</a>
+				<a onclick="openModal('seo')" 			class="dropdown-item" href="#"><i class="fa fa-compass"></i> SEO features</a>
+				<a onclick="openModal('parent')" 		class="dropdown-item" href="#"><i class="fa fa-sitemap"></i> Parent page</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="editorToolbarLeft">
+		<button id="btnSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
+		<button id="btnPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
+		<span   id="btnCurrenStatus"><i class="bi-square-fill ms-1 me-1"></i><span><?php $L->p('Draft') ?></span></span>
+	</div>
+</div>
+<!-- End Toolbar > Save, Preview, Status and Options -->
+
+<!-- Title -->
+<div class="mb-1">
+	<input id="title" name="title" type="text" class="form-control form-control-lg" value="" placeholder="<?php $L->p('Enter title') ?>">
+</div>
+<!-- End Title -->
+
+<!-- Editor -->
+<textarea class="form-control flex-grow-1" placeholder="" id="editor"></textarea>
+<!-- End Editor -->
 
 </div> <!-- End <div class="col-sm-9 h-100"> -->
 
@@ -501,7 +520,7 @@ $(document).ready(function() {
 	<h6 class="mt-4 mb-2 pb-2 text-uppercase"><?php $L->p('Images') ?></h6>
 
     <div class="media text-muted pt-3">
-      <svg class="align-self-center mr-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <svg class="align-self-center me-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
       <div class="media-body">
         <div class="mt-0">
 			photo1.jpg
@@ -510,7 +529,7 @@ $(document).ready(function() {
     </div>
 
     <div class="media text-muted pt-3">
-      <svg class="align-self-center mr-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <svg class="align-self-center me-3 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
       <div class="media-body">
         <div class="mt-0">
 			photo2.jpg
@@ -518,13 +537,13 @@ $(document).ready(function() {
       </div>
     </div>
 
-    <small class="d-block text-right mt-3">
+    <small class="d-block text-end mt-3">
       <a href="#">All images</a>
     </small>
   <!-- End Images -->
 
 	<!-- Category -->
-	<div class="form-group m-0">
+	<div class="m-0">
 		<h6 class="mt-4 mb-2 pb-2 text-uppercase">Category</h6>
 		<select id="category" name="category" class="custom-select">
 			<option value="">- Uncategorized -</option>

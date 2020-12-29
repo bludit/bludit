@@ -81,7 +81,7 @@ $(document).ready(function() {
 </script>
 
 <div class="align-middle">
-	<div class="float-right mt-1">
+	<div class="float-end mt-1">
 		<button type="button" class="btn btn-primary btn-sm btn-primary-disabled" id="btnSave"><?php $L->p('Saved') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>

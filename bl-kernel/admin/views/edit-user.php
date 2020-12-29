@@ -3,7 +3,7 @@
 <?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
 <div class="align-middle">
-	<div class="float-right mt-1">
+	<div class="float-end mt-1">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
@@ -151,7 +151,7 @@
 
 		echo '
 		<div class="form-group">
-			<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$user->username().'" class="btn btn-primary mr-2">'.$L->g('Change password').'</a>
+			<a href="'.HTML_PATH_ADMIN_ROOT.'user-password/'.$user->username().'" class="btn btn-primary me-2">'.$L->g('Change password').'</a>
 		</div>
 		';
 
@@ -182,9 +182,9 @@
 				<div class="form-group row">
 				<div class="col-sm-2"></div>
 				<div class="col-sm-10">
-					<button type="submit" class="btn btn-warning mr-2" id="jsdisableUser" name="disableUser">'.$L->g('Disable user').'</button>
-					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">'.$L->g('Delete user and keep content').'</button>
-					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content').'</button>
+					<button type="submit" class="btn btn-warning me-2" id="jsdisableUser" name="disableUser">'.$L->g('Disable user').'</button>
+					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">'.$L->g('Delete user and keep content').'</button>
+					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">'.$L->g('Delete user and delete content').'</button>
 				</div>
 				</div>
 				';

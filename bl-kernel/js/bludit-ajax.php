@@ -1,3 +1,8 @@
+/*
+	DEPRECATED CLASS
+	WILL BE REMOVED IN BLUDIT V4
+*/
+
 class bluditAjax {
 
 	constructor(apiURL, apiToken, apiAuth, tokenCSRF) {

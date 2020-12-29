@@ -28,7 +28,7 @@ class Bootstrap {
 		}
 
 return <<<EOF
-<div class="form-group row">
+<div class="mb-3 row">
 	$label
 	<div class="col-sm-10">
 		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
@@ -49,7 +49,7 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group row">';
+		$html = '<div class="mb-3 row">';
 		if (isset($args['label'])) {
 			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
@@ -185,7 +185,7 @@ EOF;
 			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
 		}
 
-		$class = 'form-group m-0';
+		$class = 'mb-3 m-0';
 		if (isset($args['class'])) {
 			$class = $args['class'];
 		}
@@ -246,7 +246,7 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group row">';
+		$html = '<div class="mb-3 row">';
 
 		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
@@ -275,7 +275,7 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group m-0">';
+		$html = '<div class="mb-3 m-0">';
 		if (!empty($args['label'])) {
 			$html .= '<h6 class="mt-4 mb-2 pb-2 text-uppercase">'.$args['label'].'</h6>';
 		}
@@ -304,7 +304,7 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'form-group m-0';
+		$class = 'mb-3 m-0';
 		if (isset($args['class'])) {
 			$class = $args['class'];
 		}
@@ -353,7 +353,7 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div class="form-group m-0">';
+		$html = '<div class="mb-3 m-0">';
 
 		if (!empty($args['label'])) {
 			$html .= '<h6 class="mt-4 mb-2 pb-2 text-uppercase">'.$args['label'].'</h6>';

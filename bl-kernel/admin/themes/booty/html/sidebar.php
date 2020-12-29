@@ -1,19 +1,23 @@
 <!-- Use .flex-column to set a vertical direction -->
-<ul class="nav flex-column pt-4">
+<ul class="nav flex-column">
 
-	<li class="nav-item mb-4" style="margin-left: -4px;">
-		<img src="<?php echo HTML_PATH_CORE_IMG ?>logo.svg" width="20" height="20" alt="bludit-logo"><span class="ml-2 align-middle"><?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
+	<li class="nav-item mb-3">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+			<i class="bi-plus-circle"></i>
+			<?php $L->p('New content') ?>
+		</a>
 	</li>
-
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>"><span class="fa fa-dashboard"></span><?php $L->p('Dashboard') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+			<i class="bi-kanban"></i>
+			<?php $L->p('Dashboard') ?>
+		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" target="_blank" href="<?php echo HTML_PATH_ROOT ?>"><span class="fa fa-home"></span><?php $L->p('Website') ?></a>
-	</li>
-
-	<li class="nav-item mt-3">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>"><span style="color: #0078D4;" class="fa fa-plus-circle"></span><?php $L->p('New content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+			<i class="bi-house"></i>
+			<?php $L->p('Website') ?>
+		</a>
 	</li>
 
 	<?php if (!checkRole(array('admin'),false)): ?>
@@ -31,14 +35,22 @@
 		<h4><?php $L->p('Manage') ?></h4>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><?php $L->p('Content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>">
+			<i class="bi-folder"></i>
+			<?php $L->p('Content') ?>
+		</a>
 	</li>
-
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>"><?php $L->p('Categories') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
+			<i class="bi-bookmark"></i>
+			<?php $L->p('Categories') ?>
+		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><?php $L->p('Users') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>">
+			<i class="bi-people"></i>
+			<?php $L->p('Users') ?>
+		</a>
 	</li>
 
 	<li class="nav-item mt-3">

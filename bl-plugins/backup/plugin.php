@@ -119,10 +119,10 @@ class pluginBackup extends Plugin {
 		}
 
 		$html .= '<div class="row">';
-		$html .= '<div class="col text-left">';
+		$html .= '<div class="col text-start">';
 		$html .= '<button name="createBackup" value="true" class="btn btn-primary" type="submit"><span class="fa fa-play-circle"></span> '.$L->get('create-backup').'</button>';
 		$html .= '</div>';
-		$html .= '<div class="col-5 text-right">';
+		$html .= '<div class="col-5 text-end">';
 		if ($this->zip) {
 			$html .= '<input id="backupFile" type="file" name="backupFile" value="" style="position:absolute;top:-500em;" />';
 			$html .= '<label for="backupFile" value="true" class="btn btn-light d-inline-block" type="submit" style="margin-top:0 !important;"><span class="fa fa-upload"></span> '.$L->get('upload-backup').'</label>';
@@ -145,10 +145,10 @@ class pluginBackup extends Plugin {
 			$html .= '<h4 class="font-weight-normal">'.$name.($count > 0? " ($count)": "").'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
-				$html .= '<a class="btn btn-outline-secondary btn-sm mr-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
+				$html .= '<a class="btn btn-outline-secondary btn-sm me-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="fa fa-download"></span> '.$L->get('download').'</a>';
 			}
-			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-outline-secondary btn-sm mr-1 mt-1" type="submit"><span class="fa fa-rotate-left"></span> '.$L->get('restore-backup').'</button>';
-			$html .= '<button name="deleteBackup" value="'.$filename.'" class="btn btn-outline-danger btn-sm mr-1 mt-1" type="submit"><span class="fa fa-trash"></span> '.$L->get('delete-backup').'</button>';
+			$html .= '<button name="restoreBackup" value="'.$filename.'" class="btn btn-outline-secondary btn-sm me-1 mt-1" type="submit"><span class="fa fa-rotate-left"></span> '.$L->get('restore-backup').'</button>';
+			$html .= '<button name="deleteBackup" value="'.$filename.'" class="btn btn-outline-danger btn-sm me-1 mt-1" type="submit"><span class="fa fa-trash"></span> '.$L->get('delete-backup').'</button>';
 			$html .= '</div>';
 			$html .= '<hr>';
 		}
