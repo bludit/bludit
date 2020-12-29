@@ -2,6 +2,32 @@
 
 class Bootstrap {
 
+	// Floating Labels
+	// https://getbootstrap.com/docs/5.0/forms/floating-labels/
+	public static function formFloatingLabels($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+		$disabled = empty($args['disabled'])?'':'disabled';
+		$readonly = empty($args['readonly'])?'':'readonly';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+		$type = isset($args['type'])?$args['type']:'text';
+		$label = isset($args['label'])?$args['label']:$placeholder;
+
+		$class = 'form-control';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+return <<<EOF
+<div class="form-floating mb-3">
+  <input type="$type" class="$class" id="$id" placeholder="$placeholder">
+  <label for="$id">$label</label>
+</div>
+EOF;
+	}
+
 	public static function formInputText($args)
 	{
 		$name = $args['name'];

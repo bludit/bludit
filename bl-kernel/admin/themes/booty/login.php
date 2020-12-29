@@ -5,14 +5,16 @@
 	<meta charset="<?php echo CHARSET ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex,nofollow">
+	<meta name="generator" content="Bludit">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_CORE_IMG.'favicon.png?version='.BLUDIT_VERSION ?>">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_CORE_IMG . 'favicon.png?version=' . BLUDIT_VERSION ?>">
 
 	<!-- CSS -->
 	<?php
-		echo Theme::cssBootstrap();
-		echo Theme::css(array(
+		echo HTML::cssBootstrap();
+		echo HTML::cssBootstrapIcons();
+		echo HTML::css(array(
 			'bludit-bootstrap.css',
 			'bludit.css'
 		), DOMAIN_ADMIN_THEME_CSS);

@@ -9,17 +9,23 @@ echo Bootstrap::formOpen(array());
 		'value'=>$security->getTokenCSRF()
 	));
 
-	echo '
-	<div class="mb-3">
-		<input type="text" value="'.(isset($_POST['username'])?Sanitize::html($_POST['username']):'').'" class="form-control form-control-lg" id="username" name="username" placeholder="'.$L->g('Username').'" autofocus>
-	</div>
-	';
+	echo Bootstrap::formFloatingLabels(array(
+		'id'=>'username',
+		'name'=>'username',
+		'type'=>'text',
+		'value'=>(isset($_POST['username'])?Sanitize::html($_POST['username']):''),
+		'class'=>'form-control-lg',
+		'placeholder'=>$L->g('Username')
+	));
 
-	echo '
-	<div class="mb-3">
-		<input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="'.$L->g('Password').'">
-	</div>
-	';
+	echo Bootstrap::formFloatingLabels(array(
+		'id'=>'password',
+		'name'=>'password',
+		'type'=>'password',
+		'value'=>'',
+		'class'=>'form-control-lg',
+		'placeholder'=>$L->g('Password')
+	));
 
 	echo '
 	<div class="form-check">

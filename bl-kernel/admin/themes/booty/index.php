@@ -12,39 +12,38 @@
 
 	<!-- CSS -->
 	<?php
-	echo HTML::cssBootstrap();
-	echo HTML::cssBootstrapIcons();
-	echo HTML::css(array(
-		'bludit-bootstrap.css',
-		'bludit.css'
-	), DOMAIN_ADMIN_THEME_CSS);
-	echo HTML::css(array(
-		'jquery.datetimepicker.min.css',
-		'jquery-ui.min.css',
-		'select2.min.css',
-		'select2-bootstrap4.min.css',
-		'tagsinput-revisited.min.css'
-	), DOMAIN_CORE_CSS);
+		echo HTML::cssBootstrap();
+		echo HTML::cssBootstrapIcons();
+		echo HTML::css(array(
+			'bludit-bootstrap.css',
+			'bludit.css'
+		), DOMAIN_ADMIN_THEME_CSS);
+		echo HTML::css(array(
+			'jquery.datetimepicker.min.css',
+			'jquery-ui.min.css',
+			'select2.min.css',
+			'select2-bootstrap4.min.css',
+			'tagsinput-revisited.min.css'
+		), DOMAIN_CORE_CSS);
 	?>
 
 	<!-- Javascript -->
 	<?php
-	echo HTML::jquery();
-	echo HTML::jsBootstrap();
-	echo HTML::jsSortable();
-	echo HTML::js(array(
-		'jquery.datetimepicker.full.min.js',
-		'jquery-ui.min.js',
-		'select2.full.min.js',
-		'tagsinput-revisited.min.js',
-		'functions.js',
-		'api.js'
-	), DOMAIN_CORE_JS);
+		echo HTML::jquery();
+		echo HTML::jsBootstrap();
+		echo HTML::jsSortable();
+		echo HTML::js(array(
+			'jquery.datetimepicker.full.min.js',
+			'jquery-ui.min.js',
+			'select2.full.min.js',
+			'tagsinput-revisited.min.js',
+			'functions.js',
+			'api.js'
+		), DOMAIN_CORE_JS);
 	?>
 
 	<!-- Execute plugins for the admin area inside the HTML <head> tag -->
 	<?php execPluginsByHook('adminHead') ?>
-
 </head>
 
 <body class="h-100 bg-light">
