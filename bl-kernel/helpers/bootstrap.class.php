@@ -22,7 +22,7 @@ class Bootstrap {
 
 return <<<EOF
 <div class="form-floating mb-3">
-  <input type="$type" class="$class" id="$id" placeholder="$placeholder">
+  <input type="$type" class="$class" id="$id" name="$name" placeholder="$placeholder">
   <label for="$id">$label</label>
 </div>
 EOF;
