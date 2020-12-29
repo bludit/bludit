@@ -221,7 +221,7 @@ $(document).ready(function() {
 	});
 
 	$('#btnCancelSeo').on('click', function() {
-		closeModal('parent');
+		closeModal('seo');
 	});
 
 	// Modal parent events
@@ -249,19 +249,19 @@ $(document).ready(function() {
 </script>
 
 <!-- Modal Description -->
-<div class="modal" id="modal-description" tabindex="-1" aria-labelledby="modal-description" aria-hidden="true">
+<div class="modal" id="modal-description" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="parent" class="font-weight-bold">Page description</label>
+					<label for="parent" class="fw-bold mb-2">Page description</label>
 					<textarea id="description" name="description" class="form-control" rows="3"></textarea>
-					<small class="form-text text-muted"><?php echo $L->get('this-field-can-help-describe-the-content') ?></small>
+					<div class="form-text"><?php echo $L->get('this-field-can-help-describe-the-content') ?></div>
 				</div>
 			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelDescription" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveDescription" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelDescription" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveDescription" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -269,19 +269,19 @@ $(document).ready(function() {
 <!-- End Modal Description -->
 
 <!-- Modal Date -->
-<div class="modal" id="modal-date" aria-labelledby="modal-date" tabindex="-1" aria-hidden="true">
+<div class="modal" id="modal-date" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="date" class="font-weight-bold">Publish date</label>
+					<label for="date" class="fw-bold mb-2">Publish date</label>
 					<input id="date" name="date" type="text" class="form-control" value="<?php echo Date::current(DB_DATE_FORMAT) ?>">
-					<small class="form-text text-muted"><?php echo $L->g('date-format-format') ?></small>
+					<div class="form-text"><?php echo $L->g('date-format-format') ?></div>
 				</div>
 			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelDate" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveDate" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelDate" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveDate" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -294,42 +294,119 @@ $(document).ready(function() {
 <!-- End Modal Date -->
 
 <!-- Modal friendly URL -->
-<div class="modal" id="modal-friendlyURL" tabindex="-1" aria-labelledby="modal-friendlyURL" aria-hidden="true">
+<div class="modal" id="modal-friendlyURL" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
 					<div class="d-flex mb-2">
-						<label for="friendlyURL" class="p-0 m-0 mr-auto font-weight-bold">Page URL</label>
-						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0"><i class="fa fa-magic"></i> Generate from page title</button>
+						<label for="friendlyURL" class="p-0 m-0 me-auto fw-bold">Page URL</label>
+						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0 text-primary"><i class="bi-hammer me-2"></i>Generate from page title</button>
 					</div>
 					<input id="friendlyURL" name="friendlyURL" type="text" class="form-control" value="">
-					<small class="form-text text-muted">https://www.varlogdiego.com/my-page-about-k8s</small>
+					<div class="form-text">https://www.varlogdiego.com/my-page-about-k8s</div>
 				</div>
 			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelFriendlyURL" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveFriendlyURL" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelFriendlyURL" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveFriendlyURL" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- End Modal friendly URL -->
 
-<!-- Modal Parent -->
-<div class="modal" id="modal-parent" aria-labelledby="modal-parent" tabindex="-1" aria-hidden="true">
+<!-- Modal Status -->
+<div class="modal" id="modal-status" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="parent" class="font-weight-bold">Parent page</label>
-					<select id="parent" name="parent" class="custom-select"></select>
-					<small class="form-text text-muted"><?php echo $L->g('Start typing a page title to see a list of suggestions.') ?></small>
+					<label class="fw-bold mb-2">Page status</label>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusDraft" name="status" class="form-check-input" type="radio" value="draft" checked>
+					<label class="form-check-label" for="statusDraft">Draft</label>
+					<div class="form-text">Page as draft, is not visible for visitors.</div>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusPublish" name="status" class="form-check-input" type="radio" value="published">
+					<label class="form-check-label" for="statusPublish">Publish</label>
+					<div class="form-text">Publish the page, everyone can see it.</div>
+				</div>
+				<hr>
+				<div class="form-check mb-2">
+					<input id="statusSticky" name="status" class="form-check-input" type="radio" value="sticky">
+					<label class="form-check-label" for="statusSticky">Publish as sticky</label>
+					<div class="form-text">The page can be seen by everyone in the top of the main page.</div>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusStatic" name="status" class="form-check-input" type="radio" value="static">
+					<label class="form-check-label" for="statusStatic">Publish as static</label>
+					<div class="form-text">The page can be seen by everyone as static page.</div>
+				</div>
+				<div class="form-check mb-2">
+					<input id="statusUnlisted" name="status" class="form-check-input" type="radio" value="unlisted">
+					<label class="form-check-label" for="statusUnlisted">Publish as unlisted</label>
+					<div class="form-text">The page can be seen and shared by anyone with the link.</div>
 				</div>
 			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelParent" type="button" class="btn btn-cancel font-weight-bold mr-auto"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveParent" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelStatus" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveStatus" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal Status -->
+
+<!-- Modal SEO -->
+<div class="modal" id="modal-seo" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="m-0">
+					<label class="fw-bold mb-2">SEO features</label>
+				</div>
+				<div class="form-check mb-2">
+					<input id="noindex" name="noindex" class="form-check-input" type="checkbox" value="noindex">
+					<label class="form-check-label" for="noindex"><?php echo $L->g('apply-code-noindex-code-to-this-page') ?></label>
+					<div class="form-text"><?php echo $L->g('This tells search engines not to show this page in their search results.') ?></div>
+				</div>
+				<div class="form-check mb-2">
+					<input id="nofollow" name="nofollow" class="form-check-input" type="checkbox" value="nofollow">
+					<label class="form-check-label" for="nofollow"><?php echo $L->g('apply-code-nofollow-code-to-this-page') ?></label>
+					<div class="form-text"><?php echo $L->g('This tells search engines not to follow links on this page.') ?></div>
+				</div>
+				<div class="form-check mb-2">
+					<input id="noarchive" name="noarchive" class="form-check-input" type="checkbox" value="noarchive">
+					<label class="form-check-label" for="noarchive"><?php echo $L->g('apply-code-noarchive-code-to-this-page') ?></label>
+					<div class="form-text"><?php echo $L->g('This tells search engines not to save a cached copy of this page.') ?></div>
+				</div>
+			</div>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelSeo" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveSeo" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal SEO -->
+
+<!-- Modal Parent -->
+<div class="modal" id="modal-parent" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="m-0">
+					<label for="parent" class="fw-bold mb-2">Parent page</label>
+					<select id="parent" name="parent" class="custom-select"></select>
+					<div class="form-text"><?php echo $L->g('Start typing a page title to see a list of suggestions.') ?></div>
+				</div>
+			</div>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelParent" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveParent" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -369,96 +446,18 @@ $(document).ready(function() {
 </script>
 <!-- End Modal Parent -->
 
-<!-- Modal Status -->
-<div class="modal" id="modal-status" tabindex="-1" aria-labelledby="modal-status" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="m-0">
-					<label class="font-weight-bold">Page status</label>
-				</div>
-				<div class="form-check mb-2">
-					<input id="statusDraft" name="status" class="form-check-input" type="radio" value="draft" checked>
-					<label class="form-check-label" for="statusDraft">Draft</label>
-					<small class="form-text text-muted">Page as draft, is not visible for visitors.</small>
-				</div>
-				<div class="form-check mb-2">
-					<input id="statusPublish" name="status" class="form-check-input" type="radio" value="published">
-					<label class="form-check-label" for="statusPublish">Publish</label>
-					<small class="form-text text-muted">Publish the page, everyone can see it.</small>
-				</div>
-				<hr>
-				<div class="form-check mb-2">
-					<input id="statusSticky" name="status" class="form-check-input" type="radio" value="sticky">
-					<label class="form-check-label" for="statusSticky">Publish as sticky</label>
-					<small class="form-text text-muted">The page can be seen by everyone in the top of the main page.</small>
-				</div>
-				<div class="form-check mb-2">
-					<input id="statusStatic" name="status" class="form-check-input" type="radio" value="static">
-					<label class="form-check-label" for="statusStatic">Publish as static</label>
-					<small class="form-text text-muted">The page can be seen by everyone as static page.</small>
-				</div>
-				<div class="form-check mb-2">
-					<input id="statusUnlisted" name="status" class="form-check-input" type="radio" value="unlisted">
-					<label class="form-check-label" for="statusUnlisted">Publish as unlisted</label>
-					<small class="form-text text-muted">The page can be seen and shared by anyone with the link.</small>
-				</div>
-			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelStatus" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveStatus" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End Modal Status -->
-
-<!-- Modal SEO -->
-<div class="modal" id="modal-seo" tabindex="-1" aria-labelledby="modal-seo" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="m-0">
-					<label class="font-weight-bold">SEO features</label>
-				</div>
-				<div class="form-check mb-2">
-					<input id="noindex" name="noindex" class="form-check-input" type="checkbox" value="noindex">
-					<label class="form-check-label" for="noindex"><?php echo $L->g('apply-code-noindex-code-to-this-page') ?></label>
-					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to show this page in their search results.') ?></small>
-				</div>
-				<div class="form-check mb-2">
-					<input id="nofollow" name="nofollow" class="form-check-input" type="checkbox" value="nofollow">
-					<label class="form-check-label" for="nofollow"><?php echo $L->g('apply-code-nofollow-code-to-this-page') ?></label>
-					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to follow links on this page.') ?></small>
-				</div>
-				<div class="form-check mb-2">
-					<input id="noarchive" name="noarchive" class="form-check-input" type="checkbox" value="noarchive">
-					<label class="form-check-label" for="noarchive"><?php echo $L->g('apply-code-noarchive-code-to-this-page') ?></label>
-					<small class="form-text text-muted"><?php echo $L->g('This tells search engines not to save a cached copy of this page.') ?></small>
-				</div>
-			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelSeo" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveSeo" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End Modal SEO -->
-
 <!-- Modal Files / Images -->
 <div class="modal" id="modal-files" tabindex="-1" aria-labelledby="modal-files" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label class="font-weight-bold">Files</label>
+					<label class="fw-bold">Files</label>
 				</div>
-
 			</div>
-			<div class="modal-footer modal-footer pl-2 pr-2 pt-1 pb-1">
-				<button id="btnCancelSeo" type="button" class="btn btn-cancel font-weight-bold mr-auto" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-				<button id="btnSaveSeo" type="button" class="btn btn-save font-weight-bold"><i class="fa fa-check"></i> Save</button>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancelSeo" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi-x-square me-2"></i>Cancel</button>
+				<button id="btnSaveSeo" type="button" class="btn btn-save fw-bold text-success"><i class="bi-check-square me-2"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -474,15 +473,15 @@ $(document).ready(function() {
 	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
 		<div class="dropdown">
 			<button type="button" class="btn dropdown-toggle" type="button" id="dropdownMenuOptions" data-bs-toggle="dropdown" aria-expanded="false">
-				<span class="fa fa-cog"></span><?php $L->p('Options') ?>
+				<i class="bi-gear me-2"></i></span><?php $L->p('Options') ?>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuOptions">
-				<a onclick="openModal('description')" 	class="dropdown-item" href="#"><i class="fa fa-comment"></i> Description</a>
-				<a onclick="openModal('date')" 			class="dropdown-item" href="#"><i class="fa fa-calendar"></i> Publish date</a>
-				<a onclick="openModal('friendlyURL')" 	class="dropdown-item" href="#"><i class="fa fa-link"></i> Change URL</a>
-				<a onclick="openModal('status')" 		class="dropdown-item" href="#"><i class="fa fa-eye"></i> Status</a>
-				<a onclick="openModal('seo')" 			class="dropdown-item" href="#"><i class="fa fa-compass"></i> SEO features</a>
-				<a onclick="openModal('parent')" 		class="dropdown-item" href="#"><i class="fa fa-sitemap"></i> Parent page</a>
+				<a onclick="openModal('description')" 	class="dropdown-item" href="#"><i class="bi-info-square me-2"></i>Description</a>
+				<a onclick="openModal('date')" 			class="dropdown-item" href="#"><i class="bi-calendar me-2"></i>Publish date</a>
+				<a onclick="openModal('friendlyURL')" 	class="dropdown-item" href="#"><i class="bi-link me-2"></i>Change URL</a>
+				<a onclick="openModal('status')" 		class="dropdown-item" href="#"><i class="bi-eye me-2"></i>Status</a>
+				<a onclick="openModal('seo')" 			class="dropdown-item" href="#"><i class="bi-compass me-2"></i>SEO features</a>
+				<a onclick="openModal('parent')" 		class="dropdown-item" href="#"><i class="bi-diagram-2 me-2"></i>Parent page</a>
 			</div>
 		</div>
 	</div>
@@ -537,9 +536,9 @@ $(document).ready(function() {
       </div>
     </div>
 
-    <small class="d-block text-end mt-3">
+    <div class="d-block text-end mt-3">
       <a href="#">All images</a>
-    </small>
+    </div>
   <!-- End Images -->
 
 	<!-- Category -->

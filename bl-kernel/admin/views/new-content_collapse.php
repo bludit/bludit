@@ -47,14 +47,14 @@ echo Bootstrap::formOpen(array(
 <!-- TOOLBAR -->
 <div id="editorToolbar" class="mb-1">
 	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
-		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
+		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="bi-image"></span> <?php $L->p('Images') ?></button>
+		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="bi-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
 
 	<div id="jseditorToolbarLeft">
 		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary" ><?php $L->p('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsbuttonSwitch" data-switch="publish" class="ms-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
+		<span id="jsbuttonSwitch" data-switch="publish" class="ms-2 text-secondary switch-button"><i class="bi-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
 	</div>
 </div>
 <script>
@@ -84,7 +84,7 @@ echo Bootstrap::formOpen(array(
 		</div>
 	</nav>
 
-	<div class="tab-content pr-3 pl-3 pb-3">
+	<div class="tab-content pe-3 ps-3 pb-3">
 		<div id="nav-general" class="tab-pane fade show active" role="tabpanel" aria-labelledby="general-tab">
 			<?php
 				// Category
@@ -429,8 +429,8 @@ echo Bootstrap::formOpen(array(
 		<!-- Options > General -->
 		<div class="general card">
 			<div class="card-header m-0 p-2" id="headingOne">
-				<a href="#optionsGeneral" class="w-100 text-start text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsGeneral" aria-expanded="true" aria-controls="optionsGeneral">
-					General <span class="float-end fa fa-angle-down"></span>
+				<a href="#optionsGeneral" class="w-100 text-start text-uppercase fw-bold" data-toggle="collapse" data-target="#optionsGeneral" aria-expanded="true" aria-controls="optionsGeneral">
+					General <span class="float-end bi-angle-down"></span>
 				</a>
 			</div>
 
@@ -438,7 +438,7 @@ echo Bootstrap::formOpen(array(
 				<div class="card-body m-0 p-0">
 
 					<!-- Options > General > Cover Image -->
-					<label class="mt-4 mb-2 pb-2 text-uppercase w-100 font-weight-bold"><?php $L->p('Cover Image') ?></label>
+					<label class="mt-4 mb-2 pb-2 text-uppercase w-100 fw-bold"><?php $L->p('Cover Image') ?></label>
 					<div>
 						<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
 					</div>
@@ -493,8 +493,8 @@ echo Bootstrap::formOpen(array(
 		<!-- Options > Advanced -->
 		<div class="advanced card">
 			<div class="card-header m-0 p-2" id="headingOne">
-				<a href="#optionsAdvanced" class="w-100 text-start text-uppercase font-weight-bold" data-toggle="collapse" data-target="#optionsAdvanced" aria-expanded="true" aria-controls="optionsAdvanced">
-					Advanced <span class="float-end fa fa-angle-down"></span>
+				<a href="#optionsAdvanced" class="w-100 text-start text-uppercase fw-bold" data-toggle="collapse" data-target="#optionsAdvanced" aria-expanded="true" aria-controls="optionsAdvanced">
+					Advanced <span class="float-end bi-angle-down"></span>
 				</a>
 			</div>
 
@@ -583,10 +583,10 @@ $(document).ready(function() {
 	// Button switch
 	$("#jsbuttonSwitch").on("click", function() {
 		if ($(this).data("switch")=="publish") {
-			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+			$(this).html('<i class="bi-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
 			$(this).data("switch", "draft");
 		} else {
-			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
+			$(this).html('<i class="bi-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
 			$(this).data("switch", "publish");
 		}
 	});

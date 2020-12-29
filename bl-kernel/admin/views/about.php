@@ -10,7 +10,7 @@ echo '
 echo '<tr>';
 echo '<td>Bludit Edition</td>';
 if (defined('BLUDIT_PRO')) {
-	echo '<td>PRO - '.$L->g('Thanks for supporting Bludit').' <span class="fa fa-heart" style="color: #ffc107"></span></td>';
+	echo '<td>PRO - '.$L->g('Thanks for supporting Bludit').' <span class="bi-heart" style="color: #ffc107"></span></td>';
 } else {
 	echo '<td>Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
 }

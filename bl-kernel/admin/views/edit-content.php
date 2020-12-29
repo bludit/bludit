@@ -49,14 +49,14 @@ echo Bootstrap::formOpen(array(
 <!-- TOOLBAR -->
 <div id="editorToolbar" class="mb-1">
 	<div id="editorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
-		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
+		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="bi-image"></span> <?php $L->p('Images') ?></button>
+		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="bi-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
 
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ms-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
+		<span id="jsswitchButton" data-switch="<?php echo ($page->draft()?'draft':'publish') ?>" class="ms-2 text-secondary switch-button"><i class="bi-square switch-icon-<?php echo ($page->draft()?'draft':'publish') ?>"></i> <?php echo ($page->draft()?$L->g('Draft'):$L->g('Publish')) ?></span>
 	</div>
 
 	<?php if($page->scheduled()): ?>
@@ -90,7 +90,7 @@ echo Bootstrap::formOpen(array(
 		</div>
 	</nav>
 
-	<div class="tab-content pr-3 pl-3 pb-3">
+	<div class="tab-content pe-3 ps-3 pb-3">
 		<div id="nav-general" class="tab-pane fade show active" role="tabpanel" aria-labelledby="general-tab">
 			<?php
 				// Category
@@ -482,10 +482,10 @@ $(document).ready(function() {
 	// Button switch
 	$("#jsswitchButton").on("click", function() {
 		if ($(this).data("switch")=="publish") {
-			$(this).html('<i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
+			$(this).html('<i class="bi-square switch-icon-draft"></i> <?php $L->p('Draft') ?>');
 			$(this).data("switch", "draft");
 		} else {
-			$(this).html('<i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
+			$(this).html('<i class="bi-square switch-icon-publish"></i> <?php $L->p('Publish') ?>');
 			$(this).data("switch", "publish");
 		}
 	});

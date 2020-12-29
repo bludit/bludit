@@ -124,7 +124,7 @@ return <<<EOF
 				output = "$pageBreak";
 				cm.replaceSelection(output);
 				},
-			className: "fa fa-crop",
+			className: "bi-crop",
 			title: "Page break",
 			}]
 	});

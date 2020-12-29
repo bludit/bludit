@@ -81,10 +81,10 @@ function table($type) {
 					}
 
 					echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+					echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
+					echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 					if (count($page->children())==0) {
-						echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+						echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 					}
 					echo '</td>';
 
@@ -111,10 +111,10 @@ function table($type) {
 
 						echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
 						if ($type=='published' || $type=='static' || $type=='sticky') {
-						echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
+						echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$child->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
 						}
-						echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<a class="ms-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+						echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+						echo '<a class="ms-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 						echo '</td>';
 
 						echo '</tr>';
@@ -145,11 +145,11 @@ function table($type) {
 
 				echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
 				if ($type=='published' || $type=='static' || $type=='sticky') {
-				echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
+				echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
 				}
-				echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
+				echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
 				if (count($page->children())==0) {
-					echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+					echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
 				}
 				echo '</td>';
 
@@ -169,7 +169,7 @@ function table($type) {
 ?>
 
 <!-- TABS -->
-<ul class="nav nav-tabs pl-3" role="tablist">
+<ul class="nav nav-tabs ps-3" role="tablist">
 	<li class="nav-item">
 		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
@@ -204,7 +204,7 @@ function table($type) {
 
 			<!-- First button -->
 			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle fa fa-media-skip-backward"></span> <?php echo $L->get('First'); ?></a>
+				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle bi-media-skip-backward"></span> <?php echo $L->get('First'); ?></a>
 			</li>
 
 			<!-- Previous button -->
@@ -219,7 +219,7 @@ function table($type) {
 
 			<!-- Last button -->
 			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $L->get('Last'); ?> <span class="align-middle fa fa-media-skip-forward"></span></a>
+				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $L->get('Last'); ?> <span class="align-middle bi-media-skip-forward"></span></a>
 			</li>
 
 			</ul>

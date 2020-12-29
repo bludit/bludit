@@ -23,7 +23,7 @@ $numberOfPages = count($listOfFilesByPage);
 	<!--
 		UPLOAD INPUT
 	-->
-		<h3 class="mt-2 mb-3"><i class="fa fa-image"></i> <?php $L->p('Images'); ?></h3>
+		<h3 class="mt-2 mb-3"><i class="bi-image"></i> <?php $L->p('Images'); ?></h3>
 
 		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
 
@@ -107,9 +107,9 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 					'<td class="information">'+
 						'<div class="text-primary pb-2">'+filename+'<\/div>'+
 						'<div>'+
-							'<a href="#" class="me-3 text-secondary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus"></i><?php $L->p('Insert') ?><\/a>'+
-							'<a href="#" class="text-secondary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-square-o"></i><?php $L->p('Set as cover image') ?><\/button>'+
-							'<a href="#" class="float-end text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
+							'<a href="#" class="me-3 text-secondary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="bi-plus"></i><?php $L->p('Insert') ?><\/a>'+
+							'<a href="#" class="text-secondary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="bi-square-o"></i><?php $L->p('Set as cover image') ?><\/button>'+
+							'<a href="#" class="float-end text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="bi-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
 						'<\/div>'+
 					'<\/td>'+
 				'<\/tr>';

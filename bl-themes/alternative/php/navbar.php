@@ -8,7 +8,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ms-auto">
 
 				<!-- Static pages -->
 				<?php foreach ($staticContent as $staticPage): ?>

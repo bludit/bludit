@@ -90,7 +90,7 @@ $(document).ready(function() {
 
 <!-- Tabs -->
 <nav>
-	<div class="nav nav-tabs pl-3" id="nav-tab" role="tablist">
+	<div class="nav nav-tabs ps-3" id="nav-tab" role="tablist">
 		<a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="nav-general" aria-selected="false"><?php $L->p('General') ?></a>
 		<a class="nav-item nav-link" id="nav-advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
 		<a class="nav-item nav-link" id="nav-seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
@@ -106,7 +106,7 @@ $(document).ready(function() {
 <div class="tab-content" id="myTabContent">
 
 	<!-- General tab -->
-	<div class="tab-pane show active pt-1 pb-1 pl-3 pr-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+	<div class="tab-pane show active pt-1 pb-1 ps-3 pe-3" id="general" role="tabpanel" aria-labelledby="general-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
 
@@ -160,7 +160,7 @@ $(document).ready(function() {
 	<!-- End General tab -->
 
 	<!-- Advanced tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Page content')));
 
@@ -268,7 +268,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- SEO tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="seo" role="tabpanel" aria-labelledby="seo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
 
@@ -326,7 +326,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Social Network tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="social" role="tabpanel" aria-labelledby="social-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="social" role="tabpanel" aria-labelledby="social-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Social Networks')));
 
@@ -432,7 +432,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Images tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="images" role="tabpanel" aria-labelledby="images-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="images" role="tabpanel" aria-labelledby="images-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
 
@@ -466,7 +466,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Timezone and language tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="language" role="tabpanel" aria-labelledby="language-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="language" role="tabpanel" aria-labelledby="language-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Language and timezone')));
 
@@ -511,7 +511,7 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Custom fields -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Custom fields')));
 
@@ -528,19 +528,19 @@ $(document).ready(function() {
 	</div>
 
 	<!-- Site logo tab -->
-	<div class="tab-pane pt-1 pb-1 pl-3 pr-3" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="logo" role="tabpanel" aria-labelledby="logo-tab">
 	<?php
 		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
 	?>
 
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-sm-12 p-0 pr-2">
+				<div class="col-lg-4 col-sm-12 p-0 pe-2">
 					<div class="custom-file">
 						<input id="jssiteLogoInputFile"  class="custom-file-input" type="file" name="inputFile">
 						<label for="jssiteLogoInputFile" class="custom-file-label"><?php $L->p('Upload image'); ?></label>
 					</div>
-					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i><?php $L->p('Remove logo') ?></button>
+					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="bi-trash"></i><?php $L->p('Remove logo') ?></button>
 				</div>
 				<div class="col-lg-8 col-sm-12 p-0 text-center">
 					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />

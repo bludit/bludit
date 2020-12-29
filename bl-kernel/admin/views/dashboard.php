@@ -5,7 +5,7 @@
 			<!-- Good message -->
 			<div>
 			<h2 id="hello-message" class="pt-0">
-				<span class="fa fa-hand-spock-o"></span><span><?php echo $L->g('hello') ?></span>
+				<span class="bi-hand-spock-o"></span><span><?php echo $L->g('hello') ?></span>
 			</h2>
 			<script>
 			$( document ).ready(function() {
@@ -13,13 +13,13 @@
 					var date = new Date()
 					var hours = date.getHours()
 					if (hours > 6 && hours < 12) {
-						$(this).html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-morning') ?>');
+						$(this).html('<span class="bi-sun-o"></span><?php echo $L->g('good-morning') ?>');
 					} else if (hours > 12 && hours < 18) {
-						$(this).html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-afternoon') ?>');
+						$(this).html('<span class="bi-sun-o"></span><?php echo $L->g('good-afternoon') ?>');
 					} else if (hours > 18 && hours < 22) {
-						$(this).html('<span class="fa fa-moon-o"></span><?php echo $L->g('good-evening') ?>');
+						$(this).html('<span class="bi-moon-o"></span><?php echo $L->g('good-evening') ?>');
 					} else {
-						$(this).html('<span class="fa fa-moon-o"></span><span><?php echo $L->g('good-night') ?></span>');
+						$(this).html('<span class="bi-moon-o"></span><span><?php echo $L->g('good-night') ?></span>');
 					}
 				}).fadeIn(1000);
 			});
@@ -65,7 +65,7 @@
 						var html = '';
 						if (data.type=='menu') {
 							html += '<a href="'+data.url+'"><div class="search-suggestion">';
-							html += '<span class="fa fa-'+data.icon+'"></span>'+data.text+'</div></a>';
+							html += '<span class="bi-'+data.icon+'"></span>'+data.text+'</div></a>';
 						} else {
 							if (typeof data.id === 'undefined') {
 								return '';
@@ -97,19 +97,19 @@
 				<div class="row">
 					<div class="col">
 						<a class="quick-links text-center" target="_blank" href="https://docs.bludit.com">
-							<div class="fa fa-compass quick-links-icons"></div>
+							<div class="bi-compass quick-links-icons"></div>
 							<div><?php $L->p('Documentation') ?></div>
 						</a>
 					</div>
 					<div class="col border-left border-right">
 						<a class="quick-links text-center" target="_blank" href="https://forum.bludit.org">
-							<div class="fa fa-support quick-links-icons"></div>
+							<div class="bi-support quick-links-icons"></div>
 							<div><?php $L->p('Forum support') ?></div>
 						</a>
 					</div>
 					<div class="col">
 						<a class="quick-links text-center" target="_blank" href="https://gitter.im/bludit/support">
-							<div class="fa fa-comments quick-links-icons"></div>
+							<div class="bi-comments quick-links-icons"></div>
 							<div><?php $L->p('Chat support') ?></div>
 						</a>
 					</div>
@@ -135,7 +135,7 @@
 				echo '<br><span class="notification-date"><small>';
 				echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
 				echo ' [ '.$log['username'] .' ]';
-				echo '</small></span>';
+				echo '</div></span>';
 				echo '</li>';
 			}
 			?>

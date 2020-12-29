@@ -40,7 +40,7 @@ EOF;
 
 		$tip = '';
 		if (isset($args['tip'])) {
-			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$tip = '<div class="form-text">'.$args['tip'].'</div>';
 		}
 
 		$label = '';
@@ -86,7 +86,7 @@ EOF;
 		}
 		$html .= '</select>';
 		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$html .= '<div class="form-text">'.$args['tip'].'</div>';
 		}
 		$html .= '</div>';
 		$html .= '</div>';
@@ -138,7 +138,7 @@ EOF;
 		}
 
 		if (isset($args['icon'])) {
-			return '<a '.$options.'><span class="fa fa-'.$args['icon'].'"></span>'.$args['title'].'</a>';
+			return '<a '.$options.'><span class="bi-'.$args['icon'].'"></span>'.$args['title'].'</a>';
 		}
 
 		return '<a '.$options.'>'.$args['title'].'</a>';
@@ -150,7 +150,7 @@ EOF;
 		$title = $args['title'];
 return <<<EOF
 <h2 class="mt-0 mb-3">
-	<span class="fa fa-$icon" style="font-size: 0.9em;"></span><span>$title</span>
+	<span class="bi-$icon" style="font-size: 0.9em;"></span><span>$title</span>
 </h2>
 EOF;
 	}
@@ -208,7 +208,7 @@ EOF;
 
 		$tip = '';
 		if (!empty($args['tip'])) {
-			$tip = '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$tip = '<div class="form-text">'.$args['tip'].'</div>';
 		}
 
 		$class = 'mb-3 m-0';
@@ -281,7 +281,7 @@ EOF;
 		$html .= '<div class="col-sm-10">';
 		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
 		if (isset($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$html .= '<div class="form-text">'.$args['tip'].'</div>';
 		}
 		$html .= '</div>';
 		$html .= '</div>';
@@ -308,7 +308,7 @@ EOF;
 
 		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
 		if (!empty($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$html .= '<div class="form-text">'.$args['tip'].'</div>';
 		}
 		$html .= '</div>';
 
@@ -321,7 +321,7 @@ EOF;
 	{
 		$labelForCheckbox = isset($args['labelForCheckbox'])?$args['labelForCheckbox']:'';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
-		$tip = isset($args['tip'])?'<small class="form-text text-muted">'.$args['tip'].'</small>':'';
+		$tip = isset($args['tip'])?'<div class="form-text">'.$args['tip'].'</div>':'';
 		$value = isset($args['value'])?$args['value']:'';
 		$name = $args['name'];
 		$id = 'js'.$name;
@@ -394,7 +394,7 @@ EOF;
 		}
 		$html .= '</select>';
 		if (!empty($args['tip'])) {
-			$html .= '<small class="form-text text-muted">'.$args['tip'].'</small>';
+			$html .= '<div class="form-text">'.$args['tip'].'</div>';
 		}
 		$html .= '</div>';
 

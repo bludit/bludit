@@ -22,10 +22,10 @@
 
 	<?php if (!checkRole(array('admin'),false)): ?>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="fa fa-archive"></span><?php $L->p('Content') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>"><span class="bi-archive"></span><?php $L->p('Content') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="fa fa-user"></span><?php $L->p('Profile') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="bi-user"></span><?php $L->p('Profile') ?></a>
 	</li>
 	<?php endif; ?>
 
@@ -87,6 +87,6 @@
 	<?php endif; ?>
 
 	<li class="nav-item mt-5">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="fa fa-arrow-circle-right"></span><?php $L->p('Logout') ?></a>
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>"><span class="bi-arrow-circle-right"></span><?php $L->p('Logout') ?></a>
 	</li>
 </ul>
