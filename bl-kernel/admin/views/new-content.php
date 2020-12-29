@@ -293,6 +293,15 @@ echo Bootstrap::formOpen(array(
 							'checked'=>(isset($options['checked'])?true:false),
 							'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:'')
 						));
+					} elseif ($options['type']=="text") {
+						echo Bootstrap::formTextareaBlock(array(
+							'name'=>'custom['.$field.']',
+							'value'=>(isset($options['default'])?$options['default']:''),
+							'tip'=>(isset($options['tip'])?$options['tip']:''),
+							'label'=>(isset($options['label'])?$options['label']:''),
+							'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+							'rows' => '4'
+						));
 					}
 				}
 			}
@@ -357,7 +366,6 @@ echo Bootstrap::formOpen(array(
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
 					'class'=>'mb-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
-
 				));
 			} elseif ($options['type']=="bool") {
 				echo Bootstrap::formCheckbox(array(
@@ -368,6 +376,15 @@ echo Bootstrap::formOpen(array(
 					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
 					'class'=>'mb-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+				));
+			} elseif ($options['type']=="text") {
+				echo Bootstrap::formTextareaBlock(array(
+					'name'=>'custom['.$field.']',
+					'value'=>(isset($options['default'])?$options['default']:''),
+					'tip'=>(isset($options['tip'])?$options['tip']:''),
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'rows' => '4'
 				));
 			}
 		}
@@ -397,7 +414,6 @@ echo Bootstrap::formOpen(array(
 					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
 					'class'=>'mt-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
-
 				));
 			} elseif ($options['type']=="bool") {
 				echo Bootstrap::formCheckbox(array(
@@ -408,6 +424,15 @@ echo Bootstrap::formOpen(array(
 					'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
 					'class'=>'mt-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
+				));
+			} elseif ($options['type']=="text") {
+				echo Bootstrap::formTextareaBlock(array(
+					'name'=>'custom['.$field.']',
+					'value'=>(isset($options['default'])?$options['default']:''),
+					'tip'=>(isset($options['tip'])?$options['tip']:''),
+					'label'=>(isset($options['label'])?$options['label']:''),
+					'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+					'rows' => '4'
 				));
 			}
 		}
