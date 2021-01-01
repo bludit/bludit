@@ -12,7 +12,7 @@ class API {
 		}
 	}
 
-	async createPage(args) {
+	async createPage(args={}) {
 		var url = this.apiURL + "pages";
 		var body = Object.assign({}, this.body, args);
 		try {
@@ -32,12 +32,10 @@ class API {
 		}
 	}
 
-	/*
-		Save page fields
+	/*	Save page fields
 
 		@args['pageKey']		string		Page key from the page to edit
 		@args					array		Arguments can be any of the fields from a page
-
 		@returns				string		New page key
 	*/
 	async savePage(args) {
@@ -60,13 +58,11 @@ class API {
 		}
 	}
 
-	/*
-		Generates unique slug text for the a page
+	/*	Generates unique slug text for the a page
 
 		@args['pageKey']		string		Page key for the page to generate the slug url
 		@args['text']			string		Text that you want to generate the slug url
 		@args['parentKey']		string		Parent page key if the page has one, if not empty string
-
 		@returns				string		Slug text
 	*/
 	async friendlyURL(args) {
@@ -87,11 +83,9 @@ class API {
 		}
 	}
 
-	/*
-		Get all files uploaded for the page
+	/*	Get all files uploaded for the page
 
 		@args['pageKey']		string
-
 		@returns				array
 	*/
 	async getPageFiles(args) {
@@ -109,11 +103,35 @@ class API {
 		}
 	}
 
-	/*
-		Save settings
+	/*	Upload files
+
+		@args['pageKey']		string
+		@returns				array
+	*/
+	async uploadPageFiles(args) {
+		var url = this.apiURL + "files/" + args['pageKey'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "POST",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json.data.key;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+
+	/*	Save settings
 
 		@args					array		Arguments can be any of the fields from settings
-
 		@returns				array
 	*/
 	async saveSettings(args) {

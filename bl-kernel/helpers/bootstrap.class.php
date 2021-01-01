@@ -8,11 +8,10 @@ class Bootstrap {
 	{
 		$name = $args['name'];
 		$id = isset($args['id'])?$args['id']:$name;
-		$disabled = empty($args['disabled'])?'':'disabled';
-		$readonly = empty($args['readonly'])?'':'readonly';
-		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$value = isset($args['value'])?$args['value']:'';
+
 		$type = isset($args['type'])?$args['type']:'text';
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$label = isset($args['label'])?$args['label']:$placeholder;
 
 		$class = 'form-control';
@@ -22,10 +21,34 @@ class Bootstrap {
 
 return <<<EOF
 <div class="form-floating mb-3">
-  <input type="$type" class="$class" id="$id" name="$name" placeholder="$placeholder">
+  <input type="$type" class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder">
   <label for="$id">$label</label>
 </div>
 EOF;
+	}
+
+	public static function formSelect($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+
+		$class = 'form-select';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$html = '<div>';
+		if (isset($args['label'])) {
+			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+		}
+		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
+		foreach ($args['options'] as $key=>$value) {
+			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
+		}
+		$html .= '</select>';
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	public static function formInputText($args)
@@ -64,7 +87,7 @@ return <<<EOF
 EOF;
 	}
 
-	public static function formSelect($args)
+	public static function formSelectOld($args)
 	{
 		$name = $args['name'];
 		$id = isset($args['id'])?$args['id']:$name;

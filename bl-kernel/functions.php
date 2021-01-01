@@ -304,25 +304,14 @@ function execPluginsByHook($hook, $args = array()) {
 	}
 }
 
-/*
-	Create a new page
+/*	Create a new page
 
-	The array $args support all the keys from variable $dbFields of the class pages.class.php
-	If you don't pass all the keys, the default values are used, the default values are from $dbFields in the class pages.class.php
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
+	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
 */
 function createPage($args) {
 	global $pages;
 	global $syslog;
-	global $L;
-
-	// Check if the autosave page exists for this new page and delete it
-	if (isset($args['uuid'])) {
-		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
-		if (!empty($autosaveKey)) {
-			Log::set('Function createPage()'.LOG_SEP.'Autosave deleted for '.$args['title'], LOG_TYPE_INFO);
-			deletePage($autosaveKey);
-		}
-	}
 
 	// The user is always the one logged
 	$args['username'] = Session::get('username');
@@ -334,8 +323,9 @@ function createPage($args) {
 	$key = $pages->add($args);
 	if ($key) {
 		// Call the plugins after page created
-		Theme::plugins('afterPageCreate', array($key));
+		execPluginsByHook('afterPageCreate', array($key));
 
+		// Reindex categories and tags
 		reindexCategories();
 		reindexTags();
 
@@ -345,47 +335,43 @@ function createPage($args) {
 			'notes'=>(empty($args['title'])?$key:$args['title'])
 		));
 
+		Log::set('Function createPage()'.LOG_SEP.'Page created successfully.', LOG_TYPE_INFO);
 		return $key;
 	}
 
-	Log::set('Function createNewPage()'.LOG_SEP.'Error occurred when trying to create the page', LOG_TYPE_ERROR);
-	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning database...', LOG_TYPE_ERROR);
+	Log::set('Function createPage()'.LOG_SEP.'Something happened when you tried to create the page.', LOG_TYPE_ERROR);
 	deletePage($key);
-	Log::set('Function createNewPage()'.LOG_SEP.'Cleaning finished...', LOG_TYPE_ERROR);
-
 	return false;
 }
 
+/*	Edit a page
+
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
+	@args['key']	string			The key of the page to be edited
+	@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
+*/
 function editPage($args) {
 	global $pages;
 	global $syslog;
 
-	// Check if the autosave/preview page exists for this new page and delete it
-	if (isset($args['uuid'])) {
-		$autosaveKey = $pages->getByUUID('autosave-'.$args['uuid']);
-		if ($autosaveKey) {
-			Log::set('Function editPage()'.LOG_SEP.'Autosave/Preview deleted for '.$autosaveKey, LOG_TYPE_INFO);
-			deletePage($autosaveKey);
-		}
-	}
-
 	// Check if the key is not empty
 	if (empty($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Empty key.', LOG_TYPE_ERROR);
+		Log::set('Function editPage()'.LOG_SEP.'Empty page key.', LOG_TYPE_ERROR);
 		return false;
 	}
 
 	// Check if the page key exist
 	if (!$pages->exists($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Page key does not exist, '.$args['key'], LOG_TYPE_ERROR);
+		Log::set('Function editPage()'.LOG_SEP.'Page key doesn\'t exist: '.$args['key'], LOG_TYPE_ERROR);
 		return false;
 	}
 
 	$key = $pages->edit($args);
 	if ($key) {
 		// Call the plugins after page modified
-		Theme::plugins('afterPageModify', array($key));
+		execPluginsByHook('afterPageModify', array($key));
 
+		// Reindex categories and tags
 		reindexCategories();
 		reindexTags();
 
@@ -395,21 +381,28 @@ function editPage($args) {
 			'notes'=>empty($args['title'])?$key:$args['title']
 		));
 
+		Log::set('Function editPage()'.LOG_SEP.'Page edited successfully.', LOG_TYPE_INFO);
 		return $key;
 	}
 
-	Log::set('Function editPage()'.LOG_SEP.'Something happen when try to edit the page.', LOG_TYPE_ERROR);
+	Log::set('Function editPage()'.LOG_SEP.'Something happened when you tried to edit the page.', LOG_TYPE_ERROR);
 	return false;
 }
 
+/*	Delete a page
+
+	@key			string			The key of the page to be deleted
+	@returns		string/boolean	Returns TRUE if the page is successfully deleted, FALSE otherwise
+*/
 function deletePage($key) {
 	global $pages;
 	global $syslog;
 
 	if ($pages->delete($key)) {
 		// Call the plugins after page deleted
-		Theme::plugins('afterPageDelete', array($key));
+		execPluginsByHook('afterPageDelete', array($key));
 
+		// Reindex categories and tags
 		reindexCategories();
 		reindexTags();
 
@@ -419,9 +412,11 @@ function deletePage($key) {
 			'notes'=>$key
 		));
 
+		Log::set('Function deletePage()'.LOG_SEP.'Page deleted successfully.', LOG_TYPE_INFO);
 		return true;
 	}
 
+	Log::set('Function deletePage()'.LOG_SEP.'Something happened when you tried to delete the page.', LOG_TYPE_ERROR);
 	return false;
 }
 

@@ -50,8 +50,11 @@ class Pages extends dbJSON {
 		return isset( $this->db[$key] );
 	}
 
-	// Create a new page
-	// This function returns the key of the new page
+	/*	Create a new page
+
+		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+		@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+	*/
 	public function add($args)
 	{
 		$row = array();
@@ -134,20 +137,26 @@ class Pages extends dbJSON {
 
 		// Create the directory
 		if (Filesystem::mkdir(PATH_PAGES.$key, true) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the directory: '.PATH_PAGES.$key, LOG_TYPE_ERROR);
+			return false;
+		}
+
+		// Create the upload directory for the page
+		if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$key, true) === false) {
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the directory: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Create the index.txt and save the file
 		if (file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the file: '.FILENAME, LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Checksum MD5
 		$row['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
 
-		// Insert in database
+		// Insert into database
 		$this->db[$key] = $row;
 
 		// Sort database
@@ -156,18 +165,14 @@ class Pages extends dbJSON {
 		// Save database
 		$this->save();
 
-		// Create symlink for images directory
-		if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$row['uuid'])) {
-			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
-		}
-
 		return $key;
 	}
 
-	// Edit a page
-	// This function do not edit the current row from the table -
-	// - instead of that the function creates a new row and is completed by the current -
-	// - values of the page and then the old row is deleted and the new row is inserted.
+	/*	Edit a page
+
+		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+		@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
+	*/
 	public function edit($args)
 	{
 		// This is the new row for the table and is going to replace the old row
@@ -248,13 +253,14 @@ class Pages extends dbJSON {
 		// Move the directory from old key to new key only if the keys are different
 		if ($newKey!==$key) {
 			if (Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory '.PATH_PAGES.$newKey);
 				return false;
 			}
 
-			// Regenerate the symlink to a proper directory
-			unlink(PATH_UPLOADS_PAGES.$key);
-			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
+			if (Filesystem::mv(PATH_UPLOADS_PAGES.$key, PATH_UPLOADS_PAGES.$newKey) === false) {
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory '.PATH_UPLOADS_PAGES.$newKey);
+				return false;
+			}
 		}
 
 		// If the content was passed via arguments replace the content

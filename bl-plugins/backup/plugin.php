@@ -142,7 +142,7 @@ class pluginBackup extends Plugin {
 			}
 
 			$html .= '<div>';
-			$html .= '<h4 class="font-weight-normal">'.$name.($count > 0? " ($count)": "").'</h4>';
+			$html .= '<h4 class="fw-normal">'.$name.($count > 0? " ($count)": "").'</h4>';
 			// Allow download if a zip file
 			if ($this->zip) {
 				$html .= '<a class="btn btn-outline-secondary btn-sm me-1 mt-1" href="'.DOMAIN_BASE.'plugin-backup-download?file='.$filename.'.zip"><span class="bi-download"></span> '.$L->get('download').'</a>';

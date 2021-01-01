@@ -1,6 +1,6 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-echo '<h1 class="text-center font-weight-normal mb-5">'.$site->title().'</h1>';
+echo '<h1 class="text-center fw-normal mb-5">'.$site->title().'</h1>';
 
 echo Bootstrap::formOpen(array());
 
