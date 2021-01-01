@@ -68,6 +68,14 @@ class pluginAPI extends Plugin {
 		// METHOD
 		// ------------------------------------------------------------
 		$method = $this->getMethod();
+		
+		// Added full CORS policy and OPTIONS method to allow API call from JS
+		if ($method === 'OPTIONS'){ 
+		      header('Access-Control-Allow-Origin: *');
+		      header('Access-Control-Allow-Methods: GET, HEAD, OPTIONS, POST, PUT');
+		      header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+		      exit;
+		}
 
 		// METHOD INPUTS
 		// ------------------------------------------------------------
