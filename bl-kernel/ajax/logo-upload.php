@@ -43,7 +43,7 @@ if ($fileMimeType!==false) {
 // Final filename
 $filename = 'logo.'.$fileExtension;
 if (Text::isNotEmpty( $site->title() )) {
-	$filename = $site->title().'.'.$fileExtension;
+	$filename = preg_replace('/[^A-Za-z0-9-]+/', '-', $site->title()).'.'.$fileExtension;
 }
 
 // Delete old image
