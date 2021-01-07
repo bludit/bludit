@@ -43,6 +43,7 @@ class Site extends dbJSON {
 		'titleFormatTag'=> 	'{{tag-name}} | {{site-title}}',
 		'imageRestrict'=>	true,
 		'imageRelativeToAbsolute'=> false,
+    'renameImageWithHash' => false,
 		'thumbnailWidth'=> 	400, // px
 		'thumbnailHeight'=> 	400, // px
 		'thumbnailQuality'=> 	100,
@@ -117,6 +118,11 @@ class Site extends dbJSON {
 	public function sitemap()
 	{
 		return DOMAIN_BASE.'sitemap.xml';
+	}
+
+	public function renameImageWithHash()
+	{
+		return $this->getField('renameImageWithHash');
 	}
 
 	public function thumbnailWidth()

@@ -443,6 +443,15 @@
 	<!-- Images tab -->
 	<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
 	<?php
+		echo Bootstrap::formCheckbox(array(
+			'name'=>'renameImageWithHash',
+      'label'=>'',
+			'labelForCheckbox'=>$L->g('rename-new-images-and-thumbnails-with-hash'),
+			'checked'=>$site->renameImageWithHash(),
+			'placeholder'=>'',
+			'tip'=>$L->g('Activate').' / '.$L->g('Deactivate')
+		));
+
 		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
 
 		echo Bootstrap::formInputText(array(

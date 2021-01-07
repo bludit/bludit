@@ -879,7 +879,7 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 
 	// Generate a filename to not overwrite current image if exists
 	$filename = Filesystem::filename($file);
-	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
+	$nextFilename = Filesystem::nextFilename($imageDir, $filename, $site->renameImageWithHash());
 
 	// Move the image to a proper place and rename
 	$image = $imageDir.$nextFilename;

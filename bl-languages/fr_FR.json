@@ -376,6 +376,7 @@
     "thumbnail-width-in-pixels": "Largeur de la miniature en pixels (px).",
     "thumbnail-height-in-pixels": "Hauteur de la miniature en pixels (px).",
     "thumbnail-quality-in-percentage": "Qualité des miniatures en pourcentage (%).",
+    "rename-new-images-and-thumbnails-with-hash": "Renommer les nouvelles images et miniatures avec un hash",
     "maximum-load-file-size-allowed:": "Taille maximale des fichiers autorisée :",
     "file-type-is-not-supported": "Le type de fichier n’est pas supporté. Liste des extensions autorisées :",
     "page-content": "Contenu de la page",

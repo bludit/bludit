@@ -376,6 +376,7 @@
     "thumbnail-width-in-pixels": "Thumbnail width in pixels (px).",
     "thumbnail-height-in-pixels": "Thumbnail height in pixels (px).",
     "thumbnail-quality-in-percentage": "Thumbnail quality in percentage (%).",
+    "rename-new-images-and-thumbnails-with-hash": "Rename new images and thumbnails with hash",
     "maximum-load-file-size-allowed:": "Maximum load file size allowed:",
     "file-type-is-not-supported": "File type is not supported. Allowed types:",
     "page-content": "Page content",

@@ -217,13 +217,17 @@ class Filesystem {
          |
          | @return	string
          */
-	public static function nextFilename($path=PATH_UPLOADS, $filename) {
+	public static function nextFilename($path=PATH_UPLOADS, $filename, $hash=false) {
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
 		$fileExtension 	= Text::lowercase($fileExtension);
 		$filename 	= pathinfo($filename, PATHINFO_FILENAME);
 		$filename 	= Text::removeSpaces($filename);
 		$filename 	= Text::removeQuotes($filename);
+
+    if ($hash) {
+      $filename = md5($filename);
+    }
 
 		// Search for the next filename
 		$tmpName = $filename.'.'.$fileExtension;
