@@ -4,25 +4,12 @@
 }
 
 .tagsinput {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: #fff;
-    font-family: sans-serif;
-    font-size: 14px;
-    line-height: 20px;
     color: #6c757d;
     padding: 5px 5px 0;
-    border: 1px solid #e6e6e6;
-    border-radius: 2px
-}
-
-.tagsinput.focus {
-    border-color: #ccc
+    border-radius: 2px;
+    border: 1px solid #ced4da;
 }
 
 .tagsinput .tag {
@@ -84,11 +71,8 @@
 }
 
 .tagsinput div input {
-    background: 0 0;
     display: block;
     width: 100%;
-    font-size: 14px;
-    line-height: 20px;
     padding: 5px;
     border: 0;
     margin: 0 5px 5px 0

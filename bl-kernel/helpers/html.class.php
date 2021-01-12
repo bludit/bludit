@@ -63,7 +63,7 @@ class HTML {
 
 	public static function cssBootstrapIcons()
 	{
-		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'/bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function jsSortable($attributes='')

@@ -1,5 +1,187 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+/*	Create a new page === Bludit v4
+
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
+	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+*/
+function createPage($args) {
+	global $pages;
+	global $syslog;
+
+	// The user is always the one logged
+	$args['username'] = Session::get('username');
+	if (empty($args['username'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$key = $pages->add($args);
+	if ($key) {
+		// Call the plugins after page created
+		execPluginsByHook('afterPageCreate', array($key));
+
+		// Reindex categories and tags
+		reindexCategories();
+		reindexTags();
+
+		// Add to syslog
+		$syslog->add(array(
+			'dictionaryKey'=>'new-content-created',
+			'notes'=>(empty($args['title'])?$key:$args['title'])
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'Page created.', LOG_TYPE_INFO);
+		return $key;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Something happened when you tried to create the page.', LOG_TYPE_ERROR);
+	deletePage($key);
+	return false;
+}
+
+/*	Edit a page === Bludit v4
+
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
+	@args['key']	string			The key of the page to be edited
+	@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
+*/
+function editPage($args) {
+	global $pages;
+	global $syslog;
+
+	// Check if the key is not empty
+	if (empty($args['key'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Empty page key.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check if the page key exist
+	if (!$pages->exists($args['key'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Page key doesn\'t exist: '.$args['key'], LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$key = $pages->edit($args);
+	if ($key) {
+		// Call the plugins after page modified
+		execPluginsByHook('afterPageModify', array($key));
+
+		// Reindex categories and tags
+		reindexCategories();
+		reindexTags();
+
+		// Add to syslog
+		$syslog->add(array(
+			'dictionaryKey'=>'content-edited',
+			'notes'=>empty($args['title'])?$key:$args['title']
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'Page edited.', LOG_TYPE_INFO);
+		return $key;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Something happened when you tried to edit the page.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Delete a page === Bludit v4
+
+	@key			string			The key of the page to be deleted
+	@returns		string/boolean	Returns TRUE if the page is successfully deleted, FALSE otherwise
+*/
+function deletePage($key) {
+	global $pages;
+	global $syslog;
+
+	if ($pages->delete($key)) {
+		// Call the plugins after page deleted
+		execPluginsByHook('afterPageDelete', array($key));
+
+		// Reindex categories and tags
+		reindexCategories();
+		reindexTags();
+
+		// Add to syslog
+		$syslog->add(array(
+			'dictionaryKey'=>'content-deleted',
+			'notes'=>$key
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'Page deleted.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Something happened when you tried to delete the page.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Create a new category === Bludit v4
+
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class categories.class.php. If you don't pass all the keys, the default values are used.
+	@returns		string/boolean	Returns the category key if the category is successfully created, FALSE otherwise
+*/
+function createCategory($args) {
+	global $categories;
+	global $syslog;
+
+	if (Text::isEmpty($args['name'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category name is empty.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$key = $categories->add($args);
+	if ($key) {
+		$syslog->add(array(
+			'dictionaryKey'=>'new-category-created',
+			'notes'=>$args['name']
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'Category created.', LOG_TYPE_INFO);
+		return $key;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'The category already exists or some issue saving the database.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Create a new user === Bludit v4
+	This function should check everthing, such as empty username, emtpy password, password lenght, etc
+
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
+	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+*/
+function createUser($args) {
+	global $users;
+	global $syslog;
+
+	$args['username'] = Text::removeSpecialCharacters($args['username']);
+
+	if (Text::isEmpty($args['username'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if (Text::length($args['password']) < PASSWORD_LENGTH) {
+		Log::set(__FUNCTION__.LOG_SEP.'The password is to short.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$key = $users->add($args);
+	if ($key) {
+		$syslog->add(array(
+			'dictionaryKey'=>'new-user-created',
+			'notes'=>$args['username']
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'User created.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'The user already exists or some issue saving the database.', LOG_TYPE_ERROR);
+	return false;
+}
+
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
@@ -304,121 +486,7 @@ function execPluginsByHook($hook, $args = array()) {
 	}
 }
 
-/*	Create a new page
 
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
-*/
-function createPage($args) {
-	global $pages;
-	global $syslog;
-
-	// The user is always the one logged
-	$args['username'] = Session::get('username');
-	if (empty($args['username'])) {
-		Log::set('Function createPage()'.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
-		return false;
-	}
-
-	$key = $pages->add($args);
-	if ($key) {
-		// Call the plugins after page created
-		execPluginsByHook('afterPageCreate', array($key));
-
-		// Reindex categories and tags
-		reindexCategories();
-		reindexTags();
-
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'new-content-created',
-			'notes'=>(empty($args['title'])?$key:$args['title'])
-		));
-
-		Log::set('Function createPage()'.LOG_SEP.'Page created successfully.', LOG_TYPE_INFO);
-		return $key;
-	}
-
-	Log::set('Function createPage()'.LOG_SEP.'Something happened when you tried to create the page.', LOG_TYPE_ERROR);
-	deletePage($key);
-	return false;
-}
-
-/*	Edit a page
-
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@args['key']	string			The key of the page to be edited
-	@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
-*/
-function editPage($args) {
-	global $pages;
-	global $syslog;
-
-	// Check if the key is not empty
-	if (empty($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Empty page key.', LOG_TYPE_ERROR);
-		return false;
-	}
-
-	// Check if the page key exist
-	if (!$pages->exists($args['key'])) {
-		Log::set('Function editPage()'.LOG_SEP.'Page key doesn\'t exist: '.$args['key'], LOG_TYPE_ERROR);
-		return false;
-	}
-
-	$key = $pages->edit($args);
-	if ($key) {
-		// Call the plugins after page modified
-		execPluginsByHook('afterPageModify', array($key));
-
-		// Reindex categories and tags
-		reindexCategories();
-		reindexTags();
-
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'content-edited',
-			'notes'=>empty($args['title'])?$key:$args['title']
-		));
-
-		Log::set('Function editPage()'.LOG_SEP.'Page edited successfully.', LOG_TYPE_INFO);
-		return $key;
-	}
-
-	Log::set('Function editPage()'.LOG_SEP.'Something happened when you tried to edit the page.', LOG_TYPE_ERROR);
-	return false;
-}
-
-/*	Delete a page
-
-	@key			string			The key of the page to be deleted
-	@returns		string/boolean	Returns TRUE if the page is successfully deleted, FALSE otherwise
-*/
-function deletePage($key) {
-	global $pages;
-	global $syslog;
-
-	if ($pages->delete($key)) {
-		// Call the plugins after page deleted
-		execPluginsByHook('afterPageDelete', array($key));
-
-		// Reindex categories and tags
-		reindexCategories();
-		reindexTags();
-
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'content-deleted',
-			'notes'=>$key
-		));
-
-		Log::set('Function deletePage()'.LOG_SEP.'Page deleted successfully.', LOG_TYPE_INFO);
-		return true;
-	}
-
-	Log::set('Function deletePage()'.LOG_SEP.'Something happened when you tried to delete the page.', LOG_TYPE_ERROR);
-	return false;
-}
 
 function editUser($args) {
 	global $users;
@@ -512,57 +580,7 @@ function deleteUser($args) {
 	return false;
 }
 
-function createUser($args) {
-	global $users;
-	global $L;
-	global $syslog;
 
-	$args['new_username'] = Text::removeSpecialCharacters($args['new_username']);
-
-	// Check empty username
-	if (Text::isEmpty($args['new_username'])) {
-		Alert::set($L->g('username-field-is-empty'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	// Check already exist username
-	if ($users->exists($args['new_username'])) {
-		Alert::set($L->g('username-already-exists'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	// Password length
-	if (Text::length($args['new_password']) < PASSWORD_LENGTH) {
-		Alert::set($L->g('Password must be at least '.PASSWORD_LENGTH.' characters long'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	// Check new password and confirm password are equal
-	if ($args['new_password'] != $args['confirm_password']) {
-		Alert::set($L->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	// Filter form fields
-	$tmp = array();
-	$tmp['username'] = $args['new_username'];
-	$tmp['password'] = $args['new_password'];
-	$tmp['role']	 = $args['role'];
-	$tmp['email']	 = $args['email'];
-
-	// Add the user to the database
-	if ($users->add($tmp)) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'new-user-created',
-			'notes'=>$tmp['username']
-		));
-
-		return true;
-	}
-
-	return false;
-}
 
 function editSettings($args) {
 	global $site;
@@ -707,32 +725,7 @@ function checkRole($allowRoles, $redirect=true) {
 	return false;
 }
 
-// Add a new category to the system
-// Returns TRUE is successfully added, FALSE otherwise
-function createCategory($args) {
-	global $categories;
-	global $L;
-	global $syslog;
 
-	if (Text::isEmpty($args['name'])) {
-		Alert::set($L->g('Category name is empty'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	if ($categories->add(array('name'=>$args['name'], 'description'=>$args['description']))) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'new-category-created',
-			'notes'=>$args['name']
-		));
-
-		Alert::set($L->g('Category added'), ALERT_STATUS_OK);
-		return true;
-	}
-
-	Alert::set($L->g('The category already exists'), ALERT_STATUS_FAIL);
-	return false;
-}
 
 function editCategory($args) {
 	global $L;

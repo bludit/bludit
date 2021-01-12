@@ -37,8 +37,34 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
+		$html = '<div class="mb-3 row">';
+		if (!empty($args['label'])) {
+			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		}
+		$html .= '<div class="col-sm-10">';
+		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
+		foreach ($args['options'] as $key=>$value) {
+			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
+		}
+		$html .= '</select>';
+		$html .= '</div>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public static function formSelectBlock($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+
+		$class = 'form-select';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
 		$html = '<div>';
-		if (isset($args['label'])) {
+		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
 		}
 		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
@@ -49,6 +75,40 @@ EOF;
 		$html .= '</div>';
 
 		return $html;
+	}
+
+	public static function formTextarea($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
+		$value = isset($args['value'])?$args['value']:'';
+		$rows = isset($args['rows'])?$args['rows']:'3';
+
+		$tip = '';
+		if (!empty($args['tip'])) {
+			$tip = '<div class="form-text">'.$args['tip'].'</div>';
+		}
+
+		$label = '';
+		if (!empty($args['label'])) {
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
+		}
+
+		$class = 'form-control';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+return <<<EOF
+<div class="mb-3 row">
+	$label
+	<div class="col-sm-10">
+		<textarea class="$class" id="$id" name="$name" rows="$rows" placeholder="$placeholder" spellcheck="false">$value</textarea>
+		$tip
+	</div>
+</div>
+EOF;
 	}
 
 	public static function formInputText($args)
@@ -62,12 +122,12 @@ EOF;
 		$type = isset($args['type'])?$args['type']:'text';
 
 		$tip = '';
-		if (isset($args['tip'])) {
+		if (!empty($args['tip'])) {
 			$tip = '<div class="form-text">'.$args['tip'].'</div>';
 		}
 
 		$label = '';
-		if (isset($args['label'])) {
+		if (!empty($args['label'])) {
 			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 
@@ -99,7 +159,7 @@ EOF;
 		}
 
 		$html = '<div class="mb-3 row">';
-		if (isset($args['label'])) {
+		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 		$html .= '<div class="col-sm-10">';
@@ -108,13 +168,24 @@ EOF;
 			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
 		}
 		$html .= '</select>';
-		if (isset($args['tip'])) {
+		if (!empty($args['tip'])) {
 			$html .= '<div class="form-text">'.$args['tip'].'</div>';
 		}
 		$html .= '</div>';
 		$html .= '</div>';
 
 		return $html;
+	}
+
+	public static function pageTitle($args)
+	{
+		$icon = $args['icon'];
+		$title = $args['title'];
+return <<<EOF
+<h2 class="m-0">
+	<span class="bi bi-$icon"></span><span>$title</span>
+</h2>
+EOF;
 	}
 
 
@@ -150,33 +221,9 @@ return <<<EOF
 EOF;
 	}
 
-	public static function link($args)
-	{
-		$options = 'href="'.$args['href'].'"';
-		if (isset($args['class'])) {
-			$options .= ' class="'.$args['class'].'"';
-		}
-		if (isset($args['target'])) {
-			$options .= ' target="'.$args['target'].'"';
-		}
 
-		if (isset($args['icon'])) {
-			return '<a '.$options.'><span class="bi-'.$args['icon'].'"></span>'.$args['title'].'</a>';
-		}
 
-		return '<a '.$options.'>'.$args['title'].'</a>';
-	}
 
-	public static function pageTitle($args)
-	{
-		$icon = $args['icon'];
-		$title = $args['title'];
-return <<<EOF
-<h2 class="mt-0 mb-3">
-	<span class="bi-$icon" style="font-size: 0.9em;"></span><span>$title</span>
-</h2>
-EOF;
-	}
 
 	public static function formOpen($args)
 	{
@@ -196,16 +243,6 @@ EOF;
 	{
 return <<<EOF
 </form>
-<script>
-$(document).ready(function() {
-	// Prevent the form submit when press enter key.
-	$("form").keypress(function(e) {
-		if ((e.which == 13) && (e.target.type !== "textarea")) {
-			return false;
-		}
-	});
-});
-</script>
 EOF;
 	}
 
@@ -278,35 +315,6 @@ EOF;
 		$html  = '<div class="'.$class.'">';
 		$html .= '<input type="file" class="custom-file-input" id="'.$id.'">';
 		$html .= '<label class="custom-file-label" for="'.$id.'">'.$args['label'].'</label>';
-		$html .= '</div>';
-
-		return $html;
-	}
-
-	public static function formTextarea($args)
-	{
-		$id = 'js'.$args['name'];
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
-
-		$class = 'form-control';
-		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
-		}
-
-		$html = '<div class="mb-3 row">';
-
-		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
-		}
-
-		$html .= '<div class="col-sm-10">';
-		$html .= '<textarea class="'.$class.'" id="'.$id.'" name="'.$args['name'].'" rows="'.$args['rows'].'" placeholder="'.$args['placeholder'].'">'.$args['value'].'</textarea>';
-		if (isset($args['tip'])) {
-			$html .= '<div class="form-text">'.$args['tip'].'</div>';
-		}
-		$html .= '</div>';
 		$html .= '</div>';
 
 		return $html;
@@ -390,39 +398,6 @@ EOF;
 
 
 
-	public static function formSelectBlock($args)
-	{
-		$id = 'js'.$args['name'];
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
-
-		$class = 'custom-select';
-		if (!empty($args['class'])) {
-			$class = $class.' '.$args['class'];
-		}
-
-		$html = '<div class="mb-3 m-0">';
-
-		if (!empty($args['label'])) {
-			$html .= '<h6 class="mt-4 mb-2 pb-2 text-uppercase">'.$args['label'].'</h6>';
-		}
-
-		$html .= '<select id="'.$id.'" name="'.$args['name'].'" class="'.$class.'">';
-		if (!empty($args['emptyOption'])) {
-			$html .= '<option value="">'.$args['emptyOption'].'</option>';
-		}
-		foreach ($args['options'] as $key=>$value) {
-			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
-		}
-		$html .= '</select>';
-		if (!empty($args['tip'])) {
-			$html .= '<div class="form-text">'.$args['tip'].'</div>';
-		}
-		$html .= '</div>';
-
-		return $html;
-	}
 
 	public static function formInputHidden($args)
 	{

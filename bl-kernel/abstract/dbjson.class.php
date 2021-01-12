@@ -61,7 +61,10 @@ class dbJSON {
 		return $this->dbFields[$field];
 	}
 
-	// Save the JSON file
+	/*	Save the JSON file
+
+		@returns		boolean			Returns TRUE if the file was saved successfully, FALSE otherwise
+	*/
 	public function save()
 	{
 		$data = '';
@@ -79,7 +82,7 @@ class dbJSON {
 		if (file_put_contents($this->file, $data, LOCK_EX)) {
 			return true;
 		} else {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.', LOG_TYPE_ERROR);
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to save the database.', LOG_TYPE_ERROR);
 			return false;
 		}
 	}

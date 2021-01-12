@@ -26,7 +26,7 @@ define('PROFILE_IMG_HEIGHT', 400);
 define('PROFILE_IMG_QUALITY', 100); // 100%
 
 // Items per page for admin area
-define('ITEMS_PER_PAGE_ADMIN', 20);
+define('ITEMS_PER_PAGE_ADMIN', 12);
 
 // Password length
 define('PASSWORD_LENGTH', 6);

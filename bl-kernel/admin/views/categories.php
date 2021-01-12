@@ -1,18 +1,20 @@
-<?php defined('BLUDIT') or die('Bludit CMS.');
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Categories'), 'icon'=>'tags'));
+<div class="d-flex align-items-center mb-4">
+	<h2 class="m-0"><i class="bi bi-bookmark"></i><?php $L->p('Categories') ?></h2>
+	<div class="ms-auto">
+		<a id="btnNew" class="btn btn-primary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'add-category' ?>" role="button"><i class="bi bi-plus-circle"></i><?php $L->p('Add a new category') ?></a>
+	</div>
+</div>
 
-echo Bootstrap::link(array(
-	'title'=>$L->g('Add a new category'),
-	'href'=>HTML_PATH_ADMIN_ROOT.'new-category',
-	'icon'=>'plus'
-));
+<?php
 
 echo '
 <table class="table table-striped mt-3">
 	<thead>
 		<tr>
 			<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('Description').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
 		</tr>
 	</thead>
@@ -20,11 +22,16 @@ echo '
 ';
 
 foreach ($categories->keys() as $key) {
-	$category = new Category($key);
-	echo '<tr>';
-	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
-	echo '<td><a href="'.$category->permalink().'">'.$url->filters('category', false).$key.'</a></td>';
-	echo '</tr>';
+	try {
+		$category = new Category($key);
+		echo '<tr>';
+		echo '<td class="pt-3 pb-3"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
+		echo '<td class="pt-3 pb-3"><span>'.$category->description().'</span></td>';
+		echo '<td class="pt-3 pb-3"><a href="'.$category->permalink().'">'.$category->permalink().'</a></td>';
+		echo '</tr>';
+	} catch (Exception $e) {
+		// Continue
+	}
 }
 
 echo '

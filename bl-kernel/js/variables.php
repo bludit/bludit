@@ -25,6 +25,7 @@ echo 'var PAGE_BREAK = "'.PAGE_BREAK.'";'.PHP_EOL;
 echo 'var tokenCSRF = "'.$security->getTokenCSRF().'";'.PHP_EOL;
 echo 'var UPLOAD_MAX_FILESIZE = '.Text::toBytes( ini_get('upload_max_filesize') ).';'.PHP_EOL;
 echo 'var DEBUG_MODE = '.(DEBUG_MODE?'true':'false').';'.PHP_EOL;
+echo 'var PASSWORD_LENGTH = '.PASSWORD_LENGTH.';'.PHP_EOL;
 echo 'var api = new API("", "", "", tokenCSRF);'.PHP_EOL;
 echo '</script>'.PHP_EOL;
 

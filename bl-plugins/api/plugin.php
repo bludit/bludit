@@ -185,6 +185,10 @@ class pluginAPI extends Plugin {
 			$categoryKey = $parameters[1];
 			$data = $this->getCategory($categoryKey);
 		}
+		// (POST) /api/categories
+		elseif ( ($method==='POST') && ($parameters[0]==='categories') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->createCategory($inputs);
+		}
 		// (GET) /api/users
 		elseif ( ($method==='GET') && ($parameters[0]==='users') && empty($parameters[1]) ) {
 			$data = $this->getUsers();
@@ -193,6 +197,10 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='GET') && ($parameters[0]==='users') && !empty($parameters[1]) ) {
 			$username = $parameters[1];
 			$data = $this->getUser($username);
+		}
+		// (GET) /api/users
+		elseif ( ($method==='POST') && ($parameters[0]==='users') && empty($parameters[1]) && $writePermissions ) {
+			$data = $this->createUser($inputs);
 		}
 		// (GET) /api/files/<page-key>
 		elseif ( ($method==='GET') && ($parameters[0]==='files') && !empty($parameters[1]) ) {
@@ -636,6 +644,24 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	private function createCategory($args)
+	{
+		// This function is defined on functions.php
+		$key = createCategory($args);
+		if ($key===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'An error occurred while trying to create the category.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Category created.',
+			'data'=>array('key'=>$key)
+		);
+	}
+
 	/*
 	 | Returns the user profile
 	 |
@@ -687,6 +713,24 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	private function createUser($args)
+	{
+		// This function is defined on functions.php
+		$key = createUser($args);
+		if ($key===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'An error occurred while trying to create the user.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'User created.',
+			'data'=>array('key'=>$key)
+		);
+	}
+
 	/*
 	| Upload a file to a particular page
 	| Returns the file URL
@@ -722,7 +766,10 @@ class pluginAPI extends Plugin {
 				'message'=>'File uploaded.',
 				'filename'=>$filename,
 				'absolutePath'=>$absolutePath,
-				'absoluteURL'=>$absoluteURL
+				'absoluteURL'=>$absoluteURL,
+				'mime'=>Filesystem::mimeType($absolutePath),
+				'size'=>Filesystem::getSize($absolutePath),
+				'thumbnail'=>''
 			);
 		}
 
@@ -766,23 +813,36 @@ class pluginAPI extends Plugin {
 		$chunk = false;
 		$sortByDate = true;
 		$path = PATH_UPLOADS_PAGES.$pageKey.DS;
-		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
+
+		if (Sanitize::pathFile($path) === false) {
+			return array(
+				'status'=>'1',
+				'message'=>'Invalid path.'
+			);
+		}
 
 		$files = array();
+		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
 		foreach ($listFiles as $file) {
-			$info = array('thumbnail'=>'');
-			$info['file'] = $file;
-			$info['filename'] = basename($file);
-			$info['mime'] = Filesystem::mimeType($file);
-			$info['size'] = Filesystem::getSize($file);
+			$filename = basename($file);
+			$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename;
+			$absolutePath = $file;
+			$data = array(
+				'filename'=>$filename,
+				'absolutePath'=>$absolutePath,
+				'absoluteURL'=>$absoluteURL,
+				'mime'=>Filesystem::mimeType($absolutePath),
+				'size'=>Filesystem::getSize($absolutePath),
+				'thumbnail'=>''
+			);
 
 			// Check if thumbnail exists for the file
-			$thumbnail = $path.'thumbnails'.DS.$info['filename'];
+			$thumbnail = $path.'thumbnails'.DS.$filename;
 			if (Filesystem::fileExists($thumbnail)) {
-				$info['thumbnail'] = $thumbnail;
+				$data['thumbnail'] = $thumbnail;
 			}
 
-			array_push($files, $info);
+			array_push($files, $data);
 		}
 
 		return array(

@@ -75,16 +75,24 @@ class dbList extends dbJSON
 		return $key;
 	}
 
-	// Add a new item to the dblist
-	// $args => 'name', 'template', 'description', list'
+	/*	Add a new item to the dblist === Bludit v4
+
+		@args			array			The array $args supports the following keys 'name', 'template', 'description', list'
+		@returns		string/boolean	Returns the item's key if the item was successfully added, FALSE otherwise
+	*/
 	public function add($args)
 	{
 		$key = $this->generateKey($args['name']);
 
-		$this->db[$key]['name'] 	= Sanitize::removeTags($args['name']);
-		$this->db[$key]['template'] 	= isset($args['template'])?Sanitize::removeTags($args['template']):'';
-		$this->db[$key]['description'] 	= isset($args['description'])?Sanitize::removeTags($args['description']):'';
-		$this->db[$key]['list'] 	= isset($args['list'])?$args['list']:array();
+		if ($this->exists($key)) {
+			Log::set(__METHOD__.LOG_SEP.'The item already exists. Key: '.$key);
+			return false;
+		}
+
+		$this->db[$key]['name'] = Sanitize::removeTags($args['name']);
+		$this->db[$key]['template'] = isset($args['template'])?Sanitize::removeTags($args['template']):'';
+		$this->db[$key]['description'] = isset($args['description'])?Sanitize::removeTags($args['description']):'';
+		$this->db[$key]['list'] = isset($args['list'])?$args['list']:array();
 
 		$this->sortAlphanumeric();
 		$this->save();

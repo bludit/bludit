@@ -1,15 +1,13 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<div class="d-flex align-items-center mb-4">
+	<h2 class="m-0"><i class="bi bi-people"></i><?php $L->p('Users') ?></h2>
+	<div class="ms-auto">
+		<a id="btnNew" class="btn btn-primary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'add-user' ?>" role="button"><i class="bi bi-plus-circle"></i><?php $L->p('Add a new user') ?></a>
+	</div>
+</div>
+
 <?php
-
-echo Bootstrap::pageTitle(array('title'=>$L->g('Users'), 'icon'=>'users'));
-
-echo Bootstrap::link(array(
-	'title'=>$L->g('add-a-new-user'),
-	'href'=>HTML_PATH_ADMIN_ROOT.'new-user',
-	'icon'=>'plus'
-));
-
 echo '
 <table class="table table-striped mt-3">
 	<thead>
@@ -30,20 +28,20 @@ foreach ($list as $username) {
 	try {
 		$user = new User($username);
 		echo '<tr>';
-		echo '<td><img class="profilePicture me-1" alt="" src="'.(Sanitize::pathFile(PATH_UPLOADS_PROFILES.$user->username().'.png')?DOMAIN_UPLOADS_PROFILES.$user->username().'.png':HTML_PATH_CORE_IMG.'default.svg').'" /><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-		echo '<td class="d-none d-lg-table-cell">'.$user->nickname().'</td>';
-		echo '<td>'.$user->email().'</td>';
-		echo '<td>'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
+		echo '<td class="pt-3 pb-3"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
+		echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">'.$user->nickname().'</td>';
+		echo '<td class="pt-3 pb-3">'.$user->email().'</td>';
+		echo '<td class="pt-3 pb-3">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
 		if ($user->role()=='admin') {
-			echo '<td>'.$L->g('Administrator').'</td>';
+			echo '<td class="pt-3 pb-3">'.$L->g('Administrator').'</td>';
 		} elseif ($user->role()=='editor') {
-			echo '<td>'.$L->g('Editor').'</td>';
+			echo '<td class="pt-3 pb-3">'.$L->g('Editor').'</td>';
 		} elseif ($user->role()=='author') {
-			echo '<td>'.$L->g('Author').'</td>';
+			echo '<td class="pt-3 pb-3">'.$L->g('Author').'</td>';
 		} else {
-			echo '<td>'.$L->g('Reader').'</td>';
+			echo '<td class="pt-3 pb-3">'.$L->g('Reader').'</td>';
 		}
-		echo '<td class="d-none d-lg-table-cell">'.Date::format($user->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
+		echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">'.Date::format($user->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
 		echo '</tr>';
 	} catch (Exception $e) {
 		// Continue

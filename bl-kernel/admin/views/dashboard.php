@@ -74,7 +74,7 @@
 							html += '<div class="search-suggestion-item">'+data.text+' <span class="badge badge-pill badge-light">'+data.type+'</span></div>';
 							html += '<div class="search-suggestion-options">';
 							html += '<a target="_blank" href="'+DOMAIN_PAGES+data.id+'"><?php $L->p('view') ?></a>';
-							html += '<a class="ms-2" href="'+DOMAIN_ADMIN+'edit-content/'+data.id+'"><?php $L->p('edit') ?></a>';
+							html += '<a class="ms-2" href="'+DOMAIN_ADMIN+'editor/'+data.id+'"><?php $L->p('edit') ?></a>';
 							html += '</div></div>';
 						}
 

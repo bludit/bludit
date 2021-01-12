@@ -273,7 +273,7 @@ class Page {
 		$tmp['title'] 		= $this->title();
 		$tmp['content'] 	= $this->content(); // Markdown parsed
 		$tmp['contentRaw'] 	= $this->contentRaw(true); // No Markdown parsed
-		$tmp['description'] 	= $this->description();
+		$tmp['description'] = $this->description();
 		$tmp['type'] 		= $this->type();
 		$tmp['slug'] 		= $this->slug();
 		$tmp['date'] 		= $this->date();
@@ -284,7 +284,7 @@ class Page {
 		$tmp['uuid'] 		= $this->uuid();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
-		$tmp['coverImage'] 		= $this->coverImage(true);
+		$tmp['coverImage'] 	= $this->coverImage(true);
 		$tmp['coverImageFilename'] 	= $this->coverImage(false);
 
 		if ($returnsArray) {
@@ -390,6 +390,12 @@ class Page {
 	public function isStatic()
 	{
 		return ($this->getValue('type')=='static');
+	}
+
+	// (boolean) Returns TRUE if the page is unlisted, FALSE otherwise
+	public function unlisted()
+	{
+		return ($this->getValue('type')=='unlisted');
 	}
 
 	// (string) Returns type of the page

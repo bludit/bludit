@@ -1,8 +1,16 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
+
+<div class="d-flex align-items-center mb-4">
+	<h2 class="m-0"><i class="bi bi-folder"></i><?php $L->p('Content') ?></h2>
+	<div class="ms-auto">
+		<a id="btnNew" class="btn btn-primary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'editor' ?>" role="button"><i class="bi bi-plus-circle"></i><?php $L->p('Add a new page') ?></a>
+	</div>
+</div>
+
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'archive'));
-
-function table($type) {
+function table($type)
+{
 	global $url;
 	global $L;
 	global $published;
@@ -10,9 +18,8 @@ function table($type) {
 	global $scheduled;
 	global $static;
 	global $sticky;
-	global $autosave;
 
-	if ($type=='published') {
+	if ($type == 'published') {
 		$list = $published;
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
@@ -20,7 +27,7 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($type=='draft') {
+	} elseif ($type == 'draft') {
 		$list = $drafts;
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
@@ -28,7 +35,7 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($type=='scheduled') {
+	} elseif ($type == 'scheduled') {
 		$list = $scheduled;
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
@@ -36,7 +43,7 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($type=='static') {
+	} elseif ($type == 'static') {
 		$list = $static;
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
@@ -44,7 +51,7 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($type=='sticky') {
+	} elseif ($type == 'sticky') {
 		$list = $sticky;
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
@@ -52,73 +59,76 @@ function table($type) {
 			echo '</p>';
 			return false;
 		}
-	} elseif ($type=='autosave') {
-		$list = $autosave;
 	}
 
-	echo '<table class="table table-striped m-0"><tbody><tr></tr>';
+	echo '<table class="table table-striped"><tbody><tr></tr>';
 
-	if ( (ORDER_BY=='position') || $type=='static' ) {
+	if ((ORDER_BY == 'position') || $type == 'static') {
 		foreach ($list as $pageKey) {
 			try {
 				$page = new Page($pageKey);
 				if (!$page->isChild()) {
-					echo '<tr>
-					<td>
-						<div>
-							<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-							.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-							.'</a>
-						</div>
-						<div>
-							<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
-						</div>
+					echo '<tr>';
+
+					echo '<td class="pt-3 pb-3">
+					<div>
+						<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
+					</div>
+					<div>
+						<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem"> ' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
+					</div>
 					</td>';
 
-					if ($type=='published' || $type=='static' || $type=='sticky') {
-					$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-					}
+					echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-					echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-					if (count($page->children())==0) {
-						echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
+					echo '<td class="pt-3 text-center d-sm-table-cell">
+					<div class="dropdown">
+					<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
+					</button>
+					<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
+						<a class="dropdown-item" target="_blank" href="' . $page->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
+						<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
+						<a><hr class="dropdown-divider"></a>
+					';
+					if (count($page->children()) == 0) {
+						echo '<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $page->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>';
 					}
-					echo '</td>';
+					echo '</div>
+					</div>
+					</td>';
 
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
-						//if ($child->published()) {
-						echo '<tr>
-						<td class="child">
-							<div>
-								<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
-								.($child->title()?$child->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-								.'</a>
-							</div>
-							<div>
-								<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
-							</div>
+						echo '<tr>';
+
+						echo '<td class="ps-3 pt-3 pb-3">
+						<div>
+							<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '">' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
+						</div>
+						<div>
+							<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</span>
+						</div>
 						</td>';
 
-						if ($type=='published' || $type=='static' || $type=='sticky') {
-						$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
-						echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
-						}
+						echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($child->category() ? $child->category() : $L->get('uncategorized')) . '</td>';
 
-						echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-						if ($type=='published' || $type=='static' || $type=='sticky') {
-						echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$child->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-						}
-						echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<a class="ms-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
-						echo '</td>';
+						echo '<td class="pt-3 text-center d-sm-table-cell">
+						<div class="dropdown">
+						<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
+						</button>
+						<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
+							<a class="dropdown-item" target="_blank" href="' . $child->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
+							<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
+							<a><hr class="dropdown-divider"></a>
+							<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $child->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>
+						</div>
+						</div>
+						</td>';
 
 						echo '</tr>';
-						//}
 					}
 				}
 			} catch (Exception $e) {
@@ -130,28 +140,31 @@ function table($type) {
 			try {
 				$page = new Page($pageKey);
 				echo '<tr>';
-				echo '<td class="pt-3">
+
+				echo '<td class="pt-3 pb-3">
 					<div>
-						<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-						.'</a>
+						<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
 					</div>
 					<div>
-						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ($type=='scheduled')?$L->g('Scheduled').': '.$page->date(SCHEDULED_DATE_FORMAT):$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
+						<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem"> ' . (($type == 'scheduled') ? $L->g('Scheduled') . ': ' . $page->date(SCHEDULED_DATE_FORMAT) : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
 					</div>
 				</td>';
 
-				echo '<td class="pt-3 d-none d-lg-table-cell">'.$L->get('Category').': '.($page->category()?$page->category():$L->get('uncategorized')).'</td>';
+				echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-				echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-				if ($type=='published' || $type=='static' || $type=='sticky') {
-				echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="bi-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-				}
-				echo '<a class="text-secondary d-none d-md-inline ms-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="bi-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-				if (count($page->children())==0) {
-					echo '<a href="#" class="ms-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="bi-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
-				}
-				echo '</td>';
+				echo '<td class="pt-3 text-center d-sm-table-cell">
+				<div class="dropdown">
+				<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
+				</button>
+				<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
+					<a class="dropdown-item" target="_blank" href="' . $page->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
+					<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
+					<a><hr class="dropdown-divider"></a>
+					<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $page->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>
+				</div>
+				</div>
+				</td>';
 
 				echo '</tr>';
 			} catch (Exception $e) {
@@ -168,142 +181,115 @@ function table($type) {
 
 ?>
 
-<!-- TABS -->
+<!-- Tabs -->
 <ul class="nav nav-tabs ps-3" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
+		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab" aria-controls="pages" aria-selected="true"><?php $L->p('Pages') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="static-tab" data-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
+		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab" aria-controls="static" aria-selected="true"><?php $L->p('Static') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="sticky-tab" data-toggle="tab" href="#sticky" role="tab"><?php $L->p('Sticky') ?></a>
+		<a class="nav-link" id="sticky-tab" data-bs-toggle="tab" href="#sticky" role="tab" aria-controls="sticky" aria-selected="true"><?php $L->p('Sticky') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
+		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab" aria-controls="scheduled" aria-selected="true"><?php $L->p('Scheduled') ?>
+			<?php if (count($scheduled) > 0) {
+				echo '<span class="badge badge-danger">' . count($scheduled) . '</span>';
+			} ?>
+		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>
+		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab" aria-controls="draft" aria-selected="true"><?php $L->p('Draft') ?></a>
 	</li>
-	<?php if (!empty($autosave)): ?>
-	<li class="nav-item">
-		<a class="nav-link" id="autosave-tab" data-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?></a>
-	</li>
-	<?php endif; ?>
 </ul>
-<div class="tab-content">
-	<!-- TABS PAGES -->
-	<div class="tab-pane show active" id="pages" role="tabpanel">
+<!-- End Tabs -->
 
+<!-- Content -->
+<div class="tab-content">
+
+	<!-- Tab pages -->
+	<div class="tab-pane show active" id="pages" role="tabpanel">
 		<?php table('published'); ?>
 
-		<?php if (Paginator::numberOfPages() > 1): ?>
 		<!-- Paginator -->
-		<nav class="paginator pt-3">
-			<ul class="pagination flex-wrap justify-content-center">
+		<!-- The paginator is defined in the rule 99.paginator.php for the admin area -->
+		<?php if (Paginator::numberOfPages() > 1) : ?>
+			<nav class="mt-4 mb-4">
+				<ul class="pagination flex-wrap justify-content-center">
+					<!-- First button -->
+					<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+						<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><i class="bi bi-arrow-left-circle"></i><?php echo $L->get('First'); ?></a>
+					</li>
 
-			<!-- First button -->
-			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::firstPageUrl() ?>"><span class="align-middle bi-media-skip-backward"></span> <?php echo $L->get('First'); ?></a>
-			</li>
+					<!-- Previous button -->
+					<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
+						<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $L->get('Previous'); ?></a>
+					</li>
 
-			<!-- Previous button -->
-			<li class="page-item <?php if (!Paginator::showPrev()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>"><?php echo $L->get('Previous'); ?></a>
-			</li>
+					<li class="page-item"><span class="page-link text-muted"><?php echo Paginator::currentPage() ?> / <?php echo Paginator::numberOfPages() ?></span></li>
 
-			<!-- Next button -->
-			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?></a>
-			</li>
+					<!-- Next button -->
+					<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
+						<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?></a>
+					</li>
 
-			<!-- Last button -->
-			<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $L->get('Last'); ?> <span class="align-middle bi-media-skip-forward"></span></a>
-			</li>
-
-			</ul>
-		</nav>
+					<!-- Last button -->
+					<li class="page-item <?php if (!Paginator::showNext()) echo 'disabled' ?>">
+						<a class="page-link" href="<?php echo Paginator::lastPageUrl() ?>"><?php echo $L->get('Last'); ?><i class="ms-2 bi bi-arrow-right-circle"></i></a>
+					</li>
+				</ul>
+			</nav>
 		<?php endif; ?>
+		<!-- End Paginator -->
 	</div>
+	<!-- End Tab pages -->
 
 	<!-- TABS STATIC -->
 	<div class="tab-pane" id="static" role="tabpanel">
-	<?php table('static'); ?>
+		<?php table('static'); ?>
 	</div>
 
 	<!-- TABS STICKY -->
 	<div class="tab-pane" id="sticky" role="tabpanel">
-	<?php table('sticky'); ?>
+		<?php table('sticky'); ?>
 	</div>
 
 	<!-- TABS SCHEDULED -->
 	<div class="tab-pane" id="scheduled" role="tabpanel">
-	<?php table('scheduled'); ?>
+		<?php table('scheduled'); ?>
 	</div>
 
 	<!-- TABS DRAFT -->
 	<div class="tab-pane" id="draft" role="tabpanel">
-	<?php table('draft'); ?>
+		<?php table('draft'); ?>
 	</div>
-
-	<!-- TABS AUTOSAVE -->
-	<?php if (!empty($autosave)): ?>
-	<div class="tab-pane" id="autosave" role="tabpanel">
-	<?php table('autosave'); ?>
-	</div>
-	<?php endif; ?>
 </div>
+<!-- End Content -->
 
-<!-- Modal for delete page -->
-<?php
-	echo Bootstrap::modal(array(
-		'buttonPrimary'=>$L->g('Delete'),
-		'buttonPrimaryClass'=>'btn-danger deletePageModalAcceptButton',
-		'buttonSecondary'=>$L->g('Cancel'),
-		'buttonSecondaryClass'=>'btn-link',
-		'modalTitle'=>$L->g('Delete content'),
-		'modalText'=>$L->g('Are you sure you want to delete this page'),
-		'modalId'=>'jsdeletePageModal'
-	));
-?>
+<!-- Modal Delete page -->
+<div class="modal" id="modalDeletePage" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+			<p class="fw-bold text-danger"><?php $L->p('Are you sure you want to delete this page') ?></p>
+			<p class="fw-bold" id="deletePageTip"></p>
+			</div>
+			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+				<button id="btnCancel" type="button" class="btn fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
+				<button id="btnConfirm" type="button" class="btn fw-bold text-success"><i class="bi bi-check-square"></i>Confirm</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
-$(document).ready(function() {
-	var key = false;
-
-	// Button for delete a page in the table
-	$(".deletePageButton").on("click", function() {
-		key = $(this).data('key');
+	$(document).ready(function() {
+		// Button for delete a page
+		$(".btnDeletePage").on("click", function() {
+			var key = $(this).data('key');
+			$('#deletePageTip').html(key);
+			$('#modalDeletePage').modal('show');
+		});
 	});
-
-	// Event from button accept from the modal
-	$(".deletePageModalAcceptButton").on("click", function() {
-
-		var form = jQuery('<form>', {
-			'action': HTML_PATH_ADMIN_ROOT+'edit-content/'+key,
-			'method': 'post',
-			'target': '_top'
-		}).append(jQuery('<input>', {
-			'type': 'hidden',
-			'name': 'tokenCSRF',
-			'value': tokenCSRF
-		}).append(jQuery('<input>', {
-			'type': 'hidden',
-			'name': 'key',
-			'value': key
-		}).append(jQuery('<input>', {
-			'type': 'hidden',
-			'name': 'type',
-			'value': 'delete'
-		}))));
-
-		form.hide().appendTo("body").submit();
-	});
-});
 </script>
-
-<script>
-	// Open the tab defined in the URL
-	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
-</script>
+<!-- End Modal Delete page -->

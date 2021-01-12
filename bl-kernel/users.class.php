@@ -58,11 +58,20 @@ class Users extends dbJSON {
 		return $this->save();
 	}
 
-	// Add a new user
+	/*	Create a new user === Bludit v4
+
+		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+		@returns		string/boolean	Returns the username if the user is successfully created, FALSE otherwise
+	*/
 	public function add($args)
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
+
+		if ($this->exists($username)) {
+			Log::set(__METHOD__.LOG_SEP.'The username already exists. Username: '.$username, LOG_TYPE_ERROR);
+			return false;
+		}
 
 		// The password is hashed, the password doesn't need to be sanitize in the next step
 		$password = $args['password'];
@@ -90,7 +99,8 @@ class Users extends dbJSON {
 
 		// Save the database
 		$this->db[$username] = $row;
-		return $this->save();
+		$this->save();
+		return $username;
 	}
 
 	// Edit an user

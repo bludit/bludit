@@ -2,19 +2,19 @@
 <ul class="nav flex-column">
 
 	<li class="nav-item mb-3">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'editor' ?>">
 			<i class="bi-plus-circle"></i>
 			<?php $L->p('New content') ?>
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>">
 			<i class="bi-kanban"></i>
 			<?php $L->p('Dashboard') ?>
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+		<a class="nav-link" href="<?php echo DOMAIN_BASE ?>">
 			<i class="bi-house"></i>
 			<?php $L->p('Website') ?>
 		</a>

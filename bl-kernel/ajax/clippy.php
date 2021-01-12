@@ -16,13 +16,13 @@ $result = array();
 if (Text::stringContains(Text::lowercase($L->g('New content')), $query)) {
 	$tmp = array('disabled'=>true, 'icon'=>'plus-circle', 'type'=>'menu');
 	$tmp['text'] = $L->g('New content');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'new-content';
+	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'editor';
 	array_push($result, $tmp);
 }
 if (Text::stringContains(Text::lowercase($L->g('New category')), $query)) {
 	$tmp = array('disabled'=>true, 'icon'=>'tag', 'type'=>'menu');
 	$tmp['text'] = $L->g('New category');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'new-category';
+	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'add-category';
 	array_push($result, $tmp);
 }
 if (Text::stringContains(Text::lowercase($L->g('New user')), $query)) {

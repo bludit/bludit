@@ -6,14 +6,14 @@ class Pages extends dbJSON {
 	protected $dbFields = array(
 		'title'=>'',
 		'description'=>'',
-		'username'=>'',
+		'username'=>'',	// Username key
 		'tags'=>array(),
-		'type'=>'published', // published, static, draft, sticky, scheduled, autosave
+		'type'=>'published', // published, static, draft, sticky, scheduled
 		'date'=>'',
 		'dateModified'=>'',
 		'position'=>0,
 		'coverImage'=>'',
-		'category'=>'',
+		'category'=>'',	// Category key
 		'md5file'=>'',
 		'uuid'=>'',
 		'allowComments'=>true,
@@ -34,7 +34,11 @@ class Pages extends dbJSON {
 		return $this->dbFields;
 	}
 
-	// Return an array with the database for a page, FALSE otherwise
+	/*	Get the database row associated to a page
+
+		@key			string				The key of the page to be fetch
+		@returns		array/boolean		Return an array with the database for a page, FALSE otherwise
+	*/
 	public function getPageDB($key)
 	{
 		if ($this->exists($key)) {
@@ -44,13 +48,16 @@ class Pages extends dbJSON {
 		return false;
 	}
 
-	// Return TRUE if the page exists, FALSE otherwise
+	/*	Check if a page key exists in the database
+
+		@returns		boolean			Return TRUE if the page exists, FALSE otherwise
+	*/
 	public function exists($key)
 	{
-		return isset( $this->db[$key] );
+		return isset ($this->db[$key]);
 	}
 
-	/*	Create a new page
+	/*	Create a new page === Bludit v4
 
 		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
 		@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
@@ -168,7 +175,7 @@ class Pages extends dbJSON {
 		return $key;
 	}
 
-	/*	Edit a page
+	/*	Edit a page === Bludit v4
 
 		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
 		@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
@@ -253,12 +260,12 @@ class Pages extends dbJSON {
 		// Move the directory from old key to new key only if the keys are different
 		if ($newKey!==$key) {
 			if (Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false) {
-				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory '.PATH_PAGES.$newKey);
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_PAGES.$newKey, LOG_TYPE_ERROR);
 				return false;
 			}
 
 			if (Filesystem::mv(PATH_UPLOADS_PAGES.$key, PATH_UPLOADS_PAGES.$newKey) === false) {
-				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory '.PATH_UPLOADS_PAGES.$newKey);
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_UPLOADS_PAGES.$newKey, LOG_TYPE_ERROR);
 				return false;
 			}
 		}
@@ -267,7 +274,7 @@ class Pages extends dbJSON {
 		if (isset($args['content'])) {
 			// Make the index.txt and save the file.
 			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $args['content'])===false) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to save the new content in the file: '.PATH_PAGES.$newKey.DS.FILENAME, LOG_TYPE_ERROR);
 				return false;
 			}
 		}
@@ -293,52 +300,40 @@ class Pages extends dbJSON {
 		return $newKey;
 	}
 
-	// This function reindex the orphan children with the new parent key
-	// If a page has subpages and the page change his key is necesarry check the children key
-	public function reindexChildren($oldParentKey, $newParentKey) {
-		if ($oldParentKey==$newParentKey){
-			return false;
-		}
-		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if (Text::startsWith($key, $oldParentKey.'/')) {
-				$newKey = Text::replace($oldParentKey.'/', $newParentKey.'/', $key);
-				$this->db[$newKey] = $this->db[$key];
-				unset($this->db[$key]);
-			}
-		}
-	}
+	/*	Delete a page === Bludit v4
 
+		@key			string			The key of the page to be deleted
+		@returns		boolean			Returns TRUE if the page was deleted successfully, FALSE otherwise
+	*/
 	public function delete($key)
 	{
 		// This is need it, because if the key is empty the Filesystem::deleteRecursive is going to delete PATH_PAGES
 		if (empty($key)) {
+			Log::set(__METHOD__.LOG_SEP.'Empty page key.', LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Page doesn't exist in database
 		if (!$this->exists($key)) {
-			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
+			Log::set(__METHOD__.LOG_SEP.'The page doesn\'t exist. Key: '.$key, LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Delete directory and files
 		if (Filesystem::deleteRecursive(PATH_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key, LOG_TYPE_ERROR);
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_PAGES.$key, LOG_TYPE_ERROR);
 		}
 
-		// Delete page images directory; The function already check if exists the directory
+		// Delete upload directory
 		if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$key);
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
 		}
 
 		// Remove from database
 		unset($this->db[$key]);
 
 		// Save the database
-		if ($this->save()===false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
-		}
+		$this->save();
 
 		return true;
 	}
@@ -370,6 +365,22 @@ class Pages extends dbJSON {
 		}
 
 		return $this->save();
+	}
+
+	// This function reindex the orphan children with the new parent key
+	// If a page has subpages and the page change his key is necesarry check the children key
+	public function reindexChildren($oldParentKey, $newParentKey) {
+		if ($oldParentKey==$newParentKey){
+			return false;
+		}
+		$tmp = $this->db;
+		foreach ($tmp as $key=>$fields) {
+			if (Text::startsWith($key, $oldParentKey.'/')) {
+				$newKey = Text::replace($oldParentKey.'/', $newParentKey.'/', $key);
+				$this->db[$newKey] = $this->db[$key];
+				unset($this->db[$key]);
+			}
+		}
 	}
 
 	// Set field = value
@@ -435,21 +446,6 @@ class Pages extends dbJSON {
 		$tmp = $this->db;
 		foreach ($tmp as $key=>$fields) {
 			if($fields['type']!='draft') {
-				unset($tmp[$key]);
-			}
-		}
-		if ($onlyKeys) {
-			return array_keys($tmp);
-		}
-		return $tmp;
-	}
-
-	// Returns an array with a list of keys/database of autosave pages
-	public function getAutosaveDB($onlyKeys=true)
-	{
-		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if($fields['type']!='autosave') {
 				unset($tmp[$key]);
 			}
 		}

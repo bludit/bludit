@@ -17,7 +17,7 @@
 						<?php $L->p('Website') ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'new-content' ?>">
+					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'editor' ?>">
 						<?php $L->p('New content') ?></a>
 				</li>
 				<li class="nav-item">

@@ -12,6 +12,21 @@ class API {
 		}
 	}
 
+	async getPage(args) {
+		var url = this.apiURL + "pages/" + args['pageKey'];
+		var parameters = "?token=" + this.body.token + "&authentication=" + this.body.authentication;
+		try {
+			const response = await fetch(url + parameters, {
+				method: "GET"
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
 	async createPage(args={}) {
 		var url = this.apiURL + "pages";
 		var body = Object.assign({}, this.body, args);
@@ -96,7 +111,7 @@ class API {
 				method: "GET"
 			});
 			var json = await response.json();
-			return json.data;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -148,6 +163,56 @@ class API {
 			});
 			var json = await response.json();
 			return json.data;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Create a new category
+
+		@args					array		Arguments can be any of the fields from a category
+		@returns				string		New category key
+	*/
+	async createCategory(args) {
+		var url = this.apiURL + "categories";
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "POST",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json.data.key;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Create a new user
+
+		@args					array		Arguments can be any of the fields from a user
+		@returns				string		Returns the username created
+	*/
+	async createUser(args) {
+		var url = this.apiURL + "users";
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "POST",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json.data.key;
 		} catch (err) {
 			console.log(err);
 			return true;
