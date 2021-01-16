@@ -1,92 +1,85 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
-<?php echo Bootstrap::formOpen(array('id'=>'jsform')); ?>
-
-<div class="align-middle">
-	<div class="float-end mt-1">
-		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
-		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#jsdeleteModal"><?php $L->p('Delete') ?></button>
-		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
+<div class="d-flex align-items-center mb-4">
+	<h2 class="m-0"><i class="bi bi-bookmark"></i><?php $L->p('Edit category') ?></h2>
+	<div class="ms-auto">
+		<button id="btnSave" type="button" class="btn btn-primary btn-sm"><?php $L->p('Save') ?></button>
+		<button id="btnDelete" type="button" class="btn btn-danger btn-sm"><?php $L->p('Delete') ?></button>
+		<a id="btnCancel" class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'cog')); ?>
 </div>
 
 <?php
-	// Token CSRF
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'tokenCSRF',
-		'value'=>$security->getTokenCSRF()
-	));
+echo Bootstrap::formInputHidden(array(
+	'id' => 'key',
+	'name' => 'key',
+	'value' => $categoryMap['key']
+));
 
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'action',
-		'value'=>'edit'
-	));
+echo Bootstrap::formInputText(array(
+	'id' => 'name',
+	'name' => 'name',
+	'label' => $L->g('Name'),
+	'value' => $categoryMap['name']
+));
 
-	echo Bootstrap::formInputHidden(array(
-		'name'=>'oldKey',
-		'value'=>$categoryMap['key']
-	));
+echo Bootstrap::formTextarea(array(
+	'name' => 'description',
+	'label' => $L->g('Description'),
+	'value' => isset($categoryMap['description']) ? $categoryMap['description'] : '',
+	'rows' => 3
+));
 
-	echo Bootstrap::formInputText(array(
-		'name'=>'name',
-		'label'=>$L->g('Name'),
-		'value'=>$categoryMap['name'],
-		'class'=>'',
-		'placeholder'=>'',
-		'tip'=>''
-	));
+echo Bootstrap::formInputText(array(
+	'name' => 'template',
+	'label' => $L->g('Template'),
+	'value' => isset($categoryMap['template']) ? $categoryMap['template'] : ''
+));
 
-	echo Bootstrap::formTextarea(array(
-		'name'=>'description',
-		'label'=>$L->g('Description'),
-		'value'=>isset($categoryMap['description'])?$categoryMap['description']:'',
-		'class'=>'',
-		'placeholder'=>'',
-		'tip'=>'',
-		'rows'=>3
-	));
-
-	echo Bootstrap::formInputText(array(
-		'name'=>'template',
-		'label'=>$L->g('Template'),
-		'value'=>isset($categoryMap['template'])?$categoryMap['template']:'',
-		'class'=>'',
-		'placeholder'=>'',
-		'tip'=>''
-	));
-
-	echo Bootstrap::formInputText(array(
-		'name'=>'newKey',
-		'label'=>$L->g('Friendly URL'),
-		'value'=>$categoryMap['key'],
-		'class'=>'',
-		'placeholder'=>'',
-		'tip'=>DOMAIN_CATEGORIES.$categoryMap['key']
-	));
-
-echo Bootstrap::formClose();
-
+echo Bootstrap::formInputText(array(
+	'name' => 'friendlyURL',
+	'label' => $L->g('Friendly URL'),
+	'value' => $categoryMap['key'],
+	'tip' => DOMAIN_CATEGORIES . $categoryMap['key']
+));
 ?>
 
-<!-- Modal for delete category -->
-<?php
-	echo Bootstrap::modal(array(
-		'buttonPrimary'=>$L->g('Delete'),
-		'buttonPrimaryClass'=>'btn-danger jsbuttonDeleteAccept',
-		'buttonSecondary'=>$L->g('Cancel'),
-		'buttonSecondaryClass'=>'btn-link',
-		'modalTitle'=>$L->g('Delete category'),
-		'modalText'=>$L->g('Are you sure you want to delete this category?'),
-		'modalId'=>'jsdeleteModal'
-	));
-?>
 <script>
-$(document).ready(function() {
-	// Delete content
-	$(".jsbuttonDeleteAccept").on("click", function() {
-		$("#jsaction").val("delete");
-		$("#jsform").submit();
+	$(document).ready(function() {
+		$('#btnSave').on('click', function() {
+			var name = $('#name').val();
+			var friendlyURL = $('#friendlyURL').val();
+
+			if ((name.length < 1) || (friendlyURL.length < 1)) {
+				showAlertError("<?php $L->p('Complete all fields') ?>");
+				return false;
+			}
+
+			var args = {
+				key: $('#key').val(),
+				name: name,
+				description: $('#description').val(),
+				friendlyURL: $('#friendlyURL').val(),
+				template: $('#template').val()
+			};
+			api.editCategory(args).then(function(key) {
+				logs('Category edited. Key: ' + key);
+				showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+			});
+			return true;
+		});
+
+		$('#btnDelete').on('click', function() {
+			var key = $('#key').val();
+			logs('Deleting category. Key: ' + key);
+			var args = {
+				key: key
+			};
+			api.deleteCategory(args).then(function(key) {
+				logs('Category deleted. Key: ' + key);
+				window.location.replace(HTML_PATH_ADMIN_ROOT + 'categories');
+			});
+			return true;
+		});
 	});
-});
 </script>

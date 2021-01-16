@@ -57,7 +57,7 @@ echo Bootstrap::formInputText(array(
 			var confirmPassword = $('#confirmPassword').val();
 
 			if (username.length < 1) {
-				showAlertError("<?php $L->p('Please complete the username field.') ?>");
+				showAlertError("<?php $L->p('Complete all fields') ?>");
 				return false;
 			}
 
@@ -81,8 +81,6 @@ echo Bootstrap::formInputText(array(
 				logs('User created. Username: ' + username);
 				window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
 			});
-
-			showAlertInfo("User created.");
 			return true;
 		});
 	});

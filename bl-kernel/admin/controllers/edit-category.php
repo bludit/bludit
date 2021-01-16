@@ -1,7 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // ============================================================================
-// Check role
+// Authorization
 // ============================================================================
 
 checkRole(array('admin'));
@@ -11,26 +11,9 @@ checkRole(array('admin'));
 // ============================================================================
 
 // ============================================================================
-// Main before POST
+// Main
 // ============================================================================
 
-// ============================================================================
-// POST Method
-// ============================================================================
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if ($_POST['action']=='delete') {
-		deleteCategory($_POST);
-	} elseif ($_POST['action']=='edit') {
-		editCategory($_POST);
-	}
-
-	Redirect::page('categories');
-}
-
-// ============================================================================
-// Main after POST
-// ============================================================================
 $categoryKey = $layout['parameters'];
 
 if (!$categories->exists($categoryKey)) {
@@ -40,5 +23,5 @@ if (!$categories->exists($categoryKey)) {
 
 $categoryMap = $categories->getMap($categoryKey);
 
-// Title of the page
-$layout['title'] .= ' - '.$L->g('Edit Category').' [ '.$categoryMap['name'] . ' ] ';
+// HTML <title>
+$layout['title'] = $L->g('Edit Category') . ' [ ' . $categoryMap['name'] . ' ] ' . ' - ' . $layout['title'];

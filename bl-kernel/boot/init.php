@@ -211,8 +211,9 @@ define('MARKDOWN_PARSER', $site->markdownParser());
 
 // --- PHP paths with dependency ---
 // This paths are absolutes for the OS
-define('THEME_DIR',			PATH_ROOT.'bl-themes'.DS.$site->theme().DS);
+define('THEME_DIR',				PATH_ROOT.'bl-themes'.DS.$site->theme().DS);
 define('THEME_DIR_PHP',			THEME_DIR.'php'.DS);
+define('THEME_DIR_TEMPLATES',	THEME_DIR.'templates'.DS);
 define('THEME_DIR_CSS',			THEME_DIR.'css'.DS);
 define('THEME_DIR_JS',			THEME_DIR.'js'.DS);
 define('THEME_DIR_IMG',			THEME_DIR.'img'.DS);

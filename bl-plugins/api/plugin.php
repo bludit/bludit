@@ -189,6 +189,16 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='POST') && ($parameters[0]==='categories') && empty($parameters[1]) && $writePermissions ) {
 			$data = $this->createCategory($inputs);
 		}
+		// (PUT) /api/categories/<key>
+		elseif ( ($method==='PUT') && ($parameters[0]==='categories') && !empty($parameters[1]) && $writePermissions ) {
+			$inputs['key'] = $parameters[1];
+			$data = $this->editCategory($inputs);
+		}
+		// (DELETE) /api/categories/<key>
+		elseif ( ($method==='DELETE') && ($parameters[0]==='categories') && !empty($parameters[1]) && $writePermissions ) {
+			$inputs['key'] = $parameters[1];
+			$data = $this->deleteCategory($inputs);
+		}
 		// (GET) /api/users
 		elseif ( ($method==='GET') && ($parameters[0]==='users') && empty($parameters[1]) ) {
 			$data = $this->getUsers();
@@ -644,9 +654,11 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	/*	Create a new category === Bludit v4
+		Referer to the function createCategory() from functions.php
+	*/
 	private function createCategory($args)
 	{
-		// This function is defined on functions.php
 		$key = createCategory($args);
 		if ($key===false) {
 			return array(
@@ -659,6 +671,45 @@ class pluginAPI extends Plugin {
 			'status'=>'0',
 			'message'=>'Category created.',
 			'data'=>array('key'=>$key)
+		);
+	}
+
+	/*	Edit a category === Bludit v4
+		Referer to the function editCategory() from functions.php
+	*/
+	private function editCategory($args)
+	{
+		$key = editCategory($args);
+		if ($key===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'An error occurred while trying to edit the category.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Category edited.',
+			'data'=>array('key'=>$key)
+		);
+	}
+
+	/*	Delete a category === Bludit v4
+		Referer to the function deleteCategory() from functions.php
+	*/
+	private function deleteCategory($args)
+	{
+		if (deleteCategory($args)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Category deleted.',
+				'data'=>array('key'=>$args['key'])
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'An error occurred while trying to delete the category.'
 		);
 	}
 

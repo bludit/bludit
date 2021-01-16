@@ -31,7 +31,7 @@ echo Bootstrap::formTextarea(array(
 			var name = $('#name').val();
 
 			if (name.length < 1) {
-				showAlertError("<?php $L->p('Please complete the name field.') ?>");
+				showAlertError("<?php $L->p('Complete all fields') ?>");
 				return false;
 			}
 
@@ -43,7 +43,6 @@ echo Bootstrap::formTextarea(array(
 				logs('Category created. Key: ' + key);
 				window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>');
 			});
-			showAlertInfo("Category created.");
 			return true;
 		});
 	});

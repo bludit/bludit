@@ -15,4 +15,4 @@ checkRole(array('admin'));
 // ============================================================================
 
 // HTML <title>
-$layout['title'] .= ' - '.$L->g('New category');
+$layout['title'] = $L->g('New category') . ' - ' . $layout['title'];

@@ -89,11 +89,11 @@
 	}
 
 	function disableBtnSave() {
-		$('#btnSave').addClass('btn-primary-disabled').html('<i class="bi bi-check-square"></i><?php $L->p('Saved') ?>');
+		$('#btnSave').addClass('btn-primary-disabled').attr('data-current', 'saved').html('<i class="bi bi-check-square"></i><?php $L->p('Saved') ?>');
 	}
 
 	function enableBtnSave() {
-		$('#btnSave').removeClass('btn-primary-disabled').html('<i class="bi bi-save"></i><?php $L->p('Save') ?>');
+		$('#btnSave').removeClass('btn-primary-disabled').attr('data-current', 'unsaved').html('<i class="bi bi-save"></i><?php $L->p('Save') ?>');
 	}
 
 	// This function is to catch all key press and provides shortcuts
@@ -117,6 +117,11 @@
 			return false;
 		}
 
+		// Ctrl+ or Command+ or Alt+ or Shift+ or Option+
+		if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) {
+			return true;
+		}
+
 		enableBtnSave();
 		return true;
 	}
@@ -128,8 +133,19 @@
 
 		// Main interface events
 		// ------------------------------------------------------------------------
+
+		// Catch all keypress for shortcuts or other actions
 		$(this).keydown(function(event) {
 			keypress(event);
+		});
+
+		// Warn the user to save the changes before leave
+		$(window).bind('beforeunload', function(e) {
+			if ($('#btnSave').attr('data-current')=='unsaved') {
+				(e || window.event).returnValue = '';
+				return '';
+			}
+			return undefined; // Return undefined to continue the unload
 		});
 
 		$('#btnSave').on('click', function() {
@@ -505,7 +521,7 @@
 			<!-- Toolbar > Save, Preview, Type and Options -->
 			<div id="editorToolbar" class="d-flex align-items-center mb-2">
 				<div id="editorToolbarLeft">
-					<button id="btnSave" type="button" class="btn btn-sm btn-primary btn-primary-disabled"><i class="bi bi-save"></i><?php $L->p('Saved') ?></button>
+					<button id="btnSave" type="button" data-current="saved" class="btn btn-sm btn-primary btn-primary-disabled"><i class="bi bi-save"></i><?php $L->p('Saved') ?></button>
 					<button id="btnPreview" type="button" class="btn btn-sm btn-primary"><i class="bi bi-box-arrow-up-right"></i><?php $L->p('Preview') ?></button>
 					<span id="btnCurrenType" class="ms-1">
 						<?php

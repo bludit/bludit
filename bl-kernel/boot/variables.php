@@ -110,4 +110,4 @@ $GLOBALS['DB_TAGS_TYPES'] = array('published','static','sticky');
 $GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');
 
 // Allowed image mime types
-$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml');
+$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'application/pdf');

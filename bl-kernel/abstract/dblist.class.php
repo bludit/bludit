@@ -99,6 +99,11 @@ class dbList extends dbJSON
 		return $key;
 	}
 
+	/*	Delete an item from the dblist === Bludit v4
+
+		@key			string			Key of the item to be deleted
+		@returns		boolean			Returns TRUE if the database was successfully saved, FALSE otherwise
+	*/
 	public function remove($key)
 	{
 		if (!isset($this->db[$key])) {
@@ -184,16 +189,21 @@ class dbList extends dbJSON
 		return false;
 	}
 
-	// Returns an array with a portion of the database filtered by key
-	// Returns array( 'key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array() )
+	/*	Returns an array with a portion of the database filtered by key === Bludit v4
+
+		@key			string			The item key
+		@returns		array/bool		Returns the following structure array('key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array()), FALSE if the key doesn't exist
+	*/
 	public function getMap($key)
 	{
-		if (isset($this->db[$key])) {
-			$tmp = $this->db[$key];
-			$tmp['key'] = $key;
-			return $tmp;
+		if (!$this->exists($key)) {
+			Log::set(__METHOD__.LOG_SEP.'The item doesn\'t exist. Key: '.$key);
+			return false;
 		}
-		return false;
+
+		$tmp = $this->db[$key];
+		$tmp['key'] = $key;
+		return $tmp;
 	}
 
 }

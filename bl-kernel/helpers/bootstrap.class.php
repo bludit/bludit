@@ -2,6 +2,15 @@
 
 class Bootstrap {
 
+	public static function formInputHidden($args)
+	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
+		$value = isset($args['value'])?$args['value']:'';
+
+		return '<input type="hidden" id="'.$id.'" name="'.$name.'" value="'.$value.'">';
+	}
+
 	// Floating Labels
 	// https://getbootstrap.com/docs/5.0/forms/floating-labels/
 	public static function formFloatingLabels($args)
@@ -399,10 +408,7 @@ EOF;
 
 
 
-	public static function formInputHidden($args)
-	{
-		return '<input type="hidden" id="'.$args['name'].'" name="'.$args['name'].'" value="'.$args['value'].'">';
-	}
+
 
 	public static function alert($args)
 	{

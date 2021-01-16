@@ -785,7 +785,12 @@ class Pages extends dbJSON {
 		return $tmp;
 	}
 
-	// Change all pages with the old category key to the new category key
+	/*	Change all pages linked to the old category key to the new category key === Bludit v4
+
+		@oldCategoryKey		string		The old category key
+		@newCategoryKey		string		The new category key
+		@returns			boolean		Returns TRUE if the database was saved, FALSE otherwise
+	*/
 	public function changeCategory($oldCategoryKey, $newCategoryKey)
 	{
 		foreach ($this->db as $key=>$value) {

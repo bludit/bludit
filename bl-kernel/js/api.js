@@ -194,6 +194,56 @@ class API {
 		}
 	}
 
+	/*	Edit a category
+
+		@args					array		Arguments can be any of the fields from a category
+		@returns				string		The category key
+	*/
+	async editCategory(args) {
+		var url = this.apiURL + "categories/" + args['key'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "PUT",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json.data.key;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Delete a category
+
+		@args					array		Array => (key: string)
+		@returns				string		The category key deleted
+	*/
+	async deleteCategory(args) {
+		var url = this.apiURL + "categories/" + args['key'];
+		var body = this.body;
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json.data.key;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
 	/*	Create a new user
 
 		@args					array		Arguments can be any of the fields from a user

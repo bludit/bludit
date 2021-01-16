@@ -15,4 +15,4 @@ checkRole(array('admin'));
 // ============================================================================
 
 // HTML <title>
-$layout['title'] .= ' - '.$L->g('New user');
+$layout['title'] = $L->g('New user') . ' - ' . $layout['title'];

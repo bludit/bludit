@@ -1,5 +1,16 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
+/* ----------------------------------------------------------------------------
+	Global functions
+	These function provides connectivity beteween differens objects and databases.
+	These function should provide different checks and logic before add/edit/delete into the databases.
+
+	For example the creation of a user should check:
+	- if the user already exists
+	- if the username is not empty
+	- if the password match with the differents security rules such as min length
+/* ----------------------------------------------------------------------------
+
 /*	Create a new page === Bludit v4
 
 	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
@@ -118,7 +129,7 @@ function deletePage($key) {
 
 /*	Create a new category === Bludit v4
 
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class categories.class.php. If you don't pass all the keys, the default values are used.
+	@args			array			Array => (name: string, template: string, description: string)
 	@returns		string/boolean	Returns the category key if the category is successfully created, FALSE otherwise
 */
 function createCategory($args) {
@@ -143,6 +154,82 @@ function createCategory($args) {
 
 	Log::set(__FUNCTION__.LOG_SEP.'The category already exists or some issue saving the database.', LOG_TYPE_ERROR);
 	return false;
+}
+
+/*	Edit a category === Bludit v4
+
+	@args			array			Array => (key: string, name: string, friendlyURL: string, template: string, description: string)
+	@returns		string/boolean	Returns the category key if the category is successfully edited, FALSE otherwise
+*/
+function editCategory($args) {
+	global $pages;
+	global $categories;
+	global $syslog;
+
+	if (Text::isEmpty($args['key'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category key is empty.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if (Text::isEmpty($args['name'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category name is empty.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if (Text::isEmpty($args['friendlyURL'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category friendlyURL is empty.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$args['oldKey'] = $args['key'];
+	$args['newKey'] = $args['friendlyURL'];
+	$finalKey = $categories->edit($args);
+
+	if ($finalKey==false) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category already exists.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Change the category key inside the pages database
+	if ($args['key']!==$finalKey) {
+		$pages->changeCategory($args['key'], $finalKey);
+	}
+
+	$syslog->add(array(
+		'dictionaryKey'=>'category-edited',
+		'notes'=>$finalKey
+	));
+
+	Log::set(__FUNCTION__.LOG_SEP.'Category edited.', LOG_TYPE_INFO);
+	return $finalKey;
+}
+
+/*	Delete a category === Bludit v4
+
+	@args			array			Array => (key: string)
+	@returns		boolean			Returns TRUE if the category was deleted, FALSE otherwise
+*/
+function deleteCategory($args) {
+	global $categories;
+	global $syslog;
+
+	if (Text::isEmpty($args['key'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The category key is empty.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if ($categories->remove($args['key'])===false) {
+		Log::set(__FUNCTION__.LOG_SEP.'Something happened when you tried to delete the category.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$syslog->add(array(
+		'dictionaryKey'=>'category-deleted',
+		'notes'=>$args['key']
+	));
+
+	Log::set(__FUNCTION__.LOG_SEP.'Category deleted.', LOG_TYPE_INFO);
+	return true;
 }
 
 /*	Create a new user === Bludit v4
@@ -727,56 +814,9 @@ function checkRole($allowRoles, $redirect=true) {
 
 
 
-function editCategory($args) {
-	global $L;
-	global $pages;
-	global $categories;
-	global $syslog;
 
-	if (Text::isEmpty($args['name']) || Text::isEmpty($args['newKey']) ) {
-		Alert::set($L->g('Empty fields'));
-		return false;
-	}
 
-	$newCategoryKey = $categories->edit($args);
 
-	if ($newCategoryKey==false) {
-		Alert::set($L->g('The category already exists'));
-		return false;
-	}
-
-	// Change the category key in the pages database
-	$pages->changeCategory($args['oldKey'], $newCategoryKey);
-
-	// Add to syslog
-	$syslog->add(array(
-		'dictionaryKey'=>'category-edited',
-		'notes'=>$newCategoryKey
-	));
-
-	Alert::set($L->g('The changes have been saved'));
-	return true;
-}
-
-function deleteCategory($args) {
-	global $L;
-	global $categories;
-	global $syslog;
-
-	// Remove the category by key
-	$categories->remove($args['oldKey']);
-
-	// Remove the category from the pages ? or keep it if the user want to recovery the category ?
-
-	// Add to syslog
-	$syslog->add(array(
-		'dictionaryKey'=>'category-deleted',
-		'notes'=>$args['oldKey']
-	));
-
-	Alert::set($L->g('The changes have been saved'));
-	return true;
-}
 
 // Returns an array with all the categories
 // By default, the database of categories is alphanumeric sorted
