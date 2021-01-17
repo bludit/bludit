@@ -5,6 +5,9 @@
 	If you are going to do some changes is recommended do it before the installation
 */
 
+// Including the version informations from version.php
+require_once PATH_KERNEL . 'boot' . DS . 'version.php';
+
 // Log
 define('LOG_SEP', ' | ');
 define('LOG_TYPE_INFO', '[INFO]');

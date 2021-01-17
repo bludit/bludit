@@ -79,7 +79,7 @@ class dbJSON {
 		if (file_put_contents($this->file, $data, LOCK_EX)) {
 			return true;
 		} else {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.', LOG_TYPE_ERROR);
+			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.', \LOG_TYPE_ERROR);
 			return false;
 		}
 	}

@@ -67,6 +67,17 @@ define('FILENAME', 'index.txt');
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
+// Log Variables
+define('LOG_TYPE_INFO', '[INFO]');
+define('LOG_TYPE_WARN', '[WARN]');
+define('LOG_TYPE_ERROR', '[ERROR]');
+
+define('DEBUG_MODE', TRUE);
+define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
+
+// Including the version informations from version.php
+require_once PATH_KERNEL . 'boot' . DS . 'version.php';
+
 if (!empty($_SERVER['HTTPS'])) {
 	define('PROTOCOL', 'https://');
 } else {
@@ -181,7 +192,7 @@ function getLanguageList() {
 	$tmp = array();
 	foreach ($files as $file) {
 		$t = new dbJSON($file, false);
-		$native = $t->db['language-data']['native'];
+		$native = $t->db['language-data']['native'] ?? false;
 		$locale = basename($file, '.json');
 		$tmp[$locale] = $native;
 	}
