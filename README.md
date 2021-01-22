@@ -13,6 +13,14 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - [Documentation](https://docs.bludit.com)
 - Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
 
+Bludit v4
+---------------
+I'm working on Bludit v4 but I don't have an ETA for the first alpha or beta version. You can follow the changes in the new branch `v4.0` and in the blog post [Bludit v4 Road map](https://blog.bludit.com/bludit-4-road-map).
+
+I'm doing a big refactor of Bludit's core so please be patient and let me release an Alpha version before push changes to the branch `v4.0`.
+
+Feedback and ideas are welcome, you can create an `issue` with the request; Please provide some examples of the idea in the `issue`.
+
 Follow Bludit
 ---------------
 
