@@ -108,7 +108,7 @@ include(PATH_HELPERS.'email.class.php');
 include(PATH_HELPERS.'filesystem.class.php');
 include(PATH_HELPERS.'alert.class.php');
 include(PATH_HELPERS.'paginator.class.php');
-include(PATH_HELPERS.'image.class.php');
+include(PATH_HELPERS.'simple-image.class.php');
 include(PATH_HELPERS.'tcp.class.php');
 include(PATH_HELPERS.'dom.class.php');
 include(PATH_HELPERS.'cookie.class.php');

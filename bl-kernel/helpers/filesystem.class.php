@@ -297,16 +297,12 @@ class Filesystem {
 	    return sprintf("%.{$decimals}f ", $bytes / pow(1024, $factor)) . @$size[$factor];
 	}
 
-	/*
-	 | Returns the mime type of the file
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return image/jpeg
-         |
-         | @file	[string]	Full path of the file
-         |
-         | @return	[string|bool]	Mime type as string or FALSE if not possible to get the mime type
-         */
+	/*	Returns the mime type of the file === Bludit v4
+
+		@file		string			Full path of the file. Example: /home/diego/dog.jpg
+
+		@return		string|bool		Mime type or FALSE if not possible to get the mime type. Example: image/jpeg
+	*/
 	public static function mimeType($file) {
 		if (function_exists('mime_content_type')) {
 			return mime_content_type($file);

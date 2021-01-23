@@ -63,7 +63,7 @@ class dbJSON {
 
 	/*	Save the JSON file
 
-		@returns		boolean			Returns TRUE if the file was saved successfully, FALSE otherwise
+		@return		boolean			Returns TRUE if the file was saved successfully, FALSE otherwise
 	*/
 	public function save()
 	{

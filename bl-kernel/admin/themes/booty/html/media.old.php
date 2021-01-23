@@ -181,7 +181,7 @@ function uploadImages() {
 		// Check file type/extension
 		const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
 		if (!validImageTypes.includes(images[i].type)) {
-			showMediaAlert("<?php echo $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']) ?>");
+			showMediaAlert("<?php echo $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSIONS']) ?>");
 			return false;
 		}
 

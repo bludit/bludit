@@ -84,13 +84,12 @@
 		logs('File Manager. Getting files for the current page: ' + _pageKey);
 		api.getPageFiles({
 			'pageKey': _pageKey
-		}).then(function(data) {
-			if (data.status == 0) {
-				fmDisplayFiles(data.data);
+		}).then(function(response) {
+			if (response.status == 0) {
+				fmDisplayFiles(response.data);
 			} else {
 				logs("File Manager. An error occurred while trying to get the files for the current page.");
-				// Alert the user about the error
-				showAlertError('File Manager. ' + data.message);
+				showAlertError(response.message);
 			}
 		});
 	}
@@ -138,7 +137,7 @@
 		const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'];
 		if (!validImageTypes.includes(file.type)) {
 			logs("File Manager. File type is not supported.");
-			showAlertError("<?php echo $L->g('File type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_IMG_EXTENSION']) ?>");
+			showAlertError("<?php echo $L->g('File type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ?>");
 			return false;
 		}
 
@@ -161,7 +160,7 @@
 		formData.append("authentication", api.body.authentication);
 
 		$.ajax({
-			url: api.apiURL + 'files/' + _pageKey,
+			url: api.apiURL + 'pages/files/' + _pageKey,
 			type: "POST",
 			data: formData,
 			cache: false,
@@ -179,8 +178,8 @@
 				}
 				return xhr;
 			}
-		}).done(function(data) {
-			if (data.status == 0) {
+		}).done(function(response) {
+			if (response.status == 0) {
 				logs("File Manager. File uploaded.");
 				// Progress bar
 				$('#progressUploadFile').addClass('d-none');
@@ -192,7 +191,7 @@
 				// Progress bar
 				$('#progressUploadFile').children('.progress-bar').addClass('bg-danger');
 				// Alert the user about the error
-				showAlertError('File Manager. ' + data.message);
+				showAlertError('File Manager. ' + response.message);
 			}
 		});
 	}

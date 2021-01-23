@@ -31,15 +31,20 @@
 	// Create the a page
 	// This function set the global variable "_pageKey"
 	function createPage() {
-		logs('Creating page');
-		api.createPage().then(function(key) {
-			logs('Page created. Key: ' + key);
-			// Set the global variable with the page key
-			_pageKey = key;
-			// Set Friendly URL
-			$('#friendlyURL').val(key);
-			// Get current files
-			fmGetFiles();
+		logs('Creating page.');
+		api.createPage().then(function(response) {
+			if (response.status == 0) {
+				logs('Page created. Key: ' + response.data.key);
+				// Set the global variable with the page key
+				_pageKey = response.data.key;
+				// Set Friendly URL
+				$('#friendlyURL').val(response.data.key);
+				// Get current files
+				fmGetFiles();
+			} else {
+				logs("An error occurred while trying to create the page.");
+				showAlertError(response.message);
+			}
 		});
 		return true;
 	}
@@ -55,19 +60,27 @@
 	// Save the current page
 	// This function set the global variable "_pageKey"
 	function savePage(args) {
-		logs('Saving page');
+		logs('Saving page.');
 
 		if (_pageKey == null) {
+			logs('Error, page not created.');
 			showAlertError("Error, page not created.");
 			return false;
 		}
 
 		args['pageKey'] = _pageKey;
-		api.savePage(args).then(function(key) {
-			logs('Page saved. Old key: ' + _pageKey + ' / New key: ' + key);
-			// Set the global variable with the page key
-			// The page key can change after save the page so you need to set again the variable
-			_pageKey = key;
+		api.savePage(args).then(function(response) {
+			if (response.status == 0) {
+				logs('Page saved. Old key: ' + _pageKey + ' / New key: ' + response.data.key);
+				// Set the global variable with the page key
+				// The page key can change after save the page so you need to set again the variable
+				_pageKey = response.data.key;
+				// Set friendly URL with the key
+				$('#friendlyURL').val(response.data.key);
+			} else {
+				logs('An error occurred while trying to save the current page.');
+				showAlertError(response.message);
+			}
 		});
 		return true;
 	}
@@ -141,7 +154,7 @@
 
 		// Warn the user to save the changes before leave
 		$(window).bind('beforeunload', function(e) {
-			if ($('#btnSave').attr('data-current')=='unsaved') {
+			if ($('#btnSave').attr('data-current') == 'unsaved') {
 				(e || window.event).returnValue = '';
 				return '';
 			}
@@ -153,7 +166,9 @@
 				title: $('#title').val(),
 				content: editorGetContent(),
 				category: $('#category option:selected').val(),
-				tags: $("#tags option:selected").map(function(){ return this.value }).get().join(",")
+				tags: $("#tags option:selected").map(function() {
+					return this.value
+				}).get().join(",")
 			}
 			savePage(args);
 			disableBtnSave();
@@ -218,8 +233,14 @@
 				parentKey: $('#parent').val(),
 				pageKey: _pageKey
 			}
-			api.friendlyURL(args).then(function(slug) {
-				$('#friendlyURL').val(slug);
+			api.friendlyURL(args).then(function(response) {
+				if (response.status == 0) {
+					logs('Friendly URL created: ' + response.data.slug);
+					$('#friendlyURL').val(response.data.slug);
+				} else {
+					logs('An error occurred while trying to generate a friendly URL for the page.');
+					showAlertError(response.message);
+				}
 			});
 		});
 
@@ -555,7 +576,9 @@
 							<a onclick="openModal('type')" class="dropdown-item" href="#"><i class="bi bi-eye"></i>Type</a>
 							<a onclick="openModal('seo')" class="dropdown-item" href="#"><i class="bi bi-compass"></i>SEO features</a>
 							<a onclick="openModal('parent')" class="dropdown-item" href="#"><i class="bi bi-diagram-2"></i>Parent page</a>
-							<a><hr class="dropdown-divider"></a>
+							<a>
+								<hr class="dropdown-divider">
+							</a>
 							<a onclick="fmOpen()" class="dropdown-item" href="#"><i class="bi bi-files"></i>Files & images</a>
 						</div>
 					</div>
@@ -604,7 +627,7 @@
 			<select id="tags" size="5" class="form-select" multiple aria-label="multiple select">
 				<?php
 				foreach ($tags->db as $key => $fields) {
-					echo '<option value="'.$key.'" '.($pageKey && in_array($key, $page->tags(true))?'selected':'').'>'.$fields['name'].'</option>';
+					echo '<option value="' . $key . '" ' . ($pageKey && in_array($key, $page->tags(true)) ? 'selected' : '') . '>' . $fields['name'] . '</option>';
 				}
 				?>
 			</select>

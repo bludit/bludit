@@ -178,7 +178,6 @@
     "edit-or-delete-your-categories": "Edit or delete your categories",
     "create-a-new-category-to-organize-your-content": "Create a new category to organize your content",
     "confirm-delete-this-action-cannot-be-undone": "Confirm delete, this action cannot be undone.",
-    "do-you-want-to-disable-the-user": "Do you want to disable the user ?",
     "new-password": "New password",
     "you-can-change-this-field-when-save-the-current-changes": "You can change this field when you save the current changes.",
     "items-per-page": "Items per page",
@@ -306,7 +305,6 @@
     "extreme-friendly-url": "Extreme friendly URL",
     "title-formats": "Title formats",
     "delete-content": "Delete content",
-    "are-you-sure-you-want-to-delete-this-page": "Are you sure you want to delete this page?",
     "sticky": "Sticky",
     "actions": "Actions",
     "edit": "Edit",
@@ -329,7 +327,6 @@
     "uncategorized": "Uncategorized",
     "done": "Done",
     "delete-category": "Delete category",
-    "are-you-sure-you-want-to-delete-this-category?": "Are you sure you want to delete this category?",
     "confirm-new-password": "Confirm new password",
     "the-nickname-is-almost-used-in-the-themes-to-display-the-author-of-the-content": "The nickname is almost used in the themes to display the author of the content",
     "allow-unicode": "Allow Unicode",
@@ -391,5 +388,11 @@
     "custom-fields": "Custom fields",
     "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
-    "view": "View"
+    "view": "View",
+    "confirm": "Confirm",
+    "are-you-sure-you-want-to-disable-this-user": "Are you sure you want to disable this user?",
+    "are-you-sure-you-want-to-delete-the-profile-picture": "Are you sure you want to delete the profile picture?",
+    "are-you-sure-you-want-to-delete-this-user": "Are you sure you want to delete this user?",
+    "are-you-sure-you-want-to-delete-this-page": "Are you sure you want to delete this page?",
+    "are-you-sure-you-want-to-delete-this-category?": "Are you sure you want to delete this category?"
 }

@@ -39,9 +39,14 @@ echo Bootstrap::formTextarea(array(
 				name: name,
 				description: $('#description').val()
 			};
-			api.createCategory(args).then(function(key) {
-				logs('Category created. Key: ' + key);
-				window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>');
+			api.createCategory(args).then(function(response) {
+				if (response.status == 0) {
+					logs('Category created. Key: ' + response.data.key);
+					window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>');
+				} else {
+					logs("An error occurred while trying to create the category.");
+					showAlertError(response.message);
+				}
 			});
 			return true;
 		});

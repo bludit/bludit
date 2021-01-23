@@ -39,6 +39,7 @@
 		'select2.full.min.js',
 		'tagsinput-revisited.min.js',
 		'functions.js',
+		'bootbox.all.min.js',
 		'api.js'
 	), DOMAIN_CORE_JS);
 	?>

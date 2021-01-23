@@ -236,7 +236,7 @@ class Page {
 
 	/*	Returns the template for the page === Bludit v4
 
-		@returns		string/boolean	Returns the template for the page or FALSE if the page haven't a template assigned
+		@return		string/boolean	Returns the template for the page or FALSE if the page haven't a template assigned
 	*/
 	public function template()
 	{

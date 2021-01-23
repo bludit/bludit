@@ -56,6 +56,9 @@ EOF;
 			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
 		}
 		$html .= '</select>';
+		if (!empty($args['tip'])) {
+			$html .= '<div class="form-text">'.$args['tip'].'</div>';
+		}
 		$html .= '</div>';
 		$html .= '</div>';
 
@@ -197,6 +200,14 @@ return <<<EOF
 EOF;
 	}
 
+	public static function formTitle($args)
+	{
+		$title = $args['title'];
+return <<<EOF
+<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">$title</h6>
+EOF;
+	}
+
 
 	// -- OLD --------
 	public static function modal($args) {
@@ -255,13 +266,7 @@ return <<<EOF
 EOF;
 	}
 
-	public static function formTitle($args)
-	{
-		$title = $args['title'];
-return <<<EOF
-<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">$title</h6>
-EOF;
-	}
+
 
 	public static function formInputTextBlock($args)
 	{

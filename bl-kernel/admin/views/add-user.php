@@ -77,9 +77,14 @@ echo Bootstrap::formInputText(array(
 				role: $('#role').val(),
 				email: $('#email').val()
 			};
-			api.createUser(args).then(function(username) {
-				logs('User created. Username: ' + username);
-				window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
+			api.createUser(args).then(function(response) {
+				if (response.status == 0) {
+					logs('User created. Username: ' + response.data.username);
+					window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
+				} else {
+					logs('An error occurred while trying to create the user.');
+					showAlertError(response.message);
+				}
 			});
 			return true;
 		});

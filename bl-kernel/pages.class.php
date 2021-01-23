@@ -37,7 +37,7 @@ class Pages extends dbJSON {
 	/*	Get the database row associated to a page
 
 		@key			string				The key of the page to be fetch
-		@returns		array/boolean		Return an array with the database for a page, FALSE otherwise
+		@return		array/boolean		Return an array with the database for a page, FALSE otherwise
 	*/
 	public function getPageDB($key)
 	{
@@ -50,7 +50,7 @@ class Pages extends dbJSON {
 
 	/*	Check if a page key exists in the database
 
-		@returns		boolean			Return TRUE if the page exists, FALSE otherwise
+		@return		boolean			Return TRUE if the page exists, FALSE otherwise
 	*/
 	public function exists($key)
 	{
@@ -60,7 +60,7 @@ class Pages extends dbJSON {
 	/*	Create a new page === Bludit v4
 
 		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-		@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+		@return		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
 	*/
 	public function add($args)
 	{
@@ -154,6 +154,12 @@ class Pages extends dbJSON {
 			return false;
 		}
 
+		// Create the thumbnails directory for the page
+		if (Filesystem::mkdir(PATH_UPLOADS_THUMBNAILS.$key, true) === false) {
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the directory: '.PATH_UPLOADS_THUMBNAILS.$key, LOG_TYPE_ERROR);
+			return false;
+		}
+
 		// Create the index.txt and save the file
 		if (file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false) {
 			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the file: '.FILENAME, LOG_TYPE_ERROR);
@@ -178,7 +184,7 @@ class Pages extends dbJSON {
 	/*	Edit a page === Bludit v4
 
 		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-		@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
+		@return		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
 	*/
 	public function edit($args)
 	{
@@ -268,6 +274,11 @@ class Pages extends dbJSON {
 				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_UPLOADS_PAGES.$newKey, LOG_TYPE_ERROR);
 				return false;
 			}
+
+			if (Filesystem::mv(PATH_UPLOADS_THUMBNAILS.$key, PATH_UPLOADS_THUMBNAILS.$newKey) === false) {
+				Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_UPLOADS_THUMBNAILS.$newKey, LOG_TYPE_ERROR);
+				return false;
+			}
 		}
 
 		// If the content was passed via arguments replace the content
@@ -303,7 +314,7 @@ class Pages extends dbJSON {
 	/*	Delete a page === Bludit v4
 
 		@key			string			The key of the page to be deleted
-		@returns		boolean			Returns TRUE if the page was deleted successfully, FALSE otherwise
+		@return		boolean			Returns TRUE if the page was deleted successfully, FALSE otherwise
 	*/
 	public function delete($key)
 	{
@@ -327,6 +338,11 @@ class Pages extends dbJSON {
 		// Delete upload directory
 		if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
 			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
+		}
+
+		// Delete thumbnail directory
+		if (Filesystem::deleteRecursive(PATH_UPLOADS_THUMBNAILS.$key) === false) {
+			Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_UPLOADS_THUMBNAILS.$key, LOG_TYPE_ERROR);
 		}
 
 		// Remove from database
@@ -789,7 +805,7 @@ class Pages extends dbJSON {
 
 		@oldCategoryKey		string		The old category key
 		@newCategoryKey		string		The new category key
-		@returns			boolean		Returns TRUE if the database was saved, FALSE otherwise
+		@return			boolean		Returns TRUE if the database was saved, FALSE otherwise
 	*/
 	public function changeCategory($oldCategoryKey, $newCategoryKey)
 	{

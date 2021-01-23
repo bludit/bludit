@@ -35,7 +35,7 @@ class Sanitize {
 
 		@path		string	The path to check, could be a path with a file
 
-		@returns	boolean	Returns TRUE if the path exists and is not path traversal, FALSE otherwise
+		@return	boolean	Returns TRUE if the path exists and is not path traversal, FALSE otherwise
 	*/
 	public static function pathFile($path)
 	{

@@ -108,7 +108,7 @@ function table($type)
 							<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '">' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
 						</div>
 						<div>
-							<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</span>
+							<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $child->position() : $child->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
 						</div>
 						</td>';
 
@@ -267,29 +267,32 @@ function table($type)
 </div>
 <!-- End Content -->
 
-<!-- Modal Delete page -->
-<div class="modal" id="modalDeletePage" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-			<p class="fw-bold text-danger"><?php $L->p('Are you sure you want to delete this page') ?></p>
-			<p class="fw-bold" id="deletePageTip"></p>
-			</div>
-			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancel" type="button" class="btn fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnConfirm" type="button" class="btn fw-bold text-success"><i class="bi bi-check-square"></i>Confirm</button>
-			</div>
-		</div>
-	</div>
-</div>
 <script>
 	$(document).ready(function() {
-		// Button for delete a page
+
 		$(".btnDeletePage").on("click", function() {
 			var key = $(this).data('key');
-			$('#deletePageTip').html(key);
-			$('#modalDeletePage').modal('show');
+			logs('Deleting page. Key: ' + key);
+			bootbox.confirm({
+				message: '<?php $L->p('Are you sure you want to delete this page') ?>',
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+						className: 'btn-sm btn-secondary'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+						className: 'btn-sm btn-primary'
+					}
+				},
+				closeButton: false,
+				callback: function(result) {
+					if (result) {
+						// delete page
+					}
+				}
+			});
 		});
+
 	});
 </script>
-<!-- End Modal Delete page -->

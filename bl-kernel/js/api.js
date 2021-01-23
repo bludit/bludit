@@ -40,7 +40,7 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -51,7 +51,7 @@ class API {
 
 		@args['pageKey']		string		Page key from the page to edit
 		@args					array		Arguments can be any of the fields from a page
-		@returns				string		New page key
+		@return				string		New page key
 	*/
 	async savePage(args) {
 		var url = this.apiURL + "pages/" + args['pageKey'];
@@ -66,7 +66,7 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -78,7 +78,7 @@ class API {
 		@args['pageKey']		string		Page key for the page to generate the slug url
 		@args['text']			string		Text that you want to generate the slug url
 		@args['parentKey']		string		Parent page key if the page has one, if not empty string
-		@returns				string		Slug text
+		@return				string		Slug text
 	*/
 	async friendlyURL(args) {
 		var url = this.apiURL + "helper/friendly-url/";
@@ -91,7 +91,7 @@ class API {
 				method: "GET"
 			});
 			var json = await response.json();
-			return json.data;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -100,11 +100,11 @@ class API {
 
 	/*	Get all files uploaded for the page
 
-		@args['pageKey']		string
-		@returns				array
+		@args				string
+		@return				array
 	*/
 	async getPageFiles(args) {
-		var url = this.apiURL + "files/" + args['pageKey'];
+		var url = this.apiURL + "pages/files/" + args['pageKey'];
 		var parameters = "?token=" + this.body.token + "&authentication=" + this.body.authentication;
 		try {
 			const response = await fetch(url + parameters, {
@@ -118,36 +118,10 @@ class API {
 		}
 	}
 
-	/*	Upload files
-
-		@args['pageKey']		string
-		@returns				array
-	*/
-	async uploadPageFiles(args) {
-		var url = this.apiURL + "files/" + args['pageKey'];
-		var body = Object.assign({}, this.body, args);
-		try {
-			var response = await fetch(url, {
-				credentials: "same-origin",
-				method: "POST",
-				body: JSON.stringify(body),
-				headers: new Headers({
-					"Content-Type": "application/json"
-				})
-			});
-			var json = await response.json();
-			return json.data.key;
-		} catch (err) {
-			console.log(err);
-			return true;
-		}
-	}
-
-
 	/*	Save settings
 
-		@args					array		Arguments can be any of the fields from settings
-		@returns				array
+		@args				array		Arguments can be any of the fields from settings
+		@return				array
 	*/
 	async saveSettings(args) {
 		var url = this.apiURL + "settings";
@@ -162,7 +136,7 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -171,8 +145,8 @@ class API {
 
 	/*	Create a new category
 
-		@args					array		Arguments can be any of the fields from a category
-		@returns				string		New category key
+		@args				array		Arguments can be any of the fields from a category
+		@return				string		New category key
 	*/
 	async createCategory(args) {
 		var url = this.apiURL + "categories";
@@ -187,7 +161,7 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -196,8 +170,8 @@ class API {
 
 	/*	Edit a category
 
-		@args					array		Arguments can be any of the fields from a category
-		@returns				string		The category key
+		@args				array		Arguments can be any of the fields from a category
+		@return				string		The category key
 	*/
 	async editCategory(args) {
 		var url = this.apiURL + "categories/" + args['key'];
@@ -212,7 +186,7 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -221,8 +195,8 @@ class API {
 
 	/*	Delete a category
 
-		@args					array		Array => (key: string)
-		@returns				string		The category key deleted
+		@args				array		Array => (key: string)
+		@return				string		The category key deleted
 	*/
 	async deleteCategory(args) {
 		var url = this.apiURL + "categories/" + args['key'];
@@ -237,7 +211,32 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Delete the profile picture from a user
+
+		@args				array		Array => (username: string)
+		@return				string		The username
+	*/
+	async deleteProfilePicture(args) {
+		var url = this.apiURL + "users/picture/" + args['username'];
+		var body = this.body;
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;
@@ -246,8 +245,8 @@ class API {
 
 	/*	Create a new user
 
-		@args					array		Arguments can be any of the fields from a user
-		@returns				string		Returns the username created
+		@args				array		Arguments can be any of the fields from a user
+		@return				string		Returns the username created
 	*/
 	async createUser(args) {
 		var url = this.apiURL + "users";
@@ -262,7 +261,32 @@ class API {
 				})
 			});
 			var json = await response.json();
-			return json.data.key;
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Disable an user
+
+		@args				array		Array => (username: string, enabled: bool)
+		@return				string		The username
+	*/
+	async disableUser(args) {
+		var url = this.apiURL + 'users/' + args['username'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "PUT",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
 		} catch (err) {
 			console.log(err);
 			return true;

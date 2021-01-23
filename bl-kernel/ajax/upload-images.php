@@ -57,8 +57,8 @@ foreach ($_FILES['images']['name'] as $uuid=>$filename) {
 	// Check file extension
 	$fileExtension = Filesystem::extension($filename);
 	$fileExtension = Text::lowercase($fileExtension);
-	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
-		$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ) {
+		$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSIONS']);
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}

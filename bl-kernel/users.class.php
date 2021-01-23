@@ -51,17 +51,22 @@ class Users extends dbJSON {
 		return isset($this->db[$username]);
 	}
 
-	// Disable the user
+	/*	Disable an user === Bludit v4
+
+		@username		string			The username to be disabled
+		@return			string			Returns the username
+	*/
 	public function disableUser($username)
 	{
 		$this->db[$username]['password'] = '!';
-		return $this->save();
+		$this->save();
+		return $username;
 	}
 
 	/*	Create a new user === Bludit v4
 
 		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-		@returns		string/boolean	Returns the username if the user is successfully created, FALSE otherwise
+		@return		string/bool	Returns the username if the user is successfully created, FALSE otherwise
 	*/
 	public function add($args)
 	{
@@ -103,11 +108,20 @@ class Users extends dbJSON {
 		return $username;
 	}
 
-	// Edit an user
-	public function set($args)
+	/*	Edit an user === Bludit v4
+
+		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+		@return			string/bool		Returns the username if the user is successfully created, FALSE otherwise
+	*/
+	public function edit($args)
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
+
+		// The following fields can not be changed via edit the user
+		unset($args['salt']);
+		unset($args['tokenAuth']);
+		unset($args['registered']);
 
 		// Current database of the user
 		$row = $this->db[$username];
@@ -137,7 +151,8 @@ class Users extends dbJSON {
 
 		// Save the database
 		$this->db[$username] = $row;
-		return $this->save();
+		$this->save();
+		return $username;
 	}
 
 	// Delete an user

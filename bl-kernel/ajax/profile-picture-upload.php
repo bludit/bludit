@@ -29,8 +29,8 @@ if (Text::stringContains($username, DS, false)) {
 // Check file extension
 $fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
-if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
-	$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']);
+if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ) {
+	$message = $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSIONS']);
 	Log::set($message, LOG_TYPE_ERROR);
 	ajaxResponse(1, $message);
 }

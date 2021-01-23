@@ -46,7 +46,7 @@ function save() {
 	});
 
 	logs('Saving settings');
-	api.saveSettings(args).then(function() {
+	api.saveSettings(args).then(function(response) {
 		logs('Settings saved');
 	});
 

@@ -78,7 +78,7 @@ class dbList extends dbJSON
 	/*	Add a new item to the dblist === Bludit v4
 
 		@args			array			The array $args supports the following keys 'name', 'template', 'description', list'
-		@returns		string/boolean	Returns the item's key if the item was successfully added, FALSE otherwise
+		@return		string/boolean	Returns the item's key if the item was successfully added, FALSE otherwise
 	*/
 	public function add($args)
 	{
@@ -102,7 +102,7 @@ class dbList extends dbJSON
 	/*	Delete an item from the dblist === Bludit v4
 
 		@key			string			Key of the item to be deleted
-		@returns		boolean			Returns TRUE if the database was successfully saved, FALSE otherwise
+		@return		boolean			Returns TRUE if the database was successfully saved, FALSE otherwise
 	*/
 	public function remove($key)
 	{
@@ -192,7 +192,7 @@ class dbList extends dbJSON
 	/*	Returns an array with a portion of the database filtered by key === Bludit v4
 
 		@key			string			The item key
-		@returns		array/bool		Returns the following structure array('key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array()), FALSE if the key doesn't exist
+		@return		array/bool		Returns the following structure array('key'=>'', 'name'=>'', 'template'=>'', 'description'=>'', list'=>array()), FALSE if the key doesn't exist
 	*/
 	public function getMap($key)
 	{

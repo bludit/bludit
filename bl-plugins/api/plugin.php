@@ -83,6 +83,11 @@ class pluginAPI extends Plugin {
 			$this->response(400, 'Bad Request', array('message'=>'Missing endpoint parameters.'));
 		}
 
+		$parmA = isset($parameters[0])?$parameters[0]:'';
+		$parmB = isset($parameters[1])?$parameters[1]:'';
+		$parmC = isset($parameters[2])?$parameters[2]:'';
+		$parmD = isset($parameters[3])?$parameters[3]:'';
+
 		// API TOKEN
 		// ------------------------------------------------------------
 		// Token from the plugin, the user can change it on the settings of the plugin
@@ -129,103 +134,141 @@ class pluginAPI extends Plugin {
 		// ENDPOINTS
 		// ------------------------------------------------------------
 
+		// /api/pages
+		// /api/pages/files
+		// /api/pages/files/:key
+		// /api/pages/files/:parent/:key
+		// /api/pages/:key
+		// /api/pages/:parent/:key
+
 		// (GET) /api/pages
-		if ( ($method==='GET') && ($parameters[0]==='pages') && empty($parameters[1]) ) {
+		if ( ($method==='GET') && ($parmA==='pages') && empty($parmB) ) {
 			$data = $this->getPages($inputs);
 		}
-		// (GET) /api/pages/<key>
-		elseif ( ($method==='GET') && ($parameters[0]==='pages') && !empty($parameters[1]) ) {
-			$pageKey = $parameters[1];
-			if (isset($parameters[2])) {
-				$pageKey = $parameters[1].'/'.$parameters[2];
-			}
-			$data = $this->getPage($pageKey);
-		}
-		// (PUT) /api/pages/<key>
-		elseif ( ($method==='PUT') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
-			$inputs['key'] = $parameters[1];
-			$data = $this->editPage($inputs);
-		}
-		// (DELETE) /api/pages/<key>
-		elseif ( ($method==='DELETE') && ($parameters[0]==='pages') && !empty($parameters[1]) && $writePermissions ) {
-			$pageKey = $parameters[1];
-			$data = $this->deletePage($pageKey);
-		}
 		// (POST) /api/pages
-		elseif ( ($method==='POST') && ($parameters[0]==='pages') && empty($parameters[1]) && $writePermissions ) {
+		elseif ( ($method==='POST') && ($parmA==='pages') && empty($parmB) && $writePermissions ) {
 			$data = $this->createPage($inputs);
 		}
+		// (GET) /api/pages/files/:key
+		elseif ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
+			$key = $parmC;
+			if (!empty($parmD)) {
+				$key = $parmC.'/'.$parmD;
+			}
+			$data = $this->getFiles($key);
+		}
+		// (POST) /api/pages/files/:key
+		elseif ( ($method==='POST') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) && $writePermissions ) {
+			$key = $parmC;
+			if (!empty($parmD)) {
+				$key = $parmC.'/'.$parmD;
+			}
+			$data = $this->uploadPageFile($key);
+		}
+		// (DELETE) /api/pages/files/:key
+		elseif ( ($method==='DELETE') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) && $writePermissions ) {
+			$key = $parmC;
+			if (!empty($parmD)) {
+				$key = $parmC.'/'.$parmD;
+			}
+			// Delete file function
+		}
+		// (GET) /api/pages/:key
+		elseif ( ($method==='GET') && ($parmA==='pages') && !empty($parmB) ) {
+			$key = $parmB;
+			if (!empty($parmC)) {
+				$key = $parmB.'/'.$parmC;
+			}
+			$data = $this->getPage($key);
+		}
+		// (PUT) /api/pages/:key
+		elseif ( ($method==='PUT') && ($parmA==='pages') && !empty($parmB) && $writePermissions ) {
+			$inputs['key'] = $parmB;
+			if (!empty($parmC)) {
+				$inputs['key'] = $parmB.'/'.$parmC;
+			}
+			$data = $this->editPage($inputs);
+		}
+		// (DELETE) /api/pages/:key
+		elseif ( ($method==='DELETE') && ($parmA==='pages') && !empty($parmB) && $writePermissions ) {
+			$key = $parmB;
+			if (!empty($parmC)) {
+				$key = $parmB.'/'.$parmC;
+			}
+			$data = $this->deletePage($key);
+		}
 		// (GET) /api/settings
-		elseif ( ($method==='GET') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+		elseif ( ($method==='GET') && ($parmA==='settings') && empty($parmB) && $writePermissions ) {
 			$data = $this->getSettings();
 		}
 		// (PUT) /api/settings
-		elseif ( ($method==='PUT') && ($parameters[0]==='settings') && empty($parameters[1]) && $writePermissions ) {
+		elseif ( ($method==='PUT') && ($parmA==='settings') && empty($parmB) && $writePermissions ) {
 			$data = $this->editSettings($inputs);
 		}
-		// (POST) /api/images
-		elseif ( ($method==='POST') && ($parameters[0]==='images') && $writePermissions ) {
-			$data = $this->uploadImage($inputs);
-		}
 		// (GET) /api/tags
-		elseif ( ($method==='GET') && ($parameters[0]==='tags') && empty($parameters[1]) ) {
+		elseif ( ($method==='GET') && ($parmA==='tags') && empty($parmB) ) {
 			$data = $this->getTags();
 		}
-		// (GET) /api/tags/<key>
-		elseif ( ($method==='GET') && ($parameters[0]==='tags') && !empty($parameters[1]) ) {
-			$tagKey = $parameters[1];
-			$data = $this->getTag($tagKey);
+		// (GET) /api/tags/:key
+		elseif ( ($method==='GET') && ($parmA==='tags') && !empty($parmB) ) {
+			$key = $parmB;
+			$data = $this->getTag($key);
 		}
 		// (GET) /api/categories
-		elseif ( ($method==='GET') && ($parameters[0]==='categories') && empty($parameters[1]) ) {
+		elseif ( ($method==='GET') && ($parmA==='categories') && empty($parmB) ) {
 			$data = $this->getCategories();
 		}
-		// (GET) /api/categories/<key>
-		elseif ( ($method==='GET') && ($parameters[0]==='categories') && !empty($parameters[1]) ) {
-			$categoryKey = $parameters[1];
-			$data = $this->getCategory($categoryKey);
+		// (GET) /api/categories/:key
+		elseif ( ($method==='GET') && ($parmA==='categories') && !empty($parmB) ) {
+			$key = $parmB;
+			$data = $this->getCategory($key);
 		}
 		// (POST) /api/categories
-		elseif ( ($method==='POST') && ($parameters[0]==='categories') && empty($parameters[1]) && $writePermissions ) {
+		elseif ( ($method==='POST') && ($parmA==='categories') && empty($parmB) && $writePermissions ) {
 			$data = $this->createCategory($inputs);
 		}
-		// (PUT) /api/categories/<key>
-		elseif ( ($method==='PUT') && ($parameters[0]==='categories') && !empty($parameters[1]) && $writePermissions ) {
-			$inputs['key'] = $parameters[1];
+		// (PUT) /api/categories/:key
+		elseif ( ($method==='PUT') && ($parmA==='categories') && !empty($parmB) && $writePermissions ) {
+			$inputs['key'] = $parmB;
 			$data = $this->editCategory($inputs);
 		}
-		// (DELETE) /api/categories/<key>
-		elseif ( ($method==='DELETE') && ($parameters[0]==='categories') && !empty($parameters[1]) && $writePermissions ) {
-			$inputs['key'] = $parameters[1];
+		// (DELETE) /api/categories/:key
+		elseif ( ($method==='DELETE') && ($parmA==='categories') && !empty($parmB) && $writePermissions ) {
+			$inputs['key'] = $parmB;
 			$data = $this->deleteCategory($inputs);
 		}
 		// (GET) /api/users
-		elseif ( ($method==='GET') && ($parameters[0]==='users') && empty($parameters[1]) ) {
+		elseif ( ($method==='GET') && ($parmA==='users') && empty($parmB) ) {
 			$data = $this->getUsers();
 		}
-		// (GET) /api/users/<username>
-		elseif ( ($method==='GET') && ($parameters[0]==='users') && !empty($parameters[1]) ) {
-			$username = $parameters[1];
-			$data = $this->getUser($username);
-		}
-		// (GET) /api/users
-		elseif ( ($method==='POST') && ($parameters[0]==='users') && empty($parameters[1]) && $writePermissions ) {
+		// (POST) /api/users
+		elseif ( ($method==='POST') && ($parmA==='users') && empty($parmB) && $writePermissions ) {
 			$data = $this->createUser($inputs);
 		}
-		// (GET) /api/files/<page-key>
-		elseif ( ($method==='GET') && ($parameters[0]==='files') && !empty($parameters[1]) ) {
-			$pageKey = $parameters[1];
-			$data = $this->getFiles($pageKey);
+		// (POST) /api/users/picture/:username
+		elseif ( ($method==='POST') && ($parmA==='users') && ($parmB==='picture') && !empty($parmC) && $writePermissions ) {
+			$username = $parmC;
+			$data = $this->uploadProfilePicture($username);
 		}
-		// (POST) /api/files/<page-key>
-		elseif ( ($method==='POST') && ($parameters[0]==='files') && !empty($parameters[1]) ) {
-			$pageKey = $parameters[1];
-			$data = $this->uploadFile($pageKey);
+		// (DELETE) /api/users/picture/:username
+		elseif ( ($method==='DELETE') && ($parmA==='users') && ($parmB==='picture') && !empty($parmC) && $writePermissions ) {
+			$username = $parmC;
+			$data = $this->deleteProfilePicture($username);
 		}
-		// (GET) /api/helper/<helper-name>
-		elseif ( ($method==='GET') && ($parameters[0]==='helper') && !empty($parameters[1]) ) {
-			$helperName = $parameters[1];
-			if ($helperName=='friendly-url') {
+		// (GET) /api/users/:username
+		elseif ( ($method==='GET') && ($parmA==='users') && !empty($parmB) ) {
+			$username = $parmB;
+			$data = $this->getUser($username);
+		}
+		// (PUT) /api/users/:username
+		elseif ( ($method==='PUT') && ($parmA==='users') && !empty($parmB) ) {
+			$inputs['username'] = $parmB;
+			$data = $this->editUser($inputs);
+		}
+		// (GET) /api/helper/:name
+		elseif ( ($method==='GET') && ($parmA==='helper') && !empty($parmB) ) {
+			$name = $parmB;
+			if ($name=='friendly-url') {
 				$data = $this->getFriendlyURL($inputs);
 			}
 		}
@@ -493,69 +536,6 @@ class pluginAPI extends Plugin {
 	}
 
 	/*
-	| Upload an image and generate the thumbnails
-	| Returns the image and thumbnail URL
-	|
-	| @inputs		array
-	| @inputs['uuid']	string	Page UUID
-	| @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
-	|
-	| @return		array
-	*/
-	private function uploadImage($inputs)
-	{
-		// Set upload directory
-		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
-			$imageDirectory 	= PATH_UPLOADS_PAGES.$inputs['uuid'].DS;
-			$thumbnailDirectory 	= $imageDirectory.'thumbnails'.DS;
-			$imageEndpoint 		= DOMAIN_UPLOADS_PAGES.$inputs['uuid'].'/';
-			$thumbnailEndpoint 	= $imageEndpoint.'thumbnails'.'/';
-			if (!Filesystem::directoryExists($thumbnailDirectory)) {
-				Filesystem::mkdir($thumbnailDirectory, true);
-			}
-		} else {
-			$imageDirectory 	= PATH_UPLOADS;
-			$thumbnailDirectory 	= PATH_UPLOADS_THUMBNAILS;
-			$imageEndpoint 		= DOMAIN_UPLOADS;
-			$thumbnailEndpoint 	= DOMAIN_UPLOADS_THUMBNAILS;
-		}
-
-		if (!isset($_FILES['image'])) {
-			return array(
-				'status'=>'1',
-				'message'=>'No image sent.'
-			);
-		}
-
-		if ($_FILES['image']['error'] != 0) {
-			return array(
-				'status'=>'1',
-				'message'=>'Error uploading the image, maximum load file size allowed: '.ini_get('upload_max_filesize')
-			);
-		}
-
-		// Move from PHP tmp file to Bludit tmp directory
-		Filesystem::mv($_FILES['image']['tmp_name'], PATH_TMP.$_FILES['image']['name']);
-
-		// Transform image and create thumbnails
-		$image = transformImage(PATH_TMP.$_FILES['image']['name'], $imageDirectory, $thumbnailDirectory);
-		if ($image) {
-			$filename = Filesystem::filename($image);
-			return array(
-				'status'=>'0',
-				'message'=>'Image uploaded.',
-				'image'=>$imageEndpoint.$filename,
-				'thumbnail'=>$thumbnailEndpoint.$filename
-			);
-		}
-
-		return array(
-			'status'=>'1',
-			'message'=>'Image extension not allowed.'
-		);
-	}
-
-	/*
 	 | Get the settings
 	 |
 	 | @args	array
@@ -764,9 +744,11 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	/*	Create a new user === Bludit v4
+		Referer to the function createUser() from functions.php
+	*/
 	private function createUser($args)
 	{
-		// This function is defined on functions.php
 		$key = createUser($args);
 		if ($key===false) {
 			return array(
@@ -782,51 +764,82 @@ class pluginAPI extends Plugin {
 		);
 	}
 
-	/*
-	| Upload a file to a particular page
-	| Returns the file URL
-	|
-	| @inputs		array
-	| @inputs['uuid']	string	Page UUID
-	| @_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
-	|
-	| @return		array
+	/*	Edit an user === Bludit v4
+		Referer to the function editUser() from functions.php
 	*/
-	private function uploadFile($pageKey)
+	private function editUser($args)
 	{
-		if (!isset($_FILES['file'])) {
+		$key = editUser($args);
+		if ($key===false) {
 			return array(
 				'status'=>'1',
-				'message'=>'File not sent.'
+				'message'=>'An error occurred while trying to edit the user.'
 			);
 		}
 
-		if ($_FILES['file']['error'] != 0) {
+		return array(
+			'status'=>'0',
+			'message'=>'User edited.',
+			'data'=>array('key'=>$key)
+		);
+	}
+
+	/*	Upload a profile picture === Bludit v4
+		Referer to the function uploadProfilePicture() from functions.php
+	*/
+	private function uploadProfilePicture($username)
+	{
+		$data = uploadProfilePicture($username);
+		if ($data===false) {
 			return array(
 				'status'=>'1',
-				'message'=>'Error uploading the file.'
+				'message'=>'An error occurred while trying to upload the profile picture.'
 			);
 		}
 
-		$filename = $_FILES['file']['name'];
-		$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename;
-		$absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename;
-		if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
+		return array(
+			'status'=>'0',
+			'message'=>'Profile picture uploaded.',
+			'data'=>$data
+		);
+	}
+
+	/*	Delete a profile picture === Bludit v4
+		Referer to the function deleteProfilePicture() from functions.php
+	*/
+	private function deleteProfilePicture($username)
+	{
+		if (deleteProfilePicture($username)) {
 			return array(
 				'status'=>'0',
-				'message'=>'File uploaded.',
-				'filename'=>$filename,
-				'absolutePath'=>$absolutePath,
-				'absoluteURL'=>$absoluteURL,
-				'mime'=>Filesystem::mimeType($absolutePath),
-				'size'=>Filesystem::getSize($absolutePath),
-				'thumbnail'=>''
+				'message'=>'Profile picture deleted.',
+				'data'=>array('username'=>$username)
 			);
 		}
 
 		return array(
 			'status'=>'1',
-			'message'=>'Error moving the file to the final path.'
+			'message'=>'An error occurred while trying to delete the profile picture.'
+		);
+	}
+
+	/*	Upload a file to a particular page === Bludit v4
+		Referer to the function uploadPageFile() from functions.php
+	*/
+	private function uploadPageFile($pageKey)
+	{
+		$data = uploadPageFile($pageKey);
+		if ($data===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'An error occurred while trying to upload the file.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'File uploaded to the page.',
+			'data'=>$data
 		);
 	}
 
@@ -837,7 +850,7 @@ class pluginAPI extends Plugin {
 		@args['parentKey']	string
 		@args['pageKey']	string
 
-		@returns['data']	string	The slug string
+		@return['data']	string	The slug string
 	*/
 	private function getFriendlyURL($args)
 	{
@@ -847,7 +860,7 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'0',
 			'message'=>'Friendly URL generated.',
-			'data'=>$slug
+			'data'=>array('slug'=>$slug)
 		);
 	}
 
@@ -857,7 +870,7 @@ class pluginAPI extends Plugin {
 
 		@pageKey			string	The page's key
 
-		@returns['data']	array	The list of files
+		@return['data']	array	The list of files
     */
 	private function getFiles($pageKey)
 	{

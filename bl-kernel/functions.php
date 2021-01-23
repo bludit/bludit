@@ -14,7 +14,7 @@
 /*	Create a new page === Bludit v4
 
 	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+	@return		string/bool	Returns the page key if the page is successfully created, FALSE otherwise
 */
 function createPage($args) {
 	global $pages;
@@ -55,7 +55,7 @@ function createPage($args) {
 
 	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
 	@args['key']	string			The key of the page to be edited
-	@returns		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
+	@return		string/bool	Returns the page key if the page is successfully edited, FALSE otherwise
 */
 function editPage($args) {
 	global $pages;
@@ -99,7 +99,7 @@ function editPage($args) {
 /*	Delete a page === Bludit v4
 
 	@key			string			The key of the page to be deleted
-	@returns		string/boolean	Returns TRUE if the page is successfully deleted, FALSE otherwise
+	@return		string/bool	Returns TRUE if the page is successfully deleted, FALSE otherwise
 */
 function deletePage($key) {
 	global $pages;
@@ -130,7 +130,7 @@ function deletePage($key) {
 /*	Create a new category === Bludit v4
 
 	@args			array			Array => (name: string, template: string, description: string)
-	@returns		string/boolean	Returns the category key if the category is successfully created, FALSE otherwise
+	@return		string/bool	Returns the category key if the category is successfully created, FALSE otherwise
 */
 function createCategory($args) {
 	global $categories;
@@ -159,7 +159,7 @@ function createCategory($args) {
 /*	Edit a category === Bludit v4
 
 	@args			array			Array => (key: string, name: string, friendlyURL: string, template: string, description: string)
-	@returns		string/boolean	Returns the category key if the category is successfully edited, FALSE otherwise
+	@return		string/bool	Returns the category key if the category is successfully edited, FALSE otherwise
 */
 function editCategory($args) {
 	global $pages;
@@ -207,7 +207,7 @@ function editCategory($args) {
 /*	Delete a category === Bludit v4
 
 	@args			array			Array => (key: string)
-	@returns		boolean			Returns TRUE if the category was deleted, FALSE otherwise
+	@return		bool			Returns TRUE if the category was deleted, FALSE otherwise
 */
 function deleteCategory($args) {
 	global $categories;
@@ -236,7 +236,7 @@ function deleteCategory($args) {
 	This function should check everthing, such as empty username, emtpy password, password lenght, etc
 
 	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@returns		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
+	@return		string/bool	Returns the page key if the page is successfully created, FALSE otherwise
 */
 function createUser($args) {
 	global $users;
@@ -266,6 +266,232 @@ function createUser($args) {
 	}
 
 	Log::set(__FUNCTION__.LOG_SEP.'The user already exists or some issue saving the database.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Edit an user === Bludit v4
+
+	@args				array			The array $args supports all the keys from the variable $dbFields of the class users.class.php. If you don't pass all the keys, the default values are used.
+	@args['disable']	bool			If you set this variable the user will be disabled
+	@return				string/bool		Returns the username if the user was successfully disabled, FALSE otherwise
+*/
+function editUser($args) {
+	global $users;
+	global $syslog;
+
+	if (Text::isEmpty($args['username'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Empty username.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if (!$users->exists($args['username'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'Username doesn\'t exist.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if (isset($args['disable'])) {
+		$login = new Login();
+		if ($login->role()!=='admin') {
+			Log::set(__FUNCTION__.LOG_SEP.'Only the administrator can disable users.', LOG_TYPE_ERROR);
+			return false;
+		}
+
+		$key = $users->disableUser($args['username']);
+		if ($key) {
+			Log::set(__FUNCTION__.LOG_SEP.'User disabled.', LOG_TYPE_INFO);
+			return $key;
+		}
+	}
+
+	$key = $users->edit($args);
+	if ($key) {
+		$syslog->add(array(
+			'dictionaryKey'=>'user-edited',
+			'notes'=>$args['username']
+		));
+
+		Log::set(__FUNCTION__.LOG_SEP.'User edited.', LOG_TYPE_INFO);
+		return $key;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'An error occurred while trying to edit the user.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Upload a profile picture === Bludit v4
+	The profile picture is saved in PATH_UPLOADS_PROFILES.$username.png
+
+	@username	string	Username
+	@_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+
+	@return		array
+*/
+function uploadProfilePicture($username) {
+	if (!isset($_FILES['file'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'File not sent.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if ($_FILES['file']['error'] != 0) {
+		Log::set(__FUNCTION__.LOG_SEP.'Error uploading the file.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check path traversal
+	if (Text::stringContains($username, DS, false)) {
+		Log::set(__FUNCTION__.LOG_SEP.'Path traversal detected.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file extension
+	$fileExtension = Filesystem::extension($_FILES['file']['name']);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ) {
+		Log::set(__FUNCTION__.LOG_SEP.'Image type is not supported.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file MIME Type
+	$fileMimeType = Filesystem::mimeType($_FILES['file']['tmp_name']);
+	if ($fileMimeType!==false) {
+		if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+			Log::set(__FUNCTION__.LOG_SEP.'Image mime type is not supported.', LOG_TYPE_ERROR);
+			return false;
+		}
+	}
+
+	// Move the image from PHP tmp folder to Bludit tmp folder
+	$filename = $username.'.'.$fileExtension;
+	Filesystem::mv($_FILES['file']['tmp_name'], PATH_TMP.$filename);
+
+	$finalFilename = $username.'.png';
+	$absolutePath = PATH_UPLOADS_PROFILES.$finalFilename;
+	$absoluteURL = DOMAIN_UPLOADS_PROFILES.$finalFilename;
+
+	try {
+		$image = new \claviska\SimpleImage();
+		$image
+			->fromFile(PATH_TMP.$filename)
+			->autoOrient()
+			->thumbnail(PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'center')
+			->toFile($absolutePath, 'image/png');
+	} catch(Exception $e) {
+		Log::set(__FUNCTION__.LOG_SEP.$e->getMessage(), LOG_TYPE_ERROR);
+		return false;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Image profile uploaded to the user.', LOG_TYPE_INFO);
+	return array(
+		'filename'=>$filename,
+		'absolutePath'=>$absolutePath,
+		'absoluteURL'=>$absoluteURL,
+		'mime'=>Filesystem::mimeType($absolutePath),
+		'size'=>Filesystem::getSize($absolutePath)
+	);
+}
+
+/*	Delete a profile picture === Bludit v4
+
+	@username	string	Username
+
+	@return		bool	Returns TRUE if the profile pictures is deleted succesfully, FALSE otherwise
+*/
+function deleteProfilePicture($username) {
+	// Check path traversal
+	if (Text::stringContains($username, DS, false)) {
+		Log::set(__FUNCTION__.LOG_SEP.'Path traversal detected.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$finalFilename = $username.'.png';
+	$absolutePath = PATH_UPLOADS_PROFILES.$finalFilename;
+
+	if (Sanitize::pathFile($absolutePath)) {
+		Filesystem::rmfile($absolutePath);
+		Log::set(__FUNCTION__.LOG_SEP.'Profile picture deleted.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Error when try to delete the profile picture, the file doesn\'t exists.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Upload a file to a page === Bludit v4
+	The files is saved in
+
+	@pageKey	string	Page key
+	@_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+
+	@return		array
+*/
+function uploadPageFile($pageKey) {
+	global $site;
+
+	if (!isset($_FILES['file'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'File not sent.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if ($_FILES['file']['error'] != 0) {
+		Log::set(__FUNCTION__.LOG_SEP.'Error uploading the file.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check path traversal
+	if (Text::stringContains($pageKey, DS, false)) {
+		Log::set(__FUNCTION__.LOG_SEP.'Path traversal detected.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file extension
+	$fileExtension = Filesystem::extension($_FILES['file']['name']);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_FILE_EXTENSIONS']) ) {
+		Log::set(__FUNCTION__.LOG_SEP.'File type is not supported.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file MIME Type
+	$fileMimeType = Filesystem::mimeType($_FILES['file']['tmp_name']);
+	if ($fileMimeType!==false) {
+		if (!in_array($fileMimeType, $GLOBALS['ALLOWED_FILE_MIMETYPES'])) {
+			Log::set(__FUNCTION__.LOG_SEP.'File mime type is not supported.', LOG_TYPE_ERROR);
+			return false;
+		}
+	}
+
+	$filename = $_FILES['file']['name'];
+	$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename;
+	$absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename;
+	if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
+		// Create thumbnail if the files is an image
+		$thumbnail = '';
+		if (in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+			try {
+				$thumbnail = PATH_UPLOADS_THUMBNAILS.$pageKey.DS.$filename;
+				$image = new \claviska\SimpleImage();
+				$image
+					->fromFile($absolutePath)
+					->thumbnail($site->thumbnailWidth(), $site->thumbnailHeight(), 'center')
+					->toFile($thumbnail, 'image/jpeg');
+			} catch(Exception $e) {
+				Log::set(__FUNCTION__.LOG_SEP.$e->getMessage(), LOG_TYPE_ERROR);
+				return false;
+			}
+		}
+
+		Log::set(__FUNCTION__.LOG_SEP.'File uploaded to the page.', LOG_TYPE_INFO);
+		return array(
+			'filename'=>$filename,
+			'absolutePath'=>$absolutePath,
+			'absoluteURL'=>$absoluteURL,
+			'mime'=>Filesystem::mimeType($absolutePath),
+			'size'=>Filesystem::getSize($absolutePath),
+			'thumbnail'=>$thumbnail
+		);
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Error uploading the file.', LOG_TYPE_ERROR);
 	return false;
 }
 
@@ -575,54 +801,7 @@ function execPluginsByHook($hook, $args = array()) {
 
 
 
-function editUser($args) {
-	global $users;
-	global $syslog;
 
-	if ($users->set($args)) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'user-edited',
-			'notes'=>$args['username']
-		));
-
-		return true;
-	}
-
-	return false;
-}
-
-function disableUser($args) {
-	global $users;
-	global $login;
-	global $syslog;
-
-	// Arguments
-	$username = $args['username'];
-
-	// Only administrators can disable users
-	if ($login->role()!=='admin') {
-		return false;
-	}
-
-	// Check if the username exists
-	if (!$users->exists($username)) {
-		return false;
-	}
-
-	// Disable the user
-	if ($users->disableUser($username)) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'user-disabled',
-			'notes'=>$username
-		));
-
-		return true;
-	}
-
-	return false;
-}
 
 function deleteUser($args) {
 	global $users, $pages;
@@ -894,50 +1073,7 @@ function ajaxResponse($status=0, $message="", $data=array()) {
 	exit (json_encode($output));
 }
 
-/*
-| This function checks the image extension,
-| generate a new filename to not overwrite the exists,
-| generate the thumbnail,
-| and move the image to a proper place
-|
-| @file		string	Path and filename of the image
-| @imageDir	string	Path where the image is going to be stored
-| @thumbnailDir	string	Path where the thumbnail is going to be stored, if you don't set the variable is not going to create the thumbnail
-|
-| @return	string/boolean	Path and filename of the new image or FALSE if there were some error
-*/
-function transformImage($file, $imageDir, $thumbnailDir=false) {
-	global $site;
 
-	// Check image extension
-	$fileExtension = Filesystem::extension($file);
-	$fileExtension = Text::lowercase($fileExtension);
-	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION']) ) {
-		return false;
-	}
-
-	// Generate a filename to not overwrite current image if exists
-	$filename = Filesystem::filename($file);
-	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
-
-	// Move the image to a proper place and rename
-	$image = $imageDir.$nextFilename;
-	Filesystem::mv($file, $image);
-	chmod($image, 0644);
-
-	// Generate Thumbnail
-	if (!empty($thumbnailDir)) {
-		if ($fileExtension == 'svg') {
-			symlink($image, $thumbnailDir.$nextFilename);
-		} else {
-			$Image = new Image();
-			$Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
-			$Image->saveImage($thumbnailDir.$nextFilename, $site->thumbnailQuality(), true);
-		}
-	}
-
-	return $image;
-}
 
 function downloadRestrictedFile($file) {
 	if (is_file($file)) {
