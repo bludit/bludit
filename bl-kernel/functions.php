@@ -2,10 +2,10 @@
 
 /* ----------------------------------------------------------------------------
 	Global functions
-	These function provides connectivity beteween differens objects and databases.
+	These functions provide connectivity between different objects and databases.
 	These function should provide different checks and logic before add/edit/delete into the databases.
 
-	For example the creation of a user should check:
+	For example, the creation of a user should check:
 	- if the user already exists
 	- if the username is not empty
 	- if the password match with the differents security rules such as min length
@@ -13,8 +13,8 @@
 
 /*	Create a new page === Bludit v4
 
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@return		string/bool	Returns the page key if the page is successfully created, FALSE otherwise
+	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php
+	@return			string/bool		Returns the page key on successful create, FALSE otherwise
 */
 function createPage($args) {
 	global $pages;
@@ -47,15 +47,15 @@ function createPage($args) {
 	}
 
 	Log::set(__FUNCTION__.LOG_SEP.'Something happened when you tried to create the page.', LOG_TYPE_ERROR);
-	deletePage($key);
+	deletePage(array('key'=>$key));
 	return false;
 }
 
 /*	Edit a page === Bludit v4
 
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@args['key']	string			The key of the page to be edited
-	@return		string/bool	Returns the page key if the page is successfully edited, FALSE otherwise
+	@args				array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php
+	@args['key']		string			The key of the page to be edited
+	@return				string/bool		Returns the page key on successful edit, FALSE otherwise
 */
 function editPage($args) {
 	global $pages;
@@ -98,16 +98,16 @@ function editPage($args) {
 
 /*	Delete a page === Bludit v4
 
-	@key			string			The key of the page to be deleted
-	@return		string/bool	Returns TRUE if the page is successfully deleted, FALSE otherwise
+	@key			string			Array => (key: string)
+	@return			string/bool		Returns the page key on successful delete, FALSE otherwise
 */
-function deletePage($key) {
+function deletePage($args) {
 	global $pages;
 	global $syslog;
 
-	if ($pages->delete($key)) {
+	if ($pages->delete($args['key'])) {
 		// Call the plugins after page deleted
-		execPluginsByHook('afterPageDelete', array($key));
+		execPluginsByHook('afterPageDelete', array($args['key']));
 
 		// Reindex categories and tags
 		reindexCategories();
@@ -116,7 +116,7 @@ function deletePage($key) {
 		// Add to syslog
 		$syslog->add(array(
 			'dictionaryKey'=>'content-deleted',
-			'notes'=>$key
+			'notes'=>$args['key']
 		));
 
 		Log::set(__FUNCTION__.LOG_SEP.'Page deleted.', LOG_TYPE_INFO);
@@ -130,7 +130,7 @@ function deletePage($key) {
 /*	Create a new category === Bludit v4
 
 	@args			array			Array => (name: string, template: string, description: string)
-	@return		string/bool	Returns the category key if the category is successfully created, FALSE otherwise
+	@return			string/bool		Returns the category key on successful create, FALSE otherwise
 */
 function createCategory($args) {
 	global $categories;
@@ -159,7 +159,7 @@ function createCategory($args) {
 /*	Edit a category === Bludit v4
 
 	@args			array			Array => (key: string, name: string, friendlyURL: string, template: string, description: string)
-	@return		string/bool	Returns the category key if the category is successfully edited, FALSE otherwise
+	@return			string/bool		Returns the category key on successful edit, FALSE otherwise
 */
 function editCategory($args) {
 	global $pages;
@@ -190,7 +190,7 @@ function editCategory($args) {
 		return false;
 	}
 
-	// Change the category key inside the pages database
+	// Re-link all pages with the new category key
 	if ($args['key']!==$finalKey) {
 		$pages->changeCategory($args['key'], $finalKey);
 	}
@@ -207,7 +207,7 @@ function editCategory($args) {
 /*	Delete a category === Bludit v4
 
 	@args			array			Array => (key: string)
-	@return		bool			Returns TRUE if the category was deleted, FALSE otherwise
+	@return			bool			Returns TRUE on successful delete, FALSE otherwise
 */
 function deleteCategory($args) {
 	global $categories;
@@ -235,8 +235,8 @@ function deleteCategory($args) {
 /*	Create a new user === Bludit v4
 	This function should check everthing, such as empty username, emtpy password, password lenght, etc
 
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php. If you don't pass all the keys, the default values are used.
-	@return		string/bool	Returns the page key if the page is successfully created, FALSE otherwise
+	@args			array				The array $args supports all the keys from the variable $dbFields of the class users.class.php
+	@return			string/bool			Returns the username on successful create, FALSE otherwise
 */
 function createUser($args) {
 	global $users;
@@ -271,9 +271,10 @@ function createUser($args) {
 
 /*	Edit an user === Bludit v4
 
-	@args				array			The array $args supports all the keys from the variable $dbFields of the class users.class.php. If you don't pass all the keys, the default values are used.
+	@args				array			The array $args supports all the keys from the variable $dbFields of the class users.class.php
 	@args['disable']	bool			If you set this variable the user will be disabled
-	@return				string/bool		Returns the username if the user was successfully disabled, FALSE otherwise
+	@args['password']	string			If you set this variable a new password will be set for the user
+	@return				string/bool		Returns the username on successful edit, FALSE otherwise
 */
 function editUser($args) {
 	global $users;
@@ -289,9 +290,10 @@ function editUser($args) {
 		return false;
 	}
 
+	// Disable the user
+	// Your should pass the argument 'disable'
 	if (isset($args['disable'])) {
-		$login = new Login();
-		if ($login->role()!=='admin') {
+		if (Session::get('role')!=='admin') {
 			Log::set(__FUNCTION__.LOG_SEP.'Only the administrator can disable users.', LOG_TYPE_ERROR);
 			return false;
 		}
@@ -319,12 +321,12 @@ function editUser($args) {
 }
 
 /*	Upload a profile picture === Bludit v4
-	The profile picture is saved in PATH_UPLOADS_PROFILES.$username.png
+	The profile picture is store in PATH_UPLOADS_PROFILES.$username.png
 
-	@username	string	Username
-	@_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+	@username		string		Username
+	@_FILE			array		https://www.php.net/manual/en/reserved.variables.files.php
 
-	@return		array
+	@return			array
 */
 function uploadProfilePicture($username) {
 	if (!isset($_FILES['file'])) {
@@ -392,9 +394,9 @@ function uploadProfilePicture($username) {
 
 /*	Delete a profile picture === Bludit v4
 
-	@username	string	Username
+	@username		string		Username
 
-	@return		bool	Returns TRUE if the profile pictures is deleted succesfully, FALSE otherwise
+	@return			bool		Returns TRUE on successful delete, FALSE otherwise
 */
 function deleteProfilePicture($username) {
 	// Check path traversal
@@ -419,10 +421,10 @@ function deleteProfilePicture($username) {
 /*	Upload a file to a page === Bludit v4
 	The files is saved in
 
-	@pageKey	string	Page key
-	@_FILE		array	https://www.php.net/manual/en/reserved.variables.files.php
+	@pageKey		string		Page key
+	@_FILE			array		https://www.php.net/manual/en/reserved.variables.files.php
 
-	@return		array
+	@return			array
 */
 function uploadPageFile($pageKey) {
 	global $site;
@@ -932,40 +934,6 @@ function editSettings($args) {
 	return false;
 }
 
-function changeUserPassword($args) {
-	global $users;
-	global $L;
-	global $syslog;
-
-	// Arguments
-	$username = $args['username'];
-	$newPassword = $args['newPassword'];
-	$confirmPassword = $args['confirmPassword'];
-
-	// Password length
-	if (Text::length($newPassword) < 6) {
-		Alert::set($L->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	if ($newPassword!=$confirmPassword) {
-		Alert::set($L->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
-		return false;
-	}
-
-	if ($users->setPassword(array('username'=>$username, 'password'=>$newPassword))) {
-		// Add to syslog
-		$syslog->add(array(
-			'dictionaryKey'=>'user-password-changed',
-			'notes'=>$username
-		));
-
-		Alert::set($L->g('The changes have been saved'), ALERT_STATUS_OK);
-		return true;
-	}
-
-	return false;
-}
 
 // Returns true if the user is allowed to proceed
 function checkRole($allowRoles, $redirect=true) {

@@ -137,13 +137,21 @@
 			'tip' => $L->g('this-token-is-similar-to-a-password-it-should-not-be-shared')
 		));
 
-		echo Bootstrap::formTitle(array('title' => $L->g('Password')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Change password')));
 
-		echo '
-		<div class="form-group">
-			<a href="' . HTML_PATH_ADMIN_ROOT . 'user-password/' . $user->username() . '" class="btn btn-primary me-2">' . $L->g('Change password') . '</a>
-		</div>
-		';
+		echo Bootstrap::formInputText(array(
+			'name' => 'newPassword',
+			'label' => $L->g('New password'),
+			'type' => 'password',
+			'value' => '',
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'confirmPassword',
+			'label' => $L->g('Confirm password'),
+			'type' => 'password',
+			'value' => '',
+		));
 		?>
 	</div>
 	<!-- End Tab security -->
@@ -247,6 +255,77 @@
 <script>
 	$(document).ready(function() {
 
+		$('#btnSave').on('click', function() {
+			var username = $('#username').val();
+			var newPassword = $('#newPassword').val();
+			var confirmPassword = $('#confirmPassword').val();
+
+			// Change the password if the user write a new one in the input
+			if (newPassword) {
+				if (newPassword.length < PASSWORD_LENGTH) {
+					showAlertError("<?php $L->p('Password must be at least 6 characters long') ?>");
+					return false;
+				}
+
+				if (newPassword !== confirmPassword) {
+					showAlertError("<?php $L->p('The password and confirmation password do not match') ?>");
+					return false;
+				}
+
+				bootbox.confirm({
+					message: '<?php $L->p('Are you sure you want to change the password') ?>',
+					buttons: {
+						cancel: {
+							label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+							className: 'btn-sm btn-secondary'
+						},
+						confirm: {
+							label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+							className: 'btn-sm btn-primary'
+						}
+					},
+					closeButton: false,
+					callback: function(result) {
+						if (result) {
+							// The user accepted the action to change the password
+							var args = {
+								username: username,
+								password: $('#newPassword').val()
+							};
+							api.editUser(args).then(function(response) {
+								if (response.status == 0) {
+									logs('User password changed. Username: ' + response.data.key);
+									showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+								} else {
+									logs('An error occurred while trying to change the user password.');
+									showAlertError(response.message);
+								}
+							});
+						}
+						$('#newPassword').val('');
+						$('#confirmPassword').val('');
+						return true;
+					}
+				});
+			}
+
+			// Edit the user properties
+			var args = {
+				username: username,
+				role: $('#role').val(),
+				email: $('#email').val()
+			};
+			api.editUser(args).then(function(response) {
+				if (response.status == 0) {
+					logs('User edited. Username: ' + response.data.key);
+				} else {
+					logs('An error occurred while trying to edit the user.');
+					showAlertError(response.message);
+				}
+			});
+
+		});
+
 		$('#inputProfilePicture').on("change", function(e) {
 			var inputProfilePicture = $('#inputProfilePicture')[0].files;
 			var username = $('#username').val();
@@ -311,7 +390,7 @@
 						};
 						api.deleteProfilePicture(args).then(function(response) {
 							if (response.status == 0) {
-								logs('Profile picture deleted. Username: ' + response.data.username);
+								logs('Profile picture deleted. Username: ' + response.data.key);
 								showAlertInfo("<?php $L->p('The changes have been saved') ?>");
 								$('#profilePicturePreview').attr('src', '<?php echo HTML_PATH_CORE_IMG . 'default.svg' ?>');
 							} else {
@@ -347,10 +426,10 @@
 							username: $('#username').val(),
 							disable: true
 						};
-						api.disableUser(args).then(function(response) {
+						api.editUser(args).then(function(response) {
 							if (response.status == 0) {
-								logs('User disabled. Username: ' + response.data.username);
-								showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+								logs('User disabled. Username: ' + response.data.key);
+								window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
 							} else {
 								logs("An error occurred while trying to disable the user.");
 								showAlertError(response.message);

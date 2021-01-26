@@ -195,7 +195,7 @@ class pluginAPI extends Plugin {
 			if (!empty($parmC)) {
 				$key = $parmB.'/'.$parmC;
 			}
-			$data = $this->deletePage($key);
+			$data = $this->deletePage(array('key'=>$key));
 		}
 		// (GET) /api/settings
 		elseif ( ($method==='GET') && ($parmA==='settings') && empty($parmB) && $writePermissions ) {
@@ -520,9 +520,9 @@ class pluginAPI extends Plugin {
 		);
 	}
 
-	private function deletePage($key)
+	private function deletePage($args)
 	{
-		if (deletePage($key)) {
+		if (deletePage($args)) {
 			return array(
 				'status'=>'0',
 				'message'=>'Page deleted.'

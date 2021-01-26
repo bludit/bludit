@@ -31,7 +31,7 @@ foreach ($list as $username) {
 		echo '<td class="pt-3 pb-3"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
 		echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">'.$user->nickname().'</td>';
 		echo '<td class="pt-3 pb-3">'.$user->email().'</td>';
-		echo '<td class="pt-3 pb-3">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':$L->g('Disabled')).'</td>';
+		echo '<td class="pt-3 pb-3">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':'<b class="text-danger">'.$L->g('Disabled').'</b>').'</td>';
 		if ($user->role()=='admin') {
 			echo '<td class="pt-3 pb-3">'.$L->g('Administrator').'</td>';
 		} elseif ($user->role()=='editor') {

@@ -268,13 +268,13 @@ class API {
 		}
 	}
 
-	/*	Disable an user
+	/*	Edit an user
 
-		@args				array		Array => (username: string, enabled: bool)
+		@args				array		Arguments can be any of the fields from an user
 		@return				string		The username
 	*/
-	async disableUser(args) {
-		var url = this.apiURL + 'users/' + args['username'];
+	async editUser(args) {
+		var url = this.apiURL + "users/" + args['username'];
 		var body = Object.assign({}, this.body, args);
 		try {
 			var response = await fetch(url, {
