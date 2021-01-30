@@ -437,6 +437,15 @@
 			'placeholder'=>'',
 			'tip'=>''
 		));
+		
+		echo Bootstrap::formInputText(array(
+			'name'=>'youtube',
+			'label'=>'YouTube',
+			'value'=>$site->youtube(),
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
 	?>
 	</div>
 

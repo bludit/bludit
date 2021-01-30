@@ -154,6 +154,11 @@ class User {
 	{
 		return $this->getValue('vk');
 	}
+	
+	public function youtube()
+	{
+		return $this->getValue('youtube');
+	}
 
 	public function profilePicture()
 	{
@@ -181,6 +186,7 @@ class User {
 		$tmp['xing'] 		= $this->xing();
 		$tmp['mastodon']	= $this->mastodon();
 		$tmp['vk']		= $this->vk();
+		$tmp['youtube']	= $this->youtube();
 		$tmp['profilePicture']	= $this->profilePicture();
 
 		if ($returnsArray) {

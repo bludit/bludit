@@ -394,6 +394,7 @@ function install($adminPassword, $timezone)
 		'gitlab'=>'',
 		'linkedin'=>'',
 		'xing'=>'',
+		'youtube'=>'',
 		'dateFormat'=>'F j, Y',
 		'extremeFriendly'=>true,
 		'autosaveInterval'=>2,
@@ -431,7 +432,8 @@ function install($adminPassword, $timezone)
 			'linkedin'=>'',
 			'xing'=>'',
 			'github'=>'',
-			'gitlab'=>''
+			'gitlab'=>'',
+			'youtube'=>''
 		)
 	);
 	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
