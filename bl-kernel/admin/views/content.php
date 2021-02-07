@@ -72,31 +72,24 @@ function table($type)
 
 					echo '<td class="pt-3 pb-3">
 					<div>
-						<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
+						<span>' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 					</div>
-					<div>
-						<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem"> ' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
+					<div class="mt-1">
+						<a class="me-2" target="_blank" href="' . $page->permalink() . '">' . $L->g('View') . '</a>
+						<a class="me-2" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . $L->g('Edit') . '</a>
+					';
+
+					if (count($page->children()) == 0) {
+						echo '<span class="link btnDeletePage" data-key="' . $page->key() . '">Delete</span>';
+					}
+
+					echo '
 					</div>
 					</td>';
 
 					echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-					echo '<td class="pt-3 text-center d-sm-table-cell">
-					<div class="dropdown">
-					<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
-						<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
-					</button>
-					<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
-						<a class="dropdown-item" target="_blank" href="' . $page->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
-						<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
-						<a><hr class="dropdown-divider"></a>
-					';
-					if (count($page->children()) == 0) {
-						echo '<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $page->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>';
-					}
-					echo '</div>
-					</div>
-					</td>';
+					echo '<td class="pt-3 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 					echo '</tr>';
 
@@ -105,28 +98,18 @@ function table($type)
 
 						echo '<td class="ps-3 pt-3 pb-3">
 						<div>
-							<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '">' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
+							<span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 						</div>
-						<div>
-							<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $child->position() : $child->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
+						<div class="mt-1">
+							<a class="me-2" target="_blank" href="' . $child->permalink() . '">' . $L->g('View') . '</a>
+							<a class="me-2" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '">' . $L->g('Edit') . '</a>
+							<span class="link btnDeletePage" data-key="' . $child->key() . '">Delete</span>
 						</div>
 						</td>';
 
 						echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($child->category() ? $child->category() : $L->get('uncategorized')) . '</td>';
 
-						echo '<td class="pt-3 text-center d-sm-table-cell">
-						<div class="dropdown">
-						<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
-						</button>
-						<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
-							<a class="dropdown-item" target="_blank" href="' . $child->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
-							<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
-							<a><hr class="dropdown-divider"></a>
-							<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $child->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>
-						</div>
-						</div>
-						</td>';
+						echo '<td class="pt-3 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $child->position() : $child->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 						echo '</tr>';
 					}
@@ -143,28 +126,18 @@ function table($type)
 
 				echo '<td class="pt-3 pb-3">
 					<div>
-						<a href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</a>
+						' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '
 					</div>
-					<div>
-						<span class="m-0 text-uppercase text-muted" style="font-size: 0.8rem"> ' . (($type == 'scheduled') ? $L->g('Scheduled') . ': ' . $page->date(SCHEDULED_DATE_FORMAT) : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</span>
+					<div class="mt-1">
+						<a class="me-2" target="_blank" href="' . $page->permalink() . '">' . $L->g('View') . '</a>
+						<a class="me-2" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . $L->g('Edit') . '</a>
+						<span class="link btnDeletePage" data-key="' . $page->key() . '">Delete</span>
 					</div>
 				</td>';
 
 				echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-				echo '<td class="pt-3 text-center d-sm-table-cell">
-				<div class="dropdown">
-				<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="bi bi-gear"></i></span>' . $L->g('Options') . '
-				</button>
-				<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownOptions">
-					<a class="dropdown-item" target="_blank" href="' . $page->permalink() . '"><i class="bi bi-box-arrow-up-right"></i>' . $L->g('View') . '</a>
-					<a class="dropdown-item" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '"><i class="bi bi-pencil-square"></i>' . $L->g('Edit') . '</a>
-					<a><hr class="dropdown-divider"></a>
-					<a data-toggle="modal" data-target="#modalDeletePage" data-key="' . $page->key() . '" class="btnDeletePage dropdown-item" href="#"><i class="bi bi-trash"></i>' . $L->g('Delete') . '</a>
-				</div>
-				</div>
-				</td>';
+				echo '<td class="pt-3 text-center d-sm-table-cell"> ' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 				echo '</tr>';
 			} catch (Exception $e) {

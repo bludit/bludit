@@ -105,6 +105,11 @@ class User {
 		return $this->getValue('registered');
 	}
 
+	public function youtube()
+	{
+		return $this->getValue('youtube');
+	}
+
 	public function twitter()
 	{
 		return $this->getValue('twitter');
@@ -170,7 +175,8 @@ class User {
 		$tmp['firstName'] 	= $this->firstName();
 		$tmp['lastName'] 	= $this->lastName();
 		$tmp['nickname'] 	= $this->nickname();
-		$tmp['description'] 	= $this->description();
+		$tmp['description'] = $this->description();
+		$tmp['youtube'] 	= $this->youtube();
 		$tmp['twitter'] 	= $this->twitter();
 		$tmp['facebook'] 	= $this->facebook();
 		$tmp['codepen'] 	= $this->codepen();
@@ -180,7 +186,7 @@ class User {
 		$tmp['linkedin'] 	= $this->linkedin();
 		$tmp['xing'] 		= $this->xing();
 		$tmp['mastodon']	= $this->mastodon();
-		$tmp['vk']		= $this->vk();
+		$tmp['vk']			= $this->vk();
 		$tmp['profilePicture']	= $this->profilePicture();
 
 		if ($returnsArray) {

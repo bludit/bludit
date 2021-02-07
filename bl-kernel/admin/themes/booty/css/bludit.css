@@ -27,6 +27,16 @@ div.sidebar .nav-item h4 {
   cursor: pointer;
 }
 
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #555;
+}
+
+.link:hover {
+  color: #0a58ca;
+}
+
 /*
     OLD >>>>>>>>>
 */

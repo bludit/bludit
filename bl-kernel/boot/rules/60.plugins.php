@@ -29,6 +29,9 @@ $plugins = array(
 
 	'paginator'=>array(),
 
+	'beforePageModify'=>array(),
+	'beforePageDelete'=>array(),
+
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
 	'afterPageDelete'=>array(),

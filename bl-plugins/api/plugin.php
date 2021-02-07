@@ -265,6 +265,11 @@ class pluginAPI extends Plugin {
 			$inputs['username'] = $parmB;
 			$data = $this->editUser($inputs);
 		}
+		// (POST) /api/plugins/:key
+		elseif ( ($method==='POST') && ($parmA==='plugins') && !empty($parmB) ) {
+			$pluginClassName = $parmB;
+			$data = $this->activatePlugin($pluginClassName);
+		}
 		// (GET) /api/helper/:name
 		elseif ( ($method==='GET') && ($parmA==='helper') && !empty($parmB) ) {
 			$name = $parmB;
@@ -913,6 +918,25 @@ class pluginAPI extends Plugin {
 			'status'=>'0',
 			'message'=>'Files for the page key: '.$pageKey,
 			'data'=>$files
+		);
+	}
+
+	/*	Install and activate a plugin === Bludit v4
+		Referer to the function activatePlugin() from functions.php
+	*/
+	private function activatePlugin($pluginClassName)
+	{
+		if (activatePlugin($pluginClassName)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Plugin installed and activated.',
+				'data'=>array('key'=>$pluginClassName)
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'An error occurred while trying to install the plugin.'
 		);
 	}
 }

@@ -1,577 +1,559 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
 <script>
-// ============================================================================
-// Variables for the view
-// ============================================================================
+	// ============================================================================
+	// Variables for the view
+	// ============================================================================
 
-// ============================================================================
-// Functions for the view
-// ============================================================================
+	// ============================================================================
+	// Functions for the view
+	// ============================================================================
 
-// This function catch all key press
-// Provide shortcuts for the view
-function keypress(event) {
-	logs(event);
+	// This function catch all key press
+	// Provide shortcuts for the view
+	function keypress(event) {
+		logs(event);
 
-	// Shortcuts
-	// ------------------------------------------------------------------------
-	// Ctrl+S or Command+S
-	if ((event.ctrlKey || event.metaKey) && event.which == 83) {
-		save();
-		$('#btnSave').addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
-		event.preventDefault();
-		return false;
+		// Shortcuts
+		// ------------------------------------------------------------------------
+		// Ctrl+S or Command+S
+		if ((event.ctrlKey || event.metaKey) && event.which == 83) {
+			event.preventDefault();
+			save();
+			return false;
+		}
+
+		return true;
 	}
 
-	$('#btnSave').removeClass('btn-primary-disabled').html('<?php $L->p('Save') ?>');
-	return true;
-}
+	// Save the settings
+	function save() {
+		var args = {}
 
-function save() {
-	var args = {}
+		$('input[data-save="true"]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
 
-	// Get values from all inputs['text']
-	$('input[type=text]').each(function(){
-		var key = $(this).attr('name');
-		var value = $(this).val();
-		args[key] = value;
+		$('select[data-save="true"]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
+
+		api.saveSettings(args).then(function(response) {
+			if (response.status == 0) {
+				logs('Settings saved.');
+				showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+			} else {
+				logs('An error occurred while trying to save the settings.');
+				showAlertError(response.message);
+			}
+		});
+
+		return true;
+	}
+
+	// ============================================================================
+	// Events for the view
+	// ============================================================================
+	$(document).ready(function() {
+
+		$(this).keydown(function(event) {
+			keypress(event);
+		});
+
+		$('#btnSave').on('click', function() {
+			save();
+		});
+
 	});
 
-	// Get values from all selects
-	$('select').each(function() {
-		var key = $(this).attr('name');
-		var value = $(this).val();
-		args[key] = value;
+	// ============================================================================
+	// Initlization for the view
+	// ============================================================================
+	$(document).ready(function() {
+		// nothing here yet
+		// how do you hang your toilet paper ? over or under ?
 	});
-
-	logs('Saving settings');
-	api.saveSettings(args).then(function(response) {
-		logs('Settings saved');
-	});
-
-	return true;
-}
-
-// ============================================================================
-// Events for the view
-// ============================================================================
-$(document).ready(function() {
-
-	// Main interface events
-	// ------------------------------------------------------------------------
-	$(this).keydown(function(event){
-		keypress(event);
-	});
-
-	$('#btnSave').on('click', function() {
-		save();
-		$(this).addClass('btn-primary-disabled').html('<?php $L->p('Saved') ?>');
-	});
-
-});
-
-// ============================================================================
-// Initlization for the view
-// ============================================================================
-$(document).ready(function() {
-	// nothing here yet
-	// how do you hang your toilet paper ? over or under ?
-});
 </script>
 
-<div class="align-middle">
-	<div class="float-end mt-1">
-		<button type="button" class="btn btn-primary btn-sm btn-primary-disabled" id="btnSave"><?php $L->p('Saved') ?></button>
-		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
+<div class="d-flex align-items-center mb-4">
+	<h2 class="m-0"><i class="bi bi-gear"></i><?php $L->p('Settings') ?></h2>
+	<div class="ms-auto">
+		<button id="btnSave" type="button" class="btn btn-primary btn-sm"><?php $L->p('Save') ?></button>
+		<a id="btnCancel" class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Settings'), 'icon'=>'cog')); ?>
 </div>
 
 <!-- Tabs -->
-<nav>
-	<div class="nav nav-tabs ps-3" id="nav-tab" role="tablist">
-		<a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="nav-general" aria-selected="false"><?php $L->p('General') ?></a>
-		<a class="nav-item nav-link" id="nav-advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
-		<a class="nav-item nav-link" id="nav-seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
-		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
-		<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
-		<a class="nav-item nav-link" id="nav-language-tab" data-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
-		<a class="nav-item nav-link" id="nav-custom-fields-tab" data-toggle="tab" href="#custom-fields" role="tab" aria-controls="nav-custom-fields" aria-selected="false"><?php $L->p('Custom fields') ?></a>
-		<a class="nav-item nav-link" id="nav-logo-tab" data-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
-	</div>
-</nav>
+<ul class="nav nav-tabs ps-3 mb-3" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><?php $L->p('general') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="advanced-tab" data-bs-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><?php $L->p('advanced') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="seo-tab" data-bs-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false"><?php $L->p('seo') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="social-tab" data-bs-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="images-tab" data-bs-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('images') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="language-tab" data-bs-toggle="tab" href="#language" role="tab" aria-controls="language" aria-selected="false"><?php $L->p('language') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="custom-fields-tab" data-bs-toggle="tab" href="#custom-fields" role="tab" aria-controls="custom-fields" aria-selected="false"><?php $L->p('custom-fields') ?></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="logo-tab" data-bs-toggle="tab" href="#logo" role="tab" aria-controls="logo" aria-selected="false"><?php $L->p('Site logo') ?></a>
+	</li>
+</ul>
 <!-- End Tabs -->
 
-<div class="tab-content" id="myTabContent">
+<!-- Content -->
+<div class="tab-content" id="tabContent">
 
 	<!-- General tab -->
-	<div class="tab-pane show active pt-1 pb-1 ps-3 pe-3" id="general" role="tabpanel" aria-labelledby="general-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Site')));
+	<div class="tab-pane show active" id="general" role="tabpanel">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Site')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'title',
-			'label'=>$L->g('Site title'),
-			'value'=>$site->title(),
-			'tip'=>$L->g('use-this-field-to-name-your-site')
+			'name' => 'title',
+			'label' => $L->g('Site title'),
+			'value' => $site->title(),
+			'tip' => $L->g('use-this-field-to-name-your-site'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'slogan',
-			'label'=>$L->g('Site slogan'),
-			'value'=>$site->slogan(),
-			'tip'=>$L->g('use-this-field-to-add-a-catchy-phrase')
+			'name' => 'slogan',
+			'label' => $L->g('Site slogan'),
+			'value' => $site->slogan(),
+			'tip' => $L->g('use-this-field-to-add-a-catchy-phrase'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'description',
-			'label'=>$L->g('Site description'),
-			'value'=>$site->description(),
-			'tip'=>$L->g('you-can-add-a-site-description-to-provide')
+			'name' => 'description',
+			'label' => $L->g('Site description'),
+			'value' => $site->description(),
+			'tip' => $L->g('you-can-add-a-site-description-to-provide'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'footer',
-			'label'=>$L->g('Footer text'),
-			'value'=>$site->footer(),
-			'tip'=>$L->g('you-can-add-a-small-text-on-the-bottom')
+			'name' => 'footer',
+			'label' => $L->g('Footer text'),
+			'value' => $site->footer(),
+			'tip' => $L->g('you-can-add-a-small-text-on-the-bottom'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Content')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Autosave')));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'autosaveInterval',
+			'label' => $L->g('Interval'),
+			'value' => $site->autosaveInterval(),
+			'tip' => $L->g('Number in minutes for every execution of autosave'),
+			'data' => array('save' => 'true')
+		));
+
+
+		echo Bootstrap::formTitle(array('title' => $L->g('Content')));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'itemsPerPage',
-			'label'=>$L->g('Items per page'),
-			'options'=>array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8', '-1'=>$L->g('All content')),
-			'selected'=>$site->itemsPerPage(),
-			'tip'=>$L->g('Number of items to show per page')
+			'name' => 'itemsPerPage',
+			'label' => $L->g('Items per page'),
+			'options' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '-1' => $L->g('All content')),
+			'selected' => $site->itemsPerPage(),
+			'tip' => $L->g('Number of items to show per page'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'orderBy',
-			'label'=>$L->g('Order content by'),
-			'options'=>array('date'=>$L->g('Date'),'position'=>$L->g('Position')),
-			'selected'=>$site->orderBy(),
-			'tip'=>$L->g('order-the-content-by-date-to-build-a-blog')
+			'name' => 'orderBy',
+			'label' => $L->g('Order content by'),
+			'options' => array('date' => $L->g('Date'), 'position' => $L->g('Position')),
+			'selected' => $site->orderBy(),
+			'tip' => $L->g('order-the-content-by-date-to-build-a-blog'),
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 	<!-- End General tab -->
 
 	<!-- Advanced tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Page content')));
+	<div class="tab-pane" id="advanced" role="tabpanel">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Page content')));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'markdownParser',
-			'label'=>$L->g('Markdown parser'),
-			'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
-			'selected'=>($site->markdownParser()?'true':'false'),
-			'tip'=>$L->g('Enable the markdown parser for the content of the page.')
+			'name' => 'markdownParser',
+			'label' => $L->g('Markdown parser'),
+			'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+			'selected' => ($site->markdownParser() ? 'true' : 'false'),
+			'tip' => $L->g('Enable the markdown parser for the content of the page.'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Predefined pages')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Predefined pages')));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'homepage',
-			'label'=>$L->g('Homepage'),
-			'options'=>$options,
-			'selected'=>false,
-			'class'=>'',
-			'tip'=>$L->g('Returning page for the main page')
+			'name' => 'homepage',
+			'label' => $L->g('Homepage'),
+			'options' => array(), // Complete via Ajax
+			'selected' => false,
+			'tip' => $L->g('Returning page for the main page'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'pageNotFound',
-			'label'=>$L->g('Page not found'),
-			'options'=>$options,
-			'selected'=>false,
-			'class'=>'',
-			'tip'=>$L->g('Returning page when the page doesnt exist')
+			'name' => 'pageNotFound',
+			'label' => $L->g('Page not found'),
+			'options' => array(), // Complete via Ajax
+			'selected' => false,
+			'tip' => $L->g('Returning page when the page doesnt exist'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Email account settings')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Email account settings')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'emailFrom',
-			'label'=>$L->g('Sender email'),
-			'value'=>$site->emailFrom(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Emails will be sent from this address')
+			'name' => 'emailFrom',
+			'label' => $L->g('Sender email'),
+			'value' => $site->emailFrom(),
+			'tip' => $L->g('Emails will be sent from this address'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Autosave')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Site URL')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'autosaveInterval',
-			'label'=>$L->g('Interval'),
-			'value'=>$site->autosaveInterval(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Number in minutes for every execution of autosave')
+			'name' => 'url',
+			'label' => 'URL',
+			'value' => $site->url(),
+			'tip' => $L->g('full-url-of-your-site'),
+			'placeholder' => 'https://',
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Site URL')));
+		echo Bootstrap::formTitle(array('title' => $L->g('URL Filters')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'url',
-			'label'=>'URL',
-			'value'=>$site->url(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('full-url-of-your-site'),
-			'placeholder'=>'https://'
-		));
-
-		echo Bootstrap::formTitle(array('title'=>$L->g('URL Filters')));
-
-		echo Bootstrap::formInputText(array(
-			'name'=>'uriPage',
-			'label'=>$L->g('Pages'),
-			'value'=>$site->uriFilters('page'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_PAGES
+			'name' => 'uriPage',
+			'label' => $L->g('Pages'),
+			'value' => $site->uriFilters('page'),
+			'tip' => DOMAIN_PAGES,
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'uriTag',
-			'label'=>$L->g('Tags'),
-			'value'=>$site->uriFilters('tag'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_TAGS
+			'name' => 'uriTag',
+			'label' => $L->g('Tags'),
+			'value' => $site->uriFilters('tag'),
+			'tip' => DOMAIN_TAGS,
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'uriCategory',
-			'label'=>$L->g('Category'),
-			'value'=>$site->uriFilters('category'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN_CATEGORIES
+			'name' => 'uriCategory',
+			'label' => $L->g('Category'),
+			'value' => $site->uriFilters('category'),
+			'tip' => DOMAIN_CATEGORIES,
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'uriBlog',
-			'label'=>$L->g('Blog'),
-			'value'=>$site->uriFilters('blog'),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>DOMAIN.$site->uriFilters('blog'),
-			'disabled'=>Text::isEmpty($site->uriFilters('blog'))
+			'name' => 'uriBlog',
+			'label' => $L->g('Blog'),
+			'value' => $site->uriFilters('blog'),
+			'tip' => DOMAIN . $site->uriFilters('blog'),
+			'disabled' => Text::isEmpty($site->uriFilters('blog')),
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- SEO tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="seo" role="tabpanel" aria-labelledby="seo-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Extreme friendly URL')));
+	<div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Extreme friendly URL')));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'extremeFriendly',
-			'label'=>$L->g('Allow Unicode'),
-			'options'=>array('true'=>$L->g('Enabled'), 'false'=>$L->g('Disabled')),
-			'selected'=>($site->extremeFriendly()?'true':'false'),
-			'class'=>'',
-			'tip'=>$L->g('Allow unicode characters in the URL and some part of the system.')
+			'name' => 'extremeFriendly',
+			'label' => $L->g('Allow Unicode'),
+			'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+			'selected' => ($site->extremeFriendly() ? 'true' : 'false'),
+			'tip' => $L->g('Allow unicode characters in the URL and some part of the system.'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Title formats')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Title formats')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'titleFormatHomepage',
-			'label'=>$L->g('Homepage'),
-			'value'=>$site->titleFormatHomepage(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Variables allowed').' <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
-			'placeholder'=>''
+			'name' => 'titleFormatHomepage',
+			'label' => $L->g('Homepage'),
+			'value' => $site->titleFormatHomepage(),
+			'tip' => $L->g('Variables allowed') . ' <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'titleFormatPages',
-			'label'=>$L->g('Pages'),
-			'value'=>$site->titleFormatPages(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Variables allowed').' <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
-			'placeholder'=>''
+			'name' => 'titleFormatPages',
+			'label' => $L->g('Pages'),
+			'value' => $site->titleFormatPages(),
+			'tip' => $L->g('Variables allowed') . ' <code>{{page-title}}</code> <code>{{page-description}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'titleFormatCategory',
-			'label'=>$L->g('Category'),
-			'value'=>$site->titleFormatCategory(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Variables allowed').' <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
-			'placeholder'=>''
+			'name' => 'titleFormatCategory',
+			'label' => $L->g('Category'),
+			'value' => $site->titleFormatCategory(),
+			'class' => '',
+			'tip' => $L->g('Variables allowed') . ' <code>{{category-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'titleFormatTag',
-			'label'=>$L->g('Tag'),
-			'value'=>$site->titleFormatTag(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Variables allowed').' <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
-			'placeholder'=>''
+			'name' => 'titleFormatTag',
+			'label' => $L->g('Tag'),
+			'value' => $site->titleFormatTag(),
+			'tip' => $L->g('Variables allowed') . ' <code>{{tag-name}}</code> <code>{{site-title}}</code> <code>{{site-slogan}}</code> <code>{{site-description}}</code>',
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- Social Network tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="social" role="tabpanel" aria-labelledby="social-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Social Networks')));
+	<div class="tab-pane" id="social" role="tabpanel" aria-labelledby="social-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Social Networks')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'twitter',
-			'label'=>'Twitter',
-			'value'=>$site->twitter(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'twitter',
+			'label' => 'Twitter',
+			'value' => $site->twitter(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'facebook',
-			'label'=>'Facebook',
-			'value'=>$site->facebook(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'facebook',
+			'label' => 'Facebook',
+			'value' => $site->facebook(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'codepen',
-			'label'=>'CodePen',
-			'value'=>$site->codepen(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'codepen',
+			'label' => 'CodePen',
+			'value' => $site->codepen(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'instagram',
-			'label'=>'Instagram',
-			'value'=>$site->instagram(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'instagram',
+			'label' => 'Instagram',
+			'value' => $site->instagram(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'gitlab',
-			'label'=>'GitLab',
-			'value'=>$site->gitlab(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'gitlab',
+			'label' => 'GitLab',
+			'value' => $site->gitlab(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'github',
-			'label'=>'GitHub',
-			'value'=>$site->github(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'github',
+			'label' => 'GitHub',
+			'value' => $site->github(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'linkedin',
-			'label'=>'LinkedIn',
-			'value'=>$site->linkedin(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'linkedin',
+			'label' => 'LinkedIn',
+			'value' => $site->linkedin(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'xing',
-			'label'=>'Xing',
-			'value'=>$site->xing(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'xing',
+			'label' => 'Xing',
+			'value' => $site->xing(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'mastodon',
-			'label'=>'Mastodon',
-			'value'=>$site->mastodon(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'mastodon',
+			'label' => 'Mastodon',
+			'value' => $site->mastodon(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'dribbble',
-			'label'=>'Dribbble',
-			'value'=>$site->dribbble(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'dribbble',
+			'label' => 'Dribbble',
+			'value' => $site->dribbble(),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'vk',
-			'label'=>'VK',
-			'value'=>$site->vk(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>''
+			'name' => 'vk',
+			'label' => 'VK',
+			'value' => $site->vk(),
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- Images tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="images" role="tabpanel" aria-labelledby="images-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Thumbnails')));
+	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Thumbnails')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'thumbnailWidth',
-			'label'=>$L->g('Width'),
-			'value'=>$site->thumbnailWidth(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Thumbnail width in pixels')
+			'name' => 'thumbnailWidth',
+			'label' => $L->g('Width'),
+			'value' => $site->thumbnailWidth(),
+			'tip' => $L->g('Thumbnail width in pixels'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'thumbnailHeight',
-			'label'=>$L->g('Height'),
-			'value'=>$site->thumbnailHeight(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Thumbnail height in pixels')
+			'name' => 'thumbnailHeight',
+			'label' => $L->g('Height'),
+			'value' => $site->thumbnailHeight(),
+			'tip' => $L->g('Thumbnail height in pixels'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'thumbnailQuality',
-			'label'=>$L->g('Quality'),
-			'value'=>$site->thumbnailQuality(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Thumbnail quality in percentage')
+			'name' => 'thumbnailQuality',
+			'label' => $L->g('Quality'),
+			'value' => $site->thumbnailQuality(),
+			'tip' => $L->g('Thumbnail quality in percentage'),
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- Timezone and language tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="language" role="tabpanel" aria-labelledby="language-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Language and timezone')));
+	<div class="tab-pane" id="language" role="tabpanel" aria-labelledby="language-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Language and timezone')));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'language',
-			'label'=>$L->g('Language'),
-			'options'=>$L->getLanguageList(),
-			'selected'=>$site->language(),
-			'class'=>'',
-			'tip'=>$L->g('select-your-sites-language')
+			'name' => 'language',
+			'label' => $L->g('Language'),
+			'options' => $L->getLanguageList(),
+			'selected' => $site->language(),
+			'tip' => $L->g('select-your-sites-language'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formSelect(array(
-			'name'=>'timezone',
-			'label'=>$L->g('Timezone'),
-			'options'=>Date::timezoneList(),
-			'selected'=>$site->timezone(),
-			'class'=>'',
-			'tip'=>$L->g('select-a-timezone-for-a-correct')
+			'name' => 'timezone',
+			'label' => $L->g('Timezone'),
+			'options' => Date::timezoneList(),
+			'selected' => $site->timezone(),
+			'tip' => $L->g('select-a-timezone-for-a-correct'),
+			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'locale',
-			'label'=>$L->g('Locale'),
-			'value'=>$site->locale(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('with-the-locales-you-can-set-the-regional-user-interface')
+			'name' => 'locale',
+			'label' => $L->g('Locale'),
+			'value' => $site->locale(),
+			'tip' => $L->g('with-the-locales-you-can-set-the-regional-user-interface'),
+			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formTitle(array('title'=>$L->g('Date and time formats')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Date and time formats')));
 
 		echo Bootstrap::formInputText(array(
-			'name'=>'dateFormat',
-			'label'=>$L->g('Date format'),
-			'value'=>$site->dateFormat(),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('Current format').': '.Date::current($site->dateFormat())
+			'name' => 'dateFormat',
+			'label' => $L->g('Date format'),
+			'value' => $site->dateFormat(),
+			'tip' => $L->g('Current format') . ': ' . Date::current($site->dateFormat()),
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- Custom fields -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Custom fields')));
+	<div class="tab-pane" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Custom fields')));
 
 		echo Bootstrap::formTextarea(array(
-			'name'=>'customFields',
-			'label'=>'JSON Format',
-			'value'=>json_encode($site->customFields(), JSON_PRETTY_PRINT),
-			'class'=>'',
-			'placeholder'=>'',
-			'tip'=>$L->g('define-custom-fields-for-the-content'),
-			'rows'=>15
+			'name' => 'customFields',
+			'label' => 'JSON Format',
+			'value' => json_encode($site->customFields(), JSON_PRETTY_PRINT),
+			'tip' => $L->g('define-custom-fields-for-the-content'),
+			'rows' => 15,
+			'data' => array('save' => 'true')
 		));
-	?>
+		?>
 	</div>
 
 	<!-- Site logo tab -->
-	<div class="tab-pane pt-1 pb-1 ps-3 pe-3" id="logo" role="tabpanel" aria-labelledby="logo-tab">
-	<?php
-		echo Bootstrap::formTitle(array('title'=>$L->g('Site logo')));
-	?>
+	<div class="tab-pane" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+		<?php
+		echo Bootstrap::formTitle(array('title' => $L->g('Site logo')));
+		?>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-sm-12 p-0 pe-2">
 					<div class="custom-file">
-						<input id="jssiteLogoInputFile"  class="custom-file-input" type="file" name="inputFile">
+						<input id="jssiteLogoInputFile" class="custom-file-input" type="file" name="inputFile">
 						<label for="jssiteLogoInputFile" class="custom-file-label"><?php $L->p('Upload image'); ?></label>
 					</div>
 					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="bi-trash"></i><?php $L->p('Remove logo') ?></button>
 				</div>
 				<div class="col-lg-8 col-sm-12 p-0 text-center">
-					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?DOMAIN_UPLOADS.$site->logo(false).'?version='.time():HTML_PATH_CORE_IMG.'default.svg') ?>" />
+					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo() ? DOMAIN_UPLOADS . $site->logo(false) . '?version=' . time() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
 				</div>
 			</div>
 		</div>
 		<script>
-		$("#jsbuttonRemoveLogo").on("click", function() {
-			bluditAjax.removeLogo();
-			$("#jssiteLogoPreview").attr("src", "<?php echo HTML_PATH_CORE_IMG.'default.svg' ?>");
-		});
-
-		$("#jssiteLogoInputFile").on("change", function() {
-			var formData = new FormData();
-			formData.append('tokenCSRF', tokenCSRF);
-			formData.append('inputFile', $(this)[0].files[0]);
-			$.ajax({
-				url: HTML_PATH_ADMIN_ROOT+"ajax/logo-upload",
-				type: "POST",
-				data: formData,
-				cache: false,
-				contentType: false,
-				processData: false
-			}).done(function(data) {
-				if (data.status==0) {
-					$("#jssiteLogoPreview").attr('src',data.absoluteURL+"?time="+Math.random());
-				} else {
-					showAlert(data.message);
-				}
+			$("#jsbuttonRemoveLogo").on("click", function() {
+				bluditAjax.removeLogo();
+				$("#jssiteLogoPreview").attr("src", "<?php echo HTML_PATH_CORE_IMG . 'default.svg' ?>");
 			});
-		});
+
+			$("#jssiteLogoInputFile").on("change", function() {
+				var formData = new FormData();
+				formData.append('tokenCSRF', tokenCSRF);
+				formData.append('inputFile', $(this)[0].files[0]);
+				$.ajax({
+					url: HTML_PATH_ADMIN_ROOT + "ajax/logo-upload",
+					type: "POST",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false
+				}).done(function(data) {
+					if (data.status == 0) {
+						$("#jssiteLogoPreview").attr('src', data.absoluteURL + "?time=" + Math.random());
+					} else {
+						showAlert(data.message);
+					}
+				});
+			});
 		</script>
 	</div>
 
+</div>
+<!-- End Content -->

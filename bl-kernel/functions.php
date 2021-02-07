@@ -73,6 +73,9 @@ function editPage($args) {
 		return false;
 	}
 
+	// Call the plugins before the page is edited
+	execPluginsByHook('beforePageModify', array($args['key']));
+
 	$key = $pages->edit($args);
 	if ($key) {
 		// Call the plugins after page modified
@@ -104,6 +107,9 @@ function editPage($args) {
 function deletePage($args) {
 	global $pages;
 	global $syslog;
+
+	// Call the plugins before the page is deleted
+	execPluginsByHook('beforePageDelete', array($args['key']));
 
 	if ($pages->delete($args['key'])) {
 		// Call the plugins after page deleted
@@ -497,6 +503,34 @@ function uploadPageFile($pageKey) {
 	return false;
 }
 
+/*	Install and activate a plugin === Bludit v4
+
+	@pluginClassName	string			The plugin PHP class name
+	@return				string/bool		Returns TRUE on successful install, FALSE otherwise
+*/
+function activatePlugin($pluginClassName) {
+	global $plugins;
+	global $syslog;
+
+	if (!isset($plugins['all'][$pluginClassName])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$pluginClassName, LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$plugin = $plugins['all'][$pluginClassName];
+	if ($plugin->install()) {
+		$syslog->add(array(
+			'dictionaryKey'=>'plugin-activated',
+			'notes'=>$plugin->name()
+		));
+		Log::set(__FUNCTION__.LOG_SEP.'Plugin installed.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Not was possible install the plugin.', LOG_TYPE_ERROR);
+	return false;
+}
+
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
@@ -702,30 +736,7 @@ function pluginActivated($pluginClassName) {
         return false;
 }
 
-// Activate / install the plugin
-// Returns TRUE if the plugin is successfully activated, FALSE otherwise
-function activatePlugin($pluginClassName) {
-	global $plugins;
-	global $syslog;
-	global $L;
 
-	// Check if the plugin exists
-	if (isset($plugins['all'][$pluginClassName])) {
-		$plugin = $plugins['all'][$pluginClassName];
-		if ($plugin->install()) {
-			// Add to syslog
-			$syslog->add(array(
-				'dictionaryKey'=>'plugin-activated',
-				'notes'=>$plugin->name()
-			));
-
-			// Create an alert
-			Alert::set($L->g('plugin-activated'));
-			return true;
-		}
-	}
-	return false;
-}
 
 // Deactivate / uninstall the plugin
 // Returns TRUE if the plugin is successfully deactivated, FALSE otherwise

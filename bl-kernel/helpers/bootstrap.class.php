@@ -46,12 +46,21 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
+		$data = 'data-current-value="'.$args['selected'].'"';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= 'data-'.$x.' = "'.$y.'"';
+				}
+			}
+		}
+
 		$html = '<div class="mb-3 row">';
 		if (!empty($args['label'])) {
 			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 		$html .= '<div class="col-sm-10">';
-		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
+		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$data.'>';
 		foreach ($args['options'] as $key=>$value) {
 			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
 		}
@@ -148,102 +157,45 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
+		$data = 'data-current-value="'.$value.'"';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= ' data-'.$x.' = "'.$y.'"';
+				}
+			}
+		}
+
 return <<<EOF
 <div class="mb-3 row">
 	$label
 	<div class="col-sm-10">
-		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
+		<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
 		$tip
 	</div>
 </div>
 EOF;
 	}
 
-	public static function formSelectOld($args)
-	{
-		$name = $args['name'];
-		$id = isset($args['id'])?$args['id']:$name;
-		$value = isset($args['value'])?$args['value']:'';
-
-		$class = 'custom-select';
-		if (isset($args['class'])) {
-			$class = $class.' '.$args['class'];
-		}
-
-		$html = '<div class="mb-3 row">';
-		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
-		}
-		$html .= '<div class="col-sm-10">';
-		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
-		foreach ($args['options'] as $key=>$value) {
-			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
-		}
-		$html .= '</select>';
-		if (!empty($args['tip'])) {
-			$html .= '<div class="form-text">'.$args['tip'].'</div>';
-		}
-		$html .= '</div>';
-		$html .= '</div>';
-
-		return $html;
-	}
-
 	public static function pageTitle($args)
 	{
-		$icon = $args['icon'];
-		$title = $args['title'];
-return <<<EOF
-<h2 class="m-0">
-	<span class="bi bi-$icon"></span><span>$title</span>
-</h2>
-EOF;
+		$title = '';
+		if (isset($args['icon'])) {
+			$title = '<span class="bi bi-'.$args['icon'].'"></span>';
+		}
+		$title .= '<span>'.$args['title'].'</span>';
+		return '<h2 class="m-0">'.$title.'</h2>';
 	}
 
 	public static function formTitle($args)
 	{
-		$title = $args['title'];
-return <<<EOF
-<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">$title</h6>
-EOF;
+		$title = '';
+		if (isset($args['icon'])) {
+			$title = '<span class="bi bi-'.$args['icon'].'"></span>';
+		}
+		$title .= '<span>'.$args['title'].'</span>';
+		return '<h6 class="mt-4 mb-2 pb-2 border-bottom text-uppercase">'.$title.'</h6>';
 	}
-
-
-	// -- OLD --------
-	public static function modal($args) {
-
-		$buttonSecondary = $args['buttonSecondary'];
-		$buttonSecondaryClass = $args['buttonSecondaryClass'];
-
-		$buttonPrimary = $args['buttonPrimary'];
-		$buttonPrimaryClass = $args['buttonPrimaryClass'];
-
-		$modalText = $args['modalText'];
-		$modalTitle = $args['modalTitle'];
-		$modalId = $args['modalId'];
-
-
-return <<<EOF
-<div id="$modalId" class="modal fade" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-body">
-				<h3>$modalTitle</h3>
-				<p>$modalText</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn $buttonSecondaryClass" data-dismiss="modal">$buttonSecondary</button>
-				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
-			</div>
-		</div>
-	</div>
-</div>
-EOF;
-	}
-
-
-
-
 
 	public static function formOpen($args)
 	{
