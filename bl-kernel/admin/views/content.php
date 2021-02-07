@@ -1,5 +1,53 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<script>
+	// ============================================================================
+	// Variables for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Functions for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Events for the view
+	// ============================================================================
+	$(document).ready(function() {
+
+		$(".btnDeletePage").on("click", function() {
+			var key = $(this).data('key');
+			logs('Deleting page. Key: ' + key);
+			bootbox.confirm({
+				message: '<?php $L->p('Are you sure you want to delete this page') ?>',
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+						className: 'btn-sm btn-secondary'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+						className: 'btn-sm btn-primary'
+					}
+				},
+				closeButton: false,
+				callback: function(result) {
+					if (result) {
+						// delete page
+					}
+				}
+			});
+		});
+
+	});
+
+	// ============================================================================
+	// Initialization for the view
+	// ============================================================================
+	$(document).ready(function() {
+		// No initialization for the view yet
+	});
+</script>
+
 <div class="d-flex align-items-center mb-4">
 	<h2 class="m-0"><i class="bi bi-folder"></i><?php $L->p('Content') ?></h2>
 	<div class="ms-auto">
@@ -239,33 +287,3 @@ function table($type)
 	</div>
 </div>
 <!-- End Content -->
-
-<script>
-	$(document).ready(function() {
-
-		$(".btnDeletePage").on("click", function() {
-			var key = $(this).data('key');
-			logs('Deleting page. Key: ' + key);
-			bootbox.confirm({
-				message: '<?php $L->p('Are you sure you want to delete this page') ?>',
-				buttons: {
-					cancel: {
-						label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
-						className: 'btn-sm btn-secondary'
-					},
-					confirm: {
-						label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
-						className: 'btn-sm btn-primary'
-					}
-				},
-				closeButton: false,
-				callback: function(result) {
-					if (result) {
-						// delete page
-					}
-				}
-			});
-		});
-
-	});
-</script>

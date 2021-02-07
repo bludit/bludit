@@ -1,5 +1,53 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<script>
+	// ============================================================================
+	// Variables for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Functions for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Events for the view
+	// ============================================================================
+	$(document).ready(function() {
+
+		$('#btnSave').on('click', function() {
+			var name = $('#name').val();
+
+			if (name.length < 1) {
+				showAlertError("<?php $L->p('Complete all fields') ?>");
+				return false;
+			}
+
+			var args = {
+				name: name,
+				description: $('#description').val()
+			};
+			api.createCategory(args).then(function(response) {
+				if (response.status == 0) {
+					logs('Category created. Key: ' + response.data.key);
+					window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>');
+				} else {
+					logs("An error occurred while trying to create the category.");
+					showAlertError(response.message);
+				}
+			});
+			return true;
+		});
+
+	});
+
+	// ============================================================================
+	// Initialization for the view
+	// ============================================================================
+	$(document).ready(function() {
+		// No initialization for the view yet
+	});
+</script>
+
 <div class="d-flex align-items-center mb-4">
 	<h2 class="m-0"><i class="bi bi-bookmark"></i><?php $L->p('New category') ?></h2>
 	<div class="ms-auto">
@@ -24,31 +72,3 @@ echo Bootstrap::formTextarea(array(
 	'rows' => 5
 ));
 ?>
-
-<script>
-	$(document).ready(function() {
-		$('#btnSave').on('click', function() {
-			var name = $('#name').val();
-
-			if (name.length < 1) {
-				showAlertError("<?php $L->p('Complete all fields') ?>");
-				return false;
-			}
-
-			var args = {
-				name: name,
-				description: $('#description').val()
-			};
-			api.createCategory(args).then(function(response) {
-				if (response.status == 0) {
-					logs('Category created. Key: ' + response.data.key);
-					window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'categories' ?>');
-				} else {
-					logs("An error occurred while trying to create the category.");
-					showAlertError(response.message);
-				}
-			});
-			return true;
-		});
-	});
-</script>

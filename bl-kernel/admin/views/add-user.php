@@ -1,5 +1,67 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<script>
+	// ============================================================================
+	// Variables for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Functions for the view
+	// ============================================================================
+
+	// ============================================================================
+	// Events for the view
+	// ============================================================================
+	$(document).ready(function() {
+
+		$('#btnSave').on('click', function() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+			var confirmPassword = $('#confirmPassword').val();
+
+			if (username.length < 1) {
+				showAlertError("<?php $L->p('Complete all fields') ?>");
+				return false;
+			}
+
+			if (password.length < PASSWORD_LENGTH) {
+				showAlertError("<?php $L->p('Password must be at least 6 characters long') ?>");
+				return false;
+			}
+
+			if (password !== confirmPassword) {
+				showAlertError("<?php $L->p('The password and confirmation password do not match') ?>");
+				return false;
+			}
+
+			var args = {
+				username: username,
+				password: password,
+				role: $('#role').val(),
+				email: $('#email').val()
+			};
+			api.createUser(args).then(function(response) {
+				if (response.status == 0) {
+					logs('User created. Username: ' + response.data.username);
+					window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
+				} else {
+					logs('An error occurred while trying to create the user.');
+					showAlertError(response.message);
+				}
+			});
+			return true;
+		});
+
+	});
+
+	// ============================================================================
+	// Initialization for the view
+	// ============================================================================
+	$(document).ready(function() {
+		// No initialization for the view yet
+	});
+</script>
+
 <div class="d-flex align-items-center mb-4">
 	<h2 class="m-0"><i class="bi bi-person"></i><?php $L->p('New user') ?></h2>
 	<div class="ms-auto">
@@ -48,45 +110,3 @@ echo Bootstrap::formInputText(array(
 	'value' => ''
 ));
 ?>
-
-<script>
-	$(document).ready(function() {
-		$('#btnSave').on('click', function() {
-			var username = $('#username').val();
-			var password = $('#password').val();
-			var confirmPassword = $('#confirmPassword').val();
-
-			if (username.length < 1) {
-				showAlertError("<?php $L->p('Complete all fields') ?>");
-				return false;
-			}
-
-			if (password.length < PASSWORD_LENGTH) {
-				showAlertError("<?php $L->p('Password must be at least 6 characters long') ?>");
-				return false;
-			}
-
-			if (password !== confirmPassword) {
-				showAlertError("<?php $L->p('The password and confirmation password do not match') ?>");
-				return false;
-			}
-
-			var args = {
-				username: username,
-				password: password,
-				role: $('#role').val(),
-				email: $('#email').val()
-			};
-			api.createUser(args).then(function(response) {
-				if (response.status == 0) {
-					logs('User created. Username: ' + response.data.username);
-					window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
-				} else {
-					logs('An error occurred while trying to create the user.');
-					showAlertError(response.message);
-				}
-			});
-			return true;
-		});
-	});
-</script>
