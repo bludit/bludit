@@ -270,6 +270,11 @@ class pluginAPI extends Plugin {
 			$pluginClassName = $parmB;
 			$data = $this->activatePlugin($pluginClassName);
 		}
+		// (DELETE) /api/plugins/:key
+		elseif ( ($method==='DELETE') && ($parmA==='plugins') && !empty($parmB) ) {
+			$pluginClassName = $parmB;
+			$data = $this->deactivatePlugin($pluginClassName);
+		}
 		// (GET) /api/helper/:name
 		elseif ( ($method==='GET') && ($parmA==='helper') && !empty($parmB) ) {
 			$name = $parmB;
@@ -937,6 +942,25 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'An error occurred while trying to install the plugin.'
+		);
+	}
+
+	/*	Uninstall and deactivate a plugin === Bludit v4
+		Referer to the function deactivatePlugin() from functions.php
+	*/
+	private function deactivatePlugin($pluginClassName)
+	{
+		if (deactivatePlugin($pluginClassName)) {
+			return array(
+				'status'=>'0',
+				'message'=>'Plugin uninstalled and deactivated.',
+				'data'=>array('key'=>$pluginClassName)
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'An error occurred while trying to uninstall the plugin.'
 		);
 	}
 }

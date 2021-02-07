@@ -24,6 +24,21 @@
 		});
 	}
 
+	function deactivatePlugin(pluginClassName) {
+		var args = {
+			pluginClassName: pluginClassName
+		};
+		api.deactivatePlugin(args).then(function(response) {
+			if (response.status == 0) {
+				logs('Plugin deactivated: ' + response.data.key);
+				window.location.replace('<?php echo HTML_PATH_ADMIN_ROOT . 'plugins' ?>');
+			} else {
+				logs('An error occurred while trying to deactivate the plugin.');
+				showAlertError(response.message);
+			}
+		});
+	}
+
 	// ============================================================================
 	// Events for the view
 	// ============================================================================
@@ -46,6 +61,11 @@
 		$('.activatePlugin').on('click', function() {
 			var pluginClassName = $(this).data('class-name');
 			activatePlugin(pluginClassName);
+		});
+
+		$('.deactivatePlugin').on('click', function() {
+			var pluginClassName = $(this).data('class-name');
+			deactivatePlugin(pluginClassName);
 		});
 
 	});
@@ -87,9 +107,9 @@ foreach ($pluginsInstalled as $plugin) {
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">';
 	if (method_exists($plugin, 'form')) {
-		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
+		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'plugins-settings/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
 	}
-	echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'uninstall-plugin/' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
+	echo '<span class="link deactivatePlugin" data-class-name="' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
 	echo '</div>';
 	echo '</td>';
 

@@ -531,6 +531,34 @@ function activatePlugin($pluginClassName) {
 	return false;
 }
 
+/*	Uninstall and deactivate a plugin === Bludit v4
+
+	@pluginClassName	string			The plugin PHP class name
+	@return				string/bool		Returns TRUE on successful install, FALSE otherwise
+*/
+function deactivatePlugin($pluginClassName) {
+	global $plugins;
+	global $syslog;
+
+	if (!isset($plugins['all'][$pluginClassName])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$pluginClassName, LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$plugin = $plugins['all'][$pluginClassName];
+	if ($plugin->uninstall()) {
+		$syslog->add(array(
+			'dictionaryKey'=>'plugin-deactivated',
+			'notes'=>$plugin->name()
+		));
+		Log::set(__FUNCTION__.LOG_SEP.'Plugin uninstalled.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Not was possible uninstall the plugin.', LOG_TYPE_ERROR);
+	return false;
+}
+
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
 function reindexCategories() {
@@ -736,33 +764,6 @@ function pluginActivated($pluginClassName) {
         return false;
 }
 
-
-
-// Deactivate / uninstall the plugin
-// Returns TRUE if the plugin is successfully deactivated, FALSE otherwise
-function deactivatePlugin($pluginClassName) {
-	global $plugins;
-	global $syslog;
-	global $L;
-
-	// Check if the plugin exists
-	if (isset($plugins['all'][$pluginClassName])) {
-		$plugin = $plugins['all'][$pluginClassName];
-
-		if ($plugin->uninstall()) {
-			// Add to syslog
-			$syslog->add(array(
-				'dictionaryKey'=>'plugin-deactivated',
-				'notes'=>$plugin->name()
-			));
-
-			// Create an alert
-			Alert::set($L->g('plugin-deactivated'));
-			return true;
-		}
-	}
-	return false;
-}
 
 function deactivateAllPlugin() {
 	global $plugins;

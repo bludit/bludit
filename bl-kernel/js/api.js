@@ -295,8 +295,8 @@ class API {
 
 	/*	Install and activate a plugin === Bludit v4
 
-		@args				array		Arguments can be any of the fields from a category
-		@return				string		New category key
+		@args				array
+		@return				string
 	*/
 	async activatePlugin(args) {
 		var url = this.apiURL + "plugins/" + args['pluginClassName'];
@@ -305,6 +305,31 @@ class API {
 			var response = await fetch(url, {
 				credentials: "same-origin",
 				method: "POST",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Uninstall and deactivate a plugin === Bludit v4
+
+		@args				array
+		@return				string
+	*/
+	async deactivatePlugin(args) {
+		var url = this.apiURL + "plugins/" + args['pluginClassName'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
 				body: JSON.stringify(body),
 				headers: new Headers({
 					"Content-Type": "application/json"
