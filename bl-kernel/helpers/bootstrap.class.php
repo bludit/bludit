@@ -199,8 +199,9 @@ EOF;
 
 	public static function formOpen($args)
 	{
+		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
 		$class = empty($args['class'])?'':'class="'.$args['class'].'"';
-		$id = empty($args['id'])?'':'id="'.$args['id'].'"';
 		$enctype = empty($args['enctype'])?'':'enctype="'.$args['enctype'].'"';
 		$action = empty($args['action'])?'action=""':'action="'.$args['action'].'"';
 		$method = empty($args['method'])?'method="post"':'method="'.$args['method'].'"';
@@ -213,9 +214,7 @@ EOF;
 
 	public static function formClose()
 	{
-return <<<EOF
-</form>
-EOF;
+		return '</form>';
 	}
 
 

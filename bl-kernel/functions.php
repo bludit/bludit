@@ -3,7 +3,7 @@
 /* ----------------------------------------------------------------------------
 	Global functions
 	These functions provide connectivity between different objects and databases.
-	These function should provide different checks and logic before add/edit/delete into the databases.
+	These functions should provide different checks and logic before add/edit/delete into the databases.
 
 	For example, the creation of a user should check:
 	- if the user already exists

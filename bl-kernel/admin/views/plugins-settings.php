@@ -24,26 +24,28 @@
 	});
 </script>
 
-<?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'plugin-form')); ?>
+<?php echo Bootstrap::formOpen(array('name' => 'pluginSettings')); ?>
 
-<div class="align-middle">
-	<?php if ($plugin->formButtons()): ?>
-	<div class="float-end mt-1">
-		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
-		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>" role="button"><?php $L->p('Cancel') ?></a>
-	</div>
+<div class="d-flex align-items-center mb-3">
+	<h2 class="m-0"><i class="bi bi-node-plus"></i><?php echo $plugin->name() ?></h2>
+	<?php if ($plugin->formButtons()) : ?>
+		<div class="ms-auto">
+			<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
+			<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'plugins' ?>" role="button"><?php $L->p('Cancel') ?></a>
+		</div>
 	<?php endif; ?>
-	<?php echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'cog')); ?>
 </div>
 
 <?php
-	// Token CSRF
 	echo Bootstrap::formInputHidden(array(
-		'name'=>'tokenCSRF',
-		'value'=>$security->getTokenCSRF()
+		'name' => 'tokenCSRF',
+		'value' => $security->getTokenCSRF()
 	));
 
-	// Print the plugin form
+	if ($plugin->description()) {
+		echo '<div class="alert alert-primary" role="alert">'.$plugin->description().'</div>';
+	}
+
 	echo $plugin->form();
 ?>
 
