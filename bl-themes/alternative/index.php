@@ -36,11 +36,24 @@
 		// $WHERE_AM_I variable detect where the user is browsing
 		// If the user is watching a particular page the variable takes the value "page"
 		// If the user is watching the frontpage the variable takes the value "home"
-		if ($WHERE_AM_I == 'page') {
-			include(THEME_DIR_PHP.'page.php');
-		} else {
-			include(THEME_DIR_PHP.'home.php');
-		}
+        if ($WHERE_AM_I == 'page') 
+        {
+
+            $template=$page->template();
+            #suppose if the template is product.php
+            if(!empty($template) and file_exists(THEME_DIR_PHP.$template))
+            {
+                include(THEME_DIR_PHP.$template);
+            }
+            else
+            {
+                include(THEME_DIR_PHP.'page.php');
+            }
+        } 
+        else 
+        {
+            include(THEME_DIR_PHP.'home.php');
+        }
 	?>
 
 	<!-- Footer -->
