@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus",
+		"description": "Disqus é um serviço de hospedagem de comentários para sites da web.<br>É necessário estar registrado em <a href=\"https://disqus.com\"> Disqus </a> para usar este serviço."
+	},
+	"disqus-shortname": "Nome de usuario de Disqus",
+	"enable-disqus-on-pages": "Disqus nas páginas",
+	"enable-disqus-on-static-pages": "Disqus em páginas estáticas",
+	"enable-disqus-on-sticky-pages": "Disqus nas páginas destaque (sticky)",
+	"get-the-shortname-from-the-disqus-general-settings": "Obtenha o usuario nas configurações gerais do Disqus"
+}

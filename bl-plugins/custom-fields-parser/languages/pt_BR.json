@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Custom fields parser",
+		"description": "Defina o código para os campos personalizados e analise o conteúdo das páginas."
+	}
+}

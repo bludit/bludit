@@ -1,0 +1,25 @@
+{
+	"plugin-data":
+	{
+		"name": "Backup",
+		"description": "A maneira mais simples de fazer o backup de seu Bludit."
+	},
+	"create-backup": "Crie um Backup",
+	"upload-backup": "Envie um Backup",
+	"download": "Download",
+	"restore-backup": "Restore o Backup",
+	"delete-backup": "Delete o Backup",
+	"there-are-no-backups-for-the-moment": "Não há backups no momento",
+	"you-do-not-have-sufficient-permissions": "Você não tem permissões suficientes",
+	"the-backup-was-created-successfully": "O backup foi criado com sucesso.",
+	"the-backup-file-could-not-be-created": "O arquivo de backup não pôde ser criado.",
+	"the-backup-'%s'-could-be-restored-successfully": "O Backup '%s' pôde ser restaurado com sucesso.",
+	"the-backup-'%s'-could-not-be-restored": "O Backup '%s' não pôde ser restaurado.",		
+	"the-backup-'%s'-could-be-deleted-successfully": "O Backup '%s' pôde ser excluído com sucesso.",	
+	"the-backup-'%s'-could-not-be-deleted": "O Backup '%s' não pôde ser excluído.",
+	"the-passed-file-is-not-a-valid-zip-archive": "O arquivo transmitido não é um arquivo ZIP válido.",
+	"the-passed-file-does-not-end-with-zip": "O arquivo enviado não termina com a extensão .zip.",
+	"the-passed-file-could-not-be-validated": "O arquivo passado não pôde ser validado.",
+	"the-passed-file-is-not-a-valid-backup-archive": "O arquivo passado não é um arquivo de backup válido.",
+	"the-backup-file-could-be-uploaded-successfully": "O arquivo de backup pôde ser carregado com sucesso."
+}
