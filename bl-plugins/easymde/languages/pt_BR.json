@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Editor Markdown com interface limpa para criar e formatar conteúdo."
+	},
+	"toolbar": "Barra de ferramentas",
+	"tab-size": "Tamanho da guia",
+	"autosave": "Salvamento automático",
+	"spell-checker": "Verificador ortográfico",
+	"content-here-supports-markdown-and-html-code": "O conteúdo aqui suporta Markdown e código HTML"
+}
