@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Search",
+		"description": "Forneça uma caixa de pesquisa para que seus usuários pesquisem no conteúdo de seu site."
+	},
+	"search": "Search",
+	"show-button-search": "Mostrar pesquisa de botão"
+}

@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Static Pages",
+		"description": "Menu de navegação com páginas estáticas."
+	},
+	"home-link": "Link da página inicial",
+	"show-the-home-link-on-the-sidebar": "Mostra o link da página inicial na barra lateral."
+}

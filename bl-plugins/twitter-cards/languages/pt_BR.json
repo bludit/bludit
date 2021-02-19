@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "Com os cartões do Twitter, você pode anexar fotos, vídeos e experiências de mídia aos Tweets, ajudando a direcionar o tráfego para o seu site."
+	},
+	"default-image": "Imagem padrão"
+}

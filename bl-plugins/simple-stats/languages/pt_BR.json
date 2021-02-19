@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "Mostra o número de visitas e visualizações de página por dia em seu painel e estatísticas de conteúdo."
+	},
+	"visits": "Visitas",
+	"visits-today": "Visitas hoje",
+	"unique-visitors-today": "Visitantes únicos hoje",
+	"chart": "Gráfico",
+	"table": "Mesa",
+	"disk-usage" : "Uso de disco",
+	"show-content-stats" : "Mostrar estatísticas de conteúdo",
+	"exclude-administrators-users" : "Excluir usuários com função de 'Administrador'"
+}

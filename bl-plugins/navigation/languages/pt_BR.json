@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigation",
+		"description": "Menu de navegação com páginas pai (parent) e filho (child) para a barra lateral."
+	},
+	"home-link": "Link da página inicial",
+	"show-the-home-link-on-the-sidebar": "Mostra o link da página inicial na barra lateral.",
+	"amount-of-items": "Quantidade de itens (mais recentes aparecem primeiro)"
+}

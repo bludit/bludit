@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Version",
+		"description": "Mostre a versão atual na barra lateral do painel de administração e verifique periodicamente se há novos lançamentos do Bludit."
+	},
+	"show-current-version-in-the-sidebar": "Mostra a versão atual na barra lateral",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Mostrar alerta quando houver uma nova versão na barra lateral"
+}

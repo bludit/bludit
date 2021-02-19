@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "O protocolo Open Graph permite que qualquer página da web se torne um objeto rico em um gráfico social."
+	},
+	"set-a-default-image-for-content": "Defina uma imagem padrão para o conteúdo sem fotos.",
+	"set-your-facebook-app-id": "Defina o seu Facebook App ID."
+}

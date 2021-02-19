@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "Editor de HTML para formatar conteúdo. Recomendado para os usuários que não querem trabalhar com código Markdown."
+	}
+}

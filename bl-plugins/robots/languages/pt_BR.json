@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robots",
+		"description": "Você pode usar uma metatag HTML especial para dizer aos robôs para não indexarem o conteúdo de uma página e / ou não examiná-la em busca de links."
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Este plugin gera um arquivo sitemap.xml, que fornece a lista de páginas em seu site, o que ajuda os motores de busca a organizar e filtrar o conteúdo de seu site."
+	},
+	"sitemap-url": "URL do Sitemap",
+	"notifies-google-when-you-created": "Notifica o Google quando você cria, modifica ou exclui conteúdo do seu site.",
+	"notifies-bing-when-you-created": "Notifica o Bing quando você cria, modifica ou exclui conteúdo do seu site."
+}
