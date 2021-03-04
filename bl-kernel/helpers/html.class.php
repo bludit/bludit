@@ -48,22 +48,22 @@ class HTML {
 
 	public static function jquery()
 	{
-		return '<script src="'.DOMAIN_CORE_JS.'jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script src="'.DOMAIN_CORE_VENDORS.'jquery/jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function jsBootstrap($attributes='')
 	{
-		return '<script '.$attributes.' src="'.DOMAIN_CORE_JS.'bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap/bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function cssBootstrap()
 	{
-		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'bootstrap/bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function cssBootstrapIcons()
 	{
-		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_CSS.'bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function jsSortable($attributes='')
