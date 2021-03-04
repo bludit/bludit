@@ -5,10 +5,10 @@
 class API {
 
 	constructor(apiURL, apiToken, apiAuth) {
-		this.apiURL = "http://localhost:9000/api/";
+		this.apiURL = "http://localhost:8000/api/";
 		this.body = {
 			token: '45643a4071fad6a12261bb0763550feb',
-			authentication: '18a8410f0043d004c2e87f404170e112'
+			authentication: '02707c99183896203b41d4a9b5c42692'
 		}
 	}
 

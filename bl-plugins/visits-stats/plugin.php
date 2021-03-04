@@ -51,22 +51,26 @@ class pluginVisitsStats extends Plugin {
 		$labelUnique = $L->g('Unique');
 
 		return <<<EOF
-		<div class="simple-stats-plugin">
-			<h3>$label</h3>
-			<canvas id="simple-stats-chart"></canvas>
+		<div class="pluginVisitsStats">
+			<h3 class="m-0 p-0"><i class="bi bi-bar-chart"></i>$label</h3>
+			<canvas id="visits-stats"></canvas>
 		</div>
 
 		<script>
-		var ctx = document.getElementById('simple-stats-chart');
+		var ctx = document.getElementById('visits-stats');
 		new Chart(ctx, {
 			type: 'bar',
 			data: {
 				labels: [$labels],
 				datasets: [{
+					backgroundColor: 'rgb(13,110,253)',
+					borderColor: 'rgb(13,110,253)',
 					label: '$labelUnique',
 					data: [$seriesUnique]
 				},
 				{
+					backgroundColor: 'rgb(61,139,253)',
+					borderColor: 'rgb(61,139,253)',
 					label: '$labelVisits',
 					data: [$seriesVisits]
 				}]
