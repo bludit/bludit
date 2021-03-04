@@ -1,0 +1,2 @@
+Please read the following link.
+https://github.com/tinymce/tinymce/blob/develop/LICENSE.TXT

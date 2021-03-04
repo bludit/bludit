@@ -72,7 +72,7 @@
 
 	// Insert HTML code in the Editor content
 	function fmInsertFile(filename, absoluteURL, mime) {
-		if (mime == 'image/jpeg') {
+		if (mime == 'image/jpeg' || mime == 'image/png') {
 			editorInsertContent(absoluteURL, 'image');
 		} else {
 			editorInsertContent('<a href="' + absoluteURL + '">' + filename + '</a>');

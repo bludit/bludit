@@ -3,8 +3,7 @@
 class pluginTinymce extends Plugin {
 
 	private $loadOnController = array(
-		'new-content',
-		'edit-content'
+		'editor' // Load this plugin only in the Dashboard
 	);
 
 	public function init()
@@ -20,19 +19,19 @@ class pluginTinymce extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$L->get('Toolbar top').'</label>';
-		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
+		$html  = '<div class="mb-3">';
+		$html .= '<label class="form-label" for="toolbar1">'.$L->get('Toolbar top').'</label>';
+		$html .= '<input class="form-control" name="toolbar1" id="toolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Toolbar bottom').'</label>';
-		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
+		$html .= '<div class="mb-3">';
+		$html .= '<label class="form-label" for="toolbar2">'.$L->get('Toolbar bottom').'</label>';
+		$html .= '<input class="form-control" name="toolbar2" id="toolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Plugins').'</label>';
-		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getValue('plugins').'">';
+		$html .= '<div class="mb-3">';
+		$html .= '<label class="form-label" for="plugins">'.$L->get('Plugins').'</label>';
+		$html .= '<input class="form-control" name="plugins" id="plugins" type="text" value="'.$this->getValue('plugins').'">';
 		$html .= '</div>';
 
 		return $html;
@@ -44,6 +43,7 @@ class pluginTinymce extends Plugin {
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
+
 		$html  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/tinymce_toolbar.css">'.PHP_EOL;
 		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
 		return $html;
@@ -77,61 +77,59 @@ class pluginTinymce extends Plugin {
 			$document_base_url = '';
 		}
 
-$html = <<<EOF
-<script>
+		return <<<EOF
+		<script>
 
-	// Insert an image in the editor at the cursor position
-	// Function required for Bludit
-	function editorInsertMedia(filename) {
-		tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");
-	}
+			// Function required for Bludit
+			// Returns the content of the editor
+			function editorGetContent() {
+				return tinymce.get('editor').getContent();
+			}
 
-	// Returns the content of the editor
-	// Function required for Bludit
-	function editorGetContent() {
-		return tinymce.get('jseditor').getContent();
-	}
+			// Function required for Bludit
+			// Insert HTML content at the cursor position
+			function editorInsertContent(content, type='') {
+				if (type == 'image') {
+					var html = '<img src="' + content + '" alt="" />';
+				} else {
+					var html = content;
+				}
+				tinymce.activeEditor.insertContent(html);
+			}
 
-	// Insert HTML content at the cursor position
-	// Function required for Bludit
-	function editorInsertContent(html, type='') {
-		tinymce.activeEditor.insertContent(html);
-	}
-
-	tinymce.init({
-		selector: "#jseditor",
-		auto_focus: "jseditor",
-		element_format : "html",
-		entity_encoding : "raw",
-		skin: "oxide",
-		schema: "html5",
-		statusbar: false,
-		menubar:false,
-		branding: false,
-		browser_spellcheck: true,
-		pagebreak_separator: PAGE_BREAK,
-		paste_as_text: true,
-		remove_script_host: false,
-		convert_urls: true,
-		relative_urls: false,
-		valid_elements: "*[*]",
-		cache_suffix: "?version=$version",
-		$document_base_url
-		plugins: ["$plugins"],
-		toolbar1: "$toolbar1",
-		toolbar2: "$toolbar2",
-		language: "$lang",
-		content_css: "$content_css",
-		init_instance_callback: function(editor) {
-			editor.on("keydown", function(event) {
-				keypress(event);
+			tinymce.init({
+				selector: "#editor",
+				auto_focus: "editor",
+				element_format : "html",
+				entity_encoding : "raw",
+				skin: "oxide",
+				schema: "html5",
+				statusbar: false,
+				menubar:false,
+				branding: false,
+				browser_spellcheck: true,
+				pagebreak_separator: PAGE_BREAK,
+				paste_as_text: true,
+				remove_script_host: false,
+				convert_urls: true,
+				relative_urls: false,
+				valid_elements: "*[*]",
+				cache_suffix: "?version=$version",
+				$document_base_url
+				plugins: ["$plugins"],
+				toolbar1: "$toolbar1",
+				toolbar2: "$toolbar2",
+				language: "$lang",
+				content_css: "$content_css",
+				init_instance_callback: function(editor) {
+					editor.on("keydown", function(event) {
+						keypress(event);
+					});
+				}
 			});
-		}
-	});
 
-</script>
-EOF;
-		return $html;
+		</script>
+		EOF;
 	}
 
 }
