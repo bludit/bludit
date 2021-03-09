@@ -1,0 +1,11 @@
+{
+	"author": "Bludit",
+	"email": "",
+	"website": "https://plugins.bludit.com",
+	"version": "4.0.0",
+	"releaseDate": "2021-03-02",
+	"license": "MIT",
+	"compatible": "4.0",
+	"type": "dashboard",
+	"notes": ""
+}
