@@ -2,9 +2,10 @@
 	"author": "EasyMDE",
 	"email": "",
 	"website": "https://easymde.tk",
-	"version": "2.12.0",
-	"releaseDate": "2020-09-29",
+	"version": "2.14.0",
+	"releaseDate": "2021-02-14",
 	"license": "MIT",
-	"compatible": "3.13.1",
-	"notes": ""
+	"compatible": "4.0",
+	"type": "editor",
+	"notes": "EasyMDE use Font-Awesome for icons and Bludit use Bootstrap icons so you need to do some search and replace fa fa- for bi bi-."
 }

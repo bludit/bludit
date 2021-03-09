@@ -1,11 +1,9 @@
 <?php
 
-class plugineasyMDE extends Plugin {
+class pluginEasyMDE extends Plugin {
 
-	// The plugin is going to be loaded in this views
 	private $loadOnViews = array(
-		'new-content',
-		'edit-content'
+		'editor' // Load this plugin only in the Editor view
 	);
 
 	public function init()
@@ -21,19 +19,19 @@ class plugineasyMDE extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div>';
-		$html .= '<label>'.$L->get('toolbar').'</label>';
-		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getValue('toolbar').'">';
+		$html  = '<div class="mb-3">';
+		$html .= '<label class="form-label" for="toolbar">'.$L->get('toolbar').'</label>';
+		$html .= '<input class="form-control" name="toolbar" id="toolbar" type="text" value="'.$this->getValue('toolbar').'">';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('tab-size').'</label>';
-		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getValue('tabSize').'">';
+		$html .= '<div class="mb-3">';
+		$html .= '<label class="form-label" for="tabSize">'.$L->get('tab-size').'</label>';
+		$html .= '<input class="form-control" name="tabSize" id="tabSize" type="text" value="'.$this->getValue('tabSize').'">';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('spell-checker').'</label>';
-		$html .= '<select name="spellChecker">';
+		$html .= '<div class="mb-3">';
+		$html .= '<label class="form-label" for="spellChecker">'.$L->get('spell-checker').'</label>';
+		$html .= '<select class="form-control" name="spellChecker">';
 		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$L->get('enabled').'</option>';
 		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>'.$L->get('disabled').'</option>';
 		$html .= '</select>';
@@ -44,92 +42,79 @@ class plugineasyMDE extends Plugin {
 
 	public function adminHead()
 	{
+		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 
-		// Include plugin's CSS files
 		$html  = $this->includeCSS('easymde.min.css');
 		$html .= $this->includeCSS('bludit.css');
+		$html .= $this->includeJS('easymde.min.js');
 		return $html;
 	}
 
 	public function adminBodyEnd()
 	{
+		global $L;
+
+		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 
-		// Language
-		global $L;
 		$langImage = $L->g('Image description');
-
 		$spellCheckerEnable = $this->getValue('spellChecker')?'true':'false';
 		$tabSize = $this->getValue('tabSize');
 		$toolbar = Sanitize::htmlDecode($this->getValue('toolbar'));
 		$pageBreak = PAGE_BREAK;
 
-		// Javascript path and file
-		$jsEasyMDE = $this->domainPath().'js/easymde.min.js?version='.BLUDIT_VERSION;
+		return <<<EOF
+		<script>
+			// Function required for Bludit
+			// Returns the content of the editor
+			function editorGetContent() {
+				return easymde.value();
+			}
 
-return <<<EOF
-<script charset="utf-8" src="$jsEasyMDE"></script>
-<script>
-	var easymde = null;
+			// Function required for Bludit
+			// Insert HTML content at the cursor position
+			function editorInsertContent(html, type='') {
+				var text = easymde.value();
+				if (type == 'image') {
+					easymde.value(text + "![$langImage]("+filename+")" + "\\n");
+				} else {
+					easymde.value(html + "\\n");
+				}
+				easymde.codemirror.refresh();
+			}
 
-	// Insert an image in the editor at the cursor position
-	// Function required for Bludit
-	function editorInsertMedia(filename) {
-		var text = easymde.value();
-		easymde.value(text + "![$langImage]("+filename+")" + "\\n");
-		easymde.codemirror.refresh();
-	}
+			var easymde = new EasyMDE({
+				element: document.getElementById("editor"),
+				status: false,
+				toolbarTips: true,
+				toolbarGuideIcon: true,
+				autofocus: false,
+				placeholder: "",
+				lineWrapping: true,
+				autoDownloadFontAwesome: false,
+				indentWithTabs: true,
+				tabSize: $tabSize,
+				spellChecker: $spellCheckerEnable,
+				toolbar: [$toolbar,
+					"|",
+					{
+					name: "pageBreak",
+					action: function addPageBreak(editor){
+						var cm = editor.codemirror;
+						output = "$pageBreak";
+						cm.replaceSelection(output);
+						},
+					className: "bi-crop",
+					title: "Page break",
+					}]
+			});
 
-	// Returns the content of the editor
-	// Function required for Bludit
-	function editorGetContent() {
-		return easymde.value();
-	}
-
-	// Insert HTML content at the cursor position
-	// Function required for Bludit
-	function editorInsertContent(html, type='') {
-		var text = easymde.value();
-		if (type == 'image') {
-			easymde.value(text + "![$langImage]("+filename+")" + "\\n");
-		} else {
-			easymde.value(html + "\\n");
-		}
-		easymde.codemirror.refresh();
-	}
-
-	easymde = new EasyMDE({
-		element: document.getElementById("jseditor"),
-		status: false,
-		toolbarTips: true,
-		toolbarGuideIcon: true,
-		autofocus: false,
-		placeholder: "",
-		lineWrapping: true,
-		autoDownloadFontAwesome: false,
-		indentWithTabs: true,
-		tabSize: $tabSize,
-		spellChecker: $spellCheckerEnable,
-		toolbar: [$toolbar,
-			"|",
-			{
-			name: "pageBreak",
-			action: function addPageBreak(editor){
-				var cm = editor.codemirror;
-				output = "$pageBreak";
-				cm.replaceSelection(output);
-				},
-			className: "bi-crop",
-			title: "Page break",
-			}]
-	});
-
-</script>
-EOF;
+		</script>
+		EOF;
 	}
 }
