@@ -331,7 +331,6 @@ function editUser($args) {
 
 	@username		string		Username
 	@_FILE			array		https://www.php.net/manual/en/reserved.variables.files.php
-
 	@return			array
 */
 function uploadProfilePicture($username) {
@@ -401,7 +400,6 @@ function uploadProfilePicture($username) {
 /*	Delete a profile picture === Bludit v4
 
 	@username		string		Username
-
 	@return			bool		Returns TRUE on successful delete, FALSE otherwise
 */
 function deleteProfilePicture($username) {
@@ -421,6 +419,103 @@ function deleteProfilePicture($username) {
 	}
 
 	Log::set(__FUNCTION__.LOG_SEP.'Error when try to delete the profile picture, the file doesn\'t exists.', LOG_TYPE_ERROR);
+	return false;
+}
+
+/*	Upload the site logo === Bludit v4
+	The site logo is store in PATH_UPLOADS/<site title>.<extension>
+
+	@_FILE			array		https://www.php.net/manual/en/reserved.variables.files.php
+	@return			array
+*/
+function uploadSiteLogo() {
+	global $site;
+
+	if (!isset($_FILES['file'])) {
+		Log::set(__FUNCTION__.LOG_SEP.'File not sent.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	if ($_FILES['file']['error'] != 0) {
+		Log::set(__FUNCTION__.LOG_SEP.'Error uploading the file.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check path traversal
+	if (Text::stringContains($_FILES['file']['name'], DS, false)) {
+		Log::set(__FUNCTION__.LOG_SEP.'Path traversal detected.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file extension
+	$fileExtension = Filesystem::extension($_FILES['file']['name']);
+	$fileExtension = Text::lowercase($fileExtension);
+	if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ) {
+		Log::set(__FUNCTION__.LOG_SEP.'Image type is not supported.', LOG_TYPE_ERROR);
+		return false;
+	}
+
+	// Check file MIME Type
+	$fileMimeType = Filesystem::mimeType($_FILES['file']['tmp_name']);
+	if ($fileMimeType!==false) {
+		if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+			Log::set(__FUNCTION__.LOG_SEP.'Image mime type is not supported.', LOG_TYPE_ERROR);
+			return false;
+		}
+	}
+
+	// Final filename
+	$filename = 'logo.'.$fileExtension;
+	$siteTitle = Text::cleanUrl($site->title(), '-', $allowExtremeFriendlyURL=false);
+	if (Text::isNotEmpty($siteTitle)) {
+		$filename = $siteTitle.'.'.$fileExtension;
+	}
+
+	// Move the image from PHP tmp folder to Bludit tmp folder
+	Filesystem::mv($_FILES['file']['tmp_name'], PATH_TMP.$filename);
+
+	$absolutePath = PATH_UPLOADS.$filename;
+	$absoluteURL = DOMAIN_UPLOADS.$filename;
+
+	try {
+		$image = new \claviska\SimpleImage();
+		$image
+			->fromFile(PATH_TMP.$filename)
+			->autoOrient()
+			->thumbnail(PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'center')
+			->toFile($absolutePath, 'image/png');
+	} catch(Exception $e) {
+		Log::set(__FUNCTION__.LOG_SEP.$e->getMessage(), LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$site->set(array('logo'=>$filename));
+
+	Log::set(__FUNCTION__.LOG_SEP.'Site logo uploaded and cropped.', LOG_TYPE_INFO);
+	return array(
+		'filename'=>$filename,
+		'absolutePath'=>$absolutePath,
+		'absoluteURL'=>$absoluteURL,
+		'mime'=>Filesystem::mimeType($absolutePath),
+		'size'=>Filesystem::getSize($absolutePath)
+	);
+}
+
+/*	Delete the site logo === Bludit v4
+
+	@return			bool		Returns TRUE on successful delete, FALSE otherwise
+*/
+function deleteSiteLogo() {
+	global $site;
+
+	if ($site->logo()) {
+		Filesystem::rmfile(PATH_UPLOADS.$site->logo(false));
+		$site->set(array('logo'=>''));
+		Log::set(__FUNCTION__.LOG_SEP.'Site logo deleted.', LOG_TYPE_INFO);
+		return true;
+	}
+
+	Log::set(__FUNCTION__.LOG_SEP.'Error when try to delete the site logo, the file doesn\'t exists.', LOG_TYPE_ERROR);
 	return false;
 }
 

@@ -205,6 +205,14 @@ class pluginAPI extends Plugin {
 		elseif ( ($method==='PUT') && ($parmA==='settings') && empty($parmB) && $writePermissions ) {
 			$data = $this->editSettings($inputs);
 		}
+		// (POST) /api/settings/logo
+		elseif ( ($method==='POST') && ($parmA==='settings') && ($parmB==='logo') && $writePermissions ) {
+			$data = $this->uploadSiteLogo($inputs);
+		}
+		// (DELETE) /api/settings/logo
+		elseif ( ($method==='DELETE') && ($parmA==='settings') && ($parmB==='logo') && $writePermissions ) {
+			$data = $this->deleteSiteLogo();
+		}
 		// (GET) /api/tags
 		elseif ( ($method==='GET') && ($parmA==='tags') && empty($parmB) ) {
 			$data = $this->getTags();
@@ -830,6 +838,44 @@ class pluginAPI extends Plugin {
 		return array(
 			'status'=>'1',
 			'message'=>'An error occurred while trying to delete the profile picture.'
+		);
+	}
+
+	/*	Upload the site logo === Bludit v4
+		Referer to the function uploadSiteLogo() from functions.php
+	*/
+	private function uploadSiteLogo($username)
+	{
+		$data = uploadSiteLogo($username);
+		if ($data===false) {
+			return array(
+				'status'=>'1',
+				'message'=>'An error occurred while trying to upload the site logo.'
+			);
+		}
+
+		return array(
+			'status'=>'0',
+			'message'=>'Site logo uploaded.',
+			'data'=>$data
+		);
+	}
+
+	/*	Delete the site logo === Bludit v4
+		Referer to the function deleteSiteLogo() from functions.php
+	*/
+	private function deleteSiteLogo()
+	{
+		if (deleteSiteLogo()) {
+			return array(
+				'status'=>'0',
+				'message'=>'Site logo deleted.'
+			);
+		}
+
+		return array(
+			'status'=>'1',
+			'message'=>'An error occurred while trying to delete the site logo.'
 		);
 	}
 

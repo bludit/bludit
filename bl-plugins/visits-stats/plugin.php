@@ -2,7 +2,7 @@
 
 class pluginVisitsStats extends Plugin {
 
-	private $loadOnController = array(
+	private $loadOnViews = array(
 		'dashboard' // Load this plugin only in the Dashboard
 	);
 
@@ -17,7 +17,7 @@ class pluginVisitsStats extends Plugin {
 
 	public function adminHead()
 	{
-		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
+		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 

@@ -2,8 +2,8 @@
 
 class pluginTinymce extends Plugin {
 
-	private $loadOnController = array(
-		'editor' // Load this plugin only in the Dashboard
+	private $loadOnViews = array(
+		'editor' // Load this plugin only in the Editor view
 	);
 
 	public function init()
@@ -39,8 +39,8 @@ class pluginTinymce extends Plugin {
 
 	public function adminHead()
 	{
-		// Load the plugin only in the controllers setted in $this->loadOnController
-		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
+		// Load the plugin only in the controllers setted in $this->loadOnViews
+		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 
@@ -53,8 +53,8 @@ class pluginTinymce extends Plugin {
 	{
 		global $L;
 
-		// Load the plugin only in the controllers setted in $this->loadOnController
-		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
+		// Load the plugin only in the controllers setted in $this->loadOnViews
+		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 

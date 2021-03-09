@@ -152,11 +152,11 @@ class Text {
 	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
-	public static function cleanUrl($string, $separator='-')
+	public static function cleanUrl($string, $separator='-', $allowExtremeFriendlyURL=true)
 	{
 		global $L;
 
-		if (EXTREME_FRIENDLY_URL) {
+		if (EXTREME_FRIENDLY_URL && $allowExtremeFriendlyURL) {
 			$string = self::lowercase($string);
 			$string = trim($string, $separator);
 			$string = self::removeSpecialCharacters($string, $separator);

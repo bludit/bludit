@@ -243,6 +243,28 @@ class API {
 		}
 	}
 
+	/*	Delete the site logo
+	*/
+	async deleteSiteLogo() {
+		var url = this.apiURL + "settings/logo"
+		var body = this.body;
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
 	/*	Create a new user
 
 		@args				array		Arguments can be any of the fields from a user

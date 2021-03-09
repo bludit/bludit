@@ -68,6 +68,77 @@
 			save();
 		});
 
+		$('#inputSiteLogo').on("change", function(e) {
+			var inputSiteLogo = $('#inputSiteLogo')[0].files;
+			var formData = new FormData();
+			formData.append("file", inputSiteLogo[0]);
+			formData.append("token", api.body.token);
+			formData.append("authentication", api.body.authentication);
+			$.ajax({
+				url: api.apiURL + 'settings/logo',
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				xhr: function() {
+					var xhr = $.ajaxSettings.xhr();
+					if (xhr.upload) {
+						xhr.upload.addEventListener("progress", function(e) {
+							if (e.lengthComputable) {
+								var percentComplete = (e.loaded / e.total) * 100;
+								logs('Uploading site logo: ' + percentComplete + '%');
+							}
+						}, false);
+					}
+					return xhr;
+				}
+			}).done(function(response) {
+				logs(response);
+				if (response.status == 0) {
+					logs("Site logo uploaded.");
+					showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+					$('#siteLogoPreview').attr('src', response.data.absoluteURL);
+				} else {
+					logs("An error occurred while trying to upload the site logo.");
+					showAlertError(response.message);
+				}
+			});
+			return true;
+		});
+
+		$('#btnRemoveSiteLogo').on('click', function() {
+			bootbox.confirm({
+				message: '<?php $L->p('Are you sure you want to delete the site logo') ?>',
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+						className: 'btn-sm btn-secondary'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+						className: 'btn-sm btn-primary'
+					}
+				},
+				closeButton: false,
+				callback: function(result) {
+					if (result) {
+						api.deleteSiteLogo().then(function(response) {
+							if (response.status == 0) {
+								logs('Site logo deleted.');
+								showAlertInfo("<?php $L->p('The changes have been saved') ?>");
+								$('#siteLogoPreview').attr('src', '<?php echo HTML_PATH_CORE_IMG . 'default.svg' ?>');
+							} else {
+								logs("An error occurred while trying to delete the site logo.");
+								showAlertError(response.message);
+							}
+						});
+						return true;
+					}
+				}
+			});
+		});
+
 	});
 
 	// ============================================================================
@@ -509,50 +580,17 @@
 
 	<!-- Site logo tab -->
 	<div class="tab-pane" id="logo" role="tabpanel" aria-labelledby="logo-tab">
-		<?php
-		echo Bootstrap::formTitle(array('title' => $L->g('Site logo')));
-		?>
-
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-sm-12 p-0 pe-2">
-					<div class="custom-file">
-						<input id="jssiteLogoInputFile" class="custom-file-input" type="file" name="inputFile">
-						<label for="jssiteLogoInputFile" class="custom-file-label"><?php $L->p('Upload image'); ?></label>
-					</div>
-					<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="bi-trash"></i><?php $L->p('Remove logo') ?></button>
+				<div class="col-8">
+					<img id="siteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo()?$site->logo():HTML_PATH_CORE_IMG . 'default.svg') ?>" />
 				</div>
-				<div class="col-lg-8 col-sm-12 p-0 text-center">
-					<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo() ? DOMAIN_UPLOADS . $site->logo(false) . '?version=' . time() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
+				<div class="col-4">
+					<label id="btnUploadProfilePicture" class="btn btn-primary"><i class="bi bi-upload"></i><?php $L->p('Upload image'); ?><input type="file" id="inputSiteLogo" name="inputSiteLogo" hidden></label>
+					<button id="btnRemoveSiteLogo" type="button" class="btn btn-secondary"><i class="bi bi-trash"></i><?php $L->p('Remove image'); ?></button>
 				</div>
 			</div>
 		</div>
-		<script>
-			$("#jsbuttonRemoveLogo").on("click", function() {
-				bluditAjax.removeLogo();
-				$("#jssiteLogoPreview").attr("src", "<?php echo HTML_PATH_CORE_IMG . 'default.svg' ?>");
-			});
-
-			$("#jssiteLogoInputFile").on("change", function() {
-				var formData = new FormData();
-				formData.append('tokenCSRF', tokenCSRF);
-				formData.append('inputFile', $(this)[0].files[0]);
-				$.ajax({
-					url: HTML_PATH_ADMIN_ROOT + "ajax/logo-upload",
-					type: "POST",
-					data: formData,
-					cache: false,
-					contentType: false,
-					processData: false
-				}).done(function(data) {
-					if (data.status == 0) {
-						$("#jssiteLogoPreview").attr('src', data.absoluteURL + "?time=" + Math.random());
-					} else {
-						showAlert(data.message);
-					}
-				});
-			});
-		</script>
 	</div>
 
 </div>
