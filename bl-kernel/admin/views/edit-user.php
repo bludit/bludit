@@ -94,7 +94,7 @@
 				changePassword();
 			} else {
 				// Save the edited fields
-				editUser();
+				save();
 			}
 		});
 
