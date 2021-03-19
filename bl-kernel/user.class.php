@@ -120,6 +120,11 @@ class User {
 		return $this->getValue('facebook');
 	}
 
+	public function discord()
+	{
+		return $this->getValue('discord');
+	}
+
 	public function codepen()
 	{
 		return $this->getValue('codepen');
@@ -179,6 +184,7 @@ class User {
 		$tmp['youtube'] 	= $this->youtube();
 		$tmp['twitter'] 	= $this->twitter();
 		$tmp['facebook'] 	= $this->facebook();
+		$tmp['discord'] 	= $this->discord();
 		$tmp['codepen'] 	= $this->codepen();
 		$tmp['instagram'] 	= $this->instagram();
 		$tmp['github'] 		= $this->github();

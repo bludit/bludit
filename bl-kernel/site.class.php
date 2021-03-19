@@ -34,6 +34,8 @@ class Site extends dbJSON {
 		'mastodon'=>		'',
 		'dribbble'=>		'',
 		'vk'=>			'',
+		'discord'=>			'',
+		'youtube'=>			'',
 		'orderBy'=>		'date', // date or position
 		'extremeFriendly'=>	true,
 		'autosaveInterval'=>	2, // minutes
@@ -157,6 +159,16 @@ class Site extends dbJSON {
 	public function facebook()
 	{
 		return $this->getField('facebook');
+	}
+
+	public function discord()
+	{
+		return $this->getField('discord');
+	}
+
+	public function youtube()
+	{
+		return $this->getField('youtube');
 	}
 
 	public function codepen()

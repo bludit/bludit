@@ -407,6 +407,13 @@
 		));
 
 		echo Bootstrap::formInputText(array(
+			'name' => 'discord',
+			'label' => 'Discord',
+			'value' => $user->discord(),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formInputText(array(
 			'name' => 'codepen',
 			'label' => 'CodePen',
 			'value' => $user->codepen(),

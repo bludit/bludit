@@ -410,6 +410,13 @@
 		echo Bootstrap::formTitle(array('title' => $L->g('Social Networks')));
 
 		echo Bootstrap::formInputText(array(
+			'name' => 'youtube',
+			'label' => 'YouTube',
+			'value' => $site->youtube(),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formInputText(array(
 			'name' => 'twitter',
 			'label' => 'Twitter',
 			'value' => $site->twitter(),
@@ -420,6 +427,13 @@
 			'name' => 'facebook',
 			'label' => 'Facebook',
 			'value' => $site->facebook(),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'discord',
+			'label' => 'Discord',
+			'value' => $site->discord(),
 			'data' => array('save' => 'true')
 		));
 

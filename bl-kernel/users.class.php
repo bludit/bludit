@@ -24,7 +24,8 @@ class Users extends dbJSON {
 		'linkedin'=>'',
 		'mastodon'=>'',
 		'vk'=>'',
-		'youtube'=>''
+		'youtube'=>'',
+		'discord'=>''
 	);
 
 	function __construct()
