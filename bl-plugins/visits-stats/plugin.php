@@ -51,7 +51,7 @@ class pluginVisitsStats extends Plugin {
 		$labelUnique = $L->g('Unique');
 
 		return <<<EOF
-		<div class="pluginVisitsStats">
+		<div class="pluginVisitsStats mb-4">
 			<h3 class="m-0 p-0"><i class="bi bi-bar-chart"></i>$label</h3>
 			<canvas id="visits-stats"></canvas>
 		</div>

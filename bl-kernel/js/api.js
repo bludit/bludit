@@ -321,7 +321,7 @@ class API {
 		@return				string
 	*/
 	async activatePlugin(args) {
-		var url = this.apiURL + "plugins/" + args['pluginClassName'];
+		var url = this.apiURL + "plugins/" + args['className'];
 		var body = Object.assign({}, this.body, args);
 		try {
 			var response = await fetch(url, {
@@ -340,18 +340,43 @@ class API {
 		}
 	}
 
-	/*	Uninstall and deactivate a plugin === Bludit v4
+	/*	Deactivate and uninstall a plugin === Bludit v4
 
 		@args				array
 		@return				string
 	*/
 	async deactivatePlugin(args) {
-		var url = this.apiURL + "plugins/" + args['pluginClassName'];
+		var url = this.apiURL + "plugins/" + args['className'];
 		var body = Object.assign({}, this.body, args);
 		try {
 			var response = await fetch(url, {
 				credentials: "same-origin",
 				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(err);
+			return true;
+		}
+	}
+
+	/*	Configure a plugin
+
+		@args				array		Arguments can be any of the fields from the plugin database
+		@return				string		The plugin class name
+	*/
+	async configurePlugin(args) {
+		var url = this.apiURL + "plugins/" + args['className'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "PUT",
 				body: JSON.stringify(body),
 				headers: new Headers({
 					"Content-Type": "application/json"

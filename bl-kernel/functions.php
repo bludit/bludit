@@ -600,19 +600,19 @@ function uploadPageFile($pageKey) {
 
 /*	Install and activate a plugin === Bludit v4
 
-	@pluginClassName	string			The plugin PHP class name
+	@className			string			The plugin PHP class name
 	@return				string/bool		Returns TRUE on successful install, FALSE otherwise
 */
-function activatePlugin($pluginClassName) {
+function activatePlugin($className) {
 	global $plugins;
 	global $syslog;
 
-	if (!isset($plugins['all'][$pluginClassName])) {
-		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$pluginClassName, LOG_TYPE_ERROR);
+	if (!isset($plugins['all'][$className])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$className, LOG_TYPE_ERROR);
 		return false;
 	}
 
-	$plugin = $plugins['all'][$pluginClassName];
+	$plugin = $plugins['all'][$className];
 	if ($plugin->install()) {
 		$syslog->add(array(
 			'dictionaryKey'=>'plugin-activated',
@@ -628,19 +628,19 @@ function activatePlugin($pluginClassName) {
 
 /*	Uninstall and deactivate a plugin === Bludit v4
 
-	@pluginClassName	string			The plugin PHP class name
+	@className			string			The plugin PHP class name
 	@return				string/bool		Returns TRUE on successful install, FALSE otherwise
 */
-function deactivatePlugin($pluginClassName) {
+function deactivatePlugin($className) {
 	global $plugins;
 	global $syslog;
 
-	if (!isset($plugins['all'][$pluginClassName])) {
-		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$pluginClassName, LOG_TYPE_ERROR);
+	if (!isset($plugins['all'][$className])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$className, LOG_TYPE_ERROR);
 		return false;
 	}
 
-	$plugin = $plugins['all'][$pluginClassName];
+	$plugin = $plugins['all'][$className];
 	if ($plugin->uninstall()) {
 		$syslog->add(array(
 			'dictionaryKey'=>'plugin-deactivated',
@@ -652,6 +652,34 @@ function deactivatePlugin($pluginClassName) {
 
 	Log::set(__FUNCTION__.LOG_SEP.'Not was possible uninstall the plugin.', LOG_TYPE_ERROR);
 	return false;
+}
+
+/*	Change plugins settings === Bludit v4
+
+	@args				array			The array $args supports all the keys from the plugin database
+	@return				bool			Returns TRUE on successful configure, FALSE otherwise
+*/
+function configurePlugin($args) {
+	global $plugins;
+	global $syslog;
+
+	// Plugin class name
+	$className = $args['className'];
+
+	// Check if the plugin exists
+	if (!isset($plugins['all'][$className])) {
+		Log::set(__FUNCTION__.LOG_SEP.'The plugin doesn\'t exist: '.$className, LOG_TYPE_ERROR);
+		return false;
+	}
+
+	$plugin = $plugins['all'][$className];
+	$plugin->configure($args);
+	$syslog->add(array(
+		'dictionaryKey'=>'plugin-configured',
+		'notes'=>$plugin->name()
+	));
+	Log::set(__FUNCTION__.LOG_SEP.'Plugin configured: '.$className, LOG_TYPE_INFO);
+	return true;
 }
 
 // Re-index database of categories
@@ -878,27 +906,7 @@ function deactivateAllPlugin() {
 	return false;
 }
 
-function changePluginsPosition($pluginClassList) {
-	global $plugins;
-	global $syslog;
-	global $L;
 
-	foreach ($pluginClassList as $position=>$pluginClassName) {
-		if (isset($plugins['all'][$pluginClassName])) {
-			$plugin = $plugins['all'][$pluginClassName];
-			$plugin->setPosition(++$position);
-		}
-	}
-
-	// Add to syslog
-	$syslog->add(array(
-		'dictionaryKey'=>'plugins-sorted',
-		'notes'=>''
-	));
-
-	Alert::set($L->g('The changes have been saved'));
-	return true;
-}
 
 // Execute the plugins by hook
 function execPluginsByHook($hook, $args = array()) {

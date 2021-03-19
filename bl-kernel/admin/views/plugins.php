@@ -9,9 +9,9 @@
 	// Functions for the view
 	// ============================================================================
 
-	function activatePlugin(pluginClassName) {
+	function activatePlugin(className) {
 		var args = {
-			pluginClassName: pluginClassName
+			className: className
 		};
 		api.activatePlugin(args).then(function(response) {
 			if (response.status == 0) {
@@ -24,9 +24,9 @@
 		});
 	}
 
-	function deactivatePlugin(pluginClassName) {
+	function deactivatePlugin(className) {
 		var args = {
-			pluginClassName: pluginClassName
+			className: className
 		};
 		api.deactivatePlugin(args).then(function(response) {
 			if (response.status == 0) {
@@ -59,13 +59,13 @@
 		});
 
 		$('.activatePlugin').on('click', function() {
-			var pluginClassName = $(this).data('class-name');
-			activatePlugin(pluginClassName);
+			var className = $(this).data('class-name');
+			activatePlugin(className);
 		});
 
 		$('.deactivatePlugin').on('click', function() {
-			var pluginClassName = $(this).data('class-name');
-			deactivatePlugin(pluginClassName);
+			var className = $(this).data('class-name');
+			deactivatePlugin(className);
 		});
 
 	});

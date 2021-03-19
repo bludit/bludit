@@ -397,5 +397,7 @@
     "are-you-sure-you-want-to-delete-this-user": "Are you sure you want to delete this user?",
     "are-you-sure-you-want-to-delete-this-page": "Are you sure you want to delete this page?",
     "are-you-sure-you-want-to-delete-this-category?": "Are you sure you want to delete this category?",
-    "are-you-sure-you-want-to-change-the-password?": "Are you sure you want to change the password?"
+    "are-you-sure-you-want-to-change-the-password?": "Are you sure you want to change the password?",
+    "website-plugins": "Website plugins",
+    "dashboard-plugins": "Dashboard plugins"
 }

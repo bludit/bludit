@@ -129,6 +129,12 @@ function buildPlugins()
 				return $a->position()>$b->position();
 			}
 		);
+
+		// Sort the plugins by the position for the dashboard
+		uasort($plugins['dashboard'], function ($a, $b) {
+				return $a->position()>$b->position();
+			}
+		);
 	}
 }
 

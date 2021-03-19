@@ -296,6 +296,20 @@ class Plugin {
 		return $this->save();
 	}
 
+	public function configure($args)
+	{
+		foreach ($this->db as $field=>$value) {
+			if (isset($args[$field])) {
+				$finalValue = Sanitize::html( $args[$field] );
+				if ($finalValue==='false') { $finalValue = false; }
+				elseif ($finalValue==='true') { $finalValue = true; }
+				settype($finalValue, gettype($value));
+				$this->db[$field] = $finalValue;
+			}
+		}
+		return $this->save();
+	}
+
 	public function setField($field, $value)
 	{
 		$this->db[$field] = Sanitize::html($value);

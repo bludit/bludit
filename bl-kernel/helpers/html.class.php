@@ -48,28 +48,32 @@ class HTML {
 
 	public static function jquery()
 	{
+		// https://jquery.com/
 		return '<script src="'.DOMAIN_CORE_VENDORS.'jquery/jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function jsBootstrap($attributes='')
 	{
+		// https://getbootstrap.com/
 		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap/bootstrap.bundle.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 	public static function cssBootstrap()
 	{
+		// https://getbootstrap.com/
 		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'bootstrap/bootstrap.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function cssBootstrapIcons()
 	{
+		// https://icons.getbootstrap.com/
 		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'bootstrap-icons/bootstrap-icons.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
 	}
 
 	public static function jsSortable($attributes='')
 	{
 		// https://github.com/psfpro/bootstrap-html5sortable
-		return '<script '.$attributes.' src="'.DOMAIN_CORE_JS.'jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap-html5sortable/jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
 }

@@ -27,7 +27,7 @@
 <div id="dashboard" class="container-fluid">
 	<div class="row">
 		<div class="col-7">
-			<?php Theme::plugins('dashboard') ?>
+			<?php execPluginsByHook('dashboard') ?>
 		</div>
 
 		<div class="col-5">
