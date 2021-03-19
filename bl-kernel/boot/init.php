@@ -83,7 +83,7 @@ include(PATH_KERNEL.'language.class.php');
 include(PATH_KERNEL.'site.class.php');
 include(PATH_KERNEL.'categories.class.php');
 include(PATH_KERNEL.'syslog.class.php');
-include(PATH_KERNEL.'pagex.class.php');
+include(PATH_KERNEL.'page.class.php');
 include(PATH_KERNEL.'category.class.php');
 include(PATH_KERNEL.'tag.class.php');
 include(PATH_KERNEL.'user.class.php');
@@ -99,7 +99,6 @@ include(PATH_KERNEL.'functions.php');
 include(PATH_HELPERS.'text.class.php');
 include(PATH_HELPERS.'log.class.php');
 include(PATH_HELPERS.'date.class.php');
-include(PATH_HELPERS.'theme.class.php');
 include(PATH_HELPERS.'session.class.php');
 include(PATH_HELPERS.'redirect.class.php');
 include(PATH_HELPERS.'sanitize.class.php');
@@ -113,7 +112,6 @@ include(PATH_HELPERS.'tcp.class.php');
 include(PATH_HELPERS.'dom.class.php');
 include(PATH_HELPERS.'cookie.class.php');
 include(PATH_HELPERS.'bootstrap.class.php');
-
 include(PATH_HELPERS.'html.class.php');
 
 if (file_exists(PATH_KERNEL.'bludit.pro.php')) {

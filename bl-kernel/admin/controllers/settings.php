@@ -14,5 +14,5 @@ checkRole(array('admin'));
 // Main
 // ============================================================================
 
-// View HTML <title>
+// HTML <title>
 $layout['title'] = $L->g('Settings') . ' - ' . $layout['title'];

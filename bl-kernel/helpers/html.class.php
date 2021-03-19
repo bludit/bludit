@@ -52,6 +52,12 @@ class HTML {
 		return '<script src="'.DOMAIN_CORE_VENDORS.'jquery/jquery.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
+	public static function bootbox($attributes='')
+	{
+		// https://bootbox.com/
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootbox/bootbox.all.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
 	public static function jsBootstrap($attributes='')
 	{
 		// https://getbootstrap.com/

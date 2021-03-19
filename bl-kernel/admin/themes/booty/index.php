@@ -33,13 +33,13 @@
 	echo HTML::jquery();
 	echo HTML::jsBootstrap();
 	echo HTML::jsSortable();
+	echo HTML::bootbox();
 	echo HTML::js(array(
 		'jquery.datetimepicker.full.min.js',
 		'jquery-ui.min.js',
 		'select2.full.min.js',
 		'tagsinput-revisited.min.js',
 		'functions.js',
-		'bootbox.all.min.js',
 		'api.js'
 	), DOMAIN_CORE_JS);
 	?>
