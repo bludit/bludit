@@ -109,13 +109,13 @@ class Site extends dbJSON {
 		return false;
 	}
 
-	// DEPRECATED in v3.0, use Theme::rssUrl()
+	// DEPRECATED in v3.0, use HTML::rssUrl()
 	public function rss()
 	{
 		return DOMAIN_BASE.'rss.xml';
 	}
 
-	// DEPRECATED in v3.0, use Theme::sitemapUrl()
+	// DEPRECATED in v3.0, use HTML::sitemapUrl()
 	public function sitemap()
 	{
 		return DOMAIN_BASE.'sitemap.xml';

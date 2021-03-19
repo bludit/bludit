@@ -9,7 +9,7 @@
 <div class="card my-5 border-0">
 
 	<!-- Load Bludit Plugins: Page Begin -->
-	<?php Theme::plugins('pageBegin'); ?>
+	<?php execPluginsByHook('pageBegin'); ?>
 
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
@@ -36,7 +36,7 @@
 	</div>
 
 	<!-- Load Bludit Plugins: Page End -->
-	<?php Theme::plugins('pageEnd'); ?>
+	<?php execPluginsByHook('pageEnd'); ?>
 
 </div>
 <hr>
@@ -56,7 +56,7 @@
 
 		<!-- Home button -->
 		<li class="page-item <?php if (Paginator::currentPage()==1) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Theme::siteUrl() ?>">Home</a>
+			<a class="page-link" href="<?php echo HTML::siteUrl() ?>">Home</a>
 		</li>
 
 		<!-- Next button -->

@@ -21,7 +21,7 @@ class pluginRSS extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('RSS URL').'</label>';
-		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
+		$html .= '<a href="'.HTML::rssUrl().'">'.HTML::rssUrl().'</a>';
 		$html .= '</div>';
 
 		$html .= '<div>';
@@ -32,7 +32,7 @@ class pluginRSS extends Plugin {
 
 		return $html;
 	}
-	
+
         private function encodeURL($url)
         {
                return preg_replace_callback('/[^\x20-\x7f]/', function($match) { return urlencode($match[0]); }, $url);

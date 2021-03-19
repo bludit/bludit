@@ -21,7 +21,7 @@ class pluginSitemap extends Plugin {
 
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('Sitemap URL').'</label>';
-		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
+		$html .= '<a href="'.HTML::sitemapUrl().'">'.HTML::sitemapUrl().'</a>';
 		$html .= '</div>';
 
 		$html .= '<div>';
@@ -85,12 +85,12 @@ class pluginSitemap extends Plugin {
 	private function ping()
 	{
 		if ($this->getValue('pingGoogle')) {
-			$url = 'https://www.google.com/ping?sitemap='.Theme::sitemapUrl();
+			$url = 'https://www.google.com/ping?sitemap='.HTML::sitemapUrl();
 			TCP::http($url, 'GET', true, 3);
 		}
 
 		if ($this->getValue('pingBing')) {
-			$url = 'https://www.bing.com/ping?sitemap='.Theme::sitemapUrl();
+			$url = 'https://www.bing.com/ping?sitemap='.HTML::sitemapUrl();
 			TCP::http($url, 'GET', true, 3);
 		}
 	}

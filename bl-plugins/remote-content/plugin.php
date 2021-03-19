@@ -154,7 +154,7 @@ EOF;
 				}
 			}
 
-			Theme::plugins('afterPageCreate');
+			execPluginsByHook('afterPageCreate');
 			reindexCategories();
 			reindexTags();
 		}

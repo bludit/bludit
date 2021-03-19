@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<!-- Load Bludit Plugins: Page Begin -->
-				<?php Theme::plugins('pageBegin'); ?>
+				<?php execPluginsByHook('pageBegin'); ?>
 
 				<!-- Page title -->
 				<h1 class="title"><?php echo $page->title(); ?></h1>
@@ -26,7 +26,7 @@
 				</div>
 
 				<!-- Load Bludit Plugins: Page End -->
-				<?php Theme::plugins('pageEnd'); ?>
+				<?php execPluginsByHook('pageEnd'); ?>
 			</div>
 		</div>
 	</div>

@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="<?php echo Theme::lang() ?>">
+<html lang="<?php echo HTML::lang() ?>">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="generator" content="Bludit">
 
 	<!-- Dynamic title tag -->
-	<?php echo Theme::metaTagTitle(); ?>
+	<?php echo HTML::metaTagTitle(); ?>
 
 	<!-- Dynamic description tag -->
-	<?php echo Theme::metaTagDescription(); ?>
+	<?php echo HTML::metaTagDescription(); ?>
 
 	<!-- Include Favicon -->
-	<?php echo Theme::favicon('img/favicon.png'); ?>
+	<?php echo HTML::favicon('img/favicon.png'); ?>
 
 	<!-- Include CSS Bootstrap file from Bludit Core -->
-	<?php echo Theme::cssBootstrap(); ?>
+	<?php echo HTML::cssBootstrap(); ?>
 
 	<!-- Include CSS Styles from this theme -->
-	<?php echo Theme::css('css/style.css'); ?>
+	<?php echo HTML::css('css/style.css'); ?>
 
 	<!-- Load Bludit Plugins: Site head -->
-	<?php Theme::plugins('siteHead'); ?>
+	<?php execPluginsByHook('siteHead'); ?>
 </head>
 <body>
 
 	<!-- Load Bludit Plugins: Site Body Begin -->
-	<?php Theme::plugins('siteBodyBegin'); ?>
+	<?php execPluginsByHook('siteBodyBegin'); ?>
 
 	<!-- Navbar -->
 	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
@@ -47,13 +47,13 @@
 	<?php include(THEME_DIR_PHP.'footer.php'); ?>
 
 	<!-- Include Jquery file from Bludit Core -->
-	<?php echo Theme::jquery(); ?>
+	<?php echo HTML::jquery(); ?>
 
 	<!-- Include javascript Bootstrap file from Bludit Core -->
-	<?php echo Theme::jsBootstrap(); ?>
+	<?php echo HTML::jsBootstrap(); ?>
 
 	<!-- Load Bludit Plugins: Site Body End -->
-	<?php Theme::plugins('siteBodyEnd'); ?>
+	<?php execPluginsByHook('siteBodyEnd'); ?>
 
 </body>
 </html>

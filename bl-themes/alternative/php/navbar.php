@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-uppercase">
 	<div class="container">
-		<a class="navbar-brand" href="<?php echo Theme::siteUrl(); ?>">
+		<a class="navbar-brand" href="<?php echo HTML::siteUrl(); ?>">
 			<span class="text-white"><?php echo $site->title(); ?></span>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
 				<?php endforeach ?>
 
 				<!-- Social Networks -->
-				<?php foreach (Theme::socialNetworks() as $key=>$label): ?>
+				<?php foreach (HTML::socialNetworks() as $key=>$label): ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
 						<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="<?php echo $label ?>" />
@@ -28,9 +28,9 @@
 				<?php endforeach; ?>
 
 				<!-- RSS -->
-				<?php if (Theme::rssUrl()): ?>
+				<?php if (HTML::rssUrl()): ?>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo Theme::rssUrl() ?>" target="_blank">
+					<a class="nav-link" href="<?php echo HTML::rssUrl() ?>" target="_blank">
 						<img class="d-none d-sm-block nav-svg-icon text-primary" src="<?php echo DOMAIN_THEME.'img/rss.svg' ?>" alt="RSS" />
 						<span class="d-inline d-sm-none">RSS</span>
 					</a>

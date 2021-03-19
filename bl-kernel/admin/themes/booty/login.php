@@ -22,8 +22,8 @@
 
 	<!-- Javascript -->
 	<?php
-		echo Theme::jquery();
-		echo Theme::jsBootstrap();
+		echo HTML::jquery();
+		echo HTML::jsBootstrap();
 	?>
 
 	<!-- Execute plugins for the login page inside the HTML <head> tag -->

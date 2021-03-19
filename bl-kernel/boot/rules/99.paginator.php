@@ -21,7 +21,7 @@ if ($url->whereAmI()=='admin') {
 }
 
 // Execute hook from plugins
-Theme::plugins('paginator');
+execPluginsByHook('paginator');
 
 // Items per page
 Paginator::set('itemsPerPage', $itemsPerPage);

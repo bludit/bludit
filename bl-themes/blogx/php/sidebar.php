@@ -1,1 +1,1 @@
-<?php Theme::plugins('siteSidebar') ?>
+<?php execPluginsByHook('siteSidebar') ?>

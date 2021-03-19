@@ -2,7 +2,7 @@
 <div class="card my-5 border-0">
 
 	<!-- Load Bludit Plugins: Page Begin -->
-	<?php Theme::plugins('pageBegin'); ?>
+	<?php execPluginsByHook('pageBegin'); ?>
 
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
@@ -26,6 +26,6 @@
 	</div>
 
 	<!-- Load Bludit Plugins: Page End -->
-	<?php Theme::plugins('pageEnd'); ?>
+	<?php execPluginsByHook('pageEnd'); ?>
 
 </div>

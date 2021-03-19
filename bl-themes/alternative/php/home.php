@@ -16,7 +16,7 @@
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="button" onClick="searchNow()"><?php $language->p('Search') ?></button>
 			<script>
 				function searchNow() {
-					var searchURL = "<?php echo Theme::siteUrl(); ?>search/";
+					var searchURL = "<?php echo HTML::siteUrl(); ?>search/";
 					window.open(searchURL + document.getElementById("search-input").value, "_self");
 				}
 				document.getElementById("search-input").onkeypress = function(e) {
@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<!-- Load Bludit Plugins: Page Begin -->
-				<?php Theme::plugins('pageBegin'); ?>
+				<?php execPluginsByHook('pageBegin'); ?>
 
 				<!-- Page title -->
 				<a class="text-dark" href="<?php echo $page->permalink(); ?>">
@@ -71,7 +71,7 @@
 				<?php endif ?>
 
 				<!-- Load Bludit Plugins: Page End -->
-				<?php Theme::plugins('pageEnd'); ?>
+				<?php execPluginsByHook('pageEnd'); ?>
 			</div>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 
 		<!-- Home button -->
 		<li class="page-item <?php if (Paginator::currentPage()==1) echo 'disabled' ?>">
-			<a class="page-link" href="<?php echo Theme::siteUrl() ?>"><?php echo $L->get('Home'); ?></a>
+			<a class="page-link" href="<?php echo HTML::siteUrl() ?>"><?php echo $L->get('Home'); ?></a>
 		</li>
 
 		<!-- Next button -->

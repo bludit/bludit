@@ -82,6 +82,185 @@ class HTML {
 		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap-html5sortable/jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
+	// --- CHECK OLD
+
+	public static function charset($charset)
+	{
+		return '<meta charset="'.$charset.'">'.PHP_EOL;
+	}
+
+	public static function viewport($content)
+	{
+		return '<meta name="viewport" content="'.$content.'">'.PHP_EOL;
+	}
+
+	public static function src($file, $base=DOMAIN_THEME)
+	{
+		return $base.$file;
+	}
+
+	public static function socialNetworks()
+	{
+		global $site;
+		$socialNetworks = array(
+			'github'=>'Github',
+			'gitlab'=>'GitLab',
+			'twitter'=>'Twitter',
+			'facebook'=>'Facebook',
+			'instagram'=>'Instagram',
+			'codepen'=>'Codepen',
+			'linkedin'=>'Linkedin',
+			'xing'=>'Xing',
+			'mastodon'=>'Mastodon',
+			'vk'=>'VK'
+		);
+
+		foreach ($socialNetworks as $key=>$label) {
+			if (!$site->{$key}()) {
+				unset($socialNetworks[$key]);
+			}
+		}
+		return $socialNetworks;
+	}
+
+	public static function title()
+	{
+		global $site;
+		return $site->title();
+	}
+
+	public static function description()
+	{
+		global $site;
+		return $site->description();
+	}
+
+	public static function slogan()
+	{
+		global $site;
+		return $site->slogan();
+	}
+
+	public static function footer()
+	{
+		global $site;
+		return $site->footer();
+	}
+
+	public static function lang()
+	{
+		global $language;
+		return $language->currentLanguageShortVersion();
+	}
+
+	public static function rssUrl()
+	{
+		if (pluginActivated('pluginRSS')) {
+			return DOMAIN_BASE.'rss.xml';
+		}
+		return false;
+	}
+
+	public static function sitemapUrl()
+	{
+		if (pluginActivated('pluginSitemap')) {
+			return DOMAIN_BASE.'sitemap.xml';
+		}
+		return false;
+	}
+
+	// Returns the absolute URL of the site
+	// Ex. https://example.com the method returns https://example.com/
+	// Ex. https://example.com/bludit/ the method returns https://example.com/bludit/
+	public static function siteUrl()
+	{
+		return DOMAIN_BASE;
+	}
+
+	// Returns the absolute URL of admin panel
+	// Ex. https://example.com/admin/ the method returns https://example.com/admin/
+	// Ex. https://example.com/bludit/admin/ the method returns https://example.com/bludit/admin/
+	public static function adminUrl()
+	{
+		return DOMAIN_ADMIN;
+	}
+
+	public static function metaTags($tag)
+	{
+		if ($tag=='title') {
+			return self::metaTagTitle();
+		} elseif ($tag=='description') {
+			return self::metaTagDescription();
+		}
+	}
+
+	public static function metaTagTitle()
+	{
+		global $url;
+		global $site;
+		global $tags;
+		global $categories;
+		global $WHERE_AM_I;
+		global $page;
+
+		if ($WHERE_AM_I=='page') {
+			$format = $site->titleFormatPages();
+			$format = Text::replace('{{page-title}}', $page->title(), $format);
+			$format = Text::replace('{{page-description}}', $page->description(), $format);
+		} elseif ($WHERE_AM_I=='tag') {
+			try {
+				$tagKey = $url->slug();
+				$tag = new Tag($tagKey);
+				$format = $site->titleFormatTag();
+				$format = Text::replace('{{tag-name}}', $tag->name(), $format);
+			} catch (Exception $e) {
+				// Tag doesn't exist
+			}
+
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$format = $site->titleFormatCategory();
+				$format = Text::replace('{{category-name}}', $category->name(), $format);
+			} catch (Exception $e) {
+				// Category doesn't exist
+			}
+		} else {
+			$format = $site->titleFormatHomepage();
+		}
+
+		$format = Text::replace('{{site-title}}', $site->title(), $format);
+		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
+		$format = Text::replace('{{site-description}}', $site->description(), $format);
+
+		return '<title>'.$format.'</title>'.PHP_EOL;
+	}
+
+	public static function metaTagDescription()
+	{
+		global $site;
+		global $WHERE_AM_I;
+		global $page;
+		global $url;
+
+		$description = $site->description();
+
+		if ($WHERE_AM_I=='page') {
+			$description = $page->description();
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$description = $category->description();
+			} catch (Exception $e) {
+				// description from the site
+			}
+		}
+
+		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
+	}
+
 }
 
 ?>

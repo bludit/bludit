@@ -4,7 +4,7 @@
 include(PATH_RULES.'60.plugins.php');
 
 // Plugins before all
-Theme::plugins('beforeAll');
+execPluginsByHook('beforeAll');
 
 // Load rules
 include(PATH_RULES.'60.router.php');
@@ -14,7 +14,7 @@ include(PATH_RULES.'99.paginator.php');
 include(PATH_RULES.'99.themes.php');
 
 // Plugins before site loaded
-Theme::plugins('beforeSiteLoad');
+execPluginsByHook('beforeSiteLoad');
 
 // Theme init.php
 if (Sanitize::pathFile(PATH_THEMES.$site->theme().DS.'init.php')) {
@@ -29,7 +29,7 @@ if (Sanitize::pathFile(PATH_THEMES.$site->theme().DS.'index.php')) {
 }
 
 // Plugins after site loaded
-Theme::plugins('afterSiteLoad');
+execPluginsByHook('afterSiteLoad');
 
 // Plugins after all
-Theme::plugins('afterAll');
+execPluginsByHook('afterAll');

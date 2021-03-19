@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="<?php echo Theme::lang() ?>">
+<html lang="<?php echo HTML::lang() ?>">
 <head>
 <?php include(THEME_DIR_PHP.'head.php'); ?>
 </head>
 <body>
 
 	<!-- Load Bludit Plugins: Site Body Begin -->
-	<?php Theme::plugins('siteBodyBegin'); ?>
+	<?php execPluginsByHook('siteBodyBegin'); ?>
 
 	<!-- Navbar -->
 	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
@@ -52,14 +52,14 @@
 	<!-- Javascript -->
 	<?php
 		// Include Jquery file from Bludit Core
-		echo Theme::jquery();
+		echo HTML::jquery();
 
 		// Include javascript Bootstrap file from Bludit Core
-		echo Theme::jsBootstrap();
+		echo HTML::jsBootstrap();
 	?>
 
 	<!-- Load Bludit Plugins: Site Body End -->
-	<?php Theme::plugins('siteBodyEnd'); ?>
+	<?php execPluginsByHook('siteBodyEnd'); ?>
 
 </body>
 </html>
