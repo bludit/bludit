@@ -29,8 +29,8 @@ function deletePage($args) {
 }
 ```
 
-## Controller and views structure
-Please follow complete example for
-
 Documentation for Bludit v4
 -------
+There is a new branch for the Documentation in english for Bludit v4.
+
+https://github.com/bludit/documentation-english/tree/v4.0
