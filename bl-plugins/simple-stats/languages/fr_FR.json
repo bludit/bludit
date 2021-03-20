@@ -9,5 +9,7 @@
 	"unique-visitors-today": "Visiteurs uniques du jour",
 	"chart": "Graphique",
 	"table": "Tableau",
-	"disk-usage" : "Disk Usage"
+	"disk-usage" : "Usage du disque",
+	"show-content-stats" : "Afficher les statistiques du contenu",
+	"exclude-administrators-users" : "Exclure les utilisateurs ayant le rôle 'Administrateur'."
 }
