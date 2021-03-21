@@ -5,17 +5,13 @@ class Image {
 	private $image;
 	private $width;
 	private $height;
+	private $type;
 	private $imageResized;
 
 	public function setImage($fileName, $newWidth, $newHeight, $option="auto")
 	{
-		// *** Open up the file
+		// *** Open up the file and resize image
 		$this->image = $this->openImage($fileName);
-
-		// *** Get width and height
-		$this->width  = imagesx($this->image);
-		$this->height = imagesy($this->image);
-
 		$this->resizeImage($newWidth, $newHeight, $option);
 	}
 
@@ -76,16 +72,23 @@ class Image {
 		// *** Get extension
 		$extension = strtolower(strrchr($file, '.'));
 
-		switch($extension)
+		// *** Get image information (width, height, and type)
+		$info = getimagesize($file);
+		if($info === false) return(false);
+
+		$this->width  = $info[0];
+		$this->height = $info[1];
+		$this->type = $info[2];
+
+		switch($this->type)
 		{
-			case '.jpg':
-			case '.jpeg':
+			case IMAGETYPE_JPEG:
 				$img = imagecreatefromjpeg($file);
 				break;
-			case '.gif':
+			case IMAGETYPE_GIF:
 				$img = imagecreatefromgif($file);
 				break;
-			case '.png':
+			case IMAGETYPE_PNG:
 				$img = imagecreatefrompng($file);
 				break;
 			default:
