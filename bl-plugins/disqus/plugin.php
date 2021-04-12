@@ -6,6 +6,7 @@ class pluginDisqus extends Plugin {
 	{
 		$this->dbFields = array(
 			'shortname'=>'',
+			'enableLinks'=>'',
                         'enablePages'=>true,
 			'enableStatic'=>true,
 			'enableSticky'=>true
@@ -23,7 +24,12 @@ class pluginDisqus extends Plugin {
 		$html .= '<div>';
 		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
 		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
-		$html .= '<span class="tip">'.$L->get('Get the shortname from the Disqus general settings').'</span>';
+		$html .= '<span class="tip">'.$L->get('get-the-shortname-from-the-disqus-general-settings').'</span>';
+
+		$html .= '<label>'.$L->get('enable-disqus-on-links').'</label>';
+		$html .= '<input name="enableLinks" id="jsenablelinks" type="text" value="'.$this->getValue('enableLinks').'">';
+		$html .= '<span class="tip">'.$L->get('tip-disqus-on-links').'</span>';
+		
 		$html .= '</div>';
 
                 $html .= '<div>';
@@ -65,14 +71,21 @@ class pluginDisqus extends Plugin {
 
 		if ($WHERE_AM_I==='page') {
 			global $page;
-			if ($page->published() && $this->getValue('enablePages')) {
+
+			$enableLinks = $this->getValue('enableLinks');
+			if(strlen(trim($enableLinks)) > 0 && strpos($enableLinks, $page->key()) !== false){
 				return $this->javascript();
 			}
-			if ($page->isStatic() && $this->getValue('enableStatic')) {
-				return $this->javascript();
-			}
-			if ($page->sticky() && $this->getValue('enableSticky')) {
-				return $this->javascript();
+			else {
+				if ($page->published() && $this->getValue('enablePages')) {
+					return $this->javascript();
+				}
+				if ($page->isStatic() && $this->getValue('enableStatic')) {
+					return $this->javascript();
+				}
+				if ($page->sticky() && $this->getValue('enableSticky')) {
+					return $this->javascript();
+				}
 			}
 		}
 
