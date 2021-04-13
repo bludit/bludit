@@ -1,0 +1,14 @@
+/* VIDEO EMBED RESPONSIVE */
+.video-embed {
+	overflow:hidden;
+	padding-bottom: 56.25%; /* 16:9 */
+	position:relative;
+	height:0;
+}
+.video-embed iframe{
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	position:absolute;
+}

@@ -7,7 +7,7 @@ class pluginAPI extends Plugin {
 	public function init()
 	{
 		// Generate the API Token
-		$token = md5( uniqid().time().DOMAIN );
+		$token = $this->generateToken();
 
 		$this->dbFields = array(
 			'token'=>$token,	// API Token
@@ -15,9 +15,20 @@ class pluginAPI extends Plugin {
 		);
 	}
 
-	public function getToken()
+	public function generateToken()
+	{
+		return md5( uniqid().time().DOMAIN );
+	}
+
+	public function token()
 	{
 		return $this->getValue('token');
+	}
+
+	public function newToken()
+	{
+		$this->db['token'] = $this->generateToken();
+		$this->save();
 	}
 
 	public function form()
@@ -116,7 +127,7 @@ class pluginAPI extends Plugin {
 					if (($user->role()=='admin') && ($user->enabled())) {
 						// Loggin the user to create the session
 						$login = new Login();
-						$login->setLogin($username, 'admin');
+						$login->setLogin($username, 'admin', $user->tokenAuth());
 						// Enable write permissions
 						$writePermissions = true;
 					}

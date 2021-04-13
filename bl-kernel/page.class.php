@@ -600,9 +600,13 @@ class Page {
 		return false;
 	}
 
-	// Returns an array with all pages key related to the page
-	// The relation is based on the tags
-	public function related() {
+	/*	Returns an array with all pages key related to the page === Bludit v4
+		The relation is based on the tags.
+
+		@sortByDate			boolean			TRUE if you want to get sort by date the pages, FALSE random order
+		@return				array			Returns an array with the page keys related to page
+	*/
+	public function related($sortByDate=false) {
 		global $tags;
 		$pageTags = $this->tags(true);
 		$list = array();
@@ -620,6 +624,19 @@ class Page {
 			unset($list[$key]);
 		}
 
+		// Sort by date if requested
+		if ($sortByDate) {
+			$listSortByDate = array();
+			foreach ($list as $pageKey) {
+				$tmpPage = new Page($pageKey);
+				$listSortByDate[$tmpPage->date('U')] = new Page($pageKey);
+			}
+			krsort($listSortByDate);
+			return $listSortByDate;
+		}
+
 		return $list;
 	}
+
+
 }

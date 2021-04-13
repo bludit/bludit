@@ -18,16 +18,22 @@ class Login {
 		}
 	}
 
-	// Returns the username of the user logged
+	// Returns the username
 	public function username()
 	{
 		return Session::get('username');
 	}
 
-	// Returns the role of the user logged
+	// Returns the role
 	public function role()
 	{
 		return Session::get('role');
+	}
+
+	// Returns the authentication token
+	public function tokenAuth()
+	{
+		return Session::get('tokenAuth');
 	}
 
 	// Returns TRUE if the user is logged, FALSE otherwise
@@ -49,10 +55,11 @@ class Login {
 	}
 
 	// Set the session for the user logged
-	public function setLogin($username, $role)
+	public function setLogin($username, $role, $tokenAuth)
 	{
 		Session::set('username',	$username);
 		Session::set('role', 		$role);
+		Session::set('tokenAuth', 	$tokenAuth);
 		Session::set('fingerPrint',	$this->fingerPrint());
 		Session::set('sessionTime',	time());
 
@@ -112,7 +119,7 @@ class Login {
 
 		$passwordHash = $this->users->generatePasswordHash($password, $user->salt());
 		if ($passwordHash===$user->password()) {
-			$this->setLogin($username, $user->role());
+			$this->setLogin($username, $user->role(), $user->tokenAuth());
 			Log::set(__METHOD__.LOG_SEP.'Successful user login by username and password - Username ['.$username.']');
 			return true;
 		}
@@ -151,7 +158,7 @@ class Login {
 
 		// Get user from database and login
 		$user = $this->users->getUserDB($username);
-		$this->setLogin($username, $user['role']);
+		$this->setLogin($username, $user['role'], $user->tokenAuth());
 		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
 		return true;
 	}

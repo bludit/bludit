@@ -82,6 +82,88 @@ class HTML {
 		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap-html5sortable/jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
+	/*	Generates a dynamiclly the meta tag title for the themes === Bludit v4
+
+		@return				string		Returns the meta tag title <title>...</title>
+	*/
+	public static function metaTagTitle()
+	{
+		global $url;
+		global $site;
+		global $page;
+		global $WHERE_AM_I;
+
+		if ($WHERE_AM_I=='page') {
+			$format = $site->titleFormatPages();
+			$format = Text::replace('{{page-title}}', $page->title(), $format);
+			$format = Text::replace('{{page-description}}', $page->description(), $format);
+		} elseif ($WHERE_AM_I=='tag') {
+			try {
+				$tagKey = $url->slug();
+				$tag = new Tag($tagKey);
+				$format = $site->titleFormatTag();
+				$format = Text::replace('{{tag-name}}', $tag->name(), $format);
+			} catch (Exception $e) {
+				// Tag doesn't exist
+			}
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$format = $site->titleFormatCategory();
+				$format = Text::replace('{{category-name}}', $category->name(), $format);
+			} catch (Exception $e) {
+				// Category doesn't exist
+			}
+		} else {
+			$format = $site->titleFormatHomepage();
+		}
+
+		$format = Text::replace('{{site-title}}', $site->title(), $format);
+		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
+		$format = Text::replace('{{site-description}}', $site->description(), $format);
+
+		return '<title>'.$format.'</title>'.PHP_EOL;
+	}
+
+	/*	Generates a dynamiclly the meta tag description for the themes === Bludit v4
+
+		@return				string		Returns the meta tag title <meta name="description" content="">
+	*/
+	public static function metaTagDescription()
+	{
+		global $site;
+		global $page;
+		global $url;
+		global $WHERE_AM_I;
+
+		$description = $site->description();
+
+		if ($WHERE_AM_I=='page') {
+			$description = $page->description();
+		} elseif ($WHERE_AM_I=='category') {
+			try {
+				$categoryKey = $url->slug();
+				$category = new Category($categoryKey);
+				$description = $category->description();
+			} catch (Exception $e) {
+				// description from the site
+			}
+		}
+
+		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
+	}
+
+	/*	Returns the short version of the current languages of the site === Bludit v4
+
+		@return				string		Returns the language sort version, for example: "en" or "de"
+	*/
+	public static function lang()
+	{
+		global $language;
+		return $language->currentLanguageShortVersion();
+	}
+
 	// --- CHECK OLD
 
 	public static function charset($charset)
@@ -147,12 +229,6 @@ class HTML {
 		return $site->footer();
 	}
 
-	public static function lang()
-	{
-		global $language;
-		return $language->currentLanguageShortVersion();
-	}
-
 	public static function rssUrl()
 	{
 		if (pluginActivated('pluginRSS')) {
@@ -194,72 +270,9 @@ class HTML {
 		}
 	}
 
-	public static function metaTagTitle()
-	{
-		global $url;
-		global $site;
-		global $tags;
-		global $categories;
-		global $WHERE_AM_I;
-		global $page;
 
-		if ($WHERE_AM_I=='page') {
-			$format = $site->titleFormatPages();
-			$format = Text::replace('{{page-title}}', $page->title(), $format);
-			$format = Text::replace('{{page-description}}', $page->description(), $format);
-		} elseif ($WHERE_AM_I=='tag') {
-			try {
-				$tagKey = $url->slug();
-				$tag = new Tag($tagKey);
-				$format = $site->titleFormatTag();
-				$format = Text::replace('{{tag-name}}', $tag->name(), $format);
-			} catch (Exception $e) {
-				// Tag doesn't exist
-			}
 
-		} elseif ($WHERE_AM_I=='category') {
-			try {
-				$categoryKey = $url->slug();
-				$category = new Category($categoryKey);
-				$format = $site->titleFormatCategory();
-				$format = Text::replace('{{category-name}}', $category->name(), $format);
-			} catch (Exception $e) {
-				// Category doesn't exist
-			}
-		} else {
-			$format = $site->titleFormatHomepage();
-		}
 
-		$format = Text::replace('{{site-title}}', $site->title(), $format);
-		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
-		$format = Text::replace('{{site-description}}', $site->description(), $format);
-
-		return '<title>'.$format.'</title>'.PHP_EOL;
-	}
-
-	public static function metaTagDescription()
-	{
-		global $site;
-		global $WHERE_AM_I;
-		global $page;
-		global $url;
-
-		$description = $site->description();
-
-		if ($WHERE_AM_I=='page') {
-			$description = $page->description();
-		} elseif ($WHERE_AM_I=='category') {
-			try {
-				$categoryKey = $url->slug();
-				$category = new Category($categoryKey);
-				$description = $category->description();
-			} catch (Exception $e) {
-				// description from the site
-			}
-		}
-
-		return '<meta name="description" content="'.$description.'">'.PHP_EOL;
-	}
 
 }
 

@@ -25,7 +25,7 @@ checkRole(array('admin'));
 activatePlugin('pluginAPI');
 $apiURL = DOMAIN_BASE.'api/';
 $pluginAPI = getPlugin('pluginAPI');
-$apiToken = $pluginAPI->getToken();
+$apiToken = $pluginAPI->token();
 $username = $login->username();
 $admin = new User($username);
 $authToken = $admin->tokenAuth();
