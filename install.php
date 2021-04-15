@@ -67,10 +67,12 @@ define('FILENAME', 'index.txt');
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
-if (!empty($_SERVER['HTTPS'])) {
-	define('PROTOCOL', 'https://');
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'
+    || !empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+    || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+    define('PROTOCOL', 'https://');
 } else {
-	define('PROTOCOL', 'http://');
+    define('PROTOCOL', 'http://');
 }
 
 // Base URL
