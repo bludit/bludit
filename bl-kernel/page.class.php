@@ -158,6 +158,11 @@ class Page {
 		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;
 	}
 
+	public function url($absolute=true)
+	{
+		return $this->permalink($absolute);
+	}
+
 	// Returns the previous page key
 	public function previousKey()
 	{
@@ -549,44 +554,6 @@ class Page {
 		return '~1 '.$L->get('minute');
 	}
 
-	// Returns relative time (e.g. "1 minute ago")
-	// Based on http://stackoverflow.com/a/18602474
-	// Modified for Bludit
-	// $complete = false : short version
-	// $complete = true  : full version
-	public function relativeTime($complete = false) {
-		$current = new DateTime;
-		$past    = new DateTime($this->getValue('dateRaw'));
-		$elapsed = $current->diff($past);
-
-		$elapsed->w  = floor($elapsed->d / 7);
-		$elapsed->d -= $elapsed->w * 7;
-
-		$string = array(
-			'y' => 'year',
-			'm' => 'month',
-			'w' => 'week',
-			'd' => 'day',
-			'h' => 'hour',
-			'i' => 'minute',
-			's' => 'second',
-		);
-
-		foreach($string as $key => &$value) {
-			if($elapsed->$key) {
-				$value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : ' ');
-			} else {
-				unset($string[$key]);
-			}
-		}
-
-		if(!$complete) {
-			$string = array_slice($string, 0 , 1);
-		}
-
-		return $string ? implode(', ', $string) . ' ago' : 'Just now';
-	}
-
 	// Returns the value from the field, false if the fields doesn't exists
 	// If you set the $option as TRUE, the function returns an array with all the values of the field
 	public function custom($field, $options=false)
@@ -638,5 +605,43 @@ class Page {
 		return $list;
 	}
 
+	/*	Returns relative time (e.g. "1 minute ago") === Bludit v4
+		Based on http://stackoverflow.com/a/18602474
+
+		@complete			boolean			TRUE full version, FALSE short version
+		@return				string			Relative time, for example: 1 minute ago
+	*/
+	public function relativeTime($complete=false) {
+		$current = new DateTime;
+		$past    = new DateTime($this->getValue('dateRaw'));
+		$elapsed = $current->diff($past);
+
+		$elapsed->w  = floor($elapsed->d / 7);
+		$elapsed->d -= $elapsed->w * 7;
+
+		$string = array(
+			'y' => 'year',
+			'm' => 'month',
+			'w' => 'week',
+			'd' => 'day',
+			'h' => 'hour',
+			'i' => 'minute',
+			's' => 'second',
+		);
+
+		foreach ($string as $key => &$value) {
+			if ($elapsed->$key) {
+				$value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : ' ');
+			} else {
+				unset($string[$key]);
+			}
+		}
+
+		if (!$complete) {
+			$string = array_slice($string, 0 , 1);
+		}
+
+		return $string ? implode(', ', $string) . ' ago' : 'Just now';
+	}
 
 }
