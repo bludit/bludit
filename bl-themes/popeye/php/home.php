@@ -3,7 +3,7 @@
 	<div class="container text-center">
 
 		<div class="site-logo">
-			<img class="img-thumbnail rounded mx-auto d-block" height="150px" width="150px" src="<?php echo $site->logo() ?>" alt="">
+			<img class="img-thumbnail rounded mx-auto d-block" height="150px" width="150px" src="<?php echo ($site->logo()?$site->logo():HTML_PATH_THEME_IMG.'logo.svg') ?>" alt="">
 		</div>
 
 		<?php if ($site->description()) : ?>
