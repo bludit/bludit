@@ -1,5 +1,12 @@
-<footer class="footer bg-dark">
-	<div class="container">
-		<p class="m-0 text-center text-white text-uppercase"><?php echo $site->footer(); ?><span class="ms-5 text-warning">Powered by<img class="mini-logo" src="<?php echo DOMAIN_THEME_IMG.'favicon.png'; ?>"/><a target="_blank" class="text-white" href="https://www.bludit.com">Bludit</a></span></p>
-	</div>
+<footer class="bd-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+  <div class="container">
+    <ul class="bd-footer-links ps-0 mb-3">
+      <li class="d-inline-block"><a href="#">GitHub</a></li>
+      <li class="d-inline-block ms-3"><a href="#">Twitter</a></li>
+      <li class="d-inline-block ms-3"><a href="#">Facebook</a></li>
+      <li class="d-inline-block ms-3"><a href="#">About</a></li>
+    </ul>
+    <p class="mb-0">Design for Bludit v4.0</p>
+    <p class="mb-0">Running over Bludit CMS</p>
+  </div>
 </footer>

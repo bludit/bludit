@@ -33,16 +33,18 @@
 				<!-- Pages -->
 				<div class="list-group list-group-flush">
 					<?php foreach ($content as $page) : ?>
-						<div href="#" class="list-group-item list-group-item-action pt-3 pb-3" aria-current="true">
+						<div class="list-group-item pt-3 pb-3" aria-current="true">
 							<div class="d-flex w-100 justify-content-between">
 								<!-- Print page's title -->
-								<h5 class="mb-1"><?php echo $page->title() ?></h5>
+								<a href="<?php echo $page->url() ?>">
+									<h5 class="mb-1"><?php echo $page->title() ?></h5>
+								</a>
 								<!-- Print page's date -->
-								<small>3 days ago</small>
+								<small class="page-date"><?php echo $page->relativeTime() ?></small>
 							</div>
 
 							<!-- Print page's description -->
-							<p class="mb-1">Some placeholder content in a paragraph.</p>
+							<p class="mb-1 form-text">Some placeholder content in a paragraph.</p>
 
 							<!-- Print page's tags -->
 							<?php
@@ -63,30 +65,30 @@
 	</div>
 </section>
 
-
 <!-- Pagination -->
 <?php if (Paginator::numberOfPages() > 1) : ?>
-	<nav class="paginator">
-		<ul class="pagination flex-wrap justify-content-center">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 
-			<!-- Previous button -->
-			<?php if (Paginator::showPrev()) : ?>
-				<li class="page-item me-2">
-					<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">&#9664; <?php echo $L->get('Previous'); ?></a>
-				</li>
+			<!-- Older pages -->
+			<?php if (Paginator::showNext()) : ?>
+			<li class="page-item">
+				<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">&#9664; <?php echo $L->get('Previus'); ?></a>
+			</li>
 			<?php endif; ?>
 
 			<!-- Home button -->
 			<li class="page-item <?php if (Paginator::currentPage() == 1) echo 'disabled' ?>">
-				<a class="page-link" href="<?php echo HTML::siteUrl() ?>"><?php echo $L->get('Home'); ?></a>
+				<a class="page-link" href="<?php echo $site->url() ?>"><?php echo $L->get('Home'); ?></a>
 			</li>
 
-			<!-- Next button -->
-			<?php if (Paginator::showNext()) : ?>
-				<li class="page-item ms-2">
-					<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>"><?php echo $L->get('Next'); ?> &#9658;</a>
-				</li>
+			<!-- Newer pages -->
+			<?php if (Paginator::showPrev()) : ?>
+			<li class="page-item">
+				<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $L->get('Next'); ?> &#9658;</a>
+			</li>
 			<?php endif; ?>
+
 		</ul>
 	</nav>
 <?php endif ?>

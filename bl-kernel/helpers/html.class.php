@@ -164,6 +164,31 @@ class HTML {
 		return $language->currentLanguageShortVersion();
 	}
 
+	public static function socialNetworks()
+	{
+		global $site;
+		$socialNetworks = array(
+			'instagram'=>'Instagram',
+			'facebook'=>'Facebook',
+			'twitter'=>'Twitter',
+			'youtube'=>'YouTube',
+			'github'=>'Github',
+			'gitlab'=>'GitLab',
+			'linkedin'=>'Linkedin',
+			'codepen'=>'Codepen',
+			'xing'=>'Xing',
+			'mastodon'=>'Mastodon',
+			'vk'=>'VK'
+		);
+
+		foreach ($socialNetworks as $key=>$label) {
+			if (!$site->{$key}()) {
+				unset($socialNetworks[$key]);
+			}
+		}
+		return $socialNetworks;
+	}
+
 	// --- CHECK OLD
 
 	public static function charset($charset)
@@ -179,30 +204,6 @@ class HTML {
 	public static function src($file, $base=DOMAIN_THEME)
 	{
 		return $base.$file;
-	}
-
-	public static function socialNetworks()
-	{
-		global $site;
-		$socialNetworks = array(
-			'github'=>'Github',
-			'gitlab'=>'GitLab',
-			'twitter'=>'Twitter',
-			'facebook'=>'Facebook',
-			'instagram'=>'Instagram',
-			'codepen'=>'Codepen',
-			'linkedin'=>'Linkedin',
-			'xing'=>'Xing',
-			'mastodon'=>'Mastodon',
-			'vk'=>'VK'
-		);
-
-		foreach ($socialNetworks as $key=>$label) {
-			if (!$site->{$key}()) {
-				unset($socialNetworks[$key]);
-			}
-		}
-		return $socialNetworks;
 	}
 
 	public static function title()

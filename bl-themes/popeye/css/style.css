@@ -1,3 +1,19 @@
+
+/* COMMON */
+a {
+    color: #495057;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0a58ca;
+}
+
+.page-date {
+	color: #0a58ca;
+	font-weight: 600;
+}
+
 /* VIDEO EMBED RESPONSIVE */
 .video-embed {
 	overflow:hidden;
