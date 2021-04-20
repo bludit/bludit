@@ -21,7 +21,7 @@
 	<?php echo HTML::cssBootstrapIcons(); ?>
 
 	<!-- Include CSS Styles from this theme -->
-	<?php echo HTML::css('css/style.css'); ?>
+	<?php echo HTML::css(array('css/style.css', 'css/helpers.css')); ?>
 
 	<!-- Execute Bludit plugins for the hook "Site head" -->
 	<?php execPluginsByHook('siteHead'); ?>

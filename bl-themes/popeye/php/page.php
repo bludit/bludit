@@ -1,23 +1,22 @@
-<section class="page">
+<section class="page mt-4 mb-4">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-8 mx-auto">
+			<div class="col-lg-6 mx-auto">
 				<!-- Load Bludit Plugins: Page Begin -->
 				<?php execPluginsByHook('pageBegin'); ?>
+
+				<!-- Page information -->
+				<div class="page-information form-text">
+					<span><?php echo $page->date() ?></span>
+					<span class="ps-3"><?php echo $page->readingTime().' '.$L->g('read') ?></span>
+				</div>
 
 				<!-- Page title -->
 				<h1 class="title"><?php echo $page->title(); ?></h1>
 
 				<!-- Page description -->
 				<?php if ($page->description()): ?>
-				<p class="page-description"><?php echo $page->description(); ?></p>
-				<?php endif ?>
-
-				<!-- Page cover image -->
-				<?php if ($page->coverImage()): ?>
-				<div class="page-cover-image py-6 mb-4" style="background-image: url('<?php echo $page->coverImage(); ?>');">
-					<div style="height: 300px;"></div>
-				</div>
+				<p class="italic mt-1 mb-3 color-light"><?php echo $page->description(); ?></p>
 				<?php endif ?>
 
 				<!-- Page content -->

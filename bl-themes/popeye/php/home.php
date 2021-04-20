@@ -1,11 +1,11 @@
-<!-- Site logo and description -->
-<header class="bg-light p-3">
+<header class="p-3">
 	<div class="container text-center">
-
+		<!-- Site logo -->
 		<div class="site-logo">
 			<img class="img-thumbnail rounded mx-auto d-block" height="150px" width="150px" src="<?php echo ($site->logo()?$site->logo():HTML_PATH_THEME_IMG.'logo.svg') ?>" alt="">
 		</div>
 
+		<!-- Site description -->
 		<?php if ($site->description()) : ?>
 			<div class="site-description mt-2">
 				<p><?php echo $site->description(); ?></p>
@@ -28,19 +28,19 @@
 				<!-- Search input -->
 				<form class="d-flex mb-4">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+					<button class="btn btn-outline-primary" type="submit">Search</button>
 				</form>
 				<!-- Pages -->
 				<div class="list-group list-group-flush">
-					<?php foreach ($content as $page) : ?>
+					<?php foreach ($content as $tmp) : ?>
 						<div class="list-group-item pt-3 pb-3" aria-current="true">
 							<div class="d-flex w-100 justify-content-between">
 								<!-- Print page's title -->
-								<a href="<?php echo $page->url() ?>">
-									<h5 class="mb-1"><?php echo $page->title() ?></h5>
+								<a href="<?php echo $tmp->url() ?>">
+									<h5 class="mb-1"><?php echo $tmp->title() ?></h5>
 								</a>
 								<!-- Print page's date -->
-								<small class="page-date"><?php echo $page->relativeTime() ?></small>
+								<small class="color-blue bold"><?php echo $tmp->relativeTime() ?></small>
 							</div>
 
 							<!-- Print page's description -->
@@ -48,10 +48,10 @@
 
 							<!-- Print page's tags -->
 							<?php
-							$tmp = $page->tags(true);
-							if (!empty($tmp)) {
+							$tagsList = $tmp->tags(true);
+							if (!empty($tagsList)) {
 								echo '<small>';
-								foreach ($tmp as $tagKey => $tagName) {
+								foreach ($tagsList as $tagKey => $tagName) {
 									echo '<a class="badge bg-light text-dark text-decoration-none" href="' . DOMAIN_TAGS . $tagKey . '">' . $tagName . '</a>';
 								}
 								echo '</small>';

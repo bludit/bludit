@@ -9,9 +9,40 @@ a:hover {
 	color: #0a58ca;
 }
 
-.page-date {
+img {
+	max-width: 100%;
+}
+
+pre, code {
+	color: #f8f8f8;
+	background-color: #495057;
+}
+
+code {
+	display: inline-block;
+	padding: 0 0.5em;
+	line-height: 1.4em;
+	border-radius: 3px;
+}
+
+pre {
+	overflow-x: scroll;
+	padding: 1.6rem 2.2rem;
+	line-height: 1.5;
+	border-radius: 5px !important;
+}
+
+/* PAGE */
+section.page h1.title {
+	font-size: 2rem;
+}
+
+section.page .description {
+    font-style: italic;
+}
+
+section.page a {
 	color: #0a58ca;
-	font-weight: 600;
 }
 
 /* VIDEO EMBED RESPONSIVE */

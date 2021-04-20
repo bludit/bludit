@@ -16,7 +16,7 @@
 */
 $content = array();
 
-// Page filtered by the user, is a Page Object
+// Page filtered by the user, will be a Page Object
 $page = false;
 
 // Array with static content, each item is a Page Object
@@ -29,7 +29,7 @@ $page = false;
 		N => Page Object
 	)
 */
-$staticContent = $staticPages = buildStaticPages();
+$staticContent = buildStaticPages();
 
 // ============================================================================
 // Main
@@ -61,7 +61,7 @@ if ($site->homepage() && $url->whereAmI()==='home') {
 
 // Build specific page
 if ($url->whereAmI()==='page') {
-	$content[0] = $page = buildThePage();
+	$page = buildThePage();
 }
 // Build content by tag
 elseif ($url->whereAmI()==='tag') {
@@ -73,14 +73,10 @@ elseif ($url->whereAmI()==='category') {
 }
 // Build content for the homepage
 elseif ( ($url->whereAmI()==='home') || ($url->whereAmI()==='blog') ) {
-        $content = buildPagesForHome();
-}
-
-if (isset($content[0])) {
-	$page = $content[0];
+    $content = buildPagesForHome();
 }
 
 // If set notFound, create the page 404
 if ($url->notFound()) {
-	$content[0] = $page = buildErrorPage();
+	$page = buildErrorPage();
 }
