@@ -62,7 +62,7 @@ Also we provide Kubernetes deployments yaml files.
 
 Support Bludit!
 -------
-Bludit is open soruce and free, but if you really like the project and is useful for your you can contribute in [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO.
+Bludit is open source and free, but if you really like the project and is useful for your you can contribute in [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO.
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 
