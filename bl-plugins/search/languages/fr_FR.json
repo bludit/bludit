@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Recherche",
+		"description": "Fournit un champ de recherche à vos utilisateurs pour qu'ils puissent effectuer des recherches dans le contenu de votre site."
+	},
+	"search": "Chercher",
+	"show-button-search": "Montrer le bouton de recherche"
+}

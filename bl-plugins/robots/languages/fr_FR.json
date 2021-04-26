@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Robots",
+		"description": "Vous pouvez utiliser une métabalise HTML spéciale pour indiquer aux robots de ne pas indexer le contenu d'une page et/ou de ne pas l'analyser pour trouver des liens à suivre."
+	}
+}

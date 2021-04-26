@@ -3,11 +3,11 @@
         "native": "Français (France)",
         "english-name": "French",
         "locale": "fr, fr_FR",
-        "last-update": "2019-06-05",
+        "last-update": "2021-03-21",
         "authors": [
             "Frédéric K. http:\/\/flatboard.free.fr",
             "Clickwork https:\/\/clickwork.ch",
-            "",
+            "Nicolas B.",
             ""
         ]
     },
@@ -307,7 +307,7 @@
     "title-formats": "Format du titre",
     "delete-content": "Supprimer le contenu",
     "are-you-sure-you-want-to-delete-this-page": "Êtes-vous sûr de vouloir supprimer cette page?",
-    "sticky": "Épingler",
+    "sticky": "Épinglée",
     "actions": "Actions",
     "edit": "Éditer",
     "options": "Options",
@@ -387,9 +387,11 @@
     "disabled-plugins": "Plugins désactivés",
     "remove-logo": "Supprimer le logo",
     "preview": "Aperçu",
-    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others.",
-    "custom-fields": "Custom fields",
-    "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
-    "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
-    "view": "View"
+    "author-can-write-and-edit-their-own-content": "Auteur : Peut écrire et éditer son propre contenu. Rédacteur : Peut écrire et éditer le contenu d'autres personnes.",
+    "custom-fields": "Champs personnalisés",
+    "define-custom-fields-for-the-content": "Définissez des champs personnalisés pour le contenu. En savoir plus sur les champs personnalisés dans la <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
+    "start-typing-to-see-a-list-of-suggestions": "Commencez à taper pour voir une liste de suggestions.",
+    "view": "Vue",
+    "insert-thumbnail": "Insérer une miniature",
+    "insert-linked-thumbnail": "Insérer une miniature liée"
 }
