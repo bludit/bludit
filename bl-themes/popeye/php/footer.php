@@ -1,12 +1,11 @@
-<footer class="bd-footer p-3 p-md-5 mt-5 bg-light text-center text-sm-start">
+<footer class="footer p-3 p-md-5 mt-5 text-center">
 	<div class="container">
-		<ul class="bd-footer-links ps-0 mb-3">
+		<ul class="footer-links ps-0 mb-1">
 			<?php foreach (HTML::socialNetworks() as $key => $name) {
-				echo '<li class="d-inline-block p-2"><i class="me-2 bi bi-' . $key . '"></i>' . $name . '</li>';
+				echo '<a class="color-blue" href="'.$site->{$key}().'"><li class="d-inline-block pe-4">' . $name . '</li></a>';
 			}
 			?>
 		</ul>
-		<p class="mb-0">Design for Bludit v4.0</p>
-		<p class="mb-0">Running over Bludit CMS</p>
+		<p class="m-0 mt-2">Powered by <a class="color-blue" href="https://www.bludit.com">Bludit</a> - Open source CMS</p>
 	</div>
 </footer>

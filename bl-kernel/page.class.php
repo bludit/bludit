@@ -537,10 +537,11 @@ class Page {
 		return $list;
 	}
 
-	// Returns the amount of minutes takes to read the page
-	public function readingTime() {
-		global $L;
+	/*	Returns the amount of minutes takes to read the page === Bludit v4
 
+		@return				string			Returns the minutes as string
+	*/
+	public function readingTime() {
 		$words = $this->content(true);
 		$words = strip_tags($words);
 		$words = str_word_count($words);
@@ -548,10 +549,9 @@ class Page {
 		$minutes = round($average);
 
 		if ($minutes>1) {
-			return $minutes.' '.$L->get('minutes');
+			return $minutes;
 		}
-
-		return '~1 '.$L->get('minute');
+		return '~1';
 	}
 
 	// Returns the value from the field, false if the fields doesn't exists
@@ -571,9 +571,10 @@ class Page {
 		The relation is based on the tags.
 
 		@sortByDate			boolean			TRUE if you want to get sort by date the pages, FALSE random order
+		@getFirst			int				Amount of related pages, -1 indicates all related pages
 		@return				array			Returns an array with the page keys related to page
 	*/
-	public function related($sortByDate=false) {
+	public function related($sortByDate=false, $getFirst=-1) {
 		global $tags;
 		$pageTags = $this->tags(true);
 		$list = array();
@@ -596,13 +597,17 @@ class Page {
 			$listSortByDate = array();
 			foreach ($list as $pageKey) {
 				$tmpPage = new Page($pageKey);
-				$listSortByDate[$tmpPage->date('U')] = new Page($pageKey);
+				$listSortByDate[$tmpPage->date('U')] = $pageKey;
 			}
 			krsort($listSortByDate);
-			return $listSortByDate;
+			$list = $listSortByDate;
 		}
 
-		return $list;
+		if ($getFirst==-1) {
+			return $list;
+		} else {
+			return array_slice($list, 0, $getFirst);
+		}
 	}
 
 	/*	Returns relative time (e.g. "1 minute ago") === Bludit v4

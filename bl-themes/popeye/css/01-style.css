@@ -32,9 +32,23 @@ pre {
 	border-radius: 5px !important;
 }
 
+/* BOOTSTRAP */
+.list-group-item {
+	background-color: inherit;
+}
+
+.badge {
+	font-size: 0.8rem;
+	font-weight: 400;
+}
+
+.bi {
+	margin-right: .5rem!important;
+}
+
 /* PAGE */
-section.page h1.title {
-	font-size: 2rem;
+section.page {
+	font-size: 1.1rem;
 }
 
 section.page .description {
@@ -43,6 +57,37 @@ section.page .description {
 
 section.page a {
 	color: #0a58ca;
+}
+
+section.page p {
+	margin-bottom: 1.2rem;
+}
+
+section.page h1.page-title {
+	font-size: 2rem;
+}
+
+section.page h2 {
+	font-size: 1.5rem;
+}
+
+section.page h3 {
+	font-size: 1.3rem;
+}
+
+section.page h4 {
+	font-size: 1.1rem;
+}
+
+section.page h5 {
+	font-size: 1rem;
+}
+
+section.page h2,
+section.page h3,
+section.page h4,
+section.page h5 {
+	margin: 2rem 0 1rem 0;
 }
 
 /* VIDEO EMBED RESPONSIVE */

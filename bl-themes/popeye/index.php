@@ -21,7 +21,25 @@
 	<?php echo HTML::cssBootstrapIcons(); ?>
 
 	<!-- Include CSS Styles from this theme -->
-	<?php echo HTML::css(array('css/style.css', 'css/helpers.css')); ?>
+	<?php
+		echo HTML::css(array(
+			'css/01-style.css',
+			'css/02-helpers.css'
+		));
+
+		if ($darkMode) {
+			echo HTML::css(
+				'css/99-darkmode.css'
+			);
+		}
+	?>
+
+	<?php if ($googleFonts): ?>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
+		<style>
+			body { font-family: "Open Sans", sans-serif; }
+		</style>
+	<?php endif; ?>
 
 	<!-- Execute Bludit plugins for the hook "Site head" -->
 	<?php execPluginsByHook('siteHead'); ?>

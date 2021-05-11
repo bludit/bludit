@@ -14,3 +14,7 @@
 .italic {
     font-style: italic;
 }
+
+.bg-gray {
+    background-color: #ececec;
+}
