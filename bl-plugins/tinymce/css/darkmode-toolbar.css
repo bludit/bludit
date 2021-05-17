@@ -1,0 +1,46 @@
+.tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary {
+    background-image: none !important;
+    background-color: #111111 !important;
+    color: #b3b3b3 !important;
+}
+
+.tox .tox-tbtn {
+	color: #b3b3b3 !important;
+}
+
+.tox .tox-edit-area__iframe {
+    background-color: #131216 !important;
+    color: #b3b3b3 !important;
+}
+
+.tox-tinymce {
+    border-color: #302F33 !important;
+}
+
+.tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
+    border-color: #302F33 !important;
+}
+
+.tox .tox-collection--list .tox-collection__item--active {
+
+}
+
+.tox :not(svg):not(rect) {
+    color: #b3b3b3 !important;
+}
+
+.tox .tox-tbtn svg {
+    fill: #b3b3b3 !important;
+}
+
+.tox .tox-tbtn:hover {
+    background-color: #222222 !important;
+}
+
+.tox .tox-menu {
+    background-color: #222222 !important;
+}
+
+.tox-sidebar-wrap {
+    border-top: 1px solid #302F33 !important;
+}

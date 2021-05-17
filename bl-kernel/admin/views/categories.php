@@ -49,9 +49,9 @@ foreach ($categories->keys() as $key) {
 	try {
 		$category = new Category($key);
 		echo '<tr>';
-		echo '<td class="pt-3 pb-3"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
-		echo '<td class="pt-3 pb-3"><span>'.$category->description().'</span></td>';
-		echo '<td class="pt-3 pb-3"><a href="'.$category->permalink().'">'.$category->permalink().'</a></td>';
+		echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
+		echo '<td class="pt-4 pb-4"><span>'.$category->description().'</span></td>';
+		echo '<td class="pt-4 pb-4"><a href="'.$category->permalink().'">'.$category->permalink().'</a></td>';
 		echo '</tr>';
 	} catch (Exception $e) {
 		// Continue

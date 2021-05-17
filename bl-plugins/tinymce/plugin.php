@@ -39,12 +39,16 @@ class pluginTinymce extends Plugin {
 
 	public function adminHead()
 	{
+		global $site;
 		// Load the plugin only in the controllers setted in $this->loadOnViews
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
 		}
 
-		$html  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/tinymce_toolbar.css">'.PHP_EOL;
+		$html = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/lightmode-toolbar.css">'.PHP_EOL;
+		if ($site->darkModeAdmin()) {
+			$html = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/darkmode-toolbar.css">'.PHP_EOL;
+		}
 		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
 		return $html;
 	}
@@ -52,6 +56,7 @@ class pluginTinymce extends Plugin {
 	public function adminBodyEnd()
 	{
 		global $L;
+		global $site;
 
 		// Load the plugin only in the controllers setted in $this->loadOnViews
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
@@ -60,7 +65,10 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$content_css = $this->htmlPath().'css/tinymce_content.css';
+		$content_css = $this->htmlPath().'css/lightmode-content.css'.','.$this->htmlPath().'css/default-content.css';
+		if ($site->darkModeAdmin()) {
+			$content_css = $this->htmlPath().'css/darkmode-content.css'.','.$this->htmlPath().'css/default-content.css';
+		}
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
 
@@ -102,7 +110,7 @@ class pluginTinymce extends Plugin {
 				auto_focus: "editor",
 				element_format : "html",
 				entity_encoding : "raw",
-				skin: "oxide",
+				skin: "oxide-dark",
 				schema: "html5",
 				statusbar: false,
 				menubar:false,

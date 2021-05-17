@@ -564,25 +564,6 @@
 						?>
 					</span>
 				</div>
-				<div id="editorToolbarRight" class="ms-auto">
-					<div class="dropdown">
-						<button type="button" class="btn dropdown-toggle btn-secondary btn-sm" type="button" id="dropdownMenuOptions" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="bi bi-gear"></i></span><?php $L->p('Options') ?>
-						</button>
-						<div class="dropdown-menu ps-1 pe-1" aria-labelledby="dropdownMenuOptions">
-							<a onclick="openModal('description')" class="dropdown-item" href="#"><i class="bi bi-info-square"></i>Description</a>
-							<a onclick="openModal('date')" class="dropdown-item" href="#"><i class="bi bi-calendar"></i>Publish date</a>
-							<a onclick="openModal('friendlyURL')" class="dropdown-item" href="#"><i class="bi bi-link"></i>Change URL</a>
-							<a onclick="openModal('type')" class="dropdown-item" href="#"><i class="bi bi-eye"></i>Type</a>
-							<a onclick="openModal('seo')" class="dropdown-item" href="#"><i class="bi bi-compass"></i>SEO features</a>
-							<a onclick="openModal('parent')" class="dropdown-item" href="#"><i class="bi bi-diagram-2"></i>Parent page</a>
-							<a>
-								<hr class="dropdown-divider">
-							</a>
-							<a onclick="fmOpen()" class="dropdown-item" href="#"><i class="bi bi-files"></i>Files & images</a>
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- End Toolbar > Save, Preview, Type and Options -->
 
@@ -659,6 +640,18 @@
 				});
 			</script>
 			<!-- End Tags -->
+
+			<h6 class="text-uppercase mt-4">More options</h6>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item p-0 pt-2"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
+				<li class="list-group-item p-0 pt-2"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
+
+			</ul>
 
 			<!-- Quick files
 			<h6 class="text-uppercase mt-4"><?php $L->p('Quick files') ?></h6>

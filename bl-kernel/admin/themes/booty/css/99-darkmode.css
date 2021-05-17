@@ -1,0 +1,134 @@
+body {
+    background-color: #1C1C1E;
+    color: #b3b3b3;
+}
+
+.bg-dark {
+    background-color: #111111 !important;
+}
+
+.bg-light {
+    background-color: #111111 !important;
+}
+
+.bg-info {
+    background-color: #003c58!important;
+}
+
+a,
+a.nav-link,
+.link,
+a.dropdown-menu,
+.dropdown-item {
+    color: #b3b3b3;
+}
+
+a:hover,
+a.nav-link:hover,
+.link:hover {
+    color: #e2e2e2 !important
+}
+
+.form-text {
+    color: #989899 !important;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #444;
+}
+
+.color-blue {
+    color: #688bbd !important;
+}
+
+.btn {
+    color: #e0e0e0;
+}
+
+.btn-outline-primary {
+    color: #688bbd !important;
+    border-color: #688bbd !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #1C1C1E !important;
+    color: #fff !important;
+}
+
+.page-link {
+    color: #688bbd !important;
+    border-color: #688bbd !important;
+    background-color: #1C1C1E !important;
+}
+
+.form-control,
+.form-select {
+    background-color: #111111;
+    border-color: #302F33;
+    color: #b3b3b3;
+}
+
+.form-control:focus {
+    background-color: #111111;
+    border-color: #302F33;
+    color: #b3b3b3;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    background-color: #1C1C1E !important;
+    border-color: #302F33 !important;
+    color: #b3b3b3 !important;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border-color: #302F33 !important;
+}
+
+.nav-tabs {
+    border-bottom-color:#302F33 !important;
+}
+
+.table {
+    color: #b3b3b3 !important;
+    border-bottom-color:#302F33 !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #171717;
+    color: #b3b3b3;
+}
+
+.border-bottom {
+    border-bottom-color:#302F33 !important;
+}
+
+.alert-primary {
+    background-color: #97A4B9;
+    border-color: #aebcd2;
+}
+
+.modal-content {
+    background-color: #121212 !important;
+    color: #b3b3b3 !important;
+    border-color: #2f3233;
+}
+
+.modal-footer {
+    border-top-color: #302F33;
+}
+
+.dropdown-menu {
+    background-color: #121212 !important;
+    color: #b3b3b3 !important;
+}
+
+.list-group-item {
+    background-color: inherit;
+    color: #b3b3b3;
+}
+
+.list-group-item a {
+    text-decoration: none;
+}

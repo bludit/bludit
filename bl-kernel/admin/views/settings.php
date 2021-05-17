@@ -227,6 +227,26 @@
 			'data' => array('save' => 'true')
 		));
 
+		echo Bootstrap::formTitle(array('title' => $L->g('Dark Mode')));
+
+		echo Bootstrap::formSelect(array(
+			'name' => 'darkModeAdmin',
+			'label' => $L->g('Admin panel'),
+			'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+			'selected' => ($site->darkModeAdmin() ? 'true' : 'false'),
+			'tip' => $L->g('Enable dark mode for the admin panel. The theme has to support this feature.'),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formSelect(array(
+			'name' => 'darkModeWebsite',
+			'label' => $L->g('Website'),
+			'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+			'selected' => ($site->darkModeWebsite() ? 'true' : 'false'),
+			'tip' => $L->g('Enable dark mode for the website. The theme has to support this feature.'),
+			'data' => array('save' => 'true')
+		));
+
 		echo Bootstrap::formTitle(array('title' => $L->g('Autosave')));
 
 		echo Bootstrap::formInputText(array(

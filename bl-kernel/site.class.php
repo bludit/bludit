@@ -50,7 +50,9 @@ class Site extends dbJSON {
 		'thumbnailQuality'=> 	100,
 		'logo'=>		'',
 		'markdownParser'=>	true,
-		'customFields'=>	'{}'
+		'customFields'=>	'{}',
+		'darkModeAdmin'=> false,
+		'darkModeWebsite'=> false
 	);
 
 	function __construct()
@@ -149,6 +151,16 @@ class Site extends dbJSON {
 	public function markdownParser()
 	{
 		return $this->getField('markdownParser');
+	}
+
+	public function darkModeAdmin()
+	{
+		return $this->getField('darkModeAdmin');
+	}
+
+	public function darkModeWebsite()
+	{
+		return $this->getField('darkModeWebsite');
 	}
 
 	public function twitter()

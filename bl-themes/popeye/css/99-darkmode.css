@@ -1,10 +1,10 @@
 body {
     background-color: #1C1C1E !important;
-    color: #ddd !important;
+    color: #b3b3b3 !important;
 }
 
 a {
-    color: #fff !important;
+    color: #b3b3b3 !important;
 }
 
 a:hover {
@@ -32,8 +32,19 @@ a.badge:hover {
     border-color: #688bbd !important;
 }
 
+.btn-outline-primary:hover {
+    background-color: #1C1C1E !important;
+    color: #fff !important;
+}
+
 .page-link {
     color: #688bbd !important;
     border-color: #688bbd !important;
     background-color: #1C1C1E !important;
+}
+
+.form-control {
+    background-color: #1C1C1E !important;
+    border-color: #302F33 !important;
+    color: #b3b3b3 !important;
 }

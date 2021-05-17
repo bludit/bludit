@@ -1,0 +1,12 @@
+/* Remove Focus glow */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Icons */
+.bi {
+  margin-right: .5rem!important;
+}

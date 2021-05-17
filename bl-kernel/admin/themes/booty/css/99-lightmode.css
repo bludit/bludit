@@ -1,0 +1,17 @@
+a {
+  color: #555;
+}
+
+a.nav-link {
+  color: #555;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #999999;
+}
+
+.btn-primary-disabled {
+  background-color: #4792ff !important;
+  border-color: #4792ff !important;
+}

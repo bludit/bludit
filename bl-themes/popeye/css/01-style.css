@@ -46,6 +46,13 @@ pre {
 	margin-right: .5rem!important;
 }
 
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* PAGE */
 section.page {
 	font-size: 1.1rem;

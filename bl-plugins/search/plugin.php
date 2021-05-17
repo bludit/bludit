@@ -20,28 +20,24 @@ class pluginSearch extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
+		$html  = '<div class="mb-3">';
+		$html .= '<label class="form-label" for="label">'.$L->get('Label').'</label>';
+		$html .= '<input class="form-control" id="label" name="label" type="text" value="'.$this->getValue('label').'">';
+		$html .= '<span class="form-text">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '</div>';
+
+		$html .= '<div class="mb-3">';
+		$html .= '<label class="form-label" for="minChars">'.$L->get('Minimum number of characters when searching').'</label>';
+		$html .= '<input class="form-control" id="minChars" name="minChars" type="text" value="'.$this->getValue('minChars').'">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Minimum number of characters when searching').'</label>';
-		$html .= '<input name="minChars" type="text" value="'.$this->getValue('minChars').'">';
-		$html .= '</div>';
-
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('Show button search').'</label>';
-                $html .= '<select name="showButtonSearch">';
-                $html .= '<option value="true" '.($this->getValue('showButtonSearch')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('showButtonSearch')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+		$html .= '<label class="form-label" for="showButtonSearch">'.$L->get('Show button search').'</label>';
+		$html .= '<select name="showButtonSearch" class="form-select">';
+		$html .= '<option value="true" '.($this->getValue('showButtonSearch')===true?'selected':'').'>'.$L->get('enabled').'</option>';
+		$html .= '<option value="false" '.($this->getValue('showButtonSearch')===false?'selected':'').'>'.$L->get('disabled').'</option>';
 		$html .= '</select>';
-                $html .= '</div>';
+		$html .= '</div>';
 		$html .= '<div>';
 
 		return $html;

@@ -1,0 +1,13 @@
+body.mce-content-body {
+    background-color: #111111 !important;
+    color: #b3b3b3 !important;
+}
+
+.mce-content-body a {
+	color: #4a90e2;
+	text-decoration: none;
+}
+
+.mce-content-body blockquote {
+	border-left: 5px solid #eee;
+}

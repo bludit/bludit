@@ -18,12 +18,6 @@
 	</div>
 </header>
 
-<?php if (empty($content)) : ?>
-	<div class="text-center p-4">
-		<?php $language->p('No pages found') ?>
-	</div>
-<?php endif ?>
-
 <!-- Print all the content -->
 <section class="mt-4 mb-4">
 	<div class="container">
@@ -31,11 +25,35 @@
 			<div class="col-lg-8 mx-auto">
 
 				<!-- Search input -->
+				<?php if (pluginActivated('pluginSearch')): ?>
 				<form class="d-flex mb-4">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-primary" type="submit">Search</button>
+					<input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary" type="button" onClick="searchNow()">Search</button>
 				</form>
+				<script>
+					function searchNow() {
+						var searchURL = "<?php echo HTML::siteUrl(); ?>search/";
+						window.open(searchURL + document.getElementById("search-input").value, "_self");
+					}
+					document.getElementById("search-input").onkeypress = function(e) {
+						if (!e) e = window.event;
+						var keyCode = e.keyCode || e.which;
+						if (keyCode == '13') {
+							searchNow();
+							return false;
+						}
+					}
+				</script>
+				<?php endif ?>
 				<!-- End Search input -->
+
+				<!-- Content not available -->
+				<?php if (empty($content)) : ?>
+					<div class="text-center p-4">
+						<h3><?php $language->p('No pages found') ?></h3>
+					</div>
+				<?php endif ?>
+				<!-- End Content not available -->
 
 				<!-- Pages -->
 				<div class="list-group list-group-flush">

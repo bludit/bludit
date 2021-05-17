@@ -2,6 +2,10 @@ html {
   font-size: 0.9rem;
 }
 
+.link {
+  text-decoration: underline;
+}
+
 /*
 	Left sidebar
 */
@@ -30,33 +34,6 @@ div.sidebar .nav-item h4 {
 .link {
   cursor: pointer;
   text-decoration: underline;
-  color: #555;
-}
-
-.link:hover {
-  color: #0a58ca;
-}
-
-/*
-    OLD >>>>>>>>>
-*/
-
-
-/*
-	AUTOCOMPLETE SEARCH
-*/
-
-.search-suggestion {
-    padding: 5px;
-}
-
-.search-suggestion-options {
-    font-size: 0.9em;
-    padding-top: 2px;
-}
-
-.list-group-sortable {
-    cursor: pointer;
 }
 
 

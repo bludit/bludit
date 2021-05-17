@@ -20,14 +20,15 @@
 	<!-- Include CSS Bootstrap ICONS file from Bludit Core -->
 	<?php echo HTML::cssBootstrapIcons(); ?>
 
-	<!-- Include CSS Styles from this theme -->
+	<!-- Include CSS Styles -->
 	<?php
 		echo HTML::css(array(
 			'css/01-style.css',
 			'css/02-helpers.css'
 		));
 
-		if ($darkMode) {
+		# Apply the following CSS only for Dark Mode
+		if ($site->darkModeWebsite()) {
 			echo HTML::css(
 				'css/99-darkmode.css'
 			);

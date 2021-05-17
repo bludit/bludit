@@ -101,7 +101,7 @@ echo '
 
 // Show installed plugins
 foreach ($pluginsInstalled as $plugin) {
-	echo '<tr id="' . $plugin->className() . '" class="bg-light searchItem">';
+	echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
 	echo '<td class="align-middle pt-3 pb-3 w-25">
 		<div class="searchText">' . $plugin->name() . '</div>

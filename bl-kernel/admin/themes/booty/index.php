@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="h-100">
-
 <head>
 	<title><?php echo $layout['title'] ?></title>
 	<meta charset="<?php echo CHARSET ?>">
@@ -13,19 +12,30 @@
 
 	<!-- CSS -->
 	<?php
-	echo HTML::cssBootstrap();
-	echo HTML::cssBootstrapIcons();
-	echo HTML::css(array(
-		'bludit-bootstrap.css',
-		'bludit.css'
-	), DOMAIN_ADMIN_THEME_CSS);
-	echo HTML::css(array(
-		'jquery.datetimepicker.min.css',
-		'jquery-ui.min.css',
-		'select2.min.css',
-		'select2-bootstrap4.min.css',
-		'tagsinput-revisited.min.css'
-	), DOMAIN_CORE_CSS);
+		echo HTML::cssBootstrap();
+		echo HTML::cssBootstrapIcons();
+		echo HTML::css(array(
+			'01-bludit.css',
+			'02-bootstrap-hacks.css'
+		), DOMAIN_ADMIN_THEME_CSS);
+
+		echo HTML::css(array(
+			'jquery.datetimepicker.min.css',
+			'jquery-ui.min.css',
+			'select2.min.css',
+			'select2-bootstrap4.min.css',
+			'tagsinput-revisited.min.css'
+		), DOMAIN_CORE_CSS);
+
+		if ($site->darkModeAdmin()) {
+			echo HTML::css(array(
+				'99-darkmode.css'
+			), DOMAIN_ADMIN_THEME_CSS);
+		} else {
+			echo HTML::css(array(
+				'99-lightmode.css'
+			), DOMAIN_ADMIN_THEME_CSS);
+		}
 	?>
 
 	<!-- Javascript -->
@@ -48,7 +58,7 @@
 	<?php execPluginsByHook('adminHead') ?>
 </head>
 
-<body class="h-100 bg-light">
+<body class="h-100">
 
 	<!-- Execute plugins for the admin area inside the HTML <body> at the begginig -->
 	<?php execPluginsByHook('adminBodyBegin') ?>

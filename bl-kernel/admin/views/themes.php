@@ -29,7 +29,7 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('Themes'), 'icon'=>'eye'));
 
 echo '
-<table class="table  mt-3">
+<table class="table table-striped mt-3">
 	<thead>
 		<tr>
 			<th class="border-bottom-0 w-25" scope="col">'.$L->g('Name').'</th>
@@ -43,8 +43,8 @@ echo '
 
 foreach ($themes as $theme) {
 	echo '
-	<tr '.($theme['dirname']==$site->theme()?'class="bg-light"':'').'>
-		<td class="align-middle pt-3 pb-3">
+	<tr '.($theme['dirname']==$site->theme()?'class="bg-info"':'').'>
+		<td class="align-middle pt-4 pb-4">
 			<div>'.$theme['name'].'</div>
 			<div class="mt-1">
 	';

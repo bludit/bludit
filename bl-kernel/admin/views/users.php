@@ -52,20 +52,20 @@ foreach ($list as $username) {
 	try {
 		$user = new User($username);
 		echo '<tr>';
-		echo '<td class="pt-3 pb-3"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
-		echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">'.$user->nickname().'</td>';
-		echo '<td class="pt-3 pb-3">'.$user->email().'</td>';
-		echo '<td class="pt-3 pb-3">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':'<b class="text-danger">'.$L->g('Disabled').'</b>').'</td>';
+		echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
+		echo '<td class="pt-4 pb-4 d-none d-lg-table-cell">'.$user->nickname().'</td>';
+		echo '<td class="pt-4 pb-4">'.$user->email().'</td>';
+		echo '<td class="pt-4 pb-4">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':'<b class="text-danger">'.$L->g('Disabled').'</b>').'</td>';
 		if ($user->role()=='admin') {
-			echo '<td class="pt-3 pb-3">'.$L->g('Administrator').'</td>';
+			echo '<td class="pt-4 pb-4">'.$L->g('Administrator').'</td>';
 		} elseif ($user->role()=='editor') {
-			echo '<td class="pt-3 pb-3">'.$L->g('Editor').'</td>';
+			echo '<td class="pt-4 pb-4">'.$L->g('Editor').'</td>';
 		} elseif ($user->role()=='author') {
-			echo '<td class="pt-3 pb-3">'.$L->g('Author').'</td>';
+			echo '<td class="pt-4 pb-4">'.$L->g('Author').'</td>';
 		} else {
-			echo '<td class="pt-3 pb-3">'.$L->g('Reader').'</td>';
+			echo '<td class="pt-4 pb-4">'.$L->g('Reader').'</td>';
 		}
-		echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">'.Date::format($user->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
+		echo '<td class="pt-4 pb-4 d-none d-lg-table-cell">'.Date::format($user->registered(), DB_DATE_FORMAT, ADMIN_PANEL_DATE_FORMAT).'</td>';
 		echo '</tr>';
 	} catch (Exception $e) {
 		// Continue

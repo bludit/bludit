@@ -118,7 +118,7 @@ function table($type)
 				if (!$page->isChild()) {
 					echo '<tr>';
 
-					echo '<td class="pt-3 pb-3">
+					echo '<td class="pt-4 pb-4">
 					<div>
 						<span>' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 					</div>
@@ -135,16 +135,16 @@ function table($type)
 					</div>
 					</td>';
 
-					echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
+					echo '<td class="pt-4 pb-4 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-					echo '<td class="pt-3 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
+					echo '<td class="pt-4 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
 						echo '<tr>';
 
-						echo '<td class="ps-3 pt-3 pb-3">
+						echo '<td class="ps-3 pt-4 pb-4">
 						<div>
 							<span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 						</div>
@@ -155,9 +155,9 @@ function table($type)
 						</div>
 						</td>';
 
-						echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($child->category() ? $child->category() : $L->get('uncategorized')) . '</td>';
+						echo '<td class="pt-4 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($child->category() ? $child->category() : $L->get('uncategorized')) . '</td>';
 
-						echo '<td class="pt-3 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $child->position() : $child->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
+						echo '<td class="pt-4 text-center d-sm-table-cell">' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $child->position() : $child->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 						echo '</tr>';
 					}
@@ -172,7 +172,7 @@ function table($type)
 				$page = new Page($pageKey);
 				echo '<tr>';
 
-				echo '<td class="pt-3 pb-3">
+				echo '<td class="pt-4 pb-4">
 					<div>
 						' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '
 					</div>
@@ -183,9 +183,9 @@ function table($type)
 					</div>
 				</td>';
 
-				echo '<td class="pt-3 pb-3 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
+				echo '<td class="pt-4 d-none d-lg-table-cell">' . $L->get('Category') . ': ' . ($page->category() ? $page->category() : $L->get('uncategorized')) . '</td>';
 
-				echo '<td class="pt-3 text-center d-sm-table-cell"> ' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
+				echo '<td class="pt-4 text-center d-sm-table-cell"> ' . (((ORDER_BY == 'position') || ($type != 'published')) ? $L->g('Position') . ': ' . $page->position() : $page->date(MANAGE_CONTENT_DATE_FORMAT)) . '</td>';
 
 				echo '</tr>';
 			} catch (Exception $e) {
