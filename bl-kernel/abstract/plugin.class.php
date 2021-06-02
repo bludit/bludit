@@ -170,6 +170,11 @@ class Plugin {
 		return $this->getMetadata('email');
 	}
 
+	public function type()
+	{
+		return $this->getMetadata('type');
+	}
+
 	public function website()
 	{
 		return $this->getMetadata('website');

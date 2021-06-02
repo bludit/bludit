@@ -3,8 +3,9 @@
 	"email": "",
 	"website": "https://themes.bludit.com",
 	"version": "4.0",
-	"releaseDate": "2020-07-28",
+	"releaseDate": "2021-05-23",
 	"license": "MIT",
 	"compatible": "4.0",
-	"notes": ""
+	"notes": "",
+	"plugin": "popeye"
 }

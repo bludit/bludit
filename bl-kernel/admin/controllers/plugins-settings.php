@@ -17,8 +17,8 @@ checkRole(array('admin'));
 $plugin = false;
 $pluginClassName = $layout['parameters'];
 
-// Check if the plugin exists
-if (isset($plugins['all'][$pluginClassName])) {
+// Check if the plugin is installed/activated
+if (pluginActivated($pluginClassName)) {
 	$plugin = $plugins['all'][$pluginClassName];
 } else {
 	Redirect::page('plugins');

@@ -85,6 +85,11 @@ class pluginTinymce extends Plugin {
 			$document_base_url = '';
 		}
 
+		$skin = 'oxide';
+		if ($site->darkModeAdmin()) {
+			$skin = 'oxide-dark';
+		}
+
 		return <<<EOF
 		<script>
 
@@ -110,7 +115,7 @@ class pluginTinymce extends Plugin {
 				auto_focus: "editor",
 				element_format : "html",
 				entity_encoding : "raw",
-				skin: "oxide-dark",
+				skin: "$skin",
 				schema: "html5",
 				statusbar: false,
 				menubar:false,

@@ -3,5 +3,7 @@
 // Init scripts for the theme
 
 // This theme use the API to work
-activatePlugin('pluginAPI');
+if (!pluginActivated('pluginAPI')) {
+    activatePlugin('pluginAPI');
+}
 $plugins['all']['pluginAPI']->newToken();

@@ -28,14 +28,14 @@
 		));
 
 		# Apply the following CSS only for Dark Mode
-		if ($site->darkModeWebsite()) {
+		if ($theme->darkMode()) {
 			echo HTML::css(
 				'css/99-darkmode.css'
 			);
 		}
 	?>
 
-	<?php if ($googleFonts): ?>
+	<?php if ($theme->googleFonts()): ?>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
 		<style>
 			body { font-family: "Open Sans", sans-serif; }

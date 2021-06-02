@@ -238,15 +238,6 @@
 			'data' => array('save' => 'true')
 		));
 
-		echo Bootstrap::formSelect(array(
-			'name' => 'darkModeWebsite',
-			'label' => $L->g('Website'),
-			'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
-			'selected' => ($site->darkModeWebsite() ? 'true' : 'false'),
-			'tip' => $L->g('Enable dark mode for the website. The theme has to support this feature.'),
-			'data' => array('save' => 'true')
-		));
-
 		echo Bootstrap::formTitle(array('title' => $L->g('Autosave')));
 
 		echo Bootstrap::formInputText(array(

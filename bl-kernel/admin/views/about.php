@@ -34,37 +34,37 @@ echo '
 ';
 
 echo '<tr>';
-echo '<td>Bludit Edition</td>';
+echo '<td class="pt-4 pb-4">Bludit Edition</td>';
 if (defined('BLUDIT_PRO')) {
-	echo '<td>PRO - '.$L->g('Thanks for supporting Bludit').' <span class="bi-heart" style="color: #ffc107"></span></td>';
+	echo '<td class="pt-4 pb-4">PRO - '.$L->g('Thanks for supporting Bludit').' <span class="bi-heart" style="color: #ffc107"></span></td>';
 } else {
-	echo '<td>Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
+	echo '<td class="pt-4 pb-4">Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
 }
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Version</td>';
-echo '<td>'.BLUDIT_VERSION.'</td>';
+echo '<td class="pt-4 pb-4">Bludit Version</td>';
+echo '<td class="pt-4 pb-4">'.BLUDIT_VERSION.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Codename</td>';
-echo '<td>'.BLUDIT_CODENAME.'</td>';
+echo '<td class="pt-4 pb-4">Bludit Codename</td>';
+echo '<td class="pt-4 pb-4">'.BLUDIT_CODENAME.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Build Number</td>';
-echo '<td>'.BLUDIT_BUILD.'</td>';
+echo '<td class="pt-4 pb-4">Bludit Build Number</td>';
+echo '<td class="pt-4 pb-4">'.BLUDIT_BUILD.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Disk usage</td>';
-echo '<td>'.Filesystem::bytesToHumanFileSize(Filesystem::getSize(PATH_ROOT)).'</td>';
+echo '<td class="pt-4 pb-4">Disk usage</td>';
+echo '<td class="pt-4 pb-4">'.Filesystem::bytesToHumanFileSize(Filesystem::getSize(PATH_ROOT)).'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit Developers</a></td>';
-echo '<td></td>';
+echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit Developers</a></td>';
+echo '<td class="pt-4 pb-4"></td>';
 echo '</tr>';
 
 echo '

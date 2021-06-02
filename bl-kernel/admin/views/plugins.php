@@ -109,7 +109,10 @@ foreach ($pluginsInstalled as $plugin) {
 	if (method_exists($plugin, 'form')) {
 		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'plugins-settings/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
 	}
-	echo '<span class="link deactivatePlugin" data-class-name="' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
+	// You can not disable a plugin for an activated theme
+	if ($plugin->type()!='theme') {
+		echo '<span class="link deactivatePlugin" data-class-name="' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
+	}
 	echo '</div>';
 	echo '</td>';
 

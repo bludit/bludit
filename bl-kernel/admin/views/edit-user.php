@@ -70,7 +70,19 @@
 			var key = $(this).attr('name');
 			var value = $(this).val();
 			args[key] = value;
-		})
+		});
+
+		$('select[data-save="true"]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
+
+		$('textarea[data-save="true"]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
 
 		api.editUser(args).then(function(response) {
 			if (response.status == 0) {
@@ -297,6 +309,14 @@
 			'name' => 'lastName',
 			'label' => $L->g('Last Name'),
 			'value' => $user->lastName(),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formTextarea(array(
+			'name' => 'bio',
+			'label' => $L->g('Bio'),
+			'value' => $user->bio(),
+			'rows' => 4,
 			'data' => array('save' => 'true')
 		));
 		?>

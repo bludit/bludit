@@ -68,7 +68,8 @@ a.nav-link:hover,
     color: #b3b3b3;
 }
 
-.form-control:focus {
+.form-control:focus,
+.form-select:focus {
     background-color: #111111;
     border-color: #302F33;
     color: #b3b3b3;
@@ -105,8 +106,9 @@ a.nav-link:hover,
 }
 
 .alert-primary {
-    background-color: #97A4B9;
-    border-color: #aebcd2;
+    background-color: #191e27;
+    border-color: #232a35;
+    color: #b3b3b3;
 }
 
 .modal-content {
@@ -127,8 +129,14 @@ a.nav-link:hover,
 .list-group-item {
     background-color: inherit;
     color: #b3b3b3;
+    border: 0 none;
 }
 
 .list-group-item a {
     text-decoration: none;
+}
+
+.border-top,
+.border-bottom {
+    border-color: #302F33 !important;
 }

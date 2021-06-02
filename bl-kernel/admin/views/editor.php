@@ -256,15 +256,15 @@
 			closeModal('type');
 
 			if (args['type'] == 'draft') {
-				$('#btnCurrenType').html('<i class="bi bi-square-fill"></i><?php $L->p('Draft') ?>');
+				$('#btnCurrenType').html('<i class="bi bi-circle"></i><?php $L->p('Draft') ?>');
 			} else if (args['type'] == 'published') {
-				$('#btnCurrenType').html('<i class="bi bi-check-square-fill"></i><?php $L->p('Published') ?>');
+				$('#btnCurrenType').html('<i class="bi bi-check2-circle"></i><?php $L->p('Published') ?>');
 			} else if (args['type'] == 'unlisted') {
-				$('#btnCurrenType').html('<i class="bi bi-check-square-fill"></i><?php $L->p('Unlisted') ?>');
+				$('#btnCurrenType').html('<i class="bi bi-check2-circle"></i><?php $L->p('Unlisted') ?>');
 			} else if (args['type'] == 'sticky') {
-				$('#btnCurrenType').html('<i class="bi bi-check-square-fill"></i><?php $L->p('Sticky') ?>');
+				$('#btnCurrenType').html('<i class="bi bi-check2-circle"></i><?php $L->p('Sticky') ?>');
 			} else if (args['type'] == 'static') {
-				$('#btnCurrenType').html('<i class="bi bi-check-square-fill"></i><?php $L->p('Static') ?>');
+				$('#btnCurrenType').html('<i class="bi bi-check2-circle"></i><?php $L->p('Static') ?>');
 			}
 		});
 
@@ -544,22 +544,24 @@
 				<div id="editorToolbarLeft">
 					<button id="btnSave" type="button" data-current="saved" class="btn btn-sm btn-primary btn-primary-disabled"><i class="bi bi-save"></i><?php $L->p('Saved') ?></button>
 					<button id="btnPreview" type="button" class="btn btn-sm btn-primary"><i class="bi bi-box-arrow-up-right"></i><?php $L->p('Preview') ?></button>
-					<span id="btnCurrenType" class="ms-1">
+				</div>
+				<div id="editorToolbarRight" class="ms-auto">
+					<span id="btnCurrenType" class="ms-1 text-uppercase">
 						<?php
 						if ($pageKey) {
 							if ($page->draft()) {
-								echo '<i class="bi bi-square-fill"></i><span>' . $L->g('Draft') . '</span>';
+								echo '<i class="bi bi-circle"></i><span>' . $L->g('Draft') . '</span>';
 							} elseif ($page->published()) {
-								echo '<i class="bi bi-check-square-fill"></i><span>' . $L->g('Published') . '</span>';
+								echo '<i class="bi bi-check2-circle"></i><span>' . $L->g('Published') . '</span>';
 							} elseif ($page->sticky()) {
-								echo '<i class="bi bi-check-square-fill"></i><span>' . $L->g('Sticky') . '</span>';
+								echo '<i class="bi bi-check2-circle"></i><span>' . $L->g('Sticky') . '</span>';
 							} elseif ($page->isStatic()) {
-								echo '<i class="bi bi-check-square-fill"></i><span>' . $L->g('Static') . '</span>';
+								echo '<i class="bi bi-check2-circle"></i><span>' . $L->g('Static') . '</span>';
 							} elseif ($page->unlisted()) {
-								echo '<i class="bi bi-check-square-fill"></i><span>' . $L->g('Unlisted') . '</span>';
+								echo '<i class="bi bi-check2-circle"></i><span>' . $L->g('Unlisted') . '</span>';
 							}
 						} else {
-							echo '<i class="bi bi-square-fill"></i><span>' . $L->g('Draft') . '</span>';
+							echo '<i class="bi bi-circle"></i><span>' . $L->g('Draft') . '</span>';
 						}
 						?>
 					</span>
@@ -642,14 +644,14 @@
 			<!-- End Tags -->
 
 			<h6 class="text-uppercase mt-4">More options</h6>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item p-0 pt-2"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
-				<li class="list-group-item p-0 pt-2"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
+			<ul class="list-group">
+				<li class="list-group-item p-0 pt-3"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
+				<li class="list-group-item p-0 pt-3"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
 
 			</ul>
 

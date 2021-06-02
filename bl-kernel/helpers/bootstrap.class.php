@@ -121,11 +121,20 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
+		$data = 'data-current-value="'.$value.'"';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= ' data-'.$x.' = "'.$y.'"';
+				}
+			}
+		}
+
 return <<<EOF
 <div class="mb-3 row">
 	$label
 	<div class="col-sm-10">
-		<textarea class="$class" id="$id" name="$name" rows="$rows" placeholder="$placeholder" spellcheck="false">$value</textarea>
+		<textarea class="$class" id="$id" $data name="$name" rows="$rows" placeholder="$placeholder" spellcheck="false">$value</textarea>
 		$tip
 	</div>
 </div>

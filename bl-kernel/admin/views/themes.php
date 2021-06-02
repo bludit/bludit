@@ -43,14 +43,18 @@ echo '
 
 foreach ($themes as $theme) {
 	echo '
-	<tr '.($theme['dirname']==$site->theme()?'class="bg-info"':'').'>
+	<tr>
 		<td class="align-middle pt-4 pb-4">
-			<div>'.$theme['name'].'</div>
+			<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="badge bg-primary ms-2">Active</span>':'').'</div>
 			<div class="mt-1">
 	';
 
 	if ($theme['dirname']!=$site->theme()) {
 		echo '<a href="'.HTML_PATH_ADMIN_ROOT.'install-theme/'.$theme['dirname'].'">'.$L->g('Activate').'</a>';
+	} else {
+		if (isset($theme['plugin'])) {
+			echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'plugins-settings/' . $theme['plugin'] . '">' . $L->g('Settings') . '</a>';
+		}
 	}
 
 	echo '

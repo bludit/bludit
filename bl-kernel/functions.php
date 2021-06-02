@@ -622,7 +622,7 @@ function activatePlugin($className) {
 		return true;
 	}
 
-	Log::set(__FUNCTION__.LOG_SEP.'Not was possible install the plugin.', LOG_TYPE_ERROR);
+	Log::set(__FUNCTION__.LOG_SEP.'It was not possible to install the plugin:'.$className, LOG_TYPE_ERROR);
 	return false;
 }
 
@@ -650,7 +650,7 @@ function deactivatePlugin($className) {
 		return true;
 	}
 
-	Log::set(__FUNCTION__.LOG_SEP.'Not was possible uninstall the plugin.', LOG_TYPE_ERROR);
+	Log::set(__FUNCTION__.LOG_SEP.'It was not possible to uninstall the plugin:'.$className, LOG_TYPE_ERROR);
 	return false;
 }
 
@@ -1130,12 +1130,19 @@ function getTag($key) {
 function activateTheme($themeDirectory) {
 	global $site;
 	global $syslog;
-	global $L, $language;
+	global $L;
 
 	if (Sanitize::pathFile(PATH_THEMES.$themeDirectory)) {
+		// Disable current theme
+		$currentTheme = $site->theme();
+		deactivatePlugin($currentTheme);
+
+		// Install new theme
 		if (Filesystem::fileExists(PATH_THEMES.$themeDirectory.DS.'install.php')) {
 			include_once(PATH_THEMES.$themeDirectory.DS.'install.php');
 		}
+
+		activatePlugin($themeDirectory);
 
 		$site->set(array('theme'=>$themeDirectory));
 

@@ -15,9 +15,19 @@
 		echo HTML::cssBootstrap();
 		echo HTML::cssBootstrapIcons();
 		echo HTML::css(array(
-			'bludit-bootstrap.css',
-			'bludit.css'
+			'01-bludit.css',
+			'02-bootstrap-hacks.css'
 		), DOMAIN_ADMIN_THEME_CSS);
+
+		if ($site->darkModeAdmin()) {
+			echo HTML::css(array(
+				'99-darkmode.css'
+			), DOMAIN_ADMIN_THEME_CSS);
+		} else {
+			echo HTML::css(array(
+				'99-lightmode.css'
+			), DOMAIN_ADMIN_THEME_CSS);
+		}
 	?>
 
 	<!-- Javascript -->

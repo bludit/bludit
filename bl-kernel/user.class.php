@@ -49,9 +49,9 @@ class User {
 		return $this->getValue('username');
 	}
 
-	public function description()
+	public function bio()
 	{
-		return $this->getValue('description');
+		return $this->getValue('bio');
 	}
 
 	public function nickname()
@@ -180,7 +180,7 @@ class User {
 		$tmp['firstName'] 	= $this->firstName();
 		$tmp['lastName'] 	= $this->lastName();
 		$tmp['nickname'] 	= $this->nickname();
-		$tmp['description'] = $this->description();
+		$tmp['bio'] 		= $this->bio();
 		$tmp['youtube'] 	= $this->youtube();
 		$tmp['twitter'] 	= $this->twitter();
 		$tmp['facebook'] 	= $this->facebook();

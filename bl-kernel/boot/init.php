@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'3.13.1');
-define('BLUDIT_CODENAME',	'Edi');
-define('BLUDIT_RELEASE_DATE',	'2020-07-28');
-define('BLUDIT_BUILD',		'20200728');
+define('BLUDIT_VERSION',		'4.0.0');
+define('BLUDIT_CODENAME',		'');
+define('BLUDIT_RELEASE_DATE',	'2021-05-23');
+define('BLUDIT_BUILD',			'20210523');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -31,23 +31,24 @@ define('PATH_CONTENT',			PATH_ROOT.'bl-content'.DS);
 define('PATH_ABSTRACT',			PATH_KERNEL.'abstract'.DS);
 define('PATH_RULES',			PATH_KERNEL.'boot'.DS.'rules'.DS);
 define('PATH_HELPERS',			PATH_KERNEL.'helpers'.DS);
-define('PATH_AJAX',			PATH_KERNEL.'ajax'.DS);
+define('PATH_AJAX',				PATH_KERNEL.'ajax'.DS);
 define('PATH_CORE_JS',			PATH_KERNEL.'js'.DS);
 
 define('PATH_PAGES',			PATH_CONTENT.'pages'.DS);
 define('PATH_DATABASES',		PATH_CONTENT.'databases'.DS);
-define('PATH_PLUGINS_DATABASES',	PATH_CONTENT.'databases'.DS.'plugins'.DS);
-define('PATH_TMP',			PATH_CONTENT.'tmp'.DS);
+define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
+define('PATH_THEMES_DATABASES',	PATH_CONTENT.'databases'.DS.'themes'.DS);
+define('PATH_TMP',				PATH_CONTENT.'tmp'.DS);
 define('PATH_UPLOADS',			PATH_CONTENT.'uploads'.DS);
 define('PATH_WORKSPACES',		PATH_CONTENT.'workspaces'.DS);
 
-define('PATH_UPLOADS_PAGES',		PATH_UPLOADS.'pages'.DS);
-define('PATH_UPLOADS_PROFILES',		PATH_UPLOADS.'profiles'.DS);
-define('PATH_UPLOADS_THUMBNAILS',	PATH_UPLOADS.'thumbnails'.DS);
+define('PATH_UPLOADS_PAGES',	PATH_UPLOADS.'pages'.DS);
+define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
+define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 
 define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
-define('PATH_ADMIN_CONTROLLERS',	PATH_ADMIN.'controllers'.DS);
+define('PATH_ADMIN_CONTROLLERS',PATH_ADMIN.'controllers'.DS);
 define('PATH_ADMIN_VIEWS',		PATH_ADMIN.'views'.DS);
 
 define('DEBUG_FILE',			PATH_CONTENT.'debug.txt');

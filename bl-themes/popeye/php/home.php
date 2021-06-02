@@ -68,7 +68,11 @@
 								<!-- End Page title -->
 
 								<!-- Page date -->
-								<small class="color-blue"><?php echo $tmp->relativeTime() ?></small>
+								<?php if ($theme->dateFormat()=='relative'): ?>
+									<small class="color-blue"><?php echo $tmp->relativeTime() ?></small>
+								<?php else: ?>
+									<small class="color-blue"><?php echo $tmp->date() ?></small>
+								<?php endif ?>
 								<!-- End Page date -->
 
 							</div>
@@ -81,13 +85,15 @@
 
 							<!-- Page tags -->
 							<?php
-							$tagsList = $tmp->tags(true);
-							if (!empty($tagsList)) {
-								echo '<small>';
-								foreach ($tagsList as $tagKey => $tagName) {
-									echo '<a class="badge bg-gray text-dark text-decoration-none me-2" href="' . DOMAIN_TAGS . $tagKey . '">' . $tagName . '</a>';
+							if ($theme->showTags()) {
+								$tagsList = $tmp->tags(true);
+								if (!empty($tagsList)) {
+									echo '<small>';
+									foreach ($tagsList as $tagKey => $tagName) {
+										echo '<a class="badge bg-gray text-dark text-decoration-none me-2" href="' . DOMAIN_TAGS . $tagKey . '">' . $tagName . '</a>';
+									}
+									echo '</small>';
 								}
-								echo '</small>';
 							}
 							?>
 							<!-- End Page tags -->

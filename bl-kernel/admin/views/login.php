@@ -28,7 +28,7 @@
 
 echo '<h1 class="text-center fw-normal mb-5">'.$site->title().'</h1>';
 
-echo Bootstrap::formOpen(array());
+echo Bootstrap::formOpen(array('name'=>'login'));
 
 	echo Bootstrap::formInputHidden(array(
 		'name'=>'tokenCSRF',

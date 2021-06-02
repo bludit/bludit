@@ -6,7 +6,7 @@ class Users extends dbJSON {
 		'firstName'=>'',
 		'lastName'=>'',
 		'nickname'=>'',
-		'description'=>'',
+		'bio'=>'',
 		'role'=>'author', // admin, editor, author
 		'password'=>'',
 		'salt'=>'!Pink Floyd!Welcome to the machine!',

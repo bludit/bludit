@@ -7,11 +7,16 @@
  * Bludit is opensource software licensed under the MIT license.
 */
 
+// ============================================================================
+// Requirements basic checks
+// ============================================================================
+
 // Check PHP version
 if (version_compare(phpversion(), '5.6', '<')) {
-	$errorText = 'Current PHP version '.phpversion().', you need > 5.6.';
-	error_log('[ERROR] '.$errorText, 0);
-	exit($errorText);
+	echo 'Current PHP version ' . phpversion() . ', you need > 5.6.';
+	echo '';
+	echo '<a href="https://docs.bludit.com/en/getting-started/requirements">Please read Bludit requirements</a>.';
+	exit(1);
 }
 
 // Check PHP modules
@@ -20,11 +25,11 @@ $modulesRequiredExit = false;
 $modulesRequiredMissing = '';
 foreach ($modulesRequired as $module) {
 	if (!extension_loaded($module)) {
-		$errorText = 'PHP module <b>'.$module.'</b> is not installed.';
-		error_log('[ERROR] '.$errorText, 0);
+		$errorText = 'PHP module <b>' . $module . '</b> is not installed.';
+		error_log('[ERROR] ' . $errorText, 0);
 
 		$modulesRequiredExit = true;
-		$modulesRequiredMissing .= $errorText.PHP_EOL;
+		$modulesRequiredMissing .= $errorText . PHP_EOL;
 	}
 }
 if ($modulesRequiredExit) {
@@ -32,8 +37,12 @@ if ($modulesRequiredExit) {
 	echo $modulesRequiredMissing;
 	echo '';
 	echo '<a href="https://docs.bludit.com/en/getting-started/requirements">Please read Bludit requirements</a>.';
-	exit(0);
+	exit(1);
 }
+
+// ============================================================================
+// Bludit constanst, variables, language and locale settings
+// ============================================================================
 
 // Security constant
 define('BLUDIT', true);
@@ -42,31 +51,37 @@ define('BLUDIT', true);
 define('DS', DIRECTORY_SEPARATOR);
 
 // PHP paths
-define('PATH_ROOT',		__DIR__.DS);
-define('PATH_CONTENT',		PATH_ROOT.'bl-content'.DS);
-define('PATH_KERNEL',		PATH_ROOT.'bl-kernel'.DS);
-define('PATH_LANGUAGES',	PATH_ROOT.'bl-languages'.DS);
-define('PATH_UPLOADS',		PATH_CONTENT.'uploads'.DS);
-define('PATH_TMP',		PATH_CONTENT.'tmp'.DS);
-define('PATH_PAGES',		PATH_CONTENT.'pages'.DS);
-define('PATH_WORKSPACES',	PATH_CONTENT.'workspaces'.DS);
-define('PATH_DATABASES',	PATH_CONTENT.'databases'.DS);
-define('PATH_PLUGINS_DATABASES',PATH_CONTENT.'databases'.DS.'plugins'.DS);
-define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
-define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
-define('PATH_UPLOADS_PAGES',	PATH_UPLOADS.'pages'.DS);
-define('PATH_HELPERS',		PATH_KERNEL.'helpers'.DS);
-define('PATH_ABSTRACT',		PATH_KERNEL.'abstract'.DS);
+define('PATH_ROOT',				__DIR__ . DS);
+define('PATH_CONTENT',			PATH_ROOT . 'bl-content' . DS);
+define('PATH_KERNEL',			PATH_ROOT . 'bl-kernel' . DS);
+define('PATH_LANGUAGES',		PATH_ROOT . 'bl-languages' . DS);
+define('PATH_UPLOADS',			PATH_CONTENT . 'uploads' . DS);
+define('PATH_TMP',				PATH_CONTENT . 'tmp' . DS);
+define('PATH_PAGES',			PATH_CONTENT . 'pages' . DS);
+define('PATH_WORKSPACES',		PATH_CONTENT . 'workspaces' . DS);
+define('PATH_DATABASES',		PATH_CONTENT . 'databases' . DS);
+define('PATH_PLUGINS_DATABASES', PATH_CONTENT . 'databases' . DS . 'plugins' . DS);
+define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS . 'profiles' . DS);
+define('PATH_UPLOADS_THUMBNAILS', PATH_UPLOADS . 'thumbnails' . DS);
+define('PATH_UPLOADS_PAGES',	PATH_UPLOADS . 'pages' . DS);
+define('PATH_HELPERS',			PATH_KERNEL . 'helpers' . DS);
+define('PATH_ABSTRACT',			PATH_KERNEL . 'abstract' . DS);
 
 // Protecting against Symlink attacks
-define('CHECK_SYMBOLIC_LINKS', TRUE);
+define('CHECK_SYMBOLIC_LINKS', 	TRUE);
+define('FILENAME', 				'index.txt');
+define('LOG_SEP', 				' | ');
+define('DB_DATE_FORMAT', 		'Y-m-d H:i:s');
+define('CHARSET', 				'UTF-8');
+define('DEFAULT_LANGUAGE_FILE', 'en.json');
+define('DIR_PERMISSIONS', 		0755);
 
-// Filename for pages
-define('FILENAME', 'index.txt');
+if (!defined('JSON_PRETTY_PRINT')) {
+	define('JSON_PRETTY_PRINT', 128);
+}
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
-
 if (!empty($_SERVER['HTTPS'])) {
 	define('PROTOCOL', 'https://');
 } else {
@@ -76,20 +91,19 @@ if (!empty($_SERVER['HTTPS'])) {
 // Base URL
 // Change the base URL or leave it empty if you want to Bludit try to detect the base URL.
 $base = '';
-
 if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base)) {
 	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
 	$base = dirname($base);
 } elseif (empty($base)) {
-	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+	$base = empty($_SERVER['SCRIPT_NAME']) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
 	$base = dirname($base);
 }
 
-if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
+if (strpos($_SERVER['REQUEST_URI'], $base) !== 0) {
 	$base = '/';
-} elseif ($base!=DS) {
+} elseif ($base != DS) {
 	$base = trim($base, '/');
-	$base = '/'.$base.'/';
+	$base = '/' . $base . '/';
 } else {
 	// Workaround for Windows Web Servers
 	$base = '/';
@@ -97,40 +111,20 @@ if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
 
 define('HTML_PATH_ROOT', $base);
 
-// Log separator
-define('LOG_SEP', ' | ');
-
-// JSON
-if (!defined('JSON_PRETTY_PRINT')) {
-	define('JSON_PRETTY_PRINT', 128);
-}
-
-// Database format date
-define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
-
-// Charset, default UTF-8.
-define('CHARSET', 'UTF-8');
-
-// Default language file
-define('DEFAULT_LANGUAGE_FILE', 'en.json');
-
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
 
 // Set HTTP output character encoding
 mb_http_output(CHARSET);
 
-// Directory permissions
-define('DIR_PERMISSIONS', 0755);
-
 // --- PHP Classes ---
-include(PATH_ABSTRACT.'dbjson.class.php');
-include(PATH_HELPERS.'sanitize.class.php');
-include(PATH_HELPERS.'valid.class.php');
-include(PATH_HELPERS.'text.class.php');
-include(PATH_HELPERS.'log.class.php');
-include(PATH_HELPERS.'date.class.php');
-include(PATH_KERNEL.'language.class.php');
+include(PATH_ABSTRACT . 'dbjson.class.php');
+include(PATH_HELPERS . 'sanitize.class.php');
+include(PATH_HELPERS . 'valid.class.php');
+include(PATH_HELPERS . 'text.class.php');
+include(PATH_HELPERS . 'log.class.php');
+include(PATH_HELPERS . 'date.class.php');
+include(PATH_KERNEL . 'language.class.php');
 
 // --- LANGUAGE and LOCALE ---
 // Try to detect the language from browser or headers
@@ -151,8 +145,8 @@ if (isset($_GET['language'])) {
 
 $finalLanguage = 'en';
 $languageFiles = getLanguageList();
-foreach ($languageFiles as $fname=>$native) {
-	if ( ($languageFromHTTP==$fname) || ($localeFromHTTP==$fname) ) {
+foreach ($languageFiles as $fname => $native) {
+	if (($languageFromHTTP == $fname) || ($localeFromHTTP == $fname)) {
 		$finalLanguage = $fname;
 	}
 }
@@ -163,7 +157,6 @@ $L = $language = new Language($finalLanguage);
 setlocale(LC_ALL, $localeFromHTTP);
 
 // --- TIMEZONE ---
-
 // Check if timezone is defined in php.ini
 $iniDate = ini_get('date.timezone');
 if (empty($iniDate)) {
@@ -176,8 +169,9 @@ if (empty($iniDate)) {
 // ============================================================================
 
 // Returns an array with all languages
-function getLanguageList() {
-	$files = glob(PATH_LANGUAGES.'*.json');
+function getLanguageList()
+{
+	$files = glob(PATH_LANGUAGES . '*.json');
 	$tmp = array();
 	foreach ($files as $file) {
 		$t = new dbJSON($file, false);
@@ -190,8 +184,9 @@ function getLanguageList() {
 }
 
 // Check if Bludit is installed
-function alreadyInstalled() {
-	return file_exists(PATH_DATABASES.'site.php');
+function alreadyInstalled()
+{
+	return file_exists(PATH_DATABASES . 'site.php');
 }
 
 // Check write permissions and .htaccess file
@@ -208,7 +203,7 @@ function checkSystem()
 RewriteEngine on
 
 # Base directory
-RewriteBase '.HTML_PATH_ROOT.'
+RewriteBase ' . HTML_PATH_ROOT . '
 
 # Deny direct access to the next directories
 RewriteRule ^bl-content/(databases|workspaces|pages|tmp)/.*$ - [R=404,L]
@@ -220,22 +215,22 @@ RewriteRule ^(.*) index.php [PT,L]
 
 </IfModule>';
 
-	if (!file_put_contents(PATH_ROOT.'.htaccess', $htaccessContent)) {
+	if (!file_put_contents(PATH_ROOT . '.htaccess', $htaccessContent)) {
 		if (!empty($_SERVER['SERVER_SOFTWARE'])) {
 			$webserver = Text::lowercase($_SERVER['SERVER_SOFTWARE']);
 			if (Text::stringContains($webserver, 'apache') || Text::stringContains($webserver, 'litespeed')) {
-				$errorText = 'Missing file, upload the file .htaccess';
-				error_log('[ERROR] '.$errorText, 0);
+				$errorText = 'Missing file, upload the file .htaccess to the root directory.';
+				error_log('[ERROR] ' . $errorText, 0);
 				array_push($output, $errorText);
 			}
 		}
 	}
 
 	// Check mod_rewrite module
-	if (function_exists('apache_get_modules') ) {
+	if (function_exists('apache_get_modules')) {
 		if (!in_array('mod_rewrite', apache_get_modules())) {
 			$errorText = 'Module mod_rewrite is not installed or loaded.';
-			error_log('[ERROR] '.$errorText, 0);
+			error_log('[ERROR] ' . $errorText, 0);
 			array_push($output, $errorText);
 		}
 	}
@@ -246,7 +241,7 @@ RewriteRule ^(.*) index.php [PT,L]
 	// Check if the directory content is writeable.
 	if (!is_writable(PATH_CONTENT)) {
 		$errorText = 'Writing test failure, check directory "bl-content" permissions.';
-		error_log('[ERROR] '.$errorText, 0);
+		error_log('[ERROR] ' . $errorText, 0);
 		array_push($output, $errorText);
 	}
 
@@ -271,278 +266,327 @@ function install($adminPassword, $timezone)
 	// Directories for initial pages
 	$pagesToInstall = array('example-page-1-slug', 'example-page-2-slug', 'example-page-3-slug', 'example-page-4-slug');
 	foreach ($pagesToInstall as $page) {
-		if (!mkdir(PATH_PAGES.$L->get($page), DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>'.PATH_PAGES.$L->get($page);
-			error_log('[ERROR] '.$errorText, 0);
+		if (!mkdir(PATH_PAGES . $L->get($page), DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>' . PATH_PAGES . $L->get($page);
+			error_log('[ERROR] ' . $errorText, 0);
 		}
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'about', 'simple-stats', 'robots', 'canonical');
+	$pluginsToInstall = array('tinymce', 'about', 'welcome', 'api', 'visits-stats', 'robots', 'canonical', 'popeye');
 	foreach ($pluginsToInstall as $plugin) {
-		if (!mkdir(PATH_PLUGINS_DATABASES.$plugin, DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>'.PATH_PLUGINS_DATABASES.$plugin;
-			error_log('[ERROR] '.$errorText, 0);
+		if (!mkdir(PATH_PLUGINS_DATABASES . $plugin, DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>' . PATH_PLUGINS_DATABASES . $plugin;
+			error_log('[ERROR] ' . $errorText, 0);
 		}
 	}
 
-	// Directories for upload files
-	if (!mkdir(PATH_UPLOADS_PROFILES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PROFILES;
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_UPLOADS_THUMBNAILS, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_THUMBNAILS;
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_TMP, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_TMP;
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_WORKSPACES;
-		error_log('[ERROR] '.$errorText, 0);
-	}
-
-	if (!mkdir(PATH_UPLOADS_PAGES, DIR_PERMISSIONS, true)) {
-		$errorText = 'Error when trying to created the directory=>'.PATH_UPLOADS_PAGES;
-		error_log('[ERROR] '.$errorText, 0);
+	// System directories
+	$systemDirectories = array(PATH_UPLOADS_PROFILES, PATH_UPLOADS_THUMBNAILS, PATH_TMP, PATH_WORKSPACES, PATH_UPLOADS_PAGES);
+	foreach ($systemDirectories as $directory) {
+		if (!mkdir($directory, DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>' . $directory;
+			error_log('[ERROR] ' . $errorText, 0);
+		}
 	}
 
 	// ============================================================================
 	// Create files
 	// ============================================================================
 
-	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>".PHP_EOL;
+	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>" . PHP_EOL;
 
 	$data = array();
 	$slugs = array();
 	$nextDate = $currentDate;
 	foreach ($pagesToInstall as $page) {
-
 		$slug = $page;
-		$title = Text::replace('slug','title', $slug);
-		$content = Text::replace('slug','content', $slug);
+		$title = Text::replace('slug', 'title', $slug);
+		$content = Text::replace('slug', 'content', $slug);
 		$nextDate = Date::offset($nextDate, DB_DATE_FORMAT, '-1 minute');
 
-		$data[$L->get($slug)]= array(
-			'title'=>$L->get($title),
-			'description'=>'',
-			'username'=>'admin',
-			'tags'=>array(),
-			'type'=>(($slug=='example-page-4-slug')?'static':'published'),
-			'date'=>$nextDate,
-			'dateModified'=>'',
-			'allowComments'=>true,
-			'position'=>1,
-			'coverImage'=>'',
-			'md5file'=>'',
-			'category'=>'general',
-			'uuid'=>md5(uniqid()),
-			'parent'=>'',
-			'template'=>'',
-			'noindex'=>false,
-			'nofollow'=>false,
-			'noarchive'=>false
+		$data[$L->get($slug)] = array(
+			'title' => $L->get($title),
+			'description' => '',
+			'username' => 'admin',
+			'tags' => array(),
+			'type' => (($slug == 'example-page-4-slug') ? 'static' : 'published'),
+			'date' => $nextDate,
+			'dateModified' => '',
+			'allowComments' => true,
+			'position' => 1,
+			'coverImage' => '',
+			'md5file' => '',
+			'category' => 'general',
+			'uuid' => md5(uniqid()),
+			'parent' => '',
+			'template' => '',
+			'noindex' => false,
+			'nofollow' => false,
+			'noarchive' => false
 		);
 
 		array_push($slugs, $slug);
 
-		file_put_contents(PATH_PAGES.$L->get($slug).DS.FILENAME, $L->get($content), LOCK_EX);
+		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, $L->get($content), LOCK_EX);
 	}
-	file_put_contents(PATH_DATABASES.'pages.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File site.php
 
 	// If Bludit is not installed inside a folder, the URL doesn't need finish with /
 	// Example (root): https://domain.com
 	// Example (inside a folder): https://domain.com/folder/
-	if (HTML_PATH_ROOT=='/') {
-		$siteUrl = PROTOCOL.DOMAIN;
+	if (HTML_PATH_ROOT == '/') {
+		$siteUrl = PROTOCOL . DOMAIN;
 	} else {
-		$siteUrl = PROTOCOL.DOMAIN.HTML_PATH_ROOT;
+		$siteUrl = PROTOCOL . DOMAIN . HTML_PATH_ROOT;
 	}
 	$data = array(
-		'title'=>'BLUDIT',
-		'slogan'=>$L->get('welcome-to-bludit'),
-		'description'=>$L->get('congratulations-you-have-successfully-installed-your-bludit'),
-		'footer'=>'Copyright © '.Date::current('Y'),
-		'itemsPerPage'=>6,
-		'language'=>$L->currentLanguage(),
-		'locale'=>$L->locale(),
-		'timezone'=>$timezone,
-		'theme'=>'alternative',
-		'adminTheme'=>'booty',
-		'homepage'=>'',
-		'pageNotFound'=>'',
-		'uriPage'=>'/',
-		'uriTag'=>'/tag/',
-		'uriCategory'=>'/category/',
-		'uriBlog'=>'',
-		'url'=>$siteUrl,
-		'emailFrom'=>'no-reply@'.DOMAIN,
-		'orderBy'=>'date',
-		'currentBuild'=>'0',
-		'twitter'=>'https://twitter.com/bludit',
-		'facebook'=>'https://www.facebook.com/bluditcms',
-		'codepen'=>'',
-		'github'=> 'https://github.com/bludit',
-		'instagram'=>'',
-		'gitlab'=>'',
-		'linkedin'=>'',
-		'xing'=>'',
-		'dateFormat'=>'F j, Y',
-		'extremeFriendly'=>true,
-		'autosaveInterval'=>2,
-		'titleFormatHomepage'=>'{{site-slogan}} | {{site-title}}',
-		'titleFormatPages'=>'{{page-title}} | {{site-title}}',
-		'titleFormatCategory'=>'{{category-name}} | {{site-title}}',
-		'titleFormatTag'=>'{{tag-name}} | {{site-title}}',
-		'imageRestrict'=>true,
-		'imageRelativeToAbsolute'=>false
+		'title' => 'BLUDIT',
+		'slogan' => $L->get('welcome-to-bludit'),
+		'description' => $L->get('congratulations-you-have-successfully-installed-your-bludit'),
+		'footer' => 'Copyright © ' . Date::current('Y'),
+		'itemsPerPage' => 6,
+		'language' => $L->currentLanguage(),
+		'locale' => $L->locale(),
+		'timezone' => $timezone,
+		'theme' => 'popeye',
+		'adminTheme' => 'booty',
+		'homepage' => '',
+		'pageNotFound' => '',
+		'uriPage' => '/',
+		'uriTag' => '/tag/',
+		'uriCategory' => '/category/',
+		'uriBlog' => '',
+		'url' => $siteUrl,
+		'emailFrom' => 'no-reply@' . DOMAIN,
+		'orderBy' => 'date',
+		'currentBuild' => '0',
+		'twitter' => 'https://twitter.com/bludit',
+		'facebook' => 'https://www.facebook.com/bluditcms',
+		'codepen' => '',
+		'github' => 'https://github.com/bludit',
+		'instagram' => '',
+		'gitlab' => '',
+		'linkedin' => '',
+		'xing' => '',
+		'mastodon' => '',
+		'dribbble' => '',
+		'vk' => '',
+		'discord' => '',
+		'youtube' => '',
+		'dateFormat' => 'F j, Y',
+		'timeFormat' => 'g:i a',
+		'extremeFriendly' => true,
+		'autosaveInterval' => 2,
+		'titleFormatHomepage' => '{{site-slogan}} | {{site-title}}',
+		'titleFormatPages' => '{{page-title}} | {{site-title}}',
+		'titleFormatCategory' => '{{category-name}} | {{site-title}}',
+		'titleFormatTag' => '{{tag-name}} | {{site-title}}',
+		'imageRestrict' => true,
+		'imageRelativeToAbsolute' => false,
+		'thumbnailWidth' => 400,
+		'thumbnailHeight' => 400,
+		'thumbnailQuality' => 100,
+		'logo' => '',
+		'markdownParser' => true,
+		'customFields' => '{}',
+		'darkModeAdmin' => false
 	);
-	file_put_contents(PATH_DATABASES.'site.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'site.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File users.php
 	$salt = uniqid();
-	$passwordHash = sha1($adminPassword.$salt);
-	$tokenAuth = md5( uniqid().time().DOMAIN );
+	$passwordHash = sha1($adminPassword . $salt);
+	$tokenAuth = md5(uniqid() . time() . DOMAIN);
 
 	$data = array(
-		'admin'=>array(
-			'nickname'=>'Admin',
-			'firstName'=>$L->get('Administrator'),
-			'lastName'=>'',
-			'role'=>'admin',
-			'password'=>$passwordHash,
-			'salt'=>$salt,
-			'email'=>'',
-			'registered'=>$currentDate,
-			'tokenRemember'=>'',
-			'tokenAuth'=>$tokenAuth,
-			'tokenAuthTTL'=>'2009-03-15 14:00',
-			'twitter'=>'',
-			'facebook'=>'',
-			'instagram'=>'',
-			'codepen'=>'',
-			'linkedin'=>'',
-			'xing'=>'',
-			'github'=>'',
-			'gitlab'=>''
+		'admin' => array(
+			'nickname' => 'Admin',
+			'firstName' => $L->get('Administrator'),
+			'lastName' => '',
+			'bio' => '',
+			'role' => 'admin',
+			'password' => $passwordHash,
+			'salt' => $salt,
+			'email' => '',
+			'registered' => $currentDate,
+			'tokenRemember' => '',
+			'tokenAuth' => $tokenAuth,
+			'tokenAuthTTL' => '2009-03-15 14:00',
+			'twitter' => '',
+			'facebook' => '',
+			'instagram' => '',
+			'codepen' => '',
+			'linkedin' => '',
+			'xing' => '',
+			'github' => '',
+			'gitlab' => '',
+			'mastodon' => '',
+			'vk' => '',
+			'youtube' => '',
+			'discord' => ''
 		)
 	);
-	file_put_contents(PATH_DATABASES.'users.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'users.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File syslog.php
 	$data = array(
 		array(
-			'date'=>$currentDate,
-			'dictionaryKey'=>'welcome-to-bludit',
-			'notes'=>'',
-			'idExecution'=>uniqid(),
-			'method'=>'POST',
-			'username'=>'admin'
-	));
-	file_put_contents(PATH_DATABASES.'syslog.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+			'date' => $currentDate,
+			'dictionaryKey' => 'welcome-to-bludit',
+			'notes' => '',
+			'idExecution' => uniqid(),
+			'method' => 'POST',
+			'username' => 'admin'
+		)
+	);
+	file_put_contents(PATH_DATABASES . 'syslog.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File security.php
 	$data = array(
-		'minutesBlocked'=>5,
-		'numberFailuresAllowed'=>10,
-		'blackList'=>array()
+		'minutesBlocked' => 5,
+		'numberFailuresAllowed' => 10,
+		'blackList' => array()
 	);
-	file_put_contents(PATH_DATABASES.'security.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'security.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File categories.php
 	$data = array(
-		'general'=>array('name'=>'General', 'description'=>'', 'template'=>'', 'list'=>$slugs),
-		'music'=>array('name'=>'Music', 'description'=>'', 'template'=>'', 'list'=>array()),
-		'videos'=>array('name'=>'Videos', 'description'=>'', 'template'=>'', 'list'=>array())
+		'general' => array('name' => 'General', 'description' => '', 'template' => '', 'list' => $slugs),
+		'music' => array('name' => 'Music', 'description' => '', 'template' => '', 'list' => array()),
+		'videos' => array('name' => 'Videos', 'description' => '', 'template' => '', 'list' => array())
 	);
-	file_put_contents(PATH_DATABASES.'categories.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'categories.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
 	$data = array();
-	file_put_contents(PATH_DATABASES.'tags.php', $dataHead.json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	file_put_contents(PATH_DATABASES . 'tags.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File plugins/about/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'about'.DS.'db.php',
-		$dataHead.json_encode(
+		PATH_PLUGINS_DATABASES . 'about' . DS . 'db.php',
+		$dataHead . json_encode(
 			array(
-				'position'=>1,
-				'label'=>$L->get('About'),
-				'text'=>$L->get('this-is-a-brief-description-of-yourself-our-your-site')
+				'position' => 1,
+				'label' => $L->get('About'),
+				'text' => $L->get('this-is-a-brief-description-of-yourself-our-your-site')
 			),
-		JSON_PRETTY_PRINT),
+			JSON_PRETTY_PRINT
+		),
 		LOCK_EX
 	);
 
-	// File plugins/simple-stats/db.php
+	// File plugins/visits-stats/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'simple-stats'.DS.'db.php',
-		$dataHead.json_encode(
+		PATH_PLUGINS_DATABASES . 'visits-stats' . DS . 'db.php',
+		$dataHead . json_encode(
 			array(
-				'numberOfDays'=>7,
-				'label'=>$L->get('Visits'),
-				'excludeAdmins'=>false,
-				'position'=>1
+				'numberOfDays' => 7,
+				'label' => $L->get('Visits'),
+				'excludeAdmins' => false,
+				'position' => 1
 			),
-		JSON_PRETTY_PRINT),
+			JSON_PRETTY_PRINT
+		),
 		LOCK_EX
 	);
-	mkdir(PATH_WORKSPACES.'simple-stats', DIR_PERMISSIONS, true);
+	mkdir(PATH_WORKSPACES . 'visits-stats', DIR_PERMISSIONS, true);
 
 	// File plugins/tinymce/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'tinymce'.DS.'db.php',
-		$dataHead.json_encode(
+		PATH_PLUGINS_DATABASES . 'tinymce' . DS . 'db.php',
+		$dataHead . json_encode(
 			array(
-				'position'=>1,
-				'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
-				'toolbar2'=>'',
-				'plugins'=>'code autolink image link pagebreak advlist lists textpattern table'
+				'position' => 1,
+				'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
+				'toolbar2' => '',
+				'plugins' => 'code autolink image link pagebreak advlist lists textpattern table'
 			),
-		JSON_PRETTY_PRINT),
+			JSON_PRETTY_PRINT
+		),
 		LOCK_EX
 	);
 
 	// File plugins/canonical/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'canonical'.DS.'db.php',
-		$dataHead.json_encode(
+		PATH_PLUGINS_DATABASES . 'canonical' . DS . 'db.php',
+		$dataHead . json_encode(
 			array(
-				'position'=>1
+				'position' => 1
 			),
-		JSON_PRETTY_PRINT),
+			JSON_PRETTY_PRINT
+		),
 		LOCK_EX
 	);
 
 	// File plugins/robots/db.php
 	file_put_contents(
-		PATH_PLUGINS_DATABASES.'robots'.DS.'db.php',
-		$dataHead.json_encode(
+		PATH_PLUGINS_DATABASES . 'robots' . DS . 'db.php',
+		$dataHead . json_encode(
 			array(
-				'position'=>1,
-				'robotstxt'=>'User-agent: *'.PHP_EOL.'Allow: /'
+				'position' => 1,
+				'robotstxt' => 'User-agent: *' . PHP_EOL . 'Allow: /'
 			),
-		JSON_PRETTY_PRINT),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// File plugins/welcome/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'welcome' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'position' => 1
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// File plugins/visits-stats/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'visits-stats' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'position' => 2,
+				'excludeAdmins' => false,
+				'label' => $L->get('Visits')
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// File plugins/popeye/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'popeye' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				"googleFonts"=> false,
+				"darkMode"=> true,
+				"dateFormat"=> "relative",
+				"showTags"=> true,
+				"position"=> 1
+			),
+			JSON_PRETTY_PRINT
+		),
 		LOCK_EX
 	);
 
 	return true;
 }
 
-function redirect($url) {
+function redirect($url)
+{
 	if (!headers_sent()) {
-		header("Location:".$url, TRUE, 302);
-		exit;
+		header("Location:" . $url, TRUE, 302);
+		exit(0);
 	}
 
-	exit('<meta http-equiv="refresh" content="0; url="'.$url.'">');
+	exit('<meta http-equiv="refresh" content="0; url="' . $url . '">');
 }
 
 // ============================================================================
@@ -551,7 +595,7 @@ function redirect($url) {
 
 if (alreadyInstalled()) {
 	$errorText = 'Bludit is already installed ;)';
-	error_log('[ERROR] '.$errorText, 0);
+	error_log('[ERROR] ' . $errorText, 0);
 	exit($errorText);
 }
 
@@ -563,18 +607,14 @@ if (isset($_GET['demo'])) {
 
 // Install by POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (Text::length($_POST['password'])<6) {
-		$errorText = $L->g('password-must-be-at-least-6-characters-long');
-		error_log('[ERROR] '.$errorText, 0);
-	} else {
-		install($_POST['password'], $_POST['timezone']);
-		redirect(HTML_PATH_ROOT);
-	}
+	install($_POST['password'], $_POST['timezone']);
+	redirect(HTML_PATH_ROOT);
 }
 
 ?>
 <!DOCTYPE html>
-<html>
+<html class="h-100">
+
 <head>
 	<title><?php echo $L->get('Bludit Installer') ?></title>
 	<meta charset="<?php echo CHARSET ?>">
@@ -585,107 +625,102 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<link rel="icon" type="image/png" href="bl-kernel/img/favicon.png?version=<?php echo time() ?>">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="bl-kernel/css/bootstrap.min.css?version=<?php echo time() ?>">
-	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/booty/css/bludit.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="bl-kernel/vendors/bootstrap/bootstrap.min.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
-	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="bl-kernel/js/bootstrap.bundle.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="bl-kernel/js/jstz.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/vendors/jquery/jquery.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/vendors/bootstrap/bootstrap.bundle.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/vendors/jstimezonedetect/jstz.min.js?version=<?php echo time() ?>"></script>
 </head>
-<body class="login">
-<div class="container">
-	<div class="row justify-content-md-center pt-5">
-		<div class="col-md-4 pt-5">
-			<h1 class="text-center mb-5 mt-5 fw-normal text-uppercase" style="color: #555;"><?php echo $L->get('Bludit Installer') ?></h1>
-			<?php
-			$system = checkSystem();
-			if (!empty($system)) {
-				foreach ($system as $error) {
-					echo '
-					<table class="table">
-						<tbody>
-							<tr>
-								<th>'.$error.'</th>
-							</tr>
-						</tbody>
-					</table>
-					';
+
+<body class="h-100 bg-light">
+	<div class="container h-100">
+		<div class="row h-100 justify-content-center align-items-center">
+			<div class="col-8 col-md-6 col-lg-4">
+				<h1 class="text-center text-uppercase mb-4"><?php echo $L->get('Bludit Installer') ?></h1>
+				<?php
+				$system = checkSystem();
+				if (!empty($system)) {
+					foreach ($system as $error) {
+						echo '
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>' . $error . '</th>
+									</tr>
+								</tbody>
+							</table>
+						';
+					}
+				} elseif (isset($_GET['language'])) {
+				?>
+					<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
+
+					<?php if (!empty($errorText)) : ?>
+						<div class="alert alert-danger"><?php echo $errorText ?></div>
+					<?php endif ?>
+
+					<form id="jsformInstaller" method="post" action="" autocomplete="off">
+						<input type="hidden" name="timezone" id="jstimezone" value="UTC">
+
+						<div class="form-group">
+							<input type="text" value="admin" class="form-control form-control-lg" id="jsusername" name="username" placeholder="Username" disabled>
+						</div>
+
+						<div class="form-group mb-0">
+							<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
+						</div>
+						<!-- <div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div> -->
+
+						<div class="form-group mt-4">
+							<button type="submit" class="btn btn-primary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
+						</div>
+					</form>
+				<?php
+				} else {
+				?>
+					<form id="jsformLanguage" method="get" action="" autocomplete="off">
+						<label for="jslanguage"><?php echo $L->get('Choose your language') ?></label>
+						<select id="jslanguage" name="language" class="form-control form-control-lg">
+							<?php
+							$htmlOptions = getLanguageList();
+							foreach ($htmlOptions as $fname => $native) {
+								echo '<option value="' . $fname . '"' . (($finalLanguage === $fname) ? ' selected="selected"' : '') . '>' . $native . '</option>';
+							}
+							?>
+						</select>
+
+						<div class="form-group mt-4">
+							<button type="submit" class="btn btn-primary btn-lg me-2 w-100"><?php $L->p('Next') ?></button>
+						</div>
+					</form>
+				<?php
 				}
-			}
-			elseif (isset($_GET['language']))
-			{
-			?>
-				<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
-
-				<?php if (!empty($errorText)): ?>
-				<div class="alert alert-danger"><?php echo $errorText ?></div>
-				<?php endif ?>
-
-				<form id="jsformInstaller" method="post" action="" autocomplete="off">
-					<input type="hidden" name="timezone" id="jstimezone" value="UTC">
-
-					<div class="form-group">
-					<input type="text" value="admin" class="form-control form-control-lg" id="jsusername" name="username" placeholder="Username" disabled>
-					</div>
-
-					<div class="form-group mb-0">
-					<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
-					</div>
-					<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
-
-					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
-					</div>
-				</form>
-			<?php
-			}
-			else
-			{
-			?>
-				<form id="jsformLanguage" method="get" action="" autocomplete="off">
-					<label for="jslanguage"><?php echo $L->get('Choose your language') ?></label>
-					<select id="jslanguage" name="language" class="form-control form-control-lg">
-					<?php
-						$htmlOptions = getLanguageList();
-						foreach($htmlOptions as $fname=>$native) {
-							echo '<option value="'.$fname.'"'.( ($finalLanguage===$fname)?' selected="selected"':'').'>'.$native.'</option>';
-						}
-					?>
-					</select>
-
-					<div class="form-group mt-4">
-					<button type="submit" class="btn btn-primary btn-lg me-2 w-100"><?php $L->p('Next') ?></button>
-					</div>
-				</form>
-			<?php
-			}
-			?>
+				?>
+			</div>
 		</div>
 	</div>
-</div>
 
-<script>
-$(document).ready(function()
-{
-	// Timezone
-	var timezone = jstz.determine();
-	$("#jstimezone").val( timezone.name() );
+	<script>
+		$(document).ready(function() {
+			// Timezone
+			var timezone = jstz.determine();
+			$("#jstimezone").val(timezone.name());
 
-	// Show password
-	$("#jsshowPassword").on("click", function() {
-		var input = document.getElementById("jspassword");
+			// Show password
+			$("#jsshowPassword").on("click", function() {
+				var input = document.getElementById("jspassword");
 
-		if(input.getAttribute("type")=="text") {
-			input.setAttribute("type", "password");
-		}
-		else {
-			input.setAttribute("type", "text");
-		}
-	});
+				if (input.getAttribute("type") == "text") {
+					input.setAttribute("type", "password");
+				} else {
+					input.setAttribute("type", "text");
+				}
+			});
 
-});
-</script>
+		});
+	</script>
 
 </body>
+
 </html>
