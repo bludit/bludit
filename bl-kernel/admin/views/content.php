@@ -8,6 +8,21 @@
 	// ============================================================================
 	// Functions for the view
 	// ============================================================================
+	function deletePage(key) {
+		var args = {
+			key: key
+		};
+		api.deletePage(args).then(function(response) {
+			if (response.status == 0) {
+				logs('Page deleted. Key: ' + response.data.key);
+				showAlertInfo("<?php $L->p('Page deleted') ?>");
+				$('#pagekey-'+response.data.key).addClass('disabled');
+			} else {
+				logs('An error occurred while trying to delete the page.');
+				showAlertError(response.message);
+			}
+		});
+	}
 
 	// ============================================================================
 	// Events for the view
@@ -21,18 +36,18 @@
 				message: '<?php $L->p('Are you sure you want to delete this page') ?>',
 				buttons: {
 					cancel: {
-						label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+						label: '<i class="bi bi-x"></i><?php $L->p('Cancel') ?>',
 						className: 'btn-sm btn-secondary'
 					},
 					confirm: {
-						label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+						label: '<i class="bi bi-check"></i><?php $L->p('Confirm') ?>',
 						className: 'btn-sm btn-primary'
 					}
 				},
 				closeButton: false,
 				callback: function(result) {
 					if (result) {
-						// delete page
+						deletePage(key);
 					}
 				}
 			});
@@ -59,7 +74,6 @@
 
 function table($type)
 {
-	global $url;
 	global $L;
 	global $published;
 	global $drafts;
@@ -116,7 +130,7 @@ function table($type)
 			try {
 				$page = new Page($pageKey);
 				if (!$page->isChild()) {
-					echo '<tr>';
+					echo '<tr id="pagekey-'.$pageKey.'">';
 
 					echo '<td class="pt-4 pb-4">
 					<div>
@@ -142,7 +156,7 @@ function table($type)
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
-						echo '<tr>';
+						echo '<tr id="pagekey-'.$pageKey.'">';
 
 						echo '<td class="ps-3 pt-4 pb-4">
 						<div>
@@ -170,7 +184,7 @@ function table($type)
 		foreach ($list as $pageKey) {
 			try {
 				$page = new Page($pageKey);
-				echo '<tr>';
+				echo '<tr id="pagekey-'.$pageKey.'">';
 
 				echo '<td class="pt-4 pb-4">
 					<div>
