@@ -19,12 +19,12 @@ Backend:
 ## Comments for functions and methods
 Please add the following structure commenting what it does the function, also add the stamp `=== Bludit v4` so I know what is new.
 ```
-/*	Delete a page === Bludit v4
-
-	@key			string			Array => (key: string)
-	@return			string/bool		Returns the page key on successful delete, FALSE otherwise
-*/
-function deletePage($args) {
+/**
+ * Create a new category. === Bludit v4
+ * @param		array		$args			[string $name, string $template, string $description]
+ * @return		string|bool					Returns the category key on successful create, FALSE otherwise
+ */
+function createCategory($args) {
    ...
 }
 ```

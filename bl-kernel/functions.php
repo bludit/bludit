@@ -1,21 +1,21 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-/* ----------------------------------------------------------------------------
-	Global functions
-	These functions provide connectivity between different objects and databases.
-	These functions should provide different checks and logic before add/edit/delete into the databases.
-
-	For example, the creation of a user should check:
-	- if the user already exists
-	- if the username is not empty
-	- if the password match with the differents security rules such as min length
-/* ----------------------------------------------------------------------------
-
-/*	Create a new page === Bludit v4
-
-	@args			array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php
-	@return			string/bool		Returns the page key on successful create, FALSE otherwise
+/*
+ *	Global functions
+ *	These functions provide connectivity between different objects and databases.
+ *	These functions should provide different checks and logic before add/edit/delete into the databases.
+ *
+ *	For example, the creation of a user should check:
+ *	- if the user already exists
+ *	- if the username is not empty
+ *	- if the password match with the security rules such as min length
 */
+
+/**
+ * Create a new page. === bludit v4
+ * @param		array		$args		All supported keys are defined in the class pages.class.php variable $dbFields
+ * @return		string|bool				Returns the page key on successful create, FALSE otherwise
+ */
 function createPage($args) {
 	global $pages;
 	global $syslog;
@@ -51,12 +51,12 @@ function createPage($args) {
 	return false;
 }
 
-/*	Edit a page === Bludit v4
-
-	@args				array			The array $args supports all the keys from the variable $dbFields of the class pages.class.php
-	@args['key']		string			The key of the page to be edited
-	@return				string/bool		Returns the page key on successful edit, FALSE otherwise
-*/
+/**
+ * Edit a page. === Bludit v4
+ * @param		array		$args			All supported keys are defined in the class pages.class.php variable $dbFields
+ * @param		string		$args['key']	The key of the page to be edited
+ * @return		string|bool					Returns the page key on successful edit, FALSE otherwise
+ */
 function editPage($args) {
 	global $pages;
 	global $syslog;
@@ -99,11 +99,11 @@ function editPage($args) {
 	return false;
 }
 
-/*	Delete a page === Bludit v4
-
-	@key			string			Array => (key: string)
-	@return			string/bool		Returns the page key on successful delete, FALSE otherwise
-*/
+/**
+ * Delete a page. === Bludit v4
+ * @param		array		$args			[string $key]
+ * @return		string|bool					Returns the page key on successful delete, FALSE otherwise
+ */
 function deletePage($args) {
 	global $pages;
 	global $syslog;
@@ -133,11 +133,11 @@ function deletePage($args) {
 	return false;
 }
 
-/*	Create a new category === Bludit v4
-
-	@args			array			Array => (name: string, template: string, description: string)
-	@return			string/bool		Returns the category key on successful create, FALSE otherwise
-*/
+/**
+ * Create a new category. === Bludit v4
+ * @param		array		$args			[string $name, string $template, string $description]
+ * @return		string|bool					Returns the category key on successful create, FALSE otherwise
+ */
 function createCategory($args) {
 	global $categories;
 	global $syslog;
@@ -162,11 +162,11 @@ function createCategory($args) {
 	return false;
 }
 
-/*	Edit a category === Bludit v4
-
-	@args			array			Array => (key: string, name: string, friendlyURL: string, template: string, description: string)
-	@return			string/bool		Returns the category key on successful edit, FALSE otherwise
-*/
+/**
+ * Edit a category. === Bludit v4
+ * @param		array		$args			[string $key, string $name, string $friendlyURL, string $template, string $description]
+ * @return		string|bool					Returns the category key on successful edit, FALSE otherwise
+ */
 function editCategory($args) {
 	global $pages;
 	global $categories;
@@ -210,11 +210,11 @@ function editCategory($args) {
 	return $finalKey;
 }
 
-/*	Delete a category === Bludit v4
-
-	@args			array			Array => (key: string)
-	@return			bool			Returns TRUE on successful delete, FALSE otherwise
-*/
+/**
+ * Delete a category. === Bludit v4
+ * @param		array		$args			[string $key]
+ * @return		string|bool					Returns TRUE on successful delete, FALSE otherwise
+ */
 function deleteCategory($args) {
 	global $categories;
 	global $syslog;
@@ -238,12 +238,12 @@ function deleteCategory($args) {
 	return true;
 }
 
-/*	Create a new user === Bludit v4
-	This function should check everthing, such as empty username, emtpy password, password lenght, etc
-
-	@args			array				The array $args supports all the keys from the variable $dbFields of the class users.class.php
-	@return			string/bool			Returns the username on successful create, FALSE otherwise
-*/
+/**
+ * Create an user. === Bludit v4
+ * This function should check everthing, such as empty username, emtpy password, password lenght, etc
+ * @param		array		$args			All supported keys are defined in the class users.class.php variable $dbFields
+ * @return		string|bool					Returns the username on successful create, FALSE otherwise
+ */
 function createUser($args) {
 	global $users;
 	global $syslog;
@@ -275,13 +275,13 @@ function createUser($args) {
 	return false;
 }
 
-/*	Edit an user === Bludit v4
-
-	@args				array			The array $args supports all the keys from the variable $dbFields of the class users.class.php
-	@args['disable']	bool			If you set this variable the user will be disabled
-	@args['password']	string			If you set this variable a new password will be set for the user
-	@return				string/bool		Returns the username on successful edit, FALSE otherwise
-*/
+/**
+ * Edit an user. === Bludit v4
+ * @param		array		$args				All supported keys are defined in the class users.class.php variable $dbFields
+ * @param		bool		$args['disable']	If you set this variable the user will be disabled
+ * @param		string		$args['password']	If you set this variable a new password will be set for the user
+ * @return		string|bool						Returns TRUE on successful delete, FALSE otherwise
+ */
 function editUser($args) {
 	global $users;
 	global $syslog;

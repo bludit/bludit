@@ -586,8 +586,8 @@ class pluginAPI extends Plugin {
 	}
 
 	/**
-	 * Edit settings.
-	 * @param		array		$args		Keys defined in the class site.class.php variable $dbFields
+	 * Edit settings
+	 * @param		array		$args		All supported keys are defined in the class site.class.php variable $dbFields
 	 * @return		array
 	 */
 	private function editSettings($args)
@@ -610,7 +610,7 @@ class pluginAPI extends Plugin {
 	 | The list of pages are the page's key
 	 |
 	 | @return	array
-         */
+		 */
 	private function getCategories()
 	{
 		global $categories;
@@ -634,7 +634,7 @@ class pluginAPI extends Plugin {
 	 | @key		string	Category key
 	 |
 	 | @return	array
-         */
+		 */
 	private function getCategory($key)
 	{
 		try {
@@ -729,7 +729,7 @@ class pluginAPI extends Plugin {
 	 | @username	string	Username
 	 |
 	 | @return	array
-         */
+		 */
 	private function getUser($username)
 	{
 		try {
@@ -753,7 +753,7 @@ class pluginAPI extends Plugin {
 	 | Returns all the users
 	 |
 	 | @return	array
-         */
+		 */
 	private function getUsers()
 	{
 		global $users;
@@ -939,7 +939,7 @@ class pluginAPI extends Plugin {
 		@pageKey			string	The page's key
 
 		@return['data']	array	The list of files
-    */
+	*/
 	private function getFiles($pageKey)
 	{
 		$chunk = false;
