@@ -122,6 +122,7 @@ class pluginTinymce extends Plugin {
 				branding: false,
 				browser_spellcheck: true,
 				pagebreak_separator: PAGE_BREAK,
+				pagebreak_split_block: true,
 				paste_as_text: true,
 				remove_script_host: false,
 				convert_urls: true,
