@@ -6,4 +6,3 @@
 if (!pluginActivated('pluginAPI')) {
     activatePlugin('pluginAPI');
 }
-$plugins['all']['pluginAPI']->newToken();
