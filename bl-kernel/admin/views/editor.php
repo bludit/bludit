@@ -347,8 +347,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelDescription" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveDescription" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelDescription" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveDescription" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -367,8 +367,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelDate" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveDate" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelDate" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveDate" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -397,8 +397,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelFriendlyURL" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveFriendlyURL" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelFriendlyURL" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveFriendlyURL" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -441,8 +441,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelType" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveType" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelType" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveType" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -474,8 +474,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelSeo" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveSeo" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelSeo" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveSeo" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>
@@ -494,8 +494,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelParent" type="button" class="btn btn-cancel fw-bold me-auto"><i class="bi bi-x-square"></i>Cancel</button>
-				<button id="btnSaveParent" type="button" class="btn btn-save fw-bold text-success"><i class="bi bi-check-square"></i>Save</button>
+				<button id="btnCancelParent" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
+				<button id="btnSaveParent" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
 			</div>
 		</div>
 	</div>

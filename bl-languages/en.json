@@ -215,6 +215,7 @@
     "new-user-created": "New user created",
     "user-edited": "User edited",
     "user-deleted": "User deleted",
+    "page-deleted": "Page deleted",
     "recommended-for-recovery-password-and-notifications": "Recommended for recovery password and notifications.",
     "authentication-token": "Authentication Token",
     "token": "Token",
@@ -399,5 +400,6 @@
     "are-you-sure-you-want-to-delete-this-category?": "Are you sure you want to delete this category?",
     "are-you-sure-you-want-to-change-the-password?": "Are you sure you want to change the password?",
     "website-plugins": "Website plugins",
-    "dashboard-plugins": "Dashboard plugins"
+    "dashboard-plugins": "Dashboard plugins",
+    "powered-by-bludit": "Powered by <a href='https:\/\/www.bludit.com'>Bludit</a>"
 }

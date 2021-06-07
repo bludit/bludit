@@ -66,6 +66,6 @@ echo Bootstrap::formOpen(array('name'=>'login'));
 
 echo '</form>';
 
-echo '<p class="mt-5 text-end">Powered by <a href="https://www.bludit.com">Bludit</a></p>'
+echo '<p class="mt-5 text-end">'.$L->g('Powered by Bludit').'</p>'
 
 ?>

@@ -36,5 +36,11 @@ div.sidebar .nav-item h4 {
   text-decoration: underline;
 }
 
+/** Tables
+*/
+tr.disabled{
+  filter: blur(1px);
+  pointer-events: none;
+}
 
 

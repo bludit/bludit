@@ -152,16 +152,8 @@ class pluginAPI extends Plugin {
 		// /api/pages/:key
 		// /api/pages/:parent/:key
 
-		// (GET) /api/pages
-		if ( ($method==='GET') && ($parmA==='pages') && empty($parmB) ) {
-			$data = $this->getPages($inputs);
-		}
-		// (POST) /api/pages
-		elseif ( ($method==='POST') && ($parmA==='pages') && empty($parmB) && $writePermissions ) {
-			$data = $this->createPage($inputs);
-		}
 		// (GET) /api/pages/files/:key
-		elseif ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
+		if ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
 			$key = $parmC;
 			if (!empty($parmD)) {
 				$key = $parmC.'/'.$parmD;
@@ -191,6 +183,10 @@ class pluginAPI extends Plugin {
 				$key = $parmB.'/'.$parmC;
 			}
 			$data = $this->getPage($key);
+		}
+		// (POST) /api/pages
+		elseif ( ($method==='POST') && ($parmA==='pages') && empty($parmB) && $writePermissions ) {
+			$data = $this->createPage($inputs);
 		}
 		// (PUT) /api/pages/:key
 		elseif ( ($method==='PUT') && ($parmA==='pages') && !empty($parmB) && $writePermissions ) {
@@ -554,28 +550,31 @@ class pluginAPI extends Plugin {
 		);
 	}
 
+	/**
+	 * Delete a page
+	 * @param		array		$args		Parameters for the function
+	 * @return		array
+	 */
 	private function deletePage($args)
 	{
 		if (deletePage($args)) {
 			return array(
 				'status'=>'0',
-				'message'=>'Page deleted.'
+				'message'=>'Page deleted.',
+				'data'=>array('key'=>$args['key'])
 			);
 		}
 
 		return array(
 			'status'=>'1',
-			'message'=>'Error trying to delete the page.'
+			'message'=>'An error occurred while trying to delete the page.'
 		);
 	}
 
-	/*
-	 | Get the settings
-	 |
-	 | @args	array
-	 |
-	 | @return	array
-         */
+	/**
+	 * Get settings
+	 * @return		array
+	 */
 	private function getSettings()
 	{
 		global $site;
@@ -586,14 +585,11 @@ class pluginAPI extends Plugin {
 		);
 	}
 
-	/*
-	 | Edit the settings
-	 | You can edit any field defined in the class site.class.php variable $dbFields
-         |
-         | @args	array
-	 |
-	 | @return	array
-         */
+	/**
+	 * Edit settings.
+	 * @param		array		$args		Keys defined in the class site.class.php variable $dbFields
+	 * @return		array
+	 */
 	private function editSettings($args)
 	{
 		if (editSettings($args)) {

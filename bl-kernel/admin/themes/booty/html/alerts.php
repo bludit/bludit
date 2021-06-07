@@ -7,25 +7,25 @@
 </div>
 
 <script>
-function showAlert(text, background='primary') {
-	$('#alert').removeClass('bg-danger bg-warning bg-primary').addClass('bg-'+background);
-	$('#alert').html(text);
-	$('#alert').toast('show');
-}
+	function showAlert(text, background='primary') {
+		$('#alert').removeClass('bg-danger bg-warning bg-primary').addClass('bg-'+background);
+		$('#alert').html(text);
+		$('#alert').toast('show');
+	}
 
-function showAlertError(text) {
-	showAlert(text, 'danger');
-}
+	function showAlertError(text) {
+		showAlert(text, 'danger');
+	}
 
-function showAlertWarning(text) {
-	showAlert(text, 'warning');
-}
+	function showAlertWarning(text) {
+		showAlert(text, 'warning');
+	}
 
-function showAlertInfo(text) {
-	showAlert(text, 'primary');
-}
+	function showAlertInfo(text) {
+		showAlert(text, 'primary');
+	}
 
-function hideAlert(text) {
-	$('#alert').toast('hide');
-}
+	function hideAlert(text) {
+		$('#alert').toast('hide');
+	}
 </script>

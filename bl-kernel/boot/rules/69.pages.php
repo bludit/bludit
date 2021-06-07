@@ -41,7 +41,7 @@ if ($pages->scheduler()) {
 	execPluginsByHook('afterPageCreate');
 
 	reindexTags();
-        reindexCategories();
+    reindexCategories();
 
 	// Add to syslog
 	$syslog->add(array(

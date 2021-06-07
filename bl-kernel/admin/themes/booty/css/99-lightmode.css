@@ -2,12 +2,16 @@ body {
   background-color: #f1f1f1;
 }
 
-a {
+a,
+a.nav-link,
+.link {
   color: #555;
 }
 
-a.nav-link {
-  color: #555;
+a:hover,
+a.nav-link:hover,
+.link:hover {
+  color: #0a58ca;
 }
 
 .form-control:focus,
