@@ -29,3 +29,5 @@ bl-themes/tagg
 bl-themes/small
 bl-themes/future-imperfect
 bl-themes/social-network
+Dockerfile
+conf/*

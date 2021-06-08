@@ -90,60 +90,60 @@ class pluginTinymce extends Plugin {
 			$skin = 'oxide-dark';
 		}
 
-		return <<<EOF
-		<script>
+return <<<EOF
+<script>
 
-			// Function required for Bludit
-			// Returns the content of the editor
-			function editorGetContent() {
-				return tinymce.get('editor').getContent();
-			}
+	// Function required for Bludit
+	// Returns the content of the editor
+	function editorGetContent() {
+		return tinymce.get('editor').getContent();
+	}
 
-			// Function required for Bludit
-			// Insert HTML content at the cursor position
-			function editorInsertContent(content, type='') {
-				if (type == 'image') {
-					var html = '<img src="' + content + '" alt="" />';
-				} else {
-					var html = content;
-				}
-				tinymce.activeEditor.insertContent(html);
-			}
+	// Function required for Bludit
+	// Insert HTML content at the cursor position
+	function editorInsertContent(content, type='') {
+		if (type == 'image') {
+			var html = '<img src="' + content + '" alt="" />';
+		} else {
+			var html = content;
+		}
+		tinymce.activeEditor.insertContent(html);
+	}
 
-			tinymce.init({
-				selector: "#editor",
-				auto_focus: "editor",
-				element_format : "html",
-				entity_encoding : "raw",
-				skin: "$skin",
-				schema: "html5",
-				statusbar: false,
-				menubar:false,
-				branding: false,
-				browser_spellcheck: true,
-				pagebreak_separator: PAGE_BREAK,
-				pagebreak_split_block: true,
-				paste_as_text: true,
-				remove_script_host: false,
-				convert_urls: true,
-				relative_urls: false,
-				valid_elements: "*[*]",
-				cache_suffix: "?version=$version",
-				$document_base_url
-				plugins: ["$plugins"],
-				toolbar1: "$toolbar1",
-				toolbar2: "$toolbar2",
-				language: "$lang",
-				content_css: "$content_css",
-				init_instance_callback: function(editor) {
-					editor.on("keydown", function(event) {
-						keypress(event);
-					});
-				}
+	tinymce.init({
+		selector: "#editor",
+		auto_focus: "editor",
+		element_format : "html",
+		entity_encoding : "raw",
+		skin: "$skin",
+		schema: "html5",
+		statusbar: false,
+		menubar:false,
+		branding: false,
+		browser_spellcheck: true,
+		pagebreak_separator: PAGE_BREAK,
+		pagebreak_split_block: true,
+		paste_as_text: true,
+		remove_script_host: false,
+		convert_urls: true,
+		relative_urls: false,
+		valid_elements: "*[*]",
+		cache_suffix: "?version=$version",
+		$document_base_url
+		plugins: ["$plugins"],
+		toolbar1: "$toolbar1",
+		toolbar2: "$toolbar2",
+		language: "$lang",
+		content_css: "$content_css",
+		init_instance_callback: function(editor) {
+			editor.on("keydown", function(event) {
+				keypress(event);
 			});
+		}
+	});
 
-		</script>
-		EOF;
+</script>
+EOF;
 	}
 
 }

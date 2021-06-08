@@ -68,53 +68,53 @@ class pluginEasyMDE extends Plugin {
 		$toolbar = Sanitize::htmlDecode($this->getValue('toolbar'));
 		$pageBreak = PAGE_BREAK;
 
-		return <<<EOF
-		<script>
-			// Function required for Bludit
-			// Returns the content of the editor
-			function editorGetContent() {
-				return easymde.value();
-			}
+return <<<EOF
+<script>
+	// Function required for Bludit
+	// Returns the content of the editor
+	function editorGetContent() {
+		return easymde.value();
+	}
 
-			// Function required for Bludit
-			// Insert HTML content at the cursor position
-			function editorInsertContent(html, type='') {
-				var text = easymde.value();
-				if (type == 'image') {
-					easymde.value(text + "![$langImage]("+filename+")" + "\\n");
-				} else {
-					easymde.value(html + "\\n");
-				}
-				easymde.codemirror.refresh();
-			}
+	// Function required for Bludit
+	// Insert HTML content at the cursor position
+	function editorInsertContent(html, type='') {
+		var text = easymde.value();
+		if (type == 'image') {
+			easymde.value(text + "![$langImage]("+filename+")" + "\\n");
+		} else {
+			easymde.value(html + "\\n");
+		}
+		easymde.codemirror.refresh();
+	}
 
-			var easymde = new EasyMDE({
-				element: document.getElementById("editor"),
-				status: false,
-				toolbarTips: true,
-				toolbarGuideIcon: true,
-				autofocus: false,
-				placeholder: "",
-				lineWrapping: true,
-				autoDownloadFontAwesome: false,
-				indentWithTabs: true,
-				tabSize: $tabSize,
-				spellChecker: $spellCheckerEnable,
-				toolbar: [$toolbar,
-					"|",
-					{
-					name: "pageBreak",
-					action: function addPageBreak(editor){
-						var cm = editor.codemirror;
-						output = "$pageBreak";
-						cm.replaceSelection(output);
-						},
-					className: "bi-crop",
-					title: "Page break",
-					}]
-			});
+	var easymde = new EasyMDE({
+		element: document.getElementById("editor"),
+		status: false,
+		toolbarTips: true,
+		toolbarGuideIcon: true,
+		autofocus: false,
+		placeholder: "",
+		lineWrapping: true,
+		autoDownloadFontAwesome: false,
+		indentWithTabs: true,
+		tabSize: $tabSize,
+		spellChecker: $spellCheckerEnable,
+		toolbar: [$toolbar,
+			"|",
+			{
+			name: "pageBreak",
+			action: function addPageBreak(editor){
+				var cm = editor.codemirror;
+				output = "$pageBreak";
+				cm.replaceSelection(output);
+				},
+			className: "bi-crop",
+			title: "Page break",
+			}]
+	});
 
-		</script>
-		EOF;
+</script>
+EOF;
 	}
 }
