@@ -22,8 +22,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -42,8 +43,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -68,8 +70,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -93,8 +96,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -113,8 +117,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -138,8 +143,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -163,8 +169,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -188,8 +195,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -213,8 +221,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -238,8 +247,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -263,8 +273,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -285,8 +296,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -310,8 +322,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -335,8 +348,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -360,8 +374,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -385,8 +400,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 
@@ -410,8 +426,9 @@ class API {
 			var json = await response.json();
 			return json;
 		} catch (err) {
+			console.log(response);
 			console.log(err);
-			return true;
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
 		}
 	}
 

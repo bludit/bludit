@@ -78,7 +78,7 @@
 				<div class="row">
 					<nav class="navbar navbar-dark p-1">
 						<a class="navbar-brand" href="#">
-							<img src="/bl-kernel/img/logo.svg" alt="" width="30" height="24" class="d-inline-block align-top">
+							<img src="<?php echo DOMAIN_BASE ?>bl-kernel/img/logo.svg" alt="" width="30" height="24" class="d-inline-block align-top">
 							Bludit
 						</a>
 					</nav>
