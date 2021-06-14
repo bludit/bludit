@@ -109,7 +109,7 @@ return <<<EOF
 				output = "$pageBreak";
 				cm.replaceSelection(output);
 				},
-			className: "bi-crop",
+			className: "bi-file-earmark-break",
 			title: "Page break",
 			}]
 	});
