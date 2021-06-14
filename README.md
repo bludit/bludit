@@ -34,3 +34,10 @@ Documentation for Bludit v4
 There is a new branch for the Documentation in english for Bludit v4.
 
 https://github.com/bludit/documentation-english/tree/v4.0
+
+PHPStan
+-------
+https://phpstan.org/
+```
+docker run --rm -v $(pwd):/app ghcr.io/phpstan/phpstan:0.12.89 analyse -c /app/phpstan.neon /app
+```
