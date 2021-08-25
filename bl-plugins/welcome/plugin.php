@@ -1,10 +1,5 @@
 <?php
-
 class pluginWelcome extends Plugin {
-
-	private $loadOnViews = array(
-		'dashboard' // Load this plugin only in the Dashboard
-	);
 
 	public function dashboard()
 	{
@@ -26,7 +21,7 @@ class pluginWelcome extends Plugin {
 		$labelGoodNight = $L->g('good-night');
 
 return <<<EOF
-<div class="pluginWelcome mb-4">
+<div class="pluginWelcome mt-4 mb-4 pb-4 border-bottom">
 	<h2 id="hello-message" class="m-0 p-0"><i class="bi bi-emoji-laughing"></i>Welcome</h2>
 </div>
 
