@@ -145,8 +145,45 @@
 	// Initlization for the view
 	// ============================================================================
 	$(document).ready(function() {
-		// nothing here yet
-		// how do you hang your toilet paper ? over or under ?
+		$("#homepage").select2({
+			placeholder: "Search for a page",
+			allowClear: true,
+			theme: "bootstrap-5",
+			minimumInputLength: 2,
+			ajax: {
+				url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+				data: function (params) {
+					var query = { query: params.term }
+					return query;
+				},
+				processResults: function (data) {
+					return data;
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			}
+		});
+
+		$("#pageNotFound").select2({
+			placeholder: "Search for a page",
+			allowClear: true,
+			theme: "bootstrap-5",
+			minimumInputLength: 2,
+			ajax: {
+				url: HTML_PATH_ADMIN_ROOT+"ajax/get-published",
+				data: function (params) {
+					var query = { query: params.term }
+					return query;
+				},
+				processResults: function (data) {
+					return data;
+				},
+				escapeMarkup: function(markup) {
+					return markup;
+				}
+			}
+		});
 	});
 </script>
 
@@ -288,19 +325,37 @@
 
 		echo Bootstrap::formTitle(array('title' => $L->g('Predefined pages')));
 
+		try {
+			$options = array();
+			if (!empty($site->homepage())) {
+				$tmp = new Page($site->homepage());
+				$options = array($site->homepage()=>$tmp->title());
+			}
+		} catch (Exception $e) {
+			// continue
+		}
 		echo Bootstrap::formSelect(array(
 			'name' => 'homepage',
 			'label' => $L->g('Homepage'),
-			'options' => array(), // Complete via Ajax
+			'options' => $options, // Complete via Ajax
 			'selected' => false,
 			'tip' => $L->g('Returning page for the main page'),
 			'data' => array('save' => 'true')
 		));
 
+		try {
+			$options = array();
+			if (!empty($site->pageNotFound())) {
+				$tmp = new Page($site->pageNotFound());
+				$options = array($site->pageNotFound()=>$tmp->title());
+			}
+		} catch (Exception $e) {
+			// continue
+		}
 		echo Bootstrap::formSelect(array(
 			'name' => 'pageNotFound',
 			'label' => $L->g('Page not found'),
-			'options' => array(), // Complete via Ajax
+			'options' => $options, // Complete via Ajax
 			'selected' => false,
 			'tip' => $L->g('Returning page when the page doesnt exist'),
 			'data' => array('save' => 'true')
@@ -516,28 +571,54 @@
 	<!-- Images tab -->
 	<div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
 		<?php
-		echo Bootstrap::formTitle(array('title' => $L->g('Thumbnails')));
+		echo Bootstrap::formTitle(array('title' => $L->g('Thumbnail small')));
 
 		echo Bootstrap::formInputText(array(
-			'name' => 'thumbnailWidth',
+			'name' => 'thumbnailSmallWidth',
 			'label' => $L->g('Width'),
-			'value' => $site->thumbnailWidth(),
+			'value' => $site->thumbnailSmallWidth(),
 			'tip' => $L->g('Thumbnail width in pixels'),
 			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name' => 'thumbnailHeight',
+			'name' => 'thumbnailSmallHeight',
 			'label' => $L->g('Height'),
-			'value' => $site->thumbnailHeight(),
+			'value' => $site->thumbnailSmallHeight(),
 			'tip' => $L->g('Thumbnail height in pixels'),
 			'data' => array('save' => 'true')
 		));
 
 		echo Bootstrap::formInputText(array(
-			'name' => 'thumbnailQuality',
+			'name' => 'thumbnailSmallQuality',
 			'label' => $L->g('Quality'),
-			'value' => $site->thumbnailQuality(),
+			'value' => $site->thumbnailSmallQuality(),
+			'tip' => $L->g('Thumbnail quality in percentage'),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formTitle(array('title' => $L->g('Thumbnail medium')));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'thumbnailMediumWidth',
+			'label' => $L->g('Width'),
+			'value' => $site->thumbnailMediumWidth(),
+			'tip' => $L->g('Thumbnail width in pixels'),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'thumbnailMediumHeight',
+			'label' => $L->g('Height'),
+			'value' => $site->thumbnailMediumHeight(),
+			'tip' => $L->g('Thumbnail height in pixels'),
+			'data' => array('save' => 'true')
+		));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'thumbnailMediumQuality',
+			'label' => $L->g('Quality'),
+			'value' => $site->thumbnailMediumQuality(),
 			'tip' => $L->g('Thumbnail quality in percentage'),
 			'data' => array('save' => 'true')
 		));

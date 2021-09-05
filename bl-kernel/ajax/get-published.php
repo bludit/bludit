@@ -20,33 +20,31 @@ $query = isset($_GET['query']) ? Text::lowercase($_GET['query']) : false;
 $checkIsParent = empty($_GET['checkIsParent']) ? false : true;
 // ----------------------------------------------------------------------------
 if ($query===false) {
-	ajaxResponse(1, 'Invalid query.');
+    ajaxResponse(1, 'Invalid query.');
 }
 
 $result = array();
 $pagesKey = $pages->getDB();
 foreach ($pagesKey as $pageKey) {
-	try {
-		$page = new Page($pageKey);
-		if ($page->isParent() || !$checkIsParent) {
-			// Check page status
-			if ($page->published() || $page->sticky() || $page->isStatic()) {
-				// Check if the query contains in the title
-				$lowerTitle = Text::lowercase($page->title());
-				if (Text::stringContains($lowerTitle, $query)) {
-					$tmp = array('disabled'=>false);
-					$tmp['id'] = $page->key();
-					$tmp['text'] = $page->title();
-					$tmp['type'] = $page->type();
-					array_push($result, $tmp);
-				}
-			}
-		}
-	} catch (Exception $e) {
-		// continue
-	}
+    try {
+        $page = new Page($pageKey);
+        if ($page->isParent() || !$checkIsParent) {
+            // Check page status
+            if ($page->published() || $page->sticky() || $page->isStatic()) {
+                // Check if the query contains in the title
+                $lowerTitle = Text::lowercase($page->title());
+                if (Text::stringContains($lowerTitle, $query)) {
+                    $tmp = array('disabled'=>false);
+                    $tmp['id'] = $page->key();
+                    $tmp['text'] = $page->title();
+                    $tmp['type'] = $page->type();
+                    array_push($result, $tmp);
+                }
+            }
+        }
+    } catch (Exception $e) {
+        // continue
+    }
 }
 
 exit (json_encode(array('results'=>$result)));
-
-?>

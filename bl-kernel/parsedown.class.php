@@ -13,7 +13,7 @@
 #
 #
 
-class Parsedown
+final class Parsedown
 {
     # ~
 

@@ -39,5 +39,5 @@ PHPStan
 -------
 https://phpstan.org/
 ```
-docker run --rm -v $(pwd):/app ghcr.io/phpstan/phpstan:0.12.89 analyse -c /app/phpstan.neon /app
+docker run --rm -v $(pwd):/app ghcr.io/phpstan/phpstan:0.12.96 analyse -c /app/phpstan.neon /app
 ```

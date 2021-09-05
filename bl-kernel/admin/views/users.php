@@ -52,7 +52,7 @@ foreach ($list as $username) {
 	try {
 		$user = new User($username);
 		echo '<tr>';
-		echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
+		echo '<td class="pt-4 pb-4"><i class="bi bi-person"></i><a href="'.HTML_PATH_ADMIN_ROOT.'edit-user/'.$username.'">'.$username.'</a></td>';
 		echo '<td class="pt-4 pb-4 d-none d-lg-table-cell">'.$user->nickname().'</td>';
 		echo '<td class="pt-4 pb-4">'.$user->email().'</td>';
 		echo '<td class="pt-4 pb-4">'.($user->enabled()?'<b>'.$L->g('Enabled').'</b>':'<b class="text-danger">'.$L->g('Disabled').'</b>').'</td>';

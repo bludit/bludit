@@ -205,8 +205,8 @@ class Fuzz
      */
     public function getJaroWinkler($first, $second)
     {
-        $shorter;
-        $longer;
+        $shorter = '';
+        $longer = '';
 
         if (mb_strlen($first, CHARSET) > mb_strlen($second, CHARSET)) {
             $longer = mb_strtolower($first, CHARSET);

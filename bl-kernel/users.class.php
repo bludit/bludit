@@ -33,7 +33,7 @@ class Users extends dbJSON {
 		parent::__construct(DB_USERS);
 	}
 
-	public function getDefaultFields()
+	public function getDefaultFields(): array
 	{
 		return $this->dbFields;
 	}
@@ -48,28 +48,26 @@ class Users extends dbJSON {
 	}
 
 	// Return TRUE if the user exists, FALSE otherwise
-	public function exists($username)
+	public function exists($username): bool
 	{
 		return isset($this->db[$username]);
 	}
 
-	/*	Disable an user === Bludit v4
-
-		@username		string			The username to be disabled
-		@return			string			Returns the username
-	*/
-	public function disableUser($username)
+	/**
+	 * Disable an username
+	 */
+	public function disableUser(string $username): string
 	{
 		$this->db[$username]['password'] = '!';
 		$this->save();
 		return $username;
 	}
 
-	/*	Create a new user === Bludit v4
-
-		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-		@return		string/bool	Returns the username if the user is successfully created, FALSE otherwise
-	*/
+	/**
+	 * Create a new user. === Bludit v4
+	 * @param array $args All supported parameters are defined in this class, variable $dbFields
+	 * @return string|bool Returns the username on successful create, FALSE otherwise
+	 */
 	public function add($args)
 	{
 		// The username is store as key and not as field
@@ -110,11 +108,11 @@ class Users extends dbJSON {
 		return $username;
 	}
 
-	/*	Edit an user === Bludit v4
-
-		@args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-		@return			string/bool		Returns the username if the user is successfully created, FALSE otherwise
-	*/
+	/**
+	 * Edit an user. === Bludit v4
+	 * @param		array		$args		All supported parameters are defined in this class, variable $dbFields
+	 * @return		string|bool				Returns the username on successful edit, FALSE otherwise
+	 */
 	public function edit($args)
 	{
 		// The username is store as key and not as field
@@ -157,7 +155,11 @@ class Users extends dbJSON {
 		return $username;
 	}
 
-	// Delete an user
+	/**
+	 * Delete an user. === Bludit v4
+	 * @param		string		$username	Username to be delete
+	 * @return		string|bool				Returns true or false
+	 */
 	public function delete($username)
 	{
 		unset($this->db[$username]);
@@ -186,16 +188,16 @@ class Users extends dbJSON {
 
 	public function setRememberToken($username, $token)
 	{
-		$args['username']	= $username;
-		$args['tokenRemember']	= $token;
-		return $this->set($args);
+		$args['username'] = $username;
+		$args['tokenRemember'] = $token;
+		return $this->edit($args);
 	}
 
 	// Change user password
 	// args => array( username, password )
 	public function setPassword($args)
 	{
-		return $this->set($args);
+		return $this->edit($args);
 	}
 
 	// Return the username associated to an email, FALSE otherwise

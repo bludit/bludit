@@ -104,9 +104,10 @@
 		}
 
 		$.each(files, function(key, file) {
+			console.log(file);
 			var row = '<tr>' +
 				'<td class="align-middle">' +
-				'	<img style="width: 32px" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />' +
+				'	<img style="width: 32px" src="'+ file.thumbnailSmall +'" />' +
 				'</td>' +
 				'<td class="align-middle">' + file.filename + '</td>' +
 				'<td class="align-middle">' + file.mime + '</td>' +

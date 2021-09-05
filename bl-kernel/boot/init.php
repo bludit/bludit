@@ -12,12 +12,12 @@ define('DEBUG_MODE', TRUE);
 define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
 error_reporting(0); // Turn off all error reporting
 if (DEBUG_MODE) {
-	// Turn on all error reporting
-	ini_set("display_errors", 0);
-	ini_set('display_startup_errors',0);
-	ini_set("html_errors", 1);
-	ini_set('log_errors', 1);
-	error_reporting(E_ALL | E_STRICT | E_NOTICE);
+    // Turn on all error reporting
+    ini_set("display_errors", 0);
+    ini_set('display_startup_errors',0);
+    ini_set("html_errors", 1);
+    ini_set('log_errors', 1);
+    error_reporting(E_ALL | E_STRICT | E_NOTICE);
 }
 
 // PHP paths
@@ -44,7 +44,6 @@ define('PATH_WORKSPACES',		PATH_CONTENT.'workspaces'.DS);
 
 define('PATH_UPLOADS_PAGES',	PATH_UPLOADS.'pages'.DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS.'profiles'.DS);
-define('PATH_UPLOADS_THUMBNAILS',PATH_UPLOADS.'thumbnails'.DS);
 
 define('PATH_ADMIN',			PATH_KERNEL.'admin'.DS);
 define('PATH_ADMIN_THEMES',		PATH_ADMIN.'themes'.DS);
@@ -116,7 +115,7 @@ include(PATH_HELPERS.'bootstrap.class.php');
 include(PATH_HELPERS.'html.class.php');
 
 if (file_exists(PATH_KERNEL.'bludit.pro.php')) {
-	include(PATH_KERNEL.'bludit.pro.php');
+    include(PATH_KERNEL.'bludit.pro.php');
 }
 
 // Objects
@@ -138,26 +137,26 @@ $syslog 	= new Syslog();
 $base = '';
 
 if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base)) {
-	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
-	$base = dirname($base);
+    $base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
+    $base = dirname($base);
 } elseif (empty($base)) {
-	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-	$base = dirname($base);
+    $base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
+    $base = dirname($base);
 }
 
 if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
-	$base = '/';
+    $base = '/';
 } elseif ($base!=DS) {
-	$base = trim($base, '/');
-	$base = '/'.$base.'/';
+    $base = trim($base, '/');
+    $base = '/'.$base.'/';
 } else {
-	// Workaround for Windows Web Servers
-	$base = '/';
+    // Workaround for Windows Web Servers
+    $base = '/';
 }
 
-define('HTML_PATH_ROOT', 		$base);
-define('HTML_PATH_THEMES',		HTML_PATH_ROOT.'bl-themes/');
-define('HTML_PATH_THEME',		HTML_PATH_THEMES.$site->theme().'/');
+define('HTML_PATH_ROOT', 		    $base);
+define('HTML_PATH_THEMES',		    HTML_PATH_ROOT.'bl-themes/');
+define('HTML_PATH_THEME',		    HTML_PATH_THEMES.$site->theme().'/');
 define('HTML_PATH_THEME_CSS',		HTML_PATH_THEME.'css/');
 define('HTML_PATH_THEME_JS',		HTML_PATH_THEME.'js/');
 define('HTML_PATH_THEME_IMG',		HTML_PATH_THEME.'img/');
@@ -165,16 +164,15 @@ define('HTML_PATH_ADMIN_ROOT',		HTML_PATH_ROOT.ADMIN_URI_FILTER.'/');
 define('HTML_PATH_ADMIN_THEME',		HTML_PATH_ROOT.'bl-kernel/admin/themes/'.$site->adminTheme().'/');
 define('HTML_PATH_ADMIN_THEME_JS',	HTML_PATH_ADMIN_THEME.'js/');
 define('HTML_PATH_ADMIN_THEME_CSS',	HTML_PATH_ADMIN_THEME.'css/');
-define('HTML_PATH_CORE_JS',		HTML_PATH_ROOT.'bl-kernel/js/');
+define('HTML_PATH_CORE_JS',		    HTML_PATH_ROOT.'bl-kernel/js/');
 define('HTML_PATH_CORE_VENDORS',	HTML_PATH_ROOT.'bl-kernel/vendors/');
 define('HTML_PATH_CORE_CSS',		HTML_PATH_ROOT.'bl-kernel/css/');
 define('HTML_PATH_CORE_IMG',		HTML_PATH_ROOT.'bl-kernel/img/');
-define('HTML_PATH_CONTENT',		HTML_PATH_ROOT.'bl-content/');
-define('HTML_PATH_UPLOADS',		HTML_PATH_ROOT.'bl-content/uploads/');
+define('HTML_PATH_CONTENT',		    HTML_PATH_ROOT.'bl-content/');
+define('HTML_PATH_UPLOADS',		    HTML_PATH_ROOT.'bl-content/uploads/');
 define('HTML_PATH_UPLOADS_PAGES',	HTML_PATH_UPLOADS.'pages/');
-define('HTML_PATH_UPLOADS_PROFILES',	HTML_PATH_UPLOADS.'profiles/');
-define('HTML_PATH_UPLOADS_THUMBNAILS',	HTML_PATH_UPLOADS.'thumbnails/');
-define('HTML_PATH_PLUGINS',		HTML_PATH_ROOT.'bl-plugins/');
+define('HTML_PATH_UPLOADS_PROFILES',HTML_PATH_UPLOADS.'profiles/');
+define('HTML_PATH_PLUGINS',		    HTML_PATH_ROOT.'bl-plugins/');
 
 // --- Objects with dependency ---
 $language = new Language( $site->language() );
@@ -236,7 +234,6 @@ define('DOMAIN_ADMIN_THEME_JS',		DOMAIN.HTML_PATH_ADMIN_THEME_JS);
 define('DOMAIN_UPLOADS',		DOMAIN.HTML_PATH_UPLOADS);
 define('DOMAIN_UPLOADS_PAGES',		DOMAIN.HTML_PATH_UPLOADS_PAGES);
 define('DOMAIN_UPLOADS_PROFILES',	DOMAIN.HTML_PATH_UPLOADS_PROFILES);
-define('DOMAIN_UPLOADS_THUMBNAILS',	DOMAIN.HTML_PATH_UPLOADS_THUMBNAILS);
 define('DOMAIN_PLUGINS',		DOMAIN.HTML_PATH_PLUGINS);
 define('DOMAIN_CONTENT',		DOMAIN.HTML_PATH_CONTENT);
 

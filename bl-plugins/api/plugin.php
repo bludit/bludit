@@ -587,8 +587,8 @@ class pluginAPI extends Plugin {
 
 	/**
 	 * Edit settings
-	 * @param		array		$args		All supported keys are defined in the class site.class.php variable $dbFields
-	 * @return		array
+	 * @param			array			$args			All supported parameters are defined in the class site.class.php, variable $dbFields
+	 * @return			array
 	 */
 	private function editSettings($args)
 	{
@@ -956,23 +956,34 @@ class pluginAPI extends Plugin {
 		$files = array();
 		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
 		foreach ($listFiles as $file) {
-			$filename = basename($file);
-			$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename;
-			$absolutePath = $file;
+			if (Text::stringContains($file, '-thumbnail-')) {
+				continue;
+			}
+
+			$filename = Filesystem::filename($file);
+			$fileExtension = Filesystem::extension($file);
+			$absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
+			$absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
+
+			$thumbnailSmall = '';
+			if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-s.'.$fileExtension)) {
+				$thumbnailSmall = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-s.'.$fileExtension;
+			}
+
+			$thumbnailMedium = '';
+			if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-m.'.$fileExtension)) {
+				$thumbnailMedium = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-m.'.$fileExtension;
+			}
+
 			$data = array(
-				'filename'=>$filename,
+				'filename'=>$filename.'.'.$fileExtension,
 				'absolutePath'=>$absolutePath,
 				'absoluteURL'=>$absoluteURL,
 				'mime'=>Filesystem::mimeType($absolutePath),
 				'size'=>Filesystem::getSize($absolutePath),
-				'thumbnail'=>''
+				'thumbnailSmall'=>$thumbnailSmall,
+				'thumbnailMedium'=>$thumbnailMedium
 			);
-
-			// Check if thumbnail exists for the file
-			$thumbnail = $path.'thumbnails'.DS.$filename;
-			if (Filesystem::fileExists($thumbnail)) {
-				$data['thumbnail'] = $thumbnail;
-			}
 
 			array_push($files, $data);
 		}

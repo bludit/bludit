@@ -49,7 +49,7 @@ foreach ($categories->keys() as $key) {
 	try {
 		$category = new Category($key);
 		echo '<tr>';
-		echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
+		echo '<td class="pt-4 pb-4"><i class="bi bi-bookmark"></i><a href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
 		echo '<td class="pt-4 pb-4"><span>'.$category->description().'</span></td>';
 		echo '<td class="pt-4 pb-4"><a href="'.$category->permalink().'">'.$category->permalink().'</a></td>';
 		echo '</tr>';

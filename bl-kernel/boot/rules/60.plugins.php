@@ -5,42 +5,42 @@
 // ============================================================================
 
 $plugins = array(
-	'siteHead'=>array(),
-	'siteBodyBegin'=>array(),
-	'siteBodyEnd'=>array(),
-	'siteSidebar'=>array(),
-	'beforeSiteLoad'=>array(),
-	'afterSiteLoad'=>array(),
+	'siteHead' => array(),
+	'siteBodyBegin' => array(),
+	'siteBodyEnd' => array(),
+	'siteSidebar' => array(),
+	'beforeSiteLoad' => array(),
+	'afterSiteLoad' => array(),
 
-	'pageBegin'=>array(),
-	'pageEnd'=>array(),
+	'pageBegin' => array(),
+	'pageEnd' => array(),
 
-	'beforeAdminLoad'=>array(),
-	'afterAdminLoad'=>array(),
-	'adminHead'=>array(),
-	'adminBodyBegin'=>array(),
-	'adminBodyEnd'=>array(),
-	'adminSidebar'=>array(),
-	'adminContentSidebar'=>array(),
-	'dashboard'=>array(),
+	'beforeAdminLoad' => array(),
+	'afterAdminLoad' => array(),
+	'adminHead' => array(),
+	'adminBodyBegin' => array(),
+	'adminBodyEnd' => array(),
+	'adminSidebar' => array(),
+	'adminContentSidebar' => array(),
+	'dashboard' => array(),
 
-	'beforeAll'=>array(),
-	'afterAll'=>array(),
+	'beforeAll' => array(),
+	'afterAll' => array(),
 
-	'paginator'=>array(),
+	'paginator' => array(),
 
-	'beforePageModify'=>array(),
-	'beforePageDelete'=>array(),
+	'beforePageModify' => array(),
+	'beforePageDelete' => array(),
 
-	'afterPageCreate'=>array(),
-	'afterPageModify'=>array(),
-	'afterPageDelete'=>array(),
+	'afterPageCreate' => array(),
+	'afterPageModify' => array(),
+	'afterPageDelete' => array(),
 
-	'loginHead'=>array(),
-	'loginBodyBegin'=>array(),
-	'loginBodyEnd'=>array(),
+	'loginHead' => array(),
+	'loginBodyBegin' => array(),
+	'loginBodyEnd' => array(),
 
-	'all'=>array() // $plugins['all'] keep installed and not installed plugins
+	'all' => array() // $plugins['all'] keep installed and not installed plugins
 );
 
 // This array has only the installed plugins
@@ -69,8 +69,8 @@ function buildPlugins()
 	// Load plugins clasess
 	$list = Filesystem::listDirectories(PATH_PLUGINS);
 	foreach ($list as $pluginPath) {
-		if (file_exists($pluginPath.DS.'plugin.php')) {
-			include_once($pluginPath.DS.'plugin.php');
+		if (file_exists($pluginPath . DS . 'plugin.php')) {
+			include_once($pluginPath . DS . 'plugin.php');
 		}
 	}
 
@@ -81,17 +81,17 @@ function buildPlugins()
 		$Plugin = new $pluginClass;
 
 		// Check if the plugin is translated
-		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$site->language().'.json';
+		$languageFilename = PATH_PLUGINS . $Plugin->directoryName() . DS . 'languages' . DS . $site->language() . '.json';
 		if (!Sanitize::pathFile($languageFilename)) {
-			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
+			$languageFilename = PATH_PLUGINS . $Plugin->directoryName() . DS . 'languages' . DS . DEFAULT_LANGUAGE_FILE;
 		}
 
 		$database = file_get_contents($languageFilename);
 		$database = json_decode($database, true);
 
 		// Set name and description from the language file
-		$Plugin->setMetadata('name',$database['plugin-data']['name']);
-		$Plugin->setMetadata('description',$database['plugin-data']['description']);
+		$Plugin->setMetadata('name', $database['plugin-data']['name']);
+		$Plugin->setMetadata('description', $database['plugin-data']['description']);
 
 		// Remove name and description from the language and includes new words to the global language dictionary
 		unset($database['plugin-data']);
@@ -117,7 +117,7 @@ function buildPlugins()
 			}
 
 			// Insert the plugin into the hooks
-			foreach ($pluginsHooks as $hook=>$value) {
+			foreach ($pluginsHooks as $hook => $value) {
 				if (method_exists($Plugin, $hook)) {
 					array_push($plugins[$hook], $Plugin);
 				}
@@ -125,14 +125,18 @@ function buildPlugins()
 		}
 
 		// Sort the plugins by the position for the site sidebar
-		uasort($plugins['siteSidebar'], function ($a, $b) {
-				return $a->position()>$b->position();
+		uasort(
+			$plugins['siteSidebar'],
+			function ($a, $b) {
+				return $a->position() <=> $b->position();
 			}
 		);
 
 		// Sort the plugins by the position for the dashboard
-		uasort($plugins['dashboard'], function ($a, $b) {
-				return $a->position()>$b->position();
+		uasort(
+			$plugins['dashboard'],
+			function ($a, $b) {
+				return $a->position() <=> $b->position();
 			}
 		);
 	}

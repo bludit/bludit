@@ -13,7 +13,7 @@ class pluginLatestPages extends Plugin {
 		$tmp = $pages->getList(1, 5);
 		foreach ($tmp as $key) {
 			$page = buildPage($key);
-			$html .= '<a href="'.$page->permalink().'" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">';
+			$html .= '<a target="_blank" href="'.$page->permalink().'" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">';
 			$html .= '<div class="d-flex gap-2 w-100 justify-content-between">';
 			$html .= '<div>';
 			$html .= '<h6 class="mb-0">'.($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ').'</h6>';

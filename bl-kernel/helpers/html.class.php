@@ -82,6 +82,18 @@ class HTML {
 		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'bootstrap-html5sortable/jquery.sortable.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
 	}
 
+	public static function jsSelect2($attributes='')
+	{
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'select2/select2.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function cssSelect2()
+	{
+		$html = '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'select2/select2.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		$html .= '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'select2/select2-bootstrap-5-theme.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+		return $html;
+	}
+
 	/*	Generates a dynamiclly the meta tag title for the themes === Bludit v4
 
 		@return				string		Returns the meta tag title <title>...</title>

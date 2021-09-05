@@ -9,7 +9,6 @@ class Page {
 		global $pages;
 
 		$this->vars['key'] = $key;
-
 		// If key is FALSE, the page is create with default values, like an empty page
 		// Useful for Page Not Found
 		if ($key===false) {
@@ -330,25 +329,6 @@ class Page {
 		}
 
 		return $filename;
-	}
-
-	// Returns the endpoint of the thumbnail cover image, FALSE if the page doesn't have a cover image
-	public function thumbCoverImage()
-	{
-		$filename = $this->coverImage(false);
-		if ($filename==false) {
-			return false;
-		}
-
-		// Check is external cover image
-		if (filter_var($filename, FILTER_VALIDATE_URL)) {
-			return $filename;
-		}
-
-		if (IMAGE_RESTRICT) {
-			return DOMAIN_UPLOADS_PAGES.$this->uuid().'/thumbnails/'.$filename;
-		}
-		return DOMAIN_UPLOADS_THUMBNAILS.$filename;
 	}
 
 	// Returns TRUE if the content has the text splited

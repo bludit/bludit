@@ -62,7 +62,6 @@ define('PATH_WORKSPACES',		PATH_CONTENT . 'workspaces' . DS);
 define('PATH_DATABASES',		PATH_CONTENT . 'databases' . DS);
 define('PATH_PLUGINS_DATABASES', PATH_CONTENT . 'databases' . DS . 'plugins' . DS);
 define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS . 'profiles' . DS);
-define('PATH_UPLOADS_THUMBNAILS', PATH_UPLOADS . 'thumbnails' . DS);
 define('PATH_UPLOADS_PAGES',	PATH_UPLOADS . 'pages' . DS);
 define('PATH_HELPERS',			PATH_KERNEL . 'helpers' . DS);
 define('PATH_ABSTRACT',			PATH_KERNEL . 'abstract' . DS);
@@ -275,7 +274,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'about', 'welcome', 'api', 'visits-stats', 'robots', 'canonical', 'popeye');
+	$pluginsToInstall = array('tinymce', 'about', 'welcome', 'api', 'visits-stats', 'robots', 'canonical', 'popeye', 'latest-pages');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES . $plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . PATH_PLUGINS_DATABASES . $plugin;
@@ -284,7 +283,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// System directories
-	$systemDirectories = array(PATH_UPLOADS_PROFILES, PATH_UPLOADS_THUMBNAILS, PATH_TMP, PATH_WORKSPACES, PATH_UPLOADS_PAGES);
+	$systemDirectories = array(PATH_UPLOADS_PROFILES, PATH_TMP, PATH_WORKSPACES, PATH_UPLOADS_PAGES);
 	foreach ($systemDirectories as $directory) {
 		if (!mkdir($directory, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . $directory;
@@ -388,9 +387,9 @@ function install($adminPassword, $timezone)
 		'titleFormatTag' => '{{tag-name}} | {{site-title}}',
 		'imageRestrict' => true,
 		'imageRelativeToAbsolute' => false,
-		'thumbnailWidth' => 400,
-		'thumbnailHeight' => 400,
-		'thumbnailQuality' => 100,
+		'thumbnailSmallWidth' => 400,
+		'thumbnailSmallHeight' => 400,
+		'thumbnailSmallQuality' => 100,
 		'logo' => '',
 		'markdownParser' => true,
 		'customFields' => '{}',
@@ -548,12 +547,24 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
+	// File plugins/latest-pages/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'latest-pages' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'position' => 2
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
 	// File plugins/visits-stats/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES . 'visits-stats' . DS . 'db.php',
 		$dataHead . json_encode(
 			array(
-				'position' => 2,
+				'position' => 3,
 				'excludeAdmins' => false,
 				'label' => $L->get('Visits')
 			),

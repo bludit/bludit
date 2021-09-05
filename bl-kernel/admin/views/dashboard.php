@@ -1,5 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 
+<?php createPage(array()); ?>
+
 <script>
 	// ============================================================================
 	// Variables for the view

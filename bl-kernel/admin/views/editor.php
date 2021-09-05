@@ -85,26 +85,38 @@
 		return true;
 	}
 
-	// Open the modal and store the current value
-	// The current value is store to recover it if the user click on the button "Cancel"
+	/*
+		Open the modal and store the current value
+		The current value is store to recover it if the user click on the button "Cancel"
+	 */
 	function openModal(fieldName) {
 		var value = $('#' + fieldName).val();
 		localStorage.setItem(fieldName, value);
 		$('#modal-' + fieldName).modal('show');
 	}
 
-	// Close the modal when the user click in the button "Cancel"
-	// The function also recover the old value
-	function closeModal(fieldName) {
-		var value = localStorage.getItem(fieldName);
-		$('#' + fieldName).val(value);
+	/*
+		Close the modal
+		The function also recover the old value
+	*/
+	function closeModal(fieldName, revertValue=false) {
+		if (revertValue) {
+			var value = localStorage.getItem(fieldName);
+			$('#' + fieldName).val(value);
+		}
 		$('#modal-' + fieldName).modal('hide');
 	}
 
+	/*
+		Disable the "Save" button
+	*/
 	function disableBtnSave() {
 		$('#btnSave').addClass('btn-primary-disabled').attr('data-current', 'saved').html('<i class="bi bi-check-square"></i><?php $L->p('Saved') ?>');
 	}
 
+	/*
+		Enable the "Save" button
+	*/
 	function enableBtnSave() {
 		$('#btnSave').removeClass('btn-primary-disabled').attr('data-current', 'unsaved').html('<i class="bi bi-save"></i><?php $L->p('Save') ?>');
 	}
@@ -194,7 +206,7 @@
 		});
 
 		$('#btnCancelDescription').on('click', function() {
-			closeModal('description');
+			closeModal('description', true);
 		});
 
 		// Modal date events
@@ -209,7 +221,7 @@
 		});
 
 		$('#btnCancelDate').on('click', function() {
-			closeModal('date');
+			closeModal('date', true);
 		});
 
 		// Modal friendly-url events
@@ -224,7 +236,7 @@
 		});
 
 		$('#btnCancelFriendlyURL').on('click', function() {
-			closeModal('friendlyURL');
+			closeModal('friendlyURL', true);
 		});
 
 		$('#btnGenURLFromTitle').on('click', function() {
@@ -269,7 +281,7 @@
 		});
 
 		$('#btnCancelType').on('click', function() {
-			closeModal('type');
+			closeModal('type', true);
 		});
 
 		// Modal SEO events
@@ -284,7 +296,7 @@
 		});
 
 		$('#btnCancelSeo').on('click', function() {
-			closeModal('seo');
+			closeModal('seo', true);
 		});
 
 		// Modal parent events
@@ -299,7 +311,7 @@
 		});
 
 		$('#btnCancelParent').on('click', function() {
-			closeModal('parent');
+			closeModal('parent', true);
 		});
 
 	});
@@ -327,6 +339,37 @@
 			savePage();
 			disableBtnSave();
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
+
+		$("#parent").select2({
+			placeholder: '',
+			allowClear: true,
+			theme: 'bootstrap-5',
+			minimumInputLength: 2,
+			dropdownParent: $('#modal-parent'),
+			ajax: {
+				url: HTML_PATH_ADMIN_ROOT + 'ajax/get-published',
+				data: function(params) {
+					var query = {
+						checkIsParent: true,
+						query: params.term
+					}
+					return query;
+				},
+				processResults: function(data) {
+					return data;
+				}
+			},
+			escapeMarkup: function(markup) {
+				return markup;
+			},
+			templateResult: function(data) {
+				var html = data.text;
+				if (data.type == 'static') {
+					html += '<span class="badge badge-pill badge-light">' + data.type + '</span>';
+				}
+				return html;
+			}
+		});
 
 	});
 </script>
@@ -487,11 +530,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="m-0">
-					<label for="parent" class="fw-bold mb-2">Parent page</label>
-					<select id="parent" name="parent" class="custom-select"></select>
-					<div class="form-text"><?php echo $L->g('Start typing a page title to see a list of suggestions.') ?></div>
-				</div>
+			<div class="col-sm-10">
+				<select id="parent" name="parent" class="form-select" data-current-value="" data-save="true"></select>
+			</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
 				<button id="btnCancelParent" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
@@ -500,44 +541,11 @@
 		</div>
 	</div>
 </div>
-<script>
-	$(document).ready(function() {
-		var parent = $("#parent").select2({
-			placeholder: "",
-			allowClear: true,
-			theme: "bootstrap4",
-			minimumInputLength: 2,
-			ajax: {
-				url: HTML_PATH_ADMIN_ROOT + "ajax/get-published",
-				data: function(params) {
-					var query = {
-						checkIsParent: true,
-						query: params.term
-					}
-					return query;
-				},
-				processResults: function(data) {
-					return data;
-				}
-			},
-			escapeMarkup: function(markup) {
-				return markup;
-			},
-			templateResult: function(data) {
-				var html = data.text;
-				if (data.type == "static") {
-					html += '<span class="badge badge-pill badge-light">' + data.type + '</span>';
-				}
-				return html;
-			}
-		});
-	});
-</script>
 <!-- End Modal Parent -->
 
 <div class="container-fluid h-100">
 	<div class="row h-100">
-		<div class="col-sm-9 d-flex flex-column h-100">
+		<div class="col-sm-9 d-flex flex-column" style="height: 85%">
 
 			<!-- Toolbar > Save, Preview, Type and Options -->
 			<div id="editorToolbar" class="d-flex align-items-center mb-2">
@@ -645,13 +653,13 @@
 
 			<h6 class="text-uppercase mt-4">More options</h6>
 			<ul class="list-group">
-				<li class="list-group-item p-0 pt-3"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
-				<li class="list-group-item p-0 pt-3"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
 
 			</ul>
 

@@ -14,6 +14,7 @@
 	<?php
 		echo HTML::cssBootstrap();
 		echo HTML::cssBootstrapIcons();
+		echo HTML::cssSelect2();
 		echo HTML::css(array(
 			'01-bludit.css',
 			'02-bootstrap-hacks.css'
@@ -22,8 +23,6 @@
 		echo HTML::css(array(
 			'jquery.datetimepicker.min.css',
 			'jquery-ui.min.css',
-			'select2.min.css',
-			'select2-bootstrap4.min.css',
 			'tagsinput-revisited.min.css'
 		), DOMAIN_CORE_CSS);
 
@@ -44,10 +43,10 @@
 	echo HTML::jsBootstrap();
 	echo HTML::jsSortable();
 	echo HTML::bootbox();
+	echo HTML::jsSelect2();
 	echo HTML::js(array(
 		'jquery.datetimepicker.full.min.js',
 		'jquery-ui.min.js',
-		'select2.full.min.js',
 		'tagsinput-revisited.min.js',
 		'functions.js',
 		'api.js'

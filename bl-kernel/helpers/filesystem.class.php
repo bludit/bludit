@@ -2,320 +2,321 @@
 
 class Filesystem {
 
-	// Returns an array with the absolutes directories.
-	public static function listDirectories($path, $regex='*', $sortByDate=false)
-	{
-		$directories = glob($path.$regex, GLOB_ONLYDIR);
+    // Returns an array with the absolutes directories.
+    public static function listDirectories($path, $regex='*', $sortByDate=false)
+    {
+        $directories = glob($path.$regex, GLOB_ONLYDIR);
 
-		if(empty($directories)) {
-			return array();
-		}
+        if(empty($directories)) {
+            return array();
+        }
 
-		if($sortByDate) {
-			usort($directories,
-			      function($a, $b) {
-				      return filemtime($b) - filemtime($a);
-			      }
-			);
-		}
+        if($sortByDate) {
+            usort($directories,
+                  function($a, $b) {
+                      return filemtime($b) - filemtime($a);
+                  }
+            );
+        }
 
-		return $directories;
-	}
+        return $directories;
+    }
 
-	// Returns an array with the list of files with the absolute path
-	// $sortByDate = TRUE, the first file is the newer file
-	// $chunk = amount of chunks, FALSE if you don't want to chunk
-	public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false, $chunk=false)
-	{
-		Log::set('list files = '.$path.$regex.'.'.$extension, LOG_TYPE_INFO);
-		$files = glob($path.$regex.'.'.$extension);
+    // Returns an array with the list of files with the absolute path
+    // $sortByDate = TRUE, the first file is the newer file
+    // $chunk = amount of chunks, FALSE if you don't want to chunk
+    public static function listFiles($path, $regex='*', $extension='*', $sortByDate=false, $chunk=false)
+    {
+        Log::set('list files = '.$path.$regex.'.'.$extension, LOG_TYPE_INFO);
+        $files = glob($path.$regex.'.'.$extension);
 
-		if (empty($files)) {
-			return array();
-		}
+        if (empty($files)) {
+            return array();
+        }
 
-		if ($sortByDate) {
-			usort($files,
-				function($a, $b) {
-					return filemtime($b) - filemtime($a);
-				}
-			);
-		}
+        if ($sortByDate) {
+            usort($files,
+                function($a, $b) {
+                    return filemtime($b) - filemtime($a);
+                }
+            );
+        }
 
-		// Split the list of files into chunks
-		// http://php.net/manual/en/function.array-chunk.php
-		if ($chunk) {
-			return array_chunk($files, $chunk);
-		}
+        // Split the list of files into chunks
+        // http://php.net/manual/en/function.array-chunk.php
+        if ($chunk) {
+            return array_chunk($files, $chunk);
+        }
 
-		return $files;
-	}
+        return $files;
+    }
 
-	public static function mkdir($pathname, $recursive=false)
-	{
-		return mkdir($pathname, DIR_PERMISSIONS, $recursive);
-	}
+    public static function mkdir($pathname, $recursive=false)
+    {
+        return mkdir($pathname, DIR_PERMISSIONS, $recursive);
+    }
 
-	public static function rmdir($pathname)
-	{
-		Log::set('rmdir = '.$pathname, LOG_TYPE_INFO);
-		return rmdir($pathname);
-	}
+    public static function rmdir($pathname)
+    {
+        Log::set('rmdir = '.$pathname, LOG_TYPE_INFO);
+        return rmdir($pathname);
+    }
 
-	public static function mv($oldname, $newname)
-	{
-		Log::set('mv '.$oldname.' '.$newname, LOG_TYPE_INFO);
-		return rename($oldname, $newname);
-	}
+    public static function mv($oldname, $newname)
+    {
+        Log::set('mv '.$oldname.' '.$newname, LOG_TYPE_INFO);
+        return rename($oldname, $newname);
+    }
 
-	public static function rmfile($filename)
-	{
-		Log::set('rmfile = '.$filename, LOG_TYPE_INFO);
-		return unlink($filename);
-	}
+    public static function rmfile($filename)
+    {
+        Log::set('rmfile = '.$filename, LOG_TYPE_INFO);
+        return unlink($filename);
+    }
 
-	public static function fileExists($filename)
-	{
-		return file_exists($filename);
-	}
+    public static function fileExists($filename)
+    {
+        return file_exists($filename);
+    }
 
-	public static function directoryExists($path)
-	{
-		return file_exists($path);
-	}
+    public static function directoryExists($path)
+    {
+        return file_exists($path);
+    }
 
-	// Copy recursive a directory to another
-	// If the destination directory not exists is created
-	// $source = /home/diego/example or /home/diego/example/
-	// $destination = /home/diego/newplace or /home/diego/newplace/
-	public static function copyRecursive($source, $destination, $skipDirectory=false)
-	{
-		$source 	= rtrim($source, DS);
-		$destination 	= rtrim($destination, DS);
+    // Copy recursive a directory to another
+    // If the destination directory not exists is created
+    // $source = /home/diego/example or /home/diego/example/
+    // $destination = /home/diego/newplace or /home/diego/newplace/
+    public static function copyRecursive($source, $destination, $skipDirectory=false)
+    {
+        $source 	= rtrim($source, DS);
+        $destination 	= rtrim($destination, DS);
 
-		// Check $source directory if exists
-		if (!self::directoryExists($source)) {
-			return false;
-		}
+        // Check $source directory if exists
+        if (!self::directoryExists($source)) {
+            return false;
+        }
 
-		// Check $destionation directory if exists
-		if (!self::directoryExists($destination)) {
-			// Create the $destination directory
-			if (!mkdir($destination, DIR_PERMISSIONS, true)) {
-				return false;
-			}
-		}
+        // Check $destionation directory if exists
+        if (!self::directoryExists($destination)) {
+            // Create the $destination directory
+            if (!mkdir($destination, DIR_PERMISSIONS, true)) {
+                return false;
+            }
+        }
 
-		foreach ($iterator = new RecursiveIteratorIterator(
-				new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
-				RecursiveIteratorIterator::SELF_FIRST) as $item) {
+        foreach ($iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST) as $item) {
 
-			$currentDirectory = dirname($item->getPathName());
-			if ($skipDirectory !== $currentDirectory) {
-				if ($item->isDir()) {
-					@mkdir($destination.DS.$iterator->getSubPathName());
-				} else {
-					copy($item, $destination.DS.$iterator->getSubPathName());
-				}
-			}
-		}
+            $currentDirectory = dirname($item->getPathName());
+            if ($skipDirectory !== $currentDirectory) {
+                if ($item->isDir()) {
+                    @mkdir($destination.DS.$iterator->getSubPathName());
+                } else {
+                    copy($item, $destination.DS.$iterator->getSubPathName());
+                }
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	// Delete a file or directory recursive
-	// The directory is delete
-	public static function deleteRecursive($source, $deleteDirectory=true)
-	{
-		Log::set('deleteRecursive = '.$source, LOG_TYPE_INFO);
+    // Delete a file or directory recursive
+    // The directory is delete
+    public static function deleteRecursive($source, $deleteDirectory=true)
+    {
+        Log::set('deleteRecursive = '.$source, LOG_TYPE_INFO);
 
-		if (!self::directoryExists($source)) {
-			return false;
-		}
+        if (!self::directoryExists($source)) {
+            return false;
+        }
 
-		foreach (new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
-			RecursiveIteratorIterator::CHILD_FIRST) as $item) {
-				if ($item->isFile() || $item->isLink()) {
-					unlink($item);
-				} else {
-					rmdir($item);
-				}
-		}
+        foreach (new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST) as $item) {
+                if ($item->isFile() || $item->isLink()) {
+                    unlink($item);
+                } else {
+                    rmdir($item);
+                }
+        }
 
-		if ($deleteDirectory) {
-			return rmdir($source);
-		}
-		return true;
-	}
+        if ($deleteDirectory) {
+            return rmdir($source);
+        }
+        return true;
+    }
 
-	// Compress a file or directory
-	// $source = /home/diego/example
-	// $destionation = /tmp/example.zip
-	public static function zip($source, $destination)
-	{
-		if (!extension_loaded('zip')) {
-			return false;
-		}
+    /**
+     * Compress a file or directory.
+     * $source = /home/diego/example
+     * $destionation = /tmp/example.zip
+     */
+    public static function zip(string $source, string $destination): bool
+    {
+        if (!extension_loaded('zip')) {
+            return false;
+        }
 
-		if (!file_exists($source)) {
-			return false;
-		}
+        if (!file_exists($source)) {
+            return false;
+        }
 
-		$zip = new ZipArchive();
-		if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
-			return false;
-		}
+        $zip = new ZipArchive();
+        if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
+            return false;
+        }
 
-		if (is_dir($source) === true) {
-			$iterator = new RecursiveDirectoryIterator($source);
-			$iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-			$files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+        if (is_dir($source) === true) {
+            $iterator = new RecursiveDirectoryIterator($source);
+            $iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
 
-			foreach ($files as $file) {
-				$file = realpath($file);
-				if (is_dir($file)) {
-					$zip->addEmptyDir(ltrim(str_replace($source, '', $file), "/\\"));
-				} elseif (is_file($file)) {
-					$zip->addFromString(ltrim(str_replace($source, '', $file), "/\\"), file_get_contents($file));
-				}
-			}
-		} elseif (is_file($source)) {
-			$zip->addFromString(basename($source), file_get_contents($source));
-		}
+            foreach ($files as $file) {
+                $file = realpath($file);
+                if (is_dir($file)) {
+                    $zip->addEmptyDir(ltrim(str_replace($source, '', $file), "/\\"));
+                } elseif (is_file($file)) {
+                    $zip->addFromString(ltrim(str_replace($source, '', $file), "/\\"), file_get_contents($file));
+                }
+            }
+        } elseif (is_file($source)) {
+            $zip->addFromString(basename($source), file_get_contents($source));
+        }
 
-		return $zip->close();
-	}
+        return $zip->close();
+    }
 
-	// Uncompress a zip file
-	// $source = /home/diego/example.zip
-	// $destionation = /home/diego/content
-	public static function unzip($source, $destination)
-	{
-		if (!extension_loaded('zip')) {
-			return false;
-		}
+    // Uncompress a zip file
+    // $source = /home/diego/example.zip
+    // $destionation = /home/diego/content
+    public static function unzip($source, $destination)
+    {
+        if (!extension_loaded('zip')) {
+            return false;
+        }
 
-		if (!file_exists($source)) {
-			return false;
-		}
+        if (!file_exists($source)) {
+            return false;
+        }
 
-		$zip = new ZipArchive();
-		if (!$zip->open($source)) {
-			return false;
-		}
+        $zip = new ZipArchive();
+        if (!$zip->open($source)) {
+            return false;
+        }
 
-		$zip->extractTo($destination);
-		return $zip->close();
-	}
+        $zip->extractTo($destination);
+        return $zip->close();
+    }
 
-	/*
-	 | Returns the next filename if the filename already exist otherwise returns the original filename
+    /*
+     | Returns the next filename if the filename already exist otherwise returns the original filename
          |
          | @path	string	Path
          | @filename	string	Filename
          |
          | @return	string
          */
-	public static function nextFilename($path=PATH_UPLOADS, $filename) {
-		// Clean filename and get extension
-		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
-		$fileExtension 	= Text::lowercase($fileExtension);
-		$filename 	= pathinfo($filename, PATHINFO_FILENAME);
-		$filename 	= Text::removeSpaces($filename);
-		$filename 	= Text::removeQuotes($filename);
+    public static function nextFilename($filename, $path=PATH_UPLOADS) {
+        // Clean filename and get extension
+        $fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
+        $fileExtension 	= Text::lowercase($fileExtension);
+        $filename 	= pathinfo($filename, PATHINFO_FILENAME);
+        $filename 	= Text::removeSpaces($filename);
+        $filename 	= Text::removeQuotes($filename);
 
-		// Search for the next filename
-		$tmpName = $filename.'.'.$fileExtension;
-		if (Sanitize::pathFile($path.$tmpName)) {
-			$number = 0;
-			$tmpName = $filename.'_'.$number.'.'.$fileExtension;
-			while (Sanitize::pathFile($path.$tmpName)) {
-				$number = $number + 1;
-				$tmpName = $filename.'_'.$number.'.'.$fileExtension;
-			}
-		}
-		return $tmpName;
-	}
+        // Search for the next filename
+        $tmpName = $filename.'.'.$fileExtension;
+        if (Sanitize::pathFile($path.$tmpName)) {
+            $number = 0;
+            $tmpName = $filename.'_'.$number.'.'.$fileExtension;
+            while (Sanitize::pathFile($path.$tmpName)) {
+                $number = $number + 1;
+                $tmpName = $filename.'_'.$number.'.'.$fileExtension;
+            }
+        }
+        return $tmpName;
+    }
 
-	/*
-	 | Returns the filename
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return dog.jpg
-         |
-         | @file	string	Full path of the file
-         |
-         | @return	string
-         */
-	public static function filename($file) {
-		return basename($file);
-	}
+    /**
+     * Returns the file filename witout the extension. === Bludit v4
+     * @param   string      $file       Filename with the path
+     * @return  string                  Extension. Example: /home/diego/dog.jpg -> dog.jpg
+     */
+    public static function basename(string $file): string {
+        return pathinfo($file, PATHINFO_BASENAME);
+    }
 
-	/*
-	 | Returns the file extension
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return jpg
-         |
-         | @file	string	Full path of the file
-         |
-         | @return	string
-         */
-	public static function extension($file) {
-		return pathinfo($file, PATHINFO_EXTENSION);
-	}
+    /**
+     * Returns the file filename witout the extension. === Bludit v4
+     * @param   string      $file       Filename with the path
+     * @return  string                  Extension. Example: /home/diego/dog.jpg -> dog
+     */
+    public static function filename(string $file): string {
+        return pathinfo($file, PATHINFO_FILENAME);
+    }
 
-	/**
-	 * Get Size of file or directory in bytes
-	 * @param  [string] $fileOrDirectory
-	 * @return [int|bool]                  [bytes or false on error]
-	 */
-	public static function getSize($fileOrDirectory) {
-		// Files
-		if (is_file($fileOrDirectory)) {
-			return filesize($fileOrDirectory);
-		}
-		// Directories
-		if (file_exists($fileOrDirectory)) {
-		    $size = 0;
-		    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileOrDirectory, FilesystemIterator::SKIP_DOTS)) as $file){
-				try {
-					$size += $file->getSize();
-				} catch (Exception $e) {
-					// SplFileInfo::getSize RuntimeException will be thrown on broken symlinks/errors
-				}
-		    }
-		    return $size;
-		}
-		return false;
-	}
+    /**
+     * Returns the file extension. === Bludit v4
+     * @param   string      $file       Filename with the path
+     * @return  string                  Extension. Example: /home/diego/dog.jpg -> jpg
+     */
+    public static function extension(string $file): string {
+        return pathinfo($file, PATHINFO_EXTENSION);
+    }
 
-	public static function bytesToHumanFileSize($bytes, $decimals = 2) {
-	    $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
-	    $factor = floor((strlen($bytes) - 1) / 3);
-	    return sprintf("%.{$decimals}f ", $bytes / pow(1024, $factor)) . @$size[$factor];
-	}
+    /**
+     * Get size of file or directory in bytes
+     * @param  string		$fileOrDirectory
+     * @return int|bool		Bytes or false on error
+     */
+    public static function getSize($fileOrDirectory) {
+        // Files
+        if (is_file($fileOrDirectory)) {
+            return filesize($fileOrDirectory);
+        }
+        // Directories
+        if (file_exists($fileOrDirectory)) {
+            $size = 0;
+            foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fileOrDirectory, FilesystemIterator::SKIP_DOTS)) as $file){
+                try {
+                    $size += $file->getSize();
+                } catch (Exception $e) {
+                    // SplFileInfo::getSize RuntimeException will be thrown on broken symlinks/errors
+                }
+            }
+            return $size;
+        }
+        return false;
+    }
 
-	/*	Returns the mime type of the file === Bludit v4
+    public static function bytesToHumanFileSize($bytes, $decimals = 2) {
+        $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f ", $bytes / pow(1024, $factor)) . @$size[$factor];
+    }
 
-		@file		string			Full path of the file. Example: /home/diego/dog.jpg
+    /*	Returns the mime type of the file === Bludit v4
 
-		@return		string|bool		Mime type or FALSE if not possible to get the mime type. Example: image/jpeg
-	*/
-	public static function mimeType($file) {
-		if (function_exists('mime_content_type')) {
-			return mime_content_type($file);
-		}
+        @file		string			Full path of the file. Example: /home/diego/dog.jpg
 
-		if (function_exists('finfo_file')) {
-			$fileinfo = finfo_open(FILEINFO_MIME_TYPE);
-			$mimeType = finfo_file($fileinfo, $file);
-			finfo_close($fileinfo);
-			return $mimeType;
-		}
+        @return		string|bool		Mime type or FALSE if not possible to get the mime type. Example: image/jpeg
+    */
+    public static function mimeType($file) {
+        if (function_exists('mime_content_type')) {
+            return mime_content_type($file);
+        }
 
-		return false;
-	}
+        if (function_exists('finfo_file')) {
+            $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($fileinfo, $file);
+            finfo_close($fileinfo);
+            return $mimeType;
+        }
+
+        return false;
+    }
 
 }

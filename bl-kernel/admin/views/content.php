@@ -134,7 +134,7 @@ function table($type)
 
 					echo '<td class="pt-4 pb-4">
 					<div>
-						<span>' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
+						<i class="bi bi-file-text"></i><span>' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 					</div>
 					<div class="mt-1">
 						<a class="me-2" target="_blank" href="' . $page->permalink() . '">' . $L->g('View') . '</a>
@@ -160,7 +160,7 @@ function table($type)
 
 						echo '<td class="ps-3 pt-4 pb-4">
 						<div>
-							<span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
+							<i class="bi bi-file-text"></i><span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
 						</div>
 						<div class="mt-1">
 							<a class="me-2" target="_blank" href="' . $child->permalink() . '">' . $L->g('View') . '</a>
@@ -188,7 +188,7 @@ function table($type)
 
 				echo '<td class="pt-4 pb-4">
 					<div>
-						' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '
+						<i class="bi bi-file-text"></i>' . ($page->title() ? $page->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '
 					</div>
 					<div class="mt-1">
 						<a class="me-2" target="_blank" href="' . $page->permalink() . '">' . $L->g('View') . '</a>

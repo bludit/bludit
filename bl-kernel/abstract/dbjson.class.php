@@ -6,6 +6,7 @@ class dbJSON {
 	public $dbBackup;
 	public $file;
 	public $firstLine;
+	protected $dbFields; // These fields are defined in the extended classes
 
 	// $file, the JSON file.
 	// $firstLine, TRUE if you want to remove the first line, FALSE otherwise
@@ -101,7 +102,7 @@ class dbJSON {
 	{
 		// NULL is returned if the json cannot be decoded
 		$decode = json_decode($data, true);
-		if ($decode===NULL) {
+		if ($decode===null) {
 			Log::set(__METHOD__.LOG_SEP.'Error trying to read the JSON file: '.$this->file, LOG_TYPE_ERROR);
 			return false;
 		}

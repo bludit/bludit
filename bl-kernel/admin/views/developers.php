@@ -28,7 +28,7 @@
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Developers'), 'icon'=>'gears'));
 
-echo '<h2 class="mb-4 mt-4"><b>PHP version: '.phpversion().'</b></h2>';
+echo '<h2 class="mt-4 mb-4"><b>PHP version: '.phpversion().'</b></h2>';
 
 // PHP Ini
 $uploadOptions = array(

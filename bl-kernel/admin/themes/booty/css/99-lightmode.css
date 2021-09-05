@@ -30,11 +30,6 @@ a.nav-link:hover,
     border-color: #dee2e6;
 }
 
-.list-group-item {
-  background-color: inherit;
-  border: 0 none;
-}
-
 .list-group-item a {
   text-decoration: none;
 }

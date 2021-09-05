@@ -218,7 +218,10 @@ class Text {
 		return mb_stripos($string, $substring, 0, CHARSET);
 	}
 
-	public static function stringContains($string, $substring, $caseSensitive=true)
+    /**
+     * Return TRUE if the string contains the substring, FALSE otherwhise. === Bludit v4
+     */
+	public static function stringContains(string $string, string $substring, bool $caseSensitive=true): bool
 	{
 		return (self::stringPosition($string, $substring, $caseSensitive) !== false);
 	}
