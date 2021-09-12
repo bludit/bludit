@@ -80,6 +80,7 @@ function table($type)
 	global $scheduled;
 	global $static;
 	global $sticky;
+    global $unlisted;
 
 	if ($type == 'published') {
 		$list = $published;
@@ -110,6 +111,14 @@ function table($type)
 		if (empty($list)) {
 			echo '<p class="text-muted p-4">';
 			echo $L->g('There are no static pages at this moment.');
+			echo '</p>';
+			return false;
+		}
+	} elseif ($type == 'unlisted') {
+		$list = $unlisted;
+		if (empty($list)) {
+			echo '<p class="text-muted p-4">';
+			echo $L->g('There are no unlisted pages at this moment.');
 			echo '</p>';
 			return false;
 		}
@@ -235,6 +244,9 @@ function table($type)
 		</a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link" id="unlisted-tab" data-bs-toggle="tab" href="#unlisted" role="tab" aria-controls="unlisted" aria-selected="true"><?php $L->p('Unlisted') ?></a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab" aria-controls="draft" aria-selected="true"><?php $L->p('Draft') ?></a>
 	</li>
 </ul>
@@ -293,6 +305,11 @@ function table($type)
 	<!-- TABS SCHEDULED -->
 	<div class="tab-pane" id="scheduled" role="tabpanel">
 		<?php table('scheduled'); ?>
+	</div>
+
+	<!-- TABS UNLISTED -->
+	<div class="tab-pane" id="unlisted" role="tabpanel">
+		<?php table('unlisted'); ?>
 	</div>
 
 	<!-- TABS DRAFT -->

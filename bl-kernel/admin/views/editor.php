@@ -134,8 +134,11 @@
 			var args = {
 				title: $('#title').val(),
 				content: editorGetContent(),
+				coverImage: $('#coverImage').val(),
 				category: $('#category option:selected').val(),
-				tags: $('#tags').val()
+				tags: $("#tags option:selected").map(function() {
+					return this.value
+				}).get().join(",")
 			}
 			savePage(args);
 			disableBtnSave();
@@ -177,6 +180,7 @@
 			var args = {
 				title: $('#title').val(),
 				content: editorGetContent(),
+				coverImage: $('#coverImage').val(),
 				category: $('#category option:selected').val(),
 				tags: $("#tags option:selected").map(function() {
 					return this.value
@@ -288,7 +292,9 @@
 		// ------------------------------------------------------------------------
 		$('#btnSaveSeo').on('click', function() {
 			var args = {
-				parent: $('#parent').val()
+				noindex: $('input[name="noindex"]').is(':checked'),
+				nofollow: $('input[name="nofollow"]').is(':checked'),
+				noarchive: $('input[name="noarchive"]').is(':checked')
 			};
 			savePage(args);
 			disableBtnSave();
@@ -594,7 +600,8 @@
 			<!-- Cover Image -->
 			<h6 class="text-uppercase"><?php $L->p('Cover Image') ?></h6>
 			<div>
-				<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
+				<input id="coverImage" name="coverImage" data-save="true" type="hidden" value="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage(false) : '') ?>">
+				<img id="coverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
 			</div>
 			<!-- End Cover Image -->
 

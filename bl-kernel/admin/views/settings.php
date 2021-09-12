@@ -42,6 +42,12 @@
 			args[key] = value;
 		});
 
+		$('textarea[data-save="true"]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
+
 		api.saveSettings(args).then(function(response) {
 			if (response.status == 0) {
 				logs('Settings saved.');
