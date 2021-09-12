@@ -32,6 +32,7 @@ $drafts = $pages->getDraftDB(true);
 $scheduled = $pages->getScheduledDB(true);
 $static = $pages->getStaticDB(true);
 $sticky = $pages->getStickyDB(true);
+$unlisted = $pages->getUnlistedDB(true);
 
 // If the user has the role "Author" filter the content so he/she can edit
 if (checkRole(array('author'), false)) {
@@ -40,6 +41,7 @@ if (checkRole(array('author'), false)) {
 	$scheduled 	= filterContentOwner($scheduled);
 	$static 	= filterContentOwner($static);
 	$sticky 	= filterContentOwner($sticky);
+    $unlisted 	= filterContentOwner($unlisted);
 }
 
 // Check if the page number is out of range
