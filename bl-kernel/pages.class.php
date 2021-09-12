@@ -34,17 +34,18 @@ class Pages extends dbJSON {
         return $this->dbFields;
     }
 
-    /*	Get the database row associated to a page
-
-        @key			string				The key of the page to be fetch
-        @return		array/boolean		Return an array with the database for a page, FALSE otherwise
-    */
-    public function getPageDB($key)
+    /**
+     * Returns the table row associated to a particular page. The page's content is not included.
+     * For example in SQL, SELECT * FROM pages WHERE key = $key
+     *
+     * @param string $key       The key of the page to be fetch
+     * @return array            Return an array with the database for a page, FALSE otherwise
+     */
+    public function getPageDB(string $key): array
     {
         if ($this->exists($key)) {
             return $this->db[$key];
         }
-
         return false;
     }
 
@@ -57,12 +58,13 @@ class Pages extends dbJSON {
         return isset ($this->db[$key]);
     }
 
-    /*	Create a new page === Bludit v4
-
-        @args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-        @return		string/boolean	Returns the page key if the page is successfully created, FALSE otherwise
-    */
-    public function add($args)
+    /**
+     * Creates a new page.
+     *
+     * @param array $args       The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+     * @return boolean|string   Returns the page key if the page is successfully created, FALSE otherwise
+     */
+    public function add(array $args): bool|string
     {
         $row = array();
 
@@ -175,12 +177,13 @@ class Pages extends dbJSON {
         return $key;
     }
 
-    /*	Edit a page === Bludit v4
-
-        @args			array			The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
-        @return		string/boolean	Returns the page key if the page is successfully edited, FALSE otherwise
-    */
-    public function edit($args)
+    /**
+     * Edit a page.
+     *
+     * @param array $args       The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
+     * @return boolean|string   Returns the page key if the page is successfully edited, FALSE otherwise
+     */
+    public function edit(array $args): bool|string
     {
         // This is the new row for the table and is going to replace the old row
         $row = array();
@@ -300,12 +303,13 @@ class Pages extends dbJSON {
         return $newKey;
     }
 
-    /*	Delete a page === Bludit v4
-
-        @key			string			The key of the page to be deleted
-        @return		boolean			Returns TRUE if the page was deleted successfully, FALSE otherwise
-    */
-    public function delete($key)
+    /**
+     * Delete a page.
+     *
+     * @param string $key       The key of the page to be deleted
+     * @return boolean          Returns TRUE if the page was deleted successfully, FALSE otherwise
+     */
+    public function delete(string $key): bool
     {
         // This is need it, because if the key is empty the Filesystem::deleteRecursive is going to delete PATH_PAGES
         if (empty($key)) {
@@ -485,6 +489,26 @@ class Pages extends dbJSON {
         return $tmp;
     }
 
+    /**
+     * Returns an array with all unlisted pages
+     *
+     * @param boolean $onlyKeys         If TRUE returns only the pages' keys
+     * @return array
+     */
+    public function getUnlistedDB(bool $onlyKeys=true): array
+    {
+        $tmp = $this->db;
+        foreach ($tmp as $key=>$fields) {
+            if($fields['type']!='unlisted') {
+                unset($tmp[$key]);
+            }
+        }
+        if ($onlyKeys) {
+            return array_keys($tmp);
+        }
+        return $tmp;
+    }
+
     // Returns the next number of the bigger position
     public function nextPositionNumber()
     {
@@ -530,12 +554,18 @@ class Pages extends dbJSON {
     }
 
     /**
-     * Get a list of pages' keys. === Bludit v4
-     * @param       int         $pageNumber     Page number for the paginator
-     * @param       int         $numberOfItems  Amount of items to return, if -1 returns all the items
-     * @return      array|bool                  Returns an array with the pages' keys or FALSE if it out of range
+     * Get a list of pages' keys.
+     *
+     * @param integer $pageNumber       Page number for the paginator
+     * @param integer $numberOfItems    Amount of items to return, if -1 returns all the items
+     * @param boolean $published
+     * @param boolean $static
+     * @param boolean $sticky
+     * @param boolean $draft
+     * @param boolean $scheduled
+     * @return boolean|array            Returns an array with the pages' keys or FALSE if it out of range
      */
-    public function getList(int $pageNumber, int $numberOfItems, bool $published=true, bool $static=false, bool $sticky=false, bool $draft=false, bool $scheduled=false)
+    public function getList(int $pageNumber, int $numberOfItems, bool $published=true, bool $static=false, bool $sticky=false, bool $draft=false, bool $scheduled=false): bool|array
     {
         $list = array();
         foreach ($this->db as $key=>$fields) {

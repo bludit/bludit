@@ -6,8 +6,15 @@ class Sanitize {
 		return strip_tags($text);
 	}
 
-	// Convert special characters to HTML entities
-	public static function html($text)
+    /**
+     * Convert special characters to HTML entities.
+     * For example, & => &amp;
+     * For example, " => &quot;
+     *
+     * @param string $text
+     * @return string
+     */
+	public static function html(string $text): string
 	{
 		$flags = ENT_COMPAT;
 
