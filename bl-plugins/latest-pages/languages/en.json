@@ -1,7 +1,7 @@
 {
-	"plugin-data":
-	{
-		"name": "Latest pages",
-		"description": "Shows the latest published pages."
-	}
+    "plugin-data":
+    {
+        "name": "Last pages",
+        "description": "Shows the last pages in the dashboard."
+    }
 }

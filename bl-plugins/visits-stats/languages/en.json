@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Visits Stats",
-		"description": "Shows the number of visits and unique visitors."
+		"description": "Shows the number of visits and unique visitors in the dashboard."
 	},
 	"visits": "Visits",
 	"visitors": "Visitors",
