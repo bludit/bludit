@@ -20,11 +20,11 @@ class pluginWelcome extends Plugin {
 		$labelGoodEvening = $L->g('good-evening');
 		$labelGoodNight = $L->g('good-night');
 
-return <<<EOF
-<div class="pluginWelcome mt-4 mb-4 pb-4 border-bottom">
-	<h2 id="hello-message" class="m-0 p-0"><i class="bi bi-emoji-laughing"></i>Welcome</h2>
-</div>
+		echo '<div class="pluginWelcome mt-4 mb-4 pb-4 border-bottom">';
+		echo '<h2 id="hello-message" class="m-0 p-0"><i class="bi bi-emoji-laughing"></i>' . $L->g('Welcome') . '</h2>';
+        	echo '</div>';
 
+return <<<EOF
 <script>
 $(document).ready(function() {
 	$("#hello-message").fadeOut(1000, function() {
