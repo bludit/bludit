@@ -1,8 +1,8 @@
 {
-    "plugin-data":
-    {
-        "name": "Last pages",
-        "description": "Shows the last pages in the dashboard."
-    },
-    "latest-pages": "Latest pages"
+	"plugin-data":
+	{
+		"name": "Welcome",
+		"description": "Shows a greeting message in the dashboard."
+	},
+	"welcome": "Welcome"
 }
