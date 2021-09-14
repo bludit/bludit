@@ -3,5 +3,6 @@
     {
         "name": "Last pages",
         "description": "Shows the last pages in the dashboard."
-    }
+    },
+    "latest-pages": "Latest pages"
 }
