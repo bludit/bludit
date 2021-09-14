@@ -151,7 +151,7 @@ function table($type)
 					';
 
 					if (count($page->children()) == 0) {
-						echo '<span class="link btnDeletePage" data-key="' . $page->key() . '">Delete</span>';
+						echo '<span class="link btnDeletePage" data-key="' . $page->key() . '">' . $L->g('Delete') . '</span>';
 					}
 
 					echo '
@@ -174,7 +174,7 @@ function table($type)
 						<div class="mt-1">
 							<a class="me-2" target="_blank" href="' . $child->permalink() . '">' . $L->g('View') . '</a>
 							<a class="me-2" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $child->key() . '">' . $L->g('Edit') . '</a>
-							<span class="link btnDeletePage" data-key="' . $child->key() . '">Delete</span>
+							<span class="link btnDeletePage" data-key="' . $child->key() . '">' . $L->g('Delete') . '</span>
 						</div>
 						</td>';
 
@@ -202,7 +202,7 @@ function table($type)
 					<div class="mt-1">
 						<a class="me-2" target="_blank" href="' . $page->permalink() . '">' . $L->g('View') . '</a>
 						<a class="me-2" href="' . HTML_PATH_ADMIN_ROOT . 'editor/' . $page->key() . '">' . $L->g('Edit') . '</a>
-						<span class="link btnDeletePage" data-key="' . $page->key() . '">Delete</span>
+						<span class="link btnDeletePage" data-key="' . $page->key() . '">' . $L->g('Delete') . '</span>
 					</div>
 				</td>';
 
