@@ -1,0 +1,8 @@
+{
+    "plugin-data":
+    {
+        "name": "Neueste Seiten",
+        "description": "Zeigt die neuesten Seiten im Dashbord an."
+    },
+    "latest-pages": "Neueste Seiten"
+}
