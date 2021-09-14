@@ -38,7 +38,7 @@ class Page {
      * @param string $field
      * @return bool|string|int|array
      */
-    public function getValue(string $field): bool|string|int|array
+    public function getValue(string $field)
     {
         if (isset($this->vars[$field])) {
             return $this->vars[$field];
@@ -266,7 +266,7 @@ class Page {
      *
      * @return boolean|string
      */
-    public function template(): bool|string
+    public function template()
     {
         $template = $this->getValue('template');
         if (empty($template)) {

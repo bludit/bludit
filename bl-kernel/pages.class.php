@@ -64,7 +64,7 @@ class Pages extends dbJSON {
      * @param array $args       The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
      * @return boolean|string   Returns the page key if the page is successfully created, FALSE otherwise
      */
-    public function add(array $args): bool|string
+    public function add(array $args)
     {
         $row = array();
 
@@ -183,7 +183,7 @@ class Pages extends dbJSON {
      * @param array $args       The array $args supports all the keys from the variable $dbFields. If you don't pass all the keys, the default values are used.
      * @return boolean|string   Returns the page key if the page is successfully edited, FALSE otherwise
      */
-    public function edit(array $args): bool|string
+    public function edit(array $args)
     {
         // This is the new row for the table and is going to replace the old row
         $row = array();
@@ -565,7 +565,7 @@ class Pages extends dbJSON {
      * @param boolean $scheduled
      * @return boolean|array            Returns an array with the pages' keys or FALSE if it out of range
      */
-    public function getList(int $pageNumber, int $numberOfItems, bool $published=true, bool $static=false, bool $sticky=false, bool $draft=false, bool $scheduled=false): bool|array
+    public function getList(int $pageNumber, int $numberOfItems, bool $published=true, bool $static=false, bool $sticky=false, bool $draft=false, bool $scheduled=false)
     {
         $list = array();
         foreach ($this->db as $key=>$fields) {
