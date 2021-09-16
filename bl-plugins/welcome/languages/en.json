@@ -3,5 +3,6 @@
 	{
 		"name": "Welcome",
 		"description": "Shows a greeting message in the dashboard."
-	}
+	},
+	"welcome": "Welcome"
 }

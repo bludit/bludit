@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Willkommen",
+		"description": "Zeigt die Willkommensmeldung im Dashboard an."
+	},
+	"welcome": "Willkommen"
+}
