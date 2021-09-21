@@ -403,5 +403,7 @@
     "are-you-sure-you-want-to-change-the-password?": "Are you sure you want to change the password?",
     "website-plugins": "Website plugins",
     "dashboard-plugins": "Dashboard plugins",
-    "powered-by-bludit": "Powered by <a href='https:\/\/www.bludit.com'>Bludit</a>"
+    "powered-by-bludit": "Powered by <a href='https:\/\/www.bludit.com'>Bludit</a>",
+    "build-number": "Build Number",
+    "disk-usage": "Disk usage"    
 }

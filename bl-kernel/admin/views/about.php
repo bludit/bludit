@@ -53,17 +53,17 @@ echo '<td class="pt-4 pb-4">'.BLUDIT_CODENAME.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td class="pt-4 pb-4">Bludit Build Number</td>';
+echo '<td class="pt-4 pb-4">Bludit '.$L->g('Build Number').'</td>';
 echo '<td class="pt-4 pb-4">'.BLUDIT_BUILD.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td class="pt-4 pb-4">Disk usage</td>';
+echo '<td class="pt-4 pb-4">'.$L->g('Disk usage').'</td>';
 echo '<td class="pt-4 pb-4">'.Filesystem::bytesToHumanFileSize(Filesystem::getSize(PATH_ROOT)).'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit Developers</a></td>';
+echo '<td class="pt-4 pb-4"><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit '.$L->g('Developers').'</a></td>';
 echo '<td class="pt-4 pb-4"></td>';
 echo '</tr>';
 
