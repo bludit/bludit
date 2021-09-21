@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2020-03-24",
+        "last-update": "2021-09-21",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -392,5 +392,8 @@
     "custom-fields": "Benutzerdefinierte Felder",
     "define-custom-fields-for-the-content": "Benutzerdefinierte Felder für Inhalte anlegen. Informationen darüber sind in der <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>Dokumentation<\/a> zu finden.",
     "start-typing-to-see-a-list-of-suggestions": "Beginne mit dem Tippen für eine Liste mit Vorschlägen.",
-    "view": "Anschauen"
+    "view": "Anschauen",
+    "view": "Anschauen",
+    "build-number": "Build-Nummer",
+    "disk-usage": "Speicherbelegung"    
 }
