@@ -66,6 +66,7 @@ define('PATH_UPLOADS_PAGES',	PATH_UPLOADS . 'pages' . DS);
 define('PATH_HELPERS',			PATH_KERNEL . 'helpers' . DS);
 define('PATH_ABSTRACT',			PATH_KERNEL . 'abstract' . DS);
 
+
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', 	TRUE);
 define('FILENAME', 				'index.txt');
@@ -74,6 +75,7 @@ define('DB_DATE_FORMAT', 		'Y-m-d H:i:s');
 define('CHARSET', 				'UTF-8');
 define('DEFAULT_LANGUAGE_FILE', 'en.json');
 define('DIR_PERMISSIONS', 		0755);
+define('EXTREME_FRIENDLY_URL', TRUE);
 
 if (!defined('JSON_PRETTY_PRINT')) {
 	define('JSON_PRETTY_PRINT', 128);
@@ -111,6 +113,7 @@ if (strpos($_SERVER['REQUEST_URI'], $base) !== 0) {
 }
 
 define('HTML_PATH_ROOT', $base);
+define('HTML_PATH_CORE_IMG', HTML_PATH_ROOT.'bl-kernel/img/');
 
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
@@ -126,6 +129,7 @@ include(PATH_HELPERS . 'text.class.php');
 include(PATH_HELPERS . 'log.class.php');
 include(PATH_HELPERS . 'date.class.php');
 include(PATH_KERNEL . 'language.class.php');
+include(PATH_KERNEL.'tag.class.php');
 
 // --- LANGUAGE and LOCALE ---
 // Try to detect the language from browser or headers
@@ -168,6 +172,15 @@ if (empty($iniDate)) {
 // ============================================================================
 // FUNCTIONS
 // ============================================================================
+
+function generateTags($tags) {
+    $tmp = array();
+    foreach ($tags as $tag) {
+        $tagKey = Text::generateSlug($tag);
+        $tmp[$tagKey] = $tag;
+    }
+    return $tmp;
+}
 
 // Returns an array with all languages
 function getLanguageList()
@@ -260,17 +273,28 @@ function install($adminPassword, $timezone)
 
 	$currentDate = Date::current(DB_DATE_FORMAT);
 
+    // Load the examples pages
+    if (file_exists(PATH_LANGUAGES.'installer'.DS.$L->currentLanguage().'.php')) {
+        include(PATH_LANGUAGES.'installer'.DS.$L->currentLanguage().'.php');
+    } else {
+        include(PATH_LANGUAGES.'installer'.DS.'en.php');
+    }
+
 	// ============================================================================
 	// Create directories
 	// ============================================================================
 
-	// Directories for initial pages
-	$pagesToInstall = array('example-page-1-slug', 'example-page-2-slug', 'example-page-3-slug', 'example-page-4-slug');
-	foreach ($pagesToInstall as $page) {
-		if (!mkdir(PATH_PAGES . $L->get($page), DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>' . PATH_PAGES . $L->get($page);
+	// Directories for example pages
+	foreach ($examples as $page) {
+		if (!mkdir(PATH_PAGES . $page['url'], DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>' . PATH_PAGES . $page['url'];
 			error_log('[ERROR] ' . $errorText, 0);
 		}
+
+        if (!mkdir(PATH_UPLOADS_PAGES.$page['url'], DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to created the directory=>' . PATH_UPLOADS_PAGES . $page['url'];
+			error_log('[ERROR] ' . $errorText, 0);
+        }
 	}
 
 	// Directories for initial plugins
@@ -300,25 +324,22 @@ function install($adminPassword, $timezone)
 	$data = array();
 	$slugs = array();
 	$nextDate = $currentDate;
-	foreach ($pagesToInstall as $page) {
-		$slug = $page;
-		$title = Text::replace('slug', 'title', $slug);
-		$content = Text::replace('slug', 'content', $slug);
+	foreach ($examples as $page) {
 		$nextDate = Date::offset($nextDate, DB_DATE_FORMAT, '-1 minute');
 
-		$data[$L->get($slug)] = array(
-			'title' => $L->get($title),
-			'description' => '',
+		$data[$page['url']] = array(
+			'title' => $page['title'],
+			'description' => $page['description'],
 			'username' => 'admin',
-			'tags' => array(),
-			'type' => (($slug == 'example-page-4-slug') ? 'static' : 'published'),
+			'tags' => generateTags($page['tags']),
+			'type' => $page['type'],
 			'date' => $nextDate,
 			'dateModified' => '',
 			'allowComments' => true,
-			'position' => 1,
+			'position' => $page['position'],
 			'coverImage' => '',
 			'md5file' => '',
-			'category' => 'general',
+			'category' => $page['category'],
 			'uuid' => md5(uniqid()),
 			'parent' => '',
 			'template' => '',
@@ -327,9 +348,8 @@ function install($adminPassword, $timezone)
 			'noarchive' => false
 		);
 
-		array_push($slugs, $slug);
-
-		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, $L->get($content), LOCK_EX);
+		array_push($slugs, $page['url']);
+		file_put_contents(PATH_PAGES . $page['url'] . DS . FILENAME, $page['content'], LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -462,8 +482,22 @@ function install($adminPassword, $timezone)
 	file_put_contents(PATH_DATABASES . 'categories.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
-	$data = array();
-	file_put_contents(PATH_DATABASES . 'tags.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+    $tagsIndex = array();
+    foreach ($examples as $page) {
+        $tags = $page['tags'];
+        foreach ($tags as $tag) {
+            $tagKey = Text::generateSlug($tag);
+            if (isset($tagsIndex[$tagKey])) {
+                array_push($tagsIndex[$tagKey]['list'], $page['url']);
+            } else {
+                $tagsIndex[$tagKey]['name'] = $tag;
+                $tagsIndex[$tagKey]['list'] = array($page['url']);
+            }
+        }
+    }
+    #$data = array_values($tagsIndex);
+	file_put_contents(PATH_DATABASES . 'tags.php', $dataHead . json_encode($tagsIndex, JSON_PRETTY_PRINT), LOCK_EX);
+
 
 	// File plugins/about/db.php
 	file_put_contents(
@@ -650,6 +684,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-8 col-md-6 col-lg-4">
+                <img class="mx-auto d-block w-25 mb-4" alt="logo" src="<?php echo HTML_PATH_CORE_IMG . 'logo.svg' ?>" />
 				<h1 class="text-center text-uppercase mb-4"><?php echo $L->get('Bludit Installer') ?></h1>
 				<?php
 				$system = checkSystem();
@@ -676,24 +711,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<form id="jsformInstaller" method="post" action="" autocomplete="off">
 						<input type="hidden" name="timezone" id="jstimezone" value="UTC">
 
-						<div class="form-group">
+						<div class="form-group mb-2">
 							<input type="text" value="admin" class="form-control form-control-lg" id="jsusername" name="username" placeholder="Username" disabled>
 						</div>
 
 						<div class="form-group mb-0">
 							<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
 						</div>
-						<!-- <div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div> -->
+						<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
 
 						<div class="form-group mt-4">
-							<button type="submit" class="btn btn-primary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
+							<button type="submit" class="btn btn-secondary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
 						</div>
 					</form>
 				<?php
 				} else {
 				?>
 					<form id="jsformLanguage" method="get" action="" autocomplete="off">
-						<label for="jslanguage"><?php echo $L->get('Choose your language') ?></label>
+
 						<select id="jslanguage" name="language" class="form-control form-control-lg">
 							<?php
 							$htmlOptions = getLanguageList();
@@ -704,7 +739,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</select>
 
 						<div class="form-group mt-4">
-							<button type="submit" class="btn btn-primary btn-lg me-2 w-100"><?php $L->p('Next') ?></button>
+							<button type="submit" class="btn btn-secondary btn-lg me-2 w-100"><?php $L->p('Next') ?></button>
 						</div>
 					</form>
 				<?php
