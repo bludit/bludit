@@ -307,7 +307,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// System directories
-	$systemDirectories = array(PATH_UPLOADS_PROFILES, PATH_TMP, PATH_WORKSPACES, PATH_UPLOADS_PAGES);
+	$systemDirectories = array(PATH_UPLOADS_PROFILES, PATH_TMP, PATH_WORKSPACES);
 	foreach ($systemDirectories as $directory) {
 		if (!mkdir($directory, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . $directory;
