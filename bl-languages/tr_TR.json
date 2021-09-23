@@ -343,7 +343,7 @@
     "chat-support": "Sohbet desteği",
     "quick-links": "Hızlı bağlantılar",
     "leave-empty-for-autocomplete-by-bludit": "Bludit tarafından otomatik tamamlama için boş bırakın.",
-    "choose-a-password-for-the-user-admin": "Kullanıcı için bir şifre seçin <code>admin<\/code>",
+    "choose-a-password-for-the-user-admin": "Kullanıcı için bir şifre seçin <b>admin<\/b>",
     "access-denied": "Erişim engellendi",
     "choose-images-to-upload": "Yüklenecek görselleri seçin",
     "insert": "Ekle",

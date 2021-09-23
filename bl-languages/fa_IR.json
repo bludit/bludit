@@ -342,7 +342,7 @@
     "chat-support": "پشتیبانی گفتاری",
     "quick-links": "لینک های سریع",
     "leave-empty-for-autocomplete-by-bludit": "برای تکمیل خودکار توسط بلودیت خالی بگذارید.",
-    "choose-a-password-for-the-user-admin": "کلمه عبوری را برای کاربر <code>admin<\/code> انتخاب کنید",
+    "choose-a-password-for-the-user-admin": "کلمه عبوری را برای کاربر <b>admin<\/b> انتخاب کنید",
     "access-denied": "دسترسی ممنوع است",
     "choose-images-to-upload": "انتخاب تصویر برای آپلود",
     "insert": "درج در مطلب<br>",
@@ -389,6 +389,6 @@
     "preview": "پیش نمایش",
 	"author-can-write-and-edit-their-own-content": "نویسنده: می‌تواند محتوایی نوشته و آن را ویرایش کند. ویرایشگر: می‌تواند محتوایی نوشته و محتوای دیگران را نیز ویرایش کند.",	"custom-fields": "کادرهای سفارشی",
     "define-custom-fields-for-the-content": " تعریف کادرهای سفارشی برای محتوا. برای کسب اطلاعات بیشتر در مورد کادرهای سفارشی به <a href='https://docs.bludit.com/en/content/custom-fields'>مستندات</a> مراجعه کنید."	,
-	"start-typing-to-see-a-list-of-suggestions": "برای مشاهده لیستی از پیشنهادات شروع به تایپ کنید.",	
+	"start-typing-to-see-a-list-of-suggestions": "برای مشاهده لیستی از پیشنهادات شروع به تایپ کنید.",
 	"view":"نمایش"
 }

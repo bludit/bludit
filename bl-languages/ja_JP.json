@@ -343,7 +343,7 @@
     "chat-support": "チャットサポート",
     "quick-links": "クイックリンク",
     "leave-empty-for-autocomplete-by-bludit": "Bluditの自動補完のために空のままにしてください。",
-    "choose-a-password-for-the-user-admin": "<code>admin<\/code>ユーザーのパスワードを入力してください",
+    "choose-a-password-for-the-user-admin": "<b>admin<\/b>ユーザーのパスワードを入力してください",
     "access-denied": "アクセスが拒否されました",
     "choose-images-to-upload": "アップロードする画像を選択",
     "insert": "挿入",

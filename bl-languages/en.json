@@ -343,7 +343,7 @@
     "chat-support": "Chat support",
     "quick-links": "Quick links",
     "leave-empty-for-autocomplete-by-bludit": "Leave empty for autocomplete by Bludit.",
-    "choose-a-password-for-the-user-admin": "Choose a password for the user <code>admin<\/code>",
+    "choose-a-password-for-the-user-admin": "Choose a password for the user <b>admin<\/b>",
     "access-denied": "Access denied",
     "choose-images-to-upload": "Choose images to upload",
     "insert": "Insert",
@@ -405,5 +405,5 @@
     "dashboard-plugins": "Dashboard plugins",
     "powered-by-bludit": "Powered by <a href='https:\/\/www.bludit.com'>Bludit</a>",
     "build-number": "Build Number",
-    "disk-usage": "Disk usage"    
+    "disk-usage": "Disk usage"
 }

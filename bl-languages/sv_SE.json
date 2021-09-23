@@ -343,7 +343,7 @@
     "chat-support": "Chatsupport",
     "quick-links": "Snabblänkar",
     "leave-empty-for-autocomplete-by-bludit": "Lämna tomt för autoslutförande av Bludit.",
-    "choose-a-password-for-the-user-admin": "Välj ett lösenord för användaren <code>admin<\/code>",
+    "choose-a-password-for-the-user-admin": "Välj ett lösenord för användaren <b>admin<\/b>",
     "access-denied": "Åtkomst nekad",
     "choose-images-to-upload": "Välj bilder att ladda upp",
     "insert": "Infoga",

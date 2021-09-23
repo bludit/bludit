@@ -342,7 +342,7 @@
     "chat-support": "Chat támogatás",
     "quick-links": "Gyors linkek",
     "leave-empty-for-autocomplete-by-bludit": "Hagyja üresen a Bludit általi automatikus kiegészítéshez.",
-    "choose-a-password-for-the-user-admin": "Válasszon jelszót az <code>admin<\/code> felhasználónak",
+    "choose-a-password-for-the-user-admin": "Válasszon jelszót az <b>admin<\/b> felhasználónak",
     "access-denied": "Hozzáférés megtagadva",
     "choose-images-to-upload": "Válassza ki a feltöltendő képeket",
     "insert": "Beszúrás",

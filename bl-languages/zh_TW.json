@@ -342,7 +342,7 @@
     "chat-support": "支援聊天室",
     "quick-links": "快速連結",
     "leave-empty-for-autocomplete-by-bludit": "留空來讓Bludit自動完成",
-    "choose-a-password-for-the-user-admin": "幫使用者<code>admin<\/code>設定一組密碼",
+    "choose-a-password-for-the-user-admin": "幫使用者<b>admin<\/b>設定一組密碼",
     "access-denied": "存取被拒",
     "choose-images-to-upload": "選取圖片來進行上傳",
     "insert": "插入",

@@ -344,7 +344,7 @@
     "chat-support": "Support-Chat",
     "quick-links": "Quicklinks",
     "leave-empty-for-autocomplete-by-bludit": "Ohne Eingabe wird der URL von Bludit erstellt.",
-    "choose-a-password-for-the-user-admin": "Gib ein Passwort für den Benutzer <code>admin<\/code> ein",
+    "choose-a-password-for-the-user-admin": "Gib ein Passwort für den Benutzer <b>admin<\/b> ein",
     "access-denied": "Zugriff verweigert",
     "choose-images-to-upload": "Bilder auswählen und auf den Server laden",
     "insert": "Einfügen",
@@ -395,5 +395,5 @@
     "view": "Anschauen",
     "view": "Anschauen",
     "build-number": "Build-Nummer",
-    "disk-usage": "Speicherbelegung"    
+    "disk-usage": "Speicherbelegung"
 }

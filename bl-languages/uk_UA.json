@@ -343,7 +343,7 @@
     "chat-support": "Чат підтримки",
     "quick-links": "Швидкі посилання",
     "leave-empty-for-autocomplete-by-bludit": "Залиште порожнім для автозавершення за допомогою Bludit.",
-    "choose-a-password-for-the-user-admin": "Виберіть пароль для користувача <code>admin<\/code>",
+    "choose-a-password-for-the-user-admin": "Виберіть пароль для користувача <b>admin<\/b>",
     "access-denied": "Доступ заборонено",
     "choose-images-to-upload": "Виберіть зображення для завантаження",
     "insert": "Вставити",

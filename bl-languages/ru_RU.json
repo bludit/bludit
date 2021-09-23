@@ -343,7 +343,7 @@
     "chat-support": "Чат поддержки",
     "quick-links": "Быстрые ссылки",
     "leave-empty-for-autocomplete-by-bludit": "Оставьте пустым для автозаполнения Bludit.",
-    "choose-a-password-for-the-user-admin": "Выберите пароль для пользователя <code>admin<\/code>",
+    "choose-a-password-for-the-user-admin": "Выберите пароль для пользователя <b>admin<\/b>",
     "access-denied": "Доступ запрещён",
     "choose-images-to-upload": "Выберите изображение для загрузки",
     "insert": "Вставить",

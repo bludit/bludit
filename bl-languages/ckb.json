@@ -360,7 +360,7 @@
     "chat-support": "پالپشتی وتاری",
     "quick-links": "بەستەری خێرا",
     "leave-empty-for-autocomplete-by-bludit": "بۆ پڕکردنەوەی خۆکار بە یارمەتی بلورید با چۆڵ بێت.",
-    "choose-a-password-for-the-user-admin": "تێپەڕوشە بۆ بەکارهێنەری <code>admin<\/code> هەڵیبژێرن",
+    "choose-a-password-for-the-user-admin": "تێپەڕوشە بۆ بەکارهێنەری <b>admin<\/b> هەڵیبژێرن",
     "access-denied": "دەستپێگەیشتن ڕێگەنەدراوە",
     "choose-images-to-upload": "هەڵبژاردنی وێنە بۆ بارکردن",
     "insert": "خستنە نێو بابەت<br>",
@@ -408,5 +408,5 @@
 	"view":"پیشاندان",
 	"author-can-write-and-edit-their-own-content": "نووسەر: دەتوانێ ناوەرۆکی بابەتەکانی دەستکاری بکا. دەستکاریکەر: دەتوانێت ناوەرۆکی بابەتی خۆی و نووسەرانی دیکە دەستکاری بکا.",
 	"custom-fields": "خشتی تایبەت",
-    "define-custom-fields-for-the-content": " ناساندنی خشتی دڵخواز بۆ ناوەرۆک، بۆ زنایاری فرەتر لەم بارەوە دەتوانی سەردانی ئەم بەستەرە بکە <a href='https://docs.bludit.com/en/content/custom-fields'>ڕێنماییەکان</a> ."	
+    "define-custom-fields-for-the-content": " ناساندنی خشتی دڵخواز بۆ ناوەرۆک، بۆ زنایاری فرەتر لەم بارەوە دەتوانی سەردانی ئەم بەستەرە بکە <a href='https://docs.bludit.com/en/content/custom-fields'>ڕێنماییەکان</a> ."
 }
