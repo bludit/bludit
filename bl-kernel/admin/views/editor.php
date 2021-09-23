@@ -625,7 +625,7 @@
 			<select id="tags" size="5" class="form-select" multiple aria-label="multiple select">
 				<?php
 				foreach ($tags->db as $key => $fields) {
-					echo '<option value="' . $key . '" ' . ($pageKey && in_array($key, $page->tags(true)) ? 'selected' : '') . '>' . $fields['name'] . '</option>';
+					echo '<option value="' . $fields['name'] . '" ' . ($pageKey && array_key_exists($key, $page->tags(true)) ? 'selected' : '') . '>' . $fields['name'] . '</option>';
 				}
 				?>
 			</select>

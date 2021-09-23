@@ -306,4 +306,10 @@ class Text {
 		return intval($value) * ($s[strtolower(substr($value,-1))] ?: 1);
 	}
 
+    public static function generateSlug(string $text): string {
+        $text = trim($text);
+        $slug = self::cleanUrl($text);
+        return $slug;
+    }
+
 }
