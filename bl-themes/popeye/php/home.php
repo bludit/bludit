@@ -57,36 +57,36 @@
 
 				<!-- Pages -->
 				<div class="list-group list-group-flush">
-					<?php foreach ($content as $tmp) : ?>
+					<?php foreach ($content as $pageTmp) : ?>
 						<div class="list-group-item pt-4 pb-4" aria-current="true">
 							<div class="d-flex w-100 justify-content-between">
 
 								<!-- Page title -->
-								<a href="<?php echo $tmp->url() ?>">
-									<h5 class="mb-1"><?php echo $tmp->title() ?></h5>
+								<a href="<?php echo $pageTmp->url() ?>">
+									<h5 class="mb-1"><?php echo $pageTmp->title() ?></h5>
 								</a>
 								<!-- End Page title -->
 
 								<!-- Page date -->
 								<?php if ($theme->dateFormat()=='relative'): ?>
-									<small class="color-blue"><?php echo $tmp->relativeTime() ?></small>
+									<small class="color-blue"><?php echo $pageTmp->relativeTime() ?></small>
 								<?php else: ?>
-									<small class="color-blue"><?php echo $tmp->date() ?></small>
+									<small class="color-blue"><?php echo $pageTmp->date() ?></small>
 								<?php endif ?>
 								<!-- End Page date -->
 
 							</div>
 
 							<!-- Page description -->
-							<?php if ($tmp->description()): ?>
-							<p class="mb-1 form-text"><?php echo $tmp->description(); ?></p>
+							<?php if ($pageTmp->description()): ?>
+							<p class="mb-1 form-text"><?php echo $pageTmp->description(); ?></p>
 							<?php endif ?>
 							<!-- End Page description -->
 
 							<!-- Page tags -->
 							<?php
 							if ($theme->showTags()) {
-								$tagsList = $tmp->tags(true);
+								$tagsList = $pageTmp->tags(true);
 								if (!empty($tagsList)) {
 									echo '<small>';
 									foreach ($tagsList as $tagKey => $tagName) {
