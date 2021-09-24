@@ -45,10 +45,10 @@ class pluginVisitsStats extends Plugin {
 
 		$labels = "'" . implode("','", $days) . "'";
 		$seriesVisits = implode(',', $visits);
-		$seriesUnique = implode(',', $unique);
+		$seriesVisitors = implode(',', $unique);
 
 		$labelVisits = $L->g('Visits');
-		$labelUnique = $L->g('Unique');
+		$labelVisitors = $L->g('Visitors');
 
 return <<<EOF
 <div class="pluginVisitsStats mt-4 mb-4 pb-4 border-bottom">
@@ -65,12 +65,12 @@ new Chart(ctx, {
 		datasets: [{
 			backgroundColor: 'rgb(13,110,253)',
 			borderColor: 'rgb(13,110,253)',
-			label: '$labelUnique',
-			data: [$seriesUnique]
+			label: '$labelVisitors',
+			data: [$seriesVisitors]
 		},
 		{
-			backgroundColor: 'rgb(61,139,253)',
-			borderColor: 'rgb(61,139,253)',
+			backgroundColor: 'rgb(255, 210, 7)',
+			borderColor: 'rgb(255, 210, 7)',
 			label: '$labelVisits',
 			data: [$seriesVisits]
 		}]

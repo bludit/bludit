@@ -66,7 +66,7 @@
 <div class="d-flex align-items-center mb-4">
 	<h2 class="m-0"><i class="bi bi-folder"></i><?php $L->p('Content') ?></h2>
 	<div class="ms-auto">
-		<a id="btnNew" class="btn btn-primary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'editor' ?>" role="button"><i class="bi bi-plus-circle"></i><?php $L->p('Add a new page') ?></a>
+		<a id="btnNew" class="btn btn-primary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'editor' ?>" role="button"><i class="bi bi-plus-circle"></i><?php $L->p('New content') ?></a>
 	</div>
 </div>
 
@@ -228,7 +228,7 @@ function table($type)
 <!-- Tabs -->
 <ul class="nav nav-tabs ps-3" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab" aria-controls="pages" aria-selected="true"><?php $L->p('Pages') ?></a>
+		<a class="nav-link active" id="standard-tab" data-bs-toggle="tab" href="#standard" role="tab" aria-controls="standard" aria-selected="true"><?php $L->p('Standard') ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab" aria-controls="static" aria-selected="true"><?php $L->p('Static') ?></a>
@@ -256,7 +256,7 @@ function table($type)
 <div class="tab-content">
 
 	<!-- Tab pages -->
-	<div class="tab-pane show active" id="pages" role="tabpanel">
+	<div class="tab-pane show active" id="standard" role="tabpanel">
 		<?php table('published'); ?>
 
 		<!-- Paginator -->
