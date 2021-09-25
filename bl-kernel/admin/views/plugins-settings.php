@@ -26,6 +26,12 @@
 			args[key] = value;
 		});
 
+		$('textarea').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			args[key] = value;
+		});
+
 		api.configurePlugin(args).then(function(response) {
 			if (response.status == 0) {
 				logs('Plugin configured: ' + response.data.key);
