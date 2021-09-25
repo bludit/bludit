@@ -2,9 +2,7 @@
 
 class pluginNavigation extends Plugin {
 
-	public function init()
-	{
-		// Fields and default values for the database of this plugin
+	public function init() {
 		$this->dbFields = array(
 			'label'=>'Navigation',
 			'homeLink'=>true,
@@ -12,35 +10,29 @@ class pluginNavigation extends Plugin {
 		);
 	}
 
-	// Method called on the settings of the plugin on the admin area
-	public function form()
-	{
+	public function form() {
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="label">'.$L->get('Label').'</label>';
+        $html .= '<input class="form-control" id="label" name="label" type="text" value="'.$this->getValue('label').'">';
+        $html .= '<div class="form-text">'.$L->get('This title is almost always used in the sidebar of the site').'</div>';
+        $html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Home link').'</label>';
-		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
-		$html .= '</select>';
-		$html .= '<span class="tip">'.$L->get('Show the home link on the sidebar').'</span>';
-		$html .= '</div>';
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="homeLink">'.$L->get('Home link').'</label>';
+        $html .= '<select class="form-select" id="homeLink" name="homeLink">';
+        $html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
+        $html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+        $html .= '</select>';
+        $html .= '<div class="form-text">'.$L->get('Show the home link on the sidebar').'</div>';
+        $html .= '</div>';
 
 		if (ORDER_BY=='date') {
-			$html .= '<div>';
-			$html .= '<label>'.$L->get('Amount of items').'</label>';
-			$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
-			$html .= '</div>';
+            $html .= '<div class="mb-3">';
+            $html .= '<label class="form-label" for="numberOfItems">'.$L->get('Amount of items').'</label>';
+            $html .= '<input class="form-control" id="numberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
+            $html .= '</div>';
 		}
 
 		return $html;

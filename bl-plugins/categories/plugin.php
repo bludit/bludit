@@ -1,18 +1,14 @@
 <?php
 class pluginCategories extends Plugin {
 
-	public function init()
-	{
-		// Key and default values for the plugin database
+	public function init() {
 		$this->dbFields = array(
 			'label'=>'Categories',
 			'hideCero'=>true
 		);
 	}
 
-	// Returns the custom form for the plugin's settings for display in the admin panel
-	public function form()
-	{
+	public function form() {
 		global $L;
 
 		$html  = '<div class="mb-3">';
@@ -32,9 +28,7 @@ class pluginCategories extends Plugin {
 		return $html;
 	}
 
-	// Returns the sidebar for display in the website
-	public function siteSidebar()
-	{
+	public function siteSidebar() {
 		global $categories;
 
 		$html  = '<div class="plugin plugin-categories">';

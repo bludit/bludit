@@ -2,6 +2,8 @@
 	"plugin-data":
 	{
 		"name": "Robots",
-		"description": "You can use a special HTML meta tag to tell robots not to index the content of a page, and/or not scan it for links to follow."
-	}
+		"description": "Enable the feature robots exclusion standard on your website. You can configure the robot's behavior for each page from the SEO options. Also, this plugin allows you to configure the robots.txt file."
+	},
+    "configure-robotstxt-file": "Configure robots.txt file",
+    "this-plugin-generates-the-file": "This plugin generates the file:"
 }

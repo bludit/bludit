@@ -2,34 +2,27 @@
 
 class pluginOpenGraph extends Plugin {
 
-	public function init()
-	{
-		// Fields and default values for the database of this plugin
+	public function init() {
 		$this->dbFields = array(
 			'defaultImage'=>'',
 			'fbAppId'=>''
 		);
 	}
 
-	public function form()
-	{
+	public function form() {
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="defaultImage">'.$L->get('Default image').'</label>';
+        $html .= '<input class="form-control" id="defaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'">';
+        $html .= '<div class="form-text">'.$L->get('Set a default image for pages without pictures').'</div>';
+        $html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Default image').'</label>';
-		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
-		$html .= '<span class="tip">'.$L->g('set-a-default-image-for-content').'</span>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Facebook App ID').'</label>';
-		$html .= '<input name="fbAppId" type="text" value="'.$this->getValue('fbAppId').'" placeholder="App ID">';
-		$html .= '<span class="tip">'.$L->g('set-your-facebook-app-id').'</span>';
-		$html .= '</div>';
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="fbAppId">'.$L->get('Facebook App ID').'</label>';
+        $html .= '<input class="form-control" id="fbAppId" name="fbAppId" type="text" value="'.$this->getValue('fbAppId').'">';
+        $html .= '<div class="form-text">'.$L->get('Set your Facebook app id').'</div>';
+        $html .= '</div>';
 
 		return $html;
 	}

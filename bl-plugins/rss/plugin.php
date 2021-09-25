@@ -2,49 +2,39 @@
 
 class pluginRSS extends Plugin {
 
-	public function init()
-	{
-		// Fields and default values for the database of this plugin
+	public function init() {
 		$this->dbFields = array(
 			'numberOfItems'=>5
 		);
 	}
 
-	// Method called on the settings of the plugin on the admin area
-	public function form()
-	{
+	public function form() {
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="label">'.$L->get('RSS URL').'</label>';
+        $html .= '<a href="'.DOMAIN_BASE.'rss.xml">'.DOMAIN_BASE.'rss.xml</a>';
+        $html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('RSS URL').'</label>';
-		$html .= '<a href="'.HTML::rssUrl().'">'.HTML::rssUrl().'</a>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Amount of items').'</label>';
-		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
-		$html .= '<span class="tip">'.$L->get('Amount of items to show on the feed').'</span>';
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="numberOfItems">'.$L->get('Number of items').'</label>';
+        $html .= '<input class="form-control" id="numberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
+        $html .= '<div class="form-text">'.$L->get('The number of items to display in the feed').'</div>';
+        $html .= '</div>';
 
 		return $html;
 	}
 
-        private function encodeURL($url)
-        {
-               return preg_replace_callback('/[^\x20-\x7f]/', function($match) { return urlencode($match[0]); }, $url);
-        }
+    private function encodeURL($url) {
+        return preg_replace_callback('/[^\x20-\x7f]/', function($match) { return urlencode($match[0]); }, $url);
+    }
 
-	private function createXML()
-	{
+	private function createXML() {
 		global $site;
 		global $pages;
 		global $url;
 
-		// Amount of pages to show
+		// Number of pages to show
 		$numberOfItems = $this->getValue('numberOfItems');
 
 		// Get the list of public pages (sticky and static included)
@@ -96,40 +86,28 @@ class pluginRSS extends Plugin {
 		return $doc->save($this->workspace().'rss.xml');
 	}
 
-	public function install($position=0)
-	{
+	public function install($position=0) {
 		parent::install($position);
 		return $this->createXML();
 	}
 
-	public function post()
-	{
-		parent::post();
-		return $this->createXML();
-	}
-
-	public function afterPageCreate()
-	{
+	public function afterPageCreate() {
 		$this->createXML();
 	}
 
-	public function afterPageModify()
-	{
+	public function afterPageModify() {
 		$this->createXML();
 	}
 
-	public function afterPageDelete()
-	{
+	public function afterPageDelete() {
 		$this->createXML();
 	}
 
-	public function siteHead()
-	{
+	public function siteHead() {
 		return '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
 	}
 
-	public function beforeAll()
-	{
+	public function beforeAll() {
 		$webhook = 'rss.xml';
 		if ($this->webhook($webhook)) {
 			// Send XML header
@@ -148,4 +126,5 @@ class pluginRSS extends Plugin {
 			exit(0);
 		}
 	}
+
 }

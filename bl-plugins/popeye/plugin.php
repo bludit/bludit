@@ -1,4 +1,5 @@
 <?php
+
 class popeye extends Plugin {
 
 	public function init()

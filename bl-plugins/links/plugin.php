@@ -2,15 +2,12 @@
 
 class pluginLinks extends Plugin {
 
-	public function init()
-	{
-		// JSON database
+	public function init() {
 		$jsondb = json_encode(array(
 			'Bludit'=>'https://www.bludit.com',
 			'Bludit PRO'=>'https://pro.bludit.com'
 		));
 
-		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
 			'label'=>'Links',
 			'jsondb'=>$jsondb

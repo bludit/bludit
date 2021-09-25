@@ -2,8 +2,9 @@
 	"plugin-data":
 	{
 		"name": "RSS Feed",
-		"description": "This plugin generates an RSS feed of your site.<br>The feed has the URL https://example.com/rss.xml"
+		"description": "This plugin generates an RSS feed of your website. The RSS feed allows users and application to subscribe to your content."
 	},
-	"amount-of-items-to-show-on-the-feed": "Amount of items to show on the feed.",
-	"rss-url": "RSS URL"
+	"the-number-of-items-to-display-in-the-feed": "The number of items to display in the feed.",
+	"rss-url": "RSS URL",
+    "this-plugin-generates-the-file": "This plugin generates the file:"
 }

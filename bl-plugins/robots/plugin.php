@@ -2,29 +2,25 @@
 
 class pluginRobots extends Plugin {
 
-	public function init()
-	{
+	public function init() {
 		$this->dbFields = array(
 			'robotstxt'=>'User-agent: *'.PHP_EOL.'Allow: /'
 		);
 	}
 
-	public function form()
-	{
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
+	public function form() {
+        global $L;
 
-		$html .= '<div>';
-		$html .= '<label>'.DOMAIN.'/robots.txt</label>';
-		$html .= '<textarea name="robotstxt" id="jsrobotstxt">'.$this->getValue('robotstxt').'</textarea>';
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="robotstxt">'.$L->get('Configure robots.txt file').'</label>';
+        $html .= '<textarea class="form-control" rows="3" name="robotstxt" id="robotstxt">'.$this->getValue('robotstxt').'</textarea>';
+        $html .= '<div class="form-text">'.$L->get('This plugin generates the file').' '.DOMAIN_BASE.'/robots.txt</div>';
+        $html .= '</div>';
 
 		return $html;
 	}
 
-	public function siteHead()
-	{
+	public function siteHead() {
 		global $WHERE_AM_I;
 
 		$html = PHP_EOL.'<!-- Robots plugin -->'.PHP_EOL;
@@ -53,13 +49,12 @@ class pluginRobots extends Plugin {
 		return $html;
 	}
 
-	public function beforeAll()
-	{
+	public function beforeAll() {
 		$webhook = 'robots.txt';
 		if ($this->webhook($webhook)) {
 			header('Content-type: text/plain');
 			// Include link to sitemap in robots.txt if the plugin is enabled
-			if (pluginActivated('pluginSitemap')) {
+			if (isPluginActive('pluginSitemap')) {
 				echo 'Sitemap: '.DOMAIN_BASE.'sitemap.xml'.PHP_EOL;
 			}
 			echo $this->getValue('robotstxt');

@@ -2,91 +2,96 @@
 
 class pluginDisqus extends Plugin {
 
-	public function init()
-	{
-		$this->dbFields = array(
-			'shortname'=>'',
-                        'enablePages'=>true,
-			'enableStatic'=>true,
-			'enableSticky'=>true
-		);
-	}
+    public function init() {
+        $this->dbFields = array(
+            'shortname' => '',
+            'enableStandard' => true,
+            'enableStatic' => true,
+            'enableSticky' => true,
+            'enableUnlisted' => true
+        );
+    }
 
-	public function form()
-	{
-		global $L;
+    public function form() {
+        global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
+        $html  = '<div class="mb-3">';
+        $html .= '<label class="form-label" for="shortname">' . $L->get('disqus-shortname') . '</label>';
+        $html .= '<input class="form-control" id="shortname" name="shortname" type="text" value="' . $this->getValue('shortname') . '">';
+        $html .= '<div class="form-text">' . $L->get('Get the shortname from the Disqus general settings') . '</div>';
+        $html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
-		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
-		$html .= '<span class="tip">'.$L->get('Get the shortname from the Disqus general settings').'</span>';
-		$html .= '</div>';
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="enableStandard">' . $L->get('Enable Disqus on standard pages') . '</label>';
+        $html .= '<select class="form-select" id="enableStandard" name="enableStandard">';
+        $html .= '<option value="true" ' . ($this->getValue('enableStandard') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+        $html .= '<option value="false" ' . ($this->getValue('enableStandard') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
+        $html .= '</select>';
+        $html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-pages').'</label>';
-                $html .= '<select name="enablePages">';
-                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
-		$html .= '</div>';
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="enableStatic">' . $L->get('Enable Disqus on static pages') . '</label>';
+        $html .= '<select class="form-select" id="enableStatic" name="enableStatic">';
+        $html .= '<option value="true" ' . ($this->getValue('enableStatic') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+        $html .= '<option value="false" ' . ($this->getValue('enableStatic') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
+        $html .= '</select>';
+        $html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-static-pages').'</label>';
-                $html .= '<select name="enableStatic">';
-                $html .= '<option value="true" '.($this->getValue('enableStatic')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enableStatic')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
-		$html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-sticky-pages').'</label>';
-                $html .= '<select name="enableSticky">';
-                $html .= '<option value="true" '.($this->getValue('enableSticky')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enableSticky')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
-                $html .= '</div>';
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="enableSticky">' . $L->get('Enable Disqus on sticky pages') . '</label>';
+        $html .= '<select class="form-select" id="enableSticky" name="enableSticky">';
+        $html .= '<option value="true" ' . ($this->getValue('enableSticky') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+        $html .= '<option value="false" ' . ($this->getValue('enableSticky') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
+        $html .= '</select>';
+        $html .= '</div>';
 
-		return $html;
-	}
+        $html .= '<div class="mb-3">';
+        $html .= '<label class="form-label" for="enableUnlisted">' . $L->get('Enable Disqus on unlisted pages') . '</label>';
+        $html .= '<select class="form-select" id="enableUnlisted" name="enableUnlisted">';
+        $html .= '<option value="true" ' . ($this->getValue('enableUnlisted') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+        $html .= '<option value="false" ' . ($this->getValue('enableUnlisted') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
+        $html .= '</select>';
+        $html .= '</div>';
 
-	public function pageEnd()
-	{
-		global $url;
-		global $WHERE_AM_I;
+        return $html;
+    }
 
-		// Do not shows disqus on page not found
-		if ($url->notFound()) {
-			return false;
-		}
+    public function pageEnd() {
+        global $url;
+        global $WHERE_AM_I;
 
-		if ($WHERE_AM_I==='page') {
-			global $page;
-			if ($page->published() && $this->getValue('enablePages')) {
-				return $this->javascript();
-			}
-			if ($page->isStatic() && $this->getValue('enableStatic')) {
-				return $this->javascript();
-			}
-			if ($page->sticky() && $this->getValue('enableSticky')) {
-				return $this->javascript();
-			}
-		}
+        // Do not display Disqus on page not found
+        if ($url->notFound()) {
+            return false;
+        }
 
-		return false;
-	}
+        if ($WHERE_AM_I === 'page') {
+            global $page;
+            if ($page->published() && $this->getValue('enableStandard')) {
+                return $this->javascript();
+            }
+            if ($page->isStatic() && $this->getValue('enableStatic')) {
+                return $this->javascript();
+            }
+            if ($page->sticky() && $this->getValue('enableSticky')) {
+                return $this->javascript();
+            }
+            if ($page->unlisted() && $this->getValue('enableUnlisted')) {
+                return $this->javascript();
+            }
+        }
 
-	private function javascript()
-	{
-		global $page;
-		$pageURL = $page->permalink();
-		$pageID = $page->uuid();
-		$shortname = $this->getValue('shortname');
+        return false;
+    }
 
-$code = <<<EOF
+    private function javascript() {
+        global $page;
+        $pageURL = $page->permalink();
+        $pageID = $page->uuid();
+        $shortname = $this->getValue('shortname');
+
+        $code = <<<EOF
 <!-- Disqus plugin -->
 <div id="disqus_thread"></div>
 <script>
@@ -106,7 +111,7 @@ $code = <<<EOF
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <!-- /Disqus plugin -->
 EOF;
-		return $code;
-	}
 
+        return $code;
+    }
 }

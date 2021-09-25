@@ -2,8 +2,8 @@
 	"plugin-data":
 	{
 		"name": "Open Graph",
-		"description": "The Open Graph protocol enables any web page to become a rich object in a social graph."
+		"description": "The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook."
 	},
-	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-a-default-image-for-pages-without-pictures": "Set a default image for pages without pictures.",
 	"set-your-facebook-app-id": "Set your Facebook App ID."
 }
