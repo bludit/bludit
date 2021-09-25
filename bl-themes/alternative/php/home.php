@@ -10,7 +10,7 @@
 		<?php endif ?>
 
 		<!-- Custom search form if the plugin "search" is enabled -->
-		<?php if (pluginActivated('pluginSearch')): ?>
+		<?php if (isPluginActive('pluginSearch')): ?>
 		<div class="form-inline d-block">
 			<input id="search-input" class="form-control mr-sm-2" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="Search">
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="button" onClick="searchNow()"><?php $language->p('Search') ?></button>

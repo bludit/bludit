@@ -18,7 +18,7 @@ $plugin = false;
 $pluginClassName = $layout['parameters'];
 
 // Check if the plugin is installed/activated
-if (pluginActivated($pluginClassName)) {
+if (isPluginActive($pluginClassName)) {
 	$plugin = $plugins['all'][$pluginClassName];
 } else {
 	Redirect::page('plugins');

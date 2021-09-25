@@ -262,9 +262,12 @@ class Plugin {
 		return true;
 	}
 
-	// Returns TRUE if the plugin is installed
-	// This function just check if the database of the plugin is created
-	public function installed()
+    /**
+     * Returns True if the plugin is installed
+     *
+     * @return boolean
+     */
+	public function installed(): bool
 	{
 		return file_exists($this->filenameDb);
 	}

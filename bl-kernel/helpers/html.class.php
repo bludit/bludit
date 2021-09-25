@@ -244,7 +244,7 @@ class HTML {
 
 	public static function rssUrl()
 	{
-		if (pluginActivated('pluginRSS')) {
+		if (isPluginActive('pluginRSS')) {
 			return DOMAIN_BASE.'rss.xml';
 		}
 		return false;
@@ -252,7 +252,7 @@ class HTML {
 
 	public static function sitemapUrl()
 	{
-		if (pluginActivated('pluginSitemap')) {
+		if (isPluginActive('pluginSitemap')) {
 			return DOMAIN_BASE.'sitemap.xml';
 		}
 		return false;

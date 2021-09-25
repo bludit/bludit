@@ -25,7 +25,7 @@
 			<div class="col-lg-8 mx-auto">
 
 				<!-- Search input -->
-				<?php if (pluginActivated('pluginSearch')): ?>
+				<?php if (isPluginActive('pluginSearch')): ?>
 				<form class="d-flex mb-4">
 					<input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-primary" type="button" onClick="searchNow()">Search</button>

@@ -877,21 +877,25 @@ function buildParentPages() {
 function getPlugin($pluginClassName) {
     global $plugins;
 
-    if (pluginActivated($pluginClassName)) {
+    if (isPluginActive($pluginClassName)) {
         return $plugins['all'][$pluginClassName];
     }
     return false;
 }
 
-// Check if the plugin is activated / installed
-// Returns TRUE if the plugin is activated / installed, FALSE otherwise
-function pluginActivated($pluginClassName) {
-        global $plugins;
+/**
+ * Returns True if the plugin is installed
+ *
+ * @param string        $pluginClassName        Plugin class name
+ * @return boolean
+ */
+function isPluginActive(string $pluginClassName): bool {
+    global $plugins;
 
-        if (isset($plugins['all'][$pluginClassName])) {
-                return $plugins['all'][$pluginClassName]->installed();
-        }
-        return false;
+    if (isset($plugins['all'][$pluginClassName])) {
+        return $plugins['all'][$pluginClassName]->installed();
+    }
+    return false;
 }
 
 
