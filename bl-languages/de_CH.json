@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2021-09-23",
+        "last-update": "2021-09-26",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -404,5 +404,10 @@
     "saved": "Gespeichert",
     "more-options": "Weitere Einstellungen",
     "files-&-images": "Dateien und Bilder",
-    "seo-features": "SEO-Einstellungen"
+    "publish-date": "Datum der Veröffentlichung",
+    "change-url": "URL ändern",
+    "page-type": "Art der Seite",
+    "seo-features": "SEO-Einstellungen",
+    "parent-page": "Übergeordnete Seite",
+    "active": "Aktiviert"
 }
