@@ -390,14 +390,14 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="parent" class="fw-bold mb-2">Page description</label>
+					<label for="parent" class="fw-bold mb-2"><?php echo $L->g('Page description') ?></label>
 					<textarea id="description" name="description" class="form-control" rows="3"><?php echo ($pageKey ? $page->description() : '') ?></textarea>
 					<div class="form-text"><?php echo $L->get('this-field-can-help-describe-the-content') ?></div>
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelDescription" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveDescription" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelDescription" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveDescription" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -410,14 +410,14 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="date" class="fw-bold mb-2">Publish date</label>
+					<label for="date" class="fw-bold mb-2"><?php echo $L->g('Publish Date') ?></label>
 					<input id="date" name="date" type="text" class="form-control" value="<?php echo ($pageKey ? $page->dateRaw() : Date::current(DB_DATE_FORMAT)) ?>">
 					<div class="form-text"><?php echo $L->g('date-format-format') ?></div>
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelDate" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveDate" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelDate" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveDate" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -446,8 +446,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelFriendlyURL" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveFriendlyURL" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelFriendlyURL" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveFriendlyURL" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -460,11 +460,11 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label class="fw-bold mb-2">Page type</label>
+					<label class="fw-bold mb-2"><?php echo $L->g('Page type') ?></label>
 				</div>
 				<div class="form-check mb-2">
 					<input id="statusDraft" name="type" class="form-check-input" type="radio" value="draft" <?php echo ((($pageKey && $page->draft()) || !$pageKey) ? 'checked' : '') ?>>
-					<label class="form-check-label" for="statusDraft">Draft</label>
+					<label class="form-check-label" for="statusDraft"><?php echo $L->g('Draft') ?></label>
 					<div class="form-text">Page as draft, is not visible for visitors.</div>
 				</div>
 				<div class="form-check mb-2">
@@ -490,8 +490,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelType" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveType" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelType" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveType" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -504,7 +504,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label class="fw-bold mb-2">SEO features</label>
+					<label class="fw-bold mb-2"><?php echo $L->g('SEO features') ?></label>
 				</div>
 				<div class="form-check mb-2">
 					<input id="noindex" name="noindex" class="form-check-input" type="checkbox" value="noindex" <?php echo (($pageKey && $page->noindex()) ? 'checked' : '') ?>>
@@ -523,8 +523,8 @@
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelSeo" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveSeo" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelSeo" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveSeo" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -541,8 +541,8 @@
 			</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
-				<button id="btnCancelParent" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i>Cancel</button>
-				<button id="btnSaveParent" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i>Save</button>
+				<button id="btnCancelParent" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+				<button id="btnSaveParent" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
 			</div>
 		</div>
 	</div>
@@ -606,7 +606,7 @@
 			<!-- End Cover Image -->
 
 			<!-- Category -->
-			<h6 class="text-uppercase mt-4">Category</h6>
+			<h6 class="text-uppercase mt-4"><?php $L->p('Category') ?></h6>
 			<?php
 			echo Bootstrap::formSelect(array(
 				'id' => 'category',
@@ -618,7 +618,7 @@
 			<!-- End Category -->
 
 			<!-- Tags -->
-			<h6 class="text-uppercase mt-4">Tags</h6>
+			<h6 class="text-uppercase mt-4"><?php $L->p('Tags') ?></h6>
 			<div class="mb-1">
 				<input id="addTag" name="addTag" type="text" class="form-control" value="" placeholder="<?php $L->p('Add tag') ?>">
 			</div>
@@ -658,15 +658,15 @@
 			</script>
 			<!-- End Tags -->
 
-			<h6 class="text-uppercase mt-4">More options</h6>
+			<h6 class="text-uppercase mt-4"><?php $L->p('More options') ?></h6>
 			<ul class="list-group">
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i>Files & images</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i>Description</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i>Publish date</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i>Change URL</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i>Type</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i>SEO features</a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i>Parent page</a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i><?php $L->p('Files & images') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i><?php $L->p('Description') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i><?php $L->p('Publish date') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i><?php echo $L->g('Change URL') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i><?php $L->p('Type') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i><?php $L->p('SEO features') ?></a></li>
+				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Parent page') ?></a></li>
 
 			</ul>
 
