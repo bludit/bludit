@@ -3,7 +3,7 @@
         "native": "Deutsch (Österreich)",
         "english-name": "German (Austria)",
         "locale": "de, de_AT",
-        "last-update": "2021-09-26",
+        "last-update": "2021-09-27",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -409,5 +409,13 @@
     "page-type": "Art der Seite",
     "seo-features": "SEO-Einstellungen",
     "parent-page": "Übergeordnete Seite",
+    "file-manager": "Dateimanager",
+    "upload-file": "Datei hochladen",
+    "preview": "Vorschau",
+    "filename": "Dateiname",
+    "size": "Dateigröße",
+    "insert-original": "Originalbild einfügen",
+    "insert-small": "Kleines Bild einfügen",
+    "insert-medium": "Mittelgroßes Bild einfügen",    
     "active": "Aktiviert"
 }
