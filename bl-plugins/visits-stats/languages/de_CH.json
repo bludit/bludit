@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistik",
+		"description": "Zeigt die Anzahl der Seitenaufrufe und der Besucher im Dashboard."
+	},
+	"visits": "Seitenaufrufe",
+	"visitors": "Besucher",
+	"unique-visitors": "Eindeutige Besucher",
+	"exclude-administrators-users" : "Benutzer mit der Rolle 'Administrator' ausschliessen"
+}
