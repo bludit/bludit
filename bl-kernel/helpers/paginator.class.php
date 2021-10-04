@@ -144,7 +144,7 @@ class Paginator {
 	/*
 	 * Bootstrap Pagination
 	 */
-	public static function bootstrap_html($textPrevPage=false, $textNextPage=false, $showPageNumber=false, $showFirstLast=false, $textFirstPage=false, $textLastPage=false){
+	public static function bootstrapHTML($textPrevPage=false, $textNextPage=false, $showPageNumber=false, $showFirstLast=false, $textFirstPage=false, $textLastPage=false){
 
 		global $language;
 
