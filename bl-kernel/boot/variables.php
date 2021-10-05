@@ -113,7 +113,7 @@ $GLOBALS['ALLOWED_IMG_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');
 $GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml');
 
 // Allowed files extensions
-$GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');
+$GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'pdf');
 
 // Allowed files mime types
 $GLOBALS['ALLOWED_FILE_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'application/pdf');
