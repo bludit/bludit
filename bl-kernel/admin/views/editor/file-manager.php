@@ -120,16 +120,22 @@
                 '<td class="align-middle">' + formatBytes(file.size) + '</td>' +
                 '<td class="align-middle text-center">' +
                 '<div class="dropdown">' +
-                '	<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="fileOptions" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-gear"></i><?php $L->p('Options') ?></button>' +
-                '	<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="fileOptions">' +
-                '		<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.absoluteURL + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert original') ?></a></li>' +
-                '		<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.thumbnailSmall + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert small') ?></a></li>' +
-                '		<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.thumbnailMedium + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert medium') ?></a></li>' +
-                '		<li><hr class="dropdown-divider"></li>' +
-                '		<li><a class="dropdown-item" href="#" onClick="setCoverImage(\'' + file.filename + '\')"><i class="bi bi-image"></i><?php $L->p('Set as cover image') ?></a></li>' +
-                '		<li><hr class="dropdown-divider"></li>' +
-                '		<li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i><?php $L->p('Delete') ?></a></li>' +
-                '	</ul>' +
+                '<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="fileOptions" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-gear"></i><?php $L->p('Options') ?></button>' +
+                '<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="fileOptions">';
+
+                if (ALLOWED_IMG_MIMETYPES.includes(file.mime)) {
+                    row +=  '<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.absoluteURL + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert original') ?></a></li>' +
+                            '<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.thumbnailSmall + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert small') ?></a></li>' +
+                            '<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.thumbnailMedium + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert medium') ?></a></li>' +
+                            '<li><hr class="dropdown-divider"></li>' +
+                            '<li><a class="dropdown-item" href="#" onClick="setCoverImage(\'' + file.filename + '\')"><i class="bi bi-image"></i><?php $L->p('Set as cover image') ?></a></li>';
+                } else {
+                    row += '<li><a class="dropdown-item" href="#" onClick="fmInsertFile(\'' + file.filename + '\', \'' + file.absoluteURL + '\', \'' + file.mime + '\'); fmClose();"><i class="bi bi-plus-circle"></i><?php $L->p('Insert') ?></a></li>';
+                }
+
+                row += '<li><hr class="dropdown-divider"></li>' +
+                '<li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i><?php $L->p('Delete') ?></a></li>' +
+                '</ul>' +
                 '</div>' +
                 '</td>' +
                 '</tr>';
