@@ -1,5 +1,5 @@
-<div aria-live="polite" aria-atomic="true" class="position-relative">
-	<div class="toast-container position-absolute start-50 translate-middle-x mt-3" style="z-index:1050;">
+<div aria-live="polite" aria-atomic="true" class="position-relative z-index-master">
+	<div class="toast-container position-absolute start-50 translate-middle-x mt-3" style="z-index:1100;">
 		<div id="alert" class="toast text-center text-white border-0 p-3" role="alert" aria-live="assertive" aria-atomic="true">
 			Hello, I'm a Bludit alert!
 		</div>
