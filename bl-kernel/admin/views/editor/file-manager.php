@@ -144,10 +144,9 @@
         logs('File Manager. Uploading file.');
 
         // Check file type/extension
-        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'application/pdf'];
-        if (!validImageTypes.includes(file.type)) {
+        if (!ALLOWED_FILE_MIMETYPES.includes(file.type)) {
             logs("File Manager. File type is not supported.");
-            showAlertError("<?php echo $L->g('File type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_IMG_EXTENSIONS']) ?>");
+            showAlertError("<?php echo $L->g('File type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_FILE_EXTENSIONS']) ?>");
             return false;
         }
 

@@ -23,6 +23,7 @@ echo 'var DB_DATE_FORMAT = "'.DB_DATE_FORMAT.'";'.PHP_EOL;
 echo 'var AUTOSAVE_INTERVAL = "'.AUTOSAVE_INTERVAL.'";'.PHP_EOL;
 echo 'var PAGE_BREAK = "'.PAGE_BREAK.'";'.PHP_EOL;
 echo 'var tokenCSRF = "'.$security->getTokenCSRF().'";'.PHP_EOL;
+echo 'var ALLOWED_FILE_MIMETYPES = '.json_encode($GLOBALS['ALLOWED_FILE_MIMETYPES']).';'.PHP_EOL;
 echo 'var UPLOAD_MAX_FILESIZE = '.Text::toBytes( ini_get('upload_max_filesize') ).';'.PHP_EOL;
 echo 'var DEBUG_MODE = '.(DEBUG_MODE?'true':'false').';'.PHP_EOL;
 echo 'var PASSWORD_LENGTH = '.PASSWORD_LENGTH.';'.PHP_EOL;
