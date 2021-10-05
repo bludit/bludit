@@ -3,5 +3,10 @@
 	{
 		"name": "Popeye Theme",
 		"description": "This plugin provides configuration for the theme Popeye."
-	}
+	},
+	"enable-or-disable-dark-mode": "Enable or disable dark mode.",
+	"enable-or-disable-google-fonts": "Enable or disable Google fonts.",
+	"change-the-date-format-for-the-main-page": "Change the date format for the main page.",
+	"show-tags": "Show tags",
+	"show-tags-in-the-main-page-for-each-article": "Show tags in the main page for each article."
 }
