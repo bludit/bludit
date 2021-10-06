@@ -45,7 +45,7 @@ foreach ($themes as $theme) {
 	echo '
 	<tr>
 		<td class="align-middle pt-4 pb-4">
-			<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="badge bg-primary ms-2">Active</span>':'').'</div>
+			<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="badge bg-primary ms-2">'.$L->g('Activate').'</span>':'').'</div>
 			<div class="mt-1">
 	';
 

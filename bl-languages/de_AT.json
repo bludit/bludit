@@ -1,9 +1,9 @@
 {
     "language-data": {
-        "native": "Deutsch (Schweiz)",
+        "native": "Deutsch (Österreich)",
         "english-name": "German",
-        "locale": "de, de_DE",
-        "last-update": "2021-10-04",
+        "locale": "de, de_AT",
+        "last-update": "2021-10-05",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -99,7 +99,7 @@
     "save": "Speichern",
     "save-as-draft": "Als Entwurf speichern",
     "cancel": "Abbrechen",
-    "description": "Inhaltsbeschreibung",
+    "description": "Beschreibung",
     "this-field-can-help-describe-the-content": "Kurze Inhaltsbeschreibung. Möglich sind bis zu 150 Zeichen.",
     "images": "Bilder",
     "error": "Fehler",
