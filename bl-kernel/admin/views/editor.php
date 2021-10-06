@@ -438,8 +438,8 @@
 			<div class="modal-body">
 				<div class="m-0">
 					<div class="d-flex mb-2">
-						<label for="friendlyURL" class="p-0 m-0 me-auto fw-bold">Page URL</label>
-						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0 text-primary"><i class="bi bi-hammer"></i>Generate from page title</button>
+						<label for="friendlyURL" class="p-0 m-0 me-auto fw-bold"><?php echo $L->g('Page URL') ?></label>
+						<button id="btnGenURLFromTitle" type="button" class="btn p-0 m-0 text-primary"><i class="bi bi-hammer"></i><?php echo $L->g('Generate from page title') ?></button>
 					</div>
 					<input id="friendlyURL" name="friendlyURL" type="text" class="form-control" value="<?php echo ($pageKey ? $page->slug() : '') ?>">
 					<div class="form-text">https://www.varlogdiego.com/my-page-about-k8s</div>
@@ -465,28 +465,28 @@
 				<div class="form-check mb-2">
 					<input id="statusDraft" name="type" class="form-check-input" type="radio" value="draft" <?php echo ((($pageKey && $page->draft()) || !$pageKey) ? 'checked' : '') ?>>
 					<label class="form-check-label" for="statusDraft"><?php echo $L->g('Draft') ?></label>
-					<div class="form-text">Page as draft, is not visible for visitors.</div>
+					<div class="form-text"><?php echo $L->g('Page as draft, is not visible for visitors.') ?></div>
 				</div>
 				<div class="form-check mb-2">
 					<input id="statusPublish" name="type" class="form-check-input" type="radio" value="published" <?php echo (($pageKey && $page->published()) ? 'checked' : '') ?>>
-					<label class="form-check-label" for="statusPublish">Publish</label>
-					<div class="form-text">Publish the page, everyone can see it.</div>
+					<label class="form-check-label" for="statusPublish"><?php echo $L->g('Publish') ?></label>
+					<div class="form-text"><?php echo $L->g('Publish the page, everyone can see it.') ?></div>
 				</div>
 				<hr>
 				<div class="form-check mb-2">
 					<input id="statusSticky" name="type" class="form-check-input" type="radio" value="sticky" <?php echo (($pageKey && $page->sticky()) ? 'checked' : '') ?>>
-					<label class="form-check-label" for="statusSticky">Publish as sticky</label>
-					<div class="form-text">The page can be seen by everyone in the top of the main page.</div>
+					<label class="form-check-label" for="statusSticky"><?php echo $L->g('Publish as sticky.') ?></label>
+					<div class="form-text"><?php echo $L->g('The page can be seen by everyone at the top of the main page.') ?></div>
 				</div>
 				<div class="form-check mb-2">
 					<input id="statusStatic" name="type" class="form-check-input" type="radio" value="static" <?php echo (($pageKey && $page->isStatic()) ? 'checked' : '') ?>>
-					<label class="form-check-label" for="statusStatic">Publish as static</label>
-					<div class="form-text">The page can be seen by everyone as static page.</div>
+					<label class="form-check-label" for="statusStatic"><?php echo $L->g('Publish as static.') ?></label>
+					<div class="form-text"><?php echo $L->g('The page can be seen by everyone as static page.') ?></div>
 				</div>
 				<div class="form-check mb-2">
 					<input id="statusUnlisted" name="type" class="form-check-input" type="radio" value="unlisted" <?php echo (($pageKey && $page->unlisted()) ? 'checked' : '') ?>>
-					<label class="form-check-label" for="statusUnlisted">Publish as unlisted</label>
-					<div class="form-text">The page can be seen and shared by anyone with the link.</div>
+					<label class="form-check-label" for="statusUnlisted"><?php echo $L->g('Publish as unlisted.') ?></label>
+					<div class="form-text"><?php echo $L->g('The page can be seen and shared by anyone with the link.') ?></div>
 				</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
