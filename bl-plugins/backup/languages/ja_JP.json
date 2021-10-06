@@ -2,11 +2,24 @@
 	"plugin-data":
 	{
 		"name": "Backup",
-		"description": "Bluditを簡単にバックアップします。"
+		"description": "Bluditのバックアップを簡単に取ります。"
 	},
 	"create-backup": "バックアップを作成",
+	"upload-backup": "バックアップをアップロード",
 	"download": "ダウンロード",
-	"restore-backup": "バックアップをリストア",
+	"restore-backup": "バックアップから復元",
 	"delete-backup": "バックアップを削除",
-	"there-are-no-backups-for-the-moment": "現在、バックアップはありません"
+	"there-are-no-backups-for-the-moment": "現在、バックアップはありません",
+	"you-do-not-have-sufficient-permissions": "権限がありません",
+	"the-backup-was-created-successfully": "バックアップは正常に作成できました。",
+	"the-backup-file-could-not-be-created": "バックアップファイルの作成ができませんでした。",
+	"the-backup-'%s'-could-be-restored-successfully": "バックアップ '%s' を正常に復元しました。",
+	"the-backup-'%s'-could-not-be-restored": "バックアップ '%s' は復元できませんでした。",
+	"the-backup-'%s'-could-be-deleted-successfully": "バックアップ '%s' を正常に削除しました。",
+	"the-backup-'%s'-could-not-be-deleted": "バックアップ '%s' を削除できませんでした。",
+	"the-passed-file-is-not-a-valid-zip-archive": "指定されたファイルは有効なZIPアーカイブではありません。",
+	"the-passed-file-does-not-end-with-zip": "指定されたファイルは .zipで終わっていません。",
+	"the-passed-file-could-not-be-validated": "指定されたファイルを検証できませんでした。",
+	"the-passed-file-is-not-a-valid-backup-archive": "指定されたファイルは、有効なバックアップアーカイブではありません。",
+	"the-backup-file-could-be-uploaded-successfully": "バックアップファイルを正常にアップロードできました。"
 }

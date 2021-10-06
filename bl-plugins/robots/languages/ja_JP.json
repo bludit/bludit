@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Robots",
-		"description": "You can use a special HTML meta tag to tell robots not to index the content of a page, and\/or not scan it for links to follow."
+		"description": "特別なHTML metaタグを使用して、ロボットにページコンテンツをインデックスしたり、リンクをたどってスキャンしないように指示します。"
 	}
 }

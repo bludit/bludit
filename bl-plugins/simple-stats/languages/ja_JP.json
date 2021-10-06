@@ -2,12 +2,14 @@
 	"plugin-data":
 	{
 		"name": "Simple Stats",
-		"description": "Show the number of visitors per day on your dashboard."
+		"description": "ダッシュボードやコンテンツの統計情報に1日あたりの訪問者数やページビューを表示します。"
 	},
-	"visits": "Visits",
-	"visits-today": "Visits today",
-	"unique-visitors-today": "Unique visitors today",
-	"chart": "Chart",
-	"table": "テーブル",
-	"disk-usage" : "Disk Usage"
+	"visits": "訪問者",
+	"visits-today": "本日の訪問者数",
+	"unique-visitors-today": "本日のユニーク訪問者数",
+	"chart": "グラフ",
+	"table": "表",
+	"disk-usage" : "ディスク使用量",
+	"show-content-stats" : "コンテンツ統計情報の表示",
+	"exclude-administrators-users" : "「管理者」グループのユーザーを除外する"
 }

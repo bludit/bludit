@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Custom fields parser",
+		"description": "カスタムフィールドのコードを設定し、コンテンツページを解析します。"
+	}
+}

@@ -2,6 +2,10 @@
 	"plugin-data":
 	{
 		"name": "TinyMCE",
-		"description": "HTML Editor for formatting content. Recommended for the users who don't want to work with Markdown code."
-	}
+		"description": "コンテンツの書式を設定するためのHTMLエディターです。Markdownを利用しないユーザーにおすすめです。"
+	},
+	"toolbar-top": "ツールバー上部",
+	"toolbar-bottom": "ツールバー下部",
+	"codesample-languages": "言語別コードサンプル",
+	"codesample-supported-laguages": "Prismがサポートするプログラミング言語です。"
 }

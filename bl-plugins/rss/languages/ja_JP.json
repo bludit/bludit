@@ -2,8 +2,8 @@
 	"plugin-data":
 	{
 		"name": "RSS Feed",
-		"description": "This plugin generates an RSS feed of your site.<br>The feed has the URL https:\/\/example.com\/rss.xml"
+		"description": "サイトのRSSフィードを生成します。<br>フィードのURLは https://example.com/rss.xml となります。"
 	},
-	"amount-of-items-to-show-on-the-feed": "フィードに表示するアイテム数。",
+	"amount-of-items-to-show-on-the-feed": "フィードに表示する件数を入力します。",
 	"rss-url": "RSS URL"
 }
