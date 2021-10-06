@@ -652,6 +652,8 @@ class Page {
      */
     public function relativeTime(bool $complete=false): string
     {
+        global $language;
+
         $current = new DateTime;
         $past    = new DateTime($this->getValue('dateRaw'));
         $elapsed = $current->diff($past);
@@ -660,13 +662,13 @@ class Page {
         $elapsed->d -= $elapsed->w * 7;
 
         $string = array(
-            'y' => 'year',
-            'm' => 'month',
-            'w' => 'week',
-            'd' => 'day',
-            'h' => 'hour',
-            'i' => 'minute',
-            's' => 'second',
+            'y' => $language->g('year'),
+            'm' => $language->g('month'),
+            'w' => $language->g('week'),
+            'd' => $language->g('day'),
+            'h' => $language->g('hour'),
+            'i' => $language->g('minute'),
+            's' => $language->g('second')
         );
 
         foreach ($string as $key => &$value) {
@@ -681,7 +683,7 @@ class Page {
             $string = array_slice($string, 0 , 1);
         }
 
-        return $string ? implode(', ', $string) . ' ago' : 'Just now';
+        return $string ? implode(', ', $string) . ' '.$language->g('ago') : $language->g('Just now');
     }
 
 }

@@ -398,5 +398,11 @@
     "insert-file": "Insert file",
     "insert-original-size": "Insert original size",
     "insert-small-size": "Insert small size",
-    "insert-medium-size": "Insert medium size"
+    "insert-medium-size": "Insert medium size",
+    "year": "year",
+    "month": "month",
+    "week": "week",
+    "day": "day",
+    "hour": "hour",
+    "second": "second"
 }
