@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "OGP(Open Graph protocol)は、ウェブページをソーシャルグラフのリッチオブジェクトにします。Facebookでは、ウェブページがFacebookのほかのオブジェクトと同じ機能を持つようにするために利用しています。"
+	},
+	"set-a-default-image-for-pages-without-pictures": "画像のないコンテンツのデフォルト画像を設定します。",
+	"set-your-facebook-app-id": "Facebook App IDを設定します。"
+}

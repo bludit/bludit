@@ -2,6 +2,6 @@
 	"plugin-data":
 	{
 		"name": "Hit Counter",
-		"description": "サイドバーに訪問回数やユニークビジター数を表示します。"
+		"description": "サイドバーに訪問者数やユニーク訪問者数を表示します。"
 	}
 }
