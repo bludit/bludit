@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Welcome",
+		"description": "ダッシュボードに挨拶のメッセージを表示します。"
+	},
+	"welcome": "ようこそ"
+}

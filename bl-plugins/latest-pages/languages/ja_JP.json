@@ -1,0 +1,8 @@
+{
+    "plugin-data":
+    {
+        "name": "Last pages",
+        "description": "ダッシュボードに最後に追加したページを表示します。"
+    },
+    "latest-pages": "最後に追加したページ"
+}

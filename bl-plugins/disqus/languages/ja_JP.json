@@ -2,11 +2,12 @@
 	"plugin-data":
 	{
 		"name": "Disqus",
-		"description": "DisqusはWebサイト向けのコメントホスティングサービスです。このサービスを利用するには、<a href=\"https:\/\/disqus.com\">Disqus<\/a>に登録する必要があります。"
+		"description": "Disqusはウェブサイト向けのコメントホスティングサービスです。<br>このサービスを利用するには、<a href=\"https:\/\/disqus.com\">Disqus<\/a>に登録する必要があります。"
 	},
 	"disqus-shortname": "Disqusショートネーム",
-	"enable-disqus-on-pages": "ページにDisqusを使用",
-	"enable-disqus-on-static-pages": "固定ページにDisqusを使用",
-	"enable-disqus-on-sticky-pages": "先頭固定ページにDisqusを使用",
-	"get-the-shortname-from-the-disqus-general-settings": "Disqus一般設定からショートネームを取得します"
+	"enable-disqus-on-standard-pages": "標準ページにDisqusを使う",
+	"enable-disqus-on-static-pages": "静的ページにDisqusを使う",
+	"enable-disqus-on-sticky-pages": "先頭固定ページにDisqusを使う",
+    "enable-disqus-on-unlisted-pages": "限定公開ページにDisqusを使う",
+	"get-the-shortname-from-the-disqus-general-settings": "Disqusの全般設定からショートネームを取得します"
 }
