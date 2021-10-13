@@ -67,15 +67,29 @@
 								</a>
 								<!-- End Page title -->
 
-								<!-- Page date -->
-								<?php if ($theme->dateFormat()=='relative'): ?>
-									<small class="color-blue"><?php echo $pageTmp->relativeTime() ?></small>
-								<?php else: ?>
-									<small class="color-blue"><?php echo $pageTmp->date() ?></small>
-								<?php endif ?>
-								<!-- End Page date -->
+                                <!-- Page date -->
+                                <!-- This block is not visible on small devices -->
+                                <div class="d-none d-sm-block">
+                                <?php if ($theme->dateFormat()=='relative'): ?>
+                                    <small class="color-blue"><?php echo $pageTmp->relativeTime() ?></small>
+                                <?php else: ?>
+                                    <small class="color-blue"><?php echo $pageTmp->date() ?></small>
+                                <?php endif ?>
+                                </div>
+                                <!-- End Page date -->
 
 							</div>
+
+                            <!-- Page date -->
+                            <!-- This block is only visible on small devices -->
+                            <div class="d-block d-sm-none">
+                            <?php if ($theme->dateFormat()=='relative'): ?>
+                                <small class="color-blue"><?php echo $pageTmp->relativeTime() ?></small>
+                            <?php else: ?>
+                                <small class="color-blue"><?php echo $pageTmp->date() ?></small>
+                            <?php endif ?>
+                            </div>
+                            <!-- End Page date -->
 
 							<!-- Page description -->
 							<?php if ($pageTmp->description()): ?>
