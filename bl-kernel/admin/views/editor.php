@@ -228,6 +228,21 @@
 			closeModal('date', true);
 		});
 
+		// Modal position events
+		// ------------------------------------------------------------------------
+		$('#btnSavePosition').on('click', function() {
+			var args = {
+				position: $('#position').val()
+			};
+			savePage(args);
+			disableBtnSave();
+			closeModal('position');
+		});
+
+		$('#btnCancelPosition').on('click', function() {
+			closeModal('position', true);
+		});
+
 		// Modal friendly-url events
 		// ------------------------------------------------------------------------
 		$('#btnSaveFriendlyURL').on('click', function() {
@@ -409,11 +424,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div class="m-0">
-					<label for="date" class="fw-bold mb-2"><?php echo $L->g('Publish Date') ?></label>
-					<input id="date" name="date" type="text" class="form-control" value="<?php echo ($pageKey ? $page->dateRaw() : Date::current(DB_DATE_FORMAT)) ?>">
-					<div class="form-text"><?php echo $L->g('date-format-format') ?></div>
-				</div>
+            <div class="m-0">
+                    <label for="date" class="fw-bold mb-2"><?php echo $L->g('Publish Date') ?></label>
+                    <input id="date" name="date" type="text" class="form-control" value="<?php echo ($pageKey ? $page->dateRaw() : Date::current(DB_DATE_FORMAT)) ?>">
+                    <div class="form-text"><?php echo $L->g('date-format-format') ?></div>
+                </div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
 				<button id="btnCancelDate" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
@@ -430,6 +445,26 @@
 	});
 </script>
 <!-- End Modal Date -->
+
+<!-- Modal Position -->
+<div class="modal" id="modal-position" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            <div class="m-0">
+                    <label for="position" class="fw-bold mb-2"><?php echo $L->g('Position') ?></label>
+                    <input id="position" name="position" type="number" class="form-control" value="<?php echo ($pageKey ? $page->position() : '0') ?>">
+                    <div class="form-text"><?php echo $L->g('Page position') ?></div>
+                </div>
+            </div>
+            <div class="modal-footer ps-2 pe-2 pt-1 pb-1">
+                <button id="btnCancelPosition" type="button" class="btn btn-sm btn-secondary"><i class="bi bi-x"></i><?php echo $L->g('Cancel') ?></button>
+                <button id="btnSavePosition" type="button" class="btn btn-sm btn-primary"><i class="bi bi-check"></i><?php echo $L->g('Save') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Position -->
 
 <!-- Modal friendly URL -->
 <div class="modal" id="modal-friendlyURL" tabindex="-1">
@@ -667,7 +702,7 @@
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i><?php $L->p('Type') ?></a></li>
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i><?php $L->p('SEO features') ?></a></li>
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Parent page') ?></a></li>
-
+                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('position')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Position') ?></a></li>
 			</ul>
 
 			<!-- Quick files

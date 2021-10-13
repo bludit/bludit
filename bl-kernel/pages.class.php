@@ -68,6 +68,8 @@ class Pages extends dbJSON {
     {
         $row = array();
 
+        var_dump(debug_backtrace());
+
         // Predefined values
         foreach ($this->dbFields as $field=>$value) {
             if ($field=='tags') {
@@ -659,11 +661,11 @@ class Pages extends dbJSON {
 
     private function sortByPositionLowToHigh($a, $b)
     {
-        return $a['position']>$b['position'];
+        return $a['position']<=>$b['position'];
     }
     private function sortByPositionHighToLow($a, $b)
     {
-        return $a['position']<$b['position'];
+        return $b['position']<=>$a['position'];
     }
 
     // Sort pages by date
