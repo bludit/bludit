@@ -566,8 +566,11 @@ function uploadPageFile($pageKey) {
     $filename = Filesystem::filename($_FILES['file']['name']);
     $absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
     $absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
+    // Move the original file to a page folder
     if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
-        // Create thumbnail if the files is an image
+        // Change permissions files to rw-r-r
+        Filesystem::chmod($absolutePath, 0644);
+        // Create the thumbnails only if the file is an image
         $thumbnail = '';
         if (in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
             try {

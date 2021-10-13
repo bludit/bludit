@@ -319,4 +319,8 @@ class Filesystem {
         return false;
     }
 
+    public static function chmod(string $file, int $permissions): bool {
+        return chmod($file, $permissions);
+    }
+
 }
