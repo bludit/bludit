@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Twitter Cards",
-		"description": "With Twitter Cards, you can attach rich photos, videos and media experiences to Tweets, helping to drive traffic to your website."
+		"description": "Twitter Cardsを使うとツイートに写真や動画などのメディアを添付できます。これによりウェブサイトへのアクセスが期待できます。"
 	},
-	"default-image": "Default image"
+	"default-image": "デフォルト画像"
 }

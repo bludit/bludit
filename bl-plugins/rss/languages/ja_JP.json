@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS Feed",
+		"description": "ウェブサイトのRSSフィードを生成します。RSSフィードを利用すると、ユーザーやアプリが、あなたのコンテンツを購読できるようになります。"
+	},
+	"the-number-of-items-to-display-in-the-feed": "フィードに表示する件数を入力します。",
+	"rss-url": "RSS URL",
+    "this-plugin-generates-the-file": "プラグインは次のファイルを生成します "
+}
