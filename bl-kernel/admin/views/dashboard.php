@@ -26,11 +26,11 @@
 
 <div id="dashboard" class="container-fluid">
 	<div class="row">
-		<div class="col-7">
+		<div class="col-lg-7">
 			<?php execPluginsByHook('dashboard') ?>
 		</div>
 
-		<div class="col-5">
+		<div class="col-lg-5">
 
 			<!-- Notifications -->
 			<ul class="list-group">

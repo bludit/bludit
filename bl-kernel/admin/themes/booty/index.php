@@ -72,19 +72,23 @@
 		<!-- End Alerts -->
 
 		<!-- Top Navbar -->
-		<div class="container-fluid p-0 bg-dark">
+		<div class="container-fluid p-0 bg-dark d-none d-lg-block">
 			<div class="container">
 				<div class="row">
 					<nav class="navbar navbar-dark p-1">
 						<a class="navbar-brand" href="#">
 							<img src="<?php echo DOMAIN_BASE ?>bl-kernel/img/logo.svg" alt="" width="24" height="24" class="d-inline-block align-top">
-							BLUDIT
+							<?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?>
 						</a>
 					</nav>
 				</div>
 			</div>
 		</div>
 		<!-- End Top Navbar -->
+
+        <!-- Navbar, only for small devices -->
+        <?php include('html/navbar.php') ?>
+        <!-- End Navbar -->
 
 		<!-- Main -->
 		<div class="container h-100 flex-grow-1">
