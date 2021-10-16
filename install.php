@@ -83,7 +83,7 @@ if (!defined('JSON_PRETTY_PRINT')) {
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
-if ( !empty($_SERVER['HTTPS']) ||
+if ((!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) ||
 	(!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ||
 	(!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == 'on')) ) {
 	define('PROTOCOL', 'https://');
