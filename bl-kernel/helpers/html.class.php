@@ -94,6 +94,28 @@ class HTML {
 		return $html;
 	}
 
+	public static function jsDatetimepicker($attributes='')
+	{
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'datetimepicker/jquery.datetimepicker.full.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function cssDatetimepicker()
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'datetimepicker/jquery.datetimepicker.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+	}
+
+	public static function jsJqueryUI($attributes='')
+	{
+		return '<script '.$attributes.' src="'.DOMAIN_CORE_VENDORS.'jquery-ui/jquery-ui.min.js?version='.BLUDIT_VERSION.'"></script>'.PHP_EOL;
+	}
+
+	public static function cssJqueryUI()
+	{
+		return '<link rel="stylesheet" type="text/css" href="'.DOMAIN_CORE_VENDORS.'jquery-ui/jquery-ui.min.css?version='.BLUDIT_VERSION.'">'.PHP_EOL;
+	}
+
+
+
 	/*	Generates a dynamiclly the meta tag title for the themes === Bludit v4
 
 		@return				string		Returns the meta tag title <title>...</title>
