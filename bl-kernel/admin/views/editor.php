@@ -59,7 +59,7 @@
 
 	// Save the current page
 	// This function set the global variable "_pageKey"
-	function savePage(args) {
+	function savePage(args = []) {
 		logs('Saving page.');
 
 		if (_pageKey == null) {
