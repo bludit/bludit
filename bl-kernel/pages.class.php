@@ -68,8 +68,6 @@ class Pages extends dbJSON {
     {
         $row = array();
 
-        var_dump(debug_backtrace());
-
         // Predefined values
         foreach ($this->dbFields as $field=>$value) {
             if ($field=='tags') {
