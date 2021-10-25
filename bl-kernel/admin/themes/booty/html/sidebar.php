@@ -14,7 +14,7 @@
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="<?php echo DOMAIN_BASE ?>">
+		<a class="nav-link" target="_blank" rel="noopener noreferrer" href="<?php echo DOMAIN_BASE ?>">
 			<i class="bi bi-house"></i>
 			<?php $L->p('Website') ?>
 		</a>
