@@ -15,16 +15,12 @@
 		echo HTML::cssBootstrap();
 		echo HTML::cssBootstrapIcons();
 		echo HTML::cssSelect2();
+        echo HTML::cssDatetimepicker();
+        echo HTML::cssJqueryUI();
 		echo HTML::css(array(
 			'01-bludit.css',
 			'02-bootstrap-hacks.css'
 		), DOMAIN_ADMIN_THEME_CSS);
-
-		echo HTML::css(array(
-			'jquery.datetimepicker.min.css',
-			'jquery-ui.min.css',
-			'tagsinput-revisited.min.css'
-		), DOMAIN_CORE_CSS);
 
 		if ($site->darkModeAdmin()) {
 			echo HTML::css(array(
@@ -44,10 +40,9 @@
 	echo HTML::jsSortable();
 	echo HTML::bootbox();
 	echo HTML::jsSelect2();
+    echo HTML::jsDatetimepicker();
+    echo HTML::jsJqueryUI();
 	echo HTML::js(array(
-		'jquery.datetimepicker.full.min.js',
-		'jquery-ui.min.js',
-		'tagsinput-revisited.min.js',
 		'functions.js',
 		'api.js'
 	), DOMAIN_CORE_JS);

@@ -16,7 +16,7 @@
 						<?php $L->p('Dashboard') ?></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ROOT ?>">
+					<a class="nav-link" target="_blank" rel="noopener noreferrer" href="<?php echo HTML_PATH_ROOT ?>">
 						<?php $L->p('Website') ?></a>
 				</li>
 				<li class="nav-item">

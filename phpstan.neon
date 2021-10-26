@@ -1,9 +1,9 @@
 parameters:
-    phpVersion: 70100 # PHP 7.1 - https://github.com/phpstan/phpstan/blob/master/playground-api/handler.ts#L38
+    #phpVersion: 70100 # PHP 7.1 - https://github.com/phpstan/phpstan/blob/master/playground-api/handler.ts#L38
     #phpVersion: 70200 # PHP 7.2
     #phpVersion: 70300 # PHP 7.3
     #phpVersion: 70400 # PHP 7.4
-    #phpVersion: 80000 # PHP 8.0
+    phpVersion: 80000 # PHP 8.0
     level: 0
     excludePaths:
         analyse:
