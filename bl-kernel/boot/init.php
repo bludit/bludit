@@ -70,10 +70,14 @@ mb_internal_encoding(CHARSET);
 // Set HTTP output character encoding
 mb_http_output(CHARSET);
 
+// Include interfaces
+include(PATH_ABSTRACT.'PluginInterface.php');
+
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
 include(PATH_ABSTRACT.'dblist.class.php');
 include(PATH_ABSTRACT.'plugin.class.php');
+
 
 // Inclde Classes
 include(PATH_KERNEL.'pages.class.php');
