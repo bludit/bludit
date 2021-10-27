@@ -71,7 +71,7 @@ mb_internal_encoding(CHARSET);
 mb_http_output(CHARSET);
 
 // Include interfaces
-include(PATH_ABSTRACT.'PluginInterface.php');
+include(PATH_ABSTRACT . 'plugin.interface.php');
 
 // Inclde Abstract Classes
 include(PATH_ABSTRACT.'dbjson.class.php');
