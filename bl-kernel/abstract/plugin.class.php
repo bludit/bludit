@@ -1,6 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Plugin {
+class Plugin implements PluginInterface
+{
 
 	// (string) directory name, just the name
 	// Ex: sitemap

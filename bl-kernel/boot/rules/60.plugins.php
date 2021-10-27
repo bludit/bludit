@@ -78,6 +78,12 @@ function buildPlugins()
 	$pluginsDeclaredClasess = array_diff(get_declared_classes(), $currentDeclaredClasess);
 
 	foreach ($pluginsDeclaredClasess as $pluginClass) {
+
+        $reflect = new ReflectionClass($pluginClass);
+        if(!$reflect->implementsInterface('PluginInterface')){
+            continue;
+        }
+
 		$Plugin = new $pluginClass;
 
 		// Check if the plugin is translated
