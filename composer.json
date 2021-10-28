@@ -1,0 +1,29 @@
+{
+  "name": "bludit/bludit",
+  "type": "project",
+  "description": "Simple, Fast and Flexible Flat-File CMS",
+  "keywords": [
+    "bludit",
+    "cms",
+    "flat-file cms",
+    "flatfile cms",
+    "flat cms"
+  ],
+  "homepage": "https://bludit.com",
+  "version": "4.0.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Diego Najar",
+      "email": "dignajar@gmail.com",
+      "homepage": "https://varlogdiego.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "ext-mbstring": "*",
+    "ext-gd": "*",
+    "ext-dom": "*",
+    "ext-json": "*"
+  }
+}
