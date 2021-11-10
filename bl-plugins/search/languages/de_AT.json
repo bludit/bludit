@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Suche",
+		"description": "Fügt ein Suchfeld ein, mit dem die Inhalte der Website durchsucht werden können."
+	},
+	"search": "Suchen",
+	"show-button-search": "Den Button \"Suchen\" anzeigen",
+	"minimum-number-of-characters-when-searching": "Mindestanzahl Zeichen für eine Suche"
+}
