@@ -60,8 +60,8 @@
 	// Save the current page
 	// This function set the global variable "_pageKey"
 	function savePage(args = []) {
-		logs('Saving page.');
 
+        console.log(_pageKey);
 		if (_pageKey == null) {
 			logs('Error, page not created.');
 			showAlertError("Error, page not created.");
@@ -69,6 +69,7 @@
 		}
 
 		args['pageKey'] = _pageKey;
+        args['parent'] = $('#parent').val();
 		api.savePage(args).then(function(response) {
 			if (response.status == 0) {
 				logs('Page saved. Old key: ' + _pageKey + ' / New key: ' + response.data.key);
@@ -405,7 +406,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="m-0">
-					<label for="parent" class="fw-bold mb-2"><?php echo $L->g('Page description') ?></label>
+					<label for="description" class="fw-bold mb-2"><?php echo $L->g('Page description') ?></label>
 					<textarea id="description" name="description" class="form-control" rows="3"><?php echo ($pageKey ? $page->description() : '') ?></textarea>
 					<div class="form-text"><?php echo $L->get('this-field-can-help-describe-the-content') ?></div>
 				</div>
@@ -571,6 +572,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
+            <div class="m-0">
+                <label class="fw-bold mb-2"><?php echo $L->g('Parent page') ?></label>
+            </div>
 			<div class="col-sm-10">
 				<select id="parent" name="parent" class="form-select" data-current-value="" data-save="true"></select>
 			</div>

@@ -404,5 +404,6 @@
     "week": "week",
     "day": "day",
     "hour": "hour",
-    "second": "second"
+    "second": "second",
+    "parent-page": "Parent page"
 }

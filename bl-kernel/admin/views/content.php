@@ -165,11 +165,12 @@ function table($type)
 					echo '</tr>';
 
 					foreach ($page->children() as $child) {
-						echo '<tr id="pagekey-'.$pageKey.'">';
+						echo '<tr id="pagekey-'.$child->key().'">';
 
-						echo '<td class="ps-3 pt-4 pb-4">
+						echo '<td class="ps-4 pt-4 pb-4">
 						<div>
-							<i class="bi bi-file-text"></i><span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
+                        <i class="bi bi-file-text"></i><span>' . ($child->title() ? $child->title() : '<span class="text-muted">' . $L->g('Empty title') . '</span> ') . '</span>
+                        <div class="text-muted"><small><i class="bi bi-diagram-2-fill"></i>' . ($page->title() ? $page->title() : $L->g('Empty title')) . '</small></div>
 						</div>
 						<div class="mt-1">
 							<a class="me-2" target="_blank" href="' . $child->permalink() . '">' . $L->g('View') . '</a>
