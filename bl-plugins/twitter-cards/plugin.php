@@ -14,11 +14,7 @@ class pluginTwitterCards extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
-
-		$html .= '<div>';
+		$html  = '<div>';
 		$html .= '<label>'.$L->get('Default image').'</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" value="'.$this->getValue('defaultImage').'" placeholder="https://">';
 		$html .= '</div>';

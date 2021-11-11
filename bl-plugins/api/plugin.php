@@ -35,11 +35,7 @@ class pluginAPI extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
-
-		$html .= '<div>';
+		$html  = '<div>';
 		$html .= '<label>'.$L->get('URL').'</label>';
 		$html .= '<p class="text-muted">'.DOMAIN_BASE.'api/{endpoint}</p>';
 		$html .= '</div>';

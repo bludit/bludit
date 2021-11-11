@@ -14,11 +14,7 @@ class pluginVersion extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
-
-		$html .= '<div>';
+		$html  = '<div>';
 		$html .= '<label>'.$L->get('Show current version in the sidebar').'</label>';
 		$html .= '<select name="showCurrentVersion">';
 		$html .= '<option value="true" '.($this->getValue('showCurrentVersion')===true?'selected':'').'>'.$L->get('Enabled').'</option>';

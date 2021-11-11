@@ -15,11 +15,7 @@ class pluginSitemap extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
-
-		$html .= '<div>';
+		$html  = '<div>';
 		$html .= '<label>'.$L->get('Sitemap URL').'</label>';
 		$html .= '<a href="'.HTML::sitemapUrl().'">'.HTML::sitemapUrl().'</a>';
 		$html .= '</div>';
