@@ -1,21 +1,33 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Bludit">
 
-<!-- Dynamic title tag -->
-<?php echo HTML::metaTags('title'); ?>
+<!-- Generate <title>...</title> -->
+<?php echo HTML::metaTagTitle(); ?>
 
-<!-- Dynamic description tag -->
-<?php echo HTML::metaTags('description'); ?>
+<!-- Generate <meta name="description" content="..."> -->
+<?php echo HTML::metaTagDescription(); ?>
 
-<!-- Include Favicon -->
+<!-- Generate <link rel="icon" href="..."> -->
 <?php echo HTML::favicon('img/favicon.png'); ?>
 
-<!-- Include Bootstrap CSS file bootstrap.css -->
+<!-- Include CSS Bootstrap file from Bludit Core -->
 <?php echo HTML::cssBootstrap(); ?>
+
+<!-- Include CSS Bootstrap ICONS file from Bludit Core -->
+<?php echo HTML::cssBootstrapIcons(); ?>
 
 <!-- Include CSS Styles from this theme -->
 <?php echo HTML::css('css/style.css'); ?>
+<?php echo HTML::css('css/plugins.css'); ?>
 
-<!-- Load Bludit Plugins: Site head -->
+<!-- Enable or disable Google Fonts from theme's settings -->
+<?php if ($theme->googleFonts()): ?>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
+    <style>
+        body { font-family: "Open Sans", sans-serif; }
+    </style>
+<?php endif; ?>
+
+<!-- Execute Bludit plugins for the hook "Site head" -->
 <?php execPluginsByHook('siteHead'); ?>

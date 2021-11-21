@@ -2,9 +2,10 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://themes.bludit.com",
-	"version": "4.0.0",
+	"version": "4.0",
 	"releaseDate": "2021-05-23",
 	"license": "MIT",
-	"compatible": "4.0.0",
-	"notes": ""
+	"compatible": "4.0",
+	"notes": "",
+	"plugin": "blogx"
 }

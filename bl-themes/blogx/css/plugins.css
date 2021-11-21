@@ -1,0 +1,42 @@
+/*
+    Plugins
+*/
+.plugin {
+	margin-top: 3rem;
+}
+
+.plugin-label {
+	font-size: 1em;
+	text-transform: uppercase;
+}
+
+.plugin ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.plugin li {
+    padding: 0.2rem 0;
+}
+
+/*
+    Custom plugins
+*/
+
+/* Plugin navigation */
+div.plugin-navigation ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+div.plugin-navigation ul.child {
+    padding-left: 1rem;
+}
+
+/* Plugin Hit counter */
+div.plugin-hit-counter div.counter {
+    background: #f3f3f3;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
+    text-align: center;
+}

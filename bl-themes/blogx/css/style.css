@@ -18,6 +18,10 @@ img {
 	max-width: 100%;
 }
 
+a {
+    color: #004ab7;
+    text-decoration: none;
+}
 
 pre, code {
 	background: #f8f8f8;
@@ -99,17 +103,13 @@ footer {
 	padding-bottom: 5px;
 }
 
-/* Plugins */
-.plugin {
-	margin-top: 3rem;
+.cover-image {
+    height: 300px;
+    background-position: center;
+    background-size: cover;
 }
 
-.plugin-label {
-	font-size: 1em;
-	text-transform: uppercase;
-}
-
-.plugin ul {
-	list-style: none;
-	padding: 0 0 0 10px;
-}
+/* Icons */
+.bi {
+    margin-right: .5rem!important;
+  }
