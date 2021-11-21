@@ -35,12 +35,12 @@
 		}
 	?>
 
-	<?php if ($theme->googleFonts()): ?>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
-		<style>
-			body { font-family: "Open Sans", sans-serif; }
-		</style>
-	<?php endif; ?>
+    <?php if ($theme->googleFonts()): ?>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
+        <style>
+            body { font-family: "Open Sans", sans-serif; }
+        </style>
+    <?php endif; ?>
 
 	<!-- Execute Bludit plugins for the hook "Site head" -->
 	<?php execPluginsByHook('siteHead'); ?>

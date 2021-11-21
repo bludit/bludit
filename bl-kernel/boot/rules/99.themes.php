@@ -9,26 +9,23 @@ $theme = getPlugin($site->theme()); // Returns plugin object or False
 // Functions
 // ============================================================================
 
-function buildThemes()
-{
+function buildThemes() {
 	global $site;
 
 	$themes = array();
 	$themesPaths = Filesystem::listDirectories(PATH_THEMES);
 
-	foreach($themesPaths as $themePath)
-	{
+	foreach ($themesPaths as $themePath) {
 		// Check if the theme is translated.
 		$languageFilename = $themePath.DS.'languages'.DS.$site->language().'.json';
 		if( !Sanitize::pathFile($languageFilename) ) {
 			$languageFilename = $themePath.DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
 
-		if( Sanitize::pathFile($languageFilename) )
-		{
+		if( Sanitize::pathFile($languageFilename) ) {
 			$database = file_get_contents($languageFilename);
 			$database = json_decode($database, true);
-			if(empty($database)) {
+			if (empty($database)) {
 				Log::set('99.themes.php'.LOG_SEP.'Language file error on theme '.$themePath);
 				break;
 			}

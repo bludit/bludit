@@ -97,6 +97,10 @@ echo Bootstrap::formTitle(array('icon' => 'check-square', 'title' => $L->g('Enab
 echo '<table class="table table-striped"><tbody>';
 
 foreach ($pluginsInstalled as $plugin) {
+    if ($plugin->type() == 'theme') {
+        // Do not display theme's plugins
+        continue;
+    }
     echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
     echo '<td class="align-middle pt-3 pb-3 w-25">';
@@ -105,10 +109,7 @@ foreach ($pluginsInstalled as $plugin) {
     if (method_exists($plugin, 'form')) {
         echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'plugins-settings/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
     }
-    // You can not disable a plugin for theme which is active
-    if ($plugin->type() != 'theme') {
-        echo '<span class="link deactivatePlugin" data-class-name="' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
-    }
+    echo '<span class="link deactivatePlugin" data-class-name="' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
     echo '</div>';
     echo '</td>';
 
@@ -137,6 +138,10 @@ echo '<table class="table table-striped"><tbody>';
 
 $pluginsNotInstalled = array_diff_key($plugins['all'], $pluginsInstalled);
 foreach ($pluginsNotInstalled as $plugin) {
+    if ($plugin->type() == 'theme') {
+        // Do not display theme's plugins
+        continue;
+    }
     echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
     echo '<td class="align-middle pt-3 pb-3 w-25">';
