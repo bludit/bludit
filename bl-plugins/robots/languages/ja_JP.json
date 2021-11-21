@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Robots",
-		"description": "ウェブサイトのRobots exclusion standard(RES)の制御を有効にします。ページごとの制御はSEOオプションからRobotの動作を設定できます。また、このプラグインではrobots.txtファイルの設定もできます。"
+		"description": "ウェブサイトのRobots exclusion standard(RES)制御を有効にします。ページごとの制御は、SEOオプションからRobotの動作を設定します。このプラグインではrobots.txtファイルの設定もできます。"
 	},
     "configure-robotstxt-file": "robots.txtファイルの設定",
     "this-plugin-generates-the-file": "プラグインは次のファイルを生成します "

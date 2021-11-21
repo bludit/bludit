@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "Maintenance mode",
-		"description": "サイトをメンテナンスモードに設定します。管理画面にはアクセスできます。"
+		"description": "サイトをメンテナンスモードに設定します。管理画面へのアクセスは可能です。"
 	},
 
 	"enable-maintenance-mode": "メンテナンスモードを有効にする",
