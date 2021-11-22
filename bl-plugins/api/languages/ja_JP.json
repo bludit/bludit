@@ -2,7 +2,7 @@
 	"plugin-data":
 	{
 		"name": "API",
-		"description": "HTTPを使ってBluditとやり取りするためのインターフェースです。<br>このプラグインについての詳細は<a href=\"https://docs.bludit.com/en/api/introduction\">API紹介</a>をご覧ください。"
+		"description": "HTTPを使ってBluditとやり取りするためのインターフェースです。<br>このプラグインの詳細については「<a href=\"https://docs.bludit.com/en/api/introduction\">API紹介</a>」をご覧ください。"
 	},
 	"api-token": "APIトークン",
 	"amount-of-pages": "ページ数",
