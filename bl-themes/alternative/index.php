@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="<?php echo HTML::lang() ?>">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="generator" content="Bludit">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Bludit">
 
-	<!-- Dynamic title tag -->
-	<?php echo HTML::metaTagTitle(); ?>
+    <!-- Generate <title>...</title> -->
+    <?php echo HTML::metaTagTitle(); ?>
 
-	<!-- Dynamic description tag -->
-	<?php echo HTML::metaTagDescription(); ?>
+    <!-- Generate <meta name="description" content="..."> -->
+    <?php echo HTML::metaTagDescription(); ?>
 
-	<!-- Include Favicon -->
-	<?php echo HTML::favicon('img/favicon.png'); ?>
+    <!-- Generate <link rel="icon" href="..."> -->
+    <?php echo HTML::favicon('img/favicon.png'); ?>
 
-	<!-- Include CSS Bootstrap file from Bludit Core -->
-	<?php echo HTML::cssBootstrap(); ?>
+    <!-- Include CSS Bootstrap file from Bludit Core -->
+    <?php echo HTML::cssBootstrap(); ?>
 
-	<!-- Include CSS Styles from this theme -->
-	<?php echo HTML::css('css/style.css'); ?>
+    <!-- Include CSS Bootstrap ICONS file from Bludit Core -->
+    <?php echo HTML::cssBootstrapIcons(); ?>
 
-	<!-- Load Bludit Plugins: Site head -->
-	<?php execPluginsByHook('siteHead'); ?>
+    <!-- Include CSS Styles from this theme -->
+    <?php echo HTML::css('css/style.css'); ?>
+
+    <!-- Enable or disable Google Fonts from theme's settings -->
+    <?php if ($theme->googleFonts()): ?>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
+        <style>
+            body { font-family: "Open Sans", sans-serif; }
+        </style>
+    <?php endif; ?>
+
+    <!-- Execute Bludit plugins for the hook "Site head" -->
+    <?php execPluginsByHook('siteHead'); ?>
 </head>
 <body>
 

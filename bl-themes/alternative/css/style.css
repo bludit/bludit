@@ -18,6 +18,11 @@ img {
 	max-width: 100%;
 }
 
+a {
+    color: #004ab7;
+    text-decoration: none;
+}
+
 pre, code {
 	background: #f8f8f8;
 	color: #333;
@@ -138,4 +143,18 @@ section.home-page:nth-child(even) { /* Alternate the background color */
 	height:100%;
 	width:100%;
 	position:absolute;
+}
+
+/* Icons */
+.bi {
+    margin-right: .5rem!important;
+  }
+
+/* Remove Focus glow */
+.btn:focus,
+.form-control:focus,
+.form-select:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
