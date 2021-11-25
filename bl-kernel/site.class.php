@@ -332,6 +332,19 @@ class Site extends dbJSON
         return $this->getField('url');
     }
 
+
+    public function urlPath()
+    {
+        $url = $this->getField('url');
+        return parse_url($url, PHP_URL_PATH);
+    }
+
+    public function isHTTPS()
+    {
+        $url = $this->getField('url');
+        return parse_url($url, PHP_URL_SCHEME) === 'https';
+    }
+
     // Returns the protocol and the domain, without the base url
     // For example, http://www.domain.com
     public function domain()
