@@ -2,7 +2,7 @@
 
 // Start the session
 // If the session is not possible to start the admin area is not available
-Session::start();
+Session::start($site->urlPath(), $site->isHTTPS());
 if (Session::started()===false) {
 	exit('Bludit CMS. Session initialization failed.');
 }
