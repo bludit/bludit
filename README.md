@@ -11,15 +11,14 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
 - [Documentation](https://docs.bludit.com)
-- Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
+- [Talk & Chat on Discord](https://discord.gg/wk5yxRkN)
+- Help and Support [Forum](https://forum.bludit.org)
 
-Bludit v4
+Bludit v4 beta
 ---------------
-I'm working on Bludit v4 but I don't have an ETA for the first alpha or beta version. You can follow the changes in the new branch `v4.0` and in the blog post [Bludit v4 Road map](https://blog.bludit.com/bludit-4-road-map).
+Download the lastest Bludit v4.0 BETA from the [releases page](https://github.com/bludit/bludit/releases).
 
-I'm doing a big refactor of Bludit's core so please be patient and let me release an Alpha version before push changes to the branch `v4.0`.
-
-Feedback and ideas are welcome, you can create an `issue` with the request; Please provide some examples of the idea in the `issue`.
+Use Bludit v4.0 BETA only for new websites or blogs, DO NOT update your Bludit v3.x with this beta version.
 
 Follow Bludit
 ---------------
@@ -28,6 +27,7 @@ Follow Bludit
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
 - [Youtube](https://www.youtube.com/c/Bluditcms)
+- [Discord](https://discord.gg/wk5yxRkN)
 
 Requirements
 ------------
