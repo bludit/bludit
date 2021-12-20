@@ -18,7 +18,11 @@ class Page {
 			if (Text::isEmpty($key) || !$pages->exists($key)) {
 				$errorMessage = 'Page not found in database by key ['.$key.']';
 				Log::set(__METHOD__.LOG_SEP.$errorMessage);
-				throw new Exception($errorMessage);
+				if (DEBUG_MODE === true) {
+					throw new Exception($errorMessage);
+				} else {
+					return false;
+				}
 			}
 			$row = $pages->getPageDB($key);
 		}
@@ -53,7 +57,11 @@ class Page {
 	{
 		$key = $this->key();
 		$filePath = PATH_PAGES.$key.DS.FILENAME;
-		$contentRaw = file_get_contents($filePath);
+		if (is_file($filePath)) {
+			$contentRaw = file_get_contents($filePath);
+		} else {
+			$contentRaw = '';
+		}
 
 		if ($sanitize) {
 			return Sanitize::html($contentRaw);
@@ -281,7 +289,6 @@ class Page {
 		$tmp['tags'] 		= $this->tags(false);
 		$tmp['username'] 	= $this->username();
 		$tmp['category'] 	= $this->category();
-		$tmp['uuid'] 		= $this->uuid();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);
