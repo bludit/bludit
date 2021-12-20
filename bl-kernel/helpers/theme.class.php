@@ -234,10 +234,11 @@ class Theme {
 		}
 	}
 
-	public static function favicon($file='favicon.png', $typeIcon='image/png')
+	public static function favicon($file='favicon.png', $typeIcon='image/png', $alternate=false)
 	{
-		return '<link rel="icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
+		return '<link rel="'.($alternate ? 'alternate ':'').'icon" href="'.DOMAIN_THEME.$file.'" type="'.$typeIcon.'">'.PHP_EOL;
 	}
+
 
 	public static function keywords($keywords)
 	{
