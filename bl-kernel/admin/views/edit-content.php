@@ -389,6 +389,18 @@ echo Bootstrap::formOpen(array(
 					'class'=>'mb-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
 				));
+			} elseif ($options['type']=="select") {
+				if (isset($options['options']) ){
+					$options['options'] = explode(',',','.$options['options']);
+				}
+				echo Bootstrap::formSelect(array(
+		            'name'=>'custom['.$field.']',
+		            'label'=>(isset($options['label'])?$options['label']:''),
+		            'options'=>((isset($options['options']))?$options['options']:''),
+		            'selected'=>$page->custom($field),
+		            'class'=>'mb-2',
+		            'tip'=>(isset($options['tips'])?$options['tips']:''),
+		        ));
 			}
 		}
 	}
@@ -428,6 +440,18 @@ echo Bootstrap::formOpen(array(
 					'class'=>'mt-2',
 					'labelClass'=>'mb-2 pb-2 border-bottom text-uppercase w-100'
 				));
+			} elseif ($options['type']=="select") {
+				if (isset($options['options']) ){
+					$options['options'] = explode(',',','.$options['options']);
+				}
+				echo Bootstrap::formSelect(array(
+		            'name'=>'custom['.$field.']',
+		            'label'=>(isset($options['label'])?$options['label']:''),
+		            'options'=>((isset($options['options']))?$options['options']:''),
+		            'selected'=>$page->custom($field),
+		            'class'=>'mb-2',
+		            'tip'=>(isset($options['tips'])?$options['tips']:''),
+		        ));
 			}
 		}
 	}
@@ -476,11 +500,6 @@ $(document).ready(function() {
 	if (typeof editorInsertMedia != "function") {
 		window.editorInsertMedia = function(filename){
 			$("#jseditor").val($('#jseditor').val()+'<img src="'+filename+'" alt="">');
-		};
-	}
-	if (typeof editorInsertLinkedMedia != "function") {
-		window.editorInsertLinkedMedia = function(filename, link){
-			$("#jseditor").val($('#jseditor').val()+'<a href="'+link+'"><img src="'+filename+'" alt=""></a>');
 		};
 	}
 
