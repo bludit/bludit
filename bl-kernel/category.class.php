@@ -15,9 +15,13 @@ class Category {
 			$this->vars['permalink'] 	= DOMAIN_CATEGORIES . $key;
 			$this->vars['list'] 		= $categories->db[$key]['list'];
 		} else {
-			$errorMessage = 'Category not found in database by key ['.$key.']';
-			Log::set(__METHOD__.LOG_SEP.$errorMessage);
-			throw new Exception($errorMessage);
+				$errorMessage = 'Category not found in database by key ['.$key.']';
+				Log::set(__METHOD__.LOG_SEP.$errorMessage);
+				if (DEBUG_MODE === true) {
+					throw new Exception($errorMessage);
+				} else {
+					return false;
+				}
 		}
 	}
 
