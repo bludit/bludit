@@ -8,6 +8,6 @@
 	"enable-disqus-on-pages": "Disqus op pagina's tonen",
 	"enable-disqus-on-static-pages": "Disqus op statische pagina's tonen",
 	"enable-disqus-on-sticky-pages": "Disqus op vastgezette pagina's tonen",
-	"enable-disqus-on-unlisted-pages": "Disqus op onvermelde pagina's",
+	"enable-disqus-on-unlisted-pages": "Disqus op onvermelde pagina's tonen",
 	"get-the-shortname-from-the-disqus-general-settings": "De shortname is te verkrijgen via de algemene instellingen van Disqus"
 }
