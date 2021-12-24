@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Bezoekersstatistieken",
+		"description": "Toont het aantal bezoeken en unieke bezoekers in het dashboard."
+	},
+	"visits": "Bezoeken",
+	"visitors": "Bezoekers",
+	"unique-visitors": "Unieke bezoekers",
+	"exclude-administrators-users" : "Gebruikers met de rol 'Beheerder' uitsluiten"
+}

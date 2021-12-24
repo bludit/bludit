@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS-feed",
+		"description": "Deze plugin genereert een RSS-feed, waarmee gebruikers en applicaties zich kunnen abonneren op de inhoud van de website."
+	},
+	"the-number-of-items-to-display-in-the-feed": "Aantal items in de feed tonen.",
+	"rss-url": "RSS-link",
+    "this-plugin-generates-the-file": "De plugin genereert het volgende bestand:"
+}

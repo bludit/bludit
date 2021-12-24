@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Welkom",
+		"description": "Toont een welkomstboodschap in het dashboard."
+	},
+	"welcome": "Welkom"
+}
