@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Robots",
+		"description": "Schakelt de functie om robots uit te sluiten standaard in op uw website. Dit gedrag is ook per pagina te configureren via de SEO-opties. Met deze plugin kunt u ook het robots.txt-bestand configureren."
+	},
+    "configure-robotstxt-file": "Robots.txt-bestand configureren",
+    "this-plugin-generates-the-file": "De plugin genereert het volgende bestand:"
+}

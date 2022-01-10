@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Het Open Graph-protocol stelt elke webpagina in staat een rich object te worden in een social graph. Dit wordt bijvoorbeeld gebruikt op Facebook om elke webpagina dezelfde functionaliteit te geven als elk ander object op Facebook."
+	},
+	"set-a-default-image-for-pages-without-pictures": "Een standaardafbeelding instellen voor pagina's zonder afbeeldingen.",
+	"set-your-facebook-app-id": "Facebook App ID instellen."
+}

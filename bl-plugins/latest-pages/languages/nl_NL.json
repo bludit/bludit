@@ -1,0 +1,8 @@
+{
+    "plugin-data":
+    {
+        "name": "Recente pagina's",
+        "description": "Toont de meest recente pagina's in het dashboard."
+    },
+    "latest-pages": "Recente pagina's"
+}
