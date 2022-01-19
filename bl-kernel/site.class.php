@@ -340,6 +340,18 @@ class Site extends dbJSON {
 		return $this->getField('timezone');
 	}
 
+    public function urlPath()
+    {
+        $url = $this->getField('url');
+        return parse_url($url, PHP_URL_PATH);
+    }
+
+    public function isHTTPS()
+    {
+        $url = $this->getField('url');
+        return parse_url($url, PHP_URL_SCHEME) === 'https';
+    }
+
 	// Returns the current build / version of Bludit.
 	public function currentBuild()
 	{

@@ -12,9 +12,15 @@ class Login {
 			$this->users = new Users();
 		}
 
+        if (isset($GLOBALS['site'])) {
+            $this->site = $GLOBALS['site'];
+        } else {
+            $this->site = new Site();
+        }
+
 		// Start the Session
 		if (!Session::started()) {
-			Session::start();
+			Session::start($this->site->urlPath(), $this->site->isHTTPS());
 		}
 	}
 

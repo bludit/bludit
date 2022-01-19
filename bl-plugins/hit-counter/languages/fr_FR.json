@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Compteur de visites",
+		"description": "Affichez le nombre de visites ou de visiteurs uniques dans la barre latérale de votre site."
+	},
+	"show-unique-visitors": "Afficher les visiteurs uniques"
+}

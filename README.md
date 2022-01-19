@@ -11,7 +11,14 @@ Bludit supports **Markdown** and **HTML code** for the content.
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
 - [Documentation](https://docs.bludit.com)
-- Help and Support [Forum](https://forum.bludit.org) and [Chat](https://gitter.im/bludit/support)
+- [Talk & Chat on Discord](https://discord.gg/wk5yxRkN)
+- Help and Support [Forum](https://forum.bludit.org)
+
+Bludit v4 beta
+---------------
+Download the lastest Bludit v4.0 BETA from the [releases page](https://github.com/bludit/bludit/releases).
+
+Use Bludit v4.0 BETA only for new websites or blogs, DO NOT update your Bludit v3.x with this beta version.
 
 Follow Bludit
 ---------------
@@ -20,6 +27,7 @@ Follow Bludit
 - [Twitter](https://twitter.com/bludit)
 - [Facebook](https://www.facebook.com/bluditcms)
 - [Youtube](https://www.youtube.com/c/Bluditcms)
+- [Discord](https://discord.gg/wk5yxRkN)
 
 Requirements
 ------------
@@ -54,7 +62,7 @@ Also we provide Kubernetes deployments yaml files.
 
 Support Bludit!
 -------
-Bludit is open soruce and free, but if you really like the project and is useful for your you can contribute in [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO.
+Bludit is open source and free, but if you really like the project and is useful for your you can contribute in [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO.
 
 [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
 
