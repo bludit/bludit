@@ -454,7 +454,7 @@
             <div class="modal-body">
             <div class="m-0">
                     <label for="position" class="fw-bold mb-2"><?php echo $L->g('Position') ?></label>
-                    <input id="position" name="position" type="number" class="form-control" value="<?php echo ($pageKey ? $page->position() : '0') ?>">
+                    <input id="position" name="position" type="number" class="form-control" min="0" value="<?php echo ($pageKey ? $page->position() : '0') ?>">
                     <div class="form-text"><?php echo $L->g('Page position') ?></div>
                 </div>
             </div>
