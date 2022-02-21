@@ -60,7 +60,6 @@
 	// Save the current page
 	// This function set the global variable "_pageKey"
 	function savePage(args = []) {
-
         console.log(_pageKey);
 		if (_pageKey == null) {
 			logs('Error, page not created.');
@@ -132,15 +131,23 @@
 		// Ctrl+S or Command+S
 		if ((event.ctrlKey || event.metaKey) && event.which == 83) {
 			event.preventDefault();
+            var customFields = {}
+            $('input[name^="custom"]').each(function() {
+                var field = $(this).data('field')
+                var value = $(this).val()
+                customFields[field] = value
+            });
 			var args = {
 				title: $('#title').val(),
 				content: editorGetContent(),
+                custom: customFields,
 				coverImage: $('#coverImage').val(),
 				category: $('#category option:selected').val(),
 				tags: $("#tags option:selected").map(function() {
 					return this.value
 				}).get().join(",")
 			}
+
 			savePage(args);
 			disableBtnSave();
 			return false;
@@ -178,15 +185,23 @@
 		});
 
 		$('#btnSave').on('click', function() {
-			var args = {
-				title: $('#title').val(),
-				content: editorGetContent(),
-				coverImage: $('#coverImage').val(),
-				category: $('#category option:selected').val(),
-				tags: $("#tags option:selected").map(function() {
-					return this.value
-				}).get().join(",")
-			}
+            var customFields = {}
+            $('input[name^="custom"]').each(function() {
+                var field = $(this).data('field')
+                var value = $(this).val()
+                customFields[field] = value
+            });
+
+            var args = {
+                title: $('#title').val(),
+                content: editorGetContent(),
+                custom: customFields,
+                coverImage: $('#coverImage').val(),
+                category: $('#category option:selected').val(),
+                tags: $("#tags option:selected").map(function() {
+                    return this.value
+                }).get().join(",")
+            }
 			savePage(args);
 			disableBtnSave();
 		});
@@ -358,7 +373,25 @@
 			if (content.length < 100) {
 				return false;
 			}
-			savePage();
+
+            var customFields = {}
+            $('input[name^="custom"]').each(function() {
+                var field = $(this).data('field')
+                var value = $(this).val()
+                customFields[field] = value
+            });
+
+            var args = {
+                title: $('#title').val(),
+                content: content,
+                custom: customFields,
+                coverImage: $('#coverImage').val(),
+                category: $('#category option:selected').val(),
+                tags: $("#tags option:selected").map(function() {
+                    return this.value
+                }).get().join(",")
+            }
+			savePage(args);
 			disableBtnSave();
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
@@ -628,9 +661,69 @@
 			</div>
 			<!-- End Title -->
 
+            <!-- Custom fields without position or top position -->
+            <?php
+                $customFields = $site->customFields();
+                foreach ($customFields as $field=>$options) {
+                    if ( !isset($options['position']) || ($options['position']=='top') ) {
+                        if ($options['type']=="string") {
+                            echo Bootstrap::formInputTextBlock(array(
+                                'name'=>'custom['.$field.']',
+                                'label'=>(isset($options['label'])?$options['label']:''),
+                                'value'=>(($pageKey && $page->custom($field))?$page->custom($field):''),
+                                'tip'=>(isset($options['tip'])?$options['tip']:''),
+                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+                                'class'=>'form-control-lg',
+                                'data' => array('field' => $field)
+                            ));
+                        } elseif ($options['type']=="bool") {
+                            echo Bootstrap::formCheckbox(array(
+                                'name'=>'custom['.$field.']',
+                                'label'=>(isset($options['label'])?$options['label']:''),
+                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+                                'checked'=>(($pageKey && $page->custom($field))?true:false),
+                                'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+                                'data' => array('field' => $field)
+                            ));
+                        }
+                    }
+                }
+            ?>
+
 			<!-- Editor -->
 			<textarea class="form-control flex-grow-1" placeholder="" id="editor"><?php echo ($pageKey ? $page->contentRaw() : '') ?></textarea>
 			<!-- End Editor -->
+
+            <div class="mb-2"></div>
+
+            <!-- Custom fields bottom position -->
+            <?php
+                $customFields = $site->customFields();
+                foreach ($customFields as $field=>$options) {
+                    if ( isset($options['position']) && ($options['position']=='bottom') ) {
+                        if ($options['type']=="string") {
+                            echo Bootstrap::formInputTextBlock(array(
+                                'name'=>'custom['.$field.']',
+                                'label'=>(isset($options['label'])?$options['label']:''),
+                                'value'=>(($pageKey && $page->custom($field))?$page->custom($field):''),
+                                'tip'=>(isset($options['tip'])?$options['tip']:''),
+                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+                                'class'=>'form-control-lg',
+                                'data' => array('field' => $field)
+                            ));
+                        } elseif ($options['type']=="bool") {
+                            echo Bootstrap::formCheckbox(array(
+                                'name'=>'custom['.$field.']',
+                                'label'=>(isset($options['label'])?$options['label']:''),
+                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+                                'checked'=>(($pageKey && $page->custom($field))?true:false),
+                                'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+                                'data' => array('field' => $field)
+                            ));
+                        }
+                    }
+                }
+            ?>
 
 		</div> <!-- End <div class="col-sm-9 h-100"> -->
 

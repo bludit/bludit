@@ -83,8 +83,10 @@ class Pages extends dbJSON {
                     foreach ($args['custom'] as $customField=>$customValue) {
                         $html = Sanitize::html($customValue);
                         // Store the custom field as defined type
-                        settype($html, $customFields[$customField]['type']);
-                        $row['custom'][$customField]['value'] = $html;
+                        if (isset($customFields[$customField])) {
+                            settype($html, $customFields[$customField]['type']);
+                            $row['custom'][$customField]['value'] = $html;
+                        }
                     }
                     unset($args['custom']);
                     continue;
@@ -204,8 +206,10 @@ class Pages extends dbJSON {
                     foreach ($args['custom'] as $customField=>$customValue) {
                         $html = Sanitize::html($customValue);
                         // Store the custom field as defined type
-                        settype($html, $customFields[$customField]['type']);
-                        $row['custom'][$customField]['value'] = $html;
+                        if (isset($customFields[$customField])) {
+                            settype($html, $customFields[$customField]['type']);
+                            $row['custom'][$customField]['value'] = $html;
+                        }
                     }
                     unset($args['custom']);
                     continue;

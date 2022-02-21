@@ -226,53 +226,51 @@ EOF;
 		return '</form>';
 	}
 
-
-
 	public static function formInputTextBlock($args)
 	{
 		$name = $args['name'];
+		$id = isset($args['id'])?$args['id']:$name;
 		$disabled = empty($args['disabled'])?'':'disabled';
+		$readonly = empty($args['readonly'])?'':'readonly';
 		$placeholder = isset($args['placeholder'])?$args['placeholder']:'';
 		$value = isset($args['value'])?$args['value']:'';
-
-		$id = 'js'.$name;
-		if (isset($args['id'])) {
-			$id = $args['id'];
-		}
+		$type = isset($args['type'])?$args['type']:'text';
 
 		$tip = '';
 		if (!empty($args['tip'])) {
 			$tip = '<div class="form-text">'.$args['tip'].'</div>';
 		}
 
-		$class = 'mb-3 m-0';
-		if (isset($args['class'])) {
-			$class = $args['class'];
-		}
-
-		$labelClass = 'mt-4 mb-2 pb-2 border-bottom text-uppercase w-100';
-		if (isset($args['labelClass'])) {
-			$labelClass = $args['labelClass'];
-		}
-
 		$label = '';
 		if (!empty($args['label'])) {
-			$label = '<label class="'.$labelClass.'" for="'.$id.'">'.$args['label'].'</label>';
+			$label = '<label for="'.$id.'" class="col-sm-2 col-form-label">'.$args['label'].'</label>';
 		}
 
-		$type = 'text';
-		if (isset($args['type'])) {
-			$type = $args['type'];
+		$class = 'form-control';
+		if (isset($args['class'])) {
+			$class = $class.' '.$args['class'];
+		}
+
+		$data = 'data-current-value="'.$value.'"';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= ' data-'.$x.' = "'.$y.'"';
+				}
+			}
 		}
 
 return <<<EOF
-<div class="$class">
+<div class="mb-2">
 	$label
-	<input type="text" value="$value" class="form-control" id="$id" name="$name" placeholder="$placeholder" $disabled>
+	<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
 	$tip
 </div>
 EOF;
 	}
+
+
+
 
 	public static function formInputFile($args)
 	{
@@ -335,12 +333,12 @@ EOF;
 		}
 		$disabled = isset($args['disabled'])?'disabled':'';
 
-		$class = 'mb-3 m-0';
+		$class = 'mb-2 m-0';
 		if (isset($args['class'])) {
 			$class = $args['class'];
 		}
 
-		$labelClass = 'mt-4 mb-2 pb-2 border-bottom text-uppercase w-100';
+		$labelClass = 'mb-2 pb-2 border-bottom text-uppercase w-100';
 		if (isset($args['labelClass'])) {
 			$labelClass = $args['labelClass'];
 		}
@@ -358,11 +356,20 @@ EOF;
 		$checked = $args['checked']?'checked':'';
 		$value = $checked?'1':'0';
 
+        $data = '';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= ' data-'.$x.' = "'.$y.'"';
+				}
+			}
+		}
+
 return <<<EOF
 <div class="$class">
 	$label
 	<div class="form-check">
-		<input type="hidden" name="$name" value="$value"><input id="$id" type="checkbox" class="form-check-input" onclick="this.previousSibling.value=1-this.previousSibling.value" $checked>
+		<input type="hidden" $data name="$name" value="$value"><input id="$id" type="checkbox" class="form-check-input" onclick="this.previousSibling.value=1-this.previousSibling.value" $checked>
 		<label class="form-check-label" for="$id">$labelForCheckbox</label>
 		$tip
 	</div>
