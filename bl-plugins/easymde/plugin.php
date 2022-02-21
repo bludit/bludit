@@ -78,12 +78,12 @@ return <<<EOF
 
 	// Function required for Bludit
 	// Insert HTML content at the cursor position
-	function editorInsertContent(html, type='') {
+	function editorInsertContent(content, type='') {
 		var text = easymde.value();
 		if (type == 'image') {
-			easymde.value(text + "![$langImage]("+filename+")" + "\\n");
+            easymde.codemirror.replaceSelection("![$langImage]("+content+")" + "\\n");
 		} else {
-			easymde.value(html + "\\n");
+            easymde.codemirror.replaceSelection(content + "\\n");
 		}
 		easymde.codemirror.refresh();
 	}
