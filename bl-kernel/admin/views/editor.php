@@ -740,7 +740,7 @@
 			<h6 class="text-uppercase"><?php $L->p('Cover Image') ?></h6>
 			<div>
 				<input id="coverImage" name="coverImage" data-save="true" type="hidden" value="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage(false) : '') ?>">
-				<img id="coverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
+				<img data-toggle="tooltip" data-placement="top" title="Double click to delete the cover image" id="coverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo (($pageKey && $page->coverImage()) ? $page->coverImage() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />
 			</div>
 			<!-- End Cover Image -->
 
