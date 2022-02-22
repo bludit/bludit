@@ -13,7 +13,7 @@
 
 /**
  * Create a new page. === bludit v4
- * @param       array           $args		All supported parameters are defined in the class pages.class.php, variable $dbFields
+ * @param       array           $args       All supported parameters are defined in the class pages.class.php, variable $dbFields
  * @return      string|bool                 Returns the page key on successful create, FALSE otherwise
  */
 function createPage($args) {
@@ -606,6 +606,29 @@ function uploadPageFile($pageKey) {
 
     Log::set(__FUNCTION__.LOG_SEP.'Error uploading the file.', LOG_TYPE_ERROR);
     return false;
+}
+
+/**
+ * Delete a file from a page.
+ * @param       string           $pageKey   Page key
+ * @param       string           $file      Filename to delete, filename and extension without path.
+ * @return      bool                        Returns the page key on successful create, FALSE otherwise
+ */
+function deletePageFile($pageKey, $file) {
+    if (Text::stringContains($pageKey, DS, false)) {
+        Log::set(__FUNCTION__.LOG_SEP.'Path traversal detected.', LOG_TYPE_ERROR);
+        return false;
+    }
+
+    $fileName = Filesystem::filename($file);
+    $fileExtension = Filesystem::extension($file);
+    $fileExtension = Text::lowercase($fileExtension);
+
+    Filesystem::rmfile(PATH_UPLOADS_PAGES.$pageKey.DS.$fileName.'.'.$fileExtension);
+    Filesystem::rmfile(PATH_UPLOADS_PAGES.$pageKey.DS.$fileName.'-thumbnail-s.'.$fileExtension);
+    Filesystem::rmfile(PATH_UPLOADS_PAGES.$pageKey.DS.$fileName.'-thumbnail-m.'.$fileExtension);
+
+    return true;
 }
 
 /*	Install and activate a plugin === Bludit v4

@@ -134,7 +134,7 @@
                 }
 
                 row += '<li><hr class="dropdown-divider"></li>' +
-                '<li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i><?php $L->p('Delete') ?></a></li>' +
+                '<li><a class="dropdown-item" href="#" onClick="fmDeleteFile(\'' + file.filename + '\');"><i class="bi bi-trash"></i><?php $L->p('Delete') ?></a></li>' +
                 '</ul>' +
                 '</div>' +
                 '</td>' +
@@ -206,6 +206,24 @@
                 // Progress bar
                 $('#progressUploadFile').children('.progress-bar').addClass('bg-danger');
                 // Alert the user about the error
+                showAlertError('File Manager. ' + response.message);
+            }
+        });
+    }
+
+    // Delete a file for the current page
+    function fmDeleteFile(file) {
+        logs('File Manager. Deleting file.');
+        api.deletePageFile({
+            'key': _pageKey,
+            'file': file
+        }).then(function(response) {
+            if (response.status == 0) {
+                logs("File Manager. File deleted.");
+                // Get current files
+                fmGetFiles();
+            } else {
+                logs("File Manager. An error occurred while trying to delete the file for the current page.");
                 showAlertError('File Manager. ' + response.message);
             }
         });

@@ -302,6 +302,29 @@ class API {
 		}
 	}
 
+	/*	Delete file from a page
+	*/
+	async deletePageFile(args) {
+		var url = this.apiURL + "pages/files/" + args['key']
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(response);
+			console.log(err);
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
+		}
+	}
+
 	/*	Create a new user
 
 		@args				array		Arguments can be any of the fields from a user
