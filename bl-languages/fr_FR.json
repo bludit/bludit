@@ -387,7 +387,7 @@
     "disabled-plugins": "Plugins désactivés",
     "remove-logo": "Supprimer le logo",
     "preview": "Aperçu",
-    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others.",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content.</br>Editor: Can write and edit the content of others.",
     "custom-fields": "Custom fields",
     "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",

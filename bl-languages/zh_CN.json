@@ -386,7 +386,7 @@
     "disabled-plugins": "已禁用的插件",
     "remove-logo": "移除LOGO",
     "preview": "预览",
-    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content. Editor: Can write and edit the content of others.",
+    "author-can-write-and-edit-their-own-content": "Author: Can write and edit their own content.</br>Editor: Can write and edit the content of others.",
     "custom-fields": "Custom fields",
     "define-custom-fields-for-the-content": "Define custom fields for the content. Learn more about custom fields in the <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentation<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "输入内容以显示操作的建议。",
