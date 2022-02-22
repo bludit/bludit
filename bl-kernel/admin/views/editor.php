@@ -214,6 +214,13 @@
 			enableBtnSave();
 		});
 
+        $('#coverImagePreview').dblclick(function() {
+            $('#coverImage').val('');
+            $(this).attr('src', HTML_PATH_CORE_IMG + 'default.svg');
+            var args = { coverImage: '' }
+			savePage(args);
+        });
+
 		// Modal description events
 		// ------------------------------------------------------------------------
 		$('#btnSaveDescription').on('click', function() {
