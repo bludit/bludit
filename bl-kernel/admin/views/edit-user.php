@@ -294,7 +294,6 @@
 			'name' => 'nickname',
 			'label' => $L->g('Nickname'),
 			'value' => $user->nickname(),
-			'tip' => $L->g('The nickname is almost used in the themes to display the author of the content'),
 			'data' => array('save' => 'true')
 		));
 

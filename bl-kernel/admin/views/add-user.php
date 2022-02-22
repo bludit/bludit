@@ -94,19 +94,19 @@ echo Bootstrap::formInputText(array(
 	'value' => ''
 ));
 
-echo Bootstrap::formSelect(array(
-	'name' => 'role',
-	'label' => $L->g('Role'),
-	'options' => array('author' => $L->g('Author'), 'editor' => $L->g('Editor'), 'admin' => $L->g('Administrator')),
-	'selected' => 'Author',
-	'tip' => $L->g('author-can-write-and-edit-their-own-content')
-));
-
 echo Bootstrap::formInputText(array(
 	'id' => 'email',
 	'name' => 'email',
 	'type' => 'email',
 	'label' => $L->g('Email'),
 	'value' => ''
+));
+
+echo Bootstrap::formSelect(array(
+	'name' => 'role',
+	'label' => $L->g('Role'),
+	'options' => array('author' => $L->g('Author'), 'editor' => $L->g('Editor'), 'admin' => $L->g('Administrator')),
+	'selected' => 'Author',
+	'tip' => $L->g('author-can-write-and-edit-their-own-content')
 ));
 ?>
