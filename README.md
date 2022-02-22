@@ -1,43 +1,51 @@
-[Bludit](https://www.bludit.com/)
-================================
+# [Bludit](https://www.bludit.com/)
 
-Dear developers
--------
+Simple, Fast and Flexible CMS.
 
-## Frameworks and libraries included in Bludit v4
-Bludit will include the following frameworks, please use them with they native functions.
+Bludit is a web application to build your own website or blog in seconds, it's completely free and open source. Bludit uses files in JSON format to store the content, you don't need to install or configure a database. You only need a web server with PHP support.
 
-Frontend:
-- Bootstrap v5.
-- Boostrap icons.
-- jQuery, you can use vanilla Javascript but for events in the views please use jQuery.
+Bludit is a Flat-File CMS.
 
-Backend:
-- `bl-kernel/functions.php` provides the global function for Bludit; These functions provide connectivity between different objects and databases; These functions should provide different checks and logic before add/edit/delete into the databases.
-- PHP SimpleImage for processing images: https://github.com/claviska/SimpleImage
+Bludit supports Markdown and HTML code for the content.
 
-## Comments for functions and methods
-Please add the following structure commenting what it does the function, also add the stamp `=== Bludit v4` so I know what is new.
-```
-/**
- * Create a new category. === Bludit v4
- * @param		array		$args			[string $name, string $template, string $description]
- * @return		string|bool					Returns the category key on successful create, FALSE otherwise
- */
-function createCategory($args) {
-   ...
-}
-```
+- [Plugins](https://plugins.bludit.com)
+- [Themes](https://themes.bludit.com)
+- [Documentation](https://docs.bludit.com)
+- News and announcement on [Twitter](https://twitter.com/bludit) or [Facebook](https://www.facebook.com/bluditcms)
+- Talk & Chat on [Discord](https://discord.gg/CFaXEdZWds)
+- Help and Support on [Forum](https://forum.bludit.org)
+- Bugs reports on [Github Issues](https://github.com/bludit/bludit/issues)
 
-Documentation for Bludit v4
--------
-There is a new branch for the Documentation in english for Bludit v4.
+## Requirements
 
-https://github.com/bludit/documentation-english/tree/v4.0
+- Webserver with PHP support.
+- PHP v7 or higher version.
+- PHP [mbstring](http://php.net/manual/en/book.mbstring.php) module for full UTF-8 support.
+- PHP [gd](http://php.net/manual/en/book.image.php) module for image processing.
+- PHP [dom](http://php.net/manual/en/book.dom.php) module for DOM manipulation.
+- PHP [json](http://php.net/manual/en/book.json.php) module for JSON manipulation.
 
-PHPStan
--------
-https://phpstan.org/
-```
-docker run --rm -v $(pwd):/app ghcr.io/phpstan/phpstan:0.12.99 analyse -c /app/phpstan.neon /app
-```
+## Installation
+
+1. Download the latest version from the official page. [Bludit.com](https://www.bludit.com)
+2. Extract the zip file into a directory such as `bludit`.
+3. Upload the directory `bludit` to your web server or hosting.
+4. Visit your domain https://example.com/bludit/
+5. Follow the Bludit Installer to set up the website.
+
+## Quick installation for testing
+
+You can use PHP Built-in web server (`php -S localhost:8000`) or [Docker image](https://hub.docker.com/r/bludit/docker/)
+
+## Support Bludit
+
+Bludit is open source and free, but if you really like the project and is useful for your you can contribute on [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO. [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
+
+Donate one time for the coffee or beer:
+- [PayPal](https://www.paypal.me/bludit/10)
+- BTC (Network BTC): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
+- ETH (Network ETH): 0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7
+
+## License
+
+Bludit is open source software licensed under the [MIT license](https://tldrlegal.com/license/mit-license).
