@@ -38,7 +38,7 @@
 				// Set the global variable with the page key
 				_pageKey = response.data.key;
 				// Set Friendly URL
-				$('#friendlyURL').val(response.data.key);
+				//$('#friendlyURL').val(response.data.key);
 				// Get current files
 				fmGetFiles();
 			} else {
@@ -76,7 +76,7 @@
 				// The page key can change after save the page so you need to set again the variable
 				_pageKey = response.data.key;
 				// Set friendly URL with the key
-				$('#friendlyURL').val(response.data.key);
+				//$('#friendlyURL').val(response.data.key);
 			} else {
 				logs('An error occurred while trying to save the current page.');
 				showAlertError(response.message);
@@ -138,6 +138,7 @@
                 customFields[field] = value
             });
 			var args = {
+                slug: $('#friendlyURL').val(),
 				title: $('#title').val(),
 				content: editorGetContent(),
                 custom: customFields,
@@ -191,8 +192,8 @@
                 var value = $(this).val()
                 customFields[field] = value
             });
-
             var args = {
+                slug: $('#friendlyURL').val(),
                 title: $('#title').val(),
                 content: editorGetContent(),
                 custom: customFields,
@@ -215,6 +216,7 @@
 		});
 
         $('#coverImagePreview').dblclick(function() {
+            logs('Removing cover image.');
             $('#coverImage').val('');
             $(this).attr('src', HTML_PATH_CORE_IMG + 'default.svg');
             var args = { coverImage: '' }
@@ -389,6 +391,7 @@
             });
 
             var args = {
+                slug: $('#friendlyURL').val(),
                 title: $('#title').val(),
                 content: content,
                 custom: customFields,

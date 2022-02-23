@@ -954,26 +954,17 @@ class pluginAPI extends Plugin {
         );
     }
 
-    /*
-        Returns all files uploaded for a specific page.
-        Includes all files types.
-
-        @pageKey			string	The page's key
-
-        @return['data']	array	The list of files
-    */
+    /**
+     * Returns all files uploaded for a specific page.
+     * @param       string          $pageKey    Page's key
+     * @return      array                       List of files in return['data'], status in return['status']
+     */
     private function getFiles($pageKey)
     {
         $chunk = false;
         $sortByDate = true;
-        $path = PATH_UPLOADS_PAGES.$pageKey.DS;
-
-        if (Sanitize::pathFile($path) === false) {
-            return array(
-                'status'=>'1',
-                'message'=>'Invalid path.'
-            );
-        }
+        $page = new Page($pageKey);
+        $path = PATH_UPLOADS_PAGES.$page->uuid().DS;
 
         $files = array();
         $listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
@@ -984,17 +975,17 @@ class pluginAPI extends Plugin {
 
             $filename = Filesystem::filename($file);
             $fileExtension = Filesystem::extension($file);
-            $absoluteURL = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
-            $absolutePath = PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'.'.$fileExtension;
+            $absoluteURL = DOMAIN_UPLOADS_PAGES.$page->uuid().DS.$filename.'.'.$fileExtension;
+            $absolutePath = PATH_UPLOADS_PAGES.$page->uuid().DS.$filename.'.'.$fileExtension;
 
             $thumbnailSmall = '';
-            if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-s.'.$fileExtension)) {
-                $thumbnailSmall = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-s.'.$fileExtension;
+            if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$page->uuid().DS.$filename.'-thumbnail-s.'.$fileExtension)) {
+                $thumbnailSmall = DOMAIN_UPLOADS_PAGES.$page->uuid().DS.$filename.'-thumbnail-s.'.$fileExtension;
             }
 
             $thumbnailMedium = '';
-            if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-m.'.$fileExtension)) {
-                $thumbnailMedium = DOMAIN_UPLOADS_PAGES.$pageKey.DS.$filename.'-thumbnail-m.'.$fileExtension;
+            if (Filesystem::fileExists(PATH_UPLOADS_PAGES.$page->uuid().DS.$filename.'-thumbnail-m.'.$fileExtension)) {
+                $thumbnailMedium = DOMAIN_UPLOADS_PAGES.$page->uuid().DS.$filename.'-thumbnail-m.'.$fileExtension;
             }
 
             $data = array(

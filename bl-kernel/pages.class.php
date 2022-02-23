@@ -153,8 +153,14 @@ class Pages extends dbJSON {
         }
 
         // Create the upload directory for the page
-        if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$key, true) === false) {
-            Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the directory: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
+        if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$row['uuid'], true) === false) {
+            Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the directory: '.PATH_UPLOADS_PAGES.$row['uuid'], LOG_TYPE_ERROR);
+            return false;
+        }
+
+        // Create symlink for the upload directory
+        if (symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key) === false) {
+            Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the symlink: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
             return false;
         }
 
@@ -238,8 +244,12 @@ class Pages extends dbJSON {
         // If the user send an empty slug the page key doesn't change
         // This variable is not belong to the database so is not defined in $row
         if (empty($args['slug'])) {
-            $explode = explode('/', $key);
-            $slug = end($explode);
+            if (!empty($args['title'])) {
+                $slug = $args['title'];
+            } else {
+                $explode = explode('/', $key);
+                $slug = end($explode);
+            }
         } else {
             $slug = $args['slug'];
         }
@@ -271,7 +281,9 @@ class Pages extends dbJSON {
                 return false;
             }
 
-            if (Filesystem::mv(PATH_UPLOADS_PAGES.$key, PATH_UPLOADS_PAGES.$newKey) === false) {
+			// Regenerate the symlink to a proper directory
+			unlink(PATH_UPLOADS_PAGES.$key);
+			if (symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey) === false) {
                 Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_UPLOADS_PAGES.$newKey, LOG_TYPE_ERROR);
                 return false;
             }
