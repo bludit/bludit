@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2021-11-10",
+        "last-update": "2022-02-22",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -434,5 +434,6 @@
     "the-page-can-be-seen-by-everyone-as-static-page": "Die Seite kann von allen als statische Seite gesehen werden.",
     "publish-as-unlisted": "Als unverlinkte Seite veröffentlichen",
     "the-page-can-be-seen-and-shared-by-anyone-with-the-link": "Die Seite kann von allen, die ihren Link haben, gesehen werden.",
-    "active": "Aktiviert"
+    "active": "Aktiviert",
+    "new-user": "Neuer Benutzer"
 }
