@@ -39,6 +39,11 @@ $examples = array(
 <p>Improve your site information and metadata. Include a site description to refine your ranking on the search engines, add social networks, include a site logo with your brand.</p>
 <h2>Language and Timezone</h2>
 <p>Bludit supports a variety of languages and time zones. Choose the option that best suits you and your visitors.</p>
+<h2>Admin panel</h2>
+<p>Access the administration panel to manage and operate your website. From the admin panel, you can create new content, enable or disable plugins, change the theme, and more settings.</p>
+<ul>
+<li><a class="color-blue" href="./admin/">Admin panel</a></li>
+</ul>
 <h2>Markdown</h2>
 <p>Bludit supports Markdown, you just need to enable the right editor to work with it.</p>
 <ol>
