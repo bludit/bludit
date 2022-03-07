@@ -156,6 +156,8 @@ class pluginAPI extends Plugin {
                 $key = $parmC.'/'.$parmD;
             }
             $data = $this->getFiles($key);
+            //$page = new Page($pageKey);
+            //$path = PATH_UPLOADS_PAGES.$page->uuid().DS;
         }
         // (POST) /api/pages/files/:key
         elseif ( ($method==='POST') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) && $writePermissions ) {
@@ -539,11 +541,14 @@ class pluginAPI extends Plugin {
                 'message'=>'Error trying to edit the page.'
             );
         }
+        
+        $page = new Page($newKey);
+        $preview = md5($page->uuid());
 
         return array(
             'status'=>'0',
             'message'=>'Page edited.',
-            'data'=>array('key'=>$newKey)
+            'data'=>array('key'=>$newKey, 'preview'=>$preview)
         );
     }
 
