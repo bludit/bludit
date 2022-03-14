@@ -11,18 +11,19 @@ echo Bootstrap::link(array(
 ));
 
 echo '
-<table class="table table-striped mt-3">
-	<thead>
-		<tr>
-			<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Nickname').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Registered').'</th>
-		</tr>
-	</thead>
-	<tbody>
+<div class="table-responsive">
+	<table class="table table-striped mt-3">
+		<thead>
+			<tr>
+				<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
+				<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Nickname').'</th>
+				<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
+				<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
+				<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
+				<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Registered').'</th>
+			</tr>
+		</thead>
+		<tbody>
 ';
 
 $list = $users->keys();
@@ -51,6 +52,7 @@ foreach ($list as $username) {
 }
 
 echo '
-	</tbody>
-</table>
+		</tbody>
+	</table>
+</div>
 ';

@@ -3,8 +3,9 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info-circle'));
 
 echo '
-<table class="table table-striped mt-3">
-	<tbody>
+<div class="table-responsive">
+	<table class="table table-striped mt-3">
+		<tbody>
 ';
 
 echo '<tr>';
@@ -42,6 +43,7 @@ echo '<td></td>';
 echo '</tr>';
 
 echo '
-	</tbody>
-</table>
+		</tbody>
+	</table>
+</div>
 ';

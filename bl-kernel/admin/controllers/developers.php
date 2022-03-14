@@ -13,8 +13,10 @@ checkRole(array('admin'));
 // This function is used on the VIEW to show the tables
 function printTable($title, $array) {
 	echo '<h2 class="mb-2 mt-4">'.$title.'</h2>';
-	echo '<table class="table table-striped mt-3">
-		<tbody>
+	echo '
+	<div class="table-responsive">
+		<table class="table table-striped mt-3">
+			<tbody>
 	';
 
 	foreach ($array as $key=>$value) {
@@ -31,8 +33,9 @@ function printTable($title, $array) {
 	}
 
 	echo '
-		</tbody>
+			</tbody>
 		</table>
+	</div>
 	';
 }
 

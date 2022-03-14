@@ -9,14 +9,15 @@ echo Bootstrap::link(array(
 ));
 
 echo '
-<table class="table table-striped mt-3">
-	<thead>
-		<tr>
-			<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
-		</tr>
-	</thead>
-	<tbody>
+<div class="table-responsive">
+	<table class="table table-striped mt-3">
+		<thead>
+			<tr>
+				<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
+				<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
+			</tr>
+		</thead>
+		<tbody>
 ';
 
 foreach ($categories->keys() as $key) {
@@ -28,6 +29,7 @@ foreach ($categories->keys() as $key) {
 }
 
 echo '
-	</tbody>
-</table>
+		</tbody>
+	</table>
+</div>
 ';
