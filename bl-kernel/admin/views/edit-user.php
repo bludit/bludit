@@ -224,6 +224,77 @@
 			});
 		});
 
+        $('#btnDeleteUserAndKeepContent').on('click', function() {
+            var username = $('#username').val();
+            logs('Deleting user. Username: ' + username);
+            bootbox.confirm({
+                message: '<?php $L->p('Are you sure you want to delete this user') ?>',
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+                        className: 'btn-sm btn-secondary'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+                        className: 'btn-sm btn-primary'
+                    }
+                },
+                closeButton: false,
+                callback: function(result) {
+                    if (result) {
+                        var args = {
+                            username: $('#username').val()
+                        };
+                        api.deleteUser(args).then(function(response) {
+                            if (response.status == 0) {
+                                logs('User deleted. Username: ' + response.data.key);
+                                window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
+                            } else {
+                                logs("An error occurred while trying to disable the user.");
+                                showAlertError(response.message);
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#btnDeleteUserAndContent').on('click', function() {
+            var username = $('#username').val();
+            logs('Deleting user and content. Username: ' + username);
+            bootbox.confirm({
+                message: '<?php $L->p('Are you sure you want to delete this user') ?>',
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i><?php $L->p('Cancel') ?>',
+                        className: 'btn-sm btn-secondary'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i><?php $L->p('Confirm') ?>',
+                        className: 'btn-sm btn-primary'
+                    }
+                },
+                closeButton: false,
+                callback: function(result) {
+                    if (result) {
+                        var args = {
+                            username: $('#username').val(),
+                            deleteContent: true
+                        };
+                        api.deleteUser(args).then(function(response) {
+                            if (response.status == 0) {
+                                logs('User and content deleted. Username: ' + response.data.key);
+                                window.location.replace(HTML_PATH_ADMIN_ROOT + 'users');
+                            } else {
+                                logs("An error occurred while trying to disable the user.");
+                                showAlertError(response.message);
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
 	});
 
 	// ============================================================================

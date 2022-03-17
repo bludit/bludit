@@ -967,7 +967,7 @@ function deleteUser($args) {
     $deleteContent = isset($args['deleteContent']) ? $args['deleteContent'] : false;
 
     // Only administrators can delete users
-    if ($login->role()!=='admin') {
+    if (Session::get('role')!=='admin') {
         return false;
     }
 
