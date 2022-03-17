@@ -149,8 +149,12 @@ class pluginAPI extends Plugin {
         // /api/pages/:key
         // /api/pages/:parent/:key
 
+        // (GET) /api/pages
+        if ( ($method==='GET') && ($parmA==='pages') && empty($parmB) ) {
+            $data = $this->getPages($inputs);
+        }
         // (GET) /api/pages/files/:key
-        if ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
+        elseif ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
             $key = $parmC;
             if (!empty($parmD)) {
                 $key = $parmC.'/'.$parmD;
