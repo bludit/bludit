@@ -345,8 +345,9 @@ class Pages extends dbJSON {
         }
 
         // Delete upload directory
-        if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
-            Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
+        unlink(PATH_UPLOADS_PAGES.$key);
+        if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$this->db[$key]['uuid']) === false) {
+             Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to delete the directory: '.PATH_UPLOADS_PAGES.$this->db[$key]['uuid'], LOG_TYPE_ERROR);
         }
 
         // Remove from database

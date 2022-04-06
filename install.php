@@ -290,11 +290,6 @@ function install($adminPassword, $timezone)
 			$errorText = 'Error when trying to created the directory=>' . PATH_PAGES . $page['url'];
 			error_log('[ERROR] ' . $errorText, 0);
 		}
-
-        if (!mkdir(PATH_UPLOADS_PAGES.$page['url'], DIR_PERMISSIONS, true)) {
-			$errorText = 'Error when trying to created the directory=>' . PATH_UPLOADS_PAGES . $page['url'];
-			error_log('[ERROR] ' . $errorText, 0);
-        }
 	}
 
 	// Directories for initial plugins
@@ -350,6 +345,17 @@ function install($adminPassword, $timezone)
 
 		array_push($slugs, $page['url']);
 		file_put_contents(PATH_PAGES . $page['url'] . DS . FILENAME, $page['content'], LOCK_EX);
+
+        if (!mkdir(PATH_UPLOADS_PAGES.$data[$page['url']]['uuid'], DIR_PERMISSIONS, true)) {
+			$errorText = 'Error when trying to create the directory=>' . PATH_UPLOADS_PAGES . $data[$page['url']]['uuid'];
+			error_log('[ERROR] ' . $errorText, 0);
+        }
+
+        if (symlink(PATH_UPLOADS_PAGES.$data[$page['url']]['uuid'], PATH_UPLOADS_PAGES.$page['url']) === false) {
+            $errorText = 'Error when trying to create the symlink =>' . PATH_UPLOADS_PAGES . $page['url'];
+			error_log('[ERROR] ' . $errorText, 0);
+        }
+
 	}
 	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
