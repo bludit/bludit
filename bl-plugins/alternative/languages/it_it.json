@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Tema Alternative",
+		"description": "Questo plugin fornisce la configurazione per il tema Alternative."
+	},
+	"enable-or-disable-dark-mode": "Abilita o disabilita la modalità scura.",
+	"enable-or-disable-google-fonts": "Abilita o disabilita i caratteri di Google.",
+	"relative": "Relativo",
+	"absolute": "Assoluto",
+	"change-the-date-format-for-the-main-page": "Modifica il formato della data per la pagina principale.",
+	"show-tags": "Visualizza i tag",
+	"show-tags-in-the-main-page-for-each-article": "Visualizza i tag nella pagina principale per ogni articolo."
+}
