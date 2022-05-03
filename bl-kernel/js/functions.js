@@ -1,5 +1,5 @@
 /*
-    Javascript global functions
+  Javascript global functions
 */
 
 function sanitizeHTML(text) {
@@ -55,4 +55,16 @@ function formatBytes(bytes, decimals = 2) {
 	const i = Math.floor(Math.log(bytes) / Math.log(k));
 
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+/*
+  Returns TRUE if the JSON text is valid, FALSE otherwise
+*/
+function isJson(text) {
+  try {
+    JSON.parse(text);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }

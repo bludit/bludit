@@ -131,12 +131,21 @@
 		// Ctrl+S or Command+S
 		if ((event.ctrlKey || event.metaKey) && event.which == 83) {
 			event.preventDefault();
+
+            // Parse all custom fields inputs
             var customFields = {}
             $('input[name^="custom"]').each(function() {
                 var field = $(this).data('field')
                 var value = $(this).val()
                 customFields[field] = value
             });
+            $('select[name^="custom"]').each(function() {
+                var field = $(this).data('field');
+                var value = $(this).val();
+                customFields[field] = value;
+            });
+
+            // Create array with all inputs
 			var args = {
                 slug: $('#friendlyURL').val(),
 				title: $('#title').val(),
@@ -186,12 +195,20 @@
 		});
 
 		$('#btnSave').on('click', function() {
+            // Parse all custom fields inputs
             var customFields = {}
             $('input[name^="custom"]').each(function() {
                 var field = $(this).data('field')
                 var value = $(this).val()
                 customFields[field] = value
             });
+            $('select[name^="custom"]').each(function() {
+                var field = $(this).data('field');
+                var value = $(this).val();
+                customFields[field] = value;
+            });
+
+            // Create array with all inputs
             var args = {
                 slug: $('#friendlyURL').val(),
                 title: $('#title').val(),
@@ -383,13 +400,20 @@
 				return false;
 			}
 
+            // Parse all custom fields inputs
             var customFields = {}
             $('input[name^="custom"]').each(function() {
                 var field = $(this).data('field')
                 var value = $(this).val()
                 customFields[field] = value
             });
+            $('select[name^="custom"]').each(function() {
+                var field = $(this).data('field');
+                var value = $(this).val();
+                customFields[field] = value;
+            });
 
+            // Create array with all inputs
             var args = {
                 slug: $('#friendlyURL').val(),
                 title: $('#title').val(),
@@ -687,12 +711,12 @@
                                 'data' => array('field' => $field)
                             ));
                         } elseif ($options['type']=="bool") {
-                            echo Bootstrap::formCheckbox(array(
-                                'name'=>'custom['.$field.']',
-                                'label'=>(isset($options['label'])?$options['label']:''),
-                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-                                'checked'=>(($pageKey && $page->custom($field))?true:false),
-                                'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+                            echo Bootstrap::formSelectBlock(array(
+                                'name' => 'custom['.$field.']',
+                                'label' => (isset($options['label'])?$options['label']:''),
+                                'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+                                'selected' => (($pageKey && $page->custom($field))?'true':'false'),
+                                'tip' => (isset($options['tip'])?$options['tip']:''),
                                 'data' => array('field' => $field)
                             ));
                         }
@@ -722,12 +746,12 @@
                                 'data' => array('field' => $field)
                             ));
                         } elseif ($options['type']=="bool") {
-                            echo Bootstrap::formCheckbox(array(
-                                'name'=>'custom['.$field.']',
-                                'label'=>(isset($options['label'])?$options['label']:''),
-                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
-                                'checked'=>(($pageKey && $page->custom($field))?true:false),
-                                'labelForCheckbox'=>(isset($options['tip'])?$options['tip']:''),
+                            echo Bootstrap::formSelectBlock(array(
+                                'name' => 'custom['.$field.']',
+                                'label' => (isset($options['label'])?$options['label']:''),
+                                'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+                                'selected' => (($pageKey && $page->custom($field))?'true':'false'),
+                                'tip' => (isset($options['tip'])?$options['tip']:''),
                                 'data' => array('field' => $field)
                             ));
                         }
@@ -799,6 +823,37 @@
 				});
 			</script>
 			<!-- End Tags -->
+
+
+            <!-- Custom fields menu position -->
+            <?php
+                $customFields = $site->customFields();
+                foreach ($customFields as $field=>$options) {
+                    if ( isset($options['position']) && ($options['position']=='menu') ) {
+                        if ($options['type']=="string") {
+                            echo '<h6 class="text-uppercase mt-4">'.(isset($options['label'])?$options['label']:'').'</h6>';
+                            echo Bootstrap::formInputTextBlock(array(
+                                'name'=>'custom['.$field.']',
+                                'value'=>(($pageKey && $page->custom($field))?$page->custom($field):''),
+                                'tip'=>(isset($options['tip'])?$options['tip']:''),
+                                'placeholder'=>(isset($options['placeholder'])?$options['placeholder']:''),
+                                'class'=>'',
+                                'data' => array('field' => $field)
+                            ));
+                        } elseif ($options['type']=="bool") {
+                            echo '<h6 class="text-uppercase mt-4">'.(isset($options['label'])?$options['label']:'').'</h6>';
+                            echo Bootstrap::formSelectBlock(array(
+                                'name' => 'custom['.$field.']',
+                                'label' => '',
+                                'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+                                'selected' => (($pageKey && $page->custom($field))?true:false),
+                                'tip' => (isset($options['tip'])?$options['tip']:''),
+                                'data' => array('field' => $field)
+                            ));
+                        }
+                    }
+                }
+            ?>
 
 			<h6 class="text-uppercase mt-4"><?php $L->p('More options') ?></h6>
 			<ul class="list-group">

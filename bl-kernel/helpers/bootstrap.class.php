@@ -84,15 +84,30 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$html = '<div>';
-		if (!empty($args['label'])) {
-			$html .= '<label for="'.$id.'">'.$args['label'].'</label>';
+		$tip = '';
+		if (!empty($args['tip'])) {
+			$tip = '<div class="form-text">'.$args['tip'].'</div>';
 		}
-		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'">';
+
+		$data = 'data-current-value="'.$args['selected'].'"';
+		if (isset($args['data'])) {
+			if (is_array($args['data'])) {
+				foreach ($args['data'] as $x => $y) {
+					$data .= 'data-'.$x.' = "'.$y.'"';
+				}
+			}
+		}
+
+		$html = '<div class="mb-2">';
+		if (!empty($args['label'])) {
+			$html .= '<label class="col-sm-2 col-form-label" for="'.$id.'">'.$args['label'].'</label>';
+		}
+		$html .= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$data.'>';
 		foreach ($args['options'] as $key=>$value) {
 			$html .= '<option '.(($key==$args['selected'])?'selected':'').' value="'.$key.'">'.$value.'</option>';
 		}
 		$html .= '</select>';
+        $html .= $tip;
 		$html .= '</div>';
 
 		return $html;
@@ -121,14 +136,16 @@ EOF;
 			$class = $class.' '.$args['class'];
 		}
 
-		$data = 'data-current-value="'.$value.'"';
-		if (isset($args['data'])) {
-			if (is_array($args['data'])) {
-				foreach ($args['data'] as $x => $y) {
-					$data .= ' data-'.$x.' = "'.$y.'"';
-				}
-			}
-		}
+        if (!isset($args['disable-current-value'])) {
+            $data = 'data-current-value="'.$value.'"';
+        }
+        if (isset($args['data'])) {
+            if (is_array($args['data'])) {
+                foreach ($args['data'] as $x => $y) {
+                    $data .= ' data-'.$x.' = "'.$y.'"';
+                }
+            }
+        }
 
 return <<<EOF
 <div class="mb-3 row">
