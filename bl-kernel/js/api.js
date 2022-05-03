@@ -377,6 +377,32 @@ class API {
 		}
 	}
 
+	/*	Delete user
+    @args				array		Arguments can be any of the fields from an user
+    @return				string		The username
+	*/
+	async deleteUser(args) {
+		var url = this.apiURL + "users/" + args['username'];
+		var body = Object.assign({}, this.body, args);
+		try {
+			var response = await fetch(url, {
+				credentials: "same-origin",
+				method: "DELETE",
+				body: JSON.stringify(body),
+				headers: new Headers({
+					"Content-Type": "application/json"
+				})
+			});
+			var json = await response.json();
+			return json;
+		} catch (err) {
+			console.log(response);
+			console.log(err);
+			return {'message': 'Error from API. Open the inspector from the browser for more details.'};
+		}
+	}
+
+
 	/*	Install and activate a plugin === Bludit v4
 
 		@args				array

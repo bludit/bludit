@@ -261,6 +261,11 @@ class pluginAPI extends Plugin {
         elseif ( ($method==='POST') && ($parmA==='users') && empty($parmB) && $writePermissions ) {
             $data = $this->createUser($inputs);
         }
+        // (DELETE) /api/users/:key
+        elseif ( ($method==='DELETE') && ($parmA==='users') && !empty($parmB) && $writePermissions ) {
+            $inputs['key'] = $parmB;
+            $data = $this->deleteUser($inputs);
+        }
         // (POST) /api/users/picture/:username
         elseif ( ($method==='POST') && ($parmA==='users') && ($parmB==='picture') && !empty($parmC) && $writePermissions ) {
             $username = $parmC;
@@ -811,6 +816,27 @@ class pluginAPI extends Plugin {
         return array(
             'status'=>'0',
             'message'=>'User edited.',
+            'data'=>array('key'=>$key)
+        );
+    }
+
+
+    /*	Delete user === Bludit v4
+    Referer to the function deleteUser() from functions.php
+    */
+    private function deleteUser($args)
+    {
+        $key = deleteUser($args);
+        if ($key===false) {
+            return array(
+                'status'=>'1',
+                'message'=>'An error occurred while trying to delete the user.'
+            );
+        }
+
+        return array(
+            'status'=>'0',
+            'message'=>'User deleted.',
             'data'=>array('key'=>$key)
         );
     }
