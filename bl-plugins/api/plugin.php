@@ -160,8 +160,6 @@ class pluginAPI extends Plugin {
                 $key = $parmC.'/'.$parmD;
             }
             $data = $this->getFiles($key);
-            //$page = new Page($pageKey);
-            //$path = PATH_UPLOADS_PAGES.$page->uuid().DS;
         }
         // (POST) /api/pages/files/:key
         elseif ( ($method==='POST') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) && $writePermissions ) {
