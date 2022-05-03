@@ -8,7 +8,7 @@ class Bootstrap {
 		$id = isset($args['id'])?$args['id']:$name;
 		$value = isset($args['value'])?$args['value']:'';
 
-		return '<input type="hidden" id="'.$id.'" name="'.$name.'" value="'.$value.'">';
+		return '<input type="hidden" id="'.$id.'" name="'.$name.'" value="'.$value.'" autocomplete="off">';
 	}
 
 	// Floating Labels
@@ -30,7 +30,7 @@ class Bootstrap {
 
 return <<<EOF
 <div class="form-floating mb-3">
-  <input type="$type" class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder">
+  <input type="$type" class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" autocomplete="off">
   <label for="$id">$label</label>
 </div>
 EOF;
@@ -196,7 +196,7 @@ return <<<EOF
 <div class="mb-3 row">
 	$label
 	<div class="col-sm-10">
-		<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
+		<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" autocomplete="off" $disabled $readonly>
 		$tip
 	</div>
 </div>
@@ -280,7 +280,7 @@ EOF;
 return <<<EOF
 <div class="mb-2">
 	$label
-	<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" $disabled $readonly>
+	<input class="$class" $data id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" autocomplete="off" $disabled $readonly>
 	$tip
 </div>
 EOF;
@@ -302,7 +302,7 @@ EOF;
 		}
 
 		$html  = '<div class="'.$class.'">';
-		$html .= '<input type="file" class="custom-file-input" id="'.$id.'">';
+		$html .= '<input type="file" class="custom-file-input" id="'.$id.'" autocomplete="off">';
 		$html .= '<label class="custom-file-label" for="'.$id.'">'.$args['label'].'</label>';
 		$html .= '</div>';
 
@@ -386,7 +386,7 @@ return <<<EOF
 <div class="$class">
 	$label
 	<div class="form-check">
-		<input type="hidden" $data name="$name" value="$value"><input id="$id" type="checkbox" class="form-check-input" onclick="this.previousSibling.value=1-this.previousSibling.value" $checked>
+		<input type="hidden" $data name="$name" value="$value" autocomplete="off"><input id="$id" type="checkbox" class="form-check-input" onclick="this.previousSibling.value=1-this.previousSibling.value" autocomplete="off" $checked>
 		<label class="form-check-label" for="$id">$labelForCheckbox</label>
 		$tip
 	</div>
