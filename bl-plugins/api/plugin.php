@@ -149,8 +149,12 @@ class pluginAPI extends Plugin {
         // /api/pages/:key
         // /api/pages/:parent/:key
 
+        // (GET) /api/pages
+        if ( ($method==='GET') && ($parmA==='pages') && empty($parmB) ) {
+            $data = $this->getPages($inputs);
+        }
         // (GET) /api/pages/files/:key
-        if ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
+        elseif ( ($method==='GET') && ($parmA==='pages') && ($parmB==='files') && !empty($parmC) ) {
             $key = $parmC;
             if (!empty($parmD)) {
                 $key = $parmC.'/'.$parmD;
@@ -258,6 +262,11 @@ class pluginAPI extends Plugin {
         // (POST) /api/users
         elseif ( ($method==='POST') && ($parmA==='users') && empty($parmB) && $writePermissions ) {
             $data = $this->createUser($inputs);
+        }
+        // (DELETE) /api/users/:key
+        elseif ( ($method==='DELETE') && ($parmA==='users') && !empty($parmB) && $writePermissions ) {
+            $inputs['key'] = $parmB;
+            $data = $this->deleteUser($inputs);
         }
         // (POST) /api/users/picture/:username
         elseif ( ($method==='POST') && ($parmA==='users') && ($parmB==='picture') && !empty($parmC) && $writePermissions ) {
@@ -812,6 +821,27 @@ class pluginAPI extends Plugin {
         return array(
             'status'=>'0',
             'message'=>'User edited.',
+            'data'=>array('key'=>$key)
+        );
+    }
+
+
+    /*	Delete user === Bludit v4
+    Referer to the function deleteUser() from functions.php
+    */
+    private function deleteUser($args)
+    {
+        $key = deleteUser($args);
+        if ($key===false) {
+            return array(
+                'status'=>'1',
+                'message'=>'An error occurred while trying to delete the user.'
+            );
+        }
+
+        return array(
+            'status'=>'0',
+            'message'=>'User deleted.',
             'data'=>array('key'=>$key)
         );
     }
