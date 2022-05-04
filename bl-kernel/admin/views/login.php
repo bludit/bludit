@@ -24,9 +24,10 @@
 	});
 </script>
 
-<?php
+<img class="mx-auto d-block w-25 mb-4" alt="logo" src="<?php echo HTML_PATH_CORE_IMG . 'logo.svg' ?>" />
+<h1 class="text-center text-uppercase mb-4"><?php echo $site->title() ?></h1>
 
-echo '<h1 class="text-center fw-normal mb-5">'.$site->title().'</h1>';
+<?php
 
 echo Bootstrap::formOpen(array('name'=>'login'));
 
@@ -60,7 +61,7 @@ echo Bootstrap::formOpen(array('name'=>'login'));
 	</div>
 
 	<div class="mt-4">
-		<button type="submit" class="btn btn-primary btn-lg me-2 w-100" name="save">'.$L->g('Login').'</button>
+		<button type="submit" class="btn btn-secondary btn-lg me-2 w-100" name="save">'.$L->g('Login').'</button>
 	</div>
 	';
 

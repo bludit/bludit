@@ -126,6 +126,13 @@ class Text {
 		return str_replace(array_keys($replace), array_values($replace), $text);
 	}
 
+    // Remove HTML entities from the string
+    // HTML entities: &amp; &quot; &#039; &lt; &gt;
+    public static function removeHTMLEntities($string)
+    {
+        return preg_replace("/&#?[a-z0-9]+;/i", "", $string);
+    }
+
 	public static function removeSpecialCharacters($string, $replace='')
 	{
 		return preg_replace("/[\/_|+:!@#$%^&*()'\"<>\\\`}{;=,?\[\]~. -]+/", $replace, $string);
@@ -156,6 +163,8 @@ class Text {
 	{
 		global $L;
 
+        $string = self::removeHTMLEntities($string);
+
 		if (EXTREME_FRIENDLY_URL && $allowExtremeFriendlyURL) {
 			$string = self::lowercase($string);
 			$string = trim($string, $separator);
@@ -176,6 +185,7 @@ class Text {
 			}
 		}
 
+        // Clean
 		$string = preg_replace("/[^a-zA-Z0-9\/_|+. -]/", '', $string);
 		$string = self::lowercase($string);
 		$string = preg_replace("/[\/_|+ -]+/", $separator, $string);

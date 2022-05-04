@@ -213,7 +213,15 @@ class Pages extends dbJSON {
                         $html = Sanitize::html($customValue);
                         // Store the custom field as defined type
                         if (isset($customFields[$customField])) {
-                            settype($html, $customFields[$customField]['type']);
+                            if ($customFields[$customField]['type']=='bool') {
+                                if ($html==='false' or $html===false) {
+                                    $html = false;
+                                } else {
+                                    $html = true;
+                                }
+                            } else {
+                                settype($html, $customFields[$customField]['type']);
+                            }
                             $row['custom'][$customField]['value'] = $html;
                         }
                     }
@@ -853,12 +861,8 @@ class Pages extends dbJSON {
     // The structure for the custom fields need to be a valid JSON format
     // The custom fields are incremental, this means the custom fields are never deleted
     // The pages only store the value of the custom field, the structure of the custom fields are in the database site.php
-    public function setCustomFields($fields)
+    public function setCustomFields($customFields)
     {
-        $customFields = json_decode($fields, true);
-        if (json_last_error() != JSON_ERROR_NONE) {
-            return false;
-        }
         foreach ($this->db as $pageKey=>$pageFields) {
             foreach ($customFields as $customField=>$customValues) {
                 if (!isset($pageFields['custom'][$customField])) {
@@ -870,7 +874,6 @@ class Pages extends dbJSON {
                 }
             }
         }
-
         return $this->save();
     }
 

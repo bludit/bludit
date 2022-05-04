@@ -3,7 +3,7 @@
         "native": "Italiano (Italia)",
         "english-name": "Italian",
         "last-update": "2022-04-07",
-		"locale": "it, it_IT"
+		"locale": "it, it_IT",
         "authors": [
             "Daniele La Pira https:\/\/github.com\/danielelapira",
             "Giuseppe Pignataro https:\/\/github.com\/fastbyte01",
@@ -285,18 +285,6 @@
     "there-are-no-sticky-pages-at-this-moment": "Non c'è nessuna pagina sticky in questo momento.",
     "there-are-no-scheduled-pages-at-this-moment": "Non c'è nessuna pagina programmata in questo momento.",
     "update": "Aggiorna",
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
     "template": "Template",
     "nickname": "Nickname",
     "disable-user": "Disabilita utente",
@@ -308,7 +296,6 @@
     "extreme-friendly-url": "URL estremamente friendly",
     "title-formats": "Formati titolo",
     "delete-content": "Elimina contenuto",
-    
     "sticky": "Sticky",
     "actions": "Azioni",
     "edit": "Modifica",
@@ -335,8 +322,6 @@
     "allow-unicode": "Permetti Unicode",
     "allow-unicode-characters-in-the-url-and-some-part-of-the-system": "Permette i caratteri Unicode nell'URL e in alcune parti del sistema.",
     "variables-allowed": "Variabili permesse",
-    
-    
     "tag": "Tag",
     "drag-and-drop-to-sort-the-plugins": "Sposta e trascina per ordinare i plugin.",
     "seo": "SEO",
@@ -393,7 +378,7 @@
     "custom-fields": "Campi personalizzati",
     "define-custom-fields-for-the-content": "Definisci campi personalizzati per il contenuto. Scopri di più sui campi personalizzati nella <a href='https:\/\/docs.bludit.com\/en\/content\/custom-fields'>documentazione<\/a>.",
     "start-typing-to-see-a-list-of-suggestions": "Inizia a scrivere per vedere un elenco di suggerimenti.",
-    "view": "Visualizza"
+    "view": "Visualizza",
     "confirm": "Conferma",
     "current-password": "Password attuale",
     "are-you-sure-you-want-to-disable-this-user": "Sei sicuro di voler disabilitare questo utente?",

@@ -44,6 +44,31 @@ if ($modulesRequiredExit) {
 // Bludit constanst, variables, language and locale settings
 // ============================================================================
 
+// Bludit version
+define('BLUDIT_VERSION',		'4.0.0');
+define('BLUDIT_CODENAME',		'');
+define('BLUDIT_RELEASE_DATE',	'2021-05-23');
+define('BLUDIT_BUILD',			'20210523');
+
+// Log
+define('LOG_SEP', ' | ');
+define('LOG_TYPE_INFO', '[INFO]');
+define('LOG_TYPE_WARN', '[WARN]');
+define('LOG_TYPE_ERROR', '[ERROR]');
+
+// Debug mode
+define('DEBUG_MODE', TRUE);
+define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
+error_reporting(0); // Turn off all error reporting
+ini_set("display_errors", 0); // Turn off display errors in browser
+ini_set('display_startup_errors', 0);
+if (DEBUG_MODE) {
+    // Turn on all error reporting, will be display in log server
+    ini_set("html_errors", 1);
+    ini_set('log_errors', 1);
+    error_reporting(E_ALL);
+}
+
 // Security constant
 define('BLUDIT', true);
 
@@ -70,7 +95,6 @@ define('PATH_ABSTRACT',			PATH_KERNEL . 'abstract' . DS);
 // Protecting against Symlink attacks
 define('CHECK_SYMBOLIC_LINKS', 	TRUE);
 define('FILENAME', 				'index.txt');
-define('LOG_SEP', 				' | ');
 define('DB_DATE_FORMAT', 		'Y-m-d H:i:s');
 define('CHARSET', 				'UTF-8');
 define('DEFAULT_LANGUAGE_FILE', 'en.json');

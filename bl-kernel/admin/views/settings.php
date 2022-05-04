@@ -48,6 +48,12 @@
 			args[key] = value;
 		});
 
+        if (!isJson($('#customFields').val())) {
+            logs('Invalid JSON format for custom fields.');
+			showAlertError("<?php $L->p('Invalid JSON format for custom fields') ?>");
+            return false;
+        }
+
 		api.saveSettings(args).then(function(response) {
 			if (response.status == 0) {
 				logs('Settings saved.');
@@ -685,7 +691,8 @@
 			'value' => json_encode($site->customFields(), JSON_PRETTY_PRINT),
 			'tip' => $L->g('define-custom-fields-for-the-content'),
 			'rows' => 15,
-			'data' => array('save' => 'true')
+			'data' => array('save' => 'true'),
+            'disable-current-value' => false
 		));
 		?>
 	</div>
