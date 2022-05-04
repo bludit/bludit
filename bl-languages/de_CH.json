@@ -3,7 +3,7 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2022-02-22",
+        "last-update": "2022-04-05",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -29,6 +29,7 @@
         "Sunday": "Sonntag",
         "Jan": "Jan",
         "Feb": "Feb",
+        
         "Mar": "Mär",
         "Apr": "Apr",
         "Jun": "Jun",
@@ -311,7 +312,7 @@
     "sticky": "Fixiert",
     "actions": "Aktionen",
     "edit": "Bearbeiten",
-    "options": "Einstellungen",
+    "options": "Optionen",
     "enter-title": "Titel hier eingegeben",
     "media-manager": "Medien-Manager",
     "set-a-cover-image-from-external-url,-such-as-a-cdn-or-some-server-dedicated-for-images": "Hauptbild mit einem externen URL, beispielsweise von einem Content Delivery Network (CDN).",
