@@ -3,13 +3,12 @@
         "native": "Deutsch (Schweiz)",
         "english-name": "German",
         "locale": "de, de_CH",
-        "last-update": "2022-04-05",
+        "last-update": "2022-05-04",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
             "cblte https:\/\/github.com\/cblte",
-            "MoritzBrueckner https:\/\/github.com\/MoritzBrueckner",
-            ""
+            "MoritzBrueckner https:\/\/github.com\/MoritzBrueckner"
         ]
     },
     "dates": {
