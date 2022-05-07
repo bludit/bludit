@@ -77,6 +77,10 @@
 				_pageKey = response.data.key;
 				// Set friendly URL with the key
 				//$('#friendlyURL').val(response.data.key);
+				$('#btnPreview').attr('data-key', response.data.key);
+				if (response.data.preview) {
+					$('#btnPreview').attr('data-preview', response.data.preview);
+				}
 			} else {
 				logs('An error occurred while trying to save the current page.');
 				showAlertError(response.message);
@@ -226,6 +230,12 @@
 
 		$('#btnCurrenType').on('click', function() {
 			openModal('type');
+		});
+
+		$('#btnPreview').click(function() {
+			if ($(this).attr('data-key') && $(this).attr('data-preview')) {
+				window.open('<?php echo DOMAIN_PAGES; ?>'+$(this).attr('data-key')+'?preview='+$(this).attr('data-preview'));
+			}
 		});
 
 		$('#category').on("change", function() {

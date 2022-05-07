@@ -548,11 +548,14 @@ class pluginAPI extends Plugin {
                 'message'=>'Error trying to edit the page.'
             );
         }
+        
+        $page = new Page($newKey);
+        $preview = md5($page->uuid());
 
         return array(
             'status'=>'0',
             'message'=>'Page edited.',
-            'data'=>array('key'=>$newKey)
+            'data'=>array('key'=>$newKey, 'preview'=>$preview)
         );
     }
 
