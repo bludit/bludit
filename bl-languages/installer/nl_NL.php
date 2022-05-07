@@ -39,13 +39,18 @@ $examples = array(
 <p>Verbeter de site-informatie en metadata. Voeg een sitebeschrijving toe om de ranking bij zoekmachines te verfijnen, voeg sociale netwerken toe, voeg een logo met uw merk toe.</p>
 <h2>Taal en tijdzone</h2>
 <p>Bludit ondersteunt een verscheidenheid aan talen en tijdzones. Kies de optie die het beste bij jou en je bezoekers past.</p>
+<h2>Beheerderspaneel</h2>
+<p>Pas je website aan via het Beheerderspaneel. Hier kun je inhoud toevoegen, plugins in- en uitschakelen, het thema veranderen en andere instellingen aanpassen.</p>
+<ul>
+<li><a class="color-blue" href="./admin/">Admin panel</a></li>
+</ul>
 <h2>Markdown</h2>
 <p>Bludit ondersteunt Markdown. Hiervoor dien je wel eerst de juiste editor te kiezen.</p>
 <ol>
 <li>Ga naar het Beheerderspaneel</li>
 <li>Ga naar de Plugins</li>
 <li>TinyMCE-plugin uitschakelen</li>
-<li>EasyMDE=plugin inschakelen</li>
+<li>EasyMDE-plugin inschakelen</li>
 </ol>'
     )
 );
