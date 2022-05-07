@@ -114,7 +114,8 @@ class Url
 		return $this->uri;
 	}
 
-	// Return the filter filter by type
+	// Return the string defined by the user for the blog filter
+    // The string can be set in the admin panel > settings > advanced > url filters > blog
 	public function filters($type, $trim=true)
 	{
 		$filter = $this->filters[$type];

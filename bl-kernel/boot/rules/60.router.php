@@ -6,11 +6,13 @@ if ($url->uri()==HTML_PATH_ROOT.ADMIN_URI_FILTER) {
 }
 
 // Redirect blog, from /blog to /blog/
-// This rule only works when the user set a page as homepage
-if ($url->uri()==HTML_PATH_ROOT.'blog' && $site->homepage()) {
-	$filter = $url->filters('blog');
-	$finalURL = Text::addSlashes(DOMAIN_BASE.$filter, false, true);
-	Redirect::url($finalURL);
+// If the user define the blog's filter as "myblog" the redirection will be from /myblog to /myblog/
+if ($site->homepage()) {
+    $filter = $url->filters('blog');
+    if ($url->uri()==HTML_PATH_ROOT.$filter) {
+        $finalURL = Text::addSlashes(DOMAIN_BASE.$filter, false, true);
+        Redirect::url($finalURL);
+    }
 }
 
 // Redirect pages, from /my-page/ to /my-page
