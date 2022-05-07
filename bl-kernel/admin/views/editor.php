@@ -867,14 +867,14 @@
 
 			<h6 class="text-uppercase mt-4"><?php $L->p('More options') ?></h6>
 			<ul class="list-group">
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="fmOpen()" href="#"><i class="bi bi-files"></i><?php $L->p('Files & images') ?></a></li>
+			    <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i><?php echo $L->g('Change URL') ?></a></li>
+                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="fmOpen()" href="#"><i class="bi bi-image"></i><?php $L->p('Images & Files') ?></a></li>
+                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i><?php $L->p('Type') ?></a></li>
+                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Parent page') ?></a></li>
+                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('position')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Position') ?></a></li>
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('description')" href="#"><i class="bi bi-info-square"></i><?php $L->p('Description') ?></a></li>
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('date')" href="#"><i class="bi bi-calendar"></i><?php $L->p('Publish date') ?></a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('friendlyURL')" href="#"><i class="bi bi-link"></i><?php echo $L->g('Change URL') ?></a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('type')" href="#"><i class="bi bi-eye"></i><?php $L->p('Type') ?></a></li>
 				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('seo')" href="#"><i class="bi bi-compass"></i><?php $L->p('SEO features') ?></a></li>
-				<li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('parent')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Parent page') ?></a></li>
-                <li class="list-group-item p-0 pt-3 bg-transparent border-0"><a onclick="openModal('position')" href="#"><i class="bi bi-diagram-2"></i><?php $L->p('Position') ?></a></li>
 			</ul>
 
 			<!-- Quick files
