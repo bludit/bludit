@@ -370,6 +370,11 @@ class Page {
         return $this->getValue('uuid');
     }
 
+    public function previewID()
+    {
+        return md5($this->getValue('uuid'));
+    }
+
     // Returns the field key
     public function key()
     {

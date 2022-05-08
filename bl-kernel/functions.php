@@ -762,7 +762,7 @@ function buildThePage() {
     }
 
     if ($page->draft() || $page->scheduled() || $page->autosave()) {
-        if ($url->parameter('preview')!==md5($page->uuid())) {
+        if ($url->parameter('preview')!==$page->previewID()) {
             $url->setNotFound();
             return false;
         }

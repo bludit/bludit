@@ -526,10 +526,13 @@ class pluginAPI extends Plugin {
             );
         }
 
+        // Get the current page to get the uuid and the previewID
+        $page = new Page($key);
+
         return array(
             'status'=>'0',
             'message'=>'Page created.',
-            'data'=>array('key'=>$key)
+            'data'=>array('key'=>$key, 'uuid'=>$page->uuid(), 'previewID'=>$page->previewID())
         );
     }
 
@@ -548,14 +551,11 @@ class pluginAPI extends Plugin {
                 'message'=>'Error trying to edit the page.'
             );
         }
-        
-        $page = new Page($newKey);
-        $preview = md5($page->uuid());
 
         return array(
             'status'=>'0',
             'message'=>'Page edited.',
-            'data'=>array('key'=>$newKey, 'preview'=>$preview)
+            'data'=>array('key'=>$newKey)
         );
     }
 

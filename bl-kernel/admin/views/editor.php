@@ -5,18 +5,23 @@
 	// Variables for the view
 	// ============================================================================
 	var _pageKey = <?php echo $pageKey ? '"' . $pageKey . '"' : 'null' ?>;
+    var _pageUUID = <?php echo $pageUUID ? '"' . $pageUUID . '"' : 'null' ?>;
+    var _pagePreviewID = <?php echo $pagePreviewID ? '"' . $pagePreviewID . '"' : 'null' ?>;
 
 	// ============================================================================
 	// Functions for the view
 	// ============================================================================
 
-	// Default function for the editor
-	// These functions work if the user does not activate any plugin
+	// Default function for get the content inside the textarea from the Editor
+	// This function is enable only when the user doesn't define a plugin as Editor
 	if (typeof editorGetContent != 'function') {
 		window.editorGetContent = function() {
 			return $('#editor').val();
 		};
-	}
+    }
+
+	// Default function for insert content inside the textarea from the Editor
+	// This function is enable only when the user doesn't define a plugin as Editor
 	if (typeof editorInsertContent != 'function') {
 		window.editorInsertContent = function(content, type = '') {
 			if (type == 'image') {
@@ -28,8 +33,10 @@
 		};
 	}
 
-	// Create the a page
+	// Create a new page
 	// This function set the global variable "_pageKey"
+    // This function set the global variable "_pageUUID"
+    // This function set the global variable "_pagePreviewID"
 	function createPage() {
 		logs('Creating page.');
 		api.createPage().then(function(response) {
@@ -37,8 +44,8 @@
 				logs('Page created. Key: ' + response.data.key);
 				// Set the global variable with the page key
 				_pageKey = response.data.key;
-				// Set Friendly URL
-				//$('#friendlyURL').val(response.data.key);
+                _pageUUID = response.data.uuid;
+                _pagePreviewID = response.data.previewID;
 				// Get current files
 				fmGetFiles();
 			} else {
@@ -51,7 +58,7 @@
 
 	// Set the page in the editor
 	function setPage() {
-		logs('Setting up the page');
+		logs('Setting up the page.');
 		// Get current files
 		fmGetFiles();
 		return true;
@@ -60,7 +67,7 @@
 	// Save the current page
 	// This function set the global variable "_pageKey"
 	function savePage(args = []) {
-        console.log(_pageKey);
+        console.log('Saving page. Key: ' + _pageKey);
 		if (_pageKey == null) {
 			logs('Error, page not created.');
 			showAlertError("Error, page not created.");
@@ -75,12 +82,6 @@
 				// Set the global variable with the page key
 				// The page key can change after save the page so you need to set again the variable
 				_pageKey = response.data.key;
-				// Set friendly URL with the key
-				//$('#friendlyURL').val(response.data.key);
-				$('#btnPreview').attr('data-key', response.data.key);
-				if (response.data.preview) {
-					$('#btnPreview').attr('data-preview', response.data.preview);
-				}
 			} else {
 				logs('An error occurred while trying to save the current page.');
 				showAlertError(response.message);
@@ -233,9 +234,7 @@
 		});
 
 		$('#btnPreview').click(function() {
-			if ($(this).attr('data-key') && $(this).attr('data-preview')) {
-				window.open('<?php echo DOMAIN_PAGES; ?>'+$(this).attr('data-key')+'?preview='+$(this).attr('data-preview'));
-			}
+			window.open(DOMAIN_PAGES + _pageKey + '?preview=' + _pagePreviewID);
 		});
 
 		$('#category').on("change", function() {
