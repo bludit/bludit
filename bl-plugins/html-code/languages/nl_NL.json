@@ -4,10 +4,10 @@
 		"name": "HTML-code",
 		"description": "Voeg HTML, CSS of JavaScript toe in de head metadata, header of footer van de site."
 	},
-	"insert-code-in-the-website-inside-the-tag-head": "Code aan het thema toevoegen tussen de tags &#60;head&#62; &#60;/head&#62;",
-	"insert-code-in-the-website-at-the-top": "Code boven aan het thema toevoegen.",
-	"insert-code-in-the-website-at-the-bottom": "Code onder aan het thema toevoegen.",
-	"insert-code-in-the-admin-area-inside-the-tag-head": "Code aan het beheergedeelte toevoegen tussen de tags &#60;head&#62; &#60;/head&#62;",
-	"insert-code-in-the-admin-area-at-the-top": "Code boven aan het beheergedeelte toevoegen.",
-	"insert-code-in-the-admin-area-at-the-bottom": "Code onder aan het beheergedeelte toevoegen."
+	"insert-code-in-the-website-inside-the-tag-head": "Code in de website invoegen tussen de tags &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-website-at-the-top": "Code boven aan de website invoegen.",
+	"insert-code-in-the-website-at-the-bottom": "Code onder aan de website invoegen.",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "Code in het beheergedeelte invoegen tussen de tags &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-admin-area-at-the-top": "Code boven aan het beheergedeelte invoegen.",
+	"insert-code-in-the-admin-area-at-the-bottom": "Code onder aan het beheergedeelte invoegen."
 }
