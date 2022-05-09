@@ -3,7 +3,7 @@
         "native": "Deutsch (Deutschland)",
         "english-name": "German",
         "locale": "de, de_DE",
-        "last-update": "2022-05-04",
+        "last-update": "2022-05-09",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -409,7 +409,7 @@
     "more-options": "Einstellungen",
     "files-&-images": "Dateien und Bilder",
     "publish-date": "Datum der Veröffentlichung",
-    "change-url": "URL ändern",
+    "change-url": "URL anpassen",
     "page-type": "Art der Seite",
     "page-description": "Inhaltsbeschreibung",
     "seo-features": "SEO-Einstellungen",
