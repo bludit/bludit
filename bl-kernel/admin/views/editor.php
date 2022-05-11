@@ -652,7 +652,9 @@
                 <label class="fw-bold mb-2"><?php echo $L->g('Parent page') ?></label>
             </div>
 			<div class="col-sm-10">
-				<select id="parent" name="parent" class="form-select" data-current-value="" data-save="true"></select>
+				<select id="parent" name="parent" class="form-select" data-current-value="<?php echo (($pageKey && $page->parent()) ? $page->parent() : '') ?>" data-save="true">
+				<?php echo (($pageKey && $page->parent()) ? '<option value="'.$page->parent().'" selected>'.$page->parent().'</option>' : '') ?>
+				</select>
 			</div>
 			</div>
 			<div class="modal-footer ps-2 pe-2 pt-1 pb-1">
