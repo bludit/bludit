@@ -48,10 +48,10 @@ class Login {
     {
         if (Session::get('fingerPrint')===$this->fingerPrint()) {
             $username = Session::get('username');
-            if (!empty($username)) {
+            if (!empty($username) && $this->users->exists($username)) {
                 return true;
             } else {
-                Log::set(__METHOD__.LOG_SEP.'Session username empty, destroying the session.');
+                Log::set(__METHOD__.LOG_SEP.'Session username empty or user not found, destroying the session.');
                 Session::destroy();
                 return false;
             }
