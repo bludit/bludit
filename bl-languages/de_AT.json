@@ -3,7 +3,7 @@
         "native": "Deutsch (Österreich)",
         "english-name": "German",
         "locale": "de, de_AT",
-        "last-update": "2022-05-09",
+        "last-update": "2022-05-28",
         "authors": [
             "Clickwork https:\/\/clickwork.ch",
             "blog2read https:\/\/github.com\/blog2read",
@@ -434,5 +434,6 @@
     "publish-as-unlisted": "Als unverlinkte Seite veröffentlichen",
     "the-page-can-be-seen-and-shared-by-anyone-with-the-link": "Die Seite kann von allen, die ihren Link haben, gesehen werden.",
     "active": "Aktiviert",
-    "new-user": "Neuer Benutzer"    
+    "new-user": "Neuer Benutzer",
+    "enable-dark-mode-for-the-admin-panel-the-theme-has-to-support-this-feature": "Enable dark mode for the admin panel. The theme has to support this feature."
 }
