@@ -3,7 +3,7 @@
         "native": "Nederlands",
         "english-name": "Dutch",
         "locale": "nl, nl_NL, nl_BE",
-        "last-update": "2022-05-07",
+        "last-update": "2022-05-30",
         "authors": [
             "Ray",
             "ltGuillaume"
@@ -402,5 +402,6 @@
     "day": "dag",
     "hour": "uur",
     "second": "seconde",
-    "parent-page": "Bovenliggende pagina"
+    "parent-page": "Bovenliggende pagina",
+    "enable-dark-mode-for-the-admin-panel-the-theme-has-to-support-this-feature": "Donkere modus voor het Administratiepaneel gebruiken. Het gekozen thema moet deze functie ondersteunen."
 }
