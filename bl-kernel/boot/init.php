@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',	'3.13.1');
-define('BLUDIT_CODENAME',	'Edi');
-define('BLUDIT_RELEASE_DATE',	'2020-07-28');
-define('BLUDIT_BUILD',		'20200728');
+define('BLUDIT_VERSION',        '3.14.0');
+define('BLUDIT_CODENAME',       'Out Of Time');
+define('BLUDIT_RELEASE_DATE',   '2022-08-05');
+define('BLUDIT_BUILD',          '20220805');
 
 // Debug mode
 // Change to FALSE, for prevent warning or errors on browser
@@ -13,11 +13,11 @@ define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
 error_reporting(0); // Turn off all error reporting
 if (DEBUG_MODE) {
 	// Turn on all error reporting
-	ini_set("display_errors", 0);
-	ini_set('display_startup_errors',0);
+	ini_set("display_errors", 1);
+	ini_set('display_startup_errors',1);
 	ini_set("html_errors", 1);
 	ini_set('log_errors', 1);
-	error_reporting(E_ALL | E_STRICT | E_NOTICE);
+	error_reporting(E_ALL);
 }
 
 // PHP paths

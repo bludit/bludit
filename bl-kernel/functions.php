@@ -879,7 +879,7 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 
 	// Generate a filename to not overwrite current image if exists
 	$filename = Filesystem::filename($file);
-	$nextFilename = Filesystem::nextFilename($imageDir, $filename);
+	$nextFilename = Filesystem::nextFilename($filename, $imageDir);
 
 	// Move the image to a proper place and rename
 	$image = $imageDir.$nextFilename;
@@ -888,7 +888,7 @@ function transformImage($file, $imageDir, $thumbnailDir=false) {
 
 	// Generate Thumbnail
 	if (!empty($thumbnailDir)) {
-		if ($fileExtension == 'svg') {
+		if (($fileExtension == 'svg') || ($fileExtension == 'webp')) {
 			symlink($image, $thumbnailDir.$nextFilename);
 		} else {
 			$Image = new Image();

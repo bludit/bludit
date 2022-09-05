@@ -217,7 +217,7 @@ class Filesystem {
          |
          | @return	string
          */
-	public static function nextFilename($path=PATH_UPLOADS, $filename) {
+	public static function nextFilename($filename, $path=PATH_UPLOADS) {
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
 		$fileExtension 	= Text::lowercase($fileExtension);
