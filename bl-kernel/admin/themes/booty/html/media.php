@@ -36,7 +36,7 @@ $numberOfPages = count($listOfFilesByPage);
 		</form>
 
 		<!-- Progress bar -->
-		<div class="progress mt-2">
+		<div class="progress mt-3">
 			<div id="jsbluditProgressBar" class="progress-bar bg-primary" role="progressbar" style="width:0%"></div>
 		</div>
 
@@ -44,7 +44,7 @@ $numberOfPages = count($listOfFilesByPage);
 		IMAGES LIST
 	-->
 		<!-- Table for list files -->
-		<table id="jsbluditMediaTable" class="table mt-2">
+		<table id="jsbluditMediaTable" class="table mt-3">
 			<tr>
 				<td><?php $L->p('There are no images'); ?></td>
 			</tr>
@@ -105,12 +105,12 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 			tableRow = '<tr id="js'+filename+'">'+
 					'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
 					'<td class="information">'+
-						'<div class="text-primary pb-2">'+filename+'<\/div>'+
+						'<div class="text-secondary pb-2">'+filename+'<\/div>'+
 						'<div>'+
-							'<a href="#" class="mr-3 text-secondary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus"></i><?php $L->p('Insert') ?><\/a>'+
-							'<a href="#" class="mr-3 text-secondary" onClick="editorInsertMedia(\''+thumbnail+'\'); closeMediaManager();"><i class="fa fa-search"></i><?php $L->p('Insert thumbnail') ?><\/a>'+
-							'<a href="#" class="mr-3 text-secondary" onClick="editorInsertLinkedMedia(\''+thumbnail+'\',\''+image+'\'); closeMediaManager();"><i class="fa fa-link"></i><?php $L->p('Insert linked thumbnail') ?><\/a>'+
-							'<a href="#" class="text-secondary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-square-o"></i><?php $L->p('Set as cover image') ?><\/button>'+
+							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus-circle"></i><?php $L->p('Insert') ?><\/a>'+
+							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+thumbnail+'\'); closeMediaManager();"><i class="fa fa-image"></i><?php $L->p('Insert thumbnail') ?><\/a>'+
+							'<a href="#" class="mr-3 text-primary" onClick="editorInsertLinkedMedia(\''+thumbnail+'\',\''+image+'\'); closeMediaManager();"><i class="fa fa-link"></i><?php $L->p('Insert linked thumbnail') ?><\/a>'+
+							'<a href="#" class="text-primary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-desktop"></i><?php $L->p('Set as cover image') ?><\/button>'+
 							'<a href="#" class="float-right text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
 						'<\/div>'+
 					'<\/td>'+
@@ -181,7 +181,7 @@ function uploadImages() {
 	var images = $("#jsimages")[0].files;
 	for (var i=0; i < images.length; i++) {
 		// Check file type/extension
-		const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+		const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
 		if (!validImageTypes.includes(images[i].type)) {
 			showMediaAlert("<?php echo $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']) ?>");
 			return false;

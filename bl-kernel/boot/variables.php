@@ -107,7 +107,7 @@ define('MEDIA_MANAGER_SORT_BY_DATE', true);
 $GLOBALS['DB_TAGS_TYPES'] = array('published','static','sticky');
 
 // Allowed image extensions
-$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg');
+$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'webp');
 
 // Allowed image mime types
-$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml');
+$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'image/webp');
