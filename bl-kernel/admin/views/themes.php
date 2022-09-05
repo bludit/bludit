@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('Themes'), 'icon'=>'eye'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Themes'), 'icon'=>'desktop'));
 
 echo '
 <table class="table  mt-3">
