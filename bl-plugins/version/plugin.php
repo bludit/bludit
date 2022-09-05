@@ -38,7 +38,7 @@ class pluginVersion extends Plugin {
 		global $L;
 		$html = '';
 		if ($this->getValue('showCurrentVersion')) {
-			$html = '<a id="current-version" class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'about'.'">'.$L->get('Version').' '.(defined('BLUDIT_PRO')?'<span class="bi-heart" style="color: #ffc107"></span>':'').'<span class="badge badge-warning badge-pill">'.BLUDIT_VERSION.'</span></a>';
+			$html = '<a id="current-version" class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'about'.'">'.$L->get('Version').' '.(defined('BLUDIT_PRO')?'<span class="bi-heart" style="color: #ffc107"></span>':'').'<span class="badge bg-warning rounded-pill">'.BLUDIT_VERSION.'</span></a>';
 		}
 		if ($this->getValue('newVersionAlert')) {
 			$html .= '<a id="new-version" style="display: none;" target="_blank" href="https://www.bludit.com">'.$L->get('New version available').' <span class="bi-bell" style="color: red"></span></a>';
