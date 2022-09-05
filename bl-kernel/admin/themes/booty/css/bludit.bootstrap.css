@@ -24,10 +24,6 @@ a.text-danger:hover {
 }
 
 /* Buttons */
-.btn {
-	border-radius: 2px;
-}
-
 .btn-primary {
 	background-color: #0078D4;
 	border-color: #0078D4;

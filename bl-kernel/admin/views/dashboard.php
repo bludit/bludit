@@ -5,11 +5,21 @@
 			<!-- Good message -->
 			<div>
 			<h2 id="hello-message" class="pt-0">
-				<span class="fa fa-hand-spock-o"></span><span><?php echo $L->g('hello') ?></span>
+				<?php
+					$username = $login->username();
+					$user = new User($username);
+					$name = '';
+					if ($user->nickname()) {
+						$name = $user->nickname();
+					} elseif ($user->firstName()) {
+						$name = $user->firstName();
+					}
+				?>
+				<span class="fa fa-hand-spock-o"></span><span><?php echo $L->g('hello').' '.$name ?></span>
 			</h2>
 			<script>
 			$( document ).ready(function() {
-				$("#hello-message").fadeOut(1000, function() {
+				$("#hello-message").fadeOut(2400, function() {
 					var date = new Date()
 					var hours = date.getHours()
 					if (hours > 6 && hours < 12) {
@@ -27,10 +37,10 @@
 			</div>
 
 			<!-- Quick Links -->
-			<div class="container border-bottom pb-5" id="jsclippyContainer">
+			<div class="container pb-5" id="jsclippyContainer">
 
 				<div class="row">
-					<div class="col">
+					<div class="col p-0">
 						<div class="form-group">
 						<select id="jsclippy" class="clippy" name="state"></select>
 						</div>
@@ -93,7 +103,7 @@
 			});
 			</script>
 			</div>
-			<div class="container mt-4">
+			<div class="container border-top pt-4 mt-4">
 				<div class="row">
 					<div class="col">
 						<a class="quick-links text-center" target="_blank" href="https://docs.bludit.com">
@@ -108,9 +118,29 @@
 						</a>
 					</div>
 					<div class="col">
-						<a class="quick-links text-center" target="_blank" href="https://gitter.im/bludit/support">
+						<a class="quick-links text-center" target="_blank" href="https://discord.gg/CFaXEdZWds">
 							<div class="fa fa-comments quick-links-icons"></div>
 							<div><?php $L->p('Chat support') ?></div>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a class="quick-links text-center" target="_blank" href="https://themes.bludit.com">
+							<div class="fa fa-desktop quick-links-icons"></div>
+							<div><?php $L->p('Themes') ?></div>
+						</a>
+					</div>
+					<div class="col border-left border-right">
+						<a class="quick-links text-center" target="_blank" href="https://plugins.bludit.com">
+							<div class="fa fa-puzzle-piece quick-links-icons"></div>
+							<div><?php $L->p('Plugins') ?></div>
+						</a>
+					</div>
+					<div class="col">
+						<a class="quick-links text-center" target="_blank" href="https://github.com/bludit/bludit">
+							<div class="fa fa-github quick-links-icons"></div>
+							<div><?php $L->p('GitHub') ?></div>
 						</a>
 					</div>
 				</div>
@@ -122,7 +152,7 @@
 
 			<!-- Notifications -->
 			<ul class="list-group list-group-striped b-0">
-			<li class="list-group-item pt-0"><h4><?php $L->p('Notifications') ?></h4></li>
+			<li class="list-group-item pt-0"><h4 class="m-0"><?php $L->p('Notifications') ?></h4></li>
 			<?php
 			$logs = array_slice($syslog->db, 0, NOTIFICATIONS_AMOUNT);
 			foreach ($logs as $log) {
