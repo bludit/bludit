@@ -1,23 +1,32 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',        '3.14.0');
+define('BLUDIT_VERSION',        '3.14.1');
 define('BLUDIT_CODENAME',       'Out Of Time');
-define('BLUDIT_RELEASE_DATE',   '2022-08-05');
-define('BLUDIT_BUILD',          '20220805');
+define('BLUDIT_RELEASE_DATE',   '2022-08-07');
+define('BLUDIT_BUILD',          '20220807');
 
-// Debug mode
-// Change to FALSE, for prevent warning or errors on browser
-define('DEBUG_MODE', TRUE);
+// Change to TRUE for debugging
+define('DEBUG_MODE', FALSE);
 define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
-error_reporting(0); // Turn off all error reporting
+
+//  This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user.
+ini_set("display_errors", 0);
+
+// Even when display_errors is on, errors that occur during PHP's startup sequence are not displayed.
+// It's strongly recommended to keep display_startup_errors off, except for debugging.
+ini_set('display_startup_errors',0);
+
+//  If disabled, error message will be solely plain text instead HTML code.
+ini_set("html_errors", 0);
+
+// Tells whether script error messages should be logged to the server's error log or error_log.
+ini_set('log_errors', 1);
+
 if (DEBUG_MODE) {
-	// Turn on all error reporting
-	ini_set("display_errors", 1);
-	ini_set('display_startup_errors',1);
-	ini_set("html_errors", 1);
-	ini_set('log_errors', 1);
-	error_reporting(E_ALL);
+	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+} else {
+	error_reporting(E_ERROR);
 }
 
 // PHP paths
