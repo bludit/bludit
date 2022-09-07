@@ -11,7 +11,7 @@ Bludit supports Markdown and HTML code for the content.
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
 - [Documentation](https://docs.bludit.com)
-- News and announcement on [Twitter](https://twitter.com/bludit) or [Facebook](https://www.facebook.com/bluditcms)
+- News and announcement on [Twitter](https://twitter.com/bludit), [Facebook](https://www.facebook.com/bluditcms), and [Reddit](https://www.reddit.com/r/bludit/)
 - Talk & Chat on [Discord](https://discord.gg/CFaXEdZWds)
 - Help and Support on [Forum](https://forum.bludit.org)
 - Bugs reports on [Github Issues](https://github.com/bludit/bludit/issues)
