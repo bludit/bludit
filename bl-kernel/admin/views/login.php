@@ -34,6 +34,6 @@ echo Bootstrap::formOpen(array());
 
 echo '</form>';
 
-echo '<p class="mt-5 text-right">'.$L->g('Powered by Bludit').'</p>'
+echo '<p class="mt-5 text-right">'.$L->g('Powered by Bludit').((defined('BLUDIT_PRO'))?' PRO':'').'</p>'
 
 ?>
