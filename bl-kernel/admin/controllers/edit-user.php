@@ -26,4 +26,4 @@ try {
 }
 
 // HTML <title>
-$layout['title'] = $L->g('Edit user') . ' - ' . $layout['title'];
+$layout['title'] = $L->g('Edit user') . ' [ ' . $username . ' ] ' . ' - ' . $layout['title'];
