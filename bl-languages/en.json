@@ -3,7 +3,7 @@
         "native": "English",
         "english-name": "English",
         "locale": "en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ",
-        "last-update": "2022-05-28",
+        "last-update": "2018-08-09",
         "authors": [
             "Diego @dignajar",
             "Clickwork https:\/\/clickwork.ch",
@@ -405,5 +405,7 @@
     "hour": "hour",
     "second": "second",
     "parent-page": "Parent page",
-    "enable-dark-mode-for-the-admin-panel-the-theme-has-to-support-this-feature": "Enable dark mode for the admin panel. The theme has to support this feature."    
+    "missing-file,-upload-the-file-htaccess-to-the-root-directory": "Missing file, upload the file .htaccess to the root directory.",
+    "module-mod_rewrite-is-not-installed-or-loaded": "Module mod_rewrite is not installed or loaded.",
+    "writing-test-failure,-check-directory-\"bl-content\"-permissions": "Writing test failure, check directory \"bl-content\" permissions."
 }

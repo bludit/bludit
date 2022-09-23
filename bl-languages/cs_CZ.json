@@ -452,5 +452,8 @@
     "publish-as-unlisted": "Nezobrazené",
     "the-page-can-be-seen-and-shared-by-anyone-with-the-link": "Stránka bude publikována, ale zobrazit ji mohou pouze návštěvníci znající odkaz na tuto stránku",
     "page-position": "Pozice stránky",
-    "page-description": "Popis stránky"
+    "page-description": "Popis stránky",
+    "missing-file,-upload-the-file-htaccess-to-the-root-directory": "Chybějící soubor, nahrajte .htaccess soubor do rootu webu.",
+    "module-mod_rewrite-is-not-installed-or-loaded": "Modul mod_rewrite není nainstalován nebo povolen.",
+    "writing-test-failure,-check-directory-\"bl-content\"-permissions": "Test zápisu byl neúspěšný, nastavte složce \"bl-content\" oprávnění pro zápis."
 }
