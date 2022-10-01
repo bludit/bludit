@@ -4,5 +4,10 @@
 		"name": "Twitter Cards",
 		"description": "With Twitter Cards, you can attach rich photos, videos and media experiences to Tweets, helping to drive traffic to your website."
 	},
-	"default-image": "Default image"
+	"default-image": "Default image",
+	"twitter-site-profile": "Twitter site profile",
+	"twitter-author-profile": "Twitter author profile",
+	"minimum-image-dimensions": "The minimum image dimensions are 300x157px and the maximum 4096x4096px.",
+	"image-must-be-less": "Image must be less than 5MB in size.",
+	"formats-are-supported": "JPG, PNG, WEBP and GIF formats are supported."
 }
