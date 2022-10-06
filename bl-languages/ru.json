@@ -5,9 +5,9 @@
         "locale": "ru, ru_RU",
         "last-update": "2018-08-20",
         "authors": [
-            "Сергей Ворон https:\/\/voron.pw",
+            "Paul Bid https:\/\/paul.bid",
+            "Сергей Ворон",
             "Макс Костиков https:\/\/kostikov.co",
-            "Paul https:\/\/paul.bid",
             ""
         ]
     },
@@ -58,10 +58,12 @@
     "thanks-for-supporting-bludit": "Спасибо за поддержку Bludit",
     "upgrade-to-bludit-pro": "Улучшить до Bludit PRO",
     "language": "Язык",
+    "unlisted": "Отсутствующий",
     "plugin": "Плагин",
     "plugins": "Плагины",
     "developers": "Информация для разработчиков",
     "themes": "Темы",
+    "theme": "Тема",
     "about": "О системе",
     "url": "URL",
     "welcome": "Добро пожаловать",
