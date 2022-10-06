@@ -1,14 +1,14 @@
 <?php
 $examples = array(
-    array(
-        'url' => 'willkommen-bei-bludit',
-        'type' => 'published',
-        'category' => 'general',
-        'position' => 1,
-        'title' => 'Willkommen bei Bludit!',
-        'description' => 'Deine neuen Website.',
-        'tags' => array('Willkommen', 'Plugins', 'Themes', 'Bludit'),
-        'content' =>
+	array(
+		'url' => 'willkommen-bei-bludit',
+		'type' => 'published',
+		'category' => 'general',
+		'position' => 1,
+		'title' => 'Willkommen bei Bludit!',
+		'description' => 'Deine neuen Website.',
+		'tags' => array('Willkommen', 'Plugins', 'Themes', 'Bludit'),
+		'content' =>
 '<p>Vielen Dank, dass du dich f&uuml;r Bludit entschieden hast und willkommen in unserer Community, die t&auml;glich gr&ouml;sser wird.</p>
 <p>Folge Bludit in den Sozialen Netzwerken oder abonniere den deutschsprachigen Newsletter und halte dich auf dem Laufenden &uuml;ber neue Versionen, Themes und Plugins:</p>
 <ul>
@@ -30,16 +30,16 @@ $examples = array(
 <ul>
 <li><a href="https://planet-bludit.ch">Planet-Bludit</a></li>
 </ul>'
-    ),
-    array(
-        'url' => 'richte-deine-neue-website-ein',
-        'type' => 'published',
-        'category' => 'general',
-        'position' => 2,
-        'title' => 'Richte deine neue Website ein',
-        'description' => 'Einrichtung der neuen Website.',
-        'tags' => array('Sprache', 'Zeitzone', 'Markdown', 'Bludit'),
-        'content' =>
+	),
+	array(
+		'url' => 'richte-deine-neue-website-ein',
+		'type' => 'published',
+		'category' => 'general',
+		'position' => 2,
+		'title' => 'Richte deine neue Website ein',
+		'description' => 'Einrichtung der neuen Website.',
+		'tags' => array('Sprache', 'Zeitzone', 'Markdown', 'Bludit'),
+		'content' =>
 '<h2>Informationen zur Website</h2>
 <p>Gib Informationen zu Deiner Website ein und Metadaten, die von Suchmaschinen verwendet werden k&ouml;nnen. F&uuml; dein Logo hinzu und Links zu den Sozialen Netzwerken.</p>
 <h2>Sprache und Zeitzone</h2>
@@ -51,5 +51,5 @@ $examples = array(
 <li>das standardm&auml;ßig aktivierte Plugin TinyMCE deaktivierst,</li>
 <li>das Plugin EasyMDE aktivierst.</li>
 </ol>'
-    )
+	)
 );

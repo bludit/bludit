@@ -1,21 +1,21 @@
 <?php
 $examples = array(
-    array(
-        'url' => 'welkom-bij-bludit',
-        'type' => 'published',
-        'category' => 'algemeen',
-        'position' => 1,
-        'title' => 'Welkom bij Bludit!',
-        'description' => 'Een warm welkom op je nieuwe website.',
-        'tags' => array('Welkom', 'Plugins', 'Thema\'s', 'Bludit'),
-        'content' =>
+	array(
+		'url' => 'welkom-bij-bludit',
+		'type' => 'published',
+		'category' => 'algemeen',
+		'position' => 1,
+		'title' => 'Welkom bij Bludit!',
+		'description' => 'Een warm welkom op je nieuwe website.',
+		'tags' => array('Welkom', 'Plugins', 'Thema\'s', 'Bludit'),
+		'content' =>
 '<p>Hartelijk dank voor je vertrouwen in Bludit en welkom bij onze community. We groeien iedere dag!</p>
 <p>Volg Bludit op deze social media:</p>
 <ul>
 <li><a href="https://twitter.com/bludit">https://twitter.com/bludit</a></li>
 <li><a href="https://www.facebook.com/bluditcms">https://www.facebook.com/bluditcms</a></li>
 </ul>
-<p>Neem een kijkje bij de plugins and thema's:</p>
+<p>Neem een kijkje bij de plugins and thema\'s:</p>
 <ul>
 <li><a href="https://plugins.bludit.com">https://plugins.bludit.com</a></li>
 <li><a href="https://themes.bludit.com">https://themes.bludit.com</a></li>
@@ -25,16 +25,16 @@ $examples = array(
 <li><a href="https://forum.bludit.org">https://forum.bludit.org</a></li>
 <li><a href="https://docs.bludit.com">https://docs.bludit.com</a></li>
 </ul>'
-    ),
-    array(
-        'url' => 'je-website-opzetten',
-        'type' => 'published',
-        'category' => 'algemeen',
-        'position' => 2,
-        'title' => 'Je nieuwe website opzetten',
-        'description' => 'Bludit configureren.',
-        'tags' => array('Taal', 'Tijdzone', 'Markdown', 'Bludit'),
-        'content' =>
+	),
+	array(
+		'url' => 'je-website-opzetten',
+		'type' => 'published',
+		'category' => 'algemeen',
+		'position' => 2,
+		'title' => 'Je nieuwe website opzetten',
+		'description' => 'Bludit configureren.',
+		'tags' => array('Taal', 'Tijdzone', 'Markdown', 'Bludit'),
+		'content' =>
 '<h2>Site-informatie</h2>
 <p>Verbeter de site-informatie en metadata. Voeg een sitebeschrijving toe om de ranking bij zoekmachines te verfijnen, voeg sociale netwerken toe, voeg een logo met uw merk toe.</p>
 <h2>Taal en tijdzone</h2>
@@ -52,5 +52,5 @@ $examples = array(
 <li>TinyMCE-plugin uitschakelen</li>
 <li>EasyMDE-plugin inschakelen</li>
 </ol>'
-    )
+	)
 );

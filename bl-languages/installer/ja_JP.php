@@ -1,14 +1,14 @@
 <?php
 $examples = array(
-    array(
-        'url' => 'welcome-to-bludit',
-        'type' => 'published',
-        'category' => 'general',
-        'position' => 1,
-        'title' => 'Bluditへようこそ！',
-        'description' => '新しいウェブサイトへようこそ。',
-        'tags' => array('Welcome', 'Plugins', 'Themes', 'Bludit'),
-        'content' =>
+	array(
+		'url' => 'welcome-to-bludit',
+		'type' => 'published',
+		'category' => 'general',
+		'position' => 1,
+		'title' => 'Bluditへようこそ！',
+		'description' => '新しいウェブサイトへようこそ。',
+		'tags' => array('Welcome', 'Plugins', 'Themes', 'Bludit'),
+		'content' =>
 '<p>Bluditを選んでいただきありがとうございます。そして、私たちの日々、成長と驚きのコミュニティへようこそ。</p>
 <p>さまざまなSNSでBluditをフォローしましょう</p>
 <ul>
@@ -25,16 +25,16 @@ $examples = array(
 <li><a href="https://forum.bludit.org">https://forum.bludit.org</a></li>
 <li><a href="https://docs.bludit.com">https://docs.bludit.com</a></li>
 </ul>'
-    ),
-    array(
-        'url' => 'set-up-your-new-website',
-        'type' => 'published',
-        'category' => 'general',
-        'position' => 2,
-        'title' => '新しいウェブサイトを設定する',
-        'description' => '新しいウェブサイトを設定しましょう。',
-        'tags' => array('Language', 'Timezone', 'Markdown', 'Bludit'),
-        'content' =>
+	),
+	array(
+		'url' => 'set-up-your-new-website',
+		'type' => 'published',
+		'category' => 'general',
+		'position' => 2,
+		'title' => '新しいウェブサイトを設定する',
+		'description' => '新しいウェブサイトを設定しましょう。',
+		'tags' => array('Language', 'Timezone', 'Markdown', 'Bludit'),
+		'content' =>
 '<h2>サイト情報を設定する</h2>
 <p>サイト情報とメタデータを設定しましょう。検索エンジンのランキングのためにサイトの説明を追加したり、SNSの設定やブランドを表すためのサイトロゴを入れたりしましょう。</p>
 <h2>言語とタイムゾーンを設定する</h2>
@@ -47,5 +47,5 @@ $examples = array(
 <li>TinyMCEプラグインを無効にする</li>
 <li>EasyMDEプラグインを有効にする</li>
 </ol>'
-    )
+	)
 );
