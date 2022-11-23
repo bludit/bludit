@@ -34,6 +34,7 @@ class Fuzz
      */
     public function __construct($source, $maxResults, $searchMode, $useLCS)
     {
+    
         $this->_source = $source;
         $this->_sourceLen = count($source);
         $this->_maxResults = max($maxResults, 1);
@@ -60,6 +61,9 @@ class Fuzz
     {
         $results = [];
         $scores = [];
+    
+    	// put the text in lower case to avoid missing a result because of the case
+    	$search = strtolower($search);
 
         // Nullify these parameters if they are irrelevant to searchMode
         if (!$this->_useLCS) $minLCS = null;
@@ -67,7 +71,7 @@ class Fuzz
 
         // Cycle through result pool
         //for ($i = 0; $i < $this->_sourceLen; $i++) {
-	foreach ($this->_source as $pageKey => $data) {
+		foreach ($this->_source as $pageKey => $data) {
             $allLev = [];
             $allJaros = [];
             $allLCSs = [];
@@ -125,6 +129,11 @@ class Fuzz
     {
         $suffix = [];
         $result = 0;
+    
+    	// put the text in lower case to avoid missing a result because of the case
+       	$source = strtolower($source);
+    	$target = strtolower($target);
+    
         $n = mb_strlen($source, CHARSET);
         $m = mb_strlen($target, CHARSET);
 
@@ -157,6 +166,10 @@ class Fuzz
         $matrix = [];
         $n = mb_strlen($source, CHARSET);
         $m = mb_strlen($target, CHARSET);
+    
+    	// put the text in lower case to avoid missing a result because of the case
+    	$source = strtolower($source);
+    	$target = strtolower($target);
 
         if ($n === 0) {
             return $m;
@@ -205,8 +218,12 @@ class Fuzz
      */
     public function getJaroWinkler($first, $second)
     {
-        $shorter = '';
-        $longer = '';
+        $shorter;
+        $longer;   
+    
+    	// put the text in lower case to avoid missing a result because of the case
+    	$first = strtolower($first);
+    	$second = strtolower($second);
 
         if (mb_strlen($first, CHARSET) > mb_strlen($second, CHARSET)) {
             $longer = mb_strtolower($first, CHARSET);
@@ -254,7 +271,12 @@ class Fuzz
     private function _getCharMatch($first, $second, $limit)
     {
         $common = '';
-        $copy = $second;
+        $copy = $second;    
+    
+    	// put the text in lower case to avoid missing a result because of the case
+    	$first = strtolower($first);
+    	$second = strtolower($second);
+    
         $firstLen = mb_strlen($first, CHARSET);
         $secondLen = mb_strlen($second, CHARSET);
 
@@ -285,7 +307,12 @@ class Fuzz
     private function _getTranspositions($first, $second)
     {
         $trans = 0;
-        $firstLen = mb_strlen($first, CHARSET);
+        
+    	// put the text in lower case to avoid missing a result because of the case
+    	$first = strtolower($first);
+    	$second = strtolower($second);
+    
+    	$firstLen = mb_strlen($first, CHARSET);
 
         for ($i = 0; $i < $firstLen; $i++) {
             if ($first[$i] != $second[$i]) {
@@ -307,6 +334,10 @@ class Fuzz
      */
     private function _getPrefix($first, $second)
     {
+    	// put the text in lower case to avoid missing a result because of the case
+    	$first = strtolower($first);
+    	$second = strtolower($second);
+    
         if (mb_strlen($first, CHARSET) == 0 || mb_strlen($second, CHARSET) == 0) {
             return '';
         }
@@ -330,7 +361,11 @@ class Fuzz
      * @return Return index of first difference
      */
     private function _getDiffIndex($first, $second)
-    {
+    {    
+    	// put the text in lower case to avoid missing a result because of the case
+    	$first = strtolower($first);
+    	$second = strtolower($second);
+    
         if ($first == $second) {
             return -1;
         }
