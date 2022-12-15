@@ -37,7 +37,7 @@ echo '
 <table class="table table-striped mt-3">
 	<thead>
 		<tr>
-			<th class="border-bottom-0" scope="col">'.$L->g('Name').'</th>
+			<th class="border-bottom-0" scope="col">'.$L->g('name').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('Description').'</th>
 			<th class="border-bottom-0" scope="col">'.$L->g('URL').'</th>
 		</tr>
