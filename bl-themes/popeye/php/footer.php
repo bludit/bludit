@@ -2,13 +2,7 @@
 	<div class="container">
 		<ul class="footer-links ps-0 mb-1">
 			<?php foreach (HTML::socialNetworks() as $key => $name) {
-				$link = '<a ';
-				if(strtolower($key) == 'mastodon') {
-					$link .= 'rel="me" ';
-				}
-				
-				$link .= 'class="color-blue" href="'.$site->{$key}().'"><li class="d-inline-block pe-4">' . $name . '</li></a>';
-				echo $link;
+				echo '<a class="color-blue" href="'.$site->{$key}().'"><li class="d-inline-block pe-4">' . $name . '</li></a>';
 			}
 			?>
 		</ul>
