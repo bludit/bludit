@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Twitter Cards",
+		"description": "With Twitter Cards, you can attach rich photos, videos and media experiences to Tweets, helping to drive traffic to your website."
+	},
+	"default-image": "Výchozí obrázek",
+	"twitter-site-profile": "Profil stránky na Twitteru",
+	"twitter-author-profile": "Profil autora příspěvku na Twitteru",
+	"minimum-image-dimensions": "Minimální rozměry obrázku jsou 300x157px a maximum 4096x4096px.",
+	"image-must-be-less": "Obrázek musí být menší než 5MB.",
+	"formats-are-supported": "Jsou podporovány formáty pouze JPG, PNG, WEBP a GIF."
+}

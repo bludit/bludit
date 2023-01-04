@@ -724,7 +724,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<table class="table">
 								<tbody>
 									<tr>
-										<th>' . $error . '</th>
+										<th>' . $L->get( $error ) . '</th>
 									</tr>
 								</tbody>
 							</table>
