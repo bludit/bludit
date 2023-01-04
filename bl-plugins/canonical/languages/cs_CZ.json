@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Canonical",
+		"description": "Použitím kanonických URL adres informujete vyhledávače o adresách s identickým obsahem"
+	},
+	"this-plugin-has-no-settings": "Tento plugin nemá nastavení"
+}
