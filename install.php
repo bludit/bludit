@@ -72,6 +72,9 @@ if (DEBUG_MODE) {
 // Security constant
 define('BLUDIT', true);
 
+// Password length
+define('PASSWORD_LENGTH', 6);
+
 // Directory separator
 define('DS', DIRECTORY_SEPARATOR);
 
