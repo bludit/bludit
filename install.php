@@ -72,6 +72,9 @@ if (DEBUG_MODE) {
 // Security constant
 define('BLUDIT', true);
 
+// Password length
+define('PASSWORD_LENGTH', 6);
+
 // Directory separator
 define('DS', DIRECTORY_SEPARATOR);
 
@@ -293,6 +296,13 @@ function install($adminPassword, $timezone)
 
 	if (!date_default_timezone_set($timezone)) {
 		date_default_timezone_set('UTC');
+	}
+
+	// Check the length of the password
+	if (Text::length($adminPassword)<PASSWORD_LENGTH) {
+		$errorText = sprintf('The password must have a length of minimum %s signs.', PASSWORD_LENGTH);
+		error_log('[ERROR] ' . $errorText, 0);
+		redirect(sprintf('install.php?language=%s&error=PASSWORD_LENGTH', $_GET['language'] ?? 'en_EN'));
 	}
 
 	$currentDate = Date::current(DB_DATE_FORMAT);
@@ -746,6 +756,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</div>
 
 						<div class="form-group mb-0">
+							<?php if(isset($_GET['error']) && 'PASSWORD_LENGTH' === $_GET['error']) { ?>
+							<div class="text-danger">
+							    <?php $L->p('The password needs to be contain at least ' . PASSWORD_LENGTH . ' signs') ?>
+							</div>
+							<?php } ?>
 							<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
 						</div>
 						<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
