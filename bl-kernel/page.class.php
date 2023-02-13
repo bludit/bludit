@@ -663,8 +663,8 @@ class Page {
         $past    = new DateTime($this->getValue('dateRaw'));
         $elapsed = $current->diff($past);
 
-        $elapsed->w  = floor($elapsed->d / 7);
-        $elapsed->d -= $elapsed->w * 7;
+        $weeks  = floor($elapsed->d / 7);
+        $elapsed->d -= $weeks * 7;
 
         $string = array(
             'y' => $language->g('year'),
@@ -677,8 +677,11 @@ class Page {
         );
 
         foreach ($string as $key => &$value) {
-            if ($elapsed->$key) {
-                $value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : ' ');
+            
+            $handle_type = 'w' === $key ? $weeks : $elapsed->$key;
+            
+            if ($handle_type) {
+                $value = $handle_type . ' ' . $value . ($handle_type > 1 ? 's' : ' ');
             } else {
                 unset($string[$key]);
             }
