@@ -14,10 +14,19 @@
 			className: className
 		};
 
-		$('input').each(function() {
+		$('input:not([type=checkbox])').each(function() {
 			var key = $(this).attr('name');
 			var value = $(this).val();
 			args[key] = value;
+		});
+
+		$('input[type=checkbox]').each(function() {
+			var key = $(this).attr('name');
+			var value = $(this).val();
+			
+			if($(this).is(":checked")) {
+				args[key] = value;
+			}
 		});
 
 		$('select').each(function() {
