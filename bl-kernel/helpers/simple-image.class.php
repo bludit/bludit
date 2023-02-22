@@ -774,11 +774,11 @@ class SimpleImage {
   /**
    * Resize an image to the specified dimensions. If only one dimension is specified, the image will be resized proportionally.
    *
-   * @param integer $width The new image width.
-   * @param integer $height The new image height.
+   * @param int|null $width The new image width.
+   * @param int|null $height The new image height.
    * @return \claviska\SimpleImage
    */
-  public function resize($width = null, $height = null) {
+  public function resize(?int $width, ?int $height) {
     // No dimentions specified
     if(!$width && !$height) {
       return $this;
@@ -786,12 +786,12 @@ class SimpleImage {
 
     // Resize to width
     if($width && !$height) {
-      $height = $width / $this->getAspectRatio();
+      $height = (int)$width / $this->getAspectRatio();
     }
 
     // Resize to height
     if(!$width && $height) {
-      $width = $height * $this->getAspectRatio();
+      $width = (int)$height * $this->getAspectRatio();
     }
 
     // If the dimensions are the same, there's no need to resize
@@ -802,7 +802,7 @@ class SimpleImage {
     // We can't use imagescale because it doesn't seem to preserve transparency properly. The
     // workaround is to create a new truecolor image, allocate a transparent color, and copy the
     // image over to it using imagecopyresampled.
-    $newImage = imagecreatetruecolor($width, $height);
+    $newImage = imagecreatetruecolor((int)$width, (int)$height);
     $transparentColor = imagecolorallocatealpha($newImage, 0, 0, 0, 127);
     imagecolortransparent($newImage, $transparentColor);
     imagefill($newImage, 0, 0, $transparentColor);
@@ -810,8 +810,8 @@ class SimpleImage {
       $newImage,
       $this->image,
       0, 0, 0, 0,
-      $width,
-      $height,
+      (int)$width,
+      (int)$height,
       $this->getWidth(),
       $this->getHeight()
     );
