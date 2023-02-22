@@ -165,7 +165,7 @@ class Login {
 
         // Get user from database and login
         $user = $this->users->getUserDB($username);
-        $this->setLogin($username, $user['role'], $user->tokenAuth());
+        $this->setLogin($username, $user['role'], $user['tokenAuth']);
         Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
         return true;
     }
