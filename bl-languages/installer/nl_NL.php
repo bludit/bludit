@@ -22,6 +22,7 @@ $examples = array(
 </ul>
 <p>Heb je hulp nodig of wil je meer weten over Bludit? Bezoek dan de officiële documentatie of doe mee op ons forum.</p>
 <ul>
+<li><a href="https://discord.gg/CFaXEdZWds" target="_blank">Discord</a></li>
 <li><a href="https://forum.bludit.org">https://forum.bludit.org</a></li>
 <li><a href="https://docs.bludit.com">https://docs.bludit.com</a></li>
 </ul>'

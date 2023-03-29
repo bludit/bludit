@@ -20,10 +20,11 @@ $examples = array(
 <li><a href="https://plugins.bludit.com/ru/">https://plugins.bludit.com/ru</a></li>
 <li><a href="https://themes.bludit.com/ru/">https://themes.bludit.com/ru</a></li>
 </ul>
-<p>Вам нужна помощь? Или Вы хотите узнать больше о Bludit? Ознакомьтесь с нашей официальной документацией или посетите наш форум:</p>
+<p>Нужна помощь или хотите узнать больше о Bludit? Ознакомьтесь с официальной документацией, а ещё подключайтесь к нашему серверу Discord или посетите наш форум:</p>
 <ul>
-<li><a href="https://forum.bludit.org">https://forum.bludit.org</a></li>
-<li><a href="https://docs.bludit.com/ru/">https://docs.bludit.com/ru</a></li>
+<li><a href="https://docs.bludit.com/ru/" target="_blank">Документация</a> на русском языке</li>
+<li><a href="https://discord.gg/CFaXEdZWds" target="_blank">Discord</a></li>
+<li><a href="https://forum.bludit.org" target="_blank">Форум</a></li>
 </ul>'
 	),
 	array(
