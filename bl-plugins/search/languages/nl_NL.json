@@ -5,6 +5,6 @@
 		"description": "Toont een zoekveld om alle inhoud van de website te doorzoeken."
 	},
 	"search": "Zoeken",
-	"show-button-search": "Knop Zoeken tonen"
+	"show-button-search": "Knop Zoeken tonen",
 	"minimum-number-of-characters-when-searching": "Minimum aantal tekens bij het zoeken"
 }
