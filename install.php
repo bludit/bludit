@@ -763,7 +763,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<?php } ?>
 							<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
 						</div>
-						<div id="jsshowPassword" style="cursor: pointer;" class="text-center pt-0 text-muted"><?php $L->p('Show password') ?></div>
+						<div class="form-check mt-2">
+							<input role="button" class="form-check-input" type="checkbox" value="" id="jsshowPassword">
+							<label class="form-check-label" for="jsshowPassword"><?php $L->p('Show password') ?></label>
+						</div>
 
 						<div class="form-group mt-4">
 							<button type="submit" class="btn btn-secondary btn-lg me-2 w-100" name="install"><?php $L->p('Install') ?></button>
@@ -804,7 +807,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$("#jsshowPassword").on("click", function() {
 				var input = document.getElementById("jspassword");
 
-				if (input.getAttribute("type") == "text") {
+				if (!$(this).is(':checked')) {
 					input.setAttribute("type", "password");
 				} else {
 					input.setAttribute("type", "text");
