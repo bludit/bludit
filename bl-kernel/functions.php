@@ -741,7 +741,6 @@ function buildErrorPage() {
         $pageNotFound = New Page(false);
         $pageNotFound->setField('title', 	$L->get('page-not-found'));
         $pageNotFound->setField('content', 	$L->get('page-not-found-content'));
-        $pageNotFound->setField('username', 	'admin');
     }
 
     return $pageNotFound;
