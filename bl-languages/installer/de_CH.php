@@ -23,6 +23,7 @@ $examples = array(
 </ul>
 <p>Wenn du Hilfe brauchst oder Fragen hast, helfen dir unsere Dokumentation oder unser Forum weiter:</p>
 <ul>
+<li><a href="https://discord.gg/CFaXEdZWds" target="_blank">Discord</a></li>
 <li><a href="https://docs.bludit.com" target="_blank">Dokumentation</a> (in deutscher Sprache)</li>
 <li><a href="https://forum.bludit.org" target="_blank">Forum</a> (mit deutschsprachigem Forum)</li>
 </ul>
