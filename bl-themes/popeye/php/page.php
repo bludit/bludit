@@ -5,6 +5,7 @@
 				<!-- Load Bludit Plugins: Page Begin -->
 				<?php execPluginsByHook('pageBegin'); ?>
 
+                <?php if (!$page->isStatic() && !$url->notFound()): ?>
 				<div class="form-text mb-2">
 					<!-- Page creation time -->
 					<span class="pe-3"><i class="bi bi-calendar"></i><?php echo $page->date() ?></span>
@@ -15,6 +16,7 @@
 					<!-- Page author -->
 					<span><i class="bi bi-person"></i><?php echo $page->user('nickname') ?></span>
 				</div>
+                <?php endif ?>
 
 				<!-- Page title -->
 				<h1 class="page-title bold"><?php echo $page->title(); ?></h1>
