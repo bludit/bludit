@@ -807,18 +807,31 @@
 				?>
 			</select>
 			<script>
+				let addToTagList = function (value) {
+				    // trim
+				    value = value.replace(/^\s+|\s+$/g,"");
+
+				    if ($("#tags option[value='" + value + "']").length > 0) {
+					$("#tags option[value='" + value + "']").prop('selected', true);
+				    } else {
+					$('#tags').prepend($('<option>', {
+					    value: value,
+					    text: value,
+					    selected: true
+					}));
+				    }
+				};
 				$(document).ready(function() {
 					$('#addTag').keypress(function(e) {
 						if (e.which == 13) {
 							var value = $(this).val();
-							if ($("#tags option[value='" + value + "']").length > 0) {
-								$("#tags option[value='" + value + "']").prop('selected', true);
+							// Split input?
+							if (value.indexOf(',') > -1) {
+								value.split(',').forEach( function(s) {
+									addToTagList(s);
+								});
 							} else {
-								$('#tags').prepend($('<option>', {
-									value: $(this).val(),
-									text: $(this).val(),
-									selected: true
-								}));
+								addToTagList(value);
 							}
 							$(this).val('');
 							return false;
