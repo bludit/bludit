@@ -2,9 +2,9 @@
 
 // Bludit version
 define('BLUDIT_VERSION',        '3.15.0');
-define('BLUDIT_CODENAME',       'Out Of Time');
+define('BLUDIT_CODENAME',       'Krakow');
 define('BLUDIT_RELEASE_DATE',   '2023-07-15');
-define('BLUDIT_BUILD',          '20220807');
+define('BLUDIT_BUILD',          '20230715');
 
 // Change to TRUE for debugging
 define('DEBUG_MODE', FALSE);
