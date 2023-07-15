@@ -1,4 +1,3 @@
-
 html {
 	height: 100%;
 	font-size: 0.9rem;
@@ -18,7 +17,7 @@ body {
 	ICONS
 */
 .fa {
-	padding-right: 2px;
+	margin-right: .5rem !important;
 	line-height: inherit;
 }
 
@@ -27,8 +26,8 @@ body {
 */
 
 div.sidebar .nav-item a {
-	padding-left:0;
-	padding-right:0;
+	padding-left: 0;
+	padding-right: 0;
 	color: #555;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -69,6 +68,7 @@ div.sidebar .nav-item h4 {
 
 /* for small devices */
 @media (max-width: 575.98px) {
+
 	#jsmediaManagerButton,
 	#jscategoryButton,
 	#jsdescriptionButton {
@@ -104,7 +104,7 @@ code {
 	padding: 3px 5px 2px;
 	margin: 0 1px;
 	background: #eaeaea;
-	background: rgba(0,0,0,.07);
+	background: rgba(0, 0, 0, .07);
 	color: #444;
 }
 
@@ -129,8 +129,8 @@ code {
 */
 
 body.login {
-	background: rgb(255,255,255);
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
+	background: rgb(255, 255, 255);
+	background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(250, 250, 250, 1) 53%);
 	height: 100%;
 }
 
@@ -168,7 +168,6 @@ body.login {
 
 #hello-message {
 	padding: 10px 0;
-	color: #777;
 	margin-bottom: 20px;
 }
 
@@ -243,7 +242,7 @@ body.login {
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
-	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .plugin-form textarea {
@@ -301,16 +300,20 @@ td.child {
 		max-width: 100%;
 		right: 0;
 	}
+
 	#jseditorToolbarRight button {
 		font-size: 0px !important;
 	}
+
 	#jseditorToolbarRight button span {
 		font-size: 16px !important;
 	}
+
 	.contentTools .btn {
 		font-size: 0px !important;
 		margin-right: 5px;
 	}
+
 	.contentTools .btn span {
 		font-size: 16px !important;
 	}
@@ -340,7 +343,7 @@ td.child {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: rgba(72,72,72,0.7);
+	background-color: rgba(72, 72, 72, 0.7);
 	z-index: 10;
 	display: none;
 }

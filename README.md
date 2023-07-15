@@ -1,12 +1,12 @@
 # [Bludit](https://www.bludit.com/)
 
-Simple, Fast and Flexible CMS.
+Bludit the Simple, Fast, and Flexible CMS.
 
-Bludit is a web application to build your own website or blog in seconds, it's completely free and open source. Bludit uses files in JSON format to store the content, you don't need to install or configure a database. You only need a web server with PHP support.
+With Bludit, you can build your own website or blog in just seconds. It’s completely free, open-source, and easy to use. Bludit stores content in JSON format, eliminating the need for database installation or configuration. All you need is a web server with PHP support.
 
-Bludit is a Flat-File CMS.
+As a Flat-File CMS, Bludit offers unparalleled flexibility and speed. Plus, with support for both Markdown and HTML code, creating and managing content has never been easier.
 
-Bludit supports Markdown and HTML code for the content.
+## Resources
 
 - [Plugins](https://plugins.bludit.com)
 - [Themes](https://themes.bludit.com)
@@ -27,11 +27,11 @@ Bludit supports Markdown and HTML code for the content.
 
 ## Installation
 
-1. Download the latest version from the official page. [Bludit.com](https://www.bludit.com)
-2. Extract the zip file into a directory such as `bludit`.
-3. Upload the directory `bludit` to your web server or hosting.
-4. Visit your domain https://example.com/bludit/
-5. Follow the Bludit Installer to set up the website.
+1. Download the latest version from the official page: [Bludit.com](https://www.bludit.com)
+2. Extract the zip file into a directory, such as `bludit`.
+3. Upload the `bludit` directory to your web server or hosting.
+4. Visit your domain (e.g., https://example.com/bludit/).
+5. Follow the Bludit Installer to set up your website.
 
 ## Quick installation for testing
 
@@ -39,9 +39,10 @@ You can use PHP Built-in web server (`php -S localhost:8000`) or [Docker image](
 
 ## Support Bludit
 
-Bludit is open source and free, but if you really like the project and is useful for your you can contribute on [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860), also for the supporters we provide Bludit PRO. [![Bludit PRO](https://img.shields.io/badge/Bludit-PRO-blue.svg)](https://pro.bludit.com/)
+Bludit is open-source and free to use, but if you find the project useful and would like to support its development, you can contribute on [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). As a token of our appreciation, supporters will receive Bludit PRO.
 
-Donate one time for the coffee or beer:
+If you prefer, you can also make a one-time donation to buy us a coffee or beer. Every contribution helps us continue to improve Bludit and provide the best possible experience for our users.
+
 - [PayPal](https://www.paypal.me/bludit/10)
 - BTC (Network BTC): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
 - ETH (Network ETH): 0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7

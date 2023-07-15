@@ -1,12 +1,13 @@
 <?php
 
-class pluginVersion extends Plugin {
+class pluginVersion extends Plugin
+{
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'showCurrentVersion'=>true,
-			'newVersionAlert'=>true
+			'showCurrentVersion' => true,
+			'newVersionAlert' => true
 		);
 	}
 
@@ -14,23 +15,19 @@ class pluginVersion extends Plugin {
 	{
 		global $L;
 
-		$html  = '<div class="alert alert-primary" role="alert">';
-		$html .= $this->description();
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>'.$L->get('Show current version in the sidebar').'</label>';
+		$html  = '<div>';
+		$html .= '<label>' . $L->get('Show current version in the sidebar') . '</label>';
 		$html .= '<select name="showCurrentVersion">';
-		$html .= '<option value="true" '.($this->getValue('showCurrentVersion')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('showCurrentVersion')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('showCurrentVersion') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('showCurrentVersion') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Show alert when there is a new version in the sidebar').'</label>';
+		$html .= '<label>' . $L->get('Show alert when there is a new version in the sidebar') . '</label>';
 		$html .= '<select name="newVersionAlert">';
-		$html .= '<option value="true" '.($this->getValue('newVersionAlert')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('newVersionAlert')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('newVersionAlert') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('newVersionAlert') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -42,10 +39,10 @@ class pluginVersion extends Plugin {
 		global $L;
 		$html = '';
 		if ($this->getValue('showCurrentVersion')) {
-			$html = '<a class="current-version" class="nav-link" href="'.HTML_PATH_ADMIN_ROOT.'about'.'"><span class="fa fa-info"></span> '.$L->get('Version').' '.(defined('BLUDIT_PRO')?'<span class="fa fa-heart" style="color: #ffc107"></span>':'').'<span class="badge badge-warning badge-pill">'.BLUDIT_VERSION.'</span></a>';
+			$html = '<a id="current-version" class="nav-link" href="' . HTML_PATH_ADMIN_ROOT . 'about' . '">' . $L->get('Version') . ' ' . (defined('BLUDIT_PRO') ? '<span class="bi-heart" style="color: #ffc107"></span>' : '') . '<span class="badge bg-warning rounded-pill">' . BLUDIT_VERSION . '</span></a>';
 		}
 		if ($this->getValue('newVersionAlert')) {
-			$html .= '<a class="new-version" style="display: none;" target="_blank" href="https://www.bludit.com"><span class="fa fa-bell" style="color: red"></span> '.$L->get('New version available').'</a>';
+			$html .= '<a id="new-version" style="display: none;" target="_blank" href="https://www.bludit.com">' . $L->get('New version available') . ' <span class="bi-bell" style="color: red"></span></a>';
 		}
 		return $html;
 	}

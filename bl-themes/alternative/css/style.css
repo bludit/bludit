@@ -18,7 +18,8 @@ img {
 	max-width: 100%;
 }
 
-pre, code {
+pre,
+code {
 	background: #f8f8f8;
 	color: #333;
 }
@@ -56,7 +57,8 @@ tr {
 	border-color: inherit;
 }
 
-th, td {
+th,
+td {
 	padding: 0.5em 1em;
 }
 
@@ -66,10 +68,14 @@ h2.title {
 }
 
 blockquote {
-        padding: 10px 20px;
-        margin: 0 0 20px 20px;
-        border-left: 5px solid #eee;
-        font-style: italic;
+	padding: 10px 20px;
+	margin: 0 0 20px 20px;
+	border-left: 5px solid #eee;
+	font-style: italic;
+}
+
+.bi {
+	margin-right: .5rem !important;
 }
 
 
@@ -111,7 +117,8 @@ header.welcome {
 }
 
 /* Home - Page */
-section.home-page:nth-child(even) { /* Alternate the background color */
+section.home-page:nth-child(even) {
+	/* Alternate the background color */
 	background: #FAFAFA;
 }
 
@@ -127,15 +134,17 @@ section.home-page:nth-child(even) { /* Alternate the background color */
 
 /* VIDEO EMBED RESPONSIVE */
 .video-embed {
-	overflow:hidden;
-	padding-bottom: 56.25%; /* 16:9 */
-	position:relative;
-	height:0;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	/* 16:9 */
+	position: relative;
+	height: 0;
 }
-.video-embed iframe{
-	left:0;
-	top:0;
-	height:100%;
-	width:100%;
-	position:absolute;
+
+.video-embed iframe {
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }

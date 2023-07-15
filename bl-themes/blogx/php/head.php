@@ -14,6 +14,9 @@
 <!-- Include Bootstrap CSS file bootstrap.css -->
 <?php echo Theme::cssBootstrap(); ?>
 
+<!-- Include CSS Bootstrap ICONS file from Bludit Core -->
+<?php echo Theme::cssBootstrapIcons(); ?>
+
 <!-- Include CSS Styles from this theme -->
 <?php echo Theme::css('css/style.css'); ?>
 

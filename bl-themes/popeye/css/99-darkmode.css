@@ -1,0 +1,50 @@
+body {
+    background-color: #1C1C1E !important;
+    color: #b3b3b3 !important;
+}
+
+a {
+    color: #b3b3b3 !important;
+}
+
+a:hover {
+    color: #e2e2e2 !important
+}
+
+a.badge:hover {
+    color: #999 !important;
+}
+
+.form-text {
+    color: #989899 !important;
+}
+
+.bg-light {
+    background-color: #000 !important;
+}
+
+.color-blue {
+    color: #688bbd !important;
+}
+
+.btn-outline-primary {
+    color: #688bbd !important;
+    border-color: #688bbd !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #1C1C1E !important;
+    color: #fff !important;
+}
+
+.page-link {
+    color: #688bbd !important;
+    border-color: #688bbd !important;
+    background-color: #1C1C1E !important;
+}
+
+.form-control {
+    background-color: #1C1C1E !important;
+    border-color: #302F33 !important;
+    color: #b3b3b3 !important;
+}

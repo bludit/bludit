@@ -209,14 +209,14 @@ class Filesystem {
 		return $zip->close();
 	}
 
-	/*
-	 | Returns the next filename if the filename already exist otherwise returns the original filename
-         |
-         | @path	string	Path
-         | @filename	string	Filename
-         |
-         | @return	string
-         */
+  /*
+  | Returns the next filename if the filename already exist otherwise returns the original filename
+  |
+  | @path	string	Path
+  | @filename	string	Filename
+  |
+  | @return	string
+  */
 	public static function nextFilename($filename, $path=PATH_UPLOADS) {
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
@@ -238,30 +238,30 @@ class Filesystem {
 		return $tmpName;
 	}
 
-	/*
-	 | Returns the filename
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return dog.jpg
-         |
-         | @file	string	Full path of the file
-         |
-         | @return	string
-         */
+  /*
+  | Returns the filename
+  | Example:
+  |	@file	/home/diego/dog.jpg
+  |	@return dog.jpg
+  |
+  | @file	string	Full path of the file
+  |
+  | @return	string
+  */
 	public static function filename($file) {
 		return basename($file);
 	}
 
 	/*
-	 | Returns the file extension
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return jpg
-         |
-         | @file	string	Full path of the file
-         |
-         | @return	string
-         */
+  | Returns the file extension
+  | Example:
+  |	@file	/home/diego/dog.jpg
+  |	@return jpg
+  |
+  | @file	string	Full path of the file
+  |
+  | @return	string
+  */
 	public static function extension($file) {
 		return pathinfo($file, PATHINFO_EXTENSION);
 	}
@@ -298,15 +298,15 @@ class Filesystem {
 	}
 
 	/*
-	 | Returns the mime type of the file
-	 | Example:
-	 |	@file	/home/diego/dog.jpg
-	 |	@return image/jpeg
-         |
-         | @file	[string]	Full path of the file
-         |
-         | @return	[string|bool]	Mime type as string or FALSE if not possible to get the mime type
-         */
+  | Returns the mime type of the file
+  | Example:
+  |	@file	/home/diego/dog.jpg
+  |	@return image/jpeg
+  |
+  | @file	[string]	Full path of the file
+  |
+  | @return	[string|bool]	Mime type as string or FALSE if not possible to get the mime type
+  */
 	public static function mimeType($file) {
 		if (function_exists('mime_content_type')) {
 			return mime_content_type($file);
@@ -320,6 +320,14 @@ class Filesystem {
 		}
 
 		return false;
+	}
+
+	public static function symlink($from, $to) {
+		if (function_exists('symlink')) {
+			return symlink($from, $to);
+		} else {
+			return copy($from, $to);
+		}
 	}
 
 }

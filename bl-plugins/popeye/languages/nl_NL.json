@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Popeye Thema",
+		"description": "Met deze plugin kan het thema Popeye geconfigureerd worden."
+	},
+	"enable-or-disable-dark-mode": "Donkere modus in-/uitschakelen.",
+	"enable-or-disable-google-fonts": "Lettertypes van Google in-/uitschakelen.",
+	"relative": "Relatief",
+	"absolute": "Absoluut",
+	"change-the-date-format-for-the-main-page": "Het datumformaat voor de hoofdpagina aanpassen.",
+	"show-tags": "Tags tonen",
+	"show-tags-in-the-main-page-for-each-article": "Op de hoofdpagina voor ieder artikel de tags tonen."
+}

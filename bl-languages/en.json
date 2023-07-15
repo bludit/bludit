@@ -183,7 +183,7 @@
     "you-can-change-this-field-when-save-the-current-changes": "You can change this field when you save the current changes.",
     "items-per-page": "Items per page",
     "invite-a-friend-to-collaborate-on-your-site": "Invite a friend to collaborate on your site",
-    "number-of-items-to-show-per-page": "Number of items to show per page.",
+    "number-of-items-to-show-per-page": "Number of items to show per page, -1 means all items.",
     "website-or-blog": "Website or Blog",
     "order-content-by": "Order content by",
     "edit-or-delete-content-from-your-site": "Edit or delete content from your site",

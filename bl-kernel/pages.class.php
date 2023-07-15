@@ -158,7 +158,7 @@ class Pages extends dbJSON {
 
 		// Create symlink for images directory
 		if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$row['uuid'])) {
-			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
+			Filesystem::symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
 		}
 
 		return $key;
@@ -254,7 +254,7 @@ class Pages extends dbJSON {
 
 			// Regenerate the symlink to a proper directory
 			unlink(PATH_UPLOADS_PAGES.$key);
-			symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
+			Filesystem::symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
 		}
 
 		// If the content was passed via arguments replace the content

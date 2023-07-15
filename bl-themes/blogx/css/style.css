@@ -19,7 +19,8 @@ img {
 }
 
 
-pre, code {
+pre,
+code {
 	background: #f8f8f8;
 	color: #333;
 }
@@ -57,7 +58,8 @@ tr {
 	border-color: inherit;
 }
 
-th, td {
+th,
+td {
 	padding: 0.5em 1em;
 }
 
@@ -67,10 +69,10 @@ h2.title {
 }
 
 blockquote {
-        padding: 10px 20px;
-        margin: 0 0 20px 20px;
-        border-left: 5px solid #eee;
-        font-style: italic;
+	padding: 10px 20px;
+	margin: 0 0 20px 20px;
+	border-left: 5px solid #eee;
+	font-style: italic;
 }
 
 /* Navbar */
@@ -112,4 +114,8 @@ footer {
 .plugin ul {
 	list-style: none;
 	padding: 0 0 0 10px;
+}
+
+.bi {
+	margin-right: .5rem !important;
 }

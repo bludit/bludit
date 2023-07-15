@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Visits Stats",
+		"description": "ダッシュボードに訪問者数とユニーク訪問者数を表示します。"
+	},
+	"visits": "訪問者",
+	"visitors": "訪問者数",
+	"unique-visitors": "ユニーク訪問者数",
+	"exclude-administrators-users" : "管理者グループのユーザーを除外する"
+}

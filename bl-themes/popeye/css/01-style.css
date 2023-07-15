@@ -1,0 +1,113 @@
+
+/* COMMON */
+a {
+    color: #495057;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0a58ca;
+}
+
+img {
+	max-width: 100%;
+}
+
+pre, code {
+	color: #f8f8f8;
+	background-color: #495057;
+}
+
+code {
+	display: inline-block;
+	padding: 0 0.5em;
+	line-height: 1.4em;
+	border-radius: 3px;
+}
+
+pre {
+	overflow-x: scroll;
+	padding: 1.6rem 2.2rem;
+	line-height: 1.5;
+	border-radius: 5px !important;
+}
+
+/* BOOTSTRAP */
+.list-group-item {
+	background-color: inherit;
+}
+
+.badge {
+	font-size: 0.8rem;
+	font-weight: 400;
+}
+
+.bi {
+	margin-right: .5rem!important;
+}
+
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* PAGE */
+section.page {
+	font-size: 1.1rem;
+}
+
+section.page .description {
+    font-style: italic;
+}
+
+section.page a {
+	color: #0a58ca;
+}
+
+section.page p {
+	margin-bottom: 1.2rem;
+}
+
+section.page h1.page-title {
+	font-size: 2rem;
+}
+
+section.page h2 {
+	font-size: 1.5rem;
+}
+
+section.page h3 {
+	font-size: 1.3rem;
+}
+
+section.page h4 {
+	font-size: 1.1rem;
+}
+
+section.page h5 {
+	font-size: 1rem;
+}
+
+section.page h2,
+section.page h3,
+section.page h4,
+section.page h5 {
+	margin: 2rem 0 1rem 0;
+}
+
+/* VIDEO EMBED RESPONSIVE */
+.video-embed {
+	overflow:hidden;
+	padding-bottom: 56.25%; /* 16:9 */
+	position:relative;
+	height:0;
+}
+.video-embed iframe{
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	position:absolute;
+}

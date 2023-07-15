@@ -1,0 +1,20 @@
+/* HELPERs */
+.color-blue {
+	color: #0a58ca;
+}
+
+.color-light {
+    color: #495057;
+}
+
+.bold {
+	font-weight: 600;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bg-gray {
+    background-color: #ececec;
+}
