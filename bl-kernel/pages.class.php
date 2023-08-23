@@ -657,10 +657,11 @@ class Pages extends dbJSON {
         $list = array();
         foreach ($tmp as $key=>$fields) {
             if (Text::startsWith($key, $parentKey.'/')) {
-                array_push($list, $key);
+                $list[$key]=$fields['position'];
             }
         }
-        return $list;
+        natcasesort($list);
+        return array_keys($list);
     }
 
     public function sortBy()
