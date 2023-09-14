@@ -159,7 +159,7 @@ class Pages extends dbJSON {
         }
 
         // Create symlink for the upload directory
-        if (symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key) === false) {
+        if (symlink($row['uuid'], PATH_UPLOADS_PAGES.$key) === false) {
             Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to create the symlink: '.PATH_UPLOADS_PAGES.$key, LOG_TYPE_ERROR);
             return false;
         }
@@ -291,7 +291,7 @@ class Pages extends dbJSON {
 
 			// Regenerate the symlink to a proper directory
 			unlink(PATH_UPLOADS_PAGES.$key);
-			if (symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey) === false) {
+			if (symlink($row['uuid'], PATH_UPLOADS_PAGES.$newKey) === false) {
                 Log::set(__METHOD__.LOG_SEP.'An error occurred while trying to move the directory: '.PATH_UPLOADS_PAGES.$newKey, LOG_TYPE_ERROR);
                 return false;
             }
