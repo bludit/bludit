@@ -3,11 +3,11 @@
         "native": "Русский (Россия)",
         "english-name": "Russian",
         "locale": "ru, ru_RU",
-        "last-update": "2018-08-20",
+        "last-update": "2023-09-20",
         "authors": [
             "Сергей Ворон https:\/\/voron.pw",
             "Макс Костиков https:\/\/kostikov.co",
-            "Paul https:\/\/paul.bid",
+            "Paul Bid (Павел Бид) https:\/\/paul.bid",
             ""
         ]
     },
@@ -183,7 +183,7 @@
     "you-can-change-this-field-when-save-the-current-changes": "Вы сможете изменить это поле после того, как сохраните текущие настройки.",
     "items-per-page": "Записей на странице",
     "invite-a-friend-to-collaborate-on-your-site": "Пригласить друга для совместной работы на сайте",
-    "number-of-items-to-show-per-page": "Количество записей, отображаемых на странице.",
+    "number-of-items-to-show-per-page": "Количество записей, отображаемых на странице, -1 отобразит все записи.",
     "website-or-blog": "«Веб-сайт» или «Блог»",
     "order-content-by": "Сортировать записи по",
     "edit-or-delete-content-from-your-site": "Редактировать или удалить запись на Вашем сайте",
