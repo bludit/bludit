@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "Интерфейс для взаимодействия с Bludit по HTTP-протоколу.<br>Узнайте больше про этот плагин в разделе <a href=\"https://docs.bludit.com/en/api/introduction\">Введение в API для Bludit</a> (раздел на английском)."
+	},
+	"api-token": "API Tокен",
+	"amount-of-pages": "Количество страниц",
+	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "Максимальное количество возвращаемых страниц при обращении к <code>/api/pages</code>",
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "Данный токен используется только для чтения, токен обновляется при каждой переустановке плагина."
+}
