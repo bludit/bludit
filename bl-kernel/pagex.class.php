@@ -595,7 +595,9 @@ class Page {
 		// For each tag get the list of related pages
 		foreach ($pageTags as $tagKey=>$tagName) {
 			$pagesRelated = $tags->getList($tagKey, 1, -1);
-			$list = array_merge($list, $pagesRelated);
+            if(is_array($pagesRelated)) {
+                $list = array_merge($list, $pagesRelated);
+            }
 		}
 
 		// Remove duplicates
