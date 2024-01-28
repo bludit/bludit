@@ -932,7 +932,7 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 
   // Generate Thumbnail
   if (!empty($thumbnailDir)) {
-    if (($fileExtension == 'svg') || ($fileExtension == 'webp')) {
+    if (($fileExtension == 'svg')) {
       Filesystem::symlink($image, $thumbnailDir . $nextFilename);
     } else {
       $Image = new Image();
