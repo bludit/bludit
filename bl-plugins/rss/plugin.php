@@ -75,8 +75,10 @@ class pluginRSS extends Plugin {
 				$xml .= '<item>';
 				$xml .= '<title>'.$page->title().'</title>';
 				$xml .= '<link>'.$this->encodeURL($page->permalink()).'</link>';
-				$xml .= '<image>'.$page->coverImage(true).'</image>'; 
-				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
+				$imagepath = parse_url($page->coverImage(true), PHP_URL_PATH);				
+				$imagepath = $_SERVER['DOCUMENT_ROOT'] . $imagepath;
+				$xml .= '<enclosure url="'.$page->coverImage(true).    '" length="'.filesize($imagepath) .'" type="'.mime_content_type($imagepath)   .'" />'; 	
+				$xml .= '<description>'.  strip_tags( $page->contentBreak() ) .'</description>';	
 				$xml .= '<pubDate>'.date(DATE_RSS,strtotime($page->getValue('dateRaw'))).'</pubDate>';
 				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
 				$xml .= '</item>';
