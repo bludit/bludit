@@ -322,8 +322,10 @@ class Pages extends dbJSON {
 		}
 
 		// Delete page images directory; The function already check if exists the directory
-		if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$key);
+		if (($uuid = $this->getUUID($key))) {
+			if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$uuid) === false) {
+				Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$uuid);
+			}
 		}
 
 		// Remove from database
