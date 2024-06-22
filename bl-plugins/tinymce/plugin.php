@@ -1,6 +1,7 @@
 <?php
 
-class pluginTinymce extends Plugin {
+class pluginTinymce extends Plugin
+{
 
 	private $loadOnController = array(
 		'new-content',
@@ -10,10 +11,10 @@ class pluginTinymce extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1'=>'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
-			'toolbar2'=>'',
-			'plugins'=>'code autolink image link pagebreak advlist lists textpattern table',
-			'codesampleLanguages'=>'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp' 
+			'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
+			'toolbar2' => '',
+			'plugins' => 'code autolink image link pagebreak advlist lists textpattern table',
+			'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 		);
 	}
 
@@ -26,25 +27,25 @@ class pluginTinymce extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('toolbar-top').'</label>';
-		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" value="'.$this->getValue('toolbar1').'">';
+		$html .= '<label>' . $L->get('toolbar-top') . '</label>';
+		$html .= '<input name="toolbar1" id="jstoolbar1" type="text" dir="auto" value="' . $this->getValue('toolbar1') . '">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('toolbar-bottom').'</label>';
-		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" value="'.$this->getValue('toolbar2').'">';
+		$html .= '<label>' . $L->get('toolbar-bottom') . '</label>';
+		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" dir="auto" value="' . $this->getValue('toolbar2') . '">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Plugins').'</label>';
-		$html .= '<input name="plugins" id="jsplugins" type="text" value="'.$this->getValue('plugins').'">';
+		$html .= '<label>' . $L->get('Plugins') . '</label>';
+		$html .= '<input name="plugins" id="jsplugins" type="text" dir="auto" value="' . $this->getValue('plugins') . '">';
 		$html .= '</div>';
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
 			$html .= '<div>';
-			$html .= '<label>'.$L->get('codesample-languages').'</label>';
-			$html .= '<input name="codesampleLanguages" id="jsCodesampleLanguages" type="text" value="'.$this->getValue('codesampleLanguages').'">';
-			$html .= '<span class="tip">'.$L->get('codesample-supported-laguages').'</span>';
+			$html .= '<label>' . $L->get('codesample-languages') . '</label>';
+			$html .= '<input name="codesampleLanguages" id="jsCodesampleLanguages" type="text" dir="auto" value="' . $this->getValue('codesampleLanguages') . '">';
+			$html .= '<span class="tip">' . $L->get('codesample-supported-laguages') . '</span>';
 			$html .= '</div>';
 		}
 
@@ -57,8 +58,8 @@ class pluginTinymce extends Plugin {
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
-		$html  = '<link rel="stylesheet" type="text/css" href="'.$this->htmlPath().'css/tinymce_toolbar.css">'.PHP_EOL;
-		$html .= '<script src="'.$this->htmlPath().'tinymce/tinymce.min.js?version='.$this->version().'"></script>';
+		$html  = '<link rel="stylesheet" type="text/css" href="' . $this->htmlPath() . 'css/tinymce_toolbar.css">' . PHP_EOL;
+		$html .= '<script src="' . $this->htmlPath() . 'tinymce/tinymce.min.js?version=' . $this->version() . '"></script>';
 		return $html;
 	}
 
@@ -73,32 +74,33 @@ class pluginTinymce extends Plugin {
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
-		$content_css = $this->htmlPath().'css/tinymce_content.css';
+		$content_css = $this->htmlPath() . 'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
+			$codesampleConfig = '';
 			$codesampleLanguages = explode("|", $this->getValue('codesampleLanguages'));
-			foreach($codesampleLanguages AS $codesampleLang) {
+			foreach ($codesampleLanguages as $codesampleLang) {
 				$values = explode(" ", $codesampleLang);
 				$codesampleConfig .= "{ text: '" . $values[0] . "', value: '" . $values[1] . "' },";
 			}
 		}
 
 		$lang = 'en';
-		if (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$L->currentLanguage().'.js')) {
+		if (file_exists($this->phpPath() . 'tinymce' . DS . 'langs' . DS . $L->currentLanguage() . '.js')) {
 			$lang = $L->currentLanguage();
-		} elseif (file_exists($this->phpPath().'tinymce'.DS.'langs'.DS.$L->currentLanguageShortVersion().'.js')) {
+		} elseif (file_exists($this->phpPath() . 'tinymce' . DS . 'langs' . DS . $L->currentLanguageShortVersion() . '.js')) {
 			$lang = $L->currentLanguageShortVersion();
 		}
 
 		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
-			$document_base_url = 'document_base_url: "'.DOMAIN_UPLOADS.'",';
+			$document_base_url = 'document_base_url: "' . DOMAIN_UPLOADS . '",';
 		} else {
 			$document_base_url = '';
 		}
 
-$html = <<<EOF
+		$html = <<<EOF
 <script>
 
 	// Insert an image in the editor at the cursor position
@@ -150,5 +152,4 @@ $html = <<<EOF
 EOF;
 		return $html;
 	}
-
 }

@@ -12,7 +12,7 @@ echo Bootstrap::formTitle(array('title' => $L->g('Search plugins')));
 
 ?>
 
-<input type="text" class="form-control" id="search" placeholder="<?php $L->p('Search') ?>">
+<input type="text" dir="auto" class="form-control" id="search" placeholder="<?php $L->p('Search') ?>">
 <script>
 	$(document).ready(function() {
 		$("#search").on("keyup", function() {

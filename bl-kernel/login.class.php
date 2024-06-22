@@ -1,8 +1,9 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Login {
-
+class Login
+{
 	protected $users;
+	protected $site;
 
 	function __construct()
 	{
@@ -12,11 +13,11 @@ class Login {
 			$this->users = new Users();
 		}
 
-        if (isset($GLOBALS['site'])) {
-            $this->site = $GLOBALS['site'];
-        } else {
-            $this->site = new Site();
-        }
+		if (isset($GLOBALS['site'])) {
+			$this->site = $GLOBALS['site'];
+		} else {
+			$this->site = new Site();
+		}
 
 		// Start the Session
 		if (!Session::started()) {
@@ -39,18 +40,18 @@ class Login {
 	// Returns TRUE if the user is logged, FALSE otherwise
 	public function isLogged()
 	{
-		if (Session::get('fingerPrint')===$this->fingerPrint()) {
+		if (Session::get('fingerPrint') === $this->fingerPrint()) {
 			$username = Session::get('username');
 			if (!empty($username)) {
 				return true;
 			} else {
-				Log::set(__METHOD__.LOG_SEP.'Session username empty, destroying the session.');
+				Log::set(__METHOD__ . LOG_SEP . 'Session username empty, destroying the session.');
 				Session::destroy();
 				return false;
 			}
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'FingerPrints are different. ['.Session::get('fingerPrint').'] != ['.$this->fingerPrint().']');
+		Log::set(__METHOD__ . LOG_SEP . 'FingerPrints are different. [' . Session::get('fingerPrint') . '] != [' . $this->fingerPrint() . ']');
 		return false;
 	}
 
@@ -62,7 +63,7 @@ class Login {
 		Session::set('fingerPrint',	$this->fingerPrint());
 		Session::set('sessionTime',	time());
 
-		Log::set(__METHOD__.LOG_SEP.'User logged, fingerprint ['.$this->fingerPrint().']');
+		Log::set(__METHOD__ . LOG_SEP . 'User logged, fingerprint [' . $this->fingerPrint() . ']');
 	}
 
 	public function setRememberMe($username)
@@ -77,7 +78,7 @@ class Login {
 		Cookie::set(REMEMBER_COOKIE_USERNAME, $username, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
 		Cookie::set(REMEMBER_COOKIE_TOKEN, $token, REMEMBER_COOKIE_EXPIRE_IN_DAYS);
 
-		Log::set(__METHOD__.LOG_SEP.'Cookies set for Remember Me.');
+		Log::set(__METHOD__ . LOG_SEP . 'Cookies set for Remember Me.');
 	}
 
 	public function invalidateRememberMe()
@@ -101,12 +102,12 @@ class Login {
 		$username = trim($username);
 
 		if (empty($username) || empty($password)) {
-			Log::set(__METHOD__.LOG_SEP.'Username or password empty. Username: '.$username);
+			Log::set(__METHOD__ . LOG_SEP . 'Username or password empty. Username: ' . $username);
 			return false;
 		}
 
-		if (Text::length($password)<PASSWORD_LENGTH) {
-			Log::set(__METHOD__.LOG_SEP.'Password length is shorter than required.');
+		if (Text::length($password) < PASSWORD_LENGTH) {
+			Log::set(__METHOD__ . LOG_SEP . 'Password length is shorter than required.');
 			return false;
 		}
 
@@ -117,13 +118,13 @@ class Login {
 		}
 
 		$passwordHash = $this->users->generatePasswordHash($password, $user->salt());
-		if ($passwordHash===$user->password()) {
+		if ($passwordHash === $user->password()) {
 			$this->setLogin($username, $user->role());
-			Log::set(__METHOD__.LOG_SEP.'Successful user login by username and password - Username ['.$username.']');
+			Log::set(__METHOD__ . LOG_SEP . 'Successful user login by username and password - Username [' . $username . ']');
 			return true;
 		}
 
-		Log::set(__METHOD__.LOG_SEP.'Password incorrect.');
+		Log::set(__METHOD__ . LOG_SEP . 'Password incorrect.');
 		return false;
 	}
 
@@ -145,20 +146,20 @@ class Login {
 
 		if (empty($username) || empty($token)) {
 			$this->invalidateRememberMe();
-			Log::set(__METHOD__.LOG_SEP.'Username or Token empty. Username: '.$username.' - Token: '.$token);
+			Log::set(__METHOD__ . LOG_SEP . 'Username or Token empty. Username: ' . $username . ' - Token: ' . $token);
 			return false;
 		}
 
 		if ($username !== $this->users->getByRememberToken($token)) {
 			$this->invalidateRememberMe();
-			Log::set(__METHOD__.LOG_SEP.'The user has different token or the token doesn\'t exist.');
+			Log::set(__METHOD__ . LOG_SEP . 'The user has different token or the token doesn\'t exist.');
 			return false;
 		}
 
 		// Get user from database and login
 		$user = $this->users->getUserDB($username);
 		$this->setLogin($username, $user['role']);
-		Log::set(__METHOD__.LOG_SEP.'User authenticated via Remember Me.');
+		Log::set(__METHOD__ . LOG_SEP . 'User authenticated via Remember Me.');
 		return true;
 	}
 

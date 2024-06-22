@@ -1,12 +1,13 @@
 <?php
 
-class pluginRSS extends Plugin {
+class pluginRSS extends Plugin
+{
 
 	public function init()
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'numberOfItems'=>5
+			'numberOfItems' => 5
 		);
 	}
 
@@ -20,23 +21,25 @@ class pluginRSS extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('RSS URL').'</label>';
-		$html .= '<a href="'.Theme::rssUrl().'">'.Theme::rssUrl().'</a>';
+		$html .= '<label>' . $L->get('RSS URL') . '</label>';
+		$html .= '<a href="' . Theme::rssUrl() . '">' . Theme::rssUrl() . '</a>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Amount of items').'</label>';
-		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
-		$html .= '<span class="tip">'.$L->get('Amount of items to show on the feed').'</span>';
+		$html .= '<label>' . $L->get('Amount of items') . '</label>';
+		$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" dir="auto" value="' . $this->getValue('numberOfItems') . '">';
+		$html .= '<span class="tip">' . $L->get('Amount of items to show on the feed') . '</span>';
 		$html .= '</div>';
 
 		return $html;
 	}
-	
-        private function encodeURL($url)
-        {
-               return preg_replace_callback('/[^\x20-\x7f]/', function($match) { return urlencode($match[0]); }, $url);
-        }
+
+	private function encodeURL($url)
+	{
+		return preg_replace_callback('/[^\x20-\x7f]/', function ($match) {
+			return urlencode($match[0]);
+		}, $url);
+	}
 
 	private function createXML()
 	{
@@ -49,23 +52,23 @@ class pluginRSS extends Plugin {
 
 		// Get the list of public pages (sticky and static included)
 		$list = $pages->getList(
-			$pageNumber=1,
+			$pageNumber = 1,
 			$numberOfItems,
-			$published=true,
-			$static=true,
-			$sticky=true,
-			$draft=false,
-			$scheduled=false
+			$published = true,
+			$static = true,
+			$sticky = true,
+			$draft = false,
+			$scheduled = false
 		);
 
 		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 		$xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
 		$xml .= '<channel>';
-		$xml .= '<atom:link href="'.DOMAIN_BASE.'rss.xml" rel="self" type="application/rss+xml" />';
-		$xml .= '<title>'.$site->title().'</title>';
-		$xml .= '<link>'.$this->encodeURL($site->url()).'</link>';
-		$xml .= '<description>'.$site->description().'</description>';
-		$xml .= '<lastBuildDate>'.date(DATE_RSS).'</lastBuildDate>';
+		$xml .= '<atom:link href="' . DOMAIN_BASE . 'rss.xml" rel="self" type="application/rss+xml" />';
+		$xml .= '<title>' . $site->title() . '</title>';
+		$xml .= '<link>' . $this->encodeURL($site->url()) . '</link>';
+		$xml .= '<description>' . $site->description() . '</description>';
+		$xml .= '<lastBuildDate>' . date(DATE_RSS) . '</lastBuildDate>';
 
 		// Get keys of pages
 		foreach ($list as $pageKey) {
@@ -73,12 +76,12 @@ class pluginRSS extends Plugin {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
 				$xml .= '<item>';
-				$xml .= '<title>'.$page->title().'</title>';
-				$xml .= '<link>'.$this->encodeURL($page->permalink()).'</link>';
-				$xml .= '<image>'.$page->coverImage(true).'</image>'; 
-				$xml .= '<description>'.Sanitize::html($page->contentBreak()).'</description>';
-				$xml .= '<pubDate>'.date(DATE_RSS,strtotime($page->getValue('dateRaw'))).'</pubDate>';
-				$xml .= '<guid isPermaLink="false">'.$page->uuid().'</guid>';
+				$xml .= '<title>' . $page->title() . '</title>';
+				$xml .= '<link>' . $this->encodeURL($page->permalink()) . '</link>';
+				$xml .= '<image>' . $page->coverImage(true) . '</image>';
+				$xml .= '<description>' . Sanitize::html($page->contentBreak()) . '</description>';
+				$xml .= '<pubDate>' . date(DATE_RSS, strtotime($page->getValue('dateRaw'))) . '</pubDate>';
+				$xml .= '<guid isPermaLink="false">' . $page->uuid() . '</guid>';
 				$xml .= '</item>';
 			} catch (Exception $e) {
 				// Continue
@@ -91,10 +94,10 @@ class pluginRSS extends Plugin {
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->loadXML($xml);
-		return $doc->save($this->workspace().'rss.xml');
+		return $doc->save($this->workspace() . 'rss.xml');
 	}
 
-	public function install($position=0)
+	public function install($position = 0)
 	{
 		parent::install($position);
 		return $this->createXML();
@@ -123,7 +126,7 @@ class pluginRSS extends Plugin {
 
 	public function siteHead()
 	{
-		return '<link rel="alternate" type="application/rss+xml" href="'.DOMAIN_BASE.'rss.xml" title="RSS Feed">'.PHP_EOL;
+		return '<link rel="alternate" type="application/rss+xml" href="' . DOMAIN_BASE . 'rss.xml" title="RSS Feed">' . PHP_EOL;
 	}
 
 	public function beforeAll()
@@ -136,7 +139,7 @@ class pluginRSS extends Plugin {
 
 			// Load XML
 			libxml_disable_entity_loader(false);
-			$doc->load($this->workspace().'rss.xml');
+			$doc->load($this->workspace() . 'rss.xml');
 			libxml_disable_entity_loader(true);
 
 			// Print the XML

@@ -98,7 +98,7 @@ EOF;
 
 		$html  = '<div class="mb-3">';
 		$html .= '<label class="form-label" for="label">' . $L->get('Label') . '</label>';
-		$html .= '<input class="form-control" id="label" name="label" type="text" value="' . $this->getValue('label') . '">';
+		$html .= '<input class="form-control" id="label" name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
 		$html .= '<div class="form-text">' . $L->get('This title is almost always used in the sidebar of the site') . '</div>';
 		$html .= '</div>';
 

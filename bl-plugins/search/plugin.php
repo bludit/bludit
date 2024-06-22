@@ -1,6 +1,7 @@
 <?php
 
-class pluginSearch extends Plugin {
+class pluginSearch extends Plugin
+{
 
 	private $pagesFound = array();
 	private $numberOfItems = 0;
@@ -9,10 +10,10 @@ class pluginSearch extends Plugin {
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Search',
-			'minChars'=>3,
-			'wordsToCachePerPage'=>800,
-			'showButtonSearch'=>false
+			'label' => 'Search',
+			'minChars' => 3,
+			'wordsToCachePerPage' => 800,
+			'showButtonSearch' => false
 		);
 	}
 
@@ -25,23 +26,23 @@ class pluginSearch extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<label>' . $L->get('Label') . '</label>';
+		$html .= '<input name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
+		$html .= '<span class="tip">' . $L->get('This title is almost always used in the sidebar of the site') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Minimum number of characters when searching').'</label>';
-		$html .= '<input name="minChars" type="text" value="'.$this->getValue('minChars').'">';
+		$html .= '<label>' . $L->get('Minimum number of characters when searching') . '</label>';
+		$html .= '<input name="minChars" type="text" dir="auto" value="' . $this->getValue('minChars') . '">';
 		$html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('Show button search').'</label>';
-                $html .= '<select name="showButtonSearch">';
-                $html .= '<option value="true" '.($this->getValue('showButtonSearch')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('showButtonSearch')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('Show button search') . '</label>';
+		$html .= '<select name="showButtonSearch">';
+		$html .= '<option value="true" ' . ($this->getValue('showButtonSearch') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('showButtonSearch') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
 		$html .= '</select>';
-                $html .= '</div>';
+		$html .= '</div>';
 		$html .= '<div>';
 
 		return $html;
@@ -53,17 +54,17 @@ class pluginSearch extends Plugin {
 		global $L;
 
 		$html  = '<div class="plugin plugin-search">';
-		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<input type="text" id="jspluginSearchText" /> ';
+		$html .= '<input type="text" dir="auto" id="jspluginSearchText" /> ';
 		if ($this->getValue('showButtonSearch')) {
-			$html .= '<input type="button" value="'.$L->get('Search').'" onClick="pluginSearch()" />';
+			$html .= '<input type="button" value="' . $L->get('Search') . '" onClick="pluginSearch()" />';
 		}
 		$html .= '</div>';
 		$html .= '</div>';
 
 		$DOMAIN_BASE = DOMAIN_BASE;
-$html .= <<<EOF
+		$html .= <<<EOF
 <script>
 	function pluginSearch() {
 		var text = document.getElementById("jspluginSearchText").value;
@@ -85,7 +86,7 @@ EOF;
 		return $html;
 	}
 
-	public function install($position=0)
+	public function install($position = 0)
 	{
 		parent::install($position);
 		return $this->createCache();
@@ -137,8 +138,8 @@ EOF;
 			// The first page number is 1, so the real is 0
 			$realPageNumber = $url->pageNumber() - 1;
 			$itemsPerPage = $site->itemsPerPage();
-			if($itemsPerPage <= 0) {
-				if($realPageNumber === 0) {
+			if ($itemsPerPage <= 0) {
+				if ($realPageNumber === 0) {
 					$this->pagesFound = $list;
 				}
 			} else {
@@ -190,7 +191,7 @@ EOF;
 	{
 		// Get all pages published
 		global $pages;
-		$list = $pages->getList($pageNumber=1, $numberOfItems=-1, $published=true, $static=true, $sticky=true, $draft=false, $scheduled=false);
+		$list = $pages->getList($pageNumber = 1, $numberOfItems = -1, $published = true, $static = true, $sticky = true, $draft = false, $scheduled = false);
 
 		$cache = array();
 		foreach ($list as $pageKey) {
@@ -216,7 +217,7 @@ EOF;
 	// Returns the absolute path of the cache file
 	private function cacheFile()
 	{
-		return $this->workspace().'cache.json';
+		return $this->workspace() . 'cache.json';
 	}
 
 	// Search text inside the cache
@@ -229,11 +230,10 @@ EOF;
 		$cache = json_decode($json, true);
 
 		// Inlcude Fuzz algorithm
-		require_once($this->phpPath().'vendors/fuzz.php');
+		require_once($this->phpPath() . 'vendors/fuzz.php');
 		$fuzz = new Fuzz($cache, 10, 1, true);
 		$results = $fuzz->search($text, $this->getValue('minChars'));
 
-		return(array_keys($results));
+		return (array_keys($results));
 	}
-
 }

@@ -1,12 +1,13 @@
 <?php
 
-class pluginMaintenanceMode extends Plugin {
+class pluginMaintenanceMode extends Plugin
+{
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'enable'=>false,
-			'message'=>'Temporarily down for maintenance.'
+			'enable' => false,
+			'message' => 'Temporarily down for maintenance.'
 		);
 	}
 
@@ -19,16 +20,16 @@ class pluginMaintenanceMode extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Enable maintenance mode').'</label>';
+		$html .= '<label>' . $L->get('Enable maintenance mode') . '</label>';
 		$html .= '<select name="enable">';
-		$html .= '<option value="true" '.($this->getValue('enable')===true?'selected':'').'>Enabled</option>';
-		$html .= '<option value="false" '.($this->getValue('enable')===false?'selected':'').'>Disabled</option>';
+		$html .= '<option value="true" ' . ($this->getValue('enable') === true ? 'selected' : '') . '>Enabled</option>';
+		$html .= '<option value="false" ' . ($this->getValue('enable') === false ? 'selected' : '') . '>Disabled</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Message').'</label>';
-		$html .= '<input name="message" id="jsmessage" type="text" value="'.$this->getValue('message').'">';
+		$html .= '<label>' . $L->get('Message') . '</label>';
+		$html .= '<input name="message" id="jsmessage" type="text" dir="auto" value="' . $this->getValue('message') . '">';
 		$html .= '</div>';
 
 		return $html;
@@ -37,7 +38,7 @@ class pluginMaintenanceMode extends Plugin {
 	public function beforeAll()
 	{
 		if ($this->getValue('enable')) {
-			exit( $this->getValue('message') );
+			exit($this->getValue('message'));
 		}
 	}
 }

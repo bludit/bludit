@@ -1,14 +1,15 @@
 <?php
 
-class pluginNavigation extends Plugin {
+class pluginNavigation extends Plugin
+{
 
 	public function init()
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>'Navigation',
-			'homeLink'=>true,
-			'numberOfItems'=>5
+			'label' => 'Navigation',
+			'homeLink' => true,
+			'numberOfItems' => 5
 		);
 	}
 
@@ -22,24 +23,24 @@ class pluginNavigation extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<label>' . $L->get('Label') . '</label>';
+		$html .= '<input id="jslabel" name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
+		$html .= '<span class="tip">' . $L->get('This title is almost always used in the sidebar of the site') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Home link').'</label>';
+		$html .= '<label>' . $L->get('Home link') . '</label>';
 		$html .= '<select name="homeLink">';
-		$html .= '<option value="true" '.($this->getValue('homeLink')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('homeLink')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('homeLink') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('homeLink') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
-		$html .= '<span class="tip">'.$L->get('Show the home link on the sidebar').'</span>';
+		$html .= '<span class="tip">' . $L->get('Show the home link on the sidebar') . '</span>';
 		$html .= '</div>';
 
-		if (ORDER_BY=='date') {
+		if (ORDER_BY == 'date') {
 			$html .= '<div>';
-			$html .= '<label>'.$L->get('Amount of items').'</label>';
-			$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" value="'.$this->getValue('numberOfItems').'">';
+			$html .= '<label>' . $L->get('Amount of items') . '</label>';
+			$html .= '<input id="jsnumberOfItems" name="numberOfItems" type="text" dir="auto" value="' . $this->getValue('numberOfItems') . '">';
 			$html .= '</div>';
 		}
 
@@ -60,7 +61,7 @@ class pluginNavigation extends Plugin {
 		// Print the label if not empty
 		$label = $this->getValue('label');
 		if (!empty($label)) {
-			$html .= '<h2 class="plugin-label">'.$label.'</h2>';
+			$html .= '<h2 class="plugin-label">' . $label . '</h2>';
 		}
 
 		$html .= '<div class="plugin-content">';
@@ -74,7 +75,7 @@ class pluginNavigation extends Plugin {
 		}
 
 		// Pages order by position
-		if (ORDER_BY=='position') {
+		if (ORDER_BY == 'position') {
 			// Get parents
 			$parents = buildParentPages();
 			foreach ($parents as $parent) {
@@ -116,8 +117,8 @@ class pluginNavigation extends Plugin {
 		}
 
 		$html .= '</ul>';
- 		$html .= '</div>';
- 		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
 
 		return $html;
 	}

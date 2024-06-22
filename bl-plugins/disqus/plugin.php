@@ -1,14 +1,15 @@
 <?php
 
-class pluginDisqus extends Plugin {
+class pluginDisqus extends Plugin
+{
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'shortname'=>'',
-                        'enablePages'=>true,
-			'enableStatic'=>true,
-			'enableSticky'=>true
+			'shortname' => '',
+			'enablePages' => true,
+			'enableStatic' => true,
+			'enableSticky' => true
 		);
 	}
 
@@ -21,34 +22,34 @@ class pluginDisqus extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('disqus-shortname').'</label>';
-		$html .= '<input name="shortname" id="jsshortname" type="text" value="'.$this->getValue('shortname').'">';
-		$html .= '<span class="tip">'.$L->get('Get the shortname from the Disqus general settings').'</span>';
+		$html .= '<label>' . $L->get('disqus-shortname') . '</label>';
+		$html .= '<input name="shortname" id="jsshortname" type="text" dir="auto" value="' . $this->getValue('shortname') . '">';
+		$html .= '<span class="tip">' . $L->get('Get the shortname from the Disqus general settings') . '</span>';
 		$html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-pages').'</label>';
-                $html .= '<select name="enablePages">';
-                $html .= '<option value="true" '.($this->getValue('enablePages')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enablePages')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('enable-disqus-on-pages') . '</label>';
+		$html .= '<select name="enablePages">';
+		$html .= '<option value="true" ' . ($this->getValue('enablePages') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('enablePages') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
+		$html .= '</select>';
 		$html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-static-pages').'</label>';
-                $html .= '<select name="enableStatic">';
-                $html .= '<option value="true" '.($this->getValue('enableStatic')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enableStatic')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('enable-disqus-on-static-pages') . '</label>';
+		$html .= '<select name="enableStatic">';
+		$html .= '<option value="true" ' . ($this->getValue('enableStatic') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('enableStatic') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
+		$html .= '</select>';
 		$html .= '</div>';
 
-                $html .= '<div>';
-                $html .= '<label>'.$L->get('enable-disqus-on-sticky-pages').'</label>';
-                $html .= '<select name="enableSticky">';
-                $html .= '<option value="true" '.($this->getValue('enableSticky')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-                $html .= '<option value="false" '.($this->getValue('enableSticky')===false?'selected':'').'>'.$L->get('disabled').'</option>';
-                $html .= '</select>';
-                $html .= '</div>';
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('enable-disqus-on-sticky-pages') . '</label>';
+		$html .= '<select name="enableSticky">';
+		$html .= '<option value="true" ' . ($this->getValue('enableSticky') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('enableSticky') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
+		$html .= '</select>';
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -63,7 +64,7 @@ class pluginDisqus extends Plugin {
 			return false;
 		}
 
-		if ($WHERE_AM_I==='page') {
+		if ($WHERE_AM_I === 'page') {
 			global $page;
 			if ($page->published() && $this->getValue('enablePages')) {
 				return $this->javascript();
@@ -86,7 +87,7 @@ class pluginDisqus extends Plugin {
 		$pageID = $page->uuid();
 		$shortname = $this->getValue('shortname');
 
-$code = <<<EOF
+		$code = <<<EOF
 <!-- Disqus plugin -->
 <div id="disqus_thread"></div>
 <script>
@@ -108,5 +109,4 @@ $code = <<<EOF
 EOF;
 		return $code;
 	}
-
 }

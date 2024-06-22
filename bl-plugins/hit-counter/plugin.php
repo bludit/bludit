@@ -1,12 +1,13 @@
 <?php
 
-class pluginHitCounter extends Plugin {
+class pluginHitCounter extends Plugin
+{
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'label'=>'Hit Counter',
-			'showUniqueVisitors'=>false
+			'label' => 'Hit Counter',
+			'showUniqueVisitors' => false
 		);
 	}
 
@@ -34,17 +35,17 @@ class pluginHitCounter extends Plugin {
 
 		// Label of the plugin to show in the sidebar
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<label>' . $L->get('Label') . '</label>';
+		$html .= '<input name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
+		$html .= '<span class="tip">' . $L->get('This title is almost always used in the sidebar of the site') . '</span>';
 		$html .= '</div>';
 
 		// Form "select" element for enable or disable Unique visitors properties
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Show unique visitors').'</label>';
+		$html .= '<label>' . $L->get('Show unique visitors') . '</label>';
 		$html .= '<select name="showUniqueVisitors">';
-		$html .= '<option value="true" '.($this->getValue('showUniqueVisitors')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('showUniqueVisitors')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('showUniqueVisitors') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('showUniqueVisitors') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -74,11 +75,11 @@ class pluginHitCounter extends Plugin {
 
 		// Show in the sidebar the number of visitors
 		$html  = '<div class="plugin plugin-hit-counter">';
-		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<div class="counter">'.$counter.'</div>';
- 		$html .= '</div>';
- 		$html .= '</div>';
+		$html .= '<div class="counter">' . $counter . '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
 
 		return $html;
 	}

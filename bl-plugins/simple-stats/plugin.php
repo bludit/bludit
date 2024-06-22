@@ -2,7 +2,8 @@
 /*
 	This plugin uses the javascript library https://github.com/gionkunz/chartist-js
 */
-class pluginSimpleStats extends Plugin {
+class pluginSimpleStats extends Plugin
+{
 
 	private $loadOnController = array(
 		'dashboard'
@@ -14,10 +15,10 @@ class pluginSimpleStats extends Plugin {
 
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
-			'label'=>$L->g('Visits'),
-			'numberOfDays'=>7,
-			'excludeAdmins'=>false,
-			'showContentStats'=>false
+			'label' => $L->g('Visits'),
+			'numberOfDays' => 7,
+			'excludeAdmins' => false,
+			'showContentStats' => false
 		);
 	}
 
@@ -30,25 +31,25 @@ class pluginSimpleStats extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input id="jslabel" name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<label>' . $L->get('Label') . '</label>';
+		$html .= '<input id="jslabel" name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
+		$html .= '<span class="tip">' . $L->get('This title is almost always used in the sidebar of the site') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Show Content Stats').'</label>';
+		$html .= '<label>' . $L->get('Show Content Stats') . '</label>';
 		$html .= '<select name="showContentStats">';
-		$html .= '<option value="true" '.($this->getValue('showContentStats')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('showContentStats')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('showContentStats') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('showContentStats') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
 		if (defined('BLUDIT_PRO')) {
 			$html .= '<div>';
-			$html .= '<label>'.$L->get('Exclude administrators users').'</label>';
+			$html .= '<label>' . $L->get('Exclude administrators users') . '</label>';
 			$html .= '<select name="excludeAdmins">';
-			$html .= '<option value="true" '.($this->getValue('excludeAdmins')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-			$html .= '<option value="false" '.($this->getValue('excludeAdmins')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
+			$html .= '<option value="true" ' . ($this->getValue('excludeAdmins') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+			$html .= '<option value="false" ' . ($this->getValue('excludeAdmins') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 			$html .= '</select>';
 			$html .= '</div>';
 		}
@@ -80,7 +81,7 @@ class pluginSimpleStats extends Plugin {
 		$visitsToday = $this->visits($currentDate);
 		$uniqueVisitors = $this->uniqueVisitors($currentDate);
 
-$html = <<<EOF
+		$html = <<<EOF
 <div class="simple-stats-plugin">
 	<div class="my-4 pt-4 border-top">
 		<div class="ct-chart ct-perfect-fourth"></div>
@@ -92,8 +93,8 @@ EOF;
 
 		$numberOfDays = $this->getValue('numberOfDays');
 		$numberOfDays = $numberOfDays - 1;
-		for ($i=$numberOfDays; $i >= 0 ; $i--) {
-			$dateWithOffset = Date::currentOffset('Y-m-d', '-'.$i.' day');
+		for ($i = $numberOfDays; $i >= 0; $i--) {
+			$dateWithOffset = Date::currentOffset('Y-m-d', '-' . $i . ' day');
 			$visits[$i] = $this->visits($dateWithOffset);
 			$unique[$i] = $this->uniqueVisitors($dateWithOffset);
 			$days[$i] = Date::format($dateWithOffset, 'Y-m-d', 'D');
@@ -103,7 +104,7 @@ EOF;
 		$seriesVisits = implode(',', $visits);
 		$seriesUnique = implode(',', $unique);
 
-$script = <<<EOF
+		$script = <<<EOF
 <script>
 	var data = {
 		labels: [$labels],
@@ -127,7 +128,7 @@ EOF;
 		/**
 		 * Optional Content Stats Feature
 		 */
-		if ($this->getValue('showContentStats'))  {
+		if ($this->getValue('showContentStats')) {
 			global $pages, $categories, $tags;
 
 			$data['title'] = $L->get('Statistics');
@@ -145,7 +146,7 @@ EOF;
 
 		$this->deleteOldLogs();
 
-		return $html.PHP_EOL.$script.PHP_EOL;
+		return $html . PHP_EOL . $script . PHP_EOL;
 	}
 
 	public function siteBodyEnd()
@@ -167,9 +168,9 @@ EOF;
 	// Returns the amount of visits by date
 	public function visits($date)
 	{
-		$file = $this->workspace().$date.'.log';
+		$file = $this->workspace() . $date . '.log';
 		$handle = @fopen($file, 'rb');
-		if ($handle===false) {
+		if ($handle === false) {
 			return 0;
 		}
 
@@ -185,7 +186,7 @@ EOF;
 	// Returns the amount of unique visitors by date
 	public function uniqueVisitors($date)
 	{
-		$file = $this->workspace().$date.'.log';
+		$file = $this->workspace() . $date . '.log';
 		$lines = @file($file);
 		if (empty($lines)) {
 			return 0;
@@ -207,15 +208,15 @@ EOF;
 		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
 			return false;
 		}
-                $currentTime = Date::current('Y-m-d H:i:s');
+		$currentTime = Date::current('Y-m-d H:i:s');
 		$ip = TCP::getIP();
 		$hashIP = md5($ip);
 
 		$line = json_encode(array($hashIP, $currentTime));
 		$currentDate = Date::current('Y-m-d');
-		$logFile = $this->workspace().$currentDate.'.log';
+		$logFile = $this->workspace() . $currentDate . '.log';
 
-		return file_put_contents($logFile, $line.PHP_EOL, FILE_APPEND | LOCK_EX)!==false;
+		return file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND | LOCK_EX) !== false;
 	}
 
 	public function renderContentStatistics($data)
@@ -230,8 +231,8 @@ EOF;
 		$html .= '
 		<nav>
 		  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-		    <a class="nav-item nav-link active" id="nav-stats-chart-tab" data-toggle="tab" href="#nav-stats-chart" role="tab" aria-controls="nav-stats-chart" aria-selected="true">' . $data['tabTitleChart'] .'</a>
-		    <a class="nav-item nav-link" id="nav-stats-table-tab" data-toggle="tab" href="#nav-stats-table" role="tab" aria-controls="nav-stats-table" aria-selected="false">' . $data['tabTitleTable'] .'</a>
+		    <a class="nav-item nav-link active" id="nav-stats-chart-tab" data-toggle="tab" href="#nav-stats-chart" role="tab" aria-controls="nav-stats-chart" aria-selected="true">' . $data['tabTitleChart'] . '</a>
+		    <a class="nav-item nav-link" id="nav-stats-table-tab" data-toggle="tab" href="#nav-stats-table" role="tab" aria-controls="nav-stats-table" aria-selected="false">' . $data['tabTitleTable'] . '</a>
 		  </div>
 		</nav>
 		<div class="tab-content my-2" id="nav-tabContent">
@@ -271,5 +272,4 @@ EOF;
 
 		return $html;
 	}
-
 }

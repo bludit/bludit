@@ -1,12 +1,13 @@
 <?php
 
-class pluginAbout extends Plugin {
+class pluginAbout extends Plugin
+{
 
 	public function init()
 	{
 		$this->dbFields = array(
-			'label'=>'About',
-			'text'=>''
+			'label' => 'About',
+			'text' => ''
 		);
 	}
 
@@ -19,14 +20,14 @@ class pluginAbout extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('Label').'</label>';
-		$html .= '<input name="label" type="text" value="'.$this->getValue('label').'">';
-		$html .= '<span class="tip">'.$L->get('This title is almost always used in the sidebar of the site').'</span>';
+		$html .= '<label>' . $L->get('Label') . '</label>';
+		$html .= '<input name="label" type="text" dir="auto" value="' . $this->getValue('label') . '">';
+		$html .= '<span class="tip">' . $L->get('This title is almost always used in the sidebar of the site') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('About').'</label>';
-		$html .= '<textarea name="text" id="jstext">'.$this->getValue('text').'</textarea>';
+		$html .= '<label>' . $L->get('About') . '</label>';
+		$html .= '<textarea name="text" id="jstext">' . $this->getValue('text') . '</textarea>';
 		$html .= '</div>';
 
 		return $html;
@@ -35,11 +36,11 @@ class pluginAbout extends Plugin {
 	public function siteSidebar()
 	{
 		$html  = '<div class="plugin plugin-about">';
-		$html .= '<h2 class="plugin-label">'.$this->getValue('label').'</h2>';
+		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
 		$html .= html_entity_decode(nl2br($this->getValue('text')));
- 		$html .= '</div>';
- 		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
 
 		return $html;
 	}

@@ -1,6 +1,7 @@
 <?php
 
-class plugineasyMDE extends Plugin {
+class plugineasyMDE extends Plugin
+{
 
 	// The plugin is going to be loaded in this views
 	private $loadOnViews = array(
@@ -11,9 +12,9 @@ class plugineasyMDE extends Plugin {
 	public function init()
 	{
 		$this->dbFields = array(
-			'tabSize'=>'2',
-			'toolbar'=>'"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen"',
-			'spellChecker'=>true
+			'tabSize' => '2',
+			'toolbar' => '"bold", "italic", "heading", "|", "quote", "unordered-list", "|", "link", "image", "code", "horizontal-rule", "|", "preview", "side-by-side", "fullscreen"',
+			'spellChecker' => true
 		);
 	}
 
@@ -22,20 +23,20 @@ class plugineasyMDE extends Plugin {
 		global $L;
 
 		$html  = '<div>';
-		$html .= '<label>'.$L->get('toolbar').'</label>';
-		$html .= '<input name="toolbar" id="jstoolbar" type="text" value="'.$this->getValue('toolbar').'">';
+		$html .= '<label>' . $L->get('toolbar') . '</label>';
+		$html .= '<input name="toolbar" id="jstoolbar" type="text" dir="auto" value="' . $this->getValue('toolbar') . '">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('tab-size').'</label>';
-		$html .= '<input name="tabSize" id="jstabSize" type="text" value="'.$this->getValue('tabSize').'">';
+		$html .= '<label>' . $L->get('tab-size') . '</label>';
+		$html .= '<input name="tabSize" id="jstabSize" type="text" dir="auto" value="' . $this->getValue('tabSize') . '">';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$L->get('spell-checker').'</label>';
+		$html .= '<label>' . $L->get('spell-checker') . '</label>';
 		$html .= '<select name="spellChecker">';
-		$html .= '<option value="true" '.($this->getValue('spellChecker')===true?'selected':'').'>'.$L->get('enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('spellChecker')===false?'selected':'').'>'.$L->get('disabled').'</option>';
+		$html .= '<option value="true" ' . ($this->getValue('spellChecker') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('spellChecker') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -64,15 +65,15 @@ class plugineasyMDE extends Plugin {
 		global $L;
 		$langImage = $L->g('Image description');
 
-		$spellCheckerEnable = $this->getValue('spellChecker')?'true':'false';
+		$spellCheckerEnable = $this->getValue('spellChecker') ? 'true' : 'false';
 		$tabSize = $this->getValue('tabSize');
 		$toolbar = Sanitize::htmlDecode($this->getValue('toolbar'));
 		$pageBreak = PAGE_BREAK;
 
 		// Javascript path and file
-		$jsEasyMDE = $this->domainPath().'js/easymde.min.js?version='.BLUDIT_VERSION;
+		$jsEasyMDE = $this->domainPath() . 'js/easymde.min.js?version=' . BLUDIT_VERSION;
 
-return <<<EOF
+		return <<<EOF
 <script charset="utf-8" src="$jsEasyMDE"></script>
 <script>
 	var easymde = null;

@@ -1,6 +1,7 @@
 <?php
 
-class pluginRemoteContent extends Plugin {
+class pluginRemoteContent extends Plugin
+{
 
 	public function init()
 	{
@@ -9,8 +10,8 @@ class pluginRemoteContent extends Plugin {
 
 		// Key and value for the database of the plugin
 		$this->dbFields = array(
-			'webhook'=>$randomWebhook,
-			'source'=>''
+			'webhook' => $randomWebhook,
+			'source' => ''
 		);
 	}
 
@@ -18,9 +19,9 @@ class pluginRemoteContent extends Plugin {
 	{
 		global $language;
 
-		if (extension_loaded('zip')===false) {
+		if (extension_loaded('zip') === false) {
 			$this->formButtons = false;
-			return '<div class="alert alert-success">'.$language->get('the-extension-zip-is-not-installed').'</div>';
+			return '<div class="alert alert-success">' . $language->get('the-extension-zip-is-not-installed') . '</div>';
 		}
 
 		$html  = '<div class="alert alert-primary" role="alert">';
@@ -28,21 +29,21 @@ class pluginRemoteContent extends Plugin {
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Webhook').'</label>';
-		$html .= '<input id="jswebhook" name="webhook" type="text" value="'.$this->getValue('webhook').'">';
-		$html .= '<span class="tip">'.DOMAIN_BASE.$this->getValue('webhook').'</span>';
+		$html .= '<label>' . $language->get('Webhook') . '</label>';
+		$html .= '<input id="jswebhook" name="webhook" type="text" dir="auto" value="' . $this->getValue('webhook') . '">';
+		$html .= '<span class="tip">' . DOMAIN_BASE . $this->getValue('webhook') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>'.$language->get('Source').'</label>';
-		$html .= '<input id="jssource" name="source" type="text" value="'.$this->getValue('source').'" placeholder="https://">';
-		$html .= '<span class="tip">'.$language->get('Complete URL of the zip file').'</span>';
+		$html .= '<label>' . $language->get('Source') . '</label>';
+		$html .= '<input id="jssource" name="source" type="text" dir="auto" value="' . $this->getValue('source') . '" placeholder="https://">';
+		$html .= '<span class="tip">' . $language->get('Complete URL of the zip file') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<hr>';
 		$html .= '<div>';
-		$html .= '<button type="button" id="jstryWebhook" class="btn btn-primary" onclick="tryWebhook()">'.$language->get('Try webhook').'</button>';
-$html .= <<<EOF
+		$html .= '<button type="button" id="jstryWebhook" class="btn btn-primary" onclick="tryWebhook()">' . $language->get('Try webhook') . '</button>';
+		$html .= <<<EOF
 <script>
 	function tryWebhook() {
 		var webhook = document.getElementById("jswebhook").value;
@@ -72,23 +73,23 @@ EOF;
 			$this->generateContent();
 
 			// End request
-			$this->response(array('status'=>'0'));
+			$this->response(array('status' => '0'));
 		}
 	}
 
 	private function downloadFiles()
 	{
 		// Download the zip file
-		Log::set('Plugin Remote Content'.LOG_SEP.'Downloading the zip file.');
+		Log::set('Plugin Remote Content' . LOG_SEP . 'Downloading the zip file.');
 		$source = $this->getValue('source');
 		$destinationPath = $this->workspace();
-		$destinationFile = $destinationPath.'content.zip';
+		$destinationFile = $destinationPath . 'content.zip';
 		TCP::download($source, $destinationFile);
 
 		// Uncompress the zip file
-		Log::set('Plugin Remote Content'.LOG_SEP.'Uncompress the zip file.');
+		Log::set('Plugin Remote Content' . LOG_SEP . 'Uncompress the zip file.');
 		$zip = new ZipArchive;
-		if ($zip->open($destinationFile)===true) {
+		if ($zip->open($destinationFile) === true) {
 			$zip->extractTo($destinationPath);
 			$zip->close();
 		}
@@ -118,7 +119,7 @@ EOF;
 	private function cleanUp()
 	{
 		$workspace = $this->workspace();
-		Filesystem::deleteRecursive($workspace.DS);
+		Filesystem::deleteRecursive($workspace . DS);
 		mkdir($workspace, DIR_PERMISSIONS, true);
 		return true;
 	}
@@ -132,21 +133,21 @@ EOF;
 
 		// For each page inside the pages directory
 		// Parse the page and add to the database
-		if (Filesystem::directoryExists($root.DS.'pages')) {
-			$parentList = Filesystem::listDirectories($root.DS.'pages'.DS);
+		if (Filesystem::directoryExists($root . DS . 'pages')) {
+			$parentList = Filesystem::listDirectories($root . DS . 'pages' . DS);
 			foreach ($parentList as $parentDirectory) {
 				$parentKey = basename($parentDirectory);
-				if (Filesystem::fileExists($parentDirectory.DS.'index.md')) {
-					$row = $this->parsePage($parentDirectory.DS.'index.md');
+				if (Filesystem::fileExists($parentDirectory . DS . 'index.md')) {
+					$row = $this->parsePage($parentDirectory . DS . 'index.md');
 					$row['slug'] = $parentKey;
 					$pages->add($row);
 				}
 
-				$childList = Filesystem::listDirectories($parentDirectory.DS);
+				$childList = Filesystem::listDirectories($parentDirectory . DS);
 				foreach ($childList as $childDirectory) {
 					$childKey = basename($childDirectory);
-					if (Filesystem::fileExists($childDirectory.DS.'index.md')) {
-						$row = $this->parsePage($childDirectory.DS.'index.md');
+					if (Filesystem::fileExists($childDirectory . DS . 'index.md')) {
+						$row = $this->parsePage($childDirectory . DS . 'index.md');
 						$row['slug'] = $childKey;
 						$row['parent'] = $parentKey;
 						$pages->add($row);
@@ -162,7 +163,7 @@ EOF;
 		return true;
 	}
 
-	private function response($data=array())
+	private function response($data = array())
 	{
 		$json = json_encode($data);
 		header('Content-Type: application/json');
@@ -180,7 +181,7 @@ EOF;
 		unset($lines[0]);
 		$row['title'] = $title;
 
-		foreach ($lines as $key=>$line) {
+		foreach ($lines as $key => $line) {
 			if (Text::startsWith($line, '<!--')) {
 				$line = preg_replace('/<!\-\-/', '', $line);
 				$line = preg_replace('/\-\->/', '', $line);
@@ -205,5 +206,4 @@ EOF;
 
 		return $row;
 	}
-
 }
