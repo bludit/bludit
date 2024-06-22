@@ -677,8 +677,8 @@ function changeUserPassword($args)
   $confirmPassword = $args['confirmPassword'];
 
   // Password length
-  if (Text::length($newPassword) < 6) {
-    Alert::set($L->g('Password must be at least 6 characters long'), ALERT_STATUS_FAIL);
+  if (Text::length($newPassword) < PASSWORD_LENGTH) {
+    Alert::set($L->g('Password must be at least ' . PASSWORD_LENGTH . ' characters long'), ALERT_STATUS_FAIL);
     return false;
   }
 
