@@ -1,27 +1,28 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Pages extends dbJSON {
+class Pages extends dbJSON
+{
 
 	protected $parentKeyList = array();
 	protected $dbFields = array(
-		'title'=>'',
-		'description'=>'',
-		'username'=>'',
-		'tags'=>array(),
-		'type'=>'published', // published, static, draft, sticky, scheduled, autosave
-		'date'=>'',
-		'dateModified'=>'',
-		'position'=>0,
-		'coverImage'=>'',
-		'category'=>'',
-		'md5file'=>'',
-		'uuid'=>'',
-		'allowComments'=>true,
-		'template'=>'',
-		'noindex'=>false,
-		'nofollow'=>false,
-		'noarchive'=>false,
-		'custom'=>array()
+		'title' => '',
+		'description' => '',
+		'username' => '',
+		'tags' => array(),
+		'type' => 'published', // published, static, draft, sticky, scheduled, autosave
+		'date' => '',
+		'dateModified' => '',
+		'position' => 0,
+		'coverImage' => '',
+		'category' => '',
+		'md5file' => '',
+		'uuid' => '',
+		'allowComments' => true,
+		'template' => '',
+		'noindex' => false,
+		'nofollow' => false,
+		'noarchive' => false,
+		'custom' => array()
 	);
 
 	function __construct()
@@ -47,7 +48,7 @@ class Pages extends dbJSON {
 	// Return TRUE if the page exists, FALSE otherwise
 	public function exists($key)
 	{
-		return isset( $this->db[$key] );
+		return isset($this->db[$key]);
 	}
 
 	// Create a new page
@@ -57,18 +58,18 @@ class Pages extends dbJSON {
 		$row = array();
 
 		// Predefined values
-		foreach ($this->dbFields as $field=>$value) {
-			if ($field=='tags') {
+		foreach ($this->dbFields as $field => $value) {
+			if ($field == 'tags') {
 				$tags = '';
 				if (isset($args['tags'])) {
 					$tags = $args['tags'];
 				}
 				$finalValue = $this->generateTags($tags);
-			} elseif ($field=='custom') {
+			} elseif ($field == 'custom') {
 				if (isset($args['custom'])) {
 					global $site;
 					$customFields = $site->customFields();
-					foreach ($args['custom'] as $customField=>$customValue) {
+					foreach ($args['custom'] as $customField => $customValue) {
 						$html = Sanitize::html($customValue);
 						// Store the custom field as defined type
 						settype($html, $customFields[$customField]['type']);
@@ -91,7 +92,7 @@ class Pages extends dbJSON {
 
 		// Content
 		// This variable is not belong to the database so is not defined in $row
-		$contentRaw = (empty($args['content'])?'':$args['content']);
+		$contentRaw = (empty($args['content']) ? '' : $args['content']);
 
 		// Parent
 		// This variable is not belong to the database so is not defined in $row
@@ -128,24 +129,24 @@ class Pages extends dbJSON {
 		}
 
 		// Schedule page
-		if (($row['date']>Date::current(DB_DATE_FORMAT)) && ($row['type']=='published')) {
+		if (($row['date'] > Date::current(DB_DATE_FORMAT)) && ($row['type'] == 'published')) {
 			$row['type'] = 'scheduled';
 		}
 
 		// Create the directory
-		if (Filesystem::mkdir(PATH_PAGES.$key, true) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the directory ['.PATH_PAGES.$key.']',LOG_TYPE_ERROR);
+		if (Filesystem::mkdir(PATH_PAGES . $key, true) === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to create the directory [' . PATH_PAGES . $key . ']', LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Create the index.txt and save the file
-		if (file_put_contents(PATH_PAGES.$key.DS.FILENAME, $contentRaw) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to create the content in the file ['.FILENAME.']',LOG_TYPE_ERROR);
+		if (file_put_contents(PATH_PAGES . $key . DS . FILENAME, $contentRaw) === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to create the content in the file [' . FILENAME . ']', LOG_TYPE_ERROR);
 			return false;
 		}
 
 		// Checksum MD5
-		$row['md5file'] = md5_file(PATH_PAGES.$key.DS.FILENAME);
+		$row['md5file'] = md5_file(PATH_PAGES . $key . DS . FILENAME);
 
 		// Insert in database
 		$this->db[$key] = $row;
@@ -156,10 +157,12 @@ class Pages extends dbJSON {
 		// Save database
 		$this->save();
 
-		// Create symlink for images directory
-		if (Filesystem::mkdir(PATH_UPLOADS_PAGES.$row['uuid'])) {
-			Filesystem::symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$key);
+		// Create upload page directory for images
+		if (!Filesystem::directoryExists(PATH_UPLOADS_PAGES . $row['uuid'])) {
+			Filesystem::mkdir(PATH_UPLOADS_PAGES . $row['uuid']);
 		}
+		// Create a symlink to the upload page directory for images for better SEO
+		Filesystem::symlink(PATH_UPLOADS_PAGES . $row['uuid'], PATH_UPLOADS_PAGES . $key);
 
 		return $key;
 	}
@@ -179,14 +182,14 @@ class Pages extends dbJSON {
 
 		// Check values from the arguments ($args)
 		// If some field is missing the current value is taken
-		foreach ($this->dbFields as $field=>$value) {
-			if ( ($field=='tags') && isset($args['tags'])) {
+		foreach ($this->dbFields as $field => $value) {
+			if (($field == 'tags') && isset($args['tags'])) {
 				$finalValue = $this->generateTags($args['tags']);
-			} elseif ($field=='custom') {
+			} elseif ($field == 'custom') {
 				if (isset($args['custom'])) {
 					global $site;
 					$customFields = $site->customFields();
-					foreach ($args['custom'] as $customField=>$customValue) {
+					foreach ($args['custom'] as $customField => $customValue) {
 						$html = Sanitize::html($customValue);
 						// Store the custom field as defined type
 						settype($html, $customFields[$customField]['type']);
@@ -241,27 +244,27 @@ class Pages extends dbJSON {
 		$row['dateModified'] = Date::current(DB_DATE_FORMAT);
 
 		// Schedule page
-		if (($row['date']>Date::current(DB_DATE_FORMAT)) && ($row['type']=='published')) {
+		if (($row['date'] > Date::current(DB_DATE_FORMAT)) && ($row['type'] == 'published')) {
 			$row['type'] = 'scheduled';
 		}
 
 		// Move the directory from old key to new key only if the keys are different
-		if ($newKey!==$key) {
-			if (Filesystem::mv(PATH_PAGES.$key, PATH_PAGES.$newKey) === false) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to move the directory to '.PATH_PAGES.$newKey);
+		if ($newKey !== $key) {
+			if (Filesystem::mv(PATH_PAGES . $key, PATH_PAGES . $newKey) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to move the directory to ' . PATH_PAGES . $newKey);
 				return false;
 			}
 
 			// Regenerate the symlink to a proper directory
-			unlink(PATH_UPLOADS_PAGES.$key);
-			Filesystem::symlink(PATH_UPLOADS_PAGES.$row['uuid'], PATH_UPLOADS_PAGES.$newKey);
+			unlink(PATH_UPLOADS_PAGES . $key);
+			Filesystem::symlink(PATH_UPLOADS_PAGES . $row['uuid'], PATH_UPLOADS_PAGES . $newKey);
 		}
 
 		// If the content was passed via arguments replace the content
 		if (isset($args['content'])) {
 			// Make the index.txt and save the file.
-			if (file_put_contents(PATH_PAGES.$newKey.DS.FILENAME, $args['content'])===false) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to put the content in the file '.FILENAME);
+			if (file_put_contents(PATH_PAGES . $newKey . DS . FILENAME, $args['content']) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to put the content in the file ' . FILENAME);
 				return false;
 			}
 		}
@@ -273,7 +276,7 @@ class Pages extends dbJSON {
 		$this->reindexChildren($key, $newKey);
 
 		// Checksum MD5
-		$row['md5file'] = md5_file(PATH_PAGES.$newKey.DS.FILENAME);
+		$row['md5file'] = md5_file(PATH_PAGES . $newKey . DS . FILENAME);
 
 		// Insert in database the new row
 		$this->db[$newKey] = $row;
@@ -289,14 +292,15 @@ class Pages extends dbJSON {
 
 	// This function reindex the orphan children with the new parent key
 	// If a page has subpages and the page change his key is necesarry check the children key
-	public function reindexChildren($oldParentKey, $newParentKey) {
-		if ($oldParentKey==$newParentKey){
+	public function reindexChildren($oldParentKey, $newParentKey)
+	{
+		if ($oldParentKey == $newParentKey) {
 			return false;
 		}
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if (Text::startsWith($key, $oldParentKey.'/')) {
-				$newKey = Text::replace($oldParentKey.'/', $newParentKey.'/', $key);
+		foreach ($tmp as $key => $fields) {
+			if (Text::startsWith($key, $oldParentKey . '/')) {
+				$newKey = Text::replace($oldParentKey . '/', $newParentKey . '/', $key);
 				$this->db[$newKey] = $this->db[$key];
 				unset($this->db[$key]);
 			}
@@ -312,19 +316,19 @@ class Pages extends dbJSON {
 
 		// Page doesn't exist in database
 		if (!$this->exists($key)) {
-			Log::set(__METHOD__.LOG_SEP.'The page does not exist. Key: '.$key);
+			Log::set(__METHOD__ . LOG_SEP . 'The page does not exist. Key: ' . $key);
 			return false;
 		}
 
 		// Delete directory and files
-		if (Filesystem::deleteRecursive(PATH_PAGES.$key) === false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to delete the directory '.PATH_PAGES.$key, LOG_TYPE_ERROR);
+		if (Filesystem::deleteRecursive(PATH_PAGES . $key) === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to delete the directory ' . PATH_PAGES . $key, LOG_TYPE_ERROR);
 		}
 
 		// Delete page images directory; The function already check if exists the directory
 		if (($uuid = $this->getUUID($key))) {
-			if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES.$uuid) === false) {
-				Log::set(__METHOD__.LOG_SEP.'Directory with images not found '.PATH_UPLOADS_PAGES.$uuid);
+			if (Filesystem::deleteRecursive(PATH_UPLOADS_PAGES . $uuid) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Directory with images not found ' . PATH_UPLOADS_PAGES . $uuid);
 			}
 		}
 
@@ -332,8 +336,8 @@ class Pages extends dbJSON {
 		unset($this->db[$key]);
 
 		// Save the database
-		if ($this->save()===false) {
-			Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+		if ($this->save() === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to save the database file.');
 		}
 
 		return true;
@@ -344,8 +348,8 @@ class Pages extends dbJSON {
 	{
 		$username = $args['username'];
 
-		foreach ($this->db as $key=>$fields) {
-			if ($fields['username']===$username) {
+		foreach ($this->db as $key => $fields) {
+			if ($fields['username'] === $username) {
 				$this->delete($key);
 			}
 		}
@@ -359,8 +363,8 @@ class Pages extends dbJSON {
 		$oldUsername = $args['oldUsername'];
 		$newUsername = isset($args['newUsername']) ? $args['newUsername'] : 'admin';
 
-		foreach ($this->db as $key=>$fields) {
-			if ($fields['username']===$oldUsername) {
+		foreach ($this->db as $key => $fields) {
+			if ($fields['username'] === $oldUsername) {
 				$this->db[$key]['username'] = $newUsername;
 			}
 		}
@@ -382,7 +386,7 @@ class Pages extends dbJSON {
 	// Returns a database with all pages
 	// $onlyKeys = true; Returns only the pages keys
 	// $onlyKeys = false; Returns part of the database, I do not recommend use this
-	public function getDB($onlyKeys=true)
+	public function getDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
 		if ($onlyKeys) {
@@ -394,11 +398,11 @@ class Pages extends dbJSON {
 	// Returns a database with published pages
 	// $onlyKeys = true; Returns only the pages keys
 	// $onlyKeys = false; Returns part of the database, I do not recommend use this
-	public function getPublishedDB($onlyKeys=true)
+	public function getPublishedDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if ($fields['type']!='published') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'published') {
 				unset($tmp[$key]);
 			}
 		}
@@ -410,11 +414,11 @@ class Pages extends dbJSON {
 
 	// Returns an array with a list of keys/database of static pages
 	// By default the static pages are sort by position
-	public function getStaticDB($onlyKeys=true)
+	public function getStaticDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if ($fields['type']!='static') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'static') {
 				unset($tmp[$key]);
 			}
 		}
@@ -426,11 +430,11 @@ class Pages extends dbJSON {
 	}
 
 	// Returns an array with a list of keys/database of draft pages
-	public function getDraftDB($onlyKeys=true)
+	public function getDraftDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if($fields['type']!='draft') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'draft') {
 				unset($tmp[$key]);
 			}
 		}
@@ -441,11 +445,11 @@ class Pages extends dbJSON {
 	}
 
 	// Returns an array with a list of keys/database of autosave pages
-	public function getAutosaveDB($onlyKeys=true)
+	public function getAutosaveDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if($fields['type']!='autosave') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'autosave') {
 				unset($tmp[$key]);
 			}
 		}
@@ -456,11 +460,11 @@ class Pages extends dbJSON {
 	}
 
 	// Returns an array with a list of keys/database of scheduled pages
-	public function getScheduledDB($onlyKeys=true)
+	public function getScheduledDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if($fields['type']!='scheduled') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'scheduled') {
 				unset($tmp[$key]);
 			}
 		}
@@ -471,11 +475,11 @@ class Pages extends dbJSON {
 	}
 
 	// Returns an array with a list of keys of sticky pages
-	public function getStickyDB($onlyKeys=true)
+	public function getStickyDB($onlyKeys = true)
 	{
 		$tmp = $this->db;
-		foreach ($tmp as $key=>$fields) {
-			if($fields['type']!='sticky') {
+		foreach ($tmp as $key => $fields) {
+			if ($fields['type'] != 'sticky') {
 				unset($tmp[$key]);
 			}
 		}
@@ -489,8 +493,8 @@ class Pages extends dbJSON {
 	public function nextPositionNumber()
 	{
 		$tmp = 1;
-		foreach ($this->db as $key=>$fields) {
-			if ($fields['position']>$tmp) {
+		foreach ($this->db as $key => $fields) {
+			if ($fields['position'] > $tmp) {
 				$tmp = $fields['position'];
 			}
 		}
@@ -500,12 +504,12 @@ class Pages extends dbJSON {
 	// Returns the next page key of the current page key
 	public function nextPageKey($currentKey)
 	{
-		if ($this->db[$currentKey]['type']=='published') {
+		if ($this->db[$currentKey]['type'] == 'published') {
 			$keys = array_keys($this->db);
 			$position = array_search($currentKey, $keys) - 1;
 			if (isset($keys[$position])) {
 				$nextKey = $keys[$position];
-				if ($this->db[$nextKey]['type']=='published') {
+				if ($this->db[$nextKey]['type'] == 'published') {
 					return $nextKey;
 				}
 			}
@@ -516,12 +520,12 @@ class Pages extends dbJSON {
 	// Returns the previous page key of the current page key
 	public function previousPageKey($currentKey)
 	{
-		if ($this->db[$currentKey]['type']=='published') {
+		if ($this->db[$currentKey]['type'] == 'published') {
 			$keys = array_keys($this->db);
 			$position = array_search($currentKey, $keys) + 1;
 			if (isset($keys[$position])) {
 				$prevKey = $keys[$position];
-				if ($this->db[$prevKey]['type']=='published') {
+				if ($this->db[$prevKey]['type'] == 'published') {
 					return $prevKey;
 				}
 			}
@@ -534,24 +538,24 @@ class Pages extends dbJSON {
 	// (int) $pageNumber, the page number
 	// (int) $numberOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $numberOfItems, $published=true, $static=false, $sticky=false, $draft=false, $scheduled=false)
+	public function getList($pageNumber, $numberOfItems, $published = true, $static = false, $sticky = false, $draft = false, $scheduled = false)
 	{
 		$list = array();
-		foreach ($this->db as $key=>$fields) {
-			if ($published && $fields['type']=='published') {
+		foreach ($this->db as $key => $fields) {
+			if ($published && $fields['type'] == 'published') {
 				array_push($list, $key);
-			} elseif ($static && $fields['type']=='static') {
+			} elseif ($static && $fields['type'] == 'static') {
 				array_push($list, $key);
-			} elseif ($sticky && $fields['type']=='sticky') {
+			} elseif ($sticky && $fields['type'] == 'sticky') {
 				array_push($list, $key);
-			} elseif ($draft && $fields['type']=='draft') {
+			} elseif ($draft && $fields['type'] == 'draft') {
 				array_push($list, $key);
-			} elseif ($scheduled && $fields['type']=='scheduled') {
+			} elseif ($scheduled && $fields['type'] == 'scheduled') {
 				array_push($list, $key);
 			}
 		}
 
-		if ($numberOfItems==-1) {
+		if ($numberOfItems == -1) {
 			return $list;
 		}
 
@@ -560,8 +564,8 @@ class Pages extends dbJSON {
 
 		$total = count($list);
 		$init = (int) $numberOfItems * $realPageNumber;
-		$end  = (int) min( ($init + $numberOfItems - 1), $total );
-		$outrange = $init<0 ? true : $init>$end;
+		$end  = (int) min(($init + $numberOfItems - 1), $total);
+		$outrange = $init < 0 ? true : $init > $end;
 		if (!$outrange) {
 			return array_slice($list, $init, $numberOfItems, true);
 		}
@@ -572,7 +576,7 @@ class Pages extends dbJSON {
 	// Returns the amount of pages
 	// (boolean) $onlyPublished, TRUE returns the total of published pages (without draft and scheduled)
 	// (boolean) $onlyPublished, FALSE returns the total of pages
-	public function count($onlyPublished=true)
+	public function count($onlyPublished = true)
 	{
 		if ($onlyPublished) {
 			$db = $this->getPublishedDB(false);
@@ -586,7 +590,7 @@ class Pages extends dbJSON {
 	public function getParents()
 	{
 		$db = $this->getPublishedDB();
-		foreach ($db as $key=>$pageKey) {
+		foreach ($db as $key => $pageKey) {
 			// if the key has slash then is a child
 			if (Text::stringContains($pageKey, '/')) {
 				unset($db[$key]);
@@ -599,8 +603,8 @@ class Pages extends dbJSON {
 	{
 		$tmp = $this->db;
 		$list = array();
-		foreach ($tmp as $key=>$fields) {
-			if (Text::startsWith($key, $parentKey.'/')) {
+		foreach ($tmp as $key => $fields) {
+			if (Text::startsWith($key, $parentKey . '/')) {
 				array_push($list, $key);
 			}
 		}
@@ -609,16 +613,16 @@ class Pages extends dbJSON {
 
 	public function sortBy()
 	{
-		if (ORDER_BY=='date') {
+		if (ORDER_BY == 'date') {
 			return $this->sortByDate(true);
 		}
 		return $this->sortByPosition(false);
 	}
 
 	// Sort pages by position
-	public function sortByPosition($HighToLow=false)
+	public function sortByPosition($HighToLow = false)
 	{
-		if($HighToLow) {
+		if ($HighToLow) {
 			uasort($this->db, array($this, 'sortByPositionHighToLow'));
 		} else {
 			uasort($this->db, array($this, 'sortByPositionLowToHigh'));
@@ -628,17 +632,17 @@ class Pages extends dbJSON {
 
 	private function sortByPositionLowToHigh($a, $b)
 	{
-		return $a['position']>$b['position'];
+		return $a['position'] > $b['position'];
 	}
 	private function sortByPositionHighToLow($a, $b)
 	{
-		return $a['position']<$b['position'];
+		return $a['position'] < $b['position'];
 	}
 
 	// Sort pages by date
-	public function sortByDate($HighToLow=true)
+	public function sortByDate($HighToLow = true)
 	{
-		if($HighToLow) {
+		if ($HighToLow) {
 			uasort($this->db, array($this, 'sortByDateHighToLow'));
 		} else {
 			uasort($this->db, array($this, 'sortByDateLowToHigh'));
@@ -648,15 +652,16 @@ class Pages extends dbJSON {
 
 	private function sortByDateLowToHigh($a, $b)
 	{
-		return $a['date']>$b['date'];
+		return $a['date'] > $b['date'];
 	}
 	private function sortByDateHighToLow($a, $b)
 	{
-		return $a['date']<$b['date'];
+		return $a['date'] < $b['date'];
 	}
 
-	function generateUUID() {
-		return md5( uniqid().time() );
+	function generateUUID()
+	{
+		return md5(uniqid() . time());
 	}
 
 	// Returns the UUID of a page, by the page key
@@ -672,8 +677,8 @@ class Pages extends dbJSON {
 	// if the UUID doesn't exits returns FALSE
 	function getByUUID($uuid)
 	{
-		foreach ($this->db as $key=>$value) {
-			if ($value['uuid']==$uuid) {
+		foreach ($this->db as $key => $value) {
+			if ($value['uuid'] == $uuid) {
 				return $key;
 			}
 		}
@@ -682,7 +687,7 @@ class Pages extends dbJSON {
 
 
 	// Returns string without HTML tags and truncated
-	private function generateSlug($text, $truncateLength=60)
+	private function generateSlug($text, $truncateLength = 60)
 	{
 		$tmpslug = Text::removeHTMLTags($text);
 		$tmpslug = Text::removeLineBreaks($tmpslug);
@@ -698,25 +703,24 @@ class Pages extends dbJSON {
 		$saveDatabase = false;
 
 		// The database need to be sorted by date
-		foreach($this->db as $pageKey=>$fields) {
-			if($fields['type']=='scheduled') {
-				if($fields['date']<=$currentDate) {
+		foreach ($this->db as $pageKey => $fields) {
+			if ($fields['type'] == 'scheduled') {
+				if ($fields['date'] <= $currentDate) {
 					$this->db[$pageKey]['type'] = 'published';
 					$saveDatabase = true;
 				}
-			}
-			elseif( ($fields['type']=='published') && (ORDER_BY=='date') ) {
+			} elseif (($fields['type'] == 'published') && (ORDER_BY == 'date')) {
 				break;
 			}
 		}
 
-		if($saveDatabase) {
-			if( $this->save() === false ) {
-				Log::set(__METHOD__.LOG_SEP.'Error occurred when trying to save the database file.');
+		if ($saveDatabase) {
+			if ($this->save() === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to save the database file.');
 				return false;
 			}
 
-			Log::set(__METHOD__.LOG_SEP.'New pages published from the scheduler.');
+			Log::set(__METHOD__ . LOG_SEP . 'New pages published from the scheduler.');
 			return true;
 		}
 
@@ -724,7 +728,7 @@ class Pages extends dbJSON {
 	}
 
 	// Generate a valid Key/Slug
-	public function generateKey($text, $parent=false, $returnSlug=false, $oldKey='')
+	public function generateKey($text, $parent = false, $returnSlug = false, $oldKey = '')
 	{
 		global $L;
 		global $site;
@@ -736,7 +740,7 @@ class Pages extends dbJSON {
 		if (Text::isEmpty($parent)) {
 			$newKey = Text::cleanUrl($text);
 		} else {
-			$newKey = Text::cleanUrl($parent).'/'.Text::cleanUrl($text);
+			$newKey = Text::cleanUrl($parent) . '/' . Text::cleanUrl($text);
 		}
 
 		// cleanURL can return empty string
@@ -744,14 +748,14 @@ class Pages extends dbJSON {
 			$newKey = $L->g('empty');
 		}
 
-		if ($newKey!==$oldKey) {
+		if ($newKey !== $oldKey) {
 			// Verify if the key is already been used
 			if (isset($this->db[$newKey])) {
 				$i = 0;
-				while (isset($this->db[$newKey.'-'.$i])) {
+				while (isset($this->db[$newKey . '-' . $i])) {
 					$i++;
 				}
-				$newKey = $newKey.'-'.$i;
+				$newKey = $newKey . '-' . $i;
 			}
 		}
 
@@ -788,8 +792,8 @@ class Pages extends dbJSON {
 	// Change all pages with the old category key to the new category key
 	public function changeCategory($oldCategoryKey, $newCategoryKey)
 	{
-		foreach ($this->db as $key=>$value) {
-			if ($value['category']===$oldCategoryKey) {
+		foreach ($this->db as $key => $value) {
+			if ($value['category'] === $oldCategoryKey) {
 				$this->db[$key]['category'] = $newCategoryKey;
 			}
 		}
@@ -806,8 +810,8 @@ class Pages extends dbJSON {
 		if (json_last_error() != JSON_ERROR_NONE) {
 			return false;
 		}
-		foreach ($this->db as $pageKey=>$pageFields) {
-			foreach ($customFields as $customField=>$customValues) {
+		foreach ($this->db as $pageKey => $pageFields) {
+			foreach ($customFields as $customField => $customValues) {
 				if (!isset($pageFields['custom'][$customField])) {
 					$defaultValue = '';
 					if (isset($customValues['default'])) {
@@ -820,6 +824,4 @@ class Pages extends dbJSON {
 
 		return $this->save();
 	}
-
-
 }

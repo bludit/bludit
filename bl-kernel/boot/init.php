@@ -7,7 +7,7 @@ define('BLUDIT_RELEASE_DATE',   '2023-07-15');
 define('BLUDIT_BUILD',          '20230715');
 
 // Change to TRUE for debugging
-define('DEBUG_MODE', FALSE);
+define('DEBUG_MODE', TRUE);
 define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
 
 //  This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user.

@@ -1,6 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
-class Page {
+class Page
+{
 
 	protected $vars;
 
@@ -12,19 +13,19 @@ class Page {
 
 		// If key is FALSE, the page is create with default values, like an empty page
 		// Useful for Page Not Found
-		if ($key===false) {
+		if ($key === false) {
 			$row = $pages->getDefaultFields();
 		} else {
 			if (Text::isEmpty($key) || !$pages->exists($key)) {
-				$errorMessage = 'Page not found in database by key ['.$key.']';
-				Log::set(__METHOD__.LOG_SEP.$errorMessage);
+				$errorMessage = 'Page not found in database by key [' . $key . ']';
+				Log::set(__METHOD__ . LOG_SEP . $errorMessage);
 				throw new Exception($errorMessage);
 			}
 			$row = $pages->getPageDB($key);
 		}
 
-		foreach ($row as $field=>$value) {
-			if ($field=='date') {
+		foreach ($row as $field => $value) {
+			if ($field == 'date') {
 				$this->setField('dateRaw', $value);
 			} else {
 				$this->setField($field, $value);
@@ -49,10 +50,10 @@ class Page {
 	// Returns the raw content
 	// This content is not markdown parser
 	// (boolean) $sanitize, TRUE returns the content sanitized
-	public function contentRaw($sanitize=false)
+	public function contentRaw($sanitize = false)
 	{
 		$key = $this->key();
-		$filePath = PATH_PAGES.$key.DS.FILENAME;
+		$filePath = PATH_PAGES . $key . DS . FILENAME;
 		$contentRaw = file_get_contents($filePath);
 
 		if ($sanitize) {
@@ -64,7 +65,7 @@ class Page {
 	// Returns the full content
 	// This content is markdown parser
 	// (boolean) $sanitize, TRUE returns the content sanitized
-	public function content($sanitize=false)
+	public function content($sanitize = false)
 	{
 		// If already set the content, return it
 		$content = $this->getValue('content');
@@ -83,7 +84,7 @@ class Page {
 
 		// Parse img src relative to absolute (with domain)
 		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
-			$domain = IMAGE_RESTRICT?DOMAIN_UPLOADS_PAGES.$this->uuid().'/':DOMAIN_UPLOADS;
+			$domain = IMAGE_RESTRICT ? DOMAIN_UPLOADS_PAGES . $this->uuid() . '/' : DOMAIN_UPLOADS;
 			$content = Text::imgRel2Abs($content, $domain);
 		}
 
@@ -96,7 +97,7 @@ class Page {
 	// Returns the first part of the content if the content is splited, otherwise is returned the full content
 	// This content is markdown parser
 	// (boolean) $sanitize, TRUE returns the content sanitized
-	public function contentBreak($sanitize=false)
+	public function contentBreak($sanitize = false)
 	{
 		$content = $this->content($sanitize);
 		$explode = explode(PAGE_BREAK, $content);
@@ -104,10 +105,10 @@ class Page {
 	}
 
 	// Returns the date according to locale settings and the format defined in the system
-	public function date($format=false)
+	public function date($format = false)
 	{
 		$dateRaw = $this->dateRaw();
-		if ($format===false) {
+		if ($format === false) {
 			global $site;
 			$format = $site->dateFormat();
 		}
@@ -122,10 +123,10 @@ class Page {
 	}
 
 	// Returns the date according to locale settings and format settings
-	public function dateModified($format=false)
+	public function dateModified($format = false)
 	{
 		$dateRaw = $this->getValue('dateModified');
-		if ($format===false) {
+		if ($format === false) {
 			global $site;
 			$format = $site->dateFormat();
 		}
@@ -146,16 +147,16 @@ class Page {
 
 	// Returns the permalink
 	// (boolean) $absolute, TRUE returns the page link with the DOMAIN, FALSE without the DOMAIN
-	public function permalink($absolute=true)
+	public function permalink($absolute = true)
 	{
 		// Get the key of the page
 		$key = $this->key();
 
-		if($absolute) {
-			return DOMAIN_PAGES.$key;
+		if ($absolute) {
+			return DOMAIN_PAGES . $key;
 		}
 
-		return HTML_PATH_ROOT.PAGE_URI_FILTER.$key;
+		return HTML_PATH_ROOT . PAGE_URI_FILTER . $key;
 	}
 
 	// Returns the previous page key
@@ -199,7 +200,7 @@ class Page {
 	// Returns the category permalink
 	public function categoryPermalink()
 	{
-		return DOMAIN_CATEGORIES.$this->categoryKey();
+		return DOMAIN_CATEGORIES . $this->categoryKey();
 	}
 
 	// Returns the field from the array
@@ -210,9 +211,9 @@ class Page {
 		$categoryKey = $this->categoryKey();
 		$map = $categories->getMap($categoryKey);
 
-		if ($field=='key') {
+		if ($field == 'key') {
 			return $this->categoryKey();
-		} elseif(isset($map[$field])) {
+		} elseif (isset($map[$field])) {
 			return $map[$field];
 		}
 
@@ -220,7 +221,7 @@ class Page {
 	}
 
 	// Returns the user object or passing the method returns the object User method
-	public function user($method=false)
+	public function user($method = false)
 	{
 		$username = $this->username();
 		try {
@@ -248,7 +249,7 @@ class Page {
 	// Returns the tags separated by comma
 	// (boolean) $returnsArray, TRUE to get the tags as an array, FALSE to get the tags separated by comma
 	// The tags in array format returns array( tagKey => tagName )
-	public function tags($returnsArray=false)
+	public function tags($returnsArray = false)
 	{
 		$tags = $this->getValue('tags');
 		if ($returnsArray) {
@@ -267,7 +268,7 @@ class Page {
 
 
 
-	public function json($returnsArray=false)
+	public function json($returnsArray = false)
 	{
 		$tmp['key'] 		= $this->key();
 		$tmp['title'] 		= $this->title();
@@ -297,7 +298,7 @@ class Page {
 	// Returns the endpoint of the coverimage, FALSE if the page doesn't have a cover image
 	// (boolean) $absolute, TRUE returns the complete URL, FALSE returns the filename
 	// If the user defined an external cover image the function returns it
-	public function coverImage($absolute=true)
+	public function coverImage($absolute = true)
 	{
 		$filename = $this->getValue('coverImage');
 		if (empty($filename)) {
@@ -311,9 +312,9 @@ class Page {
 
 		if ($absolute) {
 			if (IMAGE_RESTRICT) {
-				return DOMAIN_UPLOADS_PAGES.$this->uuid().'/'.$filename;
+				return DOMAIN_UPLOADS_PAGES . $this->uuid() . '/' . $filename;
 			}
-			return DOMAIN_UPLOADS.$filename;
+			return DOMAIN_UPLOADS . $filename;
 		}
 
 		return $filename;
@@ -323,7 +324,7 @@ class Page {
 	public function thumbCoverImage()
 	{
 		$filename = $this->coverImage(false);
-		if ($filename==false) {
+		if ($filename == false) {
 			return false;
 		}
 
@@ -333,9 +334,9 @@ class Page {
 		}
 
 		if (IMAGE_RESTRICT) {
-			return DOMAIN_UPLOADS_PAGES.$this->uuid().'/thumbnails/'.$filename;
+			return DOMAIN_UPLOADS_PAGES . $this->uuid() . '/thumbnails/' . $filename;
 		}
-		return DOMAIN_UPLOADS_THUMBNAILS.$filename;
+		return DOMAIN_UPLOADS_THUMBNAILS . $filename;
 	}
 
 	// Returns TRUE if the content has the text splited
@@ -359,37 +360,37 @@ class Page {
 	// (boolean) Returns TRUE if the page is published, FALSE otherwise
 	public function published()
 	{
-		return ($this->getValue('type')==='published');
+		return ($this->getValue('type') === 'published');
 	}
 
 	// (boolean) Returns TRUE if the page is scheduled, FALSE otherwise
 	public function scheduled()
 	{
-		return ($this->getValue('type')==='scheduled');
+		return ($this->getValue('type') === 'scheduled');
 	}
 
 	// (boolean) Returns TRUE if the page is draft, FALSE otherwise
 	public function draft()
 	{
-		return ($this->getValue('type')=='draft');
+		return ($this->getValue('type') == 'draft');
 	}
 
 	// (boolean) Returns TRUE if the page is autosave, FALSE otherwise
 	public function autosave()
 	{
-		return ($this->getValue('type')=='autosave');
+		return ($this->getValue('type') == 'autosave');
 	}
 
 	// (boolean) Returns TRUE if the page is sticky, FALSE otherwise
 	public function sticky()
 	{
-		return ($this->getValue('type')=='sticky');
+		return ($this->getValue('type') == 'sticky');
 	}
 
 	// (boolean) Returns TRUE if the page is static, FALSE otherwise
 	public function isStatic()
 	{
-		return ($this->getValue('type')=='static');
+		return ($this->getValue('type') == 'static');
 	}
 
 	// (string) Returns type of the page
@@ -460,7 +461,7 @@ class Page {
 	// Returns TRUE if the page is a parent, has or not children
 	public function isParent()
 	{
-		return $this->parentKey()===false;
+		return $this->parentKey() === false;
 	}
 
 	// Returns the parent method output, if the page doesn't have a parent returns FALSE
@@ -482,7 +483,7 @@ class Page {
 	// Returns TRUE if the page is a child, FALSE otherwise
 	public function isChild()
 	{
-		return $this->parentKey()!==false;
+		return $this->parentKey() !== false;
 	}
 
 	// Returns TRUE if the page has children
@@ -519,7 +520,8 @@ class Page {
 	}
 
 	// Returns the amount of minutes takes to read the page
-	public function readingTime() {
+	public function readingTime()
+	{
 		global $L;
 
 		$words = $this->content(true);
@@ -528,11 +530,11 @@ class Page {
 		$average = $words / 200;
 		$minutes = round($average);
 
-		if ($minutes>1) {
-			return $minutes.' '.$L->get('minutes');
+		if ($minutes > 1) {
+			return $minutes . ' ' . $L->get('minutes');
 		}
 
-		return '~1 '.$L->get('minute');
+		return '~1 ' . $L->get('minute');
 	}
 
 	// Returns relative time (e.g. "1 minute ago")
@@ -540,7 +542,8 @@ class Page {
 	// Modified for Bludit
 	// $complete = false : short version
 	// $complete = true  : full version
-	public function relativeTime($complete = false) {
+	public function relativeTime($complete = false)
+	{
 		$current = new DateTime;
 		$past    = new DateTime($this->getValue('dateRaw'));
 		$elapsed = $current->diff($past);
@@ -558,16 +561,16 @@ class Page {
 			's' => 'second',
 		);
 
-		foreach($string as $key => &$value) {
-			if($elapsed->$key) {
+		foreach ($string as $key => &$value) {
+			if ($elapsed->$key) {
 				$value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : ' ');
 			} else {
 				unset($string[$key]);
 			}
 		}
 
-		if(!$complete) {
-			$string = array_slice($string, 0 , 1);
+		if (!$complete) {
+			$string = array_slice($string, 0, 1);
 		}
 
 		return $string ? implode(', ', $string) . ' ago' : 'Just now';
@@ -575,7 +578,7 @@ class Page {
 
 	// Returns the value from the field, false if the fields doesn't exists
 	// If you set the $option as TRUE, the function returns an array with all the values of the field
-	public function custom($field, $options=false)
+	public function custom($field, $options = false)
 	{
 		if (isset($this->vars['custom'][$field])) {
 			if ($options) {
@@ -588,16 +591,17 @@ class Page {
 
 	// Returns an array with all pages key related to the page
 	// The relation is based on the tags
-	public function related() {
+	public function related()
+	{
 		global $tags;
 		$pageTags = $this->tags(true);
 		$list = array();
 		// For each tag get the list of related pages
-		foreach ($pageTags as $tagKey=>$tagName) {
+		foreach ($pageTags as $tagKey => $tagName) {
 			$pagesRelated = $tags->getList($tagKey, 1, -1);
-            if(is_array($pagesRelated)) {
-                $list = array_merge($list, $pagesRelated);
-            }
+			if (is_array($pagesRelated)) {
+				$list = array_merge($list, $pagesRelated);
+			}
 		}
 
 		// Remove duplicates
