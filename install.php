@@ -396,6 +396,7 @@ function install($adminPassword, $timezone)
 		'gitlab' => '',
 		'linkedin' => '',
 		'xing' => '',
+		'telegram' => '',
 		'dateFormat' => 'F j, Y',
 		'extremeFriendly' => true,
 		'autosaveInterval' => 2,
@@ -432,6 +433,7 @@ function install($adminPassword, $timezone)
 			'codepen' => '',
 			'linkedin' => '',
 			'xing' => '',
+			'telegram' => '',
 			'github' => '',
 			'gitlab' => ''
 		)

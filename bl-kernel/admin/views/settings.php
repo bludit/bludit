@@ -416,6 +416,15 @@ echo Bootstrap::formInputHidden(array(
 	));
 
 	echo Bootstrap::formInputText(array(
+		'name' => 'telegram',
+		'label' => 'Telegram',
+		'value' => $site->telegram(),
+		'class' => '',
+		'placeholder' => '',
+		'tip' => ''
+	));
+
+	echo Bootstrap::formInputText(array(
 		'name' => 'mastodon',
 		'label' => 'Mastodon',
 		'value' => $site->mastodon(),

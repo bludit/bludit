@@ -10,20 +10,20 @@
 			<ul class="navbar-nav ml-auto">
 
 				<!-- Static pages -->
-				<?php foreach ($staticContent as $staticPage): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $staticPage->permalink() ?>"><?php echo $staticPage->title() ?></a>
-				</li>
+				<?php foreach ($staticContent as $staticPage) : ?>
+					<li class="nav-item">
+						<a class="nav-link" href="<?php echo $staticPage->permalink() ?>"><?php echo $staticPage->title() ?></a>
+					</li>
 				<?php endforeach ?>
 
 				<!-- Social Networks -->
-				<?php foreach (Theme::socialNetworks() as $key=>$label): ?>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
-						<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="<?php echo $label ?>" />
-						<span class="d-inline d-sm-none"><?php echo $label; ?></span>
-					</a>
-				</li>
+				<?php foreach (Theme::socialNetworks() as $key => $label) : ?>
+					<li class="nav-item">
+						<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank">
+							<img class="d-none d-sm-block nav-svg-icon" src="<?php echo DOMAIN_THEME . 'img/' . $key . '.svg' ?>" alt="<?php echo $label ?>" />
+							<span class="d-inline d-sm-none"><?php echo $label; ?></span>
+						</a>
+					</li>
 				<?php endforeach; ?>
 
 			</ul>

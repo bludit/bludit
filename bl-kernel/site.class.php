@@ -32,6 +32,7 @@ class Site extends dbJSON
 		'gitlab' =>		'',
 		'linkedin' =>		'',
 		'xing' =>		'',
+		'telegram' => '',
 		'mastodon' =>		'',
 		'dribbble' =>		'',
 		'vk' =>			'',
@@ -191,6 +192,11 @@ class Site extends dbJSON
 	public function xing()
 	{
 		return $this->getField('xing');
+	}
+
+	public function telegram()
+	{
+		return $this->getField('telegram');
 	}
 
 	public function mastodon()

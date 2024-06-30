@@ -34,4 +34,4 @@ echo '
 
 echo '</form>';
 
-echo '<p class="mt-3 text-right">' . $L->g('Powered by Bludit') . ((defined('BLUDIT_PRO')) ? ' PRO' : '') . '</p>'
+echo '<p class="mt-3 text-right">' . $L->g('Powered by Bludit') . ((defined('BLUDIT_PRO')) ? ' PRO' : '') . '</p>';
