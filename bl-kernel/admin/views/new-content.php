@@ -466,18 +466,23 @@ foreach ($customFields as $field => $options) {
 
 		// Button Save
 		$("#jsbuttonSave").on("click", function() {
+			let actionParameters = '';
+
 			// If the switch is setted to "published", get the value from the selector
 			if ($("#jsbuttonSwitch").data("switch") == "publish") {
 				var value = $("#jstypeSelector option:selected").val();
 				$("#jstype").val(value);
+				actionParameters = '#' + value;
 			} else {
 				$("#jstype").val("draft");
+				actionParameters = '#draft';
 			}
 
 			// Get the content
 			$("#jscontent").val(editorGetContent());
 
 			// Submit the form
+			$("#jsform").attr('action', actionParameters);
 			$("#jsform").submit();
 		});
 
