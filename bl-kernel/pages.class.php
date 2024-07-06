@@ -632,7 +632,7 @@ class Pages extends dbJSON
 
 	private function sortByPositionLowToHigh($a, $b)
 	{
-		return $a['position'] > $b['position'];
+		return $a['position'] <=> $b['position'];
 	}
 	private function sortByPositionHighToLow($a, $b)
 	{
