@@ -632,11 +632,24 @@ class Pages extends dbJSON
 
 	private function sortByPositionLowToHigh($a, $b)
 	{
-		return $a['position'] <=> $b['position'];
+		if ($a['position'] < $b['position']) {
+			return -1;
+		} elseif ($a['position'] > $b['position']) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
+
 	private function sortByPositionHighToLow($a, $b)
 	{
-		return $a['position'] < $b['position'];
+		if ($a['position'] > $b['position']) {
+			return -1;
+		} elseif ($a['position'] < $b['position']) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	// Sort pages by date
