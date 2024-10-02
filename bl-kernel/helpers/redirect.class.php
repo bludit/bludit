@@ -24,6 +24,7 @@ class Redirect {
 
 	public static function admin()
 	{
+		header('Cache-Control: no-store');
 		self::url(HTML_PATH_ADMIN_ROOT);
 	}
 }
