@@ -161,6 +161,16 @@ class User
 		return $this->getValue('vk');
 	}
 
+	public function youtube()
+	{
+		return $this->getValue('youtube');
+	}
+
+	public function bluesky()
+	{
+		return $this->getValue('bluesky');
+	}
+
 	public function profilePicture()
 	{
 		$filename = $this->getValue('username') . '.png';
@@ -185,9 +195,11 @@ class User
 		$tmp['gitlab'] 		= $this->gitlab();
 		$tmp['linkedin'] 	= $this->linkedin();
 		$tmp['xing'] 		= $this->xing();
-		$tmp['telegram'] 		= $this->telegram();
+		$tmp['telegram'] 	= $this->telegram();
 		$tmp['mastodon']	= $this->mastodon();
 		$tmp['vk']		= $this->vk();
+		$tmp['youtube']		= $this->youtube();
+		$tmp['bluesky']		= $this->bluesky();
 		$tmp['profilePicture']	= $this->profilePicture();
 
 		if ($returnsArray) {

@@ -36,6 +36,8 @@ class Site extends dbJSON
 		'mastodon' =>		'',
 		'dribbble' =>		'',
 		'vk' =>			'',
+		'youtube' =>		'',
+		'bluesky' =>		'',
 		'orderBy' =>		'date', // date or position
 		'extremeFriendly' =>	true,
 		'autosaveInterval' =>	2, // minutes
@@ -213,6 +215,17 @@ class Site extends dbJSON
 	{
 		return $this->getField('vk');
 	}
+
+	public function youtube()
+	{
+		return $this->getField('youtube');
+	}
+
+	public function bluesky()
+	{
+		return $this->getField('bluesky');
+	}
+
 
 	public function orderBy()
 	{

@@ -18,7 +18,9 @@ class Theme
 			'telegram' => 'Telegram',
 			'mastodon' => 'Mastodon',
 			'vk' => 'VK',
-			'dribbble' => 'Dribbble'
+			'dribbble' => 'Dribbble',
+			'youtube' => 'Youtube',
+			'bluesky' => 'Bluesky'
 		);
 
 		foreach ($socialNetworks as $key => $label) {

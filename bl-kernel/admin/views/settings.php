@@ -450,6 +450,24 @@ echo Bootstrap::formInputHidden(array(
 		'placeholder' => '',
 		'tip' => ''
 	));
+
+	echo Bootstrap::formInputText(array(
+		'name' => 'youtube',
+		'label' => 'Youtube',
+		'value' => $site->youtube(),
+		'class' => '',
+		'placeholder' => '',
+		'tip' => ''
+	));
+
+	echo Bootstrap::formInputText(array(
+		'name' => 'bluesky',
+		'label' => 'Bluesky',
+		'value' => $site->bluesky(),
+		'class' => '',
+		'placeholder' => '',
+		'tip' => ''
+	));
 	?>
 </div>
 
