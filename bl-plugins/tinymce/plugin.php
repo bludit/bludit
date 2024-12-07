@@ -13,6 +13,7 @@ class pluginTinymce extends Plugin
 		$this->dbFields = array(
 			'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 			'toolbar2' => '',
+			'contextmenu' => 'link linkchecker image editimage table spellchecker configurepermanentpen',
 			'plugins' => 'code autolink image link pagebreak advlist lists textpattern table',
 			'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 		);
@@ -35,6 +36,13 @@ class pluginTinymce extends Plugin
 		$html .= '<label>' . $L->get('toolbar-bottom') . '</label>';
 		$html .= '<input name="toolbar2" id="jstoolbar2" type="text" dir="auto" value="' . $this->getValue('toolbar2') . '">';
 		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('context-menu') . '</label>';
+		$html .= '<input name="contextmenu" id="jscontextmenu" type="text" dir="auto" value="' . $this->getValue('contextmenu') . '">';
+		$html .= '</div>';
+
+		$html .= '<div class="alert alert-light" role="alert">' . $L->get('context-menu-info') . '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>' . $L->get('Plugins') . '</label>';
@@ -74,6 +82,7 @@ class pluginTinymce extends Plugin
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
+		$contextmenu = $this->getValue('contextmenu');
 		$content_css = $this->htmlPath() . 'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
@@ -143,6 +152,7 @@ class pluginTinymce extends Plugin
 		plugins: ["$plugins"],
 		toolbar1: "$toolbar1",
 		toolbar2: "$toolbar2",
+		contextmenu: "$contextmenu",
 		language: "$lang",
 		content_css: "$content_css",
 		codesample_languages: [$codesampleConfig],
