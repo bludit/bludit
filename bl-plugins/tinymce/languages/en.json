@@ -6,6 +6,8 @@
 	},
 	"toolbar-top": "Toolbar top",
 	"toolbar-bottom": "Toolbar bottom",
+	"context-menu": "Context menu",
+	"context-menu-info": "Hit <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>right click</kbd> to use the browser spellchecker.",
 	"codesample-languages": "Codesample languages",
 	"codesample-supported-laguages": "Programming languages supported by Prism."
 }
