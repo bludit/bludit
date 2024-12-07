@@ -6,6 +6,8 @@
 	},
 	"toolbar-top": "Barre d'outils supérieure",
 	"toolbar-bottom": "Barre d'outils inférieure",
+	"context-menu": "Menu contextuel",
+	"context-menu-info": "Faire <kbd>Ctrl</kbd> ou <kbd>Cmd</kbd> + <kbd>clic droit</kbd> pour accéder au correcteur intégré au navigateur.",
 	"codesample-languages": "Exemples de codes de langues",
 	"codesample-supported-laguages": "Langages de programmation supportés par Prism."
 }
