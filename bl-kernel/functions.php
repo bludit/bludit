@@ -933,7 +933,7 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
   // Generate Thumbnail
   if (!empty($thumbnailDir)) {
     if (($fileExtension == 'svg')) {
-      Filesystem::symlink($image, $thumbnailDir . $nextFilename);
+      Filesystem::symlink('..'.DS.$nextFilename, $thumbnailDir . $nextFilename);
     } else {
       $Image = new Image();
       $Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
