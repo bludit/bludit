@@ -224,6 +224,15 @@ echo Bootstrap::formInputHidden(array(
 		));
 
 		echo Bootstrap::formInputText(array(
+			'name' => 'bluesky',
+			'label' => 'Bluesky',
+			'value' => $user->bluesky(),
+			'class' => '',
+			'placeholder' => '',
+			'tip' => ''
+		));
+		
+		echo Bootstrap::formInputText(array(
 			'name' => 'codepen',
 			'label' => 'CodePen',
 			'value' => $user->codepen(),

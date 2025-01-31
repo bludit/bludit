@@ -160,6 +160,11 @@ class User
 	{
 		return $this->getValue('vk');
 	}
+	
+	public function bluesky()
+	{
+		return $this->getValue('bluesky');
+	}
 
 	public function profilePicture()
 	{

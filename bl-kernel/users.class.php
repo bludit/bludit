@@ -24,6 +24,7 @@ class Users extends dbJSON {
 		'linkedin'=>'',
 		'mastodon'=>'',
 		'vk'=>'',
+		'bluesky'=>'',
 		'pronouns'=>''
 	);
 
