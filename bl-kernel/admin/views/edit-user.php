@@ -95,6 +95,15 @@ echo Bootstrap::formInputHidden(array(
 			'placeholder' => '',
 			'tip' => ''
 		));
+
+		echo Bootstrap::formInputText(array(
+			'name' => 'pronouns',
+			'label' => $L->g('Pronouns'),
+			'value' => $user->pronouns(),
+			'class' => '',
+			'placeholder' => '',
+			'tip' => ''
+		));
 		?>
 	</div>
 
