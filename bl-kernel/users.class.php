@@ -23,7 +23,8 @@ class Users extends dbJSON {
 		'gitlab'=>'',
 		'linkedin'=>'',
 		'mastodon'=>'',
-		'vk'=>''
+		'vk'=>'',
+		'pronouns'=>''
 	);
 
 	function __construct()
