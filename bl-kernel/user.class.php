@@ -169,7 +169,12 @@ class User
 		}
 		return DOMAIN_UPLOADS_PROFILES . $filename;
 	}
-
+	
+	public function pronouns()
+	{
+		return $this->getValue('pronouns');
+	}
+	
 	public function json($returnsArray = false)
 	{
 		$tmp['username'] 	= $this->username();
@@ -189,6 +194,7 @@ class User
 		$tmp['mastodon']	= $this->mastodon();
 		$tmp['vk']		= $this->vk();
 		$tmp['profilePicture']	= $this->profilePicture();
+		$tmp['pronouns'] = $this->pronouns();
 
 		if ($returnsArray) {
 			return $tmp;
