@@ -2,14 +2,14 @@
 
 class pluginRobots extends Plugin {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'robotstxt'=>'User-agent: *'.PHP_EOL.'Allow: /'
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		$html  = '<div class="alert alert-primary" role="alert">';
 		$html .= $this->description();
@@ -23,7 +23,7 @@ class pluginRobots extends Plugin {
 		return $html;
 	}
 
-	public function siteHead()
+	public function siteHead(): string
 	{
 		global $WHERE_AM_I;
 
@@ -53,7 +53,7 @@ class pluginRobots extends Plugin {
 		return $html;
 	}
 
-	public function beforeAll()
+	public function beforeAll(): void
 	{
 		$webhook = 'robots.txt';
 		if ($this->webhook($webhook)) {

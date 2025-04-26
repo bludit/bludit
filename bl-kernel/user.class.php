@@ -34,7 +34,7 @@ class User
 		return false;
 	}
 
-	public function setField($field, $value)
+	public function setField($field, $value): bool
 	{
 		$this->vars[$field] = $value;
 		return true;
@@ -161,7 +161,7 @@ class User
 		return $this->getValue('vk');
 	}
 
-	public function profilePicture()
+	public function profilePicture(): bool|string
 	{
 		$filename = $this->getValue('username') . '.png';
 		if (!file_exists(PATH_UPLOADS_PROFILES . $filename)) {
@@ -170,7 +170,7 @@ class User
 		return DOMAIN_UPLOADS_PROFILES . $filename;
 	}
 
-	public function json($returnsArray = false)
+	public function json($returnsArray = false): bool|array|string
 	{
 		$tmp['username'] 	= $this->username();
 		$tmp['firstName'] 	= $this->firstName();

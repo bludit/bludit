@@ -38,7 +38,7 @@ class Login
 	}
 
 	// Returns TRUE if the user is logged, FALSE otherwise
-	public function isLogged()
+	public function isLogged(): bool
 	{
 		if (Session::get('fingerPrint') === $this->fingerPrint()) {
 			$username = Session::get('username');
@@ -56,7 +56,7 @@ class Login
 	}
 
 	// Set the session for the user logged
-	public function setLogin($username, $role)
+	public function setLogin($username, $role): void
 	{
 		Session::set('username',	$username);
 		Session::set('role', 		$role);
@@ -66,7 +66,7 @@ class Login
 		Log::set(__METHOD__ . LOG_SEP . 'User logged, fingerprint [' . $this->fingerPrint() . ']');
 	}
 
-	public function setRememberMe($username)
+	public function setRememberMe($username): void
 	{
 		$username = Sanitize::html($username);
 
@@ -81,7 +81,7 @@ class Login
 		Log::set(__METHOD__ . LOG_SEP . 'Cookies set for Remember Me.');
 	}
 
-	public function invalidateRememberMe()
+	public function invalidateRememberMe(): void
 	{
 		// Invalidate all tokens on the user databases
 		$this->users->invalidateAllRememberTokens();
@@ -96,7 +96,7 @@ class Login
 	// Check if the username and the password are valid
 	// Returns TRUE if valid and set the session
 	// Returns FALSE for invalid username or password
-	public function verifyUser($username, $password)
+	public function verifyUser(string $username, string $password): bool
 	{
 		$username = Sanitize::html($username);
 		$username = trim($username);
@@ -129,7 +129,7 @@ class Login
 	}
 
 	// Check if the user has the cookies and the correct token
-	public function verifyUserByRemember()
+	public function verifyUserByRemember(): bool
 	{
 		if (Cookie::isEmpty(REMEMBER_COOKIE_USERNAME) || Cookie::isEmpty(REMEMBER_COOKIE_TOKEN)) {
 			return false;
@@ -163,7 +163,7 @@ class Login
 		return true;
 	}
 
-	public function fingerPrint()
+	public function fingerPrint(): string
 	{
 		$agent = getenv('HTTP_USER_AGENT');
 		if (empty($agent)) {
@@ -172,7 +172,7 @@ class Login
 		return sha1($agent);
 	}
 
-	public function logout()
+	public function logout(): bool
 	{
 		$this->invalidateRememberMe();
 		Session::destroy();

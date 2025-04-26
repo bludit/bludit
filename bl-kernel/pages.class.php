@@ -3,8 +3,8 @@
 class Pages extends dbJSON
 {
 
-	protected $parentKeyList = array();
-	protected $dbFields = array(
+	protected array $parentKeyList = array();
+	protected array $dbFields = array(
 		'title' => '',
 		'description' => '',
 		'username' => '',
@@ -30,7 +30,7 @@ class Pages extends dbJSON
 		parent::__construct(DB_PAGES);
 	}
 
-	public function getDefaultFields()
+	public function getDefaultFields(): array
 	{
 		return $this->dbFields;
 	}
@@ -46,7 +46,7 @@ class Pages extends dbJSON
 	}
 
 	// Return TRUE if the page exists, FALSE otherwise
-	public function exists($key)
+	public function exists($key): bool
 	{
 		return isset($this->db[$key]);
 	}
@@ -307,7 +307,7 @@ class Pages extends dbJSON
 		}
 	}
 
-	public function delete($key)
+	public function delete($key): bool
 	{
 		// This is need it, because if the key is empty the Filesystem::deleteRecursive is going to delete PATH_PAGES
 		if (empty($key)) {
@@ -344,7 +344,7 @@ class Pages extends dbJSON
 	}
 
 	// Delete all pages from a user
-	public function deletePagesByUser($args)
+	public function deletePagesByUser($args): bool
 	{
 		$username = $args['username'];
 
@@ -358,7 +358,7 @@ class Pages extends dbJSON
 	}
 
 	// Link all pages to a new user
-	public function transferPages($args)
+	public function transferPages($args): bool
 	{
 		$oldUsername = $args['oldUsername'];
 		$newUsername = isset($args['newUsername']) ? $args['newUsername'] : 'admin';
@@ -373,7 +373,7 @@ class Pages extends dbJSON
 	}
 
 	// Set field = value
-	public function setField($key, $field, $value)
+	public function setField($key, $field, $value): bool
 	{
 		if ($this->exists($key)) {
 			settype($value, gettype($this->dbFields[$field]));
@@ -538,7 +538,7 @@ class Pages extends dbJSON
 	// (int) $pageNumber, the page number
 	// (int) $numberOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $numberOfItems, $published = true, $static = false, $sticky = false, $draft = false, $scheduled = false)
+	public function getList(int $pageNumber, int $numberOfItems, bool $published = true, bool $static = false, bool $sticky = false, bool $draft = false, bool $scheduled = false): bool|array
 	{
 		$list = array();
 		foreach ($this->db as $key => $fields) {
@@ -576,7 +576,7 @@ class Pages extends dbJSON
 	// Returns the amount of pages
 	// (boolean) $onlyPublished, TRUE returns the total of published pages (without draft and scheduled)
 	// (boolean) $onlyPublished, FALSE returns the total of pages
-	public function count($onlyPublished = true)
+	public function count($onlyPublished = true): int
 	{
 		if ($onlyPublished) {
 			$db = $this->getPublishedDB(false);
@@ -599,7 +599,7 @@ class Pages extends dbJSON
 		return $db;
 	}
 
-	public function getChildren($parentKey)
+	public function getChildren($parentKey): array
 	{
 		$tmp = $this->db;
 		$list = array();
@@ -611,7 +611,7 @@ class Pages extends dbJSON
 		return $list;
 	}
 
-	public function sortBy()
+	public function sortBy(): bool
 	{
 		if (ORDER_BY == 'date') {
 			return $this->sortByDate(true);
@@ -620,7 +620,7 @@ class Pages extends dbJSON
 	}
 
 	// Sort pages by position
-	public function sortByPosition($HighToLow = false)
+	public function sortByPosition($HighToLow = false): bool
 	{
 		if ($HighToLow) {
 			uasort($this->db, array($this, 'sortByPositionHighToLow'));
@@ -630,7 +630,7 @@ class Pages extends dbJSON
 		return true;
 	}
 
-	private function sortByPositionLowToHigh($a, $b)
+	private function sortByPositionLowToHigh($a, $b): int
 	{
 		if ($a['position'] < $b['position']) {
 			return -1;
@@ -641,7 +641,7 @@ class Pages extends dbJSON
 		}
 	}
 
-	private function sortByPositionHighToLow($a, $b)
+	private function sortByPositionHighToLow($a, $b): int
 	{
 		if ($a['position'] > $b['position']) {
 			return -1;
@@ -653,7 +653,7 @@ class Pages extends dbJSON
 	}
 
 	// Sort pages by date
-	public function sortByDate($HighToLow = true)
+	public function sortByDate($HighToLow = true): bool
 	{
 		if ($HighToLow) {
 			uasort($this->db, array($this, 'sortByDateHighToLow'));
@@ -663,16 +663,16 @@ class Pages extends dbJSON
 		return true;
 	}
 
-	private function sortByDateLowToHigh($a, $b)
+	private function sortByDateLowToHigh($a, $b): bool
 	{
 		return $a['date'] > $b['date'];
 	}
-	private function sortByDateHighToLow($a, $b)
+	private function sortByDateHighToLow($a, $b): bool
 	{
 		return $a['date'] < $b['date'];
 	}
 
-	function generateUUID()
+	function generateUUID(): string
 	{
 		return md5(uniqid() . time());
 	}
@@ -709,7 +709,7 @@ class Pages extends dbJSON
 	}
 
 	// Returns TRUE if there are new pages published, FALSE otherwise
-	public function scheduler()
+	public function scheduler(): bool
 	{
 		// Get current date
 		$currentDate = Date::current(DB_DATE_FORMAT);
@@ -785,7 +785,7 @@ class Pages extends dbJSON
 
 	// Returns an Array, array('tagSlug'=>'tagName')
 	// (string) $tags, tag list separated by comma.
-	public function generateTags($tags)
+	public function generateTags($tags): array
 	{
 		$tmp = array();
 		$tags = trim($tags);
@@ -803,7 +803,7 @@ class Pages extends dbJSON
 	}
 
 	// Change all pages with the old category key to the new category key
-	public function changeCategory($oldCategoryKey, $newCategoryKey)
+	public function changeCategory($oldCategoryKey, $newCategoryKey): bool
 	{
 		foreach ($this->db as $key => $value) {
 			if ($value['category'] === $oldCategoryKey) {
@@ -817,7 +817,7 @@ class Pages extends dbJSON
 	// The structure for the custom fields need to be a valid JSON format
 	// The custom fields are incremental, this means the custom fields are never deleted
 	// The pages only store the value of the custom field, the structure of the custom fields are in the database site.php
-	public function setCustomFields($fields)
+	public function setCustomFields($fields): bool
 	{
 		$customFields = json_decode($fields, true);
 		if (json_last_error() != JSON_ERROR_NONE) {

@@ -12,7 +12,7 @@ class Categories extends dbList {
 		return $this->countItems($key);
 	}
 
-	public function reindex()
+	public function reindex(): bool
 	{
 		global $pages;
 

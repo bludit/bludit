@@ -36,33 +36,33 @@ if ($modulesRequiredExit) {
 }
 
 // Security constant
-define('BLUDIT', true);
+const BLUDIT = true;
 
 // Directory separator
-define('DS', DIRECTORY_SEPARATOR);
+const DS = DIRECTORY_SEPARATOR;
 
 // PHP paths
-define('PATH_ROOT',		__DIR__ . DS);
-define('PATH_CONTENT',		PATH_ROOT . 'bl-content' . DS);
-define('PATH_KERNEL',		PATH_ROOT . 'bl-kernel' . DS);
-define('PATH_LANGUAGES',	PATH_ROOT . 'bl-languages' . DS);
-define('PATH_UPLOADS',		PATH_CONTENT . 'uploads' . DS);
-define('PATH_TMP',		PATH_CONTENT . 'tmp' . DS);
-define('PATH_PAGES',		PATH_CONTENT . 'pages' . DS);
-define('PATH_WORKSPACES',	PATH_CONTENT . 'workspaces' . DS);
-define('PATH_DATABASES',	PATH_CONTENT . 'databases' . DS);
-define('PATH_PLUGINS_DATABASES', PATH_CONTENT . 'databases' . DS . 'plugins' . DS);
-define('PATH_UPLOADS_PROFILES',	PATH_UPLOADS . 'profiles' . DS);
-define('PATH_UPLOADS_THUMBNAILS', PATH_UPLOADS . 'thumbnails' . DS);
-define('PATH_UPLOADS_PAGES',	PATH_UPLOADS . 'pages' . DS);
-define('PATH_HELPERS',		PATH_KERNEL . 'helpers' . DS);
-define('PATH_ABSTRACT',		PATH_KERNEL . 'abstract' . DS);
+const PATH_ROOT = __DIR__ . DS;
+const PATH_CONTENT = PATH_ROOT . 'bl-content' . DS;
+const PATH_KERNEL = PATH_ROOT . 'bl-kernel' . DS;
+const PATH_LANGUAGES = PATH_ROOT . 'bl-languages' . DS;
+const PATH_UPLOADS = PATH_CONTENT . 'uploads' . DS;
+const PATH_TMP = PATH_CONTENT . 'tmp' . DS;
+const PATH_PAGES = PATH_CONTENT . 'pages' . DS;
+const PATH_WORKSPACES = PATH_CONTENT . 'workspaces' . DS;
+const PATH_DATABASES = PATH_CONTENT . 'databases' . DS;
+const PATH_PLUGINS_DATABASES = PATH_CONTENT . 'databases' . DS . 'plugins' . DS;
+const PATH_UPLOADS_PROFILES = PATH_UPLOADS . 'profiles' . DS;
+const PATH_UPLOADS_THUMBNAILS = PATH_UPLOADS . 'thumbnails' . DS;
+const PATH_UPLOADS_PAGES = PATH_UPLOADS . 'pages' . DS;
+const PATH_HELPERS = PATH_KERNEL . 'helpers' . DS;
+const PATH_ABSTRACT = PATH_KERNEL . 'abstract' . DS;
 
 // Protecting against Symlink attacks
-define('CHECK_SYMBOLIC_LINKS', TRUE);
+const CHECK_SYMBOLIC_LINKS = TRUE;
 
 // Filename for pages
-define('FILENAME', 'index.txt');
+const FILENAME = 'index.txt';
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
@@ -98,7 +98,7 @@ if (strpos($_SERVER['REQUEST_URI'], $base) !== 0) {
 define('HTML_PATH_ROOT', $base);
 
 // Log separator
-define('LOG_SEP', ' | ');
+const LOG_SEP = ' | ';
 
 // JSON
 if (!defined('JSON_PRETTY_PRINT')) {
@@ -106,13 +106,13 @@ if (!defined('JSON_PRETTY_PRINT')) {
 }
 
 // Database format date
-define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
+const DB_DATE_FORMAT = 'Y-m-d H:i:s';
 
 // Charset, default UTF-8.
-define('CHARSET', 'UTF-8');
+const CHARSET = 'UTF-8';
 
 // Default language file
-define('DEFAULT_LANGUAGE_FILE', 'en.json');
+const DEFAULT_LANGUAGE_FILE = 'en.json';
 
 // Set internal character encoding
 mb_internal_encoding(CHARSET);
@@ -121,7 +121,7 @@ mb_internal_encoding(CHARSET);
 mb_http_output(CHARSET);
 
 // Directory permissions
-define('DIR_PERMISSIONS', 0755);
+const DIR_PERMISSIONS = 0755;
 
 // --- PHP Classes ---
 include(PATH_ABSTRACT . 'dbjson.class.php');
@@ -176,7 +176,7 @@ if (empty($iniDate)) {
 // ============================================================================
 
 // Returns an array with all languages
-function getLanguageList()
+function getLanguageList(): array
 {
 	$files = glob(PATH_LANGUAGES . '*.json');
 	$tmp = array();
@@ -197,7 +197,7 @@ function alreadyInstalled()
 }
 
 // Check write permissions and .htaccess file
-function checkSystem()
+function checkSystem(): array
 {
 	$output = array();
 

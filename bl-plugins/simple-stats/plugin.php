@@ -5,11 +5,11 @@
 class pluginSimpleStats extends Plugin
 {
 
-	private $loadOnController = array(
+	private array $loadOnController = array(
 		'dashboard'
 	);
 
-	public function init()
+	public function init(): void
 	{
 		global $L;
 
@@ -22,7 +22,7 @@ class pluginSimpleStats extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -57,7 +57,7 @@ class pluginSimpleStats extends Plugin
 		return $html;
 	}
 
-	public function adminHead()
+	public function adminHead(): bool|string
 	{
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
@@ -73,7 +73,7 @@ class pluginSimpleStats extends Plugin
 		return $html;
 	}
 
-	public function dashboard()
+	public function dashboard(): string
 	{
 		global $L;
 		$label = $this->getValue('label');
@@ -149,13 +149,13 @@ EOF;
 		return $html . PHP_EOL . $script . PHP_EOL;
 	}
 
-	public function siteBodyEnd()
+	public function siteBodyEnd(): void
 	{
 		$this->addVisitor();
 	}
 
 	// Keep only 7 days of logs
-	public function deleteOldLogs()
+	public function deleteOldLogs(): void
 	{
 		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', true);
 		$remove = array_slice($logs, 7);
@@ -166,7 +166,7 @@ EOF;
 	}
 
 	// Returns the amount of visits by date
-	public function visits($date)
+	public function visits($date): int
 	{
 		$file = $this->workspace() . $date . '.log';
 		$handle = @fopen($file, 'rb');
@@ -184,7 +184,7 @@ EOF;
 	}
 
 	// Returns the amount of unique visitors by date
-	public function uniqueVisitors($date)
+	public function uniqueVisitors($date): int
 	{
 		$file = $this->workspace() . $date . '.log';
 		$lines = @file($file);
@@ -203,7 +203,7 @@ EOF;
 
 	// Add a line to the current log
 	// The line is a json array with the hash IP of the visitor and the time
-	public function addVisitor()
+	public function addVisitor(): bool
 	{
 		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
 			return false;
@@ -219,7 +219,7 @@ EOF;
 		return file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND | LOCK_EX) !== false;
 	}
 
-	public function renderContentStatistics($data)
+	public function renderContentStatistics($data): string
 	{
 		global $L;
 		$diskUsage = Filesystem::bytesToHumanFileSize(

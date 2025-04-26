@@ -3,7 +3,7 @@
 class pluginLinks extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		// JSON database
 		$jsondb = json_encode(array(
@@ -22,7 +22,7 @@ class pluginLinks extends Plugin
 	}
 
 	// Method called when a POST request is sent
-	public function post()
+	public function post(): bool
 	{
 		// Get current jsondb value from database
 		// All data stored in the database is html encoded
@@ -62,7 +62,7 @@ class pluginLinks extends Plugin
 	}
 
 	// Method called on plugin settings on the admin area
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -124,7 +124,7 @@ class pluginLinks extends Plugin
 	}
 
 	// Method called on the sidebar of the website
-	public function siteSidebar()
+	public function siteSidebar(): string
 	{
 		global $L;
 

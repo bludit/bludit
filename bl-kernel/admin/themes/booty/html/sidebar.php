@@ -1,3 +1,4 @@
+<?php global $login, $L; ?>
 <!-- Use .flex-column to set a vertical direction -->
 <ul class="nav flex-column pt-4">
 

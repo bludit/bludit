@@ -7,7 +7,7 @@ class Image {
     private $height;
     private $imageResized;
 
-    public function setImage($fileName, $newWidth, $newHeight, $option="auto")
+    public function setImage($fileName, $newWidth, $newHeight, $option="auto"): void
     {
         // *** Open up the file
         $this->image = $this->openImage($fileName);
@@ -19,7 +19,7 @@ class Image {
         $this->resizeImage($newWidth, $newHeight, $option);
     }
 
-    public function saveImage($savePath, $imageQuality="100", $forceJPG=false, $forcePNG=false)
+    public function saveImage($savePath, $imageQuality="100", $forceJPG=false, $forcePNG=false): void
     {
         $extension = strtolower(pathinfo($savePath, PATHINFO_EXTENSION));
 
@@ -104,7 +104,7 @@ class Image {
         return $img;
     }
 
-    private function resizeImage($newWidth, $newHeight, $option)
+    private function resizeImage($newWidth, $newHeight, $option): void
     {
         // *** Get optimal width and height - based on $option
         $optionArray = $this->getDimensions($newWidth, $newHeight, $option);
@@ -126,7 +126,7 @@ class Image {
         }
     }
 
-    private function getDimensions($newWidth, $newHeight, $option)
+    private function getDimensions($newWidth, $newHeight, $option): array
     {
 
         if( ($this->width < $newWidth) and ($this->height < $newHeight) )
@@ -163,21 +163,21 @@ class Image {
         return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
     }
 
-    private function getSizeByFixedHeight($newHeight)
+    private function getSizeByFixedHeight($newHeight): float|int
     {
         $ratio = $this->width / $this->height;
         $newWidth = $newHeight * $ratio;
         return $newWidth;
     }
 
-    private function getSizeByFixedWidth($newWidth)
+    private function getSizeByFixedWidth($newWidth): float|int
     {
         $ratio = $this->height / $this->width;
         $newHeight = $newWidth * $ratio;
         return $newHeight;
     }
 
-    private function getSizeByAuto($newWidth, $newHeight)
+    private function getSizeByAuto($newWidth, $newHeight): array
     {
         if ($this->height < $this->width)
             // *** Image to be resized is wider (landscape)
@@ -210,7 +210,7 @@ class Image {
         return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
     }
 
-    private function getOptimalCrop($newWidth, $newHeight)
+    private function getOptimalCrop($newWidth, $newHeight): array
     {
 
         $heightRatio = $this->height / $newHeight;
@@ -228,7 +228,7 @@ class Image {
         return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
     }
 
-    private function crop($optimalWidth, $optimalHeight, $newWidth, $newHeight)
+    private function crop($optimalWidth, $optimalHeight, $newWidth, $newHeight): void
     {
         // *** Find center - this will be used for the crop
         $cropStartX = ( $optimalWidth / 2) - ( $newWidth /2 );

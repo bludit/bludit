@@ -3,7 +3,7 @@
 class alternative extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'googleFonts' => false,
@@ -12,7 +12,7 @@ class alternative extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 

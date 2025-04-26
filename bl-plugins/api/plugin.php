@@ -5,7 +5,7 @@ class pluginAPI extends Plugin
 
 	private $method;
 
-	public function init()
+	public function init(): void
 	{
 		// Generate the API Token
 		$token = md5(uniqid() . time() . DOMAIN);
@@ -21,7 +21,7 @@ class pluginAPI extends Plugin
 		return $this->getValue('token');
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -272,7 +272,7 @@ class pluginAPI extends Plugin
 		return $tmp;
 	}
 
-	private function getEndpointParameters($URI)
+	private function getEndpointParameters($URI): array
 	{
 		// ENDPOINT Parameters
 		// ------------------------------------------------------------
@@ -300,7 +300,7 @@ class pluginAPI extends Plugin
 		exit($json);
 	}
 
-	private function getTags()
+	private function getTags(): array
 	{
 		global $tags;
 		$tmp = array(
@@ -317,7 +317,7 @@ class pluginAPI extends Plugin
 
 	// Returns the tag information and the pages releated to the tag
 	// The array with the pages has the complete information of each page
-	private function getTag($key)
+	private function getTag($key): array
 	{
 		try {
 			$tag = new Tag($key);
@@ -347,7 +347,7 @@ class pluginAPI extends Plugin
 		);
 	}
 
-	private function getPages($args)
+	private function getPages($args): array
 	{
 		global $pages;
 
@@ -390,7 +390,7 @@ class pluginAPI extends Plugin
 		return $tmp;
 	}
 
-	private function getPage($key)
+	private function getPage($key): array
 	{
 		try {
 			$page = new Page($key);
@@ -407,7 +407,7 @@ class pluginAPI extends Plugin
 		}
 	}
 
-	private function createPage($args)
+	private function createPage($args): array
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
@@ -430,7 +430,7 @@ class pluginAPI extends Plugin
 		);
 	}
 
-	private function editPage($key, $args)
+	private function editPage($key, $args): array
 	{
 		// Unsanitize content because all values are sanitized
 		if (isset($args['content'])) {
@@ -454,7 +454,7 @@ class pluginAPI extends Plugin
 		);
 	}
 
-	private function deletePage($key)
+	private function deletePage($key): array
 	{
 		if (deletePage($key)) {
 			return array(
@@ -479,7 +479,7 @@ class pluginAPI extends Plugin
 	|
 	| @return		array
 	*/
-	private function uploadImage($inputs)
+	private function uploadImage($inputs): array
 	{
 		// Set upload directory
 		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
@@ -539,7 +539,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getSettings()
+	private function getSettings(): array
 	{
 		global $site;
 		return array(
@@ -557,7 +557,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function editSettings($args)
+	private function editSettings($args): array
 	{
 		if (editSettings($args)) {
 			return array(
@@ -578,7 +578,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getCategories()
+	private function getCategories(): array
 	{
 		global $categories;
 		$tmp = array(
@@ -602,7 +602,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getCategory($key)
+	private function getCategory($key): array
 	{
 		try {
 			$category = new Category($key);
@@ -639,7 +639,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getUser($username)
+	private function getUser($username): array
 	{
 		try {
 			$user = new User($username);
@@ -663,7 +663,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getUsers()
+	private function getUsers(): array
 	{
 		global $users;
 		$data = array();
@@ -688,7 +688,7 @@ class pluginAPI extends Plugin
 	 |
 	 | @return	array
          */
-	private function getFiles($pageKey)
+	private function getFiles($pageKey): array
 	{
 		$chunk = false;
 		$sortByDate = true;
@@ -729,7 +729,7 @@ class pluginAPI extends Plugin
 	|
 	| @return		array
 	*/
-	private function uploadFile($pageKey)
+	private function uploadFile($pageKey): array
 	{
 		if (!isset($_FILES['file'])) {
 			return array(

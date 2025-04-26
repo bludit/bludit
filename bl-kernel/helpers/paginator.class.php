@@ -2,7 +2,7 @@
 
 class Paginator {
 
-	public static $pager = array(
+	public static array $pager = array(
 		'itemsPerPage'=>0,
 		'numberOfPages'=>1,
 		'numberOfItems'=>0,
@@ -15,7 +15,7 @@ class Paginator {
 		'showNextPrev'=>false
 	);
 
-	public static function set($key, $value)
+	public static function set($key, $value): void
 	{
 		self::$pager[$key] = $value;
 	}
@@ -61,31 +61,31 @@ class Paginator {
 	}
 
 	// Returns the absolute URL for the first page
-	public static function firstPageUrl()
+	public static function firstPageUrl(): string
 	{
 		return self::numberUrl( self::firstPage() );
 	}
 
 	// Returns the absolute URL for the last page
-	public static function lastPageUrl()
+	public static function lastPageUrl(): string
 	{
 		return self::numberUrl( self::numberOfPages() );
 	}
 
 	// Returns the absolute URL for the next page
-	public static function nextPageUrl()
+	public static function nextPageUrl(): string
 	{
 		return self::numberUrl( self::nextPage() );
 	}
 
 	// Returns the absolute URL for the previous page
-	public static function previousPageUrl()
+	public static function previousPageUrl(): string
 	{
 		return self::numberUrl( self::prevPage() );
 	}
 
 	// Return the absoulte URL with the page number
-	public static function numberUrl($pageNumber)
+	public static function numberUrl($pageNumber): string
 	{
 		global $url;
 
@@ -102,7 +102,7 @@ class Paginator {
 		return $uri.'?page='.$pageNumber;
 	}
 
-	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false)
+	public static function html($textPrevPage=false, $textNextPage=false, $showPageNumber=false): string
 	{
 		global $L;
 
@@ -144,7 +144,8 @@ class Paginator {
 	/*
 	 * Bootstrap Pagination
 	 */
-	public static function bootstrap_html($textPrevPage=false, $textNextPage=false, $showPageNumber=false){
+	public static function bootstrap_html($textPrevPage=false, $textNextPage=false, $showPageNumber=false): string
+	{
 
 		global $language;
 

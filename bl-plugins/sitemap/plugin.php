@@ -2,7 +2,7 @@
 
 class pluginSitemap extends Plugin {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'pingGoogle'=>false,
@@ -11,7 +11,7 @@ class pluginSitemap extends Plugin {
 	}
 
 	// Method called on the settings of the plugin on the admin area
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -45,7 +45,7 @@ class pluginSitemap extends Plugin {
 		return $html;
 	}
 
-	private function createXML()
+	private function createXML(): bool|int
 	{
 		global $site;
 		global $pages;
@@ -82,7 +82,7 @@ class pluginSitemap extends Plugin {
 		return $doc->save($this->workspace().'sitemap.xml');
 	}
 
-	private function ping()
+	private function ping(): void
 	{
 		if ($this->getValue('pingGoogle')) {
 			$url = 'https://www.google.com/ping?sitemap='.Theme::sitemapUrl();
@@ -95,37 +95,37 @@ class pluginSitemap extends Plugin {
 		}
 	}
 
-	public function install($position=0)
+	public function install($position=0): bool
 	{
 		parent::install($position);
 		return $this->createXML();
 	}
 
-	public function post()
+	public function post(): bool
 	{
 		parent::post();
 		return $this->createXML();
 	}
 
-	public function afterPageCreate()
+	public function afterPageCreate(): void
 	{
 		$this->createXML();
 		$this->ping();
 	}
 
-	public function afterPageModify()
+	public function afterPageModify(): void
 	{
 		$this->createXML();
 		$this->ping();
 	}
 
-	public function afterPageDelete()
+	public function afterPageDelete(): void
 	{
 		$this->createXML();
 		$this->ping();
 	}
 
-	public function beforeAll()
+	public function beforeAll(): void
 	{
 		$webhook = 'sitemap.xml';
 		if( $this->webhook($webhook) ) {
@@ -139,12 +139,13 @@ class pluginSitemap extends Plugin {
 			$doc = new DOMDocument();
 
 			// Workaround for a bug https://bugs.php.net/bug.php?id=62577
-			libxml_disable_entity_loader(false);
+//			libxml_disable_entity_loader(false);
+			libxml_set_external_entity_loader(null);
 
 			// Load XML
 			$doc->load($this->workspace().'sitemap.xml');
 
-			libxml_disable_entity_loader(true);
+//			libxml_disable_entity_loader(true);
 
 			// Print the XML
 			echo $doc->saveXML();

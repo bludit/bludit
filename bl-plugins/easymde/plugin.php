@@ -4,12 +4,12 @@ class plugineasyMDE extends Plugin
 {
 
 	// The plugin is going to be loaded in this views
-	private $loadOnViews = array(
+	private array $loadOnViews = array(
 		'new-content',
 		'edit-content'
 	);
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'tabSize' => '2',
@@ -18,7 +18,7 @@ class plugineasyMDE extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -43,7 +43,7 @@ class plugineasyMDE extends Plugin
 		return $html;
 	}
 
-	public function adminHead()
+	public function adminHead(): bool|string
 	{
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
@@ -55,7 +55,7 @@ class plugineasyMDE extends Plugin
 		return $html;
 	}
 
-	public function adminBodyEnd()
+	public function adminBodyEnd(): bool|string
 	{
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;

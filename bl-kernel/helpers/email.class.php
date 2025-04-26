@@ -3,7 +3,7 @@
 class Email {
 
 	// Returns TRUE if the mail was successfully accepted for delivery, FALSE otherwise.
-	public static function send($args)
+	public static function send($args): bool
 	{
 		// Current time in unixtimestamp
 		$now = time();

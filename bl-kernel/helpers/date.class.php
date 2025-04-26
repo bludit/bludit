@@ -4,7 +4,7 @@ class Date {
 
 	// Returns string with the date translated
 	// Example: $date = 'Mon, 27th March' > 'Lun, 27th Marzo'
-	public static function translate($date)
+	public static function translate(string $date)
 	{
 		global $L;
 
@@ -22,7 +22,7 @@ class Date {
 	}
 
 	// Return current Unix timestamp, GMT+0
-	public static function unixTime()
+	public static function unixTime(): int
 	{
 		return time();
 	}
@@ -38,7 +38,7 @@ class Date {
 
 	// Returns the current time shifted by offset
 	// $offest could be +1 day, +1 month
-	public static function currentOffset($format, $offset)
+	public static function currentOffset(string $format, string $offset)
 	{
 		$Date = new DateTime();
 		$Date->modify($offset);
@@ -47,7 +47,7 @@ class Date {
 		return self::translate($output);
 	}
 
-	public static function offset($date, $format, $offset)
+	public static function offset(string $date, string $format, string $offset)
 	{
 		$Date = new DateTime($date);
 		$Date->modify($offset);
@@ -57,7 +57,7 @@ class Date {
 	}
 
 	// Format a local time/date according to locale settings.
-	public static function format($date, $currentFormat, $outputFormat)
+	public static function format(string $date, string  $currentFormat, string $outputFormat)
 	{
 		// Returns a new DateTime instance or FALSE on failure.
 		$Date = DateTime::createFromFormat($currentFormat, $date);
@@ -70,7 +70,7 @@ class Date {
 		return false;
 	}
 
-	public static function convertToUTC($date, $currentFormat, $outputFormat)
+	public static function convertToUTC(string $date, string $currentFormat, string $outputFormat)
 	{
 		$Date = DateTime::createFromFormat($currentFormat, $date);
 		$Date->setTimezone(new DateTimeZone('UTC'));
@@ -103,7 +103,7 @@ class Date {
 	// DEBUG: Check this function, need to be more fast
 	// Return array('Africa/Abidjan'=>'Africa/Abidjan (GMT+0)', ..., 'Pacific/Wallis'=>'Pacific/Wallis (GMT+12)');
 	// PHP supported list. http://php.net/manual/en/timezones.php
-	public static function timezoneList()
+	public static function timezoneList(): array
 	{
 		$tmp = array();
 

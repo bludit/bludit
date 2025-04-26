@@ -5,15 +5,15 @@ class Plugin
 
 	// (string) directory name, just the name
 	// Ex: sitemap
-	public $directoryName;
+	public string $directoryName;
 
 	// (string) Absolute database filename and path
 	// Ex: /www/bludit/bl-content/plugins/sitemap/db.php
-	public $filenameDb;
+	public string $filenameDb;
 
 	// (string) Absolute metadata filename and path
 	// Ex: /www/bludit/bl-plugins/sitemap/metadata.json
-	public $filenameMetadata;
+	public string $filenameMetadata;
 
 	// (array) Plugin metadata
 	// Ex: array('author'=>'',...., 'notes'=>'')
@@ -21,19 +21,19 @@ class Plugin
 
 	// (string) Class name
 	// Ex: pluginSitemap
-	public $className;
+	public string $className;
 
 	// (array) Database unserialized
 	public $db;
 
 	// (array) Database fields, only for initialize
-	public $dbFields;
+	public array $dbFields;
 
 	// (boolean) Enable or disable default Save and Cancel button on plugin settings
-	public $formButtons;
+	public bool $formButtons;
 
 	// (array) List of custom hooks
-	public $customHooks;
+	public array $customHooks;
 
 	function __construct()
 	{
@@ -71,45 +71,45 @@ class Plugin
 		}
 	}
 
-	public function save()
+	public function save(): bool
 	{
 		$tmp = new dbJSON($this->filenameDb);
 		$tmp->db = $this->db;
 		return $tmp->save();
 	}
 
-	public function includeCSS($filename)
+	public function includeCSS($filename): string
 	{
 		return '<link rel="stylesheet" type="text/css" href="' . $this->domainPath() . 'css/' . $filename . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
-	public function includeJS($filename)
+	public function includeJS($filename): string
 	{
 		return '<script charset="utf-8" src="' . $this->domainPath() . 'js/' . $filename . '?version=' . BLUDIT_VERSION . '"></script>' . PHP_EOL;
 	}
 
 	// Returns absolute URL and path of the plugin directory
 	// This function helps to include CSS or Javascript files with absolute URL
-	public function domainPath()
+	public function domainPath(): string
 	{
 		return DOMAIN_PLUGINS . $this->directoryName . '/';
 	}
 
 	// Returns relative path of the plugin directory
 	// This function helps to include CSS or Javascript files with relative URL
-	public function htmlPath()
+	public function htmlPath(): string
 	{
 		return HTML_PATH_PLUGINS . $this->directoryName . '/';
 	}
 
 	// Returns absolute path of the plugin directory
 	// This function helps to include PHP libraries or some file at server level
-	public function phpPath()
+	public function phpPath(): string
 	{
 		return PATH_PLUGINS . $this->directoryName . DS;
 	}
 
-	public function phpPathDB()
+	public function phpPathDB(): string
 	{
 		return PATH_PLUGINS_DATABASES . $this->directoryName . DS;
 	}
@@ -125,7 +125,7 @@ class Plugin
 	}
 
 	// Set a key / value on the metadata of the plugin
-	public function setMetadata($key, $value)
+	public function setMetadata($key, $value): bool
 	{
 		$this->metadata[$key] = $value;
 		return true;
@@ -191,17 +191,17 @@ class Plugin
 		return $this->getMetadata('releaseDate');
 	}
 
-	public function className()
+	public function className(): string
 	{
 		return $this->className;
 	}
 
-	public function formButtons()
+	public function formButtons(): bool
 	{
 		return $this->formButtons;
 	}
 
-	public function isCompatible()
+	public function isCompatible(): bool
 	{
 		$bluditRoot = explode('.', BLUDIT_VERSION);
 		$compatible = explode(',', $this->getMetadata('compatible'));
@@ -214,13 +214,13 @@ class Plugin
 		return false;
 	}
 
-	public function directoryName()
+	public function directoryName(): string
 	{
 		return $this->directoryName;
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.
-	public function install($position = 1)
+	public function install($position = 1): bool
 	{
 		if ($this->installed()) {
 			return false;
@@ -245,7 +245,7 @@ class Plugin
 		return $this->save();
 	}
 
-	public function uninstall()
+	public function uninstall(): bool
 	{
 		// Delete database
 		$path = PATH_PLUGINS_DATABASES . $this->directoryName;
@@ -260,12 +260,12 @@ class Plugin
 
 	// Returns TRUE if the plugin is installed
 	// This function just check if the database of the plugin is created
-	public function installed()
+	public function installed(): bool
 	{
 		return file_exists($this->filenameDb);
 	}
 
-	public function workspace()
+	public function workspace(): string
 	{
 		return PATH_WORKSPACES . $this->directoryName . DS;
 	}
@@ -282,7 +282,7 @@ class Plugin
 		// The user can prepare the plugin, when it is installed
 	}
 
-	public function post()
+	public function post(): bool
 	{
 		$args = $_POST;
 		foreach ($this->dbFields as $field => $value) {
@@ -305,20 +305,20 @@ class Plugin
 		return $this->getMetadata('type');
 	}
 
-	public function setField($field, $value)
+	public function setField($field, $value): bool
 	{
 		$this->db[$field] = Sanitize::html($value);
 		return $this->save();
 	}
 
-	public function setPosition($position)
+	public function setPosition($position): bool
 	{
 		return $this->setField('position', $position);
 	}
 
 	// Returns the parameters after the URI, FALSE if the URI doesn't match with the webhook
 	// Example: https://www.mybludit.com/api/foo/bar
-	public function webhook($URI = false, $returnsAfterURI = false, $fixed = true)
+	public function webhook($URI = false, $returnsAfterURI = false, $fixed = true): bool|string
 	{
 		global $url;
 

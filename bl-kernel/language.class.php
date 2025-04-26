@@ -2,7 +2,7 @@
 
 class Language extends dbJSON {
 	public $data;
-	public $db;
+	public mixed $db;
 	public $currentLanguage;
 	public $dates;
 	public $unicodeChars;

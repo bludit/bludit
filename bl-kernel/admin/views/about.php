@@ -1,5 +1,5 @@
 <?php
-
+global $L;
 echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info-circle'));
 
 echo '

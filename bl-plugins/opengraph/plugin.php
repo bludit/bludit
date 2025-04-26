@@ -3,7 +3,7 @@
 class pluginOpenGraph extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
@@ -12,7 +12,7 @@ class pluginOpenGraph extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -35,7 +35,7 @@ class pluginOpenGraph extends Plugin
 		return $html;
 	}
 
-	public function siteHead()
+	public function siteHead(): string
 	{
 		global $url;
 		global $site;

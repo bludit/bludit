@@ -3,12 +3,12 @@
 class pluginTinymce extends Plugin
 {
 
-	private $loadOnController = array(
+	private array $loadOnController = array(
 		'new-content',
 		'edit-content'
 	);
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
@@ -18,7 +18,7 @@ class pluginTinymce extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -52,7 +52,7 @@ class pluginTinymce extends Plugin
 		return $html;
 	}
 
-	public function adminHead()
+	public function adminHead(): bool|string
 	{
 		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
@@ -63,7 +63,7 @@ class pluginTinymce extends Plugin
 		return $html;
 	}
 
-	public function adminBodyEnd()
+	public function adminBodyEnd(): bool|string
 	{
 		global $L;
 
@@ -77,6 +77,7 @@ class pluginTinymce extends Plugin
 		$content_css = $this->htmlPath() . 'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
 		$version = $this->version();
+		$codesampleConfig = '';
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
 			$codesampleConfig = '';

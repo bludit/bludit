@@ -3,7 +3,7 @@
 class pluginNavigation extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
@@ -14,7 +14,7 @@ class pluginNavigation extends Plugin
 	}
 
 	// Method called on the settings of the plugin on the admin area
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -48,7 +48,7 @@ class pluginNavigation extends Plugin
 	}
 
 	// Method called on the sidebar of the website
-	public function siteSidebar()
+	public function siteSidebar(): string
 	{
 		global $L;
 		global $url;

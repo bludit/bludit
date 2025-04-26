@@ -2,7 +2,7 @@
 
 // Re-index database of categories
 // If you create/edit/remove a page is necessary regenerate the database of categories
-function reindexCategories()
+function reindexCategories(): bool
 {
   global $categories;
   return $categories->reindex();
@@ -10,7 +10,7 @@ function reindexCategories()
 
 // Re-index database of tags
 // If you create/edit/remove a page is necessary regenerate the database of tags
-function reindexTags()
+function reindexTags(): bool
 {
   global $tags;
   return $tags->reindex();
@@ -142,7 +142,7 @@ function buildPagesFor($for, $categoryKey = false, $tagKey = false)
 
 // Returns an array with all the static pages as Page-Object
 // The static pages are order by position all the time
-function buildStaticPages()
+function buildStaticPages(): array
 {
   global $pages;
 
@@ -173,7 +173,7 @@ function buildPage($pageKey)
 
 // Returns an array with all the parent pages as Page-Object
 // The pages are order by the settings on the system
-function buildParentPages()
+function buildParentPages(): array
 {
   global $pages;
 
@@ -215,7 +215,7 @@ function pluginActivated($pluginClassName)
   return false;
 }
 
-function activatePlugin($pluginClassName)
+function activatePlugin($pluginClassName): bool
 {
   global $plugins;
   global $syslog;
@@ -239,7 +239,7 @@ function activatePlugin($pluginClassName)
   return false;
 }
 
-function deactivatePlugin($pluginClassName)
+function deactivatePlugin($pluginClassName): bool
 {
   global $plugins;
   global $syslog;
@@ -264,7 +264,7 @@ function deactivatePlugin($pluginClassName)
   return false;
 }
 
-function deactivateAllPlugin()
+function deactivateAllPlugin(): bool
 {
   global $plugins;
   global $syslog;
@@ -283,7 +283,7 @@ function deactivateAllPlugin()
   return false;
 }
 
-function changePluginsPosition($pluginClassList)
+function changePluginsPosition($pluginClassList): bool
 {
   global $plugins;
   global $syslog;
@@ -406,7 +406,7 @@ function editPage($args)
   return false;
 }
 
-function deletePage($key)
+function deletePage($key): bool
 {
   global $pages;
   global $syslog;
@@ -430,7 +430,7 @@ function deletePage($key)
   return false;
 }
 
-function editUser($args)
+function editUser($args): bool
 {
   global $users;
   global $syslog;
@@ -448,7 +448,7 @@ function editUser($args)
   return false;
 }
 
-function disableUser($args)
+function disableUser($args): bool
 {
   global $users;
   global $login;
@@ -481,7 +481,7 @@ function disableUser($args)
   return false;
 }
 
-function deleteUser($args)
+function deleteUser($args): bool
 {
   global $users, $pages;
   global $login;
@@ -525,7 +525,7 @@ function deleteUser($args)
   return false;
 }
 
-function createUser($args)
+function createUser($args): bool
 {
   global $users;
   global $L;
@@ -578,7 +578,7 @@ function createUser($args)
   return false;
 }
 
-function editSettings($args)
+function editSettings($args): bool
 {
   global $site;
   global $syslog;
@@ -665,7 +665,7 @@ function editSettings($args)
   return false;
 }
 
-function changeUserPassword($args)
+function changeUserPassword($args): bool
 {
   global $users;
   global $L;
@@ -702,7 +702,7 @@ function changeUserPassword($args)
 }
 
 // Returns true if the user is allowed to proceed
-function checkRole($allowRoles, $redirect = true)
+function checkRole($allowRoles, $redirect = true): bool
 {
   global $login;
   global $L;
@@ -728,7 +728,7 @@ function checkRole($allowRoles, $redirect = true)
 
 // Add a new category to the system
 // Returns TRUE is successfully added, FALSE otherwise
-function createCategory($args)
+function createCategory($args): bool
 {
   global $categories;
   global $L;
@@ -754,7 +754,7 @@ function createCategory($args)
   return false;
 }
 
-function editCategory($args)
+function editCategory($args): bool
 {
   global $L;
   global $pages;
@@ -786,7 +786,7 @@ function editCategory($args)
   return true;
 }
 
-function deleteCategory($args)
+function deleteCategory($args): bool
 {
   global $L;
   global $categories;
@@ -809,7 +809,7 @@ function deleteCategory($args)
 
 // Returns an array with all the categories
 // By default, the database of categories is alphanumeric sorted
-function getCategories()
+function getCategories(): array
 {
   global $categories;
 
@@ -834,11 +834,11 @@ function getCategory($key)
 
 // Returns an array with all the tags
 // By default, the database of tags is alphanumeric sorted
-function getTags()
+function getTags(): array
 {
   global $tags;
 
-  $list = array();
+	$list = array();
   foreach ($tags->db as $key => $fields) {
     $tag = new Tag($key);
     array_push($list, $tag);
@@ -858,7 +858,7 @@ function getTag($key)
 }
 
 // Activate a theme
-function activateTheme($themeDirectory)
+function activateTheme($themeDirectory): bool
 {
   global $site;
   global $syslog;
@@ -910,7 +910,7 @@ function ajaxResponse($status = 0, $message = "", $data = array())
 |
 | @return	string/boolean	Path and filename of the new image or FALSE if there were some error
 */
-function transformImage($file, $imageDir, $thumbnailDir = false)
+function transformImage($file, $imageDir, $thumbnailDir = false): bool|string
 {
   global $site;
 
@@ -944,7 +944,7 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
   return $image;
 }
 
-function downloadRestrictedFile($file)
+function downloadRestrictedFile($file): void
 {
   if (is_file($file)) {
     header('Content-Description: File Transfer');

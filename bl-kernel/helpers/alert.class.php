@@ -3,14 +3,14 @@
 class Alert {
 
 	// Status, 0 = OK, 1 = Fail
-	public static function set($value, $status=ALERT_STATUS_OK, $key='alert')
+	public static function set($value, $status = ALERT_STATUS_OK, $key = 'alert'): void
 	{
 		Session::set('defined', true);
 		Session::set('alertStatus', $status);
 		Session::set($key, $value);
 	}
 
-	public static function get($key='alert')
+	public static function get($key = 'alert')
 	{
 		Session::set('defined', false);
 		return Session::get($key);
@@ -21,7 +21,7 @@ class Alert {
 		return Session::get('alertStatus');
 	}
 
-	public static function p($key='alert')
+	public static function p($key = 'alert')
 	{
 		echo self::get($key);
 	}
@@ -30,5 +30,4 @@ class Alert {
 	{
 		return Session::get('defined');
 	}
-
 }

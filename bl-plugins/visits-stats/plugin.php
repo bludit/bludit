@@ -3,11 +3,11 @@
 class pluginVisitsStats extends Plugin
 {
 
-	private $loadOnViews = array(
+	private array $loadOnViews = array(
 		'dashboard' // Load this plugin only in the Dashboard
 	);
 
-	public function init()
+	public function init(): void
 	{
 		global $L;
 		$this->dbFields = array(
@@ -16,7 +16,7 @@ class pluginVisitsStats extends Plugin
 		);
 	}
 
-	public function adminHead()
+	public function adminHead(): bool|string
 	{
 		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
 			return false;
@@ -27,7 +27,7 @@ class pluginVisitsStats extends Plugin
 		return $html;
 	}
 
-	public function dashboard()
+	public function dashboard(): string
 	{
 		global $L;
 		$label = $this->getValue('label');
@@ -92,7 +92,7 @@ EOF;
 	}
 
 	// Plugin form for settings
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -115,13 +115,13 @@ EOF;
 		return $html;
 	}
 
-	public function siteBodyEnd()
+	public function siteBodyEnd(): void
 	{
 		$this->addVisitor();
 	}
 
 	// Delete old logs
-	public function deleteOldLogs()
+	public function deleteOldLogs(): void
 	{
 		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', true);
 		// Keep only 7 days of logs
@@ -132,7 +132,7 @@ EOF;
 	}
 
 	// Returns the number of visits by date
-	public function visits($date)
+	public function visits($date): int
 	{
 		$file = $this->workspace() . $date . '.log';
 		$handle = @fopen($file, 'rb');
@@ -150,7 +150,7 @@ EOF;
 	}
 
 	// Returns the number of unique visitors by date
-	public function uniqueVisitors($date)
+	public function uniqueVisitors($date): int
 	{
 		$file = $this->workspace() . $date . '.log';
 		$lines = @file($file);
@@ -169,7 +169,7 @@ EOF;
 
 	// Add a line to the current log
 	// The line is a json array with the hash IP of the visitor and the time
-	public function addVisitor()
+	public function addVisitor(): bool
 	{
 		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
 			return false;

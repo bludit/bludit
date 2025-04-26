@@ -2,7 +2,7 @@
 
 class Users extends dbJSON {
 
-	protected $dbFields = array(
+	protected array $dbFields = array(
 		'firstName'=>'',
 		'lastName'=>'',
 		'nickname'=>'',
@@ -31,7 +31,7 @@ class Users extends dbJSON {
 		parent::__construct(DB_USERS);
 	}
 
-	public function getDefaultFields()
+	public function getDefaultFields(): array
 	{
 		return $this->dbFields;
 	}
@@ -52,14 +52,14 @@ class Users extends dbJSON {
 	}
 
 	// Disable the user
-	public function disableUser($username)
+	public function disableUser($username): bool
 	{
 		$this->db[$username]['password'] = '!';
 		return $this->save();
 	}
 
 	// Add a new user
-	public function add($args)
+	public function add($args): bool
 	{
 		// The username is store as key and not as field
 		$username = $args['username'];
@@ -137,27 +137,27 @@ class Users extends dbJSON {
 		return $this->save();
 	}
 
-	public function generateAuthToken()
+	public function generateAuthToken(): string
 	{
 		return md5( uniqid().time().DOMAIN );
 	}
 
-	public function generateRememberToken()
+	public function generateRememberToken(): string
 	{
 		return $this->generateAuthToken();
 	}
 
-	public function generateSalt()
+	public function generateSalt(): string
 	{
 		return Text::randomText(SALT_LENGTH);
 	}
 
-	public function generatePasswordHash($password, $salt)
+	public function generatePasswordHash($password, $salt): string
 	{
 		return sha1($password.$salt);
 	}
 
-	public function setRememberToken($username, $token)
+	public function setRememberToken($username, $token): bool
 	{
 		$args['username']	= $username;
 		$args['tokenRemember']	= $token;
@@ -166,7 +166,7 @@ class Users extends dbJSON {
 
 	// Change user password
 	// args => array( username, password )
-	public function setPassword($args)
+	public function setPassword($args): bool
 	{
 		return $this->set($args);
 	}
@@ -208,7 +208,7 @@ class Users extends dbJSON {
 
 	// This function clean all tokens for Remember me
 	// This function is used when some hacker try to use an invalid remember token
-	public function invalidateAllRememberTokens()
+	public function invalidateAllRememberTokens(): bool
 	{
 		foreach ($this->db as $username=>$values) {
 			$this->db[$username]['tokenRemember'] = '';
@@ -216,7 +216,7 @@ class Users extends dbJSON {
 		return $this->save();
 	}
 
-	public function keys()
+	public function keys(): array
 	{
 		return array_keys($this->db);
 	}

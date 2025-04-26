@@ -1,10 +1,9 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
-
 class Filesystem
 {
 
 	// Returns an array with the absolutes directories.
-	public static function listDirectories($path, $regex = '*', $sortByDate = false)
+	public static function listDirectories(string $path, string $regex = '*', bool $sortByDate = false): array
 	{
 		$directories = glob($path . $regex, GLOB_ONLYDIR);
 
@@ -26,8 +25,8 @@ class Filesystem
 
 	// Returns an array with the list of files with the absolute path
 	// $sortByDate = TRUE, the first file is the newer file
-	// $chunk = amount of chunks, FALSE if you don't want to chunk
-	public static function listFiles($path, $regex = '*', $extension = '*', $sortByDate = false, $chunk = false)
+	// $chunk = amount of chunks, 0 if you don't want to chunk
+	public static function listFiles(string $path, string $regex = '*', string $extension = '*', bool $sortByDate = false, int $chunk = 0): array
 	{
 		error_log($path . $regex . '.' . $extension);
 		$files = glob($path . $regex . '.' . $extension);
@@ -54,36 +53,36 @@ class Filesystem
 		return $files;
 	}
 
-	public static function mkdir($pathname, $recursive = false)
+	public static function mkdir(string $pathname, bool $recursive = false): bool
 	{
 		Log::set('mkdir ' . $pathname . ' recursive = ' . $recursive, LOG_TYPE_INFO);
 		return mkdir($pathname, DIR_PERMISSIONS, $recursive);
 	}
 
-	public static function rmdir($pathname)
+	public static function rmdir(string $pathname): bool
 	{
 		Log::set('rmdir = ' . $pathname, LOG_TYPE_INFO);
 		return rmdir($pathname);
 	}
 
-	public static function mv($oldname, $newname)
+	public static function mv(string $oldname, string $newname): bool
 	{
 		Log::set('mv ' . $oldname . ' ' . $newname, LOG_TYPE_INFO);
 		return rename($oldname, $newname);
 	}
 
-	public static function rmfile($filename)
+	public static function rmfile(string $filename): bool
 	{
 		Log::set('rmfile = ' . $filename, LOG_TYPE_INFO);
 		return unlink($filename);
 	}
 
-	public static function fileExists($filename)
+	public static function fileExists(string $filename): bool
 	{
 		return file_exists($filename);
 	}
 
-	public static function directoryExists($path)
+	public static function directoryExists(string $path): bool
 	{
 		return file_exists($path);
 	}
@@ -92,7 +91,7 @@ class Filesystem
 	// If the destination directory not exists is created
 	// $source = /home/diego/example or /home/diego/example/
 	// $destination = /home/diego/newplace or /home/diego/newplace/
-	public static function copyRecursive($source, $destination, $skipDirectory = false)
+	public static function copyRecursive($source, $destination, $skipDirectory = false): bool
 	{
 		$source 	= rtrim($source, DS);
 		$destination 	= rtrim($destination, DS);
@@ -130,7 +129,7 @@ class Filesystem
 
 	// Delete a file or directory recursive
 	// The directory is delete
-	public static function deleteRecursive($source, $deleteDirectory = true)
+	public static function deleteRecursive($source, $deleteDirectory = true): bool
 	{
 		Log::set('deleteRecursive = ' . $source, LOG_TYPE_INFO);
 
@@ -143,9 +142,11 @@ class Filesystem
 			RecursiveIteratorIterator::CHILD_FIRST
 		) as $item) {
 			if ($item->isFile() || $item->isLink()) {
-				unlink($item);
+				unlink($item->getPathname());
+				Log::set('unlink = ' . $item->getPathname() . ' ('. $item .')', LOG_TYPE_INFO);
 			} else {
-				rmdir($item);
+				rmdir($item->getPathname());
+				Log::set('rmdir = ' . $item->getPathname() . ' ('. $item .')', LOG_TYPE_INFO);
 			}
 		}
 
@@ -158,7 +159,7 @@ class Filesystem
 	// Compress a file or directory
 	// $source = /home/diego/example
 	// $destionation = /tmp/example.zip
-	public static function zip($source, $destination)
+	public static function zip($source, $destination): bool
 	{
 		if (!extension_loaded('zip')) {
 			return false;
@@ -196,7 +197,7 @@ class Filesystem
 	// Uncompress a zip file
 	// $source = /home/diego/example.zip
 	// $destionation = /home/diego/content
-	public static function unzip($source, $destination)
+	public static function unzip($source, $destination): bool
 	{
 		if (!extension_loaded('zip')) {
 			return false;
@@ -223,7 +224,7 @@ class Filesystem
   |
   | @return	string
   */
-	public static function nextFilename($filename, $path = PATH_UPLOADS)
+	public static function nextFilename(string $filename, string $path = PATH_UPLOADS): string
 	{
 		// Clean filename and get extension
 		$fileExtension 	= pathinfo($filename, PATHINFO_EXTENSION);
@@ -255,7 +256,7 @@ class Filesystem
   |
   | @return	string
   */
-	public static function filename($file)
+	public static function filename($file): string
 	{
 		return basename($file);
 	}
@@ -270,7 +271,7 @@ class Filesystem
   |
   | @return	string
   */
-	public static function extension($file)
+	public static function extension($file): array|string
 	{
 		return pathinfo($file, PATHINFO_EXTENSION);
 	}
@@ -278,9 +279,9 @@ class Filesystem
 	/**
 	 * Get Size of file or directory in bytes
 	 * @param  [string] $fileOrDirectory
-	 * @return [int|bool]                  [bytes or false on error]
+	 * @return [false|int]                   [bytes or false on error]
 	 */
-	public static function getSize($fileOrDirectory)
+	public static function getSize($fileOrDirectory): bool|int
 	{
 		// Files
 		if (is_file($fileOrDirectory)) {
@@ -301,7 +302,7 @@ class Filesystem
 		return false;
 	}
 
-	public static function bytesToHumanFileSize($bytes, $decimals = 2)
+	public static function bytesToHumanFileSize($bytes, $decimals = 2): string
 	{
 		$size = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$factor = floor((strlen($bytes) - 1) / 3);
@@ -318,7 +319,7 @@ class Filesystem
   |
   | @return	[string|bool]	Mime type as string or FALSE if not possible to get the mime type
   */
-	public static function mimeType($file)
+	public static function mimeType($file): bool|string
 	{
 		if (function_exists('mime_content_type')) {
 			return mime_content_type($file);
@@ -334,7 +335,7 @@ class Filesystem
 		return false;
 	}
 
-	public static function symlink($from, $to)
+	public static function symlink(string $from, string $to): bool
 	{
 		if (function_exists('symlink')) {
 			Log::set('symlink from = ' . $from . ' to = ' . $to, LOG_TYPE_INFO);

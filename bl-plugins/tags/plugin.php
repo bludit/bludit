@@ -3,14 +3,14 @@
 class pluginTags extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'label' => 'Tags'
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -27,7 +27,7 @@ class pluginTags extends Plugin
 		return $html;
 	}
 
-	public function siteSidebar()
+	public function siteSidebar(): string
 	{
 		global $L;
 		global $tags;

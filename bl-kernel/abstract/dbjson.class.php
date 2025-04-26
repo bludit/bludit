@@ -2,10 +2,10 @@
 
 class dbJSON {
 
-	public $db;
-	public $dbBackup;
+	public mixed $db;
+	public mixed $dbBackup;
 	public $file;
-	public $firstLine;
+	public mixed $firstLine;
 
 	// $file, the JSON file.
 	// $firstLine, TRUE if you want to remove the first line, FALSE otherwise
@@ -40,14 +40,14 @@ class dbJSON {
 		}
 	}
 
-	public function restoreDB()
+	public function restoreDB(): bool
 	{
 		$this->db = $this->dbBackup;
 		return true;
 	}
 
 	// Returns the number of rows in the database
-	public function count()
+	public function count(): int
 	{
 		return count($this->db);
 	}
@@ -62,7 +62,7 @@ class dbJSON {
 	}
 
 	// Save the JSON file
-	public function save()
+	public function save(): bool
 	{
 		$data = '';
 		if ($this->firstLine) {
@@ -85,7 +85,7 @@ class dbJSON {
 	}
 
 	// Returns a JSON encoded string on success or FALSE on failure
-	private function serialize($data)
+	private function serialize($data): bool|string
 	{
 		if (DEBUG_MODE) {
 			return json_encode($data, JSON_PRETTY_PRINT);
@@ -111,7 +111,7 @@ class dbJSON {
 	}
 
 	// Truncate all the rows
-	public function truncate()
+	public function truncate(): bool
 	{
 		$this->db = array();
 		return $this->save();

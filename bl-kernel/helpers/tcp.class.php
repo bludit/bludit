@@ -10,7 +10,7 @@ class TCP {
 			curl_setopt($ch, CURLOPT_HEADER, $headers);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $followRedirections);
-			curl_setopt($ch, CURLOPT_BINARYTRANSFER, $binary);
+//			curl_setopt($ch, CURLOPT_BINARYTRANSFER, $binary);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $verifySSL);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeOut);
 			curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);

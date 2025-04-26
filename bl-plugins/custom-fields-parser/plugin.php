@@ -2,7 +2,7 @@
 
 class pluginCustomFieldsParser extends Plugin {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'label'=>'Custom fields parser',
@@ -10,7 +10,7 @@ class pluginCustomFieldsParser extends Plugin {
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 		global $site;
@@ -36,7 +36,7 @@ class pluginCustomFieldsParser extends Plugin {
 		return $html;
 	}
 
-	public function post()
+	public function post(): bool
 	{
 		$this->db['jsondb'] = Sanitize::html(json_encode($_POST));
 		return $this->save();
@@ -57,7 +57,7 @@ class pluginCustomFieldsParser extends Plugin {
 		return str_replace(array_keys($parsedCode), array_values($parsedCode), $content);
 	}
 
-	public function beforeSiteLoad()
+	public function beforeSiteLoad(): void
 	{
 		if ($GLOBALS['WHERE_AM_I']=='page') {
 			$GLOBALS['page']->setField('content', $this->parse($GLOBALS['page']));

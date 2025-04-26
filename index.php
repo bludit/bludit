@@ -8,11 +8,12 @@
 */
 
 // Check if Bludit is installed
+global $url;
 if (!file_exists('bl-content/databases/site.php')) {
 	$base = dirname($_SERVER['SCRIPT_NAME']);
 	$base = rtrim($base, '/');
 	$base = rtrim($base, '\\'); // Workaround for Windows Servers
-	header('Location:'.$base.'/install.php');
+	header('Location:' . $base . '/install.php');
 	exit('<a href="./install.php">Install Bludit first.</a>');
 }
 
@@ -20,23 +21,23 @@ if (!file_exists('bl-content/databases/site.php')) {
 $loadTime = microtime(true);
 
 // Security constant
-define('BLUDIT', true);
+const BLUDIT = true;
 
 // Directory separator
-define('DS', DIRECTORY_SEPARATOR);
+const DS = DIRECTORY_SEPARATOR;
 
 // PHP paths for init
-define('PATH_ROOT', __DIR__.DS);
-define('PATH_BOOT', PATH_ROOT.'bl-kernel'.DS.'boot'.DS);
+const PATH_ROOT = __DIR__ . DS;
+const PATH_BOOT = PATH_ROOT . 'bl-kernel' . DS . 'boot' . DS;
 
 // Init
-require(PATH_BOOT.'init.php');
+require(PATH_BOOT . 'init.php');
 
 // Admin area
-if ($url->whereAmI()==='admin') {
-	require(PATH_BOOT.'admin.php');
+if ($url->whereAmI() === 'admin') {
+	require(PATH_BOOT . 'admin.php');
 }
 // Site
 else {
-	require(PATH_BOOT.'site.php');
+	require(PATH_BOOT . 'site.php');
 }

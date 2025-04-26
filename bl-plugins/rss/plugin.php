@@ -3,7 +3,7 @@
 class pluginRSS extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
@@ -12,7 +12,7 @@ class pluginRSS extends Plugin
 	}
 
 	// Method called on the settings of the plugin on the admin area
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -97,39 +97,39 @@ class pluginRSS extends Plugin
 		return $doc->save($this->workspace() . 'rss.xml');
 	}
 
-	public function install($position = 0)
+	public function install($position = 0): bool
 	{
 		parent::install($position);
 		return $this->createXML();
 	}
 
-	public function post()
+	public function post(): bool
 	{
 		parent::post();
 		return $this->createXML();
 	}
 
-	public function afterPageCreate()
+	public function afterPageCreate(): void
 	{
 		$this->createXML();
 	}
 
-	public function afterPageModify()
+	public function afterPageModify(): void
 	{
 		$this->createXML();
 	}
 
-	public function afterPageDelete()
+	public function afterPageDelete(): void
 	{
 		$this->createXML();
 	}
 
-	public function siteHead()
+	public function siteHead(): string
 	{
 		return '<link rel="alternate" type="application/rss+xml" href="' . DOMAIN_BASE . 'rss.xml" title="RSS Feed">' . PHP_EOL;
 	}
 
-	public function beforeAll()
+	public function beforeAll(): void
 	{
 		$webhook = 'rss.xml';
 		if ($this->webhook($webhook)) {

@@ -13,7 +13,7 @@ class Valid {
 		return filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 
-	public static function int($int)
+	public static function int($int): bool
 	{
 		if($int === 0) {
 			return true;
@@ -26,7 +26,7 @@ class Valid {
 	}
 
 	// Thanks, http://php.net/manual/en/function.checkdate.php#113205
-	public static function date($date, $format='Y-m-d H:i:s')
+	public static function date($date, $format='Y-m-d H:i:s'): bool
 	{
 		$tmp = DateTime::createFromFormat($format, $date);
 

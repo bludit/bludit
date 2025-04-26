@@ -3,7 +3,7 @@
 class pluginAbout extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'label' => 'About',
@@ -11,7 +11,7 @@ class pluginAbout extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 

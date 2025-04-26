@@ -3,7 +3,7 @@
 class pluginRemoteContent extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		// Generate a random string for the webhook
 		$randomWebhook = uniqid();
@@ -15,7 +15,7 @@ class pluginRemoteContent extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $language;
 
@@ -56,7 +56,7 @@ EOF;
 		return $html;
 	}
 
-	public function beforeAll()
+	public function beforeAll(): void
 	{
 		// Check Webhook
 		$webhook = $this->getValue('webhook');
@@ -77,7 +77,7 @@ EOF;
 		}
 	}
 
-	private function downloadFiles()
+	private function downloadFiles(): bool
 	{
 		// Download the zip file
 		Log::set('Plugin Remote Content' . LOG_SEP . 'Downloading the zip file.');
@@ -100,7 +100,7 @@ EOF;
 	}
 
 	// Delete the page and uploads directories from bl-content
-	private function deleteContent()
+	private function deleteContent(): bool
 	{
 		// Clean the page database
 		global $pages;
@@ -116,7 +116,7 @@ EOF;
 		return true;
 	}
 
-	private function cleanUp()
+	private function cleanUp(): bool
 	{
 		$workspace = $this->workspace();
 		Filesystem::deleteRecursive($workspace . DS);
@@ -124,7 +124,7 @@ EOF;
 		return true;
 	}
 
-	private function generateContent()
+	private function generateContent(): bool
 	{
 		global $pages;
 
@@ -170,7 +170,7 @@ EOF;
 		exit($json);
 	}
 
-	private function parsePage($filename)
+	private function parsePage($filename): array
 	{
 		$lines = file($filename);
 		$row = array();

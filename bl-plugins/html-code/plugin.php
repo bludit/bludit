@@ -2,7 +2,7 @@
 
 class pluginHTMLCode extends Plugin {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'head'=>'',
@@ -14,7 +14,7 @@ class pluginHTMLCode extends Plugin {
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -65,32 +65,32 @@ class pluginHTMLCode extends Plugin {
 		return $html;
 	}
 
-	public function siteHead()
+	public function siteHead(): string
 	{
 		return html_entity_decode($this->getValue('head'));
 	}
 
-	public function siteBodyBegin()
+	public function siteBodyBegin(): string
 	{
 		return html_entity_decode($this->getValue('header'));
 	}
 
-	public function siteBodyEnd()
+	public function siteBodyEnd(): string
 	{
 		return html_entity_decode($this->getValue('footer'));
 	}
 
-	public function adminHead()
+	public function adminHead(): string
 	{
 		return html_entity_decode($this->getValue('adminHead'));
 	}
 
-	public function adminBodyBegin()
+	public function adminBodyBegin(): string
 	{
 		return html_entity_decode($this->getValue('adminHeader'));
 	}
 
-	public function adminBodyEnd()
+	public function adminBodyEnd(): string
 	{
 		return html_entity_decode($this->getValue('adminFooter'));
 	}

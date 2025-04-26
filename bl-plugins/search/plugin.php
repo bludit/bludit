@@ -3,10 +3,10 @@
 class pluginSearch extends Plugin
 {
 
-	private $pagesFound = array();
-	private $numberOfItems = 0;
+	private array $pagesFound = array();
+	private int $numberOfItems = 0;
 
-	public function init()
+	public function init(): void
 	{
 		// Fields and default values for the database of this plugin
 		$this->dbFields = array(
@@ -17,7 +17,7 @@ class pluginSearch extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -49,7 +49,7 @@ class pluginSearch extends Plugin
 	}
 
 	// HTML for sidebar
-	public function siteSidebar()
+	public function siteSidebar(): string
 	{
 		global $L;
 
@@ -86,35 +86,35 @@ EOF;
 		return $html;
 	}
 
-	public function install($position = 0)
+	public function install($position = 0): bool
 	{
 		parent::install($position);
 		return $this->createCache();
 	}
 
 	// Method called when the user click on button save in the settings of the plugin
-	public function post()
+	public function post(): bool
 	{
 		parent::post();
 		return $this->createCache();
 	}
 
-	public function afterPageCreate()
+	public function afterPageCreate(): void
 	{
 		$this->createCache();
 	}
 
-	public function afterPageModify()
+	public function afterPageModify(): void
 	{
 		$this->createCache();
 	}
 
-	public function afterPageDelete()
+	public function afterPageDelete(): void
 	{
 		$this->createCache();
 	}
 
-	public function beforeAll()
+	public function beforeAll(): void
 	{
 		// Check if the URL match with the webhook
 		$webhook = 'search';
@@ -151,7 +151,7 @@ EOF;
 		}
 	}
 
-	public function paginator()
+	public function paginator(): void
 	{
 		$webhook = 'search';
 		if ($this->webhook($webhook, false, false)) {
@@ -162,7 +162,7 @@ EOF;
 		}
 	}
 
-	public function beforeSiteLoad()
+	public function beforeSiteLoad(): void
 	{
 		$webhook = 'search';
 		if ($this->webhook($webhook, false, false)) {
@@ -187,7 +187,7 @@ EOF;
 
 	// Generate the cache file
 	// This function is necessary to call it when you create, edit or remove content
-	private function createCache()
+	private function createCache(): bool|int
 	{
 		// Get all pages published
 		global $pages;
@@ -215,7 +215,7 @@ EOF;
 	}
 
 	// Returns the absolute path of the cache file
-	private function cacheFile()
+	private function cacheFile(): string
 	{
 		return $this->workspace() . 'cache.json';
 	}
@@ -223,7 +223,7 @@ EOF;
 	// Search text inside the cache
 	// Returns an array with the pages keys related to the text
 	// The array is sorted by score
-	private function search($text)
+	private function search($text): array
 	{
 		// Read the cache file
 		$json = file_get_contents($this->cacheFile());

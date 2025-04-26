@@ -3,7 +3,7 @@
 class pluginDisqus extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'shortname' => '',
@@ -13,7 +13,7 @@ class pluginDisqus extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -54,7 +54,7 @@ class pluginDisqus extends Plugin
 		return $html;
 	}
 
-	public function pageEnd()
+	public function pageEnd(): bool|string
 	{
 		global $url;
 		global $WHERE_AM_I;
@@ -80,7 +80,7 @@ class pluginDisqus extends Plugin
 		return false;
 	}
 
-	private function javascript()
+	private function javascript(): string
 	{
 		global $page;
 		$pageURL = $page->permalink();

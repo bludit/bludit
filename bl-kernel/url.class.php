@@ -2,16 +2,16 @@
 
 class Url
 {
-	protected $uri;
-	protected $uriStrlen;
-	protected $whereAmI;
-	protected $slug;
-	protected $filters; // Filters for the URI
-	protected $notFound;
-	protected $parameters;
-	protected $activeFilter;
-	protected $httpCode;
-	protected $httpMessage;
+	protected string $uri;
+	protected int $uriStrlen;
+	protected string $whereAmI;
+	protected string $slug;
+	protected array $filters; // Filters for the URI
+	protected bool $notFound;
+	protected array $parameters;
+	protected string $activeFilter;
+	protected int $httpCode;
+	protected string $httpMessage;
 
 	function __construct()
 	{
@@ -35,7 +35,7 @@ class Url
 	// Filters change for different languages
 	// Ex (Spanish): Array('post'=>'/publicacion/', 'tag'=>'/etiqueta/', ....)
 	// Ex (English): Array('post'=>'/post/', 'tag'=>'/tag/', ....)
-	public function checkFilters($filters)
+	public function checkFilters($filters): bool
 	{
 		// Put the "admin" filter first
 		$adminFilter['admin'] = $filters['admin'];
@@ -89,17 +89,17 @@ class Url
 		return false;
 	}
 
-	public function slug()
+	public function slug(): string
 	{
 		return $this->slug;
 	}
 
-	public function setSlug($slug)
+	public function setSlug($slug): void
 	{
 		$this->slug = $slug;
 	}
 
-	public function activeFilter()
+	public function activeFilter(): string
 	{
 		return $this->activeFilter;
 	}
@@ -109,7 +109,7 @@ class Url
 		return explode($delimiter, $this->slug);
 	}
 
-	public function uri()
+	public function uri(): string
 	{
 		return $this->uri;
 	}
@@ -125,23 +125,23 @@ class Url
 	}
 
 	// Returns where is the user, home, pages, categories, tags..
-	public function whereAmI()
+	public function whereAmI(): string
 	{
 		return $this->whereAmI;
 	}
 
-	public function setWhereAmI($where)
+	public function setWhereAmI($where): void
 	{
 		$GLOBALS['WHERE_AM_I'] = $where;
 		$this->whereAmI = $where;
 	}
 
-	public function notFound()
+	public function notFound(): bool
 	{
 		return $this->notFound;
 	}
 
-	public function pageNumber()
+	public function pageNumber(): int
 	{
 		if (isset($this->parameters['page'])) {
 			return (int)$this->parameters['page'];
@@ -157,7 +157,7 @@ class Url
 		return false;
 	}
 
-	public function setNotFound()
+	public function setNotFound(): void
 	{
 		$this->setWhereAmI('page');
 		$this->notFound = true;
@@ -165,22 +165,22 @@ class Url
 		$this->httpMessage = 'Not Found';
 	}
 
-	public function httpCode()
+	public function httpCode(): int
 	{
 		return $this->httpCode;
 	}
 
-	public function setHttpCode($code = 200)
+	public function setHttpCode($code = 200): void
 	{
 		$this->httpCode = $code;
 	}
 
-	public function httpMessage()
+	public function httpMessage(): string
 	{
 		return $this->httpMessage;
 	}
 
-	public function setHttpMessage($msg = 'OK')
+	public function setHttpMessage($msg = 'OK'): void
 	{
 		$this->httpMessage = $msg;
 	}

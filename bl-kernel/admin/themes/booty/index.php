@@ -1,3 +1,4 @@
+<?php global $layout, $L; ?>
 <!DOCTYPE html>
 <html>
 <head>

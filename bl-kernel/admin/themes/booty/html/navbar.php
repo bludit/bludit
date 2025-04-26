@@ -1,3 +1,4 @@
+<?php global $login, $L; ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-uppercase d-block d-lg-none">
 	<div class="container">
 		<span class="navbar-brand">

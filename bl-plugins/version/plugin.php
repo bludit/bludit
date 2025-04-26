@@ -3,7 +3,7 @@
 class pluginVersion extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'showCurrentVersion' => true,
@@ -11,7 +11,7 @@ class pluginVersion extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -34,7 +34,7 @@ class pluginVersion extends Plugin
 		return $html;
 	}
 
-	public function adminSidebar()
+	public function adminSidebar(): string
 	{
 		global $L;
 		$html = '';
@@ -47,7 +47,7 @@ class pluginVersion extends Plugin
 		return $html;
 	}
 
-	public function adminBodyEnd()
+	public function adminBodyEnd(): bool|string
 	{
 		if ($this->getValue('newVersionAlert')) {
 			// The follow Javascript get via AJAX the information about new versions

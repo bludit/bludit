@@ -21,7 +21,7 @@ Database structure
 
 class dbList extends dbJSON
 {
-	public $db = array();
+	public mixed $db = array();
 
 	function __construct($file)
 	{
@@ -91,7 +91,7 @@ class dbList extends dbJSON
 		return $key;
 	}
 
-	public function remove($key)
+	public function remove($key): bool
 	{
 		if (!isset($this->db[$key])) {
 			Log::set(__METHOD__.LOG_SEP.'The key does not exist, key: '.$key);
@@ -127,7 +127,7 @@ class dbList extends dbJSON
 	}
 
 	// Sort the categories by "Natural order"
-	public function sortAlphanumeric()
+	public function sortAlphanumeric(): bool
 	{
 		// Sort key alphanumeric strings, a01, a10, b10, c02
 		return ksort($this->db);
@@ -143,7 +143,7 @@ class dbList extends dbJSON
 	}
 
 	// Returns an array with key=>name of the list
-	public function getKeyNameArray()
+	public function getKeyNameArray(): array
 	{
 		$tmp = array();
 		foreach($this->db as $key=>$fields) {
@@ -153,7 +153,7 @@ class dbList extends dbJSON
 	}
 
 	// Returns the number of items in the list
-	public function countItems($key)
+	public function countItems($key): int
 	{
 		if (isset($this->db[$key])) {
 			return count($this->db[$key]['list']);
@@ -161,12 +161,12 @@ class dbList extends dbJSON
 		return 0;
 	}
 
-	public function exists($key)
+	public function exists($key): bool
 	{
 		return isset( $this->db[$key] );
 	}
 
-	public function existsName($name)
+	public function existsName($name): bool
 	{
 		foreach ($this->db as $key=>$fields) {
 			if ($name==$fields['name']) {

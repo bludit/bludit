@@ -3,7 +3,7 @@
 class pluginHitCounter extends Plugin
 {
 
-	public function init()
+	public function init(): void
 	{
 		$this->dbFields = array(
 			'label' => 'Hit Counter',
@@ -11,7 +11,7 @@ class pluginHitCounter extends Plugin
 		);
 	}
 
-	public function form()
+	public function form(): string
 	{
 		global $L;
 
@@ -52,7 +52,7 @@ class pluginHitCounter extends Plugin
 		return $html;
 	}
 
-	public function siteSidebar()
+	public function siteSidebar(): string
 	{
 		// Init counter to 0
 		$counter = 0;
