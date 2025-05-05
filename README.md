@@ -1,5 +1,7 @@
 # [Bludit](https://www.bludit.com/)
 
+[Переключить на Русский | Switch to Russian](README_RU.md)
+
 Bludit the Simple, Fast, and Flexible CMS.
 
 With Bludit, you can build your own website or blog in just seconds. It’s completely free, open-source, and easy to use. Bludit stores content in JSON format, eliminating the need for database installation or configuration. All you need is a web server with PHP support.
