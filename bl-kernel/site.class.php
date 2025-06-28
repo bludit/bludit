@@ -7,6 +7,7 @@ class Site extends dbJSON
 		'slogan' =>		'',
 		'description' =>		'',
 		'footer' =>		'I wanna be a pirate!',
+		'contentState' =>	'publish',
 		'itemsPerPage' =>	6,
 		'language' =>		'en',
 		'locale' =>		'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ',
@@ -365,6 +366,12 @@ class Site extends dbJSON
 	public function currentBuild()
 	{
 		return $this->getField('currentBuild');
+	}
+
+	// Returns the default new content state (draft or publish)
+	public function contentState()
+	{
+		return $this->getField('contentState');
 	}
 
 	// Returns the amount of pages per page

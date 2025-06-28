@@ -372,6 +372,7 @@ function install($adminPassword, $timezone)
 		'slogan' => $L->get('welcome-to-bludit'),
 		'description' => $L->get('congratulations-you-have-successfully-installed-your-bludit'),
 		'footer' => 'Copyright © ' . Date::current('Y'),
+		'contentState' => 'publish',
 		'itemsPerPage' => 6,
 		'language' => $L->currentLanguage(),
 		'locale' => $L->locale(),

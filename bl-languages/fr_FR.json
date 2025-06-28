@@ -393,5 +393,7 @@
     "start-typing-to-see-a-list-of-suggestions": "Commencez à taper pour voir une liste de suggestions.",
     "view": "Vue",
     "insert-thumbnail": "Insérer une miniature",
-    "insert-linked-thumbnail": "Insérer une miniature liée"
+    "insert-linked-thumbnail": "Insérer une miniature liée",
+    "default-content-state": "Statut par défaut",
+    "draft-or-publish": "Statut par défaut pour un nouveau contenu."
 }

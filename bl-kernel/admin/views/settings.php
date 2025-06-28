@@ -81,6 +81,15 @@ echo Bootstrap::formInputHidden(array(
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Content')));
 
+	echo Bootstrap::formSelect(array(
+		'name' => 'contentState',
+		'label' => $L->g('default-content-state'),
+		'options' => array('draft' => $L->g('draft'), 'publish' => $L->g('publish')),
+		'selected' => $site->contentState(),
+		'class' => '',
+		'tip' => $L->g('draft-or-publish')
+	));
+
 	echo Bootstrap::formInputText(array(
 		'name' => 'itemsPerPage',
 		'label' => $L->g('Items per page'),

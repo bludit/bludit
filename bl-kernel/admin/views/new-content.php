@@ -50,7 +50,8 @@ echo Bootstrap::formInputHidden(array(
 	<div id="jseditorToolbarLeft">
 		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary"><?php $L->p('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
+		<?php $contentState = $site->contentState(); // get New content default state in Settings ?>
+		<span id="jsbuttonSwitch" data-switch="<?php echo $contentState; ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo $contentState; ?>"></i> <?php $L->p($contentState); ?></span>
 	</div>
 </div>
 <script>

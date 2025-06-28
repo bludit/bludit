@@ -393,5 +393,7 @@
     "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
     "view": "View",
     "insert-thumbnail": "Insert thumbnail",
-    "insert-linked-thumbnail": "Insert linked thumbnail"
+    "insert-linked-thumbnail": "Insert linked thumbnail",
+    "default-content-state": "Default state",
+    "draft-or-publish": "Default state for new content."
 }
