@@ -2,8 +2,17 @@
 
 class Pages extends dbJSON
 {
+	/*
+	 * Storage approach:
+	 * - New pages are stored only in individual JSON files (metadata.json) and not in the central database file (pages.php)
+	 * - Existing pages are stored in both individual JSON files and the central database file until they are edited
+	 * - When an existing page is edited, it is removed from the central database file and only stored in its individual JSON file
+	 * - The $centralDBPages array tracks which pages should be saved to the central database file
+	 */
 
 	protected $parentKeyList = array();
+	// Array to track which pages should be saved to the central database file
+	protected $centralDBPages = array();
 	protected $dbFields = array(
 		'title' => '',
 		'description' => '',
@@ -27,7 +36,45 @@ class Pages extends dbJSON
 
 	function __construct()
 	{
+		// Load the central database file (pages.php)
 		parent::__construct(DB_PAGES);
+
+		// Initialize the central database pages array with the pages from the central database
+		// This array will be used to track which pages should be saved to the central database file
+		// New pages and edited pages will not be added to this array
+		$this->centralDBPages = $this->db;
+
+		// Load all pages from individual JSON files
+		// This will supplement or override the pages loaded from the central database
+		// ensuring that the individual JSON files are the source of truth when they exist
+		$this->loadPagesFromJSON();
+	}
+
+	// Load all pages from individual JSON files
+	// This method supplements or overrides the pages loaded from the central database
+	// ensuring that the individual JSON files are the source of truth when they exist
+	private function loadPagesFromJSON()
+	{
+		// Get all page directories
+		$directories = Filesystem::listDirectories(PATH_PAGES);
+
+		// Loop through all directories
+		foreach ($directories as $directory) {
+			$key = basename($directory);
+			$jsonFile = $directory . DS . 'metadata.json';
+
+			// If the JSON file exists, load it
+			if (file_exists($jsonFile)) {
+				$json = file_get_contents($jsonFile);
+				$data = json_decode($json, true);
+				if ($data !== null) {
+					// Add the page to the in-memory database
+					// Note that this doesn't affect which pages are saved to the central database
+					// That's controlled by the $centralDBPages array
+					$this->db[$key] = $data;
+				}
+			}
+		}
 	}
 
 	public function getDefaultFields()
@@ -148,13 +195,22 @@ class Pages extends dbJSON
 		// Checksum MD5
 		$row['md5file'] = md5_file(PATH_PAGES . $key . DS . FILENAME);
 
-		// Insert in database
+		// Create metadata.json file
+		$json = json_encode($row, JSON_PRETTY_PRINT);
+		if (file_put_contents(PATH_PAGES . $key . DS . 'metadata.json', $json) === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to create the metadata file', LOG_TYPE_ERROR);
+			return false;
+		}
+
+		// Insert in database (only in memory, not in central database)
 		$this->db[$key] = $row;
 
 		// Sort database
 		$this->sortBy();
 
 		// Save database
+		// New pages are only saved to individual JSON files and not to the central database file
+		// This is handled by the save() method which only saves pages in $centralDBPages to the central database
 		$this->save();
 
 		// Create upload page directory for images
@@ -272,11 +328,25 @@ class Pages extends dbJSON
 		// Remove the old row
 		unset($this->db[$key]);
 
+		// Remove from central database if it exists there
+		// This ensures that edited pages are only stored in individual JSON files
+		// and not in the central database file (pages.php)
+		if (isset($this->centralDBPages[$key])) {
+			unset($this->centralDBPages[$key]);
+		}
+
 		// Reindex Orphan Children
 		$this->reindexChildren($key, $newKey);
 
 		// Checksum MD5
 		$row['md5file'] = md5_file(PATH_PAGES . $newKey . DS . FILENAME);
+
+		// Create or update metadata.json file
+		$json = json_encode($row, JSON_PRETTY_PRINT);
+		if (file_put_contents(PATH_PAGES . $newKey . DS . 'metadata.json', $json) === false) {
+			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+			return false;
+		}
 
 		// Insert in database the new row
 		$this->db[$newKey] = $row;
@@ -303,6 +373,12 @@ class Pages extends dbJSON
 				$newKey = Text::replace($oldParentKey . '/', $newParentKey . '/', $key);
 				$this->db[$newKey] = $this->db[$key];
 				unset($this->db[$key]);
+
+				// Also update the central database if the page exists there
+				if (isset($this->centralDBPages[$key])) {
+					$this->centralDBPages[$newKey] = $this->centralDBPages[$key];
+					unset($this->centralDBPages[$key]);
+				}
 			}
 		}
 	}
@@ -320,7 +396,7 @@ class Pages extends dbJSON
 			return false;
 		}
 
-		// Delete directory and files
+		// Delete directory and files (including metadata.json)
 		if (Filesystem::deleteRecursive(PATH_PAGES . $key) === false) {
 			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to delete the directory ' . PATH_PAGES . $key, LOG_TYPE_ERROR);
 		}
@@ -332,8 +408,15 @@ class Pages extends dbJSON
 			}
 		}
 
-		// Remove from database
+		// Remove from in-memory database
 		unset($this->db[$key]);
+
+		// Remove from central database if it exists there
+		// This ensures that deleted pages are removed from both the individual JSON files
+		// and the central database file (pages.php)
+		if (isset($this->centralDBPages[$key])) {
+			unset($this->centralDBPages[$key]);
+		}
 
 		// Save the database
 		if ($this->save() === false) {
@@ -366,6 +449,19 @@ class Pages extends dbJSON
 		foreach ($this->db as $key => $fields) {
 			if ($fields['username'] === $oldUsername) {
 				$this->db[$key]['username'] = $newUsername;
+
+				// Update the metadata.json file
+				$jsonFile = PATH_PAGES . $key . DS . 'metadata.json';
+				$json = json_encode($this->db[$key], JSON_PRETTY_PRINT);
+				if (file_put_contents($jsonFile, $json) === false) {
+					Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+					return false;
+				}
+
+				// Remove from central database if it exists there
+				if (isset($this->centralDBPages[$key])) {
+					unset($this->centralDBPages[$key]);
+				}
 			}
 		}
 
@@ -378,9 +474,51 @@ class Pages extends dbJSON
 		if ($this->exists($key)) {
 			settype($value, gettype($this->dbFields[$field]));
 			$this->db[$key][$field] = $value;
+
+			// Update the metadata.json file
+			$jsonFile = PATH_PAGES . $key . DS . 'metadata.json';
+			$json = json_encode($this->db[$key], JSON_PRETTY_PRINT);
+			if (file_put_contents($jsonFile, $json) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+				return false;
+			}
+
+			// Remove from central database if it exists there
+			// This ensures that when a field is updated, the page is removed from the central database
+			// and only stored in its individual JSON file
+			if (isset($this->centralDBPages[$key])) {
+				unset($this->centralDBPages[$key]);
+			}
+
 			return $this->save();
 		}
 		return false;
+	}
+
+	// Override the parent save method to save pages to individual JSON files
+	// and only save existing pages to the central database file
+	public function save()
+	{
+		// Save each page to its own JSON file
+		foreach ($this->db as $key => $fields) {
+			$jsonFile = PATH_PAGES . $key . DS . 'metadata.json';
+			$json = json_encode($fields, JSON_PRETTY_PRINT);
+			if (file_put_contents($jsonFile, $json) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to save the metadata file for page ' . $key, LOG_TYPE_ERROR);
+				return false;
+			}
+		}
+
+		// Save only existing pages to the central database file for backward compatibility
+		// New pages and edited pages won't be saved to the central database
+		// This is done by temporarily replacing $this->db with $this->centralDBPages
+		// and then calling the parent save() method which saves to the central database file
+		$tmp = $this->db;
+		$this->db = $this->centralDBPages;
+		$result = parent::save();
+		$this->db = $tmp;
+
+		return $result;
 	}
 
 	// Returns a database with all pages
@@ -714,6 +852,7 @@ class Pages extends dbJSON
 		// Get current date
 		$currentDate = Date::current(DB_DATE_FORMAT);
 		$saveDatabase = false;
+		$updatedPages = array();
 
 		// The database need to be sorted by date
 		foreach ($this->db as $pageKey => $fields) {
@@ -721,6 +860,20 @@ class Pages extends dbJSON
 				if ($fields['date'] <= $currentDate) {
 					$this->db[$pageKey]['type'] = 'published';
 					$saveDatabase = true;
+					$updatedPages[] = $pageKey;
+
+					// Update the metadata.json file
+					$jsonFile = PATH_PAGES . $pageKey . DS . 'metadata.json';
+					$json = json_encode($this->db[$pageKey], JSON_PRETTY_PRINT);
+					if (file_put_contents($jsonFile, $json) === false) {
+						Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+						return false;
+					}
+
+					// Remove from central database if it exists there
+					if (isset($this->centralDBPages[$pageKey])) {
+						unset($this->centralDBPages[$pageKey]);
+					}
 				}
 			} elseif (($fields['type'] == 'published') && (ORDER_BY == 'date')) {
 				break;
@@ -808,6 +961,19 @@ class Pages extends dbJSON
 		foreach ($this->db as $key => $value) {
 			if ($value['category'] === $oldCategoryKey) {
 				$this->db[$key]['category'] = $newCategoryKey;
+
+				// Update the metadata.json file
+				$jsonFile = PATH_PAGES . $key . DS . 'metadata.json';
+				$json = json_encode($this->db[$key], JSON_PRETTY_PRINT);
+				if (file_put_contents($jsonFile, $json) === false) {
+					Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+					return false;
+				}
+
+				// Remove from central database if it exists there
+				if (isset($this->centralDBPages[$key])) {
+					unset($this->centralDBPages[$key]);
+				}
 			}
 		}
 		return $this->save();
@@ -823,7 +989,11 @@ class Pages extends dbJSON
 		if (json_last_error() != JSON_ERROR_NONE) {
 			return false;
 		}
+
+		$updatedPages = array();
+
 		foreach ($this->db as $pageKey => $pageFields) {
+			$updated = false;
 			foreach ($customFields as $customField => $customValues) {
 				if (!isset($pageFields['custom'][$customField])) {
 					$defaultValue = '';
@@ -831,6 +1001,24 @@ class Pages extends dbJSON
 						$defaultValue = $customValues['default'];
 					}
 					$this->db[$pageKey]['custom'][$customField]['value'] = $defaultValue;
+					$updated = true;
+				}
+			}
+
+			if ($updated) {
+				$updatedPages[] = $pageKey;
+
+				// Update the metadata.json file
+				$jsonFile = PATH_PAGES . $pageKey . DS . 'metadata.json';
+				$json = json_encode($this->db[$pageKey], JSON_PRETTY_PRINT);
+				if (file_put_contents($jsonFile, $json) === false) {
+					Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to update the metadata file', LOG_TYPE_ERROR);
+					return false;
+				}
+
+				// Remove from central database if it exists there
+				if (isset($this->centralDBPages[$pageKey])) {
+					unset($this->centralDBPages[$pageKey]);
 				}
 			}
 		}
