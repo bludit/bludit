@@ -1,5 +1,16 @@
 # [Bludit](https://www.bludit.com/)
 
+[![English](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
+[![Español](https://img.shields.io/badge/Language-Español-green.svg)](README.es.md)
+[![العربية](https://img.shields.io/badge/Language-العربية-yellow.svg)](README.ar.md)
+[![中文](https://img.shields.io/badge/Language-中文-red.svg)](README.zh.md)
+[![Français](https://img.shields.io/badge/Language-Français-purple.svg)](README.fr.md)
+[![Deutsch](https://img.shields.io/badge/Language-Deutsch-orange.svg)](README.de.md)
+[![हिंदी](https://img.shields.io/badge/Language-हिंदी-lightblue.svg)](README.hi.md)
+[![日本語](https://img.shields.io/badge/Language-日本語-pink.svg)](README.ja.md)
+[![Português](https://img.shields.io/badge/Language-Português-darkgreen.svg)](README.pt.md)
+[![Русский](https://img.shields.io/badge/Language-Русский-cyan.svg)](README.ru.md)
+
 Bludit the Simple, Fast, and Flexible CMS.
 
 With Bludit, you can build your own website or blog in just seconds. It’s completely free, open-source, and easy to use. Bludit stores content in JSON format, eliminating the need for database installation or configuration. All you need is a web server with PHP support.
@@ -44,8 +55,8 @@ Bludit is open-source and free to use, but if you find the project useful and wo
 If you prefer, you can also make a one-time donation to buy us a coffee or beer. Every contribution helps us continue to improve Bludit and provide the best possible experience for our users.
 
 - [PayPal](https://www.paypal.me/bludit/10)
-- BTC (Network BTC): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
-- ETH (Network ETH): 0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7
+- BTC (Bitcoin): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
+- ETH (Ethereum): 0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7
 
 ## License
 
