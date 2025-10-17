@@ -139,7 +139,7 @@ class Users extends dbJSON {
 
 	public function generateAuthToken()
 	{
-		return md5( uniqid().time().DOMAIN );
+		return bin2hex( random_bytes(64) );
 	}
 
 	public function generateRememberToken()
