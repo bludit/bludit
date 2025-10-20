@@ -20,7 +20,7 @@ class Security extends dbJSON
 	// Generate and save the token in Session
 	public function generateTokenCSRF()
 	{
-		$token = bin2hex( random_bytes(64) );
+		$token = bin2hex( openssl_random_pseudo_bytes(64) );
 		Session::set('tokenCSRF', $token);
 		Log::set(__METHOD__.LOG_SEP.'New Token CSRF ['.$token.']');
 	}
