@@ -139,7 +139,7 @@ class Users extends dbJSON {
 
 	public function generateAuthToken()
 	{
-		return bin2hex( random_bytes(64) );
+		return bin2hex( openssl_random_pseudo_bytes(64) );
 	}
 
 	public function generateRememberToken()
