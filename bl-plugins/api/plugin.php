@@ -8,7 +8,7 @@ class pluginAPI extends Plugin
 	public function init()
 	{
 		// Generate the API Token
-		$token = md5(uniqid() . time() . DOMAIN);
+		$token = bin2hex( openssl_random_pseudo_bytes(64) );
 
 		$this->dbFields = array(
 			'token' => $token,	// API Token
