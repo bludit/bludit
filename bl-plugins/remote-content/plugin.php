@@ -201,7 +201,7 @@ EOF;
 			}
 		}
 
-		$row['content'] = implode($lines);
+		$row['content'] = implode('', $lines);
 		$row['username'] = 'admin';
 
 		return $row;

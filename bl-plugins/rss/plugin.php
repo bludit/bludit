@@ -137,10 +137,8 @@ class pluginRSS extends Plugin
 			header('Content-type: text/xml');
 			$doc = new DOMDocument();
 
-			// Load XML
-			libxml_disable_entity_loader(false);
+			// Load XML (external entity loading is disabled by default in PHP 8.0+)
 			$doc->load($this->workspace() . 'rss.xml');
-			libxml_disable_entity_loader(true);
 
 			// Print the XML
 			echo $doc->saveXML();
