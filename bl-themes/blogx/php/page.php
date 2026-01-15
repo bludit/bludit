@@ -1,27 +1,32 @@
 <!-- Post -->
-<div class="card my-5 border-0">
+<div class="card card-modern my-5">
 
 	<!-- Load Bludit Plugins: Page Begin -->
 	<?php Theme::plugins('pageBegin'); ?>
 
-	<!-- Cover image -->
+	<!-- Cover image with gradient overlay -->
 	<?php if ($page->coverImage()): ?>
-	<img class="card-img-top mb-3 rounded-0" alt="Cover Image" src="<?php echo $page->coverImage(); ?>"/>
+	<div class="cover-image-wrapper">
+		<img class="card-img-top" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>"/>
+	</div>
 	<?php endif ?>
 
-	<div class="card-body p-0">
+	<div class="card-body">
 		<!-- Title -->
-		<a class="text-dark" href="<?php echo $page->permalink(); ?>">
-			<h1 class="title"><?php echo $page->title(); ?></h1>
-		</a>
+		<h1 class="title"><?php echo $page->title(); ?></h1>
 
 		<?php if (!$page->isStatic() && !$url->notFound()): ?>
-		<!-- Creation date -->
-		<h6 class="card-subtitle mb-3 text-muted"><?php echo $page->date(); ?> - <?php echo $L->get('Reading time') . ': ' . $page->readingTime() ?></h6>
+		<!-- Creation date and reading time -->
+		<div class="metadata mb-4">
+			<span><i class="bi bi-calendar"></i><?php echo $page->date(); ?></span>
+			<span><i class="bi bi-clock-history"></i><?php echo $L->get('Reading time') . ': ' . $page->readingTime() ?></span>
+		</div>
 		<?php endif ?>
 
 		<!-- Full content -->
-		<?php echo $page->content(); ?>
+		<div class="content">
+			<?php echo $page->content(); ?>
+		</div>
 
 	</div>
 
