@@ -46,6 +46,14 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 
 	// Convert URL characters such as spaces or quotes to characters
 	$filename = urldecode($filename);
+	
+	// Sanitize filename to prevent issues with special characters
+	$filenameWithoutExt = Filesystem::filename($filename);
+	$filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
+	$filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
+	$filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
+	$fileExtension = Filesystem::extension($filename);
+	$filename = $filenameWithoutExt . '.' . $fileExtension;
 
 	// Check path traversal on $filename
 	if (Text::stringContains($filename, DS, false)) {
