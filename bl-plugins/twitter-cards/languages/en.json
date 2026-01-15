@@ -1,8 +1,8 @@
 {
 	"plugin-data":
 	{
-		"name": "Twitter Cards",
-		"description": "With Twitter Cards, you can attach rich photos, videos and media experiences to Tweets, helping to drive traffic to your website."
+		"name": "X/Twitter Cards",
+		"description": "With X (formerly Twitter) Cards, you can attach rich photos, videos and media experiences to posts, helping to drive traffic to your website."
 	},
 	"default-image": "Default image"
 }
