@@ -26,7 +26,7 @@ class dbJSON {
 			}
 
 			// Regenerate the JSON file
-			$implode = implode($lines);
+			$implode = implode('', $lines);
 
 			// Unserialize, JSON to Array
 			$array = $this->unserialize($implode);

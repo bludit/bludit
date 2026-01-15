@@ -923,6 +923,14 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 
   // Generate a filename to not overwrite current image if exists
   $filename = Filesystem::filename($file);
+  
+  // Additional sanitization for filenames to prevent issues with special characters
+  $filenameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
+  $filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
+  $filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
+  $filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
+  $filename = $filenameWithoutExt . '.' . $fileExtension;
+  
   $nextFilename = Filesystem::nextFilename($filename, $imageDir);
 
   // Move the image to a proper place and rename
