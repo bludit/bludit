@@ -43,7 +43,13 @@ if ($fileMimeType !== false) {
 // Final filename
 $filename = 'logo.' . $fileExtension;
 if (Text::isNotEmpty($site->title())) {
-	$filename = $site->title() . '.' . $fileExtension;
+	$sanitizedTitle = Text::removeSpecialCharacters($site->title(), '-');
+	$sanitizedTitle = Text::removeQuotes($sanitizedTitle);
+	$sanitizedTitle = Text::removeSpaces($sanitizedTitle, '-');
+	$sanitizedTitle = trim($sanitizedTitle, '-');
+	if (Text::isNotEmpty($sanitizedTitle)) {
+		$filename = $sanitizedTitle . '.' . $fileExtension;
+	}
 }
 
 // Delete old image
