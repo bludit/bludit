@@ -29,7 +29,7 @@
 	--border-color: #e9ecef;
 	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
 	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-	
+
 	/* Warm neutral accents */
 	--bg-warm: #faf8f5;
 	--bg-warm-card: #f7f5f2;
@@ -74,16 +74,6 @@ div.sidebar {
 	border-right: 1px solid var(--border-color);
 	box-shadow: var(--shadow-sm);
 	position: relative;
-}
-
-div.sidebar::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 3px;
-	height: 100%;
-	background: var(--primary-gradient);
 }
 
 div.sidebar .nav-item a {

@@ -2,10 +2,10 @@
   "author": "Bludit",
   "email": "",
   "website": "https://plugins.bludit.com",
-  "version": "3.16.2",
+  "version": "3.17.0",
   "releaseDate": "2023-07-10",
   "license": "MIT",
-  "compatible": "3.16.2",
+  "compatible": "3.17.0",
   "notes": "",
   "type": "theme"
 }
