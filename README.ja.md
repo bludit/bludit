@@ -30,7 +30,7 @@ Bluditを使えば、数秒で自分のウェブサイトやブログを作成�
 ## 要件
 
 - PHPをサポートするウェブサーバー。
-- PHPバージョン5.6以上。
+- PHPバージョン8.0以上。
 - UTF-8の完全サポートのためのPHP [mbstring](http://php.net/manual/en/book.mbstring.php)モジュール。
 - 画像処理のためのPHP [gd](http://php.net/manual/en/book.image.php)モジュール。
 - DOM操作のためのPHP [dom](http://php.net/manual/en/book.dom.php)モジュール。

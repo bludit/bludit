@@ -30,7 +30,7 @@ Als Flat-File-CMS bietet Bludit unvergleichliche Flexibilität und Geschwindigke
 ## Anforderungen
 
 - Webserver mit PHP-Unterstützung.
-- PHP Version 5.6 oder höher.
+- PHP Version 8.0 oder höher.
 - PHP-Modul [mbstring](http://php.net/manual/en/book.mbstring.php) für vollständige UTF-8-Unterstützung.
 - PHP-Modul [gd](http://php.net/manual/en/book.image.php) für Bildverarbeitung.
 - PHP-Modul [dom](http://php.net/manual/en/book.dom.php) für DOM-Manipulation.

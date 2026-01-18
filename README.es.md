@@ -30,7 +30,7 @@ Como CMS de archivos planos, Bludit ofrece una flexibilidad y velocidad iniguala
 ## Requisitos
 
 - Servidor web con soporte PHP.
-- PHP versión 5.6 o superior.
+- PHP versión 8.0 o superior.
 - Módulo PHP [mbstring](http://php.net/manual/en/book.mbstring.php) para soporte completo de UTF-8.
 - Módulo PHP [gd](http://php.net/manual/en/book.image.php) para procesamiento de imágenes.
 - Módulo PHP [dom](http://php.net/manual/en/book.dom.php) para manipulación de DOM.

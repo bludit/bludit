@@ -30,7 +30,7 @@ Bludit - نظام إدارة المحتوى البسيط والسريع والم
 ## المتطلبات
 
 - خادم ويب يدعم PHP.
-- إصدار PHP 5.6 أو أعلى.
+- إصدار PHP 8.0 أو أعلى.
 - وحدة PHP [mbstring](http://php.net/manual/en/book.mbstring.php) لدعم UTF-8 الكامل.
 - وحدة PHP [gd](http://php.net/manual/en/book.image.php) لمعالجة الصور.
 - وحدة PHP [dom](http://php.net/manual/en/book.dom.php) للتعامل مع DOM.

@@ -30,7 +30,7 @@ Bludit - 简单、快速、灵活的CMS。
 ## 要求
 
 - 支持PHP的Web服务器。
-- PHP版本5.6或更高。
+- PHP版本8.0或更高。
 - PHP [mbstring](http://php.net/manual/en/book.mbstring.php)模块用于完整的UTF-8支持。
 - PHP [gd](http://php.net/manual/en/book.image.php)模块用于图像处理。
 - PHP [dom](http://php.net/manual/en/book.dom.php)模块用于DOM操作。

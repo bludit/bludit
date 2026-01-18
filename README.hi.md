@@ -30,7 +30,7 @@ Bludit के साथ, आप कुछ सेकंड में अपनी
 ## आवश्यकताएँ
 
 - PHP सपोर्ट वाला वेबसर्वर।
-- PHP v5.6 या उच्च संस्करण।
+- PHP v8.0 या उच्च संस्करण।
 - पूर्ण UTF-8 समर्थन के लिए PHP [mbstring](http://php.net/manual/en/book.mbstring.php) मॉड्यूल।
 - छवि प्रसंस्करण के लिए PHP [gd](http://php.net/manual/en/book.image.php) मॉड्यूल।
 - DOM मैनिपुलेशन के लिए PHP [dom](http://php.net/manual/en/book.dom.php) मॉड्यूल।

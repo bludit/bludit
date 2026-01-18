@@ -30,7 +30,7 @@ Bludit - простой, быстрый и гибкий CMS.
 ## Требования
 
 - Веб-сервер с поддержкой PHP.
-- PHP версии 5.6 или выше.
+- PHP версии 8.0 или выше.
 - PHP-модуль [mbstring](http://php.net/manual/en/book.mbstring.php) для полной поддержки UTF-8.
 - PHP-модуль [gd](http://php.net/manual/en/book.image.php) для обработки изображений.
 - PHP-модуль [dom](http://php.net/manual/en/book.dom.php) для работы с DOM.
