@@ -81,8 +81,22 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 		}
 	}
 
+	// Ensure Bludit tmp directory exists
+	if (!Filesystem::directoryExists(PATH_TMP)) {
+		if (!Filesystem::mkdir(PATH_TMP, true)) {
+			$message = 'Temporary directory does not exist and cannot be created.';
+			Log::set($message, LOG_TYPE_ERROR);
+			ajaxResponse(1, $message);
+		}
+	}
+
 	// Move from PHP tmp file to Bludit tmp directory
-	Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP . $filename);
+	$moved = Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP . $filename);
+	if (!$moved) {
+		$message = 'Error moving uploaded file to temporary directory.';
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
 
 	// Transform the image and generate the thumbnail
 	$image = transformImage(PATH_TMP . $filename, $imageDirectory, $thumbnailDirectory);
