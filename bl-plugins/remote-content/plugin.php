@@ -6,7 +6,7 @@ class pluginRemoteContent extends Plugin
 	public function init()
 	{
 		// Generate a random string for the webhook
-		$randomWebhook = bin2hex( openssl_random_pseudo_bytes(32) )
+		$randomWebhook = bin2hex( openssl_random_pseudo_bytes(32) );
 
 		// Key and value for the database of the plugin
 		$this->dbFields = array(
