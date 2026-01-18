@@ -50,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 	}
 
+	if (!empty($_POST['tab'])) {
+		$tab = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['tab']);
+		Redirect::page('content#'.$tab);
+	}
 	Redirect::page('content');
 }
 
