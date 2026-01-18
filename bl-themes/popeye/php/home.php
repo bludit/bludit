@@ -3,9 +3,13 @@
 
 		<!-- Site logo -->
 		<div class="site-logo">
-			<img class="img-thumbnail rounded-circle mx-auto d-block" height="140px" width="140px" src="<?php echo ($site->logo() ? $site->logo() : HTML_PATH_THEME_IMG . 'popeye.png') ?>" alt="">
+			<img class="img-thumbnail rounded-circle mx-auto d-block" height="140px" width="140px" src="<?php echo ($site->logo() ? $site->logo() : HTML_PATH_THEME_IMG . 'popeye.png') ?>" alt="<?php echo $site->title(); ?>">
 		</div>
 		<!-- End Site logo -->
+
+		<!-- Site title -->
+		<h1 class="site-title mt-3 mb-1 bold"><?php echo $site->title(); ?></h1>
+		<!-- End Site title -->
 
 		<!-- Site description -->
 		<?php if ($site->description()) : ?>
@@ -27,6 +31,7 @@
 				<!-- Search input -->
 				<?php if (pluginActivated('pluginSearch')) : ?>
 					<form class="d-flex mb-4">
+						<label class="sr-only visually-hidden" for="search-input"><?php echo $L->g('Search'); ?></label>
 						<input id="search-input" class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-primary" type="button" onClick="searchNow()">Search</button>
 					</form>

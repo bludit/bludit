@@ -2,7 +2,7 @@
 	<div class="container">
 		<ul class="footer-links pl-0 mb-1">
 			<?php foreach (Theme::socialNetworks() as $key => $name) {
-				echo '<a class="color-blue" href="' . $site->{$key}() . '"><li class="d-inline-block pr-4">' . $name . '</li></a>';
+				echo '<li class="d-inline-block pr-4"><a class="color-blue" href="' . $site->{$key}() . '">' . $name . '</a></li>';
 			}
 			?>
 		</ul>
