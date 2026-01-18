@@ -332,6 +332,14 @@ class Pages extends dbJSON
 			}
 		}
 
+		// Delete symlink for page uploads directory
+		$symlinkPath = PATH_UPLOADS_PAGES . $key;
+		if (is_link($symlinkPath)) {
+			if (unlink($symlinkPath) === false) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to delete the symlink ' . $symlinkPath, LOG_TYPE_ERROR);
+			}
+		}
+
 		// Remove from database
 		unset($this->db[$key]);
 

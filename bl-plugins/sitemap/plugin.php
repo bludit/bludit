@@ -138,13 +138,8 @@ class pluginSitemap extends Plugin {
 
 			$doc = new DOMDocument();
 
-			// Workaround for a bug https://bugs.php.net/bug.php?id=62577
-			libxml_disable_entity_loader(false);
-
-			// Load XML
+			// Load XML (external entity loading is disabled by default in PHP 8.0+)
 			$doc->load($this->workspace().'sitemap.xml');
-
-			libxml_disable_entity_loader(true);
 
 			// Print the XML
 			echo $doc->saveXML();

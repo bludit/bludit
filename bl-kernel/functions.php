@@ -123,6 +123,7 @@ function buildPagesFor($for, $categoryKey = false, $tagKey = false)
   }
 
   $content = array();
+  $invalidPageFound = false;
   foreach ($list as $pageKey) {
     try {
       $page = new Page($pageKey);
@@ -133,7 +134,35 @@ function buildPagesFor($for, $categoryKey = false, $tagKey = false)
         array_push($content, $page);
       }
     } catch (Exception $e) {
+      $invalidPageFound = true;
       // continue
+    }
+  }
+
+  if (($for === 'category' || $for === 'tag') && (!empty($list)) && (empty($content) || $invalidPageFound)) {
+    if ($for === 'category') {
+      reindexCategories();
+      $list = $categories->getList($categoryKey, $pageNumber, $numberOfItems);
+    } else {
+      reindexTags();
+      $list = $tags->getList($tagKey, $pageNumber, $numberOfItems);
+    }
+
+    if (is_array($list)) {
+      $content = array();
+      foreach ($list as $pageKey) {
+        try {
+          $page = new Page($pageKey);
+          if (($page->type() == 'published') ||
+            ($page->type() == 'sticky') ||
+            ($page->type() == 'static')
+          ) {
+            array_push($content, $page);
+          }
+        } catch (Exception $e) {
+          // continue
+        }
+      }
     }
   }
 
@@ -923,6 +952,14 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 
   // Generate a filename to not overwrite current image if exists
   $filename = Filesystem::filename($file);
+
+  // Additional sanitization for filenames to prevent issues with special characters
+  $filenameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
+  $filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
+  $filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
+  $filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
+  $filename = $filenameWithoutExt . '.' . $fileExtension;
+
   $nextFilename = Filesystem::nextFilename($filename, $imageDir);
 
   // Move the image to a proper place and rename

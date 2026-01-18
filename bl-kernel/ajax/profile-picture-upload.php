@@ -26,6 +26,11 @@ if (Text::stringContains($username, DS, false)) {
 	ajaxResponse(1, $message);
 }
 
+// Sanitize username for filename to prevent issues with special characters
+$sanitizedUsername = Text::removeSpecialCharacters($username, '-');
+$sanitizedUsername = Text::removeQuotes($sanitizedUsername);
+$sanitizedUsername = Text::removeSpaces($sanitizedUsername, '-');
+
 // Check file extension
 $fileExtension = Filesystem::extension($_FILES['profilePictureInputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);
@@ -46,13 +51,27 @@ if ($fileMimeType!==false) {
 }
 
 // Tmp filename
-$tmpFilename = $username.'.'.$fileExtension;
+$tmpFilename = $sanitizedUsername.'.'.$fileExtension;
 
 // Final filename
-$filename = $username.'.png';
+$filename = $sanitizedUsername.'.png';
+
+// Ensure Bludit tmp directory exists
+if (!Filesystem::directoryExists(PATH_TMP)) {
+	if (!Filesystem::mkdir(PATH_TMP, true)) {
+		$message = 'Temporary directory does not exist and cannot be created.';
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+}
 
 // Move from temporary directory to uploads folder
-rename($_FILES['profilePictureInputFile']['tmp_name'], PATH_TMP.$tmpFilename);
+$moved = rename($_FILES['profilePictureInputFile']['tmp_name'], PATH_TMP.$tmpFilename);
+if (!$moved) {
+	$message = 'Error moving uploaded file to temporary directory.';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
 
 // Resize and convert to png
 $image = new Image();

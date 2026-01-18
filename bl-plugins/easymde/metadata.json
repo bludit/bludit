@@ -5,6 +5,6 @@
 	"version": "2.18.0",
 	"releaseDate": "2022-09-20",
 	"license": "MIT",
-	"compatible": "3.16.2",
+	"compatible": "3.17.0",
 	"notes": ""
 }

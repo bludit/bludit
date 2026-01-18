@@ -19,14 +19,16 @@ pre, code {
 }
 
 code {
-	display: inline-block;
-	padding: 0 0.5em;
-	line-height: 1.4em;
+	display: inline;
+	padding: 0.2em 0.4em;
+	line-height: 1.4;
 	border-radius: 3px;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
 }
 
 pre {
-	overflow-x: scroll;
+	overflow-x: auto;
 	padding: 1.6rem 2.2rem;
 	line-height: 1.5;
 	border-radius: 5px !important;
@@ -38,7 +40,7 @@ pre {
 }
 
 .badge {
-	font-size: 0.8rem;
+	font-size: 0.875rem;
 	font-weight: 400;
 }
 
@@ -58,7 +60,7 @@ section.page {
 	font-size: 1.1rem;
 }
 
-section.page .description {
+section.page .page-description {
     font-style: italic;
 }
 
@@ -95,6 +97,50 @@ section.page h3,
 section.page h4,
 section.page h5 {
 	margin: 2rem 0 1rem 0;
+}
+
+/* NAV LINKS */
+.nav-links {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.25rem;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-links a {
+	color: #495057;
+}
+
+.nav-links a:hover {
+	color: #0a58ca;
+}
+
+/* HOME */
+.site-title {
+	font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+}
+
+.list-group-item h5 {
+	font-size: 1.15rem;
+}
+
+/* FOOTER */
+.footer-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@media (max-width: 575.98px) {
+	section.page {
+		font-size: 1rem;
+	}
+
+	section.page h1.page-title {
+		font-size: 1.75rem;
+	}
 }
 
 /* VIDEO EMBED RESPONSIVE */

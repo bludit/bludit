@@ -163,7 +163,13 @@ class User
 
 	public function profilePicture()
 	{
-		$filename = $this->getValue('username') . '.png';
+		// Sanitize username for filename to prevent issues with special characters
+		$username = $this->getValue('username');
+		$sanitizedUsername = Text::removeSpecialCharacters($username, '-');
+		$sanitizedUsername = Text::removeQuotes($sanitizedUsername);
+		$sanitizedUsername = Text::removeSpaces($sanitizedUsername, '-');
+		
+		$filename = $sanitizedUsername . '.png';
 		if (!file_exists(PATH_UPLOADS_PROFILES . $filename)) {
 			return false;
 		}

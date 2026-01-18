@@ -30,7 +30,7 @@ Bludit के साथ, आप कुछ सेकंड में अपनी
 ## आवश्यकताएँ
 
 - PHP सपोर्ट वाला वेबसर्वर।
-- PHP v5.6 या उच्च संस्करण।
+- PHP v8.0 या उच्च संस्करण।
 - पूर्ण UTF-8 समर्थन के लिए PHP [mbstring](http://php.net/manual/en/book.mbstring.php) मॉड्यूल।
 - छवि प्रसंस्करण के लिए PHP [gd](http://php.net/manual/en/book.image.php) मॉड्यूल।
 - DOM मैनिपुलेशन के लिए PHP [dom](http://php.net/manual/en/book.dom.php) मॉड्यूल।
@@ -46,7 +46,14 @@ Bludit के साथ, आप कुछ सेकंड में अपनी
 
 ## परीक्षण के लिए त्वरित इंस्टॉलेशन
 
-आप PHP बिल्ट-इन वेब सर्वर (`php -S localhost:8000`) या [डॉकर इमेज](https://hub.docker.com/r/bludit/docker/) का उपयोग कर सकते हैं।
+आप PHP बिल्ट-इन वेब सर्वर (`php -S localhost:8000`) या Docker का उपयोग कर सकते हैं:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+फिर http://localhost:8000 खोलें
 
 ## Bludit का समर्थन करें
 

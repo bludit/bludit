@@ -30,7 +30,7 @@ Bludit - نظام إدارة المحتوى البسيط والسريع والم
 ## المتطلبات
 
 - خادم ويب يدعم PHP.
-- إصدار PHP 5.6 أو أعلى.
+- إصدار PHP 8.0 أو أعلى.
 - وحدة PHP [mbstring](http://php.net/manual/en/book.mbstring.php) لدعم UTF-8 الكامل.
 - وحدة PHP [gd](http://php.net/manual/en/book.image.php) لمعالجة الصور.
 - وحدة PHP [dom](http://php.net/manual/en/book.dom.php) للتعامل مع DOM.
@@ -46,7 +46,14 @@ Bludit - نظام إدارة المحتوى البسيط والسريع والم
 
 ## تثبيت سريع للاختبار
 
-يمكنك استخدام خادم الويب المدمج في PHP (`php -S localhost:8000`) أو [صورة Docker](https://hub.docker.com/r/bludit/docker/)
+يمكنك استخدام خادم الويب المدمج في PHP (`php -S localhost:8000`) أو Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+ثم افتح http://localhost:8000
 
 ## دعم Bludit
 

@@ -30,7 +30,7 @@ Como CMS de archivos planos, Bludit ofrece una flexibilidad y velocidad iniguala
 ## Requisitos
 
 - Servidor web con soporte PHP.
-- PHP versión 5.6 o superior.
+- PHP versión 8.0 o superior.
 - Módulo PHP [mbstring](http://php.net/manual/en/book.mbstring.php) para soporte completo de UTF-8.
 - Módulo PHP [gd](http://php.net/manual/en/book.image.php) para procesamiento de imágenes.
 - Módulo PHP [dom](http://php.net/manual/en/book.dom.php) para manipulación de DOM.
@@ -46,7 +46,14 @@ Como CMS de archivos planos, Bludit ofrece una flexibilidad y velocidad iniguala
 
 ## Instalación rápida para pruebas
 
-Puedes usar el servidor web incorporado de PHP (`php -S localhost:8000`) o la [imagen Docker](https://hub.docker.com/r/bludit/docker/)
+Puedes usar el servidor web incorporado de PHP (`php -S localhost:8000`) o Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Luego abre http://localhost:8000
 
 ## Apoya a Bludit
 

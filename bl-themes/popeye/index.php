@@ -37,7 +37,7 @@
 	?>
 
 	<?php if ($themePlugin->googleFonts()) : ?>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:sans,bold">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
 		<style>
 			body {
 				font-family: "Open Sans", sans-serif;

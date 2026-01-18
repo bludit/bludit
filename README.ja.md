@@ -30,7 +30,7 @@ Bluditを使えば、数秒で自分のウェブサイトやブログを作成�
 ## 要件
 
 - PHPをサポートするウェブサーバー。
-- PHPバージョン5.6以上。
+- PHPバージョン8.0以上。
 - UTF-8の完全サポートのためのPHP [mbstring](http://php.net/manual/en/book.mbstring.php)モジュール。
 - 画像処理のためのPHP [gd](http://php.net/manual/en/book.image.php)モジュール。
 - DOM操作のためのPHP [dom](http://php.net/manual/en/book.dom.php)モジュール。
@@ -46,7 +46,14 @@ Bluditを使えば、数秒で自分のウェブサイトやブログを作成�
 
 ## テストのためのクイックインストール
 
-PHPの組み込みウェブサーバー（`php -S localhost:8000`）または[Dockerイメージ](https://hub.docker.com/r/bludit/docker/)を使用できます。
+PHPの組み込みウェブサーバー（`php -S localhost:8000`）またはDockerを使用できます：
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+その後 http://localhost:8000 を開いてください
 
 ## Bluditをサポート
 

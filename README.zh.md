@@ -30,7 +30,7 @@ Bludit - 简单、快速、灵活的CMS。
 ## 要求
 
 - 支持PHP的Web服务器。
-- PHP版本5.6或更高。
+- PHP版本8.0或更高。
 - PHP [mbstring](http://php.net/manual/en/book.mbstring.php)模块用于完整的UTF-8支持。
 - PHP [gd](http://php.net/manual/en/book.image.php)模块用于图像处理。
 - PHP [dom](http://php.net/manual/en/book.dom.php)模块用于DOM操作。
@@ -46,7 +46,14 @@ Bludit - 简单、快速、灵活的CMS。
 
 ## 测试的快速安装
 
-您可以使用PHP内置Web服务器（`php -S localhost:8000`）或[Docker镜像](https://hub.docker.com/r/bludit/docker/)
+您可以使用PHP内置Web服务器（`php -S localhost:8000`）或 Docker：
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+然后打开 http://localhost:8000
 
 ## 支持Bludit
 

@@ -54,7 +54,21 @@ class pluginCustomFieldsParser extends Plugin {
 		}
 
 		$content = $page->contentRaw();
-		return str_replace(array_keys($parsedCode), array_values($parsedCode), $content);
+		$content = str_replace(array_keys($parsedCode), array_values($parsedCode), $content);
+
+		// Parse Markdown
+		if (MARKDOWN_PARSER) {
+			$parsedown = new Parsedown();
+			$content = $parsedown->text($content);
+		}
+
+		// Parse img src relative to absolute (with domain)
+		if (IMAGE_RELATIVE_TO_ABSOLUTE) {
+			$domain = IMAGE_RESTRICT ? DOMAIN_UPLOADS_PAGES . $page->uuid() . '/' : DOMAIN_UPLOADS;
+			$content = Text::imgRel2Abs($content, $domain);
+		}
+
+		return $content;
 	}
 
 	public function beforeSiteLoad()

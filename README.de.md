@@ -30,7 +30,7 @@ Als Flat-File-CMS bietet Bludit unvergleichliche Flexibilität und Geschwindigke
 ## Anforderungen
 
 - Webserver mit PHP-Unterstützung.
-- PHP Version 5.6 oder höher.
+- PHP Version 8.0 oder höher.
 - PHP-Modul [mbstring](http://php.net/manual/en/book.mbstring.php) für vollständige UTF-8-Unterstützung.
 - PHP-Modul [gd](http://php.net/manual/en/book.image.php) für Bildverarbeitung.
 - PHP-Modul [dom](http://php.net/manual/en/book.dom.php) für DOM-Manipulation.
@@ -46,7 +46,14 @@ Als Flat-File-CMS bietet Bludit unvergleichliche Flexibilität und Geschwindigke
 
 ## Schnelle Installation zum Testen
 
-Sie können den integrierten PHP-Webserver (`php -S localhost:8000`) oder das [Docker-Image](https://hub.docker.com/r/bludit/docker/) verwenden.
+Sie können den integrierten PHP-Webserver (`php -S localhost:8000`) oder Docker verwenden:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Dann öffnen Sie http://localhost:8000
 
 ## Bludit unterstützen
 

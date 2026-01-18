@@ -8,8 +8,8 @@
 */
 
 // Check PHP version
-if (version_compare(phpversion(), '5.6', '<')) {
-	$errorText = 'Current PHP version ' . phpversion() . ', you need > 5.6.';
+if (version_compare(phpversion(), '8.0', '<')) {
+	$errorText = 'Current PHP version ' . phpversion() . ', you need >= 8.0.';
 	error_log('[ERROR] ' . $errorText, 0);
 	exit($errorText);
 }
@@ -568,7 +568,7 @@ function redirect($url)
 		exit;
 	}
 
-	exit('<meta http-equiv="refresh" content="0; url="' . $url . '">');
+	exit('<meta http-equiv="refresh" content="0; url=' . $url . '">');
 }
 
 // ============================================================================
@@ -600,7 +600,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<title><?php echo $L->get('Bludit Installer') ?></title>
@@ -609,7 +609,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<meta name="robots" content="noindex,nofollow">
 
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="bl-kernel/img/favicon.png?version=<?php echo time() ?>">
+	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/img/favicon.png?version=<?php echo time() ?>">
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="bl-kernel/css/bootstrap.min.css?version=<?php echo time() ?>">
@@ -619,61 +619,292 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="bl-kernel/js/bootstrap.bundle.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="bl-kernel/js/jstz.min.js?version=<?php echo time() ?>"></script>
+
+	<style>
+		body.login {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background: linear-gradient(135deg, #1e88e5 0%, #1565c0 50%, #0d47a1 100%);
+			padding: 20px;
+		}
+
+		.installer-container {
+			width: 100%;
+			max-width: 480px;
+		}
+
+		.installer-card {
+			background: #ffffff;
+			border-radius: 16px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+			padding: 40px;
+			animation: fadeInUp 0.5s ease-out;
+		}
+
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.installer-logo {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.installer-logo .logo-icon {
+			width: 70px;
+			height: 70px;
+			background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+			border-radius: 16px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 15px;
+			box-shadow: 0 8px 20px rgba(21, 101, 192, 0.4);
+		}
+
+		.installer-logo .logo-icon img {
+			width: 36px;
+			height: 36px;
+			filter: brightness(0) invert(1);
+		}
+
+		.installer-logo h1 {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: #1a1a2e;
+			margin: 0;
+			text-transform: uppercase;
+		}
+
+		.installer-logo p {
+			color: #6c757d;
+			font-size: 0.9rem;
+			margin-top: 5px;
+		}
+
+		.installer-card .form-control {
+			border: 2px solid #e9ecef;
+			border-radius: 10px;
+			padding: 12px 16px;
+			font-size: 0.95rem;
+			transition: all 0.3s ease;
+			background-color: #f8f9fa;
+			line-height: 1.5;
+			height: auto;
+		}
+
+		.installer-card select.form-control {
+			padding: 10px 16px;
+			height: 46px;
+		}
+
+		.installer-card .form-control:focus {
+			border-color: #1e88e5;
+			box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.15);
+			background-color: #fff;
+		}
+
+		.installer-card .form-control::placeholder {
+			color: #adb5bd;
+		}
+
+		.installer-card .form-group {
+			margin-bottom: 20px;
+		}
+
+		.installer-card .form-group label {
+			font-weight: 500;
+			color: #495057;
+			margin-bottom: 10px;
+			font-size: 0.9rem;
+		}
+
+		.installer-card .btn-primary {
+			background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+			border: none;
+			border-radius: 10px;
+			padding: 12px 18px;
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: white;
+			width: 100%;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(21, 101, 192, 0.4);
+		}
+
+		.installer-card .btn-primary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(21, 101, 192, 0.5);
+		}
+
+		.installer-card .btn-primary:active {
+			transform: translateY(0);
+		}
+
+		.installer-card .form-check {
+			margin-bottom: 25px;
+			margin-top: 15px;
+		}
+
+		.installer-card .form-check-input {
+			width: 18px;
+			height: 18px;
+			margin-top: 0;
+			border: 2px solid #dee2e6;
+			border-radius: 4px;
+		}
+
+		.installer-card .form-check-input:checked {
+			background-color: #1e88e5;
+			border-color: #1e88e5;
+		}
+
+		.installer-card .form-check-label {
+			color: #6c757d;
+			font-size: 0.9rem;
+			padding-left: 8px;
+		}
+
+		.alert {
+			border: none;
+			border-radius: 10px;
+			padding: 15px 20px;
+			margin-bottom: 25px;
+			font-size: 0.9rem;
+		}
+
+		.alert-danger {
+			background-color: #fee;
+			color: #c62828;
+		}
+
+		.error-table {
+			background-color: #fff3cd;
+			border: 2px solid #ffc107;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+		.error-table th {
+			color: #856404;
+			font-weight: 500;
+			font-size: 0.9rem;
+		}
+
+		.installer-description {
+			color: #6c757d;
+			font-size: 0.9rem;
+			margin-bottom: 25px;
+			text-align: center;
+		}
+
+		.input-group-append {
+			margin-left: -1px;
+		}
+
+		.btn-generate {
+			background: #f8f9fa;
+			border: 2px solid #e9ecef;
+			border-left: none;
+			border-radius: 0 10px 10px 0;
+			color: #495057;
+			padding: 12px 16px;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+			white-space: nowrap;
+		}
+
+		.btn-generate:hover {
+			background: #e9ecef;
+			border-color: #dee2e6;
+			color: #212529;
+		}
+
+		.btn-generate:focus {
+			outline: none;
+			box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.15);
+			border-color: #1e88e5;
+		}
+
+		.input-group .form-control {
+			border-radius: 10px 0 0 10px;
+		}
+
+		.input-group {
+			display: flex;
+		}
+	</style>
 </head>
 
 <body class="login">
-	<div class="container">
-		<div class="row justify-content-md-center pt-5">
-			<div class="col-md-4 pt-5">
-				<h1 class="text-center mb-5 mt-5 font-weight-normal text-uppercase" style="color: #555;"><?php echo $L->get('Bludit Installer') ?></h1>
-				<?php
-				$system = checkSystem();
-				if (!empty($system)) {
-					foreach ($system as $error) {
-						echo '
-					<table class="table">
-						<tbody>
-							<tr>
-								<th>' . $error . '</th>
-							</tr>
-						</tbody>
-					</table>
-					';
-					}
-				} elseif (isset($_GET['language'])) {
-				?>
-					<p><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
+	<div class="installer-container">
+		<div class="installer-card">
+			<div class="installer-logo">
+				<div class="logo-icon">
+					<img src="bl-kernel/admin/themes/booty/logo.svg" alt="Bludit">
+				</div>
+				<h1><?php echo $L->get('Bludit Installer') ?></h1>
+			</div>
 
-					<?php if (!empty($errorText)) : ?>
-						<div class="alert alert-danger"><?php echo $errorText ?></div>
-					<?php endif ?>
+			<?php
+			$system = checkSystem();
+			if (!empty($system)) {
+				foreach ($system as $error) {
+					echo '<div class="error-table"><strong>' . $error . '</strong></div>';
+				}
+			} elseif (isset($_GET['language'])) {
+			?>
+				<p class="installer-description"><?php echo $L->get('choose-a-password-for-the-user-admin') ?></p>
 
-					<form id="jsformInstaller" method="post" action="" autocomplete="off">
-						<input type="hidden" name="timezone" id="jstimezone" value="UTC">
+				<?php if (!empty($errorText)) : ?>
+					<div class="alert alert-danger"><?php echo $errorText ?></div>
+				<?php endif ?>
 
-						<div class="form-group">
-							<input type="text" dir="auto" value="admin" class="form-control form-control-lg" id="jsusername" name="username" placeholder="Username" disabled>
+				<form id="jsformInstaller" method="post" action="" autocomplete="off">
+					<input type="hidden" name="timezone" id="jstimezone" value="UTC">
+
+					<div class="form-group">
+						<label for="jsusername">Username</label>
+						<input type="text" dir="auto" value="admin" class="form-control" id="jsusername" name="username" placeholder="Username" disabled>
+					</div>
+
+					<div class="form-group">
+						<label for="jspassword"><?php $L->p('Password') ?></label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-generate" id="jsgeneratePassword" title="Generate secure password">Generate</button>
+							</div>
 						</div>
+					</div>
 
-						<div class="form-group mb-0">
-							<input type="password" class="form-control form-control-lg" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
-						</div>
+					<div class="form-check">
+						<input role="button" class="form-check-input" type="checkbox" value="" id="jsshowPassword">
+						<label class="form-check-label" for="jsshowPassword"><?php $L->p('Show password') ?></label>
+					</div>
 
-						<div class="form-check mt-2">
-							<input role="button" class="form-check-input" type="checkbox" value="" id="jsshowPassword">
-							<label class="form-check-label" for="jsshowPassword"><?php $L->p('Show password') ?></label>
-						</div>
-
-						<div class="form-group mt-4">
-							<button type="submit" class="btn btn-primary btn-lg mr-2 w-100" name="install"><?php $L->p('Install') ?></button>
-						</div>
-					</form>
-				<?php
-				} else {
-				?>
-					<form id="jsformLanguage" method="get" action="" autocomplete="off">
+					<div class="form-group mt-4">
+						<button type="submit" class="btn btn-primary" name="install"><?php $L->p('Install') ?></button>
+					</div>
+				</form>
+			<?php
+			} else {
+			?>
+				<form id="jsformLanguage" method="get" action="" autocomplete="off">
+					<div class="form-group">
 						<label for="jslanguage"><?php echo $L->get('Choose your language') ?></label>
-						<select id="jslanguage" name="language" class="form-control form-control-lg">
+						<select id="jslanguage" name="language" class="form-control">
 							<?php
 							$htmlOptions = getLanguageList();
 							foreach ($htmlOptions as $fname => $native) {
@@ -681,15 +912,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							}
 							?>
 						</select>
+					</div>
 
-						<div class="form-group mt-4">
-							<button type="submit" class="btn btn-primary btn-lg mr-2 w-100"><?php $L->p('Next') ?></button>
-						</div>
-					</form>
-				<?php
-				}
-				?>
-			</div>
+					<div class="form-group mt-4">
+						<button type="submit" class="btn btn-primary"><?php $L->p('Next') ?></button>
+					</div>
+				</form>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 
@@ -710,6 +941,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				}
 			});
 
+			// Generate password
+			$("#jsgeneratePassword").on("click", function() {
+				var length = 16;
+				var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=";
+				var password = "";
+				var crypto = window.crypto || window.msCrypto;
+
+				if (crypto && crypto.getRandomValues) {
+					var values = new Uint32Array(length);
+					crypto.getRandomValues(values);
+					for (var i = 0; i < length; i++) {
+						password += charset[values[i] % charset.length];
+					}
+				} else {
+					// Fallback for older browsers
+					for (var i = 0; i < length; i++) {
+						password += charset.charAt(Math.floor(Math.random() * charset.length));
+					}
+				}
+
+				$("#jspassword").val(password);
+				$("#jspassword").attr("type", "text");
+				$("#jsshowPassword").prop("checked", true);
+			});
 		});
 	</script>
 
