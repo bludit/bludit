@@ -46,7 +46,14 @@ Como CMS de archivos planos, Bludit ofrece una flexibilidad y velocidad iniguala
 
 ## Instalación rápida para pruebas
 
-Puedes usar el servidor web incorporado de PHP (`php -S localhost:8000`) o la [imagen Docker](https://hub.docker.com/r/bludit/docker/)
+Puedes usar el servidor web incorporado de PHP (`php -S localhost:8000`) o Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Luego abre http://localhost:8000
 
 ## Apoya a Bludit
 

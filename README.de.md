@@ -46,7 +46,14 @@ Als Flat-File-CMS bietet Bludit unvergleichliche Flexibilität und Geschwindigke
 
 ## Schnelle Installation zum Testen
 
-Sie können den integrierten PHP-Webserver (`php -S localhost:8000`) oder das [Docker-Image](https://hub.docker.com/r/bludit/docker/) verwenden.
+Sie können den integrierten PHP-Webserver (`php -S localhost:8000`) oder Docker verwenden:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Dann öffnen Sie http://localhost:8000
 
 ## Bludit unterstützen
 

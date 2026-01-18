@@ -46,7 +46,14 @@ Bludit - نظام إدارة المحتوى البسيط والسريع والم
 
 ## تثبيت سريع للاختبار
 
-يمكنك استخدام خادم الويب المدمج في PHP (`php -S localhost:8000`) أو [صورة Docker](https://hub.docker.com/r/bludit/docker/)
+يمكنك استخدام خادم الويب المدمج في PHP (`php -S localhost:8000`) أو Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+ثم افتح http://localhost:8000
 
 ## دعم Bludit
 

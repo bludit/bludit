@@ -46,7 +46,14 @@ Bludit - простой, быстрый и гибкий CMS.
 
 ## Быстрая установка для тестирования
 
-Вы можете использовать встроенный веб-сервер PHP (`php -S localhost:8000`) или [Docker image](https://hub.docker.com/r/bludit/docker/)
+Вы можете использовать встроенный веб-сервер PHP (`php -S localhost:8000`) или Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Затем откройте http://localhost:8000
 
 ## Поддержать Bludit
 

@@ -46,7 +46,14 @@ Bludit - 简单、快速、灵活的CMS。
 
 ## 测试的快速安装
 
-您可以使用PHP内置Web服务器（`php -S localhost:8000`）或[Docker镜像](https://hub.docker.com/r/bludit/docker/)
+您可以使用PHP内置Web服务器（`php -S localhost:8000`）或 Docker：
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+然后打开 http://localhost:8000
 
 ## 支持Bludit
 

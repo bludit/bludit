@@ -46,7 +46,14 @@ Bludit के साथ, आप कुछ सेकंड में अपनी
 
 ## परीक्षण के लिए त्वरित इंस्टॉलेशन
 
-आप PHP बिल्ट-इन वेब सर्वर (`php -S localhost:8000`) या [डॉकर इमेज](https://hub.docker.com/r/bludit/docker/) का उपयोग कर सकते हैं।
+आप PHP बिल्ट-इन वेब सर्वर (`php -S localhost:8000`) या Docker का उपयोग कर सकते हैं:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+फिर http://localhost:8000 खोलें
 
 ## Bludit का समर्थन करें
 
