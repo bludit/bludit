@@ -568,7 +568,7 @@ function redirect($url)
 		exit;
 	}
 
-	exit('<meta http-equiv="refresh" content="0; url="' . $url . '">');
+	exit('<meta http-equiv="refresh" content="0; url=' . $url . '">');
 }
 
 // ============================================================================
@@ -683,6 +683,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			font-weight: 600;
 			color: #1a1a2e;
 			margin: 0;
+			text-transform: uppercase;
 		}
 
 		.installer-logo p {
@@ -698,6 +699,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			font-size: 0.95rem;
 			transition: all 0.3s ease;
 			background-color: #f8f9fa;
+			line-height: 1.5;
+			height: auto;
+		}
+
+		.installer-card select.form-control {
+			padding: 10px 16px;
+			height: 46px;
 		}
 
 		.installer-card .form-control:focus {
@@ -800,6 +808,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			margin-bottom: 25px;
 			text-align: center;
 		}
+
+		.input-group-append {
+			margin-left: -1px;
+		}
+
+		.btn-generate {
+			background: #f8f9fa;
+			border: 2px solid #e9ecef;
+			border-left: none;
+			border-radius: 0 10px 10px 0;
+			color: #495057;
+			padding: 12px 16px;
+			transition: all 0.3s ease;
+			font-size: 0.9rem;
+			white-space: nowrap;
+		}
+
+		.btn-generate:hover {
+			background: #e9ecef;
+			border-color: #dee2e6;
+			color: #212529;
+		}
+
+		.btn-generate:focus {
+			outline: none;
+			box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.15);
+			border-color: #1e88e5;
+		}
+
+		.input-group .form-control {
+			border-radius: 10px 0 0 10px;
+		}
+
+		.input-group {
+			display: flex;
+		}
 	</style>
 </head>
 
@@ -837,7 +881,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 					<div class="form-group">
 						<label for="jspassword"><?php $L->p('Password') ?></label>
-						<input type="password" class="form-control" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
+						<div class="input-group">
+							<input type="password" class="form-control" id="jspassword" name="password" placeholder="<?php $L->p('Password') ?>">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-generate" id="jsgeneratePassword" title="Generate secure password">Generate</button>
+							</div>
+						</div>
 					</div>
 
 					<div class="form-check">
@@ -890,6 +939,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				} else {
 					input.setAttribute("type", "text");
 				}
+			});
+
+			// Generate password
+			$("#jsgeneratePassword").on("click", function() {
+				var length = 16;
+				var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=";
+				var password = "";
+				var crypto = window.crypto || window.msCrypto;
+
+				if (crypto && crypto.getRandomValues) {
+					var values = new Uint32Array(length);
+					crypto.getRandomValues(values);
+					for (var i = 0; i < length; i++) {
+						password += charset[values[i] % charset.length];
+					}
+				} else {
+					// Fallback for older browsers
+					for (var i = 0; i < length; i++) {
+						password += charset.charAt(Math.floor(Math.random() * charset.length));
+					}
+				}
+
+				$("#jspassword").val(password);
+				$("#jspassword").attr("type", "text");
+				$("#jsshowPassword").prop("checked", true);
 			});
 		});
 	</script>

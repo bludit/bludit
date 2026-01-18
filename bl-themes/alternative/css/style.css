@@ -26,6 +26,24 @@
 	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 
+	/* Font sizes - fluid and responsive */
+	--font-size-base: 1.0625rem;        /* 17px - improved readability */
+	--font-size-sm: 0.9375rem;          /* 15px */
+	--font-size-xs: 0.875rem;           /* 14px */
+	--font-size-lg: 1.1875rem;          /* 19px */
+	--font-size-xl: 1.375rem;           /* 22px */
+	--font-size-h1: clamp(2.25rem, 5vw, 3.5rem);   /* 36px-56px - responsive */
+	--font-size-h2: clamp(1.875rem, 4vw, 2.5rem);  /* 30px-40px */
+	--font-size-h3: clamp(1.5rem, 3vw, 2rem);      /* 24px-32px */
+	--font-size-h4: clamp(1.25rem, 2.5vw, 1.5rem); /* 20px-24px */
+	--font-size-h5: 1.125rem;           /* 18px */
+	--font-size-h6: 1rem;               /* 16px */
+
+	/* Line heights for better readability */
+	--line-height-base: 1.6;
+	--line-height-tight: 1.3;
+	--line-height-loose: 1.8;
+
 	/* Spacing */
 	--spacing-xs: 0.25rem;
 	--spacing-sm: 0.5rem;
@@ -104,12 +122,13 @@ html {
 
 body {
 	font-family: var(--font-family);
+	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-regular);
 	color: var(--color-text);
 	background-color: var(--color-background);
 	padding-top: 56px;
 	margin-bottom: 100px;
-	line-height: 1.47059;
+	line-height: var(--line-height-base);
 	letter-spacing: -0.022em;
 }
 
@@ -164,15 +183,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1.title {
-	font-size: 2.5rem;
-	line-height: 1.1;
+	font-size: var(--font-size-h1);
+	line-height: var(--line-height-tight);
 	font-weight: var(--font-weight-bold);
+	margin-bottom: 1.5rem;
 }
 
 h2.title {
-	font-size: 1.75rem;
-	line-height: 1.2;
+	font-size: var(--font-size-h2);
+	line-height: var(--line-height-tight);
 	font-weight: var(--font-weight-semibold);
+	margin-bottom: 1rem;
 }
 
 h2.title a {
@@ -191,7 +212,7 @@ code {
 	background: var(--color-background-tertiary);
 	color: var(--color-text);
 	font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
-	font-size: 0.875em;
+	font-size: var(--font-size-sm);
 	border-radius: var(--radius-sm);
 }
 
@@ -212,7 +233,7 @@ table {
 	empty-cells: show;
 	border: 1px solid var(--color-border-light);
 	width: 100%;
-	font-size: 0.9em;
+	font-size: var(--font-size-base);
 	margin-bottom: var(--spacing-md);
 	border-collapse: collapse;
 	border-radius: var(--radius-md);
@@ -343,7 +364,7 @@ blockquote {
 
 .navbar-brand {
 	font-weight: var(--font-weight-semibold);
-	font-size: 1.25rem;
+	font-size: var(--font-size-h4);
 	letter-spacing: -0.01em;
 }
 
@@ -360,7 +381,7 @@ img.nav-svg-icon:hover {
 }
 
 .nav-link {
-	font-size: 0.75rem;
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-medium);
 	letter-spacing: 0.02em;
 	transition: color var(--transition-fast);
@@ -424,19 +445,19 @@ footer.footer a:hover {
 }
 
 .hero-title {
-	font-size: 2.5rem;
+	font-size: var(--font-size-h1);
 	font-weight: var(--font-weight-bold);
 	color: var(--color-text);
 	margin-bottom: var(--spacing-sm);
 	letter-spacing: -0.02em;
-	line-height: 1.15;
+	line-height: var(--line-height-tight);
 }
 
 .hero-subtitle {
 	color: var(--color-text-secondary);
-	font-size: 1.125rem;
+	font-size: var(--font-size-lg);
 	font-weight: var(--font-weight-regular);
-	line-height: 1.5;
+	line-height: var(--line-height-base);
 	margin: 0 auto;
 	max-width: 500px;
 }
@@ -464,7 +485,7 @@ footer.footer a:hover {
 	border-radius: var(--radius-full);
 	border: 1px solid var(--color-border);
 	padding: 0.75rem 1rem 0.75rem 42px;
-	font-size: 0.9375rem;
+	font-size: var(--font-size-base);
 	transition: all var(--transition-fast);
 	background-color: var(--color-background-secondary);
 	width: 100%;
@@ -485,12 +506,8 @@ footer.footer a:hover {
 		padding: 120px 0 80px;
 	}
 
-	.hero-title {
-		font-size: 3.25rem;
-	}
-
 	.hero-subtitle {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 	}
 }
 
@@ -502,7 +519,7 @@ footer.footer a:hover {
 	border-radius: var(--radius-lg);
 	border: 1px solid var(--color-border);
 	padding: 0.625rem 1rem;
-	font-size: 0.9375rem;
+	font-size: var(--font-size-base);
 	transition: all var(--transition-fast);
 	background-color: var(--color-background);
 }
@@ -554,7 +571,7 @@ article.home-page footer.mt-3 {
 }
 
 article.home-page footer.mt-3 small {
-	font-size: 0.8125rem;
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 }
 
@@ -571,7 +588,7 @@ article.page {
 }
 
 .page-meta {
-	font-size: 0.875rem;
+	font-size: var(--font-size-base);
 	color: var(--color-text-muted);
 	display: flex;
 	flex-wrap: wrap;
@@ -594,14 +611,14 @@ article.page {
 
 .page-description {
 	color: var(--color-text-muted);
-	font-size: 1.125rem;
-	line-height: 1.5;
+	font-size: var(--font-size-lg);
+	line-height: var(--line-height-loose);
 	margin-bottom: var(--spacing-lg);
 }
 
 .page-content {
-	font-size: 1.0625rem;
-	line-height: 1.7;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-loose);
 }
 
 .page-content img {
@@ -623,7 +640,7 @@ article.page {
 
 .page-excerpt {
 	color: var(--color-text);
-	line-height: 1.6;
+	line-height: var(--line-height-base);
 }
 
 /* ==========================================================================
@@ -737,17 +754,6 @@ article.page {
 	color: var(--color-primary) !important;
 }
 
-/* Card-like hover effect for articles */
-article.home-page {
-	transition: background-color var(--transition-normal);
-}
-
-@media (min-width: 992px) {
-	article.home-page:hover {
-		background-color: var(--color-background-secondary);
-	}
-}
-
 /* ==========================================================================
    Breadcrumb Navigation (SEO)
    ========================================================================== */
@@ -759,7 +765,7 @@ article.home-page {
 }
 
 .breadcrumb {
-	font-size: 0.875rem;
+	font-size: var(--font-size-sm);
 	margin-bottom: 0;
 }
 

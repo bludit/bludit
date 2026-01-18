@@ -46,7 +46,14 @@ As a Flat-File CMS, Bludit offers unparalleled flexibility and speed. Plus, with
 
 ## Quick installation for testing
 
-You can use PHP Built-in web server (`php -S localhost:8000`) or [Docker image](https://hub.docker.com/r/bludit/docker/)
+You can use PHP Built-in web server (`php -S localhost:8000`) or Docker:
+
+```bash
+docker pull bludit/docker:latest
+docker run -d --name bludit -p 8000:80 bludit/docker:latest
+```
+
+Then open http://localhost:8000
 
 ## Support Bludit
 

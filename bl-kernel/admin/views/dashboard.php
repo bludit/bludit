@@ -41,7 +41,7 @@
                 <div class="quick-search-icon">
                     <span class="fa fa-search"></span>
                 </div>
-                <span class="quick-search-text">Quick search pages and menu</span>
+                <span class="quick-search-text"><?php $L->p('Quick search pages and menu') ?></span>
                 <span class="quick-search-shortcut">⌘K</span>
             </div>
 
@@ -51,69 +51,78 @@
                 <div class="quick-search-content">
                     <div class="quick-search-header">
                         <span class="fa fa-search"></span>
-                        <select id="jsclippy" class="form-control" name="state"></select>
+                        <input type="text" id="jsclippy" class="quick-search-input" placeholder="<?php $L->p('search-placeholder') ?>">
                     </div>
+                    <div id="searchResults" class="quick-search-results"></div>
                 </div>
             </div>
 
             <script>
                 $(document).ready(function() {
-                    var clippy = $("#jsclippy").select2({
-                        placeholder: "Search pages, content, and menu items...",
-                        allowClear: false,
-                        width: "100%",
-                        theme: "bootstrap4",
-                        minimumInputLength: 0,
-                        dropdownParent: ".quick-search-content",
-                        language: {
-                            inputTooShort: function() { return ''; }
-                        },
-                        ajax: {
-                            url: HTML_PATH_ADMIN_ROOT + "ajax/clippy",
-                            data: function(params) {
-                                return { query: params.term };
-                            },
-                            processResults: function(data) {
-                                return data;
-                            }
-                        },
-                        templateResult: function(data) {
-                            var html = '';
-                            if (data.type == 'menu') {
-                                html += '<a href="' + data.url + '"><div class="search-suggestion">';
-                                html += '<span class="fa fa-' + data.icon + '"></span>' + data.text + '</div></a>';
-                            } else {
-                                if (typeof data.id === 'undefined') return '';
-                                html += '<div class="search-suggestion">';
-                                html += '<div class="search-suggestion-item">' + data.text + ' <span class="badge badge-pill badge-light">' + data.type + '</span></div>';
-                                html += '<div class="search-suggestion-options">';
-                                html += '<a target="_blank" href="' + DOMAIN_PAGES + data.id + '"><?php $L->p('view') ?></a>';
-                                html += '<a class="ml-2" href="' + DOMAIN_ADMIN + 'edit-content/' + data.id + '"><?php $L->p('edit') ?></a>';
-                                html += '</div></div>';
-                            }
-                            return html;
-                        },
-                        escapeMarkup: function(markup) { return markup; }
-                    });
-
+                    var searchInput = $('#jsclippy');
+                    var searchResults = $('#searchResults');
                     var modal = $('#searchModal');
                     var trigger = $('#searchTrigger');
                     var overlay = $('#searchOverlay');
+                    var searchTimeout;
 
                     function openSearch() {
                         modal.addClass('active');
                         $('body').css('overflow', 'hidden');
                         setTimeout(function() {
-                            clippy.select2('open');
-                            $('.select2-search__field').focus();
+                            searchInput.focus();
                         }, 150);
                     }
 
                     function closeSearch() {
                         modal.removeClass('active');
                         $('body').css('overflow', '');
-                        clippy.select2('close');
+                        searchInput.val('');
+                        searchResults.empty();
                     }
+
+                    function performSearch(query) {
+                        if (!query) {
+                            searchResults.empty();
+                            return;
+                        }
+
+                        $.ajax({
+                            url: HTML_PATH_ADMIN_ROOT + "ajax/clippy",
+                            data: { query: query },
+                            success: function(data) {
+                                searchResults.empty();
+                                
+                                if (data.results && data.results.length > 0) {
+                                    data.results.forEach(function(item) {
+                                        var resultHtml = '';
+                                        if (item.type == 'menu') {
+                                            resultHtml = '<a href="' + item.url + '" class="search-suggestion">';
+                                            resultHtml += '<span class="fa fa-' + item.icon + '"></span>' + item.text + '</a>';
+                                        } else {
+                                            resultHtml = '<div class="search-suggestion">';
+                                            resultHtml += '<div class="search-suggestion-item">' + item.text + ' <span class="badge badge-pill badge-light">' + item.type + '</span></div>';
+                                            resultHtml += '<div class="search-suggestion-options">';
+                                            resultHtml += '<a target="_blank" href="' + DOMAIN_PAGES + item.id + '"><?php $L->p('view') ?></a>';
+                                            resultHtml += '<a class="ml-2" href="' + DOMAIN_ADMIN + 'edit-content/' + item.id + '"><?php $L->p('edit') ?></a>';
+                                            resultHtml += '</div></div>';
+                                        }
+                                        searchResults.append(resultHtml);
+                                    });
+                                } else {
+                                    searchResults.html('<div class="search-no-results"><?php $L->p("no-results-found") ?></div>');
+                                }
+                            }
+                        });
+                    }
+
+                    searchInput.on('input', function() {
+                        clearTimeout(searchTimeout);
+                        var query = $(this).val();
+                        searchTimeout = setTimeout(function() {
+                            performSearch(query);
+                        }, 300);
+                    });
 
                     trigger.on('click', openSearch);
                     overlay.on('click', closeSearch);
