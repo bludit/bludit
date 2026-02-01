@@ -72,7 +72,6 @@ body {
 div.sidebar {
 	background: var(--bg-sidebar);
 	border-right: 1px solid var(--border-color);
-	box-shadow: var(--shadow-sm);
 	position: relative;
 }
 
@@ -118,7 +117,6 @@ div.sidebar .nav-item h4 {
 	background: white;
 	border: 2px solid var(--border-color);
 	border-radius: 12px;
-	box-shadow: var(--shadow-sm);
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -128,7 +126,6 @@ div.sidebar .nav-item h4 {
 
 .quick-search-trigger:hover {
 	border-color: var(--primary-blue);
-	box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1), var(--shadow-md);
 }
 
 .quick-search-trigger .quick-search-icon {
@@ -139,7 +136,6 @@ div.sidebar .nav-item h4 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 2px 8px rgba(30, 136, 229, 0.3);
 	flex-shrink: 0;
 }
 
@@ -210,7 +206,6 @@ div.sidebar .nav-item h4 {
 	max-height: 80vh;
 	background: white;
 	border-radius: 16px;
-	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 	animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	overflow: hidden;
 	display: flex;
@@ -413,7 +408,6 @@ body.login {
 #dashboard ul.list-group.list-group-striped {
 	border: none;
 	border-radius: 12px;
-	box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
 	overflow: hidden;
 	background: white;
 }
@@ -479,7 +473,6 @@ body.login {
 	background: var(--primary-gradient);
 	color: white;
 	border-radius: 12px;
-	box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
 	font-size: var(--font-size-lg);
 	font-weight: var(--font-weight-medium);
 	display: flex;
@@ -516,14 +509,12 @@ body.login {
 .metric-card {
 	border: none;
 	border-radius: 12px;
-	box-shadow: var(--shadow-sm);
 	transition: all 0.3s ease;
 	height: 100%;
 	background: var(--bg-sidebar);
 }
 
 .metric-card:hover {
-	box-shadow: var(--shadow-md);
 	transform: translateY(-2px);
 }
 
@@ -546,7 +537,6 @@ body.login {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
 }
 
 .metric-icon .fa {
@@ -605,21 +595,18 @@ body.login {
 	margin: 0;
 	font-size: var(--font-size-base);
 	padding: 16px 24px;
-	box-shadow: var(--shadow-md);
 }
 
 .alert-success {
 	background: var(--primary-gradient);
 	border-left: none !important;
 	color: #ffffff;
-	box-shadow: 0 4px 15px rgba(30, 136, 229, 0.4);
 }
 
 .alert-danger {
 	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
 	border-left: none !important;
 	color: #ffffff;
-	box-shadow: 0 4px 15px rgba(238, 90, 90, 0.4);
 }
 
 
@@ -646,7 +633,7 @@ body.login {
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
-	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	transition: border-color .15s ease-in-out;
 }
 
 .plugin-form textarea {

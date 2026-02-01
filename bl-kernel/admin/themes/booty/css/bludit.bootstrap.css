@@ -37,28 +37,24 @@ a.text-danger:hover {
 	background: var(--primary-gradient, linear-gradient(135deg, #1e88e5 0%, #1565c0 100%));
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
-	box-shadow: 0 2px 8px rgba(30, 136, 229, 0.3);
 }
 
 .btn-primary:hover {
 	background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
 	border: none;
 	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
 }
 
 .btn-secondary {
 	background-color: #6c757d;
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
-	box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
 }
 
 .btn-secondary:hover {
 	background-color: #5a6268;
 	border: none;
 	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
 }
 
 .btn-light {
@@ -77,28 +73,24 @@ a.text-danger:hover {
 	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
-	box-shadow: 0 2px 8px rgba(238, 90, 90, 0.3);
 }
 
 .btn-danger:hover {
 	background: linear-gradient(135deg, #ee5a5a 0%, #dc3545 100%);
 	border: none;
 	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(238, 90, 90, 0.4);
 }
 
 .btn-success {
 	background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
-	box-shadow: 0 2px 8px rgba(64, 192, 87, 0.3);
 }
 
 .btn-success:hover {
 	background: linear-gradient(135deg, #40c057 0%, #37b24d 100%);
 	border: none;
 	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(64, 192, 87, 0.4);
 }
 
 .btn-sm {
@@ -130,7 +122,6 @@ a.text-danger:hover {
 }
 
 .form-control:focus {
-	box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
 	border-color: var(--primary-blue, #1e88e5);
 }
 
@@ -145,12 +136,9 @@ label {
 .card {
 	border: none;
 	border-radius: 12px;
-	box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
-	transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-	box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
 .card-header {
