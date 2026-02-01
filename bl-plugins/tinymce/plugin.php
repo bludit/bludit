@@ -11,9 +11,9 @@ class pluginTinymce extends Plugin
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
+			'toolbar1' => 'blocks bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
 			'toolbar2' => '',
-			'plugins' => 'code autolink image link pagebreak advlist lists textpattern table',
+			'plugins' => 'code autolink image link pagebreak advlist lists table',
 			'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 		);
 	}
@@ -74,12 +74,16 @@ class pluginTinymce extends Plugin
 
 		$toolbar1 = $this->getValue('toolbar1');
 		$toolbar2 = $this->getValue('toolbar2');
+		// Combine toolbars for TinyMCE 6+
+		$toolbar = trim($toolbar1 . ' ' . $toolbar2);
 		$content_css = $this->htmlPath() . 'css/tinymce_content.css';
 		$plugins = $this->getValue('plugins');
+		// Convert space-separated plugins to JavaScript array format
+		$pluginsArray = implode("', '", array_filter(explode(' ', $plugins)));
 		$version = $this->version();
 
+		$codesampleConfig = '';
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
-			$codesampleConfig = '';
 			$codesampleLanguages = explode("|", $this->getValue('codesampleLanguages'));
 			foreach ($codesampleLanguages as $codesampleLang) {
 				$values = explode(" ", $codesampleLang);
@@ -139,10 +143,10 @@ class pluginTinymce extends Plugin
 		relative_urls: false,
 		valid_elements: "*[*]",
 		cache_suffix: "?version=$version",
+		license_key: "gpl",
 		$document_base_url
-		plugins: ["$plugins"],
-		toolbar1: "$toolbar1",
-		toolbar2: "$toolbar2",
+		plugins: ['$pluginsArray'],
+		toolbar: "$toolbar",
 		language: "$lang",
 		content_css: "$content_css",
 		codesample_languages: [$codesampleConfig],
