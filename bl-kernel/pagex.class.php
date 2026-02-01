@@ -53,7 +53,13 @@ class Page
 	public function contentRaw($sanitize = false)
 	{
 		$key = $this->key();
+		if (empty($key)) {
+			return '';
+		}
 		$filePath = PATH_PAGES . $key . DS . FILENAME;
+		if (!file_exists($filePath)) {
+			return '';
+		}
 		$contentRaw = file_get_contents($filePath);
 
 		if ($sanitize) {
@@ -547,11 +553,11 @@ class Page
         	$current = new DateTime;
 	        $past    = new DateTime($this->getValue('dateRaw'));
 	        $elapsed = $current->diff($past);
-	
+
 	        // Calculate weeks separately
 	        $weeks = floor($elapsed->d / 7);
 	        $elapsed->d -= $weeks * 7;
-	
+
 	        $string = array(
 	            'y' => 'year',
 	            'm' => 'month',
@@ -575,11 +581,11 @@ class Page
 	                unset($string[$key]);
 	            }
 	        }
-	
+
 	        if (!$complete) {
 	            $string = array_slice($string, 0, 1);
 	        }
-	
+
 	        return $string ? implode(', ', $string) . ' ago' : 'Just now';
     	}
 
