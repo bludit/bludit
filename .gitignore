@@ -30,3 +30,7 @@ bl-themes/tagg
 bl-themes/small
 bl-themes/future-imperfect
 bl-themes/social-network
+test-server.sh
+test-php85-compatibility.php
+php85-server.log
+analyze-logs.sh

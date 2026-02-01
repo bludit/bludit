@@ -396,5 +396,7 @@
     "start-typing-to-see-a-list-of-suggestions": "Comienza a escribir para ver una lista de sugerencias.",
     "view": "Ver",
     "insert-thumbnail": "Insertar miniatura",
-    "insert-linked-thumbnail": "Insertar miniatura enlazada"
+    "insert-linked-thumbnail": "Insertar miniatura enlazada",
+    "no-categories": "No hay categorías",
+    "no-tags": "No hay etiquetas"
 }

@@ -399,5 +399,7 @@
     "start-typing-to-see-a-list-of-suggestions": "Start typing to see a list of suggestions.",
     "view": "View",
     "insert-thumbnail": "Insert thumbnail",
-    "insert-linked-thumbnail": "Insert linked thumbnail"
+    "insert-linked-thumbnail": "Insert linked thumbnail",
+    "no-categories": "No categories",
+    "no-tags": "No tags"
 }

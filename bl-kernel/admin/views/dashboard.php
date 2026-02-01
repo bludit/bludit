@@ -92,7 +92,7 @@
                             data: { query: query },
                             success: function(data) {
                                 searchResults.empty();
-                                
+
                                 if (data.results && data.results.length > 0) {
                                     data.results.forEach(function(item) {
                                         var resultHtml = '';
@@ -215,6 +215,80 @@
                                     <div class="col-12">
                                         <small class="text-muted"><?php echo Date::format($currentDate, 'Y-m-d', 'F j, Y'); ?></small>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php
+                    // Categories Card - Only show if Categories plugin is active
+                    if (pluginActivated('pluginCategories')) {
+                        $categoryList = $categories->keys();
+                    ?>
+                    <!-- Categories Card -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="card metric-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="metric-icon">
+                                        <span class="fa fa-bookmark"></span>
+                                    </div>
+                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Categories') ?></h5>
+                                </div>
+                                <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
+                                    <?php if (!empty($categoryList)): ?>
+                                        <div class="list-group list-group-flush">
+                                            <?php foreach ($categoryList as $categoryKey):
+                                                $category = new Category($categoryKey);
+                                                $pageCount = count($category->pages());
+                                            ?>
+                                                <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span><?php echo $category->name() ?></span>
+                                                    <span class="badge badge-primary badge-pill"><?php echo $pageCount ?></span>
+                                                </a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <p class="text-muted text-center py-3"><?php $L->p('No categories') ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php
+                    // Tags Card - Only show if Tags plugin is active
+                    if (pluginActivated('pluginTags')) {
+                        $tagList = $tags->keys();
+                    ?>
+                    <!-- Tags Card -->
+                    <div class="col-lg-6 col-12 mb-4">
+                        <div class="card metric-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="metric-icon">
+                                        <span class="fa fa-tag"></span>
+                                    </div>
+                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Tags') ?></h5>
+                                </div>
+                                <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
+                                    <?php if (!empty($tagList)): ?>
+                                        <div class="list-group list-group-flush">
+                                            <?php foreach ($tagList as $tagKey):
+                                                $tag = new Tag($tagKey);
+                                                $pageCount = count($tag->pages());
+                                            ?>
+                                                <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span><?php echo $tag->name() ?></span>
+                                                    <span class="badge badge-info badge-pill"><?php echo $pageCount ?></span>
+                                                </a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <p class="text-muted text-center py-3"><?php $L->p('No tags') ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
