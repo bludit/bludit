@@ -72,7 +72,7 @@ Los siguientes pasos son válidos para actualizar a cualquier versión de Bludit
 
 ## Apoya a Bludit
 
-Bludit es de código abierto y gratuito para usar, pero si encuentras el proyecto útil y quieres apoyar su desarrollo, puedes contribuir en [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). Como muestra de nuestra apreciación, los supporters recibirán Bludit PRO.
+Bludit es de código abierto y gratuito para usar, pero si encuentras el proyecto útil y quieres apoyar su desarrollo, puedes contribuir en [Patreon](https://www.patreon.com/join/bludit). Como muestra de nuestra apreciación, los supporters recibirán Bludit PRO.
 
 Si prefieres, también puedes hacer una donación única para comprarnos un café o una cerveza. Cada contribución nos ayuda a continuar mejorando Bludit y proporcionar la mejor experiencia posible a nuestros usuarios.
 

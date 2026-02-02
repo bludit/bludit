@@ -70,7 +70,7 @@ docker run -d --name bludit -p 8000:80 bludit/docker:latest
 > **注意:** 如果您的网站位于某种服务器缓存系统后面(例如,Cloudflare 默认提供一个),您也需要在那里清除文件。清除浏览器缓存也是一个好主意。Bludit 尝试用新文件重新加载文件,但某些组件(如 TinyMCE)可能无法重新加载,并在 UI 中引发一些问题或抛出 JavaScript 错误。
 ## 支持Bludit
 
-Bludit是开源且免费使用的，但如果您发现该项目有用并希望支持其开发，您可以在[Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860)上贡献。作为我们感激的象征，支持者将收到Bludit PRO。
+Bludit是开源且免费使用的，但如果您发现该项目有用并希望支持其开发，您可以在[Patreon](https://www.patreon.com/join/bludit)上贡献。作为我们感激的象征，支持者将收到Bludit PRO。
 
 如果您愿意，您也可以进行一次性捐赠，为我们买杯咖啡或啤酒。每笔贡献都帮助我们继续改进Bludit并为用户提供最佳体验。
 

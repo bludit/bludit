@@ -103,7 +103,7 @@ Prima di aggiornare Bludit, **fai sempre un backup del tuo sito**. Questo includ
 
 ## Supporta Bludit
 
-Bludit è open-source e gratuito da usare, ma se trovi il progetto utile e vuoi supportarne lo sviluppo, puoi contribuire su [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). Come segno della nostra apprezzamento, i sostenitori riceveranno Bludit PRO.
+Bludit è open-source e gratuito da usare, ma se trovi il progetto utile e vuoi supportarne lo sviluppo, puoi contribuire su [Patreon](https://www.patreon.com/join/bludit). Come segno della nostra apprezzamento, i sostenitori riceveranno Bludit PRO.
 
 Se preferisci, puoi anche fare una donazione una tantum per offrirci un caffè o una birra. Ogni contributo ci aiuta a continuare a migliorare Bludit e fornire la migliore esperienza possibile ai nostri utenti.
 

@@ -72,7 +72,7 @@ Die folgenden Schritte gelten für die Aktualisierung auf jede Version von Bludi
 
 ## Bludit unterstützen
 
-Bludit ist open-source und kostenlos zu verwenden, aber wenn Sie das Projekt nützlich finden und seine Entwicklung unterstützen möchten, können Sie auf [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860) beitragen. Als Zeichen unserer Wertschätzung erhalten Unterstützer Bludit PRO.
+Bludit ist open-source und kostenlos zu verwenden, aber wenn Sie das Projekt nützlich finden und seine Entwicklung unterstützen möchten, können Sie auf [Patreon](https://www.patreon.com/join/bludit) beitragen. Als Zeichen unserer Wertschätzung erhalten Unterstützer Bludit PRO.
 
 Falls gewünscht, können Sie auch eine einmalige Spende machen, um uns einen Kaffee oder ein Bier zu spenden. Jeder Beitrag hilft uns, Bludit weiter zu verbessern und die beste Erfahrung für unsere Nutzer zu bieten.
 

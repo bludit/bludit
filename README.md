@@ -72,7 +72,7 @@ The following steps are valid for upgrading to any version of Bludit from the sa
 
 ## Support Bludit
 
-Bludit is open-source and free to use, but if you find the project useful and would like to support its development, you can contribute on [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). As a token of our appreciation, supporters will receive Bludit PRO.
+Bludit is open-source and free to use, but if you find the project useful and would like to support its development, you can contribute on [Patreon](https://www.patreon.com/join/bludit). As a token of our appreciation, supporters will receive Bludit PRO.
 
 If you prefer, you can also make a one-time donation to buy us a coffee or beer. Every contribution helps us continue to improve Bludit and provide the best possible experience for our users.
 
