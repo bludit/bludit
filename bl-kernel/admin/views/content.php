@@ -306,19 +306,19 @@ $(document).ready(function() {
 			'type': 'hidden',
 			'name': 'tokenCSRF',
 			'value': tokenCSRF
-		}).append(jQuery('<input>', {
+		})).append(jQuery('<input>', {
 			'type': 'hidden',
 			'name': 'key',
 			'value': key
-		}).append(jQuery('<input>', {
+		})).append(jQuery('<input>', {
 			'type': 'hidden',
 			'name': 'type',
 			'value': 'delete'
-		}).append(jQuery('<input>', {
+		})).append(jQuery('<input>', {
 			'type': 'hidden',
 			'name': 'tab',
 			'value': currentTab
-		}))));
+		}));
 
 		form.hide().appendTo("body").submit();
 	});

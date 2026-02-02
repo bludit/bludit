@@ -110,7 +110,7 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus-circle"></i><?php $L->p('Insert') ?><\/a>'+
 							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+thumbnail+'\'); closeMediaManager();"><i class="fa fa-image"></i><?php $L->p('Insert thumbnail') ?><\/a>'+
 							'<a href="#" class="mr-3 text-primary" onClick="editorInsertLinkedMedia(\''+thumbnail+'\',\''+image+'\'); closeMediaManager();"><i class="fa fa-link"></i><?php $L->p('Insert linked thumbnail') ?><\/a>'+
-							'<a href="#" class="text-primary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-desktop"></i><?php $L->p('Set as cover image') ?><\/button>'+
+						'<a href="#" class="text-primary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-desktop"></i><?php $L->p('Set as cover image') ?><\/a>'+
 							'<a href="#" class="float-right text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
 						'<\/div>'+
 					'<\/td>'+
