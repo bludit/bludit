@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title><?php echo $site->title() ?> - Login</title>
+  <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - Login</title>
   <meta charset="<?php echo CHARSET ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="noindex,nofollow">
@@ -75,6 +75,25 @@
       width: 36px;
       height: 36px;
       filter: brightness(0) invert(1);
+    }
+
+    .login-logo .logo-icon.custom-logo {
+      background: transparent;
+      box-shadow: none;
+      width: auto;
+      height: auto;
+      max-width: 150px;
+      max-height: 80px;
+    }
+
+    .login-logo .logo-icon.custom-logo img {
+      width: auto;
+      height: auto;
+      max-width: 150px;
+      max-height: 80px;
+      filter: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .login-logo h1 {

@@ -121,10 +121,15 @@ include(PATH_HELPERS . 'image.class.php');
 include(PATH_HELPERS . 'tcp.class.php');
 include(PATH_HELPERS . 'dom.class.php');
 include(PATH_HELPERS . 'cookie.class.php');
-
-if (file_exists(PATH_KERNEL . 'bludit.pro.php')) {
-	include(PATH_KERNEL . 'bludit.pro.php');
-}
+/**
+ * ---------------------------------------------------------------------------
+ * If you have bypassed the license check, I understand.
+ * But please consider supporting the project on Patreon if you use this
+ * commercially. It helps me keep the core free for everyone.
+ * ---------------------------------------------------------------------------
+ */
+define('BLUDIT_PRO_HASH', substr(md5(BLUDIT_BUILD), 0, 8));
+@include(PATH_KERNEL . 'bludit.pro.' . BLUDIT_PRO_HASH . '.php');
 
 // Objects
 $pages 		= new Pages();

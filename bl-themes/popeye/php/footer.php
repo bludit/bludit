@@ -6,6 +6,8 @@
 			}
 			?>
 		</ul>
+<?php if (!defined('BLUDIT_PRO')): ?>
 		<p class="m-0 mt-2">Powered by <a class="color-blue" href="https://www.bludit.com">Bludit</a> - Open source CMS</p>
+<?php endif; ?>
 	</div>
 </footer>

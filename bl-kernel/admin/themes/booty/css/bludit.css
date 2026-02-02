@@ -1,12 +1,12 @@
 :root {
 	/* Dynamic font sizing */
-	--font-size-xs: 0.8rem;
-	--font-size-sm: 0.925rem;
-	--font-size-base: 1.05rem;
-	--font-size-lg: 1.2rem;
-	--font-size-xl: 1.4rem;
-	--font-size-2xl: 1.75rem;
-	--font-size-3xl: 2.25rem;
+	--font-size-xs: 0.72rem;
+	--font-size-sm: 0.833rem;
+	--font-size-base: 0.945rem;
+	--font-size-lg: 1.08rem;
+	--font-size-xl: 1.26rem;
+	--font-size-2xl: 1.575rem;
+	--font-size-3xl: 2.025rem;
 
 	/* Font weights */
 	--font-weight-normal: 450;
@@ -79,8 +79,8 @@ div.sidebar .nav-item a {
 	padding-left: 0;
 	padding-right: 0;
 	color: var(--text-primary);
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
 	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-normal);
 	transition: color 0.2s ease, transform 0.2s ease;
@@ -423,7 +423,7 @@ body.login {
 }
 
 #dashboard ul.list-group.list-group-striped li:first-child {
-	background: var(--primary-gradient);
+	background: var(--primary-blue);
 	color: white;
 	padding: 18px 20px;
 	border-bottom: none;

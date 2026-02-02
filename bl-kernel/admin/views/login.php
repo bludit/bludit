@@ -1,12 +1,19 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Logo and title
+$logoPath = HTML_PATH_CORE_IMG . 'logo.svg';
+$logoClass = 'logo-icon';
+if (defined('BLUDIT_PRO') && $site->logo(false)) {
+	$logoPath = $site->logo(true);
+	$logoClass = 'logo-icon custom-logo';
+}
+
 echo '
 <div class="login-logo">
-	<div class="logo-icon">
-		<img src="' . HTML_PATH_CORE_IMG . 'logo.svg" alt="Bludit">
+	<div class="' . $logoClass . '">
+		<img src="' . $logoPath . '" alt="Logo">
 	</div>
-	<h1>' . Sanitize::html($site->title()) . '</h1>
+	<h1>' . (defined('BLUDIT_PRO') ? Sanitize::html($site->title()) : 'BLUDIT') . '</h1>
 </div>
 ';
 
@@ -84,8 +91,10 @@ echo '
 echo '</form>';
 
 // Footer
-echo '
-<div class="login-footer">
-	<p>Powered by <a href="https://www.bludit.com" target="_blank" rel="noopener">Bludit</a>' . ((defined('BLUDIT_PRO')) ? ' PRO' : '') . '</p>
-</div>
-';
+if (!defined('BLUDIT_PRO')) {
+	echo '
+	<div class="login-footer">
+		<p>Powered by <a href="https://www.bludit.com" target="_blank" rel="noopener">Bludit</a></p>
+	</div>
+	';
+}
