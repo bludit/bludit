@@ -55,6 +55,52 @@ docker run -d --name bludit -p 8000:80 bludit/docker:latest
 
 Poi apri http://localhost:8000
 
+## Aggiornare Bludit
+
+Prima di aggiornare Bludit, **fai sempre un backup del tuo sito**. Questo include:
+- L'intera cartella `bl-content/` (contiene le tue pagine, database, media, impostazioni)
+- Qualsiasi personalizzazione fatta a temi o plugin
+
+### Passaggi per l'Aggiornamento
+
+1. **Scarica l'ultima versione**: Ottieni l'ultima versione di Bludit dal [sito ufficiale](https://www.bludit.com) o da [GitHub](https://github.com/bludit/bludit/releases)
+
+2. **Crea un backup**: Copia le seguenti cartelle in un luogo sicuro:
+   - `bl-content/` (più importante - contiene tutti i tuoi dati)
+   - Qualsiasi tema o plugin personalizzato che hai modificato
+
+3. **Elimina le vecchie cartelle**: Dalla tua installazione Bludit corrente, elimina queste cartelle:
+   - `bl-kernel/`
+   - `bl-languages/`
+   - `bl-plugins/`
+   - `bl-themes/`
+
+4. **Carica i nuovi file**: Dal nuovo pacchetto Bludit, carica:
+   - `bl-kernel/`
+   - `bl-languages/`
+   - `bl-plugins/`
+   - `bl-themes/`
+   - `index.php`
+   - `install.php`
+   - `.htaccess` (se presente)
+
+5. **Mantieni il tuo contenuto**: **NON sostituire** la cartella `bl-content/` - contiene tutti i tuoi dati
+
+6. **Aggiorna Bludit**: Apri il tuo sito in un browser. Bludit rileverà la nuova versione ed eseguirà automaticamente il processo di aggiornamento
+
+7. **Verifica il tuo sito**: Dopo l'aggiornamento:
+   - Accedi al pannello di amministrazione
+   - Verifica che il tuo contenuto appaia correttamente
+   - Testa temi e plugin
+   - Controlla le tue impostazioni
+
+8. **Cancella la cache**: Se riscontri problemi:
+   - Cancella la cache del browser
+   - Se usi un plugin di caching, cancella la sua cache
+   - Controlla i log del server per errori
+
+> **Nota**: Bludit memorizza tutti i tuoi dati come file JSON in `bl-content/databases/`. Finché mantieni questa cartella intatta, i tuoi dati sono al sicuro.
+
 ## Supporta Bludit
 
 Bludit è open-source e gratuito da usare, ma se trovi il progetto utile e vuoi supportarne lo sviluppo, puoi contribuire su [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). Come segno della nostra apprezzamento, i sostenitori riceveranno Bludit PRO.

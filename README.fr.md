@@ -55,6 +55,52 @@ docker run -d --name bludit -p 8000:80 bludit/docker:latest
 
 Ensuite, ouvrez http://localhost:8000
 
+## Mettre à jour Bludit
+
+Avant de mettre à jour Bludit, **faites toujours une sauvegarde de votre site**. Cela inclut :
+- L'intégralité du dossier `bl-content/` (contient vos pages, bases de données, médias, paramètres)
+- Toute personnalisation apportée aux thèmes ou plugins
+
+### Étapes de mise à jour
+
+1. **Téléchargez la dernière version** : Obtenez la dernière version de Bludit depuis le [site officiel](https://www.bludit.com) ou [GitHub](https://github.com/bludit/bludit/releases)
+
+2. **Créez une sauvegarde** : Copiez les dossiers suivants dans un endroit sûr :
+   - `bl-content/` (le plus important - contient toutes vos données)
+   - Tout thème ou plugin personnalisé que vous avez modifié
+
+3. **Supprimez les anciens dossiers** : De votre installation Bludit actuelle, supprimez ces dossiers :
+   - `bl-kernel/`
+   - `bl-languages/`
+   - `bl-plugins/`
+   - `bl-themes/`
+
+4. **Téléversez les nouveaux fichiers** : Depuis le nouveau package Bludit, téléversez :
+   - `bl-kernel/`
+   - `bl-languages/`
+   - `bl-plugins/`
+   - `bl-themes/`
+   - `index.php`
+   - `install.php`
+   - `.htaccess` (si présent)
+
+5. **Conservez votre contenu** : **NE remplacez PAS** le dossier `bl-content/` - il contient toutes vos données
+
+6. **Mettez à jour Bludit** : Ouvrez votre site dans un navigateur. Bludit détectera la nouvelle version et exécutera automatiquement le processus de mise à jour
+
+7. **Vérifiez votre site** : Après la mise à jour :
+   - Connectez-vous au panneau d'administration
+   - Vérifiez que votre contenu s'affiche correctement
+   - Testez les thèmes et plugins
+   - Vérifiez vos paramètres
+
+8. **Videz le cache** : Si vous rencontrez des problèmes :
+   - Videz le cache de votre navigateur
+   - Si vous utilisez un plugin de mise en cache, videz son cache
+   - Vérifiez les journaux du serveur pour les erreurs
+
+> **Note** : Bludit stocke toutes vos données sous forme de fichiers JSON dans `bl-content/databases/`. Tant que vous conservez ce dossier intact, vos données sont en sécurité.
+
 ## Soutenir Bludit
 
 Bludit est open-source et gratuit à utiliser, mais si vous trouvez le projet utile et souhaitez soutenir son développement, vous pouvez contribuer sur [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). En signe de notre appréciation, les supporters recevront Bludit PRO.

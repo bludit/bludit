@@ -55,6 +55,21 @@ docker run -d --name bludit -p 8000:80 bludit/docker:latest
 
 Em seguida, abra http://localhost:8000
 
+## Atualizar o Bludit
+
+As etapas a seguir são válidas para atualizar para qualquer versão do Bludit da mesma versão principal. A versão principal é o primeiro dígito no número da versão, por exemplo, Bludit v3.x.
+
+1. **Faça um backup completo**, sem discussão aqui, backup completo dos arquivos e diretórios. Isso significa copiar TODOS os arquivos para uma nova pasta.
+2. **Lembre-se de qual versão do Bludit você está usando** para um possível rollback.
+3. **Baixe a versão mais recente** da [página oficial](https://www.bludit.com).
+4. **Extraia o arquivo zip**.
+5. **Substitua os arquivos existentes** pelos novos arquivos.
+6. **Limpe o cache do seu navegador**, e por favor leia a nota abaixo.
+7. **Faça login na área de administração** e verifique suas configurações.
+8. Concluído.
+
+> **Nota:** Se o seu site estiver atrás de algum tipo de sistema de cache de servidor (por exemplo, Cloudflare fornece um por padrão), você precisa limpar os arquivos lá também. Também é uma boa ideia limpar o cache do seu navegador. O Bludit tenta recarregar os arquivos com os novos, mas alguns componentes como TinyMCE podem não recarregar e provocar problemas na interface do usuário ou gerar erros de JavaScript.
+
 ## Apoie o Bludit
 
 O Bludit é de código aberto e gratuito para uso, mas se você achar o projeto útil e quiser apoiar seu desenvolvimento, pode contribuir no [Patreon](https://www.patreon.com/bePatron?c=921115&rid=2458860). Como sinal de nossa apreciação, os apoiadores receberão o Bludit PRO.
