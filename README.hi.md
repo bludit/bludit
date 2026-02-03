@@ -109,7 +109,7 @@ Bludit ओपन-सोर्स और उपयोग करने के ल�
 
 - [पेपाल](https://www.paypal.me/bludit/10)
 - BTC (बिटकॉइन): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
-- ETH (ईथीरियम): 0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7
+- ETH (ईथीरियम): [0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7](https://www.blockchain.com/explorer/addresses/eth/0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7)
 
 ## लाइसेंस
 
