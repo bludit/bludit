@@ -75,7 +75,7 @@ Bludit是开源且免费使用的，但如果您发现该项目有用并希望�
 如果您愿意，您也可以进行一次性捐赠，为我们买杯咖啡或啤酒。每笔贡献都帮助我们继续改进Bludit并为用户提供最佳体验。
 
 - [PayPal](https://www.paypal.me/bludit/10)
-- BTC (Bitcoin): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
+- BTC (Bitcoin): [bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph](https://www.blockchain.com/explorer/addresses/btc/bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph)
 - ETH (Ethereum): [0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7](https://www.blockchain.com/explorer/addresses/eth/0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7)
 
 ## 许可证

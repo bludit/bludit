@@ -108,8 +108,9 @@ Bludit ओपन-सोर्स और उपयोग करने के ल�
 यदि आप चाहें, तो आप हमें कॉफी या बीयर खरीदने के लिए एक बार का दान भी कर सकते हैं। हर योगदान हमें Bludit को बेहतर बनाने और हमारे उपयोगकर्ताओं के लिए सर्वोत्तम संभव अनुभव प्रदान करने में मदद करता है।
 
 - [पेपाल](https://www.paypal.me/bludit/10)
-- BTC (बिटकॉइन): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
+- BTC (बिटकॉइन): [bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph](https://www.blockchain.com/explorer/addresses/btc/bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph)
 - ETH (ईथीरियम): [0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7](https://www.blockchain.com/explorer/addresses/eth/0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7)
+
 
 ## लाइसेंस
 

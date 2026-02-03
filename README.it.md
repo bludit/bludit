@@ -108,7 +108,7 @@ Bludit è open-source e gratuito da usare, ma se trovi il progetto utile e vuoi 
 Se preferisci, puoi anche fare una donazione una tantum per offrirci un caffè o una birra. Ogni contributo ci aiuta a continuare a migliorare Bludit e fornire la migliore esperienza possibile ai nostri utenti.
 
 - [PayPal](https://www.paypal.me/bludit/10)
-- BTC (Bitcoin): bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph
+- BTC (Bitcoin): [bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph](https://www.blockchain.com/explorer/addresses/btc/bc1qtets5pdj73uyysjpegfh2gar4pfywra4rglcph)
 - ETH (Ethereum): [0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7](https://www.blockchain.com/explorer/addresses/eth/0x0d7D58D848aA5f175D75Ce4bC746bAC107f331b7)
 
 ## Licenza
