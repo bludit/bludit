@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS-feed",
+		"description": "Genereert een RSS-feed voor de website.<br>De URL van deze feed is https://voorbeeld.nl/rss.xml"
+	},
+	"amount-of-items": "Aantal items",
+	"amount-of-items-to-show-on-the-feed": "Aantal items om op te nemen in de feed.",
+	"rss-url": "URL voor RSS-feed"
+}

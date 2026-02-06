@@ -1,0 +1,9 @@
+{
+	"amount-of-items": "Antal af emner",
+	"home-link": "Hjemme link",
+	"plugin-data": {
+		"description": "Navigationsmenu med overordnede og underordnede sider til sidepanelet.",
+		"name": "Navigation"
+	},
+	"show-the-home-link-on-the-sidebar": "Vis hjemme linket på sidepanelet."
+}

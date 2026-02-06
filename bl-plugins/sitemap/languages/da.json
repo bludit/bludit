@@ -1,0 +1,9 @@
+{
+	"notifies-bing-when-you-created": "Underretter Bing om, hvornår du oprettede, ændrede eller slettede indhold fra dit websted.",
+	"notifies-google-when-you-created": "Underretter Google om, hvornår du oprettede, ændrede eller slettede indhold fra dit websted.",
+	"plugin-data": {
+		"description": "Denne udvidelse genererer en sitemap.xml fil, der indeholder en liste over siderne på dit websted. Dette hjælper søgemaskiner med at organisere og filtrere indhold fra deres websted.",
+		"name": "Sitemap"
+	},
+	"sitemap-url": "Sitemap URL"
+}

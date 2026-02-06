@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"description": "Angiv et søgefelt til dine brugere, så de kan gennemsøge indholdet på dit websted.",
+		"name": "Search"
+	},
+	"search": "Søg",
+	"show-button-search": "Vis knappen søg"
+}

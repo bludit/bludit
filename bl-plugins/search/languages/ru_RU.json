@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Поиск",
+		"description": "Добавляет поисковое поле по содержимому вашего сайта для пользователей."
+	},
+	"search": "Поиск",
+	"show-button-search": "Show button search"
+}

@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Protokół Open Graph zezwala stronie na stosowanie meta tagów używanych w serwisach społecznościowych."
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
+}

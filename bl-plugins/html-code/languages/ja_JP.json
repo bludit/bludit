@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "HTML Code",
+		"description": "サイトのheadメタデータ、ヘッダーやフッターに、HTML, CSS, Java Scriptコードを追加します。"
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "テーマの &#60;head&#62; &#60;\/head&#62; タグ内にコードを挿入します",
+	"insert-code-in-the-theme-at-the-top": "テーマ上部にコードを挿入します。",
+	"insert-code-in-the-theme-at-the-bottom": "テーマ下部にコードを挿入します。",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "管理パネルの &#60;head&#62; &#60;\/head&#62; タグ内にコードを挿入します",
+	"insert-code-in-the-admin-area-at-the-top": "管理パネル上部にコードを挿入します。",
+	"insert-code-in-the-admin-area-at-the-bottom": "管理パネル下部にコードを挿入します。"
+}

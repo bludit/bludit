@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "Muestra el número de visitantes por día en tu panel."
+	},
+	"visits": "Visitas",
+	"visits-today": "Visitas de hoy",
+	"unique-visitors-today": "Visitantes únicos de hoy",
+	"chart": "Gráfico",
+	"table": "Tabla",
+	"disk-usage" : "Disk Usage"
+}

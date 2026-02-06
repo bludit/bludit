@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Permets à n’importe quelle page web de devenir l’objet enrichi d’un graphe social. Par exemple, il est utilisé sur Facebook pour permettre à une page web de bénéficier des mêmes fonctionnalités que n’importe quel autre objet sur Facebook."
+	},
+	"set-a-default-image-for-content": "Définissez une image par défaut pour le contenu sans images.",
+	"set-your-facebook-app-id": "Définissez votre identifiant d'application Facebook."
+}

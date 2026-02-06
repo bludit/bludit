@@ -1,0 +1,7 @@
+{
+	"hide-categories-without-content": "Skjul kategorier uden indhold",
+	"plugin-data": {
+		"description": "Viser alle kategorier på sidepanelet.",
+		"name": "Categories"
+	}
+}

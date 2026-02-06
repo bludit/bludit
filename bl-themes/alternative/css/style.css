@@ -1,0 +1,803 @@
+/* ==========================================================================
+   Apple-inspired Design System
+   Clean, minimal, with elegant typography and subtle animations
+   ========================================================================== */
+
+:root {
+	/* Apple-inspired color palette */
+	--color-primary: #0071e3;
+	--color-primary-hover: #0077ed;
+	--color-secondary: #86868b;
+	--color-text: #1d1d1f;
+	--color-text-muted: #6e6e73;
+	--color-background: #ffffff;
+	--color-background-secondary: #fbfbfd;
+	--color-background-tertiary: #f5f5f7;
+	--color-border: #d2d2d7;
+	--color-border-light: #e8e8ed;
+	--color-success: #34c759;
+	--color-warning: #ff9f0a;
+	--color-error: #ff3b30;
+
+	/* Typography */
+	--font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* Font sizes - fluid and responsive */
+	--font-size-base: 1.0625rem;        /* 17px - improved readability */
+	--font-size-sm: 0.9375rem;          /* 15px */
+	--font-size-xs: 0.875rem;           /* 14px */
+	--font-size-lg: 1.1875rem;          /* 19px */
+	--font-size-xl: 1.375rem;           /* 22px */
+	--font-size-h1: clamp(2.25rem, 5vw, 3.5rem);   /* 36px-56px - responsive */
+	--font-size-h2: clamp(1.875rem, 4vw, 2.5rem);  /* 30px-40px */
+	--font-size-h3: clamp(1.5rem, 3vw, 2rem);      /* 24px-32px */
+	--font-size-h4: clamp(1.25rem, 2.5vw, 1.5rem); /* 20px-24px */
+	--font-size-h5: 1.125rem;           /* 18px */
+	--font-size-h6: 1rem;               /* 16px */
+
+	/* Line heights for better readability */
+	--line-height-base: 1.6;
+	--line-height-tight: 1.3;
+	--line-height-loose: 1.8;
+
+	/* Spacing */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+	--spacing-2xl: 3rem;
+	--spacing-3xl: 4rem;
+
+	/* Border radius */
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+	--radius-xl: 22px;
+
+	/* Shadows */
+	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+	/* Transitions */
+	--transition-fast: 0.15s ease;
+	--transition-normal: 0.25s ease;
+	--transition-slow: 0.4s ease;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-primary: #2997ff;
+		--color-primary-hover: #47a9ff;
+		--color-secondary: #a1a1a6;
+		--color-text: #f5f5f7;
+		--color-text-muted: #a1a1a6;
+		--color-background: #000000;
+		--color-background-secondary: #161617;
+		--color-background-tertiary: #1d1d1f;
+		--color-border: #424245;
+		--color-border-light: #2d2d2d;
+	}
+
+	body {
+		background-color: var(--color-background);
+	}
+
+	.navbar-dark {
+		background-color: rgba(0, 0, 0, 0.8) !important;
+	}
+
+	.bg-light {
+		background-color: var(--color-background-tertiary) !important;
+	}
+
+	.bg-dark {
+		background-color: var(--color-background-tertiary) !important;
+	}
+
+	.text-dark {
+		color: var(--color-text) !important;
+	}
+
+	.form-control {
+		background-color: var(--color-background-secondary);
+		border-color: var(--color-border);
+		color: var(--color-text);
+	}
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+	scroll-behavior: smooth;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	font-family: var(--font-family);
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-regular);
+	color: var(--color-text);
+	background-color: var(--color-background);
+	padding-top: 56px;
+	margin-bottom: 100px;
+	line-height: var(--line-height-base);
+	letter-spacing: -0.022em;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: var(--color-primary);
+	color: #fff;
+	padding: 8px 16px;
+	z-index: 9999;
+	transition: top var(--transition-normal);
+	border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
+section {
+	padding: 80px 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Links */
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+	transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+a:hover {
+	color: var(--color-primary-hover);
+}
+
+a:focus {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: -0.022em;
+	color: var(--color-text);
+}
+
+h1.title {
+	font-size: var(--font-size-h1);
+	line-height: var(--line-height-tight);
+	font-weight: var(--font-weight-bold);
+	margin-bottom: 1.5rem;
+}
+
+h2.title {
+	font-size: var(--font-size-h2);
+	line-height: var(--line-height-tight);
+	font-weight: var(--font-weight-semibold);
+	margin-bottom: 1rem;
+}
+
+h2.title a {
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+h2.title a:hover {
+	color: var(--color-primary);
+}
+
+/* Code blocks */
+pre,
+code {
+	background: var(--color-background-tertiary);
+	color: var(--color-text);
+	font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+	font-size: var(--font-size-sm);
+	border-radius: var(--radius-sm);
+}
+
+pre {
+	padding: var(--spacing-md);
+	overflow-x: auto;
+	border: 1px solid var(--color-border-light);
+}
+
+code {
+	display: inline-block;
+	padding: 0.125em 0.5em;
+	line-height: 1.5;
+}
+
+/* Tables */
+table {
+	empty-cells: show;
+	border: 1px solid var(--color-border-light);
+	width: 100%;
+	font-size: var(--font-size-base);
+	margin-bottom: var(--spacing-md);
+	border-collapse: collapse;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+}
+
+thead {
+	background-color: var(--color-background-tertiary);
+	color: var(--color-text);
+	text-align: left;
+	vertical-align: bottom;
+	font-weight: var(--font-weight-medium);
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+tbody tr:nth-child(even) {
+	background-color: var(--color-background-secondary);
+}
+
+tbody tr:hover {
+	background-color: var(--color-background-tertiary);
+}
+
+th,
+td {
+	padding: 0.75em 1em;
+	border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Blockquote */
+blockquote {
+	padding: var(--spacing-md) var(--spacing-lg);
+	margin: var(--spacing-lg) 0;
+	border-left: 4px solid var(--color-primary);
+	font-style: italic;
+	background-color: var(--color-background-secondary);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	color: var(--color-text-muted);
+}
+
+.bi {
+	margin-right: 0.5rem !important;
+}
+
+/* Buttons */
+.btn {
+	font-weight: var(--font-weight-medium);
+	border-radius: var(--radius-xl);
+	padding: 0.5rem 1.25rem;
+	transition: all var(--transition-fast);
+	border: none;
+}
+
+.btn-primary {
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.btn-primary:hover {
+	background: var(--color-primary-hover);
+	transform: scale(1.02);
+}
+
+.btn-outline-primary {
+	background: transparent;
+	color: var(--color-primary);
+	border: 1.5px solid var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.btn:focus {
+	box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.3);
+}
+
+/* Paginator */
+.paginator {
+	margin-top: var(--spacing-2xl);
+	margin-bottom: var(--spacing-3xl);
+}
+
+.paginator .pagination {
+	gap: var(--spacing-sm);
+}
+
+.paginator .page-item .page-link {
+	border: none;
+	background: var(--color-background-tertiary);
+	color: var(--color-text);
+	border-radius: var(--radius-xl);
+	padding: 0.5rem 1rem;
+	font-weight: var(--font-weight-medium);
+	transition: all var(--transition-fast);
+}
+
+.paginator .page-item .page-link:hover {
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.paginator .page-item.disabled .page-link {
+	background: var(--color-background-secondary);
+	color: var(--color-text-muted);
+}
+
+.paginator .page-link:focus {
+	box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.3);
+}
+
+/* ==========================================================================
+   Navbar - Apple style frosted glass effect
+   ========================================================================== */
+
+.navbar {
+	transition: background-color var(--transition-normal);
+	backdrop-filter: saturate(180%) blur(20px);
+	-webkit-backdrop-filter: saturate(180%) blur(20px);
+	background-color: rgba(29, 29, 31, 0.8) !important;
+}
+
+.navbar-brand {
+	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-h4);
+	letter-spacing: -0.01em;
+}
+
+img.nav-svg-icon {
+	width: 1rem;
+	height: 1rem;
+	padding-bottom: 2px;
+	transition: opacity var(--transition-fast);
+	filter: brightness(0) invert(1);
+}
+
+img.nav-svg-icon:hover {
+	opacity: 0.7;
+}
+
+.nav-link {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);
+	letter-spacing: 0.02em;
+	transition: color var(--transition-fast);
+	padding: 0.5rem 0.75rem !important;
+}
+
+.nav-item.active .nav-link {
+	font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+footer.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	min-height: 60px;
+	padding: var(--spacing-lg) 0;
+	font-size: 0.75rem;
+	background-color: var(--color-background-tertiary) !important;
+	color: var(--color-text-muted);
+}
+
+footer.footer.bg-dark {
+	background-color: var(--color-background-tertiary) !important;
+}
+
+footer.footer .text-white {
+	color: var(--color-text-muted) !important;
+}
+
+footer.footer a {
+	color: var(--color-primary) !important;
+}
+
+footer.footer a:hover {
+	color: var(--color-primary-hover) !important;
+}
+
+.mini-logo {
+	height: 18px;
+	padding-bottom: 3px;
+	opacity: 0.8;
+}
+
+/* ==========================================================================
+   Hero Section - Clean Modern Header
+   ========================================================================== */
+
+.hero {
+	padding: 100px 0 60px;
+	background: var(--color-background-secondary);
+}
+
+.hero-content {
+	max-width: 680px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.hero-title {
+	font-size: var(--font-size-h1);
+	font-weight: var(--font-weight-bold);
+	color: var(--color-text);
+	margin-bottom: var(--spacing-sm);
+	letter-spacing: -0.02em;
+	line-height: var(--line-height-tight);
+}
+
+.hero-subtitle {
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-lg);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-base);
+	margin: 0 auto;
+	max-width: 500px;
+}
+
+.hero-search {
+	margin-top: var(--spacing-xl);
+}
+
+.search-input-wrapper {
+	position: relative;
+	max-width: 320px;
+	margin: 0 auto;
+}
+
+.search-icon {
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--color-text-muted);
+	pointer-events: none;
+}
+
+.hero-search .form-control {
+	border-radius: var(--radius-full);
+	border: 1px solid var(--color-border);
+	padding: 0.75rem 1rem 0.75rem 42px;
+	font-size: var(--font-size-base);
+	transition: all var(--transition-fast);
+	background-color: var(--color-background-secondary);
+	width: 100%;
+}
+
+.hero-search .form-control:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+	background-color: var(--color-background);
+}
+
+.hero-search .form-control::placeholder {
+	color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+	.hero {
+		padding: 120px 0 80px;
+	}
+
+	.hero-subtitle {
+		font-size: var(--font-size-xl);
+	}
+}
+
+/* ==========================================================================
+   Search form (for non-hero contexts)
+   ========================================================================== */
+
+.search-form .form-control {
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--color-border);
+	padding: 0.625rem 1rem;
+	font-size: var(--font-size-base);
+	transition: all var(--transition-fast);
+	background-color: var(--color-background);
+}
+
+.search-form .form-control:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+}
+
+.search-form .btn {
+	border-radius: var(--radius-lg);
+}
+
+/* ==========================================================================
+   Home - Articles List
+   ========================================================================== */
+
+article.home-page {
+	padding: var(--spacing-2xl) 0;
+	border-bottom: 1px solid var(--color-border-light);
+	position: relative;
+	background: var(--color-background);
+}
+
+article.home-page:nth-child(even) {
+	background: var(--color-background);
+}
+
+article.home-page:last-child {
+	border-bottom: none;
+}
+
+article.home-page header {
+	margin-bottom: var(--spacing-sm);
+}
+
+article.home-page h2.title {
+	margin-bottom: var(--spacing-xs);
+}
+
+/* Fix: Article footer should not be positioned absolutely */
+article.home-page footer.mt-3 {
+	position: static;
+	background: transparent !important;
+	padding: 0;
+	min-height: auto;
+	width: auto;
+	margin-top: var(--spacing-md) !important;
+}
+
+article.home-page footer.mt-3 small {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Page article styles
+   ========================================================================== */
+
+article.page {
+	padding: var(--spacing-2xl) 0;
+}
+
+.page-header {
+	margin-bottom: var(--spacing-xl);
+}
+
+.page-meta {
+	font-size: var(--font-size-base);
+	color: var(--color-text-muted);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--spacing-md);
+}
+
+.page-meta span {
+	display: inline-flex;
+	align-items: center;
+}
+
+.page-cover-image-wrapper {
+	margin-bottom: var(--spacing-xl);
+}
+
+.page-cover-image {
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-lg);
+}
+
+.page-description {
+	color: var(--color-text-muted);
+	font-size: var(--font-size-lg);
+	line-height: var(--line-height-loose);
+	margin-bottom: var(--spacing-lg);
+}
+
+.page-content {
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-loose);
+}
+
+.page-content img {
+	border-radius: var(--radius-md);
+	margin: var(--spacing-lg) 0;
+	box-shadow: var(--shadow-sm);
+}
+
+.page-content p {
+	margin-bottom: var(--spacing-lg);
+}
+
+.page-content h2,
+.page-content h3,
+.page-content h4 {
+	margin-top: var(--spacing-2xl);
+	margin-bottom: var(--spacing-md);
+}
+
+.page-excerpt {
+	color: var(--color-text);
+	line-height: var(--line-height-base);
+}
+
+/* ==========================================================================
+   VIDEO EMBED RESPONSIVE
+   ========================================================================== */
+
+.video-embed {
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	position: relative;
+	height: 0;
+	margin: var(--spacing-lg) 0;
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+}
+
+.video-embed iframe {
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	border: none;
+}
+
+/* ==========================================================================
+   Screen reader only - for accessibility
+   ========================================================================== */
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.sr-only-focusable:focus {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: inherit;
+	margin: inherit;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+	.navbar,
+	footer.footer,
+	.paginator,
+	.btn,
+	.search-form {
+		display: none !important;
+	}
+
+	body {
+		padding-top: 0;
+		margin-bottom: 0;
+		color: #000;
+		background: #fff;
+	}
+
+	article.page,
+	article.home-page {
+		padding: 0;
+	}
+
+	a {
+		color: #000;
+		text-decoration: underline;
+	}
+}
+
+/* ==========================================================================
+   Reduce motion for users who prefer it
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ==========================================================================
+   Utility classes
+   ========================================================================== */
+
+.text-muted {
+	color: var(--color-text-muted) !important;
+}
+
+.text-primary {
+	color: var(--color-primary) !important;
+}
+
+/* ==========================================================================
+   Breadcrumb Navigation (SEO)
+   ========================================================================== */
+
+.breadcrumb-nav {
+	padding: var(--spacing-md) 0;
+	background-color: var(--color-background-secondary);
+	border-bottom: 1px solid var(--color-border-light);
+}
+
+.breadcrumb {
+	font-size: var(--font-size-sm);
+	margin-bottom: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+	content: "›";
+	color: var(--color-text-muted);
+}
+
+.breadcrumb-item a {
+	color: var(--color-primary);
+	text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+	text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+	color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Article Footer Fix (not the main footer)
+   ========================================================================== */
+
+.article-footer,
+article.home-page footer.article-footer {
+	position: static !important;
+	background: transparent !important;
+	padding: 0 !important;
+	min-height: auto !important;
+	width: auto !important;
+	font-size: inherit !important;
+}
+

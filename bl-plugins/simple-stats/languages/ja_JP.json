@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Simple Stats",
+		"description": "Show the number of visitors per day on your dashboard."
+	},
+	"visits": "Visits",
+	"visits-today": "Visits today",
+	"unique-visitors-today": "Unique visitors today",
+	"chart": "Chart",
+	"table": "テーブル",
+	"disk-usage" : "Disk Usage"
+}

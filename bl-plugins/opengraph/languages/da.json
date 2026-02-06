@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"description": "Open Graph protokollen gør det muligt for ethvert websted, at blive et rigt objekt i en social graf.",
+		"name": "Open Graph"
+	},
+	"set-a-default-image-for-content": "Indsæt et standardbillede til indholdet uden billeder.",
+	"set-your-facebook-app-id": "Indsæt dit Facebook App ID."
+}

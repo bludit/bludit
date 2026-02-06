@@ -1,0 +1,6 @@
+{
+	"plugin-data": {
+		"description": "Vis antallet af besøgende, eller antallet af unikke besøgende, i sidepanelet på dit websted.",
+		"name": "Hit Counter"
+	}
+}

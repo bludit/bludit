@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "RSS-канал",
+		"description": "Этот плагин создаёт RSS-канал для вашего сайта<br/>Канал доступен по URL https://example.com/rss.xml"
+	},
+	"amount-of-items-to-show-on-the-feed": "Количество позиций в RSS-канале.",
+	"rss-url": "RSS URL"
+}

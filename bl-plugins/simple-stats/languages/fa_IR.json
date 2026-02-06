@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "آمار ساده",
+		"description": "نمایش روزانه بازدیدکنندگان در پیش خوان شما."
+	},
+	"visits": "بازدیدها",
+	"visits-today": "بازدیدهای امروز",
+	"unique-visitors-today": "بازدید کنندگان منحصر به فرد امروز",
+	"chart": "چارت",
+	"table": "جدول",
+	"disk-usage" : "Disk Usage"
+}

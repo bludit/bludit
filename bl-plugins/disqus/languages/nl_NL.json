@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus",
+		"description": "Disqus is hosting service om reacties in websites te implementeren.<br>Registratie op Disqus.com is nodig voordat deze plugin gebruikt kan gebruiken."
+	},
+	"disqus-shortname": "Disqus shortname",
+	"enable-disqus-on-pages": "Disqus op pagina's tonen",
+	"enable-disqus-on-static-pages": "Disqus on statische pagina's tonen",
+	"enable-disqus-on-sticky-pages": "Disqus on vastgezette pagina's tonen",
+	"get-the-shortname-from-the-disqus-general-settings": "De shortname is te verkrijgen via de algemene instellingen van Disqus"
+}

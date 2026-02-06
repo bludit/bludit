@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Markdown-editor om inhoud te verwerken in de Markdown opmaaktaal."
+	},
+	"toolbar": "Werkbalk",
+	"tab-size": "Tabgrootte",
+	"autosave": "Automatisch opslaan",
+	"spell-checker": "Spellingscontrole (Engels)",
+	"content-here-supports-markdown-and-html-code": "De inhoud hier ondersteunt zowel Markdown als HTML-code."
+}

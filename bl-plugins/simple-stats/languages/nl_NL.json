@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistieken",
+		"description": "Toont het aantal bezoeken per dag op het dashboard."
+	},
+	"visits": "Aantal bezoeken",
+	"visits-today": "Aantal bezoeken vandaag",
+	"unique-visitors-today": "Unieke bezoekers vandaag",
+	"chart": "Grafiek",
+	"table": "Tabel",
+	"disk-usage" : "Schijfgebruik",
+	"show-content-stats" : "Statistieken over inhoud weergeven",
+	"exclude-administrators-users" : "Gebruikers met de rol 'Beheerder' niet opnemen in statistieken"
+}

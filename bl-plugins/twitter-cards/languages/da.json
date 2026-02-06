@@ -1,0 +1,7 @@
+{
+	"default-image": "Standardbillede",
+	"plugin-data": {
+		"description": "Med X (tidligere Twitter) kort kan du vedhæfte vigtige billeder, videoer og medieoplevelser til opslag, hvilket hjælper med at få trafik på din hjemmeside.",
+		"name": "X/Twitter Cards"
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Sitemap",
+		"description": "Deze plugin genereert het bestand sitemap.xml met daarin de structuur van deze website. Zoekmachines kunnen hiervan gebruikmaken bij het organiseren en filteren van de inhoud."
+	},
+	"sitemap-url": "URL sitemap",
+	"notifies-google-when-you-created": "Stel Google op de hoogte bij het aanmaken, bewerken of verwijderen van inhoud op de website.",
+	"notifies-bing-when-you-created": "Stel Bing op de hoogte bij het aanmaken, bewerken of verwijderen van inhoud op de website."
+}

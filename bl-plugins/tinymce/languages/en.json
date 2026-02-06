@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "HTML Editor for formatting content. Recommended for the users who don't want to work with Markdown code."
+	},
+	"toolbar-top": "Toolbar top",
+	"toolbar-bottom": "Toolbar bottom",
+	"codesample-languages": "Codesample languages",
+	"codesample-supported-laguages": "Programming languages supported by Prism."
+}

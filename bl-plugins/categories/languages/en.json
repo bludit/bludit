@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Categories",
+		"description": "Shows all categories on the sidebar."
+	},
+	"hide-categories-without-content": "Hide Categories without content"
+}

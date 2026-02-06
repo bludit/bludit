@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Externe Inhoud",
+		"description": "Met deze plugin is het eenvoudig om inhoud voor de website op GitHub of soortgelijke bronnen te beheren en vervolgens te synchroniseren met Bludit."
+	},
+	"webhook": "Web-hook",
+	"source": "Bron",
+	"try-webhook": "Web-hook testen",
+	"complete-url-of-the-zip-file": "Complete URL van het .zip-bestand."
+}

@@ -1,0 +1,18 @@
+{
+	"plugin-data":
+	{
+		"name": "Search",
+		"description": "Provide a search box to your users to search through the content of your site."
+	},
+	"search": "Search",
+	"show-button-search": "Show button search",
+	"search-results-for": "Search results for",
+	"result-found": "Result found",
+	"results-found": "Results found",
+	"no-results-found": "No results found",
+	"no-pages-found-for-the-search": "We couldn't find any pages matching \"%s\"",
+	"suggestions": "Suggestions",
+	"check-your-spelling": "Check your spelling",
+	"try-different-keywords": "Try different keywords",
+	"try-more-general-keywords": "Try more general keywords"
+}

@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Remote Content",
+		"description": "Этот плагин обеспечивает простой способ синхронизации вашего сайта и Github или аналогичной платформы."
+	},
+	"webhook": "Вебхук",
+	"source": "Источник",
+	"try-webhook": "Попробовать этот вебхук",
+	"complete-url-of-the-zip-file": "Полный URL-адрес zip-файла."
+}

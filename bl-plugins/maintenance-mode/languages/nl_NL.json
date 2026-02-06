@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Onderhoudsmodus",
+		"description": "Zet de site in onderhoudsmodus; alleen het beheergedeelte is toegankelijk."
+	},
+
+	"enable-maintenance-mode": "Onderhoudsmodus inschakelen",
+	"message": "Melding"
+}

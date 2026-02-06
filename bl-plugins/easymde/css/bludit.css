@@ -1,0 +1,5 @@
+.editor-toolbar { background: #f1f1f1; border-radius: 0 !important; font-size: 1.5em;}
+.editor-toolbar::before { margin-bottom: 2px !important }
+.editor-toolbar::after { margin-top: 2px !important }
+.CodeMirror, .CodeMirror-scroll { flex:1; border-radius: 0 !important; }
+.editor-toolbar .fa { color: #555;}

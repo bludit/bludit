@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus",
+		"description": "Disqus es un servicio de comentarios online.<br>Es necesario registrarse en <a href=\"https://disqus.com\">Disqus</a> antes de utilizar este plugin."
+	},
+	"disqus-shortname": "Disqus shortname",
+	"enable-disqus-on-pages": "Disqus en página",
+	"enable-disqus-on-static-pages": "Disqus en página estaticas",
+	"enable-disqus-on-sticky-pages": "Disqus en página sticky",
+	"get-the-shortname-from-the-disqus-general-settings": "Puede obtener el shortname en la página de configuración de Disqus."
+}

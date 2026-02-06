@@ -1,0 +1,19 @@
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+
+# Enable rewrite rules
+RewriteEngine on
+
+# Base directory
+RewriteBase /
+
+# Deny direct access to the next directories
+RewriteRule ^bl-content/(databases|workspaces|pages|tmp)/.*$ - [R=404,L]
+
+# All URL process by index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*) index.php [PT,L]
+
+</IfModule>

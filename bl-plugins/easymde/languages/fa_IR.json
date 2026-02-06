@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "ویرایشگر Markdown، رابط ساده برای ایجاد زبان markup."
+	},
+	"toolbar": "نوار ابزار",
+	"tab-size": "اندازه زبانه",
+	"autosave": "ذخیره خودکار",
+	"spell-checker": "غلط گیر",
+	"content-here-supports-markdown-and-html-code": "محتوای اینجا از Markdown و کد HTML پشتیبانی می کند"
+}

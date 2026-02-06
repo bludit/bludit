@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Editor Markdown, interfaz limpia para crear lenguaje de marcado."
+	},
+	"toolbar": "Barra de herramientas",
+	"tab-size": "Tamaño de la tabulación",
+	"autosave": "Autoguardado",
+	"content-here-supports-markdown-and-html-code": "Content here supports Markdown and HTML code"
+}

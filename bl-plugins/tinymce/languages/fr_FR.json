@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "TinyMCE est un éditeur HTML WYSIWYG (What You See Is What You Get) développé en Javascript. Recommandé pour les utilisateurs qui ne sont pas alaise avec le format Markdown."
+	},
+	"toolbar-top": "Barre d'outils supérieure",
+	"toolbar-bottom": "Barre d'outils inférieure",
+	"codesample-languages": "Exemples de codes de langues",
+	"codesample-supported-laguages": "Langages de programmation supportés par Prism."
+}

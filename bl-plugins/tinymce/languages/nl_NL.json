@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "TinyMCE",
+		"description": "HTML-editor voor het opmaken van de inhoud. Aanbevolen voor gebruikers die niet met de Markdown-opmaaktaal bekend zijn."
+	},
+	"toolbar-top": "Werkbalk bovenaan",
+	"toolbar-bottom": "Werkbalk onderaan",
+	"codesample-languages": "Codesample-programmeertalen",
+	"codesample-supported-laguages": "Door Prism ondersteunde programmeertalen."
+}

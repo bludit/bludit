@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Remote Content",
+		"description": "This plugin provides an easy way to have the content of your site on Github or similar and in turn is synchronized with your Bludit."
+	},
+	"webhook": "Webhook",
+	"source": "Source",
+	"try-webhook": "Try webhook",
+	"complete-url-of-the-zip-file": "Complete URL of the zip file."
+}

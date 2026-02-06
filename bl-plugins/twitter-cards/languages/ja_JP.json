@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "X/Twitter Cards",
+		"description": "X（旧Twitter）カードを使用すると、投稿にリッチな写真、動画、メディア体験を添付して、ウェブサイトへのトラフィックを増やすことができます。"
+	},
+	"default-image": "デフォルト画像"
+}

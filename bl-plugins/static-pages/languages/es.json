@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Páginas Estáticas",
+		"description": "Cree su propio menú de navegación con páginas estáticas."
+	},
+	"home-link": "Inicio enlace",
+	"show-the-home-link-on-the-sidebar": "Mostrar el enlace de inicio en la barra lateral."
+}

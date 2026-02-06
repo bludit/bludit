@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "X/Twitter Cards",
+		"description": "X (eski adıyla Twitter) Kartları ile zengin fotoğraf, video ve medya deneyimlerini gönderilere ekleyebilir ve web sitenize trafik çekmenize yardımcı olabilirsiniz."
+	},
+	"default-image": "Varsayılan resim"
+}

@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "نسخه",
+		"description": "نمایش نسخه جاری در نوار کناری پنل مدیریت، و بررسی دوره ای برای نسخه های جدید بلودیت."
+	},
+	"show-current-version-in-the-sidebar": "Show current version in the sidebar",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Show alert when there is a new version in the sidebar"
+}

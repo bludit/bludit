@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Markdown editörü, işaretleme dili oluşturmak için temizlenmiş bir arayüz."
+	},
+	"toolbar": "Araç çubuğu",
+	"tab-size": "Sekme boyutu",
+	"autosave": "Otomatik kaydet",
+	"spell-checker": "Yazım denetleyicisi",
+	"content-here-supports-markdown-and-html-code": "İçerik burada Markdown ve HTML kodunu destekliyor"
+}

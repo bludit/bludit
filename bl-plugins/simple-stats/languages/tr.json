@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Basit İstatistikler",
+		"description": "Yönetici panelinde günlük ziyaretçi sayısını gösterir."
+	},
+	"visits": "Ziyaretler",
+	"visits-today": "Bugün yapılan ziyaretler",
+	"unique-visitors-today": "Bugün yapılan benzersiz ziyaretler",
+	"chart": "Grafik",
+	"table": "Tablo",
+	"disk-usage" : "Disk Usage"
+}

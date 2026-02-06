@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "HTML-код",
+		"description": "Добавьте код HTML, CSS или Javascript в метаданные заголовка, заголовок или нижний колонтитул вашего сайта."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "Вставить код в тему внутри тега &#60;head&#62; &#60;/head&#62; (в метаданные заголовка страниц сайта).",
+	"insert-code-in-the-theme-at-the-top": "Вставить код в тему вверху странц сайта.",
+	"insert-code-in-the-theme-at-the-bottom": "Вставить код в тему внизу странц сайта."
+}

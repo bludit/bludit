@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "開放社交關係圖",
+		"description": "開放社交關係圖協定可以讓任何網頁變成豐富的物件"
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
+}

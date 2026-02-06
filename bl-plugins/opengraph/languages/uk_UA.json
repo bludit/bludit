@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Протокол Open Graph дозволяє ділитися будь-якою веб-сторінкою у соціальних мережах."
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
+}

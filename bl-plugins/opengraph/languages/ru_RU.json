@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Протокол Open Graph дает возможность связывать свой контент с социальными сетями."
+	},
+	"set-a-default-image-for-content": "Установите изображение по умолчанию для контента без картинок.",
+	"set-your-facebook-app-id": "Установите свой идентификатор приложения Facebook (App ID)."
+}

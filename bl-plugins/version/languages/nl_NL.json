@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Versie",
+		"description": "Toont de huidige versie in de zijbalk van het beheergedeelte en controleert periodiek op nieuwe Bludit-versies."
+	},
+	"show-current-version-in-the-sidebar": "De huidige versie in de zijbalk tonen",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Een melding in de zijbalk tonen wanneer er een nieuwe versie beschikbaar is"
+}

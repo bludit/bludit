@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"name": "Statische Seiten",
+		"description": "Menü der statischen Seiten."
+	},
+	"home-link": "Hauptseite",
+	"show-the-home-link-on-the-sidebar": "Hauptseite im Menü zeigen."
+}

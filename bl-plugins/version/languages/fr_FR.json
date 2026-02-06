@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Version",
+		"description": "Affiche la version actuelle en bas à droite du panneau d’administration, et vérifie périodiquement les nouvelles versions de Bludit."
+	},
+	"show-current-version-in-the-sidebar": "Afficher la version actuelle dans la barre latérale",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Afficher une alerte lorsqu'il y a une nouvelle version dans la barre latérale"
+}

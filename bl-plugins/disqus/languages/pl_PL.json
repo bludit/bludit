@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "System komentarzy - Disqus",
+		"description": "System komentarzy Disqus przechowuje komentarze dla serwisów internetowych. Korzystanie z tej wtyczki wymaga rejestracji w serwisie disqus.com."
+	},
+	"disqus-shortname": "Nazwa użytkownika Disqus",
+	"enable-disqus-on-pages": "Disqus on pages",
+	"enable-disqus-on-static-pages": "Disqus on static pages",
+	"enable-disqus-on-sticky-pages": "Disqus on sticky pages",
+	"get-the-shortname-from-the-disqus-general-settings": "Get the shortname from the Disqus general settings"
+}

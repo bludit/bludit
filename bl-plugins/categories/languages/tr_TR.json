@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Kategoriler",
+		"description": "Tüm kategorileri kenar çubuğunda göster."
+	},
+	"hide-categories-without-content": "İçeriksiz kategorileri gizle"
+}

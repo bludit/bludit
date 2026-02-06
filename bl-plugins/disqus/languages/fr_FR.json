@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus système de commentaire",
+		"description": "Disqus est un service Web de discussion et de commentaires d'articles centralisé avec authentification unique. Il est nécessaire de s’inscrire sur Disqus.com avant d’utiliser ce plugin."
+	},
+	"disqus-shortname": "Votre ID Disqus",
+	"enable-disqus-on-pages": "Disqus sur les pages",
+	"enable-disqus-on-static-pages": "Disqus sur les pages statiques",
+	"enable-disqus-on-sticky-pages": "Disqus sur les pages épinglées",
+	"get-the-shortname-from-the-disqus-general-settings": "Obtenez votre ID à partir des paramètres généraux de Disqus."
+}

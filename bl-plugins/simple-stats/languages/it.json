@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistiche semplici",
+		"description": "Mostra il numero di vivitatori per giorno sulla tua dashboard."
+	},
+	"visits": "Visite",
+	"visits-today": "Visite oggi",
+	"unique-visitors-today": "Visitatori unici oggi",
+	"chart": "Grafico",
+	"table": "Tabella",
+	"disk-usage" : "Disk Usage"
+}

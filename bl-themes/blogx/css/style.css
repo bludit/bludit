@@ -1,0 +1,541 @@
+/* ========================================
+   CSS CUSTOM PROPERTIES - Light Mode (Default)
+   ======================================== */
+:root {
+	/* Dashboard Blue Gradient Colors */
+	--primary-blue: #1e88e5;
+	--primary-blue-dark: #1565c0;
+	--primary-blue-darker: #0d47a1;
+	--primary-gradient: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+	--primary-gradient-hover: linear-gradient(135deg, #2196f3 0%, #1e88e5 100%);
+
+	/* Neutral Colors */
+	--text-primary: #1a1a2e;
+	--text-secondary: #6c757d;
+	--text-muted: #adb5bd;
+	--bg-body: #ffffff;
+	--bg-card: #ffffff;
+	--bg-hover: #f8f9fa;
+	--border-color: #e9ecef;
+	--border-subtle: #dee2e6;
+
+	/* Shadows */
+	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+	--shadow-hover: 0 6px 20px rgba(30, 136, 229, 0.3);
+
+	/* Spacing Scale */
+	--space-xs: 0.5rem;
+	--space-sm: 1rem;
+	--space-md: 1.5rem;
+	--space-lg: 2rem;
+	--space-xl: 3rem;
+
+	/* Border Radius */
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+
+	/* Typography */
+	--font-size-base: 1rem;
+	--font-size-sm: 0.875rem;
+	--font-size-xs: 0.75rem;
+	--font-size-lg: 1.125rem;
+	--font-size-xl: 1.25rem;
+	--line-height-base: 1.6;
+
+	/* Code Blocks */
+	--code-bg: #f8f9fa;
+	--code-text: #333;
+	--code-border: #e9ecef;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+html {
+	position: relative;
+	min-height: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	padding-top: 56px;
+	margin-bottom: 80px;
+	background-color: var(--bg-body);
+	color: var(--text-primary);
+	transition: background-color 0.3s ease, color 0.3s ease;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-base);
+}
+
+section {
+	padding: 150px 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* ========================================
+   LINKS
+   ======================================== */
+a {
+	color: var(--primary-blue);
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+a:hover {
+	color: var(--primary-blue-dark);
+	text-decoration: none;
+}
+
+a:focus {
+	outline: 2px solid var(--primary-blue);
+	outline-offset: 2px;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+h1.title,
+h2.title {
+	font-size: 2.3rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin-bottom: var(--space-md);
+}
+
+h1.title {
+	font-size: 2.5rem;
+}
+
+/* ========================================
+   CODE BLOCKS
+   ======================================== */
+pre,
+code {
+	background: var(--code-bg);
+	color: var(--code-text);
+	border-radius: var(--radius-sm);
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+pre {
+	border-left: 3px solid var(--primary-blue);
+	padding: var(--space-md);
+	overflow-x: auto;
+}
+
+code {
+	display: inline-block;
+	padding: 0.2em 0.5em;
+	line-height: 1.4em;
+	font-size: 0.9em;
+}
+
+/* ========================================
+   TABLES
+   ======================================== */
+table {
+	empty-cells: show;
+	border: 1px solid var(--border-color);
+	width: 100%;
+	font-size: 0.9em;
+	margin-bottom: var(--space-md);
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+}
+
+thead {
+	background: var(--primary-gradient);
+	color: #ffffff;
+	text-align: left;
+	vertical-align: bottom;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: var(--border-color);
+	transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+	background-color: var(--bg-hover);
+}
+
+th,
+td {
+	padding: 0.75em 1em;
+	border-bottom: 1px solid var(--border-color);
+}
+
+/* ========================================
+   BLOCKQUOTES
+   ======================================== */
+blockquote {
+	padding: var(--space-md) var(--space-lg);
+	margin: 0 0 var(--space-lg) var(--space-lg);
+	border-left: 4px solid var(--primary-blue);
+	font-style: italic;
+	background-color: var(--bg-hover);
+	border-radius: var(--radius-sm);
+	color: var(--text-secondary);
+}
+
+/* ========================================
+   NAVBAR - Blue Gradient
+   ======================================== */
+.navbar-modern {
+	background: var(--primary-gradient) !important;
+	box-shadow: var(--shadow-md);
+	transition: all 0.3s ease;
+}
+
+.navbar-brand {
+	font-weight: 600;
+	font-size: 1.25rem;
+	transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+	transform: translateY(-2px);
+}
+
+.navbar .nav-link {
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.9) !important;
+	padding: 0.5rem 1rem;
+	border-radius: var(--radius-sm);
+	transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+	color: #ffffff !important;
+}
+
+.navbar .nav-link.active {
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #ffffff !important;
+}
+
+img.nav-svg-icon {
+	width: 1.2rem;
+	height: 1.2rem;
+	filter: brightness(0) invert(1);
+	opacity: 0.9;
+	transition: opacity 0.3s ease;
+}
+
+.nav-link:hover img.nav-svg-icon {
+	opacity: 1;
+}
+
+/* ========================================
+   CARDS - Modern Design
+   ======================================== */
+.card-modern {
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid var(--border-color);
+	padding-bottom: var(--space-xl);
+	margin-bottom: var(--space-xl);
+}
+
+.card-modern .card-img-top {
+	border-radius: var(--radius-sm);
+}
+
+.card-modern .card-body {
+	padding: 0;
+	margin-top: var(--space-md);
+}
+
+.card-modern .title {
+	color: var(--text-primary);
+}
+
+/* ========================================
+   BUTTONS - Gradient Style
+   ======================================== */
+.btn-primary-gradient {
+	background: var(--primary-gradient);
+	border: none;
+	color: white;
+	padding: 0.75rem 1.5rem;
+	border-radius: var(--radius-sm);
+	font-weight: 600;
+	font-size: var(--font-size-base);
+	transition: all 0.3s ease;
+	box-shadow: var(--shadow-sm);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.btn-primary-gradient:hover {
+	background: var(--primary-gradient-hover);
+	box-shadow: var(--shadow-hover);
+	transform: translateY(-2px);
+	color: white;
+	text-decoration: none;
+}
+
+.btn-primary-gradient:focus {
+	outline: 2px solid var(--primary-blue);
+	outline-offset: 2px;
+}
+
+.btn-outline-primary-custom {
+	border: 2px solid var(--primary-blue);
+	color: var(--primary-blue);
+	background: transparent;
+	padding: 0.6rem 1.5rem;
+	border-radius: var(--radius-sm);
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.btn-outline-primary-custom:hover {
+	background: var(--primary-blue);
+	color: white;
+	transform: translateY(-2px);
+}
+
+/* ========================================
+   FOOTER - Blue Gradient
+   ======================================== */
+footer.footer-modern {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	min-height: 80px;
+	line-height: 1.5;
+	background: var(--primary-gradient);
+	color: white;
+	padding: var(--space-lg) 0;
+	box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+	font-size: var(--font-size-sm);
+}
+
+footer.footer-modern a {
+	color: rgba(255, 255, 255, 0.9);
+	transition: color 0.3s ease;
+}
+
+footer.footer-modern a:hover {
+	color: #ffffff;
+}
+
+.mini-logo {
+	height: 24px;
+	vertical-align: middle;
+	filter: brightness(0) invert(1);
+}
+
+/* ========================================
+   METADATA (Dates, Reading Time)
+   ======================================== */
+.metadata {
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-md);
+	align-items: center;
+}
+
+.metadata i {
+	color: var(--primary-blue);
+	margin-right: 0.25rem;
+}
+
+/* ========================================
+   PAGINATION - Modern Style
+   ======================================== */
+.pagination .page-link {
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	color: var(--primary-blue);
+	padding: 0.6rem 1.2rem;
+	border-radius: var(--radius-sm);
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+	background: var(--primary-gradient);
+	color: white;
+	border-color: var(--primary-blue);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-sm);
+}
+
+.pagination .page-item.disabled .page-link {
+	background: var(--bg-hover);
+	color: var(--text-muted);
+	border-color: var(--border-color);
+}
+
+/* ========================================
+   PLUGINS - Sidebar Styling
+   ======================================== */
+.sidebar-container {
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	padding: var(--space-lg);
+}
+
+.plugin {
+	margin-top: 0;
+	padding-bottom: var(--space-lg);
+	margin-bottom: var(--space-lg);
+	border-bottom: 1px solid var(--border-subtle);
+}
+
+.plugin:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.plugin-label {
+	font-size: var(--font-size-base);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	background: var(--primary-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: var(--space-md);
+}
+
+.plugin ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.plugin ul li {
+	padding: var(--space-xs) 0;
+}
+
+.plugin ul li a {
+	color: var(--text-primary);
+	display: block;
+	transition: color 0.3s ease;
+}
+
+.plugin ul li a:hover {
+	color: var(--primary-blue);
+}
+
+/* Tags and Categories - Badge Style */
+.plugin.plugin-tags li,
+.plugin.plugin-categories li {
+	display: inline-block;
+	padding: 0;
+	margin: 0.25rem;
+}
+
+.plugin.plugin-tags li a,
+.plugin.plugin-categories li a {
+	background: var(--primary-gradient);
+	color: white;
+	padding: 0.4rem 1rem;
+	border-radius: 20px;
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	display: inline-block;
+	transition: all 0.3s ease;
+}
+
+.plugin.plugin-tags li a:hover,
+.plugin.plugin-categories li a:hover {
+	background: var(--primary-gradient-hover);
+	color: white;
+}
+
+/* Search Plugin Styling */
+.plugin.plugin-search .form-control {
+	border: 2px solid var(--border-color);
+	border-radius: var(--radius-sm);
+	padding: 0.75rem 1rem;
+	background: var(--bg-body);
+	color: var(--text-primary);
+	transition: all 0.3s ease;
+}
+
+.plugin.plugin-search .form-control:focus {
+	border-color: var(--primary-blue);
+	box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+	outline: none;
+}
+
+.plugin.plugin-search button {
+	background: var(--primary-gradient);
+	border: none;
+	color: white;
+	padding: 0.75rem 1.5rem;
+	border-radius: var(--radius-sm);
+	font-weight: 600;
+	transition: all 0.3s ease;
+	margin-top: var(--space-sm);
+}
+
+.plugin.plugin-search button:hover {
+	background: var(--primary-gradient-hover);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   BOOTSTRAP ICONS
+   ======================================== */
+.bi {
+	margin-right: 0.5rem;
+}
+
+/* ========================================
+   COVER IMAGE ENHANCEMENTS
+   ======================================== */
+.cover-image-wrapper {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--radius-sm);
+	margin-bottom: var(--space-md);
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+@media (max-width: 768px) {
+	h1.title {
+		font-size: 1.8rem;
+	}
+
+	h2.title {
+		font-size: 1.5rem;
+	}
+
+	body {
+		font-size: 0.95rem;
+	}
+
+	.plugin {
+		padding: var(--space-md);
+	}
+
+	.btn-primary-gradient {
+		width: 100%;
+		justify-content: center;
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "مجموعه ها",
+		"description": "نمایش تمام مجموعه ها در نوارکناری."
+	},
+	"hide-categories-without-content": "پنهان کردن مجموعه های خالی از محتوا"
+}

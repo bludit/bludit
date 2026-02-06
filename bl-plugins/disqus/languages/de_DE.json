@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Disqus",
+		"description": "Disqus ist eine Kommentar-Plattform für Websites. Um das Plugin verwenden zu können, muss ein Konto bei <a href=\"https://disqus.com\">Disqus</a> eingerichtet werden."
+	},
+	"disqus-shortname": "Disqus-Kurzname (Shortname)",
+	"enable-disqus-on-pages": "Disqus auf Seiten",
+	"enable-disqus-on-static-pages": "Disqus auf statischen Seiten",
+	"enable-disqus-on-sticky-pages": "Disqus bei fixierten Inhalten",
+	"get-the-shortname-from-the-disqus-general-settings": "Der Kurzname wird bei Disqus unter \"Settings\" > \"General\" angezeigt."
+}

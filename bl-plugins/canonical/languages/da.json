@@ -1,0 +1,6 @@
+{
+	"plugin-data": {
+		"description": "Brug af canonical URLs kan hjælpe med at informere søgemaskiner om hvilke URLs der har identisk indhold.",
+		"name": "Canonical"
+	}
+}

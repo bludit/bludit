@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Sabit sayfalar",
+		"description": "Sabit sayfalarla gezinti menüsü."
+	},
+	"home-link": "Ana sayfa bağlantısı",
+	"show-the-home-link-on-the-sidebar": "Kenar çubuğundaki ana sayfa bağlantısını göster."
+}

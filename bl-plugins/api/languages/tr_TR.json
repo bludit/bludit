@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "HTTP protokolünü kullanarak Bludit ile etkileşimde bulunmak için arabirim. <br> Bu eklenti hakkında daha fazla bilgi için <a href=\"https://docs.bludit.com/en/api/introduction\">API Tanıtımı (ingilizce)</a>."
+	},
+	"api-token": "API Token",
+	"amount-of-pages": "Sayfa miktarı",
+	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "Bu /api/pages sayfasını çağırdığınızda gösterilecek maksimum sayfa sayısıdır.",
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "Bu token salt okunur amaçlıdır ve eklentiyi her yüklediğinizde yeniden oluşturulur."
+}

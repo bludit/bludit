@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Open Graph ви позволява да свържете вашето съдържание със социални мрежи."
+	},
+	"set-a-default-image-for-content": "Set a default image for the content without pictures.",
+	"set-your-facebook-app-id": "Set your Facebook App ID."
+}

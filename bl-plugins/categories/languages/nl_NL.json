@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Categorie&euml;n",
+		"description": "Toont alle categorie&euml;n in de zijbalk."
+	},
+	"hide-categories-without-content": "Categorie&euml;n zonder inhoud verbergen"
+}

@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Éditeur Markdown avec une interface d’écriture épurée, pour créer le langage de balisage sémantique."
+	},
+	"toolbar": "Barre d’outils",
+	"tab-size": "Taille de l’onglet",
+	"autosave": "Sauvegarde automatique",
+	"spell-checker": "Correcteur orthographique",
+	"content-here-supports-markdown-and-html-code": "Le contenu prend en charge le language Markdown et le code HTML."
+}

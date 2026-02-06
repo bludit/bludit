@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Theme Popeye",
+		"description": "Das Plugin erlaubt verschiedene Einstellungen für das Theme Popeye."
+	},
+	"enable-or-disable-dark-mode": "Dunkelmodus aktivieren oder deaktivieren.",
+	"enable-or-disable-google-fonts": "Google Fonts aktivieren oder deaktivieren.",
+	"relative": "Relativ",
+	"absolute": "Absolut",	
+	"change-the-date-format-for-the-main-page": "Einstellung des Datumsformats auf der Haupt- oder Blogseite.",
+	"show-tags": "Schlagwörter zeigen",
+	"show-tags-in-the-main-page-for-each-article": "Zeigt auf der Haupt- oder Blogseite die Schlagwörter der Beiträge."	
+}

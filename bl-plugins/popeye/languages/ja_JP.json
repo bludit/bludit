@@ -1,0 +1,14 @@
+{
+	"plugin-data":
+	{
+		"name": "Popeye Theme",
+		"description": "Popeyeテーマの設定を行うプラグインです。"
+	},
+	"enable-or-disable-dark-mode": "ダークモードを有効または無効にします。",
+	"enable-or-disable-google-fonts": "Google Fontsの利用を有効または無効にします。",
+	"relative": "相対的",
+	"absolute": "絶対的",
+	"change-the-date-format-for-the-main-page": "メインページの日付表示形式を変更します。",
+	"show-tags": "タグの表示",
+	"show-tags-in-the-main-page-for-each-article": "メインページの各記事にタグを表示します。"
+}

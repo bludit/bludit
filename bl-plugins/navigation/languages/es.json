@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Barra de Navegación",
+		"description": "Cree tu propio menú de navegación"
+	},
+	"home-link": "Enlace de inicio",
+	"show-the-home-link-on-the-sidebar": "Mostrar el vínculo de inicio en la barra de navegación.",
+	"amount-of-items": "Cantidad de artículos"
+}

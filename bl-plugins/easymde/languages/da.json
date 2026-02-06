@@ -1,0 +1,11 @@
+{
+	"autosave": "Gem automatisk",
+	"content-here-supports-markdown-and-html-code": "Indholdet her understøtter  både Markdown og HTML kode",
+	"plugin-data": {
+		"description": "Markdown editor, med let brugergrænseflade, til oprettelse af indhold i markdown format.",
+		"name": "EasyMDE"
+	},
+	"spell-checker": "Stavekontrol",
+	"tab-size": "Fanestørrelse",
+	"toolbar": "Værktøjslinje"
+}

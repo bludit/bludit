@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "API",
+		"description": "Interface to interact with Bludit using HTTP protocol. <br> Read more about this plugin on <a href=\"https://docs.bludit.com/en/api/introduction\">API Introduction</a>."
+	},
+	"api-token": "API Token",
+	"amount-of-pages": "Amount of pages",
+	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "This is the maximum of pages to return when you call to /api/pages",
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "This token is for read only and is regenerated every time you install the plugin"
+}

@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Категории",
+		"description": "Показывает все категории на боковой панели."
+	},
+	"hide-categories-without-content": "Скрывать пустые категории"
+}

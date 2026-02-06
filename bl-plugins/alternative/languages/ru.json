@@ -1,0 +1,13 @@
+{
+  "plugin-data": {
+    "name": "Настройки темы Alternative",
+    "description": "Этот плагин содержит настройки для темы Alternative."
+  },
+  "enable-or-disable-dark-mode": "Включить или выключить тёмный режим.",
+  "enable-or-disable-google-fonts": "Включить или выключить шрифты от Google (Google fonts).",
+  "relative": "Относительный",
+  "absolute": "Абсолютный",
+  "change-the-date-format-for-the-main-page": "Изменить формат даты для главной страницы.",
+  "show-tags": "Отображать теги",
+  "show-tags-in-the-main-page-for-each-article": "Показывать теги на главной странице для каждой записи."
+}

@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistiques",
+		"description": "Afficher le nombre de visiteurs par jour sur votre tableau de bord."
+	},
+	"visits": "Visites",
+	"visits-today": "Visites du jour",
+	"unique-visitors-today": "Visiteurs uniques du jour",
+	"chart": "Graphique",
+	"table": "Tableau",
+	"disk-usage" : "Usage du disque",
+	"show-content-stats" : "Afficher les statistiques du contenu",
+	"exclude-administrators-users" : "Exclure les utilisateurs ayant le rôle 'Administrateur'."
+}

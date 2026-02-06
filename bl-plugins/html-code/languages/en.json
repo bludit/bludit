@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "HTML Code",
+		"description": "Add HTML, CSS or JavaScript code in the head metadata, header or footer of your site."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "Insert code in the theme inside the tag &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-theme-at-the-top": "Insert code in the theme at the top.",
+	"insert-code-in-the-theme-at-the-bottom": "Insert code in the theme at the bottom.",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "Insert code in the admin area inside the tag &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-admin-area-at-the-top": "Insert code in the admin area at the top.",
+	"insert-code-in-the-admin-area-at-the-bottom": "Insert code in the admin area at the bottom."
+}

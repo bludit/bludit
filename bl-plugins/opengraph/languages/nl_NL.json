@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "Open Graph",
+		"description": "Met het Open Graph-protocol kan van iedere pagina een object in een sociale grafiek worden gemaakt."
+	},
+	"set-a-default-image-for-content": "Standaardafbeelding voor inhoud zonder afbeeldingen.",
+	"set-your-facebook-app-id": "Uw Facebook App-ID."
+}

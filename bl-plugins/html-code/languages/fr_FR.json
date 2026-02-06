@@ -1,0 +1,13 @@
+{
+	"plugin-data":
+	{
+		"name": "Code HTML",
+		"description": "Ajoutez du code HTML, CSS ou Javascript dans les métadonnées, l’en-tête ou le pied de page de votre site."
+	},
+	"insert-code-in-the-theme-inside-the-tag-head": "Insérer du code dans le thème à l’intérieur du tag&#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-theme-at-the-top": "Insérez le code dans le thème en haut.",
+	"insert-code-in-the-theme-at-the-bottom": "Insérez le code dans le thème en bas.",
+	"insert-code-in-the-admin-area-inside-the-tag-head": "Insérer du code dans la zone admin à l’intérieur du tag &#60;head&#62; &#60;/head&#62;",
+	"insert-code-in-the-admin-area-at-the-top": "Insérez le code dans la zone admin en haut.",
+	"insert-code-in-the-admin-area-at-the-bottom": "Insérez le code dans la zone admin en bas."
+}

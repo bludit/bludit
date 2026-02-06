@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "EasyMDE",
+		"description": "Редактор с простым интерфейсом для создания markup разметки."
+	},
+	"toolbar": "Панель инструментов",
+	"tab-size": "Размер панели",
+	"autosave": "Автосохранения",
+	"spell-checker": "Проверка орфографии",
+	"content-here-supports-markdown-and-html-code": "Содержимое поддерживает Markdown и HTML-коды"
+}

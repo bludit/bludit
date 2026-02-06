@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "Custom fields parser",
+		"description": "Define code for the custom fields and parse the content of the pages."
+	}
+}

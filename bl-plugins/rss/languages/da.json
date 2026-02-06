@@ -1,0 +1,8 @@
+{
+	"amount-of-items-to-show-on-the-feed": "Antal at emner, der skal vises i feedet.",
+	"plugin-data": {
+		"description": "Denne udvidelse genererer et RSS feed af dit websted.<br>Feedet har URL adressen https://example.com/rss.xml",
+		"name": "RSS Feed"
+	},
+	"rss-url": "RSS URL"
+}

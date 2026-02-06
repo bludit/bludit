@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Navigation",
+		"description": "Navigation menu with parent and child pages for the sidebar."
+	},
+	"home-link": "Home link",
+	"show-the-home-link-on-the-sidebar": "Show the home link on the sidebar.",
+	"amount-of-items": "Amount of items"
+}

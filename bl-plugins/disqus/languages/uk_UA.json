@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Система коментарів Disqus",
+		"description": "Disqus надає послуги хостингу коментарів для веб-сайтів. Необхідно зареєструватися на Disqus.com перед використанням цього плагіна."
+	},
+	"disqus-shortname": "Коротке ім'я в Disqus",
+	"enable-disqus-on-pages": "Disqus on pages",
+	"enable-disqus-on-static-pages": "Disqus on static pages",
+	"enable-disqus-on-sticky-pages": "Disqus on sticky pages",
+	"get-the-shortname-from-the-disqus-general-settings": "Get the shortname from the Disqus general settings"
+}

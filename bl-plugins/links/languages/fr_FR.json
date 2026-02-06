@@ -1,0 +1,8 @@
+{
+	"plugin-data":
+	{
+		"name": "Liens",
+		"description": "Affiche une liste de liens dans la barre latérale, vous pouvez modifier ces liens dans les paramètres."
+	},
+	"add-a-new-link": "Ajouter un nouveau lien"
+}

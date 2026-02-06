@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "محتوای راه دور",
+		"description": "این افزونه یک راه آسان برای داشتن محتوای سایت شما در Github یا مشابه دارد و به نوبه خود، با بلودیت شما هماهنگ شده است ."
+	},
+	"webhook": "Webhook",
+	"source": "منبع",
+	"try-webhook": "امتحان webhook",
+	"complete-url-of-the-zip-file": "آدرس وب کامل فایل زیپ."
+}
