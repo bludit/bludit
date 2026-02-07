@@ -5,6 +5,7 @@ bl-content/*
 bl-content-migrator
 bl-plugins/timemachine
 bl-plugins/timemachine-x
+bl-plugins/backup-manager
 bl-plugins/discovery
 bl-plugins/updater
 bl-plugins/medium-editor
