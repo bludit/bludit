@@ -58,6 +58,9 @@ class Login
 	// Set the session for the user logged
 	public function setLogin($username, $role)
 	{
+		// Regenerate session ID to prevent session fixation attacks
+		session_regenerate_id(true);
+		
 		Session::set('username',	$username);
 		Session::set('role', 		$role);
 		Session::set('fingerPrint',	$this->fingerPrint());
