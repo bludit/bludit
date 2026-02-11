@@ -302,7 +302,7 @@
     "delete-user-and-delete-content": "Видалити користувача та видалити контент (Увага!)",
     "social-networks": "Соціальні мережі",
     "interval": "Інтервал",
-    "number-in-minutes-for-every-execution-of-autosave": "Кількість хвилин для кожного автоматичного збереження.",
+    "number-in-minutes-for-every-execution-of-autosave": "Інтервал у хвилинах між кожним автоматичним збереженням.",
     "extreme-friendly-url": "Екстремально дружній URL",
     "title-formats": "Формати заголовків",
     "delete-content": "Видалити контент",
