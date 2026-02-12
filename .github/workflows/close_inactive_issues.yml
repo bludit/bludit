@@ -10,6 +10,8 @@ jobs:
       - uses: actions/stale@v9
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
           # The labels you want to PROTECT from being closed
           exempt-issue-labels: 'Bug,New request'
 
