@@ -387,9 +387,9 @@
     "disabled-plugins": "Вимкнені плагіни",
     "remove-logo": "Видалити логотип",
     "preview": "Попередній перегляд",
-    "author-can-write-and-edit-their-own-content": "Автор: Може писати та редагувати власний вміст. Редактор: Може писати та редагувати вміст інших.",
+    "author-can-write-and-edit-their-own-content": "Автор: Може писати та редагувати власний контент. Редактор: Може писати та редагувати контент інших.",
     "custom-fields": "Користувацькі поля",
-    "define-custom-fields-for-the-content": "Визначити користувацькі поля для вмісту.",
+    "define-custom-fields-for-the-content": "Визначити користувацькі поля для контенту.",
     "start-typing-to-see-a-list-of-suggestions": "Почніть вводити, щоб побачити список пропозицій.",
     "view": "Переглянути",
     "no-tags": "Немає тегів",
@@ -400,6 +400,6 @@
     "analytics": "Аналітика",
     "unique-visitors": "Унікальні відвідувачі",
     "insert-linked-thumbnail": "Вставити пов'язану мініатюру",
-    "search-placeholder": "Пошук сторінок, вмісту та пунктів меню...",
+    "search-placeholder": "Пошук сторінок, контенту та пунктів меню...",
     "no-results-found": "Результатів не знайдено"
 }
