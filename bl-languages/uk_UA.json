@@ -284,7 +284,7 @@
     "example-page-1-content": "Почніть писати свій контент або відредагуйте поточний, відповідно до ваших потреб. Щоб створити, відредагувати або видалити контент, необхідно ввійти до [панелі управління](./admin) з ім'ям користувача `admin` і паролем, який ви встановили в процесі установки блогу.",
     "example-page-2-slug": "налаштуйте-свій-новий-сайт",
     "example-page-2-title": "Налаштуйте свій новий сайт",
-    "example-page-2-content": "Оновіть налаштування вашого сайту у [панелі управління](./admin); ви можете змінити назву, опис та соціальні мережі <a href=\"./admin/settings\" target=\"_blank\">Settings > General</a>.",
+    "example-page-2-content": "Оновіть налаштування вашого сайту у [панелі управління](./admin); ви можете змінити назву, опис та соціальні мережі <a href=\"./admin/settings\" target=\"_blank\">Налаштування > Загальні налаштування</a>.",
     "example-page-3-slug": "слідуйте-за-bludit",
     "example-page-3-title": "Слідуйте за Bludit",
     "example-page-3-content": "Отримайте інформацію про новини, нові випуски, нові теми або нові плагіни в наших соціальних мережах <a href=\"https://www.facebook.com/bluditcms/\" target=\"_blank\">Facebook</a>, <a href=\"https://www.twitter.com/bludit/\" target=\"_blank\">Twitter</a> та <a href=\"https://www.youtube.com/c/Bluditcms\" target=\"_blank\">YouTube</a> чи відвідайте наш [Блог](https://blog.bludit.com).",
