@@ -39,6 +39,29 @@ if (checkRole(array('author'), false)) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['type']==='delete') {
+		// Get the page type before deleting to redirect to the correct tab
+		if (empty($_POST['tab'])) {
+			try {
+				$pageToDelete = new Page($_POST['key']);
+				$pageType = $pageToDelete->type();
+				if ($pageType === 'autosave') {
+					$_POST['tab'] = 'autosave';
+				} elseif ($pageType === 'draft') {
+					$_POST['tab'] = 'draft';
+				} elseif ($pageType === 'scheduled') {
+					$_POST['tab'] = 'scheduled';
+				} elseif ($pageType === 'static') {
+					$_POST['tab'] = 'static';
+				} elseif ($pageType === 'sticky') {
+					$_POST['tab'] = 'sticky';
+				} else {
+					$_POST['tab'] = 'pages';
+				}
+			} catch (Exception $e) {
+				$_POST['tab'] = 'pages';
+			}
+		}
+
 		if (deletePage($_POST['key'])) {
 			Alert::set( $L->g('The changes have been saved') );
 		}
