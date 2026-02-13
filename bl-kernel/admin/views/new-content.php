@@ -24,7 +24,7 @@ echo Bootstrap::formInputHidden(array(
 // Type = published, draft, sticky, static
 echo Bootstrap::formInputHidden(array(
 	'name' => 'type',
-	'value' => 'published'
+	'value' => $site->defaultContentStatus()
 ));
 
 // Cover image
@@ -50,7 +50,11 @@ echo Bootstrap::formInputHidden(array(
 	<div id="jseditorToolbarLeft">
 		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary"><?php $L->p('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
+		<?php if ($site->defaultContentStatus() == 'draft'): ?>
+		<span id="jsbuttonSwitch" data-switch="draft" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-draft"></i> <?php $L->p('Draft') ?></span>
+		<?php else: ?>
 		<span id="jsbuttonSwitch" data-switch="publish" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-publish"></i> <?php $L->p('Publish') ?></span>
+		<?php endif; ?>
 	</div>
 </div>
 <script>

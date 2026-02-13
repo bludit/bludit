@@ -188,6 +188,8 @@
     "order-content-by": "İçerik sıralaması",
     "edit-or-delete-content-from-your-site": "Sitenizden içerik düzenleme veya silme",
     "order-the-content-by-date-to-build-a-blog": "Blog için tarihe göre sıralayın ya da Web sitesi oluşturmak için içeriğe göre sıralayın.",
+    "default-content-status": "Varsayılan içerik durumu",
+    "default-status-for-new-content": "Yeni içeriğin varsayılan olarak Yayınlandı mı yoksa Taslak olarak mı oluşturulacağını seçin.",
     "page-not-found-content": "Hey! böyle bir sayfa yok gibi.",
     "page-not-found": "Sayfa bulunamadı",
     "predefined-pages": "Önceden tanımlanmış sayfalar",

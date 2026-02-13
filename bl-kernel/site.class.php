@@ -37,6 +37,7 @@ class Site extends dbJSON
 		'dribbble' =>		'',
 		'vk' =>			'',
 		'orderBy' =>		'date', // date or position
+		'defaultContentStatus' => 'published', // published or draft
 		'extremeFriendly' =>	true,
 		'autosaveInterval' =>	2, // minutes
 		'titleFormatHomepage' =>	'{{site-slogan}} | {{site-title}}',
@@ -217,6 +218,11 @@ class Site extends dbJSON
 	public function orderBy()
 	{
 		return $this->getField('orderBy');
+	}
+
+	public function defaultContentStatus()
+	{
+		return $this->getField('defaultContentStatus');
 	}
 
 	public function imageRestrict()

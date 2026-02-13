@@ -192,6 +192,8 @@
     "order-content-by": "Inhoud sorteren op",
     "edit-or-delete-content-from-your-site": "Inhoud aanpassen of verwijderen van de website",
     "order-the-content-by-date-to-build-a-blog": "Sorteer de inhoud op datum om een Blog te maken, sorteer op positie om een Website te bouwen.",
+    "default-content-status": "Standaard inhoudsstatus",
+    "default-status-for-new-content": "Kies of nieuwe inhoud standaard als Gepubliceerd of Concept wordt aangemaakt.",
     "page-not-found-content": "Het lijkt erop dat deze pagina niet bestaat.",
     "page-not-found": "Pagina niet gevonden",
     "predefined-pages": "Voorgedefinieerde pagina's",

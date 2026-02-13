@@ -189,6 +189,8 @@
     "order-content-by": "Inhalte anzeigen nach",
     "edit-or-delete-content-from-your-site": "Inhalte bearbeiten oder löschen.",
     "order-the-content-by-date-to-build-a-blog": "Für einen Blog Inhalte nach Datum anzeigen, für eine Website nach Position.",
+    "default-content-status": "Standard-Inhaltsstatus",
+    "default-status-for-new-content": "Wählen Sie, ob neue Inhalte standardmäßig als Veröffentlicht oder Entwurf erstellt werden.",
     "page-not-found-content": "Es sieht so aus, als würde es diese Seite nicht geben!",
     "page-not-found": "Seite nicht gefunden",
     "predefined-pages": "Zugewiesene Seiten",

@@ -194,6 +194,8 @@
     "order-content-by": "排序方式",
     "edit-or-delete-content-from-your-site": "编辑或删除网站的文章",
     "order-the-content-by-date-to-build-a-blog": "按日期排序文章以创建博客，或是以位置排序文章以创建网站。",
+    "default-content-status": "默认内容状态",
+    "default-status-for-new-content": "选择新内容默认创建为已发布还是草稿。",
     "page-not-found-content": "抱歉！您所访问的页面不存在",
     "page-not-found": "未找到页面",
     "predefined-pages": "预定义页面",
