@@ -12,11 +12,17 @@ class Image {
         // *** Open up the file
         $this->image = $this->openImage($fileName);
 
+        // *** Check if image was opened successfully
+        if ($this->image === false) {
+            return false;
+        }
+
         // *** Get width and height
         $this->width  = imagesx($this->image);
         $this->height = imagesy($this->image);
 
         $this->resizeImage($newWidth, $newHeight, $option);
+        return true;
     }
 
     public function saveImage($savePath, $imageQuality="100", $forceJPG=false, $forcePNG=false)
