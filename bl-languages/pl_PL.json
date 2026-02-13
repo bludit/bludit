@@ -194,6 +194,8 @@
     "order-content-by": "Sortuj zawartość wg.",
     "edit-or-delete-content-from-your-site": "Edytuj lub usuń zawartość swojej strony",
     "order-the-content-by-date-to-build-a-blog": "Sortuj zawartość według daty, aby utrzymać formę witryny jako bloga. Sortowanie według pozycji sugeruje się witrynom typu serwis internetowy.",
+    "default-content-status": "Domyślny status treści",
+    "default-status-for-new-content": "Wybierz, czy nowa treść ma być domyślnie tworzona jako Opublikowana czy Szkic.",
     "page-not-found-content": "Hejże! Wygląda na to, że ta strona nie istnieje.",
     "page-not-found": "Strona nie istnieje",
     "predefined-pages": "Predefiniowane strony",

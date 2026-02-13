@@ -194,6 +194,8 @@
     "order-content-by": "コンテンツ表示順",
     "edit-or-delete-content-from-your-site": "サイトからコンテンツを編集または削除する",
     "order-the-content-by-date-to-build-a-blog": "コンテンツを日付順に並べてブログを構築したり、位置順に並べてサイトを構築します。",
+    "default-content-status": "デフォルトのコンテンツステータス",
+    "default-status-for-new-content": "新しいコンテンツをデフォルトで公開済みまたは下書きとして作成するかを選択します。",
     "page-not-found-content": "おや？このページは存在しないようです。",
     "page-not-found": "ページが見つかりません",
     "predefined-pages": "既定ページ",

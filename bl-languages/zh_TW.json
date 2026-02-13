@@ -194,6 +194,8 @@
     "order-content-by": "依序甚麼規格排序內容",
     "edit-or-delete-content-from-your-site": "從您的網站編輯或刪除內容",
     "order-the-content-by-date-to-build-a-blog": "依照時間排序建構一個部落個或使用位置排序來建構一個網站",
+    "default-content-status": "預設內容狀態",
+    "default-status-for-new-content": "選擇新內容預設建立為已發布或草稿。",
     "page-not-found-content": "嘿! 這看起來像是不存在此頁面",
     "page-not-found": "找不到此頁面",
     "predefined-pages": "預先定義頁面",

@@ -194,6 +194,8 @@
     "order-content-by": "Organiser le contenu par",
     "edit-or-delete-content-from-your-site": "Gestionnaire de contenu",
     "order-the-content-by-date-to-build-a-blog": "Trier le contenu par date pour créer un blog ou par position pour créer un site.",
+    "default-content-status": "Statut par défaut du contenu",
+    "default-status-for-new-content": "Choisissez si le nouveau contenu est créé comme Publié ou Brouillon par défaut.",
     "page-not-found-content": "Hé! il semblerait que la page n’existe pas.",
     "page-not-found": "Page non trouvée.",
     "predefined-pages": "Pages prédéfinies",

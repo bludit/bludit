@@ -194,6 +194,8 @@
     "order-content-by": "ترتيب المحتوى حسب",
     "edit-or-delete-content-from-your-site": "تحرير وحذف المحتوى من موقعك",
     "order-the-content-by-date-to-build-a-blog": "Order the content by date to build a Blog or order the content by position to build a Website.",
+    "default-content-status": "حالة المحتوى الافتراضية",
+    "default-status-for-new-content": "اختر ما إذا كان المحتوى الجديد يتم إنشاؤه كمنشور أو مسودة افتراضيًا.",
     "page-not-found-content": "Hey! look like the page doesn't exist.",
     "page-not-found": "Page not found",
     "predefined-pages": "Predefined pages",

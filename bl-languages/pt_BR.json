@@ -194,6 +194,8 @@
     "order-content-by": "Ordenar conteúdo por",
     "edit-or-delete-content-from-your-site": "Editar ou deletar conteúdo do seu site",
     "order-the-content-by-date-to-build-a-blog": "Ordene o conteúdo por data para construir um blog clássico. Ordene o conteúdo por posição para construir um site estilo portal.",
+    "default-content-status": "Status padrão do conteúdo",
+    "default-status-for-new-content": "Escolha se o novo conteúdo é criado como Publicado ou Rascunho por padrão.",
     "page-not-found-content": "Vish! Parece que a página solicitada não existe.",
     "page-not-found": "Página não encontrada",
     "predefined-pages": "Páginas predefinidas",

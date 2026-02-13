@@ -191,6 +191,8 @@
     "order-content-by": "Ordenar contenido por",
     "edit-or-delete-content-from-your-site": "Edita o elimina contenido de tu sitio",
     "order-the-content-by-date-to-build-a-blog": "Ordena el contenido por fecha para crear un Blog u ordena el contenido por posición para crear un Sitio web.",
+    "default-content-status": "Estado predeterminado del contenido",
+    "default-status-for-new-content": "Elige si el nuevo contenido se crea como Publicado o Borrador por defecto.",
     "page-not-found-content": "¡Oye! Parece que esta página no existe.",
     "page-not-found": "Página no encontrada",
     "predefined-pages": "Páginas predefinidas",

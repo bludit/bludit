@@ -99,6 +99,15 @@ echo Bootstrap::formInputHidden(array(
 		'tip' => $L->g('order-the-content-by-date-to-build-a-blog')
 	));
 
+	echo Bootstrap::formSelect(array(
+		'name' => 'defaultContentStatus',
+		'label' => $L->g('Default content status'),
+		'options' => array('published' => $L->g('Published'), 'draft' => $L->g('Draft')),
+		'selected' => $site->defaultContentStatus(),
+		'class' => '',
+		'tip' => $L->g('default-status-for-new-content')
+	));
+
 	echo Bootstrap::formTitle(array('title' => $L->g('Predefined pages')));
 
 	// Homepage
