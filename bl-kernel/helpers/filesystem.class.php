@@ -69,7 +69,16 @@ class Filesystem
 	public static function mv($oldname, $newname)
 	{
 		Log::set('mv ' . $oldname . ' ' . $newname, LOG_TYPE_INFO);
-		return rename($oldname, $newname);
+		// Try rename first (faster, works on same filesystem)
+		if (@rename($oldname, $newname)) {
+			return true;
+		}
+		// Fallback to copy+delete for cross-partition moves
+		if (copy($oldname, $newname)) {
+			unlink($oldname);
+			return true;
+		}
+		return false;
 	}
 
 	public static function rmfile($filename)
