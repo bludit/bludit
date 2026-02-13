@@ -15,7 +15,7 @@ if (version_compare(phpversion(), '8.0', '<')) {
 }
 
 // Check PHP modules
-$modulesRequired = array('mbstring', 'json', 'gd', 'dom');
+$modulesRequired = array('mbstring', 'json', 'gd', 'dom', 'session');
 $modulesRequiredExit = false;
 $modulesRequiredMissing = '';
 foreach ($modulesRequired as $module) {
