@@ -55,7 +55,6 @@ if ($site->homepage() && $url->whereAmI()==='home') {
 	$pageKey = $site->homepage();
 	if ($pages->exists($pageKey)) {
 		$url->setSlug($pageKey);
-		$url->setWhereAmI('page');
 	}
 }
 
