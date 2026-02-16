@@ -616,16 +616,13 @@ EOF;
 			if ($this->getValue('searchInTags')) {
 				$pageTags = $page->tags(true);
 				if (!empty($pageTags)) {
-					$tagNames = array_map(function($tag) {
-						return $tag->name();
-					}, $pageTags);
-					$cache[$pageKey]['tags'] = implode(' ', $tagNames);
+					$cache[$pageKey]['tags'] = implode(' ', $pageTags);
 				}
 			}
 
 			// Add category if enabled
 			if ($this->getValue('searchInCategories')) {
-				$categoryKey = $page->category();
+				$categoryKey = $page->categoryKey();
 				if (!empty($categoryKey) && isset($categories)) {
 					try {
 						$category = new Category($categoryKey);
