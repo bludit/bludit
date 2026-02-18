@@ -968,7 +968,7 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
   chmod($image, 0644);
 
   // Generate Thumbnail
-  if (!empty($thumbnailDir)) {
+  if (!empty($thumbnailDir) && $site->thumbnailEnable()) {
     if (($fileExtension == 'svg')) {
       Filesystem::symlink($image, $thumbnailDir . $nextFilename);
     } else {
