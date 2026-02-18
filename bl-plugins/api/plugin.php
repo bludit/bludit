@@ -359,7 +359,7 @@ class pluginAPI extends Plugin
 		$scheduled 	= (isset($args['scheduled']) ? $args['scheduled'] == 'true' : false);
 		$untagged 	= (isset($args['untagged']) ? $args['untagged'] == 'true' : false);
 
-		$numberOfItems = (isset($args['numberOfItems']) ? $args['numberOfItems'] : 10);
+		$numberOfItems = (isset($args['numberOfItems']) ? $args['numberOfItems'] : (int)$this->getValue('numberOfItems'));
 		$pageNumber = (isset($args['pageNumber']) ? $args['pageNumber'] : 1);
 		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
 
