@@ -36,6 +36,8 @@ class Site extends dbJSON
 		'mastodon' =>		'',
 		'dribbble' =>		'',
 		'vk' =>			'',
+		'youtube' =>		'',
+		'bluesky' =>		'',
 		'orderBy' =>		'date', // date or position
 		'defaultContentStatus' => 'published', // published or draft
 		'extremeFriendly' =>	true,
@@ -213,6 +215,16 @@ class Site extends dbJSON
 	public function vk()
 	{
 		return $this->getField('vk');
+	}
+
+	public function youtube()
+	{
+		return $this->getField('youtube');
+	}
+
+	public function bluesky()
+	{
+		return $this->getField('bluesky');
 	}
 
 	public function orderBy()
