@@ -485,6 +485,15 @@ echo Bootstrap::formInputHidden(array(
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Thumbnails')));
 
+	echo Bootstrap::formSelect(array(
+		'name' => 'thumbnailEnable',
+		'label' => $L->g('Thumbnail generation'),
+		'options' => array('true' => $L->g('Enabled'), 'false' => $L->g('Disabled')),
+		'selected' => ($site->thumbnailEnable() ? 'true' : 'false'),
+		'class' => '',
+		'tip' => $L->g('Enable or disable automatic thumbnail generation on image upload.')
+	));
+
 	echo Bootstrap::formInputText(array(
 		'name' => 'thumbnailWidth',
 		'label' => $L->g('Width'),
