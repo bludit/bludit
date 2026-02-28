@@ -61,7 +61,7 @@ class pluginNavigation extends Plugin
 		// Print the label if not empty
 		$label = $this->getValue('label');
 		if (!empty($label)) {
-			$html .= '<h2 class="plugin-label">' . $label . '</h2>';
+			$html .= '<h2 class="plugin-label">' . htmlspecialchars($L->g($label), ENT_QUOTES, 'UTF-8') . '</h2>';
 		}
 
 		$html .= '<div class="plugin-content">';

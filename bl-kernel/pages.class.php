@@ -261,7 +261,7 @@ class Pages extends dbJSON
 		}
 
 		// If the content was passed via arguments replace the content
-		if (isset($args['content'])) {
+		if (isset($args['content']) && $args['content'] !== '') {
 			// Make the index.txt and save the file.
 			if (file_put_contents(PATH_PAGES . $newKey . DS . FILENAME, $args['content']) === false) {
 				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to put the content in the file ' . FILENAME);

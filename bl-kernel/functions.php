@@ -697,11 +697,18 @@ function editSettings($args)
 function changeUserPassword($args)
 {
   global $users;
+  global $login;
   global $L;
   global $syslog;
 
   // Arguments
   $username = $args['username'];
+
+  // Authorization: only admins or the user themselves can change a password
+  if ($login->role() !== 'admin' && $login->username() !== $username) {
+    Alert::set($L->g('You do not have permissions to access this page'), ALERT_STATUS_FAIL);
+    return false;
+  }
   $newPassword = $args['newPassword'];
   $confirmPassword = $args['confirmPassword'];
 
