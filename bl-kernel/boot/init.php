@@ -1,10 +1,10 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',        '3.17.2');
-define('BLUDIT_CODENAME',       'Aura');
-define('BLUDIT_RELEASE_DATE',   '2026-02-07');
-define('BLUDIT_BUILD',          '20260207');
+define('BLUDIT_VERSION',        '3.18.0');
+define('BLUDIT_CODENAME',       'Lince');
+define('BLUDIT_RELEASE_DATE',   '2026-02-28');
+define('BLUDIT_BUILD',          '20260228');
 
 // Change to TRUE for debugging
 define('DEBUG_MODE', TRUE);
