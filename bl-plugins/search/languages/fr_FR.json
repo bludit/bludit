@@ -5,5 +5,20 @@
 		"description": "Fournit un champ de recherche à vos utilisateurs pour qu'ils puissent effectuer des recherches dans le contenu de votre site."
 	},
 	"search": "Chercher",
-	"show-button-search": "Montrer le bouton de recherche"
+	"show-button-search": "Montrer le bouton de recherche",
+	"search-results-for": "Résulats pour",
+	"result-found": "Résulat trouvé",
+	"results-found": "Résulats trouvés",
+	"no-results-found": "Aucun résultat trouvé",
+	"no-pages-found-for-the-search": "Aucune page trouvée pour la recherche \"%s\"",
+	"suggestions": "Suggestions",
+	"check-your-spelling": "Vérifier l'orthographe",
+	"try-different-keywords": "Essayer d'autres mots-clés",
+	"try-more-general-keywords": "Essayer des mots-clés plus généraux",
+	"minimum-number-of-characters-when-searching": "Nombre minimum de caractères pour la recherche",
+	"highlight-search-terms-in-results": "Mettre en surbrillance les termes recherchés dans les résultats",
+	"show-result-count": "Montrer le nombre de résultats",
+	"search-in-tags": "Rechercher dans les tags",
+	"search-in-categories": "Rechercher dans les catégories",
+	"excerpt-length-(characters)": "Longueur de l'extrait (caractères)"
 }

@@ -474,7 +474,7 @@ footer.footer a:hover {
 
 .search-icon {
 	position: absolute;
-	left: 14px;
+	right: 14px;
 	top: 50%;
 	transform: translateY(-50%);
 	color: var(--color-text-muted);

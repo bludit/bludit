@@ -51,7 +51,7 @@ class pluginSearch extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Highlight search terms in results</label>';
+		$html .= '<label>' . $L->get('Highlight search terms in results') . '</label>';
 		$html .= '<select name="highlightResults">';
 		$html .= '<option value="true" ' . ($this->getValue('highlightResults') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
 		$html .= '<option value="false" ' . ($this->getValue('highlightResults') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
@@ -59,7 +59,7 @@ class pluginSearch extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Show result count</label>';
+		$html .= '<label>'. $L->get('Show result count') . '</label>';
 		$html .= '<select name="showResultCount">';
 		$html .= '<option value="true" ' . ($this->getValue('showResultCount') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
 		$html .= '<option value="false" ' . ($this->getValue('showResultCount') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
@@ -67,7 +67,7 @@ class pluginSearch extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Search in tags</label>';
+		$html .= '<label>' . $L->get('Search in tags') . '</label>';
 		$html .= '<select name="searchInTags">';
 		$html .= '<option value="true" ' . ($this->getValue('searchInTags') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
 		$html .= '<option value="false" ' . ($this->getValue('searchInTags') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
@@ -75,7 +75,7 @@ class pluginSearch extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Search in categories</label>';
+		$html .= '<label>' . $L->get('Search in categories') . '</label>';
 		$html .= '<select name="searchInCategories">';
 		$html .= '<option value="true" ' . ($this->getValue('searchInCategories') === true ? 'selected' : '') . '>' . $L->get('enabled') . '</option>';
 		$html .= '<option value="false" ' . ($this->getValue('searchInCategories') === false ? 'selected' : '') . '>' . $L->get('disabled') . '</option>';
@@ -83,7 +83,7 @@ class pluginSearch extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Excerpt length (characters)</label>';
+		$html .= '<label>' . $L->get('Excerpt length (characters)') . '</label>';
 		$html .= '<input name="excerptLength" type="number" value="' . $this->getValue('excerptLength') . '" min="50" max="500">';
 		$html .= '</div>';
 
@@ -211,6 +211,7 @@ EOF;
 /* Sidebar search form styling */
 .plugin-search .search-plugin-form {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 .plugin-search .search-plugin-form input[type="search"] {
@@ -219,6 +220,7 @@ EOF;
 	border: 1px solid rgba(0,0,0,0.15);
 	border-radius: 6px;
 	font-size: 0.9375rem;
+	max-width: 100%;
 }
 .plugin-search .search-plugin-form input[type="search"]:focus {
 	outline: none;
@@ -226,12 +228,14 @@ EOF;
 }
 .plugin-search .search-plugin-form button {
 	padding: 0.5rem 1rem;
+	margin: 0 auto;
 	background: #0071e3;
 	color: white;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	font-size: 0.875rem;
+	width: 100%;
 }
 .plugin-search .search-plugin-form button:hover {
 	background: #0077ed;
