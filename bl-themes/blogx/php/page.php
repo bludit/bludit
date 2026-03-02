@@ -31,7 +31,7 @@
 		<!-- Tags and Category -->
 		<?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
 		<?php if (!empty($tagsList) || $categoryKey) : ?>
-		<div class="post-taxonomy mt-4">
+		<div class="post-taxonomy mt-3">
 			<?php if ($categoryKey) : ?>
 				<a class="taxonomy-badge taxonomy-category" href="<?php echo $page->categoryPermalink(); ?>">
 					<i class="bi bi-folder"></i><?php echo $page->category(); ?>

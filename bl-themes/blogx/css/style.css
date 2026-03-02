@@ -3,14 +3,14 @@
    ======================================== */
 :root {
 	/* Neutral Monochrome Colors */
-	--primary: #222222;
-	--primary-dark: #111111;
-	--primary-darker: #000000;
-	--primary-gradient: #222222;
-	--primary-gradient-hover: #111111;
+	--primary: #2c2c2c;
+	--primary-dark: #1e1e1e;
+	--primary-darker: #111111;
+	--primary-gradient: #2c2c2c;
+	--primary-gradient-hover: #1e1e1e;
 
 	/* Neutral Colors */
-	--text-primary: #1a1a1a;
+	--text-primary: #333333;
 	--text-secondary: #6c757d;
 	--text-muted: #adb5bd;
 	--bg-body: #ffffff;
@@ -62,8 +62,8 @@ html {
 
 body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-	padding-top: 56px;
-	margin-bottom: 80px;
+	padding-top: 42px;
+	margin-bottom: 42px;
 	background-color: var(--bg-body);
 	color: var(--text-primary);
 	transition: background-color 0.3s ease, color 0.3s ease;
@@ -78,6 +78,18 @@ section {
 img {
 	max-width: 100%;
 	height: auto;
+}
+
+/* ========================================
+   FORM INPUTS
+   ======================================== */
+input,
+textarea,
+select,
+.form-control {
+	background-color: #ffffff !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-color);
 }
 
 /* ========================================
@@ -191,11 +203,14 @@ blockquote {
 	background: var(--primary) !important;
 	box-shadow: var(--shadow-md);
 	transition: all 0.3s ease;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	min-height: 42px;
 }
 
 .navbar-brand {
 	font-weight: 600;
-	font-size: 1.25rem;
+	font-size: 1rem;
 	transition: transform 0.3s ease;
 }
 
@@ -204,10 +219,10 @@ blockquote {
 }
 
 .navbar .nav-link {
-	font-size: 0.9rem;
+	font-size: 0.825rem;
 	font-weight: 500;
 	color: rgba(255, 255, 255, 0.9) !important;
-	padding: 0.5rem 1rem;
+	padding: 0.3rem 0.75rem;
 	border-radius: var(--radius-sm);
 	transition: all 0.3s ease;
 }
@@ -312,13 +327,13 @@ footer.footer-modern {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	min-height: 80px;
+	min-height: 42px;
 	line-height: 1.5;
 	background: var(--primary);
 	color: white;
-	padding: var(--space-lg) 0;
+	padding: 0.6rem 0;
 	box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-xs);
 }
 
 footer.footer-modern a {
