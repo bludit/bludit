@@ -70,7 +70,7 @@ class Filesystem
 	{
 		Log::set('mv ' . $oldname . ' ' . $newname, LOG_TYPE_INFO);
 		// Try rename first (faster, works on same filesystem)
-		if (`@rename`($oldname, $newname)) {
+		if (@rename($oldname, $newname)) {
 			return true;
 		}
 		// Fallback to copy+delete for cross-partition moves
@@ -79,7 +79,7 @@ class Filesystem
 				return true;
 			}
 			// Copy succeeded but delete failed - remove the copy to avoid duplicates
-			`@unlink`($newname);
+			@unlink($newname);
 			return false;
 		}
 		return false;
