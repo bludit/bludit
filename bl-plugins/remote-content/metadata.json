@@ -2,9 +2,9 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://plugins.bludit.com/plugin/remote-content",
-	"version": "3.18.0",
+	"version": "3.18.1",
 	"releaseDate": "2024-08-23",
 	"license": "MIT",
-	"compatible": "3.18.0",
+	"compatible": "3.18.1",
 	"notes": ""
 }
