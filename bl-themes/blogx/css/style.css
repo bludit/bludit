@@ -2,15 +2,15 @@
    CSS CUSTOM PROPERTIES - Light Mode (Default)
    ======================================== */
 :root {
-	/* Dashboard Blue Gradient Colors */
-	--primary-blue: #1e88e5;
-	--primary-blue-dark: #1565c0;
-	--primary-blue-darker: #0d47a1;
-	--primary-gradient: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
-	--primary-gradient-hover: linear-gradient(135deg, #2196f3 0%, #1e88e5 100%);
+	/* Neutral Monochrome Colors */
+	--primary: #222222;
+	--primary-dark: #111111;
+	--primary-darker: #000000;
+	--primary-gradient: #222222;
+	--primary-gradient-hover: #111111;
 
 	/* Neutral Colors */
-	--text-primary: #1a1a2e;
+	--text-primary: #1a1a1a;
 	--text-secondary: #6c757d;
 	--text-muted: #adb5bd;
 	--bg-body: #ffffff;
@@ -23,7 +23,7 @@
 	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
 	--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
 	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
-	--shadow-hover: 0 6px 20px rgba(30, 136, 229, 0.3);
+	--shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.2);
 
 	/* Spacing Scale */
 	--space-xs: 0.5rem;
@@ -61,6 +61,7 @@ html {
 }
 
 body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 	padding-top: 56px;
 	margin-bottom: 80px;
 	background-color: var(--bg-body);
@@ -83,18 +84,18 @@ img {
    LINKS
    ======================================== */
 a {
-	color: var(--primary-blue);
+	color: var(--primary);
 	text-decoration: none;
 	transition: color 0.3s ease;
 }
 
 a:hover {
-	color: var(--primary-blue-dark);
+	color: var(--primary-dark);
 	text-decoration: none;
 }
 
 a:focus {
-	outline: 2px solid var(--primary-blue);
+	outline: 2px solid var(--primary);
 	outline-offset: 2px;
 }
 
@@ -109,10 +110,6 @@ h2.title {
 	margin-bottom: var(--space-md);
 }
 
-h1.title {
-	font-size: 2.5rem;
-}
-
 /* ========================================
    CODE BLOCKS
    ======================================== */
@@ -125,7 +122,7 @@ code {
 }
 
 pre {
-	border-left: 3px solid var(--primary-blue);
+	border-left: 3px solid var(--primary);
 	padding: var(--space-md);
 	overflow-x: auto;
 }
@@ -151,7 +148,7 @@ table {
 }
 
 thead {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	color: #ffffff;
 	text-align: left;
 	vertical-align: bottom;
@@ -180,7 +177,7 @@ td {
 blockquote {
 	padding: var(--space-md) var(--space-lg);
 	margin: 0 0 var(--space-lg) var(--space-lg);
-	border-left: 4px solid var(--primary-blue);
+	border-left: 4px solid var(--primary);
 	font-style: italic;
 	background-color: var(--bg-hover);
 	border-radius: var(--radius-sm);
@@ -188,10 +185,10 @@ blockquote {
 }
 
 /* ========================================
-   NAVBAR - Blue Gradient
+   NAVBAR
    ======================================== */
 .navbar-modern {
-	background: var(--primary-gradient) !important;
+	background: var(--primary) !important;
 	box-shadow: var(--shadow-md);
 	transition: all 0.3s ease;
 }
@@ -262,10 +259,10 @@ img.nav-svg-icon {
 }
 
 /* ========================================
-   BUTTONS - Gradient Style
+   BUTTONS
    ======================================== */
 .btn-primary-gradient {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	border: none;
 	color: white;
 	padding: 0.75rem 1.5rem;
@@ -280,7 +277,7 @@ img.nav-svg-icon {
 }
 
 .btn-primary-gradient:hover {
-	background: var(--primary-gradient-hover);
+	background: var(--primary-dark);
 	box-shadow: var(--shadow-hover);
 	transform: translateY(-2px);
 	color: white;
@@ -288,13 +285,13 @@ img.nav-svg-icon {
 }
 
 .btn-primary-gradient:focus {
-	outline: 2px solid var(--primary-blue);
+	outline: 2px solid var(--primary);
 	outline-offset: 2px;
 }
 
 .btn-outline-primary-custom {
-	border: 2px solid var(--primary-blue);
-	color: var(--primary-blue);
+	border: 2px solid var(--primary);
+	color: var(--primary);
 	background: transparent;
 	padding: 0.6rem 1.5rem;
 	border-radius: var(--radius-sm);
@@ -303,13 +300,13 @@ img.nav-svg-icon {
 }
 
 .btn-outline-primary-custom:hover {
-	background: var(--primary-blue);
+	background: var(--primary);
 	color: white;
 	transform: translateY(-2px);
 }
 
 /* ========================================
-   FOOTER - Blue Gradient
+   FOOTER
    ======================================== */
 footer.footer-modern {
 	position: absolute;
@@ -317,7 +314,7 @@ footer.footer-modern {
 	width: 100%;
 	min-height: 80px;
 	line-height: 1.5;
-	background: var(--primary-gradient);
+	background: var(--primary);
 	color: white;
 	padding: var(--space-lg) 0;
 	box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
@@ -352,17 +349,17 @@ footer.footer-modern a:hover {
 }
 
 .metadata i {
-	color: var(--primary-blue);
+	color: var(--text-secondary);
 	margin-right: 0.25rem;
 }
 
 /* ========================================
-   PAGINATION - Modern Style
+   PAGINATION
    ======================================== */
 .pagination .page-link {
 	background: var(--bg-card);
 	border: 1px solid var(--border-color);
-	color: var(--primary-blue);
+	color: var(--primary);
 	padding: 0.6rem 1.2rem;
 	border-radius: var(--radius-sm);
 	font-weight: 500;
@@ -370,9 +367,9 @@ footer.footer-modern a:hover {
 }
 
 .pagination .page-link:hover {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	color: white;
-	border-color: var(--primary-blue);
+	border-color: var(--primary);
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-sm);
 }
@@ -387,6 +384,7 @@ footer.footer-modern a:hover {
    PLUGINS - Sidebar Styling
    ======================================== */
 .sidebar-container {
+	margin-top: var(--space-lg);
 	background: var(--bg-card);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
@@ -411,10 +409,7 @@ footer.footer-modern a:hover {
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
-	background: var(--primary-gradient);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	color: var(--primary);
 	margin-bottom: var(--space-md);
 }
 
@@ -435,7 +430,7 @@ footer.footer-modern a:hover {
 }
 
 .plugin ul li a:hover {
-	color: var(--primary-blue);
+	color: var(--primary);
 }
 
 /* Tags and Categories - Badge Style */
@@ -448,7 +443,7 @@ footer.footer-modern a:hover {
 
 .plugin.plugin-tags li a,
 .plugin.plugin-categories li a {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	color: white;
 	padding: 0.4rem 1rem;
 	border-radius: 20px;
@@ -460,7 +455,7 @@ footer.footer-modern a:hover {
 
 .plugin.plugin-tags li a:hover,
 .plugin.plugin-categories li a:hover {
-	background: var(--primary-gradient-hover);
+	background: var(--primary-dark);
 	color: white;
 }
 
@@ -475,13 +470,13 @@ footer.footer-modern a:hover {
 }
 
 .plugin.plugin-search .form-control:focus {
-	border-color: var(--primary-blue);
-	box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 	outline: none;
 }
 
 .plugin.plugin-search button {
-	background: var(--primary-gradient);
+	background: var(--primary);
 	border: none;
 	color: white;
 	padding: 0.75rem 1.5rem;
@@ -492,7 +487,7 @@ footer.footer-modern a:hover {
 }
 
 .plugin.plugin-search button:hover {
-	background: var(--primary-gradient-hover);
+	background: var(--primary-dark);
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-sm);
 }
@@ -502,6 +497,50 @@ footer.footer-modern a:hover {
    ======================================== */
 .bi {
 	margin-right: 0.5rem;
+}
+
+/* ========================================
+   POST TAXONOMY (Tags & Categories)
+   ======================================== */
+.post-taxonomy {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.taxonomy-badge {
+	display: inline-block;
+	padding: 0.3rem 0.75rem;
+	border-radius: 20px;
+	font-size: var(--font-size-xs);
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.taxonomy-category {
+	background: transparent;
+	color: var(--text-secondary);
+	border: 1px solid var(--border-color);
+}
+
+.taxonomy-category:hover {
+	background: var(--bg-hover);
+	color: var(--primary);
+	border-color: var(--primary);
+}
+
+.taxonomy-tag {
+	background: transparent;
+	color: var(--text-secondary);
+	border: 1px solid var(--border-color);
+}
+
+.taxonomy-tag:hover {
+	background: var(--bg-hover);
+	color: var(--primary);
+	border-color: var(--primary);
 }
 
 /* ========================================

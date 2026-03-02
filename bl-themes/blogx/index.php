@@ -16,7 +16,7 @@
 		<div class="row">
 
 			<!-- Blog Posts -->
-			<div class="col-md-9">
+			<div class="col-md-8">
 			<?php
 				// Bludit content are pages
 				// But if you order the content by date
@@ -34,7 +34,7 @@
 			</div>
 
 			<!-- Right Sidebar -->
-			<div class="col-md-3">
+			<div class="col-md-3 offset-md-1">
 			<?php include(THEME_DIR_PHP.'sidebar.php'); ?>
 			</div>
 
