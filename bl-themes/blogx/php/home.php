@@ -41,6 +41,21 @@
         </a>
       <?php endif ?>
 
+      <!-- Tags and Category -->
+      <?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
+      <?php if (!empty($tagsList) || $categoryKey) : ?>
+      <div class="post-taxonomy mt-3">
+        <?php if ($categoryKey) : ?>
+          <a class="taxonomy-badge taxonomy-category" href="<?php echo $page->categoryPermalink(); ?>">
+            <i class="bi bi-folder"></i><?php echo $page->category(); ?>
+          </a>
+        <?php endif ?>
+        <?php foreach ($tagsList as $tagKey => $tagName) : ?>
+          <a class="taxonomy-badge taxonomy-tag" href="<?php echo DOMAIN_TAGS . $tagKey; ?>"><i class="bi bi-tag"></i><?php echo $tagName; ?></a>
+        <?php endforeach ?>
+      </div>
+      <?php endif ?>
+
     </div>
 
     <!-- Load Bludit Plugins: Page End -->
