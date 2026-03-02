@@ -14,5 +14,11 @@
 	"suggestions": "Suggestions",
 	"check-your-spelling": "Check your spelling",
 	"try-different-keywords": "Try different keywords",
-	"try-more-general-keywords": "Try more general keywords"
+	"try-more-general-keywords": "Try more general keywords",
+	"minimum-number-of-characters-when-searching": "Minimum number of characters when searching",
+	"highlight-search-terms-in-results": "Highlight search terms in results",
+	"show-result-count": "Show result count",
+	"search-in-tags": "Search in tags",
+	"search-in-categories": "Search in categories",
+	"excerpt-length-(characters)": "Excerpt length (characters)"
 }
