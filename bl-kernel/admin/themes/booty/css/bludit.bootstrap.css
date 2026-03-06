@@ -27,7 +27,7 @@ a.text-danger:hover {
 /* Buttons */
 .btn {
 	font-weight: var(--font-weight-medium, 550);
-	font-size: var(--font-size-base, 1.05rem);
+	font-size: var(--font-size-base, 0.945rem);
 	padding: 12px 24px;
 	border-radius: 4px;
 	transition: all 0.3s ease;
@@ -100,7 +100,7 @@ a.text-danger:hover {
 
 .btn-lg {
 	padding: 16px 32px;
-	font-size: var(--font-size-lg, 1.2rem);
+	font-size: var(--font-size-lg, 1.08rem);
 }
 
 .btn-light.focus, .btn-light:focus {
@@ -113,7 +113,7 @@ a.text-danger:hover {
 
 /* Form */
 .form-control {
-	font-size: var(--font-size-base, 1.05rem);
+	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
 	border: 2px solid var(--border-color, #e9ecef);
@@ -129,7 +129,7 @@ label {
 	font-weight: var(--font-weight-semibold, 650);
 	color: var(--text-primary, #1a1a2e);
 	margin-bottom: 8px;
-	font-size: var(--font-size-base, 1.05rem);
+	font-size: var(--font-size-base, 0.945rem);
 }
 
 /* Cards */
@@ -145,7 +145,7 @@ label {
 	background: transparent;
 	border-bottom: 1px solid var(--border-color, #e9ecef);
 	font-weight: var(--font-weight-bold, 750);
-	font-size: var(--font-size-lg, 1.2rem);
+	font-size: var(--font-size-lg, 1.08rem);
 }
 
 /* Tables */
@@ -161,13 +161,13 @@ label {
 	font-size: var(--font-size-xs, 0.8rem);
 	text-transform: uppercase!important;
 	font-weight: var(--font-weight-bold, 750);
-	color: var(--text-secondary, #6c757d);
+	color: var(--text-secondary, #5a6268);
 	letter-spacing: 0.8px;
 	border-bottom: 2px solid var(--border-color, #e9ecef);
 }
 
 .table td {
-	font-size: var(--font-size-base, 1.05rem);
+	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	vertical-align: middle;
 }
@@ -182,8 +182,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: var(--font-size-3xl, 2.25rem); }
 h2 { font-size: var(--font-size-2xl, 1.75rem); }
 h3 { font-size: var(--font-size-xl, 1.4rem); }
-h4 { font-size: var(--font-size-lg, 1.2rem); }
-h5 { font-size: var(--font-size-base, 1.05rem); }
+h4 { font-size: var(--font-size-lg, 1.08rem); }
+h5 { font-size: var(--font-size-base, 0.945rem); }
 h6 { font-size: var(--font-size-sm, 0.925rem); }
 
 /* Badge */

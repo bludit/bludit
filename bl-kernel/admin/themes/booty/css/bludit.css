@@ -24,8 +24,8 @@
 	--bg-main: #f5f6f8;
 	--bg-sidebar: #fafbfc;
 	--text-primary: #1a1a2e;
-	--text-secondary: #6c757d;
-	--text-muted: #868e96;
+	--text-secondary: #5a6268;
+	--text-muted: #747b81;
 	--border-color: #e9ecef;
 	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
 	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -73,14 +73,15 @@ div.sidebar {
 	background: var(--bg-sidebar);
 	border-right: 1px solid var(--border-color);
 	position: relative;
+	padding: 10px 0;
 }
 
 div.sidebar .nav-item a {
 	padding-left: 0;
 	padding-right: 0;
 	color: var(--text-primary);
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-normal);
 	transition: color 0.2s ease, transform 0.2s ease;
@@ -415,9 +416,9 @@ body.login {
 #dashboard ul.list-group.list-group-striped li {
 	border: none;
 	word-break: break-word;
-	font-size: var(--font-size-base);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
-	padding: 16px 20px;
+	padding: 10px 15px;
 	color: var(--text-primary);
 	transition: background 0.2s ease;
 }
@@ -425,13 +426,13 @@ body.login {
 #dashboard ul.list-group.list-group-striped li:first-child {
 	background: var(--primary-blue);
 	color: white;
-	padding: 18px 20px;
+	padding: 12px 15px;
 	border-bottom: none;
 }
 
 #dashboard ul.list-group.list-group-striped li:first-child h4 {
 	color: white;
-	font-size: var(--font-size-lg);
+	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-bold);
 }
 
@@ -445,8 +446,8 @@ body.login {
 
 #dashboard ul.list-group.list-group-striped li .notification-date {
 	color: var(--text-secondary);
-	font-size: var(--font-size-sm);
-	margin-top: 6px;
+	font-size: var(--font-size-xs);
+	margin-top: 2px;
 	display: block;
 }
 

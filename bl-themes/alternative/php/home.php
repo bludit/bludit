@@ -10,8 +10,8 @@
 				<p class="hero-subtitle"><?php echo $site->description(); ?></p>
 			<?php endif ?>
 
-			<!-- Custom search form if the plugin "search" is enabled -->
-			<?php if (pluginActivated('pluginSearch')) : ?>
+			<!-- Custom search form if the plugin "search" is enabled and we are not on the search page -->
+			<?php if (pluginActivated('pluginSearch') && ($WHERE_AM_I !== 'search')) : ?>
 				<div class="hero-search">
 					<form class="search-form" role="search" onsubmit="return searchNow();">
 						<label for="search-input" class="sr-only"><?php $language->p('Search') ?></label>
