@@ -2,28 +2,42 @@
 <header class="hero" role="banner">
 	<div class="container">
 		<div class="hero-content">
-			<!-- Site slogan as main headline -->
-			<h1 class="hero-title"><?php echo $site->slogan(); ?></h1>
+			<!-- Site slogan as main headline (hidden during search) -->
+			<?php if ($WHERE_AM_I !== 'search') : ?>
+				<h1 class="hero-title"><?php echo $site->slogan(); ?></h1>
 
-			<!-- Site description -->
-			<?php if ($site->description()) : ?>
-				<p class="hero-subtitle"><?php echo $site->description(); ?></p>
+				<!-- Site description -->
+				<?php if ($site->description()) : ?>
+					<p class="hero-subtitle"><?php echo $site->description(); ?></p>
+				<?php endif ?>
 			<?php endif ?>
 
-			<!-- Custom search form if the plugin "search" is enabled and we are not on the search page -->
-			<?php if (pluginActivated('pluginSearch') && ($WHERE_AM_I !== 'search')) : ?>
-				<div class="hero-search">
-					<form class="search-form" role="search" onsubmit="return searchNow();">
-						<label for="search-input" class="sr-only"><?php $language->p('Search') ?></label>
-						<div class="search-input-wrapper">
-							<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-								<circle cx="11" cy="11" r="8"></circle>
-								<path d="M21 21l-4.35-4.35"></path>
-							</svg>
-							<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>">
-						</div>
-					</form>
-				</div>
+			<!-- Custom search form if the plugin "search" is enabled -->
+			<?php
+			if (pluginActivated('pluginSearch')) {
+				$searchPlugin = getPlugin('pluginSearch');
+				$showSearchBox = true;
+				if ($WHERE_AM_I === 'search' && $searchPlugin->getResultCount() === 0) {
+					$showSearchBox = false;
+				}
+
+				if ($showSearchBox) : ?>
+					<div class="hero-search">
+						<form class="search-form" role="search" onsubmit="return searchNow();">
+							<label for="search-input" class="sr-only"><?php $language->p('Search') ?></label>
+							<div class="search-input-wrapper">
+								<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+									<circle cx="11" cy="11" r="8"></circle>
+									<path d="M21 21l-4.35-4.35"></path>
+								</svg>
+								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo ($WHERE_AM_I==='search'?$searchPlugin->getSearchTerm():'') ?>">
+							</div>
+						</form>
+					</div>
+				<?php endif;
+			}
+			?>
+			<?php if (pluginActivated('pluginSearch')) : ?>
 				<script>
 					function searchNow() {
 						var searchValue = document.getElementById("search-input").value.trim();
