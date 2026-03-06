@@ -29,7 +29,7 @@ a.text-danger:hover {
 	font-weight: var(--font-weight-medium, 550);
 	font-size: var(--font-size-base, 1.05rem);
 	padding: 12px 24px;
-	border-radius: 8px;
+	border-radius: 4px;
 	transition: all 0.3s ease;
 }
 
@@ -117,7 +117,7 @@ a.text-danger:hover {
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
 	border: 2px solid var(--border-color, #e9ecef);
-	border-radius: 8px;
+	border-radius: 4px;
 	transition: all 0.2s ease;
 }
 
@@ -135,7 +135,7 @@ label {
 /* Cards */
 .card {
 	border: none;
-	border-radius: 12px;
+	border-radius: 4px;
 }
 
 .card:hover {
@@ -191,7 +191,7 @@ h6 { font-size: var(--font-size-sm, 0.925rem); }
 	font-size: var(--font-size-xs, 0.8rem);
 	font-weight: var(--font-weight-semibold, 650);
 	padding: 6px 12px;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 
 .badge-primary {
