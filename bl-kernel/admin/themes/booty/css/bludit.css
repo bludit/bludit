@@ -73,12 +73,12 @@ div.sidebar {
 	background: var(--bg-sidebar);
 	border-right: 1px solid var(--border-color);
 	position: relative;
-	padding: 10px 0;
+	padding: 10px 15px;
 }
 
 div.sidebar .nav-item a {
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 5px;
+	padding-right: 5px;
 	color: var(--text-primary);
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -102,6 +102,7 @@ div.sidebar .nav-item h4 {
 	text-transform: uppercase;
 	font-weight: var(--font-weight-bold);
 	margin-top: 15px;
+	padding-left: 5px;
 	color: var(--text-secondary);
 	letter-spacing: 0.8px;
 }
