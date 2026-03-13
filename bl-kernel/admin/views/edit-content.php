@@ -186,7 +186,7 @@ echo Bootstrap::formInputHidden(array(
 				'name' => 'tags',
 				'label' => $L->g('Tags'),
 				'placeholder' => '',
-				'tip' => $L->g('Write the tags separated by comma'),
+				'tip' => $L->g('Write the tags separated by commas'),
 				'value' => $page->tags()
 			));
 
