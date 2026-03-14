@@ -1,3 +1,11 @@
 .tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary {
 	border-top: none !important;
 }
+
+/* TinyMCE focus styling to match the theme: keep blue border but remove box-shadow */
+.tox-tinymce:focus, 
+.tox-tinymce--focused {
+	border: 1px solid #016DE7 !important;
+	box-shadow: none !important;
+	outline: none !important;
+}

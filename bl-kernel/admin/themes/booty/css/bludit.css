@@ -758,3 +758,17 @@ img.profilePicture {
 .switch-icon-publish {
 	color: #1cb11c;
 }
+
+/* Remove focus glow (box-shadow) from all form elements but keep the blue border */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus,
+.custom-select:focus,
+.btn:focus {
+	border-color: #016DE7 !important;
+	box-shadow: none !important;
+}
+
+
+

@@ -11,10 +11,10 @@ class pluginTinymce extends Plugin
 	public function init()
 	{
 		$this->dbFields = array(
-			'toolbar1' => 'blocks bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
+			'toolbar1' => 'blocks bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link pagebreak image media codesample code | fullscreen wordcount',
 			'toolbar2' => '',
-			'contextmenu' => 'link linkchecker image editimage table spellchecker configurepermanentpen',
-			'plugins' => 'code autolink image link pagebreak advlist lists table',
+			'contextmenu' => 'link image table',
+			'plugins' => 'code autolink image link pagebreak advlist lists table fullscreen media searchreplace wordcount emoticons charmap codesample',
 			'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 		);
 	}
@@ -65,6 +65,7 @@ class pluginTinymce extends Plugin
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
+
 		$html  = '<link rel="stylesheet" type="text/css" href="' . $this->htmlPath() . 'css/tinymce_toolbar.css">' . PHP_EOL;
 		$html .= '<script src="' . $this->htmlPath() . 'tinymce/tinymce.min.js?version=' . $this->version() . '"></script>';
 		return $html;
@@ -152,6 +153,7 @@ class pluginTinymce extends Plugin
 		valid_elements: "*[*]",
 		cache_suffix: "?version=$version",
 		license_key: "gpl",
+		promotion: false,
 		$document_base_url
 		plugins: ['$pluginsArray'],
 		toolbar: "$toolbar",

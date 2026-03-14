@@ -509,9 +509,9 @@ function install($adminPassword, $timezone)
 		$dataHead . json_encode(
 			array(
 				'position' => 1,
-				'toolbar1' => 'formatselect bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link unlink pagebreak image code',
+				'toolbar1' => 'blocks bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link pagebreak image media codesample code | fullscreen wordcount',
 				'toolbar2' => '',
-				'plugins' => 'code autolink image link pagebreak advlist lists textpattern table'
+				'plugins' => 'code autolink image link pagebreak advlist lists table fullscreen media searchreplace wordcount emoticons charmap codesample'
 			),
 			JSON_PRETTY_PRINT
 		),
@@ -649,6 +649,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				opacity: 0;
 				transform: translateY(20px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateY(0);
