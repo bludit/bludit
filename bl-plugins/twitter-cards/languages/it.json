@@ -4,5 +4,12 @@
 		"name": "X/Twitter Cards",
 		"description": "Con X (precedentemente Twitter) Cards, puoi aggiungere foto, video e media ai tuoi post, aiutando a guidare il traffico sul tuo sito."
 	},
-	"default-image": "Immagine predefinita"
+	"default-image": "Immagine predefinita",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Your Twitter @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-recommended": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-twitter": "Large image cards get better engagement on Twitter",
+	"fallback-image-when-content-has-no-image": "Fallback image when content has no image"
 }
