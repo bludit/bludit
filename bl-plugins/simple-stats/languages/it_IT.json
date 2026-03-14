@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistiche semplici",
+		"description": "Mostra nel pannello principale il numero di visitatori per giorno."
+	},
+	"visits": "Visite",
+	"visits-today": "Visite oggi",
+	"unique-visitors-today": "Visitatori unici oggi",
+	"chart": "Grafico",
+	"table": "Tabella",
+	"disk-usage" : "Utilizzo disco",
+	"show-content-stats" : "Mostra statistiche sul contenuto",
+	"exclude-administrators-users" : "Escludi gli utenti con il ruolo di 'Amministratore'"
+}

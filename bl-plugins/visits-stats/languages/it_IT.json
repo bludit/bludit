@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Statistiche delle visite",
+		"description": "Mostra nel pannello principale il numero di visite e di visitatori uniti."
+	},
+	"visits": "Visite",
+	"visitors": "Visitatori",
+    "unique-visitors": "Visitatori unici",
+	"exclude-administrators-users" : "Escludi gli utenti con il ruolo di 'Amministratore'"
+}
