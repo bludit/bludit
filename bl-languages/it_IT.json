@@ -2,12 +2,11 @@
     "language-data": {
         "native": "Italiano (Italia)",
         "english-name": "Italian",
-        "last-update": "2026-03-10",
+        "last-update": "2026-03-14",
         "authors": [
             "Daniele La Pira https://github.com/danielelapira",
             "Giuseppe Pignataro https://github.com/fastbyte01",
-            "Emanuele Goldoni https://github.com/emanueleg",
-            ""
+            "Emanuele Goldoni https://github.com/emanueleg"
         ],
         "locale": "it, it_IT"
     },
@@ -298,7 +297,7 @@
     "example-page-3-content": "Rimani informato su notizie, nuovi rilasci, nuovi temi o nuovi plugin sui nostri social network <a href=\"https://www.facebook.com/bluditcms/\" target=\"_blank\">Facebook</a>, <a href=\"https://www.twitter.com/bludit/\" target=\"_blank\">Twitter</a> e <a href=\"https://www.youtube.com/c/Bluditcms\" target=\"_blank\">YouTube</a> o visita il nostro <a href=\"https://blog.bludit.com\" target=\"_blank\">Blog</a>.",
     "example-page-4-slug": "informazioni su",
     "example-page-4-title": "Informazioni su",
-    "example-page-4-content": "La tua pagina sulle informazioni è tipicamente una delle pagine più visitate sul tuo sito, deve essere semplice con un paio di cose chiave,come il tuo nome, chi sei, come possono contattarti, una piccola storia, ecc.",
+    "example-page-4-content": "La tua pagina sulle informazioni è tipicamente una delle pagine più visitate sul tuo sito, deve essere semplice e con alcune cose fondamentali come il tuo nome, chi sei, come è possibile contattarti, una breve biografia, ecc.",
     "the-extension-zip-is-not-installed": "L'estensione \"zip\" non è installata, per utilizzare questo plugin hai bisogno di installare l'estensione.",
     "there-are-no-sticky-pages-at-this-moment": "Non c'è nessuna pagina sticky in questo momento.",
     "there-are-no-scheduled-pages-at-this-moment": "Non c'è nessuna pagina programmata in questo momento.",
