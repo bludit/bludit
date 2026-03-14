@@ -4,5 +4,12 @@
 		"name": "X/Twitter Cards",
 		"description": "Met X (voorheen Twitter) Cards kunnen foto's, video's and media-ervaringen worden gekoppeld aan berichten om zo bezoekers naar deze website te trekken."
 	},
-	"default-image": "Standaardafbeelding"
+	"default-image": "Standaardafbeelding",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Your Twitter @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-recommended": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-twitter": "Large image cards get better engagement on Twitter",
+	"fallback-image-when-content-has-no-image": "Fallback image when content has no image"
 }

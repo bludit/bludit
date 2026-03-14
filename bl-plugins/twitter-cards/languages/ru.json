@@ -1,0 +1,15 @@
+{
+	"plugin-data":
+	{
+		"name": "X/Twitter Cards",
+		"description": "С помощью X (ранее Twitter) Cards вы можете добавить фото, видео и медиа к публикациям, тем самым привлекая дополнительный трафик для вашего сайта."
+	},
+	"default-image": "Изображение по умолчанию",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Ваше имя пользователя Twitter для атрибуции twitter:site",
+	"card-type": "Тип карточки",
+	"summary-with-large-image-recommended": "Сводка с большим изображением (рекомендуется)",
+	"summary": "Сводка",
+	"large-image-cards-get-better-engagement-on-twitter": "Карточки с большими изображениями получают больше вовлечённости в Twitter",
+	"fallback-image-when-content-has-no-image": "Резервное изображение, когда у контента нет изображения"
+}
