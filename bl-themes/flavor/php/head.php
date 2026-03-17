@@ -16,16 +16,16 @@
 <style type="text/tailwindcss">
 @theme {
 	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-	--color-accent-50: #f5f3ff;
-	--color-accent-100: #ede9fe;
-	--color-accent-200: #ddd6fe;
-	--color-accent-300: #c4b5fd;
-	--color-accent-400: #a78bfa;
-	--color-accent-500: #8b5cf6;
-	--color-accent-600: #7c3aed;
-	--color-accent-700: #6d28d9;
-	--color-accent-800: #5b21b6;
-	--color-accent-900: #4c1d95;
+	--color-accent-50: #ecfdf5;
+	--color-accent-100: #d1fae5;
+	--color-accent-200: #a7f3d0;
+	--color-accent-300: #6ee7b7;
+	--color-accent-400: #34d399;
+	--color-accent-500: #10b981;
+	--color-accent-600: #059669;
+	--color-accent-700: #047857;
+	--color-accent-800: #065f46;
+	--color-accent-900: #064e3b;
 }
 </style>
 

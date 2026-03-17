@@ -14,14 +14,14 @@ body {
 .prose-content p { margin: 1em 0; }
 
 .prose-content a {
-	color: #7c3aed;
+	color: #059669;
 	text-decoration: underline;
-	text-decoration-color: rgba(124, 58, 237, 0.3);
+	text-decoration-color: rgba(5, 150, 105, 0.3);
 	text-underline-offset: 2px;
 	transition: text-decoration-color 0.2s;
 }
 .prose-content a:hover {
-	text-decoration-color: #7c3aed;
+	text-decoration-color: #059669;
 }
 
 .prose-content ul,
@@ -32,7 +32,7 @@ body {
 .prose-content li { margin: 0.25em 0; }
 
 .prose-content blockquote {
-	border-left: 3px solid #7c3aed;
+	border-left: 3px solid #059669;
 	margin: 1.5em 0;
 	padding: 0.5em 1em;
 	color: #6b7280;
