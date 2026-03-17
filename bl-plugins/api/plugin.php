@@ -201,7 +201,7 @@ class pluginAPI extends Plugin
 			$data = $this->getFiles($pageKey);
 		}
 		// (POST) /api/files/<page-key>
-		elseif (($method === 'POST') && ($parameters[0] === 'files') && !empty($parameters[1])) {
+		elseif (($method === 'POST') && ($parameters[0] === 'files') && !empty($parameters[1]) && $writePermissions) {
 			$pageKey = $parameters[1];
 			$data = $this->uploadFile($pageKey);
 		} else {
@@ -746,6 +746,11 @@ class pluginAPI extends Plugin
 		}
 
 		$filename = $_FILES['file']['name'];
+		$blockedExtensions = ['php', 'phtml', 'php3', 'php4', 'php5', 'php7', 'phps', 'pht', 'phar'];
+		$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+		if (in_array($ext, $blockedExtensions)) {
+			return array('status' => '1', 'message' => 'File type not allowed.');
+		}
 		$absoluteURL = DOMAIN_UPLOADS_PAGES . $pageKey . DS . $filename;
 		$absolutePath = PATH_UPLOADS_PAGES . $pageKey . DS . $filename;
 		if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
