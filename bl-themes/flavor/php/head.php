@@ -11,34 +11,23 @@
 <!-- Include Favicon -->
 <?php echo Theme::favicon('img/favicon.png'); ?>
 
-<!-- Tailwind CSS via CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-	darkMode: 'class',
-	theme: {
-		extend: {
-			fontFamily: {
-				sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-			},
-			colors: {
-				accent: {
-					50: '#f5f3ff',
-					100: '#ede9fe',
-					200: '#ddd6fe',
-					300: '#c4b5fd',
-					400: '#a78bfa',
-					500: '#8b5cf6',
-					600: '#7c3aed',
-					700: '#6d28d9',
-					800: '#5b21b6',
-					900: '#4c1d95',
-				}
-			}
-		}
-	}
+<!-- Tailwind CSS v4 via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@theme {
+	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+	--color-accent-50: #f5f3ff;
+	--color-accent-100: #ede9fe;
+	--color-accent-200: #ddd6fe;
+	--color-accent-300: #c4b5fd;
+	--color-accent-400: #a78bfa;
+	--color-accent-500: #8b5cf6;
+	--color-accent-600: #7c3aed;
+	--color-accent-700: #6d28d9;
+	--color-accent-800: #5b21b6;
+	--color-accent-900: #4c1d95;
 }
-</script>
+</style>
 
 <!-- Google Fonts: Inter -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
