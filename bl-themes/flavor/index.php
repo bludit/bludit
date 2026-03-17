@@ -14,7 +14,9 @@
 	<!-- Content -->
 	<main class="max-w-2xl mx-auto px-4 py-8">
 		<?php
-			if ($WHERE_AM_I == 'page') {
+			if ($url->notFound()) {
+				include(THEME_DIR_PHP.'404.php');
+			} elseif ($WHERE_AM_I === 'page') {
 				include(THEME_DIR_PHP.'page.php');
 			} else {
 				include(THEME_DIR_PHP.'home.php');

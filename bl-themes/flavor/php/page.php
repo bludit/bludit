@@ -4,6 +4,31 @@
 	<?php Theme::plugins('pageBegin'); ?>
 
 	<?php if (!$page->isStatic() && !$url->notFound()): ?>
+	<!-- Breadcrumb navigation -->
+	<nav aria-label="Breadcrumb" class="mb-6">
+		<ol class="flex items-center text-sm text-gray-500 dark:text-gray-400 gap-1.5">
+			<li>
+				<a href="<?php echo Theme::siteUrl(); ?>" class="hover:text-accent-600 dark:hover:text-accent-400 no-underline transition-colors">
+					<?php echo $site->title(); ?>
+				</a>
+			</li>
+			<?php if ($page->categoryKey()): ?>
+			<li class="flex items-center gap-1.5">
+				<span aria-hidden="true">/</span>
+				<a href="<?php echo $page->categoryPermalink(); ?>" class="hover:text-accent-600 dark:hover:text-accent-400 no-underline transition-colors">
+					<?php echo $page->category(); ?>
+				</a>
+			</li>
+			<?php endif; ?>
+			<li class="flex items-center gap-1.5">
+				<span aria-hidden="true">/</span>
+				<span class="text-gray-700 dark:text-gray-300 font-medium truncate max-w-[200px]" aria-current="page">
+					<?php echo $page->title(); ?>
+				</span>
+			</li>
+		</ol>
+	</nav>
+
 	<!-- Date and reading time -->
 	<div class="mb-4">
 		<time class="text-sm text-gray-500 dark:text-gray-400" datetime="<?php echo $page->dateRaw(); ?>">
@@ -13,6 +38,12 @@
 		<span class="text-sm text-gray-500 dark:text-gray-400">
 			<?php echo $page->readingTime(); ?> <?php echo $L->get('read'); ?>
 		</span>
+		<?php if ($page->user('nickname')): ?>
+		<span class="text-sm text-gray-400 dark:text-gray-500 mx-2">&middot;</span>
+		<span class="text-sm text-gray-500 dark:text-gray-400">
+			<?php echo $page->user('nickname'); ?>
+		</span>
+		<?php endif; ?>
 	</div>
 	<?php endif ?>
 
@@ -23,9 +54,9 @@
 
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
-	<div class="mb-8 rounded-lg overflow-hidden">
-		<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" />
-	</div>
+	<figure class="mb-8 rounded-lg overflow-hidden">
+		<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
+	</figure>
 	<?php endif ?>
 
 	<!-- Full content -->
@@ -36,7 +67,7 @@
 	<!-- Tags and Category -->
 	<?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
 	<?php if (!empty($tagsList) || $categoryKey) : ?>
-	<div class="flex flex-wrap gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+	<footer class="flex flex-wrap gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
 		<?php if ($categoryKey) : ?>
 			<a class="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 hover:bg-accent-200 dark:hover:bg-accent-800 transition-colors no-underline" href="<?php echo $page->categoryPermalink(); ?>">
 				<?php echo $page->category(); ?>
@@ -47,7 +78,7 @@
 				<?php echo $tagName; ?>
 			</a>
 		<?php endforeach ?>
-	</div>
+	</footer>
 	<?php endif ?>
 
 	<!-- Back to home -->

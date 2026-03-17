@@ -12,7 +12,7 @@
 		<!-- Cover image -->
 		<?php if ($page->coverImage()) : ?>
 		<div class="mb-4 rounded-lg overflow-hidden">
-			<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" />
+			<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
 		</div>
 		<?php endif ?>
 
