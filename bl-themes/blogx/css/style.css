@@ -404,6 +404,7 @@ footer.footer-modern a:hover {
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
 	padding: var(--space-lg);
+	font-size: 0.875rem; /* 14px */
 }
 
 .plugin {
