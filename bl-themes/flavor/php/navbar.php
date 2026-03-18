@@ -4,6 +4,12 @@
 			<?php echo $site->title() ?>
 		</a>
 		<nav class="flex items-center gap-6 text-sm">
+			<?php if ($site->homepage()): ?>
+				<a class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors no-underline <?php echo ($WHERE_AM_I === 'blog') ? 'font-semibold text-accent-600 dark:text-accent-400' : '' ?>" href="<?php echo DOMAIN_BASE . ltrim($url->filters('blog'), '/') ?>">
+					<?php echo $L->get('Blog') ?>
+				</a>
+			<?php endif; ?>
+
 			<?php foreach ($staticContent as $staticPage) : ?>
 				<a class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors no-underline <?php echo ($url->slug() == $staticPage->slug()) ? 'font-semibold text-accent-600 dark:text-accent-400' : '' ?>" href="<?php echo $staticPage->permalink() ?>">
 					<?php echo $staticPage->title() ?>
