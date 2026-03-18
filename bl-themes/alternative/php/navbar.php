@@ -10,6 +10,15 @@
 
 			<ul class="navbar-nav ml-auto">
 
+				<!-- Blog link (when homepage is set to a static page) -->
+				<?php if ($site->homepage()): ?>
+				<li class="nav-item<?php echo ($WHERE_AM_I === 'blog') ? ' active' : ''; ?>">
+					<a class="nav-link" href="<?php echo DOMAIN_BASE . ltrim($url->filters('blog'), '/') ?>">
+						<?php echo $L->get('Blog') ?>
+					</a>
+				</li>
+				<?php endif; ?>
+
 				<!-- Static pages -->
 				<?php foreach ($staticContent as $staticPage): ?>
 				<li class="nav-item<?php echo ($page && $page->key() === $staticPage->key()) ? ' active' : ''; ?>">
