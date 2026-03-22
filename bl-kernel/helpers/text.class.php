@@ -102,8 +102,8 @@ class Text {
 
 	public static function endsWith($string, $endsString)
 	{
-		//$length = (-1)*self::length($endsString);
-		return (mb_substr($string, -1)===$endsString);
+		$length = (-1) * self::length($endsString);
+		return (mb_substr($string, $length) === $endsString);
 	}
 
 	public static function endsWithNumeric($string)
@@ -113,12 +113,12 @@ class Text {
 
 	public static function randomText($length)
 	{
-		 $characteres = "1234567890abcdefghijklmnopqrstuvwxyz!@#%^&*";
-		 $text = '';
-		 for($i=0; $i<$length; $i++) {
-			$text .= $characteres[rand(0,41)];
-		 }
-		 return $text;
+		$characteres = "1234567890abcdefghijklmnopqrstuvwxyz!@#%^&*";
+		$text = '';
+		for ($i = 0; $i < $length; $i++) {
+			$text .= $characteres[random_int(0, strlen($characteres) - 1)];
+		}
+		return $text;
 	}
 
 	public static function replaceAssoc(array $replace, $text)
