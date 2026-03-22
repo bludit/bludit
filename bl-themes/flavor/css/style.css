@@ -93,18 +93,18 @@ body {
 }
 
 /* Dark mode prose overrides */
-@media (prefers-color-scheme: dark) {
-	.dark .prose-content code {
-		background: #374151;
+`@media` (prefers-color-scheme: dark) {
+	.prose-content code {
+		background: `#374151`;
 	}
-	.dark .prose-content blockquote {
-		color: #9ca3af;
+	.prose-content blockquote {
+		color: `#9ca3af`;
 	}
-	.dark .prose-content th {
-		background: #1f2937;
+	.prose-content th {
+		background: `#1f2937`;
 	}
-	.dark .prose-content th,
-	.dark .prose-content td {
-		border-color: #374151;
+	.prose-content th,
+	.prose-content td {
+		border-color: `#374151`;
 	}
 }
