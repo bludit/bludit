@@ -1,0 +1,13 @@
+{
+	"theme-data":
+	{
+		"name": "Flavor",
+		"description": "A minimal, clean blog theme powered by Tailwind CSS. Features a centered layout, elegant typography with Inter font, and emerald accents."
+	},
+	"Read more": "Read more",
+	"Reading time": "Reading time",
+	"read": "read",
+	"Back to home": "Back to home",
+	"Previous": "Previous",
+	"Next": "Next"
+}
