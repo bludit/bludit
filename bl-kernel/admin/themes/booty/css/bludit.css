@@ -72,6 +72,7 @@ body {
 div.sidebar {
 	background: var(--bg-sidebar);
 	border-right: 1px solid var(--border-color);
+	border-left: 1px solid var(--border-color);
 	position: relative;
 	padding: 10px 15px;
 }
