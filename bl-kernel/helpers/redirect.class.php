@@ -5,7 +5,7 @@ class Redirect {
 	public static function url($url, $httpCode=301)
 	{
 		if (!headers_sent()) {
-			header("Location:".$url, TRUE, $httpCode);
+			header("Location: ".$url, TRUE, $httpCode);
 			exit(0);
 		}
 
