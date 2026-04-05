@@ -55,6 +55,13 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 	$fileExtension = Filesystem::extension($filename);
 	$filename = $filenameWithoutExt . '.' . $fileExtension;
 
+	// Block dotfiles
+	if (strpos($filename, '.') === 0) {
+		$message = 'File type not allowed.';
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+
 	// Check path traversal on $filename
 	if (Text::stringContains($filename, DS, false)) {
 		$message = 'Path traversal detected.';

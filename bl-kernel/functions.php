@@ -950,6 +950,11 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 {
   global $site;
 
+  // Block dotfiles
+  if (strpos(basename($file), '.') === 0) {
+    return false;
+  }
+
   // Check image extension
   $fileExtension = Filesystem::extension($file);
   $fileExtension = Text::lowercase($fileExtension);

@@ -21,6 +21,13 @@ if (Text::stringContains($_FILES['inputFile']['name'], DS, false)) {
 	ajaxResponse(1, $message);
 }
 
+// Block dotfiles
+if (strpos($_FILES['inputFile']['name'], '.') === 0) {
+	$message = 'File type not allowed.';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
+
 // File extension
 $fileExtension = Filesystem::extension($_FILES['inputFile']['name']);
 $fileExtension = Text::lowercase($fileExtension);

@@ -111,3 +111,6 @@ $GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'w
 
 // Allowed image mime types
 $GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'image/webp');
+
+// Allowed file extensions
+$GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'webp', 'pdf', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'tar', 'gz', 'mp3', 'mp4', 'wav', 'ogg', 'json', 'md');
