@@ -119,13 +119,13 @@ class pluginTinymce extends Plugin
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertMedia(filename) {
-		tinymce.activeEditor.insertContent("<img src=\""+filename+"\" alt=\"\">");
+		tinymce.activeEditor.insertContent("<img src=\""+filename+"\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertLinkedMedia(filename, link) {
-		tinymce.activeEditor.insertContent("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"\"></a>");
+		tinymce.activeEditor.insertContent("<a href=\""+link+"\"><img src=\""+filename+"\"></a>");
 	}
 
 	// Returns the content of the editor
@@ -161,6 +161,8 @@ class pluginTinymce extends Plugin
 		contextmenu: "$contextmenu",
 		content_css: "$content_css",
 		codesample_languages: [$codesampleConfig],
+		image_description: true,
+		image_advtab: true
 	});
 
 </script>
