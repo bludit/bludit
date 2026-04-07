@@ -952,6 +952,9 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 
   // Block dotfiles
   if (strpos(basename($file), '.') === 0) {
+    if (file_exists($file)) {
+      @unlink($file);
+    }
     return false;
   }
 
