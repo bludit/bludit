@@ -23,6 +23,7 @@ $plugins = array(
 	'adminSidebar'=>array(),
 	'adminContentSidebar'=>array(),
 	'dashboard'=>array(),
+	'editorToolbar'=>array(),
 
 	'beforeAll'=>array(),
 	'afterAll'=>array(),
