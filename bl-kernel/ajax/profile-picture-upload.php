@@ -26,6 +26,13 @@ if (Text::stringContains($username, DS, false)) {
 	ajaxResponse(1, $message);
 }
 
+// Block dotfiles
+if (strpos($_FILES['profilePictureInputFile']['name'], '.') === 0) {
+	$message = 'File type not allowed.';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
+
 // Sanitize username for filename to prevent issues with special characters
 $sanitizedUsername = Text::removeSpecialCharacters($username, '-');
 $sanitizedUsername = Text::removeQuotes($sanitizedUsername);

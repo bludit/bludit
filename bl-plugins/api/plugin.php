@@ -746,12 +746,27 @@ class pluginAPI extends Plugin
 		}
 
 		$filename = $_FILES['file']['name'];
-		$blockedExtensions = ['php', 'phtml', 'php3', 'php4', 'php5', 'php7', 'phps', 'pht', 'phar'];
-		$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-		if (in_array($ext, $blockedExtensions)) {
+
+		// Block dotfiles
+		if (strpos($filename, '.') === 0) {
 			return array('status' => '1', 'message' => 'File type not allowed.');
 		}
-		$absoluteURL = DOMAIN_UPLOADS_PAGES . $pageKey . DS . $filename;
+
+		// Check file extension
+		$fileExtension = Filesystem::extension($filename);
+		$fileExtension = Text::lowercase($fileExtension);
+		if (!in_array($fileExtension, $GLOBALS['ALLOWED_FILE_EXTENSIONS'])) {
+			return array('status' => '1', 'message' => 'File type not allowed.');
+		}
+
+		// Sanitize filename to prevent issues with special characters
+		$filenameWithoutExt = Filesystem::filename($filename);
+		$filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
+		$filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
+		$filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
+		$filename = $filenameWithoutExt . '.' . $fileExtension;
+
+		$absoluteURL = DOMAIN_UPLOADS_PAGES . $pageKey . '/' . $filename;
 		$absolutePath = PATH_UPLOADS_PAGES . $pageKey . DS . $filename;
 		if (Filesystem::mv($_FILES['file']['tmp_name'], $absolutePath)) {
 			return array(
