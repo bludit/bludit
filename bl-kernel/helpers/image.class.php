@@ -32,13 +32,13 @@ class Image {
         // Remove the extension
         $filename = substr($savePath, 0,strrpos($savePath,'.'));
 
-        $path_complete = $filename.'.'.$extension;
-
         if ($forcePNG) {
             $extension = 'png';
         } elseif ($forceJPG) {
             $extension = 'jpg';
         }
+
+        $path_complete = $filename.'.'.$extension;
 
         switch ($extension) {
             case 'jpg':
@@ -69,7 +69,7 @@ class Image {
                 }
                 break;
             case 'webp':
-                // Checking for JPG support
+                // Checking for WEBP support
                 if (imagetypes() & IMG_WEBP) {
                     imagewebp($this->imageResized, $path_complete, $imageQuality);
                 }
@@ -80,7 +80,6 @@ class Image {
                 break;
         }
 
-        imagedestroy($this->imageResized);
     }
 
     private function openImage($file)
@@ -115,8 +114,8 @@ class Image {
         // *** Get optimal width and height - based on $option
         $optionArray = $this->getDimensions($newWidth, $newHeight, $option);
 
-        $optimalWidth  = $optionArray['optimalWidth'];
-        $optimalHeight = $optionArray['optimalHeight'];
+        $optimalWidth  = (int) $optionArray['optimalWidth'];
+        $optimalHeight = (int) $optionArray['optimalHeight'];
 
 
         // *** Resample - create image canvas of x, y size
@@ -161,6 +160,11 @@ class Image {
                 break;
             case 'crop':
                 $optionArray = $this->getOptimalCrop($newWidth, $newHeight);
+                $optimalWidth = $optionArray['optimalWidth'];
+                $optimalHeight = $optionArray['optimalHeight'];
+                break;
+            default:
+                $optionArray = $this->getSizeByAuto($newWidth, $newHeight);
                 $optimalWidth = $optionArray['optimalWidth'];
                 $optimalHeight = $optionArray['optimalHeight'];
                 break;
@@ -237,11 +241,10 @@ class Image {
     private function crop($optimalWidth, $optimalHeight, $newWidth, $newHeight)
     {
         // *** Find center - this will be used for the crop
-        $cropStartX = ( $optimalWidth / 2) - ( $newWidth /2 );
-        $cropStartY = ( $optimalHeight/ 2) - ( $newHeight/2 );
+        $cropStartX = (int) (( $optimalWidth / 2) - ( $newWidth /2 ));
+        $cropStartY = (int) (( $optimalHeight/ 2) - ( $newHeight/2 ));
 
         $crop = $this->imageResized;
-        //imagedestroy($this->imageResized);
 
         // *** Now crop from center to exact requested size
         $this->imageResized = imagecreatetruecolor($newWidth , $newHeight);
