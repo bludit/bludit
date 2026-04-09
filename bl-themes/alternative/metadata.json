@@ -2,10 +2,10 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://themes.bludit.com",
-	"version": "3.19.0",
-	"releaseDate": "2026-03-22",
+	"version": "3.20.0",
+	"releaseDate": "2026-04-09",
 	"license": "MIT",
-	"compatible": "3.18",
+	"compatible": "3.20",
 	"notes": "Improved accessibility, SEO with Schema.org, responsive design, and performance",
 	"plugin": "alternative"
 }
