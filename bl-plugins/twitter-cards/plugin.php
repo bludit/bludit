@@ -22,24 +22,24 @@ class pluginTwitterCards extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Twitter @username</label>';
+		$html .= '<label>' . $L->get('twitter-username') . '</label>';
 		$html .= '<input name="twitterSite" type="text" dir="auto" value="' . $this->getValue('twitterSite') . '" placeholder="@username">';
-		$html .= '<span class="tip">Your Twitter @username for twitter:site attribution</span>';
+		$html .= '<span class="tip">' . $L->get('your-twitter-username-for-twitter-site-attribution') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Card Type</label>';
+		$html .= '<label>' . $L->get('card-type') . '</label>';
 		$html .= '<select name="cardType">';
-		$html .= '<option value="summary_large_image"' . ($this->getValue('cardType') === 'summary_large_image' ? ' selected' : '') . '>Summary with Large Image (recommended)</option>';
-		$html .= '<option value="summary"' . ($this->getValue('cardType') === 'summary' ? ' selected' : '') . '>Summary</option>';
+		$html .= '<option value="summary_large_image"' . ($this->getValue('cardType') === 'summary_large_image' ? ' selected' : '') . '>' . $L->get('summary-with-large-image-recommended') . '</option>';
+		$html .= '<option value="summary"' . ($this->getValue('cardType') === 'summary' ? ' selected' : '') . '>' . $L->get('summary') . '</option>';
 		$html .= '</select>';
-		$html .= '<span class="tip">Large image cards get better engagement on Twitter</span>';
+		$html .= '<span class="tip">' . $L->get('large-image-cards-get-better-engagement-on-twitter') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>' . $L->get('Default image') . '</label>';
+		$html .= '<label>' . $L->get('default-image') . '</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" dir="auto" value="' . $this->getValue('defaultImage') . '" placeholder="https://">';
-		$html .= '<span class="tip">Fallback image when content has no image</span>';
+		$html .= '<span class="tip">' . $L->get('fallback-image-when-content-has-no-image') . '</span>';
 		$html .= '</div>';
 
 		return $html;

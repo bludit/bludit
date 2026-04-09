@@ -1,7 +1,14 @@
 {
-	"default-image": "Standardbillede",
 	"plugin-data": {
 		"description": "Med X (tidligere Twitter) kort kan du vedhæfte vigtige billeder, videoer og medieoplevelser til opslag, hvilket hjælper med at få trafik på din hjemmeside.",
 		"name": "X/Twitter Cards"
-	}
+	},
+	"default-image": "Standardbillede",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Your Twitter @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-recommended": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-twitter": "Large image cards get better engagement on Twitter",
+	"fallback-image-when-content-has-no-image": "Fallback image when content has no image"
 }

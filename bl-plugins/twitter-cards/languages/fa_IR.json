@@ -4,5 +4,12 @@
 		"name": "X/Twitter Cards",
 		"description": "بوسیله X (قبلاً Twitter) Cards ، شما می‌توانید تصاویر، ویدئو و تجربیات رسانه ای را به پست‌ها پیوست کرده، و با اینکار کمکی می‌شود تا ترافیک بیشتری به سمت وبسایت شما روانه شود."
 	},
-	"default-image": "تصویر پیش‌فرض"
+	"default-image": "تصویر پیش‌فرض",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Your Twitter @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-recommended": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-twitter": "Large image cards get better engagement on Twitter",
+	"fallback-image-when-content-has-no-image": "Fallback image when content has no image"
 }

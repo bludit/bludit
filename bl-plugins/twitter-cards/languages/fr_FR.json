@@ -4,5 +4,12 @@
 		"name": "Cartes X/Twitter",
 		"description": "Les Cartes X (anciennement Twitter) sont des protocoles qui vous permettent d'attacher des photos, des vidéos et autres médias interactifs à vos publications, cela vas vous aider à générer du trafic vers votre site."
 	},
-	"default-image": "Image par défaut."
+	"default-image": "Image par défaut.",
+	"twitter-username": "Twitter @username",
+	"your-twitter-username-for-twitter-site-attribution": "Your Twitter @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-recommended": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-twitter": "Large image cards get better engagement on Twitter",
+	"fallback-image-when-content-has-no-image": "Fallback image when content has no image"
 }
