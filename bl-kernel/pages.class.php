@@ -673,11 +673,11 @@ class Pages extends dbJSON
 
 	private function sortByDateLowToHigh($a, $b)
 	{
-		return $a['date'] > $b['date'];
+		return $a['date'] <=> $b['date'];
 	}
 	private function sortByDateHighToLow($a, $b)
 	{
-		return $a['date'] < $b['date'];
+		return $b['date'] <=> $a['date'];
 	}
 
 	function generateUUID()
