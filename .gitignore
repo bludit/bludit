@@ -3,6 +3,7 @@ dbgenerator.php
 bl-content/*
 !bl-content/.keep
 bl-content-migrator
+bl-plugins/gallery
 bl-plugins/timemachine
 bl-plugins/timemachine-x
 bl-plugins/backup-manager
