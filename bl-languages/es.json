@@ -5,7 +5,10 @@
         "locale": "es, es_ES, es_AR, es_CL, es_CO, es_MX, es_PE, es_VE",
         "last-update": "2018-08-09",
         "authors": [
-            "Diego @dignajar"
+            "Diego @dignajar",
+            "Clickwork https://clickwork.ch",
+            "xm74",
+            ""
         ]
     },
     "dates": {
@@ -400,5 +403,8 @@
     "insert-thumbnail": "Insertar miniatura",
     "insert-linked-thumbnail": "Insertar miniatura enlazada",
     "no-categories": "No hay categorías",
-    "no-tags": "No hay etiquetas"
+    "no-tags": "No hay etiquetas",
+    "Navigation": "Navegación",
+    "thumbnail-generation": "Generación de miniaturas",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Activar o desactivar la generación automática de miniaturas al subir imágenes."
 }

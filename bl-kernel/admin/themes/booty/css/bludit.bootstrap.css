@@ -34,61 +34,61 @@ a.text-danger:hover {
 }
 
 .btn-primary {
-	background: var(--primary-gradient, linear-gradient(135deg, #1e88e5 0%, #1565c0 100%));
+	background: var(--primary-blue, #0078D4);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-primary:hover {
-	background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+	background: var(--primary-blue-dark, #005A9E);
 	border: none;
 	transform: translateY(-1px);
 }
 
 .btn-secondary {
-	background-color: #6c757d;
+	background-color: #64748B;
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-secondary:hover {
-	background-color: #5a6268;
+	background-color: #475569;
 	border: none;
 	transform: translateY(-1px);
 }
 
 .btn-light {
 	background-color: #f8f9fa;
-	border: 2px solid var(--border-color, #e9ecef);
+	border: 2px solid var(--border-color, #e2e8f0);
 	font-weight: var(--font-weight-medium, 550);
 }
 
 .btn-light:hover {
 	background-color: #e9ecef;
-	border-color: #dee2e6;
+	border-color: #cbd5e1;
 	transform: translateY(-1px);
 }
 
 .btn-danger {
-	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+	background: #DC2626;
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-danger:hover {
-	background: linear-gradient(135deg, #ee5a5a 0%, #dc3545 100%);
+	background: #B91C1C;
 	border: none;
 	transform: translateY(-1px);
 }
 
 .btn-success {
-	background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+	background: #16A34A;
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-success:hover {
-	background: linear-gradient(135deg, #40c057 0%, #37b24d 100%);
+	background: #15803D;
 	border: none;
 	transform: translateY(-1px);
 }
@@ -116,18 +116,18 @@ a.text-danger:hover {
 	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
-	border: 2px solid var(--border-color, #e9ecef);
+	border: 2px solid var(--border-color, #e2e8f0);
 	border-radius: 4px;
 	transition: all 0.2s ease;
 }
 
 .form-control:focus {
-	border-color: var(--primary-blue, #1e88e5);
+	border-color: var(--primary-blue, #0078D4);
 }
 
 label {
 	font-weight: var(--font-weight-semibold, 650);
-	color: var(--text-primary, #1a1a2e);
+	color: var(--text-primary, #0F172A);
 	margin-bottom: 8px;
 	font-size: var(--font-size-base, 0.945rem);
 }
@@ -143,7 +143,7 @@ label {
 
 .card-header {
 	background: transparent;
-	border-bottom: 1px solid var(--border-color, #e9ecef);
+	border-bottom: 1px solid var(--border-color, #e2e8f0);
 	font-weight: var(--font-weight-bold, 750);
 	font-size: var(--font-size-lg, 1.08rem);
 }
@@ -161,9 +161,9 @@ label {
 	font-size: var(--font-size-xs, 0.8rem);
 	text-transform: uppercase!important;
 	font-weight: var(--font-weight-bold, 750);
-	color: var(--text-secondary, #5a6268);
+	color: var(--text-secondary, #475569);
 	letter-spacing: 0.8px;
-	border-bottom: 2px solid var(--border-color, #e9ecef);
+	border-bottom: 2px solid var(--border-color, #e2e8f0);
 }
 
 .table td {
@@ -174,7 +174,7 @@ label {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-	color: var(--text-primary, #1a1a2e);
+	color: var(--text-primary, #0F172A);
 	font-weight: var(--font-weight-bold, 750);
 	letter-spacing: -0.02em;
 }
@@ -195,5 +195,5 @@ h6 { font-size: var(--font-size-sm, 0.925rem); }
 }
 
 .badge-primary {
-	background: var(--primary-gradient, linear-gradient(135deg, #1e88e5 0%, #1565c0 100%));
+	background: var(--primary-blue, #0078D4);
 }

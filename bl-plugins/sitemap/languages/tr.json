@@ -1,8 +1,9 @@
 {
-	"plugin-data":
-	{
-		"name": "Site haritası",
-		"description": "Bu eklenti, web sitenizdeki sayfaların listesini sağlayan bir sitemap.xml dosyası oluşturur. Bu, arama motorlarının web sitesindeki içeriği düzenleyip filtrelemesine yardımcı olur."
-	},
-	"sitemap-url": "Site haritası URL"
+    "plugin-data": {
+        "name": "Site haritası",
+        "description": "Bu eklenti, web sitenizdeki sayfaların listesini sağlayan bir sitemap.xml dosyası oluşturur. Bu, arama motorlarının web sitesindeki içeriği düzenleyip filtrelemesine yardımcı olur."
+    },
+    "sitemap-url": "Site haritası URL",
+    "notifies-google-when-you-created": "Sitenizden içerik oluşturduğunuzda, değiştirdiğinizde veya sildiğinizde Google'ı bilgilendirir.",
+    "notifies-bing-when-you-created": "Sitenizden içerik oluşturduğunuzda, değiştirdiğinizde veya sildiğinizde Bing'i bilgilendirir."
 }

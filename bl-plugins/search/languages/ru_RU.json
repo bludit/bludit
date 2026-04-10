@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "Поиск",
-		"description": "Добавляет поисковое поле по содержимому вашего сайта для пользователей."
-	},
-	"search": "Поиск",
-	"show-button-search": "Show button search"
+    "plugin-data": {
+        "name": "Поиск",
+        "description": "Добавляет поисковое поле по содержимому вашего сайта для пользователей."
+    },
+    "search": "Поиск",
+    "show-button-search": "Show button search",
+    "search-results-for": "Результаты поиска для",
+    "result-found": "Результат найден",
+    "results-found": "Результатов найдено",
+    "no-results-found": "Результатов не найдено",
+    "no-pages-found-for-the-search": "Мы не смогли найти страницы, соответствующие «%s»",
+    "suggestions": "Предложения",
+    "check-your-spelling": "Проверьте правописание",
+    "try-different-keywords": "Попробуйте другие ключевые слова",
+    "try-more-general-keywords": "Попробуйте более общие ключевые слова",
+    "minimum-number-of-characters-when-searching": "Минимальное количество символов при поиске",
+    "highlight-search-terms-in-results": "Выделять поисковые запросы в результатах",
+    "show-result-count": "Показывать количество результатов",
+    "search-in-tags": "Поиск в тегах",
+    "search-in-categories": "Поиск в категориях",
+    "excerpt-length-(characters)": "Длина отрывка (символов)"
 }

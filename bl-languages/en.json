@@ -404,7 +404,7 @@
     "insert-thumbnail": "Insert thumbnail",
     "insert-linked-thumbnail": "Insert linked thumbnail",
     "no-categories": "No categories",
-            "no-tags": "No tags",
-            "thumbnail-generation": "Thumbnail generation",
-            "enable-disable-automatic-thumbnail-generation-on-image-upload": "Enable or disable automatic thumbnail generation on image upload."
-        }
+    "no-tags": "No tags",
+    "thumbnail-generation": "Thumbnail generation",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Enable or disable automatic thumbnail generation on image upload."
+}

@@ -1,8 +1,9 @@
 {
-	"plugin-data":
-	{
-		"name": "Sitemap",
-		"description": "Este plugin genera un archivo sitemap.xml, el cual provee la lista de páginas de su sitio web, esto ayuda a los buscadores a organizar y filtrar contenido de su sitio web."
-	},
-	"sitemap-url": "URL del sitemap"
+    "plugin-data": {
+        "name": "Sitemap",
+        "description": "Este plugin genera un archivo sitemap.xml, el cual provee la lista de páginas de su sitio web, esto ayuda a los buscadores a organizar y filtrar contenido de su sitio web."
+    },
+    "sitemap-url": "URL del sitemap",
+    "notifies-google-when-you-created": "Notifica a Google cuando creas, modificas o eliminas contenido de tu sitio.",
+    "notifies-bing-when-you-created": "Notifica a Bing cuando creas, modificas o eliminas contenido de tu sitio."
 }

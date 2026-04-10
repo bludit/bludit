@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "Suche",
-		"description": "Fügt ein Suchfeld ein, mit dem die Inhalte der Website durchsucht werden können."
-	},
-	"search": "Suchen",
-	"show-button-search": "Den Button \"Suchen\" anzeigen"
+    "plugin-data": {
+        "name": "Suche",
+        "description": "Fügt ein Suchfeld ein, mit dem die Inhalte der Website durchsucht werden können."
+    },
+    "search": "Suchen",
+    "show-button-search": "Den Button \"Suchen\" anzeigen",
+    "search-results-for": "Suchergebnisse für",
+    "result-found": "Ergebnis gefunden",
+    "results-found": "Ergebnisse gefunden",
+    "no-results-found": "Keine Ergebnisse gefunden",
+    "no-pages-found-for-the-search": "Wir konnten keine Seiten finden, die \"%s\" entsprechen",
+    "suggestions": "Vorschläge",
+    "check-your-spelling": "Überprüfen Sie Ihre Rechtschreibung",
+    "try-different-keywords": "Versuchen Sie es mit anderen Schlüsselwörtern",
+    "try-more-general-keywords": "Versuchen Sie es mit allgemeineren Schlüsselwörtern",
+    "minimum-number-of-characters-when-searching": "Mindestanzahl der Zeichen bei der Suche",
+    "highlight-search-terms-in-results": "Suchbegriffe in den Ergebnissen hervorheben",
+    "show-result-count": "Ergebnisanzahl anzeigen",
+    "search-in-tags": "In Tags suchen",
+    "search-in-categories": "In Kategorien suchen",
+    "excerpt-length-(characters)": "Auszugslänge (Zeichen)"
 }

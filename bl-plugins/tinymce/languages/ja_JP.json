@@ -1,7 +1,12 @@
 {
-	"plugin-data":
-	{
-		"name": "TinyMCE",
-		"description": "HTML Editor for formatting content. Recommended for the users who don't want to work with Markdown code."
-	}
+    "plugin-data": {
+        "name": "TinyMCE",
+        "description": "HTML Editor for formatting content. Recommended for the users who don't want to work with Markdown code."
+    },
+    "toolbar-top": "ツールバー上部",
+    "toolbar-bottom": "ツールバー下部",
+    "context-menu": "コンテキストメニュー",
+    "context-menu-tip": "エディタのコンテキストメニューを無効にするには、空のフィールドにします。",
+    "codesample-languages": "コードサンプルの言語",
+    "codesample-supported-laguages": "Prismがサポートするプログラミング言語。"
 }

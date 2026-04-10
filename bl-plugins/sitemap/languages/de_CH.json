@@ -1,7 +1,9 @@
 {
-	"plugin-data":
-	{
-		"name": "Sitemap",
-		"description": "Plugin, um eine Datei sitemap.xml mit einer Übersicht aller Seiten zu erstellen. Diese hilft Suchmaschinen dabei, den Aufbau und die Inhalte der Website zu erfassen."
-	}
+    "plugin-data": {
+        "name": "Sitemap",
+        "description": "Plugin, um eine Datei sitemap.xml mit einer Übersicht aller Seiten zu erstellen. Diese hilft Suchmaschinen dabei, den Aufbau und die Inhalte der Website zu erfassen."
+    },
+    "sitemap-url": "Sitemap-URL",
+    "notifies-google-when-you-created": "Benachrichtigt Google, wenn Sie Inhalte auf Ihrer Website erstellt, geändert oder gelöscht haben.",
+    "notifies-bing-when-you-created": "Benachrichtigt Bing, wenn Sie Inhalte auf Ihrer Website erstellt, geändert oder gelöscht haben."
 }

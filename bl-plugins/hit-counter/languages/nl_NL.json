@@ -1,7 +1,7 @@
 {
-	"plugin-data":
-	{
-		"name": "Hit Counter",
-		"description": "Toont het aantal bezoeken of unieke bezoekers in de zijbalk."
-	}
+    "plugin-data": {
+        "name": "Hit Counter",
+        "description": "Toont het aantal bezoeken of unieke bezoekers in de zijbalk."
+    },
+    "show-unique-visitors": "Unieke bezoekers weergeven"
 }

@@ -1,6 +1,12 @@
 {
-	"plugin-data": {
-		"description": "HTML Editor til formatering af indhold. Anbefales til de brugere, der ikke ønsker at arbejde med Markdown kode.",
-		"name": "TinyMCE"
-	}
+    "plugin-data": {
+        "description": "HTML Editor til formatering af indhold. Anbefales til de brugere, der ikke ønsker at arbejde med Markdown kode.",
+        "name": "TinyMCE"
+    },
+    "toolbar-top": "Værktøjslinje øverst",
+    "toolbar-bottom": "Værktøjslinje nederst",
+    "context-menu": "Kontekstmenu",
+    "context-menu-tip": "Tomt felt for at deaktivere editorens kontekstmenu.",
+    "codesample-languages": "Kodeprøve-sprog",
+    "codesample-supported-laguages": "Programmeringssprog understøttet af Prism."
 }

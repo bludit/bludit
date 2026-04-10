@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "Zoeken",
-		"description": "Toont een zoekveld om alle inhoud van de website te doorzoeken."
-	},
-	"search": "Zoeken",
-	"show-button-search": "Knop Zoeken tonen"
+    "plugin-data": {
+        "name": "Zoeken",
+        "description": "Toont een zoekveld om alle inhoud van de website te doorzoeken."
+    },
+    "search": "Zoeken",
+    "show-button-search": "Knop Zoeken tonen",
+    "search-results-for": "Zoekresultaten voor",
+    "result-found": "Resultaat gevonden",
+    "results-found": "Resultaten gevonden",
+    "no-results-found": "Geen resultaten gevonden",
+    "no-pages-found-for-the-search": "We konden geen pagina's vinden die overeenkomen met \"%s\"",
+    "suggestions": "Suggesties",
+    "check-your-spelling": "Controleer de spelling",
+    "try-different-keywords": "Probeer andere trefwoorden",
+    "try-more-general-keywords": "Probeer algemenere trefwoorden",
+    "minimum-number-of-characters-when-searching": "Minimum aantal tekens bij het zoeken",
+    "highlight-search-terms-in-results": "Zoektermen markeren in resultaten",
+    "show-result-count": "Aantal resultaten weergeven",
+    "search-in-tags": "Zoeken in tags",
+    "search-in-categories": "Zoeken in categorieën",
+    "excerpt-length-(characters)": "Fragmentlengte (tekens)"
 }

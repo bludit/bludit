@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "Ara",
-		"description": "Sitenizin içeriğinde arama yapmak için kullanıcılarınıza bir arama kutusu sağlayın."
-	},
-	"search": "Ara",
-	"show-button-search": "Arama düğmesini göster"
+    "plugin-data": {
+        "name": "Ara",
+        "description": "Sitenizin içeriğinde arama yapmak için kullanıcılarınıza bir arama kutusu sağlayın."
+    },
+    "search": "Ara",
+    "show-button-search": "Arama düğmesini göster",
+    "search-results-for": "Arama sonuçları:",
+    "result-found": "Sonuç bulundu",
+    "results-found": "Sonuç bulundu",
+    "no-results-found": "Sonuç bulunamadı",
+    "no-pages-found-for-the-search": "\"%s\" ile eşleşen sayfa bulunamadı",
+    "suggestions": "Öneriler",
+    "check-your-spelling": "Yazımınızı kontrol edin",
+    "try-different-keywords": "Farklı anahtar kelimeler deneyin",
+    "try-more-general-keywords": "Daha genel anahtar kelimeler deneyin",
+    "minimum-number-of-characters-when-searching": "Arama yaparken minimum karakter sayısı",
+    "highlight-search-terms-in-results": "Sonuçlarda arama terimlerini vurgula",
+    "show-result-count": "Sonuç sayısını göster",
+    "search-in-tags": "Etiketlerde ara",
+    "search-in-categories": "Kategorilerde ara",
+    "excerpt-length-(characters)": "Alıntı uzunluğu (karakter)"
 }
