@@ -59,7 +59,7 @@ class Sanitize {
 		}
 
 		// If the resolved path does not start with the base directory then this is Path Traversal.
-		if (strpos($real, $basePath)!==0) {
+		if ($real !== $basePath && strpos($real, $basePath . DS) !== 0) {
 			return false;
 		}
 
