@@ -148,7 +148,7 @@ class User
 
 	public function telegram()
 	{
-		return $this->getValue('xing');
+		return $this->getValue('telegram');
 	}
 
 	public function mastodon()
