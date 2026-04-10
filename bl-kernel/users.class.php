@@ -177,7 +177,7 @@ class Users extends dbJSON {
 	public function getByEmail($email)
 	{
 		foreach ($this->db as $username=>$values) {
-			if ($values['email']==$email) {
+			if ($values['email']===$email) {
 				return $username;
 			}
 		}
@@ -188,7 +188,7 @@ class Users extends dbJSON {
 	public function getByAuthToken($token)
 	{
 		foreach ($this->db as $username=>$fields) {
-			if ($fields['tokenAuth']==$token) {
+			if ($fields['tokenAuth']===$token) {
 				return $username;
 			}
 		}
@@ -200,7 +200,7 @@ class Users extends dbJSON {
 	{
 		foreach ($this->db as $username=>$fields) {
 			if (!empty($fields['tokenRemember'])) {
-				if ($fields['tokenRemember']==$token) {
+				if ($fields['tokenRemember']===$token) {
 					return $username;
 				}
 			}
