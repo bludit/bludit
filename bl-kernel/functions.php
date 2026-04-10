@@ -51,7 +51,7 @@ function buildThePage()
   }
 
   if ($page->draft() || $page->scheduled() || $page->autosave()) {
-    if ($url->parameter('preview') !== md5($page->uuid())) {
+    if ($url->parameter('preview') !== hash_hmac('sha256', $page->uuid(), DB_SITE)) {
       $url->setNotFound();
       return false;
     }
@@ -581,7 +581,7 @@ function createUser($args)
   }
 
   // Check new password and confirm password are equal
-  if ($args['new_password'] != $args['confirm_password']) {
+  if ($args['new_password'] !== $args['confirm_password']) {
     Alert::set($L->g('The password and confirmation password do not match'), ALERT_STATUS_FAIL);
     return false;
   }
@@ -745,7 +745,7 @@ function checkRole($allowRoles, $redirect = true)
   global $syslog;
 
   $userRole = $login->role();
-  if (in_array($userRole, $allowRoles)) {
+  if (in_array($userRole, $allowRoles, true)) {
     return true;
   }
 

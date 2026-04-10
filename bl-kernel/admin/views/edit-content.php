@@ -505,7 +505,7 @@ foreach ($customFields as $field => $options) {
 			var content = editorGetContent();
 			var ajax = new bluditAjax();
 			bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
-				var preview = window.open("<?php echo DOMAIN_PAGES . 'autosave-' . $page->uuid() . '?preview=' . md5('autosave-' . $page->uuid()) ?>", "bludit-preview");
+				var preview = window.open("<?php echo DOMAIN_PAGES . 'autosave-' . $page->uuid() . '?preview=' . hash_hmac('sha256', 'autosave-' . $page->uuid(), DB_SITE) ?>", "bludit-preview");
 				preview.focus();
 			});
 		});

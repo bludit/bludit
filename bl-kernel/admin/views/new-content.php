@@ -464,7 +464,7 @@ foreach ($customFields as $field => $options) {
 			var title = $("#jstitle").val();
 			var content = editorGetContent();
 			bluditAjax.saveAsDraft(uuid, title, content).then(function(data) {
-				var preview = window.open("<?php echo DOMAIN_PAGES . 'autosave-' . $uuid . '?preview=' . md5('autosave-' . $uuid) ?>", "bludit-preview");
+				var preview = window.open("<?php echo DOMAIN_PAGES . 'autosave-' . $uuid . '?preview=' . hash_hmac('sha256', 'autosave-' . $uuid, DB_SITE) ?>", "bludit-preview");
 				preview.focus();
 			});
 		});
