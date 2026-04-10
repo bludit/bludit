@@ -404,7 +404,7 @@
     "insert-thumbnail": "إدراج مصغر",
     "no-categories": "لا توجد فئات",
     "insert-linked-thumbnail": "إدراج مصغر مرتبط",
-    "Navigation": "التنقل",
+    "navigation": "التنقل",
     "thumbnail-generation": "توليد الصور المصغرة",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "تفعيل أو تعطيل التوليد التلقائي للصور المصغرة عند رفع الصور."
 }

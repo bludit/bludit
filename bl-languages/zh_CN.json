@@ -404,7 +404,7 @@
     "insert-thumbnail": "插入缩略图",
     "no-categories": "没有分类",
     "insert-linked-thumbnail": "插入链接缩略图",
-    "Navigation": "导航",
+    "navigation": "导航",
     "thumbnail-generation": "缩略图生成",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "启用或禁用上传图片时自动生成缩略图。"
 }

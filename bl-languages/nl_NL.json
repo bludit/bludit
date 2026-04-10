@@ -6,8 +6,7 @@
         "authors": [
             "Ray",
             "ltGuillaume",
-            "xm74",
-            ""
+            "xm74"
         ],
         "locale": "nl, nl_NL"
     },
@@ -85,7 +84,7 @@
     "url-associated-with-the-content": "URL voor deze inhoud.",
     "language-and-timezone": "Taal en tijdzone",
     "change-your-language-and-region-settings": "Instellingen voor taal en regio aanpassen.",
-    "Navigation": "Navigatie",
+    "navigation": "Navigatie",
     "notifications": "Notificaties",
     "plugin-activated": "Plug-in ingeschakeld",
     "plugin-deactivated": "Plug-in uitgeschakeld",

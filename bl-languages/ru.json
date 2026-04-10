@@ -404,7 +404,7 @@
     "no-tags": "Нет тегов",
     "no-categories": "Нет категорий",
     "insert-linked-thumbnail": "Вставить миниатюру со ссылкой",
-    "Navigation": "Навигация",
+    "navigation": "Навигация",
     "thumbnail-generation": "Генерация миниатюр",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "Включить или отключить автоматическую генерацию миниатюр при загрузке изображений."
 }

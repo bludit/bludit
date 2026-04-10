@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Lisää linkitetty pikkukuva",
     "search-placeholder": "Etsi sivuja, sisältöä ja valikon kohteita...",
     "no-results-found": "Tuloksia ei löytynyt",
-    "Navigation": "Navigointi",
+    "navigation": "Navigointi",
     "default-content-status": "Sisällön oletustila",
     "default-status-for-new-content": "Valitse, luodaanko uusi sisältö oletuksena julkaistuna vai luonnoksena.",
     "thumbnail-generation": "Pikkukuvien luominen",

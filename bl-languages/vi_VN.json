@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Chèn hình thu nhỏ được liên kết",
     "search-placeholder": "Tìm kiếm trang, nội dung và các mục menu...",
     "no-results-found": "Không tìm thấy kết quả",
-    "Navigation": "Điều hướng",
+    "navigation": "Điều hướng",
     "default-content-status": "Trạng thái nội dung mặc định",
     "default-status-for-new-content": "Chọn xem nội dung mới được tạo dưới dạng Đã xuất bản hay Bản nháp theo mặc định.",
     "thumbnail-generation": "Tạo ảnh thu nhỏ",

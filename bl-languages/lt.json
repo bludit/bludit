@@ -402,7 +402,7 @@
     "unique-visitors": "Unikalūs lankytojai",
     "search-placeholder": "Ieškoti puslapių, turinio ir meniu elementų...",
     "no-results-found": "Rezultatų nerasta",
-    "Navigation": "Navigacija",
+    "navigation": "Navigacija",
     "default-content-status": "Numatytoji turinio būsena",
     "default-status-for-new-content": "Pasirinkite, ar naujas turinys pagal numatytuosius nustatymus kuriamas kaip Paskelbtas, ar kaip Juodraštis.",
     "thumbnail-generation": "Miniatiūrų generavimas",

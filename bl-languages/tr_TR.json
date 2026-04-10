@@ -404,7 +404,7 @@
     "insert-linked-thumbnail": "Bağlantılı küçük resim ekle",
     "search-placeholder": "Sayfaları, içeriği ve menü öğelerini ara...",
     "no-results-found": "Sonuç bulunamadı",
-    "Navigation": "Navigasyon",
+    "navigation": "Navigasyon",
     "thumbnail-generation": "Küçük resim oluşturma",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "Resim yüklemede otomatik küçük resim oluşturmayı etkinleştirin veya devre dışı bırakın."
 }

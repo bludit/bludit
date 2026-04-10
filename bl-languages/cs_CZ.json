@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Vložit odkazovaný náhled",
     "search-placeholder": "Hledat stránky, obsah a položky menu...",
     "no-results-found": "Nebyly nalezeny žádné výsledky",
-    "Navigation": "Navigace",
+    "navigation": "Navigace",
     "default-content-status": "Výchozí stav obsahu",
     "default-status-for-new-content": "Vyberte, zda má být nový obsah ve výchozím nastavení vytvořen jako Publikovaný nebo jako Koncept.",
     "thumbnail-generation": "Generování náhledů",

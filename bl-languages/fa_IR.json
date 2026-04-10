@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "درج تصویر بندانگشتی لینک‌دار",
     "search-placeholder": "جستجو در صفحات، محتوا و منوها...",
     "no-results-found": "نتیجه‌ای یافت نشد",
-    "Navigation": "ناوبری",
+    "navigation": "ناوبری",
     "default-content-status": "وضعیت پیش‌فرض محتوا",
     "default-status-for-new-content": "انتخاب کنید که آیا محتوای جدید به طور پیش‌فرض به صورت منتشر شده یا پیش‌نویس ایجاد شود.",
     "thumbnail-generation": "ایجاد تصویر بندانگشتی",

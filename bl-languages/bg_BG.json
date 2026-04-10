@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Вмъкване на свързана миниатюра",
     "search-placeholder": "Търсене в страници, съдържание и менюта...",
     "no-results-found": "Няма намерени резултати",
-    "Navigation": "Навигация",
+    "navigation": "Навигация",
     "default-content-status": "Статус на съдържанието по подразбиране",
     "default-status-for-new-content": "Изберете дали новото съдържание да се създава като Публикувано или Чернова по подразбиране.",
     "thumbnail-generation": "Генериране на миниатюри",

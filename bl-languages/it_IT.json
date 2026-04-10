@@ -405,7 +405,7 @@
     "insert-thumbnail": "Inserisci miniatura",
     "no-categories": "Nessuna categoria",
     "insert-linked-thumbnail": "Inserisci miniatura collegata",
-    "Navigation": "Navigazione",
+    "navigation": "Navigazione",
     "file-type-is-not-supported": "Il tipo di file non è supportato. Tipi consentiti:",
     "thumbnail-generation": "Generazione miniature",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "Abilita o disabilita la generazione automatica delle miniature durante il caricamento delle immagini."

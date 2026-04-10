@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Linkelt bélyegkép beszúrása",
     "search-placeholder": "Oldalak, tartalmak és menüpontok keresése...",
     "no-results-found": "Nincs találat",
-    "Navigation": "Navigáció",
+    "navigation": "Navigáció",
     "default-content-status": "Alapértelmezett tartalom állapot",
     "default-status-for-new-content": "Válassza ki, hogy az új tartalom alapértelmezés szerint Közzétett vagy Piszkozat legyen.",
     "thumbnail-generation": "Bélyegkép generálás",

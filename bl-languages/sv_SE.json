@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Infoga länkad miniatyrbild",
     "search-placeholder": "Sök sidor, innehåll och menyalternativ...",
     "no-results-found": "Inga resultat hittades",
-    "Navigation": "Navigering",
+    "navigation": "Navigering",
     "default-content-status": "Standardstatus för innehåll",
     "default-status-for-new-content": "Välj om nytt innehåll ska skapas som Publicerat eller Utkast som standard.",
     "thumbnail-generation": "Generering av miniatyrbilder",

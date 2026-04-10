@@ -404,7 +404,7 @@
     "no-tags": "タグなし",
     "no-categories": "カテゴリーなし",
     "insert-linked-thumbnail": "リンク付きサムネイルを挿入",
-    "Navigation": "ナビゲーション",
+    "navigation": "ナビゲーション",
     "thumbnail-generation": "サムネイルの生成",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "画像アップロード時のサムネイル自動生成を有効または無効にします。"
 }

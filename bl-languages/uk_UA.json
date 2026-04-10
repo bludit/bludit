@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "Вставити пов'язану мініатюру",
     "search-placeholder": "Пошук сторінок, контенту та пунктів меню...",
     "no-results-found": "Результатів не знайдено",
-    "Navigation": "Навігація",
+    "navigation": "Навігація",
     "default-content-status": "Статус вмісту за замовчуванням",
     "default-status-for-new-content": "Виберіть, чи буде новий вміст створюватися як Опублікований або Чернетка за замовчуванням.",
     "thumbnail-generation": "Генерація мініатюр",

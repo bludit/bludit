@@ -404,7 +404,7 @@
     "no-tags": "Sem tags",
     "no-categories": "Sem categorias",
     "insert-linked-thumbnail": "Inserir miniatura com link",
-    "Navigation": "Navegação",
+    "navigation": "Navegação",
     "thumbnail-generation": "Geração de miniaturas",
     "enable-disable-automatic-thumbnail-generation-on-image-upload": "Ativar ou desativar a geração automática de miniaturas ao carregar imagens."
 }

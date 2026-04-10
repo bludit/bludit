@@ -402,7 +402,7 @@
     "insert-linked-thumbnail": "הכנס תמונה ממוזערת מקושרת",
     "search-placeholder": "חפש דפים, תוכן ופריטי תפריט...",
     "no-results-found": "לא נמצאו תוצאות",
-    "Navigation": "ניווט",
+    "navigation": "ניווט",
     "default-content-status": "מצב תוכן ברירת מחדל",
     "default-status-for-new-content": "בחר האם תוכן חדש ייווצר כפורסם או כטיוטה כברירת מחדל.",
     "thumbnail-generation": "יצירת תמונות ממוזערות",
