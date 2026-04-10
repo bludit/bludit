@@ -129,7 +129,11 @@ include(PATH_HELPERS . 'cookie.class.php');
  * ---------------------------------------------------------------------------
  */
 define('BLUDIT_PRO_HASH', substr(md5(BLUDIT_BUILD), 0, 8));
-@include(PATH_KERNEL . 'bludit.pro.' . BLUDIT_PRO_HASH . '.php');
+$_bluditProFile = PATH_KERNEL . 'bludit.pro.' . BLUDIT_PRO_HASH . '.php';
+if (file_exists($_bluditProFile)) {
+	include($_bluditProFile);
+}
+unset($_bluditProFile);
 
 // Objects
 $pages 		= new Pages();

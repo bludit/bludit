@@ -66,6 +66,9 @@ foreach ($pluginsInstalled as $plugin) {
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
 	echo '<span>' . $plugin->version() . '</span>';
+	if (!$plugin->isCompatible()) {
+		echo ' <span class="badge badge-pill badge-warning" title="' . $L->g('This plugin may not be supported by this version of Bludit') . '">' . $L->g('Update') . '</span>';
+	}
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">

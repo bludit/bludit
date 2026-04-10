@@ -36,3 +36,5 @@ test-server.sh
 test-php85-compatibility.php
 php85-server.log
 analyze-logs.sh
+scripts/*
+logs/*

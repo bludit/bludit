@@ -135,6 +135,9 @@ EOF;
 	public function visits($date)
 	{
 		$file = $this->workspace() . $date . '.log';
+		if (!file_exists($file)) {
+			return 0;
+		}
 		$handle = @fopen($file, 'rb');
 		if ($handle === false) {
 			return 0;
@@ -153,6 +156,9 @@ EOF;
 	public function uniqueVisitors($date)
 	{
 		$file = $this->workspace() . $date . '.log';
+		if (!file_exists($file)) {
+			return 0;
+		}
 		$lines = @file($file);
 		if (empty($lines)) {
 			return 0;
