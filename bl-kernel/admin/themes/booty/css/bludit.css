@@ -14,21 +14,21 @@
 	--font-weight-semibold: 650;
 	--font-weight-bold: 750;
 
-	/* Blue gradient theme colors */
-	--primary-blue: #4a9fe5;
-	--primary-blue-dark: #3d88c7;
-	--primary-blue-darker: #2b6ba8;
-	--primary-gradient: linear-gradient(135deg, #4a9fe5 0%, #3d88c7 100%);
+	/* Royal Azure Solid Blue colors */
+	--primary-blue: #0078D4;
+	--primary-blue-dark: #005A9E;
+	--primary-blue-darker: #004578;
+	--primary-gradient: #0078D4;
 
 	/* UI colors */
-	--bg-main: #f5f6f8;
-	--bg-sidebar: #fafbfc;
-	--text-primary: #1a1a2e;
-	--text-secondary: #5a6268;
-	--text-muted: #747b81;
-	--border-color: #e9ecef;
-	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+	--bg-main: #F8FAFC;
+	--bg-sidebar: #F1F5F9;
+	--text-primary: #1E293B;
+	--text-secondary: #475569;
+	--text-muted: #94A3B8;
+	--border-color: #E2E8F0;
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
 	/* Warm neutral accents */
 	--bg-warm: #faf8f5;
@@ -75,6 +75,8 @@ div.sidebar {
 	border-left: 1px solid var(--border-color);
 	position: relative;
 	padding: 10px 15px;
+	min-height: 100vh;
+	height: 100%;
 }
 
 div.sidebar .nav-item a {
@@ -770,6 +772,3 @@ select:focus,
 	border-color: #016DE7 !important;
 	box-shadow: none !important;
 }
-
-
-

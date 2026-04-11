@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "検索",
-		"description": "Provide a search box to your users to search through the content of your site."
-	},
-	"search": "検索",
-	"show-button-search": "検索ボタンを表示"
+    "plugin-data": {
+        "name": "検索",
+        "description": "Provide a search box to your users to search through the content of your site."
+    },
+    "search": "検索",
+    "show-button-search": "検索ボタンを表示",
+    "search-results-for": "の検索結果",
+    "result-found": "件の結果が見つかりました",
+    "results-found": "件の結果が見つかりました",
+    "no-results-found": "結果が見つかりませんでした",
+    "no-pages-found-for-the-search": "「%s」に一致するページは見つかりませんでした",
+    "suggestions": "提案",
+    "check-your-spelling": "スペルを確認してください",
+    "try-different-keywords": "別のキーワードを試してください",
+    "try-more-general-keywords": "より一般的なキーワードを試してください",
+    "minimum-number-of-characters-when-searching": "検索時の最小文字数",
+    "highlight-search-terms-in-results": "検索結果の検索語をハイライトする",
+    "show-result-count": "検索結果数を表示する",
+    "search-in-tags": "タグ内を検索する",
+    "search-in-categories": "カテゴリー内を検索する",
+    "excerpt-length-(characters)": "抜粋の長さ（文字数）"
 }

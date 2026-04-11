@@ -1,8 +1,23 @@
 {
-	"plugin-data": {
-		"description": "Angiv et søgefelt til dine brugere, så de kan gennemsøge indholdet på dit websted.",
-		"name": "Search"
-	},
-	"search": "Søg",
-	"show-button-search": "Vis knappen søg"
+    "plugin-data": {
+        "description": "Angiv et søgefelt til dine brugere, så de kan gennemsøge indholdet på dit websted.",
+        "name": "Search"
+    },
+    "search": "Søg",
+    "show-button-search": "Vis knappen søg",
+    "search-results-for": "Søgeresultater for",
+    "result-found": "Resultat fundet",
+    "results-found": "Resultater fundet",
+    "no-results-found": "Ingen resultater fundet",
+    "no-pages-found-for-the-search": "Vi kunne ikke finde nogen sider, der matcher \"%s\"",
+    "suggestions": "Forslag",
+    "check-your-spelling": "Tjek din stavning",
+    "try-different-keywords": "Prøv andre søgeord",
+    "try-more-general-keywords": "Prøv mere generelle søgeord",
+    "minimum-number-of-characters-when-searching": "Mindste antal tegn ved søgning",
+    "highlight-search-terms-in-results": "Fremhæv søgetermer i resultaterne",
+    "show-result-count": "Vis antal resultater",
+    "search-in-tags": "Søg i tags",
+    "search-in-categories": "Søg i kategorier",
+    "excerpt-length-(characters)": "Uddragslængde (tegn)"
 }

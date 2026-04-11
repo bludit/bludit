@@ -1,9 +1,23 @@
 {
-	"plugin-data":
-	{
-		"name": "جستجو",
-		"description": "برای جستجو از طریق محتوای سایت خود، کادر جستجو را برای کاربران خود فراهم کنید."
-	},
-	"search": "جستجو",
-	"show-button-search": "نمایش دکمه جستجو"
+    "plugin-data": {
+        "name": "جستجو",
+        "description": "برای جستجو از طریق محتوای سایت خود، کادر جستجو را برای کاربران خود فراهم کنید."
+    },
+    "search": "جستجو",
+    "show-button-search": "نمایش دکمه جستجو",
+    "search-results-for": "نتایج جستجو برای",
+    "result-found": "نتیجه پیدا شد",
+    "results-found": "نتیجه پیدا شد",
+    "no-results-found": "نتیجه‌ای یافت نشد",
+    "no-pages-found-for-the-search": "ما هیچ صفحه‌ای مطابق با \"%s\" پیدا نکردیم",
+    "suggestions": "پیشنهادات",
+    "check-your-spelling": "املای خود را بررسی کنید",
+    "try-different-keywords": "کلمات کلیدی مختلف را امتحان کنید",
+    "try-more-general-keywords": "کلمات کلیدی عمومی‌تری را امتحان کنید",
+    "minimum-number-of-characters-when-searching": "حداقل تعداد کاراکترها هنگام جستجو",
+    "highlight-search-terms-in-results": "برجسته کردن عبارات جستجو در نتایج",
+    "show-result-count": "نمایش تعداد نتایج",
+    "search-in-tags": "جستجو در برچسب‌ها",
+    "search-in-categories": "جستجو در دسته‌ها",
+    "excerpt-length-(characters)": "طول چکیده (کاراکتر)"
 }

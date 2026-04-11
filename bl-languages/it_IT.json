@@ -6,7 +6,8 @@
         "authors": [
             "Daniele La Pira https://github.com/danielelapira",
             "Giuseppe Pignataro https://github.com/fastbyte01",
-            "Emanuele Goldoni https://github.com/emanueleg"
+            "Emanuele Goldoni https://github.com/emanueleg",
+            ""
         ],
         "locale": "it, it_IT"
     },
@@ -403,5 +404,9 @@
     "no-tags": "Nessun tag",
     "insert-thumbnail": "Inserisci miniatura",
     "no-categories": "Nessuna categoria",
-    "insert-linked-thumbnail": "Inserisci miniatura collegata"
+    "insert-linked-thumbnail": "Inserisci miniatura collegata",
+    "navigation": "Navigazione",
+    "file-type-is-not-supported": "Il tipo di file non è supportato. Tipi consentiti:",
+    "thumbnail-generation": "Generazione miniature",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Abilita o disabilita la generazione automatica delle miniature durante il caricamento delle immagini."
 }

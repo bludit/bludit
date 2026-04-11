@@ -1,7 +1,12 @@
 {
-	"plugin-data":
-	{
-		"name": "TinyMCE",
-		"description": "İçerik yazmak için kullanışlı bir editör. Markdown koduyla çalışmak istemeyen kullanıcılar için önerilir."
-	}
+    "plugin-data": {
+        "name": "TinyMCE",
+        "description": "İçerik yazmak için kullanışlı bir editör. Markdown koduyla çalışmak istemeyen kullanıcılar için önerilir."
+    },
+    "toolbar-top": "Üst araç çubuğu",
+    "toolbar-bottom": "Alt araç çubuğu",
+    "context-menu": "Sağ tık menüsü",
+    "context-menu-tip": "Editörün sağ tık menüsünü devre dışı bırakmak için boş bırakın.",
+    "codesample-languages": "Kod örneği dilleri",
+    "codesample-supported-laguages": "Prism tarafından desteklenen programlama dilleri."
 }

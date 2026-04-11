@@ -1,13 +1,14 @@
 {
-	"plugin-data":
-	{
-		"name": "Basit İstatistikler",
-		"description": "Yönetici panelinde günlük ziyaretçi sayısını gösterir."
-	},
-	"visits": "Ziyaretler",
-	"visits-today": "Bugün yapılan ziyaretler",
-	"unique-visitors-today": "Bugün yapılan benzersiz ziyaretler",
-	"chart": "Grafik",
-	"table": "Tablo",
-	"disk-usage" : "Disk Usage"
+    "plugin-data": {
+        "name": "Basit İstatistikler",
+        "description": "Yönetici panelinde günlük ziyaretçi sayısını gösterir."
+    },
+    "visits": "Ziyaretler",
+    "visits-today": "Bugün yapılan ziyaretler",
+    "unique-visitors-today": "Bugün yapılan benzersiz ziyaretler",
+    "chart": "Grafik",
+    "table": "Tablo",
+    "disk-usage": "Disk Usage",
+    "show-content-stats": "İçerik İstatistiklerini Göster",
+    "exclude-administrators-users": "'Yönetici' rolüne sahip kullanıcıları hariç tut"
 }

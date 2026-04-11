@@ -1,7 +1,12 @@
 {
-	"plugin-data":
-	{
-		"name": "TinyMCE",
-		"description": "ویرایشگر HTML برای فرمت بندی محتوا. برای کاربرانی که تمایل ندارند با کد Markdown کار کنند پیشنهاد می‌شود."
-	}
+    "plugin-data": {
+        "name": "TinyMCE",
+        "description": "ویرایشگر HTML برای فرمت بندی محتوا. برای کاربرانی که تمایل ندارند با کد Markdown کار کنند پیشنهاد می‌شود."
+    },
+    "toolbar-top": "نوار ابزار بالا",
+    "toolbar-bottom": "نوار ابزار پایین",
+    "context-menu": "منوی زمینه",
+    "context-menu-tip": "فیلد خالی برای غیرفعال کردن منوی زمینه ویرایشگر.",
+    "codesample-languages": "زبان‌های نمونه کد",
+    "codesample-supported-laguages": "زبان‌های برنامه‌نویسی پشتیبانی شده توسط Prism."
 }

@@ -66,9 +66,9 @@
 <!-- Navbar, only for small devices -->
 <?php include('html/navbar.php'); ?>
 
-<div class="container h-100">
+<div class="container min-vh-100">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->
-	<div class="row h-100">
+	<div class="row min-vh-100">
 
 		<!-- LEFT SIDEBAR - Display only on large devices -->
 		<div class="sidebar col-lg-2 d-none d-lg-block">
@@ -76,7 +76,7 @@
 		</div>
 
 		<!-- RIGHT MAIN -->
-		<div class="col-lg-10 pt-3 pb-1 h-100">
+		<div class="col-lg-10 pt-3 pb-1">
 		<?php
 			if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'].'.php')) {
 				include(PATH_ADMIN_VIEWS.$layout['view'].'.php');

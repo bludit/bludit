@@ -1,7 +1,7 @@
 {
-	"plugin-data":
-	{
-		"name": "Contatore visite",
-		"description": "Mostra il numero di visite o di visitatori unici nella barra laterale del tuo sito."
-	}
+    "plugin-data": {
+        "name": "Contatore visite",
+        "description": "Mostra il numero di visite o di visitatori unici nella barra laterale del tuo sito."
+    },
+    "show-unique-visitors": "Mostra visitatori unici"
 }

@@ -85,7 +85,7 @@
     "url-associated-with-the-content": "URL associated with the content.",
     "language-and-timezone": "Language and timezone",
     "change-your-language-and-region-settings": "Change your language and region settings.",
-    "Navigation": "Navigation",
+    "navigation": "Navigation",
     "notifications": "Notifications",
     "plugin-activated": "Plugin activated",
     "plugin-deactivated": "Plugin deactivated",
@@ -404,7 +404,7 @@
     "insert-thumbnail": "Insert thumbnail",
     "insert-linked-thumbnail": "Insert linked thumbnail",
     "no-categories": "No categories",
-            "no-tags": "No tags",
-            "thumbnail-generation": "Thumbnail generation",
-            "enable-disable-automatic-thumbnail-generation-on-image-upload": "Enable or disable automatic thumbnail generation on image upload."
-        }
+    "no-tags": "No tags",
+    "thumbnail-generation": "Thumbnail generation",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Enable or disable automatic thumbnail generation on image upload."
+}

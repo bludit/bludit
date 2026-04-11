@@ -1,7 +1,12 @@
 {
-	"plugin-data":
-	{
-		"name": "TinyMCE",
-		"description": "Editor HTML para formatear contenido. Recomendado para los usuarios que no quieren trabajar con código Markdown."
-	}
+    "plugin-data": {
+        "name": "TinyMCE",
+        "description": "Editor HTML para formatear contenido. Recomendado para los usuarios que no quieren trabajar con código Markdown."
+    },
+    "toolbar-top": "Barra de herramientas superior",
+    "toolbar-bottom": "Barra de herramientas inferior",
+    "context-menu": "Menú contextual",
+    "context-menu-tip": "Campo vacío para desactivar el menú contextual del editor.",
+    "codesample-languages": "Lenguajes de ejemplo de código",
+    "codesample-supported-laguages": "Lenguajes de programación compatibles con Prism."
 }

@@ -6,7 +6,9 @@
         "last-update": "2020-07-14",
         "authors": [
             "abdulhalim.po@gmail.com",
-            "Bludit http://bludit.ir"
+            "Bludit http://bludit.ir",
+            "xm74",
+            ""
         ]
     },
     "dates": {
@@ -399,5 +401,10 @@
     "settings-changes": "Settings changes",
     "insert-linked-thumbnail": "درج تصویر بندانگشتی لینک‌دار",
     "search-placeholder": "جستجو در صفحات، محتوا و منوها...",
-    "no-results-found": "نتیجه‌ای یافت نشد"
+    "no-results-found": "نتیجه‌ای یافت نشد",
+    "navigation": "ناوبری",
+    "default-content-status": "وضعیت پیش‌فرض محتوا",
+    "default-status-for-new-content": "انتخاب کنید که آیا محتوای جدید به طور پیش‌فرض به صورت منتشر شده یا پیش‌نویس ایجاد شود.",
+    "thumbnail-generation": "ایجاد تصویر بندانگشتی",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "فعال یا غیرفعال کردن ایجاد خودکار تصویر بندانگشتی هنگام بارگذاری تصویر."
 }

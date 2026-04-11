@@ -7,7 +7,8 @@
         "authors": [
             "qezwan@gmail.com",
             "qezwan http://qezwan.ir",
-            "xm74"
+            "xm74",
+            ""
         ]
     },
     "start-typing-to-see-a-list-of-suggestions": "بنووسە و پێرستێک لە بابەتی پێشنیار ببینە.",
@@ -400,5 +401,10 @@
     "settings-changes": "Settings changes",
     "insert-linked-thumbnail": "تێخستنی وێنۆکی بەستراو",
     "search-placeholder": "گەڕان لە پەڕەکان، ناوەڕۆک، و لیستەکان...",
-    "no-results-found": "هیچ ئەنجامێک نەدۆزرایەوە"
+    "no-results-found": "هیچ ئەنجامێک نەدۆزرایەوە",
+    "navigation": "ڕێدۆزی",
+    "default-content-status": "دۆخی ناوەڕۆکی بنەڕەتی",
+    "default-status-for-new-content": "هەڵبژێرە ئایا ناوەڕۆکی نوێ وەک بڵاوکراوە یان ڕەشنووس دروست بکرێت بە شێوەی بنەڕەتی.",
+    "thumbnail-generation": "دروستکردنی وێنۆک",
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "چالاککردن یان ناچالاککردنی دروستکردنی وێنۆک بە شێوەیەکی خۆکار لەکاتی بارکردنی وێنە."
 }
