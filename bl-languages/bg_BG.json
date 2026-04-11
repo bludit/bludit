@@ -153,7 +153,7 @@
     "url-filters": "URL филтри",
     "select-your-sites-language": "Изберете системен език.",
     "timezone": "Часова зона",
-    "select-a-timezone-for-a-correct": "Изберете часова зона за правилтото показване на дата \/ час.",
+    "select-a-timezone-for-a-correct": "Изберете часова зона за правилното показване на дата \/ час.",
     "locale": "Местоположение",
     "date-and-time-formats": "Формат дата и час:",
     "date-format": "Формат дата ",
@@ -406,5 +406,5 @@
     "default-content-status": "Статус на съдържанието по подразбиране",
     "default-status-for-new-content": "Изберете дали новото съдържание да се създава като Публикувано или Чернова по подразбиране.",
     "thumbnail-generation": "Генериране на миниатюри",
-    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Активиране или деактивиране на автоматичното генериране на миниatюри при качване на изображения."
+    "enable-disable-automatic-thumbnail-generation-on-image-upload": "Активиране или деактивиране на автоматичното генериране на миниатюри при качване на изображения."
 }
