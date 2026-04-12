@@ -5,8 +5,8 @@
     },
     "toolbar-top": "Werkbalk bovenaan",
     "toolbar-bottom": "Werkbalk onderaan",
-    "codesample-languages": "Codesample-programmeertalen",
+    "codesample-languages": "Programmeertalen voor codeblokken",
     "codesample-supported-laguages": "Door Prism ondersteunde programmeertalen.",
     "context-menu": "Contextmenu",
-    "context-menu-tip": "Leeg veld om het contextmenu van de editor uit te schakelen."
+    "context-menu-tip": "Leeg het veld om het contextmenu van de editor uit te schakelen."
 }
