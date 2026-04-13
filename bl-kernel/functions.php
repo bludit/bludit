@@ -989,7 +989,7 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
     } else {
       $Image = new Image();
       $Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
-      $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality(), true);
+      $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality());
     }
   }
 
