@@ -72,7 +72,7 @@
       <!-- Previous button -->
       <?php if (Paginator::showPrev()) : ?>
         <li class="page-item mr-2">
-          <a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1">
+          <a class="page-link" href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" tabindex="-1">
             <i class="bi bi-chevron-left"></i> <?php echo $L->get('Previous'); ?>
           </a>
         </li>
@@ -88,7 +88,7 @@
       <!-- Next button -->
       <?php if (Paginator::showNext()) : ?>
         <li class="page-item ml-2">
-          <a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">
+          <a class="page-link" href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>">
             <?php echo $L->get('Next'); ?> <i class="bi bi-chevron-right"></i>
           </a>
         </li>

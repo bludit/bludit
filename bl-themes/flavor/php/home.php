@@ -74,14 +74,14 @@
 <nav class="flex justify-between items-center py-8 border-t border-gray-200 dark:border-gray-800">
 	<div>
 		<?php if (Paginator::showPrev()) : ?>
-		<a href="<?php echo Paginator::previousPageUrl() ?>" class="inline-flex items-center text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
+		<a href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" class="inline-flex items-center text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
 			&larr; <?php echo $L->get('Previous'); ?>
 		</a>
 		<?php endif; ?>
 	</div>
 	<div>
 		<?php if (Paginator::showNext()) : ?>
-		<a href="<?php echo Paginator::nextPageUrl() ?>" class="inline-flex items-center text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
+		<a href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>" class="inline-flex items-center text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
 			<?php echo $L->get('Next'); ?> &rarr;
 		</a>
 		<?php endif; ?>

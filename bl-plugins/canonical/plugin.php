@@ -53,7 +53,7 @@ class pluginCanonical extends Plugin {
 		}
 
 		if (!empty($canonical)) {
-			$html .= '<link rel="canonical" href="' . $canonical . '">' . PHP_EOL;
+			$html .= '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 
 			// Add prev/next for paginated content (helps search engines)
 			$pageNumber = $url->pageNumber();
@@ -64,7 +64,7 @@ class pluginCanonical extends Plugin {
 				} else {
 					$prevUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber - 1) . '/', $canonical);
 				}
-				$html .= '<link rel="prev" href="' . $prevUrl . '">' . PHP_EOL;
+				$html .= '<link rel="prev" href="' . htmlspecialchars($prevUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 			}
 
 			// Next page (only if more content exists)
@@ -78,7 +78,7 @@ class pluginCanonical extends Plugin {
 				} else {
 					$nextUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber + 1) . '/', $canonical);
 				}
-				$html .= '<link rel="next" href="' . $nextUrl . '">' . PHP_EOL;
+				$html .= '<link rel="next" href="' . htmlspecialchars($nextUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 			}
 		}
 
