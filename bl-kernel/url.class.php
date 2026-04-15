@@ -114,7 +114,7 @@ class Url
 		return $this->uri;
 	}
 
-	// Return the filter filter by type
+	// Return the filter of type (e.g. tag => /tag/, category => /category/, etc.)
 	public function filters($type, $trim=true)
 	{
 		$filter = $this->filters[$type];

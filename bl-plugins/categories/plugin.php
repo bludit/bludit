@@ -50,7 +50,7 @@ class pluginCategories extends Plugin
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
-		// By default the database of categories are alphanumeric sorted
+		// By default, the database of categories is alphanumeric sorted
 		foreach ($categories->db as $key => $fields) {
 			$count = count($fields['list']);
 			if (!$this->getValue('hideCero') || $count > 0) {

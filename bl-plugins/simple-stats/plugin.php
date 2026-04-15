@@ -174,7 +174,7 @@ EOF;
 			return 0;
 		}
 
-		// The amount of visits are the number of lines on the file
+		// The amount of visits is the number of lines on the file
 		$lines = 0;
 		while (!feof($handle)) {
 			$lines += substr_count(fread($handle, 8192), PHP_EOL);

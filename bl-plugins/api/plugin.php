@@ -104,7 +104,7 @@ class pluginAPI extends Plugin
 		$writePermissions = false;
 		if (!empty($inputs['authentication'])) {
 
-			// Get the user with the authentication token, FALSE if doesn't exit
+			// Get the user with the authentication token, FALSE if it doesn't exist
 			$username = $users->getByAuthToken($inputs['authentication']);
 			if ($username !== false) {
 				try {

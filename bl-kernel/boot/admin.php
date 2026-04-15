@@ -71,7 +71,7 @@ else
 		$layout['view']			= 'login';
 		$layout['template']		= 'login.php';
 
-		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be change.
+		// Generate the tokenCSRF for the user not logged, when the user log-in the token will be changed.
 		$security->generateTokenCSRF();
 	}
 
