@@ -140,7 +140,7 @@ class pluginLinks extends Plugin
 		$jsondb = $this->getValue('jsondb', false);
 		$links = json_decode($jsondb);
 
-		// By default the database of categories are alphanumeric sorted
+		// By default, the database of categories is alphanumeric sorted
 		foreach ($links as $name => $url) {
 			$html .= '<li>';
 			$html .= '<a href="' . $url . '">';

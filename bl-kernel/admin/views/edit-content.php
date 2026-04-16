@@ -469,7 +469,7 @@ foreach ($customFields as $field => $options) {
 <script>
 	$(document).ready(function() {
 
-		// Define function if they doesn't exist
+		// Define function if they don't exist
 		// This helps if the user doesn't activate any plugin as editor
 		if (typeof editorGetContent != "function") {
 			window.editorGetContent = function() {

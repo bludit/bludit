@@ -695,7 +695,7 @@ class Pages extends dbJSON
 	}
 
 	// Returns the page key by the uuid
-	// if the UUID doesn't exits returns FALSE
+	// if the UUID doesn't exist, returns FALSE
 	function getByUUID($uuid)
 	{
 		foreach ($this->db as $key => $value) {

@@ -40,7 +40,7 @@ class pluginTags extends Plugin
 		$html .= '<div class="plugin-content">';
 		$html .= '<ul>';
 
-		// By default the database of tags are alphanumeric sorted
+		// By default, the database of tags is alphanumeric sorted
 		foreach ($tags->db as $key => $fields) {
 			$html .= '<li>';
 			$html .= '<a href="' . DOMAIN_TAGS . $key . '">';

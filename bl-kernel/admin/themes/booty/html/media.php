@@ -225,7 +225,7 @@ function uploadImages() {
 	}).done(function(data) {
 		if (data.status==0) {
 			$("#jsbluditProgressBar").removeClass("bg-primary").addClass("bg-success");
-			// Get the files for the first page, this include the files uploaded
+			// Get the files for the first page, including uploaded files
 			getFiles(1);
 		} else {
 			$("#jsbluditProgressBar").removeClass("bg-primary").addClass("bg-danger");

@@ -11,7 +11,7 @@ class Page
 
 		$this->vars['key'] = $key;
 
-		// If key is FALSE, the page is create with default values, like an empty page
+		// If key is FALSE, the page is created with default values, like an empty page
 		// Useful for Page Not Found
 		if ($key === false) {
 			$row = $pages->getDefaultFields();
@@ -589,7 +589,7 @@ class Page
 	        return $string ? implode(', ', $string) . ' ago' : 'Just now';
     	}
 
-	// Returns the value from the field, false if the fields doesn't exists
+	// Returns the value from the field, false if the fields don't exist
 	// If you set the $option as TRUE, the function returns an array with all the values of the field
 	public function custom($field, $options = false)
 	{

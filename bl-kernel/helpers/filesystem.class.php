@@ -68,7 +68,7 @@ class Filesystem
 	public static function mv($oldname, $newname)
 	{
 		Log::set('mv ' . $oldname . ' ' . $newname, LOG_TYPE_INFO);
-		// Try rename first (faster, works on same filesystem)
+		// Try renaming first (faster, works on same filesystem)
 		if (@rename($oldname, $newname)) {
 			return true;
 		}
@@ -141,7 +141,7 @@ class Filesystem
 	}
 
 	// Delete a file or directory recursive
-	// The directory is delete
+	// The directory is deleted
 	public static function deleteRecursive($source, $deleteDirectory = true)
 	{
 		Log::set('deleteRecursive = ' . $source, LOG_TYPE_INFO);
