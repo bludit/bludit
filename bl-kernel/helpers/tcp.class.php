@@ -46,25 +46,4 @@ class TCP {
 		return file_put_contents($destination, $data);
 	}
 
-	public static function getIP()
-	{
-		// REMOTE_ADDR is the only trusted source; proxy headers can be forged by clients.
-		if (getenv('REMOTE_ADDR'))
-			$ip = getenv('REMOTE_ADDR');
-		else if(getenv('HTTP_X_FORWARDED_FOR'))
-			$ip = getenv('HTTP_X_FORWARDED_FOR');
-		else if(getenv('HTTP_X_FORWARDED'))
-			$ip = getenv('HTTP_X_FORWARDED');
-		else if(getenv('HTTP_FORWARDED_FOR'))
-			$ip = getenv('HTTP_FORWARDED_FOR');
-		else if(getenv('HTTP_FORWARDED'))
-			$ip = getenv('HTTP_FORWARDED');
-		else if(getenv('HTTP_CLIENT_IP'))
-			$ip = getenv('HTTP_CLIENT_IP');
-		else
-			return false;
-
-		return $ip;
-	}
-
 }
