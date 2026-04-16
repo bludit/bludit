@@ -198,11 +198,17 @@ class pluginAPI extends Plugin
 		// (GET) /api/files/<page-key>
 		elseif (($method === 'GET') && ($parameters[0] === 'files') && !empty($parameters[1])) {
 			$pageKey = $parameters[1];
+			if (!$this->isValidPageKey($pageKey)) {
+				$this->response(400, 'Bad Request', array('message' => 'Invalid page key.'));
+			}
 			$data = $this->getFiles($pageKey);
 		}
 		// (POST) /api/files/<page-key>
 		elseif (($method === 'POST') && ($parameters[0] === 'files') && !empty($parameters[1]) && $writePermissions) {
 			$pageKey = $parameters[1];
+			if (!$this->isValidPageKey($pageKey)) {
+				$this->response(400, 'Bad Request', array('message' => 'Invalid page key.'));
+			}
 			$data = $this->uploadFile($pageKey);
 		} else {
 			$this->response(401, 'Unauthorized', array('message' => 'Access denied or invalid endpoint.'));
@@ -213,6 +219,18 @@ class pluginAPI extends Plugin
 
 	// PRIVATE METHODS
 	// ----------------------------------------------------------------------------
+
+	// Validate page key to prevent path traversal (CWE-22)
+	private function isValidPageKey($pageKey)
+	{
+		if (strpos($pageKey, '..') !== false) {
+			return false;
+		}
+		if (strpos($pageKey, "\0") !== false) {
+			return false;
+		}
+		return true;
+	}
 
 	private function getMethod()
 	{
@@ -483,6 +501,9 @@ class pluginAPI extends Plugin
 	{
 		// Set upload directory
 		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
+			if (!$this->isValidPageKey($inputs['uuid'])) {
+				return array('status' => '1', 'message' => 'Invalid UUID.');
+			}
 			$imageDirectory 	= PATH_UPLOADS_PAGES . $inputs['uuid'] . DS;
 			$thumbnailDirectory 	= $imageDirectory . 'thumbnails' . DS;
 			$imageEndpoint 		= DOMAIN_UPLOADS_PAGES . $inputs['uuid'] . '/';
