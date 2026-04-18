@@ -29,7 +29,7 @@ a.text-danger:hover {
 	font-weight: var(--font-weight-medium, 550);
 	font-size: var(--font-size-base, 0.945rem);
 	padding: 12px 24px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm, 4px);
 	transition: all 0.3s ease;
 }
 
@@ -46,49 +46,49 @@ a.text-danger:hover {
 }
 
 .btn-secondary {
-	background-color: #64748B;
+	background-color: var(--color-secondary, #64748B);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-secondary:hover {
-	background-color: #475569;
+	background-color: var(--color-secondary-dark, #475569);
 	border: none;
 	transform: translateY(-1px);
 }
 
 .btn-light {
-	background-color: #f8f9fa;
+	background-color: var(--bg-light, #f8f9fa);
 	border: 2px solid var(--border-color, #e2e8f0);
 	font-weight: var(--font-weight-medium, 550);
 }
 
 .btn-light:hover {
-	background-color: #e9ecef;
-	border-color: #cbd5e1;
+	background-color: var(--bg-sidebar, #F1F5F9);
+	border-color: var(--border-light, #cbd5e1);
 	transform: translateY(-1px);
 }
 
 .btn-danger {
-	background: #DC2626;
+	background: var(--color-danger, #DC2626);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-danger:hover {
-	background: #B91C1C;
+	background: var(--color-danger-dark, #B91C1C);
 	border: none;
 	transform: translateY(-1px);
 }
 
 .btn-success {
-	background: #16A34A;
+	background: var(--color-success, #16A34A);
 	border: none;
 	font-weight: var(--font-weight-semibold, 650);
 }
 
 .btn-success:hover {
-	background: #15803D;
+	background: var(--color-success-dark, #15803D);
 	border: none;
 	transform: translateY(-1px);
 }
@@ -117,7 +117,7 @@ a.text-danger:hover {
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
 	border: 2px solid var(--border-color, #e2e8f0);
-	border-radius: 4px;
+	border-radius: var(--radius-sm, 4px);
 	transition: all 0.2s ease;
 }
 
@@ -135,7 +135,7 @@ label {
 /* Cards */
 .card {
 	border: none;
-	border-radius: 4px;
+	border-radius: var(--radius-md, 8px);
 }
 
 .card:hover {
@@ -191,7 +191,7 @@ h6 { font-size: var(--font-size-sm, 0.925rem); }
 	font-size: var(--font-size-xs, 0.8rem);
 	font-weight: var(--font-weight-semibold, 650);
 	padding: 6px 12px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm, 4px);
 }
 
 .badge-primary {

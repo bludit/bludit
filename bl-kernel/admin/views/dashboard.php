@@ -1,49 +1,46 @@
 <div id="dashboard" class="container">
-    <div class="row">
-        <div class="col-md-7">
 
-            <!-- Good message -->
-            <div>
-                <h2 id="hello-message" class="pt-0">
-                    <?php
-                    $username = $login->username();
-                    $user = new User($username);
-                    $name = '';
-                    if ($user->nickname()) {
-                        $name = $user->nickname();
-                    } elseif ($user->firstName()) {
-                        $name = $user->firstName();
-                    }
-                    ?>
-                    <span class="fa fa-hand-spock-o"></span><span><?php echo $L->g('welcome') ?></span>
-                </h2>
-                <script>
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            var date = new Date()
-                            var hours = date.getHours()
-                            if (hours >= 6 && hours < 12) {
-                                $("#hello-message").html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-morning') . ', ' . $name ?>');
-                            } else if (hours >= 12 && hours < 18) {
-                                $("#hello-message").html('<span class="fa fa-sun-o"></span><?php echo $L->g('good-afternoon') . ', ' . $name ?>');
-                            } else if (hours >= 18 && hours < 22) {
-                                $("#hello-message").html('<span class="fa fa-moon-o"></span><?php echo $L->g('good-evening') . ', ' . $name ?>');
-                            } else {
-                                $("#hello-message").html('<span class="fa fa-moon-o"></span><span><?php echo $L->g('good-night') . ', ' . $name ?></span>');
-                            }
-                        }, 2400);
-                    });
-                </script>
-            </div>
-
-            <!-- Quick Search Trigger -->
+            <!-- Search with welcome message -->
+            <?php
+            $username = $login->username();
+            $user = new User($username);
+            $name = '';
+            if ($user->nickname()) {
+                $name = $user->nickname();
+            } elseif ($user->firstName()) {
+                $name = $user->firstName();
+            }
+            ?>
             <div class="quick-search-trigger mb-4" id="searchTrigger">
                 <div class="quick-search-icon">
-                    <span class="fa fa-search"></span>
+                    <span class="fa fa-hand-spock-o" id="hello-icon"></span>
                 </div>
-                <span class="quick-search-text"><?php $L->p('Quick search pages and menu') ?></span>
+                <span class="quick-search-text">
+                    <span id="hello-text"><?php echo $L->g('welcome') . ($name ? ', ' . $name : '') ?></span>
+                    <small class="quick-search-hint"><?php $L->p('click-here-for-quick-search') ?></small>
+                </span>
                 <span class="quick-search-shortcut">⌘K</span>
             </div>
+            <script>
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        var date = new Date()
+                        var hours = date.getHours()
+                        var icon, greeting
+                        if (hours >= 6 && hours < 12) {
+                            icon = 'fa-sun-o'; greeting = '<?php echo $L->g('good-morning') . ($name ? ', ' . $name : '') ?>'
+                        } else if (hours >= 12 && hours < 18) {
+                            icon = 'fa-sun-o'; greeting = '<?php echo $L->g('good-afternoon') . ($name ? ', ' . $name : '') ?>'
+                        } else if (hours >= 18 && hours < 22) {
+                            icon = 'fa-moon-o'; greeting = '<?php echo $L->g('good-evening') . ($name ? ', ' . $name : '') ?>'
+                        } else {
+                            icon = 'fa-moon-o'; greeting = '<?php echo $L->g('good-night') . ($name ? ', ' . $name : '') ?>'
+                        }
+                        $('#hello-icon').attr('class', 'fa ' + icon)
+                        $('#hello-text').text(greeting)
+                    }, 2400);
+                });
+            </script>
 
             <!-- Quick Search Modal -->
             <div class="quick-search-modal" id="searchModal">
@@ -140,11 +137,11 @@
             </script>
 
             <!-- Dashboard Metric Cards -->
-            <div class="container pb-5 px-0">
+            <div class="container px-0">
                 <div class="row">
 
                     <!-- Content Metrics Card -->
-                    <div class="col-lg-6 col-12 mb-4">
+                    <div class="col-lg col-12 mb-4">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
@@ -175,51 +172,6 @@
                         </div>
                     </div>
 
-                    <?php
-                    // Analytics Card - Only show if Simple Stats or Visits Stats plugin is active
-                    $simpleStats = getPlugin('pluginSimpleStats');
-                    $visitsStats = getPlugin('pluginVisitsStats');
-
-                    if (($simpleStats && $simpleStats->installed()) || ($visitsStats && $visitsStats->installed())) {
-                        $currentDate = Date::current('Y-m-d');
-                        $visitsToday = 0;
-                        $uniqueVisitors = 0;
-
-                        if ($simpleStats && $simpleStats->installed()) {
-                            $visitsToday = $simpleStats->visits($currentDate);
-                            $uniqueVisitors = $simpleStats->uniqueVisitors($currentDate);
-                        } elseif ($visitsStats && $visitsStats->installed()) {
-                            $visitsToday = $visitsStats->visits($currentDate);
-                            $uniqueVisitors = $visitsStats->uniqueVisitors($currentDate);
-                        }
-                    ?>
-                    <!-- Analytics Metrics Card -->
-                    <div class="col-lg-6 col-12 mb-4">
-                        <div class="card metric-card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="metric-icon">
-                                        <span class="fa fa-bar-chart"></span>
-                                    </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Analytics') ?></h5>
-                                </div>
-                                <div class="row text-center mt-3">
-                                    <div class="col-6 mb-3">
-                                        <div class="metric-value"><?php echo $visitsToday; ?></div>
-                                        <div class="metric-label"><?php $L->p('Visits Today') ?></div>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <div class="metric-value"><?php echo $uniqueVisitors; ?></div>
-                                        <div class="metric-label"><?php $L->p('Unique Visitors') ?></div>
-                                    </div>
-                                    <div class="col-12">
-                                        <small class="text-muted"><?php echo Date::format($currentDate, 'Y-m-d', 'F j, Y'); ?></small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php } ?>
 
                     <?php
                     // Categories Card - Only show if Categories plugin is active
@@ -227,7 +179,7 @@
                         $categoryList = $categories->keys();
                     ?>
                     <!-- Categories Card -->
-                    <div class="col-lg-6 col-12 mb-4">
+                    <div class="col-lg col-12 mb-4">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
@@ -236,7 +188,7 @@
                                     </div>
                                     <h5 class="card-title mb-0 ml-3"><?php $L->p('Categories') ?></h5>
                                 </div>
-                                <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
+                                <div class="mt-3 metric-card-list">
                                     <?php if (!empty($categoryList)): ?>
                                         <div class="list-group list-group-flush">
                                             <?php foreach ($categoryList as $categoryKey):
@@ -264,7 +216,7 @@
                         $tagList = $tags->keys();
                     ?>
                     <!-- Tags Card -->
-                    <div class="col-lg-6 col-12 mb-4">
+                    <div class="col-lg col-12 mb-4">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
@@ -273,7 +225,7 @@
                                     </div>
                                     <h5 class="card-title mb-0 ml-3"><?php $L->p('Tags') ?></h5>
                                 </div>
-                                <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
+                                <div class="mt-3 metric-card-list">
                                     <?php if (!empty($tagList)): ?>
                                         <div class="list-group list-group-flush">
                                             <?php foreach ($tagList as $tagKey):
@@ -282,7 +234,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $tag->name() ?></span>
-                                                    <span class="badge badge-info badge-pill"><?php echo $pageCount ?></span>
+                                                    <span class="badge badge-primary badge-pill"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>
@@ -297,32 +249,116 @@
 
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
+
+            <?php
+            // Analytics Section - Only show if Visits Stats plugin is active
+            $visitsStats = getPlugin('pluginVisitsStats');
+            if ($visitsStats && $visitsStats->installed()):
+                $currentDate    = Date::current('Y-m-d');
+                $visitsToday    = $visitsStats->visits($currentDate);
+                $uniqueVisitors = $visitsStats->uniqueVisitors($currentDate);
+                $weekData       = $visitsStats->getLastDaysData(7);
+            ?>
+            <!-- Analytics Section -->
+            <div class="analytics-section mb-4">
+                <ul class="list-group list-group-striped b-0 mb-3">
+                    <li class="list-group-item">
+                        <h4 class="m-0"><?php $L->p('Analytics') ?></h4>
+                    </li>
+                </ul>
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-12 mb-3 mb-lg-0">
+                        <div class="row text-center">
+                            <div class="col-4 col-lg-12 mb-0 mb-lg-4">
+                                <div class="metric-value"><?php echo $visitsToday; ?></div>
+                                <div class="metric-label"><?php $L->p('Visits Today') ?></div>
+                            </div>
+                            <div class="col-4 col-lg-12 mb-0 mb-lg-4">
+                                <div class="metric-value"><?php echo $uniqueVisitors; ?></div>
+                                <div class="metric-label"><?php $L->p('Unique Visitors') ?></div>
+                            </div>
+                            <div class="col-4 col-lg-12">
+                                <div class="metric-value"><?php echo $weekData['total']; ?></div>
+                                <div class="metric-label"><?php $L->p('7-Day Total') ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <canvas id="analytics-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <script>
+            (function() {
+                var ctx = document.getElementById('analytics-chart');
+                if (!ctx || typeof Chart === 'undefined') { return; }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: <?php echo json_encode($weekData['labels']); ?>,
+                        datasets: [{
+                            label: '<?php echo $L->g('visitors') ?>',
+                            backgroundColor: 'rgba(0,120,212,0.85)',
+                            borderColor: 'rgba(0,120,212,1)',
+                            borderWidth: 1,
+                            data: <?php echo json_encode($weekData['unique']); ?>
+                        }, {
+                            label: '<?php echo $L->g('visits') ?>',
+                            backgroundColor: 'rgba(255,193,3,0.85)',
+                            borderColor: 'rgba(255,193,3,1)',
+                            borderWidth: 1,
+                            data: <?php echo json_encode($weekData['visits']); ?>
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 4,
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: { fontSize: 11, boxWidth: 12, fontColor: '#475569' }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: { beginAtZero: true, stepSize: 1, fontColor: '#94A3B8', fontSize: 11 },
+                                gridLines: { color: 'rgba(0,0,0,0.05)', zeroLineColor: 'rgba(0,0,0,0.1)' }
+                            }],
+                            xAxes: [{
+                                ticks: { fontColor: '#94A3B8', fontSize: 11 },
+                                gridLines: { display: false }
+                            }]
+                        },
+                        tooltips: { mode: 'index', intersect: false }
+                    }
+                });
+            })();
+            </script>
+            <?php endif; ?>
 
             <!-- Notifications -->
-            <ul class="list-group list-group-striped b-0">
-                <li class="list-group-item">
-                    <h4 class="m-0"><?php $L->p('Notifications') ?></h4>
-                </li>
-                <?php
-                $logs = array_slice($syslog->db, 0, NOTIFICATIONS_AMOUNT);
-                foreach ($logs as $log) {
-                    $phrase = $L->g($log['dictionaryKey']);
-                    echo '<li class="list-group-item">';
-                    echo $phrase;
-                    if (!empty($log['notes'])) {
-                        echo ' « <b>' . $log['notes'] . '</b> »';
+            <div class="mt-4">
+                <ul class="list-group list-group-striped b-0">
+                    <li class="list-group-item">
+                        <h4 class="m-0"><?php $L->p('Notifications') ?></h4>
+                    </li>
+                    <?php
+                    $logs = array_slice($syslog->db, 0, NOTIFICATIONS_AMOUNT);
+                    foreach ($logs as $log) {
+                        $phrase = $L->g($log['dictionaryKey']);
+                        echo '<li class="list-group-item">';
+                        echo $phrase;
+                        if (!empty($log['notes'])) {
+                            echo ' « <b>' . $log['notes'] . '</b> »';
+                        }
+                        echo '<br><span class="notification-date"><small>';
+                        echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
+                        echo ' [ ' . $log['username'] . ' ]';
+                        echo '</small></span>';
+                        echo '</li>';
                     }
-                    echo '<br><span class="notification-date"><small>';
-                    echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
-                    echo ' [ ' . $log['username'] . ' ]';
-                    echo '</small></span>';
-                    echo '</li>';
-                }
-                ?>
-            </ul>
+                    ?>
+                </ul>
+            </div>
 
-        </div>
-    </div>
 </div>

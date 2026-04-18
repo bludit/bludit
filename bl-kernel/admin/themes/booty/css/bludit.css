@@ -34,6 +34,23 @@
 	--bg-warm: #faf8f5;
 	--bg-warm-card: #f7f5f2;
 	--border-warm: #e8e6e3;
+
+	/* Radius scale */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+
+	/* Semantic colors */
+	--color-info: #0078D4;
+	--color-danger: #DC2626;
+	--color-danger-dark: #B91C1C;
+	--color-success: #16A34A;
+	--color-success-dark: #15803D;
+	--color-secondary: #64748B;
+	--color-secondary-dark: #475569;
+	--bg-card: #FFFFFF;
+	--bg-light: #f8f9fa;
+	--border-light: #cbd5e1;
+	--primary-blue-hover-bg: rgba(0, 120, 212, 0.06);
 }
 
 html {
@@ -73,10 +90,7 @@ div.sidebar {
 	background: var(--bg-sidebar);
 	border-right: 1px solid var(--border-color);
 	border-left: 1px solid var(--border-color);
-	position: relative;
 	padding: 10px 15px;
-	min-height: 100vh;
-	height: 100%;
 }
 
 div.sidebar .nav-item a {
@@ -118,10 +132,10 @@ div.sidebar .nav-item h4 {
 .quick-search-trigger {
 	position: relative;
 	width: 100%;
-	padding: 16px 20px;
+	padding: 16px;
 	background: white;
 	border: 2px solid var(--border-color);
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -136,7 +150,7 @@ div.sidebar .nav-item h4 {
 .quick-search-trigger .quick-search-icon {
 	width: 40px;
 	height: 40px;
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	background: var(--primary-gradient);
 	display: flex;
 	align-items: center;
@@ -152,8 +166,20 @@ div.sidebar .nav-item h4 {
 
 .quick-search-text {
 	flex: 1;
-	color: var(--text-secondary);
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+#hello-text {
+	color: var(--text-primary);
 	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);
+}
+
+.quick-search-hint {
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
 }
 
@@ -161,7 +187,7 @@ div.sidebar .nav-item h4 {
 	padding: 6px 12px;
 	background: var(--bg-main);
 	border: 1px solid var(--border-color);
-	border-radius: 4px;
+	border-radius: var(--radius-sm);
 	font-size: var(--font-size-sm);
 	color: var(--text-secondary);
 	font-weight: var(--font-weight-medium);
@@ -209,8 +235,9 @@ div.sidebar .nav-item h4 {
 	width: 90%;
 	max-width: 680px;
 	max-height: 80vh;
-	background: white;
-	border-radius: 8px;
+	background: var(--bg-card);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
 	animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	overflow: hidden;
 	display: flex;
@@ -232,7 +259,7 @@ div.sidebar .nav-item h4 {
 	display: flex;
 	align-items: center;
 	gap: 16px;
-	padding: 24px 28px;
+	padding: 24px;
 	border-bottom: 1px solid var(--border-color);
 	flex-shrink: 0;
 }
@@ -249,7 +276,7 @@ div.sidebar .nav-item h4 {
 	border: none !important;
 	background: transparent !important;
 	padding: 0 !important;
-	font-size: 1.3rem !important;
+	font-size: var(--font-size-xl) !important;
 	font-weight: var(--font-weight-normal) !important;
 	outline: none !important;
 	box-shadow: none !important;
@@ -258,7 +285,7 @@ div.sidebar .nav-item h4 {
 
 .quick-search-input::placeholder {
 	color: var(--text-muted) !important;
-	font-size: 1.3rem !important;
+	font-size: var(--font-size-xl) !important;
 }
 
 .quick-search-results {
@@ -269,7 +296,7 @@ div.sidebar .nav-item h4 {
 }
 
 .search-no-results {
-	padding: 32px 28px;
+	padding: 32px 24px;
 	text-align: center;
 	color: var(--text-secondary);
 	font-size: var(--font-size-base);
@@ -277,7 +304,7 @@ div.sidebar .nav-item h4 {
 
 .search-suggestion {
 	display: block;
-	padding: 16px 28px;
+	padding: 12px 16px;
 	transition: background 0.15s ease;
 	cursor: pointer;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
@@ -290,7 +317,7 @@ div.sidebar .nav-item h4 {
 }
 
 .search-suggestion:hover {
-	background: rgba(30, 136, 229, 0.06);
+	background: var(--primary-blue-hover-bg);
 }
 
 .search-suggestion .fa {
@@ -305,7 +332,7 @@ div.sidebar .nav-item h4 {
 	font-weight: var(--font-weight-medium);
 	color: var(--text-primary);
 	margin-bottom: 6px;
-	font-size: 1.05rem;
+	font-size: var(--font-size-lg);
 	line-height: 1.4;
 }
 
@@ -412,9 +439,9 @@ body.login {
 
 #dashboard ul.list-group.list-group-striped {
 	border: none;
-	border-radius: 4px;
+	border-radius: var(--radius-md);
 	overflow: hidden;
-	background: white;
+	background: var(--bg-card);
 }
 
 #dashboard ul.list-group.list-group-striped li {
@@ -422,7 +449,7 @@ body.login {
 	word-break: break-word;
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
-	padding: 10px 15px;
+	padding: 8px 16px;
 	color: var(--text-primary);
 	transition: background 0.2s ease;
 }
@@ -430,7 +457,7 @@ body.login {
 #dashboard ul.list-group.list-group-striped li:first-child {
 	background: var(--primary-blue);
 	color: white;
-	padding: 12px 15px;
+	padding: 12px 16px;
 	border-bottom: none;
 }
 
@@ -471,41 +498,6 @@ body.login {
 	transform: translateY(-2px);
 }
 
-#hello-message {
-	padding: 0px 24px;
-	margin-bottom: 24px;
-	margin-top: 0;
-	background: var(--primary-gradient);
-	color: white;
-	border-radius: 4px;
-	font-size: var(--font-size-lg);
-	font-weight: var(--font-weight-medium);
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	line-height: 1;
-	min-height: 60px;
-}
-
-#hello-message h4,
-#hello-message h5 {
-	color: white;
-	font-weight: var(--font-weight-bold);
-	margin: 0;
-	line-height: 1;
-}
-
-#hello-message .fa,
-#hello-message span {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	line-height: 1;
-}
-
-#hello-message span.oi {
-	top: 3px;
-}
 
 /*
 	DASHBOARD METRIC CARDS
@@ -513,7 +505,7 @@ body.login {
 
 .metric-card {
 	border: none;
-	border-radius: 4px;
+	border-radius: var(--radius-md);
 	transition: all 0.3s ease;
 	height: 100%;
 	background: var(--bg-sidebar);
@@ -521,6 +513,7 @@ body.login {
 
 .metric-card:hover {
 	transform: translateY(-2px);
+	box-shadow: var(--shadow-sm);
 }
 
 .metric-card .card-body {
@@ -534,19 +527,8 @@ body.login {
 	margin: 0;
 }
 
-.metric-icon {
-	width: 50px;
-	height: 50px;
-	border-radius: 5px;
-	background: var(--primary-gradient);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .metric-icon .fa {
-	font-size: 24px;
-	color: white;
+	font-size: var(--font-size-lg);
 	margin: 0 !important;
 }
 
@@ -569,19 +551,19 @@ body.login {
 	letter-spacing: 0.5px;
 }
 
-.ct-series-a .ct-line {
-	/* Set the colour of this series line */
-	stroke: #4a90e2;
-	/* Control the thikness of your lines */
-	stroke-width: 2px;
-	/* Create a dashed line with a pattern */
+.metric-card-list {
+	max-height: 300px;
+	overflow-y: auto;
 }
 
-.ct-series-a .ct-point {
-	/* Colour of your points */
-	stroke: #4a90e2;
-	/* Size of your points */
-	stroke-width: 8px;
+
+/*
+	DASHBOARD ANALYTICS SECTION
+*/
+
+.analytics-section {
+	padding-top: 8px;
+	border-top: 1px solid var(--border-color);
 }
 
 /*
@@ -592,7 +574,7 @@ body.login {
 	display: none;
 	position: fixed;
 	text-align: center;
-	border-radius: 5px;
+	border-radius: var(--radius-md);
 	border: 0;
 	z-index: 1000;
 	bottom: 20px;
@@ -609,7 +591,7 @@ body.login {
 }
 
 .alert-danger {
-	background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+	background: var(--color-danger);
 	border-left: none !important;
 	color: #ffffff;
 }
@@ -630,14 +612,14 @@ body.login {
 .plugin-form select {
 	display: block;
 	width: 100%;
-	padding: .375rem .75rem;
-	font-size: 1rem;
+	padding: 8px 12px;
+	font-size: var(--font-size-base);
 	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
+	color: var(--text-primary);
+	background-color: var(--bg-card);
 	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: 2px;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-sm);
 	transition: border-color .15s ease-in-out;
 }
 
