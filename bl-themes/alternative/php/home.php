@@ -30,7 +30,7 @@
 									<circle cx="11" cy="11" r="8"></circle>
 									<path d="M21 21l-4.35-4.35"></path>
 								</svg>
-								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo ($WHERE_AM_I==='search'?$searchPlugin->getSearchTerm():'') ?>">
+								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo htmlspecialchars($WHERE_AM_I==='search'?$searchPlugin->getSearchTerm():'', ENT_QUOTES, 'UTF-8') ?>">
 							</div>
 						</form>
 					</div>
