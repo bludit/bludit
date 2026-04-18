@@ -177,11 +177,12 @@ EOF;
 	// The line is a json array with the hash IP of the visitor and the time
 	public function addVisitor()
 	{
+		global $security;
 		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
 			return false;
 		}
 		$currentTime = Date::current('Y-m-d H:i:s');
-		$ip = TCP::getIP();
+		$ip = $security->getUserIp();
 		$hashIP = md5($ip);
 
 		$line = json_encode(array($hashIP, $currentTime));
