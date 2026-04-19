@@ -446,7 +446,7 @@ body.login {
 
 #dashboard ul.list-group.list-group-striped li {
 	border: none;
-	word-break: break-word;
+	overflow-wrap: anywhere;
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
 	padding: 8px 16px;

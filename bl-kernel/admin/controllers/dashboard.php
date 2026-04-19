@@ -19,7 +19,7 @@ function updateBludit() {
 		// Updates only for version less than Bludit v3.0 rc-3
 		if ($site->currentBuild()<='20180910') {
 			@mkdir(PATH_WORKSPACES, DIR_PERMISSIONS, true);
-			$plugins = array('visits-stats', 'pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
+			$plugins = array('pluginVisitsStats', 'pluginRSS', 'pluginSitemap', 'pluginTimeMachineX', 'pluginBackup');
 			foreach ($plugins as $plugin) {
 				if (pluginActivated($plugin)) {
 					Log::set('UPDATE SYSTEM - Re-enable plugin: '.$plugin);
