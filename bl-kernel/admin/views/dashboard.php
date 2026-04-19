@@ -16,29 +16,28 @@
                     <span class="fa fa-hand-spock-o" id="hello-icon"></span>
                 </div>
                 <span class="quick-search-text">
-                    <span id="hello-text"><?php echo $L->g('welcome') . ($name ? ', ' . $name : '') ?></span>
+                    <span id="hello-text"><?php echo $L->g('welcome') . ($name ? ', ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') : '') ?></span>
                     <small class="quick-search-hint"><?php $L->p('click-here-for-quick-search') ?></small>
                 </span>
                 <span class="quick-search-shortcut">⌘K</span>
             </div>
             <script>
                 $(document).ready(function() {
-                    setTimeout(function() {
-                        var date = new Date()
-                        var hours = date.getHours()
-                        var icon, greeting
-                        if (hours >= 6 && hours < 12) {
-                            icon = 'fa-sun-o'; greeting = '<?php echo $L->g('good-morning') . ($name ? ', ' . $name : '') ?>'
-                        } else if (hours >= 12 && hours < 18) {
-                            icon = 'fa-sun-o'; greeting = '<?php echo $L->g('good-afternoon') . ($name ? ', ' . $name : '') ?>'
-                        } else if (hours >= 18 && hours < 22) {
-                            icon = 'fa-moon-o'; greeting = '<?php echo $L->g('good-evening') . ($name ? ', ' . $name : '') ?>'
-                        } else {
-                            icon = 'fa-moon-o'; greeting = '<?php echo $L->g('good-night') . ($name ? ', ' . $name : '') ?>'
-                        }
-                        $('#hello-icon').attr('class', 'fa ' + icon)
-                        $('#hello-text').text(greeting)
-                    }, 2400);
+                    var date = new Date()
+                    var hours = date.getHours()
+                    var icon, greeting
+                    var suffix = <?php echo json_encode($name ? ', ' . $name : '', JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>
+                    if (hours >= 6 && hours < 12) {
+                        icon = 'fa-sun-o'; greeting = <?php echo json_encode($L->g('good-morning'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?> + suffix
+                    } else if (hours >= 12 && hours < 18) {
+                        icon = 'fa-sun-o'; greeting = <?php echo json_encode($L->g('good-afternoon'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?> + suffix
+                    } else if (hours >= 18 && hours < 22) {
+                        icon = 'fa-moon-o'; greeting = <?php echo json_encode($L->g('good-evening'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?> + suffix
+                    } else {
+                        icon = 'fa-moon-o'; greeting = <?php echo json_encode($L->g('good-night'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?> + suffix
+                    }
+                    $('#hello-icon').attr('class', 'fa ' + icon)
+                    $('#hello-text').text(greeting)
                 });
             </script>
 
@@ -297,13 +296,13 @@
                     data: {
                         labels: <?php echo json_encode($weekData['labels']); ?>,
                         datasets: [{
-                            label: '<?php echo $L->g('visitors') ?>',
+                            label: <?php echo json_encode($L->g('unique-visitors'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
                             backgroundColor: 'rgba(0,120,212,0.85)',
                             borderColor: 'rgba(0,120,212,1)',
                             borderWidth: 1,
                             data: <?php echo json_encode($weekData['unique']); ?>
                         }, {
-                            label: '<?php echo $L->g('visits') ?>',
+                            label: <?php echo json_encode($L->g('visits-today'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
                             backgroundColor: 'rgba(255,193,3,0.85)',
                             borderColor: 'rgba(255,193,3,1)',
                             borderWidth: 1,

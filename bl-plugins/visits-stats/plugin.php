@@ -49,14 +49,19 @@ class pluginVisitsStats extends Plugin
 
 	public function siteBodyEnd()
 	{
+		$currentDate = Date::current('Y-m-d');
+		$isNewDay = !file_exists($this->workspace() . $currentDate . '.log');
 		$this->addVisitor();
-		$this->deleteOldLogs();
+		if ($isNewDay) {
+			$this->deleteOldLogs();
+		}
 	}
 
 	// Delete log files older than 7 days
 	public function deleteOldLogs()
 	{
-		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', true);
+		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', false);
+		rsort($logs);
 		$remove = array_slice($logs, 7);
 		foreach ($remove as $log) {
 			Filesystem::rmfile($log);
@@ -97,12 +102,36 @@ class pluginVisitsStats extends Plugin
 
 		$seen = array();
 		foreach ($lines as $line) {
-			$data = json_decode($line);
-			if ($data) {
+			$data = json_decode($line, true);
+			if (is_array($data) && isset($data[0])) {
 				$seen[$data[0]] = true;
 			}
 		}
 		return count($seen);
+	}
+
+	// Single-pass read of a day log returning [total, unique]
+	private function readCounts($date)
+	{
+		$file = $this->workspace() . $date . '.log';
+		if (!file_exists($file)) {
+			return array(0, 0);
+		}
+		$handle = @fopen($file, 'rb');
+		if ($handle === false) {
+			return array(0, 0);
+		}
+		$total = 0;
+		$seen  = array();
+		while (($line = fgets($handle)) !== false) {
+			$total++;
+			$data = json_decode($line, true);
+			if (is_array($data) && isset($data[0])) {
+				$seen[$data[0]] = true;
+			}
+		}
+		@fclose($handle);
+		return array($total, count($seen));
 	}
 
 	// Returns visits and unique-visitor counts for the last $days days
@@ -111,9 +140,8 @@ class pluginVisitsStats extends Plugin
 	{
 		$result = array('labels' => array(), 'visits' => array(), 'unique' => array(), 'total' => 0);
 		for ($i = $days - 1; $i >= 0; $i--) {
-			$date  = Date::currentOffset('Y-m-d', '-' . $i . ' day');
-			$v     = $this->visits($date);
-			$u     = $this->uniqueVisitors($date);
+			$date = Date::currentOffset('Y-m-d', '-' . $i . ' day');
+			list($v, $u) = $this->readCounts($date);
 			$result['labels'][] = Date::format($date, 'Y-m-d', 'D');
 			$result['visits'][] = $v;
 			$result['unique'][] = $u;
