@@ -12,7 +12,7 @@ function updateBludit() {
 		$site->set(array('currentBuild'=>BLUDIT_BUILD));
 	}
 
-	// Check if Bludit need to be update
+	// Check if Bludit need to be updated
 	if ( ($site->currentBuild() < BLUDIT_BUILD) || isset($_GET['update']) ) {
 		Log::set('UPDATE SYSTEM - Starting.');
 

@@ -93,7 +93,7 @@ class Site extends dbJSON
 	}
 
 	// Returns an array with the URL filters
-	// Also, you can get the a particular filter
+	// Also, you can get a particular filter
 	public function uriFilters($filter = '')
 	{
 		$filters['admin'] = '/' . ADMIN_URI_FILTER . '/';
@@ -346,7 +346,7 @@ class Site extends dbJSON
 	// For example, http://www.domain.com
 	public function domain()
 	{
-		// If the URL field is not set, try detect the domain.
+		// If the URL field is not set, tries to detect the domain.
 		if (Text::isEmpty($this->url())) {
 			if (!empty($_SERVER['HTTPS'])) {
 				$protocol = 'https://';

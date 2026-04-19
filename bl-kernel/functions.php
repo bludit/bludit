@@ -116,7 +116,7 @@ function buildPagesFor($for, $categoryKey = false, $tagKey = false)
     $list = $tags->getList($tagKey, $pageNumber, $numberOfItems);
   }
 
-  // There are not items, invalid tag, invalid category, out of range, etc...
+  // There are no items, invalid tag, invalid category, out of range, etc...
   if ($list === false) {
     $url->setNotFound();
     return false;
