@@ -51,8 +51,8 @@ class pluginVisitsStats extends Plugin
 	{
 		$currentDate = Date::current('Y-m-d');
 		$isNewDay = !file_exists($this->workspace() . $currentDate . '.log');
-		$this->addVisitor();
-		if ($isNewDay) {
+		$visitorAdded = $this->addVisitor();
+		if ($isNewDay && $visitorAdded) {
 			$this->deleteOldLogs();
 		}
 	}
@@ -104,7 +104,7 @@ class pluginVisitsStats extends Plugin
 		$seen = array();
 		foreach ($lines as $line) {
 			$data = json_decode($line, true);
-			if (is_array($data) && isset($data[0])) {
+			if (is_array($data) && isset($data[0]) && is_string($data[0]) && $data[0] !== '') {
 				$seen[$data[0]] = true;
 			}
 		}
@@ -127,7 +127,7 @@ class pluginVisitsStats extends Plugin
 		while (($line = fgets($handle)) !== false) {
 			$total++;
 			$data = json_decode($line, true);
-			if (is_array($data) && isset($data[0])) {
+			if (is_array($data) && isset($data[0]) && is_string($data[0]) && $data[0] !== '') {
 				$seen[$data[0]] = true;
 			}
 		}
