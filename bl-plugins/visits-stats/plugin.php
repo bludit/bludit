@@ -80,6 +80,7 @@ class pluginVisitsStats extends Plugin
 			return 0;
 		}
 
+		// The amount of visits is the number of lines on the file
 		$lines = 0;
 		while (!feof($handle)) {
 			$lines += substr_count(fread($handle, 8192), PHP_EOL);
@@ -153,12 +154,13 @@ class pluginVisitsStats extends Plugin
 	// Add a line to the current day log file
 	public function addVisitor()
 	{
+		global $security;
 		if (Cookie::get('BLUDIT-KEY') && defined('BLUDIT_PRO') && $this->getValue('excludeAdmins')) {
 			return false;
 		}
 		$currentTime = Date::current('Y-m-d H:i:s');
-		$ip          = TCP::getIP();
-		$hashIP      = md5($ip);
+		$ip     = $security->getUserIp();
+		$hashIP = md5($ip);
 
 		$line        = json_encode(array($hashIP, $currentTime));
 		$currentDate = Date::current('Y-m-d');

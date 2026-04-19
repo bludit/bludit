@@ -66,7 +66,7 @@ class Users extends dbJSON {
 		// The username is store as key and not as field
 		$username = $args['username'];
 
-		// The password is hashed, the password doesn't need to be sanitize in the next step
+		// The password is hashed, the password doesn't need to be sanitized in the next step
 		$password = $args['password'];
 
 		$row = array();
@@ -95,7 +95,7 @@ class Users extends dbJSON {
 		return $this->save();
 	}
 
-	// Edit an user
+	// Edit a user
 	public function set($args)
 	{
 		// The username is store as key and not as field
@@ -132,7 +132,7 @@ class Users extends dbJSON {
 		return $this->save();
 	}
 
-	// Delete an user
+	// Delete a user
 	public function delete($username)
 	{
 		unset($this->db[$username]);

@@ -23,7 +23,7 @@ class Language extends dbJSON {
 		}
 
 		// If the user defined a new language replace the content of the default language
-		// If the new dictionary has missing keys this are going to take from the default language
+		// If the new dictionary has missing keys, fallback values are those of the default language
 		$filename = PATH_LANGUAGES.$currentLanguage.'.json';
 		if (Sanitize::pathFile($filename) && (DEFAULT_LANGUAGE_FILE!==$currentLanguage.'.json')) {
 			$Tmp = new dbJSON($filename, false);

@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 /*
-| Generate an slug text for the URL
+| Generate a slug text for the URL
 |
 | @_POST['text']	string 	The text from where is generated the slug
 | @_POST['parentKey']	string	The parent key if the page has one

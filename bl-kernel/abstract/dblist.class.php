@@ -76,7 +76,7 @@ class dbList extends dbJSON
 	}
 
 	// Add a new item to the dblist
-	// $args => 'name', 'template', 'description', list'
+	// $args => 'name', 'template', 'description', 'list'
 	public function add($args)
 	{
 		$key = $this->generateKey($args['name']);
