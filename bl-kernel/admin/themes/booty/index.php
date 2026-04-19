@@ -68,7 +68,7 @@
 
 <div class="container min-vh-100">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->
-	<div class="row min-vh-100">
+	<div class="row min-vh-100 align-items-stretch">
 
 		<!-- LEFT SIDEBAR - Display only on large devices -->
 		<div class="sidebar col-lg-2 d-none d-lg-block">

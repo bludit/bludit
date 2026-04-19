@@ -3,92 +3,24 @@
 class pluginVisitsStats extends Plugin
 {
 
-	private $loadOnViews = array(
-		'dashboard' // Load this plugin only in the Dashboard
-	);
-
 	public function init()
 	{
 		global $L;
 		$this->dbFields = array(
-			'label' => $L->g('Visits'),
+			'label'         => $L->g('Visits'),
 			'excludeAdmins' => false
 		);
 	}
 
 	public function adminHead()
 	{
-		if (!in_array($GLOBALS['ADMIN_VIEW'], $this->loadOnViews)) {
+		if ($GLOBALS['ADMIN_VIEW'] !== 'dashboard') {
 			return false;
 		}
 
 		$html  = $this->includeCSS('chart.min.css');
 		$html .= $this->includeJS('chart.bundle.min.js');
 		return $html;
-	}
-
-	public function dashboard()
-	{
-		global $L;
-		$label = $this->getValue('label');
-
-		$currentDate = Date::current('Y-m-d');
-		$visitsToday = $this->visits($currentDate);
-		$uniqueVisitors = $this->uniqueVisitors($currentDate);
-
-		$numberOfDays = 6;
-		for ($i = $numberOfDays; $i >= 0; $i--) {
-			$dateWithOffset = Date::currentOffset('Y-m-d', '-' . $i . ' day');
-			$visits[$i] = $this->visits($dateWithOffset);
-			$unique[$i] = $this->uniqueVisitors($dateWithOffset);
-			$days[$i] = Date::format($dateWithOffset, 'Y-m-d', 'D');
-		}
-
-		$labels = "'" . implode("','", $days) . "'";
-		$seriesVisits = implode(',', $visits);
-		$seriesVisitors = implode(',', $unique);
-
-		$labelVisits = $L->g('Visits');
-		$labelVisitors = $L->g('Visitors');
-
-		return <<<EOF
-<div class="pluginVisitsStats mt-4 mb-4 pb-4 border-bottom">
-	<h3 class="m-0 p-0"><i class="bi bi-bar-chart"></i>$label</h3>
-	<canvas id="visits-stats"></canvas>
-</div>
-
-<script>
-var ctx = document.getElementById('visits-stats');
-new Chart(ctx, {
-	type: 'bar',
-	data: {
-		labels: [$labels],
-		datasets: [{
-			backgroundColor: 'rgb(13,110,253)',
-			borderColor: 'rgb(13,110,253)',
-			label: '$labelVisitors',
-			data: [$seriesVisitors]
-		},
-		{
-			backgroundColor: 'rgb(255, 193, 3)',
-			borderColor: 'rgb(255, 193, 3)',
-			label: '$labelVisits',
-			data: [$seriesVisits]
-		}]
-	},
-	options: {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero: true,
-					stepSize: 1
-				}
-			}]
-		}
-	}
-});
-</script>
-EOF;
 	}
 
 	// Plugin form for settings
@@ -117,21 +49,26 @@ EOF;
 
 	public function siteBodyEnd()
 	{
-		$this->addVisitor();
+		$currentDate = Date::current('Y-m-d');
+		$isNewDay = !file_exists($this->workspace() . $currentDate . '.log');
+		$visitorAdded = $this->addVisitor();
+		if ($isNewDay && $visitorAdded) {
+			$this->deleteOldLogs();
+		}
 	}
 
-	// Delete old logs
+	// Delete log files older than 7 days
 	public function deleteOldLogs()
 	{
-		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', true);
-		// Keep only 7 days of logs
+		$logs = Filesystem::listFiles($this->workspace(), '*', 'log', false);
+		rsort($logs);
 		$remove = array_slice($logs, 7);
 		foreach ($remove as $log) {
 			Filesystem::rmfile($log);
 		}
 	}
 
-	// Returns the number of visits by date
+	// Returns the number of visits for a given date (YYYY-MM-DD)
 	public function visits($date)
 	{
 		$file = $this->workspace() . $date . '.log';
@@ -152,7 +89,7 @@ EOF;
 		return $lines;
 	}
 
-	// Returns the number of unique visitors by date
+	// Returns the number of unique visitors for a given date (YYYY-MM-DD)
 	public function uniqueVisitors($date)
 	{
 		$file = $this->workspace() . $date . '.log';
@@ -164,17 +101,57 @@ EOF;
 			return 0;
 		}
 
-		$tmp = array();
+		$seen = array();
 		foreach ($lines as $line) {
-			$data = json_decode($line);
-			$hashIP = $data[0];
-			$tmp[$hashIP] = true;
+			$data = json_decode($line, true);
+			if (is_array($data) && isset($data[0]) && is_string($data[0]) && $data[0] !== '') {
+				$seen[$data[0]] = true;
+			}
 		}
-		return count($tmp);
+		return count($seen);
 	}
 
-	// Add a line to the current log
-	// The line is a json array with the hash IP of the visitor and the time
+	// Single-pass read of a day log returning [total, unique]
+	private function readCounts($date)
+	{
+		$file = $this->workspace() . $date . '.log';
+		if (!file_exists($file)) {
+			return array(0, 0);
+		}
+		$handle = @fopen($file, 'rb');
+		if ($handle === false) {
+			return array(0, 0);
+		}
+		$total = 0;
+		$seen  = array();
+		while (($line = fgets($handle)) !== false) {
+			$total++;
+			$data = json_decode($line, true);
+			if (is_array($data) && isset($data[0]) && is_string($data[0]) && $data[0] !== '') {
+				$seen[$data[0]] = true;
+			}
+		}
+		@fclose($handle);
+		return array($total, count($seen));
+	}
+
+	// Returns visits and unique-visitor counts for the last $days days
+	// Returns ['labels'=>[], 'visits'=>[], 'unique'=>[], 'total'=>int]
+	public function getLastDaysData($days = 7)
+	{
+		$result = array('labels' => array(), 'visits' => array(), 'unique' => array(), 'total' => 0);
+		for ($i = $days - 1; $i >= 0; $i--) {
+			$date = Date::currentOffset('Y-m-d', '-' . $i . ' day');
+			list($v, $u) = $this->readCounts($date);
+			$result['labels'][] = Date::format($date, 'Y-m-d', 'D');
+			$result['visits'][] = $v;
+			$result['unique'][] = $u;
+			$result['total']   += $v;
+		}
+		return $result;
+	}
+
+	// Add a line to the current day log file
 	public function addVisitor()
 	{
 		global $security;
@@ -182,12 +159,12 @@ EOF;
 			return false;
 		}
 		$currentTime = Date::current('Y-m-d H:i:s');
-		$ip = $security->getUserIp();
+		$ip     = $security->getUserIp();
 		$hashIP = md5($ip);
 
-		$line = json_encode(array($hashIP, $currentTime));
+		$line        = json_encode(array($hashIP, $currentTime));
 		$currentDate = Date::current('Y-m-d');
-		$logFile = $this->workspace() . $currentDate . '.log';
+		$logFile     = $this->workspace() . $currentDate . '.log';
 
 		return file_put_contents($logFile, $line . PHP_EOL, FILE_APPEND | LOCK_EX) !== false;
 	}
