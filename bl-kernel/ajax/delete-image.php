@@ -21,6 +21,9 @@ if ($filename===false) {
 }
 
 if ($uuid && IMAGE_RESTRICT) {
+	if (Text::stringContains($uuid, DS, false)) {
+		ajaxResponse(1, 'Invalid uuid.');
+	}
 	$imagePath = PATH_UPLOADS_PAGES.$uuid.DS;
 	$thumbnailPath = PATH_UPLOADS_PAGES.$uuid.DS.'thumbnails'.DS;
 } else {
@@ -28,14 +31,33 @@ if ($uuid && IMAGE_RESTRICT) {
 	$thumbnailPath = PATH_UPLOADS_THUMBNAILS;
 }
 
-// Delete image
+// Delete the original
 if (Sanitize::pathFile($imagePath.$filename)) {
 	Filesystem::rmfile($imagePath.$filename);
 }
 
-// Delete thumbnail
-if (Sanitize::pathFile($thumbnailPath.$filename)) {
+// Delete the thumbnail. Exact-name match is the fast path (new uploads have
+// matching extensions). If no exact match, fall back to any allowed-extension
+// match on the basename — this recovers legacy pairs where thumbnails were
+// forced to .jpg while the original kept its real extension. Before deleting
+// a mismatched candidate, verify no other original owns that extension, to
+// avoid taking out an unrelated image's thumbnail.
+if (Sanitize::pathFile($thumbnailPath.$filename) && is_file($thumbnailPath.$filename)) {
 	Filesystem::rmfile($thumbnailPath.$filename);
+} else {
+	$base = pathinfo($filename, PATHINFO_FILENAME);
+	foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
+		$candidate = $base.'.'.$ext;
+		if ($candidate === $filename) {
+			continue;
+		}
+		if (is_file($imagePath.$candidate)) {
+			continue;
+		}
+		if (Sanitize::pathFile($thumbnailPath.$candidate) && is_file($thumbnailPath.$candidate)) {
+			Filesystem::rmfile($thumbnailPath.$candidate);
+		}
+	}
 }
 
 ajaxResponse(0, 'Image deleted.');

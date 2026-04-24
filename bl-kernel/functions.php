@@ -988,12 +988,86 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
       Filesystem::symlink($image, $thumbnailDir . $nextFilename);
     } else {
       $Image = new Image();
-      $Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
-      $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality());
+      // setImage() returns false when GD cannot decode the source (missing
+      // format support or corrupted file). Skip saveImage() in that case and
+      // log so the operator can diagnose — the original image remains stored
+      // so the Media Manager can still display it via the fallback path.
+      if ($Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop') === false) {
+        Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
+      } else {
+        $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality());
+      }
     }
   }
 
   return $image;
+}
+
+/*
+| Builds the file list for the Media Manager. Scans originals (not thumbnails)
+| and pairs each original with its matching thumbnail. Used by list-images.php
+| and the Media Manager preload in media.php.
+|
+| The thumbnail filename usually matches the original, but can differ:
+|  - Legacy uploads: before commit 82f30f8b thumbnails were forced to .jpg, so
+|    pre-existing pairs may have different extensions (e.g., original test.png
+|    with thumbnail test.jpg).
+|  - Thumbnail generation disabled or failed: no thumbnail exists at all; the
+|    original is returned as its own thumbnail so the item still renders.
+|
+| @imagePath     string  Filesystem path to the originals directory (trailing DS)
+| @thumbnailPath string  Filesystem path to the thumbnails directory (trailing DS)
+| @chunk         int     Chunk size for pagination
+|
+| @return array[]  Array of chunks; each chunk is an array of items with keys
+|                  'filename' (original) and 'thumbnail' (resolved preview).
+*/
+function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
+{
+  // Filesystem::listFiles globs '*.*' which does not match the 'thumbnails'
+  // subdirectory (no dot in the name), so scanning the originals directory
+  // naturally skips it.
+  $chunks = Filesystem::listFiles($imagePath, '*', '*', MEDIA_MANAGER_SORT_BY_DATE, $chunk);
+  if (empty($chunks)) {
+    return array();
+  }
+
+  foreach ($chunks as $i => $chunkFiles) {
+    $items = array();
+    foreach ($chunkFiles as $file) {
+      if (is_dir($file)) {
+        continue;
+      }
+      $filename = basename($file);
+      $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
+      if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+        continue;
+      }
+
+      // Resolve thumbnail. Fast path: same filename. Fallback: allowed-extension
+      // match by basename to cover legacy pairs. Final fallback: the original
+      // itself, so the Media Manager never renders a broken image.
+      $thumbnail = $filename;
+      if (!is_file($thumbnailPath . $filename)) {
+        $base = pathinfo($filename, PATHINFO_FILENAME);
+        foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
+          $candidate = $base . '.' . $ext;
+          if ($candidate !== $filename && is_file($thumbnailPath . $candidate)) {
+            $thumbnail = $candidate;
+            break;
+          }
+        }
+      }
+
+      $items[] = array(
+        'filename' => $filename,
+        'thumbnail' => $thumbnail,
+      );
+    }
+    $chunks[$i] = $items;
+  }
+
+  return $chunks;
 }
 
 function downloadRestrictedFile($file)
