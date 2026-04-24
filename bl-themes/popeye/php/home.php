@@ -130,7 +130,7 @@
 							<!-- Older pages -->
 							<?php if (Paginator::showNext()) : ?>
 								<li class="page-item">
-									<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>">&#9664; <?php echo $L->get('Previous'); ?></a>
+									<a class="page-link" href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>">&#9664; <?php echo $L->get('Previous'); ?></a>
 								</li>
 							<?php endif; ?>
 							<!-- End Older pages -->
@@ -138,7 +138,7 @@
 							<!-- Newer pages -->
 							<?php if (Paginator::showPrev()) : ?>
 								<li class="page-item ml-auto">
-									<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" tabindex="-1"><?php echo $L->get('Next'); ?> &#9658;</a>
+									<a class="page-link" href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" tabindex="-1"><?php echo $L->get('Next'); ?> &#9658;</a>
 								</li>
 							<?php endif; ?>
 							<!-- End Newer pages -->

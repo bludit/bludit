@@ -30,7 +30,7 @@
 									<circle cx="11" cy="11" r="8"></circle>
 									<path d="M21 21l-4.35-4.35"></path>
 								</svg>
-								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo ($WHERE_AM_I==='search'?$searchPlugin->getSearchTerm():'') ?>">
+								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo ($WHERE_AM_I==='search'?htmlspecialchars($searchPlugin->getSearchTerm(), ENT_QUOTES, 'UTF-8'):'') ?>">
 							</div>
 						</form>
 					</div>
@@ -143,7 +143,7 @@
 			<!-- Previous button -->
 			<?php if (Paginator::showPrev()) : ?>
 				<li class="page-item mr-2">
-					<a class="page-link" href="<?php echo Paginator::previousPageUrl() ?>" rel="prev" aria-label="<?php echo $L->get('Previous'); ?>">
+					<a class="page-link" href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" rel="prev" aria-label="<?php echo $L->get('Previous'); ?>">
 						<span aria-hidden="true">&#9664;</span> <?php echo $L->get('Previous'); ?>
 					</a>
 				</li>
@@ -157,7 +157,7 @@
 			<!-- Next button -->
 			<?php if (Paginator::showNext()) : ?>
 				<li class="page-item ml-2">
-					<a class="page-link" href="<?php echo Paginator::nextPageUrl() ?>" rel="next" aria-label="<?php echo $L->get('Next'); ?>">
+					<a class="page-link" href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>" rel="next" aria-label="<?php echo $L->get('Next'); ?>">
 						<?php echo $L->get('Next'); ?> <span aria-hidden="true">&#9658;</span>
 					</a>
 				</li>
