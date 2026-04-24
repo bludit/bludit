@@ -51,7 +51,7 @@ function buildThePage()
   }
 
   if ($page->draft() || $page->scheduled() || $page->autosave()) {
-    if (!hash_equals(hash_hmac('sha256', 'autosave-' . $page->uuid(), DB_SITE), $url->parameter('preview'))) {
+    if (!hash_equals(hash_hmac('sha256', $page->uuid(), DB_SITE), $url->parameter('preview'))) {
       $url->setNotFound();
       return false;
     }
