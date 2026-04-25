@@ -988,12 +988,103 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
       Filesystem::symlink($image, $thumbnailDir . $nextFilename);
     } else {
       $Image = new Image();
-      $Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop');
-      $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality());
+      // setImage() returns false when GD cannot decode the source (missing
+      // format support or corrupted file). Skip saveImage() in that case and
+      // log so the operator can diagnose — the original image remains stored
+      // so the Media Manager can still display it via the fallback path.
+      if ($Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop') === false) {
+        Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
+      } else {
+        $Image->saveImage($thumbnailDir . $nextFilename, $site->thumbnailQuality());
+      }
     }
   }
 
   return $image;
+}
+
+/*
+| Builds the file list for the Media Manager. Scans originals (not thumbnails)
+| and pairs each original with its matching thumbnail. Used by list-images.php
+| and the Media Manager preload in media.php.
+|
+| The thumbnail filename usually matches the original, but can differ:
+|  - Legacy uploads: before commit 82f30f8b thumbnails were forced to .jpg, so
+|    pre-existing pairs may have different extensions (e.g., original test.png
+|    with thumbnail test.jpg).
+|  - Thumbnail generation disabled or failed: no thumbnail file exists at all.
+|    In that case 'thumbnail' is returned as an empty string so the client can
+|    fall back to the original image URL instead of building a broken
+|    PAGE_THUMBNAILS_URL + filename that would 404.
+|
+| @imagePath     string  Filesystem path to the originals directory (trailing DS)
+| @thumbnailPath string  Filesystem path to the thumbnails directory (trailing DS)
+| @chunk         int     Chunk size for pagination
+|
+| @return array[]  Array of chunks; each chunk is an array of items with keys
+|                  'filename' (original) and 'thumbnail' (resolved preview).
+*/
+function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
+{
+  global $site;
+
+  // Filesystem::listFiles globs '*.*' which does not match the 'thumbnails'
+  // subdirectory (no dot in the name), so scanning the originals directory
+  // naturally skips it.
+  $chunks = Filesystem::listFiles($imagePath, '*', '*', MEDIA_MANAGER_SORT_BY_DATE, $chunk);
+  if (empty($chunks)) {
+    return array();
+  }
+
+  // The site logo is stored in PATH_UPLOADS (not in a per-page directory)
+  // alongside uploaded images when IMAGE_RESTRICT is off. Exclude it from the
+  // Media Manager listing so it cannot be inserted/deleted as a media file.
+  $logoFilename = ($site && method_exists($site, 'logo')) ? $site->logo(false) : '';
+
+  foreach ($chunks as $i => $chunkFiles) {
+    $items = array();
+    foreach ($chunkFiles as $file) {
+      if (is_dir($file)) {
+        continue;
+      }
+      $filename = basename($file);
+      if ($logoFilename && $filename === $logoFilename) {
+        continue;
+      }
+      $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
+      if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+        continue;
+      }
+
+      // Resolve thumbnail. Fast path: same filename. Legacy fallback: before
+      // commit 82f30f8b thumbnails were forced to .jpg, so try that single
+      // extension when the fast path misses. Only accept the .jpg candidate
+      // when it does not exist as an independent original (i.e. it is truly a
+      // legacy thumbnail, not another file's own thumbnail). If nothing matches,
+      // return an empty string so the client falls back to the original URL.
+      $thumbnail = '';
+      if (is_file($thumbnailPath . $filename)) {
+        $thumbnail = $filename;
+      } else {
+        $base = pathinfo($filename, PATHINFO_FILENAME);
+        $candidate = $base . '.jpg';
+        if ($candidate !== $filename
+          && is_file($thumbnailPath . $candidate)
+          && !is_file($imagePath . $candidate)
+        ) {
+          $thumbnail = $candidate;
+        }
+      }
+
+      $items[] = array(
+        'filename' => $filename,
+        'thumbnail' => $thumbnail,
+      );
+    }
+    $chunks[$i] = $items;
+  }
+
+  return $chunks;
 }
 
 function downloadRestrictedFile($file)

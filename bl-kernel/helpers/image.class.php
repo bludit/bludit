@@ -87,19 +87,36 @@ class Image {
         // *** Get extension
         $extension = strtolower(strrchr($file, '.'));
 
+        // GD may be compiled without support for some formats (often WebP, and
+        // sometimes JPEG on minimal builds). Guard each decoder with both a
+        // runtime capability check and a function_exists() check to avoid a
+        // fatal "call to undefined function" on stripped builds.
+        $types = imagetypes();
         switch($extension)
         {
             case '.jpg':
             case '.jpeg':
+                if (!($types & IMG_JPG) || !function_exists('imagecreatefromjpeg')) {
+                    return false;
+                }
                 $img = imagecreatefromjpeg($file);
                 break;
             case '.gif':
+                if (!($types & IMG_GIF) || !function_exists('imagecreatefromgif')) {
+                    return false;
+                }
                 $img = imagecreatefromgif($file);
                 break;
             case '.png':
+                if (!($types & IMG_PNG) || !function_exists('imagecreatefrompng')) {
+                    return false;
+                }
                 $img = imagecreatefrompng($file);
                 break;
             case '.webp':
+                if (!($types & IMG_WEBP) || !function_exists('imagecreatefromwebp')) {
+                    return false;
+                }
                 $img = imagecreatefromwebp($file);
                 break;
             default:

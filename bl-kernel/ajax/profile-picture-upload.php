@@ -82,7 +82,12 @@ if (!$moved) {
 
 // Resize and convert to png
 $image = new Image();
-$image->setImage(PATH_TMP.$tmpFilename, PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'crop');
+if ($image->setImage(PATH_TMP.$tmpFilename, PROFILE_IMG_WIDTH, PROFILE_IMG_HEIGHT, 'crop') === false) {
+	Filesystem::rmfile(PATH_TMP.$tmpFilename);
+	$message = 'Profile picture upload failed: GD cannot decode the image (unsupported format or corrupted file).';
+	Log::set($message, LOG_TYPE_ERROR);
+	ajaxResponse(1, $message);
+}
 $image->saveImage(PATH_UPLOADS_PROFILES.$filename, PROFILE_IMG_QUALITY, false, true);
 
 // Delete temporary file

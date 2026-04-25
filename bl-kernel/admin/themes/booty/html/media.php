@@ -1,13 +1,16 @@
 <?php
-// Preload the first 10 files to not call via AJAX when the user open the first time the media manager
-$listOfFilesByPage = Filesystem::listFiles(PAGE_THUMBNAILS_DIRECTORY, '*', '*', MEDIA_MANAGER_SORT_BY_DATE, MEDIA_MANAGER_NUMBER_OF_FILES);
-$preLoadFiles = array();
-if (!empty($listOfFilesByPage[0])) {
-	foreach ($listOfFilesByPage[0] as $file) {
-		$filename = Filesystem::filename($file);
-		array_push($preLoadFiles, $filename);
-	}
+// Preload the first chunk of files to avoid an AJAX round-trip the first time
+// the Media Manager is opened. Scans originals and resolves each thumbnail,
+// mirroring the shape returned by ajax/list-images.
+if (IMAGE_RESTRICT) {
+	$mediaImagesPath = PATH_UPLOADS_PAGES.PAGE_IMAGES_KEY.DS;
+	$mediaThumbnailsPath = PATH_UPLOADS_PAGES.PAGE_IMAGES_KEY.DS.'thumbnails'.DS;
+} else {
+	$mediaImagesPath = PATH_UPLOADS;
+	$mediaThumbnailsPath = PATH_UPLOADS_THUMBNAILS;
 }
+$listOfFilesByPage = mediaManagerListImages($mediaImagesPath, $mediaThumbnailsPath, MEDIA_MANAGER_NUMBER_OF_FILES);
+$preLoadFiles = !empty($listOfFilesByPage[0]) ? $listOfFilesByPage[0] : array();
 
 // Amount of pages for the paginator
 $numberOfPages = count($listOfFilesByPage);
@@ -98,9 +101,13 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 
 	// Regenerate the table
 	if (files.length > 0) {
-		$.each(files, function(key, filename) {
-			var thumbnail = "<?php echo PAGE_THUMBNAILS_URL; ?>"+filename;
+		$.each(files, function(key, item) {
+			var filename = item.filename;
 			var image = "<?php echo PAGE_IMAGES_URL; ?>"+filename;
+			// item.thumbnail is empty when no thumbnail file exists (thumbnails
+			// disabled, generation failed, format unsupported by GD). Fall back
+			// to the original image so the preview never 404s.
+			var thumbnail = item.thumbnail ? "<?php echo PAGE_THUMBNAILS_URL; ?>"+item.thumbnail : image;
 
 			tableRow = '<tr id="js'+filename+'">'+
 					'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
