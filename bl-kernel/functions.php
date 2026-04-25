@@ -1012,8 +1012,10 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 |  - Legacy uploads: before commit 82f30f8b thumbnails were forced to .jpg, so
 |    pre-existing pairs may have different extensions (e.g., original test.png
 |    with thumbnail test.jpg).
-|  - Thumbnail generation disabled or failed: no thumbnail exists at all; the
-|    original is returned as its own thumbnail so the item still renders.
+|  - Thumbnail generation disabled or failed: no thumbnail file exists at all.
+|    In that case 'thumbnail' is returned as an empty string so the client can
+|    fall back to the original image URL instead of building a broken
+|    PAGE_THUMBNAILS_URL + filename that would 404.
 |
 | @imagePath     string  Filesystem path to the originals directory (trailing DS)
 | @thumbnailPath string  Filesystem path to the thumbnails directory (trailing DS)
@@ -1024,6 +1026,8 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 */
 function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
 {
+  global $site;
+
   // Filesystem::listFiles globs '*.*' which does not match the 'thumbnails'
   // subdirectory (no dot in the name), so scanning the originals directory
   // naturally skips it.
@@ -1032,6 +1036,11 @@ function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
     return array();
   }
 
+  // The site logo is stored in PATH_UPLOADS (not in a per-page directory)
+  // alongside uploaded images when IMAGE_RESTRICT is off. Exclude it from the
+  // Media Manager listing so it cannot be inserted/deleted as a media file.
+  $logoFilename = ($site && method_exists($site, 'logo')) ? $site->logo(false) : '';
+
   foreach ($chunks as $i => $chunkFiles) {
     $items = array();
     foreach ($chunkFiles as $file) {
@@ -1039,16 +1048,21 @@ function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
         continue;
       }
       $filename = basename($file);
+      if ($logoFilename && $filename === $logoFilename) {
+        continue;
+      }
       $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
       if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
         continue;
       }
 
       // Resolve thumbnail. Fast path: same filename. Fallback: allowed-extension
-      // match by basename to cover legacy pairs. Final fallback: the original
-      // itself, so the Media Manager never renders a broken image.
-      $thumbnail = $filename;
-      if (!is_file($thumbnailPath . $filename)) {
+      // match by basename to cover legacy pairs. If neither exists, return an
+      // empty string so the client can fall back to the original image URL.
+      $thumbnail = '';
+      if (is_file($thumbnailPath . $filename)) {
+        $thumbnail = $filename;
+      } else {
         $base = pathinfo($filename, PATHINFO_FILENAME);
         foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
           $candidate = $base . '.' . $ext;

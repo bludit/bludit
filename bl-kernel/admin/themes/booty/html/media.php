@@ -103,8 +103,11 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 	if (files.length > 0) {
 		$.each(files, function(key, item) {
 			var filename = item.filename;
-			var thumbnail = "<?php echo PAGE_THUMBNAILS_URL; ?>"+item.thumbnail;
 			var image = "<?php echo PAGE_IMAGES_URL; ?>"+filename;
+			// item.thumbnail is empty when no thumbnail file exists (thumbnails
+			// disabled, generation failed, format unsupported by GD). Fall back
+			// to the original image so the preview never 404s.
+			var thumbnail = item.thumbnail ? "<?php echo PAGE_THUMBNAILS_URL; ?>"+item.thumbnail : image;
 
 			tableRow = '<tr id="js'+filename+'">'+
 					'<td style="width:80px"><img class="img-thumbnail" alt="200x200" src="'+thumbnail+'" style="width: 50px; height: 50px;"><\/td>'+
