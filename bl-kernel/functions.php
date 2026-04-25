@@ -1056,20 +1056,23 @@ function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
         continue;
       }
 
-      // Resolve thumbnail. Fast path: same filename. Fallback: allowed-extension
-      // match by basename to cover legacy pairs. If neither exists, return an
-      // empty string so the client can fall back to the original image URL.
+      // Resolve thumbnail. Fast path: same filename. Legacy fallback: before
+      // commit 82f30f8b thumbnails were forced to .jpg, so try that single
+      // extension when the fast path misses. Only accept the .jpg candidate
+      // when it does not exist as an independent original (i.e. it is truly a
+      // legacy thumbnail, not another file's own thumbnail). If nothing matches,
+      // return an empty string so the client falls back to the original URL.
       $thumbnail = '';
       if (is_file($thumbnailPath . $filename)) {
         $thumbnail = $filename;
       } else {
         $base = pathinfo($filename, PATHINFO_FILENAME);
-        foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
-          $candidate = $base . '.' . $ext;
-          if ($candidate !== $filename && is_file($thumbnailPath . $candidate)) {
-            $thumbnail = $candidate;
-            break;
-          }
+        $candidate = $base . '.jpg';
+        if ($candidate !== $filename
+          && is_file($thumbnailPath . $candidate)
+          && !is_file($imagePath . $candidate)
+        ) {
+          $thumbnail = $candidate;
         }
       }
 
