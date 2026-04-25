@@ -438,7 +438,7 @@ body.login {
 */
 
 #dashboard ul.list-group.list-group-striped {
-	border: none;
+	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
 	overflow: hidden;
 	background: var(--bg-card);
@@ -449,30 +449,33 @@ body.login {
 	overflow-wrap: anywhere;
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-normal);
-	padding: 8px 16px;
+	padding: 10px 18px;
 	color: var(--text-primary);
 	transition: background 0.2s ease;
 }
 
 #dashboard ul.list-group.list-group-striped li:first-child {
-	background: var(--primary-blue);
-	color: white;
-	padding: 12px 16px;
-	border-bottom: none;
+	background: var(--bg-card);
+	color: var(--text-primary);
+	padding: 14px 18px;
+	border-bottom: 1px solid var(--border-color);
 }
 
 #dashboard ul.list-group.list-group-striped li:first-child h4 {
-	color: white;
-	font-size: var(--font-size-base);
+	color: var(--text-primary);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+	margin: 0;
 }
 
 #dashboard ul.list-group.list-group-striped li:nth-of-type(even):not(:first-child) {
-	background: var(--bg-warm);
+	background: var(--bg-light);
 }
 
 #dashboard ul.list-group.list-group-striped li:hover:not(:first-child) {
-	background: var(--bg-warm-card);
+	background: var(--primary-blue-hover-bg);
 }
 
 #dashboard ul.list-group.list-group-striped li .notification-date {
@@ -503,49 +506,43 @@ body.login {
 	DASHBOARD METRIC CARDS
 */
 
-.metric-card {
-	border: none;
+.card.metric-card {
+	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
-	transition: all 0.3s ease;
 	height: 100%;
-	background: var(--bg-sidebar);
+	background: var(--bg-card);
+	box-shadow: none;
 }
 
-.metric-card:hover {
-	transform: translateY(-2px);
-	box-shadow: var(--shadow-sm);
+.card.metric-card .card-body > .d-flex {
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border-color);
 }
 
 .metric-card .card-body {
-	padding: 24px;
+	padding: 22px;
 }
 
 .metric-card .card-title {
-	font-size: var(--font-size-lg);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
-	color: var(--text-primary);
+	color: var(--text-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
 	margin: 0;
 }
 
-.metric-icon .fa {
-	font-size: var(--font-size-lg);
-	margin: 0 !important;
-}
-
 .metric-value {
-	font-size: var(--font-size-3xl);
+	font-size: var(--font-size-2xl);
 	font-weight: var(--font-weight-bold);
-	background: var(--primary-gradient);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	color: var(--text-primary);
 	line-height: 1.2;
 	margin-bottom: 4px;
 }
 
 .metric-label {
 	font-size: var(--font-size-xs);
-	color: var(--text-secondary);
+	color: var(--text-muted);
 	font-weight: var(--font-weight-medium);
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
@@ -562,8 +559,22 @@ body.login {
 */
 
 .analytics-section {
-	padding-top: 8px;
-	border-top: 1px solid var(--border-color);
+	padding: 22px;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	background: var(--bg-card);
+}
+
+#dashboard .analytics-section ul.list-group.list-group-striped {
+	border: none;
+	border-radius: 0;
+	background: transparent;
+}
+
+#dashboard .analytics-section ul.list-group.list-group-striped li:first-child {
+	padding: 0 0 12px 0;
+	background: transparent;
+	border-bottom: 1px solid var(--border-color);
 }
 
 /*
@@ -641,6 +652,34 @@ body.login {
 
 td.child {
 	padding-left: 30px;
+}
+
+/* Truncate the URL column with ellipsis when it doesn't fit. */
+td.contentURL a {
+	display: inline-block;
+	max-width: 30em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+/* Kebab actions dropdown */
+.actionsDropdownToggle {
+	line-height: 1;
+	box-shadow: none !important;
+	font-size: 1.25rem;
+}
+
+.actionsDropdownToggle:focus,
+.actionsDropdownToggle:hover {
+	text-decoration: none;
+	color: var(--text-primary, #1E293B);
+}
+
+.actionsDropdown .dropdown-item i.fa {
+	width: 1.25em;
+	text-align: center;
 }
 
 /*

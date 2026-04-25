@@ -144,27 +144,22 @@
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="metric-icon">
-                                        <span class="fa fa-folder"></span>
-                                    </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Content') ?></h5>
+                                    <h5 class="card-title mb-0"><?php $L->p('Content') ?></h5>
                                 </div>
-                                <div class="row text-center mt-3">
-                                    <div class="col-6 mb-3">
-                                        <div class="metric-value"><?php echo count($pages->getPublishedDB()); ?></div>
-                                        <div class="metric-label"><?php $L->p('Published') ?></div>
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <div class="metric-value"><?php echo count($pages->getDraftDB()); ?></div>
-                                        <div class="metric-label"><?php $L->p('Drafts') ?></div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="metric-value"><?php echo count($pages->getScheduledDB()); ?></div>
-                                        <div class="metric-label"><?php $L->p('Scheduled') ?></div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="metric-value"><?php echo count($categories->keys()); ?></div>
-                                        <div class="metric-label"><?php $L->p('Categories') ?></div>
+                                <div class="mt-3 metric-card-list">
+                                    <div class="list-group list-group-flush">
+                                        <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>" class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><?php $L->p('Published') ?></span>
+                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getPublishedDB()); ?></span>
+                                        </a>
+                                        <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#draft' ?>" class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><?php $L->p('Drafts') ?></span>
+                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getDraftDB()); ?></span>
+                                        </a>
+                                        <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#scheduled' ?>" class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span><?php $L->p('Scheduled') ?></span>
+                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getScheduledDB()); ?></span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -182,10 +177,7 @@
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="metric-icon">
-                                        <span class="fa fa-bookmark"></span>
-                                    </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Categories') ?></h5>
+                                    <h5 class="card-title mb-0"><?php $L->p('Categories') ?></h5>
                                 </div>
                                 <div class="mt-3 metric-card-list">
                                     <?php if (!empty($categoryList)): ?>
@@ -219,10 +211,7 @@
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="metric-icon">
-                                        <span class="fa fa-tag"></span>
-                                    </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Tags') ?></h5>
+                                    <h5 class="card-title mb-0"><?php $L->p('Tags') ?></h5>
                                 </div>
                                 <div class="mt-3 metric-card-list">
                                     <?php if (!empty($tagList)): ?>
@@ -297,14 +286,14 @@
                         labels: <?php echo json_encode($weekData['labels']); ?>,
                         datasets: [{
                             label: <?php echo json_encode($L->g('unique-visitors'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
-                            backgroundColor: 'rgba(0,120,212,0.85)',
-                            borderColor: 'rgba(0,120,212,1)',
+                            backgroundColor: 'rgba(0,120,212,0.45)',
+                            borderColor: 'rgba(0,120,212,0.75)',
                             borderWidth: 1,
                             data: <?php echo json_encode($weekData['unique']); ?>
                         }, {
                             label: <?php echo json_encode($L->g('visits-today'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
-                            backgroundColor: 'rgba(255,193,3,0.85)',
-                            borderColor: 'rgba(255,193,3,1)',
+                            backgroundColor: 'rgba(148,163,184,0.5)',
+                            borderColor: 'rgba(100,116,139,0.8)',
                             borderWidth: 1,
                             data: <?php echo json_encode($weekData['visits']); ?>
                         }]
