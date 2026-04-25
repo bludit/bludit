@@ -2,186 +2,250 @@
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'archive'));
 
-function table($type) {
+function moveTypeIcon($type) {
+	$icons = array(
+		'published' => 'fa-file-text-o',
+		'sticky'    => 'fa-thumb-tack',
+		'static'    => 'fa-file',
+		'draft'     => 'fa-pencil',
+	);
+	return isset($icons[$type]) ? $icons[$type] : 'fa-file';
+}
+
+function moveTypeLabel($current, $target, $L) {
+	if ($target === 'sticky') {
+		return $L->g('Sticky');
+	}
+	if ($current === 'sticky' && $target === 'published') {
+		return $L->g('Unstick');
+	}
+	$labels = array(
+		'published' => $L->g('Move to Page'),
+		'static'    => $L->g('Move to Static'),
+		'draft'     => $L->g('Move to Draft'),
+	);
+	return isset($labels[$target]) ? $labels[$target] : $target;
+}
+
+// Render a single row (or row + nested children) for a page key.
+// $type controls which columns/buttons are shown; $isSticky adds the Sticky badge
+// and flips the toggle button into "Unstick" mode.
+function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	global $url;
 	global $L;
-	global $published;
+
+	try {
+		$page = new Page($pageKey);
+	} catch (Exception $e) {
+		return;
+	}
+
+	$showURL = ($type === 'published' || $type === 'static' || $type === 'sticky');
+
+	// Allowed "Move to" transitions per current type.
+	$moves = array(
+		'published' => array('sticky', 'static', 'draft'),
+		'sticky'    => array('published', 'static', 'draft'),
+		'draft'     => array('published', 'static'),
+		'static'    => array('published', 'draft'),
+	);
+
+	$dateLabel = '';
+	if ($type === 'scheduled') {
+		$dateLabel = $L->g('Scheduled').': '.$page->date(SCHEDULED_DATE_FORMAT);
+	} elseif ((ORDER_BY === 'position') || ($type !== 'published' && $type !== 'sticky')) {
+		$dateLabel = $L->g('Position').': '.$page->position();
+	} else {
+		$dateLabel = $page->date(MANAGE_CONTENT_DATE_FORMAT);
+	}
+
+	echo '<tr>';
+	echo '<td class="pt-3">';
+	echo '<div>';
+	echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
+	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
+	echo '</a>';
+	if ($isSticky) {
+		echo ' <span class="badge badge-warning align-middle ml-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
+	}
+	echo '</div>';
+	echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$dateLabel.'</p></div>';
+	echo '</td>';
+
+	if ($showURL) {
+		$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
+		echo '<td class="pt-3 d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$page->permalink().'" title="'.$friendlyURL.'">'.$friendlyURL.'</a></td>';
+	}
+
+	echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
+	echo '<div class="dropdown actionsDropdown">';
+	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+	echo '<div class="dropdown-menu dropdown-menu-right">';
+
+	// View / Edit
+	if ($showURL) {
+		echo '<a class="dropdown-item" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop fa-fw mr-2"></i>'.$L->g('View').'</a>';
+	}
+	echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit fa-fw mr-2"></i>'.$L->g('Edit').'</a>';
+
+	// Sticky / Unstick toggle, between View/Edit and Move-to.
+	$stickyToggleTarget = false;
+	if ($type === 'published') {
+		$stickyToggleTarget = 'sticky';
+	} elseif ($type === 'sticky') {
+		$stickyToggleTarget = 'published';
+	}
+	if ($stickyToggleTarget) {
+		echo '<div class="dropdown-divider"></div>';
+		echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$stickyToggleTarget.'"><i class="fa '.moveTypeIcon($stickyToggleTarget).' fa-fw mr-2"></i>'.moveTypeLabel($type, $stickyToggleTarget, $L).'</a>';
+	}
+
+	// Move to ... (everything except the sticky toggle target rendered above).
+	if (isset($moves[$type])) {
+		$remaining = array();
+		foreach ($moves[$type] as $target) {
+			if ($target !== $stickyToggleTarget) {
+				$remaining[] = $target;
+			}
+		}
+		if (!empty($remaining)) {
+			echo '<div class="dropdown-divider"></div>';
+			foreach ($remaining as $target) {
+				echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$target.'"><i class="fa '.moveTypeIcon($target).' fa-fw mr-2"></i>'.moveTypeLabel($type, $target, $L).'</a>';
+			}
+		}
+	}
+
+	if (count($page->children()) == 0) {
+		echo '<div class="dropdown-divider"></div>';
+		echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
+	}
+	echo '</div></div>';
+	echo '</td>';
+	echo '</tr>';
+
+	if ($renderChildren) {
+		foreach ($page->children() as $child) {
+			echo '<tr>';
+			echo '<td class="child">';
+			echo '<div>';
+			echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">';
+			echo ($child->title() ? $child->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
+			echo '</a>';
+			echo '</div>';
+			echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$L->g('Position').': '.$child->position().'</p></div>';
+			echo '</td>';
+
+			if ($showURL) {
+				$friendlyChildURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
+				echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$child->permalink().'" title="'.$friendlyChildURL.'">'.$friendlyChildURL.'</a></td>';
+			}
+
+			echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
+			echo '<div class="dropdown actionsDropdown">';
+			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+			echo '<div class="dropdown-menu dropdown-menu-right">';
+			if ($showURL) {
+				echo '<a class="dropdown-item" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop fa-fw mr-2"></i>'.$L->g('View').'</a>';
+			}
+			echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit fa-fw mr-2"></i>'.$L->g('Edit').'</a>';
+			echo '<div class="dropdown-divider"></div>';
+			echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
+			echo '</div></div>';
+			echo '</td>';
+			echo '</tr>';
+		}
+	}
+}
+
+// Render rows for a list, applying the parent/child nesting rules used by the
+// Static tab and by the Pages/Sticky lists when ORDER_BY is "position".
+function tableRows($list, $type, $isSticky = false) {
+	$nestChildren = ($type === 'static') || (ORDER_BY === 'position');
+	foreach ($list as $pageKey) {
+		try {
+			$page = new Page($pageKey);
+		} catch (Exception $e) {
+			continue;
+		}
+		if ($nestChildren) {
+			if ($page->isChild()) {
+				continue;
+			}
+			tableRow($pageKey, $type, $isSticky, true);
+		} else {
+			tableRow($pageKey, $type, $isSticky, false);
+		}
+	}
+}
+
+// Render a full table for a single tab (Static, Scheduled, Draft, Autosave).
+function table($type) {
+	global $L;
 	global $drafts;
 	global $scheduled;
 	global $static;
-	global $sticky;
 	global $autosave;
 
-	if ($type=='published') {
-		$list = $published;
-		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
-			echo $L->g('There are no pages at this moment.');
-			echo '</p>';
-			return false;
-		}
-	} elseif ($type=='draft') {
+	if ($type === 'draft') {
 		$list = $drafts;
-		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
-			echo $L->g('There are no draft pages at this moment.');
-			echo '</p>';
-			return false;
-		}
-	} elseif ($type=='scheduled') {
+		$emptyMessage = $L->g('There are no draft pages at this moment.');
+	} elseif ($type === 'scheduled') {
 		$list = $scheduled;
-		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
-			echo $L->g('There are no scheduled pages at this moment.');
-			echo '</p>';
-			return false;
-		}
-	} elseif ($type=='static') {
+		$emptyMessage = $L->g('There are no scheduled pages at this moment.');
+	} elseif ($type === 'static') {
 		$list = $static;
-		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
-			echo $L->g('There are no static pages at this moment.');
-			echo '</p>';
-			return false;
-		}
-	} elseif ($type=='sticky') {
-		$list = $sticky;
-		if (empty($list)) {
-			echo '<p class="mt-4 text-muted">';
-			echo $L->g('There are no sticky pages at this moment.');
-			echo '</p>';
-			return false;
-		}
-	} elseif ($type=='autosave') {
+		$emptyMessage = $L->g('There are no static pages at this moment.');
+	} elseif ($type === 'autosave') {
 		$list = $autosave;
-	}
-
-	echo '
-	<table class="table mt-3">
-		<thead>
-			<tr>
-				<th class="border-0" scope="col">'.$L->g('Title').'</th>
-	';
-
-	if ($type=='published' || $type=='static' || $type=='sticky') {
-		echo '<th class="border-0 d-none d-lg-table-cell" scope="col">'.$L->g('URL').'</th>';
-	}
-
-	echo '			<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>
-			</tr>
-		</thead>
-		<tbody>
-	';
-
-	if ( (ORDER_BY=='position') || $type=='static' ) {
-		foreach ($list as $pageKey) {
-			try {
-				$page = new Page($pageKey);
-				if (!$page->isChild()) {
-					echo '<tr>
-					<td>
-						<div>
-							<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-							.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-							.'</a>
-						</div>
-						<div>
-							<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$page->position():$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
-						</div>
-					</td>';
-
-					if ($type=='published' || $type=='static' || $type=='sticky') {
-					$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-					echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-					}
-
-					echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-					echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-					if (count($page->children())==0) {
-						echo '<a href="#" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
-					}
-					echo '</td>';
-
-					echo '</tr>';
-
-					foreach ($page->children() as $child) {
-						//if ($child->published()) {
-						echo '<tr>
-						<td class="child">
-							<div>
-								<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">'
-								.($child->title()?$child->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-								.'</a>
-							</div>
-							<div>
-								<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ((ORDER_BY=='position') || ($type!='published'))?$L->g('Position').': '.$child->position():$child->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
-							</div>
-						</td>';
-
-						if ($type=='published' || $type=='static' || $type=='sticky') {
-						$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
-						echo '<td class="d-none d-lg-table-cell"><a target="_blank" href="'.$child->permalink().'">'.$friendlyURL.'</a></td>';
-						}
-
-						echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-						if ($type=='published' || $type=='static' || $type=='sticky') {
-						echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-						}
-						echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-						echo '<a class="ml-2 text-danger deletePageButton d-block d-sm-inline" href="#" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
-						echo '</td>';
-
-						echo '</tr>';
-						//}
-					}
-				}
-			} catch (Exception $e) {
-				// Continue
-			}
-		}
+		$emptyMessage = '';
 	} else {
-		foreach ($list as $pageKey) {
-			try {
-				$page = new Page($pageKey);
-				echo '<tr>';
-				echo '<td class="pt-3">
-					<div>
-						<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">'
-						.($page->title()?$page->title():'<span class="label-empty-title">'.$L->g('Empty title').'</span> ')
-						.'</a>
-					</div>
-					<div>
-						<p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.( ($type=='scheduled')?$L->g('Scheduled').': '.$page->date(SCHEDULED_DATE_FORMAT):$page->date(MANAGE_CONTENT_DATE_FORMAT) ).'</p>
-					</div>
-				</td>';
-
-				if ($type=='published' || $type=='static' || $type=='sticky') {
-				$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-				echo '<td class="pt-3 d-none d-lg-table-cell"><a target="_blank" href="'.$page->permalink().'">'.$friendlyURL.'</a></td>';
-				}
-
-				echo '<td class="contentTools pt-3 text-center d-sm-table-cell">'.PHP_EOL;
-				if ($type=='published' || $type=='static' || $type=='sticky') {
-				echo '<a class="text-secondary d-none d-md-inline" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop"></i>'.$L->g('View').'</a>'.PHP_EOL;
-				}
-				echo '<a class="text-secondary d-none d-md-inline ml-2" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit"></i>'.$L->g('Edit').'</a>'.PHP_EOL;
-				if (count($page->children())==0) {
-					echo '<a href="#" class="ml-2 text-danger deletePageButton d-block d-sm-inline" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash"></i>'.$L->g('Delete').'</a>'.PHP_EOL;
-				}
-				echo '</td>';
-
-				echo '</tr>';
-			} catch (Exception $e) {
-				// Continue
-			}
-		}
+		return;
 	}
 
-	echo '
-		</tbody>
-	</table>
-	';
+	if (empty($list) && $type !== 'autosave') {
+		echo '<p class="mt-4 text-muted">'.$emptyMessage.'</p>';
+		return;
+	}
+
+	echo '<table class="table mt-3"><thead><tr>';
+	echo '<th class="border-0" scope="col">'.$L->g('Title').'</th>';
+	if ($type === 'static') {
+		echo '<th class="border-0 d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
+	}
+	echo '<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
+	echo '</tr></thead><tbody>';
+	tableRows($list, $type);
+	echo '</tbody></table>';
+}
+
+// Render the Pages tab: sticky rows first, then the paginated published list,
+// in a single table.
+function tablePages() {
+	global $L;
+	global $published;
+	global $sticky;
+	global $url;
+
+	$isFirstPage = ($url->pageNumber() <= 1);
+
+	if (empty($published) && (empty($sticky) || !$isFirstPage)) {
+		echo '<p class="mt-4 text-muted">'.$L->g('There are no pages at this moment.').'</p>';
+		return;
+	}
+
+	echo '<table class="table mt-3"><thead><tr>';
+	echo '<th class="border-0" scope="col">'.$L->g('Title').'</th>';
+	echo '<th class="border-0 d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
+	echo '<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
+	echo '</tr></thead><tbody>';
+	if (!empty($sticky) && $isFirstPage) {
+		tableRows($sticky, 'sticky', true);
+	}
+	if (!empty($published)) {
+		tableRows($published, 'published', false);
+	}
+	echo '</tbody></table>';
 }
 
 ?>
@@ -193,9 +257,6 @@ function table($type) {
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="static-tab" data-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="sticky-tab" data-toggle="tab" href="#sticky" role="tab"><?php $L->p('Sticky') ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
@@ -210,10 +271,10 @@ function table($type) {
 	<?php endif; ?>
 </ul>
 <div class="tab-content">
-	<!-- TABS PAGES -->
+	<!-- TABS PAGES (includes sticky on top) -->
 	<div class="tab-pane show active" id="pages" role="tabpanel">
 
-		<?php table('published'); ?>
+		<?php tablePages(); ?>
 
 		<?php if (Paginator::numberOfPages() > 1): ?>
 		<!-- Paginator -->
@@ -248,11 +309,6 @@ function table($type) {
 	<!-- TABS STATIC -->
 	<div class="tab-pane" id="static" role="tabpanel">
 	<?php table('static'); ?>
-	</div>
-
-	<!-- TABS STICKY -->
-	<div class="tab-pane" id="sticky" role="tabpanel">
-	<?php table('sticky'); ?>
 	</div>
 
 	<!-- TABS SCHEDULED -->
@@ -290,7 +346,7 @@ $(document).ready(function() {
 	var key = false;
 
 	// Button for delete a page in the table
-	$(".deletePageButton").on("click", function() {
+	$(document).on("click", ".deletePageButton", function() {
 		key = $(this).data('key');
 	});
 
@@ -321,6 +377,35 @@ $(document).ready(function() {
 		}));
 
 		form.hide().appendTo("body").submit();
+	});
+
+	// Move-to: change page type via AJAX
+	$(document).on("click", ".changeTypeButton", function(e) {
+		e.preventDefault();
+		var $btn = $(this);
+		if ($btn.data('busy')) { return; }
+		$btn.data('busy', true).css('opacity', 0.5);
+
+		$.ajax({
+			type: "POST",
+			url: HTML_PATH_ADMIN_ROOT + "ajax/change-type",
+			data: {
+				tokenCSRF: tokenCSRF,
+				key: $btn.data('key'),
+				type: $btn.data('type')
+			},
+			dataType: "json"
+		}).done(function(response) {
+			if (response && response.status === 0) {
+				window.location.reload();
+			} else {
+				$btn.data('busy', false).css('opacity', 1);
+				alert((response && response.message) ? response.message : <?php echo json_encode($L->g('Failed to change type.')); ?>);
+			}
+		}).fail(function() {
+			$btn.data('busy', false).css('opacity', 1);
+			alert(<?php echo json_encode($L->g('Failed to change type.')); ?>);
+		});
 	});
 });
 </script>

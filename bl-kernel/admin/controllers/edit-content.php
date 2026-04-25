@@ -52,8 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_POST['tab'] = 'scheduled';
 				} elseif ($pageType === 'static') {
 					$_POST['tab'] = 'static';
-				} elseif ($pageType === 'sticky') {
-					$_POST['tab'] = 'sticky';
 				} else {
 					$_POST['tab'] = 'pages';
 				}
