@@ -667,7 +667,6 @@ td.contentURL a {
 /* Kebab actions dropdown */
 .actionsDropdownToggle {
 	line-height: 1;
-	box-shadow: none !important;
 	font-size: 1.25rem;
 }
 
@@ -675,6 +674,11 @@ td.contentURL a {
 .actionsDropdownToggle:hover {
 	text-decoration: none;
 	color: var(--text-primary, #1E293B);
+}
+
+.actionsDropdownToggle:focus-visible {
+	outline: 2px solid var(--primary-blue);
+	outline-offset: 2px;
 }
 
 .actionsDropdown .dropdown-item i.fa {
