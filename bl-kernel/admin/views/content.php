@@ -225,8 +225,11 @@ function tablePages() {
 	global $L;
 	global $published;
 	global $sticky;
+	global $url;
 
-	if (empty($published) && empty($sticky)) {
+	$isFirstPage = ($url->pageNumber() <= 1);
+
+	if (empty($published) && (empty($sticky) || !$isFirstPage)) {
 		echo '<p class="mt-4 text-muted">'.$L->g('There are no pages at this moment.').'</p>';
 		return;
 	}
@@ -236,7 +239,7 @@ function tablePages() {
 	echo '<th class="border-0 d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
 	echo '<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
 	echo '</tr></thead><tbody>';
-	if (!empty($sticky)) {
+	if (!empty($sticky) && $isFirstPage) {
 		tableRows($sticky, 'sticky', true);
 	}
 	if (!empty($published)) {
@@ -397,11 +400,11 @@ $(document).ready(function() {
 				window.location.reload();
 			} else {
 				$btn.data('busy', false).css('opacity', 1);
-				alert((response && response.message) ? response.message : 'Failed to change type.');
+				alert((response && response.message) ? response.message : <?php echo json_encode($L->g('Failed to change type.')); ?>);
 			}
 		}).fail(function() {
 			$btn.data('busy', false).css('opacity', 1);
-			alert('Failed to change type.');
+			alert(<?php echo json_encode($L->g('Failed to change type.')); ?>);
 		});
 	});
 });
