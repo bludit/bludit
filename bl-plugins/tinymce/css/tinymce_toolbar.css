@@ -2,10 +2,14 @@
 	border-top: none !important;
 }
 
-/* TinyMCE focus styling to match the theme: keep blue border but remove box-shadow */
-.tox-tinymce:focus, 
+/* TinyMCE focus styling to match the theme */
+.tox-tinymce:focus,
 .tox-tinymce--focused {
-	border: 1px solid #016DE7 !important;
+	border: 2px solid #b0bec5 !important;
 	box-shadow: none !important;
 	outline: none !important;
+}
+
+.tox-edit-focus .tox-edit-area::before {
+	opacity: 0 !important;
 }
