@@ -121,10 +121,6 @@ a.text-danger:hover {
 	transition: all 0.2s ease;
 }
 
-.form-control:focus {
-	border-color: var(--primary-blue, #0078D4);
-}
-
 label {
 	font-weight: var(--font-weight-semibold, 650);
 	color: var(--text-primary, #0F172A);

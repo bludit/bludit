@@ -787,13 +787,14 @@ img.profilePicture {
 	color: #1cb11c;
 }
 
-/* Remove focus glow (box-shadow) from all form elements but keep the blue border */
+/* Subtle focus style for form elements */
 input:focus,
 textarea:focus,
 select:focus,
 .form-control:focus,
 .custom-select:focus,
 .btn:focus {
-	border-color: #016DE7 !important;
+	border-color: #b0bec5 !important;
 	box-shadow: none !important;
+	outline: none !important;
 }
