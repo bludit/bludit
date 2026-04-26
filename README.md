@@ -44,6 +44,13 @@ As a Flat-File CMS, Bludit offers unparalleled flexibility and speed. Plus, with
 4. Visit your domain (e.g., https://example.com/bludit/).
 5. Follow the Bludit Installer to set up your website.
 
+> **Note — running behind Cloudflare, nginx, Apache or another reverse proxy:** Bludit reads the client IP from `REMOTE_ADDR` only. Proxy headers like `X-Forwarded-For` or `CF-Connecting-IP` are **not** trusted at the PHP layer because any client can forge them. If your site sits behind a reverse proxy, configure the webserver to rewrite `REMOTE_ADDR` to the real client IP before PHP sees it — otherwise the login brute-force blocklist will block the proxy itself (locking out every visitor after enough failed logins) and visitor statistics will count all traffic as a single visitor.
+>
+> - **Apache** — enable [`mod_remoteip`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html) and list your upstream's IP ranges with `RemoteIPTrustedProxy`. For Cloudflare, use the header `CF-Connecting-IP` and the IP ranges published at [cloudflare.com/ips-v4](https://www.cloudflare.com/ips-v4) and [cloudflare.com/ips-v6](https://www.cloudflare.com/ips-v6).
+> - **nginx** — use the built-in [`ngx_http_realip_module`](https://nginx.org/en/docs/http/ngx_http_realip_module.html) with `set_real_ip_from` + `real_ip_header`.
+>
+> No configuration is needed for direct / localhost / intranet deployments.
+
 ## Quick installation for testing
 
 You can use PHP Built-in web server (`php -S localhost:8000`) or Docker:
