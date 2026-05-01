@@ -57,6 +57,8 @@ class Users extends dbJSON {
 	public function disableUser($username)
 	{
 		$this->db[$username]['password'] = '!';
+		$this->db[$username]['tokenRemember'] = '';
+		$this->db[$username]['tokenAuth'] = $this->generateAuthToken();
 		return $this->save();
 	}
 
