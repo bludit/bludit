@@ -1,13 +1,13 @@
 <?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Bludit version
-define('BLUDIT_VERSION',        '3.21.0');
+define('BLUDIT_VERSION',        '3.21.1');
 define('BLUDIT_CODENAME',       'ImperialEagle');
-define('BLUDIT_RELEASE_DATE',   '2026-04-25');
-define('BLUDIT_BUILD',          '20260425');
+define('BLUDIT_RELEASE_DATE',   '2026-05-01');
+define('BLUDIT_BUILD',          '20260501');
 
 // Change to TRUE for debugging
-define('DEBUG_MODE', TRUE);
+define('DEBUG_MODE', FALSE);
 define('DEBUG_TYPE', 'INFO'); // INFO, TRACE
 
 //  This determines whether errors should be printed to the screen as part of the output or if they should be hidden from the user.
