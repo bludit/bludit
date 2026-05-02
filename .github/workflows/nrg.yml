@@ -1,7 +1,7 @@
 name: Regenerate READMEs
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'README.src.md'
       - '.github/workflows/nrg.yml'
