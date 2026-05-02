@@ -24,7 +24,7 @@ jobs:
       - uses: nanolaba/nrg-action@v1
         with:
           file: README.src.md
-          nrg-version: '1.1'
+          nrg-version: '1.2'
       - name: Commit regenerated READMEs
         run: |
           paths='README.md README.es.md README.ar.md README.de.md README.fr.md README.hi.md README.it.md README.ja.md README.pt.md README.ru.md README.zh.md'
@@ -47,4 +47,4 @@ jobs:
         with:
           file: README.src.md
           mode: check
-          nrg-version: '1.1'
+          nrg-version: '1.2'
