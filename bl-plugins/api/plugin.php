@@ -5,10 +5,32 @@ class pluginAPI extends Plugin
 
 	private $method;
 
+	// HTTP status applied to the final response. Inner handlers may override it
+	// by calling setStatus() before returning their result. The body still carries
+	// the legacy status:'0'|'1' field for backwards compatibility.
+	private $httpCode = 200;
+	private $httpMessage = 'OK';
+
+	private function setStatus($code)
+	{
+		$messages = array(
+			200 => 'OK',
+			201 => 'Created',
+			400 => 'Bad Request',
+			401 => 'Unauthorized',
+			403 => 'Forbidden',
+			404 => 'Not Found',
+			409 => 'Conflict',
+			500 => 'Internal Server Error'
+		);
+		$this->httpCode = $code;
+		$this->httpMessage = isset($messages[$code]) ? $messages[$code] : 'Error';
+	}
+
 	public function init()
 	{
-		// Generate the API Token
-		$token = bin2hex( openssl_random_pseudo_bytes(64) );
+		// Generate the API Token (32 bytes = 64 hex chars = 256 bits of entropy)
+		$token = bin2hex( random_bytes(32) );
 
 		$this->dbFields = array(
 			'token' => $token,	// API Token
@@ -214,7 +236,7 @@ class pluginAPI extends Plugin
 			$this->response(401, 'Unauthorized', array('message' => 'Access denied or invalid endpoint.'));
 		}
 
-		$this->response(200, 'OK', $data);
+		$this->response($this->httpCode, $this->httpMessage, $data);
 	}
 
 	// PRIVATE METHODS
@@ -273,21 +295,23 @@ class pluginAPI extends Plugin
 
 	// Returns an array with key=>value with the inputs
 	// If the content is JSON is parsed to array
+	//
+	// Note: DB-bound values are sanitized by core (Pages::add/edit, Site::set);
+	// sanitizing again here would double-encode form/query values like
+	// "Cats & Dogs" into "Cats &amp;amp; Dogs".
 	private function cleanInputs($inputs)
 	{
-		$tmp = array();
 		if (is_array($inputs)) {
-			foreach ($inputs as $key => $value) {
-				$tmp[$key] = Sanitize::html($value);
-			}
-		} elseif (is_string($inputs)) {
-			$tmp = json_decode($inputs, true);
-			if (json_last_error() !== JSON_ERROR_NONE) {
-				$tmp = array();
-			}
+			return $inputs;
 		}
-
-		return $tmp;
+		if (is_string($inputs)) {
+			$decoded = json_decode($inputs, true);
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				return array();
+			}
+			return is_array($decoded) ? $decoded : array();
+		}
+		return array();
 	}
 
 	private function getEndpointParameters($URI)
@@ -340,6 +364,7 @@ class pluginAPI extends Plugin
 		try {
 			$tag = new Tag($key);
 		} catch (Exception $e) {
+			$this->setStatus(404);
 			return array(
 				'status' => '1',
 				'message' => 'Tag not found by the key: ' . $key
@@ -377,14 +402,44 @@ class pluginAPI extends Plugin
 		$scheduled 	= (isset($args['scheduled']) ? $args['scheduled'] == 'true' : false);
 		$untagged 	= (isset($args['untagged']) ? $args['untagged'] == 'true' : false);
 
-		$numberOfItems = (isset($args['numberOfItems']) ? $args['numberOfItems'] : (int)$this->getValue('numberOfItems'));
-		$pageNumber = (isset($args['pageNumber']) ? $args['pageNumber'] : 1);
+		$numberOfItems = (isset($args['numberOfItems']) ? (int)$args['numberOfItems'] : (int)$this->getValue('numberOfItems'));
+		$pageNumber = (isset($args['pageNumber']) ? (int)$args['pageNumber'] : 1);
+
+		// Clamp to safe values. -1 is the documented "return all" sentinel for
+		// numberOfItems; anything else <=0 falls back to the plugin default and
+		// then to a hard fallback so getList() can never receive 0.
+		if ($pageNumber < 1) {
+			$pageNumber = 1;
+		}
+		if ($numberOfItems === 0) {
+			$numberOfItems = (int)$this->getValue('numberOfItems');
+		}
+		if ($numberOfItems === 0 || $numberOfItems < -1) {
+			$numberOfItems = 15;
+		}
+
 		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
+		// getList() returns false when pageNumber is past the end; treat as empty.
+		if ($list === false) {
+			$list = array();
+		}
+
+		// total reflects the count of pages matching the type filters; the
+		// untagged filter is applied to the page slice below, so it is not
+		// reflected in this total.
+		$total = $pages->countByType($published, $static, $sticky, $draft, $scheduled);
+		$hasMore = ($numberOfItems > 0) && (($pageNumber * $numberOfItems) < $total);
 
 		$tmp = array(
 			'status' => '0',
 			'message' => 'List of pages',
 			'numberOfItems' => $numberOfItems,
+			'meta' => array(
+				'total' => $total,
+				'pageNumber' => $pageNumber,
+				'pageSize' => $numberOfItems,
+				'hasMore' => $hasMore
+			),
 			'data' => array()
 		);
 
@@ -418,6 +473,7 @@ class pluginAPI extends Plugin
 				'data' => $page->json($returnsArray = true)
 			);
 		} catch (Exception $e) {
+			$this->setStatus(404);
 			return array(
 				'status' => '1',
 				'message' => 'Page not found.'
@@ -427,53 +483,88 @@ class pluginAPI extends Plugin
 
 	private function createPage($args)
 	{
-		// Unsanitize content because all values are sanitized
-		if (isset($args['content'])) {
-			$args['content'] = Sanitize::htmlDecode($args['content']);
-		}
-
 		// This function is defined on functions.php
 		$key = createPage($args);
 		if ($key === false) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'Error trying to create the new page.'
 			);
 		}
 
-		return array(
-			'status' => '0',
-			'message' => 'Page created.',
-			'data' => array('key' => $key)
-		);
+		$this->setStatus(201);
+		try {
+			$page = new Page($key);
+			return array(
+				'status' => '0',
+				'message' => 'Page created.',
+				'data' => $page->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			// The page was created but failed to load. Fall back to the legacy
+			// minimal payload so the caller still gets the key.
+			return array(
+				'status' => '0',
+				'message' => 'Page created.',
+				'data' => array('key' => $key)
+			);
+		}
 	}
 
 	private function editPage($key, $args)
 	{
-		// Unsanitize content because all values are sanitized
-		if (isset($args['content'])) {
-			$args['content'] = Sanitize::htmlDecode($args['content']);
+		global $pages;
+
+		if (!$pages->exists($key)) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'Page not found.'
+			);
 		}
 
 		$args['key'] = $key;
 		$newKey = editPage($args);
 
 		if ($newKey === false) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'Error trying to edit the page.'
 			);
 		}
 
-		return array(
-			'status' => '0',
-			'message' => 'Page edited.',
-			'data' => array('key' => $newKey)
-		);
+		try {
+			$page = new Page($newKey);
+			return array(
+				'status' => '0',
+				'message' => 'Page edited.',
+				'data' => $page->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			// The page was edited but failed to load. Fall back to the legacy
+			// minimal payload so the caller still gets the key.
+			return array(
+				'status' => '0',
+				'message' => 'Page edited.',
+				'data' => array('key' => $newKey)
+			);
+		}
 	}
 
 	private function deletePage($key)
 	{
+		global $pages;
+
+		if (!$pages->exists($key)) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'Page not found.'
+			);
+		}
+
 		if (deletePage($key)) {
 			return array(
 				'status' => '0',
@@ -481,6 +572,7 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		$this->setStatus(500);
 		return array(
 			'status' => '1',
 			'message' => 'Error trying to delete the page.'
@@ -502,6 +594,7 @@ class pluginAPI extends Plugin
 		// Set upload directory
 		if (isset($inputs['uuid']) && IMAGE_RESTRICT) {
 			if (!$this->isValidPageKey($inputs['uuid'])) {
+				$this->setStatus(400);
 				return array('status' => '1', 'message' => 'Invalid UUID.');
 			}
 			$imageDirectory 	= PATH_UPLOADS_PAGES . $inputs['uuid'] . DS;
@@ -519,6 +612,7 @@ class pluginAPI extends Plugin
 		}
 
 		if (!isset($_FILES['image'])) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'No image sent.'
@@ -526,6 +620,7 @@ class pluginAPI extends Plugin
 		}
 
 		if ($_FILES['image']['error'] != 0) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'Error uploading the image, maximum load file size allowed: ' . ini_get('upload_max_filesize')
@@ -547,6 +642,7 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		$this->setStatus(400);
 		return array(
 			'status' => '1',
 			'message' => 'Image extension not allowed.'
@@ -586,6 +682,7 @@ class pluginAPI extends Plugin
 				'message' => 'Settings edited.'
 			);
 		}
+		$this->setStatus(400);
 		return array(
 			'status' => '1',
 			'message' => 'Error trying to edit the settings.'
@@ -628,6 +725,7 @@ class pluginAPI extends Plugin
 		try {
 			$category = new Category($key);
 		} catch (Exception $e) {
+			$this->setStatus(404);
 			return array(
 				'status' => '1',
 				'message' => 'Category not found by the key: ' . $key
@@ -665,6 +763,7 @@ class pluginAPI extends Plugin
 		try {
 			$user = new User($username);
 		} catch (Exception $e) {
+			$this->setStatus(404);
 			return array(
 				'status' => '1',
 				'message' => 'User not found by username: ' . $username
@@ -753,6 +852,7 @@ class pluginAPI extends Plugin
 	private function uploadFile($pageKey)
 	{
 		if (!isset($_FILES['file'])) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'File not sent.'
@@ -760,6 +860,7 @@ class pluginAPI extends Plugin
 		}
 
 		if ($_FILES['file']['error'] != 0) {
+			$this->setStatus(400);
 			return array(
 				'status' => '1',
 				'message' => 'Error uploading the file.'
@@ -770,6 +871,7 @@ class pluginAPI extends Plugin
 
 		// Block dotfiles
 		if (strpos($filename, '.') === 0) {
+			$this->setStatus(400);
 			return array('status' => '1', 'message' => 'File type not allowed.');
 		}
 
@@ -777,6 +879,7 @@ class pluginAPI extends Plugin
 		$fileExtension = Filesystem::extension($filename);
 		$fileExtension = Text::lowercase($fileExtension);
 		if (!in_array($fileExtension, $GLOBALS['ALLOWED_FILE_EXTENSIONS'])) {
+			$this->setStatus(400);
 			return array('status' => '1', 'message' => 'File type not allowed.');
 		}
 
@@ -799,6 +902,7 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		$this->setStatus(500);
 		return array(
 			'status' => '1',
 			'message' => 'Error moving the file to the final path.'

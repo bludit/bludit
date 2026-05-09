@@ -594,6 +594,27 @@ class Pages extends dbJSON
 		return count($this->db);
 	}
 
+	// Returns the count of pages matching the given type filters.
+	// Same filter semantics as getList(), useful for paginated listings that need a total.
+	public function countByType($published = true, $static = false, $sticky = false, $draft = false, $scheduled = false)
+	{
+		$count = 0;
+		foreach ($this->db as $key => $fields) {
+			if ($published && $fields['type'] == 'published') {
+				$count++;
+			} elseif ($static && $fields['type'] == 'static') {
+				$count++;
+			} elseif ($sticky && $fields['type'] == 'sticky') {
+				$count++;
+			} elseif ($draft && $fields['type'] == 'draft') {
+				$count++;
+			} elseif ($scheduled && $fields['type'] == 'scheduled') {
+				$count++;
+			}
+		}
+		return $count;
+	}
+
 	// Returns an array with all parents pages key. A parent page is not a child
 	public function getParents()
 	{
