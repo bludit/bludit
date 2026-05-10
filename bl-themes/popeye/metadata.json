@@ -2,10 +2,10 @@
 	"author": "Bludit",
 	"email": "",
 	"website": "https://themes.bludit.com",
-	"version": "3.21.1",
-	"releaseDate": "2026-05-01",
+	"version": "3.22.0",
+	"releaseDate": "2026-05-10",
 	"license": "MIT",
-	"compatible": "3.21",
+	"compatible": "3.22",
 	"notes": "",
 	"plugin": "popeye"
 }

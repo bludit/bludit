@@ -1,5 +1,6 @@
 .DS_Store
 dbgenerator.php
+tests/
 bl-content/*
 !bl-content/.keep
 bl-content-migrator
