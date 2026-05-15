@@ -418,16 +418,13 @@ class pluginAPI extends Plugin
 			$numberOfItems = 15;
 		}
 
-		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
+		$total = 0;
+		$list = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled, $untagged, $total);
 		// getList() returns false when pageNumber is past the end; treat as empty.
 		if ($list === false) {
 			$list = array();
 		}
 
-		// total reflects the count of pages matching the type filters; the
-		// untagged filter is applied to the page slice below, so it is not
-		// reflected in this total.
-		$total = $pages->countByType($published, $static, $sticky, $draft, $scheduled);
 		$hasMore = ($numberOfItems > 0) && (($pageNumber * $numberOfItems) < $total);
 
 		$tmp = array(
@@ -445,16 +442,8 @@ class pluginAPI extends Plugin
 
 		foreach ($list as $pageKey) {
 			try {
-				// Create the page object from the page key
 				$page = new Page($pageKey);
-				if ($untagged) {
-					if (empty($page->tags())) {
-						// Push the page to the data array for the response
-						array_push($tmp['data'], $page->json($returnsArray = true));
-					}
-				} else {
-					array_push($tmp['data'], $page->json($returnsArray = true));
-				}
+				array_push($tmp['data'], $page->json($returnsArray = true));
 			} catch (Exception $e) {
 				// Continue
 			}

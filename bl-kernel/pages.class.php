@@ -546,22 +546,28 @@ class Pages extends dbJSON
 	// (int) $pageNumber, the page number
 	// (int) $numberOfItems, amount of items to return, if -1 returns all the items
 	// (boolean) $onlyPublished, TRUE to return only published pages
-	public function getList($pageNumber, $numberOfItems, $published = true, $static = false, $sticky = false, $draft = false, $scheduled = false)
+	public function getList($pageNumber, $numberOfItems, $published = true, $static = false, $sticky = false, $draft = false, $scheduled = false, $untagged = false, &$total = null)
 	{
 		$list = array();
 		foreach ($this->db as $key => $fields) {
+			$typeMatch = false;
 			if ($published && $fields['type'] == 'published') {
-				array_push($list, $key);
+				$typeMatch = true;
 			} elseif ($static && $fields['type'] == 'static') {
-				array_push($list, $key);
+				$typeMatch = true;
 			} elseif ($sticky && $fields['type'] == 'sticky') {
-				array_push($list, $key);
+				$typeMatch = true;
 			} elseif ($draft && $fields['type'] == 'draft') {
-				array_push($list, $key);
+				$typeMatch = true;
 			} elseif ($scheduled && $fields['type'] == 'scheduled') {
+				$typeMatch = true;
+			}
+			if ($typeMatch && (!$untagged || empty($fields['tags']))) {
 				array_push($list, $key);
 			}
 		}
+
+		$total = count($list);
 
 		if ($numberOfItems == -1) {
 			return $list;
@@ -570,7 +576,6 @@ class Pages extends dbJSON
 		// The first page number is 1, so the real is 0
 		$realPageNumber = $pageNumber - 1;
 
-		$total = count($list);
 		$init = (int) $numberOfItems * $realPageNumber;
 		$end  = (int) min(($init + $numberOfItems - 1), $total);
 		$outrange = $init < 0 ? true : $init > $end;
@@ -594,21 +599,25 @@ class Pages extends dbJSON
 		return count($this->db);
 	}
 
-	// Returns the count of pages matching the given type filters.
-	// Same filter semantics as getList(), useful for paginated listings that need a total.
-	public function countByType($published = true, $static = false, $sticky = false, $draft = false, $scheduled = false)
+	// Returns the count of pages matching the given type and optional untagged filters.
+	// Same filter semantics as getList().
+	public function countByType($published = true, $static = false, $sticky = false, $draft = false, $scheduled = false, $untagged = false)
 	{
 		$count = 0;
 		foreach ($this->db as $key => $fields) {
+			$typeMatch = false;
 			if ($published && $fields['type'] == 'published') {
-				$count++;
+				$typeMatch = true;
 			} elseif ($static && $fields['type'] == 'static') {
-				$count++;
+				$typeMatch = true;
 			} elseif ($sticky && $fields['type'] == 'sticky') {
-				$count++;
+				$typeMatch = true;
 			} elseif ($draft && $fields['type'] == 'draft') {
-				$count++;
+				$typeMatch = true;
 			} elseif ($scheduled && $fields['type'] == 'scheduled') {
+				$typeMatch = true;
+			}
+			if ($typeMatch && (!$untagged || empty($fields['tags']))) {
 				$count++;
 			}
 		}
