@@ -48,6 +48,7 @@ class Site extends dbJSON
 		'titleFormatTag' => 	'{{tag-name}} | {{site-title}}',
 		'imageRestrict' =>	true,
 		'imageRelativeToAbsolute' => false,
+		'previewKey' =>		'',
 		'thumbnailEnable' =>	true,
 		'thumbnailWidth' => 	400, // px
 		'thumbnailHeight' => 	400, // px
@@ -161,6 +162,21 @@ class Site extends dbJSON
 	public function markdownParser()
 	{
 		return $this->getField('markdownParser');
+	}
+
+	// Per-installation HMAC key for preview tokens. Lazily generated on first
+	// use so existing installs upgrade transparently. Returning DB_SITE (the
+	// site database filename) as the key — the previous behavior — let anyone
+	// who knew a page uuid forge a valid preview URL (GHSA-7wxr-7qg4-q6xg).
+	public function previewKey()
+	{
+		$key = $this->getField('previewKey');
+		if (empty($key)) {
+			$key = bin2hex(random_bytes(32));
+			$this->db['previewKey'] = $key;
+			$this->save();
+		}
+		return $key;
 	}
 
 	public function twitter()

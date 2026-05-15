@@ -405,7 +405,8 @@ function install($adminPassword, $timezone)
 		'titleFormatCategory' => '{{category-name}} | {{site-title}}',
 		'titleFormatTag' => '{{tag-name}} | {{site-title}}',
 		'imageRestrict' => true,
-		'imageRelativeToAbsolute' => false
+		'imageRelativeToAbsolute' => false,
+		'previewKey' => bin2hex(random_bytes(32))
 	);
 	file_put_contents(PATH_DATABASES . 'site.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 

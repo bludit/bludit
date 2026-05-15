@@ -41,6 +41,7 @@ function buildErrorPage()
 function buildThePage()
 {
   global $url;
+  global $site;
 
   try {
     $pageKey = $url->slug();
@@ -52,7 +53,7 @@ function buildThePage()
 
   if ($page->draft() || $page->scheduled() || $page->autosave()) {
     $preview = $url->parameter('preview');
-    if (!is_string($preview) || !hash_equals(hash_hmac('sha256', $page->uuid(), DB_SITE), $preview)) {
+    if (!is_string($preview) || !hash_equals(hash_hmac('sha256', $page->uuid(), $site->previewKey()), $preview)) {
       $url->setNotFound();
       return false;
     }
