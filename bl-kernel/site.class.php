@@ -164,22 +164,9 @@ class Site extends dbJSON
 		return $this->getField('markdownParser');
 	}
 
-	// Per-installation HMAC key for preview tokens. Lazily generated on first
-	// use so existing installs upgrade transparently. Returning DB_SITE (the
-	// site database filename) as the key — the previous behavior — let anyone
-	// who knew a page uuid forge a valid preview URL (GHSA-7wxr-7qg4-q6xg).
 	public function previewKey()
 	{
-		$key = $this->getField('previewKey');
-		if (empty($key)) {
-			$key = bin2hex(random_bytes(32));
-			$this->db['previewKey'] = $key;
-			if (!$this->save()) {
-				$this->db['previewKey'] = '';
-				throw new RuntimeException('Failed to persist preview key to database.');
-			}
-		}
-		return $key;
+		return $this->getField('previewKey');
 	}
 
 	public function twitter()
