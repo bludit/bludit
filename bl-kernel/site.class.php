@@ -174,7 +174,10 @@ class Site extends dbJSON
 		if (empty($key)) {
 			$key = bin2hex(random_bytes(32));
 			$this->db['previewKey'] = $key;
-			$this->save();
+			if (!$this->save()) {
+				$this->db['previewKey'] = '';
+				throw new RuntimeException('Failed to persist preview key to database.');
+			}
 		}
 		return $key;
 	}
