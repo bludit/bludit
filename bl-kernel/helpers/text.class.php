@@ -121,6 +121,11 @@ class Text {
 		return $text;
 	}
 
+	public static function generateToken()
+	{
+		return bin2hex(random_bytes(64));
+	}
+
 	public static function replaceAssoc(array $replace, $text)
 	{
 		return str_replace(array_keys($replace), array_values($replace), $text);
