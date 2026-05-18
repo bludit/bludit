@@ -35,11 +35,9 @@ function updateBludit() {
 			$site->set(array('imageRelativeToAbsolute'=>true, 'imageRestrict'=>false));
 		}
 
-		// Generate a per-installation preview key for builds that predate it
-		if ($site->currentBuild()<'20260510') {
-			if (empty($site->getField('previewKey'))) {
-				$site->set(array('previewKey'=>Text::generateToken()));
-			}
+		// Generate a per-installation preview key if missing
+		if (empty($site->getField('previewKey'))) {
+			$site->set(array('previewKey'=>Text::generateToken()));
 		}
 
 		// Set the current build number
