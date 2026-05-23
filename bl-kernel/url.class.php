@@ -21,7 +21,19 @@ class Url
 		// Remove parameters GET, I don't use parse_url because has problem with utf-8
 		$explode = explode('?', $decode);
 		$this->uri = $explode[0];
+
+		// Start with $_GET, then overlay parameters parsed from the original REQUEST_URI.
+		// Some URL-rewriting servers (e.g. lighttpd) replace the QUERY_STRING with the
+		// rewritten path, causing $_GET to lose query parameters like ?page=N.
+		// Parsing REQUEST_URI directly ensures those values are always available.
 		$this->parameters = $_GET;
+		$rawParts = explode('?', $_SERVER['REQUEST_URI'], 2);
+		if (isset($rawParts[1])) {
+			$uriParams = [];
+			parse_str($rawParts[1], $uriParams);
+			$this->parameters = array_merge($this->parameters, $uriParams);
+		}
+
 		$this->uriStrlen = Text::length($this->uri);
 		$this->whereAmI = 'home';
 		$this->notFound = false;
