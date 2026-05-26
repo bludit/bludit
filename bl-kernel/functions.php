@@ -687,6 +687,8 @@ function editSettings($args)
       'notes' => ''
     ));
 
+    Theme::plugins('afterSiteSave');
+
     // Create alert
     Alert::set($L->g('The changes have been saved'));
     return true;

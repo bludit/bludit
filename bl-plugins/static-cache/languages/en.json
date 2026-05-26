@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "Static Cache",
+		"description": "Caches rendered pages to disk and serves them on subsequent anonymous requests. The cache is cleared automatically when content or settings change."
+	},
+	"status": "Status",
+	"cached-files": "Cached files",
+	"clear-cache": "Clear cache",
+	"clear-cache-tip": "Removes all cached files. They will be regenerated on the next anonymous visit.",
+	"how-it-works": "Anonymous GET requests are served from disk on cache hit. Edits, deletes and settings changes clear the cache; the next visitor refills it. Logged-in users, POST requests and URLs with query strings bypass the cache."
+}
