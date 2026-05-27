@@ -549,45 +549,48 @@ class Page
 	// $complete = false : short version
 	// $complete = true  : full version
 	public function relativeTime($complete = false)
-    	{
-        	$current = new DateTime;
-	        $past    = new DateTime($this->getValue('dateRaw'));
-	        $elapsed = $current->diff($past);
+	{
+		global $L;
 
-	        // Calculate weeks separately
-	        $weeks = floor($elapsed->d / 7);
-	        $elapsed->d -= $weeks * 7;
+		$current = new DateTime;
+		$past    = new DateTime($this->getValue('dateRaw'));
+		$elapsed = $current->diff($past);
 
-	        $string = array(
-	            'y' => 'year',
-	            'm' => 'month',
-	            'w' => $weeks,
-	            'd' => 'day',
-	            'h' => 'hour',
-	            'i' => 'minute',
-	            's' => 'second',
-	        );
+		// Calculate weeks separately
+		$weeks = floor($elapsed->d / 7);
+		$elapsed->d -= $weeks * 7;
 
-	        foreach ($string as $key => &$value) {
-	            if ($key == 'w') {
-	                if ($weeks > 0) {
-	                    $value = $weeks . ' week' . ($weeks > 1 ? 's' : '');
-	                } else {
-	                    unset($string[$key]);
-	                }
-	            } elseif ($elapsed->$key) {
-	                $value = $elapsed->$key . ' ' . $value . ($elapsed->$key > 1 ? 's' : '');
-	            } else {
-	                unset($string[$key]);
-	            }
-	        }
+		// Unit names and the "ago" wrapper come from the language files (relative-* keys).
+		// Missing keys fall back to English automatically, see bl-languages/en.json.
+		$units = array(
+			'y' => 'year',
+			'm' => 'month',
+			'w' => 'week',
+			'd' => 'day',
+			'h' => 'hour',
+			'i' => 'minute',
+			's' => 'second',
+		);
 
-	        if (!$complete) {
-	            $string = array_slice($string, 0, 1);
-	        }
+		$string = array();
+		foreach ($units as $key => $unit) {
+			$amount = ($key == 'w') ? $weeks : $elapsed->$key;
+			if ($amount > 0) {
+				$word = $L->get('relative-' . $unit . ($amount > 1 ? 's' : ''));
+				$string[] = $amount . ' ' . $word;
+			}
+		}
 
-	        return $string ? implode(', ', $string) . ' ago' : 'Just now';
-    	}
+		if (!$complete) {
+			$string = array_slice($string, 0, 1);
+		}
+
+		if (empty($string)) {
+			return $L->get('relative-just-now');
+		}
+
+		return str_replace('%s', implode(', ', $string), $L->get('relative-ago'));
+	}
 
 	// Returns the value from the field, false if the fields don't exist
 	// If you set the $option as TRUE, the function returns an array with all the values of the field
