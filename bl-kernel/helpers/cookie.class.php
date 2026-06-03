@@ -17,7 +17,7 @@ class Cookie {
 
 		$defaults = array(
 			'expires'  => $expire,
-			'path'     => '/',
+			'path'     => defined('HTML_PATH_ROOT') ? HTML_PATH_ROOT : '/',
 			'domain'   => '',
 			'secure'   => $secure,
 			'httponly'  => true,
