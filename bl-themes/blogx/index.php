@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo Theme::lang() ?>">
+<html lang="<?php echo Theme::lang() ?>" dir="<?php echo Theme::direction() ?>">
 <head>
 <?php include(THEME_DIR_PHP.'head.php'); ?>
 </head>

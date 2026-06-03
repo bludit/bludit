@@ -61,6 +61,14 @@ class Theme
 		return $language->currentLanguageShortVersion();
 	}
 
+	// Returns 'rtl' for right-to-left languages (Arabic, Hebrew, Persian, Sorani Kurdish),
+	// 'ltr' otherwise. Use on the <html> tag so the page picks up the correct direction.
+	public static function direction()
+	{
+		global $language;
+		return $language->direction();
+	}
+
 	public static function rssUrl()
 	{
 		if (pluginActivated('pluginRSS')) {

@@ -56,6 +56,16 @@ class Language extends dbJSON {
 		return $this->currentLanguage;
 	}
 
+	// Returns the writing direction for the language: 'rtl' or 'ltr' (default).
+	// Languages opt-in to RTL by setting "direction": "rtl" in their language-data block.
+	public function direction()
+	{
+		if (isset($this->data['direction']) && $this->data['direction'] === 'rtl') {
+			return 'rtl';
+		}
+		return 'ltr';
+	}
+
 	public function currentLanguage()
 	{
 		return $this->currentLanguage;

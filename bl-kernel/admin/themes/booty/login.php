@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo Theme::lang() ?>" dir="<?php echo Theme::direction() ?>">
 
 <head>
   <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - Login</title>

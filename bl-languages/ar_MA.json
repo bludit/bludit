@@ -2,6 +2,7 @@
     "language-data": {
         "native": "اللغة العربية",
         "english-name": "Arabic",
+        "direction": "rtl",
         "last-update": "2017-09-10",
         "authors": [
             "",

@@ -2,6 +2,7 @@
     "language-data": {
         "native": "فارسی",
         "english-name": "Persian",
+        "direction": "rtl",
         "locale": "fa,fa_IR",
         "last-update": "2020-07-14",
         "authors": [

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo Theme::lang() ?>">
+<html lang="<?php echo Theme::lang() ?>" dir="<?php echo Theme::direction() ?>">
 
 <head>
 	<meta charset="UTF-8">

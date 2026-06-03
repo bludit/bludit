@@ -2,6 +2,7 @@
     "language-data": {
         "native": "کوردی",
         "english-name": "Kurdish (Sorani)",
+        "direction": "rtl",
         "locale": "ku,ckb",
         "last-update": "2020-06-10",
         "authors": [
