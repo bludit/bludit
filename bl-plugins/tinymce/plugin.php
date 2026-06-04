@@ -15,6 +15,7 @@ class pluginTinymce extends Plugin
 			'toolbar2' => '',
 			'contextmenu' => 'link image table',
 			'plugins' => 'code autolink image link pagebreak advlist lists table fullscreen media searchreplace wordcount emoticons charmap codesample',
+			'sandboxiframesexclusions' => '',
 			'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 		);
 	}
@@ -46,6 +47,11 @@ class pluginTinymce extends Plugin
 		$html .= '<div>';
 		$html .= '<label>' . $L->get('Plugins') . '</label>';
 		$html .= '<input name="plugins" id="jsplugins" type="text" dir="auto" value="' . $this->getValue('plugins') . '">';
+		$html .= '</div>';
+
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('sandbox-iframes-exclusions') . '</label>';
+		$html .= '<input name="sandboxiframesexclusions" id="jssandboxiframesexclusions" type="text" dir="auto" value="' . $this->getValue('sandboxiframesexclusions') . '">';
 		$html .= '</div>';
 
 		if (strpos($this->getValue('plugins'), 'codesample') !== false) {
@@ -89,6 +95,10 @@ class pluginTinymce extends Plugin
 		$plugins = $this->getValue('plugins');
 		// Convert space-separated plugins to JavaScript array format
 		$pluginsArray = implode("', '", array_filter(explode(' ', $plugins)));
+		$version = $this->version();
+		$sandboxiframesexclusions = $this->getValue('sandboxiframesexclusions');
+		// Convert space-separated sandbox iframe exclusions to JavaScript array format
+		$sandboxiframesexclusionsArray = implode("', '", array_filter(explode(' ', $sandboxiframesexclusions)));
 		$version = $this->version();
 
 		$codesampleConfig = '';
@@ -162,7 +172,8 @@ class pluginTinymce extends Plugin
 		content_css: "$content_css",
 		codesample_languages: [$codesampleConfig],
 		image_description: true,
-		image_advtab: true
+		image_advtab: true,
+		sandbox_iframes_exclusions: ['$sandboxiframesexclusionsArray']
 	});
 
 </script>
