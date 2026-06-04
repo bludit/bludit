@@ -98,7 +98,9 @@ class pluginTinymce extends Plugin
 		$version = $this->version();
 		$sandboxiframesexclusions = $this->getValue('sandboxiframesexclusions');
 		// Convert space-separated sandbox iframe exclusions to JavaScript array format
-		$sandboxiframesexclusionsArray = implode("', '", array_filter(explode(' ', $sandboxiframesexclusions)));
+		$sandboxiframesexclusionsArray = array_filter(explode(' ', $sandboxiframesexclusions));
+		$sandboxiframesexclusionsArray =
+			count($sandboxiframesexclusionsArray) ? "'" . implode("', '", $sandboxiframesexclusionsArray) . "'" : "";
 		$version = $this->version();
 
 		$codesampleConfig = '';
@@ -173,7 +175,7 @@ class pluginTinymce extends Plugin
 		codesample_languages: [$codesampleConfig],
 		image_description: true,
 		image_advtab: true,
-		sandbox_iframes_exclusions: ['$sandboxiframesexclusionsArray']
+		sandbox_iframes_exclusions: [$sandboxiframesexclusionsArray]
 	});
 
 </script>
