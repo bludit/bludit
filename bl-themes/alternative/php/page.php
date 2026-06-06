@@ -63,7 +63,7 @@
 							<!-- Page reading time -->
 							<span class="pr-3">
 								<i class="bi bi-clock" aria-hidden="true"></i>
-								<span><?php echo $page->readingTime() . ' ' . $L->get('minutes') . ' ' . $L->g('read') ?></span>
+								<span><?php echo $L->get('Reading time') . ': ' . $page->readingTime() ?></span>
 							</span>
 
 							<!-- Page author -->

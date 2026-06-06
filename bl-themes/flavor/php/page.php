@@ -36,7 +36,7 @@
 		</time>
 		<span class="text-sm text-gray-400 dark:text-gray-500 mx-2">&middot;</span>
 		<span class="text-sm text-gray-500 dark:text-gray-400">
-			<?php echo $page->readingTime(); ?> <?php echo $L->get('read'); ?>
+			<?php echo $L->get('Reading time') . ': ' . $page->readingTime(); ?>
 		</span>
 		<?php if ($page->user('nickname')): ?>
 		<span class="text-sm text-gray-400 dark:text-gray-500 mx-2">&middot;</span>

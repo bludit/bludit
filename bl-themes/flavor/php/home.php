@@ -30,7 +30,7 @@
 
 		<!-- Reading time -->
 		<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
-			<?php echo $page->readingTime(); ?> <?php echo $L->get('read'); ?>
+			<?php echo $L->get('Reading time') . ': ' . $page->readingTime(); ?>
 		</p>
 
 		<!-- Content excerpt -->
