@@ -948,6 +948,76 @@ function ajaxResponse($status = 0, $message = "", $data = array())
 |
 | @return	string/boolean	Path and filename of the new image or FALSE if there were some error
 */
+
+// Strips active content from an SVG file in-place using DOMDocument.
+// Removes <script>, <foreignObject>, on* event attributes, javascript: URIs,
+// and <use> elements with external hrefs. Returns false if the file cannot be
+// parsed as valid XML, so callers should treat false as a rejection.
+function sanitizeSVG($file)
+{
+	$content = file_get_contents($file);
+	if ($content === false) {
+		return false;
+	}
+
+	$dom = new DOMDocument();
+	libxml_use_internal_errors(true);
+	$loaded = $dom->loadXML($content);
+	libxml_clear_errors();
+	if (!$loaded) {
+		return false;
+	}
+
+	$xpath = new DOMXPath($dom);
+
+	// Remove <script> elements.
+	foreach (iterator_to_array($xpath->query('//script')) as $node) {
+		$node->parentNode->removeChild($node);
+	}
+
+	// Remove <foreignObject> — can embed arbitrary HTML.
+	foreach (iterator_to_array($xpath->query('//foreignObject')) as $node) {
+		$node->parentNode->removeChild($node);
+	}
+
+	// Remove on* event attributes and javascript: URIs from every element.
+	foreach ($xpath->query('//*') as $element) {
+		$toRemove = array();
+		foreach ($element->attributes as $attr) {
+			$name  = strtolower($attr->name);
+			$value = strtolower(trim($attr->value));
+			if (strpos($name, 'on') === 0) {
+				$toRemove[] = $attr->name;
+			} elseif (in_array($name, array('href', 'xlink:href', 'action', 'src'), true)
+				&& strpos($value, 'javascript:') !== false) {
+				$toRemove[] = $attr->name;
+			}
+		}
+		foreach ($toRemove as $attrName) {
+			$element->removeAttribute($attrName);
+		}
+	}
+
+	// Remove <use> elements that reference external documents.
+	foreach (iterator_to_array($xpath->query('//use')) as $node) {
+		$href = $node->getAttribute('href');
+		if (empty($href)) {
+			$href = $node->getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+		}
+		// Only allow same-document fragment references (#id).
+		if (!empty($href) && strpos($href, '#') !== 0) {
+			$node->parentNode->removeChild($node);
+		}
+	}
+
+	$sanitized = $dom->saveXML();
+	if ($sanitized === false) {
+		return false;
+	}
+
+	return file_put_contents($file, $sanitized) !== false;
+}
+
 function transformImage($file, $imageDir, $thumbnailDir = false)
 {
   global $site;
@@ -983,6 +1053,15 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
   $image = $imageDir . $nextFilename;
   Filesystem::mv($file, $image);
   chmod($image, 0644);
+
+  // Sanitize SVG files to remove active content before storage.
+  if ($fileExtension === 'svg') {
+    if (sanitizeSVG($image) === false) {
+      Log::set('SVG sanitization failed (invalid XML), rejecting file: ' . $image, LOG_TYPE_ERROR);
+      @unlink($image);
+      return false;
+    }
+  }
 
   // Generate Thumbnail
   if (!empty($thumbnailDir) && $site->thumbnailEnable()) {
