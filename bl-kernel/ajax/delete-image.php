@@ -12,11 +12,11 @@ header('Content-Type: application/json');
 
 // $_POST
 // ----------------------------------------------------------------------------
-$filename = isset($_POST['filename']) ? $_POST['filename'] : false;
+$filename = isset($_POST['filename']) ? basename($_POST['filename']) : false;
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
 // ----------------------------------------------------------------------------
 
-if ($filename===false) {
+if ($filename===false || $filename==='') {
 	ajaxResponse(1, 'The filename is empty.');
 }
 
@@ -32,7 +32,7 @@ if ($uuid && IMAGE_RESTRICT) {
 }
 
 // Delete the original
-if (Sanitize::pathFile($imagePath.$filename)) {
+if (Sanitize::pathFile($imagePath, $filename)) {
 	Filesystem::rmfile($imagePath.$filename);
 }
 
@@ -42,7 +42,7 @@ if (Sanitize::pathFile($imagePath.$filename)) {
 // forced to .jpg while the original kept its real extension. Before deleting
 // a mismatched candidate, verify no other original owns that extension, to
 // avoid taking out an unrelated image's thumbnail.
-if (Sanitize::pathFile($thumbnailPath.$filename) && is_file($thumbnailPath.$filename)) {
+if (Sanitize::pathFile($thumbnailPath, $filename) && is_file($thumbnailPath.$filename)) {
 	Filesystem::rmfile($thumbnailPath.$filename);
 } else {
 	$base = pathinfo($filename, PATHINFO_FILENAME);
@@ -54,7 +54,7 @@ if (Sanitize::pathFile($thumbnailPath.$filename) && is_file($thumbnailPath.$file
 		if (is_file($imagePath.$candidate)) {
 			continue;
 		}
-		if (Sanitize::pathFile($thumbnailPath.$candidate) && is_file($thumbnailPath.$candidate)) {
+		if (Sanitize::pathFile($thumbnailPath, $candidate) && is_file($thumbnailPath.$candidate)) {
 			Filesystem::rmfile($thumbnailPath.$candidate);
 		}
 	}
