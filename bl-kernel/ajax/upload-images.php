@@ -48,7 +48,7 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 	$filename = urldecode($filename);
 	
 	// Sanitize filename to prevent issues with special characters
-	$filenameWithoutExt = Filesystem::filename($filename);
+	$filenameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
 	$filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
 	$filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
 	$filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
