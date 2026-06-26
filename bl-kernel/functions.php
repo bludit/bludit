@@ -970,36 +970,41 @@ function sanitizeSVG($file)
 
 	$xpath = new DOMXPath($dom);
 
-	// Remove <script> elements.
-	foreach (iterator_to_array($xpath->query('//script')) as $node) {
+	// Remove <script> elements. Use local-name() so namespaced SVG elements
+	// (xmlns="http://www.w3.org/2000/svg") are matched too.
+	foreach (iterator_to_array($xpath->query('//*[local-name()="script"]')) as $node) {
 		$node->parentNode->removeChild($node);
 	}
 
-	// Remove <foreignObject> — can embed arbitrary HTML.
-	foreach (iterator_to_array($xpath->query('//foreignObject')) as $node) {
+	// Remove <foreignObject> — can embed arbitrary HTML (namespace-agnostic).
+	foreach (iterator_to_array($xpath->query('//*[local-name()="foreignObject"]')) as $node) {
 		$node->parentNode->removeChild($node);
 	}
 
 	// Remove on* event attributes and javascript: URIs from every element.
+	// Collect the attribute nodes (not their names) and remove them with
+	// removeAttributeNode() so namespaced attributes such as xlink:href are
+	// handled — removeAttribute('href') cannot match a prefixed attribute,
+	// and PHP reports their ->name as the bare local name anyway.
 	foreach ($xpath->query('//*') as $element) {
 		$toRemove = array();
 		foreach ($element->attributes as $attr) {
-			$name  = strtolower($attr->name);
+			$name  = strtolower($attr->localName);
 			$value = strtolower(trim($attr->value));
 			if (strpos($name, 'on') === 0) {
-				$toRemove[] = $attr->name;
-			} elseif (in_array($name, array('href', 'xlink:href', 'action', 'src'), true)
+				$toRemove[] = $attr;
+			} elseif (in_array($name, array('href', 'action', 'formaction', 'src'), true)
 				&& strpos($value, 'javascript:') !== false) {
-				$toRemove[] = $attr->name;
+				$toRemove[] = $attr;
 			}
 		}
-		foreach ($toRemove as $attrName) {
-			$element->removeAttribute($attrName);
+		foreach ($toRemove as $attrNode) {
+			$element->removeAttributeNode($attrNode);
 		}
 	}
 
-	// Remove <use> elements that reference external documents.
-	foreach (iterator_to_array($xpath->query('//use')) as $node) {
+	// Remove <use> elements that reference external documents (namespace-agnostic).
+	foreach (iterator_to_array($xpath->query('//*[local-name()="use"]')) as $node) {
 		$href = $node->getAttribute('href');
 		if (empty($href)) {
 			$href = $node->getAttributeNS('http://www.w3.org/1999/xlink', 'href');
