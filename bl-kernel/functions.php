@@ -990,7 +990,10 @@ function sanitizeSVG($file)
 		$toRemove = array();
 		foreach ($element->attributes as $attr) {
 			$name  = strtolower($attr->localName);
-			$value = strtolower(trim($attr->value));
+			// Strip control characters/whitespace before the scheme check —
+			// browsers ignore them, so "java&#x0A;script:" would otherwise
+			// slip past a plain strpos('javascript:').
+			$value = strtolower(preg_replace('/[\x00-\x20\x7f]+/', '', $attr->value));
 			if (strpos($name, 'on') === 0) {
 				$toRemove[] = $attr;
 			} elseif (in_array($name, array('href', 'action', 'formaction', 'src'), true)
