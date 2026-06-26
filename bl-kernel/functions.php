@@ -961,10 +961,19 @@ function sanitizeSVG($file)
 	}
 
 	$dom = new DOMDocument();
-	libxml_use_internal_errors(true);
+	$previousLibxmlErrors = libxml_use_internal_errors(true);
 	$loaded = $dom->loadXML($content);
 	libxml_clear_errors();
+	libxml_use_internal_errors($previousLibxmlErrors);
 	if (!$loaded) {
+		return false;
+	}
+
+	// Reject any document with a DOCTYPE. Entity definitions would otherwise
+	// survive into the output, and content entity references are not expanded
+	// into the DOM — so the XPath filters never see them and a downstream
+	// parser could reintroduce active content (XXE / entity expansion).
+	if ($dom->doctype !== null) {
 		return false;
 	}
 
