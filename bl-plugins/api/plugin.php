@@ -80,6 +80,10 @@ class pluginAPI extends Plugin
 		global $url;
 		global $pages;
 		global $users;
+		// deleteUser() on functions.php checks the role through the global
+		// $login, which only exists on the admin boot path; declare it here
+		// so the assignment below populates it for API requests too
+		global $login;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -788,6 +792,11 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		// createCategory() reads the description unconditionally
+		if (!isset($args['description'])) {
+			$args['description'] = '';
+		}
+
 		// This function is defined on functions.php
 		if (createCategory($args) === false) {
 			$this->setStatus(400);
@@ -849,8 +858,16 @@ class pluginAPI extends Plugin
 		}
 
 		$args['oldKey'] = $key;
-		if (empty($args['newKey'])) {
-			$args['newKey'] = Text::cleanUrl($args['name']);
+		// The key must always pass through Text::cleanUrl(); a raw value such
+		// as "foo/bar" would be stored verbatim and become unaddressable by
+		// the API routes, which split the URI on "/"
+		$args['newKey'] = Text::cleanUrl(empty($args['newKey']) ? $args['name'] : $args['newKey']);
+		if ($args['newKey'] === '') {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Invalid category key.'
+			);
 		}
 
 		// This function is defined on functions.php
