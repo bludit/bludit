@@ -29,10 +29,8 @@ $numberOfPages = count($listOfFilesByPage);
 
 		<!-- Form and Input file -->
 		<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
-			<div class="custom-file">
-				<input type="file" class="custom-file-input" id="jsimages" name="images[]" multiple>
-				<label class="custom-file-label" for="jsimages"><?php $L->p('Choose images to upload'); ?></label>
-			</div>
+			<label class="form-label" for="jsimages"><?php $L->p('Choose images to upload'); ?></label>
+			<input type="file" class="form-control" id="jsimages" name="images[]" multiple>
 		</form>
 
 		<!-- Progress bar -->
@@ -67,11 +65,11 @@ echo 'var preLoadFiles = '.json_encode($preLoadFiles).';';
 ?>
 
 function openMediaManager() {
-	$('#jsmediaManagerModal').modal('show');
+	bootstrap.Modal.getOrCreateInstance(document.getElementById('jsmediaManagerModal')).show();
 }
 
 function closeMediaManager() {
-	$('#jsmediaManagerModal').modal('hide');
+	bootstrap.Modal.getOrCreateInstance(document.getElementById('jsmediaManagerModal')).hide();
 }
 
 // Remove all files from the table
@@ -107,11 +105,11 @@ function displayFiles(files, numberOfPages = <?= $numberOfPages ?>) {
 					'<td class="information">'+
 						'<div class="text-secondary pb-2">'+filename+'<\/div>'+
 						'<div>'+
-							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus-circle"></i><?php $L->p('Insert') ?><\/a>'+
-							'<a href="#" class="mr-3 text-primary" onClick="editorInsertMedia(\''+thumbnail+'\'); closeMediaManager();"><i class="fa fa-image"></i><?php $L->p('Insert thumbnail') ?><\/a>'+
-							'<a href="#" class="mr-3 text-primary" onClick="editorInsertLinkedMedia(\''+thumbnail+'\',\''+image+'\'); closeMediaManager();"><i class="fa fa-link"></i><?php $L->p('Insert linked thumbnail') ?><\/a>'+
+							'<a href="#" class="me-3 text-primary" onClick="editorInsertMedia(\''+image+'\'); closeMediaManager();"><i class="fa fa-plus-circle"></i><?php $L->p('Insert') ?><\/a>'+
+							'<a href="#" class="me-3 text-primary" onClick="editorInsertMedia(\''+thumbnail+'\'); closeMediaManager();"><i class="fa fa-image"></i><?php $L->p('Insert thumbnail') ?><\/a>'+
+							'<a href="#" class="me-3 text-primary" onClick="editorInsertLinkedMedia(\''+thumbnail+'\',\''+image+'\'); closeMediaManager();"><i class="fa fa-link"></i><?php $L->p('Insert linked thumbnail') ?><\/a>'+
 						'<a href="#" class="text-primary" onClick="setCoverImage(\''+filename+'\'); closeMediaManager();"><i class="fa fa-desktop"></i><?php $L->p('Set as cover image') ?><\/a>'+
-							'<a href="#" class="float-right text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
+							'<a href="#" class="float-end text-danger" onClick="deleteMedia(\''+filename+'\')"><i class="fa fa-trash-o"></i><?php $L->p('Delete') ?><\/a>'+
 						'<\/div>'+
 					'<\/td>'+
 				'<\/tr>';

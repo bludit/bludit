@@ -112,7 +112,8 @@ a.text-danger:hover {
 }
 
 /* Form */
-.form-control {
+.form-control,
+.form-select {
 	font-size: var(--font-size-base, 1.05rem);
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
@@ -121,7 +122,8 @@ a.text-danger:hover {
 	transition: all 0.2s ease;
 }
 
-.form-control:focus {
+.form-control:focus,
+.form-select:focus {
 	border-color: var(--primary-blue, #1e88e5);
 }
 

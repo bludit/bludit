@@ -101,10 +101,10 @@
                                             resultHtml += '<span class="fa fa-' + item.icon + '"></span>' + item.text + '</a>';
                                         } else {
                                             resultHtml = '<div class="search-suggestion">';
-                                            resultHtml += '<div class="search-suggestion-item">' + item.text + ' <span class="badge badge-pill badge-light">' + item.type + '</span></div>';
+                                            resultHtml += '<div class="search-suggestion-item">' + item.text + ' <span class="badge rounded-pill text-bg-light">' + item.type + '</span></div>';
                                             resultHtml += '<div class="search-suggestion-options">';
                                             resultHtml += '<a target="_blank" href="' + DOMAIN_PAGES + item.id + '"><?php $L->p('view') ?></a>';
-                                            resultHtml += '<a class="ml-2" href="' + DOMAIN_ADMIN + 'edit-content/' + item.id + '"><?php $L->p('edit') ?></a>';
+                                            resultHtml += '<a class="ms-2" href="' + DOMAIN_ADMIN + 'edit-content/' + item.id + '"><?php $L->p('edit') ?></a>';
                                             resultHtml += '</div></div>';
                                         }
                                         searchResults.append(resultHtml);
@@ -151,7 +151,7 @@
                                     <div class="metric-icon">
                                         <span class="fa fa-folder"></span>
                                     </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Content') ?></h5>
+                                    <h5 class="card-title mb-0 ms-3"><?php $L->p('Content') ?></h5>
                                 </div>
                                 <div class="row text-center mt-3">
                                     <div class="col-6 mb-3">
@@ -201,7 +201,7 @@
                                     <div class="metric-icon">
                                         <span class="fa fa-bar-chart"></span>
                                     </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Analytics') ?></h5>
+                                    <h5 class="card-title mb-0 ms-3"><?php $L->p('Analytics') ?></h5>
                                 </div>
                                 <div class="row text-center mt-3">
                                     <div class="col-6 mb-3">
@@ -234,7 +234,7 @@
                                     <div class="metric-icon">
                                         <span class="fa fa-bookmark"></span>
                                     </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Categories') ?></h5>
+                                    <h5 class="card-title mb-0 ms-3"><?php $L->p('Categories') ?></h5>
                                 </div>
                                 <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
                                     <?php if (!empty($categoryList)): ?>
@@ -245,7 +245,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $category->name() ?></span>
-                                                    <span class="badge badge-primary badge-pill"><?php echo $pageCount ?></span>
+                                                    <span class="badge badge-primary rounded-pill"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>
@@ -271,7 +271,7 @@
                                     <div class="metric-icon">
                                         <span class="fa fa-tag"></span>
                                     </div>
-                                    <h5 class="card-title mb-0 ml-3"><?php $L->p('Tags') ?></h5>
+                                    <h5 class="card-title mb-0 ms-3"><?php $L->p('Tags') ?></h5>
                                 </div>
                                 <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
                                     <?php if (!empty($tagList)): ?>
@@ -282,7 +282,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $tag->name() ?></span>
-                                                    <span class="badge badge-info badge-pill"><?php echo $pageCount ?></span>
+                                                    <span class="badge text-bg-info rounded-pill"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>

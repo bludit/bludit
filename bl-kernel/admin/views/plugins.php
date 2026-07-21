@@ -54,7 +54,7 @@ foreach ($pluginsInstalled as $plugin) {
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">';
 	if (method_exists($plugin, 'form')) {
-		echo '<a class="mr-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
+		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
 	}
 	echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'uninstall-plugin/' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
 	echo '</div>';
