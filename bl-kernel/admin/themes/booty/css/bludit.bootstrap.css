@@ -183,6 +183,34 @@ h4 { font-size: var(--font-size-lg, 1.08rem); }
 h5 { font-size: var(--font-size-base, 0.945rem); }
 h6 { font-size: var(--font-size-sm, 0.925rem); }
 
+/* Tabs */
+.nav-tabs {
+	border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.nav-tabs .nav-link {
+	border: none;
+	border-radius: 0;
+	margin-bottom: -1px;
+	padding: 10px 16px;
+	color: var(--text-secondary, #475569);
+	font-weight: var(--font-weight-medium, 550);
+	background: none;
+}
+
+.nav-tabs .nav-link:hover {
+	border: none;
+	color: var(--primary-blue, #0078D4);
+}
+
+.nav-tabs .nav-link.active {
+	background: none;
+	border: none;
+	border-bottom: 2px solid var(--primary-blue, #0078D4);
+	color: var(--primary-blue, #0078D4);
+	font-weight: var(--font-weight-semibold, 650);
+}
+
 /* Badge */
 .badge {
 	font-size: var(--font-size-xs, 0.8rem);
