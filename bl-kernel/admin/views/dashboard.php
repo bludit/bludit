@@ -97,10 +97,10 @@
                                             resultHtml += '<span class="fa fa-' + item.icon + '"></span>' + item.text + '</a>';
                                         } else {
                                             resultHtml = '<div class="search-suggestion">';
-                                            resultHtml += '<div class="search-suggestion-item">' + item.text + ' <span class="badge badge-pill badge-light">' + item.type + '</span></div>';
+                                            resultHtml += '<div class="search-suggestion-item">' + item.text + ' <span class="badge rounded-pill text-bg-light">' + item.type + '</span></div>';
                                             resultHtml += '<div class="search-suggestion-options">';
                                             resultHtml += '<a target="_blank" href="' + DOMAIN_PAGES + item.id + '"><?php $L->p('view') ?></a>';
-                                            resultHtml += '<a class="ml-2" href="' + DOMAIN_ADMIN + 'edit-content/' + item.id + '"><?php $L->p('edit') ?></a>';
+                                            resultHtml += '<a class="ms-2" href="' + DOMAIN_ADMIN + 'edit-content/' + item.id + '"><?php $L->p('edit') ?></a>';
                                             resultHtml += '</div></div>';
                                         }
                                         searchResults.append(resultHtml);
@@ -150,15 +150,15 @@
                                     <div class="list-group list-group-flush">
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Published') ?></span>
-                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getPublishedDB()); ?></span>
+                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getPublishedDB()); ?></span>
                                         </a>
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#draft' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Drafts') ?></span>
-                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getDraftDB()); ?></span>
+                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getDraftDB()); ?></span>
                                         </a>
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#scheduled' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Scheduled') ?></span>
-                                            <span class="badge badge-primary badge-pill"><?php echo count($pages->getScheduledDB()); ?></span>
+                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getScheduledDB()); ?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $category->name() ?></span>
-                                                    <span class="badge badge-primary badge-pill"><?php echo $pageCount ?></span>
+                                                    <span class="badge badge-primary rounded-pill"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>
@@ -222,7 +222,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $tag->name() ?></span>
-                                                    <span class="badge badge-primary badge-pill"><?php echo $pageCount ?></span>
+                                                    <span class="badge badge-primary rounded-pill"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>

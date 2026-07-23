@@ -26,7 +26,7 @@ class Bootstrap
 				<p>$modalText</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn $buttonSecondaryClass" data-dismiss="modal">$buttonSecondary</button>
+				<button type="button" class="btn $buttonSecondaryClass" data-bs-dismiss="modal">$buttonSecondary</button>
 				<button type="button" class="btn $buttonPrimaryClass">$buttonPrimary</button>
 			</div>
 		</div>
@@ -155,15 +155,13 @@ EOF;
 			$id = $args['id'];
 		}
 
-		$class = 'custom-file';
+		$class = 'form-control';
 		if (isset($args['class'])) {
 			$class = $class . ' ' . $args['class'];
 		}
 
-		$html  = '<div class="' . $class . '">';
-		$html .= '<input type="file" class="custom-file-input" id="' . $id . '">';
-		$html .= '<label class="custom-file-label" for="' . $id . '">' . $args['label'] . '</label>';
-		$html .= '</div>';
+		$html  = '<label class="form-label" for="' . $id . '">' . $args['label'] . '</label>';
+		$html .= '<input type="file" class="' . $class . '" id="' . $id . '">';
 
 		return $html;
 	}
@@ -180,7 +178,7 @@ EOF;
 			$class = $class . ' ' . $args['class'];
 		}
 
-		$html = '<div class="form-group row">';
+		$html = '<div class="row mb-3">';
 
 		if (!empty($args['label'])) {
 			$html .= '<label for="' . $id . '" class="col-sm-2 col-form-label">' . $args['label'] . '</label>';
@@ -257,7 +255,7 @@ EOF;
 		}
 
 		return <<<EOF
-<div class="form-group row">
+<div class="row mb-3">
 	$label
 	<div class="col-sm-10">
 		<input class="$class" id="$id" name="$name" value="$value" placeholder="$placeholder" type="$type" dir="auto" $disabled $readonly>
@@ -322,12 +320,12 @@ EOF;
 			$id = $args['id'];
 		}
 
-		$class = 'custom-select';
+		$class = 'form-select';
 		if (isset($args['class'])) {
 			$class = $class . ' ' . $args['class'];
 		}
 
-		$html = '<div class="form-group row">';
+		$html = '<div class="row mb-3">';
 
 		if (isset($args['label'])) {
 			$html .= '<label for="' . $id . '" class="col-sm-2 col-form-label">' . $args['label'] . '</label>';
@@ -355,7 +353,7 @@ EOF;
 			$id = $args['id'];
 		}
 
-		$class = 'custom-select';
+		$class = 'form-select';
 		if (!empty($args['class'])) {
 			$class = $class . ' ' . $args['class'];
 		}

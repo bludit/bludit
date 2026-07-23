@@ -112,7 +112,8 @@ a.text-danger:hover {
 }
 
 /* Form */
-.form-control {
+.form-control,
+.form-select {
 	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;

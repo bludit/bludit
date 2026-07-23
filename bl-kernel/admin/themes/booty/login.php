@@ -12,7 +12,8 @@
 
   <!-- CSS -->
   <?php
-  echo Theme::cssBootstrap();
+  // Admin uses Bootstrap 5, while the public-facing themes still ship with Bootstrap 4.
+  echo Theme::css('bootstrap5.min.css', DOMAIN_CORE_CSS);
   echo Theme::css(array(
     'bludit.css',
     'bludit.bootstrap.css'
@@ -270,7 +271,8 @@
   <!-- Javascript -->
   <?php
   echo Theme::jquery();
-  echo Theme::jsBootstrap();
+  // Admin uses Bootstrap 5, while the public-facing themes still ship with Bootstrap 4.
+  echo Theme::js('bootstrap5.bundle.min.js', DOMAIN_CORE_JS);
   ?>
 
   <!-- Plugins -->

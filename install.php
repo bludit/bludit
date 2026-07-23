@@ -613,12 +613,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<link rel="shortcut icon" type="image/x-icon" href="bl-kernel/img/favicon.png?version=<?php echo time() ?>">
 
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="bl-kernel/css/bootstrap.min.css?version=<?php echo time() ?>">
+	<link rel="stylesheet" type="text/css" href="bl-kernel/css/bootstrap5.min.css?version=<?php echo time() ?>">
 	<link rel="stylesheet" type="text/css" href="bl-kernel/admin/themes/booty/css/bludit.css?version=<?php echo time() ?>">
 
 	<!-- Javascript -->
 	<script charset="utf-8" src="bl-kernel/js/jquery.min.js?version=<?php echo time() ?>"></script>
-	<script charset="utf-8" src="bl-kernel/js/bootstrap.bundle.min.js?version=<?php echo time() ?>"></script>
+	<script charset="utf-8" src="bl-kernel/js/bootstrap5.bundle.min.js?version=<?php echo time() ?>"></script>
 	<script charset="utf-8" src="bl-kernel/js/jstz.min.js?version=<?php echo time() ?>"></script>
 
 	<style>

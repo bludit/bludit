@@ -792,7 +792,7 @@ input:focus,
 textarea:focus,
 select:focus,
 .form-control:focus,
-.custom-select:focus,
+.form-select:focus,
 .btn:focus {
 	border-color: #b0bec5 !important;
 	box-shadow: none !important;

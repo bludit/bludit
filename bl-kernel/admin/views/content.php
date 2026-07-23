@@ -66,7 +66,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
 	echo '</a>';
 	if ($isSticky) {
-		echo ' <span class="badge badge-warning align-middle ml-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
+		echo ' <span class="badge text-bg-warning align-middle ms-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
 	}
 	echo '</div>';
 	echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$dateLabel.'</p></div>';
@@ -79,14 +79,14 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 	echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
 	echo '<div class="dropdown actionsDropdown">';
-	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
-	echo '<div class="dropdown-menu dropdown-menu-right">';
+	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+	echo '<div class="dropdown-menu dropdown-menu-end">';
 
 	// View / Edit
 	if ($showURL) {
-		echo '<a class="dropdown-item" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop fa-fw mr-2"></i>'.$L->g('View').'</a>';
+		echo '<a class="dropdown-item" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop fa-fw me-2"></i>'.$L->g('View').'</a>';
 	}
-	echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit fa-fw mr-2"></i>'.$L->g('Edit').'</a>';
+	echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit fa-fw me-2"></i>'.$L->g('Edit').'</a>';
 
 	// Sticky / Unstick toggle, between View/Edit and Move-to.
 	$stickyToggleTarget = false;
@@ -97,7 +97,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	}
 	if ($stickyToggleTarget) {
 		echo '<div class="dropdown-divider"></div>';
-		echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$stickyToggleTarget.'"><i class="fa '.moveTypeIcon($stickyToggleTarget).' fa-fw mr-2"></i>'.moveTypeLabel($type, $stickyToggleTarget, $L).'</a>';
+		echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$stickyToggleTarget.'"><i class="fa '.moveTypeIcon($stickyToggleTarget).' fa-fw me-2"></i>'.moveTypeLabel($type, $stickyToggleTarget, $L).'</a>';
 	}
 
 	// Move to ... (everything except the sticky toggle target rendered above).
@@ -111,14 +111,14 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 		if (!empty($remaining)) {
 			echo '<div class="dropdown-divider"></div>';
 			foreach ($remaining as $target) {
-				echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$target.'"><i class="fa '.moveTypeIcon($target).' fa-fw mr-2"></i>'.moveTypeLabel($type, $target, $L).'</a>';
+				echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$target.'"><i class="fa '.moveTypeIcon($target).' fa-fw me-2"></i>'.moveTypeLabel($type, $target, $L).'</a>';
 			}
 		}
 	}
 
 	if (count($page->children()) == 0) {
 		echo '<div class="dropdown-divider"></div>';
-		echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
+		echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw me-2"></i>'.$L->g('Delete').'</a>';
 	}
 	echo '</div></div>';
 	echo '</td>';
@@ -143,14 +143,14 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 			echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
 			echo '<div class="dropdown actionsDropdown">';
-			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
-			echo '<div class="dropdown-menu dropdown-menu-right">';
+			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+			echo '<div class="dropdown-menu dropdown-menu-end">';
 			if ($showURL) {
-				echo '<a class="dropdown-item" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop fa-fw mr-2"></i>'.$L->g('View').'</a>';
+				echo '<a class="dropdown-item" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop fa-fw me-2"></i>'.$L->g('View').'</a>';
 			}
-			echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit fa-fw mr-2"></i>'.$L->g('Edit').'</a>';
+			echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit fa-fw me-2"></i>'.$L->g('Edit').'</a>';
 			echo '<div class="dropdown-divider"></div>';
-			echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
+			echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash fa-fw me-2"></i>'.$L->g('Delete').'</a>';
 			echo '</div></div>';
 			echo '</td>';
 			echo '</tr>';
@@ -253,20 +253,20 @@ function tablePages() {
 <!-- TABS -->
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
+		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="static-tab" data-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
+		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="scheduled-tab" data-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge badge-danger">'.count($scheduled).'</span>'; } ?></a>
+		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge text-bg-danger">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>
+		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>
 	</li>
 	<?php if (!empty($autosave)): ?>
 	<li class="nav-item">
-		<a class="nav-link" id="autosave-tab" data-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?></a>
+		<a class="nav-link" id="autosave-tab" data-bs-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?></a>
 	</li>
 	<?php endif; ?>
 </ul>
@@ -413,5 +413,8 @@ $(document).ready(function() {
 <script>
 	// Open the tab defined in the URL
 	const anchor = window.location.hash;
-	$(`a[href="${anchor}"]`).tab('show');
+	const anchorTabEl = document.querySelector(`a[href="${anchor}"]`);
+	if (anchorTabEl) {
+		bootstrap.Tab.getOrCreateInstance(anchorTabEl).show();
+	}
 </script>
