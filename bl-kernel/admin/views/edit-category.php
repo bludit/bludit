@@ -65,8 +65,9 @@
 		'tip'=>DOMAIN_CATEGORIES.$categoryMap['key']
 	));
 
-echo Bootstrap::formClose();
-
+	Theme::plugins('adminViewEditCategoryForm');
+	echo Bootstrap::formClose();
+	Theme::plugins('adminViewEditCategory');
 ?>
 
 <!-- Modal for delete category -->

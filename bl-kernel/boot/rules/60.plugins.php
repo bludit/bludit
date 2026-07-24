@@ -22,6 +22,7 @@ $plugins = array(
 	'adminBodyEnd'=>array(),
 	'adminSidebar'=>array(),
 	'adminContentSidebar'=>array(),
+	'adminContentListActions'=>array(),
 	'dashboard'=>array(),
 	'editorToolbar'=>array(),
 
@@ -33,6 +34,11 @@ $plugins = array(
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
 	'afterPageDelete'=>array(),
+
+	'adminControllerDeleteCategory'=>array(),
+	'adminControllerEditCategory'=>array(),
+	'adminViewEditCategoryForm'=>array(),
+	'adminViewEditCategory'=>array(),
 
 	'loginHead'=>array(),
 	'loginBodyBegin'=>array(),

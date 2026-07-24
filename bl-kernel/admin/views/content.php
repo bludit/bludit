@@ -27,6 +27,19 @@ function moveTypeLabel($current, $target, $L) {
 	return isset($labels[$target]) ? $labels[$target] : $target;
 }
 
+function renderAdminContentListActions($pageKey) {
+    global $plugins;
+    if (!empty($plugins['adminContentListActions'])) {
+        foreach ($plugins['adminContentListActions'] as $plugin) {
+            $actionHtml = $plugin->adminContentListActions($pageKey);
+            if (is_string($actionHtml) && $actionHtml !== '') {
+                echo $actionHtml;
+            }
+        }
+    }
+}
+
+
 // Render a single row (or row + nested children) for a page key.
 // $type controls which columns/buttons are shown; $isSticky adds the Sticky badge
 // and flips the toggle button into "Unstick" mode.
@@ -120,6 +133,9 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 		echo '<div class="dropdown-divider"></div>';
 		echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
 	}
+
+    renderAdminContentListActions($pageKey);
+
 	echo '</div></div>';
 	echo '</td>';
 	echo '</tr>';
@@ -151,6 +167,9 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 			echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit fa-fw mr-2"></i>'.$L->g('Edit').'</a>';
 			echo '<div class="dropdown-divider"></div>';
 			echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-toggle="modal" data-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash fa-fw mr-2"></i>'.$L->g('Delete').'</a>';
+
+			renderAdminContentListActions($child->key());
+
 			echo '</div></div>';
 			echo '</td>';
 			echo '</tr>';

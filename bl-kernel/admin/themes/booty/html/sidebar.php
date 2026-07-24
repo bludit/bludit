@@ -44,6 +44,19 @@
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'users' ?>"><span class="fa fa-users"></span><?php $L->p('Users') ?></a>
 	</li>
 
+	<?php
+		if (!empty($plugins['adminContentSidebar'])) {
+			foreach ($plugins['adminContentSidebar'] as $pluginSidebar) {
+            $sidebarHtml = $pluginSidebar->adminContentSidebar();
+            if (is_string($sidebarHtml) && $sidebarHtml !== '') {
+                echo '<li class="nav-item">';
+                echo $sidebarHtml;
+                echo '</li>';
+            }
+			}
+		}
+	?>
+
 	<li class="nav-item mt-3">
 		<h4><?php $L->p('Settings') ?></h4>
 	</li>
@@ -68,9 +81,12 @@
 			if (!empty($plugins['adminSidebar'])) {
 				echo '<li class="nav-item"><hr></li>';
 				foreach ($plugins['adminSidebar'] as $pluginSidebar) {
-					echo '<li class="nav-item">';
-					echo $pluginSidebar->adminSidebar();
-					echo '</li>';
+		            $sidebarHtml = $pluginSidebar->adminSidebar();
+					if (is_string($sidebarHtml) && $sidebarHtml !== '') {
+						echo '<li class="nav-item">';
+						echo $sidebarHtml;
+						echo '</li>';
+					}
 				}
 			}
 		?>
