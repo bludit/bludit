@@ -79,7 +79,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 	echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
 	echo '<div class="dropdown actionsDropdown">';
-	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
 	echo '<div class="dropdown-menu dropdown-menu-end">';
 
 	// View / Edit
@@ -143,7 +143,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 			echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
 			echo '<div class="dropdown actionsDropdown">';
-			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
 			echo '<div class="dropdown-menu dropdown-menu-end">';
 			if ($showURL) {
 				echo '<a class="dropdown-item" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop fa-fw me-2"></i>'.$L->g('View').'</a>';

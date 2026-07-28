@@ -26,7 +26,7 @@
                     var date = new Date()
                     var hours = date.getHours()
                     var icon, greeting
-                    var suffix = <?php echo json_encode($name ? ', ' . $name : '', JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>
+                    var suffix = <?php echo json_encode($name ? ', ' . $name : '', JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>;
                     if (hours >= 6 && hours < 12) {
                         icon = 'fa-sun-o'; greeting = <?php echo json_encode($L->g('good-morning'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?> + suffix
                     } else if (hours >= 12 && hours < 18) {
@@ -140,25 +140,25 @@
                 <div class="row">
 
                     <!-- Content Metrics Card -->
-                    <div class="col-lg col-12 mb-4">
+                    <div class="col-lg col-12 mb-3">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
                                     <h5 class="card-title mb-0"><?php $L->p('Content') ?></h5>
                                 </div>
-                                <div class="mt-3 metric-card-list">
+                                <div class="mt-2 metric-card-list">
                                     <div class="list-group list-group-flush">
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Published') ?></span>
-                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getPublishedDB()); ?></span>
+                                            <span class="metric-count"><?php echo count($pages->getPublishedDB()); ?></span>
                                         </a>
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#draft' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Drafts') ?></span>
-                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getDraftDB()); ?></span>
+                                            <span class="metric-count"><?php echo count($pages->getDraftDB()); ?></span>
                                         </a>
                                         <a href="<?php echo HTML_PATH_ADMIN_ROOT.'content#scheduled' ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                             <span><?php $L->p('Scheduled') ?></span>
-                                            <span class="badge badge-primary rounded-pill"><?php echo count($pages->getScheduledDB()); ?></span>
+                                            <span class="metric-count"><?php echo count($pages->getScheduledDB()); ?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -173,13 +173,13 @@
                         $categoryList = $categories->keys();
                     ?>
                     <!-- Categories Card -->
-                    <div class="col-lg col-12 mb-4">
+                    <div class="col-lg col-12 mb-3">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
                                     <h5 class="card-title mb-0"><?php $L->p('Categories') ?></h5>
                                 </div>
-                                <div class="mt-3 metric-card-list">
+                                <div class="mt-2 metric-card-list">
                                     <?php if (!empty($categoryList)): ?>
                                         <div class="list-group list-group-flush">
                                             <?php foreach ($categoryList as $categoryKey):
@@ -188,7 +188,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $category->name() ?></span>
-                                                    <span class="badge badge-primary rounded-pill"><?php echo $pageCount ?></span>
+                                                    <span class="metric-count"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>
@@ -207,13 +207,13 @@
                         $tagList = $tags->keys();
                     ?>
                     <!-- Tags Card -->
-                    <div class="col-lg col-12 mb-4">
+                    <div class="col-lg col-12 mb-3">
                         <div class="card metric-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
                                     <h5 class="card-title mb-0"><?php $L->p('Tags') ?></h5>
                                 </div>
-                                <div class="mt-3 metric-card-list">
+                                <div class="mt-2 metric-card-list">
                                     <?php if (!empty($tagList)): ?>
                                         <div class="list-group list-group-flush">
                                             <?php foreach ($tagList as $tagKey):
@@ -222,7 +222,7 @@
                                             ?>
                                                 <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span><?php echo $tag->name() ?></span>
-                                                    <span class="badge badge-primary rounded-pill"><?php echo $pageCount ?></span>
+                                                    <span class="metric-count"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
                                         </div>
@@ -248,80 +248,27 @@
                 $weekData       = $visitsStats->getLastDaysData(7);
             ?>
             <!-- Analytics Section -->
-            <div class="analytics-section mb-4">
+            <div class="analytics-section mb-3">
                 <ul class="list-group list-group-striped b-0 mb-3">
                     <li class="list-group-item">
                         <h4 class="m-0"><?php $L->p('Analytics') ?></h4>
                     </li>
                 </ul>
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-12 mb-3 mb-lg-0">
-                        <div class="row text-center">
-                            <div class="col-4 col-lg-12 mb-0 mb-lg-4">
-                                <div class="metric-value"><?php echo $visitsToday; ?></div>
-                                <div class="metric-label"><?php $L->p('Visits Today') ?></div>
-                            </div>
-                            <div class="col-4 col-lg-12 mb-0 mb-lg-4">
-                                <div class="metric-value"><?php echo $uniqueVisitors; ?></div>
-                                <div class="metric-label"><?php $L->p('Unique Visitors') ?></div>
-                            </div>
-                            <div class="col-4 col-lg-12">
-                                <div class="metric-value"><?php echo $weekData['total']; ?></div>
-                                <div class="metric-label"><?php $L->p('7-Day Total') ?></div>
-                            </div>
-                        </div>
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="metric-value"><?php echo $visitsToday; ?></div>
+                        <div class="metric-label"><?php $L->p('Visits Today') ?></div>
                     </div>
-                    <div class="col-lg-9 col-12">
-                        <canvas id="analytics-chart"></canvas>
+                    <div class="col-4">
+                        <div class="metric-value"><?php echo $uniqueVisitors; ?></div>
+                        <div class="metric-label"><?php $L->p('Unique Visitors') ?></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="metric-value"><?php echo $weekData['total']; ?></div>
+                        <div class="metric-label"><?php $L->p('7-Day Total') ?></div>
                     </div>
                 </div>
             </div>
-            <script>
-            (function() {
-                var ctx = document.getElementById('analytics-chart');
-                if (!ctx || typeof Chart === 'undefined') { return; }
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: <?php echo json_encode($weekData['labels']); ?>,
-                        datasets: [{
-                            label: <?php echo json_encode($L->g('unique-visitors'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
-                            backgroundColor: 'rgba(0,120,212,0.45)',
-                            borderColor: 'rgba(0,120,212,0.75)',
-                            borderWidth: 1,
-                            data: <?php echo json_encode($weekData['unique']); ?>
-                        }, {
-                            label: <?php echo json_encode($L->g('visits-today'), JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>,
-                            backgroundColor: 'rgba(148,163,184,0.5)',
-                            borderColor: 'rgba(100,116,139,0.8)',
-                            borderWidth: 1,
-                            data: <?php echo json_encode($weekData['visits']); ?>
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        aspectRatio: 4,
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: { fontSize: 11, boxWidth: 12, fontColor: '#475569' }
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: { beginAtZero: true, stepSize: 1, fontColor: '#94A3B8', fontSize: 11 },
-                                gridLines: { color: 'rgba(0,0,0,0.05)', zeroLineColor: 'rgba(0,0,0,0.1)' }
-                            }],
-                            xAxes: [{
-                                ticks: { fontColor: '#94A3B8', fontSize: 11 },
-                                gridLines: { display: false }
-                            }]
-                        },
-                        tooltips: { mode: 'index', intersect: false }
-                    }
-                });
-            })();
-            </script>
             <?php endif; ?>
 
             <!-- Notifications -->

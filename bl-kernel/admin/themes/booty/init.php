@@ -161,7 +161,7 @@ EOF;
 		}
 
 		$html  = '<label class="form-label" for="' . $id . '">' . $args['label'] . '</label>';
-		$html .= '<input type="file" class="' . $class . '" id="' . $id . '">';
+		$html .= '<input type="file" class="' . $class . '" id="' . $id . '" name="' . $args['name'] . '">';
 
 		return $html;
 	}

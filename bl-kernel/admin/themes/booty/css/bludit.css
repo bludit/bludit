@@ -515,12 +515,12 @@ body.login {
 }
 
 .card.metric-card .card-body > .d-flex {
-	padding-bottom: 12px;
+	padding-bottom: 8px;
 	border-bottom: 1px solid var(--border-color);
 }
 
 .metric-card .card-body {
-	padding: 22px;
+	padding: 16px;
 }
 
 .metric-card .card-title {
@@ -553,13 +553,19 @@ body.login {
 	overflow-y: auto;
 }
 
+.metric-count {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-bold);
+	color: var(--text-primary);
+}
+
 
 /*
 	DASHBOARD ANALYTICS SECTION
 */
 
 .analytics-section {
-	padding: 22px;
+	padding: 16px;
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
 	background: var(--bg-card);
