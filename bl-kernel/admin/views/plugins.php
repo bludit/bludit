@@ -50,7 +50,7 @@ foreach ($pluginsInstalled as $plugin) {
 
 	echo '<tr id="' . $plugin->className() . '" class="bg-light searchItem">';
 
-	echo '<td class="align-middle pt-3 pb-3 w-25">
+	echo '<td class="align-middle w-25">
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">';
 	if (method_exists($plugin, 'form')) {
@@ -100,7 +100,7 @@ foreach ($pluginsNotInstalled as $plugin) {
 	}
 	echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
-	echo '<td class="align-middle pt-3 pb-3 w-25">
+	echo '<td class="align-middle w-25">
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">
 			<a href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>

@@ -17,7 +17,7 @@
 		<?php endif ?>
 
 		<!-- Date -->
-		<time class="block text-sm text-gray-500 dark:text-gray-400 mb-2" datetime="<?php echo $page->dateRaw(); ?>">
+		<time class="block text-sm text-gray-500 dark:text-gray-400 mb-2" datetime="<?php echo $page->date('c'); ?>">
 			<?php echo $page->date(); ?>
 		</time>
 

@@ -51,6 +51,7 @@
 	--bg-light: #f8f9fa;
 	--border-light: #cbd5e1;
 	--primary-blue-hover-bg: rgba(0, 120, 212, 0.06);
+	--secondary-hover-bg: rgba(100, 116, 139, 0.08);
 }
 
 html {
@@ -91,6 +92,14 @@ div.sidebar {
 	border-right: 1px solid var(--border-color);
 	border-left: 1px solid var(--border-color);
 	padding: 10px 15px;
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+div.sidebar .nav.flex-column {
+	min-height: 100%;
 }
 
 div.sidebar .nav-item a {
@@ -124,6 +133,18 @@ div.sidebar .nav-item h4 {
 	letter-spacing: 0.8px;
 }
 
+div.sidebar .nav-item a.sidebar-pro-link {
+	display: block;
+	text-align: right;
+	font-size: var(--font-size-xs);
+	color: var(--text-secondary);
+}
+
+div.sidebar .nav-item a.sidebar-pro-link:hover {
+	color: var(--text-primary);
+	transform: none;
+}
+
 /*
 	QUICK SEARCH - SPOTLIGHT STYLE
 */
@@ -144,14 +165,14 @@ div.sidebar .nav-item h4 {
 }
 
 .quick-search-trigger:hover {
-	border-color: var(--primary-blue);
+	border-color: var(--color-secondary-dark);
 }
 
 .quick-search-trigger .quick-search-icon {
 	width: 40px;
 	height: 40px;
 	border-radius: var(--radius-sm);
-	background: var(--primary-gradient);
+	background: var(--text-primary);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -317,11 +338,12 @@ div.sidebar .nav-item h4 {
 }
 
 .search-suggestion:hover {
-	background: var(--primary-blue-hover-bg);
+	background: var(--secondary-hover-bg);
+	text-decoration: none;
 }
 
 .search-suggestion .fa {
-	color: var(--primary-blue);
+	color: var(--text-secondary);
 	margin-right: 14px !important;
 	width: 22px;
 	text-align: center;
@@ -342,7 +364,7 @@ div.sidebar .nav-item h4 {
 }
 
 .search-suggestion-options a {
-	color: var(--primary-blue);
+	color: var(--text-secondary);
 	margin-right: 16px;
 	font-weight: var(--font-weight-medium);
 	text-decoration: none;
@@ -350,7 +372,7 @@ div.sidebar .nav-item h4 {
 }
 
 .search-suggestion-options a:hover {
-	color: var(--primary-blue-dark);
+	color: var(--text-primary);
 	text-decoration: underline;
 }
 
@@ -475,7 +497,7 @@ body.login {
 }
 
 #dashboard ul.list-group.list-group-striped li:hover:not(:first-child) {
-	background: var(--primary-blue-hover-bg);
+	background: var(--secondary-hover-bg);
 }
 
 #dashboard ul.list-group.list-group-striped li .notification-date {
@@ -602,7 +624,7 @@ body.login {
 }
 
 .alert-success {
-	background: var(--primary-gradient);
+	background: var(--color-success);
 	border-left: none !important;
 	color: #ffffff;
 }
@@ -674,6 +696,7 @@ td.contentURL a {
 .actionsDropdownToggle {
 	line-height: 1;
 	font-size: 1.25rem;
+	text-decoration: none;
 }
 
 .actionsDropdownToggle:focus,

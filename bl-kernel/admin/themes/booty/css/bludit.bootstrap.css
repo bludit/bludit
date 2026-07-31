@@ -1,10 +1,23 @@
 a {
 	color: var(--primary-blue, #1e88e5);
+	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
 a:hover {
 	color: var(--primary-blue-dark, #1565c0);
+	text-decoration: underline;
+}
+
+/* Components that already signal interactivity on their own (nav, dropdowns,
+   buttons, pagination, list groups) shouldn't also gain an underline. */
+.nav-link:hover,
+.dropdown-item:hover,
+.btn:hover,
+.page-link:hover,
+.list-group-item:hover,
+.link-icon,
+.link-icon:hover {
 	text-decoration: none;
 }
 
@@ -154,7 +167,7 @@ label {
 	background-color: var(--bg-warm, #faf8f5);
 }
 
-.table-striped tbody tr:hover {
+.table tbody tr:hover {
 	background-color: var(--bg-warm-card, #f7f5f2);
 }
 
@@ -171,6 +184,8 @@ label {
 	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	vertical-align: middle;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
 /* Headings */
@@ -221,8 +236,4 @@ h6 { font-size: var(--font-size-sm, 0.925rem); }
 	font-weight: var(--font-weight-semibold, 650);
 	padding: 6px 12px;
 	border-radius: var(--radius-sm, 4px);
-}
-
-.badge-primary {
-	background: var(--primary-blue, #0078D4);
 }

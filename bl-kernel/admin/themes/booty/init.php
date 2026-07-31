@@ -37,9 +37,14 @@ EOF;
 
 	public static function link($args)
 	{
-		$options = 'href="' . $args['href'] . '"';
+		$class = isset($args['icon']) ? 'link-icon' : '';
 		if (isset($args['class'])) {
-			$options .= ' class="' . $args['class'] . '"';
+			$class = trim($class . ' ' . $args['class']);
+		}
+
+		$options = 'href="' . $args['href'] . '"';
+		if ($class !== '') {
+			$options .= ' class="' . $class . '"';
 		}
 		if (isset($args['target'])) {
 			$options .= ' target="' . $args['target'] . '"';

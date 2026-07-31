@@ -21,6 +21,7 @@
 		<a class="nav-item nav-link" id="nav-language-tab" data-bs-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
 		<a class="nav-item nav-link" id="nav-custom-fields-tab" data-bs-toggle="tab" href="#custom-fields" role="tab" aria-controls="nav-custom-fields" aria-selected="false"><?php $L->p('Custom fields') ?></a>
 		<a class="nav-item nav-link" id="nav-logo-tab" data-bs-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
+		<a class="nav-item nav-link" id="nav-about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="nav-about" aria-selected="false"><?php $L->p('About') ?></a>
 	</div>
 </nav>
 
@@ -629,6 +630,57 @@ echo Bootstrap::formInputHidden(array(
 			});
 		});
 	</script>
+</div>
+
+<!-- About tab -->
+<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+	<?php
+	echo Bootstrap::formTitle(array('title' => $L->g('About')));
+
+	echo '
+	<table class="table mt-3">
+		<tbody>
+	';
+
+	echo '<tr>';
+	echo '<td>Bludit Edition</td>';
+	if (defined('BLUDIT_PRO')) {
+		echo '<td>PRO - '.$L->g('Thanks for supporting Bludit').' <span class="fa fa-heart" style="color: #ffc107"></span></td>';
+	} else {
+		echo '<td>Standard - <a target="_blank" href="https://pro.bludit.com">'.$L->g('Upgrade to Bludit PRO').'</a></td>';
+	}
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Bludit Version</td>';
+	echo '<td>'.BLUDIT_VERSION.'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Bludit Codename</td>';
+	echo '<td>'.BLUDIT_CODENAME.'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Bludit Build Number</td>';
+	echo '<td>'.BLUDIT_BUILD.'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td>Disk usage</td>';
+	echo '<td>'.Filesystem::bytesToHumanFileSize(Filesystem::getSize(PATH_ROOT)).'</td>';
+	echo '</tr>';
+
+	echo '<tr>';
+	echo '<td><a href="'.HTML_PATH_ADMIN_ROOT.'developers'.'">Bludit Developers</a></td>';
+	echo '<td></td>';
+	echo '</tr>';
+
+	echo '
+		</tbody>
+	</table>
+	';
+	?>
 </div>
 
 <?php echo Bootstrap::formClose(); ?>

@@ -11,15 +11,15 @@ echo Bootstrap::link(array(
 ));
 
 echo '
-<table class="table table-striped mt-3">
+<table class="table mt-3">
 	<thead>
 		<tr>
-			<th class="border-bottom-0" scope="col">'.$L->g('Username').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Nickname').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Email').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Status').'</th>
-			<th class="border-bottom-0" scope="col">'.$L->g('Role').'</th>
-			<th class="border-bottom-0 d-none d-lg-table-cell" scope="col">'.$L->g('Registered').'</th>
+			<th scope="col">'.$L->g('Username').'</th>
+			<th class="d-none d-lg-table-cell" scope="col">'.$L->g('Nickname').'</th>
+			<th scope="col">'.$L->g('Email').'</th>
+			<th scope="col">'.$L->g('Status').'</th>
+			<th scope="col">'.$L->g('Role').'</th>
+			<th class="d-none d-lg-table-cell" scope="col">'.$L->g('Registered').'</th>
 		</tr>
 	</thead>
 	<tbody>

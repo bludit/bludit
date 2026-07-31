@@ -3,5 +3,11 @@
 	{
 		"name": "Alternative",
 		"description": "Simple and elegant theme for websites or blogs. Navbar with social media and static pages."
-	}
+	},
+	"breadcrumb": "Breadcrumb",
+	"current": "current",
+	"home": "Home",
+	"page-navigation": "Page navigation",
+	"skip-to-main-content": "Skip to main content",
+	"toggle-navigation": "Toggle navigation"
 }

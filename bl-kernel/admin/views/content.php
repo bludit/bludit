@@ -60,7 +60,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	}
 
 	echo '<tr>';
-	echo '<td class="pt-3">';
+	echo '<td>';
 	echo '<div>';
 	echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
 	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
@@ -74,10 +74,10 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 	if ($showURL) {
 		$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-		echo '<td class="pt-3 d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$page->permalink().'" title="'.$friendlyURL.'">'.$friendlyURL.'</a></td>';
+		echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$page->permalink().'" title="'.$friendlyURL.'">'.$friendlyURL.'</a></td>';
 	}
 
-	echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
+	echo '<td class="contentTools text-center align-middle">'.PHP_EOL;
 	echo '<div class="dropdown actionsDropdown">';
 	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
 	echo '<div class="dropdown-menu dropdown-menu-end">';
@@ -126,6 +126,11 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 
 	if ($renderChildren) {
 		foreach ($page->children() as $child) {
+			// Only nest children whose type matches this table; a child moved
+			// to a different type renders in its own tab instead (see tableRows()).
+			if ($child->type() !== $type) {
+				continue;
+			}
 			echo '<tr>';
 			echo '<td class="child">';
 			echo '<div>';
@@ -141,7 +146,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 				echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$child->permalink().'" title="'.$friendlyChildURL.'">'.$friendlyChildURL.'</a></td>';
 			}
 
-			echo '<td class="contentTools pt-3 text-center align-middle">'.PHP_EOL;
+			echo '<td class="contentTools text-center align-middle">'.PHP_EOL;
 			echo '<div class="dropdown actionsDropdown">';
 			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
 			echo '<div class="dropdown-menu dropdown-menu-end">';
@@ -162,20 +167,21 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 // Static tab and by the Pages/Sticky lists when ORDER_BY is "position".
 function tableRows($list, $type, $isSticky = false) {
 	$nestChildren = ($type === 'static') || (ORDER_BY === 'position');
+	$listSet = array_flip($list);
 	foreach ($list as $pageKey) {
 		try {
 			$page = new Page($pageKey);
 		} catch (Exception $e) {
 			continue;
 		}
-		if ($nestChildren) {
-			if ($page->isChild()) {
-				continue;
-			}
-			tableRow($pageKey, $type, $isSticky, true);
-		} else {
-			tableRow($pageKey, $type, $isSticky, false);
+		// A page is only skipped here if its parent is also in this same list
+		// (same type) and will render it nested. Otherwise the parent lives in
+		// a different type/tab and would never draw this page as a child, so
+		// it must be rendered standalone here or it vanishes from every tab.
+		if ($nestChildren && $page->isChild() && isset($listSet[$page->parentKey()])) {
+			continue;
 		}
+		tableRow($pageKey, $type, $isSticky, $nestChildren);
 	}
 }
 
@@ -209,11 +215,11 @@ function table($type) {
 	}
 
 	echo '<table class="table mt-3"><thead><tr>';
-	echo '<th class="border-0" scope="col">'.$L->g('Title').'</th>';
+	echo '<th scope="col">'.$L->g('Title').'</th>';
 	if ($type === 'static') {
-		echo '<th class="border-0 d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
+		echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
 	}
-	echo '<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
+	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
 	echo '</tr></thead><tbody>';
 	tableRows($list, $type);
 	echo '</tbody></table>';
@@ -235,9 +241,9 @@ function tablePages() {
 	}
 
 	echo '<table class="table mt-3"><thead><tr>';
-	echo '<th class="border-0" scope="col">'.$L->g('Title').'</th>';
-	echo '<th class="border-0 d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
-	echo '<th class="border-0 text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
+	echo '<th scope="col">'.$L->g('Title').'</th>';
+	echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
+	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
 	echo '</tr></thead><tbody>';
 	if (!empty($sticky) && $isFirstPage) {
 		tableRows($sticky, 'sticky', true);

@@ -31,7 +31,7 @@
 
 	<!-- Date and reading time -->
 	<div class="mb-4">
-		<time class="text-sm text-gray-500 dark:text-gray-400" datetime="<?php echo $page->dateRaw(); ?>">
+		<time class="text-sm text-gray-500 dark:text-gray-400" datetime="<?php echo $page->date('c'); ?>">
 			<?php echo $page->date(); ?>
 		</time>
 		<span class="text-sm text-gray-400 dark:text-gray-500 mx-2">&middot;</span>

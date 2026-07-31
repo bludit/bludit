@@ -40,7 +40,7 @@
 <meta property="og:image" content="<?php echo $page->coverImage(true); ?>">
 <meta property="og:image:alt" content="<?php echo $page->title(); ?>">
 <?php endif; ?>
-<meta property="article:published_time" content="<?php echo $page->dateRaw(); ?>">
+<meta property="article:published_time" content="<?php echo $page->date('c'); ?>">
 <?php if ($page->dateModified('Y-m-d\TH:i:sP')): ?>
 <meta property="article:modified_time" content="<?php echo $page->dateModified('Y-m-d\TH:i:sP'); ?>">
 <?php endif; ?>
@@ -93,7 +93,7 @@
 		],
 		'headline' => $page->title(),
 		'description' => $page->description(),
-		'datePublished' => $page->dateRaw(),
+		'datePublished' => $page->date('c'),
 		'url' => $page->permalink(),
 		'publisher' => [
 			'@type' => 'Organization',
