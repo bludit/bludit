@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "TOAST UI Editor",
+		"description": "Markdown editor with a live WYSIWYG preview. Content is saved as Markdown, so keep the site's Markdown parser enabled."
+	},
+	"preview-style": "Preview style",
+	"vertical": "Vertical",
+	"tab": "Tab"
+}

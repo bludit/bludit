@@ -1,0 +1,9 @@
+{
+	"plugin-data":
+	{
+		"name": "SunEditor",
+		"description": "HTML Editor for formatting content. Dependency-free WYSIWYG alternative for the users who don't want to work with Markdown code."
+	},
+	"toolbar": "Toolbar",
+	"suneditor-buttons-tip": "Comma separated list of buttons, use | to separate groups."
+}
