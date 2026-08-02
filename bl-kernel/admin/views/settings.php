@@ -13,15 +13,15 @@
 <!-- TABS -->
 <nav class="mb-3">
 	<div class="nav nav-tabs" id="nav-tab" role="tablist">
-		<a class="nav-item nav-link active" id="nav-general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="nav-general" aria-selected="false"><?php $L->p('General') ?></a>
-		<a class="nav-item nav-link" id="nav-advanced-tab" data-bs-toggle="tab" href="#advanced" role="tab" aria-controls="nav-advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
-		<a class="nav-item nav-link" id="nav-seo-tab" data-bs-toggle="tab" href="#seo" role="tab" aria-controls="nav-seo" aria-selected="false"><?php $L->p('SEO') ?></a>
-		<a class="nav-item nav-link" id="nav-social-tab" data-bs-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
-		<a class="nav-item nav-link" id="nav-images-tab" data-bs-toggle="tab" href="#images" role="tab" aria-controls="nav-images" aria-selected="false"><?php $L->p('Images') ?></a>
-		<a class="nav-item nav-link" id="nav-language-tab" data-bs-toggle="tab" href="#language" role="tab" aria-controls="nav-language" aria-selected="false"><?php $L->p('Language') ?></a>
-		<a class="nav-item nav-link" id="nav-custom-fields-tab" data-bs-toggle="tab" href="#custom-fields" role="tab" aria-controls="nav-custom-fields" aria-selected="false"><?php $L->p('Custom fields') ?></a>
-		<a class="nav-item nav-link" id="nav-logo-tab" data-bs-toggle="tab" href="#logo" role="tab" aria-controls="nav-logo" aria-selected="false"><?php $L->p('Logo') ?></a>
-		<a class="nav-item nav-link" id="nav-about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="nav-about" aria-selected="false"><?php $L->p('About') ?></a>
+		<a class="nav-item nav-link active" id="nav-general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="false"><?php $L->p('General') ?></a>
+		<a class="nav-item nav-link" id="nav-advanced-tab" data-bs-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><?php $L->p('Advanced') ?></a>
+		<a class="nav-item nav-link" id="nav-seo-tab" data-bs-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false"><?php $L->p('SEO') ?></a>
+		<a class="nav-item nav-link" id="nav-social-tab" data-bs-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
+		<a class="nav-item nav-link" id="nav-images-tab" data-bs-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false"><?php $L->p('Images') ?></a>
+		<a class="nav-item nav-link" id="nav-language-tab" data-bs-toggle="tab" href="#language" role="tab" aria-controls="language" aria-selected="false"><?php $L->p('Language') ?></a>
+		<a class="nav-item nav-link" id="nav-custom-fields-tab" data-bs-toggle="tab" href="#custom-fields" role="tab" aria-controls="custom-fields" aria-selected="false"><?php $L->p('Custom fields') ?></a>
+		<a class="nav-item nav-link" id="nav-logo-tab" data-bs-toggle="tab" href="#logo" role="tab" aria-controls="logo" aria-selected="false"><?php $L->p('Logo') ?></a>
+		<a class="nav-item nav-link" id="nav-about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false"><?php $L->p('About') ?></a>
 	</div>
 </nav>
 
@@ -34,7 +34,7 @@ echo Bootstrap::formInputHidden(array(
 ?>
 
 <!-- General tab -->
-<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="nav-general-tab">
 
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Site')));
@@ -78,7 +78,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Advanced tab -->
-<div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+<div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="nav-advanced-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Content')));
 
@@ -293,7 +293,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- SEO tab -->
-<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="nav-seo-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Extreme friendly URL')));
 
@@ -351,7 +351,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Social Network tab -->
-<div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+<div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="nav-social-tab">
 	<?php
 	echo Bootstrap::formInputText(array(
 		'name' => 'twitter',
@@ -482,7 +482,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Images tab -->
-<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-images-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Thumbnails')));
 
@@ -525,7 +525,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Timezone and language tab -->
-<div class="tab-pane fade" id="language" role="tabpanel" aria-labelledby="language-tab">
+<div class="tab-pane fade" id="language" role="tabpanel" aria-labelledby="nav-language-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Language and timezone')));
 
@@ -570,7 +570,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Custom fields -->
-<div class="tab-pane fade" id="custom-fields" role="tabpanel" aria-labelledby="custom-fields-tab">
+<div class="tab-pane fade" id="custom-fields" role="tabpanel" aria-labelledby="nav-custom-fields-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Custom fields')));
 
@@ -587,7 +587,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- Site logo tab -->
-<div class="tab-pane fade" id="logo" role="tabpanel" aria-labelledby="logo-tab">
+<div class="tab-pane fade" id="logo" role="tabpanel" aria-labelledby="nav-logo-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('Site logo')));
 	?>
@@ -633,7 +633,7 @@ echo Bootstrap::formInputHidden(array(
 </div>
 
 <!-- About tab -->
-<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+<div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="nav-about-tab">
 	<?php
 	echo Bootstrap::formTitle(array('title' => $L->g('About')));
 
