@@ -258,15 +258,22 @@ function activatePlugin($pluginClassName)
 
     // Only one content-editor plugin can be active at a time: they all bind to
     // the same #jseditor textarea and the same global JS functions.
+    $deactivatedEditors = array();
+    $deactivationFailed = false;
     if ($plugin->type() == 'editor') {
       foreach ($plugins['all'] as $className => $otherPlugin) {
         if ($className !== $pluginClassName && $otherPlugin->type() == 'editor' && $otherPlugin->installed()) {
-          deactivatePlugin($className);
+          if (deactivatePlugin($className)) {
+            $deactivatedEditors[] = $className;
+          } else {
+            $deactivationFailed = true;
+            break;
+          }
         }
       }
     }
 
-    if ($plugin->install()) {
+    if (!$deactivationFailed && $plugin->install()) {
       // Add to syslog
       $syslog->add(array(
         'dictionaryKey' => 'plugin-activated',
@@ -276,6 +283,12 @@ function activatePlugin($pluginClassName)
       // Create an alert
       Alert::set($L->g('plugin-activated'));
       return true;
+    }
+
+    // Activation failed, or a sibling editor could not be deactivated: restore
+    // any editor(s) deactivated above so the site isn't left without an active editor
+    foreach ($deactivatedEditors as $deactivatedClassName) {
+      activatePlugin($deactivatedClassName);
     }
   }
   return false;
