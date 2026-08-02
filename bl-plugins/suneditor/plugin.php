@@ -25,7 +25,7 @@ class pluginSuneditor extends Plugin
 
 		$html .= '<div>';
 		$html .= '<label>' . $L->get('toolbar') . '</label>';
-		$html .= '<input name="buttons" id="jsbuttons" type="text" dir="auto" value="' . $this->getValue('buttons') . '">';
+		$html .= '<input name="buttons" id="jsbuttons" type="text" dir="auto" value="' . htmlspecialchars($this->getValue('buttons'), ENT_QUOTES) . '">';
 		$html .= '<span class="tip">' . $L->get('suneditor-buttons-tip') . '</span>';
 		$html .= '</div>';
 
@@ -67,12 +67,15 @@ class pluginSuneditor extends Plugin
 
 	public function adminBodyEnd()
 	{
+		global $L;
+
 		// Load the plugin only in the controllers setted in $this->loadOnController
 		if (!in_array($GLOBALS['ADMIN_CONTROLLER'], $this->loadOnController)) {
 			return false;
 		}
 
 		$buttonList = json_encode($this->buildButtonList($this->getValue('buttons')));
+		$imageAltText = htmlspecialchars($L->g('Image description'), ENT_QUOTES);
 
 		$html = <<<EOF
 <script>
@@ -82,13 +85,13 @@ class pluginSuneditor extends Plugin
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertMedia(filename) {
-		sunEditor.$.html.insert("<img src=\""+filename+"\">");
+		sunEditor.$.html.insert("<img src=\""+filename+"\" alt=\"$imageAltText\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertLinkedMedia(filename, link) {
-		sunEditor.$.html.insert("<a href=\""+link+"\"><img src=\""+filename+"\"></a>");
+		sunEditor.$.html.insert("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
 	}
 
 	// Returns the content of the editor

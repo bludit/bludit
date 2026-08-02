@@ -7,5 +7,5 @@
 	"license": "MIT",
 	"compatible": "3.22",
 	"type": "editor",
-	"notes": ""
+	"notes": "Intentionally pinned to 2.5.4 (last pre-ProseMirror release). @toast-ui/editor 3.x externalizes ProseMirror as an unbundled peer dependency in its UMD build, which makes it non-functional when loaded as a plain <script> tag outside a bundler; 2.5.4 only externalizes CodeMirror (vendored alongside it here) and works standalone."
 }

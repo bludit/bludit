@@ -55,7 +55,7 @@ class pluginTuieditor extends Plugin
 			return false;
 		}
 
-		$previewStyle = $this->getValue('previewStyle');
+		$previewStyle = in_array($this->getValue('previewStyle'), array('vertical', 'tab'), true) ? $this->getValue('previewStyle') : 'vertical';
 		$imageAltText = $L->g('Image description');
 
 		$html  = $this->includeJS('codemirror.min.js');
@@ -95,7 +95,7 @@ class pluginTuieditor extends Plugin
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertLinkedMedia(filename, link) {
-		tuiEditor.insertText("<a href=\""+link+"\"><img src=\""+filename+"\"></a>");
+		tuiEditor.insertText("[![$imageAltText](" + filename + ")](" + link + ")");
 	}
 
 	// Returns the content of the editor
