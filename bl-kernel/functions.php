@@ -255,6 +255,17 @@ function activatePlugin($pluginClassName)
   // Check if the plugin exists
   if (isset($plugins['all'][$pluginClassName])) {
     $plugin = $plugins['all'][$pluginClassName];
+
+    // Only one content-editor plugin can be active at a time: they all bind to
+    // the same #jseditor textarea and the same global JS functions.
+    if ($plugin->type() == 'editor') {
+      foreach ($plugins['all'] as $className => $otherPlugin) {
+        if ($className !== $pluginClassName && $otherPlugin->type() == 'editor' && $otherPlugin->installed()) {
+          deactivatePlugin($className);
+        }
+      }
+    }
+
     if ($plugin->install()) {
       // Add to syslog
       $syslog->add(array(
