@@ -6,5 +6,6 @@
 	"releaseDate": "2026-07-31",
 	"license": "MIT",
 	"compatible": "3.22",
+	"type": "editor",
 	"notes": ""
 }
