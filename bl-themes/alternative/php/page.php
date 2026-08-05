@@ -47,21 +47,21 @@
 					<?php if (!$page->isStatic() && !$url->notFound() && $themePlugin->showPostInformation()) : ?>
 						<div class="page-meta text-muted mb-3">
 							<!-- Page creation time -->
-							<span class="pr-3">
+							<span class="pe-3">
 								<i class="bi bi-calendar" aria-hidden="true"></i>
-								<time datetime="<?php echo $page->dateRaw('c'); ?>" itemprop="datePublished"><?php echo $page->date() ?></time>
+								<time datetime="<?php echo $page->date('c'); ?>" itemprop="datePublished"><?php echo $page->date() ?></time>
 							</span>
 
 							<?php if ($page->dateModified() && $page->dateModified() !== $page->date()): ?>
 							<!-- Last modified -->
-							<span class="pr-3">
+							<span class="pe-3">
 								<i class="bi bi-pencil" aria-hidden="true"></i>
 								<time datetime="<?php echo $page->dateModified('c'); ?>"><?php echo $L->get('Updated'); ?>: <?php echo $page->dateModified(); ?></time>
 							</span>
 							<?php endif; ?>
 
 							<!-- Page reading time -->
-							<span class="pr-3">
+							<span class="pe-3">
 								<i class="bi bi-clock" aria-hidden="true"></i>
 								<span><?php echo $L->get('Reading time') . ': ' . $page->readingTime() ?></span>
 							</span>

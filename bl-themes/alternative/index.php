@@ -42,7 +42,7 @@
 <body>
 
 	<!-- Skip to main content link for accessibility -->
-	<a class="skip-link sr-only sr-only-focusable" href="#main-content"><?php echo $L->get('Skip to main content'); ?></a>
+	<a class="skip-link visually-hidden-focusable" href="#main-content"><?php echo $L->get('Skip to main content'); ?></a>
 
 	<!-- Load Bludit Plugins: Site Body Begin -->
 	<?php Theme::plugins('siteBodyBegin'); ?>

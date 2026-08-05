@@ -6,10 +6,10 @@
                     <p class="m-0 text-uppercase"><?php echo $site->footer(); ?></p>
                 </div>
             <?php else: ?>
-                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     <p class="m-0 text-uppercase"><?php echo $site->footer(); ?></p>
                 </div>
-                <div class="col-md-6 text-center text-md-right">
+                <div class="col-md-6 text-center text-md-end">
                     <p class="m-0">
                         Powered by <a href="https://www.bludit.com" target="_blank" rel="noopener"><strong>BLUDIT</strong></a>
                     </p>

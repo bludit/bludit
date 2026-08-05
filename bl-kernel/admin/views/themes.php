@@ -3,13 +3,13 @@
 echo Bootstrap::pageTitle(array('title' => $L->g('Themes'), 'icon' => 'desktop'));
 
 echo '
-<table class="table  mt-3">
+<table class="table mt-3">
 	<thead>
 		<tr>
-			<th class="border-bottom-0 w-25" scope="col">' . $L->g('Name') . '</th>
-			<th class="border-bottom-0 d-none d-sm-table-cell" scope="col">' . $L->g('Description') . '</th>
-			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">' . $L->g('Version') . '</th>
-			<th class="text-center border-bottom-0 d-none d-lg-table-cell" scope="col">' . $L->g('Author') . '</th>
+			<th class="w-25" scope="col">' . $L->g('Name') . '</th>
+			<th class="d-none d-sm-table-cell" scope="col">' . $L->g('Description') . '</th>
+			<th class="text-center d-none d-lg-table-cell" scope="col">' . $L->g('Version') . '</th>
+			<th class="text-center d-none d-lg-table-cell" scope="col">' . $L->g('Author') . '</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,8 +18,8 @@ echo '
 foreach ($themes as $theme) {
   echo '
 	<tr ' . ($theme['dirname'] == $site->theme() ? 'class="bg-light"' : '') . '>
-		<td class="align-middle pt-3 pb-3">
-		<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="badge badge-primary ml-2">'.$L->g('Active').'</span>':'').'</div>
+		<td class="align-middle">
+		<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="badge text-bg-primary ms-2">'.$L->g('Active').'</span>':'').'</div>
 			<div class="mt-1">
 	';
 

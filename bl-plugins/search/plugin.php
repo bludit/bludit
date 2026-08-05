@@ -102,7 +102,7 @@ class pluginSearch extends Plugin
 		$html .= '<h2 class="plugin-label">' . $labelEscaped . '</h2>';
 		$html .= '<div class="plugin-content">';
 		$html .= '<form class="search-plugin-form" role="search" onsubmit="return pluginSearchSubmit()">';
-		$html .= '<label for="jspluginSearchText" class="sr-only visually-hidden">' . $searchText . '</label>';
+		$html .= '<label for="jspluginSearchText" class="visually-hidden">' . $searchText . '</label>';
 		$html .= '<input type="search" id="jspluginSearchText" name="search" placeholder="' . $searchText . '..." autocomplete="off" dir="auto" aria-label="' . $searchText . '">';
 		if ($this->getValue('showButtonSearch')) {
 			$html .= '<button type="submit">' . $searchText . '</button>';

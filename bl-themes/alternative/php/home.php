@@ -24,7 +24,7 @@
 				if ($showSearchBox) : ?>
 					<div class="hero-search">
 						<form class="search-form" role="search" onsubmit="return searchNow();">
-							<label for="search-input" class="sr-only"><?php $language->p('Search') ?></label>
+							<label for="search-input" class="visually-hidden"><?php $language->p('Search') ?></label>
 							<div class="search-input-wrapper">
 								<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 									<circle cx="11" cy="11" r="8"></circle>
@@ -107,7 +107,7 @@
 
 						<!-- Shows "read more" button if necessary -->
 						<?php if ($page->readMore()) : ?>
-							<div class="text-right pt-3">
+							<div class="text-end pt-3">
 								<a class="btn btn-primary btn-sm" href="<?php echo $page->permalink(); ?>" role="button" aria-label="<?php echo $L->get('Read more'); ?> - <?php echo $page->title(); ?>"><?php echo $L->get('Read more'); ?></a>
 							</div>
 						<?php endif ?>
@@ -115,14 +115,14 @@
 						<!-- Page date -->
 						<footer class="mt-3 article-footer">
 							<?php if ($themePlugin->dateFormat() == 'relative') : ?>
-								<small class="text-muted"><time datetime="<?php echo $page->dateRaw('c'); ?>" itemprop="datePublished"><?php echo $page->relativeTime() ?></time></small>
+								<small class="text-muted"><time datetime="<?php echo $page->date('c'); ?>" itemprop="datePublished"><?php echo $page->relativeTime() ?></time></small>
 							<?php elseif ($themePlugin->dateFormat() == 'absolute') : ?>
-								<small class="text-muted"><time datetime="<?php echo $page->dateRaw('c'); ?>" itemprop="datePublished"><?php echo $page->date() ?></time></small>
+								<small class="text-muted"><time datetime="<?php echo $page->date('c'); ?>" itemprop="datePublished"><?php echo $page->date() ?></time></small>
 							<?php endif ?>
 							<?php if ($page->dateModified()): ?>
 								<meta itemprop="dateModified" content="<?php echo $page->dateModified('c'); ?>" />
 							<?php else: ?>
-								<meta itemprop="dateModified" content="<?php echo $page->dateRaw('c'); ?>" />
+								<meta itemprop="dateModified" content="<?php echo $page->date('c'); ?>" />
 							<?php endif; ?>
 						</footer>
 
@@ -142,7 +142,7 @@
 
 			<!-- Previous button -->
 			<?php if (Paginator::showPrev()) : ?>
-				<li class="page-item mr-2">
+				<li class="page-item me-2">
 					<a class="page-link" href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" rel="prev" aria-label="<?php echo $L->get('Previous'); ?>">
 						<span aria-hidden="true">&#9664;</span> <?php echo $L->get('Previous'); ?>
 					</a>
@@ -156,7 +156,7 @@
 
 			<!-- Next button -->
 			<?php if (Paginator::showNext()) : ?>
-				<li class="page-item ml-2">
+				<li class="page-item ms-2">
 					<a class="page-link" href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>" rel="next" aria-label="<?php echo $L->get('Next'); ?>">
 						<?php echo $L->get('Next'); ?> <span aria-hidden="true">&#9658;</span>
 					</a>
