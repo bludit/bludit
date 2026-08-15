@@ -2,7 +2,7 @@
 	<div class="container">
 		<span class="navbar-brand">
 			<?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
 		 aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -24,12 +24,6 @@
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'content' ?>">
 						<?php $L->p('Content') ?></a>
 				</li>
-				<?php if (!checkRole(array('admin'),false)): ?>
-				    <li class="nav-item">
-					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>">
-					    <?php $L->p('Profile') ?></a>
-				    </li>
-				<?php endif; ?>
 				<?php if (checkRole(array('admin'),false)): ?>
 						<li class="nav-item">
 							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'categories' ?>">
@@ -51,12 +45,8 @@
 							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'themes' ?>">
 								<?php $L->p('Themes') ?></a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'about' ?>">
-								<?php $L->p('About') ?></a>
-						</li>
 				<?php endif; ?>
-				<?php if (checkRole(array('admin'),false)): ?>
+				<?php if (checkRole(array('admin', 'editor'),false)): ?>
 				    <?php
 				    if (!empty($plugins['adminSidebar'])) {
 					foreach ($plugins['adminSidebar'] as $pluginSidebar) {
@@ -67,6 +57,10 @@
 				    }
 				    ?>
 				<?php endif; ?>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>">
+						<?php $L->p('Profile') ?></a>
+				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'logout' ?>">
 						<?php $L->p('Logout') ?></a>

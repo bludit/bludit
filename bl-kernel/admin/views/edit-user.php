@@ -3,7 +3,7 @@
 <?php echo Bootstrap::formOpen(array('id' => 'jsform', 'class' => 'tab-content')); ?>
 
 <div class="align-middle">
-	<div class="float-right mt-1">
+	<div class="float-end mt-1">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
@@ -13,10 +13,10 @@
 <!-- TABS -->
 <nav class="mb-3">
 	<div class="nav nav-tabs" id="nav-tab" role="tablist">
-		<a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><?php $L->p('Profile') ?></a>
-		<a class="nav-item nav-link" id="nav-picture-tab" data-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false"><?php $L->p('Profile picture') ?></a>
-		<a class="nav-item nav-link" id="nav-security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false"><?php $L->p('Security') ?></a>
-		<a class="nav-item nav-link" id="nav-social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
+		<a class="nav-item nav-link active" id="nav-profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="nav-profile" aria-selected="false"><?php $L->p('Profile') ?></a>
+		<a class="nav-item nav-link" id="nav-picture-tab" data-bs-toggle="tab" href="#picture" role="tab" aria-controls="nav-picture" aria-selected="false"><?php $L->p('Profile picture') ?></a>
+		<a class="nav-item nav-link" id="nav-security-tab" data-bs-toggle="tab" href="#security" role="tab" aria-controls="nav-security" aria-selected="false"><?php $L->p('Security') ?></a>
+		<a class="nav-item nav-link" id="nav-social-tab" data-bs-toggle="tab" href="#social" role="tab" aria-controls="nav-social" aria-selected="false"><?php $L->p('Social Networks') ?></a>
 	</div>
 </nav>
 
@@ -102,11 +102,9 @@ echo Bootstrap::formInputHidden(array(
 	<div class="tab-pane fade" id="picture" role="tabpanel" aria-labelledby="nav-picture-tab">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-sm-12 p-0 pr-2">
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="jsprofilePictureInputFile" name="profilePictureInputFile">
-						<label class="custom-file-label" for="jsprofilePictureInputFile"><?php $L->p('Upload image'); ?></label>
-					</div>
+				<div class="col-lg-4 col-sm-12 p-0 pe-2">
+					<label class="form-label" for="jsprofilePictureInputFile"><?php $L->p('Upload image'); ?></label>
+					<input type="file" class="form-control" id="jsprofilePictureInputFile" name="profilePictureInputFile">
 					<!-- <button id="jsbuttonRemovePicture" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i> Remove picture</button> -->
 				</div>
 				<div class="col-lg-8 col-sm-12 p-0 text-center">
@@ -150,8 +148,8 @@ echo Bootstrap::formInputHidden(array(
 		echo Bootstrap::formTitle(array('title' => $L->g('Password')));
 
 		echo '
-		<div class="form-group">
-			<a href="' . HTML_PATH_ADMIN_ROOT . 'user-password/' . $user->username() . '" class="btn btn-primary mr-2">' . $L->g('Change password') . '</a>
+		<div class="mb-3">
+			<a href="' . HTML_PATH_ADMIN_ROOT . 'user-password/' . $user->username() . '" class="btn btn-primary me-2">' . $L->g('Change password') . '</a>
 		</div>
 		';
 
@@ -179,12 +177,12 @@ echo Bootstrap::formInputHidden(array(
 
 			if ($user->enabled()) {
 				echo '
-				<div class="form-group row">
+				<div class="row mb-3">
 				<div class="col-sm-2"></div>
 				<div class="col-sm-10">
-					<button type="submit" class="btn btn-warning mr-2" id="jsdisableUser" name="disableUser">' . $L->g('Disable user') . '</button>
-					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">' . $L->g('Delete user and keep content') . '</button>
-					<button type="submit" class="btn btn-danger mr-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">' . $L->g('Delete user and delete content') . '</button>
+					<button type="submit" class="btn btn-warning me-2" id="jsdisableUser" name="disableUser">' . $L->g('Disable user') . '</button>
+					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">' . $L->g('Delete user and keep content') . '</button>
+					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">' . $L->g('Delete user and delete content') . '</button>
 				</div>
 				</div>
 				';
@@ -321,13 +319,16 @@ echo Bootstrap::formInputHidden(array(
 <script>
 	// Open current tab after refresh page
 	$(function() {
-		$('a[data-toggle="tab"]').on('click', function(e) {
+		$('a[data-bs-toggle="tab"]').on('click', function(e) {
 			window.localStorage.setItem('activeTab', $(e.target).attr('href'));
 			console.log($(e.target).attr('href'));
 		});
 		var activeTab = window.localStorage.getItem('activeTab');
 		if (activeTab) {
-			$('#nav-tab a[href="' + activeTab + '"]').tab('show');
+			var tabEl = document.querySelector('#nav-tab a[href="' + activeTab + '"]');
+			if (tabEl) {
+				bootstrap.Tab.getOrCreateInstance(tabEl).show();
+			}
 			//window.localStorage.removeItem("activeTab");
 		}
 	});

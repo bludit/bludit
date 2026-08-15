@@ -3,12 +3,12 @@
 		<a class="navbar-brand" href="<?php echo Theme::siteUrl(); ?>">
 			<span class="text-white"><?php echo $site->title(); ?></span>
 		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="<?php echo $L->get('Toggle navigation'); ?>">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="<?php echo $L->get('Toggle navigation'); ?>">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ms-auto">
 
 				<!-- Blog link (when homepage is set to a static page) -->
 				<?php if ($site->homepage()): ?>
@@ -25,7 +25,7 @@
 					<a class="nav-link" href="<?php echo $staticPage->permalink(); ?>">
 						<?php echo $staticPage->title(); ?>
 						<?php if ($page && $page->key() === $staticPage->key()): ?>
-							<span class="sr-only">(<?php echo $L->get('current'); ?>)</span>
+							<span class="visually-hidden">(<?php echo $L->get('current'); ?>)</span>
 						<?php endif; ?>
 					</a>
 				</li>
@@ -37,7 +37,7 @@
 					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank" rel="noopener noreferrer" title="<?php echo $label; ?>">
 						<img class="d-none d-md-inline-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/'.$key.'.svg' ?>" alt="" aria-hidden="true" />
 						<span class="d-inline d-md-none"><?php echo $label; ?></span>
-						<span class="sr-only d-none d-md-inline"><?php echo $label; ?></span>
+						<span class="visually-hidden d-none d-md-inline"><?php echo $label; ?></span>
 					</a>
 				</li>
 				<?php endforeach; ?>
@@ -48,7 +48,7 @@
 					<a class="nav-link" href="<?php echo Theme::rssUrl() ?>" target="_blank" rel="noopener noreferrer" title="RSS Feed">
 						<img class="d-none d-md-inline-block nav-svg-icon" src="<?php echo DOMAIN_THEME.'img/rss.svg' ?>" alt="" aria-hidden="true" />
 						<span class="d-inline d-md-none">RSS</span>
-						<span class="sr-only d-none d-md-inline">RSS Feed</span>
+						<span class="visually-hidden d-none d-md-inline">RSS Feed</span>
 					</a>
 				</li>
 				<?php endif; ?>

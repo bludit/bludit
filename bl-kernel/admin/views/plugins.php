@@ -50,11 +50,11 @@ foreach ($pluginsInstalled as $plugin) {
 
 	echo '<tr id="' . $plugin->className() . '" class="bg-light searchItem">';
 
-	echo '<td class="align-middle pt-3 pb-3 w-25">
+	echo '<td class="align-middle w-25">
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">';
 	if (method_exists($plugin, 'form')) {
-		echo '<a class="mr-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
+		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
 	}
 	echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'uninstall-plugin/' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
 	echo '</div>';
@@ -67,7 +67,7 @@ foreach ($pluginsInstalled as $plugin) {
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
 	echo '<span>' . $plugin->version() . '</span>';
 	if (!$plugin->isCompatible()) {
-		echo ' <span class="badge badge-pill badge-warning" title="' . $L->g('This plugin may not be supported by this version of Bludit') . '">' . $L->g('Update') . '</span>';
+		echo ' <span class="badge rounded-pill text-bg-warning" title="' . $L->g('This plugin may not be supported by this version of Bludit') . '">' . $L->g('Update') . '</span>';
 	}
 	echo '</td>';
 
@@ -100,7 +100,7 @@ foreach ($pluginsNotInstalled as $plugin) {
 	}
 	echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
-	echo '<td class="align-middle pt-3 pb-3 w-25">
+	echo '<td class="align-middle w-25">
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">
 			<a href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>

@@ -80,6 +80,10 @@ class pluginAPI extends Plugin
 		global $url;
 		global $pages;
 		global $users;
+		// deleteUser() on functions.php checks the role through the global
+		// $login, which only exists on the admin boot path; declare it here
+		// so the assignment below populates it for API requests too
+		global $login;
 
 		// CHECK URL
 		// ------------------------------------------------------------
@@ -208,6 +212,20 @@ class pluginAPI extends Plugin
 			$categoryKey = $parameters[1];
 			$data = $this->getCategory($categoryKey);
 		}
+		// (POST) /api/categories
+		elseif (($method === 'POST') && ($parameters[0] === 'categories') && empty($parameters[1]) && $writePermissions) {
+			$data = $this->createCategory($inputs);
+		}
+		// (PUT) /api/categories/<key>
+		elseif (($method === 'PUT') && ($parameters[0] === 'categories') && !empty($parameters[1]) && $writePermissions) {
+			$categoryKey = $parameters[1];
+			$data = $this->editCategory($categoryKey, $inputs);
+		}
+		// (DELETE) /api/categories/<key>
+		elseif (($method === 'DELETE') && ($parameters[0] === 'categories') && !empty($parameters[1]) && $writePermissions) {
+			$categoryKey = $parameters[1];
+			$data = $this->deleteCategory($categoryKey);
+		}
 		// (GET) /api/users
 		elseif (($method === 'GET') && ($parameters[0] === 'users') && empty($parameters[1])) {
 			$data = $this->getUsers();
@@ -216,6 +234,20 @@ class pluginAPI extends Plugin
 		elseif (($method === 'GET') && ($parameters[0] === 'users') && !empty($parameters[1])) {
 			$username = $parameters[1];
 			$data = $this->getUser($username);
+		}
+		// (POST) /api/users
+		elseif (($method === 'POST') && ($parameters[0] === 'users') && empty($parameters[1]) && $writePermissions) {
+			$data = $this->createUser($inputs);
+		}
+		// (PUT) /api/users/<username>
+		elseif (($method === 'PUT') && ($parameters[0] === 'users') && !empty($parameters[1]) && $writePermissions) {
+			$username = $parameters[1];
+			$data = $this->editUser($username, $inputs);
+		}
+		// (DELETE) /api/users/<username>
+		elseif (($method === 'DELETE') && ($parameters[0] === 'users') && !empty($parameters[1]) && $writePermissions) {
+			$username = $parameters[1];
+			$data = $this->deleteUser($username, $inputs);
 		}
 		// (GET) /api/files/<page-key>
 		elseif (($method === 'GET') && ($parameters[0] === 'files') && !empty($parameters[1])) {
@@ -741,6 +773,163 @@ class pluginAPI extends Plugin
 	}
 
 	/*
+	 | Creates a new category
+	 | Returns the created category
+	 |
+	 | @args		array
+	 | @args['name']	string	Category name (required)
+	 | @args['description']	string	Category description (optional)
+	 |
+	 | @return		array
+	 */
+	private function createCategory($args)
+	{
+		if (empty($args['name'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Missing category name.'
+			);
+		}
+
+		// createCategory() reads the description unconditionally
+		if (!isset($args['description'])) {
+			$args['description'] = '';
+		}
+
+		// This function is defined on functions.php
+		if (createCategory($args) === false) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Error trying to create the category.'
+			);
+		}
+
+		$this->setStatus(201);
+		$key = Text::cleanUrl($args['name']);
+		try {
+			$category = new Category($key);
+			return array(
+				'status' => '0',
+				'message' => 'Category created.',
+				'data' => $category->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			// The category was created but failed to load. Fall back to the
+			// minimal payload so the caller still gets the key.
+			return array(
+				'status' => '0',
+				'message' => 'Category created.',
+				'data' => array('key' => $key)
+			);
+		}
+	}
+
+	/*
+	 | Edits an existing category
+	 | Returns the edited category
+	 |
+	 | @key			string	Existing category key
+	 | @args		array
+	 | @args['name']	string	Category name (required)
+	 | @args['newKey']	string	New key (optional, derived from name when absent)
+	 |
+	 | @return		array
+	 */
+	private function editCategory($key, $args)
+	{
+		try {
+			new Category($key);
+		} catch (Exception $e) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'Category not found.'
+			);
+		}
+
+		if (empty($args['name'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Missing category name.'
+			);
+		}
+
+		$args['oldKey'] = $key;
+		// The key must always pass through Text::cleanUrl(); a raw value such
+		// as "foo/bar" would be stored verbatim and become unaddressable by
+		// the API routes, which split the URI on "/"
+		$args['newKey'] = Text::cleanUrl(empty($args['newKey']) ? $args['name'] : $args['newKey']);
+		if ($args['newKey'] === '') {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Invalid category key.'
+			);
+		}
+
+		// This function is defined on functions.php
+		if (editCategory($args) === false) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Error trying to edit the category.'
+			);
+		}
+
+		try {
+			$category = new Category($args['newKey']);
+			return array(
+				'status' => '0',
+				'message' => 'Category edited.',
+				'data' => $category->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			return array(
+				'status' => '0',
+				'message' => 'Category edited.',
+				'data' => array('key' => $args['newKey'])
+			);
+		}
+	}
+
+	/*
+	 | Deletes a category by key
+	 |
+	 | @key		string	Category key
+	 |
+	 | @return	array
+	 */
+	private function deleteCategory($key)
+	{
+		try {
+			new Category($key);
+		} catch (Exception $e) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'Category not found.'
+			);
+		}
+
+		// This function is defined on functions.php
+		if (deleteCategory(array('oldKey' => $key))) {
+			return array(
+				'status' => '0',
+				'message' => 'Category deleted.'
+			);
+		}
+
+		$this->setStatus(500);
+		return array(
+			'status' => '1',
+			'message' => 'Error trying to delete the category.'
+		);
+	}
+
+	/*
 	 | Returns the user profile
 	 |
 	 | @username	string	Username
@@ -789,6 +978,195 @@ class pluginAPI extends Plugin
 			'status' => '0',
 			'message' => 'Users profiles.',
 			'data' => $data
+		);
+	}
+
+	/*
+	 | Creates a new user
+	 | Returns the created user profile
+	 |
+	 | @args			array
+	 | @args['new_username']	string	Username (required)
+	 | @args['new_password']	string	Password (required)
+	 | @args['confirm_password']	string	Password confirmation (defaults to new_password)
+	 | @args['role']		string	admin, editor or author (defaults to author)
+	 | @args['email']		string	Email address (optional)
+	 |
+	 | @return			array
+	 */
+	private function createUser($args)
+	{
+		if (empty($args['new_username']) || empty($args['new_password'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Missing username or password.'
+			);
+		}
+
+		// Mirror the defaults the admin form provides
+		if (!isset($args['confirm_password'])) {
+			$args['confirm_password'] = $args['new_password'];
+		}
+		if (empty($args['role'])) {
+			$args['role'] = 'author';
+		}
+		if (!isset($args['email'])) {
+			$args['email'] = '';
+		}
+
+		// Validate the role
+		if (!in_array($args['role'], array('admin', 'editor', 'author'), true)) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Invalid role. Allowed roles: admin, editor, author.'
+			);
+		}
+
+		// This function is defined on functions.php
+		if (createUser($args) === false) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Error trying to create the user. The username may already exist or the password may be too short.'
+			);
+		}
+
+		// createUser() cleans the username before storing it
+		$username = Text::removeSpecialCharacters($args['new_username']);
+
+		$this->setStatus(201);
+		try {
+			$user = new User($username);
+			return array(
+				'status' => '0',
+				'message' => 'User created.',
+				'data' => $user->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			return array(
+				'status' => '0',
+				'message' => 'User created.',
+				'data' => array('username' => $username)
+			);
+		}
+	}
+
+	/*
+	 | Edits an existing user
+	 | Pass only the fields to change. Send 'password' to set a new password.
+	 | Returns the edited user profile
+	 |
+	 | @username	string	Existing username
+	 | @args	array	Any user field: firstName, lastName, nickname,
+	 |			description, role, email, social links, password
+	 |
+	 | @return	array
+	 */
+	private function editUser($username, $args)
+	{
+		global $users;
+
+		if (!$users->exists($username)) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'User not found.'
+			);
+		}
+
+		// Strip protected fields. These are auth-internal and must never be
+		// written through the API: setting them would let a caller hijack a
+		// session (tokenAuth/tokenRemember), lock an account out of password
+		// login (salt) or forge metadata (registered/tokenAuthTTL).
+		$protectedFields = array('salt', 'tokenAuth', 'tokenAuthTTL', 'tokenRemember', 'registered');
+		foreach ($protectedFields as $field) {
+			unset($args[$field]);
+		}
+
+		// Validate the role if one was sent
+		if (isset($args['role']) && !in_array($args['role'], array('admin', 'editor', 'author'), true)) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Invalid role. Allowed roles: admin, editor, author.'
+			);
+		}
+
+		// The username is the key and is taken from the URL, never the body
+		$args['username'] = $username;
+
+		// This function is defined on functions.php
+		if (editUser($args) === false) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Error trying to edit the user.'
+			);
+		}
+
+		try {
+			$user = new User($username);
+			return array(
+				'status' => '0',
+				'message' => 'User edited.',
+				'data' => $user->json($returnsArray = true)
+			);
+		} catch (Exception $e) {
+			return array(
+				'status' => '0',
+				'message' => 'User edited.',
+				'data' => array('username' => $username)
+			);
+		}
+	}
+
+	/*
+	 | Deletes a user by username
+	 | The user's pages are transferred to admin unless deleteContent is true.
+	 | The admin user cannot be deleted.
+	 |
+	 | @username		string	Username to delete
+	 | @args		array
+	 | @args['deleteContent']	bool	Delete the user's pages too (default false)
+	 |
+	 | @return		array
+	 */
+	private function deleteUser($username, $args)
+	{
+		global $users;
+
+		if (!$users->exists($username)) {
+			$this->setStatus(404);
+			return array(
+				'status' => '1',
+				'message' => 'User not found.'
+			);
+		}
+
+		if ($username === 'admin') {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'The admin user cannot be deleted.'
+			);
+		}
+
+		$deleteContent = isset($args['deleteContent']) && ($args['deleteContent'] === true || $args['deleteContent'] === 'true');
+
+		// This function is defined on functions.php
+		if (deleteUser(array('username' => $username, 'deleteContent' => $deleteContent))) {
+			return array(
+				'status' => '0',
+				'message' => 'User deleted.'
+			);
+		}
+
+		$this->setStatus(500);
+		return array(
+			'status' => '1',
+			'message' => 'Error trying to delete the user.'
 		);
 	}
 

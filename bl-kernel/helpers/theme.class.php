@@ -258,12 +258,12 @@ class Theme
 
 	public static function jsBootstrap($attributes = '')
 	{
-		return '<script ' . $attributes . ' src="' . DOMAIN_CORE_JS . 'bootstrap.bundle.min.js?version=' . BLUDIT_VERSION . '"></script>' . PHP_EOL;
+		return '<script ' . $attributes . ' src="' . DOMAIN_CORE_JS . 'bootstrap5.bundle.min.js?version=' . BLUDIT_VERSION . '"></script>' . PHP_EOL;
 	}
 
 	public static function cssBootstrap()
 	{
-		return '<link rel="stylesheet" type="text/css" href="' . DOMAIN_CORE_CSS . 'bootstrap.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" type="text/css" href="' . DOMAIN_CORE_CSS . 'bootstrap5.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public static function cssBootstrapIcons()

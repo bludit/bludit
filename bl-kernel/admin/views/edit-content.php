@@ -48,8 +48,8 @@ echo Bootstrap::formInputHidden(array(
 
 <!-- TOOLBAR -->
 <div id="jseditorToolbar" class="mb-1">
-	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-right" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-toggle="modal" data-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
+	<div id="jseditorToolbarRight" class="btn-group btn-group-sm float-end" role="group" aria-label="Toolbar right">
+		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-bs-toggle="modal" data-bs-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<?php Theme::plugins('editorToolbar') ?>
 		<button type="button" class="btn btn-light" id="jsoptionsSidebar" style="z-index:30"><span class="fa fa-cog"></span> <?php $L->p('Options') ?></button>
 	</div>
@@ -57,7 +57,7 @@ echo Bootstrap::formInputHidden(array(
 	<div id="jseditorToolbarLeft">
 		<button type="button" class="btn btn-sm btn-primary" id="jsbuttonSave"><?php echo $L->g('Save') ?></button>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><?php $L->p('Preview') ?></button>
-		<span id="jsswitchButton" data-switch="<?php echo ($page->draft() ? 'draft' : 'publish') ?>" class="ml-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft() ? 'draft' : 'publish') ?>"></i> <?php echo ($page->draft() ? $L->g('Draft') : $L->g('Publish')) ?></span>
+		<span id="jsswitchButton" data-switch="<?php echo ($page->draft() ? 'draft' : 'publish') ?>" class="ms-2 text-secondary switch-button"><i class="fa fa-square switch-icon-<?php echo ($page->draft() ? 'draft' : 'publish') ?>"></i> <?php echo ($page->draft() ? $L->g('Draft') : $L->g('Publish')) ?></span>
 	</div>
 
 	<?php if ($page->scheduled()) : ?>
@@ -82,16 +82,16 @@ echo Bootstrap::formInputHidden(array(
 <div id="jseditorSidebar">
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<a class="nav-link active show" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="general"><?php $L->p('General') ?></a>
-			<a class="nav-link" id="nav-advanced-tab" data-toggle="tab" href="#nav-advanced" role="tab" aria-controls="advanced"><?php $L->p('Advanced') ?></a>
+			<a class="nav-link active show" id="nav-general-tab" data-bs-toggle="tab" href="#nav-general" role="tab" aria-controls="general"><?php $L->p('General') ?></a>
+			<a class="nav-link" id="nav-advanced-tab" data-bs-toggle="tab" href="#nav-advanced" role="tab" aria-controls="advanced"><?php $L->p('Advanced') ?></a>
 			<?php if (!empty($site->customFields())) : ?>
-				<a class="nav-link" id="nav-custom-tab" data-toggle="tab" href="#nav-custom" role="tab" aria-controls="custom"><?php $L->p('Custom') ?></a>
+				<a class="nav-link" id="nav-custom-tab" data-bs-toggle="tab" href="#nav-custom" role="tab" aria-controls="custom"><?php $L->p('Custom') ?></a>
 			<?php endif ?>
-			<a class="nav-link" id="nav-seo-tab" data-toggle="tab" href="#nav-seo" role="tab" aria-controls="seo"><?php $L->p('SEO') ?></a>
+			<a class="nav-link" id="nav-seo-tab" data-bs-toggle="tab" href="#nav-seo" role="tab" aria-controls="seo"><?php $L->p('SEO') ?></a>
 		</div>
 	</nav>
 
-	<div class="tab-content pr-3 pl-3 pb-3">
+	<div class="tab-content pe-3 ps-3 pb-3">
 		<div id="nav-general" class="tab-pane fade show active" role="tabpanel" aria-labelledby="general-tab">
 			<?php
 			// Category
@@ -218,7 +218,7 @@ echo Bootstrap::formInputHidden(array(
 					var parent = $("#jsparent").select2({
 						placeholder: "",
 						allowClear: true,
-						theme: "bootstrap4",
+						theme: "bootstrap-5",
 						minimumInputLength: 2,
 						ajax: {
 							url: HTML_PATH_ADMIN_ROOT + "ajax/get-published",
@@ -239,7 +239,7 @@ echo Bootstrap::formInputHidden(array(
 						templateResult: function(data) {
 							var html = data.text
 							if (data.type == "static") {
-								html += '<span class="badge badge-pill badge-light">' + data.type + '</span>';
+								html += '<span class="badge rounded-pill text-bg-light">' + data.type + '</span>';
 							}
 							return html;
 						}
@@ -447,8 +447,8 @@ foreach ($customFields as $field => $options) {
 				<p><?php $L->p('Are you sure you want to delete this page') ?></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-link" data-dismiss="modal"><?php $L->p('Cancel') ?></button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal" id="jsbuttonDeleteAccept"><?php $L->p('Delete') ?></button>
+				<button type="button" class="btn btn-link" data-bs-dismiss="modal"><?php $L->p('Cancel') ?></button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="jsbuttonDeleteAccept"><?php $L->p('Delete') ?></button>
 			</div>
 		</div>
 	</div>

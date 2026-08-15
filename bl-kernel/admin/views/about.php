@@ -3,7 +3,7 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info-circle'));
 
 echo '
-<table class="table table-striped mt-3">
+<table class="table mt-3">
 	<tbody>
 ';
 

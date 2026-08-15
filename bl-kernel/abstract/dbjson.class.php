@@ -18,24 +18,24 @@ class dbJSON {
 
 		if (file_exists($file)) {
 			// Read JSON file
-			$lines = file($file);
+			$data = file_get_contents($file);
 
-			// Remove the first line, the first line is for security reasons
-			if ($firstLine) {
-				unset($lines[0]);
-			}
+			if ($data !== false) {
+				// Remove the first line, the first line is for security reasons
+				if ($firstLine) {
+					$newlinePos = strpos($data, "\n");
+					$data = ($newlinePos === false) ? '' : substr($data, $newlinePos + 1);
+				}
 
-			// Regenerate the JSON file
-			$implode = implode('', $lines);
-
-			// Unserialize, JSON to Array
-			$array = $this->unserialize($implode);
-			if (empty($array)) {
-				$this->db = array();
-				$this->dbBackup = array();
-			} else {
-				$this->db = $array;
-				$this->dbBackup = $array;
+				// Unserialize, JSON to Array
+				$array = $this->unserialize($data);
+				if (empty($array)) {
+					$this->db = array();
+					$this->dbBackup = array();
+				} else {
+					$this->db = $array;
+					$this->dbBackup = $array;
+				}
 			}
 		}
 	}

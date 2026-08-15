@@ -58,6 +58,7 @@
 	--radius-md: 12px;
 	--radius-lg: 18px;
 	--radius-xl: 22px;
+	--radius-full: 9999px;
 
 	/* Shadows */
 	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -454,7 +455,7 @@ footer.footer a:hover {
 }
 
 .hero-subtitle {
-	color: var(--color-text-secondary);
+	color: var(--color-text-muted);
 	font-size: var(--font-size-lg);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-base);
@@ -664,33 +665,6 @@ article.page {
 	width: 100%;
 	position: absolute;
 	border: none;
-}
-
-/* ==========================================================================
-   Screen reader only - for accessibility
-   ========================================================================== */
-
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border: 0;
-}
-
-.sr-only-focusable:focus {
-	position: static;
-	width: auto;
-	height: auto;
-	padding: inherit;
-	margin: inherit;
-	overflow: visible;
-	clip: auto;
-	white-space: normal;
 }
 
 /* ==========================================================================

@@ -12,7 +12,8 @@
 
 	<!-- CSS -->
 	<?php
-		echo Theme::cssBootstrap();
+		// Admin uses Bootstrap 5, while the public-facing themes still ship with Bootstrap 4.
+		echo Theme::css('bootstrap5.min.css', DOMAIN_CORE_CSS);
 		echo Theme::cssLineAwesome();
 		echo Theme::css(array(
 			'bludit.css',
@@ -21,14 +22,15 @@
 		echo Theme::css(array(
 			'jquery.datetimepicker.min.css',
 			'select2.min.css',
-			'select2-bootstrap4.min.css'
+			'select2-bootstrap5.min.css'
 		), DOMAIN_CORE_CSS);
 	?>
 
 	<!-- Javascript -->
 	<?php
 		echo Theme::jquery();
-		echo Theme::jsBootstrap();
+		// Admin uses Bootstrap 5, while the public-facing themes still ship with Bootstrap 4.
+		echo Theme::js('bootstrap5.bundle.min.js', DOMAIN_CORE_JS);
 		echo Theme::jsSortable();
 		echo Theme::js(array(
 			'jquery.datetimepicker.full.min.js',

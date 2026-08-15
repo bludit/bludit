@@ -1,10 +1,23 @@
 a {
 	color: var(--primary-blue, #1e88e5);
+	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
 a:hover {
 	color: var(--primary-blue-dark, #1565c0);
+	text-decoration: underline;
+}
+
+/* Components that already signal interactivity on their own (nav, dropdowns,
+   buttons, pagination, list groups) shouldn't also gain an underline. */
+.nav-link:hover,
+.dropdown-item:hover,
+.btn:hover,
+.page-link:hover,
+.list-group-item:hover,
+.link-icon,
+.link-icon:hover {
 	text-decoration: none;
 }
 
@@ -112,13 +125,18 @@ a.text-danger:hover {
 }
 
 /* Form */
-.form-control {
+.form-control,
+.form-select {
 	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	padding: 12px 16px;
 	border: 2px solid var(--border-color, #e2e8f0);
 	border-radius: var(--radius-sm, 4px);
 	transition: all 0.2s ease;
+}
+
+.form-select {
+	padding-right: 2.25rem;
 }
 
 label {
@@ -149,7 +167,7 @@ label {
 	background-color: var(--bg-warm, #faf8f5);
 }
 
-.table-striped tbody tr:hover {
+.table tbody tr:hover {
 	background-color: var(--bg-warm-card, #f7f5f2);
 }
 
@@ -166,6 +184,8 @@ label {
 	font-size: var(--font-size-base, 0.945rem);
 	font-weight: var(--font-weight-normal, 450);
 	vertical-align: middle;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
 /* Headings */
@@ -182,14 +202,38 @@ h4 { font-size: var(--font-size-lg, 1.08rem); }
 h5 { font-size: var(--font-size-base, 0.945rem); }
 h6 { font-size: var(--font-size-sm, 0.925rem); }
 
+/* Tabs */
+.nav-tabs {
+	border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.nav-tabs .nav-link {
+	border: none;
+	border-radius: 0;
+	margin-bottom: -1px;
+	padding: 10px 16px;
+	color: var(--text-secondary, #475569);
+	font-weight: var(--font-weight-medium, 550);
+	background: none;
+}
+
+.nav-tabs .nav-link:hover {
+	border: none;
+	color: var(--primary-blue, #0078D4);
+}
+
+.nav-tabs .nav-link.active {
+	background: none;
+	border: none;
+	border-bottom: 2px solid var(--primary-blue, #0078D4);
+	color: var(--primary-blue, #0078D4);
+	font-weight: var(--font-weight-semibold, 650);
+}
+
 /* Badge */
 .badge {
 	font-size: var(--font-size-xs, 0.8rem);
 	font-weight: var(--font-weight-semibold, 650);
 	padding: 6px 12px;
 	border-radius: var(--radius-sm, 4px);
-}
-
-.badge-primary {
-	background: var(--primary-blue, #0078D4);
 }
