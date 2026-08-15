@@ -246,6 +246,27 @@ function pluginActivated($pluginClassName)
   return false;
 }
 
+// Installs a plugin and logs/alerts on success. Used both for direct activation
+// and to restore a plugin without re-running activatePlugin()'s mutual-exclusion logic.
+function installPlugin($plugin)
+{
+  global $syslog;
+  global $L;
+
+  if ($plugin->install()) {
+    // Add to syslog
+    $syslog->add(array(
+      'dictionaryKey' => 'plugin-activated',
+      'notes' => $plugin->name()
+    ));
+
+    // Create an alert
+    Alert::set($L->g('plugin-activated'));
+    return true;
+  }
+  return false;
+}
+
 function activatePlugin($pluginClassName)
 {
   global $plugins;
@@ -273,22 +294,18 @@ function activatePlugin($pluginClassName)
       }
     }
 
-    if (!$deactivationFailed && $plugin->install()) {
-      // Add to syslog
-      $syslog->add(array(
-        'dictionaryKey' => 'plugin-activated',
-        'notes' => $plugin->name()
-      ));
-
-      // Create an alert
-      Alert::set($L->g('plugin-activated'));
+    if (!$deactivationFailed && installPlugin($plugin)) {
       return true;
     }
 
     // Activation failed, or a sibling editor could not be deactivated: restore
-    // any editor(s) deactivated above so the site isn't left without an active editor
+    // any editor(s) deactivated above so the site isn't left without an active editor.
+    // Restore directly, without going through activatePlugin(), so the mutual-exclusion
+    // loop above doesn't re-run and deactivate an editor that was already restored.
     foreach ($deactivatedEditors as $deactivatedClassName) {
-      activatePlugin($deactivatedClassName);
+      if (isset($plugins['all'][$deactivatedClassName])) {
+        installPlugin($plugins['all'][$deactivatedClassName]);
+      }
     }
   }
   return false;
