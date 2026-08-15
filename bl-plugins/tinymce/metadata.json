@@ -6,5 +6,6 @@
 	"releaseDate": "2026-01-14",
 	"license": "GPL 2.0+",
 	"compatible": "4.0",
+	"type": "editor",
 	"notes": ""
 }

@@ -246,6 +246,27 @@ function pluginActivated($pluginClassName)
   return false;
 }
 
+// Installs a plugin and logs/alerts on success. Used both for direct activation
+// and to restore a plugin without re-running activatePlugin()'s mutual-exclusion logic.
+function installPlugin($plugin)
+{
+  global $syslog;
+  global $L;
+
+  if ($plugin->install()) {
+    // Add to syslog
+    $syslog->add(array(
+      'dictionaryKey' => 'plugin-activated',
+      'notes' => $plugin->name()
+    ));
+
+    // Create an alert
+    Alert::set($L->g('plugin-activated'));
+    return true;
+  }
+  return false;
+}
+
 function activatePlugin($pluginClassName)
 {
   global $plugins;
@@ -255,16 +276,36 @@ function activatePlugin($pluginClassName)
   // Check if the plugin exists
   if (isset($plugins['all'][$pluginClassName])) {
     $plugin = $plugins['all'][$pluginClassName];
-    if ($plugin->install()) {
-      // Add to syslog
-      $syslog->add(array(
-        'dictionaryKey' => 'plugin-activated',
-        'notes' => $plugin->name()
-      ));
 
-      // Create an alert
-      Alert::set($L->g('plugin-activated'));
+    // Only one content-editor plugin can be active at a time: they all bind to
+    // the same #jseditor textarea and the same global JS functions.
+    $deactivatedEditors = array();
+    $deactivationFailed = false;
+    if ($plugin->type() == 'editor') {
+      foreach ($plugins['all'] as $className => $otherPlugin) {
+        if ($className !== $pluginClassName && $otherPlugin->type() == 'editor' && $otherPlugin->installed()) {
+          if (deactivatePlugin($className)) {
+            $deactivatedEditors[] = $className;
+          } else {
+            $deactivationFailed = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!$deactivationFailed && installPlugin($plugin)) {
       return true;
+    }
+
+    // Activation failed, or a sibling editor could not be deactivated: restore
+    // any editor(s) deactivated above so the site isn't left without an active editor.
+    // Restore directly, without going through activatePlugin(), so the mutual-exclusion
+    // loop above doesn't re-run and deactivate an editor that was already restored.
+    foreach ($deactivatedEditors as $deactivatedClassName) {
+      if (isset($plugins['all'][$deactivatedClassName])) {
+        installPlugin($plugins['all'][$deactivatedClassName]);
+      }
     }
   }
   return false;
