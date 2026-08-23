@@ -238,6 +238,37 @@ class Theme
 		}
 	}
 
+	// Executes the plugins hooked on $type and allows them to cancel the operation.
+	// Unlike Theme::plugins() the returned value of the plugin is not printed, it defines what happens next:
+	// - FALSE, the operation is cancelled and a generic reason is returned
+	// - a non empty string, the operation is cancelled and the string is returned as the reason
+	// - anything else, the operation continues with the next plugin
+	// Returns TRUE when every plugin allows the operation, otherwise the reason (string).
+	// The first plugin cancelling the operation stops the chain, the remaining plugins are not executed.
+	public static function pluginsVeto($type, $args = array())
+	{
+		global $plugins;
+		global $L;
+
+		if (empty($plugins[$type])) {
+			return true;
+		}
+
+		foreach ($plugins[$type] as $plugin) {
+			$returnValue = call_user_func_array(array($plugin, $type), $args);
+
+			if ($returnValue === false) {
+				return $L->g('The operation was cancelled by a plugin');
+			}
+
+			if (is_string($returnValue) && Text::isNotEmpty(trim($returnValue))) {
+				return $returnValue;
+			}
+		}
+
+		return true;
+	}
+
 	public static function favicon($file = 'favicon.png', $typeIcon = 'image/png')
 	{
 		return '<link rel="icon" href="' . DOMAIN_THEME . $file . '" type="' . $typeIcon . '">' . PHP_EOL;
