@@ -60,7 +60,7 @@
 
 		<?php
 			if (!empty($plugins['adminSidebar'])) {
-				echo '<li class="nav-item"><hr></li>';
+				echo '<li class="nav-item mt-3"><h4>' . $L->g('plugins') . '</h4></li>';
 				foreach ($plugins['adminSidebar'] as $pluginSidebar) {
 					echo '<li class="nav-item">';
 					echo $pluginSidebar->adminSidebar();
