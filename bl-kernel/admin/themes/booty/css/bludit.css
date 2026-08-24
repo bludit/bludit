@@ -830,14 +830,14 @@ select:focus,
 
 /* Highlight the table row pointed by the URL anchor, e.g. after activating a plugin */
 .table > tbody > tr:target > td {
-	animation: rowHighlight 2.5s ease-out forwards;
+	animation: row-highlight 2.5s ease-out forwards;
 }
 
 .table > tbody > tr:target {
 	scroll-margin-top: 20px;
 }
 
-@keyframes rowHighlight {
+@keyframes row-highlight {
 	0%, 40% {
 		box-shadow: inset 0 0 0 9999px rgba(22, 163, 74, 0.18);
 	}
