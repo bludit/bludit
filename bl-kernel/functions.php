@@ -418,15 +418,6 @@ function createPage($args)
   global $syslog;
   global $L;
 
-  // Check if the autosave page exists for this new page and delete it
-  if (isset($args['uuid'])) {
-    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
-    if (!empty($autosaveKey)) {
-      Log::set('Function createPage()' . LOG_SEP . 'Autosave deleted for ' . $args['title'], LOG_TYPE_INFO);
-      deletePage($autosaveKey, false);
-    }
-  }
-
   // The user is always the one logged
   $args['username'] = Session::get('username');
   if (empty($args['username'])) {
@@ -435,8 +426,19 @@ function createPage($args)
   }
 
   // Call the plugins before the page is created, the plugins can cancel the operation
+  // This is checked before deleting the autosave page, when the operation is cancelled
+  // the content is not stored and the autosave page is the only copy the user has left
   if (!pluginsAllowOperation('beforePageCreate', array($args))) {
     return false;
+  }
+
+  // Check if the autosave page exists for this new page and delete it
+  if (isset($args['uuid'])) {
+    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
+    if (!empty($autosaveKey)) {
+      Log::set('Function createPage()' . LOG_SEP . 'Autosave deleted for ' . $args['title'], LOG_TYPE_INFO);
+      deletePage($autosaveKey, false);
+    }
   }
 
   $key = $pages->add($args);
@@ -469,15 +471,6 @@ function editPage($args)
   global $pages;
   global $syslog;
 
-  // Check if the autosave/preview page exists for this new page and delete it
-  if (isset($args['uuid'])) {
-    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
-    if ($autosaveKey) {
-      Log::set('Function editPage()' . LOG_SEP . 'Autosave/Preview deleted for ' . $autosaveKey, LOG_TYPE_INFO);
-      deletePage($autosaveKey, false);
-    }
-  }
-
   // Check if the key is not empty
   if (empty($args['key'])) {
     Log::set('Function editPage()' . LOG_SEP . 'Empty key.', LOG_TYPE_ERROR);
@@ -491,8 +484,19 @@ function editPage($args)
   }
 
   // Call the plugins before the page is modified, the plugins can cancel the operation
+  // This is checked before deleting the autosave/preview page, when the operation is
+  // cancelled the changes are not stored and the autosave page keeps the work of the user
   if (!pluginsAllowOperation('beforePageModify', array($args))) {
     return false;
+  }
+
+  // Check if the autosave/preview page exists for this new page and delete it
+  if (isset($args['uuid'])) {
+    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
+    if ($autosaveKey) {
+      Log::set('Function editPage()' . LOG_SEP . 'Autosave/Preview deleted for ' . $autosaveKey, LOG_TYPE_INFO);
+      deletePage($autosaveKey, false);
+    }
   }
 
   $key = $pages->edit($args);
