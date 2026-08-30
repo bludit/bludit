@@ -381,9 +381,14 @@ function changePluginsPosition($pluginClassList)
 /*
 	Executes the plugins hooked on $hook and checks if they allow the operation to continue
 
+	(string) $hook, name of the hook to execute, one of the hooks before*
+	(array)  $args, arguments passed to the plugins
+
 	Returns TRUE when the operation is allowed, otherwise FALSE.
 	When a plugin cancels the operation the reason is logged and, if there is a session
 	running, an alert is set so the user knows why the operation did not complete.
+	The reason is also available via Theme::lastVetoReason() for the callers without a
+	session, such as the API, which need to return the reason to the client.
 */
 function pluginsAllowOperation($hook, $args = array())
 {
@@ -392,15 +397,12 @@ function pluginsAllowOperation($hook, $args = array())
     return true;
   }
 
-  // The reason comes from a plugin, the alert is printed inside a Javascript string,
-  // remove the tags and the line breaks before escaping the special characters
-  $reason = trim(preg_replace('/\s+/', ' ', Sanitize::removeTags($veto)));
-  $reason = Sanitize::html($reason);
+  Log::set('Hook ' . $hook . LOG_SEP . 'Operation cancelled: ' . $veto, LOG_TYPE_INFO);
 
-  Log::set('Hook ' . $hook . LOG_SEP . 'The operation was cancelled by a plugin: ' . $reason, LOG_TYPE_INFO);
-
+  // The reason comes from a plugin and the alert is printed inside a Javascript string,
+  // escape the special characters before setting the alert
   if (Session::started()) {
-    Alert::set($reason, ALERT_STATUS_FAIL);
+    Alert::set(Sanitize::html($veto), ALERT_STATUS_FAIL);
   }
 
   return false;
@@ -466,6 +468,14 @@ function createPage($args)
   return false;
 }
 
+/*
+	Edit an existing page
+
+	The array $args support all the keys from variable $dbFields of the class pages.class.php
+	plus the key of the page to edit, the keys not passed keep their current value
+
+	Returns the key of the page edited, FALSE when the page is not edited
+*/
 function editPage($args)
 {
   global $pages;
