@@ -59,9 +59,22 @@ class Plugin
 		$this->filenameDb = PATH_PLUGINS_DATABASES . $this->directoryName . DS . 'db.php';
 
 		// --- Metadata ---
+		// The metadata is read defensively, a plugin with a missing or invalid
+		// metadata.json must not break the whole site, the plugin is loaded with
+		// empty metadata and it's discarded later by buildPlugins()
 		$this->filenameMetadata = PATH_PLUGINS . $this->directoryName() . DS . 'metadata.json';
-		$metadataString = file_get_contents($this->filenameMetadata);
-		$this->metadata = json_decode($metadataString, true);
+		$this->metadata = array();
+		if (file_exists($this->filenameMetadata)) {
+			$metadataString = file_get_contents($this->filenameMetadata);
+			$metadata = json_decode($metadataString, true);
+			if (is_array($metadata)) {
+				$this->metadata = $metadata;
+			} else {
+				Log::set('Plugin ' . $this->directoryName . LOG_SEP . 'The file metadata.json is not a valid JSON.', LOG_TYPE_ERROR);
+			}
+		} else {
+			Log::set('Plugin ' . $this->directoryName . LOG_SEP . 'The file metadata.json is missing.', LOG_TYPE_ERROR);
+		}
 
 		// If the plugin is installed then get the database
 		if ($this->installed()) {
@@ -203,10 +216,17 @@ class Plugin
 
 	public function isCompatible()
 	{
+		$compatible = $this->getMetadata('compatible');
+		if (empty($compatible)) {
+			return false;
+		}
+
 		$bluditRoot = explode('.', BLUDIT_VERSION);
-		$compatible = explode(',', $this->getMetadata('compatible'));
-		foreach ($compatible as $version) {
-			$root = explode('.', $version);
+		foreach (explode(',', $compatible) as $version) {
+			$root = explode('.', trim($version));
+			if (count($root) < 2) {
+				continue;
+			}
 			if ($root[0] == $bluditRoot[0] && $root[1] == $bluditRoot[1]) {
 				return true;
 			}
