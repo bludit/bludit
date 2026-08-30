@@ -70,6 +70,10 @@ class Pages extends dbJSON
 					global $site;
 					$customFields = $site->customFields();
 					foreach ($args['custom'] as $customField => $customValue) {
+						// Ignore the fields not defined on the settings of the site
+						if (!isset($customFields[$customField]['type'])) {
+							continue;
+						}
 						$html = Sanitize::html($customValue);
 						// Store the custom field as defined type
 						settype($html, $customFields[$customField]['type']);
@@ -190,6 +194,10 @@ class Pages extends dbJSON
 					global $site;
 					$customFields = $site->customFields();
 					foreach ($args['custom'] as $customField => $customValue) {
+						// Ignore the fields not defined on the settings of the site
+						if (!isset($customFields[$customField]['type'])) {
+							continue;
+						}
 						$html = Sanitize::html($customValue);
 						// Store the custom field as defined type
 						settype($html, $customFields[$customField]['type']);
