@@ -238,6 +238,66 @@ class Theme
 		}
 	}
 
+	// Reason of the last operation cancelled by a plugin, FALSE when the last operation was allowed
+	private static $lastVetoReason = false;
+
+	// Executes the plugins hooked on $type and allows them to cancel the operation.
+	// Unlike Theme::plugins() the returned value of the plugin is not printed, it defines what happens next:
+	// - FALSE, the operation is cancelled and a generic reason is returned
+	// - a non empty string, the operation is cancelled and the string is returned as the reason
+	// - anything else, the operation continues with the next plugin
+	// Returns TRUE when every plugin allows the operation, otherwise the reason (string).
+	// The first plugin cancelling the operation stops the chain, the remaining plugins are not executed.
+	// When a plugin throws the error is logged and the operation is cancelled, a hook which decides
+	// if the content can be written is not allowed to fail open.
+	// The reason is plain text, the tags and the line breaks are removed, but it is not escaped,
+	// escape it according to the context where it is printed.
+	public static function pluginsVeto($type, $args = array())
+	{
+		global $plugins;
+		global $L;
+
+		self::$lastVetoReason = false;
+
+		if (empty($plugins[$type])) {
+			return true;
+		}
+
+		foreach ($plugins[$type] as $plugin) {
+			try {
+				$returnValue = call_user_func_array(array($plugin, $type), $args);
+			} catch (Throwable $e) {
+				Log::set('Hook ' . $type . LOG_SEP . 'The plugin ' . $plugin->className() . ' failed: ' . $e->getMessage(), LOG_TYPE_ERROR);
+				return self::setVetoReason($L->g('The operation was cancelled by a plugin'));
+			}
+
+			if ($returnValue === false) {
+				return self::setVetoReason($L->g('The operation was cancelled by a plugin'));
+			}
+
+			if (is_string($returnValue) && Text::isNotEmpty(trim($returnValue))) {
+				return self::setVetoReason($returnValue);
+			}
+		}
+
+		return true;
+	}
+
+	// Returns the reason of the last operation cancelled by a plugin, FALSE when the last
+	// operation was allowed. The reason is plain text and it is not escaped.
+	public static function lastVetoReason()
+	{
+		return self::$lastVetoReason;
+	}
+
+	// Cleans the reason returned by a plugin and stores it, returns the reason
+	private static function setVetoReason($reason)
+	{
+		$reason = trim(preg_replace('/\s+/', ' ', Sanitize::removeTags($reason)));
+		self::$lastVetoReason = $reason;
+		return $reason;
+	}
+
 	public static function favicon($file = 'favicon.png', $typeIcon = 'image/png')
 	{
 		return '<link rel="icon" href="' . DOMAIN_THEME . $file . '" type="' . $typeIcon . '">' . PHP_EOL;

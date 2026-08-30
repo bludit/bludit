@@ -507,6 +507,16 @@ class pluginAPI extends Plugin
 		// This function is defined on functions.php
 		$key = createPage($args);
 		if ($key === false) {
+			// A plugin hooked on beforePageCreate cancelled the operation, this is not a bad request
+			$vetoReason = Theme::lastVetoReason();
+			if ($vetoReason !== false) {
+				$this->setStatus(409);
+				return array(
+					'status' => '1',
+					'message' => $vetoReason
+				);
+			}
+
 			$this->setStatus(400);
 			return array(
 				'status' => '1',
@@ -549,6 +559,16 @@ class pluginAPI extends Plugin
 		$newKey = editPage($args);
 
 		if ($newKey === false) {
+			// A plugin hooked on beforePageModify cancelled the operation, this is not a bad request
+			$vetoReason = Theme::lastVetoReason();
+			if ($vetoReason !== false) {
+				$this->setStatus(409);
+				return array(
+					'status' => '1',
+					'message' => $vetoReason
+				);
+			}
+
 			$this->setStatus(400);
 			return array(
 				'status' => '1',
@@ -590,6 +610,16 @@ class pluginAPI extends Plugin
 			return array(
 				'status' => '0',
 				'message' => 'Page deleted.'
+			);
+		}
+
+		// A plugin hooked on beforePageDelete cancelled the operation, this is not a server error
+		$vetoReason = Theme::lastVetoReason();
+		if ($vetoReason !== false) {
+			$this->setStatus(409);
+			return array(
+				'status' => '1',
+				'message' => $vetoReason
 			);
 		}
 
