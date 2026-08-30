@@ -34,7 +34,8 @@ class pluginAPI extends Plugin
 
 		$this->dbFields = array(
 			'token' => $token,	// API Token
-			'numberOfItems' => 15	// Amount of items to return
+			'numberOfItems' => 15,	// Amount of items to return
+			'allowedOrigins' => '*'	// Comma separated list of origins allowed by CORS, * allows any origin
 		);
 	}
 
@@ -68,6 +69,12 @@ class pluginAPI extends Plugin
 		$html .= '<span class="tip">' . $L->get('This is the maximum of pages to return when you call to') . '</span>';
 		$html .= '</div>';
 
+		$html .= '<div>';
+		$html .= '<label>' . $L->get('Allowed origins') . '</label>';
+		$html .= '<input name="allowedOrigins" type="text" dir="auto" value="' . $this->getValue('allowedOrigins') . '">';
+		$html .= '<span class="tip">' . $L->get('Comma separated list of origins allowed to call the API from a browser') . '</span>';
+		$html .= '</div>';
+
 		return $html;
 	}
 
@@ -96,12 +103,19 @@ class pluginAPI extends Plugin
 		// ------------------------------------------------------------
 		$method = $this->getMethod();
 
+		// CORS PREFLIGHT
+		// ------------------------------------------------------------
+		// The preflight request never carries credentials, it must be answered
+		// before any token check
+		if ($method === 'OPTIONS') {
+			$this->preflightResponse();
+		}
+
 		// METHOD INPUTS
 		// ------------------------------------------------------------
+		// Inputs are optional, the credentials can travel on the headers and
+		// most of the endpoints take all their parameters from the URI
 		$inputs = $this->getMethodInputs();
-		if (empty($inputs)) {
-			$this->response(400, 'Bad Request', array('message' => 'Missing method inputs.'));
-		}
 
 		// ENDPOINT PARAMETERS
 		// ------------------------------------------------------------
@@ -115,23 +129,30 @@ class pluginAPI extends Plugin
 		// Token from the plugin, the user can change it on the settings of the plugin
 		$tokenAPI = $this->getValue('token');
 
+		// The token is taken from the Authorization header and falls back to
+		// the "token" input, which is deprecated
+		$providedToken = $this->getRequestToken($inputs);
+
 		// Check empty token
-		if (empty($inputs['token'])) {
-			$this->response(400, 'Bad Request', array('message' => 'Missing API token.'));
+		if (empty($providedToken)) {
+			$this->response(401, 'Unauthorized', array('message' => 'Missing API token.'));
 		}
 
 		// Check if the token is valid
-		if ($inputs['token'] !== $tokenAPI) {
+		if (!hash_equals((string) $tokenAPI, (string) $providedToken)) {
 			$this->response(401, 'Unauthorized', array('message' => 'Invalid API token.'));
 		}
 
 		// AUTHENTICATION TOKEN
 		// ------------------------------------------------------------
+		// The token is taken from the X-Auth-Token header and falls back to
+		// the "authentication" input, which is deprecated
+		$authentication = $this->getRequestAuthentication($inputs);
 		$writePermissions = false;
-		if (!empty($inputs['authentication'])) {
+		if (!empty($authentication)) {
 
 			// Get the user with the authentication token, FALSE if it doesn't exist
-			$username = $users->getByAuthToken($inputs['authentication']);
+			$username = $users->getByAuthToken($authentication);
 			if ($username !== false) {
 				try {
 					$user = new User($username);
@@ -286,6 +307,110 @@ class pluginAPI extends Plugin
 		return true;
 	}
 
+	// Returns the value of a request header, empty string when it's not present
+	private function getRequestHeader($header)
+	{
+		$key = 'HTTP_' . strtoupper(str_replace('-', '_', $header));
+		if (!empty($_SERVER[$key])) {
+			return trim($_SERVER[$key]);
+		}
+
+		// Some CGI/FastCGI setups move the Authorization header out of the way
+		if (!empty($_SERVER['REDIRECT_' . $key])) {
+			return trim($_SERVER['REDIRECT_' . $key]);
+		}
+
+		return '';
+	}
+
+	// Returns the API token sent by the client
+	// Order: Authorization: Bearer <token>, then the deprecated "token" input
+	private function getRequestToken($inputs)
+	{
+		$authorization = $this->getRequestHeader('Authorization');
+		if (!empty($authorization)) {
+			$matches = array();
+			if (preg_match('/^Bearer\s+(.+)$/i', $authorization, $matches)) {
+				return trim($matches[1]);
+			}
+		}
+
+		if (!empty($inputs['token'])) {
+			return $inputs['token'];
+		}
+
+		return '';
+	}
+
+	// Returns the user authentication token sent by the client
+	// Order: X-Auth-Token, then the deprecated "authentication" input
+	private function getRequestAuthentication($inputs)
+	{
+		$header = $this->getRequestHeader('X-Auth-Token');
+		if (!empty($header)) {
+			return $header;
+		}
+
+		if (!empty($inputs['authentication'])) {
+			return $inputs['authentication'];
+		}
+
+		return '';
+	}
+
+	// Returns the value for the Access-Control-Allow-Origin header,
+	// FALSE when the origin of the request is not allowed
+	private function getAllowedOrigin()
+	{
+		$allowedOrigins = trim($this->getValue('allowedOrigins', false));
+
+		// Any origin is allowed
+		if (($allowedOrigins === '') || ($allowedOrigins === '*')) {
+			return '*';
+		}
+
+		$origin = $this->getRequestHeader('Origin');
+		if (empty($origin)) {
+			return false;
+		}
+
+		foreach (explode(',', $allowedOrigins) as $allowedOrigin) {
+			if (strcasecmp(trim($allowedOrigin), $origin) === 0) {
+				return $origin;
+			}
+		}
+
+		return false;
+	}
+
+	// Sends the CORS headers, when the origin is not allowed no header is sent
+	// and the browser blocks the response
+	private function sendCorsHeaders()
+	{
+		$origin = $this->getAllowedOrigin();
+		if ($origin === false) {
+			header('Vary: Origin');
+			return;
+		}
+
+		header('Access-Control-Allow-Origin: ' . $origin);
+		if ($origin !== '*') {
+			// The response changes with the origin, it must not be cached for all of them
+			header('Vary: Origin');
+		}
+	}
+
+	// Answers the CORS preflight request, the body is always empty
+	private function preflightResponse()
+	{
+		header('HTTP/1.1 204 No Content');
+		$this->sendCorsHeaders();
+		header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+		header('Access-Control-Allow-Headers: Authorization, Content-Type, X-Auth-Token');
+		header('Access-Control-Max-Age: 86400');
+		exit();
+	}
+
 	private function getMethod()
 	{
 		// METHODS
@@ -368,7 +493,10 @@ class pluginAPI extends Plugin
 	private function response($code = 200, $message = 'OK', $data = array())
 	{
 		header('HTTP/1.1 ' . $code . ' ' . $message);
-		header('Access-Control-Allow-Origin: *');
+		$this->sendCorsHeaders();
+		if ($code === 401) {
+			header('WWW-Authenticate: Bearer realm="Bludit API"');
+		}
 		header('Content-Type: application/json');
 		$json = json_encode($data);
 		exit($json);
