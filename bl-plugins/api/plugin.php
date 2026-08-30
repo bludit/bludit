@@ -227,11 +227,11 @@ class pluginAPI extends Plugin
 			$data = $this->deleteCategory($categoryKey);
 		}
 		// (GET) /api/users
-		elseif (($method === 'GET') && ($parameters[0] === 'users') && empty($parameters[1])) {
+		elseif (($method === 'GET') && ($parameters[0] === 'users') && empty($parameters[1]) && $writePermissions) {
 			$data = $this->getUsers();
 		}
 		// (GET) /api/users/<username>
-		elseif (($method === 'GET') && ($parameters[0] === 'users') && !empty($parameters[1])) {
+		elseif (($method === 'GET') && ($parameters[0] === 'users') && !empty($parameters[1]) && $writePermissions) {
 			$username = $parameters[1];
 			$data = $this->getUser($username);
 		}
@@ -1172,6 +1172,8 @@ class pluginAPI extends Plugin
 
 	/*
 	 | Returns all files uploaded for a specific page, includes any type of file.
+	 | The files are described by their public URL, the filesystem path of the
+	 | server is never returned.
 	 |
 	 | @return	array
          */
@@ -1180,20 +1182,21 @@ class pluginAPI extends Plugin
 		$chunk = false;
 		$sortByDate = true;
 		$path = PATH_UPLOADS_PAGES . $pageKey . DS;
+		$endpoint = DOMAIN_UPLOADS_PAGES . $pageKey . '/';
 		$listFiles = Filesystem::listFiles($path, '*', '*', $sortByDate, $chunk);
 
 		$files = array();
 		foreach ($listFiles as $file) {
 			$info = array('thumbnail' => '');
-			$info['file'] = $file;
 			$info['filename'] = basename($file);
+			$info['url'] = $endpoint . $info['filename'];
 			$info['mime'] = Filesystem::mimeType($file);
 			$info['size'] = Filesystem::getSize($file);
 
 			// Check if thumbnail exists for the file
 			$thumbnail = $path . 'thumbnails' . DS . $info['filename'];
 			if (Filesystem::fileExists($thumbnail)) {
-				$info['thumbnail'] = $thumbnail;
+				$info['thumbnail'] = $endpoint . 'thumbnails/' . $info['filename'];
 			}
 
 			array_push($files, $info);
@@ -1264,7 +1267,7 @@ class pluginAPI extends Plugin
 				'status' => '0',
 				'message' => 'File uploaded.',
 				'filename' => $filename,
-				'absolutePath' => $absolutePath,
+				'url' => $absoluteURL,
 				'absoluteURL' => $absoluteURL
 			);
 		}
