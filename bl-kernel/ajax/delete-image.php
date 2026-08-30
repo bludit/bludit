@@ -21,7 +21,7 @@ if ($filename===false || $filename==='') {
 }
 
 if ($uuid && IMAGE_RESTRICT) {
-	if (Text::stringContains($uuid, DS, false)) {
+	if (Text::stringContains($uuid, '/', false) || Text::stringContains($uuid, '\\', false)) {
 		ajaxResponse(1, 'Invalid uuid.');
 	}
 	$imagePath = PATH_UPLOADS_PAGES.$uuid.DS;

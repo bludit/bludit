@@ -30,9 +30,14 @@ class Sanitize {
 		return htmlspecialchars_decode($text, $flags);
 	}
 
+	// Validate a file path. With two arguments performs a path-traversal check:
+	// the resolved $path.$file must live inside the resolved $path. With a single
+	// argument no base is supplied, so only the existence of the file is checked
+	// (callers needing traversal protection must pass the base directory as $path
+	// and the untrusted segment as $file).
 	public static function pathFile($path, $file=false)
 	{
-		if ($file!==false){
+		if ($file!==false) {
 			$fullPath = $path.$file;
 		} else {
 			$fullPath = $path;
@@ -44,12 +49,18 @@ class Sanitize {
 		if (CHECK_SYMBOLIC_LINKS) {
 			$real = realpath($fullPath);
 		} else {
-			$real = file_exists($fullPath)?$fullPath:false;
+			$real = file_exists($fullPath) ? self::normalizePath($fullPath) : false;
 		}
 
 		// If $real is FALSE the file does not exist.
 		if ($real===false) {
 			return false;
+		}
+
+		// Without a base directory we cannot validate traversal; existence is all
+		// we can answer.
+		if ($file===false) {
+			return true;
 		}
 
 		// Resolve the base directory to validate against path traversal.
@@ -64,6 +75,24 @@ class Sanitize {
 		}
 
 		return true;
+	}
+
+	// Resolves dot-segments in a path without following symlinks.
+	private static function normalizePath($path)
+	{
+		$path = str_replace('/', DS, $path);
+		$isAbsolute = (strlen($path) > 0 && $path[0] === DS);
+		$parts = explode(DS, $path);
+		$normalized = [];
+		foreach ($parts as $part) {
+			if ($part === '..') {
+				array_pop($normalized);
+			} elseif ($part !== '' && $part !== '.') {
+				$normalized[] = $part;
+			}
+		}
+		$result = implode(DS, $normalized);
+		return $isAbsolute ? DS . $result : $result;
 	}
 
 	// Returns the email without illegal characters.
