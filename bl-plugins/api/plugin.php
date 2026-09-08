@@ -320,6 +320,18 @@ class pluginAPI extends Plugin
 			return trim($_SERVER['REDIRECT_' . $key]);
 		}
 
+		// Apache with mod_php doesn't publish the Authorization header on $_SERVER
+		if (function_exists('apache_request_headers')) {
+			$headers = apache_request_headers();
+			if (is_array($headers)) {
+				foreach ($headers as $name => $value) {
+					if ((strcasecmp($name, $header) === 0) && ($value !== '')) {
+						return trim($value);
+					}
+				}
+			}
+		}
+
 		return '';
 	}
 
@@ -497,6 +509,9 @@ class pluginAPI extends Plugin
 		if ($code === 401) {
 			header('WWW-Authenticate: Bearer realm="Bludit API"');
 		}
+		// The responses are tied to the credentials of the request, they must
+		// never be stored by the browser or by a proxy in between
+		header('Cache-Control: no-store');
 		header('Content-Type: application/json');
 		$json = json_encode($data);
 		exit($json);
