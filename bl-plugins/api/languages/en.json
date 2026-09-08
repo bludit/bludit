@@ -7,5 +7,7 @@
 	"api-token": "API Token",
 	"amount-of-pages": "Amount of pages",
 	"this-is-the-maximum-of-pages-to-return-when-you-call-to": "This is the maximum of pages to return when you call to /api/pages",
-	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "This token is for read only and is regenerated every time you install the plugin"
+	"this-token-is-for-read-only-and-is-regenerated-every-time-you-install-the-plugin": "This token is for read only and is regenerated every time you install the plugin",
+	"allowed-origins": "Allowed origins",
+	"comma-separated-list-of-origins-allowed-to-call-the-api-from-a-browser": "Comma separated list of origins allowed to call the API from a browser, for example https://example.com. Use * to allow any origin"
 }
