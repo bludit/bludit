@@ -1332,14 +1332,17 @@ class pluginAPI extends Plugin
 		foreach ($listFiles as $file) {
 			$info = array('thumbnail' => '');
 			$info['filename'] = basename($file);
-			$info['url'] = $endpoint . $info['filename'];
+			// The listing returns the files on disk, they can be uploaded by FTP
+			// and carry characters such as # or ? that break the URL
+			$encodedFilename = rawurlencode($info['filename']);
+			$info['url'] = $endpoint . $encodedFilename;
 			$info['mime'] = Filesystem::mimeType($file);
 			$info['size'] = Filesystem::getSize($file);
 
 			// Check if thumbnail exists for the file
 			$thumbnail = $path . 'thumbnails' . DS . $info['filename'];
 			if (Filesystem::fileExists($thumbnail)) {
-				$info['thumbnail'] = $endpoint . 'thumbnails/' . $info['filename'];
+				$info['thumbnail'] = $endpoint . 'thumbnails/' . $encodedFilename;
 			}
 
 			array_push($files, $info);
@@ -1410,7 +1413,9 @@ class pluginAPI extends Plugin
 				'status' => '0',
 				'message' => 'File uploaded.',
 				'filename' => $filename,
-				'url' => $absoluteURL,
+				// Same shape as the files listing, the deprecated absoluteURL is
+				// left as it was so the current clients don't change
+				'url' => DOMAIN_UPLOADS_PAGES . $pageKey . '/' . rawurlencode($filename),
 				'absoluteURL' => $absoluteURL
 			);
 		}
