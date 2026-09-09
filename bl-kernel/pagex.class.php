@@ -627,7 +627,11 @@ class Page
 
 		$fields = array();
 		foreach ($custom as $field => $options) {
-			$fields[$field] = isset($options['value']) ? $options['value'] : $options;
+			// Ignore the fields not stored with the expected structure
+			if (!is_array($options) || !array_key_exists('value', $options)) {
+				continue;
+			}
+			$fields[$field] = $options['value'];
 		}
 		return $fields;
 	}

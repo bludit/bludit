@@ -82,6 +82,8 @@ class Pages extends dbJSON
 					unset($args['custom']);
 					continue;
 				}
+				// The page does not have custom fields
+				$finalValue = $value;
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
@@ -206,6 +208,8 @@ class Pages extends dbJSON
 					unset($args['custom']);
 					continue;
 				}
+				// The custom fields are not sent, keep the current ones
+				$finalValue = isset($this->db[$key][$field]) ? $this->db[$key][$field] : $value;
 			} elseif (isset($args[$field])) {
 				// Sanitize if will be stored on database
 				$finalValue = Sanitize::html($args[$field]);
