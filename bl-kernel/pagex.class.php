@@ -290,9 +290,20 @@ class Page
 		$tmp['category'] 	= $this->category();
 		$tmp['uuid'] 		= $this->uuid();
 		$tmp['dateUTC']		= Date::convertToUTC($this->dateRaw(), DB_DATE_FORMAT, DB_DATE_FORMAT);
+		$tmp['dateModified'] 	= $this->dateModified();
+		$tmp['dateModifiedRaw'] = $this->getValue('dateModified');
 		$tmp['permalink'] 	= $this->permalink(true);
 		$tmp['coverImage'] 		= $this->coverImage(true);
 		$tmp['coverImageFilename'] 	= $this->coverImage(false);
+		$tmp['template'] 	= $this->template();
+		$tmp['position'] 	= $this->position();
+		$tmp['allowComments'] 	= $this->allowComments();
+		$tmp['noindex'] 	= $this->noindex();
+		$tmp['nofollow'] 	= $this->nofollow();
+		$tmp['noarchive'] 	= $this->noarchive();
+		$tmp['parent'] 		= $this->parentKey();
+		$tmp['children'] 	= $this->childrenKeys();
+		$tmp['custom'] 		= $this->customFields();
 
 		if ($returnsArray) {
 			return $tmp;
@@ -603,6 +614,26 @@ class Page
 			return $this->vars['custom'][$field]['value'];
 		}
 		return false;
+	}
+
+	// Returns an array with all the custom fields of the page, field => value
+	// Returns an empty array if the page doesn't have custom fields
+	public function customFields()
+	{
+		$custom = $this->getValue('custom');
+		if (!is_array($custom)) {
+			return array();
+		}
+
+		$fields = array();
+		foreach ($custom as $field => $options) {
+			// Ignore the fields not stored with the expected structure
+			if (!is_array($options) || !array_key_exists('value', $options)) {
+				continue;
+			}
+			$fields[$field] = $options['value'];
+		}
+		return $fields;
 	}
 
 	// Returns an array with all pages key related to the page
