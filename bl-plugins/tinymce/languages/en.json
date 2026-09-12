@@ -9,5 +9,6 @@
 	"context-menu": "Context menu",
 	"context-menu-tip": "Empty field to disable the editor’s context menu.",
 	"codesample-languages": "Codesample languages",
-	"codesample-supported-laguages": "Programming languages supported by Prism."
+	"codesample-supported-laguages": "Programming languages supported by Prism.",
+	"sandbox-iframes-exclusions": "Sandbox iframes exclusions"
 }
