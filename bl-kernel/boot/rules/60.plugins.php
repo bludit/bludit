@@ -67,7 +67,14 @@ function buildPlugins()
 	foreach ($list as $pluginPath) {
 		// Check if the directory has the plugin.php
 		if (file_exists($pluginPath.DS.'plugin.php')) {
-			include_once($pluginPath.DS.'plugin.php');
+			// A plugin with a syntax error throws a ParseError, catch it to keep
+			// the site working, otherwise a single broken plugin takes down the
+			// whole site including the admin area
+			try {
+				include_once($pluginPath.DS.'plugin.php');
+			} catch (Throwable $e) {
+				Log::set('Plugin ' . basename($pluginPath) . LOG_SEP . 'The file plugin.php can not be loaded, ' . $e->getMessage(), LOG_TYPE_ERROR);
+			}
 		}
 	}
 
@@ -83,8 +90,24 @@ function buildPlugins()
 			$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.DEFAULT_LANGUAGE_FILE;
 		}
 
-		$database = file_get_contents($languageFilename);
-		$database = json_decode($database, true);
+		// The language file is read defensively, a plugin with a missing or invalid
+		// language file is discarded instead of breaking the whole site
+		$database = false;
+		if (file_exists($languageFilename)) {
+			$database = json_decode(file_get_contents($languageFilename), true);
+		}
+
+		if (!isset($database['plugin-data']['name']) || !isset($database['plugin-data']['description'])) {
+			Log::set('Plugin ' . $Plugin->directoryName() . LOG_SEP . 'The language file is missing or invalid, the plugin is not loaded.', LOG_TYPE_ERROR);
+			continue;
+		}
+
+		// A plugin without metadata.json can not be loaded, the metadata is
+		// read by the Plugin class and it's empty when the file is missing or invalid
+		if (empty($Plugin->metadata)) {
+			Log::set('Plugin ' . $Plugin->directoryName() . LOG_SEP . 'The file metadata.json is missing or invalid, the plugin is not loaded.', LOG_TYPE_ERROR);
+			continue;
+		}
 
 		// Set name and description from the language file
 		$Plugin->setMetadata('name',$database['plugin-data']['name']);
