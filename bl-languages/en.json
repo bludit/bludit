@@ -258,6 +258,7 @@
     "new-content-created": "New content created",
     "content-edited": "Content edited",
     "content-deleted": "Content deleted",
+    "The operation was cancelled by a plugin": "The operation was cancelled by a plugin",
     "undefined": "Undefined",
     "create-new-content-for-your-site": "Create new content for your site",
     "order-items-by": "Order items by",

@@ -379,6 +379,36 @@ function changePluginsPosition($pluginClassList)
 }
 
 /*
+	Executes the plugins hooked on $hook and checks if they allow the operation to continue
+
+	(string) $hook, name of the hook to execute, one of the hooks before*
+	(array)  $args, arguments passed to the plugins
+
+	Returns TRUE when the operation is allowed, otherwise FALSE.
+	When a plugin cancels the operation the reason is logged and, if there is a session
+	running, an alert is set so the user knows why the operation did not complete.
+	The reason is also available via Theme::lastVetoReason() for the callers without a
+	session, such as the API, which need to return the reason to the client.
+*/
+function pluginsAllowOperation($hook, $args = array())
+{
+  $veto = Theme::pluginsVeto($hook, $args);
+  if ($veto === true) {
+    return true;
+  }
+
+  Log::set('Hook ' . $hook . LOG_SEP . 'Operation cancelled: ' . $veto, LOG_TYPE_INFO);
+
+  // The reason comes from a plugin and the alert is printed inside a Javascript string,
+  // escape the special characters before setting the alert
+  if (Session::started()) {
+    Alert::set(Sanitize::html($veto), ALERT_STATUS_FAIL);
+  }
+
+  return false;
+}
+
+/*
 	Create a new page
 
 	The array $args support all the keys from variable $dbFields of the class pages.class.php
@@ -390,20 +420,27 @@ function createPage($args)
   global $syslog;
   global $L;
 
-  // Check if the autosave page exists for this new page and delete it
-  if (isset($args['uuid'])) {
-    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
-    if (!empty($autosaveKey)) {
-      Log::set('Function createPage()' . LOG_SEP . 'Autosave deleted for ' . $args['title'], LOG_TYPE_INFO);
-      deletePage($autosaveKey);
-    }
-  }
-
   // The user is always the one logged
   $args['username'] = Session::get('username');
   if (empty($args['username'])) {
     Log::set('Function createPage()' . LOG_SEP . 'Empty username.', LOG_TYPE_ERROR);
     return false;
+  }
+
+  // Call the plugins before the page is created, the plugins can cancel the operation
+  // This is checked before deleting the autosave page, when the operation is cancelled
+  // the content is not stored and the autosave page is the only copy the user has left
+  if (!pluginsAllowOperation('beforePageCreate', array($args))) {
+    return false;
+  }
+
+  // Check if the autosave page exists for this new page and delete it
+  if (isset($args['uuid'])) {
+    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
+    if (!empty($autosaveKey)) {
+      Log::set('Function createPage()' . LOG_SEP . 'Autosave deleted for ' . $args['title'], LOG_TYPE_INFO);
+      deletePage($autosaveKey, false);
+    }
   }
 
   $key = $pages->add($args);
@@ -425,25 +462,24 @@ function createPage($args)
 
   Log::set('Function createNewPage()' . LOG_SEP . 'Error occurred when trying to create the page', LOG_TYPE_ERROR);
   Log::set('Function createNewPage()' . LOG_SEP . 'Cleaning database...', LOG_TYPE_ERROR);
-  deletePage($key);
+  deletePage($key, false);
   Log::set('Function createNewPage()' . LOG_SEP . 'Cleaning finished...', LOG_TYPE_ERROR);
 
   return false;
 }
 
+/*
+	Edit an existing page
+
+	The array $args support all the keys from variable $dbFields of the class pages.class.php
+	plus the key of the page to edit, the keys not passed keep their current value
+
+	Returns the key of the page edited, FALSE when the page is not edited
+*/
 function editPage($args)
 {
   global $pages;
   global $syslog;
-
-  // Check if the autosave/preview page exists for this new page and delete it
-  if (isset($args['uuid'])) {
-    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
-    if ($autosaveKey) {
-      Log::set('Function editPage()' . LOG_SEP . 'Autosave/Preview deleted for ' . $autosaveKey, LOG_TYPE_INFO);
-      deletePage($autosaveKey);
-    }
-  }
 
   // Check if the key is not empty
   if (empty($args['key'])) {
@@ -455,6 +491,22 @@ function editPage($args)
   if (!$pages->exists($args['key'])) {
     Log::set('Function editPage()' . LOG_SEP . 'Page key does not exist, ' . $args['key'], LOG_TYPE_ERROR);
     return false;
+  }
+
+  // Call the plugins before the page is modified, the plugins can cancel the operation
+  // This is checked before deleting the autosave/preview page, when the operation is
+  // cancelled the changes are not stored and the autosave page keeps the work of the user
+  if (!pluginsAllowOperation('beforePageModify', array($args))) {
+    return false;
+  }
+
+  // Check if the autosave/preview page exists for this new page and delete it
+  if (isset($args['uuid'])) {
+    $autosaveKey = $pages->getByUUID('autosave-' . $args['uuid']);
+    if ($autosaveKey) {
+      Log::set('Function editPage()' . LOG_SEP . 'Autosave/Preview deleted for ' . $autosaveKey, LOG_TYPE_INFO);
+      deletePage($autosaveKey, false);
+    }
   }
 
   $key = $pages->edit($args);
@@ -478,10 +530,23 @@ function editPage($args)
   return false;
 }
 
-function deletePage($key)
+/*
+	Delete a page
+
+	(string)  $key, the key of the page to delete
+	(boolean) $allowVeto, TRUE executes the hook beforePageDelete and the plugins can cancel
+	          the operation, FALSE skips the hook. The internal clean up of autosave pages
+	          calls this function with FALSE, those pages are not content written by the user.
+*/
+function deletePage($key, $allowVeto = true)
 {
   global $pages;
   global $syslog;
+
+  // Call the plugins before the page is deleted, the plugins can cancel the operation
+  if ($allowVeto && !pluginsAllowOperation('beforePageDelete', array($key))) {
+    return false;
+  }
 
   if ($pages->delete($key)) {
     // Call the plugins after page deleted
