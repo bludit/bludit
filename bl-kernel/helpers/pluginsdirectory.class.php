@@ -89,6 +89,11 @@ class PluginsDirectory {
 
 		$plugins = array();
 		foreach ($index['plugins'] as $plugin) {
+			// A plugin with a price is sold by its author and Bludit has no way
+			// to pay for it, the directory lists it for the website only
+			if (isset($plugin['price_in_usd'])) {
+				continue;
+			}
 			if (!isset($plugin['id'], $plugin['name'], $plugin['version'], $plugin['download'], $plugin['sha256'])) {
 				continue;
 			}
@@ -116,6 +121,32 @@ class PluginsDirectory {
 			}
 		}
 		return $compatible;
+	}
+
+	/*
+	| The description of a plugin from the directory in the language of the
+	| admin panel, falling back to English
+	|
+	| @plugin		array	Plugin from the directory
+	|
+	| @return		string
+	*/
+	public static function description($plugin)
+	{
+		global $L;
+
+		if (!isset($plugin['description']) || !is_array($plugin['description'])) {
+			return '';
+		}
+
+		// pt_BR before pt, so a regional translation wins over the generic one
+		$candidates = array($L->currentLanguage(), $L->currentLanguageShortVersion(), 'en');
+		foreach ($candidates as $language) {
+			if (!empty($plugin['description'][$language])) {
+				return $plugin['description'][$language];
+			}
+		}
+		return '';
 	}
 
 	// Returns a plugin from the directory by its id, FALSE when it doesn't exist

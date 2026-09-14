@@ -116,7 +116,7 @@ foreach ($pluginsDirectory as $pluginId => $plugin) {
 	echo '</td>';
 
 	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
-	echo Sanitize::html($plugin['description']);
+	echo Sanitize::html(PluginsDirectory::description($plugin));
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
