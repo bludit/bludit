@@ -77,6 +77,18 @@ class TCP {
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+		// Redirections are required, a release asset on github.com redirects to
+		// objects.githubusercontent.com, but the URL is only checked before the
+		// request so the redirections are limited to https, by default libcurl
+		// also follows http, ftp and ftps
+		if (defined('CURLOPT_REDIR_PROTOCOLS_STR')) {
+			curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'https');
+			curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS_STR, 'https');
+		} elseif (defined('CURLPROTO_HTTPS')) {
+			curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
+			curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS, CURLPROTO_HTTPS);
+		}
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeOut);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Bludit/'.BLUDIT_VERSION);

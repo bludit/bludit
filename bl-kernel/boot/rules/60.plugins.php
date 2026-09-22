@@ -82,7 +82,15 @@ function buildPlugins()
 	$pluginsDeclaredClasess = array_diff(get_declared_classes(), $currentDeclaredClasess);
 
 	foreach ($pluginsDeclaredClasess as $pluginClass) {
-		$Plugin = new $pluginClass;
+		// The constructor calls init() and prepare(), both defined by the plugin,
+		// a throwable from either one takes down the whole site including the
+		// admin area, catch it and discard the plugin instead
+		try {
+			$Plugin = new $pluginClass;
+		} catch (Throwable $e) {
+			Log::set('Plugin ' . $pluginClass . LOG_SEP . 'The plugin can not be initialized, ' . $e->getMessage(), LOG_TYPE_ERROR);
+			continue;
+		}
 
 		// Check if the plugin is translated
 		$languageFilename = PATH_PLUGINS.$Plugin->directoryName().DS.'languages'.DS.$site->language().'.json';

@@ -16,8 +16,9 @@ echo Bootstrap::link(array(
 ));
 
 // Cached list of plugins from the directory, it's used to know if there is a
-// new version of a plugin installed, the directory is never downloaded here
-$pluginsAvailable = (PluginsDirectory::cacheAge() === false) ? array() : PluginsDirectory::getIndex();
+// new version of a plugin installed, the directory is never downloaded here,
+// not even when the cache is expired, only add-plugin downloads it
+$pluginsAvailable = PluginsDirectory::getCachedIndex();
 if ($pluginsAvailable === false) {
 	$pluginsAvailable = array();
 }
@@ -51,7 +52,12 @@ function pluginActions($plugin, $pluginsAvailable) {
 		$html .= '</form>';
 	}
 
-	$html .= '<form method="post" class="d-inline" action="' . HTML_PATH_ADMIN_ROOT . 'delete-plugin' . '" onsubmit="return confirm(\'' . $L->g('Are you sure you want to delete this plugin?') . '\')">';
+	// The text goes inside a javascript string inside an html attribute, a
+	// translation with an apostrophe breaks the handler and the plugin is
+	// deleted without asking, addslashes escapes it for javascript and
+	// Sanitize::html for the attribute
+	$confirmation = Sanitize::html(addslashes($L->g('Are you sure you want to delete this plugin?')));
+	$html .= '<form method="post" class="d-inline" action="' . HTML_PATH_ADMIN_ROOT . 'delete-plugin' . '" onsubmit="return confirm(\'' . $confirmation . '\')">';
 	$html .= '<input type="hidden" name="tokenCSRF" value="' . $security->getTokenCSRF() . '">';
 	$html .= '<input type="hidden" name="pluginId" value="' . $id . '">';
 	$html .= '<button type="submit" class="btn btn-link p-0 border-0 align-baseline text-danger">' . $L->g('Delete') . '</button>';

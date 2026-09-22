@@ -62,6 +62,22 @@ class PluginsDirectory {
 	}
 
 	/*
+	| Returns the list of plugins from the cache, never downloads anything and
+	| never refreshes an expired cache, this is what the pages other than
+	| add-plugin use so a regular page load is always free of network calls
+	|
+	| @return		array|false
+	*/
+	public static function getCachedIndex()
+	{
+		$filename = self::cacheFilename();
+		if (!file_exists($filename)) {
+			return false;
+		}
+		return self::parse(file_get_contents($filename));
+	}
+
+	/*
 	| Parse and validate the index, returns the list of plugins or FALSE when
 	| the content is not a valid index
 	|
@@ -142,7 +158,9 @@ class PluginsDirectory {
 		// pt_BR before pt, so a regional translation wins over the generic one
 		$candidates = array($L->currentLanguage(), $L->currentLanguageShortVersion(), 'en');
 		foreach ($candidates as $language) {
-			if (!empty($plugin['description'][$language])) {
+			// The index is downloaded, a translation that is not a string is
+			// discarded and the next candidate is used
+			if (!empty($plugin['description'][$language]) && is_string($plugin['description'][$language])) {
 				return $plugin['description'][$language];
 			}
 		}
@@ -169,7 +187,9 @@ class PluginsDirectory {
 	*/
 	public static function isCompatible($plugin)
 	{
-		if (empty($plugin['compatible'])) {
+		// The index is downloaded, the field can be anything json_decode()
+		// returns and explode() only takes a string
+		if (empty($plugin['compatible']) || !is_string($plugin['compatible'])) {
 			return false;
 		}
 

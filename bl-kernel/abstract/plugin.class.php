@@ -217,7 +217,10 @@ class Plugin
 	public function isCompatible()
 	{
 		$compatible = $this->getMetadata('compatible');
-		if (empty($compatible)) {
+
+		// metadata.json is written by the plugin author, the field can be
+		// anything json_decode() returns and explode() only takes a string
+		if (empty($compatible) || !is_string($compatible)) {
 			return false;
 		}
 
