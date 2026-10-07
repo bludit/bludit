@@ -245,10 +245,17 @@ class CoreUpdater {
 		if (($parts === false) || empty($parts['scheme']) || empty($parts['host'])) {
 			return false;
 		}
+		$host = Text::lowercase($parts['host']);
+
+		// Testing, remove before merging: a local server to download the zip from
+		if (($parts['scheme'] === 'http') && in_array($host, array('127.0.0.1', 'localhost'), true)) {
+			return true;
+		}
+
 		if ($parts['scheme'] !== 'https') {
 			return false;
 		}
-		return in_array(Text::lowercase($parts['host']), $GLOBALS['CORE_UPDATE_ALLOWED_HOSTS'], true);
+		return in_array($host, $GLOBALS['CORE_UPDATE_ALLOWED_HOSTS'], true);
 	}
 
 	/*
@@ -268,7 +275,15 @@ class CoreUpdater {
 		}
 
 		$zipFile = PATH_TMP . 'core-download-' . uniqid() . '.zip';
-		$bytes = TCP::downloadFile($release['download'], $zipFile, CORE_UPDATE_MAX_ZIP_SIZE, 120);
+
+		// Testing, remove before merging: TCP::downloadFile() only allows https,
+		// a local server for testing is plain http
+		$host = Text::lowercase((string) parse_url($release['download'], PHP_URL_HOST));
+		if (in_array($host, array('127.0.0.1', 'localhost'), true)) {
+			$bytes = @copy($release['download'], $zipFile) ? filesize($zipFile) : false;
+		} else {
+			$bytes = TCP::downloadFile($release['download'], $zipFile, CORE_UPDATE_MAX_ZIP_SIZE, 120);
+		}
 		if ($bytes === false) {
 			return self::fail($L->g('Unable to download the new version of Bludit'), 'Unable to download ' . $release['download']);
 		}
