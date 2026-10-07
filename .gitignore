@@ -39,3 +39,4 @@ analyze-logs.sh
 scripts/*
 logs/*
 dist/
+tools/
