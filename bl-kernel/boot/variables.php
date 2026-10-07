@@ -139,3 +139,25 @@ $GLOBALS['PLUGINS_DOWNLOAD_ALLOWED_HOSTS'] = array(
 	'codeload.github.com',
 	'raw.githubusercontent.com'
 );
+
+// Updates of Bludit, core.json describes the last release of Bludit and it's
+// signed, the signature is verified with this public key before trusting it
+define('CORE_UPDATE_URL', 'https://bludit.com/release/core.json');
+define('CORE_UPDATE_PUBLIC_KEY', 'niZhKjSwwQYmedL+v2SvrNROHyxWn6elld63DcEbEPY=');
+
+// Schema version of core.json supported by this version of Bludit
+define('CORE_UPDATE_SCHEMA', 1);
+
+// Seconds to keep core.json cached before download it again
+define('CORE_UPDATE_CACHE_TTL', 21600); // 6 hours
+
+// Maximum size allowed for the zip file of a release of Bludit
+define('CORE_UPDATE_MAX_ZIP_SIZE', 52428800); // 50 MB
+
+// Maximum size allowed for the content of the zip file of a release, uncompressed
+define('CORE_UPDATE_MAX_UNCOMPRESSED_SIZE', 209715200); // 200 MB
+
+// Hosts allowed to download the releases of Bludit from
+$GLOBALS['CORE_UPDATE_ALLOWED_HOSTS'] = array(
+	'bludit.com'
+);

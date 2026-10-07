@@ -303,66 +303,9 @@ class PluginInstaller {
 	{
 		global $L;
 
-		if (!extension_loaded('zip')) {
-			return self::fail($L->g('The PHP extension zip is required to install plugins'));
-		}
-
-		$zip = new ZipArchive();
-		if ($zip->open($zipFile) !== true) {
-			return self::fail($L->g('The file is not a valid zip file'));
-		}
-
-		// Check every entry BEFORE extracting, ZipArchive::extractTo() does not
-		// protect against path traversal
-		$uncompressed = 0;
-		for ($i = 0; $i < $zip->numFiles; $i++) {
-			$stat = $zip->statIndex($i);
-			if ($stat === false) {
-				$zip->close();
-				return self::fail($L->g('The file is not a valid zip file'));
-			}
-
-			$name = $stat['name'];
-			if ((strpos($name, '..') !== false) ||
-				(strpos($name, '\\') !== false) ||
-				(strpos($name, ':') !== false) ||
-				(substr($name, 0, 1) === '/')) {
-				$zip->close();
-				return self::fail($L->g('The zip file contains invalid file names'), 'Path traversal detected in the zip file, entry ' . $name);
-			}
-
-			// Symbolic links are not allowed, they can point outside bl-plugins
-			// The entry is checked here because ZipArchive does not always
-			// extract a symbolic link as a symbolic link
-			if (self::isSymlinkEntry($zip, $i)) {
-				$zip->close();
-				return self::fail($L->g('The zip file contains symbolic links'), 'Symbolic link detected in the zip file, entry ' . $name);
-			}
-
-			$uncompressed += $stat['size'];
-			if ($uncompressed > PLUGINS_MAX_UNCOMPRESSED_SIZE) {
-				$zip->close();
-				return self::fail($L->g('The content of the zip file is too big'), 'The uncompressed content of the zip file is bigger than the maximum allowed.');
-			}
-		}
-
-		$staging = self::stagingDirectory();
+		$staging = self::extract($zipFile, PLUGINS_MAX_UNCOMPRESSED_SIZE);
 		if ($staging === false) {
-			$zip->close();
-			return self::fail($L->g('Unable to create a temporary directory'), 'Unable to create the staging directory inside ' . PATH_TMP);
-		}
-
-		$extracted = $zip->extractTo($staging);
-		$zip->close();
-		if (!$extracted) {
-			self::cleanUp($staging);
-			return self::fail($L->g('Unable to extract the zip file'));
-		}
-
-		// Symbolic links are not allowed, they can point outside bl-plugins
-		if (self::containsSymlink($staging)) {
-			self::cleanUp($staging);
-			return self::fail($L->g('The zip file contains symbolic links'), 'Symbolic link detected in the zip file.');
+			return false;
 		}
 
 		$root = self::findRoot($staging);
@@ -441,6 +384,88 @@ class PluginInstaller {
 			'id' => $id,
 			'version' => $metadata['version']
 		);
+	}
+
+	/*
+	| Extract a zip file inside a new staging directory in PATH_TMP, every entry
+	| is checked before extracting, path traversal, symbolic links and the size
+	| of the content, it's used by the plugins and by the updates of Bludit
+	|
+	| Returns the absolute path to the staging directory, the caller is
+	| responsible of deleting it
+	|
+	| @zipFile		string	Absolute path to the zip file
+	| @maxUncompressed	int	Maximum amount of bytes of the content
+	|
+	| @return		string|false
+	*/
+	public static function extract($zipFile, $maxUncompressed)
+	{
+		global $L;
+
+		if (!extension_loaded('zip')) {
+			return self::fail($L->g('The PHP extension zip is required to install plugins'));
+		}
+
+		$zip = new ZipArchive();
+		if ($zip->open($zipFile) !== true) {
+			return self::fail($L->g('The file is not a valid zip file'));
+		}
+
+		// Check every entry BEFORE extracting, ZipArchive::extractTo() does not
+		// protect against path traversal
+		$uncompressed = 0;
+		for ($i = 0; $i < $zip->numFiles; $i++) {
+			$stat = $zip->statIndex($i);
+			if ($stat === false) {
+				$zip->close();
+				return self::fail($L->g('The file is not a valid zip file'));
+			}
+
+			$name = $stat['name'];
+			if ((strpos($name, '..') !== false) ||
+				(strpos($name, '\\') !== false) ||
+				(strpos($name, ':') !== false) ||
+				(substr($name, 0, 1) === '/')) {
+				$zip->close();
+				return self::fail($L->g('The zip file contains invalid file names'), 'Path traversal detected in the zip file, entry ' . $name);
+			}
+
+			// Symbolic links are not allowed, they can point outside the directory
+			// The entry is checked here because ZipArchive does not always
+			// extract a symbolic link as a symbolic link
+			if (self::isSymlinkEntry($zip, $i)) {
+				$zip->close();
+				return self::fail($L->g('The zip file contains symbolic links'), 'Symbolic link detected in the zip file, entry ' . $name);
+			}
+
+			$uncompressed += $stat['size'];
+			if ($uncompressed > $maxUncompressed) {
+				$zip->close();
+				return self::fail($L->g('The content of the zip file is too big'), 'The uncompressed content of the zip file is bigger than the maximum allowed.');
+			}
+		}
+
+		$staging = self::stagingDirectory();
+		if ($staging === false) {
+			$zip->close();
+			return self::fail($L->g('Unable to create a temporary directory'), 'Unable to create the staging directory inside ' . PATH_TMP);
+		}
+
+		$extracted = $zip->extractTo($staging);
+		$zip->close();
+		if (!$extracted) {
+			self::cleanUp($staging);
+			return self::fail($L->g('Unable to extract the zip file'));
+		}
+
+		// Symbolic links are not allowed, they can point outside the directory
+		if (self::containsSymlink($staging)) {
+			self::cleanUp($staging);
+			return self::fail($L->g('The zip file contains symbolic links'), 'Symbolic link detected in the zip file.');
+		}
+
+		return $staging;
 	}
 
 	/*

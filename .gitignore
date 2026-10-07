@@ -38,3 +38,4 @@ php85-server.log
 analyze-logs.sh
 scripts/*
 logs/*
+dist/
