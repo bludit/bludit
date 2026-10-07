@@ -143,6 +143,7 @@ $GLOBALS['PLUGINS_DOWNLOAD_ALLOWED_HOSTS'] = array(
 // Updates of Bludit, core.json describes the last release of Bludit and it's
 // signed, the signature is verified with this public key before trusting it
 define('CORE_UPDATE_URL', 'https://bludit.com/release/core.json');
+define('CORE_UPDATE_LOCAL_FILE', '/tmp/core.json'); // Testing, used when CORE_UPDATE_URL is not available
 define('CORE_UPDATE_PUBLIC_KEY', 'niZhKjSwwQYmedL+v2SvrNROHyxWn6elld63DcEbEPY=');
 
 // Schema version of core.json supported by this version of Bludit
