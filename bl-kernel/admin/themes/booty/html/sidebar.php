@@ -71,12 +71,7 @@
 
 	<?php endif; ?>
 
-	<?php if (checkRole(array('admin'),false)): ?>
 	<li class="nav-item" style="margin-top: auto;">
-		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'version' ?>"><span class="fa fa-info-circle"></span><?php $L->p('Version') ?></a>
-	</li>
-	<?php endif; ?>
-	<li class="nav-item"<?php echo (!checkRole(array('admin'),false))?' style="margin-top: auto;"':'' ?>>
 		<a class="nav-link" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$login->username() ?>"><span class="fa fa-user"></span><?php $L->p('Profile') ?></a>
 	</li>
 	<li class="nav-item">
