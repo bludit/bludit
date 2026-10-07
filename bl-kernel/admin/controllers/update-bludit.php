@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		Alert::set($L->g('Bludit has been updated'));
 	}
 
-	Redirect::page('about');
+	Redirect::page('version');
 }
 
 // ============================================================================
 // Main after POST
 // ============================================================================
 
-Redirect::page('about');
+Redirect::page('version');
