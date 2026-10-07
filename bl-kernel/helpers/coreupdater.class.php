@@ -57,13 +57,6 @@ class CoreUpdater {
 			$content = TCP::http(CORE_UPDATE_URL, 'GET', true, 15);
 			$release = self::parse($content);
 
-			// Testing, use a local core.json when the remote one is not available,
-			// the signature is verified the same way
-			if (($release === false) && file_exists(CORE_UPDATE_LOCAL_FILE)) {
-				$content = file_get_contents(CORE_UPDATE_LOCAL_FILE);
-				$release = self::parse($content);
-			}
-
 			if ($release !== false) {
 				file_put_contents($filename, $content, LOCK_EX);
 				return $release;
