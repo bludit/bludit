@@ -87,7 +87,7 @@ if ($login->role() === 'admin') {
 			echo '<p class="text-muted">' . $L->g('The content and the settings are not modified, the previous version is restored if the update fails') . '</p>';
 			$confirmation = Sanitize::html(addslashes(sprintf($L->g('Update Bludit to the version %s?'), $release['version'])));
 			$updating = Sanitize::html(addslashes($L->g('Updating Bludit, this can take a minute, do not close this page')));
-			echo '<form method="post" action="' . HTML_PATH_ADMIN_ROOT . 'update-bludit" onsubmit="if(!confirm(\'' . $confirmation . '\')){return false;} var b=this.querySelector(\'button\'); b.disabled=true; b.innerHTML=\'<span class=&quot;fa fa-spinner fa-spin&quot;></span> ' . $updating . '\'; return true;">';
+			echo '<form method="post" action="' . HTML_PATH_ADMIN_ROOT . 'version" onsubmit="if(!confirm(\'' . $confirmation . '\')){return false;} var b=this.querySelector(\'button\'); b.disabled=true; b.innerHTML=\'<span class=&quot;fa fa-spinner fa-spin&quot;></span> ' . $updating . '\'; return true;">';
 			echo '<input type="hidden" name="tokenCSRF" value="' . $security->getTokenCSRF() . '">';
 			echo '<button type="submit" class="btn btn-primary">' . $L->g('Update') . ' Bludit ' . $newVersion . '</button>';
 			echo '</form>';
