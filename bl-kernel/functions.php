@@ -241,7 +241,8 @@ function pluginActivated($pluginClassName)
   global $plugins;
 
   if (isset($plugins['all'][$pluginClassName])) {
-    return $plugins['all'][$pluginClassName]->installed();
+    $plugin = $plugins['all'][$pluginClassName];
+    return $plugin->installed() && !$plugin->locked();
   }
   return false;
 }
@@ -276,6 +277,11 @@ function activatePlugin($pluginClassName)
   // Check if the plugin exists
   if (isset($plugins['all'][$pluginClassName])) {
     $plugin = $plugins['all'][$pluginClassName];
+
+    if ($plugin->locked()) {
+      Alert::set($L->g('This plugin requires Bludit PRO'), ALERT_STATUS_FAIL);
+      return false;
+    }
 
     // Only one content-editor plugin can be active at a time: they all bind to
     // the same #jseditor textarea and the same global JS functions.

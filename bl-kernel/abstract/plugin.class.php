@@ -242,6 +242,20 @@ class Plugin
 		return $this->directoryName;
 	}
 
+	// Returns TRUE if the plugin is part of Bludit PRO
+	public function pro()
+	{
+		return $this->getMetadata('pro') === true;
+	}
+
+	// Returns TRUE if the plugin is part of Bludit PRO and there is no valid
+	// license, the plugin is listed in the admin panel but it doesn't run, the
+	// database is kept so the settings are back when the license is valid again
+	public function locked()
+	{
+		return $this->pro() && !defined('BLUDIT_PRO');
+	}
+
 	// Return TRUE if the installation success, otherwise FALSE.
 	public function install($position = 1)
 	{

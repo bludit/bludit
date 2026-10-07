@@ -130,12 +130,28 @@ include(PATH_HELPERS . 'plugininstaller.class.php');
  * commercially. It helps me keep the core free for everyone.
  * ---------------------------------------------------------------------------
  */
-define('BLUDIT_PRO_HASH', substr(md5(BLUDIT_BUILD), 0, 8));
-$_bluditProFile = PATH_KERNEL . 'bludit.pro.' . BLUDIT_PRO_HASH . '.php';
-if (file_exists($_bluditProFile)) {
-	include($_bluditProFile);
+// The license is the file bl-content/pro/license.json downloaded from Patreon,
+// the same file for all the patrons of a version, it lives in bl-content so
+// replacing the files of Bludit to update it doesn't remove the license
+// The token changes on every minor version, 4.0, 4.1, ..., the patch versions
+// keep the same token, only the hash of the token is here
+define('BLUDIT_PRO_TOKEN_HASH', 'ad20f6d2a4e6109c9cf71a8314007ddf08bfb2b1766942ca7c7e27cd3a8f6a48');
+define('PATH_PRO_LICENSE', PATH_CONTENT . 'pro' . DS . 'license.json');
+
+if (file_exists(PATH_PRO_LICENSE)) {
+	$_bluditProLicense = json_decode(file_get_contents(PATH_PRO_LICENSE), true);
+	if (isset($_bluditProLicense['token']) && is_string($_bluditProLicense['token'])
+		&& hash_equals(BLUDIT_PRO_TOKEN_HASH, hash('sha256', $_bluditProLicense['token']))) {
+		define('BLUDIT_PRO', true);
+	} else {
+		// There is a license but not for this version, the admin panel shows
+		// the version of the license to ask for the new one
+		$_version = isset($_bluditProLicense['version']) && is_string($_bluditProLicense['version']) ? $_bluditProLicense['version'] : '';
+		define('BLUDIT_PRO_LICENSE_INVALID', $_version);
+		unset($_version);
+	}
+	unset($_bluditProLicense);
 }
-unset($_bluditProFile);
 
 // Objects
 $pages 		= new Pages();

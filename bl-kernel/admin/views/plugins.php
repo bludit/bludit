@@ -15,6 +15,11 @@ echo Bootstrap::link(array(
 	'class' => 'ms-3'
 ));
 
+// There is a license of Bludit PRO but for another version
+if (defined('BLUDIT_PRO_LICENSE_INVALID')) {
+	echo '<div class="alert alert-warning mt-3">' . sprintf($L->g('The Bludit PRO license is not valid for this version'), Sanitize::html(BLUDIT_PRO_LICENSE_INVALID), Sanitize::html(BLUDIT_VERSION)) . '</div>';
+}
+
 // Cached list of plugins from the directory, it's used to know if there is a
 // new version of a plugin installed, the directory is never downloaded here,
 // not even when the cache is expired, only add-plugin downloads it
@@ -162,10 +167,17 @@ foreach ($pluginsNotInstalled as $plugin) {
 	}
 	echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
+	// A locked plugin is part of Bludit PRO and there is no valid license
+	if ($plugin->locked()) {
+		$activate = '<a class="me-3" target="_blank" href="https://pro.bludit.com"><span class="fa fa-lock"></span> ' . $L->g('Requires Bludit PRO') . '</a>';
+	} else {
+		$activate = '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>';
+	}
+
 	echo '<td class="align-middle w-25">
 		<div class="searchText">' . $plugin->name() . '</div>
 		<div class="mt-1">
-			<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>
+			' . $activate . '
 			' . pluginActions($plugin, $pluginsAvailable) . '
 		</div>
 	</td>';
