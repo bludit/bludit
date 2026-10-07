@@ -131,8 +131,9 @@ function buildPlugins()
 		// $plugins['all'] Array with all plugins, installed and not installed
 		$plugins['all'][$pluginClass] = $Plugin;
 
-		// If the plugin is installed insert on the hooks
-		if ($Plugin->installed()) {
+		// If the plugin is installed insert on the hooks, a locked plugin is
+		// never inserted, it's listed in the admin panel only
+		if ($Plugin->installed() && !$Plugin->locked()) {
 			// Include custom hooks
 			if (!empty($Plugin->customHooks)) {
 				foreach ($Plugin->customHooks as $customHook) {
