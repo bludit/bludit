@@ -19,6 +19,13 @@ checkRole(array('admin'));
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	// The version plugin is the only thing allowed to reach out to bludit.com,
+	// refuse the update when it's disabled even if the form was posted directly
+	if (!pluginActivated('pluginVersion')) {
+		Alert::set($L->g('Enable the Version plugin to update Bludit'), ALERT_STATUS_FAIL);
+		Redirect::page('version');
+	}
+
 	// The download and the copy can take longer than the default limit
 	@set_time_limit(300);
 

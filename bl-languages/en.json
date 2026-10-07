@@ -493,5 +493,7 @@
     "a-previous-update-did-not-finish,-check-the-log": "A previous update did not finish, check the log",
     "unable-to-update-bludit": "Unable to update Bludit",
     "the-new-version-of-bludit-did-not-work,-the-previous-version-was-restored": "The new version of Bludit did not work, the previous version was restored",
-    "updating-bludit,-this-can-take-a-minute,-do-not-close-this-page": "Updating Bludit, this can take a minute, do not close this page"
+    "updating-bludit,-this-can-take-a-minute,-do-not-close-this-page": "Updating Bludit, this can take a minute, do not close this page",
+    "enable-the-%s-plugin-to-check-for-updates-of-bludit": "Enable the %s plugin to check for updates of Bludit",
+    "enable-the-version-plugin-to-update-bludit": "Enable the Version plugin to update Bludit"
 }

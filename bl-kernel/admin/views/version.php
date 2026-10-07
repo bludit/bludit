@@ -50,8 +50,15 @@ echo '
 
 // Updates of Bludit, only for administrators, core.json is cached so the page
 // downloads it at most once every CORE_UPDATE_CACHE_TTL
+// The version plugin is the only thing that reaches out to bludit.com, disabling
+// it keeps the site from making that connection at all
 if ($login->role() === 'admin') {
 	echo Bootstrap::formTitle(array('title' => $L->g('Updates')));
+
+	if (!pluginActivated('pluginVersion')) {
+		echo '<p>' . sprintf($L->g('Enable the %s plugin to check for updates of Bludit'), $L->g('Version')) . ' <a href="' . HTML_PATH_ADMIN_ROOT . 'plugins' . '">' . $L->g('Plugins') . '</a></p>';
+		return;
+	}
 
 	$release = CoreUpdater::getRelease();
 	if ($release === false) {
