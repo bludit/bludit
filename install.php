@@ -280,7 +280,7 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'about', 'visits-stats', 'robots', 'canonical', 'alternative');
+	$pluginsToInstall = array('tinymce', 'about', 'visits-stats', 'robots', 'canonical', 'alternative', 'version');
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES . $plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . PATH_PLUGINS_DATABASES . $plugin;
@@ -553,6 +553,19 @@ function install($adminPassword, $timezone)
 			array(
 				'position' => 1,
 				'robotstxt' => 'User-agent: *' . PHP_EOL . 'Allow: /'
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// File plugins/version/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'version' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'showCurrentVersion' => true,
+				'newVersionAlert' => true
 			),
 			JSON_PRETTY_PRINT
 		),
