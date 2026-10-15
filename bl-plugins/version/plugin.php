@@ -37,13 +37,15 @@ class pluginVersion extends Plugin
 	public function adminSidebar()
 	{
 		global $L;
-		$html = '';
-		if ($this->getValue('showCurrentVersion')) {
-			$html = '<a id="current-version" class="current-version nav-link" href="' . HTML_PATH_ADMIN_ROOT . 'version' . '"><span class="fa fa-info-circle"></span> ' . $L->get('Version') . ' ' . (defined('BLUDIT_PRO') ? '<span class="bi-heart" style="color: #ffc107"></span>' : '') . '</a>';
+		if (!$this->getValue('showCurrentVersion')) {
+			return '';
 		}
+
+		$html = '<a id="current-version" class="current-version nav-link" href="' . HTML_PATH_ADMIN_ROOT . 'version' . '"><span class="fa fa-info-circle"></span> ' . $L->get('Version') . ' ' . (defined('BLUDIT_PRO') ? '<span class="bi-heart" style="color: #ffc107"></span>' : '');
 		if ($this->getValue('newVersionAlert')) {
-			$html .= '<a id="new-version" class="new-version" style="display: none;" target="_blank" href="https://www.bludit.com">' . $L->get('New version available') . ' <i class="fa fa-bell text-danger"></i></a>';
+			$html .= ' <span id="new-version-badge" class="badge bg-danger" style="display: none;">' . $L->get('New') . '</span>';
 		}
+		$html .= '</a>';
 		return $html;
 	}
 
