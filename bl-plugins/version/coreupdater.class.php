@@ -23,6 +23,11 @@ class CoreUpdater {
 	// Last error message, to show it to the user
 	public static $error = '';
 
+	// Set to TRUE by swap()/rollback() when an item can't be restored after a
+	// failed update, the site is left in an inconsistent state and needs to be
+	// fixed by hand from the .backup files instead of trusting an automatic retry
+	private static $manualRecoveryNeeded = false;
+
 	// Items always replaced by an update, relative to PATH_ROOT
 	private static $items = array('bl-kernel', 'bl-languages', 'index.php');
 
@@ -240,11 +245,6 @@ class CoreUpdater {
 		}
 		$host = Text::lowercase($parts['host']);
 
-		// Testing, remove before merging: a local server to download the zip from
-		if (($parts['scheme'] === 'http') && in_array($host, array('127.0.0.1', 'localhost'), true)) {
-			return true;
-		}
-
 		if ($parts['scheme'] !== 'https') {
 			return false;
 		}
@@ -269,14 +269,7 @@ class CoreUpdater {
 
 		$zipFile = PATH_TMP . 'core-download-' . uniqid() . '.zip';
 
-		// Testing, remove before merging: TCP::downloadFile() only allows https,
-		// a local server for testing is plain http
-		$host = Text::lowercase((string) parse_url($release['download'], PHP_URL_HOST));
-		if (in_array($host, array('127.0.0.1', 'localhost'), true)) {
-			$bytes = @copy($release['download'], $zipFile) ? filesize($zipFile) : false;
-		} else {
-			$bytes = TCP::downloadFile($release['download'], $zipFile, CORE_UPDATE_MAX_ZIP_SIZE, 120);
-		}
+		$bytes = TCP::downloadFile($release['download'], $zipFile, CORE_UPDATE_MAX_ZIP_SIZE, 120);
 		if ($bytes === false) {
 			return self::fail($L->g('Unable to download the new version of Bludit'), 'Unable to download ' . $release['download']);
 		}
@@ -302,6 +295,31 @@ class CoreUpdater {
 	{
 		global $L;
 		global $syslog;
+
+		// Two requests triggering an update at the same time would share the
+		// same .update/.backup paths, the lock is held until install() returns
+		$lock = @fopen(PATH_TMP . 'core-update.lock', 'c');
+		if (($lock === false) || !flock($lock, LOCK_EX | LOCK_NB)) {
+			if (is_resource($lock)) {
+				fclose($lock);
+			}
+			return self::fail($L->g('Unable to update Bludit'), 'Another update is already in progress.');
+		}
+
+		try {
+			return self::installLocked($zipFile, $version);
+		} finally {
+			flock($lock, LOCK_UN);
+			fclose($lock);
+		}
+	}
+
+	private static function installLocked($zipFile, $version)
+	{
+		global $L;
+		global $syslog;
+
+		self::$manualRecoveryNeeded = false;
 
 		$staging = PluginInstaller::extract($zipFile, CORE_UPDATE_MAX_UNCOMPRESSED_SIZE);
 		if ($staging === false) {
@@ -348,7 +366,7 @@ class CoreUpdater {
 			if (!self::swap($item)) {
 				self::rollback($swapped);
 				self::discard($items);
-				return self::fail($L->g('Unable to update Bludit'), 'Unable to swap ' . $item . ', the previous version was restored.');
+				return self::failSwap($L->g('Unable to update Bludit'), 'Unable to swap ' . $item . '.');
 			}
 			$swapped[] = $item;
 		}
@@ -364,7 +382,7 @@ class CoreUpdater {
 			if (function_exists('opcache_reset')) {
 				@opcache_reset();
 			}
-			return self::fail($L->g('The new version of Bludit did not work, the previous version was restored'), 'The site returned an error after the update to ' . $version . ', the previous version was restored.');
+			return self::failSwap($L->g('The new version of Bludit did not work, the previous version was restored'), 'The site returned an error after the update to ' . $version . '.');
 		}
 
 		foreach ($items as $item) {
@@ -378,6 +396,18 @@ class CoreUpdater {
 		Log::set('CoreUpdater' . LOG_SEP . 'Bludit was updated from ' . BLUDIT_VERSION . ' to ' . $version . '.', LOG_TYPE_INFO);
 
 		return true;
+	}
+
+	// Reports a failed swap, the message depends on whether rollback() was able
+	// to restore every item or the site needs to be fixed by hand
+	private static function failSwap($message, $logMessage)
+	{
+		global $L;
+
+		if (self::$manualRecoveryNeeded) {
+			return self::fail($L->g('Unable to update Bludit, the previous version could not be fully restored, check the .backup files and the log'), $logMessage . ' The previous version could not be fully restored, manual recovery is required.');
+		}
+		return self::fail($message, $logMessage . ' The previous version was restored.');
 	}
 
 	/*
@@ -487,6 +517,8 @@ class CoreUpdater {
 	}
 
 	// Replace the current item with the new one, the current one is kept as backup
+	// Sets $manualRecoveryNeeded to TRUE when the item can't be put back either,
+	// it may be left missing or as the new, unswapped version
 	private static function swap($item)
 	{
 		$current = PATH_ROOT . $item;
@@ -495,23 +527,32 @@ class CoreUpdater {
 		}
 		if (!rename(self::updatePath($item), $current)) {
 			// Put back the current one, the item can't be left missing
-			if (file_exists(self::backupPath($item))) {
-				rename(self::backupPath($item), $current);
+			if (file_exists(self::backupPath($item)) && !rename(self::backupPath($item), $current)) {
+				self::$manualRecoveryNeeded = true;
 			}
 			return false;
 		}
 		return true;
 	}
 
-	// Restore the previous version of the items already swapped
+	/*
+	| Restore the previous version of the items already swapped
+	|
+	| The backup is kept, instead of the current item being removed, when it
+	| can't be restored, that's the only way $manualRecoveryNeeded is set here
+	*/
 	private static function rollback($swapped)
 	{
 		foreach (array_reverse($swapped) as $item) {
 			$current = PATH_ROOT . $item;
 			$backup = self::backupPath($item);
+			if (!file_exists($backup)) {
+				self::$manualRecoveryNeeded = true;
+				continue;
+			}
 			self::remove($current);
-			if (file_exists($backup)) {
-				rename($backup, $current);
+			if (!rename($backup, $current)) {
+				self::$manualRecoveryNeeded = true;
 			}
 		}
 	}
