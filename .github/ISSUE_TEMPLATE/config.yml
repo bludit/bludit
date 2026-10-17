@@ -1,1 +1,12 @@
+# SECURITY.md asks that a vulnerability never be a public issue, so the private
+# route has to be visible in the issue chooser, next to the public templates.
+# Private vulnerability reporting is already enabled for this repository.
+#
+# blank_issues_enabled stays false (existing behaviour): reporters still pick a
+# template or the private security route below.
+
 blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/bludit/bludit/security/advisories/new
+    about: Do not open a public issue. Report it privately here. See SECURITY.md.
