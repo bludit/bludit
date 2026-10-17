@@ -30,6 +30,20 @@ $plugins = array(
 
 	'paginator'=>array(),
 
+	// The hooks before* are executed before the content is written and the plugins
+	// can cancel the operation, the returned value of the plugin defines what happens:
+	// - FALSE, the operation is cancelled and a generic reason is shown to the user
+	// - a non empty string, the operation is cancelled and the string is shown to the user
+	// - anything else, the operation continues
+	// The output of these hooks is not printed, see Theme::pluginsVeto()
+	// beforePageCreate and beforePageModify receive the array with the fields of the page,
+	// beforePageDelete receives the key of the page.
+	// The autosave pages deleted internally when the user saves the content do not execute
+	// beforePageDelete, those pages are not content written by the user.
+	'beforePageCreate'=>array(),
+	'beforePageModify'=>array(),
+	'beforePageDelete'=>array(),
+
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
 	'afterPageDelete'=>array(),
