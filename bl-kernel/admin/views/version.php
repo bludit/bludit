@@ -1,6 +1,6 @@
 <?php
 
-echo Bootstrap::pageTitle(array('title'=>$L->g('About'), 'icon'=>'info-circle'));
+echo Bootstrap::pageTitle(array('title'=>$L->g('Version'), 'icon'=>'info-circle'));
 
 echo '
 <table class="table mt-3">
@@ -47,3 +47,16 @@ echo '
 	</tbody>
 </table>
 ';
+
+// Updates of Bludit, only for administrators
+// The version plugin is the only thing that reaches out to bludit.com, disabling
+// it keeps the site from making that connection at all
+if ($login->role() === 'admin') {
+	echo Bootstrap::formTitle(array('title' => $L->g('Updates')));
+
+	if (pluginActivated('pluginVersion')) {
+		echo getPlugin('pluginVersion')->renderUpdates();
+	} else {
+		echo '<p>' . sprintf($L->g('Enable the %s plugin to check for updates of Bludit'), $L->g('Version')) . ' <a href="' . HTML_PATH_ADMIN_ROOT . 'plugins' . '">' . $L->g('Plugins') . '</a></p>';
+	}
+}

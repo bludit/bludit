@@ -12,8 +12,7 @@ function getLatestVersion() {
 
 			// Constant BLUDIT_BUILD is defined on variables.js
 			if (json.stable.build > BLUDIT_BUILD) {
-				$(".current-version").hide();
-				$(".new-version").show();
+				$("#new-version-badge").show();
 			}
 		},
 		error: function(json) {
