@@ -120,7 +120,7 @@
 		$jsonLd['keywords'] = implode(', ', array_values($seoTags));
 	}
 	if ($page->readingTime()) {
-		$jsonLd['timeRequired'] = 'PT' . intval($page->readingTime()) . 'M';
+		$jsonLd['timeRequired'] = 'PT' . max(1, intval($page->readingTime())) . 'M';
 	}
 	echo json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 ?>
