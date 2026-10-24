@@ -531,8 +531,8 @@ class Page
 		global $L;
 
 		$words = $this->content(true);
-        $words = html_entity_decode($words, ENT_QUOTES | ENT_HTML5, CHARSET);
 		$words = strip_tags($words);
+		$words = html_entity_decode($words, ENT_QUOTES | ENT_HTML5, CHARSET);
 		$words = str_word_count($words);
 		$average = $words / 200;
 		$minutes = round($average);
