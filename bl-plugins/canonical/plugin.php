@@ -6,48 +6,36 @@ class pluginCanonical extends Plugin {
 	{
 		global $url;
 		global $page;
+		global $site;
 		global $WHERE_AM_I;
 
 		$html = '';
 		$canonical = '';
+		$listing = false;
 
 		switch ($WHERE_AM_I) {
 			case 'home':
-				// Handle pagination on homepage
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical = DOMAIN_BASE . 'page/' . $pageNumber . '/';
-				} else {
+				// A static homepage is served at /. Its listing lives on the blog filter.
+				if ($site->homepage()) {
 					$canonical = DOMAIN_BASE;
+					break;
 				}
+				$listing = true;
+				$canonical = $this->listingUrl($url->pageNumber());
+				break;
+
+			case 'blog':
+			case 'tag':
+			case 'category':
+				$listing = true;
+				$canonical = $this->listingUrl($url->pageNumber());
 				break;
 
 			case 'page':
-				$canonical = $page->permalink($absolute = true);
-				break;
-
-			case 'category':
-				// Category pages
-				$categoryKey = $url->slug();
-				$canonical = DOMAIN_CATEGORIES . $categoryKey . '/';
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical .= 'page/' . $pageNumber . '/';
-				}
-				break;
-
-			case 'tag':
-				// Tag pages
-				$tagKey = $url->slug();
-				$canonical = DOMAIN_TAGS . $tagKey . '/';
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical .= 'page/' . $pageNumber . '/';
-				}
+				$canonical = $page->permalink(true);
 				break;
 
 			default:
-				// For any other page type, use current URI
 				$canonical = DOMAIN_BASE . ltrim($url->uri(), '/');
 				break;
 		}
@@ -55,33 +43,27 @@ class pluginCanonical extends Plugin {
 		if (!empty($canonical)) {
 			$html .= '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 
-			// Add prev/next for paginated content (helps search engines)
-			$pageNumber = $url->pageNumber();
-			if ($pageNumber > 1) {
-				// Previous page
-				if ($pageNumber === 2) {
-					$prevUrl = preg_replace('/page\/\d+\/?$/', '', $canonical);
-				} else {
-					$prevUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber - 1) . '/', $canonical);
+			// Same href as the theme pager. Do not invent /page/N/.
+			if ($listing) {
+				if (Paginator::showPrev()) {
+					$html .= '<link rel="prev" href="' . htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 				}
-				$html .= '<link rel="prev" href="' . htmlspecialchars($prevUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
-			}
-
-			// Next page (only if more content exists)
-			// This requires checking if there's a next page of content
-			global $content;
-			global $site;
-			if (isset($content) && is_array($content) && count($content) >= $site->itemsPerPage()) {
-				$nextUrl = preg_replace('/page\/\d+\/?$/', '', $canonical);
-				if ($pageNumber < 1) {
-					$nextUrl .= 'page/2/';
-				} else {
-					$nextUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber + 1) . '/', $canonical);
+				if (Paginator::showNext()) {
+					$html .= '<link rel="next" href="' . htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 				}
-				$html .= '<link rel="next" href="' . htmlspecialchars($nextUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 			}
 		}
 
 		return $html;
+	}
+
+	// Page 1 has no query. Later pages use Paginator::numberUrl(), which is ?page=N.
+	private function listingUrl($pageNumber)
+	{
+		$pageNumber = (int) $pageNumber;
+		if ($pageNumber > 1) {
+			return Paginator::numberUrl($pageNumber);
+		}
+		return preg_replace('/\?page=1$/', '', Paginator::numberUrl(1));
 	}
 }
