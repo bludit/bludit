@@ -2,7 +2,7 @@
 <ul class="nav flex-column pt-4">
 
 	<li class="nav-item mb-4" style="display: flex; align-items: center;">
-		<div style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--text-primary); border-radius: 8px; box-shadow: var(--shadow-sm); flex-shrink: 0;">
+		<div style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--bg-brand); border-radius: 8px; box-shadow: var(--shadow-sm); flex-shrink: 0;">
 			<img src="<?php echo HTML_PATH_CORE_IMG ?>logo.svg" width="18" height="18" alt="bludit-logo" style="filter: brightness(0) invert(1);">
 		</div>
 		<span style="margin-left: 10px; font-weight: 600; font-size: 1rem; color: var(--text-primary); line-height: 1;"><?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
