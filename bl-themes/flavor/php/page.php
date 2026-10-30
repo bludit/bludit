@@ -47,6 +47,18 @@
 	</div>
 	<?php endif ?>
 
+	<?php if ($page->isChild() && !$url->notFound()): ?>
+	<!-- Link back to the parent page -->
+	<?php try { $parentPage = new Page($page->parentKey()); } catch (Exception $e) { $parentPage = false; } ?>
+	<?php if ($parentPage): ?>
+	<p class="mb-6 text-sm">
+		<a href="<?php echo $parentPage->permalink(); ?>" class="inline-flex items-center font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
+			&larr; <?php echo $parentPage->title(); ?>
+		</a>
+	</p>
+	<?php endif; ?>
+	<?php endif; ?>
+
 	<!-- Title -->
 	<h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
 		<?php echo $page->title(); ?>
@@ -55,7 +67,7 @@
 	<!-- Cover image -->
 	<?php if ($page->coverImage()): ?>
 	<figure class="mb-8 rounded-lg overflow-hidden">
-		<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
+		<img class="w-full aspect-[1200/630] object-cover" width="1200" height="630" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
 	</figure>
 	<?php endif ?>
 
@@ -63,6 +75,36 @@
 	<div class="prose-content text-gray-700 dark:text-gray-300 leading-relaxed">
 		<?php echo $page->content(); ?>
 	</div>
+
+	<!-- Child pages, sorted by position -->
+	<?php
+		$childPages = array();
+		if ($page->isParent() && !$url->notFound()) {
+			foreach ($page->children() as $child) {
+				if ($child->published() || $child->isStatic()) {
+					$childPages[] = $child;
+				}
+			}
+			usort($childPages, function ($a, $b) { return $a->position() <=> $b->position(); });
+		}
+	?>
+	<?php if (!empty($childPages)): ?>
+	<nav class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800" aria-label="<?php echo $L->get('In this section'); ?>">
+		<h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4"><?php echo $L->get('In this section'); ?></h2>
+		<ul class="divide-y divide-gray-200 dark:divide-gray-800 list-none p-0 m-0">
+			<?php foreach ($childPages as $child): ?>
+			<li class="py-3">
+				<a href="<?php echo $child->permalink(); ?>" class="font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
+					<?php echo $child->title(); ?>
+				</a>
+				<?php if ($child->description()): ?>
+				<p class="mt-1 mb-0 text-sm text-gray-500 dark:text-gray-400"><?php echo $child->description(); ?></p>
+				<?php endif; ?>
+			</li>
+			<?php endforeach; ?>
+		</ul>
+	</nav>
+	<?php endif; ?>
 
 	<!-- Tags and Category -->
 	<?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>

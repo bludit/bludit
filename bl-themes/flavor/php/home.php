@@ -1,3 +1,24 @@
+<?php
+	$listingTitle = '';
+	if ($WHERE_AM_I === 'tag') {
+		try { $listingTitle = $L->get('Tag') . ': ' . (new Tag($url->slug()))->name(); } catch (Exception $e) {}
+	} elseif ($WHERE_AM_I === 'category') {
+		try { $listingTitle = $L->get('Category') . ': ' . (new Category($url->slug()))->name(); } catch (Exception $e) {}
+	}
+?>
+<?php if ($listingTitle) : ?>
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white pb-6 border-b border-gray-200 dark:border-gray-800"><?php echo $listingTitle; ?></h1>
+<?php elseif ($WHERE_AM_I === 'home' && $url->pageNumber() === 1 && ($site->slogan() || $site->description())) : ?>
+<section class="pb-8 border-b border-gray-200 dark:border-gray-800">
+	<?php if ($site->slogan()) : ?>
+	<h1 class="text-3xl font-bold text-gray-900 dark:text-white leading-tight"><?php echo $site->slogan(); ?></h1>
+	<?php endif ?>
+	<?php if ($site->description()) : ?>
+	<p class="mt-3 text-lg text-gray-600 dark:text-gray-300"><?php echo $site->description(); ?></p>
+	<?php endif ?>
+</section>
+<?php endif ?>
+
 <?php if (empty($content)) : ?>
 	<p class="text-gray-500 dark:text-gray-400 mt-8"><?php $language->p('No pages found') ?></p>
 <?php endif ?>
@@ -12,7 +33,7 @@
 		<!-- Cover image -->
 		<?php if ($page->coverImage()) : ?>
 		<div class="mb-4 rounded-lg overflow-hidden">
-			<img class="w-full h-auto" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
+			<img class="w-full aspect-[1200/630] object-cover" width="1200" height="630" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
 		</div>
 		<?php endif ?>
 

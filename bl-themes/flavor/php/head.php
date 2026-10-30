@@ -8,13 +8,6 @@
 <!-- Dynamic description tag -->
 <?php echo Theme::metaTags('description'); ?>
 
-<!-- Canonical URL -->
-<?php if ($WHERE_AM_I === 'page'): ?>
-<link rel="canonical" href="<?php echo $page->permalink(); ?>">
-<?php else: ?>
-<link rel="canonical" href="<?php echo Theme::siteUrl(); ?>">
-<?php endif; ?>
-
 <!-- Robots meta -->
 <?php if ($WHERE_AM_I === 'page'): ?>
 <?php
@@ -177,28 +170,8 @@
 <!-- Include Favicon -->
 <?php echo Theme::favicon('img/favicon.png'); ?>
 
-<!-- Tailwind CSS v4 via CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<style type="text/tailwindcss">
-@theme {
-	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-	--color-accent-50: #ecfdf5;
-	--color-accent-100: #d1fae5;
-	--color-accent-200: #a7f3d0;
-	--color-accent-300: #6ee7b7;
-	--color-accent-400: #34d399;
-	--color-accent-500: #10b981;
-	--color-accent-600: #059669;
-	--color-accent-700: #047857;
-	--color-accent-800: #065f46;
-	--color-accent-900: #064e3b;
-}
-</style>
-
-<!-- Google Fonts: Inter -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Precompiled Tailwind CSS (see src/input.css) -->
+<?php echo Theme::css('css/tailwind.css'); ?>
 
 <!-- Include CSS Styles from this theme -->
 <?php echo Theme::css('css/style.css'); ?>
