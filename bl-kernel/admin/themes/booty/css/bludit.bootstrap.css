@@ -30,11 +30,11 @@ a:hover {
 }
 
 .text-danger {
-	color: #D40000!important;
+	color: var(--text-danger, #D40000)!important;
 }
 a.text-danger:focus,
 a.text-danger:hover {
-	color: #790000!important;
+	color: var(--text-danger-hover, #790000)!important;
 }
 
 /* Buttons */
