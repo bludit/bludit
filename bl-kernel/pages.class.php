@@ -45,6 +45,13 @@ class Pages extends dbJSON
 		return false;
 	}
 
+	// Returns TRUE if the page is visible for the visitors
+	public function isPublic($key)
+	{
+		$page = $this->getPageDB($key);
+		return $page !== false && in_array($page['type'], array('published', 'static', 'sticky'));
+	}
+
 	// Return TRUE if the page exists, FALSE otherwise
 	public function exists($key)
 	{
