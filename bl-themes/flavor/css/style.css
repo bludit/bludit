@@ -1,15 +1,13 @@
 /* Flavor Theme - Custom Styles */
 
-/* Base font */
-body {
-	font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
-
 /* Prose content styles for article body */
 .prose-content h1 { font-size: 2rem; font-weight: 700; margin: 1.5em 0 0.5em; line-height: 1.3; }
 .prose-content h2 { font-size: 1.5rem; font-weight: 600; margin: 1.5em 0 0.5em; line-height: 1.3; }
 .prose-content h3 { font-size: 1.25rem; font-weight: 600; margin: 1.25em 0 0.5em; line-height: 1.4; }
+.prose-content h5, .prose-content h6 { font-size: 1rem; font-weight: 600; margin: 1em 0 0.5em; line-height: 1.4; }
 .prose-content h4 { font-size: 1.125rem; font-weight: 600; margin: 1em 0 0.5em; line-height: 1.4; }
+
+.prose-content { overflow-wrap: anywhere; }
 
 .prose-content p { margin: 1em 0; }
 
@@ -29,6 +27,18 @@ body {
 	margin: 1em 0;
 	padding-left: 1.5em;
 }
+.prose-content ul { list-style: disc; }
+.prose-content ul ul { list-style: circle; }
+.prose-content ul ul ul { list-style: square; }
+.prose-content ol:not([type]) { list-style: decimal; }
+.prose-content ol:not([type]) ol:not([type]) { list-style: lower-alpha; }
+.prose-content ol[type="1"] { list-style-type: decimal; }
+.prose-content ol[type="a"] { list-style-type: lower-alpha; }
+.prose-content ol[type="A"] { list-style-type: upper-alpha; }
+.prose-content ol[type="i"] { list-style-type: lower-roman; }
+.prose-content ol[type="I"] { list-style-type: upper-roman; }
+.prose-content li > ul,
+.prose-content li > ol { margin: 0.25em 0; }
 .prose-content li { margin: 0.25em 0; }
 
 .prose-content blockquote {
@@ -71,6 +81,8 @@ body {
 }
 
 .prose-content table {
+	display: block;
+	overflow-x: auto;
 	width: 100%;
 	border-collapse: collapse;
 	margin: 1.5em 0;
@@ -92,11 +104,31 @@ body {
 	margin: 2em 0;
 }
 
+
+.prose-content figcaption { font-size: 0.875rem; color: #6b7280; text-align: center; margin-top: -0.75em; }
+
+.prose-content details { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 0.5em 1em; margin: 1.5em 0; }
+.prose-content summary { cursor: pointer; font-weight: 600; }
+
+.prose-content kbd {
+	font-size: 0.8em;
+	border: 1px solid #d1d5db;
+	border-bottom-width: 2px;
+	border-radius: 0.25rem;
+	padding: 0.1em 0.4em;
+	background: #f9fafb;
+}
+
+.prose-content strong { font-weight: 600; }
+
 /* Dark mode prose overrides */
 @media (prefers-color-scheme: dark) {
+	.prose-content details { border-color: #374151; }
+	.prose-content kbd { background: #1f2937; border-color: #4b5563; }
 	.prose-content code {
 		background: #374151;
 	}
+	.prose-content hr { border-top-color: #374151; }
 	.prose-content blockquote {
 		color: #9ca3af;
 	}
