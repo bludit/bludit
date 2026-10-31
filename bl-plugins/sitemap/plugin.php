@@ -19,15 +19,6 @@ class pluginSitemap extends Plugin {
 		return $html;
 	}
 
-	// Percent-encode non-ASCII characters and escape the URL for XML
-	private function encodeURL($url)
-	{
-		$url = preg_replace_callback('/[^\x20-\x7f]/', function ($match) {
-			return urlencode($match[0]);
-		}, $url);
-		return htmlspecialchars($url, ENT_XML1 | ENT_QUOTES, CHARSET);
-	}
-
 	private function createXML()
 	{
 		global $site;
@@ -37,7 +28,7 @@ class pluginSitemap extends Plugin {
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 		$xml .= '<url>';
-		$xml .= '<loc>'.$this->encodeURL($site->url()).'</loc>';
+		$xml .= '<loc>'.Text::encodeURL($site->url()).'</loc>';
 		$xml .= '</url>';
 
 		$list = $pages->getList($pageNumber=1, $numberOfItems=-1, $published=true, $static=true, $sticky=true, $draft=false, $scheduled=false);
@@ -51,7 +42,7 @@ class pluginSitemap extends Plugin {
 						$lastmod = $page->date(SITEMAP_DATE_FORMAT);
 					}
 					$xml .= '<url>';
-					$xml .= '<loc>'.$this->encodeURL($page->permalink()).'</loc>';
+					$xml .= '<loc>'.Text::encodeURL($page->permalink()).'</loc>';
 					$xml .= '<lastmod>'.$lastmod.'</lastmod>';
 					$xml .= '</url>';
 				}
@@ -97,7 +88,7 @@ class pluginSitemap extends Plugin {
 		$webhook = 'sitemap.xml';
 		if( $this->webhook($webhook) ) {
 			$sitemapFile = $this->workspace().'sitemap.xml';
-			if (!file_exists($sitemapFile)) {
+			if (!Filesystem::fileExists($sitemapFile)) {
 				$this->createXML();
 			}
 
