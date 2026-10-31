@@ -239,13 +239,7 @@ class Text {
 	// Returns the portion of string specified by the start and length parameters.
 	public static function cut($string, $start, $length)
 	{
-		$cut = mb_substr($string, $start, $length, CHARSET);
-
-		if(empty($cut)) {
-			return '';
-		}
-
-		return $cut;
+		return mb_substr($string, $start, $length, CHARSET);
 	}
 
 	public static function removeHTMLTags($string)
