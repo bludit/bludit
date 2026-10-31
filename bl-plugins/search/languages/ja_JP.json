@@ -18,6 +18,5 @@
     "highlight-search-terms-in-results": "検索結果の検索語をハイライトする",
     "show-result-count": "検索結果数を表示する",
     "search-in-tags": "タグ内を検索する",
-    "search-in-categories": "カテゴリー内を検索する",
-    "excerpt-length-(characters)": "抜粋の長さ（文字数）"
+    "search-in-categories": "カテゴリー内を検索する"
 }

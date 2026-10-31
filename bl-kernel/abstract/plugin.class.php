@@ -93,7 +93,7 @@ class Plugin
 
 	public function includeCSS($filename)
 	{
-		return '<link rel="stylesheet" type="text/css" href="' . $this->domainPath() . 'css/' . $filename . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" href="' . $this->domainPath() . 'css/' . $filename . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public function includeJS($filename)

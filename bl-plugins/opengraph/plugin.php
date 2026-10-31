@@ -54,6 +54,17 @@ class pluginOpenGraph extends Plugin
 		return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 	}
 
+	// Returns the first language_TERRITORY value from the site locale list
+	private function locale()
+	{
+		global $site;
+
+		if (preg_match('/[a-z]{2,3}_[A-Z]{2}/', $site->locale(), $match)) {
+			return $match[0];
+		}
+		return '';
+	}
+
 	public function siteHead()
 	{
 		global $url;
@@ -62,8 +73,12 @@ class pluginOpenGraph extends Plugin
 		global $page;
 		global $content;
 
+		if ($url->notFound()) {
+			return '';
+		}
+
 		$og = array(
-			'locale'	=> $site->locale(),
+			'locale'	=> $this->locale(),
 			'type'		=> 'website',
 			'title'		=> $this->sanitize($site->title()),
 			'description'	=> $this->sanitize($site->description(), 200),
@@ -71,8 +86,7 @@ class pluginOpenGraph extends Plugin
 			'image'		=> '',
 			'siteName'	=> $this->sanitize($site->title()),
 			'publishedTime'	=> '',
-			'modifiedTime'	=> '',
-			'author'	=> ''
+			'modifiedTime'	=> ''
 		);
 
 		switch ($WHERE_AM_I) {
@@ -83,7 +97,7 @@ class pluginOpenGraph extends Plugin
 				// Get description: use page description or fallback to content excerpt
 				$description = $page->description();
 				if (empty($description)) {
-					$description = Text::truncate(strip_tags($page->contentRaw()), 160);
+					$description = Text::truncate(strip_tags($page->content()), 160);
 				}
 				$og['description'] = $this->sanitize($description, 200);
 
@@ -96,7 +110,6 @@ class pluginOpenGraph extends Plugin
 				if (!empty($dateModified)) {
 					$og['modifiedTime'] = $dateModified;
 				}
-				$og['author'] = $this->sanitize($page->user('nickname'));
 
 				$pageContent = $page->content();
 				break;
@@ -113,12 +126,14 @@ class pluginOpenGraph extends Plugin
 		}
 
 		// Build HTML output
-		$html  = PHP_EOL . '<!-- Open Graph -->' . PHP_EOL;
-		$html .= '<meta property="og:locale" content="' . $og['locale'] . '">' . PHP_EOL;
+		$html = '';
+		if (!empty($og['locale'])) {
+			$html .= '<meta property="og:locale" content="' . $og['locale'] . '">' . PHP_EOL;
+		}
 		$html .= '<meta property="og:type" content="' . $og['type'] . '">' . PHP_EOL;
 		$html .= '<meta property="og:title" content="' . $og['title'] . '">' . PHP_EOL;
 		$html .= '<meta property="og:description" content="' . $og['description'] . '">' . PHP_EOL;
-		$html .= '<meta property="og:url" content="' . $og['url'] . '">' . PHP_EOL;
+		$html .= '<meta property="og:url" content="' . $this->sanitize($og['url']) . '">' . PHP_EOL;
 		$html .= '<meta property="og:site_name" content="' . $og['siteName'] . '">' . PHP_EOL;
 
 		// Article-specific tags
@@ -128,9 +143,6 @@ class pluginOpenGraph extends Plugin
 			}
 			if (!empty($og['modifiedTime'])) {
 				$html .= '<meta property="article:modified_time" content="' . $og['modifiedTime'] . '">' . PHP_EOL;
-			}
-			if (!empty($og['author'])) {
-				$html .= '<meta property="article:author" content="' . $og['author'] . '">' . PHP_EOL;
 			}
 		}
 
@@ -145,13 +157,13 @@ class pluginOpenGraph extends Plugin
 		}
 
 		if (!empty($og['image'])) {
-			$html .= '<meta property="og:image" content="' . $og['image'] . '">' . PHP_EOL;
+			$html .= '<meta property="og:image" content="' . $this->sanitize($og['image']) . '">' . PHP_EOL;
 			// Add image alt for accessibility
 			$html .= '<meta property="og:image:alt" content="' . $og['title'] . '">' . PHP_EOL;
 		}
 
 		if (Text::isNotEmpty($this->getValue('fbAppId'))) {
-			$html .= '<meta property="fb:app_id" content="' . $this->getValue('fbAppId') . '">' . PHP_EOL;
+			$html .= '<meta property="fb:app_id" content="' . $this->sanitize($this->getValue('fbAppId')) . '">' . PHP_EOL;
 		}
 
 		return $html;

@@ -8,18 +8,13 @@ class pluginCanonical extends Plugin {
 		global $page;
 		global $WHERE_AM_I;
 
-		$html = '';
-		$canonical = '';
+		if ($url->notFound()) {
+			return '';
+		}
 
 		switch ($WHERE_AM_I) {
 			case 'home':
-				// Handle pagination on homepage
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical = DOMAIN_BASE . 'page/' . $pageNumber . '/';
-				} else {
-					$canonical = DOMAIN_BASE;
-				}
+				$canonical = DOMAIN_BASE;
 				break;
 
 			case 'page':
@@ -27,61 +22,27 @@ class pluginCanonical extends Plugin {
 				break;
 
 			case 'category':
-				// Category pages
-				$categoryKey = $url->slug();
-				$canonical = DOMAIN_CATEGORIES . $categoryKey . '/';
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical .= 'page/' . $pageNumber . '/';
-				}
+				$canonical = DOMAIN_CATEGORIES . $url->slug();
 				break;
 
 			case 'tag':
-				// Tag pages
-				$tagKey = $url->slug();
-				$canonical = DOMAIN_TAGS . $tagKey . '/';
-				$pageNumber = $url->pageNumber();
-				if ($pageNumber > 1) {
-					$canonical .= 'page/' . $pageNumber . '/';
-				}
+				$canonical = DOMAIN_TAGS . $url->slug();
+				break;
+
+			case 'blog':
+				$canonical = DOMAIN_BASE . ltrim($url->uri(), '/');
 				break;
 
 			default:
-				// For any other page type, use current URI
-				$canonical = DOMAIN_BASE . ltrim($url->uri(), '/');
-				break;
+				return '';
 		}
 
-		if (!empty($canonical)) {
-			$html .= '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
-
-			// Add prev/next for paginated content (helps search engines)
-			$pageNumber = $url->pageNumber();
-			if ($pageNumber > 1) {
-				// Previous page
-				if ($pageNumber === 2) {
-					$prevUrl = preg_replace('/page\/\d+\/?$/', '', $canonical);
-				} else {
-					$prevUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber - 1) . '/', $canonical);
-				}
-				$html .= '<link rel="prev" href="' . htmlspecialchars($prevUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
-			}
-
-			// Next page (only if more content exists)
-			// This requires checking if there's a next page of content
-			global $content;
-			global $site;
-			if (isset($content) && is_array($content) && count($content) >= $site->itemsPerPage()) {
-				$nextUrl = preg_replace('/page\/\d+\/?$/', '', $canonical);
-				if ($pageNumber < 1) {
-					$nextUrl .= 'page/2/';
-				} else {
-					$nextUrl = preg_replace('/page\/\d+\/?$/', 'page/' . ($pageNumber + 1) . '/', $canonical);
-				}
-				$html .= '<link rel="next" href="' . htmlspecialchars($nextUrl, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
-			}
+		// Each page of a listing is its own canonical, using the same URL as the paginator
+		$pageNumber = $url->pageNumber();
+		if ($WHERE_AM_I !== 'page' && $pageNumber > 1) {
+			$canonical = $canonical . '?page=' . $pageNumber;
 		}
 
-		return $html;
+		return '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
 	}
 }

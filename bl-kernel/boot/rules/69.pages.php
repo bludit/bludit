@@ -36,9 +36,12 @@ $staticContent = $staticPages = buildStaticPages();
 // ============================================================================
 
 // Execute the scheduler
-if ($pages->scheduler()) {
+$scheduledKeys = $pages->scheduler();
+if (!empty($scheduledKeys)) {
 	// Execute plugins with the hook afterPageCreate
-	Theme::plugins('afterPageCreate');
+	foreach ($scheduledKeys as $scheduledKey) {
+		Theme::plugins('afterPageCreate', array($scheduledKey));
+	}
 
 	reindexTags();
         reindexCategories();

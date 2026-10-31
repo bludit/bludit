@@ -19,7 +19,7 @@
 </section>
 <?php endif ?>
 
-<?php if (empty($content)) : ?>
+<?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
 	<p class="text-gray-500 dark:text-gray-400 mt-8"><?php $language->p('No pages found') ?></p>
 <?php endif ?>
 
@@ -27,46 +27,38 @@
 	<?php foreach ($content as $page) : ?>
 	<article class="py-8">
 
-		<!-- Load Bludit Plugins: Page Begin -->
 		<?php Theme::plugins('pageBegin'); ?>
 
-		<!-- Cover image -->
 		<?php if ($page->coverImage()) : ?>
 		<div class="mb-4 rounded-lg overflow-hidden">
 			<img class="w-full aspect-[1200/630] object-cover" width="1200" height="630" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" loading="lazy" />
 		</div>
 		<?php endif ?>
 
-		<!-- Date -->
 		<time class="block text-sm text-gray-500 dark:text-gray-400 mb-2" datetime="<?php echo $page->date('c'); ?>">
 			<?php echo $page->date(); ?>
 		</time>
 
-		<!-- Title -->
 		<h2 class="text-2xl font-bold mb-2">
 			<a href="<?php echo $page->permalink(); ?>" class="text-gray-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400 transition-colors no-underline">
 				<?php echo $page->title(); ?>
 			</a>
 		</h2>
 
-		<!-- Reading time -->
 		<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
 			<?php echo $L->get('Reading time') . ': ' . $page->readingTime(); ?>
 		</p>
 
-		<!-- Content excerpt -->
 		<div class="prose-content text-gray-600 dark:text-gray-300 leading-relaxed">
 			<?php echo $page->contentBreak(); ?>
 		</div>
 
-		<!-- Read more -->
 		<?php if ($page->readMore()) : ?>
 		<a href="<?php echo $page->permalink(); ?>" class="inline-flex items-center mt-4 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium text-sm no-underline transition-colors">
 			<?php echo $L->get('Read more'); ?> &rarr;
 		</a>
 		<?php endif ?>
 
-		<!-- Tags and Category -->
 		<?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
 		<?php if (!empty($tagsList) || $categoryKey) : ?>
 		<div class="flex flex-wrap gap-2 mt-4">
@@ -83,14 +75,12 @@
 		</div>
 		<?php endif ?>
 
-		<!-- Load Bludit Plugins: Page End -->
 		<?php Theme::plugins('pageEnd'); ?>
 
 	</article>
 	<?php endforeach ?>
 </div>
 
-<!-- Pagination -->
 <?php if (Paginator::numberOfPages() > 1) : ?>
 <nav class="flex justify-between items-center py-8 border-t border-gray-200 dark:border-gray-800">
 	<div>

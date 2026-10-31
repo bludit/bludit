@@ -18,6 +18,5 @@
     "highlight-search-terms-in-results": "Выделять поисковые запросы в результатах",
     "show-result-count": "Показывать количество результатов",
     "search-in-tags": "Поиск в тегах",
-    "search-in-categories": "Поиск в категориях",
-    "excerpt-length-(characters)": "Длина отрывка (символов)"
+    "search-in-categories": "Поиск в категориях"
 }

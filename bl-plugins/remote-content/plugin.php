@@ -63,8 +63,10 @@ EOF;
 		if ($this->webhook($webhook)) {
 			$this->cleanUp();
 
-			// Download files
-			$this->downloadFiles();
+			// Download files, the current content is kept if this fails
+			if (!$this->downloadFiles()) {
+				$this->response(array('status' => '1'));
+			}
 
 			// Delete the current content
 			$this->deleteContent();
@@ -89,14 +91,16 @@ EOF;
 		// Uncompress the zip file
 		Log::set('Plugin Remote Content' . LOG_SEP . 'Uncompress the zip file.');
 		$zip = new ZipArchive;
-		if ($zip->open($destinationFile) === true) {
-			$zip->extractTo($destinationPath);
-			$zip->close();
+		if (!file_exists($destinationFile) || $zip->open($destinationFile) !== true) {
+			Log::set('Plugin Remote Content' . LOG_SEP . 'Error trying to download or open the zip file.');
+			return false;
 		}
+		$extracted = $zip->extractTo($destinationPath);
+		$zip->close();
 
 		// Delete the zip file
 		unlink($destinationFile);
-		return true;
+		return $extracted;
 	}
 
 	// Delete the page and uploads directories from bl-content

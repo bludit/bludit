@@ -22,24 +22,24 @@ class pluginTwitterCards extends Plugin
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Twitter @username</label>';
+		$html .= '<label>' . $L->get('X @username') . '</label>';
 		$html .= '<input name="twitterSite" type="text" dir="auto" value="' . $this->getValue('twitterSite') . '" placeholder="@username">';
-		$html .= '<span class="tip">Your Twitter @username for twitter:site attribution</span>';
+		$html .= '<span class="tip">' . $L->get('Your X @username for twitter:site attribution') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
-		$html .= '<label>Card Type</label>';
+		$html .= '<label>' . $L->get('Card Type') . '</label>';
 		$html .= '<select name="cardType">';
-		$html .= '<option value="summary_large_image"' . ($this->getValue('cardType') === 'summary_large_image' ? ' selected' : '') . '>Summary with Large Image (recommended)</option>';
-		$html .= '<option value="summary"' . ($this->getValue('cardType') === 'summary' ? ' selected' : '') . '>Summary</option>';
+		$html .= '<option value="summary_large_image"' . ($this->getValue('cardType') === 'summary_large_image' ? ' selected' : '') . '>' . $L->get('Summary with Large Image (recommended)') . '</option>';
+		$html .= '<option value="summary"' . ($this->getValue('cardType') === 'summary' ? ' selected' : '') . '>' . $L->get('Summary') . '</option>';
 		$html .= '</select>';
-		$html .= '<span class="tip">Large image cards get better engagement on Twitter</span>';
+		$html .= '<span class="tip">' . $L->get('Large image cards get better engagement on X') . '</span>';
 		$html .= '</div>';
 
 		$html .= '<div>';
 		$html .= '<label>' . $L->get('Default image') . '</label>';
 		$html .= '<input id="jsdefaultImage" name="defaultImage" type="text" dir="auto" value="' . $this->getValue('defaultImage') . '" placeholder="https://">';
-		$html .= '<span class="tip">Fallback image when content has no image</span>';
+		$html .= '<span class="tip">' . $L->get('Fallback image when content has no image, with the Open Graph plugin enabled X uses its image instead') . '</span>';
 		$html .= '</div>';
 
 		return $html;
@@ -72,14 +72,28 @@ class pluginTwitterCards extends Plugin
 		global $content;
 		global $page;
 
+		if ($url->notFound()) {
+			return '';
+		}
+
 		$cardType = $this->getValue('cardType');
 		if (empty($cardType)) {
 			$cardType = 'summary_large_image';
 		}
 
+		$html = '<meta name="twitter:card" content="' . $this->sanitize($cardType) . '">' . PHP_EOL;
+
+		// Add site handle if configured
+		if (Text::isNotEmpty($this->getValue('twitterSite'))) {
+			$html .= '<meta name="twitter:site" content="' . $this->sanitize($this->getValue('twitterSite')) . '">' . PHP_EOL;
+		}
+
+		// X reads og:title, og:description and og:image when the twitter tags are missing
+		if (pluginActivated('pluginOpenGraph')) {
+			return $html;
+		}
+
 		$data = array(
-			'card'		=> $cardType,
-			'site'		=> $this->getValue('twitterSite'),
 			'title'		=> $this->sanitize($site->title(), 70),
 			'description'	=> $this->sanitize($site->description(), 200),
 			'image'		=> '',
@@ -93,7 +107,7 @@ class pluginTwitterCards extends Plugin
 				// Get description: use page description or fallback to content excerpt
 				$description = $page->description();
 				if (empty($description)) {
-					$description = Text::truncate(strip_tags($page->contentRaw()), 160);
+					$description = Text::truncate(strip_tags($page->content()), 160);
 				}
 				$data['description'] = $this->sanitize($description, 200);
 				$data['image'] = $page->coverImage($absolute = true);
@@ -114,15 +128,6 @@ class pluginTwitterCards extends Plugin
 				break;
 		}
 
-		// Build HTML output
-		$html  = PHP_EOL . '<!-- Twitter Cards -->' . PHP_EOL;
-		$html .= '<meta name="twitter:card" content="' . $data['card'] . '">' . PHP_EOL;
-
-		// Add site handle if configured
-		if (!empty($data['site'])) {
-			$html .= '<meta name="twitter:site" content="' . $this->sanitize($data['site']) . '">' . PHP_EOL;
-		}
-
 		$html .= '<meta name="twitter:title" content="' . $data['title'] . '">' . PHP_EOL;
 		$html .= '<meta name="twitter:description" content="' . $data['description'] . '">' . PHP_EOL;
 
@@ -138,7 +143,7 @@ class pluginTwitterCards extends Plugin
 
 		// Add image with alt text for accessibility
 		if (!empty($data['image'])) {
-			$html .= '<meta name="twitter:image" content="' . $data['image'] . '">' . PHP_EOL;
+			$html .= '<meta name="twitter:image" content="' . $this->sanitize($data['image']) . '">' . PHP_EOL;
 			if (!empty($data['imageAlt'])) {
 				$html .= '<meta name="twitter:image:alt" content="' . $data['imageAlt'] . '">' . PHP_EOL;
 			}
