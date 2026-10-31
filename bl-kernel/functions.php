@@ -708,6 +708,10 @@ function editSettings($args)
     }
   }
 
+  if (isset($args['adminColorMode']) && !in_array($args['adminColorMode'], array('system', 'light', 'dark'), true)) {
+    $args['adminColorMode'] = 'system';
+  }
+
   if (isset($args['extremeFriendly'])) {
     $args['extremeFriendly'] = (($args['extremeFriendly'] == 'true') ? true : false);
   }
