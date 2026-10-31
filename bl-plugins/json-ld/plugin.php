@@ -135,7 +135,7 @@ class pluginJsonLd extends Plugin {
 		// Bludit stores text with HTML entities, JSON-LD needs the plain text
 		array_walk_recursive($data, function (&$value) {
 			if (is_string($value)) {
-				$value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+				$value = Sanitize::htmlDecode($value);
 			}
 		});
 
