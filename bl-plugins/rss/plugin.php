@@ -130,7 +130,8 @@ class pluginRSS extends Plugin
 
 			// Send XML header
 			header('Content-type: text/xml');
-			Filesystem::sendFile($rssFile);
+			header('Content-length: ' . filesize($rssFile));
+			readfile($rssFile);
 
 			// Stop Bludit execution
 			exit(0);
