@@ -291,6 +291,7 @@ function install($adminPassword, $timezone)
 		'sitemap',
 		'rss',
 		'search',
+		'redirects',
 		'alternative',
 		'version'
 	);
@@ -578,7 +579,8 @@ function install($adminPassword, $timezone)
 		'twitter-cards',
 		'sitemap',
 		'rss',
-		'search'
+		'search',
+		'redirects'
 	);
 	foreach ($pluginsWithDefaults as $plugin) {
 		file_put_contents(
