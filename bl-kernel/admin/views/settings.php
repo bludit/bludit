@@ -73,6 +73,17 @@ echo Bootstrap::formInputHidden(array(
 		'placeholder' => '',
 		'tip' => $L->g('you-can-add-a-small-text-on-the-bottom')
 	));
+
+	echo Bootstrap::formTitle(array('title' => $L->g('Admin area')));
+
+	echo Bootstrap::formSelect(array(
+		'name' => 'adminColorMode',
+		'label' => $L->g('Color mode'),
+		'options' => array('system' => $L->g('System'), 'light' => $L->g('Light'), 'dark' => $L->g('Dark')),
+		'selected' => $site->adminColorMode(),
+		'class' => '',
+		'tip' => $L->g('Dark mode for the admin area. System follows the operating system preference.')
+	));
 	?>
 </div>
 
