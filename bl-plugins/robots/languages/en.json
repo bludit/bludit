@@ -3,5 +3,11 @@
 	{
 		"name": "Robots",
 		"description": "You can use a special HTML meta tag to tell robots not to index the content of a page, and/or not scan it for links to follow."
-	}
+	},
+	"block-ai-training": "Block AI training crawlers",
+	"block-ai-training-tip": "Adds rules to robots.txt asking crawlers that collect content to train AI models not to visit the site. Search engines are not affected.",
+	"block-ai-search": "Block AI search crawlers",
+	"block-ai-search-tip": "Adds rules to robots.txt asking AI assistants and AI search engines not to visit the site, the site will not be cited in their answers. Google AI Overviews use the regular Google crawler and are not affected.",
+	"llms-txt": "llms.txt file",
+	"llms-txt-tip": "Publishes the file llms.txt with the list of public pages, a summary of the site for AI assistants."
 }
