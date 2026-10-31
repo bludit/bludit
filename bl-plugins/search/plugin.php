@@ -105,7 +105,7 @@ class pluginSearch extends Plugin
 	private function assets($highlight = '')
 	{
 		$html = $this->includeCSS('search.css');
-		$html .= '<script defer src="' . $this->domainPath() . 'js/search.js?version=' . BLUDIT_VERSION . '" data-highlight="' . htmlspecialchars($highlight, ENT_QUOTES, 'UTF-8') . '"></script>' . PHP_EOL;
+		$html .= Theme::javascript('js/search.js', $this->domainPath(), 'defer data-highlight="' . Sanitize::html($highlight) . '"');
 		return $html;
 	}
 
@@ -113,7 +113,7 @@ class pluginSearch extends Plugin
 	public function siteSidebar()
 	{
 		$html  = '<div class="plugin plugin-search">';
-		$html .= '<h2 class="plugin-label">' . htmlspecialchars($this->getValue('label'), ENT_QUOTES, 'UTF-8') . '</h2>';
+		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
 		$html .= $this->searchForm('jspluginSearchText');
 		$html .= '</div>';
