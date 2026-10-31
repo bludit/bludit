@@ -60,7 +60,7 @@ class pluginDisqus extends Plugin
 		global $WHERE_AM_I;
 
 		// Do not show disqus on page not found
-		if ($url->notFound()) {
+		if ($url->notFound() || empty($this->getValue('shortname'))) {
 			return false;
 		}
 
@@ -88,16 +88,14 @@ class pluginDisqus extends Plugin
 		$shortname = $this->getValue('shortname');
 
 		$code = <<<EOF
-<!-- Disqus plugin -->
 <div id="disqus_thread"></div>
 <script>
-
 	var disqus_config = function () {
 		this.page.url = '$pageURL';
 		this.page.identifier = '$pageID';
 	};
 
-	(function() { // DON'T EDIT BELOW THIS LINE
+	(function() {
 		var d = document, s = d.createElement('script');
 		s.src = 'https://$shortname.disqus.com/embed.js';
 		s.setAttribute('data-timestamp', +new Date());
@@ -105,7 +103,6 @@ class pluginDisqus extends Plugin
 	})();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<!-- /Disqus plugin -->
 EOF;
 		return $code;
 	}

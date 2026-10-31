@@ -95,6 +95,22 @@ class Filesystem
 		return file_exists($filename);
 	}
 
+	// Send a file to the client, the shared lock waits for the plugins writing with LOCK_EX
+	public static function sendFile($filename)
+	{
+		$handle = fopen($filename, 'rb');
+		if ($handle === false) {
+			return false;
+		}
+
+		flock($handle, LOCK_SH);
+		header('Content-length: ' . fstat($handle)['size']);
+		fpassthru($handle);
+		flock($handle, LOCK_UN);
+		fclose($handle);
+		return true;
+	}
+
 	public static function directoryExists($path)
 	{
 		return file_exists($path);

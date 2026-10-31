@@ -34,18 +34,10 @@ class pluginRSS extends Plugin
 		return $html;
 	}
 
-	private function encodeURL($url)
-	{
-		return preg_replace_callback('/[^\x20-\x7f]/', function ($match) {
-			return urlencode($match[0]);
-		}, $url);
-	}
-
 	private function createXML()
 	{
 		global $site;
 		global $pages;
-		global $url;
 
 		// Amount of pages to show
 		$numberOfItems = $this->getValue('numberOfItems');
@@ -61,12 +53,12 @@ class pluginRSS extends Plugin
 			$scheduled = false
 		);
 
-		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
-		$xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+		$xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">';
 		$xml .= '<channel>';
 		$xml .= '<atom:link href="' . DOMAIN_BASE . 'rss.xml" rel="self" type="application/rss+xml" />';
 		$xml .= '<title>' . $site->title() . '</title>';
-		$xml .= '<link>' . $this->encodeURL($site->url()) . '</link>';
+		$xml .= '<link>' . Text::encodeURL($site->url()) . '</link>';
 		$xml .= '<description>' . $site->description() . '</description>';
 		$xml .= '<lastBuildDate>' . date(DATE_RSS) . '</lastBuildDate>';
 
@@ -77,8 +69,10 @@ class pluginRSS extends Plugin
 				$page = new Page($pageKey);
 				$xml .= '<item>';
 				$xml .= '<title>' . $page->title() . '</title>';
-				$xml .= '<link>' . $this->encodeURL($page->permalink()) . '</link>';
-				$xml .= '<image>' . $page->coverImage(true) . '</image>';
+				$xml .= '<link>' . Text::encodeURL($page->permalink()) . '</link>';
+				if ($page->coverImage(true)) {
+					$xml .= '<media:content url="' . Text::encodeURL($page->coverImage(true)) . '" medium="image"/>';
+				}
 				$xml .= '<description>' . Sanitize::html($page->contentBreak()) . '</description>';
 				$xml .= '<pubDate>' . date(DATE_RSS, strtotime($page->getValue('dateRaw'))) . '</pubDate>';
 				$xml .= '<guid isPermaLink="false">' . $page->uuid() . '</guid>';
@@ -90,11 +84,7 @@ class pluginRSS extends Plugin
 
 		$xml .= '</channel></rss>';
 
-		// New DOM document
-		$doc = new DOMDocument();
-		$doc->formatOutput = true;
-		$doc->loadXML($xml);
-		return $doc->save($this->workspace() . 'rss.xml');
+		return file_put_contents($this->workspace() . 'rss.xml', $xml, LOCK_EX);
 	}
 
 	public function install($position = 0)
@@ -133,15 +123,14 @@ class pluginRSS extends Plugin
 	{
 		$webhook = 'rss.xml';
 		if ($this->webhook($webhook)) {
+			$rssFile = $this->workspace() . 'rss.xml';
+			if (!Filesystem::fileExists($rssFile)) {
+				$this->createXML();
+			}
+
 			// Send XML header
 			header('Content-type: text/xml');
-			$doc = new DOMDocument();
-
-			// Load XML (external entity loading is disabled by default in PHP 8.0+)
-			$doc->load($this->workspace() . 'rss.xml');
-
-			// Print the XML
-			echo $doc->saveXML();
+			Filesystem::sendFile($rssFile);
 
 			// Stop Bludit execution
 			exit(0);

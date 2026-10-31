@@ -2,14 +2,6 @@
 
 class pluginSitemap extends Plugin {
 
-	public function init()
-	{
-		$this->dbFields = array(
-			'pingGoogle'=>false,
-			'pingBing'=>false
-		);
-	}
-
 	// Method called on the settings of the plugin on the admin area
 	public function form()
 	{
@@ -24,24 +16,6 @@ class pluginSitemap extends Plugin {
 		$html .= '<a href="'.Theme::sitemapUrl().'">'.Theme::sitemapUrl().'</a>';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>Ping Google</label>';
-		$html .= '<select name="pingGoogle">';
-		$html .= '<option value="true" '.($this->getValue('pingGoogle')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('pingGoogle')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
-		$html .= '</select>';
-		$html .= '<span class="tip">'.$L->get('notifies-google-when-you-created').'</span>';
-		$html .= '</div>';
-
-		$html .= '<div>';
-		$html .= '<label>Ping Bing</label>';
-		$html .= '<select name="pingBing">';
-		$html .= '<option value="true" '.($this->getValue('pingBing')===true?'selected':'').'>'.$L->get('Enabled').'</option>';
-		$html .= '<option value="false" '.($this->getValue('pingBing')===false?'selected':'').'>'.$L->get('Disabled').'</option>';
-		$html .= '</select>';
-		$html .= '<span class="tip">'.$L->get('notifies-bing-when-you-created').'</span>';
-		$html .= '</div>';
-
 		return $html;
 	}
 
@@ -50,11 +24,11 @@ class pluginSitemap extends Plugin {
 		global $site;
 		global $pages;
 
-		$xml = '<?xml version="1.0" encoding="UTF-8" ?>';
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 		$xml .= '<url>';
-		$xml .= '<loc>'.$site->url().'</loc>';
+		$xml .= '<loc>'.Text::encodeURL($site->url()).'</loc>';
 		$xml .= '</url>';
 
 		$list = $pages->getList($pageNumber=1, $numberOfItems=-1, $published=true, $static=true, $sticky=true, $draft=false, $scheduled=false);
@@ -63,9 +37,13 @@ class pluginSitemap extends Plugin {
 				// Create the page object from the page key
 				$page = new Page($pageKey);
 				if (!$page->noindex()) {
+					$lastmod = $page->dateModified(SITEMAP_DATE_FORMAT);
+					if ($lastmod === false) {
+						$lastmod = $page->date(SITEMAP_DATE_FORMAT);
+					}
 					$xml .= '<url>';
-					$xml .= '<loc>'.$page->permalink().'</loc>';
-					$xml .= '<lastmod>'.$page->date(SITEMAP_DATE_FORMAT).'</lastmod>';
+					$xml .= '<loc>'.Text::encodeURL($page->permalink()).'</loc>';
+					$xml .= '<lastmod>'.$lastmod.'</lastmod>';
 					$xml .= '</url>';
 				}
 			} catch (Exception $e) {
@@ -75,24 +53,7 @@ class pluginSitemap extends Plugin {
 
 		$xml .= '</urlset>';
 
-		// New DOM document
-		$doc = new DOMDocument();
-		$doc->formatOutput = true;
-		$doc->loadXML($xml);
-		return $doc->save($this->workspace().'sitemap.xml');
-	}
-
-	private function ping()
-	{
-		if ($this->getValue('pingGoogle')) {
-			$url = 'https://www.google.com/ping?sitemap='.Theme::sitemapUrl();
-			TCP::http($url, 'GET', true, 3);
-		}
-
-		if ($this->getValue('pingBing')) {
-			$url = 'https://www.bing.com/ping?sitemap='.Theme::sitemapUrl();
-			TCP::http($url, 'GET', true, 3);
-		}
+		return file_put_contents($this->workspace().'sitemap.xml', $xml, LOCK_EX);
 	}
 
 	public function install($position=0)
@@ -110,19 +71,16 @@ class pluginSitemap extends Plugin {
 	public function afterPageCreate()
 	{
 		$this->createXML();
-		$this->ping();
 	}
 
 	public function afterPageModify()
 	{
 		$this->createXML();
-		$this->ping();
 	}
 
 	public function afterPageDelete()
 	{
 		$this->createXML();
-		$this->ping();
 	}
 
 	public function beforeAll()
@@ -130,19 +88,13 @@ class pluginSitemap extends Plugin {
 		$webhook = 'sitemap.xml';
 		if( $this->webhook($webhook) ) {
 			$sitemapFile = $this->workspace().'sitemap.xml';
-			$sitemapSize = filesize($sitemapFile);
+			if (!Filesystem::fileExists($sitemapFile)) {
+				$this->createXML();
+			}
 
 			// Send XML header
 			header('Content-type: text/xml');
-			header('Content-length: '.$sitemapSize);
-
-			$doc = new DOMDocument();
-
-			// Load XML (external entity loading is disabled by default in PHP 8.0+)
-			$doc->load($this->workspace().'sitemap.xml');
-
-			// Print the XML
-			echo $doc->saveXML();
+			Filesystem::sendFile($sitemapFile);
 
 			// Terminate the run successfully
 			exit(0);

@@ -10,7 +10,6 @@
 
 			<ul class="navbar-nav ms-auto">
 
-				<!-- Blog link (when homepage is set to a static page) -->
 				<?php if ($site->homepage()): ?>
 				<li class="nav-item<?php echo ($WHERE_AM_I === 'blog') ? ' active' : ''; ?>">
 					<a class="nav-link" href="<?php echo DOMAIN_BASE . ltrim($url->filters('blog'), '/') ?>">
@@ -19,7 +18,6 @@
 				</li>
 				<?php endif; ?>
 
-				<!-- Static pages -->
 				<?php foreach ($staticContent as $staticPage): ?>
 				<li class="nav-item<?php echo ($page && $page->key() === $staticPage->key()) ? ' active' : ''; ?>">
 					<a class="nav-link" href="<?php echo $staticPage->permalink(); ?>">
@@ -31,7 +29,6 @@
 				</li>
 				<?php endforeach ?>
 
-				<!-- Social Networks -->
 				<?php foreach (Theme::socialNetworks() as $key=>$label): ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo $site->{$key}(); ?>" target="_blank" rel="noopener noreferrer" title="<?php echo $label; ?>">
@@ -42,7 +39,6 @@
 				</li>
 				<?php endforeach; ?>
 
-				<!-- RSS -->
 				<?php if (Theme::rssUrl()): ?>
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo Theme::rssUrl() ?>" target="_blank" rel="noopener noreferrer" title="RSS Feed">

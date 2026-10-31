@@ -129,7 +129,7 @@ class pluginLinks extends Plugin
 		global $L;
 
 		// HTML for sidebar
-		$html  = '<div class="plugin plugin-pages">';
+		$html  = '<div class="plugin plugin-links">';
 		if ($this->getValue('label')) {
 			$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		}

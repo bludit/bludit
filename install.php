@@ -280,7 +280,20 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'about', 'visits-stats', 'robots', 'canonical', 'alternative', 'version');
+	$pluginsToInstall = array(
+		'tinymce',
+		'about',
+		'visits-stats',
+		'robots',
+		'canonical',
+		'opengraph',
+		'twitter-cards',
+		'sitemap',
+		'rss',
+		'search',
+		'alternative',
+		'version'
+	);
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES . $plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . PATH_PLUGINS_DATABASES . $plugin;
@@ -558,6 +571,23 @@ function install($adminPassword, $timezone)
 		),
 		LOCK_EX
 	);
+
+	// Plugins that work with their default values, these databases only need the position
+	$pluginsWithDefaults = array(
+		'opengraph',
+		'twitter-cards',
+		'sitemap',
+		'rss',
+		'search'
+	);
+	foreach ($pluginsWithDefaults as $plugin) {
+		file_put_contents(
+			PATH_PLUGINS_DATABASES . $plugin . DS . 'db.php',
+			$dataHead . json_encode(array('position' => 1), JSON_PRETTY_PRINT),
+			LOCK_EX
+		);
+		mkdir(PATH_WORKSPACES . $plugin, DIR_PERMISSIONS, true);
+	}
 
 	// File plugins/version/db.php
 	file_put_contents(

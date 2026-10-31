@@ -22,8 +22,8 @@ class pluginMaintenanceMode extends Plugin
 		$html .= '<div>';
 		$html .= '<label>' . $L->get('Enable maintenance mode') . '</label>';
 		$html .= '<select name="enable">';
-		$html .= '<option value="true" ' . ($this->getValue('enable') === true ? 'selected' : '') . '>Enabled</option>';
-		$html .= '<option value="false" ' . ($this->getValue('enable') === false ? 'selected' : '') . '>Disabled</option>';
+		$html .= '<option value="true" ' . ($this->getValue('enable') === true ? 'selected' : '') . '>' . $L->get('Enabled') . '</option>';
+		$html .= '<option value="false" ' . ($this->getValue('enable') === false ? 'selected' : '') . '>' . $L->get('Disabled') . '</option>';
 		$html .= '</select>';
 		$html .= '</div>';
 
@@ -38,6 +38,9 @@ class pluginMaintenanceMode extends Plugin
 	public function beforeAll()
 	{
 		if ($this->getValue('enable')) {
+			// Tell search engines the site is temporarily down, so they keep the pages indexed
+			http_response_code(503);
+			header('Retry-After: 3600');
 			exit($this->getValue('message'));
 		}
 	}

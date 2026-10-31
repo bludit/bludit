@@ -165,6 +165,10 @@ class Theme
 			}
 		}
 
+		if (empty($description)) {
+			return '';
+		}
+
 		return '<meta name="description" content="' . $description . '">' . PHP_EOL;
 	}
 
@@ -205,7 +209,7 @@ class Theme
 
 		$links = '';
 		foreach ($files as $file) {
-			$links .= '<link rel="stylesheet" type="text/css" href="' . $base . $file . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+			$links .= '<link rel="stylesheet" href="' . $base . $file . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 		}
 
 		return $links;
@@ -263,18 +267,18 @@ class Theme
 
 	public static function cssBootstrap()
 	{
-		return '<link rel="stylesheet" type="text/css" href="' . DOMAIN_CORE_CSS . 'bootstrap5.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" href="' . DOMAIN_CORE_CSS . 'bootstrap5.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public static function cssBootstrapIcons()
 	{
 		// https://icons.getbootstrap.com/
-		return '<link rel="stylesheet" type="text/css" href="' . DOMAIN_CORE_CSS . 'bootstrap-icons/bootstrap-icons.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" href="' . DOMAIN_CORE_CSS . 'bootstrap-icons/bootstrap-icons.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public static function cssLineAwesome()
 	{
-		return '<link rel="stylesheet" type="text/css" href="' . DOMAIN_CORE_CSS . 'line-awesome/css/line-awesome-font-awesome.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" href="' . DOMAIN_CORE_CSS . 'line-awesome/css/line-awesome-font-awesome.min.css?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public static function jsSortable($attributes = '')

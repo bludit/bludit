@@ -45,6 +45,13 @@ class Pages extends dbJSON
 		return false;
 	}
 
+	// Returns TRUE if the page is visible for the visitors
+	public function isPublic($key)
+	{
+		$page = $this->getPageDB($key);
+		return $page !== false && in_array($page['type'], array('published', 'static', 'sticky'));
+	}
+
 	// Return TRUE if the page exists, FALSE otherwise
 	public function exists($key)
 	{
@@ -747,35 +754,36 @@ class Pages extends dbJSON
 	}
 
 	// Returns TRUE if there are new pages published, FALSE otherwise
+	// Publish the scheduled pages with a date in the past
+	// Returns an array with the keys of the pages published
 	public function scheduler()
 	{
 		// Get current date
 		$currentDate = Date::current(DB_DATE_FORMAT);
-		$saveDatabase = false;
+		$publishedKeys = array();
 
 		// The database need to be sorted by date
 		foreach ($this->db as $pageKey => $fields) {
 			if ($fields['type'] == 'scheduled') {
 				if ($fields['date'] <= $currentDate) {
 					$this->db[$pageKey]['type'] = 'published';
-					$saveDatabase = true;
+					$publishedKeys[] = $pageKey;
 				}
 			} elseif (($fields['type'] == 'published') && (ORDER_BY == 'date')) {
 				break;
 			}
 		}
 
-		if ($saveDatabase) {
+		if (!empty($publishedKeys)) {
 			if ($this->save() === false) {
 				Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to save the database file.');
-				return false;
+				return array();
 			}
 
 			Log::set(__METHOD__ . LOG_SEP . 'New pages published from the scheduler.');
-			return true;
 		}
 
-		return false;
+		return $publishedKeys;
 	}
 
 	// Generate a valid Key/Slug
