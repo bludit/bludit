@@ -52,6 +52,85 @@
 	--border-light: #cbd5e1;
 	--primary-blue-hover-bg: rgba(0, 120, 212, 0.06);
 	--secondary-hover-bg: rgba(100, 116, 139, 0.08);
+
+	/* Surfaces that were hardcoded */
+	--bg-btn-light: #f3f3f3;
+	--bg-btn-light-hover: #e4e4e4;
+	--border-btn-light: #ced4d9;
+	--bg-code: rgba(0, 0, 0, .07);
+	--text-code: #444;
+	--bg-modal-footer: #f7f7f7;
+	--border-input: #ced4da;
+	--border-editor: #ccc;
+	--text-danger: #D40000;
+	--text-danger-hover: #790000;
+	--divider-subtle: rgba(0, 0, 0, 0.04);
+	--bg-login: linear-gradient(0deg, #ffffff 0%, #fafafa 53%);
+	--focus-border: #b0bec5;
+	--bg-brand: #1E293B;
+	--bg-login-page: linear-gradient(135deg, #64748B 0%, #334155 55%, #1E293B 100%);
+}
+
+/* Dark mode: Bootstrap sets data-bs-theme on <html>, see html/color-mode.php */
+[data-bs-theme="dark"] {
+	color-scheme: dark;
+
+	--primary-blue: #3B9EFF;
+	--primary-blue-dark: #70B8FF;
+	--primary-blue-darker: #9ACBFF;
+	--primary-gradient: #3B9EFF;
+
+	--bg-main: #0F172A;
+	--bg-sidebar: #0B1220;
+	--text-primary: #E2E8F0;
+	--text-secondary: #A8B5C7;
+	--text-muted: #7B8AA0;
+	--border-color: #26334A;
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.35);
+
+	--bg-warm: #131C30;
+	--bg-warm-card: #172238;
+	--border-warm: #26334A;
+
+	--color-info: #3B9EFF;
+	--color-danger: #DC2626;
+	--color-danger-dark: #B91C1C;
+	--color-success: #16A34A;
+	--color-success-dark: #15803D;
+	--color-secondary: #64748B;
+	--color-secondary-dark: #94A3B8;
+	--bg-card: #172033;
+	--bg-light: #1B263B;
+	--border-light: #34435D;
+	--primary-blue-hover-bg: rgba(59, 158, 255, 0.12);
+	--secondary-hover-bg: rgba(148, 163, 184, 0.12);
+
+	--bg-btn-light: #1E2A40;
+	--bg-btn-light-hover: #26354F;
+	--border-btn-light: #34435D;
+	--bg-code: rgba(255, 255, 255, .09);
+	--text-code: #CBD5E1;
+	--bg-modal-footer: #131C30;
+	--border-input: #34435D;
+	--border-editor: #34435D;
+	--text-danger: #F87171;
+	--text-danger-hover: #FCA5A5;
+	--divider-subtle: rgba(255, 255, 255, 0.06);
+	--bg-login: linear-gradient(0deg, #0B1220 0%, #0F172A 53%);
+	--focus-border: #4B5E7A;
+	--bg-brand: #2B3A55;
+	--bg-login-page: linear-gradient(135deg, #1E293B 0%, #0F172A 55%, #070B14 100%);
+
+	/* Bootstrap variables that drive forms, tables, dropdowns and modals */
+	--bs-body-bg: var(--bg-main);
+	--bs-body-color: var(--text-primary);
+	--bs-border-color: var(--border-color);
+	--bs-secondary-bg: var(--bg-light);
+	--bs-tertiary-bg: var(--bg-card);
+	--bs-emphasis-color: #F8FAFC;
+	--bs-link-color-rgb: 59, 158, 255;
+	--bs-link-hover-color-rgb: 112, 184, 255;
 }
 
 html {
@@ -154,7 +233,7 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 	position: relative;
 	width: 100%;
 	padding: 16px;
-	background: white;
+	background: var(--bg-card);
 	border: 2px solid var(--border-color);
 	border-radius: var(--radius-sm);
 	display: flex;
@@ -172,7 +251,7 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 	width: 40px;
 	height: 40px;
 	border-radius: var(--radius-sm);
-	background: var(--text-primary);
+	background: var(--bg-brand);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -328,7 +407,7 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 	padding: 12px 16px;
 	transition: background 0.15s ease;
 	cursor: pointer;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+	border-bottom: 1px solid var(--divider-subtle);
 	text-decoration: none;
 	color: inherit;
 }
@@ -401,21 +480,21 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 
 
 .btn-light {
-	color: #212529;
-	background-color: #f3f3f3;
-	border-color: #ced4d9;
+	color: var(--text-primary);
+	background-color: var(--bg-btn-light);
+	border-color: var(--border-btn-light);
 }
 
 .btn-form {
-	background-color: #F3F3F3;
-	border-color: #DDD;
-	color: #000;
+	background-color: var(--bg-btn-light);
+	border-color: var(--border-btn-light);
+	color: var(--text-primary);
 }
 
 .btn-form:hover {
-	background-color: rgb(228, 228, 228);
-	border-color: #DDD;
-	color: #000;
+	background-color: var(--bg-btn-light-hover);
+	border-color: var(--border-btn-light);
+	color: var(--text-primary);
 }
 
 
@@ -423,9 +502,8 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 code {
 	padding: 3px 5px 2px;
 	margin: 0 1px;
-	background: #eaeaea;
-	background: rgba(0, 0, 0, .07);
-	color: #444;
+	background: var(--bg-code);
+	color: var(--text-code);
 }
 
 .list-group-sortable {
@@ -437,11 +515,11 @@ code {
 }
 
 .modal-footer {
-	background-color: rgb(247, 247, 247);
+	background-color: var(--bg-modal-footer);
 }
 
 .modal-dialog .btn-link {
-	color: #000;
+	color: var(--text-primary);
 }
 
 /*
@@ -449,8 +527,7 @@ code {
 */
 
 body.login {
-	background: rgb(255, 255, 255);
-	background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(250, 250, 250, 1) 53%);
+	background: var(--bg-login);
 	height: 100%;
 }
 
@@ -671,7 +748,7 @@ body.login {
 	font-size: 80%;
 	font-weight: 400;
 	margin-top: .25rem;
-	color: #6c757d !important;
+	color: var(--text-secondary) !important;
 }
 
 /*
@@ -720,11 +797,12 @@ td.contentURL a {
 */
 
 #jseditor {
-	background: #fff;
+	background: var(--bg-card);
+	color: var(--text-primary);
 	padding: 10px 5% !important;
 	font-size: 16px;
 	line-height: 1.5em;
-	border: 1px solid #ced4da;
+	border: 1px solid var(--border-input);
 }
 
 #jseditorSidebar {
@@ -736,12 +814,12 @@ td.contentURL a {
 	z-index: 50;
 	top: 45px;
 	right: 15px;
-	background-color: #fff;
+	background-color: var(--bg-card);
 	overflow-x: hidden;
 	transition: 0.5s;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-top: 1px solid #ccc;
+	border-left: 1px solid var(--border-editor);
+	border-right: 1px solid var(--border-editor);
+	border-top: 1px solid var(--border-editor);
 }
 
 @media (max-width: 575.98px) {
@@ -770,11 +848,11 @@ td.contentURL a {
 }
 
 #jseditorSidebar nav {
-	background: #f3f3f3;
+	background: var(--bg-btn-light);
 }
 
 #jseditorSidebar nav a {
-	color: #000;
+	color: var(--text-primary);
 }
 
 #jseditorSidebar .nav-tabs .nav-link {
@@ -784,7 +862,7 @@ td.contentURL a {
 #jseditorSidebar .nav-link.active {
 	background: none;
 	border: none;
-	border-bottom: 3px solid #ccc;
+	border-bottom: 3px solid var(--border-editor);
 }
 
 #jsshadow {
@@ -802,7 +880,7 @@ img.profilePicture {
 	width: 30px;
 	height: 30px;
 	border-radius: 4px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--border-editor);
 }
 
 /* Switch button */
@@ -823,7 +901,7 @@ select:focus,
 .form-control:focus,
 .form-select:focus,
 .btn:focus {
-	border-color: #b0bec5 !important;
+	border-color: var(--focus-border) !important;
 	box-shadow: none !important;
 	outline: none !important;
 }
