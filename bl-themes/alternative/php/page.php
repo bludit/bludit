@@ -1,49 +1,32 @@
 <nav class="breadcrumb-nav" aria-label="<?php echo $L->get('Breadcrumb'); ?>">
 	<div class="container">
-		<ol class="breadcrumb bg-transparent p-0 mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
-			<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-				<a href="<?php echo Theme::siteUrl(); ?>" itemprop="item">
-					<span itemprop="name"><?php echo $L->get('Home'); ?></span>
+		<ol class="breadcrumb bg-transparent p-0 mb-0">
+			<li class="breadcrumb-item">
+				<a href="<?php echo Theme::siteUrl(); ?>">
+					<span><?php echo $L->get('Home'); ?></span>
 				</a>
-				<meta itemprop="position" content="1" />
 			</li>
-			<li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
-				<span itemprop="name"><?php echo $page->title(); ?></span>
-				<meta itemprop="item" content="<?php echo $page->permalink(); ?>" />
-				<meta itemprop="position" content="2" />
+			<li class="breadcrumb-item active" aria-current="page">
+				<span><?php echo $page->title(); ?></span>
 			</li>
 		</ol>
 	</div>
 </nav>
 
-<article class="page" itemscope itemtype="https://schema.org/Article">
-	<div class="d-none" aria-hidden="true">
-		<meta itemprop="mainEntityOfPage" content="<?php echo $page->permalink(); ?>" />
-		<?php if ($page->dateModified()): ?>
-			<meta itemprop="dateModified" content="<?php echo $page->dateModified('c'); ?>" />
-		<?php endif; ?>
-		<meta itemprop="wordCount" content="<?php echo str_word_count(strip_tags($page->content())); ?>" />
-		<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-			<meta itemprop="name" content="<?php echo $site->title(); ?>" />
-			<span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-				<meta itemprop="url" content="<?php echo DOMAIN_THEME_IMG . 'favicon.png'; ?>" />
-			</span>
-		</span>
-	</div>
-
+<article class="page">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
 				<?php Theme::plugins('pageBegin'); ?>
 
 				<header class="page-header mb-4">
-					<h1 class="title" itemprop="headline"><?php echo $page->title(); ?></h1>
+					<h1 class="title"><?php echo $page->title(); ?></h1>
 
 					<?php if (!$page->isStatic() && !$url->notFound() && $themePlugin->showPostInformation()) : ?>
 						<div class="page-meta text-muted mb-3">
 							<span class="pe-3">
 								<i class="bi bi-calendar" aria-hidden="true"></i>
-								<time datetime="<?php echo $page->date('c'); ?>" itemprop="datePublished"><?php echo $page->date() ?></time>
+								<time datetime="<?php echo $page->date('c'); ?>"><?php echo $page->date() ?></time>
 							</span>
 
 							<?php if ($page->dateModified() && $page->dateModified() !== $page->date()): ?>
@@ -58,27 +41,27 @@
 								<span><?php echo $L->get('Reading time') . ': ' . $page->readingTime() ?></span>
 							</span>
 
-							<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+							<span>
 								<i class="bi bi-person" aria-hidden="true"></i>
-								<a href="<?php echo Theme::siteUrl(); ?>" rel="author" itemprop="url">
-									<span itemprop="name"><?php echo $page->user('nickname') ?></span>
+								<a href="<?php echo Theme::siteUrl(); ?>" rel="author">
+									<span><?php echo $page->user('nickname') ?></span>
 								</a>
 							</span>
 						</div>
 					<?php endif ?>
 
 					<?php if ($page->description()) : ?>
-						<p class="page-description lead" itemprop="description"><?php echo $page->description(); ?></p>
+						<p class="page-description lead"><?php echo $page->description(); ?></p>
 					<?php endif ?>
 				</header>
 
 				<?php if ($page->coverImage()) : ?>
 					<figure class="page-cover-image-wrapper mb-4">
-						<img class="page-cover-image img-fluid rounded" src="<?php echo $page->coverImage(); ?>" alt="<?php echo $page->title(); ?>" loading="lazy" itemprop="image" />
+						<img class="page-cover-image img-fluid rounded" src="<?php echo $page->coverImage(); ?>" alt="<?php echo $page->title(); ?>" loading="lazy" />
 					</figure>
 				<?php endif ?>
 
-				<div class="page-content" itemprop="articleBody">
+				<div class="page-content">
 					<?php echo $page->content(); ?>
 				</div>
 
