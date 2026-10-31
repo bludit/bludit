@@ -34,19 +34,6 @@ class pluginRSS extends Plugin
 		return $html;
 	}
 
-	private function encodeURL($url)
-	{
-		return preg_replace_callback('/[^\x20-\x7f]/', function ($match) {
-			return urlencode($match[0]);
-		}, $url);
-	}
-
-	// Escape text for XML, the database stores some values with HTML entities
-	private function escape($text)
-	{
-		return htmlspecialchars(html_entity_decode($text, ENT_QUOTES, CHARSET), ENT_XML1 | ENT_QUOTES, CHARSET);
-	}
-
 	private function createXML()
 	{
 		global $site;
@@ -70,9 +57,9 @@ class pluginRSS extends Plugin
 		$xml .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">';
 		$xml .= '<channel>';
 		$xml .= '<atom:link href="' . DOMAIN_BASE . 'rss.xml" rel="self" type="application/rss+xml" />';
-		$xml .= '<title>' . $this->escape($site->title()) . '</title>';
-		$xml .= '<link>' . $this->escape($this->encodeURL($site->url())) . '</link>';
-		$xml .= '<description>' . $this->escape($site->description()) . '</description>';
+		$xml .= '<title>' . $site->title() . '</title>';
+		$xml .= '<link>' . Text::encodeURL($site->url()) . '</link>';
+		$xml .= '<description>' . $site->description() . '</description>';
 		$xml .= '<lastBuildDate>' . date(DATE_RSS) . '</lastBuildDate>';
 
 		// Get keys of pages
@@ -81,10 +68,10 @@ class pluginRSS extends Plugin
 				// Create the page object from the page key
 				$page = new Page($pageKey);
 				$xml .= '<item>';
-				$xml .= '<title>' . $this->escape($page->title()) . '</title>';
-				$xml .= '<link>' . $this->escape($this->encodeURL($page->permalink())) . '</link>';
+				$xml .= '<title>' . $page->title() . '</title>';
+				$xml .= '<link>' . Text::encodeURL($page->permalink()) . '</link>';
 				if ($page->coverImage(true)) {
-					$xml .= '<media:content url="' . $this->escape($page->coverImage(true)) . '" medium="image"/>';
+					$xml .= '<media:content url="' . $page->coverImage(true) . '" medium="image"/>';
 				}
 				$xml .= '<description>' . Sanitize::html($page->contentBreak()) . '</description>';
 				$xml .= '<pubDate>' . date(DATE_RSS, strtotime($page->getValue('dateRaw'))) . '</pubDate>';
@@ -137,7 +124,7 @@ class pluginRSS extends Plugin
 		$webhook = 'rss.xml';
 		if ($this->webhook($webhook)) {
 			$rssFile = $this->workspace() . 'rss.xml';
-			if (!file_exists($rssFile)) {
+			if (!Filesystem::fileExists($rssFile)) {
 				$this->createXML();
 			}
 
