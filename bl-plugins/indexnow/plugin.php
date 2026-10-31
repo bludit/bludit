@@ -62,7 +62,6 @@ class pluginIndexNow extends Plugin {
 		}
 	}
 
-	// The scheduler also calls this hook when a scheduled page is published
 	public function afterPageCreate($key = false)
 	{
 		if ($this->isIndexable($key)) {
