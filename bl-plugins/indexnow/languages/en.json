@@ -1,0 +1,12 @@
+{
+	"plugin-data":
+	{
+		"name": "IndexNow",
+		"description": "Tells search engines like Bing, Yandex, Naver and Seznam when you publish, change or delete a page, so they crawl it right away. Your page URLs are sent to api.indexnow.org. Google does not use IndexNow."
+	},
+	"key-file": "Key file",
+	"key-file-tip": "Search engines read this file to verify the site is yours.",
+	"last-response": "Last response",
+	"no-submissions-yet": "Nothing submitted yet.",
+	"not-public-site": "The URL of this site is not public, nothing is going to be submitted. Check the Site URL in the settings."
+}
