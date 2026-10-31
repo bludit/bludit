@@ -148,8 +148,10 @@ class pluginRobots extends Plugin {
 		}
 
 		$text .= '## Pages'.PHP_EOL.PHP_EOL;
-		foreach ($pages->getDB(false) as $key=>$page) {
-			if (!in_array($page['type'], array('published', 'static', 'sticky')) || $page['noindex']) {
+		$list = $pages->getList($pageNumber=1, $numberOfItems=-1, $published=true, $static=true, $sticky=true, $draft=false, $scheduled=false);
+		foreach ($list as $key) {
+			$page = $pages->getPageDB($key);
+			if ($page['noindex']) {
 				continue;
 			}
 
