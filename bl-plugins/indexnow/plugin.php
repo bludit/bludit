@@ -121,9 +121,7 @@ class pluginIndexNow extends Plugin {
 		global $pages;
 
 		$page = $pages->getPageDB($key);
-		return $page !== false
-			&& in_array($page['type'], array('published', 'static', 'sticky'))
-			&& !$page['noindex'];
+		return $pages->isPublic($key) && !$page['noindex'];
 	}
 
 	// Sites in localhost or in an intranet can't be reached by the search engines
@@ -131,10 +129,10 @@ class pluginIndexNow extends Plugin {
 	{
 		$host = parse_url(DOMAIN_BASE, PHP_URL_HOST);
 
-		if (filter_var($host, FILTER_VALIDATE_IP)) {
+		if (Valid::ip($host)) {
 			return filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false;
 		}
 
-		return strpos($host, '.') !== false && substr($host, -6) !== '.local';
+		return Text::stringContains($host, '.') && !Text::endsWith($host, '.local');
 	}
 }
