@@ -5,7 +5,7 @@
 		form.addEventListener('submit', function (event) {
 			event.preventDefault();
 			var text = form.querySelector('input[type=search]').value.trim();
-			if (text) {
+			if (text && text.length >= Number(form.dataset.minChars)) {
 				window.location.href = form.dataset.searchUrl + encodeURIComponent(text);
 			}
 		});

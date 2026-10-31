@@ -12,7 +12,7 @@
 	font-weight: 600;
 }
 .search-results-header .search-count {
-	color: #6e6e73;
+	opacity: 0.7;
 	font-size: 0.9375rem;
 	margin: 0;
 }
@@ -25,7 +25,7 @@
 	margin-bottom: 0.75rem;
 }
 .search-no-results p {
-	color: #6e6e73;
+	opacity: 0.7;
 	margin-bottom: 1.5rem;
 }
 .search-no-results .search-suggestions {
@@ -39,7 +39,7 @@
 }
 .search-no-results .search-suggestions ul {
 	padding-left: 1.25rem;
-	color: #6e6e73;
+	opacity: 0.7;
 }
 .search-no-results .search-suggestions li {
 	margin-bottom: 0.25rem;
@@ -102,11 +102,6 @@
 @media (prefers-color-scheme: dark) {
 	.search-results-header {
 		border-bottom-color: rgba(255,255,255,0.1);
-	}
-	.search-results-header .search-count,
-	.search-no-results p,
-	.search-no-results .search-suggestions ul {
-		color: #a1a1a6;
 	}
 		.search-highlight {
 		background-color: rgba(255, 214, 10, 0.3);
