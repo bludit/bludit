@@ -4,5 +4,12 @@
 		"name": "X/Twitter Cards",
 		"description": "With X (formerly Twitter) Cards, you can attach rich photos, videos and media experiences to posts, helping to drive traffic to your website."
 	},
-	"default-image": "Default image"
+	"default-image": "Default image",
+	"x-@username": "X @username",
+	"your-x-@username-for-twitter:site-attribution": "Your X @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-(recommended)": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-x": "Large image cards get better engagement on X",
+	"fallback-image-when-content-has-no-image,-with-the-open-graph-plugin-enabled-x-uses-its-image-instead": "Fallback image when content has no image, with the Open Graph plugin enabled X uses its image instead"
 }
