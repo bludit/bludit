@@ -43,6 +43,6 @@ class pluginCanonical extends Plugin {
 			$canonical = $canonical . '?page=' . $pageNumber;
 		}
 
-		return '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . PHP_EOL;
+		return '<link rel="canonical" href="' . Sanitize::html($canonical) . '">' . PHP_EOL;
 	}
 }
