@@ -154,6 +154,14 @@ class Text {
 		return self::replaceAssoc($remove, $string);
 	}
 
+	// Percent-encode the non-ASCII characters of a URL
+	public static function encodeURL($url)
+	{
+		return preg_replace_callback('/[^\x20-\x7f]/', function ($match) {
+			return urlencode($match[0]);
+		}, $url);
+	}
+
 	// Convert unicode characters to utf-8 characters
 	// Characters that cannot be converted will be removed from the string
 	// This function can return an empty string
