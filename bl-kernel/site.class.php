@@ -13,6 +13,7 @@ class Site extends dbJSON
 		'timezone' =>		'America/Argentina/Buenos_Aires',
 		'theme' =>		'alternative',
 		'adminTheme' =>		'booty',
+		'adminColorMode' =>	'system', // system, light or dark
 		'homepage' =>		'',
 		'pageNotFound' =>	'',
 		'uriPage' =>		'/',
@@ -302,6 +303,13 @@ class Site extends dbJSON
 	public function adminTheme()
 	{
 		return $this->getField('adminTheme');
+	}
+
+	// Returns the admin color mode: system, light or dark
+	public function adminColorMode()
+	{
+		$mode = $this->getField('adminColorMode');
+		return in_array($mode, array('light', 'dark'), true) ? $mode : 'system';
 	}
 
 	// Returns the footer text
