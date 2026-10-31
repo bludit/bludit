@@ -59,7 +59,7 @@ class pluginOpenGraph extends Plugin
 	{
 		global $site;
 
-		if (preg_match('/[a-z]{2,3}_[A-Z]{2}/', $site->locale(), $match)) {
+		if (preg_match('/(?<![A-Za-z])[a-z]{2,3}_[A-Z]{2}(?![A-Za-z])/', $site->locale(), $match)) {
 			return $match[0];
 		}
 		return '';

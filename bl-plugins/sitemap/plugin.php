@@ -94,8 +94,7 @@ class pluginSitemap extends Plugin {
 
 			// Send XML header
 			header('Content-type: text/xml');
-			header('Content-length: '.filesize($sitemapFile));
-			readfile($sitemapFile);
+			Filesystem::sendFile($sitemapFile);
 
 			// Terminate the run successfully
 			exit(0);
