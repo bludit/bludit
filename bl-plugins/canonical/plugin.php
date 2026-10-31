@@ -30,7 +30,7 @@ class pluginCanonical extends Plugin {
 				break;
 
 			case 'blog':
-				$canonical = DOMAIN_BASE . ltrim($url->uri(), '/');
+				$canonical = DOMAIN . $url->uri();
 				break;
 
 			default:
