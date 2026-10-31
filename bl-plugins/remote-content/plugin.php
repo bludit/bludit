@@ -100,7 +100,10 @@ EOF;
 
 		// Delete the zip file
 		unlink($destinationFile);
-		return $extracted;
+
+		// The zip must have a directory with the pages, the current content is deleted after this
+		$directories = Filesystem::listDirectories($destinationPath);
+		return $extracted && !empty($directories) && Filesystem::directoryExists($directories[0] . DS . 'pages');
 	}
 
 	// Delete the page and uploads directories from bl-content

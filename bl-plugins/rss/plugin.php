@@ -71,7 +71,7 @@ class pluginRSS extends Plugin
 				$xml .= '<title>' . $page->title() . '</title>';
 				$xml .= '<link>' . Text::encodeURL($page->permalink()) . '</link>';
 				if ($page->coverImage(true)) {
-					$xml .= '<media:content url="' . $page->coverImage(true) . '" medium="image"/>';
+					$xml .= '<media:content url="' . Text::encodeURL($page->coverImage(true)) . '" medium="image"/>';
 				}
 				$xml .= '<description>' . Sanitize::html($page->contentBreak()) . '</description>';
 				$xml .= '<pubDate>' . date(DATE_RSS, strtotime($page->getValue('dateRaw'))) . '</pubDate>';
@@ -130,8 +130,7 @@ class pluginRSS extends Plugin
 
 			// Send XML header
 			header('Content-type: text/xml');
-			header('Content-length: ' . filesize($rssFile));
-			readfile($rssFile);
+			Filesystem::sendFile($rssFile);
 
 			// Stop Bludit execution
 			exit(0);

@@ -90,7 +90,7 @@ class pluginSearch extends Plugin
 		global $L;
 		$searchText = $L->get('Search');
 
-		$html  = '<form class="search-plugin-form" role="search" data-search-url="' . DOMAIN_BASE . 'search/">';
+		$html  = '<form class="search-plugin-form" role="search" data-search-url="' . DOMAIN_BASE . 'search/" data-min-chars="' . (int)$this->getValue('minChars') . '">';
 		$html .= '<label for="' . $id . '" class="visually-hidden">' . $searchText . '</label>';
 		$html .= '<input type="search" id="' . $id . '" value="' . $value . '" placeholder="' . $searchText . '..." autocomplete="off" dir="auto" required minlength="' . (int)$this->getValue('minChars') . '">';
 		if ($this->getValue('showButtonSearch')) {
@@ -153,7 +153,7 @@ class pluginSearch extends Plugin
 		$count = $this->numberOfItems;
 
 		if (empty($searchTerm)) {
-			return '';
+			return '<div class="container"><p class="search-count">' . $L->get('No pages found') . '</p></div>';
 		}
 
 		$html = '<div class="container">';
