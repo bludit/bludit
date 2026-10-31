@@ -50,7 +50,7 @@
 	<?php if ($page->isChild() && !$url->notFound()): ?>
 	<!-- Link back to the parent page -->
 	<?php try { $parentPage = new Page($page->parentKey()); } catch (Exception $e) { $parentPage = false; } ?>
-	<?php if ($parentPage): ?>
+	<?php if ($parentPage && ($parentPage->published() || $parentPage->sticky() || $parentPage->isStatic())): ?>
 	<p class="mb-6 text-sm">
 		<a href="<?php echo $parentPage->permalink(); ?>" class="inline-flex items-center font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 no-underline transition-colors">
 			&larr; <?php echo $parentPage->title(); ?>
@@ -81,7 +81,7 @@
 		$childPages = array();
 		if ($page->isParent() && !$url->notFound()) {
 			foreach ($page->children() as $child) {
-				if ($child->published() || $child->isStatic()) {
+				if ($child->published() || $child->sticky() || $child->isStatic()) {
 					$childPages[] = $child;
 				}
 			}

@@ -30,8 +30,13 @@
 .prose-content ul { list-style: disc; }
 .prose-content ul ul { list-style: circle; }
 .prose-content ul ul ul { list-style: square; }
-.prose-content ol { list-style: decimal; }
-.prose-content ol ol { list-style: lower-alpha; }
+.prose-content ol:not([type]) { list-style: decimal; }
+.prose-content ol:not([type]) ol:not([type]) { list-style: lower-alpha; }
+.prose-content ol[type="1"] { list-style-type: decimal; }
+.prose-content ol[type="a"] { list-style-type: lower-alpha; }
+.prose-content ol[type="A"] { list-style-type: upper-alpha; }
+.prose-content ol[type="i"] { list-style-type: lower-roman; }
+.prose-content ol[type="I"] { list-style-type: upper-roman; }
 .prose-content li > ul,
 .prose-content li > ol { margin: 0.25em 0; }
 .prose-content li { margin: 0.25em 0; }

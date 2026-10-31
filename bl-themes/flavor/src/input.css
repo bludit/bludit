@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @source "../index.php";
 @source "../php";
+@source "../../../bl-plugins/search/plugin.php";
 
 @theme {
 	--font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
