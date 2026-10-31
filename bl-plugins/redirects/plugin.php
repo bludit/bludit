@@ -42,11 +42,11 @@ class pluginRedirects extends Plugin {
 
 	public function afterPageModify($key = false, $previousKey = false)
 	{
-		if ($key === false || !$this->isPublic($key)) {
+		global $pages;
+
+		if ($key === false || !$pages->isPublic($key)) {
 			return false;
 		}
-
-		global $pages;
 
 		$current = $this->getValue('redirects', false);
 		$rules = $this->parse($current);
@@ -55,7 +55,7 @@ class pluginRedirects extends Plugin {
 		if ($previousKey !== false && $previousKey !== $key) {
 			$rules[$this->pagePath($previousKey)] = $this->pagePath($key);
 			foreach ($childrenKeys as $childKey) {
-				$oldChildKey = $previousKey . mb_substr($childKey, mb_strlen($key, CHARSET), null, CHARSET);
+				$oldChildKey = $previousKey . Text::cut($childKey, Text::length($key), null);
 				$rules[$this->pagePath($oldChildKey)] = $this->pagePath($childKey);
 			}
 		}
@@ -83,19 +83,17 @@ class pluginRedirects extends Plugin {
 			return false;
 		}
 
-		$path = trim(mb_substr($url->uri(), mb_strlen(HTML_PATH_ROOT, CHARSET), null, CHARSET), '/');
+		$path = trim(Text::cut($url->uri(), Text::length(HTML_PATH_ROOT), null), '/');
 		$rules = $this->parse($redirects);
 		if (!isset($rules[$path])) {
 			return false;
 		}
 
 		$target = $this->isAbsolute($rules[$path]) ? $rules[$path] : DOMAIN_BASE . $rules[$path];
-		$target = preg_replace_callback('/[\x80-\xFF]+/', function ($matches) {
-			return rawurlencode($matches[0]);
-		}, $target);
+		$target = Text::encodeURL($target);
 
 		if (!empty($_SERVER['QUERY_STRING'])) {
-			$target .= (strpos($target, '?') === false ? '?' : '&') . $_SERVER['QUERY_STRING'];
+			$target .= (Text::stringContains($target, '?') ? '&' : '?') . $_SERVER['QUERY_STRING'];
 		}
 
 		Redirect::url($target, 301);
@@ -155,8 +153,8 @@ class pluginRedirects extends Plugin {
 	// Returns the value relative to the site root when the value is from this site
 	private function path($value)
 	{
-		if (strpos($value, DOMAIN_BASE) === 0) {
-			$value = substr($value, strlen(DOMAIN_BASE));
+		if (Text::startsWith($value, DOMAIN_BASE)) {
+			$value = Text::cut($value, Text::length(DOMAIN_BASE), null);
 		}
 
 		return $this->isAbsolute($value) ? $value : trim($value, '/');
@@ -170,13 +168,5 @@ class pluginRedirects extends Plugin {
 	private function isAbsolute($value)
 	{
 		return preg_match('#^https?://#i', $value) === 1;
-	}
-
-	private function isPublic($key)
-	{
-		global $pages;
-
-		$page = $pages->getPageDB($key);
-		return $page !== false && in_array($page['type'], array('published', 'static', 'sticky'));
 	}
 }
