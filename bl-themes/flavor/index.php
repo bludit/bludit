@@ -5,15 +5,14 @@
 </head>
 <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
 
-	<!-- Load Bludit Plugins: Site Body Begin -->
-	<?php Theme::plugins('siteBodyBegin'); ?>
-
 	<!-- Navbar -->
 	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
 
 	<!-- Content -->
 	<main class="max-w-2xl mx-auto px-4 py-8">
 		<?php
+			Theme::plugins('siteBodyBegin');
+
 			if ($url->notFound()) {
 				include(THEME_DIR_PHP.'404.php');
 			} elseif ($WHERE_AM_I === 'page') {

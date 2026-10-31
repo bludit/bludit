@@ -1,4 +1,4 @@
-<?php if (empty($content)) : ?>
+<?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
   <div class="mt-4">
     <?php $language->p('No pages found') ?>
   </div>

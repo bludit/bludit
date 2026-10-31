@@ -19,7 +19,7 @@
 </section>
 <?php endif ?>
 
-<?php if (empty($content)) : ?>
+<?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
 	<p class="text-gray-500 dark:text-gray-400 mt-8"><?php $language->p('No pages found') ?></p>
 <?php endif ?>
 

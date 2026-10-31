@@ -18,8 +18,7 @@ class pluginSearch extends Plugin
 			'highlightResults' => true,
 			'showResultCount' => true,
 			'searchInTags' => true,
-			'searchInCategories' => true,
-			'excerptLength' => 200
+			'searchInCategories' => true
 		);
 	}
 
@@ -82,242 +81,62 @@ class pluginSearch extends Plugin
 		$html .= '</select>';
 		$html .= '</div>';
 
-		$html .= '<div>';
-		$html .= '<label>' . $L->get('Excerpt length (characters)') . '</label>';
-		$html .= '<input name="excerptLength" type="number" value="' . $this->getValue('excerptLength') . '" min="50" max="500">';
-		$html .= '</div>';
+		return $html;
+	}
 
+	// HTML for the search form, it needs the assets from the method assets()
+	private function searchForm($id, $value = '')
+	{
+		global $L;
+		$searchText = $L->get('Search');
+
+		$html  = '<form class="search-plugin-form" role="search" data-search-url="' . DOMAIN_BASE . 'search/" data-min-chars="' . (int)$this->getValue('minChars') . '">';
+		$html .= '<label for="' . $id . '" class="visually-hidden">' . $searchText . '</label>';
+		$html .= '<input type="search" id="' . $id . '" value="' . $value . '" placeholder="' . $searchText . '..." autocomplete="off" dir="auto" required minlength="' . (int)$this->getValue('minChars') . '">';
+		if ($this->getValue('showButtonSearch')) {
+			$html .= '<button type="submit">' . $searchText . '</button>';
+		}
+		$html .= '</form>';
+
+		return $html;
+	}
+
+	// CSS and JS are only loaded on pages where the plugin shows something
+	private function assets($highlight = '')
+	{
+		$html = $this->includeCSS('search.css');
+		$html .= Theme::javascript('js/search.js', $this->domainPath(), 'defer data-highlight="' . Sanitize::html($highlight) . '"');
 		return $html;
 	}
 
 	// HTML for sidebar
 	public function siteSidebar()
 	{
-		global $L;
-		$label = $this->getValue('label');
-		$labelEscaped = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
-		$searchText = $L->get('Search');
-
 		$html  = '<div class="plugin plugin-search">';
-		$html .= '<h2 class="plugin-label">' . $labelEscaped . '</h2>';
+		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
-		$html .= '<form class="search-plugin-form" role="search" onsubmit="return pluginSearchSubmit()">';
-		$html .= '<label for="jspluginSearchText" class="visually-hidden">' . $searchText . '</label>';
-		$html .= '<input type="search" id="jspluginSearchText" name="search" placeholder="' . $searchText . '..." autocomplete="off" dir="auto" aria-label="' . $searchText . '">';
-		if ($this->getValue('showButtonSearch')) {
-			$html .= '<button type="submit">' . $searchText . '</button>';
-		}
-		$html .= '</form>';
+		$html .= $this->searchForm('jspluginSearchText');
 		$html .= '</div>';
 		$html .= '</div>';
 
-		$DOMAIN_BASE = DOMAIN_BASE;
-		$minChars = $this->getValue('minChars');
-		$html .= <<<EOF
-<script>
-function pluginSearchSubmit() {
-	var text = document.getElementById("jspluginSearchText").value.trim();
-	if (text.length < {$minChars}) {
-		alert("Please enter at least {$minChars} characters to search.");
-		return false;
-	}
-	window.location.href = '{$DOMAIN_BASE}search/' + encodeURIComponent(text);
-	return false;
-}
-</script>
-EOF;
+		// The search results page loads the assets in the head
+		if (!$this->webhook('search', false, false)) {
+			$html .= $this->assets();
+		}
 
 		return $html;
 	}
 
-	// Inject CSS styles for search results (works with any theme)
+	// Search results are not useful for search engines
 	public function siteHead()
 	{
-		$css = <<<'CSS'
-<style>
-/* Search Plugin Styles - Theme agnostic */
-.search-results-header {
-	padding: 2rem 0;
-	margin-bottom: 1.5rem;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-.search-results-header h1 {
-	font-size: 1.75rem;
-	margin: 0 0 0.5rem 0;
-}
-.search-results-header .search-query {
-	color: #0071e3;
-	font-weight: 600;
-}
-.search-results-header .search-count {
-	color: #6e6e73;
-	font-size: 0.9375rem;
-	margin: 0;
-}
-.search-no-results {
-	text-align: center;
-	padding: 3rem 1rem;
-}
-.search-no-results h2 {
-	font-size: 1.5rem;
-	margin-bottom: 0.75rem;
-}
-.search-no-results p {
-	color: #6e6e73;
-	margin-bottom: 1.5rem;
-}
-.search-no-results .search-suggestions {
-	text-align: left;
-	max-width: 400px;
-	margin: 0 auto;
-}
-.search-no-results .search-suggestions h3 {
-	font-size: 1rem;
-	margin-bottom: 0.5rem;
-}
-.search-no-results .search-suggestions ul {
-	padding-left: 1.25rem;
-	color: #6e6e73;
-}
-.search-no-results .search-suggestions li {
-	margin-bottom: 0.25rem;
-}
-.search-highlight {
-	background-color: rgba(255, 230, 0, 0.4);
-	padding: 0.1em 0.2em;
-	border-radius: 2px;
-	font-weight: 500;
-}
-.search-result-excerpt {
-	color: #1d1d1f;
-	line-height: 1.6;
-}
-.search-inline-form {
-	max-width: 400px;
-	margin: 1.5rem auto 0;
-}
-.search-inline-form input[type="search"] {
-	width: 100%;
-	padding: 0.75rem 1rem;
-	font-size: 1rem;
-	border: 1px solid rgba(0,0,0,0.1);
-	border-radius: 8px;
-}
-.search-inline-form input[type="search"]:focus {
-	outline: none;
-	border-color: #0071e3;
-	box-shadow: 0 0 0 4px rgba(0,113,227,0.1);
-}
-/* Sidebar search form styling */
-.plugin-search .search-plugin-form {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-}
-.plugin-search .search-plugin-form input[type="search"] {
-	flex: 1;
-	padding: 0.5rem 0.75rem;
-	border: 1px solid rgba(0,0,0,0.15);
-	border-radius: 6px;
-	font-size: 0.9375rem;
-	max-width: 100%;
-}
-.plugin-search .search-plugin-form input[type="search"]:focus {
-	outline: none;
-	border-color: #0071e3;
-}
-.plugin-search .search-plugin-form button {
-	padding: 0.5rem 1rem;
-	margin: 0 auto;
-	background: #0071e3;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 0.875rem;
-	width: 100%;
-}
-.plugin-search .search-plugin-form button:hover {
-	background: #0077ed;
-}
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-	.search-results-header {
-		border-bottom-color: rgba(255,255,255,0.1);
-	}
-	.search-results-header .search-count,
-	.search-no-results p,
-	.search-no-results .search-suggestions ul {
-		color: #a1a1a6;
-	}
-	.search-result-excerpt {
-		color: #f5f5f7;
-	}
-	.search-highlight {
-		background-color: rgba(255, 214, 10, 0.3);
-	}
-	.search-inline-form input[type="search"],
-	.plugin-search .search-plugin-form input[type="search"] {
-		background: #1d1d1f;
-		border-color: rgba(255,255,255,0.1);
-		color: #f5f5f7;
-	}
-}
-/* Accessibility - screen reader only class */
-.sr-only, .visually-hidden {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border: 0;
-}
-</style>
-CSS;
-
-		// Add JavaScript for automatic highlighting on search results page
-		$webhook = 'search';
-		if ($this->webhook($webhook, false, false) && $this->getValue('highlightResults')) {
-			$searchTerm = $this->getSearchTerm();
-			$searchTermJS = json_encode($searchTerm);
-
-			$js = '<script>' . PHP_EOL;
-			$js .= 'document.addEventListener("DOMContentLoaded", function() {' . PHP_EOL;
-			$js .= '  var searchTerm = ' . $searchTermJS . ';' . PHP_EOL;
-			$js .= '  if (!searchTerm || searchTerm.length < 2) return;' . PHP_EOL;
-			$js .= '  var words = searchTerm.toLowerCase().split(/\\s+/).filter(function(w) { return w.length >= 2; });' . PHP_EOL;
-			$js .= '  if (words.length === 0) return;' . PHP_EOL;
-			$js .= '  var articles = document.querySelectorAll("article, main, [role=main], .content");' . PHP_EOL;
-			$js .= '  articles.forEach(function(article) {' . PHP_EOL;
-			$js .= '    if (article.closest(".search-results-header") || article.closest("form")) return;' . PHP_EOL;
-			$js .= '    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null, false);' . PHP_EOL;
-			$js .= '    var textNodes = [];' . PHP_EOL;
-			$js .= '    while(walker.nextNode()) {' . PHP_EOL;
-			$js .= '      var parent = walker.currentNode.parentNode;' . PHP_EOL;
-			$js .= '      if (parent && (parent.tagName === "SCRIPT" || parent.tagName === "STYLE" || parent.tagName === "MARK")) continue;' . PHP_EOL;
-			$js .= '      textNodes.push(walker.currentNode);' . PHP_EOL;
-			$js .= '    }' . PHP_EOL;
-			$js .= '    textNodes.forEach(function(textNode) {' . PHP_EOL;
-			$js .= '      var text = textNode.nodeValue;' . PHP_EOL;
-			$js .= '      var escapedWords = words.map(function(w) { return w.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&"); });' . PHP_EOL;
-			$js .= '      var pattern = new RegExp("(" + escapedWords.join("|") + ")", "gi");' . PHP_EOL;
-			$js .= '      if (pattern.test(text)) {' . PHP_EOL;
-			$js .= '        var span = document.createElement("span");' . PHP_EOL;
-			$js .= '        span.innerHTML = text.replace(pattern, "<mark class=\\"search-highlight\\">$1</mark>");' . PHP_EOL;
-			$js .= '        textNode.parentNode.replaceChild(span, textNode);' . PHP_EOL;
-			$js .= '      }' . PHP_EOL;
-			$js .= '    });' . PHP_EOL;
-			$js .= '  });' . PHP_EOL;
-			$js .= '});' . PHP_EOL;
-			$js .= '</script>' . PHP_EOL;
-
-			$css .= $js;
+		if (!$this->webhook('search', false, false)) {
+			return '';
 		}
 
-		return $css;
+		$html = '<meta name="robots" content="noindex">' . PHP_EOL;
+		$html .= $this->assets($this->getValue('highlightResults') ? $this->getSearchTerm() : '');
+		return $html;
 	}
 
 	// Display search header before content
@@ -334,7 +153,7 @@ CSS;
 		$count = $this->numberOfItems;
 
 		if (empty($searchTerm)) {
-			return '';
+			return '<div class="container"><p class="search-count">' . $L->get('No pages found') . '</p></div>';
 		}
 
 		$html = '<div class="container">';
@@ -356,8 +175,6 @@ CSS;
 
 		// If no results, show helpful message
 		if ($count === 0) {
-			$DOMAIN_BASE = DOMAIN_BASE;
-			$minChars = $this->getValue('minChars');
 			$html .= '<div class="container">';
 			$html .= '<div class="search-no-results">';
 			$html .= '<h2>' . $L->get('No results found') . '</h2>';
@@ -371,22 +188,10 @@ CSS;
 			$html .= '</ul>';
 			$html .= '</div>';
 			$html .= '<div class="search-inline-form">';
-			$html .= '<form role="search" onsubmit="return searchAgain()">';
-			$html .= '<input type="search" id="searchAgainInput" value="' . $searchTermEscaped . '" placeholder="' . $L->get('Search') . '..." aria-label="' . $L->get('Search') . '">';
-			$html .= '</form>';
+			$html .= $this->searchForm('jssearchAgain', $searchTermEscaped);
 			$html .= '</div>';
 			$html .= '</div>';
 			$html .= '</div>';
-			$html .= <<<EOF
-<script>
-function searchAgain() {
-	var text = document.getElementById("searchAgainInput").value.trim();
-	if (text.length < {$minChars}) return false;
-	window.location.href = '{$DOMAIN_BASE}search/' + encodeURIComponent(text);
-	return false;
-}
-</script>
-EOF;
 		}
 
 		return $html;
@@ -503,91 +308,6 @@ EOF;
 				}
 			}
 		}
-	}
-
-	/**
-	 * Highlight search terms in text
-	 */
-	public function highlightTerms($text, $searchTerm)
-	{
-		if (!$this->getValue('highlightResults') || empty($searchTerm)) {
-			return $text;
-		}
-
-		// Split search term into words
-		$words = preg_split('/\s+/', $searchTerm);
-		$words = array_filter($words, function($word) {
-			return mb_strlen($word, 'UTF-8') >= 2;
-		});
-
-		if (empty($words)) {
-			return $text;
-		}
-
-		// Escape special regex characters and create pattern
-		$escapedWords = array_map(function($word) {
-			return preg_quote($word, '/');
-		}, $words);
-
-		$pattern = '/(' . implode('|', $escapedWords) . ')/iu';
-
-		return preg_replace($pattern, '<mark class="search-highlight">$1</mark>', $text);
-	}
-
-	/**
-	 * Get excerpt around the search term
-	 */
-	public function getSearchExcerpt($content, $searchTerm, $length = null)
-	{
-		if ($length === null) {
-			$length = $this->getValue('excerptLength');
-		}
-
-		$content = strip_tags($content);
-		$content = html_entity_decode($content, ENT_QUOTES, 'UTF-8');
-
-		// Find the first occurrence of any search word
-		$words = preg_split('/\s+/', $searchTerm);
-		$words = array_filter($words, function($word) {
-			return mb_strlen($word, 'UTF-8') >= 2;
-		});
-
-		$firstPos = mb_strlen($content, 'UTF-8');
-		foreach ($words as $word) {
-			$pos = mb_stripos($content, $word, 0, 'UTF-8');
-			if ($pos !== false && $pos < $firstPos) {
-				$firstPos = $pos;
-			}
-		}
-
-		// Calculate start position (center the found term)
-		$start = max(0, $firstPos - (int)($length / 2));
-
-		// Adjust to not cut words
-		if ($start > 0) {
-			$spacePos = mb_strpos($content, ' ', $start, 'UTF-8');
-			if ($spacePos !== false && $spacePos < $start + 20) {
-				$start = $spacePos + 1;
-			}
-		}
-
-		// Extract excerpt
-		$excerpt = mb_substr($content, $start, $length, 'UTF-8');
-
-		// Clean up beginning and end
-		if ($start > 0) {
-			$excerpt = '...' . $excerpt;
-		}
-		if ($start + $length < mb_strlen($content, 'UTF-8')) {
-			// Don't cut in the middle of a word
-			$lastSpace = mb_strrpos($excerpt, ' ', 0, 'UTF-8');
-			if ($lastSpace !== false && $lastSpace > $length - 30) {
-				$excerpt = mb_substr($excerpt, 0, $lastSpace, 'UTF-8');
-			}
-			$excerpt .= '...';
-		}
-
-		return $excerpt;
 	}
 
 	// Generate the cache file

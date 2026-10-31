@@ -56,7 +56,7 @@
 
 <!-- Main content area -->
 <main role="main">
-	<?php if (empty($content)) : ?>
+	<?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
 		<div class="text-center p-4">
 			<p class="text-muted"><?php $language->p('No pages found') ?></p>
 		</div>
