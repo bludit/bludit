@@ -19,33 +19,17 @@
 
 				if ($showSearchBox) : ?>
 					<div class="hero-search">
-						<form class="search-form" role="search" onsubmit="return searchNow();">
-							<label for="search-input" class="visually-hidden"><?php $language->p('Search') ?></label>
-							<div class="search-input-wrapper">
-								<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-									<circle cx="11" cy="11" r="8"></circle>
-									<path d="M21 21l-4.35-4.35"></path>
-								</svg>
-								<input id="search-input" class="form-control" type="search" placeholder="<?php $language->p('Search') ?>" aria-label="<?php $language->p('Search') ?>" value="<?php echo ($WHERE_AM_I==='search'?htmlspecialchars($searchPlugin->getSearchTerm(), ENT_QUOTES, 'UTF-8'):'') ?>">
-							</div>
-						</form>
+						<div class="search-input-wrapper">
+							<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<circle cx="11" cy="11" r="8"></circle>
+								<path d="M21 21l-4.35-4.35"></path>
+							</svg>
+							<?php echo $searchPlugin->searchBox(); ?>
+						</div>
 					</div>
 				<?php endif;
 			}
 			?>
-			<?php if (pluginActivated('pluginSearch')) : ?>
-				<script>
-					function searchNow() {
-						var searchValue = document.getElementById("search-input").value.trim();
-						if (searchValue.length === 0) {
-							return false;
-						}
-						var searchURL = "<?php echo Theme::siteUrl(); ?>search/";
-						window.location.href = searchURL + encodeURIComponent(searchValue);
-						return false;
-					}
-				</script>
-			<?php endif ?>
 		</div>
 	</div>
 </header>

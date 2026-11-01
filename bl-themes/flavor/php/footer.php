@@ -1,5 +1,14 @@
 <footer class="border-t border-gray-200 dark:border-gray-800 mt-8">
 	<div class="max-w-2xl mx-auto px-4 py-8 text-sm text-gray-500 dark:text-gray-400">
+		<?php
+			// The theme has no sidebar, the sidebar plugins go in the footer
+			ob_start();
+			Theme::plugins('siteSidebar');
+			$footerWidgets = ob_get_clean();
+		?>
+		<?php if ($footerWidgets): ?>
+		<div class="footer-widgets"><?php echo $footerWidgets; ?></div>
+		<?php endif; ?>
 		<?php $socialNetworks = Theme::socialNetworks(); ?>
 		<?php if (!empty($socialNetworks) || Theme::rssUrl()): ?>
 		<nav class="flex flex-wrap gap-x-6 gap-y-2 mb-6" aria-label="<?php echo $L->get('Social links'); ?>">
