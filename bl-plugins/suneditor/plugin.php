@@ -85,19 +85,19 @@ class pluginSuneditor extends Plugin
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertMedia(filename) {
-		sunEditor.insertHTML("<img src=\""+filename+"\" alt=\"$imageAltText\">");
+		sunEditor.$.html.insert("<img src=\""+filename+"\" alt=\"$imageAltText\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertLinkedMedia(filename, link) {
-		sunEditor.insertHTML("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
+		sunEditor.$.html.insert("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
 	}
 
 	// Returns the content of the editor
 	// Function required for Bludit
 	function editorGetContent() {
-		return sunEditor.getContents();
+		return sunEditor.$.html.get();
 	}
 
 	sunEditor = SUNEDITOR.create(document.getElementById('jseditor'), {
