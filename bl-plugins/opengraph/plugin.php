@@ -65,6 +65,34 @@ class pluginOpenGraph extends Plugin
 		return '';
 	}
 
+	// Returns the URL of the current listing, the same URL as the plugin Canonical
+	private function listingUrl()
+	{
+		global $url;
+		global $WHERE_AM_I;
+
+		switch ($WHERE_AM_I) {
+			case 'home':
+				$listingUrl = DOMAIN_BASE;
+				break;
+
+			case 'category':
+				$listingUrl = DOMAIN_CATEGORIES . $url->slug();
+				break;
+
+			case 'tag':
+				$listingUrl = DOMAIN_TAGS . $url->slug();
+				break;
+
+			default:
+				$listingUrl = DOMAIN . str_replace('%2F', '/', rawurlencode($url->uri()));
+				break;
+		}
+
+		$pageNumber = $url->pageNumber();
+		return $pageNumber > 1 ? $listingUrl . '?page=' . $pageNumber : $listingUrl;
+	}
+
 	public function siteHead()
 	{
 		global $url;
@@ -115,6 +143,7 @@ class pluginOpenGraph extends Plugin
 				break;
 
 			default:
+				$og['url'] = $this->listingUrl();
 				$pageContent = '';
 				if (Text::isNotEmpty($this->getValue('defaultImage'))) {
 					$og['image'] = $this->getValue('defaultImage');
