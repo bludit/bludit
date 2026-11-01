@@ -27,7 +27,7 @@ class pluginRobots extends Plugin {
 	{
 		global $WHERE_AM_I;
 
-		$html = PHP_EOL.'<!-- Robots plugin -->'.PHP_EOL;
+		$html = '';
 		if ($WHERE_AM_I=='page') {
 			global $page;
 			$robots = array();
