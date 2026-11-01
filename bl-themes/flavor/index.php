@@ -5,17 +5,14 @@
 </head>
 <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
 
-	<!-- Load Bludit Plugins: Site Body Begin -->
 	<?php
 		// The search header goes inside the layout
 		$searchHeader = pluginActivated('pluginSearch') ? getPlugin('pluginSearch')->takeHeader() : '';
 		Theme::plugins('siteBodyBegin');
 	?>
 
-	<!-- Navbar -->
 	<?php include(THEME_DIR_PHP.'navbar.php'); ?>
 
-	<!-- Content -->
 	<main class="max-w-2xl mx-auto px-4 py-8">
 		<?php
 			echo $searchHeader;
@@ -30,10 +27,8 @@
 		?>
 	</main>
 
-	<!-- Footer -->
 	<?php include(THEME_DIR_PHP.'footer.php'); ?>
 
-	<!-- Load Bludit Plugins: Site Body End -->
 	<?php Theme::plugins('siteBodyEnd'); ?>
 
 </body>
