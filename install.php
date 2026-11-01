@@ -287,6 +287,7 @@ function install($adminPassword, $timezone)
 		'robots',
 		'canonical',
 		'opengraph',
+		'json-ld',
 		'twitter-cards',
 		'sitemap',
 		'rss',
@@ -559,6 +560,7 @@ function install($adminPassword, $timezone)
 	// Plugins that work with their default values, these databases only need the position
 	$pluginsWithDefaults = array(
 		'opengraph',
+		'json-ld',
 		'twitter-cards',
 		'sitemap',
 		'rss',

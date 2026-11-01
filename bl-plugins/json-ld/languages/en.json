@@ -1,0 +1,7 @@
+{
+	"plugin-data":
+	{
+		"name": "JSON-LD Structured Data",
+		"description": "Adds Schema.org structured data to your site so search engines can understand your content. Blog posts get BlogPosting and BreadcrumbList, the homepage gets WebSite. It works with every theme and does not need configuration."
+	}
+}
