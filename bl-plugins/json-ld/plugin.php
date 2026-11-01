@@ -105,10 +105,11 @@ class pluginJsonLd extends Plugin {
 
 	private function breadcrumbListSchema($page)
 	{
-		global $site;
+		global $site, $categories;
 
 		$items = array(array($site->title(), DOMAIN_BASE));
-		if ($page->categoryKey()) {
+		// Deleting a category keeps the key in the pages
+		if ($categories->exists($page->categoryKey())) {
 			$items[] = array($page->category(), $page->categoryPermalink());
 		}
 		$items[] = array($page->title(), $page->permalink());
