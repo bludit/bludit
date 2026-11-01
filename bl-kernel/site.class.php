@@ -11,7 +11,7 @@ class Site extends dbJSON
 		'language' =>		'en',
 		'locale' =>		'en, en_US, en_AU, en_CA, en_GB, en_IE, en_NZ',
 		'timezone' =>		'America/Argentina/Buenos_Aires',
-		'theme' =>		'alternative',
+		'theme' =>		'flavor',
 		'adminTheme' =>		'booty',
 		'adminColorMode' =>	'system', // system, light or dark
 		'homepage' =>		'',
