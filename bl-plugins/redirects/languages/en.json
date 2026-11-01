@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Redirects",
+		"description": "Sends visitors and search engines to the right URL with a permanent 301 redirect. When you change the slug of a page the redirect from the old URL is created for you."
+	},
+	"redirects": "Redirects",
+	"redirects-tip": "One redirect per line, the old path and the new path or full URL separated by a space. Redirects to a redirect are resolved when you save, and loops are removed. A published page in the old path wins over the redirect.",
+	"redirects-rejected": "These lines were not saved, each line needs an old path of this site and a new path or full URL:"
+}
