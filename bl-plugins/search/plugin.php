@@ -6,6 +6,7 @@ class pluginSearch extends Plugin
 	private $pagesFound = array();
 	private $numberOfItems = 0;
 	private $searchTerm = '';
+	private $headerTaken = false;
 
 	public function init()
 	{
@@ -139,11 +140,19 @@ class pluginSearch extends Plugin
 		return $html;
 	}
 
+	// For the themes that print the search header inside the layout, siteBodyBegin prints nothing after this
+	public function takeHeader()
+	{
+		$html = $this->siteBodyBegin();
+		$this->headerTaken = true;
+		return $html;
+	}
+
 	// Display search header before content
 	public function siteBodyBegin()
 	{
 		$webhook = 'search';
-		if (!$this->webhook($webhook, false, false)) {
+		if ($this->headerTaken || !$this->webhook($webhook, false, false)) {
 			return false;
 		}
 

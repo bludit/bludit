@@ -292,7 +292,6 @@ function install($adminPassword, $timezone)
 		'sitemap',
 		'rss',
 		'search',
-		'alternative',
 		'version'
 	);
 	foreach ($pluginsToInstall as $plugin) {
@@ -390,7 +389,7 @@ function install($adminPassword, $timezone)
 		'language' => $L->currentLanguage(),
 		'locale' => $L->locale(),
 		'timezone' => $timezone,
-		'theme' => 'alternative',
+		'theme' => 'flavor',
 		'adminTheme' => 'booty',
 		'homepage' => '',
 		'pageNotFound' => '',
@@ -538,21 +537,6 @@ function install($adminPassword, $timezone)
 		PATH_PLUGINS_DATABASES . 'canonical' . DS . 'db.php',
 		$dataHead . json_encode(
 			array(
-				'position' => 1
-			),
-			JSON_PRETTY_PRINT
-		),
-		LOCK_EX
-	);
-
-	// File plugins/alternative/db.php
-	file_put_contents(
-		PATH_PLUGINS_DATABASES . 'alternative' . DS . 'db.php',
-		$dataHead . json_encode(
-			array(
-				'googleFonts' => false,
-				'showPostInformation' => false,
-				'dateFormat' => 'relative',
 				'position' => 1
 			),
 			JSON_PRETTY_PRINT
