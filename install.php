@@ -366,7 +366,7 @@ function install($adminPassword, $timezone)
 
 		array_push($slugs, $slug);
 
-		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, $L->get($content), LOCK_EX);
+		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, Text::replace('./admin', HTML_PATH_ROOT . 'admin', $L->get($content)), LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
