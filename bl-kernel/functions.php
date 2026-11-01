@@ -465,8 +465,8 @@ function editPage($args)
 
   $key = $pages->edit($args);
   if ($key) {
-    // Call the plugins after page modified
-    Theme::plugins('afterPageModify', array($key));
+    // Call the plugins after page modified, the key is different from the previous one when the slug or parent changed
+    Theme::plugins('afterPageModify', array($key, $args['key']));
 
     reindexCategories();
     reindexTags();
