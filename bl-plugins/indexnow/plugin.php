@@ -97,6 +97,7 @@ class pluginIndexNow extends Plugin {
 			return;
 		}
 
+		$statuses = array();
 		foreach ($keys as $key) {
 			$request = self::ENDPOINT . '?url=' . rawurlencode(DOMAIN_PAGES . $key);
 			$request .= '&key=' . $this->getValue('key');
@@ -104,10 +105,10 @@ class pluginIndexNow extends Plugin {
 
 			// A short timeout, a slow response must not block the save of the page
 			$response = TCP::http($request, 'GET', true, 3, false, true, true);
+			$statuses[] = $response === false ? 'No response' : strtok($response, "\r\n");
 		}
 
-		$status = $response === false ? 'No response' : strtok($response, "\r\n");
-		$this->setField('lastResponse', Date::current(DB_DATE_FORMAT) . ' ' . $status);
+		$this->setField('lastResponse', Date::current(DB_DATE_FORMAT) . ' ' . implode(', ', array_unique($statuses)));
 	}
 
 	private function keyLocation()
@@ -126,7 +127,7 @@ class pluginIndexNow extends Plugin {
 	// Sites in localhost or in an intranet can't be reached by the search engines
 	private function isPublicSite()
 	{
-		$host = parse_url(DOMAIN_BASE, PHP_URL_HOST);
+		$host = rtrim(Text::lowercase(parse_url(DOMAIN_BASE, PHP_URL_HOST)), '.');
 
 		if (Valid::ip($host)) {
 			return filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false;
