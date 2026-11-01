@@ -32,6 +32,7 @@ $plugins = array(
 
 	'afterPageCreate'=>array(),
 	'afterPageModify'=>array(),
+	'beforePageDelete'=>array(),
 	'afterPageDelete'=>array(),
 
 	'loginHead'=>array(),

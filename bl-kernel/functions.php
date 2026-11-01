@@ -489,6 +489,9 @@ function deletePage($key)
   global $pages;
   global $syslog;
 
+  // Call the plugins before the page is deleted
+  Theme::plugins('beforePageDelete', array($key));
+
   if ($pages->delete($key)) {
     // Call the plugins after page deleted
     Theme::plugins('afterPageDelete', array($key));
