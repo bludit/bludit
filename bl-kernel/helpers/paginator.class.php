@@ -91,12 +91,13 @@ class Paginator {
 
 		$domain = trim(DOMAIN_BASE,'/');
 		$filter = trim($url->activeFilter(), '/');
+		$slug = str_replace('%2F', '/', rawurlencode($url->slug()));
 
 		if(empty($filter)) {
-			$uri = $domain.'/'.$url->slug();
+			$uri = $domain.'/'.$slug;
 		}
 		else {
-			$uri = $domain.'/'.$filter.'/'.$url->slug();
+			$uri = $domain.'/'.$filter.'/'.$slug;
 		}
 
 		return $uri.'?page='.$pageNumber;
