@@ -7,6 +7,7 @@ class pluginSearch extends Plugin
 	private $numberOfItems = 0;
 	private $searchTerm = '';
 	private $headerTaken = false;
+	private $boxShown = false;
 
 	public function init()
 	{
@@ -113,6 +114,11 @@ class pluginSearch extends Plugin
 	// HTML for sidebar
 	public function siteSidebar()
 	{
+		// The theme already printed the search form on this page
+		if ($this->boxShown) {
+			return '';
+		}
+
 		$html  = '<div class="plugin plugin-search">';
 		$html .= '<h2 class="plugin-label">' . $this->getValue('label') . '</h2>';
 		$html .= '<div class="plugin-content">';
@@ -126,6 +132,19 @@ class pluginSearch extends Plugin
 		}
 
 		return $html;
+	}
+
+	// HTML for the themes without sidebar that print the search form in their layout
+	public function searchBox()
+	{
+		$this->boxShown = true;
+
+		// The search results page loads the assets in the head
+		if ($this->webhook('search', false, false)) {
+			return $this->searchForm('jspluginSearchBox', htmlspecialchars($this->getSearchTerm(), ENT_QUOTES, 'UTF-8'));
+		}
+
+		return $this->assets() . $this->searchForm('jspluginSearchBox');
 	}
 
 	// Search results are not useful for search engines

@@ -1,3 +1,15 @@
+<?php
+	// The theme has no sidebar, the sidebar plugins go before the footer
+	ob_start();
+	Theme::plugins('siteSidebar');
+	$footerWidgets = ob_get_clean();
+?>
+<?php if ($footerWidgets): ?>
+<div class="footer-widgets">
+	<div class="container"><?php echo $footerWidgets; ?></div>
+</div>
+<?php endif; ?>
+
 <footer class="footer bg-dark" role="contentinfo">
 	<div class="container">
 		<div class="d-flex flex-column flex-md-row justify-content-center align-items-center text-center text-white text-uppercase">
