@@ -882,12 +882,14 @@ function deleteCategory($args)
 {
   global $L;
   global $categories;
+  global $pages;
   global $syslog;
 
   // Remove the category by key
   $categories->remove($args['oldKey']);
 
-  // Remove the category from the pages ? or keep it if the user want to recovery the category ?
+  // Remove the category from the pages
+  $pages->changeCategory($args['oldKey'], '');
 
   // Add to syslog
   $syslog->add(array(
