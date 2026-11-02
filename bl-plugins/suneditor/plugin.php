@@ -82,21 +82,34 @@ class pluginSuneditor extends Plugin
 
 	var sunEditor = null;
 
+	// Insert HTML at the cursor position, or at the end in code view
+	function editorInsertHTML(html) {
+		if (sunEditor.$.frameContext.get('isCodeView')) {
+			sunEditor.$.html.add(html);
+		} else {
+			sunEditor.$.html.insert(html);
+		}
+	}
+
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertMedia(filename) {
-		sunEditor.$.html.insert("<img src=\""+filename+"\" alt=\"$imageAltText\">");
+		editorInsertHTML("<img src=\""+filename+"\" alt=\"$imageAltText\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
 	function editorInsertLinkedMedia(filename, link) {
-		sunEditor.$.html.insert("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
+		editorInsertHTML("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
 	}
 
 	// Returns the content of the editor
 	// Function required for Bludit
 	function editorGetContent() {
+		// In code view the content is in the textarea, not in the editor
+		if (sunEditor.$.frameContext.get('isCodeView')) {
+			return sunEditor.$.frameContext.get('code').value;
+		}
 		return sunEditor.$.html.get();
 	}
 
