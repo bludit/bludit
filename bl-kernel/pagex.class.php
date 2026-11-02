@@ -165,20 +165,6 @@ class Page
 		return HTML_PATH_ROOT . PAGE_URI_FILTER . $key;
 	}
 
-	// Returns the previous page key
-	public function previousKey()
-	{
-		global $pages;
-		return $pages->previousPageKey($this->key());
-	}
-
-	// Returns the next page key
-	public function nextKey()
-	{
-		global $pages;
-		return $pages->nextPageKey($this->key());
-	}
-
 	// Returns the category name
 	public function category()
 	{
