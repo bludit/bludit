@@ -965,8 +965,9 @@ function activateTheme($themeDirectory)
       return false;
     }
 
-    // Disable current theme
-    $currentTheme = $site->theme();
+    // Disable current theme, the saved one, theme() returns the default theme
+    // when the saved theme is locked
+    $currentTheme = $site->getField('theme');
     deactivatePlugin($currentTheme);
 
     // Install new theme
