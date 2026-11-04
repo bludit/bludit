@@ -23,7 +23,9 @@ foreach ($themes as $theme) {
 			<div class="mt-1">
 	';
 
-  if ($theme['dirname'] != $site->theme()) {
+  if ($theme['locked']) {
+    echo '<a target="_blank" href="https://pro.bludit.com"><span class="fa fa-lock"></span> ' . $L->g('Requires Bludit PRO') . '</a>';
+  } elseif ($theme['dirname'] != $site->theme()) {
     echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'install-theme/' . $theme['dirname'] . '">' . $L->g('Activate') . '</a>';
   } else {
     if (isset($theme['plugin'])) {

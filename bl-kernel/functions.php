@@ -960,8 +960,14 @@ function activateTheme($themeDirectory)
 
   if (Sanitize::pathFile(PATH_THEMES . $themeDirectory)) {
 
-    // Disable current theme
-    $currentTheme = $site->theme();
+    if ($site->themeLocked($themeDirectory)) {
+      Alert::set($L->g('This theme requires Bludit PRO'), ALERT_STATUS_FAIL);
+      return false;
+    }
+
+    // Disable current theme, the saved one, theme() returns the default theme
+    // when the saved theme is locked
+    $currentTheme = $site->getField('theme');
     deactivatePlugin($currentTheme);
 
     // Install new theme

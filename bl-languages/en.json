@@ -474,5 +474,6 @@
     "plugin-deleted": "Plugin deleted",
     "requires-bludit-pro": "Requires Bludit PRO",
     "this-plugin-requires-bludit-pro": "This plugin requires Bludit PRO",
+    "this-theme-requires-bludit-pro": "This theme requires Bludit PRO",
     "the-bludit-pro-license-is-not-valid-for-this-version": "The Bludit PRO license is for the version %s and this is Bludit %s, download the license for this version from Patreon"
 }
