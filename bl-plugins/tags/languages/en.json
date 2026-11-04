@@ -3,5 +3,7 @@
 	{
 		"name": "Tags list",
 		"description": "Shows all tags on the sidebar."
-	}
+	},
+	"tag-cloud": "Tag cloud",
+	"tags-with-more-pages-are-displayed-bigger": "Tags with more pages are displayed bigger"
 }
