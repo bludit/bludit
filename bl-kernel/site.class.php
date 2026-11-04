@@ -59,6 +59,9 @@ class Site extends dbJSON
 		'customFields' =>	'{}'
 	);
 
+	// Cache of themeLocked(), theme name => TRUE/FALSE
+	private $lockedThemes = array();
+
 	function __construct()
 	{
 		parent::__construct(DB_SITE);
@@ -293,10 +296,35 @@ class Site extends dbJSON
 		return $this->getField('timeFormat');
 	}
 
-	// Returns the site theme name
+	// Returns the site theme name, a theme of Bludit PRO without a valid license
+	// is replaced by the default theme, the setting is kept so the theme is back
+	// when the license is valid again
 	public function theme()
 	{
-		return $this->getField('theme');
+		$theme = $this->getField('theme');
+		if ($this->themeLocked($theme)) {
+			return $this->dbFields['theme'];
+		}
+		return $theme;
+	}
+
+	// Returns TRUE if the theme is part of Bludit PRO and there is no valid
+	// license, the metadata is read once per request
+	public function themeLocked($theme)
+	{
+		if (defined('BLUDIT_PRO')) {
+			return false;
+		}
+
+		if (!isset($this->lockedThemes[$theme])) {
+			$locked = false;
+			if (Sanitize::pathFile(PATH_THEMES, $theme . DS . 'metadata.json')) {
+				$metadata = json_decode(file_get_contents(PATH_THEMES . $theme . DS . 'metadata.json'), true);
+				$locked = isset($metadata['pro']) && $metadata['pro'] === true;
+			}
+			$this->lockedThemes[$theme] = $locked;
+		}
+		return $this->lockedThemes[$theme];
 	}
 
 	// Returns the admin theme name

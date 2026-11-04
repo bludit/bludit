@@ -960,6 +960,11 @@ function activateTheme($themeDirectory)
 
   if (Sanitize::pathFile(PATH_THEMES . $themeDirectory)) {
 
+    if ($site->themeLocked($themeDirectory)) {
+      Alert::set($L->g('This theme requires Bludit PRO'), ALERT_STATUS_FAIL);
+      return false;
+    }
+
     // Disable current theme
     $currentTheme = $site->theme();
     deactivatePlugin($currentTheme);
