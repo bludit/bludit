@@ -11,6 +11,10 @@
         ],
         "locale": "bg, bg_BG"
     },
+    "unicode-chars": {
+        "Ь": "J",
+        "ь": "j"
+    },
     "dates": {
         "Mon": "Mon",
         "Tue": "Tue",
