@@ -8,6 +8,11 @@ header('Content-Type: application/json');
 | @return	array
 */
 
+// The site logo is part of the settings, only the administrators can change it
+if (!checkRole(array('admin'), false)) {
+	ajaxResponse(1, $L->g('You do not have sufficient permissions'));
+}
+
 // Delete the file
 $logoFilename = $site->logo(false);
 if ($logoFilename) {
