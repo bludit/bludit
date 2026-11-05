@@ -26,6 +26,10 @@ if (empty($uuid)) {
 	ajaxResponse(1, 'Save as draft fail. UUID not defined.');
 }
 
+if (!$pages->isValidUUID($uuid)) {
+	ajaxResponse(1, 'Save as draft fail. Invalid UUID.');
+}
+
 $page = array(
 	'uuid'=>$uuid,
 	'key'=>$uuid,
