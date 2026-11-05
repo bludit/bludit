@@ -151,6 +151,7 @@ class pluginTinymce extends Plugin
 		convert_urls: true,
 		relative_urls: false,
 		valid_elements: "*[*]",
+		sandbox_iframes: false,
 		cache_suffix: "?version=$version",
 		license_key: "gpl",
 		promotion: false,
