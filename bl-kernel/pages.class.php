@@ -838,7 +838,9 @@ class Pages extends dbJSON
 		foreach ($tags as $tag) {
 			$tag = trim($tag);
 			$tagKey = Text::cleanUrl($tag);
-			$tmp[$tagKey] = $tag;
+			// The name is printed by the themes and the admin panel without encoding,
+			// encode it before storing it, the same as the other fields of the page
+			$tmp[$tagKey] = Sanitize::html($tag);
 		}
 		return $tmp;
 	}
