@@ -284,7 +284,7 @@
                         echo '<li class="list-group-item">';
                         echo $phrase;
                         if (!empty($log['notes'])) {
-                            echo ' « <b>' . htmlspecialchars($log['notes'], ENT_QUOTES, 'UTF-8') . '</b> »';
+                            echo ' « <b>' . htmlspecialchars(Sanitize::htmlDecode($log['notes']), ENT_QUOTES, 'UTF-8') . '</b> »';
                         }
                         echo '<br><span class="notification-date"><small>';
                         echo Date::format($log['date'], DB_DATE_FORMAT, NOTIFICATIONS_DATE_FORMAT);
