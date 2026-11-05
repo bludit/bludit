@@ -3,5 +3,7 @@
 	{
 		"name": "Lista de etiquetas",
 		"description": "Muestra todas las etiquetas en la barra lateral."
-	}
+	},
+	"tag-cloud": "Nube de etiquetas",
+	"tags-with-more-pages-are-displayed-bigger": "Las etiquetas con más páginas se muestran más grandes"
 }
