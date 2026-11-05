@@ -186,7 +186,7 @@ function uploadImages() {
 	var images = $("#jsimages")[0].files;
 	for (var i=0; i < images.length; i++) {
 		// Check file type/extension
-		const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
+		const validImageTypes = <?php echo json_encode($GLOBALS['ALLOWED_IMG_MIMETYPES']) ?>;
 		if (!validImageTypes.includes(images[i].type)) {
 			showMediaAlert("<?php echo $L->g('File type is not supported. Allowed types:').' '.implode(', ',$GLOBALS['ALLOWED_IMG_EXTENSION']) ?>");
 			return false;
