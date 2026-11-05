@@ -280,7 +280,20 @@ function install($adminPassword, $timezone)
 	}
 
 	// Directories for initial plugins
-	$pluginsToInstall = array('tinymce', 'about', 'visits-stats', 'robots', 'canonical', 'alternative');
+	$pluginsToInstall = array(
+		'tinymce',
+		'about',
+		'visits-stats',
+		'robots',
+		'canonical',
+		'opengraph',
+		'json-ld',
+		'twitter-cards',
+		'sitemap',
+		'rss',
+		'search',
+		'version'
+	);
 	foreach ($pluginsToInstall as $plugin) {
 		if (!mkdir(PATH_PLUGINS_DATABASES . $plugin, DIR_PERMISSIONS, true)) {
 			$errorText = 'Error when trying to created the directory=>' . PATH_PLUGINS_DATABASES . $plugin;
@@ -353,7 +366,7 @@ function install($adminPassword, $timezone)
 
 		array_push($slugs, $slug);
 
-		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, $L->get($content), LOCK_EX);
+		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, Text::replace('./admin', HTML_PATH_ROOT . 'admin', $L->get($content)), LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -376,7 +389,7 @@ function install($adminPassword, $timezone)
 		'language' => $L->currentLanguage(),
 		'locale' => $L->locale(),
 		'timezone' => $timezone,
-		'theme' => 'alternative',
+		'theme' => 'flavor',
 		'adminTheme' => 'booty',
 		'homepage' => '',
 		'pageNotFound' => '',
@@ -531,21 +544,6 @@ function install($adminPassword, $timezone)
 		LOCK_EX
 	);
 
-	// File plugins/alternative/db.php
-	file_put_contents(
-		PATH_PLUGINS_DATABASES . 'alternative' . DS . 'db.php',
-		$dataHead . json_encode(
-			array(
-				'googleFonts' => false,
-				'showPostInformation' => false,
-				'dateFormat' => 'relative',
-				'position' => 1
-			),
-			JSON_PRETTY_PRINT
-		),
-		LOCK_EX
-	);
-
 	// File plugins/robots/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES . 'robots' . DS . 'db.php',
@@ -553,6 +551,37 @@ function install($adminPassword, $timezone)
 			array(
 				'position' => 1,
 				'robotstxt' => 'User-agent: *' . PHP_EOL . 'Allow: /'
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// Plugins that work with their default values, these databases only need the position
+	$pluginsWithDefaults = array(
+		'opengraph',
+		'json-ld',
+		'twitter-cards',
+		'sitemap',
+		'rss',
+		'search'
+	);
+	foreach ($pluginsWithDefaults as $plugin) {
+		file_put_contents(
+			PATH_PLUGINS_DATABASES . $plugin . DS . 'db.php',
+			$dataHead . json_encode(array('position' => 1), JSON_PRETTY_PRINT),
+			LOCK_EX
+		);
+		mkdir(PATH_WORKSPACES . $plugin, DIR_PERMISSIONS, true);
+	}
+
+	// File plugins/version/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'version' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'showCurrentVersion' => true,
+				'newVersionAlert' => true
 			),
 			JSON_PRETTY_PRINT
 		),

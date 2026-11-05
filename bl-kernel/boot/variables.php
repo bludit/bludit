@@ -114,3 +114,28 @@ $GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg'
 
 // Allowed file extensions — used by API file upload and any non-image upload endpoint
 $GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'webp', 'pdf', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'tar', 'gz', 'mp3', 'mp4', 'wav', 'ogg', 'json', 'md');
+
+// Plugins directory, the database with all the plugins available to install
+define('PLUGINS_DIRECTORY_URL', 'https://raw.githubusercontent.com/bludit/plugins/main/index.json');
+
+// Schema version of the plugins directory supported by this version of Bludit
+define('PLUGINS_DIRECTORY_SCHEMA', 1);
+
+// Seconds to keep the plugins directory cached before download it again
+define('PLUGINS_DIRECTORY_CACHE_TTL', 21600); // 6 hours
+
+// Maximum size allowed for the zip file of a plugin
+define('PLUGINS_MAX_ZIP_SIZE', 10485760); // 10 MB
+
+// Maximum size allowed for the content of the zip file of a plugin, uncompressed
+define('PLUGINS_MAX_UNCOMPRESSED_SIZE', 41943040); // 40 MB
+
+// Hosts allowed to download plugins from, the plugins directory is curated but
+// this list is enforced on every download regardless of what the directory says
+$GLOBALS['PLUGINS_DOWNLOAD_ALLOWED_HOSTS'] = array(
+	'github.com',
+	'objects.githubusercontent.com',
+	'release-assets.githubusercontent.com',
+	'codeload.github.com',
+	'raw.githubusercontent.com'
+);

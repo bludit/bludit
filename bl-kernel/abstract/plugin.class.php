@@ -59,9 +59,22 @@ class Plugin
 		$this->filenameDb = PATH_PLUGINS_DATABASES . $this->directoryName . DS . 'db.php';
 
 		// --- Metadata ---
+		// The metadata is read defensively, a plugin with a missing or invalid
+		// metadata.json must not break the whole site, the plugin is loaded with
+		// empty metadata and it's discarded later by buildPlugins()
 		$this->filenameMetadata = PATH_PLUGINS . $this->directoryName() . DS . 'metadata.json';
-		$metadataString = file_get_contents($this->filenameMetadata);
-		$this->metadata = json_decode($metadataString, true);
+		$this->metadata = array();
+		if (file_exists($this->filenameMetadata)) {
+			$metadataString = file_get_contents($this->filenameMetadata);
+			$metadata = json_decode($metadataString, true);
+			if (is_array($metadata)) {
+				$this->metadata = $metadata;
+			} else {
+				Log::set('Plugin ' . $this->directoryName . LOG_SEP . 'The file metadata.json is not a valid JSON.', LOG_TYPE_ERROR);
+			}
+		} else {
+			Log::set('Plugin ' . $this->directoryName . LOG_SEP . 'The file metadata.json is missing.', LOG_TYPE_ERROR);
+		}
 
 		// If the plugin is installed then get the database
 		if ($this->installed()) {
@@ -80,7 +93,7 @@ class Plugin
 
 	public function includeCSS($filename)
 	{
-		return '<link rel="stylesheet" type="text/css" href="' . $this->domainPath() . 'css/' . $filename . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
+		return '<link rel="stylesheet" href="' . $this->domainPath() . 'css/' . $filename . '?version=' . BLUDIT_VERSION . '">' . PHP_EOL;
 	}
 
 	public function includeJS($filename)
@@ -203,10 +216,20 @@ class Plugin
 
 	public function isCompatible()
 	{
+		$compatible = $this->getMetadata('compatible');
+
+		// metadata.json is written by the plugin author, the field can be
+		// anything json_decode() returns and explode() only takes a string
+		if (empty($compatible) || !is_string($compatible)) {
+			return false;
+		}
+
 		$bluditRoot = explode('.', BLUDIT_VERSION);
-		$compatible = explode(',', $this->getMetadata('compatible'));
-		foreach ($compatible as $version) {
-			$root = explode('.', $version);
+		foreach (explode(',', $compatible) as $version) {
+			$root = explode('.', trim($version));
+			if (count($root) < 2) {
+				continue;
+			}
 			if ($root[0] == $bluditRoot[0] && $root[1] == $bluditRoot[1]) {
 				return true;
 			}
@@ -217,6 +240,20 @@ class Plugin
 	public function directoryName()
 	{
 		return $this->directoryName;
+	}
+
+	// Returns TRUE if the plugin is part of Bludit PRO
+	public function pro()
+	{
+		return $this->getMetadata('pro') === true;
+	}
+
+	// Returns TRUE if the plugin is part of Bludit PRO and there is no valid
+	// license, the plugin is listed in the admin panel but it doesn't run, the
+	// database is kept so the settings are back when the license is valid again
+	public function locked()
+	{
+		return $this->pro() && !defined('BLUDIT_PRO');
 	}
 
 	// Return TRUE if the installation success, otherwise FALSE.

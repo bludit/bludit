@@ -1,13 +1,20 @@
 {
-	"theme-data":
-	{
+	"theme-data": {
 		"name": "Flavor",
-		"description": "A minimal, clean blog theme powered by Tailwind CSS. Features a centered layout, elegant typography with Inter font, and emerald accents."
+		"description": "A minimal, clean blog theme powered by Tailwind CSS. Features a centered layout, elegant typography with and emerald accents."
 	},
 	"Read more": "Read more",
 	"Reading time": "Reading time",
 	"read": "read",
 	"Back to home": "Back to home",
 	"Previous": "Previous",
-	"Next": "Next"
+	"Next": "Next",
+	"Blog": "Blog",
+	"Tag": "Tag",
+	"Category": "Category",
+	"No pages found": "No pages found",
+	"Page not found": "Page not found",
+	"The page you are looking for does not exist or has been moved.": "The page you are looking for does not exist or has been moved.",
+	"In this section": "In this section",
+	"Social links": "Social links"
 }

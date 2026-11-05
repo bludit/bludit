@@ -241,7 +241,8 @@ function pluginActivated($pluginClassName)
   global $plugins;
 
   if (isset($plugins['all'][$pluginClassName])) {
-    return $plugins['all'][$pluginClassName]->installed();
+    $plugin = $plugins['all'][$pluginClassName];
+    return $plugin->installed() && !$plugin->locked();
   }
   return false;
 }
@@ -276,6 +277,11 @@ function activatePlugin($pluginClassName)
   // Check if the plugin exists
   if (isset($plugins['all'][$pluginClassName])) {
     $plugin = $plugins['all'][$pluginClassName];
+
+    if ($plugin->locked()) {
+      Alert::set($L->g('This plugin requires Bludit PRO'), ALERT_STATUS_FAIL);
+      return false;
+    }
 
     // Only one content-editor plugin can be active at a time: they all bind to
     // the same #jseditor textarea and the same global JS functions.
@@ -511,8 +517,8 @@ function editPage($args)
 
   $key = $pages->edit($args);
   if ($key) {
-    // Call the plugins after page modified
-    Theme::plugins('afterPageModify', array($key));
+    // Call the plugins after page modified, the key is different from the previous one when the slug or parent changed
+    Theme::plugins('afterPageModify', array($key, $args['key']));
 
     reindexCategories();
     reindexTags();
@@ -764,6 +770,10 @@ function editSettings($args)
     }
   }
 
+  if (isset($args['adminColorMode']) && !in_array($args['adminColorMode'], array('system', 'light', 'dark'), true)) {
+    $args['adminColorMode'] = 'system';
+  }
+
   if (isset($args['extremeFriendly'])) {
     $args['extremeFriendly'] = (($args['extremeFriendly'] == 'true') ? true : false);
   }
@@ -934,12 +944,14 @@ function deleteCategory($args)
 {
   global $L;
   global $categories;
+  global $pages;
   global $syslog;
 
   // Remove the category by key
   $categories->remove($args['oldKey']);
 
-  // Remove the category from the pages ? or keep it if the user want to recovery the category ?
+  // Remove the category from the pages
+  $pages->changeCategory($args['oldKey'], '');
 
   // Add to syslog
   $syslog->add(array(
@@ -1010,8 +1022,14 @@ function activateTheme($themeDirectory)
 
   if (Sanitize::pathFile(PATH_THEMES . $themeDirectory)) {
 
-    // Disable current theme
-    $currentTheme = $site->theme();
+    if ($site->themeLocked($themeDirectory)) {
+      Alert::set($L->g('This theme requires Bludit PRO'), ALERT_STATUS_FAIL);
+      return false;
+    }
+
+    // Disable current theme, the saved one, theme() returns the default theme
+    // when the saved theme is locked
+    $currentTheme = $site->getField('theme');
     deactivatePlugin($currentTheme);
 
     // Install new theme

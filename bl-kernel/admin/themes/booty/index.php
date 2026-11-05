@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
 <head>
 	<title><?php echo $layout['title'] ?></title>
 	<meta charset="<?php echo CHARSET ?>">
@@ -9,6 +9,9 @@
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_CORE_IMG.'favicon.png?version='.BLUDIT_VERSION ?>">
+
+	<!-- Color mode -->
+	<?php include('html/color-mode.php'); ?>
 
 	<!-- CSS -->
 	<?php

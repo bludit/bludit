@@ -26,14 +26,5 @@ if (!activatePlugin($pluginClassName)) {
 	Log::set('Fail when try to activate the plugin.', LOG_TYPE_ERROR);
 }
 
-if (isset($plugins['all'][$pluginClassName])) {
-	$plugin = $plugins['all'][$pluginClassName];
-} else {
-	Redirect::page('plugins');
-}
-
-if (method_exists($plugin, 'form')) {
-	Redirect::page('configure-plugin/'.$pluginClassName);
-}
-
+// Go back to the plugins page, the alert with the result is set by activatePlugin()
 Redirect::page('plugins#'.$pluginClassName);

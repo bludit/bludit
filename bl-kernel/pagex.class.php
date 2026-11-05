@@ -165,20 +165,6 @@ class Page
 		return HTML_PATH_ROOT . PAGE_URI_FILTER . $key;
 	}
 
-	// Returns the previous page key
-	public function previousKey()
-	{
-		global $pages;
-		return $pages->previousPageKey($this->key());
-	}
-
-	// Returns the next page key
-	public function nextKey()
-	{
-		global $pages;
-		return $pages->nextPageKey($this->key());
-	}
-
 	// Returns the category name
 	public function category()
 	{
@@ -530,8 +516,9 @@ class Page
 	{
 		global $L;
 
-		$words = $this->content(true);
+		$words = $this->content();
 		$words = strip_tags($words);
+		$words = html_entity_decode($words, ENT_QUOTES | ENT_HTML5, CHARSET);
 		$words = str_word_count($words);
 		$average = $words / 200;
 		$minutes = round($average);

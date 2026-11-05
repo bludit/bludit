@@ -23,8 +23,8 @@ if (isset($plugins['all'][$pluginClassName])) {
 	Redirect::page('plugins');
 }
 
-// Check if the plugin has the method form()
-if (!method_exists($plugin, 'form')) {
+// Check if the plugin has the method form(), a locked plugin can not be configured
+if (!method_exists($plugin, 'form') || $plugin->locked()) {
 	Redirect::page('plugins');
 }
 

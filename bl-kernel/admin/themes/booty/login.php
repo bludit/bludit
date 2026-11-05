@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
 
 <head>
   <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - Login</title>
@@ -9,6 +9,9 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo HTML_PATH_CORE_IMG . 'favicon.png?version=' . BLUDIT_VERSION ?>">
+
+  <!-- Color mode -->
+  <?php include('html/color-mode.php'); ?>
 
   <!-- CSS -->
   <?php
@@ -27,7 +30,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #64748B 0%, #334155 55%, #1E293B 100%);
+      background: var(--bg-login-page);
       padding: 20px;
     }
 
@@ -37,7 +40,7 @@
     }
 
     .login-card {
-      background: #ffffff;
+      background: var(--bg-card);
       border-radius: var(--radius-md, 8px);
       box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
       padding: 36px;
@@ -63,7 +66,7 @@
     .login-logo .logo-icon {
       width: 52px;
       height: 52px;
-      background: var(--text-primary, #1E293B);
+      background: var(--bg-brand, #1E293B);
       border-radius: var(--radius-sm, 4px);
       display: inline-flex;
       align-items: center;
@@ -123,7 +126,7 @@
     .login-card .form-control:focus {
       border-color: var(--color-secondary-dark, #475569) !important;
       box-shadow: none !important;
-      background-color: #fff;
+      background-color: var(--bg-card);
     }
 
     .login-card .form-control::placeholder {
@@ -157,6 +160,14 @@
     .login-card .btn-login:hover {
       background: var(--text-primary, #1E293B);
       transform: translateY(-1px);
+    }
+
+    [data-bs-theme="dark"] .login-card .btn-login {
+      background: #3B4B68;
+    }
+
+    [data-bs-theme="dark"] .login-card .btn-login:hover {
+      background: #4B5E7A;
     }
 
     .login-card .btn-login:active {

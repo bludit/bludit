@@ -55,6 +55,8 @@ function buildThemes()
 				}
 
 				$database = $database + $metadata;
+				// A locked theme is part of Bludit PRO and there is no valid license
+				$database['locked'] = isset($metadata['pro']) && $metadata['pro'] === true && !defined('BLUDIT_PRO');
 				array_push($themes, $database);
 			}
 		}

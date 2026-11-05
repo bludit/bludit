@@ -1,17 +1,14 @@
-<?php if (empty($content)) : ?>
+<?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
   <div class="mt-4">
     <?php $language->p('No pages found') ?>
   </div>
 <?php endif ?>
 
 <?php foreach ($content as $page) : ?>
-  <!-- Post -->
   <div class="card card-modern my-5">
 
-    <!-- Load Bludit Plugins: Page Begin -->
     <?php Theme::plugins('pageBegin'); ?>
 
-    <!-- Cover image with gradient overlay -->
     <?php if ($page->coverImage()) : ?>
       <div class="cover-image-wrapper">
         <img class="card-img-top" alt="<?php echo $page->title(); ?>" src="<?php echo $page->coverImage(); ?>" />
@@ -19,21 +16,17 @@
     <?php endif ?>
 
     <div class="card-body">
-      <!-- Title -->
       <a href="<?php echo $page->permalink(); ?>">
         <h2 class="title"><?php echo $page->title(); ?></h2>
       </a>
 
-      <!-- Creation date and reading time -->
       <div class="metadata mb-4">
         <span><i class="bi bi-calendar"></i><?php echo $page->date(); ?></span>
         <span><i class="bi bi-clock-history"></i><?php echo $L->get('Reading time') . ': ' . $page->readingTime(); ?></span>
       </div>
 
-      <!-- Breaked content -->
       <?php echo $page->contentBreak(); ?>
 
-      <!-- "Read more" button -->
       <?php if ($page->readMore()) : ?>
         <a class="btn-primary-gradient mt-3" href="<?php echo $page->permalink(); ?>">
           <?php echo $L->get('Read more'); ?>
@@ -41,7 +34,6 @@
         </a>
       <?php endif ?>
 
-      <!-- Tags and Category -->
       <?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
       <?php if (!empty($tagsList) || $categoryKey) : ?>
       <div class="post-taxonomy mt-3">
@@ -58,18 +50,15 @@
 
     </div>
 
-    <!-- Load Bludit Plugins: Page End -->
     <?php Theme::plugins('pageEnd'); ?>
 
   </div>
 <?php endforeach ?>
 
-<!-- Pagination -->
 <?php if (Paginator::numberOfPages() > 1) : ?>
   <nav class="paginator mt-5">
     <ul class="pagination flex-wrap justify-content-center">
 
-      <!-- Previous button -->
       <?php if (Paginator::showPrev()) : ?>
         <li class="page-item me-2">
           <a class="page-link" href="<?php echo htmlspecialchars(Paginator::previousPageUrl(), ENT_QUOTES, 'UTF-8') ?>" tabindex="-1">
@@ -78,14 +67,12 @@
         </li>
       <?php endif; ?>
 
-      <!-- Home button -->
       <li class="page-item mx-2 <?php if (Paginator::currentPage() == 1) echo 'disabled' ?>">
         <a class="page-link" href="<?php echo Theme::siteUrl() ?>">
           <i class="bi bi-house-door"></i> Home
         </a>
       </li>
 
-      <!-- Next button -->
       <?php if (Paginator::showNext()) : ?>
         <li class="page-item ms-2">
           <a class="page-link" href="<?php echo htmlspecialchars(Paginator::nextPageUrl(), ENT_QUOTES, 'UTF-8') ?>">

@@ -15,8 +15,8 @@ bl-plugins/quill
 bl-plugins/yandex-metrica/
 bl-plugins/domain-migrator/
 bl-plugins/tail-writer/
-bl-kernel/bludit.pro.*.php
 bl-kernel/admin/themes/gris
+bl-themes/newsroom
 bl-themes/docs
 bl-themes/typerite
 bl-themes/docsx
@@ -39,3 +39,5 @@ php85-server.log
 analyze-logs.sh
 scripts/*
 logs/*
+dist/
+tools/
