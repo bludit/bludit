@@ -475,6 +475,10 @@ class pluginSearch extends Plugin
 	{
 		$text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, CHARSET);
 		$text = mb_strtolower($text, CHARSET);
+		// Accents typed as a letter plus a combining mark are joined into one letter (intl extension)
+		if (class_exists('Normalizer')) {
+			$text = Normalizer::normalize($text, Normalizer::FORM_C) ?: $text;
+		}
 		$text = strtr($text, self::ACCENTS);
 		// \p{M} keeps the marks of the scripts that need them (Hindi, Thai, etc.) inside the words
 		$text = preg_replace('/[^\p{L}\p{N}\p{M}]+/u', ' ', $text);
@@ -500,13 +504,11 @@ class pluginSearch extends Plugin
 
 		$scores = null;
 		$scans = 0;
-		$searched = array();
 		foreach (array_unique(explode(' ', $query)) as $term) {
 			if ($scans >= self::MAX_SCANS) {
 				break;
 			}
 
-			$searched[] = $term;
 			$termScores = $this->scoreTerm($term, $pages);
 			$scans++;
 
@@ -537,7 +539,6 @@ class pluginSearch extends Plugin
 		}
 
 		// Bonus for the pages with the exact phrase
-		$query = implode(' ', $searched);
 		if (strpos($query, ' ') !== false) {
 			foreach ($scores as $pageKey => $score) {
 				foreach ($pages[$pageKey] as $field => $fieldText) {
@@ -596,12 +597,30 @@ class pluginSearch extends Plugin
 
 		$maxDistance = $length >= 8 ? 2 : 1;
 		$similar = array();
+
+		// levenshtein() counts bytes, for a term with multibyte letters (Cyrillic, Greek, etc.)
+		// each letter of both words is replaced with one byte
+		$multibyte = strlen($term) !== $length;
+		if ($multibyte) {
+			$termMap = array();
+			$termBytes = $this->singleBytes($term, $termMap);
+		}
+
 		foreach ($words as $word) {
-			if (abs(strlen($word) - strlen($term)) > $maxDistance) {
-				continue;
+			if ($multibyte) {
+				// A letter is 4 bytes at most, a quick filter before counting the letters
+				if (abs(strlen($word) - strlen($term)) > $maxDistance * 4 || abs(mb_strlen($word, CHARSET) - $length) > $maxDistance) {
+					continue;
+				}
+				$map = $termMap;
+				$distance = levenshtein($termBytes, $this->singleBytes($word, $map));
+			} else {
+				if (abs(strlen($word) - $length) > $maxDistance) {
+					continue;
+				}
+				$distance = levenshtein($term, $word);
 			}
-			// levenshtein() counts bytes, a typo in a multibyte letter costs more than one
-			$distance = levenshtein($term, $word);
+
 			if ($distance <= $maxDistance) {
 				$similar[$word] = $distance;
 			}
@@ -609,5 +628,19 @@ class pluginSearch extends Plugin
 
 		asort($similar);
 		return array_map('strval', array_keys(array_slice($similar, 0, $limit, true)));
+	}
+
+	// Returns the text with each letter replaced with one byte, the same letter with the same byte
+	// The map is shared by the two words to compare, they are 34 letters at most, under the 256 bytes
+	private function singleBytes($text, &$map)
+	{
+		$bytes = '';
+		foreach (mb_str_split($text, 1, CHARSET) as $letter) {
+			if (!isset($map[$letter])) {
+				$map[$letter] = chr(count($map));
+			}
+			$bytes .= $map[$letter];
+		}
+		return $bytes;
 	}
 }
