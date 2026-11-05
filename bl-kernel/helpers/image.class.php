@@ -74,6 +74,12 @@ class Image {
                     imagewebp($this->imageResized, $path_complete, $imageQuality);
                 }
                 break;
+            case 'avif':
+                // Checking for AVIF support, IMG_AVIF is defined since PHP 8.1
+                if (defined('IMG_AVIF') && (imagetypes() & IMG_AVIF) && function_exists('imageavif')) {
+                    imageavif($this->imageResized, $path_complete, $imageQuality);
+                }
+                break;
 
             default:
                 // Fail extension detection
@@ -118,6 +124,13 @@ class Image {
                     return false;
                 }
                 $img = imagecreatefromwebp($file);
+                break;
+            case '.avif':
+                // IMG_AVIF is defined since PHP 8.1 and only when GD is compiled with libavif
+                if (!defined('IMG_AVIF') || !($types & IMG_AVIF) || !function_exists('imagecreatefromavif')) {
+                    return false;
+                }
+                $img = imagecreatefromavif($file);
                 break;
             default:
                 $img = false;

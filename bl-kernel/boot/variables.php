@@ -107,13 +107,13 @@ define('MEDIA_MANAGER_SORT_BY_DATE', true);
 $GLOBALS['DB_TAGS_TYPES'] = array('published','static','sticky');
 
 // Allowed image extensions — used by image upload endpoints (logo, profile picture, upload-images) and transformImage()
-$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'webp');
+$GLOBALS['ALLOWED_IMG_EXTENSION'] = array('gif', 'png', 'jpg', 'jpeg', 'svg', 'webp', 'avif');
 
 // Allowed image mime types
-$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'image/webp');
+$GLOBALS['ALLOWED_IMG_MIMETYPES'] = array('image/gif', 'image/png', 'image/jpeg', 'image/svg+xml', 'image/webp', 'image/avif');
 
 // Allowed file extensions — used by API file upload and any non-image upload endpoint
-$GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'webp', 'pdf', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'tar', 'gz', 'mp3', 'mp4', 'wav', 'ogg', 'json', 'md');
+$GLOBALS['ALLOWED_FILE_EXTENSIONS'] = array('gif', 'png', 'jpg', 'jpeg', 'webp', 'avif', 'pdf', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'tar', 'gz', 'mp3', 'mp4', 'wav', 'ogg', 'json', 'md');
 
 // Plugins directory, the database with all the plugins available to install
 define('PLUGINS_DIRECTORY_URL', 'https://raw.githubusercontent.com/bludit/plugins/main/index.json');
