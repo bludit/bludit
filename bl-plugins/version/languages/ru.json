@@ -1,0 +1,32 @@
+{
+	"plugin-data":
+	{
+		"name": "Версия",
+		"description": "Показывает текущую версию Bludit в левой нижней части Панели управления; периодически проверяет наличие новых версий Bludit."
+	},
+	"show-current-version-in-the-sidebar": "Показывать используемую версию Bludit внизу в левой нижней части Панели управления",
+	"show-alert-when-there-is-a-new-version-in-the-sidebar": "Показывать уведомление о появлении новой версии Bludit внизу в левой нижней части Панели управления",
+	"new": "Новая версия",
+	"updates": "Обновления",
+	"bludit-updated": "Bludit обновлён",
+	"bludit-has-been-updated": "Bludit был обновлён",
+	"bludit-%s-is-available": "Bludit %s доступен для установки",
+	"you-have-the-last-version-of-bludit": "У вас установлена последняя версия Bludit",
+	"unable-to-check-the-updates-of-bludit": "Не удается проверить обновления Bludit",
+	"the-new-version-of-bludit-requires-php-%s": "Для новой версии Bludit требуется PHP %s",
+	"bludit-can-not-write-in-these-directories": "Bludit не может устанавливать файлы в эти каталоги",
+	"update-bludit-manually-replacing-the-files": "Обновите Bludit вручную, заменив файлы, каталог bl-content и его содержимое заменять не следует.",
+	"the-bludit-pro-license-is-for-this-version,-after-the-update-download-the-license-for-bludit-%s-from-patreon": "Лицензия Bludit PRO предназначена для этой версии, после обновления загрузите лицензию для Bludit %s с Patreon",
+	"the-content-and-the-settings-are-not-modified,-the-previous-version-is-restored-if-the-update-fails": "Содержимое и настройки не изменяются, предыдущая версия восстанавливается в случае сбоя обновления",
+	"update-bludit-to-the-version-%s?": "Обновить Bludit до версии %s?",
+	"unable-to-download-the-new-version-of-bludit": "Не удается загрузить новую версию Bludit",
+	"the-new-version-of-bludit-does-not-match-the-checksum,-it-may-have-been-modified": "Новая версия Bludit не соответствует контрольной сумме, возможно, она была изменена",
+	"the-zip-file-does-not-contain-bludit": "Zip-архив не содержит файлы установки Bludit",
+	"a-previous-update-did-not-finish,-check-the-log": "Предыдущее обновление не завершилось, проверьте журнал (log-файл)",
+	"unable-to-update-bludit": "Не удалось обновить Bludit",
+	"unable-to-update-bludit,-the-previous-version-could-not-be-fully-restored,-check-the-backup-files-and-the-log": "Не удается обновить Bludit, предыдущая версия не может быть полностью восстановлена, проверьте файлы резервных копий и журнал (log-файл)",
+	"the-new-version-of-bludit-did-not-work,-the-previous-version-was-restored": "Новая версия Bludit не работала, поэтому была восстановлена предыдущая версия Bludit",
+	"updating-bludit,-this-can-take-a-minute,-do-not-close-this-page": "Идёт обновление Bludit, это может занять несколько минут, не закрывайте эту страницу!",
+	"enable-the-%s-plugin-to-check-for-updates-of-bludit": "Включите плагин %s для проверки обновлений Bludit",
+	"enable-the-version-plugin-to-update-bludit": "Включите плагин «Версия» для обновления Bludit"
+}

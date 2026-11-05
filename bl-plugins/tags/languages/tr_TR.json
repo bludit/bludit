@@ -1,7 +1,8 @@
 {
-	"plugin-data":
-	{
+	"plugin-data": {
 		"name": "Etiket Listesi",
 		"description": "Tüm etiketleri kenar çubuğunda göster."
-	}
+	},
+	"tag-cloud": "Tag cloud",
+	"tags-with-more-pages-are-displayed-bigger": "Tags with more pages are displayed bigger"
 }

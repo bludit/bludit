@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"name": "Elenco tag",
+		"description": "Visualizza tutti i tag nella barra laterale."
+	},
+	"tag-cloud": "Tag cloud",
+	"tags-with-more-pages-are-displayed-bigger": "Tags with more pages are displayed bigger"
+}

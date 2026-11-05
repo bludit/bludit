@@ -1,0 +1,8 @@
+{
+	"plugin-data": {
+		"name": "Список тегов",
+		"description": "Отображает список тегов в боковой панели сайта."
+	},
+	"tag-cloud": "Tag cloud",
+	"tags-with-more-pages-are-displayed-bigger": "Tags with more pages are displayed bigger"
+}

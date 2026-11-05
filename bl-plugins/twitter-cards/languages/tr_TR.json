@@ -1,8 +1,14 @@
 {
-	"plugin-data":
-	{
+	"plugin-data": {
 		"name": "X/Twitter Cards",
 		"description": "X (eski adıyla Twitter) Kartları ile zengin fotoğraf, video ve medya deneyimlerini gönderilere ekleyebilir ve web sitenize trafik çekmenize yardımcı olabilirsiniz."
 	},
-	"default-image": "Varsayılan resim"
+	"default-image": "Varsayılan resim",
+	"x-@username": "X @username",
+	"your-x-@username-for-twitter:site-attribution": "Your X @username for twitter:site attribution",
+	"card-type": "Card Type",
+	"summary-with-large-image-(recommended)": "Summary with Large Image (recommended)",
+	"summary": "Summary",
+	"large-image-cards-get-better-engagement-on-x": "Large image cards get better engagement on X",
+	"fallback-image-when-content-has-no-image,-with-the-open-graph-plugin-enabled-x-uses-its-image-instead": "Fallback image when content has no image, with the Open Graph plugin enabled X uses its image instead"
 }
