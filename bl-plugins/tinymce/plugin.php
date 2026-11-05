@@ -151,9 +151,6 @@ class pluginTinymce extends Plugin
 		convert_urls: true,
 		relative_urls: false,
 		valid_elements: "*[*]",
-		// TinyMCE 7+ adds sandbox="" to every iframe not in its short list of known sites,
-		// it breaks the embeds of maps, calendars, forms, etc. The content is written by
-		// the users of the site, keep the iframes as they are, like the other editors
 		sandbox_iframes: false,
 		cache_suffix: "?version=$version",
 		license_key: "gpl",
