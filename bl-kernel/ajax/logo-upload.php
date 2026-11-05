@@ -10,6 +10,11 @@ header('Content-Type: application/json');
 | @return	array
 */
 
+// The site logo is part of the settings, only the administrators can change it
+if (!checkRole(array('admin'), false)) {
+	ajaxResponse(1, $L->g('You do not have sufficient permissions'));
+}
+
 if (!isset($_FILES['inputFile'])) {
 	ajaxResponse(1, 'Error trying to upload the site logo.');
 }
@@ -42,6 +47,16 @@ $fileMimeType = Filesystem::mimeType($_FILES['inputFile']['tmp_name']);
 if ($fileMimeType !== false) {
 	if (!in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
 		$message = $L->g('File mime type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_IMG_MIMETYPES']);
+		Log::set($message, LOG_TYPE_ERROR);
+		ajaxResponse(1, $message);
+	}
+}
+
+// Sanitize SVG files to remove active content, the same as the images uploaded from the editor
+// This runs before deleting the current logo, a rejected file keeps the current logo
+if ($fileExtension === 'svg') {
+	if (sanitizeSVG($_FILES['inputFile']['tmp_name']) === false) {
+		$message = 'SVG sanitization failed (invalid XML), rejecting the site logo.';
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}
