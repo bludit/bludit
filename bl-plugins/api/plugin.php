@@ -821,11 +821,53 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		// Sanitize the filename, the same as the images uploaded from the admin panel
+		// The name comes from the client, without this it can write outside the tmp directory
+		$filename = basename($_FILES['image']['name']);
+		$filenameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
+		$filenameWithoutExt = Text::removeSpecialCharacters($filenameWithoutExt, '-');
+		$filenameWithoutExt = Text::removeQuotes($filenameWithoutExt);
+		$filenameWithoutExt = Text::removeSpaces($filenameWithoutExt, '-');
+		$fileExtension = Text::lowercase(Filesystem::extension($filename));
+		if (Text::isEmpty($filenameWithoutExt)) {
+			$filenameWithoutExt = 'image';
+		}
+		$filename = $filenameWithoutExt . '.' . $fileExtension;
+
+		// Check the extension and the MIME type before moving the file
+		// A rejected file never reaches the Bludit tmp directory
+		if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Image extension not allowed.'
+			);
+		}
+
+		$fileMimeType = Filesystem::mimeType($_FILES['image']['tmp_name']);
+		if (($fileMimeType === false) || !in_array($fileMimeType, $GLOBALS['ALLOWED_IMG_MIMETYPES'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Image MIME type not allowed.'
+			);
+		}
+
+		if (!Filesystem::directoryExists(PATH_TMP)) {
+			Filesystem::mkdir(PATH_TMP, true);
+		}
+
 		// Move from PHP tmp file to Bludit tmp directory
-		Filesystem::mv($_FILES['image']['tmp_name'], PATH_TMP . $_FILES['image']['name']);
+		if (!Filesystem::mv($_FILES['image']['tmp_name'], PATH_TMP . $filename)) {
+			$this->setStatus(500);
+			return array(
+				'status' => '1',
+				'message' => 'Error moving the image to the temporary directory.'
+			);
+		}
 
 		// Transform image and create thumbnails
-		$image = transformImage(PATH_TMP . $_FILES['image']['name'], $imageDirectory, $thumbnailDirectory);
+		$image = transformImage(PATH_TMP . $filename, $imageDirectory, $thumbnailDirectory);
 		if ($image) {
 			$filename = Filesystem::filename($image);
 			return array(
@@ -836,10 +878,15 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		// Don't leave the file in the tmp directory
+		if (file_exists(PATH_TMP . $filename)) {
+			Filesystem::rmfile(PATH_TMP . $filename);
+		}
+
 		$this->setStatus(400);
 		return array(
 			'status' => '1',
-			'message' => 'Image extension not allowed.'
+			'message' => 'Error processing the image.'
 		);
 	}
 
