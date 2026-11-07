@@ -49,8 +49,6 @@ class Login
 					Session::destroy();
 					return false;
 				}
-				// Keep the role of the session in sync with the user database,
-				// otherwise a demoted user keeps the privileges of the old role.
 				if (isset($userDB['role']) && Session::get('role') !== $userDB['role']) {
 					Log::set(__METHOD__ . LOG_SEP . 'Role of the user changed, updating the session.');
 					Session::set('role', $userDB['role']);
