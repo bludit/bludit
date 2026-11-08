@@ -49,9 +49,11 @@ class Login
 					Session::destroy();
 					return false;
 				}
-				if (isset($userDB['role']) && Session::get('role') !== $userDB['role']) {
+				// A user without role gets an empty role, checkRole() denies every access
+				$role = isset($userDB['role']) ? $userDB['role'] : '';
+				if (Session::get('role') !== $role) {
 					Log::set(__METHOD__ . LOG_SEP . 'Role of the user changed, updating the session.');
-					Session::set('role', $userDB['role']);
+					Session::set('role', $role);
 				}
 				return true;
 			} else {
