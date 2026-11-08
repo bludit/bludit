@@ -32,7 +32,7 @@ if ($path !== 'thumbnails') {
 
 // Resolve the originals and thumbnails directories
 if ($uuid && IMAGE_RESTRICT) {
-	if (Text::stringContains($uuid, DS, false)) {
+	if (!$pages->isValidUUID($uuid)) {
 		ajaxResponse(1, 'Invalid uuid.');
 	}
 	$imagePath = PATH_UPLOADS_PAGES.$uuid.DS;
