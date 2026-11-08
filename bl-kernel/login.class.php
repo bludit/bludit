@@ -49,6 +49,12 @@ class Login
 					Session::destroy();
 					return false;
 				}
+				// A user without role gets an empty role, checkRole() denies every access
+				$role = isset($userDB['role']) ? $userDB['role'] : '';
+				if (Session::get('role') !== $role) {
+					Log::set(__METHOD__ . LOG_SEP . 'Role of the user changed, updating the session.');
+					Session::set('role', $role);
+				}
 				return true;
 			} else {
 				Log::set(__METHOD__ . LOG_SEP . 'Session username empty, destroying the session.');
