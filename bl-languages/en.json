@@ -213,6 +213,7 @@
     "next": "Next",
     "complete-the-form-choose-a-password-for-the-username-admin": "Complete the form choose a password for the username <b>< admin ><\/b>",
     "show-password": "Show password",
+    "hide-password": "Hide password",
     "install": "Install",
     "login": "Login",
     "back-to-login-form": "Back to login form",
