@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
+<html lang="<?php echo Sanitize::html($L->currentLanguageShortVersion()) ?>" data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
 
 <head>
-  <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - Login</title>
+  <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - <?php $L->p('Login') ?></title>
   <meta charset="<?php echo CHARSET ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="noindex,nofollow">
@@ -131,6 +131,17 @@
 
     .login-card .form-control::placeholder {
       color: var(--text-muted, #94A3B8);
+    }
+
+    /* Browser autofill: keep the theme colors instead of the light-blue/yellow background */
+    .login-card .form-control:-webkit-autofill,
+    .login-card .form-control:-webkit-autofill:hover,
+    .login-card .form-control:-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--text-primary, #1E293B);
+      -webkit-box-shadow: 0 0 0 1000px var(--bg-main, #F8FAFC) inset !important;
+      box-shadow: 0 0 0 1000px var(--bg-main, #F8FAFC) inset !important;
+      caret-color: var(--text-primary, #1E293B);
+      transition: background-color 9999s ease-out 0s;
     }
 
     .login-card .form-group {
@@ -287,6 +298,21 @@
     .input-icon-wrapper .form-control:focus + .input-icon,
     .input-icon-wrapper .form-control:not(:placeholder-shown) + .input-icon {
       color: var(--color-secondary, #64748B);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .login-card {
+        animation: none;
+      }
+
+      .login-card .form-control,
+      .login-card .btn-login {
+        transition: none;
+      }
+
+      .login-card .btn-login:hover {
+        transform: none;
+      }
     }
   </style>
 

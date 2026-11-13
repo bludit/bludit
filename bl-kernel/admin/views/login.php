@@ -11,7 +11,7 @@ if (defined('BLUDIT_PRO') && $site->logo(false)) {
 echo '
 <div class="login-logo">
 	<div class="' . $logoClass . '">
-		<img src="' . $logoPath . '" alt="Logo">
+		<img src="' . $logoPath . '" alt="">
 	</div>
 	<h1>' . (defined('BLUDIT_PRO') ? Sanitize::html($site->title()) : 'BLUDIT') . '</h1>
 </div>
@@ -39,7 +39,7 @@ echo '
 			autocomplete="username"
 			autofocus>
 		<span class="input-icon">
-			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 				<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
 				<circle cx="12" cy="7" r="4"></circle>
 			</svg>
@@ -60,7 +60,7 @@ echo '
 			placeholder="' . $L->g('Password') . '"
 			autocomplete="current-password">
 		<span class="input-icon">
-			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 				<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
 				<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
 			</svg>
@@ -81,7 +81,7 @@ echo '
 echo '
 <button type="submit" class="btn btn-login" name="save">
 	<span>' . $L->g('Login') . '</span>
-	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px; vertical-align: middle;">
+	<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px; vertical-align: middle;" aria-hidden="true">
 		<path d="M5 12h14"></path>
 		<path d="M12 5l7 7-7 7"></path>
 	</svg>
@@ -94,7 +94,7 @@ echo '</form>';
 if (!defined('BLUDIT_PRO')) {
 	echo '
 	<div class="login-footer">
-		<p>Powered by <a href="https://www.bludit.com" target="_blank" rel="noopener">Bludit</a></p>
+		<p>' . $L->g('Powered by') . ' <a href="https://www.bludit.com" target="_blank" rel="noopener">Bludit</a></p>
 	</div>
 	';
 }
