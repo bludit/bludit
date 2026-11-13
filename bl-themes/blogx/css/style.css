@@ -252,6 +252,12 @@ img.nav-svg-icon {
 /* ========================================
    CARDS - Modern Design
    ======================================== */
+.listing-title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin-bottom: 0;
+}
+
 .card-modern {
 	background: transparent;
 	border: none;

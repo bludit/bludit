@@ -1,3 +1,18 @@
+<?php
+  // Tag and category listings show their own name, the rest of listings the site title for the screen readers and search engines
+  $listingTitle = '';
+  if ($WHERE_AM_I === 'tag') {
+    try { $listingTitle = $L->get('Tag') . ': ' . (new Tag($url->slug()))->name(); } catch (Exception $e) {}
+  } elseif ($WHERE_AM_I === 'category') {
+    try { $listingTitle = $L->get('Category') . ': ' . (new Category($url->slug()))->name(); } catch (Exception $e) {}
+  }
+?>
+<?php if ($listingTitle) : ?>
+  <h1 class="listing-title mt-5"><?php echo $listingTitle; ?></h1>
+<?php elseif ($WHERE_AM_I !== 'search') : ?>
+  <h1 class="visually-hidden"><?php echo $site->title(); ?></h1>
+<?php endif ?>
+
 <?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
   <div class="mt-4">
     <?php $language->p('No pages found') ?>
