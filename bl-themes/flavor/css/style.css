@@ -1,5 +1,18 @@
 /* Flavor Theme - Custom Styles */
 
+/* Hidden for the eyes, visible for the screen readers and search engines */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 /* Prose content styles for article body */
 .prose-content h1 { font-size: 2rem; font-weight: 700; margin: 1.5em 0 0.5em; line-height: 1.3; }
 .prose-content h2 { font-size: 1.5rem; font-weight: 600; margin: 1.5em 0 0.5em; line-height: 1.3; }

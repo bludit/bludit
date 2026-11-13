@@ -104,6 +104,7 @@ class Theme
 
 	public static function metaTagTitle()
 	{
+		global $L;
 		global $url;
 		global $site;
 		global $tags;
@@ -140,6 +141,12 @@ class Theme
 		$format = Text::replace('{{site-title}}', $site->title(), $format);
 		$format = Text::replace('{{site-slogan}}', $site->slogan(), $format);
 		$format = Text::replace('{{site-description}}', $site->description(), $format);
+
+		// Each page of a listing gets its own title
+		$pageNumber = $url->pageNumber();
+		if ($WHERE_AM_I !== 'page' && $pageNumber > 1) {
+			$format .= ' - ' . $L->get('Page') . ' ' . $pageNumber;
+		}
 
 		return '<title>' . $format . '</title>' . PHP_EOL;
 	}

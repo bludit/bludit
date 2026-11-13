@@ -22,6 +22,9 @@
 	<?php endif ?>
 </section>
 <?php endif ?>
+<?php if (!$listingTitle && $WHERE_AM_I !== 'search' && !($WHERE_AM_I === 'home' && $url->pageNumber() === 1 && $site->slogan())) : ?>
+<h1 class="visually-hidden"><?php echo $site->title(); ?></h1>
+<?php endif ?>
 
 <?php if (empty($content) && $WHERE_AM_I !== 'search') : ?>
 	<p class="text-gray-500 dark:text-gray-400 mt-8"><?php $language->p('No pages found') ?></p>

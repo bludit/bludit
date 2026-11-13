@@ -1,11 +1,28 @@
 <header class="hero" role="banner">
 	<div class="container">
 		<div class="hero-content">
+			<?php
+				// Tag and category listings show their own name, the rest of listings the site
+				$listingTitle = $site->slogan() ? $site->slogan() : $site->title();
+				$listingDescription = $site->description();
+				if ($WHERE_AM_I === 'tag') {
+					try {
+						$listingTitle = $L->get('Tag') . ': ' . (new Tag($url->slug()))->name();
+						$listingDescription = '';
+					} catch (Exception $e) {}
+				} elseif ($WHERE_AM_I === 'category') {
+					try {
+						$listingCategory = new Category($url->slug());
+						$listingTitle = $L->get('Category') . ': ' . $listingCategory->name();
+						$listingDescription = $listingCategory->description();
+					} catch (Exception $e) {}
+				}
+			?>
 			<?php if ($WHERE_AM_I !== 'search') : ?>
-				<h1 class="hero-title"><?php echo $site->slogan(); ?></h1>
+				<h1 class="hero-title"><?php echo $listingTitle; ?></h1>
 
-				<?php if ($site->description()) : ?>
-					<p class="hero-subtitle"><?php echo $site->description(); ?></p>
+				<?php if ($listingDescription) : ?>
+					<p class="hero-subtitle"><?php echo $listingDescription; ?></p>
 				<?php endif ?>
 			<?php endif ?>
 
