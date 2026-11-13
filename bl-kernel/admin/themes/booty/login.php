@@ -26,6 +26,7 @@
   <style>
     body.login {
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,6 +46,16 @@
       box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
       padding: 36px;
       animation: fadeInUp 0.4s ease-out;
+    }
+
+    @media (max-width: 400px) {
+      body.login {
+        padding: 16px;
+      }
+
+      .login-card {
+        padding: 24px 20px;
+      }
     }
 
     @keyframes fadeInUp {
@@ -117,7 +128,8 @@
       border: 2px solid var(--border-color, #E2E8F0);
       border-radius: var(--radius-sm, 4px);
       padding: 10px 14px;
-      font-size: 0.95rem;
+      /* 16px, not rem: the admin root is 15.12px and iOS Safari zooms in on inputs under 16px */
+      font-size: 16px;
       transition: all 0.2s ease;
       background-color: var(--bg-main, #F8FAFC);
       color: var(--text-primary, #1E293B);
@@ -178,7 +190,7 @@
       display: flex;
       align-items: center;
       padding-left: 0;
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     }
 
     .login-card .form-check-input {
@@ -200,7 +212,9 @@
       color: var(--text-secondary, #475569);
       font-size: 0.9rem;
       margin: 0;
-      padding-left: 8px;
+      padding: 12px 0 12px 8px;
+      flex: 1;
+      cursor: pointer;
     }
 
     .login-footer {
@@ -227,29 +241,11 @@
 
     /* Alert styles for login page */
     .login-alert {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1050;
-      min-width: 300px;
-      max-width: 90%;
       border-radius: var(--radius-sm, 4px);
-      padding: 12px 20px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
       font-weight: var(--font-weight-medium, 550);
       font-size: 0.9rem;
-      animation: slideDown 0.4s ease-out;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
     }
 
     .login-alert.alert-danger {
@@ -306,20 +302,16 @@
   <!-- Plugins -->
   <?php Theme::plugins('loginBodyBegin') ?>
 
-  <!-- Alert -->
-  <?php if (Alert::defined()): ?>
-  <div id="login-alert" class="login-alert alert <?php echo (Alert::status() == ALERT_STATUS_FAIL) ? 'alert-danger' : 'alert-success' ?>">
-    <?php echo Alert::get() ?>
-  </div>
-  <script>
-    setTimeout(function() {
-      document.getElementById('login-alert').style.display = 'none';
-    }, <?php echo ALERT_DISAPPEAR_IN * 1000 ?>);
-  </script>
-  <?php endif; ?>
-
   <div class="login-container">
     <div class="login-card">
+      <!-- Alert -->
+      <?php if (Alert::defined()): ?>
+      <?php $alertFail = (Alert::status() == ALERT_STATUS_FAIL); ?>
+      <div id="login-alert" class="login-alert alert <?php echo $alertFail ? 'alert-danger' : 'alert-success' ?>" role="<?php echo $alertFail ? 'alert' : 'status' ?>">
+        <?php echo Alert::get() ?>
+      </div>
+      <?php endif; ?>
+
       <?php
       if (Sanitize::pathFile(PATH_ADMIN_VIEWS, $layout['view'] . '.php')) {
         include(PATH_ADMIN_VIEWS . $layout['view'] . '.php');

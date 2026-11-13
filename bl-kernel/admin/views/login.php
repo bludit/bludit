@@ -31,6 +31,9 @@ echo '
 	<div class="input-icon-wrapper">
 		<input type="text"
 			dir="auto"
+			autocapitalize="none"
+			autocorrect="off"
+			spellcheck="false"
 			value="' . (isset($_POST['username']) ? Sanitize::html($_POST['username']) : '') . '"
 			class="form-control"
 			id="jsusername"
