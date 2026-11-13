@@ -1175,6 +1175,10 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
   $fileExtension = Filesystem::extension($file);
   $fileExtension = Text::lowercase($fileExtension);
   if (!in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+    // Delete the rejected file, the same as the dotfiles
+    if (file_exists($file)) {
+      @unlink($file);
+    }
     return false;
   }
 
