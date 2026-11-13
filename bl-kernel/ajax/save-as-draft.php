@@ -32,9 +32,9 @@ if (!$pages->isValidUUID($uuid) || (strpos($uuid, 'autosave-') !== 0)) {
 // Get the page key by the UUID
 $pageKey = $pages->getByUUID($uuid);
 
-// Authors can only autosave their own pages
+// Only administrators and editors can autosave the pages of other users
 // The owner of the page is checked, or the owner of the autosave when the page is not created yet
-if (checkRole(array('author'), false)) {
+if (!checkRole(array('admin', 'editor'), false)) {
 	$ownerKey = $pages->getByUUID(substr($uuid, strlen('autosave-')));
 	if (empty($ownerKey)) {
 		$ownerKey = $pageKey;
