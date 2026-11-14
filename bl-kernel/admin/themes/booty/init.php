@@ -35,32 +35,38 @@ class Bootstrap
 EOF;
 	}
 
-	// Opens a modal with the same layout as the media manager, close it with modalClose()
+	// Opens a modal with the standard header, close it with modalClose()
+	// or the X on the top right
 	public static function modalOpen($args)
 	{
 		$id = $args['id'];
 		$title = $args['title'];
 		$icon = isset($args['icon']) ? '<i class="fa fa-' . $args['icon'] . '"></i> ' : '';
-		// Label for the button that closes the modal
-		$done = $args['done'];
+		$size = empty($args['size']) ? '' : ' ' . $args['size'];
+
+		global $L;
+		$closeLabel = $L->g('Close');
 
 		return <<<EOF
-<div id="$id" class="modal" tabindex="-1" role="dialog" aria-labelledby="{$id}Title">
-<div class="modal-dialog modal-lg">
+<div id="$id" class="modal fade" tabindex="-1" aria-labelledby="{$id}Title" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable$size">
 <div class="modal-content">
-<div class="container-fluid">
-<div class="row">
-	<div class="col p-3">
-		<div class="d-flex align-items-center justify-content-between mt-2 mb-3">
-			<h3 id="{$id}Title" class="m-0">$icon$title</h3>
-			<button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">$done</button>
-		</div>
+<div class="modal-header">
+	<h5 id="{$id}Title" class="modal-title">$icon$title</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="$closeLabel"></button>
+</div>
+<div class="modal-body">
 EOF;
 	}
 
 	public static function modalClose()
 	{
-		return '</div></div></div></div></div></div>';
+		return <<<EOF
+</div>
+</div>
+</div>
+</div>
+EOF;
 	}
 
 	public static function link($args)

@@ -41,11 +41,26 @@ echo Bootstrap::formInputHidden(array(
 ?>
 
 <!-- TOOLBAR -->
-<?php $switch = ($site->defaultContentStatus() == 'draft' ? 'draft' : 'publish'); ?>
-<?php $saveLabels = array('draft' => $L->g('Save as draft'), 'publish' => $L->g('Publish')); ?>
+<?php
+// The Save button saves the content with its current status, the dropdown offers the other one
+$saveStatus = ($site->defaultContentStatus() == 'draft' ? 'draft' : 'publish');
+$saveLabel = ($saveStatus == 'draft' ? $L->g('Save as draft') : $L->g('Publish'));
+$otherStatus = ($saveStatus == 'draft' ? 'publish' : 'draft');
+$otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'));
+?>
 <div id="jseditorToolbar" class="mb-2">
-	<div id="jseditorToolbarRight" class="btn-group btn-group-sm" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsbuttonSwitch" data-switch="<?php echo $switch ?>"><span class="fa fa-square switch-icon-<?php echo $switch ?>"></span> <?php echo ($switch == 'draft' ? $L->g('Draft') : $L->g('Publish')) ?></button>
+	<div id="jseditorToolbarLeft" class="d-flex align-items-center gap-1">
+		<div class="btn-group btn-group-sm">
+			<button id="jsbuttonSave" type="button" class="btn btn-primary" data-save-status="<?php echo $saveStatus ?>"><span class="fa fa-save"></span> <?php echo $saveLabel ?></button>
+			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" title="<?php echo $otherLabel ?>"><span class="visually-hidden"><?php echo $otherLabel ?></span></button>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="#" id="jsbuttonSaveAlt" data-save-status="<?php echo $otherStatus ?>"><?php echo $otherLabel ?></a></li>
+			</ul>
+		</div>
+		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><span class="fa fa-eye"></span> <?php $L->p('Preview') ?></button>
+	</div>
+
+	<div id="jseditorToolbarRight" class="d-flex align-items-center gap-1" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-bs-toggle="modal" data-bs-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<?php Theme::plugins('editorToolbar') ?>
 		<button type="button" class="btn btn-light d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#jsoptionsGeneralModal"><span class="fa fa-cog"></span> <?php $L->p('General') ?></button>
@@ -67,15 +82,10 @@ echo Bootstrap::formInputHidden(array(
 			</ul>
 		</div>
 	</div>
-
-	<div id="jseditorToolbarLeft">
-		<button id="jsbuttonSave" type="button" class="btn btn-sm btn-primary"><span class="fa fa-save"></span> <span id="jsbuttonSaveLabel"><?php echo $saveLabels[$switch] ?></span></button>
-		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><span class="fa fa-eye"></span> <?php $L->p('Preview') ?></button>
-	</div>
 </div>
 
 <!-- OPTIONS: each group has its own modal, they stay inside the form -->
-<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsGeneralModal', 'title' => $L->g('General'), 'icon' => 'cog', 'done' => $L->g('Done'))) ?>
+<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsGeneralModal', 'title' => $L->g('General'), 'icon' => 'cog', 'size' => 'modal-lg')) ?>
 			<div class="row">
 			<div class="col-md-7">
 			<?php
@@ -147,8 +157,9 @@ echo Bootstrap::formInputHidden(array(
 			<label class="mt-4 mb-2 pb-2 border-bottom text-uppercase w-100"><?php $L->p('Cover Image') ?></label>
 			<!-- Click to select an image, click again to remove it -->
 			<div id="jscoverImageBox" class="cover-image">
-				<img id="jscoverImagePreview" class="mx-auto d-block w-100" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
+				<img id="jscoverImagePreview" class="cover-image-preview" alt="Cover image preview" src="<?php echo HTML_PATH_CORE_IMG ?>default.svg" />
 				<span class="cover-image-remove"><span class="fa fa-trash"></span></span>
+				<span class="cover-image-placeholder"><span class="fa fa-image"></span><?php $L->p('Select cover image') ?></span>
 			</div>
 			<?php
 			// External cover image
@@ -200,7 +211,7 @@ echo Bootstrap::formInputHidden(array(
 			</script>
 <?php echo Bootstrap::modalClose() ?>
 
-<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsAdvancedModal', 'title' => $L->g('Advanced'), 'icon' => 'sliders', 'done' => $L->g('Done'))) ?>
+<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsAdvancedModal', 'title' => $L->g('Advanced'), 'icon' => 'sliders', 'size' => 'modal-lg')) ?>
 			<?php
 			// Type
 			echo Bootstrap::formSelectBlock(array(
@@ -327,7 +338,7 @@ echo Bootstrap::formInputHidden(array(
 <?php echo Bootstrap::modalClose() ?>
 
 <?php if (!empty($site->customFields())) : ?>
-<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsCustomModal', 'title' => $L->g('Custom'), 'icon' => 'list', 'done' => $L->g('Done'))) ?>
+<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsCustomModal', 'title' => $L->g('Custom'), 'icon' => 'list', 'size' => 'modal-lg')) ?>
 				<?php
 				$customFields = $site->customFields();
 				foreach ($customFields as $field => $options) {
@@ -355,7 +366,7 @@ echo Bootstrap::formInputHidden(array(
 <?php echo Bootstrap::modalClose() ?>
 <?php endif ?>
 
-<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsSeoModal', 'title' => $L->g('SEO'), 'icon' => 'search', 'done' => $L->g('Done'))) ?>
+<?php echo Bootstrap::modalOpen(array('id' => 'jsoptionsSeoModal', 'title' => $L->g('SEO'), 'icon' => 'search', 'size' => 'modal-lg')) ?>
 			<?php
 			// Friendly URL
 			echo Bootstrap::formInputTextBlock(array(
@@ -510,16 +521,6 @@ foreach ($customFields as $field => $options) {
 		$("#jsparent").on("change", updateUrlPreview);
 		updateUrlPreview();
 
-		// Button switch, the Save button says what it is going to do
-		var switchLabels = <?php echo json_encode(array('draft' => $L->g('Draft'), 'publish' => $L->g('Publish'))) ?>;
-		var saveLabels = <?php echo json_encode($saveLabels) ?>;
-		$("#jsbuttonSwitch").on("click", function() {
-			var value = ($(this).data("switch") == "publish") ? "draft" : "publish";
-			$(this).data("switch", value);
-			$(this).html('<span class="fa fa-square switch-icon-' + value + '"></span> ' + switchLabels[value]);
-			$("#jsbuttonSaveLabel").text(saveLabels[value]);
-		});
-
 		// Button preview
 		$("#jsbuttonPreview").on("click", function() {
 			var uuid = $("#jsuuid").val();
@@ -531,26 +532,26 @@ foreach ($customFields as $field => $options) {
 			});
 		});
 
-		// Button Save
-		$("#jsbuttonSave").on("click", function() {
-			let actionParameters = '';
-
-			// If the switch is setted to "published", get the value from the selector
-			if ($("#jsbuttonSwitch").data("switch") == "publish") {
-				var value = $("#jstypeSelector option:selected").val();
-				$("#jstype").val(value);
-				actionParameters = '#' + value;
-			} else {
-				$("#jstype").val("draft");
-				actionParameters = '#draft';
+		// Button Save: "draft" or the type selected in Advanced > Type
+		function saveWithStatus(status) {
+			var type = 'draft';
+			if (status == 'publish') {
+				type = $("#jstypeSelector option:selected").val();
 			}
 
-			// Get the content
+			$("#jstype").val(type);
 			$("#jscontent").val(editorGetContent());
-
-			// Submit the form
-			$("#jsform").attr('action', actionParameters);
+			$("#jsform").attr('action', '#' + type);
 			$("#jsform").submit();
+		}
+
+		$("#jsbuttonSave").on("click", function() {
+			saveWithStatus($(this).data("save-status"));
+		});
+
+		$("#jsbuttonSaveAlt").on("click", function(e) {
+			e.preventDefault();
+			saveWithStatus($(this).data("save-status"));
 		});
 
 		// Autosave
