@@ -43,7 +43,7 @@ echo Bootstrap::formInputHidden(array(
 <!-- TOOLBAR -->
 <?php $switch = ($site->defaultContentStatus() == 'draft' ? 'draft' : 'publish'); ?>
 <?php $saveLabels = array('draft' => $L->g('Save as draft'), 'publish' => $L->g('Publish')); ?>
-<div id="jseditorToolbar" class="mb-1">
+<div id="jseditorToolbar" class="mb-2">
 	<div id="jseditorToolbarRight" class="btn-group btn-group-sm" role="group" aria-label="Toolbar right">
 		<button type="button" class="btn btn-light" id="jsbuttonSwitch" data-switch="<?php echo $switch ?>"><span class="fa fa-square switch-icon-<?php echo $switch ?>"></span> <?php echo ($switch == 'draft' ? $L->g('Draft') : $L->g('Publish')) ?></button>
 		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-bs-toggle="modal" data-bs-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
