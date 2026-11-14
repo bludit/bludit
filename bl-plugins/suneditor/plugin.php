@@ -11,7 +11,7 @@ class pluginSuneditor extends Plugin
 	public function init()
 	{
 		$this->dbFields = array(
-			'buttons' => 'undo,redo,|,bold,underline,italic,strike,|,fontColor,backgroundColor,removeFormat,|,list,align,outdent,indent,|,link,image,table,hr,|,fullScreen,codeView,showBlocks'
+			'buttons' => 'undo,redo,|,formatBlock,|,bold,underline,italic,strike,|,fontColor,backgroundColor,removeFormat,|,list,align,outdent,indent,|,link,image,table,hr,|,fullScreen,codeView,showBlocks'
 		);
 	}
 
