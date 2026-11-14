@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo Sanitize::html($L->currentLanguageShortVersion()) ?>" data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
+<html lang="<?php echo Sanitize::html(str_replace('_', '-', $L->currentLanguage())) ?>" data-bs-theme="<?php echo $site->adminColorMode() === 'dark' ? 'dark' : 'light' ?>">
 
 <head>
   <title><?php echo (defined('BLUDIT_PRO') ? $site->title() : 'BLUDIT') ?> - <?php $L->p('Login') ?></title>
@@ -301,7 +301,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .login-card {
+      .login-card,
+      .login-alert {
         animation: none;
       }
 
