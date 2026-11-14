@@ -575,5 +575,62 @@ foreach ($customFields as $field => $options) {
 			}
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
+		// Warn before leaving with changes that were not saved. The editor
+		// content is compared too because it is only copied to the hidden field
+		// when the form is submitted.
+		var formSnapshot = null;
+		var contentSnapshot = null;
+		var formSubmitting = false;
+
+		function formState() {
+			var fields = $("#jsform").serializeArray();
+			for (var i = 0; i < fields.length; i++) {
+				if (fields[i].name == "content") {
+					fields[i].value = "";
+				}
+			}
+			return JSON.stringify(fields);
+		}
+
+		// TinyMCE is not ready while it is initializing, fall back to the
+		// textarea while the editor is not available
+		function currentEditorContent() {
+			try {
+				return editorGetContent();
+			} catch (error) {
+				return $("#jseditor").val();
+			}
+		}
+
+		function takeFormSnapshot() {
+			formSnapshot = formState();
+			contentSnapshot = currentEditorContent();
+		}
+
+		// TinyMCE initializes asynchronously and reformats the content, so the
+		// content baseline is taken again when the editor is ready
+		window.bluditTakeFormSnapshot = function() {
+			contentSnapshot = currentEditorContent();
+		};
+		takeFormSnapshot();
+
+		$("#jsform").on("submit", function() {
+			formSubmitting = true;
+		});
+
+		$(window).on("beforeunload", function(e) {
+			if (formSubmitting || formSnapshot === null) {
+				return;
+			}
+			if (formState() === formSnapshot && currentEditorContent() === contentSnapshot) {
+				return;
+			}
+
+			var message = <?php echo json_encode($L->g('You have unsaved changes')); ?>;
+			e.preventDefault();
+			e.returnValue = message;
+			return message;
+		});
+
 	});
 </script>
