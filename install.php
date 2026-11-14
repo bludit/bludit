@@ -284,6 +284,8 @@ function install($adminPassword, $timezone)
 		'tinymce',
 		'about',
 		'visits-stats',
+		'categories',
+		'tags',
 		'robots',
 		'canonical',
 		'opengraph',
@@ -333,8 +335,45 @@ function install($adminPassword, $timezone)
 
 	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>" . PHP_EOL;
 
+	// Default categories and tags of the example content. The names are
+	// translated but the keys are kept in English so the URLs are the same
+	// in every language.
+	$defaultCategories = array(
+		'general' => $L->get('general'),
+		'news' => $L->get('news'),
+		'tutorials' => $L->get('tutorials')
+	);
+	$defaultTags = array(
+		'bludit' => 'Bludit',
+		'tips' => $L->get('tips'),
+		'welcome' => $L->get('welcome')
+	);
+
+	// Category and tags of each example page
+	$pageCategories = array(
+		'example-page-1-slug' => 'tutorials',
+		'example-page-2-slug' => 'tutorials',
+		'example-page-3-slug' => 'news',
+		'example-page-4-slug' => 'general'
+	);
+	$pageTags = array(
+		'example-page-1-slug' => array('welcome'),
+		'example-page-2-slug' => array('welcome', 'tips'),
+		'example-page-3-slug' => array('bludit'),
+		'example-page-4-slug' => array()
+	);
+
+	// Index of categories and tags, the lists are filled with the page keys
+	$categoriesData = array();
+	foreach ($defaultCategories as $key => $name) {
+		$categoriesData[$key] = array('name' => $name, 'description' => '', 'template' => '', 'list' => array());
+	}
+	$tagsData = array();
+	foreach ($defaultTags as $key => $name) {
+		$tagsData[$key] = array('name' => $name, 'list' => array());
+	}
+
 	$data = array();
-	$slugs = array();
 	$nextDate = $currentDate;
 	foreach ($pagesToInstall as $page) {
 
@@ -342,12 +381,18 @@ function install($adminPassword, $timezone)
 		$title = Text::replace('slug', 'title', $slug);
 		$content = Text::replace('slug', 'content', $slug);
 		$nextDate = Date::offset($nextDate, DB_DATE_FORMAT, '-1 minute');
+		$pageKey = $L->get($slug);
 
-		$data[$L->get($slug)] = array(
+		$tags = array();
+		foreach ($pageTags[$slug] as $tagKey) {
+			$tags[$tagKey] = $defaultTags[$tagKey];
+		}
+
+		$data[$pageKey] = array(
 			'title' => $L->get($title),
 			'description' => '',
 			'username' => 'admin',
-			'tags' => array(),
+			'tags' => $tags,
 			'type' => (($slug == 'example-page-4-slug') ? 'static' : 'published'),
 			'date' => $nextDate,
 			'dateModified' => '',
@@ -355,18 +400,23 @@ function install($adminPassword, $timezone)
 			'position' => 1,
 			'coverImage' => '',
 			'md5file' => '',
-			'category' => 'general',
+			'category' => $pageCategories[$slug],
 			'uuid' => md5(uniqid()),
 			'parent' => '',
 			'template' => '',
 			'noindex' => false,
 			'nofollow' => false,
-			'noarchive' => false
+			'noarchive' => false,
+			'custom' => array()
 		);
 
-		array_push($slugs, $slug);
+		// Add the page to the index of its category and tags
+		$categoriesData[$pageCategories[$slug]]['list'][] = $pageKey;
+		foreach ($tags as $tagKey => $tagName) {
+			$tagsData[$tagKey]['list'][] = $pageKey;
+		}
 
-		file_put_contents(PATH_PAGES . $L->get($slug) . DS . FILENAME, Text::replace('./admin', HTML_PATH_ROOT . 'admin', $L->get($content)), LOCK_EX);
+		file_put_contents(PATH_PAGES . $pageKey . DS . FILENAME, Text::replace('./admin', HTML_PATH_ROOT . 'admin', $L->get($content)), LOCK_EX);
 	}
 	file_put_contents(PATH_DATABASES . 'pages.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -380,6 +430,9 @@ function install($adminPassword, $timezone)
 	} else {
 		$siteUrl = PROTOCOL . DOMAIN . HTML_PATH_ROOT;
 	}
+	// The sender email needs to be a valid address, the domain can include the port
+	$emailDomain = preg_replace('/:\d+$/', '', DOMAIN);
+
 	$data = array(
 		'title' => 'BLUDIT',
 		'slogan' => $L->get('welcome-to-bludit'),
@@ -391,6 +444,7 @@ function install($adminPassword, $timezone)
 		'timezone' => $timezone,
 		'theme' => 'flavor',
 		'adminTheme' => 'booty',
+		'adminColorMode' => 'system',
 		'homepage' => '',
 		'pageNotFound' => '',
 		'uriPage' => '/',
@@ -398,19 +452,26 @@ function install($adminPassword, $timezone)
 		'uriCategory' => '/category/',
 		'uriBlog' => '',
 		'url' => $siteUrl,
-		'emailFrom' => 'no-reply@' . DOMAIN,
-		'orderBy' => 'date',
-		'currentBuild' => '0',
+		'emailFrom' => 'no-reply@' . $emailDomain,
+		'dateFormat' => 'F j, Y',
+		'timeFormat' => 'g:i a',
+		'currentBuild' => 0,
 		'twitter' => 'https://twitter.com/bludit',
 		'facebook' => 'https://www.facebook.com/bluditcms',
 		'codepen' => '',
-		'github' => 'https://github.com/bludit',
 		'instagram' => '',
+		'github' => 'https://github.com/bludit',
 		'gitlab' => '',
 		'linkedin' => '',
 		'xing' => '',
 		'telegram' => '',
-		'dateFormat' => 'F j, Y',
+		'mastodon' => '',
+		'dribbble' => '',
+		'vk' => '',
+		'youtube' => '',
+		'bluesky' => '',
+		'orderBy' => 'date',
+		'defaultContentStatus' => 'published',
 		'extremeFriendly' => true,
 		'autosaveInterval' => 2,
 		'titleFormatHomepage' => '{{site-slogan}} | {{site-title}}',
@@ -419,7 +480,14 @@ function install($adminPassword, $timezone)
 		'titleFormatTag' => '{{tag-name}} | {{site-title}}',
 		'imageRestrict' => true,
 		'imageRelativeToAbsolute' => false,
-		'previewKey' => Text::generateToken()
+		'previewKey' => Text::generateToken(),
+		'thumbnailEnable' => true,
+		'thumbnailWidth' => 400,
+		'thumbnailHeight' => 400,
+		'thumbnailQuality' => 100,
+		'logo' => '',
+		'markdownParser' => true,
+		'customFields' => '{}'
 	);
 	file_put_contents(PATH_DATABASES . 'site.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
@@ -433,6 +501,7 @@ function install($adminPassword, $timezone)
 			'nickname' => 'Admin',
 			'firstName' => $L->get('Administrator'),
 			'lastName' => '',
+			'description' => '',
 			'role' => 'admin',
 			'password' => $passwordHash,
 			'salt' => $salt,
@@ -449,7 +518,11 @@ function install($adminPassword, $timezone)
 			'xing' => '',
 			'telegram' => '',
 			'github' => '',
-			'gitlab' => ''
+			'gitlab' => '',
+			'mastodon' => '',
+			'vk' => '',
+			'youtube' => '',
+			'bluesky' => ''
 		)
 	);
 	file_put_contents(PATH_DATABASES . 'users.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
@@ -476,16 +549,12 @@ function install($adminPassword, $timezone)
 	file_put_contents(PATH_DATABASES . 'security.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File categories.php
-	$data = array(
-		'general' => array('name' => 'General', 'description' => '', 'template' => '', 'list' => $slugs),
-		'music' => array('name' => 'Music', 'description' => '', 'template' => '', 'list' => array()),
-		'videos' => array('name' => 'Videos', 'description' => '', 'template' => '', 'list' => array())
-	);
-	file_put_contents(PATH_DATABASES . 'categories.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	ksort($categoriesData);
+	file_put_contents(PATH_DATABASES . 'categories.php', $dataHead . json_encode($categoriesData, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File tags.php
-	$data = array();
-	file_put_contents(PATH_DATABASES . 'tags.php', $dataHead . json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
+	ksort($tagsData);
+	file_put_contents(PATH_DATABASES . 'tags.php', $dataHead . json_encode($tagsData, JSON_PRETTY_PRINT), LOCK_EX);
 
 	// File plugins/about/db.php
 	file_put_contents(
@@ -517,6 +586,34 @@ function install($adminPassword, $timezone)
 	);
 	mkdir(PATH_WORKSPACES . 'visits-stats', DIR_PERMISSIONS, true);
 
+	// File plugins/categories/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'categories' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'position' => 2,
+				'label' => $L->get('categories'),
+				'hideCero' => true
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
+	// File plugins/tags/db.php
+	file_put_contents(
+		PATH_PLUGINS_DATABASES . 'tags' . DS . 'db.php',
+		$dataHead . json_encode(
+			array(
+				'position' => 3,
+				'label' => $L->get('tags'),
+				'tagCloud' => true
+			),
+			JSON_PRETTY_PRINT
+		),
+		LOCK_EX
+	);
+
 	// File plugins/tinymce/db.php
 	file_put_contents(
 		PATH_PLUGINS_DATABASES . 'tinymce' . DS . 'db.php',
@@ -525,7 +622,9 @@ function install($adminPassword, $timezone)
 				'position' => 1,
 				'toolbar1' => 'blocks bold italic forecolor backcolor removeformat | bullist numlist table | blockquote alignleft aligncenter alignright | link pagebreak image media codesample code | fullscreen wordcount',
 				'toolbar2' => '',
-				'plugins' => 'code autolink image link pagebreak advlist lists table fullscreen media searchreplace wordcount emoticons charmap codesample'
+				'contextmenu' => 'link image table',
+				'plugins' => 'code autolink image link pagebreak advlist lists table fullscreen media searchreplace wordcount emoticons charmap codesample',
+				'codesampleLanguages' => 'HTML/XML markup|JavaScript javascript|CSS css|PHP php|Ruby ruby|Python python|Java java|C c|C# sharp|C++ cpp'
 			),
 			JSON_PRETTY_PRINT
 		),
@@ -550,26 +649,50 @@ function install($adminPassword, $timezone)
 		$dataHead . json_encode(
 			array(
 				'position' => 1,
-				'robotstxt' => 'User-agent: *' . PHP_EOL . 'Allow: /'
+				'robotstxt' => 'User-agent: *' . PHP_EOL . 'Allow: /',
+				'blockAITraining' => false,
+				'blockAISearch' => false,
+				'llmstxt' => false
 			),
 			JSON_PRETTY_PRINT
 		),
 		LOCK_EX
 	);
 
-	// Plugins that work with their default values, these databases only need the position
+	// Plugins that work with their default values, the databases are created
+	// with the defaults of the plugin so a fresh install doesn't depend on the
+	// fallback values of the code
 	$pluginsWithDefaults = array(
-		'opengraph',
-		'json-ld',
-		'twitter-cards',
-		'sitemap',
-		'rss',
-		'search'
+		'opengraph' => array(
+			'defaultImage' => '',
+			'fbAppId' => ''
+		),
+		'json-ld' => array(),
+		'twitter-cards' => array(
+			'defaultImage' => '',
+			'twitterSite' => '',
+			'cardType' => 'summary_large_image'
+		),
+		'sitemap' => array(),
+		'rss' => array(
+			'numberOfItems' => 5
+		),
+		'search' => array(
+			'label' => $L->get('Search'),
+			'minChars' => 3,
+			'wordsToCachePerPage' => 800,
+			'showButtonSearch' => false,
+			'highlightResults' => true,
+			'showResultCount' => true,
+			'searchInTags' => true,
+			'searchInCategories' => true
+		)
 	);
-	foreach ($pluginsWithDefaults as $plugin) {
+	foreach ($pluginsWithDefaults as $plugin => $defaults) {
+		$data = array_merge(array('position' => 1), $defaults);
 		file_put_contents(
 			PATH_PLUGINS_DATABASES . $plugin . DS . 'db.php',
-			$dataHead . json_encode(array('position' => 1), JSON_PRETTY_PRINT),
+			$dataHead . json_encode($data, JSON_PRETTY_PRINT),
 			LOCK_EX
 		);
 		mkdir(PATH_WORKSPACES . $plugin, DIR_PERMISSIONS, true);
@@ -630,7 +753,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $L->currentLanguageShortVersion() ?>">
 
 <head>
 	<title><?php echo $L->get('Bludit Installer') ?></title>
