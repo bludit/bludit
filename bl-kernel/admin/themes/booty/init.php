@@ -35,6 +35,34 @@ class Bootstrap
 EOF;
 	}
 
+	// Opens a modal with the same layout as the media manager, close it with modalClose()
+	public static function modalOpen($args)
+	{
+		$id = $args['id'];
+		$title = $args['title'];
+		$icon = isset($args['icon']) ? '<i class="fa fa-' . $args['icon'] . '"></i> ' : '';
+		// Label for the button that closes the modal
+		$done = $args['done'];
+
+		return <<<EOF
+<div id="$id" class="modal" tabindex="-1" role="dialog" aria-labelledby="{$id}Title">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="container-fluid">
+<div class="row">
+	<div class="col p-3">
+		<div class="d-flex align-items-center justify-content-between mt-2 mb-3">
+			<h3 id="{$id}Title" class="m-0">$icon$title</h3>
+			<button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">$done</button>
+		</div>
+EOF;
+	}
+
+	public static function modalClose()
+	{
+		return '</div></div></div></div></div></div>';
+	}
+
 	public static function link($args)
 	{
 		$class = isset($args['icon']) ? 'link-icon' : '';
