@@ -66,12 +66,12 @@
 			<?php if (!empty($tagsList) || $categoryKey) : ?>
 			<div class="flex flex-1 min-w-0 flex-wrap gap-2">
 			<?php if ($categoryKey) : ?>
-				<a class="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 hover:bg-accent-200 dark:hover:bg-accent-800 transition-colors no-underline" href="<?php echo $page->categoryPermalink(); ?>">
+				<a class="inline-block max-w-full wrap-anywhere text-xs font-medium px-2.5 py-1 rounded-full bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 hover:bg-accent-200 dark:hover:bg-accent-800 transition-colors no-underline" href="<?php echo $page->categoryPermalink(); ?>">
 					<?php echo $page->category(); ?>
 				</a>
 			<?php endif ?>
 			<?php foreach ($tagsList as $tagKey => $tagName) : ?>
-				<a class="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors no-underline" href="<?php echo DOMAIN_TAGS . $tagKey; ?>">
+				<a class="inline-block max-w-full wrap-anywhere text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors no-underline" href="<?php echo DOMAIN_TAGS . $tagKey; ?>">
 					<?php echo $tagName; ?>
 				</a>
 			<?php endforeach ?>
