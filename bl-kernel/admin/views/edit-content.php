@@ -613,5 +613,14 @@ foreach ($customFields as $field => $options) {
 			}
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
+		// Ctrl+S or Cmd+S saves the content instead of the browser page
+		$(document).on("keydown", function(e) {
+			var isSaveKey = (e.code == "KeyS") || (String(e.key).toLowerCase() == "s");
+			if (!e.repeat && !e.shiftKey && (e.ctrlKey || e.metaKey) && !e.altKey && isSaveKey) {
+				e.preventDefault();
+				$("#jsbuttonSave").trigger("click");
+			}
+		});
+
 	});
 </script>
