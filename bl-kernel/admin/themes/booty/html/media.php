@@ -26,7 +26,10 @@ $numberOfPages = count($listOfFilesByPage);
 	<!--
 		UPLOAD INPUT
 	-->
-		<h3 class="mt-2 mb-3"><i class="fa fa-image"></i> <?php $L->p('Images'); ?></h3>
+		<div class="d-flex align-items-center justify-content-between mt-2 mb-3">
+			<h3 class="m-0"><i class="fa fa-image"></i> <?php $L->p('Images'); ?></h3>
+			<button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><?php $L->p('Done'); ?></button>
+		</div>
 
 		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
 

@@ -1,7 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-uppercase d-block d-lg-none">
+<nav class="navbar navbar-expand-lg navbar-mobile text-uppercase d-block d-lg-none">
 	<div class="container">
-		<span class="navbar-brand">
-			<?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
+		<!-- Same logo and name as the sidebar -->
+		<span class="navbar-brand" style="display: flex; align-items: center;">
+			<div style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--bg-brand); border-radius: 8px; box-shadow: var(--shadow-sm); flex-shrink: 0;">
+				<img src="<?php echo HTML_PATH_CORE_IMG ?>logo.svg" width="18" height="18" alt="bludit-logo" style="filter: brightness(0) invert(1);">
+			</div>
+			<span style="margin-left: 10px; font-weight: 600; font-size: 1rem; color: var(--text-primary); line-height: 1;"><?php echo (defined('BLUDIT_PRO'))?'BLUDIT PRO':'BLUDIT' ?></span>
+		</span>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
 		 aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>

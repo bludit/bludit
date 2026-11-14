@@ -82,6 +82,17 @@ a.text-danger:hover {
 	transform: translateY(-1px);
 }
 
+/* Dark mode: the light button gets lighter on hover and keeps the text readable */
+[data-bs-theme="dark"] .btn-light:hover,
+[data-bs-theme="dark"] .btn-light:focus-visible,
+[data-bs-theme="dark"] .btn-light:active,
+[data-bs-theme="dark"] .btn-light.active,
+[data-bs-theme="dark"] .btn-light.show {
+	color: var(--text-primary);
+	background-color: var(--bg-btn-light-hover);
+	border-color: var(--border-btn-light);
+}
+
 .btn-danger {
 	background: var(--color-danger, #DC2626);
 	border: none;
