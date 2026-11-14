@@ -60,25 +60,29 @@
 			<?php echo $page->contentBreak(); ?>
 		</div>
 
-		<?php if ($page->readMore()) : ?>
-		<a href="<?php echo $page->permalink(); ?>" class="inline-flex items-center mt-4 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium text-sm no-underline transition-colors">
-			<?php echo $L->get('Read more'); ?> &rarr;
-		</a>
-		<?php endif ?>
-
 		<?php $tagsList = $page->tags(true); $categoryKey = $page->categoryKey(); ?>
-		<?php if (!empty($tagsList) || $categoryKey) : ?>
-		<div class="flex flex-wrap gap-2 mt-4">
+		<?php if (!empty($tagsList) || $categoryKey || $page->readMore()) : ?>
+		<div class="flex items-start gap-6 mt-4">
+			<?php if (!empty($tagsList) || $categoryKey) : ?>
+			<div class="flex flex-1 min-w-0 flex-wrap gap-2">
 			<?php if ($categoryKey) : ?>
-				<a class="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 hover:bg-accent-200 dark:hover:bg-accent-800 transition-colors no-underline" href="<?php echo $page->categoryPermalink(); ?>">
+				<a class="inline-block max-w-full wrap-anywhere text-xs font-medium px-2.5 py-1 rounded-full bg-accent-100 text-accent-700 dark:bg-accent-900 dark:text-accent-300 hover:bg-accent-200 dark:hover:bg-accent-800 transition-colors no-underline" href="<?php echo $page->categoryPermalink(); ?>">
 					<?php echo $page->category(); ?>
 				</a>
 			<?php endif ?>
 			<?php foreach ($tagsList as $tagKey => $tagName) : ?>
-				<a class="inline-block text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors no-underline" href="<?php echo DOMAIN_TAGS . $tagKey; ?>">
+				<a class="inline-block max-w-full wrap-anywhere text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors no-underline" href="<?php echo DOMAIN_TAGS . $tagKey; ?>">
 					<?php echo $tagName; ?>
 				</a>
 			<?php endforeach ?>
+			</div>
+			<?php endif ?>
+
+			<?php if ($page->readMore()) : ?>
+			<a href="<?php echo $page->permalink(); ?>" class="ml-auto shrink-0 inline-flex items-center py-1 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium text-sm no-underline transition-colors">
+				<?php echo $L->get('Read more'); ?> &rarr;
+			</a>
+			<?php endif ?>
 		</div>
 		<?php endif ?>
 
