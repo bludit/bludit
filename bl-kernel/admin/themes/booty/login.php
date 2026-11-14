@@ -280,6 +280,42 @@
       pointer-events: none;
     }
 
+    /* Show/hide password */
+    .input-icon-wrapper .form-control.has-password-toggle {
+      padding-right: 44px;
+    }
+
+    .input-icon-wrapper .form-control::-ms-reveal {
+      display: none;
+    }
+
+    .input-icon-wrapper .password-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text-muted, #94A3B8);
+      cursor: pointer;
+    }
+
+    .input-icon-wrapper .password-toggle:hover,
+    .input-icon-wrapper .password-toggle:focus-visible {
+      color: var(--text-primary, #1E293B);
+    }
+
+    .input-icon-wrapper .password-toggle:focus-visible {
+      outline: 2px solid var(--color-secondary, #64748B);
+      outline-offset: -4px;
+      border-radius: var(--radius-sm, 4px);
+    }
+
     .input-icon-wrapper .form-control:focus + .input-icon,
     .input-icon-wrapper .form-control:not(:placeholder-shown) + .input-icon {
       color: var(--color-secondary, #64748B);
