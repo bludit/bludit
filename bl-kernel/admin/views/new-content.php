@@ -51,12 +51,13 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 <div id="jseditorToolbar" class="mb-2">
 	<div id="jseditorToolbarLeft" class="d-flex align-items-center gap-1">
 		<div class="btn-group btn-group-sm">
-			<button id="jsbuttonSave" type="button" class="btn btn-primary" data-save-status="<?php echo $saveStatus ?>"><span class="fa fa-save"></span> <?php echo $saveLabel ?></button>
+			<button id="jsbuttonSave" type="button" class="btn btn-primary" data-save-status="<?php echo $saveStatus ?>"><span id="jsbuttonSaveIcon" class="fa fa-save"></span> <span id="jsbuttonSaveLabel"><?php echo $saveLabel ?></span></button>
 			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" title="<?php echo $otherLabel ?>"><span class="visually-hidden"><?php echo $otherLabel ?></span></button>
 			<ul class="dropdown-menu">
 				<li><a class="dropdown-item" href="#" id="jsbuttonSaveAlt" data-save-status="<?php echo $otherStatus ?>"><?php echo $otherLabel ?></a></li>
 			</ul>
 		</div>
+		<span id="jsscheduleBadge" class="badge bg-warning-subtle text-warning-emphasis align-self-center d-none"><span class="fa fa-clock-o"></span> <?php $L->p('Scheduled') ?></span>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><span class="fa fa-eye"></span> <?php $L->p('Preview') ?></button>
 	</div>
 
@@ -574,6 +575,27 @@ foreach ($customFields as $field => $options) {
 				});
 			}
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
+
+		// The content is scheduled when the type is published and the date is
+		// in the future, show it on the Save button before saving
+		var defaultSaveLabel = <?php echo json_encode($saveLabel); ?>;
+		var saveStatusType = <?php echo json_encode($saveStatus); ?>;
+
+		function updateScheduleState() {
+			var scheduled = false;
+			if (saveStatusType == "publish") {
+				var type = $("#jstypeSelector option:selected").val();
+				var timestamp = Date.parse($("#jsdate").val().replace(" ", "T"));
+				scheduled = (type == "published") && !isNaN(timestamp) && timestamp > Date.now();
+			}
+
+			$("#jsbuttonSaveLabel").text(scheduled ? <?php echo json_encode($L->g('Schedule')); ?> : defaultSaveLabel);
+			$("#jsbuttonSaveIcon").toggleClass("fa-clock-o", scheduled).toggleClass("fa-save", !scheduled);
+			$("#jsscheduleBadge").toggleClass("d-none", !scheduled).attr("title", scheduled ? $("#jsdate").val() : "");
+		}
+		$("#jsdate").on("input change", updateScheduleState);
+		$("#jstypeSelector").on("change", updateScheduleState);
+		updateScheduleState();
 
 	});
 </script>
