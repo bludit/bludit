@@ -2,18 +2,30 @@
 
 class pluginRobots extends Plugin {
 
+	// Crawlers used to collect content for training models
 	private $aiTrainingCrawlers = array(
 		'GPTBot',
 		'ClaudeBot',
+		'anthropic-ai',
+		'Claude-Web',
 		'Google-Extended',
 		'Applebot-Extended',
 		'meta-externalagent',
+		'FacebookBot',
 		'CCBot',
 		'Bytespider',
 		'Amazonbot',
-		'cohere-ai'
+		'cohere-ai',
+		'ImagesiftBot',
+		'Omgilibot',
+		'Diffbot',
+		'Timpibot',
+		'PanguBot',
+		'AI2Bot',
+		'Ai2Bot-Dolma'
 	);
 
+	// Crawlers that fetch content to answer a question in an AI product
 	private $aiSearchCrawlers = array(
 		'OAI-SearchBot',
 		'ChatGPT-User',
@@ -21,7 +33,13 @@ class pluginRobots extends Plugin {
 		'Claude-User',
 		'PerplexityBot',
 		'Perplexity-User',
-		'meta-externalfetcher'
+		'meta-externalfetcher',
+		'DuckAssistBot',
+		'MistralAI-User',
+		'YouBot',
+		'LinerBot',
+		'PhindBot',
+		'iAskBot'
 	);
 
 	public function init()

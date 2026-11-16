@@ -164,7 +164,14 @@ class pluginTinymce extends Plugin
 		content_css: "$content_css",
 		codesample_languages: [$codesampleConfig],
 		image_description: true,
-		image_advtab: true
+		image_advtab: true,
+		init_instance_callback: function(editor) {
+			// Let the content form take its initial snapshot now that the
+			// editor is ready and the content has its final formatting
+			if (typeof window.bluditTakeFormSnapshot == "function") {
+				window.bluditTakeFormSnapshot();
+			}
+		}
 	});
 
 </script>
