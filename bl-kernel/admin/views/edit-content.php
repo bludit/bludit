@@ -622,7 +622,6 @@ foreach ($customFields as $field => $options) {
 			}
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
-<<<<<<< HEAD
 		// Ctrl+S or Cmd+S saves the content instead of the browser page
 		$(document).on("keydown", function(e) {
 			var isSaveKey = (e.code == "KeyS") || (String(e.key).toLowerCase() == "s");
@@ -632,8 +631,6 @@ foreach ($customFields as $field => $options) {
 			}
 		});
 
-=======
-<<<<<<< HEAD
 		// The content is scheduled when the type is published and the date is
 		// in the future, show it on the Save button before saving
 		var defaultSaveLabel = <?php echo json_encode($saveLabel); ?>;
@@ -654,7 +651,7 @@ foreach ($customFields as $field => $options) {
 		$("#jsdate").on("input change", updateScheduleState);
 		$("#jstypeSelector").on("change", updateScheduleState);
 		updateScheduleState();
-=======
+
 		// Warn before leaving with changes that were not saved. The editor
 		// content is compared too because it is only copied to the hidden field
 		// when the form is submitted.
@@ -720,8 +717,6 @@ foreach ($customFields as $field => $options) {
 		}
 		$("#jsdescription").on("input", updateMetaDescriptionCounter);
 		updateMetaDescriptionCounter();
->>>>>>> origin/master
 
->>>>>>> origin/master
 	});
 </script>
