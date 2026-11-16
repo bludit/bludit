@@ -457,11 +457,13 @@ function createPage($args)
     reindexCategories();
     reindexTags();
 
-    // Add to syslog
-    $syslog->add(array(
-      'dictionaryKey' => 'new-content-created',
-      'notes' => (empty($args['title']) ? $key : $args['title'])
-    ));
+    // Add to syslog, the autosave pages are internal copies of the editor, not content of the user
+    if (!isset($args['type']) || $args['type'] !== 'autosave') {
+      $syslog->add(array(
+        'dictionaryKey' => 'new-content-created',
+        'notes' => (empty($args['title']) ? $key : $args['title'])
+      ));
+    }
 
     return $key;
   }
@@ -523,11 +525,13 @@ function editPage($args)
     reindexCategories();
     reindexTags();
 
-    // Add to syslog
-    $syslog->add(array(
-      'dictionaryKey' => 'content-edited',
-      'notes' => empty($args['title']) ? $key : $args['title']
-    ));
+    // Add to syslog, the autosave pages are internal copies of the editor, not content of the user
+    if (!isset($args['type']) || $args['type'] !== 'autosave') {
+      $syslog->add(array(
+        'dictionaryKey' => 'content-edited',
+        'notes' => empty($args['title']) ? $key : $args['title']
+      ));
+    }
 
     return $key;
   }
@@ -542,7 +546,8 @@ function editPage($args)
 	(string)  $key, the key of the page to delete
 	(boolean) $allowVeto, TRUE executes the hook beforePageDelete and the plugins can cancel
 	          the operation, FALSE skips the hook. The internal clean up of autosave pages
-	          calls this function with FALSE, those pages are not content written by the user.
+	          calls this function with FALSE, those pages are not content written by the user,
+	          so the deletion is not added to the syslog either.
 */
 function deletePage($key, $allowVeto = true)
 {
@@ -561,11 +566,13 @@ function deletePage($key, $allowVeto = true)
     reindexCategories();
     reindexTags();
 
-    // Add to syslog
-    $syslog->add(array(
-      'dictionaryKey' => 'content-deleted',
-      'notes' => $key
-    ));
+    // Add to syslog, only when the user deletes the page, not the internal clean up
+    if ($allowVeto) {
+      $syslog->add(array(
+        'dictionaryKey' => 'content-deleted',
+        'notes' => $key
+      ));
+    }
 
     return true;
   }
