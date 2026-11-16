@@ -9,7 +9,6 @@ class pluginRobots extends Plugin {
 		'anthropic-ai',
 		'Claude-Web',
 		'Google-Extended',
-		'Google-CloudVertexBot',
 		'Applebot-Extended',
 		'meta-externalagent',
 		'FacebookBot',
