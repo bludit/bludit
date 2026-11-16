@@ -683,6 +683,12 @@ body.login {
 	overflow-y: auto;
 }
 
+/* The rows take the background of the card, Bootstrap uses the page background */
+.metric-card .list-group-item {
+	background-color: transparent;
+	color: var(--text-primary);
+}
+
 .metric-count {
 	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-bold);

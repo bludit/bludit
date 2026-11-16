@@ -171,6 +171,8 @@
                     // Categories Card - Only show if Categories plugin is active
                     if (pluginActivated('pluginCategories')) {
                         $categoryList = $categories->keys();
+                        // Only the administrators can edit the categories, the other roles open the category on the website
+                        $canEditCategories = checkRole(array('admin'), false);
                     ?>
                     <!-- Categories Card -->
                     <div class="col-lg col-12 mb-3">
@@ -186,8 +188,8 @@
                                                 $category = new Category($categoryKey);
                                                 $pageCount = count($category->pages());
                                             ?>
-                                                <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span><?php echo $category->name() ?></span>
+                                                <a href="<?php echo $canEditCategories ? HTML_PATH_ADMIN_ROOT . 'edit-category/' . $categoryKey : $category->permalink() ?>"<?php echo $canEditCategories ? '' : ' target="_blank"' ?> class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span><?php echo htmlspecialchars(Sanitize::htmlDecode($category->name()), ENT_QUOTES, 'UTF-8') ?></span>
                                                     <span class="metric-count"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
@@ -220,8 +222,8 @@
                                                 $tag = new Tag($tagKey);
                                                 $pageCount = count($tag->pages());
                                             ?>
-                                                <a href="<?php echo HTML_PATH_ADMIN_ROOT . 'content/tag/' . $tagKey ?>" class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span><?php echo $tag->name() ?></span>
+                                                <a href="<?php echo $tag->permalink() ?>" target="_blank" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span><?php echo htmlspecialchars(Sanitize::htmlDecode($tag->name()), ENT_QUOTES, 'UTF-8') ?></span>
                                                     <span class="metric-count"><?php echo $pageCount ?></span>
                                                 </a>
                                             <?php endforeach; ?>
