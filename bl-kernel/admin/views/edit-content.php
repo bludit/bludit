@@ -219,8 +219,10 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 							return;
 						}
 						backToGeneral = true;
+						// Open the media manager once the general modal is hidden, otherwise
+						// Bootstrap removes the modal-open class from the body after it opens
+						document.getElementById('jsoptionsGeneralModal').addEventListener('hidden.bs.modal', openMediaManager, { once: true });
 						generalModal.hide();
-						openMediaManager();
 					});
 					document.getElementById('jsmediaManagerModal').addEventListener('hidden.bs.modal', function() {
 						if (backToGeneral) {
