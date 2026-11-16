@@ -335,19 +335,22 @@ function install($adminPassword, $timezone)
 
 	$dataHead = "<?php defined('BLUDIT') or die('Bludit CMS.'); ?>" . PHP_EOL;
 
-	// Default categories and tags of the example content. The names are
-	// translated but the keys are kept in English so the URLs are the same
-	// in every language.
+	// Default categories and tags of the example content. The category names
+	// are translated but the keys are kept in English so the URLs are the same
+	// in every language. The tag keys are generated from the translated names,
+	// the same as Pages::generateTags(), because the edit form sends the tag
+	// names and the keys are generated again when a page is saved.
 	$defaultCategories = array(
 		'general' => $L->get('general'),
 		'news' => $L->get('news'),
 		'tutorials' => $L->get('tutorials')
 	);
-	$defaultTags = array(
-		'bludit' => 'Bludit',
-		'tips' => $L->get('tips'),
-		'welcome' => $L->get('welcome')
-	);
+	$defaultTags = array();
+	foreach (array('bludit' => 'Bludit', 'tips' => $L->get('tips'), 'welcome' => $L->get('welcome')) as $id => $name) {
+		// Non-latin names, eg Japanese, generate an empty key, use the English one
+		$key = Text::cleanUrl($name);
+		$defaultTags[$id] = array('key' => (empty($key) ? $id : $key), 'name' => Sanitize::html($name));
+	}
 
 	// Category and tags of each example page
 	$pageCategories = array(
@@ -369,8 +372,8 @@ function install($adminPassword, $timezone)
 		$categoriesData[$key] = array('name' => $name, 'description' => '', 'template' => '', 'list' => array());
 	}
 	$tagsData = array();
-	foreach ($defaultTags as $key => $name) {
-		$tagsData[$key] = array('name' => $name, 'list' => array());
+	foreach ($defaultTags as $tag) {
+		$tagsData[$tag['key']] = array('name' => $tag['name'], 'list' => array());
 	}
 
 	$data = array();
@@ -384,8 +387,8 @@ function install($adminPassword, $timezone)
 		$pageKey = $L->get($slug);
 
 		$tags = array();
-		foreach ($pageTags[$slug] as $tagKey) {
-			$tags[$tagKey] = $defaultTags[$tagKey];
+		foreach ($pageTags[$slug] as $id) {
+			$tags[$defaultTags[$id]['key']] = $defaultTags[$id]['name'];
 		}
 
 		$data[$pageKey] = array(
