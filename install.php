@@ -111,6 +111,9 @@ define('DB_DATE_FORMAT', 'Y-m-d H:i:s');
 // Charset, default UTF-8.
 define('CHARSET', 'UTF-8');
 
+// Same as the default site setting, used by Text::cleanUrl() to generate the tag keys
+define('EXTREME_FRIENDLY_URL', true);
+
 // Default language file
 define('DEFAULT_LANGUAGE_FILE', 'en.json');
 
