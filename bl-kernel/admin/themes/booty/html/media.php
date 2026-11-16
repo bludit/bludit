@@ -16,20 +16,14 @@ $preLoadFiles = !empty($listOfFilesByPage[0]) ? $listOfFilesByPage[0] : array();
 $numberOfPages = count($listOfFilesByPage);
 ?>
 
-<div id="jsmediaManagerModal" class="modal" tabindex="-1" role="dialog">
-<div class="modal-dialog modal-lg">
+<div id="jsmediaManagerModal" class="modal fade" tabindex="-1" aria-labelledby="jsmediaManagerModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-scrollable">
 <div class="modal-content">
-<div class="container-fluid">
-<div class="row">
-	<div class="col p-3">
-
-	<!--
-		UPLOAD INPUT
-	-->
-		<div class="d-flex align-items-center justify-content-between mt-2 mb-3">
-			<h3 class="m-0"><i class="fa fa-image"></i> <?php $L->p('Images'); ?></h3>
-			<button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"><?php $L->p('Done'); ?></button>
-		</div>
+<div class="modal-header">
+	<h5 id="jsmediaManagerModalTitle" class="modal-title"><i class="fa fa-image"></i> <?php $L->p('Images'); ?></h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php $L->p('Close'); ?>"></button>
+</div>
+<div class="modal-body">
 
 		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
 
@@ -57,8 +51,6 @@ $numberOfPages = count($listOfFilesByPage);
 		<!-- Paginator -->
 		<nav id="jsbluditMediaTablePagination"></nav>
 
-	</div>
-</div>
 </div>
 </div>
 </div>

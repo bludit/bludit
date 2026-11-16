@@ -517,8 +517,20 @@ code {
 	cursor: pointer;
 }
 
+.modal-title {
+	font-size: 1.5rem;
+}
+
 .modal-body {
-	padding: 2rem;
+	padding: 1.5rem 2rem;
+}
+
+/* The first field of a modal starts right below the header */
+.modal-body > .form-group:first-child > label.mt-4,
+.modal-body > label.mt-4:first-child,
+.modal-body > .row > [class*="col"] > label.mt-4:first-child,
+.modal-body > .row > [class*="col"] > :first-child > label.mt-4 {
+	margin-top: 0 !important;
 }
 
 .modal-footer {
@@ -527,6 +539,18 @@ code {
 
 .modal-dialog .btn-link {
 	color: var(--text-primary);
+}
+
+/* Frosted backdrop: the page behind an open modal is blurred and darker */
+.modal-backdrop {
+	--bs-backdrop-opacity: 0.65;
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+}
+
+/* The tip of a checkbox goes under its label, the sentence can be long */
+.form-check .form-text {
+	display: block;
 }
 
 /*
@@ -836,6 +860,26 @@ td.contentURL a {
 	flex-basis: 100%;
 }
 
+/* The Save button is a split button: hovering either half highlights the
+   whole button, it reads as a single control. No lift and no shadow like the
+   other primary buttons, only the fill changes */
+#jseditorToolbarLeft .btn-group > .btn-primary {
+	box-shadow: none;
+}
+
+#jseditorToolbarLeft .btn-group:hover > .btn-primary,
+#jseditorToolbarLeft .btn-group:has(.dropdown-menu.show) > .btn-primary {
+	transform: none;
+	background-color: var(--primary-blue-dark, #005A9E);
+}
+
+/* Every toolbar button stays in place on hover, only its fill changes */
+#jseditorToolbar .btn:hover,
+#jseditorToolbar .btn:active,
+#jseditorToolbar .btn.show {
+	transform: none;
+}
+
 /* Compact toolbar, same size for the buttons on both sides */
 #jseditorToolbar .btn {
 	padding: 0.2rem 0.5rem;
@@ -856,15 +900,6 @@ td.contentURL a {
 		font-size: 16px !important;
 	}
 
-	/* The switch keeps its label, the icon alone doesn't tell the status */
-	#jseditorToolbarRight button#jsbuttonSwitch {
-		font-size: 0.8rem !important;
-	}
-
-	#jseditorToolbarRight button#jsbuttonSwitch span {
-		font-size: inherit !important;
-	}
-
 	.contentTools .btn {
 		font-size: 0px !important;
 		margin-right: 5px;
@@ -878,7 +913,53 @@ td.contentURL a {
 /* Cover image: click to select, click again to remove */
 .cover-image {
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 140px;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
 	cursor: pointer;
+	background: var(--bg-light);
+	border: 1px dashed var(--border-color);
+	border-radius: var(--radius-md);
+}
+
+/* With an image the frame disappears, the image fills the box */
+.cover-image:has(img:not([src$="default.svg"])) {
+	background: none;
+	border-color: transparent;
+}
+
+/* The default.svg is a placeholder from the old layout, the box shows its own placeholder */
+.cover-image img {
+	display: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.cover-image img:not([src$="default.svg"]) {
+	display: block;
+}
+
+.cover-image-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem;
+	font-size: var(--font-size-sm);
+	color: var(--text-muted);
+	text-align: center;
+}
+
+.cover-image-placeholder .fa {
+	font-size: 1.75rem;
+}
+
+.cover-image img:not([src$="default.svg"]) ~ .cover-image-placeholder {
+	display: none;
 }
 
 .cover-image-remove {
@@ -897,7 +978,7 @@ td.contentURL a {
 	transition: opacity 0.15s;
 }
 
-.cover-image img:not([src$="default.svg"]) + .cover-image-remove {
+.cover-image img:not([src$="default.svg"]) ~ .cover-image-remove {
 	display: flex;
 }
 
@@ -935,11 +1016,6 @@ img.profilePicture {
 	height: 30px;
 	border-radius: 4px;
 	border: 1px solid var(--border-editor);
-}
-
-/* Switch button */
-.switch-icon-publish {
-	color: #1cb11c;
 }
 
 /* Subtle focus style for form elements */
@@ -1031,4 +1107,49 @@ body .select2-container--bootstrap-5 .select2-selection--multiple .select2-selec
 body .select2-container--bootstrap-5 .select2-selection--multiple .select2-search {
 	flex: 1 1 4rem;
 	width: auto;
+}
+
+/*
+	QUILL
+	The editor theme has fixed light colors, use the same variables as the other fields.
+	The selectors start with "body" to win over the theme, it is loaded after this file.
+*/
+body .ql-toolbar.ql-snow,
+body .ql-container.ql-snow {
+	border-color: var(--border-input);
+}
+
+body .ql-snow .ql-stroke {
+	stroke: var(--text-secondary);
+}
+
+body .ql-snow .ql-fill,
+body .ql-snow .ql-stroke.ql-fill {
+	fill: var(--text-secondary);
+}
+
+body .ql-snow .ql-picker {
+	color: var(--text-secondary);
+}
+
+body .ql-editor.ql-blank::before {
+	color: var(--text-muted);
+}
+
+body .ql-snow .ql-tooltip {
+	color: var(--text-primary);
+	background-color: var(--bg-card);
+	border-color: var(--border-color);
+	box-shadow: none;
+}
+
+[data-bs-theme="dark"] body .ql-toolbar.ql-snow,
+[data-bs-theme="dark"] body .ql-container.ql-snow {
+	background-color: var(--bg-card);
+}
+
+[data-bs-theme="dark"] body .ql-snow .ql-editor code,
+[data-bs-theme="dark"] body .ql-snow .ql-editor .ql-code-block-container {
+	color: var(--text-code);
+	background-color: var(--bg-code);
 }
