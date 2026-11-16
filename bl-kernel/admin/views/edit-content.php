@@ -142,18 +142,6 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 			</script>
 			<?php
 
-			// Description
-			echo Bootstrap::formTextareaBlock(array(
-				'name' => 'description',
-				'label' => $L->g('Description'),
-				'selected' => '',
-				'class' => '',
-				'value' => $page->description(),
-				'rows' => 5,
-				'placeholder' => '',
-				'tip' => $L->g('this-field-can-help-describe-the-content')
-			));
-
 			// Date
 			echo Bootstrap::formInputTextBlock(array(
 				'name' => 'date',
@@ -219,8 +207,10 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 							return;
 						}
 						backToGeneral = true;
+						// Open the media manager once the general modal is hidden, otherwise
+						// Bootstrap removes the modal-open class from the body after it opens
+						document.getElementById('jsoptionsGeneralModal').addEventListener('hidden.bs.modal', openMediaManager, { once: true });
 						generalModal.hide();
-						openMediaManager();
 					});
 					document.getElementById('jsmediaManagerModal').addEventListener('hidden.bs.modal', function() {
 						if (backToGeneral) {
@@ -389,6 +379,24 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 				'placeholder' => $L->g('Leave empty for autocomplete by Bludit.'),
 				'value' => $page->slug()
 			));
+
+			// Meta description
+			echo Bootstrap::formTextareaBlock(array(
+				'name' => 'description',
+				'label' => $L->g('Meta description'),
+				'selected' => '',
+				'class' => '',
+				'value' => $page->description(),
+				'rows' => 4,
+				'placeholder' => '',
+				'tip' => ''
+			));
+			?>
+			<small class="form-text text-muted d-flex justify-content-between gap-3">
+				<span><?php $L->p('meta-description-tip') ?></span>
+				<span id="jsmetaDescriptionCounter" class="text-nowrap"><span id="jsmetaDescriptionCount">0</span>/160</span>
+			</small>
+			<?php
 
 			// Robots
 			echo Bootstrap::formCheckbox(array(
@@ -669,6 +677,15 @@ foreach ($customFields as $field => $options) {
 			e.returnValue = message;
 			return message;
 		});
+
+		// Meta description length, over 160 characters is usually truncated
+		function updateMetaDescriptionCounter() {
+			var length = $("#jsdescription").val().length;
+			$("#jsmetaDescriptionCount").text(length);
+			$("#jsmetaDescriptionCounter").toggleClass("text-danger", length > 160);
+		}
+		$("#jsdescription").on("input", updateMetaDescriptionCounter);
+		updateMetaDescriptionCounter();
 
 	});
 </script>

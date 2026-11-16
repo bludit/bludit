@@ -100,6 +100,8 @@
     "save-as-draft": "Save as draft",
     "cancel": "Cancel",
     "description": "Description",
+    "meta-description": "Meta description",
+    "meta-description-tip": "Shown in search results and social previews. A good length is 120 to 160 characters.",
     "this-field-can-help-describe-the-content": "This field can help describe the content in a few words.",
     "images": "Images",
     "error": "Error",
