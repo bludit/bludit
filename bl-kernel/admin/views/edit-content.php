@@ -57,12 +57,13 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 <div id="jseditorToolbar" class="mb-2">
 	<div id="jseditorToolbarLeft" class="d-flex align-items-center gap-1">
 		<div class="btn-group btn-group-sm">
-			<button id="jsbuttonSave" type="button" class="btn btn-primary" data-save-status="<?php echo $saveStatus ?>"><span class="fa fa-save"></span> <?php echo $saveLabel ?></button>
+			<button id="jsbuttonSave" type="button" class="btn btn-primary" data-save-status="<?php echo $saveStatus ?>"><span id="jsbuttonSaveIcon" class="fa fa-save"></span> <span id="jsbuttonSaveLabel"><?php echo $saveLabel ?></span></button>
 			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" title="<?php echo $otherLabel ?>"><span class="visually-hidden"><?php echo $otherLabel ?></span></button>
 			<ul class="dropdown-menu">
 				<li><a class="dropdown-item" href="#" id="jsbuttonSaveAlt" data-save-status="<?php echo $otherStatus ?>"><?php echo $otherLabel ?></a></li>
 			</ul>
 		</div>
+		<span id="jsscheduleBadge" class="badge bg-warning-subtle text-warning-emphasis align-self-center d-none"><span class="fa fa-clock-o"></span> <?php $L->p('Scheduled') ?></span>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><span class="fa fa-eye"></span> <?php $L->p('Preview') ?></button>
 		<button type="button" class="btn btn-light d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal"><span class="fa fa-trash"></span> <?php $L->p('Delete') ?></button>
 	</div>
@@ -142,18 +143,6 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 			</script>
 			<?php
 
-			// Description
-			echo Bootstrap::formTextareaBlock(array(
-				'name' => 'description',
-				'label' => $L->g('Description'),
-				'selected' => '',
-				'class' => '',
-				'value' => $page->description(),
-				'rows' => 5,
-				'placeholder' => '',
-				'tip' => $L->g('this-field-can-help-describe-the-content')
-			));
-
 			// Date
 			echo Bootstrap::formInputTextBlock(array(
 				'name' => 'date',
@@ -219,8 +208,10 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 							return;
 						}
 						backToGeneral = true;
+						// Open the media manager once the general modal is hidden, otherwise
+						// Bootstrap removes the modal-open class from the body after it opens
+						document.getElementById('jsoptionsGeneralModal').addEventListener('hidden.bs.modal', openMediaManager, { once: true });
 						generalModal.hide();
-						openMediaManager();
 					});
 					document.getElementById('jsmediaManagerModal').addEventListener('hidden.bs.modal', function() {
 						if (backToGeneral) {
@@ -389,6 +380,24 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 				'placeholder' => $L->g('Leave empty for autocomplete by Bludit.'),
 				'value' => $page->slug()
 			));
+
+			// Meta description
+			echo Bootstrap::formTextareaBlock(array(
+				'name' => 'description',
+				'label' => $L->g('Meta description'),
+				'selected' => '',
+				'class' => '',
+				'value' => $page->description(),
+				'rows' => 4,
+				'placeholder' => '',
+				'tip' => ''
+			));
+			?>
+			<small class="form-text text-muted d-flex justify-content-between gap-3">
+				<span><?php $L->p('meta-description-tip') ?></span>
+				<span id="jsmetaDescriptionCounter" class="text-nowrap"><span id="jsmetaDescriptionCount">0</span>/160</span>
+			</small>
+			<?php
 
 			// Robots
 			echo Bootstrap::formCheckbox(array(
@@ -613,6 +622,7 @@ foreach ($customFields as $field => $options) {
 			}
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
+<<<<<<< HEAD
 		// Ctrl+S or Cmd+S saves the content instead of the browser page
 		$(document).on("keydown", function(e) {
 			var isSaveKey = (e.code == "KeyS") || (String(e.key).toLowerCase() == "s");
@@ -622,5 +632,96 @@ foreach ($customFields as $field => $options) {
 			}
 		});
 
+=======
+<<<<<<< HEAD
+		// The content is scheduled when the type is published and the date is
+		// in the future, show it on the Save button before saving
+		var defaultSaveLabel = <?php echo json_encode($saveLabel); ?>;
+		var saveStatusType = <?php echo json_encode($saveStatus); ?>;
+
+		function updateScheduleState() {
+			var scheduled = false;
+			if (saveStatusType == "publish") {
+				var type = $("#jstypeSelector option:selected").val();
+				var timestamp = Date.parse($("#jsdate").val().replace(" ", "T"));
+				scheduled = (type == "published") && !isNaN(timestamp) && timestamp > Date.now();
+			}
+
+			$("#jsbuttonSaveLabel").text(scheduled ? <?php echo json_encode($L->g('Schedule')); ?> : defaultSaveLabel);
+			$("#jsbuttonSaveIcon").toggleClass("fa-clock-o", scheduled).toggleClass("fa-save", !scheduled);
+			$("#jsscheduleBadge").toggleClass("d-none", !scheduled).attr("title", scheduled ? $("#jsdate").val() : "");
+		}
+		$("#jsdate").on("input change", updateScheduleState);
+		$("#jstypeSelector").on("change", updateScheduleState);
+		updateScheduleState();
+=======
+		// Warn before leaving with changes that were not saved. The editor
+		// content is compared too because it is only copied to the hidden field
+		// when the form is submitted.
+		var formSnapshot = null;
+		var contentSnapshot = null;
+		var formSubmitting = false;
+
+		function formState() {
+			var fields = $("#jsform").serializeArray();
+			for (var i = 0; i < fields.length; i++) {
+				if (fields[i].name == "content") {
+					fields[i].value = "";
+				}
+			}
+			return JSON.stringify(fields);
+		}
+
+		// TinyMCE is not ready while it is initializing, fall back to the
+		// textarea while the editor is not available
+		function currentEditorContent() {
+			try {
+				return editorGetContent();
+			} catch (error) {
+				return $("#jseditor").val();
+			}
+		}
+
+		function takeFormSnapshot() {
+			formSnapshot = formState();
+			contentSnapshot = currentEditorContent();
+		}
+
+		// TinyMCE initializes asynchronously and reformats the content, so the
+		// content baseline is taken again when the editor is ready
+		window.bluditTakeFormSnapshot = function() {
+			contentSnapshot = currentEditorContent();
+		};
+		takeFormSnapshot();
+
+		$("#jsform").on("submit", function() {
+			formSubmitting = true;
+		});
+
+		$(window).on("beforeunload", function(e) {
+			if (formSubmitting || formSnapshot === null) {
+				return;
+			}
+			if (formState() === formSnapshot && currentEditorContent() === contentSnapshot) {
+				return;
+			}
+
+			var message = <?php echo json_encode($L->g('You have unsaved changes')); ?>;
+			e.preventDefault();
+			e.returnValue = message;
+			return message;
+		});
+
+		// Meta description length, over 160 characters is usually truncated
+		function updateMetaDescriptionCounter() {
+			var length = $("#jsdescription").val().length;
+			$("#jsmetaDescriptionCount").text(length);
+			$("#jsmetaDescriptionCounter").toggleClass("text-danger", length > 160);
+		}
+		$("#jsdescription").on("input", updateMetaDescriptionCounter);
+		updateMetaDescriptionCounter();
+>>>>>>> origin/master
+
+>>>>>>> origin/master
 	});
 </script>
