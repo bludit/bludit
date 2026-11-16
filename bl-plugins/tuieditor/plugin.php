@@ -56,7 +56,7 @@ class pluginTuieditor extends Plugin
 		}
 
 		$previewStyle = in_array($this->getValue('previewStyle'), array('vertical', 'tab'), true) ? $this->getValue('previewStyle') : 'vertical';
-		$imageAltText = $L->g('Image description');
+		$imageAltText = json_encode($L->g('Image description'));
 
 		$html  = $this->includeJS('codemirror.min.js');
 		$html .= $this->includeJS('toastui-editor.min.js');
@@ -86,16 +86,23 @@ class pluginTuieditor extends Plugin
 		});
 	})();
 
+	// Escape the characters that have a meaning in Markdown link text
+	function bluditEscapeMarkdownAlt(text) {
+		return String(text).replace(/\\\\/g, '\\\\\\\\').replace(/\\[/g, '\\\\[').replace(/\\]/g, '\\\\]');
+	}
+
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertMedia(filename) {
-		tuiEditor.insertText("![$imageAltText](" + filename + ")");
+	function editorInsertMedia(filename, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		tuiEditor.insertText("![" + bluditEscapeMarkdownAlt(imageAlt) + "](" + filename + ")");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertLinkedMedia(filename, link) {
-		tuiEditor.insertText("[![$imageAltText](" + filename + ")](" + link + ")");
+	function editorInsertLinkedMedia(filename, link, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		tuiEditor.insertText("[![" + bluditEscapeMarkdownAlt(imageAlt) + "](" + filename + ")](" + link + ")");
 	}
 
 	// Returns the content of the editor

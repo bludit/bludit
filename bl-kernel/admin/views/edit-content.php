@@ -69,7 +69,7 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 	</div>
 
 	<div id="jseditorToolbarRight" class="d-flex align-items-center gap-1" role="group" aria-label="Toolbar right">
-		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" data-bs-toggle="modal" data-bs-target="#jsmediaManagerModal"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
+		<button type="button" class="btn btn-light" id="jsmediaManagerOpenModal" onclick="openMediaManager('insert')"><span class="fa fa-image"></span> <?php $L->p('Images') ?></button>
 		<?php Theme::plugins('editorToolbar') ?>
 		<button type="button" class="btn btn-light d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#jsoptionsGeneralModal"><span class="fa fa-cog"></span> <?php $L->p('General') ?></button>
 		<button type="button" class="btn btn-light d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#jsoptionsAdvancedModal"><span class="fa fa-sliders"></span> <?php $L->p('Advanced') ?></button>
@@ -210,7 +210,7 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 						backToGeneral = true;
 						// Open the media manager once the general modal is hidden, otherwise
 						// Bootstrap removes the modal-open class from the body after it opens
-						document.getElementById('jsoptionsGeneralModal').addEventListener('hidden.bs.modal', openMediaManager, { once: true });
+						document.getElementById('jsoptionsGeneralModal').addEventListener('hidden.bs.modal', function() { openMediaManager('cover'); }, { once: true });
 						generalModal.hide();
 					});
 					document.getElementById('jsmediaManagerModal').addEventListener('hidden.bs.modal', function() {
@@ -547,13 +547,15 @@ foreach ($customFields as $field => $options) {
 			};
 		}
 		if (typeof editorInsertMedia != "function") {
-			window.editorInsertMedia = function(filename) {
-				$("#jseditor").val($('#jseditor').val() + '<img src="' + filename + '" alt="">');
+			window.editorInsertMedia = function(filename, alt) {
+				var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : '';
+				$("#jseditor").val($('#jseditor').val() + '<img src="' + sanitizeHTML(filename) + '" alt="' + sanitizeHTML(String(imageAlt)) + '">');
 			};
 		}
 		if (typeof editorInsertLinkedMedia != "function") {
-			window.editorInsertLinkedMedia = function(filename, link) {
-				$("#jseditor").val($('#jseditor').val() + '<a href="' + link + '"><img src="' + filename + '" alt=""></a>');
+			window.editorInsertLinkedMedia = function(filename, link, alt) {
+				var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : '';
+				$("#jseditor").val($('#jseditor').val() + '<a href="' + sanitizeHTML(link) + '"><img src="' + sanitizeHTML(filename) + '" alt="' + sanitizeHTML(String(imageAlt)) + '"></a>');
 			};
 		}
 

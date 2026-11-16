@@ -39,13 +39,25 @@ if (Sanitize::pathFile($imagePath, $filename)) {
 	Filesystem::rmfile($imagePath.$filename);
 }
 
+// Remove the metadata (alt text and cached properties) for the image
+mediaManagerMetadataDelete($uuid, $filename);
+
 // Delete the thumbnail. Exact-name match is the fast path (new uploads have
 // matching extensions). If no exact match, fall back to any allowed-extension
 // match on the basename — this recovers legacy pairs where thumbnails were
 // forced to .jpg while the original kept its real extension. Before deleting
 // a mismatched candidate, verify no other original owns that extension, to
 // avoid taking out an unrelated image's thumbnail.
-if (Sanitize::pathFile($thumbnailPath, $filename) && is_file($thumbnailPath.$filename)) {
+// SVG thumbnails are symlinks to the original, so they must be checked with
+// is_link() and removed with unlink(). Sanitize::pathFile() can't be used here
+// because it resolves symlinks (CHECK_SYMBOLIC_LINKS) and rejects a link that
+// points outside the thumbnails directory. $filename is already a basename()
+// and only the directory entry itself is removed, never the link target.
+$thumbnailEntry = function ($file) use ($thumbnailPath) {
+	return is_file($thumbnailPath.$file) || is_link($thumbnailPath.$file);
+};
+
+if ($thumbnailEntry($filename)) {
 	Filesystem::rmfile($thumbnailPath.$filename);
 } else {
 	$base = pathinfo($filename, PATHINFO_FILENAME);
@@ -57,7 +69,7 @@ if (Sanitize::pathFile($thumbnailPath, $filename) && is_file($thumbnailPath.$fil
 		if (is_file($imagePath.$candidate)) {
 			continue;
 		}
-		if (Sanitize::pathFile($thumbnailPath, $candidate) && is_file($thumbnailPath.$candidate)) {
+		if ($thumbnailEntry($candidate)) {
 			Filesystem::rmfile($thumbnailPath.$candidate);
 		}
 	}

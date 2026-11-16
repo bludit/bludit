@@ -113,19 +113,23 @@ class pluginTinymce extends Plugin
 			$document_base_url = '';
 		}
 
+		$imageAltText = json_encode($L->g('Image description'));
+
 		$html = <<<EOF
 <script>
 
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertMedia(filename) {
-		tinymce.activeEditor.insertContent("<img src=\""+filename+"\">");
+	function editorInsertMedia(filename, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		tinymce.activeEditor.insertContent("<img src=\""+sanitizeHTML(filename)+"\" alt=\""+sanitizeHTML(String(imageAlt))+"\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertLinkedMedia(filename, link) {
-		tinymce.activeEditor.insertContent("<a href=\""+link+"\"><img src=\""+filename+"\"></a>");
+	function editorInsertLinkedMedia(filename, link, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		tinymce.activeEditor.insertContent("<a href=\""+sanitizeHTML(link)+"\"><img src=\""+sanitizeHTML(filename)+"\" alt=\""+sanitizeHTML(String(imageAlt))+"\"></a>");
 	}
 
 	// Returns the content of the editor

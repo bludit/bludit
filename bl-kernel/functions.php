@@ -1239,6 +1239,9 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 
   // Generate Thumbnail
   if (!empty($thumbnailDir) && $site->thumbnailEnable()) {
+    if (!Filesystem::directoryExists($thumbnailDir)) {
+      Filesystem::mkdir($thumbnailDir, true);
+    }
     if (($fileExtension == 'svg')) {
       Filesystem::symlink($image, $thumbnailDir . $nextFilename);
     } else {
@@ -1259,6 +1262,161 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 }
 
 /*
+| Replaces an existing image keeping its filename, so URLs already used in
+| content and the cover image keep working. The new file must have the same
+| extension as the current one.
+|
+| @file            string  Path to the new file (usually in PATH_TMP)
+| @imageDir        string  Destination directory (trailing DS)
+| @thumbnailDir    string  Thumbnail directory (trailing DS), or false
+| @targetFilename  string  Existing filename to replace
+|
+| @return string|false  The image path on success, false otherwise
+*/
+function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
+{
+  global $site;
+
+  $fileExtension = Text::lowercase(Filesystem::extension($file));
+  $targetExtension = Text::lowercase(Filesystem::extension($targetFilename));
+
+  if ($fileExtension !== $targetExtension || !in_array($fileExtension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+    if (file_exists($file)) {
+      @unlink($file);
+    }
+    return false;
+  }
+
+  $targetFilename = basename($targetFilename);
+  if (!Sanitize::pathFile($imageDir, $targetFilename) || !is_file($imageDir . $targetFilename)) {
+    if (file_exists($file)) {
+      @unlink($file);
+    }
+    return false;
+  }
+
+  $image = $imageDir . $targetFilename;
+  $backup = PATH_TMP . 'media-replace-' . uniqid() . '.' . $fileExtension;
+
+  // Keep the current file until the new one is safely in place.
+  if (!Filesystem::mv($image, $backup)) {
+    if (file_exists($file)) {
+      @unlink($file);
+    }
+    return false;
+  }
+
+  if (!Filesystem::mv($file, $image)) {
+    Filesystem::mv($backup, $image);
+    return false;
+  }
+  chmod($image, 0644);
+
+  if ($fileExtension === 'svg') {
+    if (sanitizeSVG($image) === false) {
+      Log::set('SVG sanitization failed (invalid XML), rejecting replacement: ' . $image, LOG_TYPE_ERROR);
+      @unlink($image);
+      Filesystem::mv($backup, $image);
+      return false;
+    }
+  }
+
+  // Remove the old thumbnail, including legacy .jpg thumbnails. A candidate is
+  // only removed when no other original owns that filename.
+  if (!empty($thumbnailDir)) {
+    $base = pathinfo($targetFilename, PATHINFO_FILENAME);
+    foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
+      $candidate = $base . '.' . $ext;
+      if ($candidate === $targetFilename) {
+        continue;
+      }
+      if (is_file($imageDir . $candidate)) {
+        continue;
+      }
+      if (is_file($thumbnailDir . $candidate) || is_link($thumbnailDir . $candidate)) {
+        @unlink($thumbnailDir . $candidate);
+      }
+    }
+    if (is_file($thumbnailDir . $targetFilename) || is_link($thumbnailDir . $targetFilename)) {
+      @unlink($thumbnailDir . $targetFilename);
+    }
+  }
+
+  // Generate the new thumbnail. If generation fails the original stays and the
+  // client falls back to it.
+  if (!empty($thumbnailDir) && $site->thumbnailEnable()) {
+    if (!Filesystem::directoryExists($thumbnailDir)) {
+      Filesystem::mkdir($thumbnailDir, true);
+    }
+    if ($fileExtension === 'svg') {
+      Filesystem::symlink($image, $thumbnailDir . $targetFilename);
+    } else {
+      $Image = new Image();
+      if ($Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop') === false) {
+        Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
+      } else {
+        $Image->saveImage($thumbnailDir . $targetFilename, $site->thumbnailQuality());
+      }
+    }
+  }
+
+  @unlink($backup);
+  return $image;
+}
+
+/*
+| Media Manager metadata.
+|
+| Alt text and the image properties are stored in a small JSON database
+| (bl-content/databases/media.php). The key is the filename, prefixed with the
+| page UUID when uploads are restricted to pages, so two pages can safely use
+| the same filename.
+*/
+function mediaManagerMetadataKey($uuid, $filename)
+{
+  $restricted = defined('IMAGE_RESTRICT') && IMAGE_RESTRICT;
+  return ($restricted && !empty($uuid) ? $uuid . '/' : '') . basename($filename);
+}
+
+function mediaManagerMetadata()
+{
+  static $db = null;
+  if ($db === null) {
+    $db = new dbJSON(PATH_DATABASES . 'media.php');
+  }
+  return $db;
+}
+
+function mediaManagerMetadataGet($uuid, $filename)
+{
+  $db = mediaManagerMetadata();
+  $key = mediaManagerMetadataKey($uuid, $filename);
+  if (isset($db->db[$key]) && is_array($db->db[$key])) {
+    return $db->db[$key];
+  }
+  return array();
+}
+
+function mediaManagerMetadataSave($uuid, $filename, $metadata)
+{
+  $db = mediaManagerMetadata();
+  $key = mediaManagerMetadataKey($uuid, $filename);
+  $db->db[$key] = $metadata;
+  return $db->save();
+}
+
+function mediaManagerMetadataDelete($uuid, $filename)
+{
+  $db = mediaManagerMetadata();
+  $key = mediaManagerMetadataKey($uuid, $filename);
+  if (!isset($db->db[$key])) {
+    return true;
+  }
+  unset($db->db[$key]);
+  return $db->save();
+}
+
+/*
 | Builds the file list for the Media Manager. Scans originals (not thumbnails)
 | and pairs each original with its matching thumbnail. Used by list-images.php
 | and the Media Manager preload in media.php.
@@ -1272,74 +1430,160 @@ function transformImage($file, $imageDir, $thumbnailDir = false)
 |    fall back to the original image URL instead of building a broken
 |    PAGE_THUMBNAILS_URL + filename that would 404.
 |
+| The search is applied before chunking so it covers every file, not only the
+| files on the current page. Only the requested page is stat'ed and passed to
+| getimagesize(), so a large library does not cost one filesystem read per
+| image on every request. Width, height, size and mime type are cached in the
+| metadata database and returned with each item, so the Media Manager details
+| panel does not need another request per image.
+|
 | @imagePath     string  Filesystem path to the originals directory (trailing DS)
 | @thumbnailPath string  Filesystem path to the thumbnails directory (trailing DS)
 | @chunk         int     Chunk size for pagination
+| @query         string  Optional filename search, case-insensitive
+| @uuid          string  Page UUID used for the metadata key, when restricted
+| @pageNumber    int     Page to return, starting at 1
 |
-| @return array[]  Array of chunks; each chunk is an array of items with keys
-|                  'filename' (original) and 'thumbnail' (resolved preview).
+| @return array  'files' (items with filename, thumbnail, alt, width, height,
+|                bytes and mime) and 'numberOfPages'.
 */
-function mediaManagerListImages($imagePath, $thumbnailPath, $chunk)
+function mediaManagerListImages($imagePath, $thumbnailPath, $chunk, $query = '', $uuid = '', $pageNumber = 1)
 {
   global $site;
+
+  $chunk = max(1, (int) $chunk);
+  $pageNumber = max(1, (int) $pageNumber);
 
   // Filesystem::listFiles globs '*.*' which does not match the 'thumbnails'
   // subdirectory (no dot in the name), so scanning the originals directory
   // naturally skips it.
-  $chunks = Filesystem::listFiles($imagePath, '*', '*', MEDIA_MANAGER_SORT_BY_DATE, $chunk);
-  if (empty($chunks)) {
-    return array();
+  $files = Filesystem::listFiles($imagePath, '*', '*', MEDIA_MANAGER_SORT_BY_DATE);
+  if (empty($files)) {
+    return array('files' => array(), 'numberOfPages' => 0);
   }
 
   // The site logo is stored in PATH_UPLOADS (not in a per-page directory)
   // alongside uploaded images when IMAGE_RESTRICT is off. Exclude it from the
   // Media Manager listing so it cannot be inserted/deleted as a media file.
   $logoFilename = ($site && method_exists($site, 'logo')) ? $site->logo(false) : '';
+  $query = Text::lowercase(trim($query));
 
-  foreach ($chunks as $i => $chunkFiles) {
-    $items = array();
-    foreach ($chunkFiles as $file) {
-      if (is_dir($file)) {
-        continue;
-      }
-      $filename = basename($file);
-      if ($logoFilename && $filename === $logoFilename) {
-        continue;
-      }
-      $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
-      if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
-        continue;
-      }
-
-      // Resolve thumbnail. Fast path: same filename. Legacy fallback: before
-      // commit 82f30f8b thumbnails were forced to .jpg, so try that single
-      // extension when the fast path misses. Only accept the .jpg candidate
-      // when it does not exist as an independent original (i.e. it is truly a
-      // legacy thumbnail, not another file's own thumbnail). If nothing matches,
-      // return an empty string so the client falls back to the original URL.
-      $thumbnail = '';
-      if (is_file($thumbnailPath . $filename)) {
-        $thumbnail = $filename;
-      } else {
-        $base = pathinfo($filename, PATHINFO_FILENAME);
-        $candidate = $base . '.jpg';
-        if ($candidate !== $filename
-          && is_file($thumbnailPath . $candidate)
-          && !is_file($imagePath . $candidate)
-        ) {
-          $thumbnail = $candidate;
-        }
-      }
-
-      $items[] = array(
-        'filename' => $filename,
-        'thumbnail' => $thumbnail,
-      );
+  // First pass: filter and resolve thumbnails, without reading image metadata.
+  $filtered = array();
+  foreach ($files as $file) {
+    if (is_dir($file)) {
+      continue;
     }
-    $chunks[$i] = $items;
+    $filename = basename($file);
+    if ($logoFilename && $filename === $logoFilename) {
+      continue;
+    }
+    $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
+    if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
+      continue;
+    }
+    if ($query !== '' && strpos(Text::lowercase($filename), $query) === false) {
+      continue;
+    }
+
+    // Resolve thumbnail. Fast path: same filename. Legacy fallback: before
+    // commit 82f30f8b thumbnails were forced to .jpg, so try that single
+    // extension when the fast path misses. Only accept the .jpg candidate
+    // when it does not exist as an independent original (i.e. it is truly a
+    // legacy thumbnail, not another file's own thumbnail). If nothing matches,
+    // return an empty string so the client falls back to the original URL.
+    $thumbnail = '';
+    if (is_file($thumbnailPath . $filename)) {
+      $thumbnail = $filename;
+    } else {
+      $base = pathinfo($filename, PATHINFO_FILENAME);
+      $candidate = $base . '.jpg';
+      if ($candidate !== $filename
+        && is_file($thumbnailPath . $candidate)
+        && !is_file($imagePath . $candidate)
+      ) {
+        $thumbnail = $candidate;
+      }
+    }
+
+    $filtered[] = array(
+      'filename' => $filename,
+      'thumbnail' => $thumbnail,
+      'path' => $file,
+    );
   }
 
-  return $chunks;
+  $numberOfPages = (count($filtered) === 0) ? 0 : (int) ceil(count($filtered) / $chunk);
+  $pageItems = array_slice($filtered, ($pageNumber - 1) * $chunk, $chunk);
+  if (empty($pageItems)) {
+    return array('files' => array(), 'numberOfPages' => $numberOfPages);
+  }
+
+  $metaDB = mediaManagerMetadata();
+  $metadataDirty = false;
+  $items = array();
+
+  foreach ($pageItems as $item) {
+    $file = $item['path'];
+    $filename = $item['filename'];
+
+    // Read the cached properties and fill the gaps only once per file.
+    $key = mediaManagerMetadataKey($uuid, $filename);
+    $stored = isset($metaDB->db[$key]) && is_array($metaDB->db[$key]) ? $metaDB->db[$key] : array();
+    $meta = $stored;
+    if (!isset($meta['alt'])) {
+      $meta['alt'] = '';
+    }
+
+    $bytes = @filesize($file);
+    $meta['bytes'] = ($bytes === false) ? 0 : (int) $bytes;
+
+    if (empty($meta['width']) || empty($meta['height']) || empty($meta['mime'])) {
+      $info = @getimagesize($file);
+      if ($info !== false) {
+        $meta['width'] = (int) $info[0];
+        $meta['height'] = (int) $info[1];
+        if (!empty($info['mime'])) {
+          $meta['mime'] = $info['mime'];
+        }
+      }
+    }
+    if (empty($meta['mime'])) {
+      $mime = Filesystem::mimeType($file);
+      $meta['mime'] = ($mime === false) ? '' : $mime;
+    }
+    if (!isset($meta['width'])) {
+      $meta['width'] = 0;
+    }
+    if (!isset($meta['height'])) {
+      $meta['height'] = 0;
+    }
+
+    // Compare without depending on the key order, otherwise every request
+    // would look like a change and rewrite the database.
+    ksort($meta);
+    ksort($stored);
+    if ($meta !== $stored) {
+      $metaDB->db[$key] = $meta;
+      $metadataDirty = true;
+    }
+
+    $items[] = array(
+      'filename' => $filename,
+      'thumbnail' => $item['thumbnail'],
+      'alt' => $meta['alt'],
+      'width' => (int) $meta['width'],
+      'height' => (int) $meta['height'],
+      'bytes' => (int) $meta['bytes'],
+      'mime' => $meta['mime'],
+    );
+  }
+
+  if ($metadataDirty) {
+    $metaDB->save();
+  }
+
+  return array('files' => $items, 'numberOfPages' => $numberOfPages);
 }
 
 function downloadRestrictedFile($file)

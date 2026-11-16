@@ -7,11 +7,13 @@ header('Content-Type: application/json');
 | @_POST['pageNumber']	int	Page number for the paginator
 | @_POST['path']	string	Pre-defined name for the directory to read, its pre-defined to avoid security issues
 | @_POST['uuid']	string	Page UUID
+| @_POST['query']	string	Optional filename search
 |
-| @return	array	Each file is an object with 'filename' (original) and
+| @return	array	Each file is an object with 'filename' (original),
 |			'thumbnail' (resolved preview filename — may differ from
 |			the original for legacy pairs or fall back to it when no
-|			thumbnail exists).
+|			thumbnail exists), 'alt', 'width', 'height', 'bytes' and
+|			'mime'.
 */
 
 // $_POST
@@ -22,6 +24,10 @@ $pageNumber = $pageNumber - 1;
 
 $path = empty($_POST['path']) ? false : $_POST['path'];
 $uuid = empty($_POST['uuid']) ? false : $_POST['uuid'];
+$query = empty($_POST['query']) ? '' : $_POST['query'];
+$query = is_string($query) ? trim($query) : '';
+// Keep the search bounded.
+$query = function_exists('mb_substr') ? mb_substr($query, 0, 100, CHARSET) : substr($query, 0, 100);
 // ----------------------------------------------------------------------------
 
 // The only accepted value is kept for backward-compat with clients that
@@ -45,19 +51,12 @@ if ($uuid && IMAGE_RESTRICT) {
 	$thumbnailPath = PATH_UPLOADS_THUMBNAILS;
 }
 
-// Scan originals and pair each with its matching thumbnail
-$listOfFilesByPage = mediaManagerListImages($imagePath, $thumbnailPath, MEDIA_MANAGER_NUMBER_OF_FILES);
-
-if (isset($listOfFilesByPage[$pageNumber])) {
-	ajaxResponse(0, 'List of files and number of chunks.', array(
-		'numberOfPages'=>count($listOfFilesByPage),
-		'files'=>$listOfFilesByPage[$pageNumber]
-	));
-}
+// Scan originals, filter by the search and pair each with its thumbnail
+$list = mediaManagerListImages($imagePath, $thumbnailPath, MEDIA_MANAGER_NUMBER_OF_FILES, $query, $uuid, $pageNumber + 1);
 
 ajaxResponse(0, 'List of files and number of chunks.', array(
-	'numberOfPages'=>0,
-	'files'=>array()
+	'numberOfPages'=>$list['numberOfPages'],
+	'files'=>$list['files']
 ));
 
 ?>
