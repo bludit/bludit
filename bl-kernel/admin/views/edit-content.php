@@ -623,6 +623,17 @@ foreach ($customFields as $field => $options) {
 		}, 1000 * 60 * AUTOSAVE_INTERVAL);
 
 <<<<<<< HEAD
+		// Ctrl+S or Cmd+S saves the content instead of the browser page
+		$(document).on("keydown", function(e) {
+			var isSaveKey = (e.code == "KeyS") || (String(e.key).toLowerCase() == "s");
+			if (!e.repeat && !e.shiftKey && (e.ctrlKey || e.metaKey) && !e.altKey && isSaveKey) {
+				e.preventDefault();
+				$("#jsbuttonSave").trigger("click");
+			}
+		});
+
+=======
+<<<<<<< HEAD
 		// The content is scheduled when the type is published and the date is
 		// in the future, show it on the Save button before saving
 		var defaultSaveLabel = <?php echo json_encode($saveLabel); ?>;
@@ -711,5 +722,6 @@ foreach ($customFields as $field => $options) {
 		updateMetaDescriptionCounter();
 >>>>>>> origin/master
 
+>>>>>>> origin/master
 	});
 </script>
