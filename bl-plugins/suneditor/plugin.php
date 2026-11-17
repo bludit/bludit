@@ -75,7 +75,7 @@ class pluginSuneditor extends Plugin
 		}
 
 		$buttonList = json_encode($this->buildButtonList($this->getValue('buttons')));
-		$imageAltText = htmlspecialchars($L->g('Image description'), ENT_QUOTES);
+		$imageAltText = json_encode($L->g('Image description'));
 
 		$html = <<<EOF
 <script>
@@ -93,14 +93,16 @@ class pluginSuneditor extends Plugin
 
 	// Insert an image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertMedia(filename) {
-		editorInsertHTML("<img src=\""+filename+"\" alt=\"$imageAltText\">");
+	function editorInsertMedia(filename, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		editorInsertHTML("<img src=\""+sanitizeHTML(filename)+"\" alt=\""+sanitizeHTML(String(imageAlt))+"\">");
 	}
 
 	// Insert a linked image in the editor at the cursor position
 	// Function required for Bludit
-	function editorInsertLinkedMedia(filename, link) {
-		editorInsertHTML("<a href=\""+link+"\"><img src=\""+filename+"\" alt=\"$imageAltText\"></a>");
+	function editorInsertLinkedMedia(filename, link, alt) {
+		var imageAlt = (typeof alt != 'undefined' && alt !== null) ? alt : $imageAltText;
+		editorInsertHTML("<a href=\""+sanitizeHTML(link)+"\"><img src=\""+sanitizeHTML(filename)+"\" alt=\""+sanitizeHTML(String(imageAlt))+"\"></a>");
 	}
 
 	// Returns the content of the editor

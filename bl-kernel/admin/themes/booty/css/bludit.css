@@ -1397,3 +1397,123 @@ body .ql-snow .ql-tooltip {
 	color: var(--text-code);
 	background-color: var(--bg-code);
 }
+
+/* Media Manager: grid of images on the left, details of the selected image on the right */
+.media-manager {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 1.25rem;
+	align-items: start;
+}
+
+.media-manager-list {
+	min-width: 0;
+}
+
+.media-search {
+	flex: 1 1 auto;
+	max-width: 260px;
+}
+
+.media-dropzone {
+	padding: 0.75rem;
+	border: 1px dashed var(--bs-border-color);
+	border-radius: 0.5rem;
+	text-align: center;
+	color: var(--bs-secondary-color);
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.media-dropzone:hover,
+.media-dropzone.is-dragover {
+	border-color: var(--bs-primary);
+	color: var(--bs-primary);
+	background-color: var(--bs-primary-bg-subtle);
+}
+
+.media-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+	gap: 0.625rem;
+}
+
+.media-tile {
+	padding: 0;
+	overflow: hidden;
+	text-align: left;
+	font: inherit;
+	color: inherit;
+	background-color: var(--bs-body-bg);
+	border: 1px solid var(--bs-border-color);
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+.media-tile img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	background-color: var(--bs-tertiary-bg);
+}
+
+.media-tile-name {
+	display: block;
+	padding: 0.3rem 0.45rem;
+	font-size: 0.75rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.media-tile:hover {
+	border-color: var(--bs-primary);
+}
+
+.media-tile.is-selected {
+	border-color: var(--bs-primary);
+	box-shadow: 0 0 0 0.18rem var(--bs-primary-border-subtle);
+}
+
+.media-tile:focus-visible {
+	outline: 2px solid var(--bs-primary);
+	outline-offset: 2px;
+}
+
+.media-details {
+	position: sticky;
+	top: 0;
+	min-width: 0;
+	padding-left: 1.25rem;
+	border-left: 1px solid var(--bs-border-color);
+}
+
+.media-details-preview {
+	display: block;
+	width: 100%;
+	max-height: 220px;
+	object-fit: contain;
+	border-radius: 0.5rem;
+	background-color: var(--bs-tertiary-bg);
+}
+
+.media-details-meta {
+	font-size: 0.8rem;
+	color: var(--bs-secondary-color);
+}
+
+@media (max-width: 767.98px) {
+	.media-manager {
+		grid-template-columns: 1fr;
+	}
+
+	.media-details {
+		position: static;
+		padding-left: 0;
+		padding-top: 1rem;
+		border-left: 0;
+		border-top: 1px solid var(--bs-border-color);
+	}
+}

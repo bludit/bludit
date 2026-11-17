@@ -39,9 +39,9 @@ if ($uuid && IMAGE_RESTRICT) {
 }
 
 $images = array();
-foreach ($_FILES['images']['name'] as $uuid => $filename) {
+foreach ($_FILES['images']['name'] as $index => $filename) {
 	// Check for errors
-	if ($_FILES['images']['error'][$uuid] != 0) {
+	if ($_FILES['images']['error'][$index] != 0) {
 		$message = $L->g('Maximum load file size allowed:') . ' ' . ini_get('upload_max_filesize');
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
@@ -82,7 +82,7 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 	}
 
 	// Check file MIME Type
-	$fileMimeType = Filesystem::mimeType($_FILES['images']['tmp_name'][$uuid]);
+	$fileMimeType = Filesystem::mimeType($_FILES['images']['tmp_name'][$index]);
 	if ($fileMimeType === false) {
 		$message = $L->g('File mime type is not supported. Allowed types:') . ' ' . implode(', ', $GLOBALS['ALLOWED_IMG_MIMETYPES']);
 		Log::set($message, LOG_TYPE_ERROR);
@@ -104,7 +104,7 @@ foreach ($_FILES['images']['name'] as $uuid => $filename) {
 	}
 
 	// Move from PHP tmp file to Bludit tmp directory
-	$moved = Filesystem::mv($_FILES['images']['tmp_name'][$uuid], PATH_TMP . $filename);
+	$moved = Filesystem::mv($_FILES['images']['tmp_name'][$index], PATH_TMP . $filename);
 	if (!$moved) {
 		$message = 'Error moving uploaded file to temporary directory.';
 		Log::set($message, LOG_TYPE_ERROR);
