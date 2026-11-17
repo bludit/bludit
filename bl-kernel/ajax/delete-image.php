@@ -34,9 +34,9 @@ if ($uuid && IMAGE_RESTRICT) {
 	$thumbnailPath = PATH_UPLOADS_THUMBNAILS;
 }
 
-// Delete the original
-if (Sanitize::pathFile($imagePath, $filename)) {
-	Filesystem::rmfile($imagePath.$filename);
+// Delete the original, keep the metadata and the thumbnail when it fails
+if (!Sanitize::pathFile($imagePath, $filename) || !Filesystem::rmfile($imagePath.$filename)) {
+	ajaxResponse(1, 'Error deleting the image.');
 }
 
 // Remove the metadata (alt text and cached properties) for the image

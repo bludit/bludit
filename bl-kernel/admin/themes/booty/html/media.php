@@ -138,6 +138,8 @@ echo 'var mediaTexts = '.json_encode(array(
 var mediaManagerContext = 'insert';
 var mediaCurrentPage = 1;
 var mediaSearchQuery = '';
+// Incremented on each listing request, older responses are ignored
+var mediaListRequest = 0;
 var mediaFiles = {};
 var selectedMedia = null;
 var mediaAltDirty = false;
@@ -399,6 +401,7 @@ function getFiles(pageNumber, query, callback) {
 	}
 	mediaCurrentPage = parseInt(pageNumber, 10) || 1;
 	mediaSearchQuery = query;
+	var request = ++mediaListRequest;
 
 	$.post(HTML_PATH_ADMIN_ROOT + "ajax/list-images", {
 		tokenCSRF: tokenCSRF,
@@ -407,6 +410,9 @@ function getFiles(pageNumber, query, callback) {
 		path: "thumbnails",
 		query: query
 	}, function (data) {
+		if (request !== mediaListRequest) {
+			return;
+		}
 		if (data.status == 0) {
 			displayFiles(data.files, data.numberOfPages);
 			if (typeof callback === 'function') {
@@ -416,7 +422,9 @@ function getFiles(pageNumber, query, callback) {
 			showMediaAlert(data.message || mediaTexts.requestError);
 		}
 	}).fail(function () {
-		showMediaAlert(mediaTexts.requestError);
+		if (request === mediaListRequest) {
+			showMediaAlert(mediaTexts.requestError);
+		}
 	});
 }
 

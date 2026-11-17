@@ -1322,7 +1322,10 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
   }
 
   // Remove the old thumbnail, including legacy .jpg thumbnails. A candidate is
-  // only removed when no other original owns that filename.
+  // only removed when no other original owns that filename. The legacy names
+  // are kept in $legacyThumbnails to generate them again, the content can link
+  // to them.
+  $legacyThumbnails = array();
   if (!empty($thumbnailDir)) {
     $base = pathinfo($targetFilename, PATHINFO_FILENAME);
     foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
@@ -1335,6 +1338,7 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
       }
       if (is_file($thumbnailDir . $candidate) || is_link($thumbnailDir . $candidate)) {
         @unlink($thumbnailDir . $candidate);
+        $legacyThumbnails[] = $candidate;
       }
     }
     if (is_file($thumbnailDir . $targetFilename) || is_link($thumbnailDir . $targetFilename)) {
@@ -1356,6 +1360,10 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
         Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
       } else {
         $Image->saveImage($thumbnailDir . $targetFilename, $site->thumbnailQuality());
+        // Same thumbnail with the legacy names, saved in the format of each name
+        foreach ($legacyThumbnails as $legacy) {
+          $Image->saveImage($thumbnailDir . $legacy, $site->thumbnailQuality());
+        }
       }
     }
   }
