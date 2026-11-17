@@ -21,6 +21,9 @@ if ($uuid) {
 		Log::set($message, LOG_TYPE_ERROR);
 		ajaxResponse(1, $message);
 	}
+	if (!canManagePageImages($uuid)) {
+		ajaxResponse(1, $L->g('You do not have sufficient permissions'));
+	}
 }
 
 // Set upload directory
