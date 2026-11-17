@@ -1321,48 +1321,54 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
     }
   }
 
-  // Remove the old thumbnail, including legacy .jpg thumbnails. A candidate is
-  // only removed when no other original owns that filename. The legacy names
-  // are kept in $legacyThumbnails to generate them again, the content can link
-  // to them.
+  // Old thumbnails, including legacy .jpg thumbnails. A candidate is only used
+  // when no other original owns that filename. The content can link to these
+  // names, so they are generated again with the new image.
   $legacyThumbnails = array();
+  $thumbnailExists = function ($file) use ($thumbnailDir) {
+    return is_file($thumbnailDir . $file) || is_link($thumbnailDir . $file);
+  };
   if (!empty($thumbnailDir)) {
     $base = pathinfo($targetFilename, PATHINFO_FILENAME);
     foreach ($GLOBALS['ALLOWED_IMG_EXTENSION'] as $ext) {
       $candidate = $base . '.' . $ext;
-      if ($candidate === $targetFilename) {
+      if ($candidate === $targetFilename || is_file($imageDir . $candidate)) {
         continue;
       }
-      if (is_file($imageDir . $candidate)) {
-        continue;
-      }
-      if (is_file($thumbnailDir . $candidate) || is_link($thumbnailDir . $candidate)) {
-        @unlink($thumbnailDir . $candidate);
+      if ($thumbnailExists($candidate)) {
         $legacyThumbnails[] = $candidate;
       }
     }
-    if (is_file($thumbnailDir . $targetFilename) || is_link($thumbnailDir . $targetFilename)) {
-      @unlink($thumbnailDir . $targetFilename);
-    }
   }
 
-  // Generate the new thumbnail. If generation fails the original stays and the
-  // client falls back to it.
+  // Generate the new thumbnails. The old thumbnails are replaced only when the
+  // new one is generated, if thumbnails are disabled or GD cannot decode the
+  // image the old thumbnails stay, so the links in the content keep working.
   if (!empty($thumbnailDir) && $site->thumbnailEnable()) {
     if (!Filesystem::directoryExists($thumbnailDir)) {
       Filesystem::mkdir($thumbnailDir, true);
     }
     if ($fileExtension === 'svg') {
+      // SVG thumbnails are symlinks to the original, the legacy raster names
+      // cannot point to an SVG and are removed
+      foreach (array_merge(array($targetFilename), $legacyThumbnails) as $file) {
+        if ($thumbnailExists($file)) {
+          @unlink($thumbnailDir . $file);
+        }
+      }
       Filesystem::symlink($image, $thumbnailDir . $targetFilename);
     } else {
       $Image = new Image();
       if ($Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop') === false) {
         Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
       } else {
-        $Image->saveImage($thumbnailDir . $targetFilename, $site->thumbnailQuality());
-        // Same thumbnail with the legacy names, saved in the format of each name
-        foreach ($legacyThumbnails as $legacy) {
-          $Image->saveImage($thumbnailDir . $legacy, $site->thumbnailQuality());
+        // Same thumbnail with the legacy names, saved in the format of each name.
+        // Unlink first so a symlink is never written through.
+        foreach (array_merge(array($targetFilename), $legacyThumbnails) as $file) {
+          if ($thumbnailExists($file)) {
+            @unlink($thumbnailDir . $file);
+          }
+          $Image->saveImage($thumbnailDir . $file, $site->thumbnailQuality());
         }
       }
     }
