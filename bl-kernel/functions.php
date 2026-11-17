@@ -1351,9 +1351,10 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
     // Each thumbnail is written to a temporary name with the same extension and
     // moved over the old one only when it exists, a failed write keeps the old one
     $replaceThumbnail = function ($file, $write) use ($thumbnailDir) {
-      $tmp = $thumbnailDir . '.tmp-' . uniqid() . '-' . $file;
-      if ($write($tmp) && (is_file($tmp) || is_link($tmp))) {
-        return rename($tmp, $thumbnailDir . $file);
+      // Lowercase extension, Image::saveImage() writes the extension in lowercase
+      $tmp = $thumbnailDir . '.tmp-' . uniqid() . '-' . pathinfo($file, PATHINFO_FILENAME) . '.' . Text::lowercase(pathinfo($file, PATHINFO_EXTENSION));
+      if ($write($tmp) && (is_file($tmp) || is_link($tmp)) && rename($tmp, $thumbnailDir . $file)) {
+        return true;
       }
       @unlink($tmp);
       return false;
