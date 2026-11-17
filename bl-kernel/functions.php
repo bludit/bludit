@@ -1348,27 +1348,43 @@ function replaceImage($file, $imageDir, $thumbnailDir, $targetFilename)
     if (!Filesystem::directoryExists($thumbnailDir)) {
       Filesystem::mkdir($thumbnailDir, true);
     }
+    // Each thumbnail is written to a temporary name with the same extension and
+    // moved over the old one only when it exists, a failed write keeps the old one
+    $replaceThumbnail = function ($file, $write) use ($thumbnailDir) {
+      $tmp = $thumbnailDir . '.tmp-' . uniqid() . '-' . $file;
+      if ($write($tmp) && (is_file($tmp) || is_link($tmp))) {
+        return rename($tmp, $thumbnailDir . $file);
+      }
+      @unlink($tmp);
+      return false;
+    };
+
     if ($fileExtension === 'svg') {
-      // SVG thumbnails are symlinks to the original, the legacy raster names
-      // cannot point to an SVG and are removed
-      foreach (array_merge(array($targetFilename), $legacyThumbnails) as $file) {
-        if ($thumbnailExists($file)) {
+      // SVG thumbnails are symlinks to the original. The legacy raster names
+      // cannot point to an SVG, they are removed once the new link exists.
+      $linked = $replaceThumbnail($targetFilename, function ($tmp) use ($image) {
+        return Filesystem::symlink($image, $tmp);
+      });
+      if ($linked) {
+        foreach ($legacyThumbnails as $file) {
           @unlink($thumbnailDir . $file);
         }
       }
-      Filesystem::symlink($image, $thumbnailDir . $targetFilename);
     } else {
       $Image = new Image();
       if ($Image->setImage($image, $site->thumbnailWidth(), $site->thumbnailHeight(), 'crop') === false) {
         Log::set('Thumbnail generation skipped (GD cannot decode): ' . $image, LOG_TYPE_ERROR);
       } else {
         // Same thumbnail with the legacy names, saved in the format of each name.
-        // Unlink first so a symlink is never written through.
+        // A format GD cannot write, or an SVG name, keeps the old thumbnail.
         foreach (array_merge(array($targetFilename), $legacyThumbnails) as $file) {
-          if ($thumbnailExists($file)) {
-            @unlink($thumbnailDir . $file);
+          if (Text::lowercase(pathinfo($file, PATHINFO_EXTENSION)) === 'svg') {
+            continue;
           }
-          $Image->saveImage($thumbnailDir . $file, $site->thumbnailQuality());
+          $replaceThumbnail($file, function ($tmp) use ($Image, $site) {
+            $Image->saveImage($tmp, $site->thumbnailQuality());
+            return true;
+          });
         }
       }
     }
