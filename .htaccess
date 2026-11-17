@@ -12,8 +12,10 @@ RewriteBase /
 RewriteRule ^bl-content/(databases|workspaces|pages|tmp)/.*$ - [R=404,L]
 
 # All URL process by index.php
+# The Authorization header is forwarded, Apache doesn't pass it to PHP by
+# default and the API reads the token from it
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*) index.php [PT,L]
+RewriteRule ^(.*) index.php [PT,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 </IfModule>
