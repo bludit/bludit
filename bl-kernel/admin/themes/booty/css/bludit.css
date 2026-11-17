@@ -826,6 +826,11 @@ body.login {
 	background: var(--tile-tint, var(--secondary-hover-bg));
 }
 
+/* Active theme row, same tint as the published status */
+.table > tbody > tr.theme-active > * {
+	--bs-table-bg-state: var(--tint-success);
+}
+
 /* Next to a title or a tab, sized to its content */
 .status-badge-inline {
 	display: inline-block;
