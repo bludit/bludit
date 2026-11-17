@@ -510,7 +510,5 @@
     "no-activity-yet": "No activity yet.",
     "visits-last-7-days": "Visits, last 7 days",
     "today": "Today",
-    "search-content-placeholder": "Search by title, URL or tag",
-    "results-for": "Results for",
-    "clear": "Clear"
+    "search-content-placeholder": "Search pages by title, URL or tag"
 }
