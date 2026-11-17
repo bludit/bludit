@@ -57,7 +57,7 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 				<li><a class="dropdown-item" href="#" id="jsbuttonSaveAlt" data-save-status="<?php echo $otherStatus ?>"><?php echo $otherLabel ?></a></li>
 			</ul>
 		</div>
-		<span id="jsscheduleBadge" class="badge bg-warning-subtle text-warning-emphasis align-self-center d-none"><span class="fa fa-clock-o"></span> <?php $L->p('Scheduled') ?></span>
+		<span id="jsscheduleBadge" class="status-badge status-badge-inline status-scheduled align-self-center d-none"><span class="fa fa-clock-o"></span> <?php $L->p('Scheduled') ?></span>
 		<button id="jsbuttonPreview" type="button" class="btn btn-sm btn-secondary"><span class="fa fa-eye"></span> <?php $L->p('Preview') ?></button>
 	</div>
 
@@ -264,7 +264,7 @@ $otherLabel = ($saveStatus == 'draft' ? $L->g('Publish') : $L->g('Save as draft'
 						templateResult: function(data) {
 							var html = data.text;
 							if (data.type == "static") {
-								html += '<span class="badge rounded-pill text-bg-light">' + data.type + '</span>';
+								html += ' <span class="status-badge status-badge-inline status-static">' + data.type + '</span>';
 							}
 							return html;
 						}
