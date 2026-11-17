@@ -51,6 +51,30 @@ if (checkRole(array('author'), false)) {
 	$sticky 	= filterContentOwner($sticky);
 }
 
+// Search, matches the title, the URL and the tags of the content.
+// Uses the pages database already in memory, the content files are not read.
+$search = $url->parameter('search');
+$search = is_string($search) ? Text::cut(trim($search), 0, 100) : '';
+$searchResults = array();
+if ($search !== '') {
+	$isAuthor = checkRole(array('author'), false);
+	foreach ($pages->db as $pageKey => $fields) {
+		if ($fields['type'] === 'autosave') {
+			continue;
+		}
+		if ($isAuthor && $fields['username'] !== $login->username()) {
+			continue;
+		}
+		$haystack = Sanitize::htmlDecode($fields['title']) . ' ' . $pageKey;
+		if (!empty($fields['tags'])) {
+			$haystack .= ' ' . Sanitize::htmlDecode(implode(' ', $fields['tags']));
+		}
+		if (Text::stringContains($haystack, $search, false)) {
+			$searchResults[] = $pageKey;
+		}
+	}
+}
+
 // Check if out of range the pageNumber
 if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');
