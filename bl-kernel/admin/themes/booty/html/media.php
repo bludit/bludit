@@ -29,10 +29,6 @@ $numberOfPages = $mediaList['numberOfPages'];
 
 		<div class="media-manager">
 			<div class="media-manager-list">
-				<div class="d-flex align-items-center gap-2 mb-2">
-					<button type="button" id="jsmediaUploadButton" class="btn btn-sm btn-primary ms-auto"><i class="fa fa-upload"></i> <?php $L->p('Upload'); ?></button>
-				</div>
-
 				<!-- Upload input, the label below opens it and also receives drops -->
 				<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
 					<input type="file" id="jsimages" name="images[]" class="visually-hidden" multiple accept="<?php echo implode(',', array_map(function ($ext) { return '.'.$ext; }, $GLOBALS['ALLOWED_IMG_EXTENSION'])); ?>">
@@ -579,11 +575,6 @@ $(document).ready(function () {
 	});
 	mediaModal.addEventListener('hidden.bs.modal', function () {
 		saveSelectedMetadata();
-	});
-
-	// Toolbar upload button
-	$("#jsmediaUploadButton").on("click", function () {
-		$("#jsimages").trigger("click");
 	});
 
 	// Upload when files are selected
