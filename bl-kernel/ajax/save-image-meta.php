@@ -26,6 +26,9 @@ if ($uuid && IMAGE_RESTRICT) {
 	if (!$pages->isValidUUID($uuid)) {
 		ajaxResponse(1, 'Invalid uuid.');
 	}
+	if (!canManagePageImages($uuid)) {
+		ajaxResponse(1, $L->g('You do not have sufficient permissions'));
+	}
 	$imagePath = PATH_UPLOADS_PAGES.$uuid.DS;
 } else {
 	$imagePath = PATH_UPLOADS;
