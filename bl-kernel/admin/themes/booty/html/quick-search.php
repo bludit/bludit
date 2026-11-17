@@ -55,6 +55,11 @@
 		}
 
 		function closeSearch() {
+			// Stop a pending search so it does not fill the results after closing
+			clearTimeout(searchTimeout);
+			if (searchRequest) {
+				searchRequest.abort();
+			}
 			modal.removeClass('active');
 			$('body').css('overflow', '');
 			searchInput.val('');
@@ -98,6 +103,12 @@
 						});
 					} else {
 						$('<div class="search-no-results">').text(labels.noResults).appendTo(searchResults);
+					}
+				},
+				error: function(xhr, status) {
+					// Do not keep the results of the previous query
+					if (status !== 'abort') {
+						searchResults.empty();
 					}
 				}
 			});
