@@ -863,6 +863,28 @@ function changeUserPassword($args)
 }
 
 // Returns true if the user is allowed to proceed
+// Returns TRUE if the logged user can manage the images of the page with the uuid
+// Administrators and editors can manage all pages, authors only their own pages
+// A page not created yet is checked by its autosave, a new uuid without pages is allowed
+function canManagePageImages($uuid)
+{
+  global $pages;
+  global $login;
+
+  if (checkRole(array('admin', 'editor'), false)) {
+    return true;
+  }
+
+  $pageKey = $pages->getByUUID($uuid);
+  if (empty($pageKey)) {
+    $pageKey = $pages->getByUUID('autosave-' . $uuid);
+  }
+  if (empty($pageKey)) {
+    return true;
+  }
+  return $pages->db[$pageKey]['username'] === $login->username();
+}
+
 function checkRole($allowRoles, $redirect = true)
 {
   global $login;
