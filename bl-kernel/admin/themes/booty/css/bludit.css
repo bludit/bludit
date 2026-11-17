@@ -1392,11 +1392,6 @@ body .ql-snow .ql-tooltip {
 	min-width: 0;
 }
 
-.media-search {
-	flex: 1 1 auto;
-	max-width: 260px;
-}
-
 .media-dropzone {
 	padding: 0.75rem;
 	border: 1px dashed var(--bs-border-color);
