@@ -27,7 +27,7 @@ $numberOfPages = $mediaList['numberOfPages'];
 
 		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
 
-		<div class="media-manager">
+		<div id="jsmediaManager" class="media-manager">
 			<div class="media-manager-list">
 				<!-- Upload input, the label below opens it and also receives drops -->
 				<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
@@ -344,9 +344,11 @@ function displayFiles(files, numberOfPages) {
 		grid.append(tile);
 	});
 
+	// Without images there is nothing to select, the details column is hidden
+	$("#jsmediaManager").toggleClass('media-manager-empty', files.length === 0);
 	if (files.length === 0) {
 		$('<div>', {
-			'class': 'text-secondary small py-3',
+			'class': 'media-grid-empty text-secondary small py-3',
 			text: mediaTexts.noImages
 		}).appendTo(grid);
 	}

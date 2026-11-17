@@ -1392,6 +1392,14 @@ body .ql-snow .ql-tooltip {
 	min-width: 0;
 }
 
+.media-manager-empty {
+	grid-template-columns: 1fr;
+}
+
+.media-manager-empty .media-details {
+	display: none;
+}
+
 .media-dropzone {
 	padding: 0.75rem;
 	border: 1px dashed var(--bs-border-color);
@@ -1414,6 +1422,11 @@ body .ql-snow .ql-tooltip {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
 	gap: 0.625rem;
+}
+
+/* The empty message spans the whole row instead of one tile column */
+.media-grid-empty {
+	grid-column: 1 / -1;
 }
 
 .media-tile {
