@@ -29,9 +29,8 @@ function moveTypeLabel($current, $target, $L) {
 
 // Render a single row (or row + nested children) for a page key.
 // $type controls which columns/buttons are shown; $isSticky adds the Sticky badge
-// and flips the toggle button into "Unstick" mode. $showStatus adds a status badge
-// and keeps the URL column, used by the search results where types are mixed.
-function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false, $showStatus = false) {
+// and flips the toggle button into "Unstick" mode.
+function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	global $url;
 	global $L;
 
@@ -60,20 +59,9 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false, $
 		$dateLabel = $page->date(MANAGE_CONTENT_DATE_FORMAT);
 	}
 
-	$statusBadges = array(
-		'published' => 'status-published',
-		'sticky'    => 'status-published',
-		'static'    => 'status-static',
-		'draft'     => 'status-draft',
-		'scheduled' => 'status-scheduled',
-	);
-
 	echo '<tr>';
 	echo '<td>';
 	echo '<div>';
-	if ($showStatus && isset($statusBadges[$type])) {
-		echo '<span class="status-badge '.$statusBadges[$type].' me-2 align-middle">'.$L->g(ucfirst($type)).'</span>';
-	}
 	echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
 	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
 	echo '</a>';
@@ -87,8 +75,6 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false, $
 	if ($showURL) {
 		$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
 		echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$page->permalink().'" title="'.$friendlyURL.'">'.$friendlyURL.'</a></td>';
-	} elseif ($showStatus) {
-		echo '<td class="d-none d-xl-table-cell contentURL"></td>';
 	}
 
 	echo '<td class="contentTools text-center align-middle">'.PHP_EOL;
@@ -268,53 +254,9 @@ function tablePages() {
 	echo '</tbody></table>';
 }
 
-// Render the search results, all types in one table, without pagination.
-function tableSearch() {
-	global $L;
-	global $pages;
-	global $searchResults;
-
-	if (empty($searchResults)) {
-		echo '<p class="mt-4 text-muted">'.$L->g('No results found').'</p>';
-		return;
-	}
-
-	echo '<table class="table mt-3"><thead><tr>';
-	echo '<th scope="col">'.$L->g('Title').'</th>';
-	echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
-	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
-	echo '</tr></thead><tbody>';
-	foreach ($searchResults as $pageKey) {
-		tableRow($pageKey, $pages->db[$pageKey]['type'], false, false, true);
-	}
-	echo '</tbody></table>';
-}
-
-$searchEscaped = htmlspecialchars($search, ENT_QUOTES, 'UTF-8');
-
 ?>
 
-<!-- SEARCH -->
-<form class="content-search" method="get" action="<?php echo HTML_PATH_ADMIN_ROOT . 'content' ?>" role="search">
-	<div class="content-search-field">
-		<span class="fa fa-search" aria-hidden="true"></span>
-		<input type="search" name="search" class="form-control" value="<?php echo $searchEscaped ?>" placeholder="<?php $L->p('search-content-placeholder') ?>" aria-label="<?php $L->p('Search') ?>" autocomplete="off">
-	</div>
-	<button type="submit" class="btn btn-primary"><?php $L->p('Search') ?></button>
-	<?php if ($search !== ''): ?>
-	<a class="btn btn-link" href="<?php echo HTML_PATH_ADMIN_ROOT . 'content' ?>"><?php $L->p('Clear') ?></a>
-	<?php endif; ?>
-</form>
-
-<?php if ($search !== ''): ?>
-
-<!-- SEARCH RESULTS -->
-<p class="content-search-summary">
-	<?php echo $L->g('Results for') . ' <strong>&quot;' . $searchEscaped . '&quot;</strong> <span class="text-muted">(' . count($searchResults) . ')</span>' ?>
-</p>
-<?php tableSearch(); ?>
-
-<?php else: ?>
+<?php include(PATH_ADMIN_THEMES . $site->adminTheme() . DS . 'html' . DS . 'quick-search.php'); ?>
 
 <!-- TABS -->
 <ul class="nav nav-tabs" role="tablist">
@@ -394,8 +336,6 @@ $searchEscaped = htmlspecialchars($search, ENT_QUOTES, 'UTF-8');
 	</div>
 	<?php endif; ?>
 </div>
-
-<?php endif; ?>
 
 <!-- Modal for delete page -->
 <?php

@@ -437,11 +437,28 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 }
 
 .search-suggestion-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
 	font-weight: var(--font-weight-medium);
 	color: var(--text-primary);
 	margin-bottom: 6px;
 	font-size: var(--font-size-lg);
 	line-height: 1.4;
+}
+
+.search-suggestion-item a {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: var(--text-primary);
+	text-decoration: none;
+}
+
+.search-suggestion-item a:hover {
+	color: var(--primary-blue);
 }
 
 .search-suggestion-options {
@@ -793,41 +810,6 @@ body.login {
 .dashboard-count {
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-bold);
-	color: var(--text-secondary);
-}
-
-/*
-	CONTENT SEARCH
-*/
-
-.content-search {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 16px;
-}
-
-.content-search-field {
-	position: relative;
-	flex: 1;
-	max-width: 480px;
-}
-
-.content-search-field .fa {
-	position: absolute;
-	top: 50%;
-	left: 12px;
-	transform: translateY(-50%);
-	color: var(--text-muted);
-	pointer-events: none;
-}
-
-.content-search-field .form-control {
-	padding-left: 36px;
-}
-
-.content-search-summary {
-	margin: 8px 0 0;
 	color: var(--text-secondary);
 }
 

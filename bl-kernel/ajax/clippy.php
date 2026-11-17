@@ -4,65 +4,39 @@ header('Content-Type: application/json');
 // $_GET
 // ----------------------------------------------------------------------------
 // (string) $_GET['query']
-$query = isset($_GET['query']) ? Text::lowercase($_GET['query']) : false;
+$query = isset($_GET['query']) && is_string($_GET['query']) ? Text::cut(trim($_GET['query']), 0, 100) : '';
 // ----------------------------------------------------------------------------
-if ($query===false) {
+if ($query === '') {
 	ajaxResponse(1, 'Invalid query.');
 }
 
 $result = array();
+$isAuthor = checkRole(array('author'), false);
 
-// MENU
-if (Text::stringContains(Text::lowercase($L->g('New content')), $query)) {
-	$tmp = array('disabled'=>true, 'icon'=>'plus-circle', 'type'=>'menu');
-	$tmp['text'] = $L->g('New content');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'new-content';
-	array_push($result, $tmp);
-}
-if (Text::stringContains(Text::lowercase($L->g('New category')), $query)) {
-	$tmp = array('disabled'=>true, 'icon'=>'tag', 'type'=>'menu');
-	$tmp['text'] = $L->g('New category');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'new-category';
-	array_push($result, $tmp);
-}
-if (Text::stringContains(Text::lowercase($L->g('New user')), $query)) {
-	$tmp = array('disabled'=>true, 'icon'=>'user', 'type'=>'menu');
-	$tmp['text'] = $L->g('New user');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'new-user';
-	array_push($result, $tmp);
-}
-if (Text::stringContains(Text::lowercase($L->g('Categories')), $query)) {
-	$tmp = array('disabled'=>true, 'icon'=>'tags', 'type'=>'menu');
-	$tmp['text'] = $L->g('Categories');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'categories';
-	array_push($result, $tmp);
-}
-if (Text::stringContains(Text::lowercase($L->g('Users')), $query)) {
-	$tmp = array('disabled'=>true, 'icon'=>'users', 'type'=>'menu');
-	$tmp['text'] = $L->g('Users');
-	$tmp['url'] = HTML_PATH_ADMIN_ROOT.'users';
-	array_push($result, $tmp);
-}
-
-
-// PAGES
-$pagesKey = $pages->getDB();
-foreach ($pagesKey as $pageKey) {
-	try {
-		$page = new Page($pageKey);
-		$lowerTitle = Text::lowercase($page->title());
-		if (Text::stringContains($lowerTitle, $query)) {
-			$tmp = array('disabled'=>true);
-			$tmp['id'] = $page->key();
-			$tmp['text'] = $page->title();
-			$tmp['type'] = $page->type();
-			array_push($result, $tmp);
-		}
-	} catch (Exception $e) {
-		// continue
+// Search only the pages, matches the title, the URL and the tags.
+// Uses the pages database already in memory, the content files are not read.
+// Authors only get their own pages, the same as the content manager.
+foreach ($pages->db as $pageKey => $fields) {
+	if ($fields['type'] === 'autosave') {
+		continue;
+	}
+	if ($isAuthor && $fields['username'] !== $login->username()) {
+		continue;
+	}
+	$title = Sanitize::htmlDecode($fields['title']);
+	$haystack = $title.' '.$pageKey;
+	if (!empty($fields['tags'])) {
+		$haystack .= ' '.Sanitize::htmlDecode(implode(' ', $fields['tags']));
+	}
+	if (Text::stringContains($haystack, $query, false)) {
+		array_push($result, array(
+			'type'=>$fields['type'],
+			'typeLabel'=>$L->g(ucfirst($fields['type'])),
+			'id'=>$pageKey,
+			'text'=>($title === '' ? $L->g('Empty title') : $title),
+			'public'=>in_array($fields['type'], array('published', 'sticky', 'static'))
+		));
 	}
 }
 
 exit (json_encode(array('results'=>$result)));
-
-?>
