@@ -2,15 +2,17 @@
 
 <?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'plugin-form')); ?>
 
-<div class="align-middle">
+<div class="form-header">
 	<?php if ($plugin->formButtons()): ?>
-	<div class="float-end mt-1">
+	<div class="form-header-actions">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'plugins' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
 	<?php endif; ?>
-	<?php echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'cog')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$plugin->name(), 'icon'=>'puzzle-piece')); ?>
 </div>
+
+<div class="form-card">
 
 <?php
 	// Token CSRF
@@ -28,4 +30,5 @@
 	echo $plugin->form();
 ?>
 
+</div>
 <?php echo Bootstrap::formClose(); ?>

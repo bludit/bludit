@@ -2,8 +2,8 @@
 
 <?php echo Bootstrap::formOpen(array('id' => 'jsform', 'class' => 'tab-content')); ?>
 
-<div class="align-middle">
-	<div class="float-end mt-1">
+<div class="form-header">
+	<div class="form-header-actions">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'users' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
@@ -149,7 +149,7 @@ echo Bootstrap::formInputHidden(array(
 
 		echo '
 		<div class="mb-3">
-			<a href="' . HTML_PATH_ADMIN_ROOT . 'user-password/' . $user->username() . '" class="btn btn-primary me-2">' . $L->g('Change password') . '</a>
+			<a href="' . HTML_PATH_ADMIN_ROOT . 'user-password/' . $user->username() . '" class="btn btn-secondary">' . $L->g('Change password') . '</a>
 		</div>
 		';
 
@@ -179,10 +179,10 @@ echo Bootstrap::formInputHidden(array(
 				echo '
 				<div class="row mb-3">
 				<div class="col-sm-2"></div>
-				<div class="col-sm-10">
-					<button type="submit" class="btn btn-warning me-2" id="jsdisableUser" name="disableUser">' . $L->g('Disable user') . '</button>
-					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">' . $L->g('Delete user and keep content') . '</button>
-					<button type="submit" class="btn btn-danger me-2" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">' . $L->g('Delete user and delete content') . '</button>
+				<div class="col-sm-10 d-flex flex-wrap gap-2">
+					<button type="submit" class="btn btn-warning" id="jsdisableUser" name="disableUser">' . $L->g('Disable user') . '</button>
+					<button type="submit" class="btn btn-danger" id="jsdeleteUserAndKeepContent" name="deleteUserAndKeepContent">' . $L->g('Delete user and keep content') . '</button>
+					<button type="submit" class="btn btn-danger" id="jsdeleteUserAndDeleteContent" name="deleteUserAndDeleteContent">' . $L->g('Delete user and delete content') . '</button>
 				</div>
 				</div>
 				';

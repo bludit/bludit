@@ -50,7 +50,7 @@ function pluginActions($plugin, $pluginsAvailable) {
 	$html = '';
 
 	if (pluginUpdateAvailable($plugin, $pluginsAvailable) !== false) {
-		$html .= '<form method="post" class="d-inline me-3" action="' . HTML_PATH_ADMIN_ROOT . 'update-plugin">';
+		$html .= '<form method="post" class="d-inline" action="' . HTML_PATH_ADMIN_ROOT . 'update-plugin">';
 		$html .= '<input type="hidden" name="tokenCSRF" value="' . $security->getTokenCSRF() . '">';
 		$html .= '<input type="hidden" name="pluginId" value="' . $id . '">';
 		$html .= '<button type="submit" class="btn btn-link p-0 border-0 align-baseline">' . $L->g('Update') . '</button>';
@@ -71,11 +71,12 @@ function pluginActions($plugin, $pluginsAvailable) {
 	return $html;
 }
 
-echo Bootstrap::formTitle(array('title' => $L->g('Search plugins')));
-
 ?>
 
-<input type="text" dir="auto" class="form-control" id="search" placeholder="<?php $L->p('Search') ?>">
+<label class="list-search mt-3 mb-3">
+	<span class="fa fa-search"></span>
+	<input type="text" dir="auto" id="search" placeholder="<?php $L->p('Search plugins') ?>" autocomplete="off">
+</label>
 <script>
 	$(document).ready(function() {
 		$("#search").on("keyup", function() {
@@ -99,6 +100,7 @@ echo Bootstrap::formTitle(array('title' => $L->g('Search plugins')));
 echo Bootstrap::formTitle(array('title' => $L->g('Enabled plugins')));
 
 echo '
+<div class="table-card">
 <table class="table">
 	<tbody>
 ';
@@ -111,25 +113,25 @@ foreach ($pluginsInstalled as $plugin) {
 		continue;
 	}
 
-	echo '<tr id="' . $plugin->className() . '" class="bg-light searchItem">';
+	echo '<tr id="' . $plugin->className() . '" class="searchItem">';
 
 	echo '<td class="align-middle w-25">
-		<div class="searchText">' . $plugin->name() . '</div>
-		<div class="mt-1">';
+		<div class="searchText row-title">' . $plugin->name() . '</div>
+		<div class="row-links">';
 	if (method_exists($plugin, 'form')) {
-		echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
+		echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'configure-plugin/' . $plugin->className() . '">' . $L->g('Settings') . '</a>';
 	}
-	echo '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'uninstall-plugin/' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
+	echo '<a href="' . HTML_PATH_ADMIN_ROOT . 'uninstall-plugin/' . $plugin->className() . '">' . $L->g('Deactivate') . '</a>';
 	echo pluginActions($plugin, $pluginsAvailable);
 	echo '</div>';
 	echo '</td>';
 
-	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
+	echo '<td class="searchText align-middle d-none d-sm-table-cell row-text">';
 	echo $plugin->description();
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
-	echo '<span>' . $plugin->version() . '</span>';
+	echo '<span class="row-muted">' . $plugin->version() . '</span>';
 	$newVersion = pluginUpdateAvailable($plugin, $pluginsAvailable);
 	if ($newVersion !== false) {
 		echo ' <span class="status-badge status-badge-inline status-published" title="' . $L->g('There is a new version available') . '">' . Sanitize::html($newVersion['version']) . '</span>';
@@ -139,7 +141,7 @@ foreach ($pluginsInstalled as $plugin) {
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">
-		<a target="_blank" href="' . $plugin->website() . '">' . $plugin->author() . '</a>
+		<a class="row-muted" target="_blank" href="' . $plugin->website() . '">' . $plugin->author() . '</a>
 	</td>';
 
 	echo '</tr>';
@@ -148,11 +150,13 @@ foreach ($pluginsInstalled as $plugin) {
 echo '
 	</tbody>
 </table>
+</div>
 ';
 
 echo Bootstrap::formTitle(array('title' => $L->g('Disabled plugins')));
 
 echo '
+<div class="table-card">
 <table class="table">
 	<tbody>
 ';
@@ -169,29 +173,29 @@ foreach ($pluginsNotInstalled as $plugin) {
 
 	// A locked plugin is part of Bludit PRO and there is no valid license
 	if ($plugin->locked()) {
-		$activate = '<a class="me-3" target="_blank" href="https://pro.bludit.com"><span class="fa fa-lock"></span> ' . $L->g('Requires Bludit PRO') . '</a>';
+		$activate = '<a target="_blank" href="https://pro.bludit.com"><span class="fa fa-lock"></span> ' . $L->g('Requires Bludit PRO') . '</a>';
 	} else {
-		$activate = '<a class="me-3" href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>';
+		$activate = '<a href="' . HTML_PATH_ADMIN_ROOT . 'install-plugin/' . $plugin->className() . '">' . $L->g('Activate') . '</a>';
 	}
 
 	echo '<td class="align-middle w-25">
-		<div class="searchText">' . $plugin->name() . '</div>
-		<div class="mt-1">
+		<div class="searchText row-title">' . $plugin->name() . '</div>
+		<div class="row-links">
 			' . $activate . '
 			' . pluginActions($plugin, $pluginsAvailable) . '
 		</div>
 	</td>';
 
-	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
+	echo '<td class="searchText align-middle d-none d-sm-table-cell row-text">';
 	echo $plugin->description();
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
-	echo '<span>' . $plugin->version() . '</span>';
+	echo '<span class="row-muted">' . $plugin->version() . '</span>';
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">
-		<a target="_blank" href="' . $plugin->website() . '">' . $plugin->author() . '</a>
+		<a class="row-muted" target="_blank" href="' . $plugin->website() . '">' . $plugin->author() . '</a>
 	</td>';
 
 	echo '</tr>';
@@ -200,4 +204,5 @@ foreach ($pluginsNotInstalled as $plugin) {
 echo '
 	</tbody>
 </table>
+</div>
 ';

@@ -21,6 +21,11 @@ a:hover {
 	text-decoration: none;
 }
 
+/* A button that looks like a link behaves like a link */
+.btn-link:hover {
+	text-decoration: underline;
+}
+
 .bg-success {
 	background-color: #8BC34A!important;
 }
@@ -58,24 +63,17 @@ a.text-danger:hover {
 	transform: translateY(-1px);
 }
 
-.btn-secondary {
-	background-color: var(--color-secondary, #64748B);
-	border: none;
-	font-weight: var(--font-weight-semibold, 650);
-}
-
-.btn-secondary:hover {
-	background-color: var(--color-secondary-dark, #475569);
-	border: none;
-	transform: translateY(-1px);
-}
-
+/* Secondary buttons (Cancel, Preview...) look like the light buttons of the
+   editor, the only solid buttons are the main action and the final confirmation */
+.btn-secondary,
 .btn-light {
 	background-color: var(--bg-light, #f8f9fa);
 	border: 2px solid var(--border-color, #e2e8f0);
 	font-weight: var(--font-weight-medium, 550);
 }
 
+.btn-secondary:hover,
+.btn-secondary:focus-visible,
 .btn-light:hover {
 	background-color: var(--bg-sidebar, #F1F5F9);
 	border-color: var(--border-light, #cbd5e1);
@@ -83,6 +81,8 @@ a.text-danger:hover {
 }
 
 /* Dark mode: the light button gets lighter on hover and keeps the text readable */
+[data-bs-theme="dark"] .btn-secondary:hover,
+[data-bs-theme="dark"] .btn-secondary:focus-visible,
 [data-bs-theme="dark"] .btn-light:hover,
 [data-bs-theme="dark"] .btn-light:focus-visible,
 [data-bs-theme="dark"] .btn-light:active,
