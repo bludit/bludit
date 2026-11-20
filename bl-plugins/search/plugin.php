@@ -228,9 +228,9 @@ class pluginSearch extends Plugin
 			if ($count === 0) {
 				$html .= '<p class="search-count">' . $L->get('No pages found') . '</p>';
 			} elseif ($count === 1) {
-				$html .= '<p class="search-count">1 ' . strtolower($L->get('result found')) . '</p>';
+				$html .= '<p class="search-count">1 ' . $L->get('result found') . '</p>';
 			} else {
-				$html .= '<p class="search-count">' . $count . ' ' . strtolower($L->get('results found')) . '</p>';
+				$html .= '<p class="search-count">' . $count . ' ' . $L->get('results found') . '</p>';
 			}
 		}
 
