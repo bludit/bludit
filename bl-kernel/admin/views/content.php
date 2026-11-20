@@ -90,15 +90,26 @@ function rowURLCell($page) {
 		.'<span class="content-url">'.$friendlyURL.'</span> <i class="fa fa-external-link"></i></a></td>';
 }
 
-// Actions cell, the menu is not rendered when there are no actions
-function rowActionsCell($items) {
+// Actions cell, the menu is not rendered when there are no actions.
+// $viewURL adds View to the menu on the screens where the URL column is hidden.
+// The menu uses fixed positioning so the card (overflow: hidden) does not clip it.
+function rowActionsCell($items, $viewURL = false) {
 	global $L;
 
 	$html = '<td class="contentTools text-center align-middle">';
-	if (!empty($items)) {
-		$html .= '<div class="dropdown actionsDropdown">';
-		$html .= '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
-		$html .= '<div class="dropdown-menu dropdown-menu-end">'.implode('<div class="dropdown-divider"></div>', $items).'</div>';
+	if (!empty($items) || $viewURL) {
+		$menu = '';
+		if ($viewURL) {
+			$menu .= '<a class="dropdown-item d-xl-none" target="_blank" href="'.$viewURL.'"><i class="fa fa-external-link fa-fw me-2"></i>'.$L->g('View').'</a>';
+			if (!empty($items)) {
+				$menu .= '<div class="dropdown-divider d-xl-none"></div>';
+			}
+		}
+		$menu .= implode('<div class="dropdown-divider"></div>', $items);
+
+		$html .= '<div class="dropdown actionsDropdown'.(empty($items) ? ' d-xl-none' : '').'">';
+		$html .= '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" data-bs-popper-config=\'{"strategy":"fixed"}\' aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+		$html .= '<div class="dropdown-menu dropdown-menu-end">'.$menu.'</div>';
 		$html .= '</div>';
 	}
 	return $html.'</td>';
@@ -173,7 +184,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	if ($showURL) {
 		echo rowURLCell($page);
 	}
-	echo rowActionsCell($items);
+	echo rowActionsCell($items, $showURL ? $page->permalink() : false);
 	echo '</tr>';
 
 	if ($renderChildren) {
@@ -188,7 +199,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 			if ($showURL) {
 				echo rowURLCell($child);
 			}
-			echo rowActionsCell(array(deleteItem($child)));
+			echo rowActionsCell(array(deleteItem($child)), $showURL ? $child->permalink() : false);
 			echo '</tr>';
 		}
 	}
