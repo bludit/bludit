@@ -2,14 +2,16 @@
 
 <?php echo Bootstrap::formOpen(array('id'=>'jsform')); ?>
 
-<div class="align-middle">
-	<div class="float-end mt-1">
+<div class="form-header">
+	<div class="form-header-actions">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#jsdeleteModal"><?php $L->p('Delete') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
-	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'cog')); ?>
+	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Edit Category'), 'icon'=>'tags')); ?>
 </div>
+
+<div class="form-card">
 
 <?php
 	// Token CSRF
@@ -65,6 +67,7 @@
 		'tip'=>DOMAIN_CATEGORIES.$categoryMap['key']
 	));
 
+echo '</div>';
 echo Bootstrap::formClose();
 
 ?>

@@ -64,7 +64,10 @@ if (empty($pluginsDirectory)) {
 
 ?>
 
-<input type="text" dir="auto" class="form-control mb-3" id="search" placeholder="<?php $L->p('Search') ?>">
+<label class="list-search mb-3">
+	<span class="fa fa-search"></span>
+	<input type="text" dir="auto" id="search" placeholder="<?php $L->p('Search plugins') ?>" autocomplete="off">
+</label>
 <script>
 	$(document).ready(function() {
 		$("#search").on("keyup", function() {
@@ -86,6 +89,7 @@ if (empty($pluginsDirectory)) {
 <?php
 
 echo '
+<div class="table-card">
 <table class="table">
 	<tbody>
 ';
@@ -96,8 +100,8 @@ foreach ($pluginsDirectory as $pluginId => $plugin) {
 	echo '<tr id="' . $pluginId . '" class="searchItem">';
 
 	echo '<td class="align-middle w-25">
-		<div class="searchText">' . Sanitize::html($plugin['name']) . '</div>
-		<div class="mt-1">';
+		<div class="searchText row-title">' . Sanitize::html($plugin['name']) . '</div>
+		<div class="row-links">';
 
 	if ($installed) {
 		echo '<span class="text-muted">' . $L->g('Installed') . '</span>';
@@ -115,17 +119,17 @@ foreach ($pluginsDirectory as $pluginId => $plugin) {
 	echo '</div>';
 	echo '</td>';
 
-	echo '<td class="searchText align-middle d-none d-sm-table-cell">';
+	echo '<td class="searchText align-middle d-none d-sm-table-cell row-text">';
 	echo Sanitize::html(PluginsDirectory::description($plugin));
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
-	echo '<span>' . Sanitize::html($plugin['version']) . '</span>';
+	echo '<span class="row-muted">' . Sanitize::html($plugin['version']) . '</span>';
 	echo '</td>';
 
 	echo '<td class="text-center align-middle d-none d-lg-table-cell">';
 	if (!empty($plugin['website'])) {
-		echo '<a target="_blank" rel="noopener noreferrer" href="' . Sanitize::html($plugin['website']) . '">' . Sanitize::html($plugin['author']) . '</a>';
+		echo '<a class="row-muted" target="_blank" rel="noopener noreferrer" href="' . Sanitize::html($plugin['website']) . '">' . Sanitize::html($plugin['author']) . '</a>';
 	} else {
 		echo Sanitize::html($plugin['author']);
 	}
@@ -137,4 +141,5 @@ foreach ($pluginsDirectory as $pluginId => $plugin) {
 echo '
 	</tbody>
 </table>
+</div>
 ';

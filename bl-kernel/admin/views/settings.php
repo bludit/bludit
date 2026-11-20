@@ -2,8 +2,8 @@
 
 <?php echo Bootstrap::formOpen(array('id' => 'jsform', 'class' => 'tab-content')); ?>
 
-<div class="align-middle">
-	<div class="float-end mt-1">
+<div class="form-header">
+	<div class="form-header-actions">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT . 'dashboard' ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
@@ -607,7 +607,7 @@ echo Bootstrap::formInputHidden(array(
 			<div class="col-lg-4 col-sm-12 p-0 pe-2">
 				<label class="form-label" for="jssiteLogoInputFile"><?php $L->p('Upload image'); ?></label>
 				<input id="jssiteLogoInputFile" class="form-control" type="file" name="inputFile">
-				<button id="jsbuttonRemoveLogo" type="button" class="btn btn-primary w-100 mt-4 mb-4"><i class="fa fa-trash"></i><?php $L->p('Remove logo') ?></button>
+				<button id="jsbuttonRemoveLogo" type="button" class="btn btn-danger mt-3"><i class="fa fa-trash"></i> <?php $L->p('Remove logo') ?></button>
 			</div>
 			<div class="col-lg-8 col-sm-12 p-0 text-center">
 				<img id="jssiteLogoPreview" class="img-fluid img-thumbnail" alt="Site logo preview" src="<?php echo ($site->logo() ? DOMAIN_UPLOADS . $site->logo(false) . '?version=' . time() : HTML_PATH_CORE_IMG . 'default.svg') ?>" />

@@ -3,7 +3,8 @@
 echo Bootstrap::pageTitle(array('title' => $L->g('Themes'), 'icon' => 'desktop'));
 
 echo '
-<table class="table mt-3">
+<div class="table-card mt-3">
+<table class="table">
 	<thead>
 		<tr>
 			<th class="w-25" scope="col">' . $L->g('Name') . '</th>
@@ -17,10 +18,10 @@ echo '
 
 foreach ($themes as $theme) {
   echo '
-	<tr ' . ($theme['dirname'] == $site->theme() ? 'class="theme-active"' : '') . '>
+	<tr ' . ($theme['dirname'] == $site->theme() ? 'class="row-active"' : '') . '>
 		<td class="align-middle">
-		<div>'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="status-badge status-badge-inline status-published ms-2">'.$L->g('Active').'</span>':'').'</div>
-			<div class="mt-1">
+		<div class="row-title">'.$theme['name'].($theme['dirname']==$site->theme()?'<span class="status-badge status-badge-inline status-published ms-2">'.$L->g('Active').'</span>':'').'</div>
+			<div class="row-links">
 	';
 
   if ($theme['locked']) {
@@ -38,16 +39,16 @@ foreach ($themes as $theme) {
 		</td>
 	';
 
-  echo '<td class="align-middle d-none d-sm-table-cell">';
+  echo '<td class="align-middle d-none d-sm-table-cell row-text">';
   echo $theme['description'];
   echo '</td>';
 
   echo '<td class="text-center align-middle d-none d-lg-table-cell">';
-  echo '<span>' . $theme['version'] . '</span>';
+  echo '<span class="row-muted">' . $theme['version'] . '</span>';
   echo '</td>';
 
   echo '<td class="text-center align-middle d-none d-lg-table-cell">
-		<a target="_blank" href="' . $theme['website'] . '">' . $theme['author'] . '</a>
+		<a class="row-muted" target="_blank" href="' . $theme['website'] . '">' . $theme['author'] . '</a>
 	</td>';
 
   echo '</tr>';
@@ -56,4 +57,5 @@ foreach ($themes as $theme) {
 echo '
 	</tbody>
 </table>
+</div>
 ';
