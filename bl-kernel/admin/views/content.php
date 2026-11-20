@@ -27,11 +27,94 @@ function moveTypeLabel($current, $target, $L) {
 	return isset($labels[$target]) ? $labels[$target] : $target;
 }
 
+// Cover thumbnail of the row, or an empty square to keep the titles aligned.
+// When the thumbnail does not exist (thumbnails disabled or legacy names) the
+// browser falls back to the cover image.
+function rowThumbnail($page) {
+	$thumbnail = $page->thumbCoverImage();
+	if (empty($thumbnail)) {
+		return '<span class="content-thumb content-thumb-empty"><i class="fa fa-file-text-o"></i></span>';
+	}
+	$cover = $page->coverImage();
+	return '<img class="content-thumb" loading="lazy" alt="" src="'.Sanitize::html($thumbnail).'"'
+		.($cover && $cover !== $thumbnail ? ' data-fallback="'.Sanitize::html($cover).'"' : '')
+		.'>';
+}
+
+// Second line of the row: date or position, category and author.
+// Everything comes from the pages and users databases, already in memory.
+function rowMeta($page, $label) {
+	global $users;
+
+	$meta = array('<span>'.$label.'</span>');
+	$category = $page->category();
+	if (!empty($category)) {
+		$meta[] = '<span><i class="fa fa-folder-o"></i> '.$category.'</span>';
+	}
+	// The author is only useful when the site has more than one user
+	if (count($users->db) > 1) {
+		$username = $page->username();
+		$author = !empty($users->db[$username]['nickname']) ? $users->db[$username]['nickname'] : $username;
+		$meta[] = '<span><i class="fa fa-user-o"></i> '.$author.'</span>';
+	}
+	return '<div class="content-meta">'.implode('', $meta).'</div>';
+}
+
+// Title cell: thumbnail, title linked to the editor and the meta line
+function rowTitleCell($page, $label, $isSticky = false, $isChild = false) {
+	global $L;
+
+	$html  = '<td class="content-title-cell'.($isChild ? ' child' : '').'">';
+	$html .= '<div class="content-row">';
+	$html .= rowThumbnail($page);
+	$html .= '<div class="content-row-text">';
+	$html .= '<a class="content-title" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
+	$html .= ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span>');
+	$html .= '</a>';
+	if ($isSticky) {
+		$html .= ' <span class="status-badge status-badge-inline status-published ms-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
+	}
+	$html .= rowMeta($page, $label);
+	$html .= '</div></div></td>';
+	return $html;
+}
+
+// URL cell, the icon opens the page in a new tab
+function rowURLCell($page) {
+	global $url;
+	global $L;
+
+	$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
+	return '<td class="d-none d-xl-table-cell contentURL align-middle">'
+		.'<a target="_blank" href="'.$page->permalink().'" title="'.$L->g('View').'">'
+		.'<span class="content-url">'.$friendlyURL.'</span> <i class="fa fa-external-link"></i></a></td>';
+}
+
+// Actions cell, the menu is not rendered when there are no actions
+function rowActionsCell($items) {
+	global $L;
+
+	$html = '<td class="contentTools text-center align-middle">';
+	if (!empty($items)) {
+		$html .= '<div class="dropdown actionsDropdown">';
+		$html .= '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
+		$html .= '<div class="dropdown-menu dropdown-menu-end">'.implode('<div class="dropdown-divider"></div>', $items).'</div>';
+		$html .= '</div>';
+	}
+	return $html.'</td>';
+}
+
+function deleteItem($page) {
+	global $L;
+	return '<a href="#" class="dropdown-item text-danger deletePageButton" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw me-2"></i>'.$L->g('Delete').'</a>';
+}
+
 // Render a single row (or row + nested children) for a page key.
 // $type controls which columns/buttons are shown; $isSticky adds the Sticky badge
 // and flips the toggle button into "Unstick" mode.
+// The title opens the editor and the URL opens the page, so the menu only has
+// the actions that change the page.
 function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
-	global $url;
 	global $L;
 
 	try {
@@ -59,36 +142,8 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 		$dateLabel = $page->date(MANAGE_CONTENT_DATE_FORMAT);
 	}
 
-	echo '<tr>';
-	echo '<td>';
-	echo '<div>';
-	echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
-	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
-	echo '</a>';
-	if ($isSticky) {
-		echo ' <span class="status-badge status-badge-inline status-published align-middle ms-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
-	}
-	echo '</div>';
-	echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$dateLabel.'</p></div>';
-	echo '</td>';
-
-	if ($showURL) {
-		$friendlyURL = Text::isEmpty($url->filters('page')) ? '/'.$page->key() : '/'.$url->filters('page').'/'.$page->key();
-		echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$page->permalink().'" title="'.$friendlyURL.'">'.$friendlyURL.'</a></td>';
-	}
-
-	echo '<td class="contentTools text-center align-middle">'.PHP_EOL;
-	echo '<div class="dropdown actionsDropdown">';
-	echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
-	echo '<div class="dropdown-menu dropdown-menu-end">';
-
-	// View / Edit
-	if ($showURL) {
-		echo '<a class="dropdown-item" target="_blank" href="'.$page->permalink().'"><i class="fa fa-desktop fa-fw me-2"></i>'.$L->g('View').'</a>';
-	}
-	echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'"><i class="fa fa-edit fa-fw me-2"></i>'.$L->g('Edit').'</a>';
-
-	// Sticky / Unstick toggle, between View/Edit and Move-to.
+	// Sticky / Unstick toggle first, then the other moves
+	$items = array();
 	$stickyToggleTarget = false;
 	if ($type === 'published') {
 		$stickyToggleTarget = 'sticky';
@@ -96,32 +151,29 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 		$stickyToggleTarget = 'published';
 	}
 	if ($stickyToggleTarget) {
-		echo '<div class="dropdown-divider"></div>';
-		echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$stickyToggleTarget.'"><i class="fa '.moveTypeIcon($stickyToggleTarget).' fa-fw me-2"></i>'.moveTypeLabel($type, $stickyToggleTarget, $L).'</a>';
+		$items[] = '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$stickyToggleTarget.'"><i class="fa '.moveTypeIcon($stickyToggleTarget).' fa-fw me-2"></i>'.moveTypeLabel($type, $stickyToggleTarget, $L).'</a>';
 	}
-
-	// Move to ... (everything except the sticky toggle target rendered above).
 	if (isset($moves[$type])) {
-		$remaining = array();
+		$remaining = '';
 		foreach ($moves[$type] as $target) {
 			if ($target !== $stickyToggleTarget) {
-				$remaining[] = $target;
+				$remaining .= '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$target.'"><i class="fa '.moveTypeIcon($target).' fa-fw me-2"></i>'.moveTypeLabel($type, $target, $L).'</a>';
 			}
 		}
-		if (!empty($remaining)) {
-			echo '<div class="dropdown-divider"></div>';
-			foreach ($remaining as $target) {
-				echo '<a href="#" class="dropdown-item changeTypeButton" data-key="'.$page->key().'" data-type="'.$target.'"><i class="fa '.moveTypeIcon($target).' fa-fw me-2"></i>'.moveTypeLabel($type, $target, $L).'</a>';
-			}
+		if ($remaining !== '') {
+			$items[] = $remaining;
 		}
+	}
+	if (count($page->children()) == 0) {
+		$items[] = deleteItem($page);
 	}
 
-	if (count($page->children()) == 0) {
-		echo '<div class="dropdown-divider"></div>';
-		echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal" data-key="'.$page->key().'"><i class="fa fa-trash fa-fw me-2"></i>'.$L->g('Delete').'</a>';
+	echo '<tr>';
+	echo rowTitleCell($page, $dateLabel, $isSticky);
+	if ($showURL) {
+		echo rowURLCell($page);
 	}
-	echo '</div></div>';
-	echo '</td>';
+	echo rowActionsCell($items);
 	echo '</tr>';
 
 	if ($renderChildren) {
@@ -132,32 +184,11 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 				continue;
 			}
 			echo '<tr>';
-			echo '<td class="child">';
-			echo '<div>';
-			echo '<a style="font-size: 1.1em" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'">';
-			echo ($child->title() ? $child->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
-			echo '</a>';
-			echo '</div>';
-			echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$L->g('Position').': '.$child->position().'</p></div>';
-			echo '</td>';
-
+			echo rowTitleCell($child, $L->g('Position').': '.$child->position(), false, true);
 			if ($showURL) {
-				$friendlyChildURL = Text::isEmpty($url->filters('page')) ? '/'.$child->key() : '/'.$url->filters('page').'/'.$child->key();
-				echo '<td class="d-none d-xl-table-cell contentURL"><a target="_blank" href="'.$child->permalink().'" title="'.$friendlyChildURL.'">'.$friendlyChildURL.'</a></td>';
+				echo rowURLCell($child);
 			}
-
-			echo '<td class="contentTools text-center align-middle">'.PHP_EOL;
-			echo '<div class="dropdown actionsDropdown">';
-			echo '<button class="btn btn-link text-secondary p-1 actionsDropdownToggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport" aria-haspopup="true" aria-expanded="false" title="'.$L->g('Actions').'"><i class="fa fa-bars"></i></button>';
-			echo '<div class="dropdown-menu dropdown-menu-end">';
-			if ($showURL) {
-				echo '<a class="dropdown-item" target="_blank" href="'.$child->permalink().'"><i class="fa fa-desktop fa-fw me-2"></i>'.$L->g('View').'</a>';
-			}
-			echo '<a class="dropdown-item" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$child->key().'"><i class="fa fa-edit fa-fw me-2"></i>'.$L->g('Edit').'</a>';
-			echo '<div class="dropdown-divider"></div>';
-			echo '<a href="#" class="dropdown-item text-danger deletePageButton" data-bs-toggle="modal" data-bs-target="#jsdeletePageModal" data-key="'.$child->key().'"><i class="fa fa-trash fa-fw me-2"></i>'.$L->g('Delete').'</a>';
-			echo '</div></div>';
-			echo '</td>';
+			echo rowActionsCell(array(deleteItem($child)));
 			echo '</tr>';
 		}
 	}
@@ -214,7 +245,7 @@ function table($type) {
 		return;
 	}
 
-	echo '<table class="table mt-3"><thead><tr>';
+	echo '<div class="content-card mt-3"><table class="table content-table mb-0"><thead><tr>';
 	echo '<th scope="col">'.$L->g('Title').'</th>';
 	if ($type === 'static') {
 		echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
@@ -222,7 +253,7 @@ function table($type) {
 	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
 	echo '</tr></thead><tbody>';
 	tableRows($list, $type);
-	echo '</tbody></table>';
+	echo '</tbody></table></div>';
 }
 
 // Render the Pages tab: sticky rows first, then the paginated published list,
@@ -240,7 +271,7 @@ function tablePages() {
 		return;
 	}
 
-	echo '<table class="table mt-3"><thead><tr>';
+	echo '<div class="content-card mt-3"><table class="table content-table mb-0"><thead><tr>';
 	echo '<th scope="col">'.$L->g('Title').'</th>';
 	echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
 	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
@@ -251,30 +282,34 @@ function tablePages() {
 	if (!empty($published)) {
 		tableRows($published, 'published', false);
 	}
-	echo '</tbody></table>';
+	echo '</tbody></table></div>';
 }
 
 ?>
 
-<?php include(PATH_ADMIN_THEMES . $site->adminTheme() . DS . 'html' . DS . 'quick-search.php'); ?>
+<?php
+// Same space as below the title
+$quickSearchMargin = 'mb-3';
+include(PATH_ADMIN_THEMES . $site->adminTheme() . DS . 'html' . DS . 'quick-search.php');
+?>
 
 <!-- TABS -->
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?></a>
+		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?> <?php if ($countPublished>0) { echo '<span class="tab-count">'.$countPublished.'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
+		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?> <?php if (count($static)>0) { echo '<span class="tab-count">'.count($static).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="status-badge status-badge-inline status-scheduled">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>
+		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?> <?php if (count($drafts)>0) { echo '<span class="tab-count">'.count($drafts).'</span>'; } ?></a>
 	</li>
 	<?php if (!empty($autosave)): ?>
 	<li class="nav-item">
-		<a class="nav-link" id="autosave-tab" data-bs-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?></a>
+		<a class="nav-link" id="autosave-tab" data-bs-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?> <?php if (count($autosave)>0) { echo '<span class="tab-count">'.count($autosave).'</span>'; } ?></a>
 	</li>
 	<?php endif; ?>
 </ul>
@@ -286,7 +321,7 @@ function tablePages() {
 
 		<?php if (Paginator::numberOfPages() > 1): ?>
 		<!-- Paginator -->
-		<nav class="paginator">
+		<nav class="paginator mt-3">
 			<ul class="pagination flex-wrap justify-content-center">
 
 			<!-- First button -->
@@ -350,6 +385,16 @@ function tablePages() {
 	));
 ?>
 <script>
+// Cover thumbnails fall back to the cover image when the thumbnail is missing.
+// The error event does not bubble, so listen in the capture phase.
+document.addEventListener('error', function(e) {
+	var img = e.target;
+	if (img.classList && img.classList.contains('content-thumb') && img.dataset.fallback) {
+		img.src = img.dataset.fallback;
+		delete img.dataset.fallback;
+	}
+}, true);
+
 $(document).ready(function() {
 	var key = false;
 
