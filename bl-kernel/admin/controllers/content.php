@@ -51,6 +51,13 @@ if (checkRole(array('author'), false)) {
 	$sticky 	= filterContentOwner($sticky);
 }
 
+// Number of pages for the Pages tab, published and sticky
+$countPublished = count($pages->getPublishedDB(true));
+if (checkRole(array('author'), false)) {
+	$countPublished = count(filterContentOwner($pages->getPublishedDB(true)));
+}
+$countPublished += count($sticky);
+
 // Check if out of range the pageNumber
 if (empty($published) && $url->pageNumber()>1) {
 	Redirect::page('content');

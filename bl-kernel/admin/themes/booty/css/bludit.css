@@ -1024,18 +1024,127 @@ a.dashboard-tag:hover {
 	Manage > Content
 */
 
-td.child {
-	padding-left: 30px;
+/* Table inside a card, like the dashboard */
+.content-card {
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	overflow: hidden;
+}
+
+.content-table > thead th {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 10px 16px;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.content-table > tbody > tr > td {
+	padding: 10px 16px;
+	border-bottom: 1px solid var(--divider-subtle);
+}
+
+.content-table > tbody > tr:last-child > td {
+	border-bottom: none;
+}
+
+.content-table > tbody > tr:hover > * {
+	--bs-table-bg-state: var(--secondary-hover-bg);
+}
+
+.content-table td.child {
+	padding-left: 48px;
+}
+
+.content-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	min-width: 0;
+}
+
+.content-thumb {
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-sm, 6px);
+	object-fit: cover;
+	background: var(--secondary-hover-bg);
+}
+
+.content-thumb-empty {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+}
+
+.content-row-text {
+	min-width: 0;
+}
+
+.content-title {
+	color: var(--text-primary);
+	font-weight: var(--font-weight-medium);
+	text-decoration: none;
+}
+
+.content-title:hover {
+	color: var(--primary-blue);
+}
+
+.content-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 14px;
+	margin-top: 2px;
+	font-size: var(--font-size-xs);
+	color: var(--text-muted);
+}
+
+.content-meta .fa {
+	margin-right: 2px;
+}
+
+/* Number of items in each tab */
+.tab-count {
+	display: inline-block;
+	margin-left: 4px;
+	padding: 0 7px;
+	border-radius: 999px;
+	font-size: var(--font-size-xs);
+	line-height: 1.6;
+	color: var(--text-secondary);
+	background: var(--secondary-hover-bg);
 }
 
 /* Truncate the URL column with ellipsis when it doesn't fit. */
 td.contentURL a {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
 	max-width: 30em;
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
+	text-decoration: none;
+}
+
+td.contentURL a:hover {
+	color: var(--primary-blue);
+}
+
+td.contentURL .content-url {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	vertical-align: middle;
+}
+
+td.contentURL .fa {
+	font-size: 0.85em;
+	opacity: 0.7;
 }
 
 /* Kebab actions dropdown */
