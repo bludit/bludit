@@ -11,7 +11,7 @@ if (IMAGE_RESTRICT) {
 	$mediaThumbnailsPath = PATH_UPLOADS_THUMBNAILS;
 	$mediaAbsoluteUrlPrefix = DOMAIN_UPLOADS;
 }
-$mediaList = mediaManagerListImages($mediaImagesPath, $mediaThumbnailsPath, MEDIA_MANAGER_NUMBER_OF_FILES, '', PAGE_IMAGES_KEY, 1);
+$mediaList = mediaManagerListImages($mediaImagesPath, $mediaThumbnailsPath, MEDIA_MANAGER_NUMBER_OF_FILES, PAGE_IMAGES_KEY, 1);
 $preLoadFiles = $mediaList['files'];
 $numberOfPages = $mediaList['numberOfPages'];
 ?>
@@ -27,16 +27,8 @@ $numberOfPages = $mediaList['numberOfPages'];
 
 		<div id="jsalertMedia" class="alert alert-warning d-none" role="alert"></div>
 
-		<div class="media-manager">
+		<div id="jsmediaManager" class="media-manager">
 			<div class="media-manager-list">
-				<div class="d-flex align-items-center gap-2 mb-2">
-					<div class="input-group input-group-sm media-search">
-						<span class="input-group-text"><i class="fa fa-search"></i></span>
-						<input type="search" id="jsmediaSearch" class="form-control" placeholder="<?php $L->p('Search'); ?>" aria-label="<?php $L->p('Search'); ?>">
-					</div>
-					<button type="button" id="jsmediaUploadButton" class="btn btn-sm btn-primary ms-auto"><i class="fa fa-upload"></i> <?php $L->p('Upload'); ?></button>
-				</div>
-
 				<!-- Upload input, the label below opens it and also receives drops -->
 				<form name="bluditFormUpload" id="jsbluditFormUpload" enctype="multipart/form-data">
 					<input type="file" id="jsimages" name="images[]" class="visually-hidden" multiple accept="<?php echo implode(',', array_map(function ($ext) { return '.'.$ext; }, $GLOBALS['ALLOWED_IMG_EXTENSION'])); ?>">
@@ -123,7 +115,6 @@ echo 'var mediaTexts = '.json_encode(array(
 	'imagesTitle' => $L->g('Images'),
 	'coverTitle' => $L->g('Select cover image'),
 	'noImages' => IMAGE_RESTRICT ? $L->g('There are no images for the page') : $L->g('There are no images'),
-	'noResults' => $L->g('no-images-match-your-search'),
 	'deleteCoverWarning' => $L->g('this-image-is-used-as-the-cover-image'),
 	'deleteContentWarning' => $L->g('this-image-appears-in-the-content'),
 	'urlCopied' => $L->g('url-copied'),
@@ -137,7 +128,6 @@ echo 'var mediaTexts = '.json_encode(array(
 
 var mediaManagerContext = 'insert';
 var mediaCurrentPage = 1;
-var mediaSearchQuery = '';
 // Incremented on each listing request, older responses are ignored
 var mediaListRequest = 0;
 var mediaFiles = {};
@@ -354,10 +344,12 @@ function displayFiles(files, numberOfPages) {
 		grid.append(tile);
 	});
 
+	// Without images there is nothing to select, the details column is hidden
+	$("#jsmediaManager").toggleClass('media-manager-empty', files.length === 0);
 	if (files.length === 0) {
 		$('<div>', {
-			'class': 'text-secondary small py-3',
-			text: mediaSearchQuery ? mediaTexts.noResults : mediaTexts.noImages
+			'class': 'media-grid-empty text-secondary small py-3',
+			text: mediaTexts.noImages
 		}).appendTo(grid);
 	}
 	$("#jsmediaPagination").empty();
@@ -377,7 +369,7 @@ function displayFiles(files, numberOfPages) {
 		$("#jsmediaPagination").append(pagination);
 	}
 
-	// The selected image is not in the new list (search, page change or delete)
+	// The selected image is not in the new list (page change or delete)
 	if (selectedMedia && !mediaFiles[selectedMedia]) {
 		saveSelectedMetadata();
 		clearMediaSelection();
@@ -394,21 +386,16 @@ function displayFiles(files, numberOfPages) {
 	}
 }
 
-// Get the list of files via AJAX, filtered by the search and paginated
-function getFiles(pageNumber, query, callback) {
-	if (typeof query === 'undefined') {
-		query = mediaSearchQuery;
-	}
+// Get the list of files via AJAX, paginated
+function getFiles(pageNumber, callback) {
 	mediaCurrentPage = parseInt(pageNumber, 10) || 1;
-	mediaSearchQuery = query;
 	var request = ++mediaListRequest;
 
 	$.post(HTML_PATH_ADMIN_ROOT + "ajax/list-images", {
 		tokenCSRF: tokenCSRF,
 		pageNumber: mediaCurrentPage,
 		uuid: "<?php echo PAGE_IMAGES_KEY; ?>",
-		path: "thumbnails",
-		query: query
+		path: "thumbnails"
 	}, function (data) {
 		if (request !== mediaListRequest) {
 			return;
@@ -562,11 +549,8 @@ function uploadImages(files) {
 		$("#jsimages").val('');
 		if (data.status == 0) {
 			$("#jsbluditProgressBar").removeClass("bg-primary").addClass("bg-success").width("100%").attr("aria-valuenow", 100);
-			// Clear the search so the uploaded image is visible
-			$("#jsmediaSearch").val('');
-			mediaSearchQuery = '';
 			mediaSelectAfterLoad = (data.images && data.images.length) ? data.images[0] : null;
-			getFiles(1, '');
+			getFiles(1);
 			setTimeout(function () {
 				$("#jsmediaProgress").addClass("d-none");
 			}, 900);
@@ -590,17 +574,9 @@ $(document).ready(function () {
 	var mediaModal = document.getElementById('jsmediaManagerModal');
 	mediaModal.addEventListener('show.bs.modal', function () {
 		updateMediaManagerContext();
-		if ($("#jsmediaSearch").val() !== mediaSearchQuery) {
-			getFiles(1, $("#jsmediaSearch").val());
-		}
 	});
 	mediaModal.addEventListener('hidden.bs.modal', function () {
 		saveSelectedMetadata();
-	});
-
-	// Toolbar upload button
-	$("#jsmediaUploadButton").on("click", function () {
-		$("#jsimages").trigger("click");
 	});
 
 	// Upload when files are selected
@@ -628,16 +604,6 @@ $(document).ready(function () {
 		if (files && files.length) {
 			uploadImages(files);
 		}
-	});
-
-	// Search, with a small delay so typing does not send one request per key
-	var searchTimer = null;
-	$("#jsmediaSearch").on("input", function () {
-		clearTimeout(searchTimer);
-		var query = $(this).val();
-		searchTimer = setTimeout(function () {
-			getFiles(1, query);
-		}, 250);
 	});
 
 	// Select a tile
@@ -781,7 +747,7 @@ $(document).ready(function () {
 				// The URL is the same, bust the browser cache for previews
 				mediaCacheBuster = Date.now();
 				mediaSelectAfterLoad = filename;
-				getFiles(mediaCurrentPage, mediaSearchQuery);
+				getFiles(mediaCurrentPage);
 			} else {
 				showMediaAlert(data.message || mediaTexts.requestError);
 			}
@@ -831,9 +797,9 @@ $(document).ready(function () {
 			}
 
 			var page = mediaCurrentPage;
-			getFiles(page, mediaSearchQuery, function (files) {
+			getFiles(page, function (files) {
 				if (files.length === 0 && page > 1) {
-					getFiles(page - 1, mediaSearchQuery);
+					getFiles(page - 1);
 				}
 			});
 		}, function (message) {

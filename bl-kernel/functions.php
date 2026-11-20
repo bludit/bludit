@@ -1461,8 +1461,7 @@ function mediaManagerMetadataDelete($uuid, $filename)
 |    fall back to the original image URL instead of building a broken
 |    PAGE_THUMBNAILS_URL + filename that would 404.
 |
-| The search is applied before chunking so it covers every file, not only the
-| files on the current page. Only the requested page is stat'ed and passed to
+| Only the requested page is stat'ed and passed to
 | getimagesize(), so a large library does not cost one filesystem read per
 | image on every request. Width, height, size and mime type are cached in the
 | metadata database and returned with each item, so the Media Manager details
@@ -1471,14 +1470,13 @@ function mediaManagerMetadataDelete($uuid, $filename)
 | @imagePath     string  Filesystem path to the originals directory (trailing DS)
 | @thumbnailPath string  Filesystem path to the thumbnails directory (trailing DS)
 | @chunk         int     Chunk size for pagination
-| @query         string  Optional filename search, case-insensitive
 | @uuid          string  Page UUID used for the metadata key, when restricted
 | @pageNumber    int     Page to return, starting at 1
 |
 | @return array  'files' (items with filename, thumbnail, alt, width, height,
 |                bytes and mime) and 'numberOfPages'.
 */
-function mediaManagerListImages($imagePath, $thumbnailPath, $chunk, $query = '', $uuid = '', $pageNumber = 1)
+function mediaManagerListImages($imagePath, $thumbnailPath, $chunk, $uuid = '', $pageNumber = 1)
 {
   global $site;
 
@@ -1497,7 +1495,6 @@ function mediaManagerListImages($imagePath, $thumbnailPath, $chunk, $query = '',
   // alongside uploaded images when IMAGE_RESTRICT is off. Exclude it from the
   // Media Manager listing so it cannot be inserted/deleted as a media file.
   $logoFilename = ($site && method_exists($site, 'logo')) ? $site->logo(false) : '';
-  $query = Text::lowercase(trim($query));
 
   // First pass: filter and resolve thumbnails, without reading image metadata.
   $filtered = array();
@@ -1511,9 +1508,6 @@ function mediaManagerListImages($imagePath, $thumbnailPath, $chunk, $query = '',
     }
     $extension = Text::lowercase(pathinfo($filename, PATHINFO_EXTENSION));
     if (!in_array($extension, $GLOBALS['ALLOWED_IMG_EXTENSION'])) {
-      continue;
-    }
-    if ($query !== '' && strpos(Text::lowercase($filename), $query) === false) {
       continue;
     }
 
