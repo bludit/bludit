@@ -66,7 +66,7 @@ function tableRow($pageKey, $type, $isSticky = false, $renderChildren = false) {
 	echo ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span> ');
 	echo '</a>';
 	if ($isSticky) {
-		echo ' <span class="badge text-bg-warning align-middle ms-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
+		echo ' <span class="status-badge status-badge-inline status-published align-middle ms-1" title="'.$L->g('Sticky').'"><i class="fa fa-thumb-tack"></i> '.$L->g('Sticky').'</span>';
 	}
 	echo '</div>';
 	echo '<div><p style="font-size: 0.8em" class="m-0 text-uppercase text-muted">'.$dateLabel.'</p></div>';
@@ -267,7 +267,7 @@ function tablePages() {
 		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="badge text-bg-danger">'.count($scheduled).'</span>'; } ?></a>
+		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="status-badge status-badge-inline status-scheduled">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?></a>

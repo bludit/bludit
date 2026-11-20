@@ -132,9 +132,9 @@ foreach ($pluginsInstalled as $plugin) {
 	echo '<span>' . $plugin->version() . '</span>';
 	$newVersion = pluginUpdateAvailable($plugin, $pluginsAvailable);
 	if ($newVersion !== false) {
-		echo ' <span class="badge rounded-pill text-bg-success" title="' . $L->g('There is a new version available') . '">' . Sanitize::html($newVersion['version']) . '</span>';
+		echo ' <span class="status-badge status-badge-inline status-published" title="' . $L->g('There is a new version available') . '">' . Sanitize::html($newVersion['version']) . '</span>';
 	} elseif (!$plugin->isCompatible()) {
-		echo ' <span class="badge rounded-pill text-bg-warning" title="' . $L->g('This plugin may not be supported by this version of Bludit') . '">' . $L->g('Update') . '</span>';
+		echo ' <span class="status-badge status-badge-inline status-draft" title="' . $L->g('This plugin may not be supported by this version of Bludit') . '">' . $L->g('Update') . '</span>';
 	}
 	echo '</td>';
 

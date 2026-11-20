@@ -826,6 +826,18 @@ body.login {
 	background: var(--tile-tint, var(--secondary-hover-bg));
 }
 
+/* Active theme row, same tint as the published status */
+.table > tbody > tr.theme-active > * {
+	--bs-table-bg-state: var(--tint-success);
+}
+
+/* Next to a title or a tab, sized to its content */
+.status-badge-inline {
+	display: inline-block;
+	min-width: 0;
+	line-height: 1.5;
+}
+
 /* Tags as pills */
 .dashboard-tags {
 	display: flex;
@@ -1323,11 +1335,12 @@ body .select2-container--bootstrap-5 .select2-selection--multiple .select2-selec
 
 body .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
 	margin: 0;
-	padding: 0.1em 0.5em;
+	padding: 0.1em 0.625em;
 	font-size: 0.875rem;
 	color: var(--text-primary);
-	background-color: var(--bg-btn-light);
-	border-color: var(--border-btn-light);
+	background-color: transparent;
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
 }
 
 body .select2-container--bootstrap-5 .select2-selection--multiple .select2-search {
