@@ -96,12 +96,11 @@ class Login
 		Log::set(__METHOD__ . LOG_SEP . 'Cookies set for Remember Me.');
 	}
 
+	// Destroy the cookies of Remember Me
+	// The tokens on the users database are not modified, the cookies come from the
+	// visitor and anyone can send invalid values
 	public function invalidateRememberMe()
 	{
-		// Invalidate all tokens on the user databases
-		$this->users->invalidateAllRememberTokens();
-
-		// Destroy the cookies
 		Cookie::set(REMEMBER_COOKIE_USERNAME, '', -1);
 		Cookie::set(REMEMBER_COOKIE_TOKEN, '', -1);
 		unset($_COOKIE[REMEMBER_COOKIE_USERNAME]);
@@ -189,6 +188,12 @@ class Login
 
 	public function logout()
 	{
+		// Only the token of the user logged, the other users keep their sessions
+		$user = $this->users->getUserDB($this->username());
+		if ($user !== false && !empty($user['tokenRemember'])) {
+			$this->users->setRememberToken($this->username(), '');
+		}
+
 		$this->invalidateRememberMe();
 		Session::destroy();
 		return true;
