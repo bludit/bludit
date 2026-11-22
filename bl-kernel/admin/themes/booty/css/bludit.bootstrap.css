@@ -72,6 +72,18 @@ a.text-danger:hover {
 	font-weight: var(--font-weight-medium, 550);
 }
 
+/* Bootstrap's secondary is white text on gray, keep it readable on the light background */
+.btn-secondary {
+	--bs-btn-color: var(--text-primary);
+	--bs-btn-hover-color: var(--text-primary);
+	--bs-btn-active-color: var(--text-primary);
+	--bs-btn-active-bg: var(--bg-sidebar);
+	--bs-btn-active-border-color: var(--border-light);
+	--bs-btn-disabled-color: var(--text-primary);
+	--bs-btn-disabled-bg: var(--bg-light);
+	--bs-btn-disabled-border-color: var(--border-color);
+}
+
 .btn-secondary:hover,
 .btn-secondary:focus-visible,
 .btn-light:hover {

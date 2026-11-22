@@ -1378,6 +1378,7 @@ a.row-muted:hover {
 
 .content-row-text {
 	min-width: 0;
+	overflow-wrap: anywhere;
 }
 
 /* Truncate the URL column with ellipsis when it doesn't fit. */

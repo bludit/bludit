@@ -15,7 +15,7 @@ echo '
 		<tr>
 			<th scope="col">'.$L->g('Name').'</th>
 			<th class="text-center" scope="col">'.$L->g('Pages').'</th>
-			<th class="d-none d-md-table-cell" scope="col">'.$L->g('URL').'</th>
+			<th scope="col">'.$L->g('URL').'</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,7 +28,7 @@ foreach ($categories->keys() as $key) {
 	echo '<tr>';
 	echo '<td class="align-middle"><a class="row-title" href="'.HTML_PATH_ADMIN_ROOT.'edit-category/'.$key.'">'.$category->name().'</a></td>';
 	echo '<td class="align-middle text-center"><span class="pill-muted">'.$count.'</span></td>';
-	echo '<td class="align-middle d-none d-md-table-cell rowURL"><a target="_blank" href="'.$category->permalink().'" title="'.$L->g('View').'"><span class="content-url">'.$url->filters('category', false).$key.'</span> <i class="fa fa-external-link"></i></a></td>';
+	echo '<td class="align-middle rowURL"><a target="_blank" href="'.$category->permalink().'" title="'.$L->g('View').'"><span class="content-url d-none d-md-inline">'.$url->filters('category', false).$key.'</span> <i class="fa fa-external-link"></i></a></td>';
 	echo '</tr>';
 }
 
