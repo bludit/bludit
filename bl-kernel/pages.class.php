@@ -345,6 +345,13 @@ class Pages extends dbJSON
 			return false;
 		}
 
+		// The files of the children are inside the directory of the parent,
+		// the parent can't be deleted until the children are deleted or moved
+		if (count($this->getChildren($key)) > 0) {
+			Log::set(__METHOD__ . LOG_SEP . 'The page has children. Key: ' . $key);
+			return false;
+		}
+
 		// Delete directory and files
 		if (Filesystem::deleteRecursive(PATH_PAGES . $key) === false) {
 			Log::set(__METHOD__ . LOG_SEP . 'Error occurred when trying to delete the directory ' . PATH_PAGES . $key, LOG_TYPE_ERROR);
@@ -384,13 +391,25 @@ class Pages extends dbJSON
 	{
 		$username = $args['username'];
 
+		$children = array();
+		$parents = array();
 		foreach ($this->db as $key => $fields) {
 			if ($fields['username'] === $username) {
-				$this->delete($key);
+				if (Text::stringContains($key, '/')) {
+					array_push($children, $key);
+				} else {
+					array_push($parents, $key);
+				}
 			}
 		}
 
-		return true;
+		// The children first, a page with children can't be deleted
+		foreach (array_merge($children, $parents) as $key) {
+			$this->delete($key);
+		}
+
+		// The parents with children of other users are not deleted, transfer them
+		return $this->transferPages(array('oldUsername' => $username));
 	}
 
 	// Link all pages to a new user

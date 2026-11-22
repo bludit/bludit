@@ -749,6 +749,14 @@ class pluginAPI extends Plugin
 			);
 		}
 
+		if (count($pages->getChildren($key)) > 0) {
+			$this->setStatus(409);
+			return array(
+				'status' => '1',
+				'message' => 'The page has children, delete or move them first.'
+			);
+		}
+
 		if (deletePage($key)) {
 			return array(
 				'status' => '0',

@@ -553,6 +553,16 @@ function deletePage($key, $allowVeto = true)
 {
   global $pages;
   global $syslog;
+  global $L;
+
+  // A page with children can't be deleted, this is checked before calling the plugins
+  if (!empty($key) && (count($pages->getChildren($key)) > 0)) {
+    Log::set('Function deletePage()' . LOG_SEP . 'The page has children, ' . $key, LOG_TYPE_INFO);
+    if (Session::started()) {
+      Alert::set($L->g('page-with-children-cannot-be-deleted'), ALERT_STATUS_FAIL);
+    }
+    return false;
+  }
 
   // Call the plugins before the page is deleted, the plugins can cancel the operation
   if ($allowVeto && !pluginsAllowOperation('beforePageDelete', array($key))) {
