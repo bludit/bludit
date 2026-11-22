@@ -4,7 +4,7 @@
 	A field that opens the search modal, also with Ctrl+K or Cmd+K.
 	The shortcut only works on the pages that include this file, the editor uses Ctrl+K for links.
 -->
-<button type="button" class="quick-search-trigger mb-4" id="searchTrigger">
+<button type="button" class="quick-search-trigger <?php echo isset($quickSearchMargin) ? $quickSearchMargin : 'mb-4' ?>" id="searchTrigger">
 	<span class="fa fa-search"></span>
 	<span class="quick-search-hint"><?php $L->p('search-content-placeholder') ?></span>
 	<span class="quick-search-shortcut" id="searchShortcut">Ctrl K</span>
