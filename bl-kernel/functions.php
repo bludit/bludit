@@ -585,6 +585,11 @@ function editUser($args)
   global $users;
   global $syslog;
 
+  // Fields managed by Bludit, never taken from the arguments
+  foreach (array('salt', 'tokenAuth', 'tokenAuthTTL', 'tokenRemember', 'registered') as $field) {
+    unset($args[$field]);
+  }
+
   if ($users->set($args)) {
     // Add to syslog
     $syslog->add(array(
