@@ -2,6 +2,12 @@
 
 echo Bootstrap::pageTitle(array('title'=>$L->g('Content'), 'icon'=>'archive'));
 
+echo Bootstrap::link(array(
+	'title'=>$L->g('New content'),
+	'href'=>HTML_PATH_ADMIN_ROOT.'new-content',
+	'icon'=>'plus'
+));
+
 function moveTypeIcon($type) {
 	$icons = array(
 		'published' => 'fa-file-text-o',
@@ -57,7 +63,7 @@ function rowMeta($page, $label) {
 		$author = !empty($users->db[$username]['nickname']) ? $users->db[$username]['nickname'] : $username;
 		$meta[] = '<span><i class="fa fa-user-o"></i> '.$author.'</span>';
 	}
-	return '<div class="content-meta">'.implode('', $meta).'</div>';
+	return '<div class="row-meta">'.implode('', $meta).'</div>';
 }
 
 // Title cell: thumbnail, title linked to the editor and the meta line
@@ -68,7 +74,7 @@ function rowTitleCell($page, $label, $isSticky = false, $isChild = false) {
 	$html .= '<div class="content-row">';
 	$html .= rowThumbnail($page);
 	$html .= '<div class="content-row-text">';
-	$html .= '<a class="content-title" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
+	$html .= '<a class="row-title" href="'.HTML_PATH_ADMIN_ROOT.'edit-content/'.$page->key().'">';
 	$html .= ($page->title() ? $page->title() : '<span class="label-empty-title">'.$L->g('Empty title').'</span>');
 	$html .= '</a>';
 	if ($isSticky) {
@@ -256,7 +262,7 @@ function table($type) {
 		return;
 	}
 
-	echo '<div class="content-card mt-3"><table class="table content-table mb-0"><thead><tr>';
+	echo '<div class="table-card mt-3"><table class="table"><thead><tr>';
 	echo '<th scope="col">'.$L->g('Title').'</th>';
 	if ($type === 'static') {
 		echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
@@ -282,7 +288,7 @@ function tablePages() {
 		return;
 	}
 
-	echo '<div class="content-card mt-3"><table class="table content-table mb-0"><thead><tr>';
+	echo '<div class="table-card mt-3"><table class="table"><thead><tr>';
 	echo '<th scope="col">'.$L->g('Title').'</th>';
 	echo '<th class="d-none d-xl-table-cell" scope="col">'.$L->g('URL').'</th>';
 	echo '<th class="text-center d-sm-table-cell" scope="col">'.$L->g('Actions').'</th>';
@@ -299,28 +305,28 @@ function tablePages() {
 ?>
 
 <?php
-// Same space as below the title
-$quickSearchMargin = 'mb-3';
+// Same position and space as the search of the plugins
+$quickSearchMargin = 'mt-3 mb-3';
 include(PATH_ADMIN_THEMES . $site->adminTheme() . DS . 'html' . DS . 'quick-search.php');
 ?>
 
 <!-- TABS -->
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?> <?php if ($countPublished>0) { echo '<span class="tab-count">'.$countPublished.'</span>'; } ?></a>
+		<a class="nav-link active" id="pages-tab" data-bs-toggle="tab" href="#pages" role="tab"><?php $L->p('Pages') ?> <?php if ($countPublished>0) { echo '<span class="pill-muted ms-1">'.$countPublished.'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?> <?php if (count($static)>0) { echo '<span class="tab-count">'.count($static).'</span>'; } ?></a>
+		<a class="nav-link" id="static-tab" data-bs-toggle="tab" href="#static" role="tab"><?php $L->p('Static') ?> <?php if (count($static)>0) { echo '<span class="pill-muted ms-1">'.count($static).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="scheduled-tab" data-bs-toggle="tab" href="#scheduled" role="tab"><?php $L->p('Scheduled') ?> <?php if (count($scheduled)>0) { echo '<span class="status-badge status-badge-inline status-scheduled">'.count($scheduled).'</span>'; } ?></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?> <?php if (count($drafts)>0) { echo '<span class="tab-count">'.count($drafts).'</span>'; } ?></a>
+		<a class="nav-link" id="draft-tab" data-bs-toggle="tab" href="#draft" role="tab"><?php $L->p('Draft') ?> <?php if (count($drafts)>0) { echo '<span class="pill-muted ms-1">'.count($drafts).'</span>'; } ?></a>
 	</li>
 	<?php if (!empty($autosave)): ?>
 	<li class="nav-item">
-		<a class="nav-link" id="autosave-tab" data-bs-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?> <?php if (count($autosave)>0) { echo '<span class="tab-count">'.count($autosave).'</span>'; } ?></a>
+		<a class="nav-link" id="autosave-tab" data-bs-toggle="tab" href="#autosave" role="tab"><?php $L->p('Autosave') ?> <?php if (count($autosave)>0) { echo '<span class="pill-muted ms-1">'.count($autosave).'</span>'; } ?></a>
 	</li>
 	<?php endif; ?>
 </ul>

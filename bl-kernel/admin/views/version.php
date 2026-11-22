@@ -3,12 +3,13 @@
 echo Bootstrap::pageTitle(array('title'=>$L->g('Version'), 'icon'=>'info-circle'));
 
 echo '
-<table class="table mt-3">
+<div class="table-card mt-3">
+<table class="table">
 	<tbody>
 ';
 
 echo '<tr>';
-echo '<td>Bludit Edition</td>';
+echo '<td class="row-muted w-25">Bludit Edition</td>';
 if (defined('BLUDIT_PRO')) {
 	echo '<td>PRO - '.$L->g('Thanks for supporting Bludit').' <span class="fa fa-heart" style="color: #ffc107"></span></td>';
 } elseif (defined('BLUDIT_PRO_LICENSE_INVALID')) {
@@ -19,22 +20,22 @@ if (defined('BLUDIT_PRO')) {
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Version</td>';
+echo '<td class="row-muted">Bludit Version</td>';
 echo '<td>'.BLUDIT_VERSION.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Codename</td>';
+echo '<td class="row-muted">Bludit Codename</td>';
 echo '<td>'.BLUDIT_CODENAME.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Bludit Build Number</td>';
+echo '<td class="row-muted">Bludit Build Number</td>';
 echo '<td>'.BLUDIT_BUILD.'</td>';
 echo '</tr>';
 
 echo '<tr>';
-echo '<td>Disk usage</td>';
+echo '<td class="row-muted">Disk usage</td>';
 echo '<td>'.Filesystem::bytesToHumanFileSize(Filesystem::getSize(PATH_ROOT)).'</td>';
 echo '</tr>';
 
@@ -46,6 +47,7 @@ echo '</tr>';
 echo '
 	</tbody>
 </table>
+</div>
 ';
 
 // Updates of Bludit, only for administrators

@@ -301,6 +301,48 @@ div.sidebar .nav-item a.sidebar-pro-link:hover {
 	white-space: nowrap;
 }
 
+/* Search of a list (plugins), the same look as the quick search field */
+.list-search {
+	width: 100%;
+	padding: 10px 14px;
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: text;
+	color: var(--text-muted);
+	transition: border-color 0.2s ease;
+}
+
+.list-search:hover {
+	border-color: var(--color-secondary-dark);
+}
+
+.list-search:focus-within {
+	border-color: var(--primary-blue);
+}
+
+.list-search .fa-search {
+	font-size: 1.1rem;
+}
+
+.list-search input {
+	flex: 1;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	background: transparent;
+	color: var(--text-primary);
+	font-size: var(--font-size-base);
+}
+
+.list-search input::placeholder {
+	color: var(--text-muted);
+}
+
 /* Modal Overlay */
 .quick-search-modal {
 	position: fixed;
@@ -781,6 +823,7 @@ body.login {
 
 .dashboard-list-title:hover {
 	color: var(--primary-blue);
+	text-decoration: underline;
 }
 
 .dashboard-list-date {
@@ -827,10 +870,6 @@ body.login {
 }
 
 /* Active theme row, same tint as the published status */
-.table > tbody > tr.theme-active > * {
-	--bs-table-bg-state: var(--tint-success);
-}
-
 /* Next to a title or a tab, sized to its content */
 .status-badge-inline {
 	display: inline-block;
@@ -1024,15 +1063,170 @@ a.dashboard-tag:hover {
 	Manage > Content
 */
 
-/* Table inside a card, like the dashboard */
-.content-card {
+/*
+	Forms: category, user, plugin and site settings
+*/
+
+/* Title and buttons, they stay visible while the form scrolls */
+.form-header {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 16px;
+	padding: 12px 0 8px;
+	margin-top: -12px;
+	margin-bottom: 0;
+	background: var(--bg-main);
+}
+
+.form-header > h2 {
+	order: 1;
+	margin: 0 !important;
+}
+
+.form-header-actions {
+	order: 2;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Buttons inside a form (header, cards, tabs, plugin settings) share one size
+   and one quiet style; only Save stays solid, destructive ones turn red on hover */
+.form-card .btn,
+form.tab-content .tab-pane .btn {
+	padding: 8px 16px;
+	font-size: var(--font-size-sm, 0.925rem);
+}
+
+.form-header-actions .btn-danger,
+.form-card .btn-danger,
+.form-card .btn-warning,
+.form-card [class*="btn-outline-"],
+form.tab-content .tab-pane .btn-danger,
+form.tab-content .tab-pane .btn-warning,
+form.tab-content .tab-pane [class*="btn-outline-"] {
+	background-color: var(--bg-light, #f8f9fa);
+	border: 2px solid var(--border-color, #e2e8f0);
+	color: var(--text-primary);
+	font-weight: var(--font-weight-medium, 550);
+}
+
+.form-card [class*="btn-outline-"]:hover,
+form.tab-content .tab-pane [class*="btn-outline-"]:hover {
+	background-color: var(--bg-sidebar, #F1F5F9);
+	border-color: var(--border-light, #cbd5e1);
+	color: var(--text-primary);
+}
+
+.form-header-actions .btn-danger:hover,
+.form-header-actions .btn-danger:focus-visible,
+.form-card .btn-danger:hover,
+.form-card .btn-warning:hover,
+.form-card .btn-outline-danger:hover,
+form.tab-content .tab-pane .btn-danger:hover,
+form.tab-content .tab-pane .btn-warning:hover,
+form.tab-content .tab-pane .btn-outline-danger:hover {
+	background-color: var(--bg-light, #f8f9fa);
+	border-color: var(--bs-danger);
+	color: var(--bs-danger);
+}
+
+/* Image upload tabs (profile picture, site logo) */
+form.tab-content .tab-pane > .container {
+	padding: 16px 0 8px;
+}
+
+/* The fields in a card; in the forms with tabs every tab is a card */
+.form-card,
+form.tab-content .tab-pane {
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	padding: 8px 24px 12px;
+}
+
+/* Section titles, like the headers of the dashboard cards */
+.form-section-title {
+	margin: 28px 0 16px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--divider-subtle);
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-bold);
+	color: var(--text-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.form-card > .form-section-title:first-child,
+.form-card > input[type="hidden"] + .form-section-title,
+form.tab-content .tab-pane > .form-section-title:first-child {
+	margin-top: 12px;
+}
+
+.form-card .col-form-label,
+form.tab-content .tab-pane .col-form-label,
+.plugin-form label {
+	font-weight: var(--font-weight-medium);
+	color: var(--text-primary);
+}
+
+.form-card .form-text,
+form.tab-content .tab-pane .form-text {
+	display: block;
+	margin-top: 4px;
+	font-size: var(--font-size-xs);
+	color: var(--text-muted) !important;
+}
+
+.form-card .form-text:empty,
+form.tab-content .tab-pane .form-text:empty {
+	display: none;
+}
+
+.form-card > .row:first-child,
+.form-card > input[type="hidden"] + .row {
+	margin-top: 16px;
+}
+
+/* The description of the plugin at the top of its settings, quiet text
+   instead of an alert box. The warnings keep their color. */
+.plugin-form .form-card > .alert-primary {
+	margin: 0 -24px 4px;
+	padding: 14px 24px;
+	background: none;
+	border: 0;
+	border-bottom: 1px solid var(--divider-subtle);
+	border-radius: 0;
+	color: var(--text-secondary);
+	font-size: var(--font-size-sm);
+}
+
+.plugin-form .form-card > .alert-warning {
+	margin-top: 16px;
+}
+
+/*
+	Lists in a card, like the dashboard.
+	Content, categories, users, plugins, themes and version.
+*/
+.table-card {
 	background: var(--bg-card);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
 	overflow: hidden;
 }
 
-.content-table > thead th {
+.table-card > .table {
+	margin-bottom: 0;
+}
+
+.table-card > .table > thead th {
 	font-size: var(--font-size-xs);
 	font-weight: var(--font-weight-medium);
 	color: var(--text-muted);
@@ -1042,21 +1236,121 @@ a.dashboard-tag:hover {
 	border-bottom: 1px solid var(--border-color);
 }
 
-.content-table > tbody > tr > td {
+.table-card > .table > tbody > tr > td {
 	padding: 10px 16px;
 	border-bottom: 1px solid var(--divider-subtle);
 }
 
-.content-table > tbody > tr:last-child > td {
+.table-card > .table > tbody > tr:last-child > td {
 	border-bottom: none;
 }
 
-.content-table > tbody > tr:hover > * {
+.table-card > .table > tbody > tr:hover > * {
 	--bs-table-bg-state: var(--secondary-hover-bg);
 }
 
-.content-table td.child {
+/* Active theme */
+.table-card > .table > tbody > tr.row-active > * {
+	--bs-table-bg-state: var(--tint-success);
+}
+
+.table-card td.child {
 	padding-left: 48px;
+}
+
+.row-title {
+	color: var(--text-primary);
+	font-weight: var(--font-weight-medium);
+	text-decoration: none;
+}
+
+a.row-title:hover {
+	color: var(--primary-blue);
+	text-decoration: underline;
+}
+
+.row-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 14px;
+	margin-top: 2px;
+	font-size: var(--font-size-xs);
+	color: var(--text-muted);
+}
+
+.row-meta .fa {
+	margin-right: 2px;
+}
+
+/* Small links below the name: Settings, Deactivate... */
+.row-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 4px 14px;
+	margin-top: 4px;
+	font-size: var(--font-size-sm);
+}
+
+.row-links a,
+.row-links .btn-link {
+	color: var(--text-secondary);
+	font-size: inherit;
+	text-decoration: none;
+}
+
+.row-links a:hover,
+.row-links .btn-link:hover {
+	color: var(--primary-blue);
+	text-decoration: underline;
+}
+
+/* Delete looks like the other links, it only turns red on hover */
+.row-links .text-danger {
+	color: var(--text-secondary) !important;
+}
+
+.row-links .text-danger:hover {
+	color: var(--bs-danger) !important;
+}
+
+.row-links form {
+	display: inline;
+}
+
+.row-text {
+	font-size: var(--font-size-sm);
+	color: var(--text-secondary);
+}
+
+.row-muted {
+	font-size: var(--font-size-xs);
+	color: var(--text-muted);
+}
+
+a.row-muted:hover {
+	color: var(--primary-blue);
+	text-decoration: underline;
+}
+
+/* Grey pill, for counts and neutral labels */
+.pill-muted {
+	display: inline-block;
+	padding: 0 8px;
+	border-radius: 999px;
+	font-size: var(--font-size-xs);
+	line-height: 1.6;
+	color: var(--text-secondary);
+	background: var(--secondary-hover-bg);
+	white-space: nowrap;
+}
+
+.row-avatar {
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .content-row {
@@ -1070,7 +1364,7 @@ a.dashboard-tag:hover {
 	flex-shrink: 0;
 	width: 40px;
 	height: 40px;
-	border-radius: var(--radius-sm, 6px);
+	border-radius: var(--radius-sm);
 	object-fit: cover;
 	background: var(--secondary-hover-bg);
 }
@@ -1084,45 +1378,12 @@ a.dashboard-tag:hover {
 
 .content-row-text {
 	min-width: 0;
-}
-
-.content-title {
-	color: var(--text-primary);
-	font-weight: var(--font-weight-medium);
-	text-decoration: none;
-}
-
-.content-title:hover {
-	color: var(--primary-blue);
-}
-
-.content-meta {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px 14px;
-	margin-top: 2px;
-	font-size: var(--font-size-xs);
-	color: var(--text-muted);
-}
-
-.content-meta .fa {
-	margin-right: 2px;
-}
-
-/* Number of items in each tab */
-.tab-count {
-	display: inline-block;
-	margin-left: 4px;
-	padding: 0 7px;
-	border-radius: 999px;
-	font-size: var(--font-size-xs);
-	line-height: 1.6;
-	color: var(--text-secondary);
-	background: var(--secondary-hover-bg);
+	overflow-wrap: anywhere;
 }
 
 /* Truncate the URL column with ellipsis when it doesn't fit. */
-td.contentURL a {
+td.contentURL a,
+td.rowURL a {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -1132,17 +1393,26 @@ td.contentURL a {
 	text-decoration: none;
 }
 
-td.contentURL a:hover {
+td.contentURL a:hover,
+td.rowURL a:hover {
 	color: var(--primary-blue);
+	text-decoration: none;
 }
 
-td.contentURL .content-url {
+td.contentURL a:hover .content-url,
+td.rowURL a:hover .content-url {
+	text-decoration: underline;
+}
+
+td.contentURL .content-url,
+td.rowURL .content-url {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-td.contentURL .fa {
+td.contentURL .fa,
+td.rowURL .fa {
 	font-size: 0.85em;
 	opacity: 0.7;
 }

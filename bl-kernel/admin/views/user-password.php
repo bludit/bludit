@@ -2,13 +2,15 @@
 
 <?php echo Bootstrap::formOpen(array('id'=>'jsform', 'class'=>'tab-content')); ?>
 
-<div class="align-middle">
-	<div class="float-end mt-1">
+<div class="form-header">
+	<div class="form-header-actions">
 		<button type="submit" class="btn btn-primary btn-sm" name="save"><?php $L->p('Save') ?></button>
 		<a class="btn btn-secondary btn-sm" href="<?php echo HTML_PATH_ADMIN_ROOT.'edit-user/'.$user->username() ?>" role="button"><?php $L->p('Cancel') ?></a>
 	</div>
 	<?php echo Bootstrap::pageTitle(array('title'=>$L->g('Change password'), 'icon'=>'user')); ?>
 </div>
+
+<div class="form-card">
 
 <?php
 	// Token CSRF
@@ -57,4 +59,5 @@
 	));
 ?>
 
+</div>
 <?php echo Bootstrap::formClose(); ?>
