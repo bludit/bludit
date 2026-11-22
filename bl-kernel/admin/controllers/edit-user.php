@@ -13,6 +13,9 @@
 // ============================================================================
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	// The password is changed only from the controller user-password
+	unset($_POST['password']);
+
 	// Prevent non-administrators to change other users
 	if ($login->role()!=='admin') {
 		$_POST['username'] = $login->username();

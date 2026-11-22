@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if (changeUserPassword(array(
 		'username'=>$username,
+		'currentPassword'=>isset($_POST['currentPassword']) ? $_POST['currentPassword'] : '',
 		'newPassword'=>$_POST['newPassword'],
 		'confirmPassword'=>$_POST['confirmPassword']
 	))) {

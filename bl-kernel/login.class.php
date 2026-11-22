@@ -49,6 +49,12 @@ class Login
 					Session::destroy();
 					return false;
 				}
+				// The password changed after the login, the session is not valid anymore
+				if (!hash_equals($this->passwordFingerPrint($userDB), (string) Session::get('passwordFingerPrint'))) {
+					Log::set(__METHOD__ . LOG_SEP . 'Password of the user changed, destroying the session.');
+					Session::destroy();
+					return false;
+				}
 				// A user without role gets an empty role, checkRole() denies every access
 				$role = isset($userDB['role']) ? $userDB['role'] : '';
 				if (Session::get('role') !== $role) {
@@ -76,6 +82,7 @@ class Login
 		Session::set('username',	$username);
 		Session::set('role', 		$role);
 		Session::set('fingerPrint',	$this->fingerPrint());
+		Session::set('passwordFingerPrint', $this->passwordFingerPrint($this->users->getUserDB($username)));
 		Session::set('sessionTime',	time());
 
 		Log::set(__METHOD__ . LOG_SEP . 'User logged, fingerprint [' . $this->fingerPrint() . ']');
@@ -185,6 +192,12 @@ class Login
 			$agent = 'Bludit/2.0 (Mr Nibbler Protocol)';
 		}
 		return sha1($agent);
+	}
+
+	// Identifies the current password of the user, it changes when the password changes
+	private function passwordFingerPrint($userDB)
+	{
+		return $userDB === false ? '' : hash('sha256', $userDB['password']);
 	}
 
 	public function logout()
