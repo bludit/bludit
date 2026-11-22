@@ -20,7 +20,8 @@ if ($filename===false || $filename==='') {
 	ajaxResponse(1, 'The filename is empty.');
 }
 
-if ($uuid && IMAGE_RESTRICT) {
+// The images belong to a page when they are restricted, the page is always required
+if (IMAGE_RESTRICT) {
 	if (!$pages->isValidUUID($uuid)) {
 		ajaxResponse(1, 'Invalid uuid.');
 	}
@@ -32,6 +33,10 @@ if ($uuid && IMAGE_RESTRICT) {
 } else {
 	$imagePath = PATH_UPLOADS;
 	$thumbnailPath = PATH_UPLOADS_THUMBNAILS;
+	// The site logo is in the same directory, only the settings can change it
+	if (strcasecmp($filename, (string) $site->logo(false)) === 0) {
+		ajaxResponse(1, $L->g('You do not have sufficient permissions'));
+	}
 }
 
 // Delete the original, keep the metadata and the thumbnail when it fails
