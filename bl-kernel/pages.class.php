@@ -112,7 +112,11 @@ class Pages extends dbJSON
 		$parent = '';
 		if (!empty($args['parent'])) {
 			$parent = $args['parent'];
-			$row['type'] = $this->db[$parent]['type']; // get the parent type
+			// The children take the type of the parent, except the drafts,
+			// a draft is not public until the user publishes it
+			if ($row['type'] !== 'draft') {
+				$row['type'] = $this->db[$parent]['type'];
+			}
 		}
 
 		// Slug from the title or the content
@@ -239,7 +243,11 @@ class Pages extends dbJSON
 		$parent = '';
 		if (!empty($args['parent'])) {
 			$parent = $args['parent'];
-			$row['type'] = $this->db[$parent]['type']; // get the parent type
+			// The children take the type of the parent, except the drafts,
+			// a draft is not public until the user publishes it
+			if ($row['type'] !== 'draft') {
+				$row['type'] = $this->db[$parent]['type'];
+			}
 		}
 
 		// Slug
