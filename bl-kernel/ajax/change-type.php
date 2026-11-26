@@ -32,6 +32,12 @@ if (!in_array($current, $allowed, true)) {
 	ajaxResponse(1, $L->g('Current page type cannot be changed from this menu.'));
 }
 
+// The children take the type of the parent, except the drafts (same rule as Pages::edit)
+$parentKey = strpos($key, '/') !== false ? explode('/', $key)[0] : false;
+if ($newType !== 'draft' && $parentKey && $pages->exists($parentKey)) {
+	$newType = $pages->db[$parentKey]['type'];
+}
+
 if ($current === $newType) {
 	ajaxResponse(0, $L->g('Page type unchanged.'), array(
 		'key' => $key,
