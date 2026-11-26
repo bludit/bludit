@@ -1,0 +1,15 @@
+{
+	"plugin-data": {
+		"name": "Template",
+		"description": "Edit the HTML and CSS of the Template theme."
+	},
+	"template-help": "Write the theme in plain HTML and CSS. {{ name }} prints a placeholder, {{#if name}} ... {{else}} ... {{/if}} shows a part only when the placeholder has a value. Nothing is saved if a file has an error.",
+	"Placeholders": "Placeholders",
+	"Placeholder": "Placeholder",
+	"Description": "Description",
+	"Use": "Use",
+	"print": "print",
+	"Only in": "Only in",
+	"Revert to the previous version": "Revert to the previous version",
+	"The template has been reverted": "The template has been reverted"
+}

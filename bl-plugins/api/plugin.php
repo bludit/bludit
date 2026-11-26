@@ -285,6 +285,18 @@ class pluginAPI extends Plugin
 				$this->response(400, 'Bad Request', array('message' => 'Invalid page key.'));
 			}
 			$data = $this->uploadFile($pageKey);
+		}
+		// (GET) /api/template
+		elseif (($method === 'GET') && ($parameters[0] === 'template') && empty($parameters[1]) && $writePermissions) {
+			$data = $this->getTemplate();
+		}
+		// (PUT) /api/template
+		elseif (($method === 'PUT') && ($parameters[0] === 'template') && empty($parameters[1]) && $writePermissions) {
+			$data = $this->editTemplate($inputs);
+		}
+		// (POST) /api/template/revert
+		elseif (($method === 'POST') && ($parameters[0] === 'template') && isset($parameters[1]) && ($parameters[1] === 'revert') && $writePermissions) {
+			$data = $this->revertTemplate();
 		} else {
 			$this->response(401, 'Unauthorized', array('message' => 'Access denied or invalid endpoint.'));
 		}
@@ -927,6 +939,85 @@ class pluginAPI extends Plugin
 		return array(
 			'status' => '1',
 			'message' => 'Error trying to edit the settings.'
+		);
+	}
+
+	/*
+	 | Returns the HTML template: the source files, what each file is for and
+	 | the placeholders the files can use
+	 |
+	 | @return	array
+	 */
+	private function getTemplate()
+	{
+		global $site;
+		return array(
+			'status' => '0',
+			'message' => 'Template.',
+			'data' => array(
+				'active' => $site->theme() === 'template',
+				'files' => HtmlTemplate::files(),
+				'fileDescriptions' => HtmlTemplate::FILES,
+				'placeholders' => HtmlTemplate::reference(),
+				'syntax' => '{{ name }} prints a placeholder. {{#if name}} ... {{else}} ... {{/if}} and {{#if not name}} test one. Everything else is printed as written.',
+				'guide' => HtmlTemplate::guide()
+			)
+		);
+	}
+
+	/*
+	 | Edits some files of the HTML template, the other files keep their content
+	 | The set is compiled before anything is written, an error returns the
+	 | file and line
+	 |
+	 | @args	array	array('files' => array('page.html' => '...'))
+	 |
+	 | @return	array
+	 */
+	private function editTemplate($args)
+	{
+		if (empty($args['files']) || !is_array($args['files'])) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => 'Missing "files", an object with the file name as key and the content as value.'
+			);
+		}
+
+		$result = HtmlTemplate::save($args['files']);
+		if ($result !== true) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => $result
+			);
+		}
+
+		return array(
+			'status' => '0',
+			'message' => 'Template saved.'
+		);
+	}
+
+	/*
+	 | Restores the template before the last save
+	 |
+	 | @return	array
+	 */
+	private function revertTemplate()
+	{
+		$result = HtmlTemplate::revert();
+		if ($result !== true) {
+			$this->setStatus(400);
+			return array(
+				'status' => '1',
+				'message' => $result
+			);
+		}
+
+		return array(
+			'status' => '0',
+			'message' => 'Template reverted.'
 		);
 	}
 

@@ -1,0 +1,9 @@
+{{#if where.home}}<h1 class="visually-hidden">{{ site.title }}</h1>{{/if}}
+{{#if listing.title}}
+<header class="section-head">
+	<h1>{{ listing.title }}</h1>
+	<p class="section-type">{{#if where.category}}Section{{/if}}{{#if where.tag}}Topic{{/if}}</p>
+</header>
+{{/if}}
+{{#if posts}}<div class="{{#if where.home}}front{{else}}stream{{/if}}">{{ posts }}</div>{{else}}{{#if not where.search}}<p class="empty">No stories here yet.</p>{{/if}}{{/if}}
+{{ pagination }}

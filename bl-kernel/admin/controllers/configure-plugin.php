@@ -39,9 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		'notes'=>$plugin->name()
 	));
 
-	// Call the method post of the plugin
-	$plugin->post();
-	Alert::set( $L->g('The changes have been saved') );
+	// Call the method post of the plugin. When it fails with its own alert,
+	// the error is kept instead of being replaced by the saved message
+	if ($plugin->post() !== false || !Alert::defined()) {
+		Alert::set( $L->g('The changes have been saved') );
+	}
 	Redirect::page('configure-plugin/'.$plugin->className());
 }
 

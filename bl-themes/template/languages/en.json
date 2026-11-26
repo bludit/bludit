@@ -1,0 +1,6 @@
+{
+	"theme-data": {
+		"name": "Template",
+		"description": "Write your theme in plain HTML and CSS with {{ placeholders }}, from the API or with an AI through the Bludit MCP."
+	}
+}

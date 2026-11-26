@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+{{ head }}
+<meta name="theme-color" content="#ffffff">
+{{ styles }}
+</head>
+<body>
+{{ plugins.bodyBegin }}
+<a class="skip" href="#main">Skip to content</a>
+<input type="checkbox" id="drawer-toggle" class="visually-hidden drawer-toggle">
+<header class="masthead">
+	<div class="wrap top">
+		<a class="logo" href="{{ site.url }}"><span class="logo-mark" aria-hidden="true"></span>{{ site.title }}</a>
+		<nav class="menu" aria-label="Sections">{{ menu }}</nav>
+		{{#if search}}<div class="search">{{ search }}</div>{{/if}}
+		<label for="drawer-toggle" class="burger" aria-label="Open plugins panel"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></label>
+	</div>
+</header>
+{{#if site.slogan}}
+<div class="ticker">
+	<div class="wrap ticker-in">
+		<span class="ticker-label">Latest</span>
+		<div class="ticker-track"><p>{{ site.slogan }}{{#if site.description}}<span class="dot" aria-hidden="true"></span>{{ site.description }}{{/if}}</p></div>
+	</div>
+</div>
+{{/if}}
+<main id="main" class="wrap">{{ content }}</main>
+<label for="drawer-toggle" class="drawer-scrim" aria-hidden="true"></label>
+<aside class="drawer" aria-label="Plugins">
+	<label for="drawer-toggle" class="drawer-close">Close</label>
+	<div class="drawer-body">{{ plugins.sidebar }}</div>
+</aside>
+<footer class="site-foot">
+	<div class="wrap">
+		{{#if site.footer}}<p class="legal">{{ site.footer }}</p>{{/if}}
+	</div>
+</footer>
+{{ plugins.bodyEnd }}
+</body>
+</html>
