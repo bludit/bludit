@@ -36,6 +36,19 @@
 		'tip'=>''
 	));
 
+	// Current password, only to change your own password
+	if ($login->username() === $user->username()) {
+		echo Bootstrap::formInputText(array(
+			'name'=>'currentPassword',
+			'label'=>$L->g('Current password'),
+			'type'=>'password',
+			'value'=>'',
+			'class'=>'',
+			'placeholder'=>'',
+			'tip'=>''
+		));
+	}
+
 	// New password
 	echo Bootstrap::formInputText(array(
 		'name'=>'newPassword',

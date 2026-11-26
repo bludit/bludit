@@ -127,6 +127,7 @@ class Users extends dbJSON {
 			$row['salt'] = $this->generateSalt();
 			$row['password'] = $this->generatePasswordHash($args['password'], $row['salt']);
 			$row['tokenAuth'] = $this->generateAuthToken();
+			$row['tokenRemember'] = '';
 		}
 
 		// Save the database

@@ -202,6 +202,8 @@
     "edit-content": "Edit content",
     "profile": "Profile",
     "change-password": "Change password",
+    "current-password": "Current password",
+    "the-current-password-is-incorrect": "The current password is incorrect",
     "enabled": "Enabled",
     "disable-the-user": "Disable the user",
     "profile-picture": "Profile picture",

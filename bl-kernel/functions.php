@@ -837,6 +837,18 @@ function changeUserPassword($args)
   $newPassword = $args['newPassword'];
   $confirmPassword = $args['confirmPassword'];
 
+  // The current password is required to change your own password
+  // An administrator changing the password of other user doesn't know it
+  $ownPassword = $login->username() === $username;
+  if ($ownPassword) {
+    $currentPassword = isset($args['currentPassword']) && is_string($args['currentPassword']) ? $args['currentPassword'] : '';
+    $userDB = $users->getUserDB($username);
+    if (!hash_equals($userDB['password'], $users->generatePasswordHash($currentPassword, $userDB['salt']))) {
+      Alert::set($L->g('The current password is incorrect'), ALERT_STATUS_FAIL);
+      return false;
+    }
+  }
+
   // Password length
   if (Text::length($newPassword) < PASSWORD_LENGTH) {
     Alert::set($L->g('Password must be at least ' . PASSWORD_LENGTH . ' characters long'), ALERT_STATUS_FAIL);
@@ -854,6 +866,14 @@ function changeUserPassword($args)
       'dictionaryKey' => 'user-password-changed',
       'notes' => $username
     ));
+
+    // All the sessions and the Remember Me of the user are closed, keep the user logged in this browser
+    if ($ownPassword) {
+      $login->setLogin($username, $login->role());
+      if (Cookie::get(REMEMBER_COOKIE_USERNAME) === $username) {
+        $login->setRememberMe($username);
+      }
+    }
 
     Alert::set($L->g('The changes have been saved'), ALERT_STATUS_OK);
     return true;
