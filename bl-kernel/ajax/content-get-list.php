@@ -11,8 +11,12 @@ header('Content-Type: application/json');
 | @_GET['draft']	boolean True to search in draft database
 | @_GET['query']	string	Text to search in the title
 |
+| Authors don't get the drafts and the scheduled pages of other users
+|
 | @return		array
 */
+
+checkRole(array('admin', 'editor', 'author'));
 
 // $_GET
 // ----------------------------------------------------------------------------
@@ -31,8 +35,12 @@ if ($query===false) {
 $pageNumber = 1;
 $numberOfItems = -1;
 $pagesKey = $pages->getList($pageNumber, $numberOfItems, $published, $static, $sticky, $draft, $scheduled);
+$isAuthor = checkRole(array('author'), false);
 $tmp = array();
 foreach ($pagesKey as $pageKey) {
+	if ($isAuthor && !$pages->isPublic($pageKey) && ($pages->db[$pageKey]['username'] !== $login->username())) {
+		continue;
+	}
 	try {
 		$page = new Page($pageKey);
 		$lowerTitle = Text::lowercase($page->title());
