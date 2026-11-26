@@ -160,6 +160,7 @@ echo Bootstrap::formInputHidden(array(
 			'label' => $L->g('Token'),
 			'value' => $user->tokenAuth(),
 			'class' => '',
+			'disabled' => true,
 			'tip' => $L->g('this-token-is-similar-to-a-password-it-should-not-be-shared')
 		));
 
