@@ -667,7 +667,10 @@ function deleteUser($args)
   }
 
   if ($deleteContent) {
-    $pages->deletePagesByUser(array('username' => $username));
+    // The parents with children of other users are transferred, stop if that fails
+    if ($pages->deletePagesByUser(array('username' => $username)) === false) {
+      return false;
+    }
   } else {
     $pages->transferPages(array('oldUsername' => $username));
   }

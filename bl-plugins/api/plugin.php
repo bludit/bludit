@@ -197,6 +197,9 @@ class pluginAPI extends Plugin
 		// (DELETE) /api/pages/<key>
 		elseif (($method === 'DELETE') && ($parameters[0] === 'pages') && !empty($parameters[1]) && $writePermissions) {
 			$pageKey = $parameters[1];
+			if (isset($parameters[2])) {
+				$pageKey = $parameters[1] . '/' . $parameters[2];
+			}
 			$data = $this->deletePage($pageKey);
 		}
 		// (POST) /api/pages
