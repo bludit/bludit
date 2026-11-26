@@ -210,16 +210,6 @@ class Users extends dbJSON {
 		return false;
 	}
 
-	// This function clean all tokens for Remember me
-	// This function is used when some hacker try to use an invalid remember token
-	public function invalidateAllRememberTokens()
-	{
-		foreach ($this->db as $username=>$values) {
-			$this->db[$username]['tokenRemember'] = '';
-		}
-		return $this->save();
-	}
-
 	public function keys()
 	{
 		return array_keys($this->db);
