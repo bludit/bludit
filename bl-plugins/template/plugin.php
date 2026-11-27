@@ -1,4 +1,4 @@
-<?php
+<?php defined('BLUDIT') or die('Bludit CMS.');
 
 // Settings of the Template theme, the editor of its HTML and CSS files.
 // The files are compiled by HtmlTemplate, the same as the API does.
