@@ -450,6 +450,9 @@ GUIDE;
 	{
 		// The compiled file is written first, if it fails the sources are not touched.
 		// Then rename, a request never includes a half written file
+		if (!is_dir(self::path()) && !mkdir(self::path(), DIR_PERMISSIONS, true)) {
+			return false;
+		}
 		$compiledFile = self::compiledFile();
 		$tmp = $compiledFile . '.' . bin2hex(random_bytes(4)) . '.tmp';
 		if (file_put_contents($tmp, $compiled) === false) {
