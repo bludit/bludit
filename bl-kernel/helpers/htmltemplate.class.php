@@ -350,13 +350,13 @@ GUIDE;
 	// Storage
 	// ------------------------------------------------------------------------
 
-	// Returns the current source files
+	// Returns the current source files, the default ones until the set is installed
 	public static function files()
 	{
+		$path = file_exists(self::path('layout.html')) ? self::path() : self::defaultsPath();
 		$files = array();
 		foreach (self::FILES as $name => $description) {
-			$filename = self::path($name);
-			$files[$name] = file_exists($filename) ? file_get_contents($filename) : '';
+			$files[$name] = (string) @file_get_contents($path . $name);
 		}
 		return $files;
 	}
@@ -387,13 +387,14 @@ GUIDE;
 			return $e->getMessage();
 		}
 
-		if (!self::writeSet($files, $compiled)) {
-			return 'Error writing the template files';
+		// One step of undo, the set before this save, written before publishing
+		// so a successful save always has its revert
+		if (!self::writeFiles($current, self::path('previous' . DS))) {
+			return 'Error writing the previous version of the template';
 		}
 
-		// One step of undo, the set before this save
-		if (!self::writeFiles($current, self::path('previous' . DS))) {
-			Log::set(__METHOD__ . LOG_SEP . 'Error writing the previous version of the template');
+		if (!self::writeSet($files, $compiled)) {
+			return 'Error writing the template files';
 		}
 
 		return true;
@@ -420,10 +421,7 @@ GUIDE;
 	// Copies the default set of the theme, the first time the theme runs
 	public static function install()
 	{
-		$files = array();
-		foreach (self::FILES as $name => $description) {
-			$files[$name] = (string) @file_get_contents(self::defaultsPath() . $name);
-		}
+		$files = self::files();
 
 		try {
 			$compiled = self::compile($files);
@@ -450,14 +448,15 @@ GUIDE;
 
 	private static function writeSet($files, $compiled)
 	{
-		if (!self::writeFiles($files, self::path())) {
-			return false;
-		}
-
-		// Write and rename, a request never includes a half written file
+		// The compiled file is written first, if it fails the sources are not touched.
+		// Then rename, a request never includes a half written file
 		$compiledFile = self::compiledFile();
 		$tmp = $compiledFile . '.' . bin2hex(random_bytes(4)) . '.tmp';
-		if (file_put_contents($tmp, $compiled) === false || !rename($tmp, $compiledFile)) {
+		if (file_put_contents($tmp, $compiled) === false) {
+			@unlink($tmp);
+			return false;
+		}
+		if (!self::writeFiles($files, self::path()) || !rename($tmp, $compiledFile)) {
 			@unlink($tmp);
 			return false;
 		}
