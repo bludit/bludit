@@ -353,12 +353,8 @@ GUIDE;
 	// Returns the current source files, the default ones until the set is installed
 	public static function files()
 	{
-		$path = file_exists(self::path('layout.html')) ? self::path() : self::defaultsPath();
-		$files = array();
-		foreach (self::FILES as $name => $description) {
-			$files[$name] = (string) @file_get_contents($path . $name);
-		}
-		return $files;
+		$files = self::read(self::path());
+		return $files ? $files : self::read(self::defaultsPath());
 	}
 
 	// Saves some files of the set, the missing ones keep their current
@@ -389,11 +385,20 @@ GUIDE;
 
 		// One step of undo, the set before this save, written before publishing
 		// so a successful save always has its revert
-		if (!self::writeFiles($current, self::path('previous' . DS))) {
+		$previousPath = self::path('previous' . DS);
+		$previous = self::read($previousPath);
+		if (!self::writeFiles($current, $previousPath)) {
 			return 'Error writing the previous version of the template';
 		}
 
 		if (!self::writeSet($files, $compiled)) {
+			// The sources could be half written while the old compiled file is
+			// still the live one. Put the current set and the undo back, so a
+			// failed save changes nothing and a later partial save doesn't
+			// publish the rejected changes
+			if (!self::writeFiles($current, self::path()) || ($previous && !self::writeFiles($previous, $previousPath))) {
+				Log::set(__METHOD__ . LOG_SEP . 'Error restoring the template files after a failed save');
+			}
 			return 'Error writing the template files';
 		}
 
@@ -409,10 +414,7 @@ GUIDE;
 			return 'There is no previous version';
 		}
 
-		$previous = array();
-		foreach (self::FILES as $name => $description) {
-			$previous[$name] = (string) @file_get_contents($previousPath . $name);
-		}
+		$previous = self::read($previousPath);
 
 		// save() keeps the current set as the previous one
 		return self::save($previous);
@@ -431,6 +433,19 @@ GUIDE;
 		}
 
 		return self::writeSet($files, $compiled);
+	}
+
+	// The set saved in a folder, FALSE when there is none
+	private static function read($path)
+	{
+		if (!file_exists($path . 'layout.html')) {
+			return false;
+		}
+		$files = array();
+		foreach (self::FILES as $name => $description) {
+			$files[$name] = (string) @file_get_contents($path . $name);
+		}
+		return $files;
 	}
 
 	private static function writeFiles($files, $path)
