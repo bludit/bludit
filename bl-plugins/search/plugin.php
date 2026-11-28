@@ -224,10 +224,9 @@ class pluginSearch extends Plugin
 		$html .= '<div class="search-results-header">';
 		$html .= '<h1>' . $L->get('Search results for') . ' "<span class="search-query">' . $searchTermEscaped . '</span>"</h1>';
 
-		if ($this->getValue('showResultCount')) {
-			if ($count === 0) {
-				$html .= '<p class="search-count">' . $L->get('No pages found') . '</p>';
-			} elseif ($count === 1) {
+		// With no results the box below already says it, the count is only for results
+		if ($this->getValue('showResultCount') && $count > 0) {
+			if ($count === 1) {
 				$html .= '<p class="search-count">1 ' . $L->get('result found') . '</p>';
 			} else {
 				$html .= '<p class="search-count">' . $count . ' ' . $L->get('results found') . '</p>';

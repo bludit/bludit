@@ -1,0 +1,9 @@
+<article class="story-card">
+	<a class="media" href="{{ page.url }}" tabindex="-1" aria-hidden="true">{{#if page.cover}}<img src="{{ page.cover }}" alt="" loading="lazy">{{else}}<span class="ph"></span>{{/if}}</a>
+	<div class="body">
+		{{#if page.category}}<a class="cat" href="{{ page.categoryUrl }}">{{ page.category }}</a>{{/if}}
+		<h2 class="headline"><a href="{{ page.url }}">{{ page.title }}</a></h2>
+		{{#if page.description}}<p class="desc">{{ page.description }}</p>{{/if}}
+		<p class="meta"><time datetime="{{ page.dateISO }}">{{ page.date }}</time>{{#if page.readingTime}} · {{ page.readingTime }}{{/if}}</p>
+	</div>
+</article>

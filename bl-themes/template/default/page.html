@@ -1,0 +1,15 @@
+<article class="article{{#if page.static}} is-static{{/if}}">
+	<div class="before">{{ plugins.pageBegin }}</div>
+	<header class="article-head">
+		{{#if not page.static}}{{#if page.category}}<a class="cat" href="{{ page.categoryUrl }}">{{ page.category }}</a>{{/if}}{{/if}}
+		<h1>{{ page.title }}</h1>
+		{{#if page.description}}<p class="standfirst">{{ page.description }}</p>{{/if}}
+		{{#if not page.static}}<div class="byline"><p>By <strong>{{ page.author }}</strong></p><p>Published <time datetime="{{ page.dateISO }}">{{ page.date }}</time>{{#if page.readingTime}} · {{ page.readingTime }}{{/if}}</p></div>{{/if}}
+	</header>
+	{{#if page.cover}}<figure class="lead-image"><img src="{{ page.cover }}" alt=""></figure>{{/if}}
+	<div class="article-body">
+		<div class="content">{{ page.content }}</div>
+		{{#if page.tags}}<footer class="tags"><span class="tags-label">Topics</span>{{ page.tags }}</footer>{{/if}}
+		<div class="after">{{ plugins.pageEnd }}</div>
+	</div>
+</article>
